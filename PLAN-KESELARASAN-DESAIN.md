@@ -82,13 +82,17 @@ Klaim "69 nilai breakpoint berbeda" (dan revisi lanjutannya "900px dipakai 406×
 
 Setelah dihitung akurat (hanya nilai di dalam `@media`): **cuma 22 nilai berbeda**, dari 266 total deklarasi, dan **61% di antaranya sudah 2 nilai dominan** (`768px` 101×, `900px` 55×). Sisanya nilai satu-dua-pakai (mis. `620px`, `940px`, `1100px`) yang wajar untuk konten spesifik per halaman (tabel lebar, grid kartu, dll) — bukan inkonsistensi sistemik yang perlu dipaksa seragam. **Kesimpulan: tidak ada tindakan besar yang perlu diambil di sini** — memaksa semua ke 1-2 nilai berisiko merusak layout yang sudah disetel pas untuk konten masing-masing, demi manfaat visual yang nyaris tidak terlihat pengguna.
 
-### Fase 6 — Sentralisasi komponen tombol & kartu ⏸️ SENGAJA DITUNDA (bukan lupa)
+### Fase 6 — Sentralisasi komponen tombol & kartu ✅ SELESAI (tombol quiz)
 
 Dikonfirmasi nyata (bukan salah baca seperti Fase 3/4/5/7): hanya **10 dari 377 halaman** punya class `.btn` terdefinisi — mayoritas mutlak tombol di situs pakai `style=""` ad-hoc langsung di markup. Border-radius yang ditemukan (8px/10px/12px/100px-pill) cukup terkonsentrasi, tapi tetap bukan sistem komponen bersama.
 
-**Kenapa ditunda, bukan dikerjakan seperti Fase 1-5/7**: semua perbaikan sebelumnya aman diotomasi karena TIDAK mengubah struktur HTML — cuma mengganti nilai CSS/atribut dengan variabel setara, diverifikasi lewat validator teks proyek (`scripts/validate.py`) yang tidak mengecek tata letak visual. Fase 6 secara jujur butuh **mengubah markup** (`<a style="...">` → `<a class="btn btn-primary">`) di ratusan halaman — perubahan yang bisa merusak tata letak dengan cara yang tidak akan terdeteksi validator teks maupun tanpa peninjauan visual (screenshot/browser) per halaman.
+**Kenapa sempat ditunda**: perbaikan Fase 1-5/7 aman diotomasi karena TIDAK mengubah struktur HTML — cuma mengganti nilai CSS/atribut dengan variabel setara. Fase 6 butuh **mengubah markup** (`style="..."` → `class="btn btn-primary"`), yang berisiko merusak tata letak tanpa peninjauan visual per halaman.
 
-**Keputusan (dikonsultasikan dengan pemilik proyek)**: tidak dikerjakan sekarang. Kalau mau dilanjutkan nanti, pendekatan yang aman: pilih beberapa halaman berdampak tinggi dulu, verifikasi visual per halaman (dev server + Playwright screenshot before/after, proyek ini sudah punya kedua tool tsb di `package.json`) sebelum lanjut ke halaman berikutnya — bukan diproses massal sekaligus.
+**Yang dikerjakan**: pola tombol quiz "Soal Berikutnya"/"Reset" (persis sama di 91 halaman `Materi/*.html`, semua mengikuti template `Kaigo-Ujian-N2.html`) diganti dari inline `style=""` ad-hoc menjadi `class="btn btn-primary"`/`class="btn btn-outline"` — class-class ini sudah lengkap didefinisikan di `kyoto-design-system.css` (`.btn-primary` pakai `--kyoto-brown` yang identik dengan `--primary`), sehingga tampilan visual tombol **tidak berubah**, hanya markup-nya yang disentralisasi.
+
+**Bonus temuan bug nyata**: verifikasi Playwright atas perubahan ini menemukan 4 modul kaiwa (`Kaiwa-Shokuba/Byouin/Konbini/Yakusoku.html`) punya tombol quiz utama yang memanggil `nQ()`/`rQ()` yang **tidak pernah didefinisikan** sejak file-file ini dibuat (generator batch-nya menyalin sebagian template tapi lupa menyalin fungsi `rnd()`/`ans()`/`nQ()`/`rQ()`). Sudah diperbaiki di commit yang sama — quiz utama ke-4 modul ini sekarang berfungsi penuh (sebelumnya tombol "Soal Berikutnya" error di console dan tidak melakukan apa-apa).
+
+**Belum disentuh (di luar cakupan)**: kartu (`.card`) dan pola tombol lain di luar quiz (CTA, navigasi, dsb) — audit tersebut belum dilakukan, jadi belum diklaim selesai. Kalau mau dilanjutkan: pendekatan yang sama (audit pola persis-sama dulu, verifikasi Playwright sebelum commit massal) tetap berlaku.
 
 ### Fase 7 — Footer konsisten ✅ SELESAI (ternyata cuma 2 halaman yang genuinely kelewat)
 

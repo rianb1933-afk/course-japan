@@ -8588,3 +8588,21 @@ Sesi ini adalah contoh penting tentang investigasi yang GENUINELY MEMPERDALAM CA
 ---
 
 **PLAN-PENGEMBANGAN-KONTEN.md — SELESAI SEPENUHNYA**: kelima temuan (bank JLPT, Speaking, Reading, Listening, Kanji N1) sudah ditindaklanjuti. Pola konsisten sepanjang audit: klaim di dokumen analisis lama hampir selalu melebih-lebihkan skala masalah, salah membaca desain sengaja sebagai kekurangan, atau melewatkan format data yang berbeda dari yang diharapkan — verifikasi langsung ke kode/DOM live selalu diperlukan sebelum menyimpulkan sesuatu "kurang" atau "rusak".
+
+---
+
+## Website v101 — Fase 6 PLAN-KESELARASAN-DESAIN.md: Sentralisasi Tombol Quiz + Bug nQ/rQ di 4 Modul Kaiwa
+
+**Konteks**: Fase 6 (sentralisasi tombol/kartu) sebelumnya sengaja ditunda karena butuh mengubah markup, bukan cuma nilai CSS — risiko merusak layout tanpa verifikasi visual per halaman.
+
+**Temuan**: `.btn`/`.btn-primary`/`.btn-outline` sudah lengkap didefinisikan di `kyoto-design-system.css`, tapi 91 halaman `Materi/*.html` masih pakai `style=""` ad-hoc untuk tombol "Soal Berikutnya"/"Reset" — pola yang persis sama di semua 91 file (mengikuti template `Kaigo-Ujian-N2.html`), sehingga aman diotomasi sebagai satu batch.
+
+**Perbaikan**: 91 file diganti dari inline `style=""` menjadi `class="btn btn-primary"`/`class="btn btn-outline"`. `.btn-primary` memakai `--kyoto-brown` yang identik dengan `--primary` — tampilan visual tombol tidak berubah, hanya markup yang tersentralisasi.
+
+**Bug nyata ditemukan saat verifikasi Playwright**: 4 modul kaiwa (`Kaiwa-Shokuba.html`, `Kaiwa-Byouin.html`, `Kaiwa-Konbini.html`, `Kaiwa-Yakusoku.html`) punya tombol quiz utama yang memanggil `nQ()`/`rQ()` yang **tidak pernah didefinisikan** sejak file-file ini pertama dibuat — generator batch-nya (`build_kaiwa_batch3.py`) menyalin sisa potongan template (`initKN2()`/`init()` yang mereferensi variabel `KN2` yang juga tidak pernah dideklarasikan) tapi lupa menyalin fungsi `rnd()`/`ans()`/`nQ()`/`rQ()` yang genuinely dibutuhkan quiz utama. Dikonfirmasi via `git log`/`git show` bahwa bug ini sudah ada sejak commit pertama file-file tsb, bukan disebabkan perubahan tombol di atas. Diperbaiki dengan menambahkan definisi `rnd()`/`ans()`/`nQ()`/`rQ()` (disalin dari pola kerja `Kaigo-Ujian-N2.html`) + `qi=0,ok=0,tot=0` pada deklarasi `var Q`, dan menghapus `initKN2()`/`init()` yang rusak.
+
+**Verifikasi**: Playwright — ke-4 modul kaiwa sekarang 0 console error, quiz utama render saat load, tombol Soal Berikutnya/Reset/klik jawaban semua berfungsi (skor bertambah benar), quiz kedua (`QKZ`) di file yang sama tetap tidak terpengaruh. `python3 scripts/validate.py`: PASSED — 0 warning, 0 error.
+
+**Catatan transparansi**: selama kerja ini terdeteksi ada proses/sesi lain yang sedang membangun fitur "AI Writing Practice" secara bersamaan di working tree yang sama (`assets/kyoto-navbar.js`/`.min.js`, `AI-Writing-Practice.html`, `Search.html`, `sitemap.xml`, `sw.js` berubah tanpa saya sentuh). File-file tsb sengaja tidak ikut di-commit di sini agar tidak menimpa pekerjaan yang sedang berjalan.
+
+**Belum dikerjakan**: sentralisasi `.card` dan pola tombol non-quiz (CTA, navigasi) — belum diaudit, jadi belum diklaim selesai.
