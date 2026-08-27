@@ -3,6 +3,8 @@
 **Diperbarui:** 27 Agustus 2026
 **Metodologi:** setiap angka di bawah diverifikasi langsung terhadap kode (grep menyeluruh 377 halaman), bukan estimasi. Menggantikan klaim lama "333/335 halaman CSS inline terduplikasi" dan "15+ breakpoint berbeda" yang ternyata meremehkan skala masalah sesungguhnya.
 
+> ✅ **Status eksekusi (27 Agustus 2026)**: Fase 1 & 2 selesai, plus penyatuan warna skala besar yang ternyata jauh lebih luas dari perkiraan awal dokumen ini (lihat "Yang sudah dikerjakan" di bawah). Proyek kini punya git repository (diinisialisasi sesi ini) sebagai jaring pengaman — sebelumnya tidak ada versi kontrol sama sekali.
+
 ---
 
 ## Ringkasan masalah — lebih besar dari yang tercatat sebelumnya
@@ -30,11 +32,31 @@ Proyek ini **sudah punya standar resmi**, tinggal diadopsi penuh:
 
 ## Fase pengerjaan (diurutkan risiko rendah → tinggi)
 
-### Fase 1 — Tutup celah jembatan warna (🟢 cepat, nyaris tanpa risiko)
-Tambahkan `<link rel="stylesheet" href="assets/kyoto-theme.css">` ke 19 halaman yang masih memuat palet lama tanpa jembatan ini. Satu baris per halaman, sudah dirancang aman untuk ini.
+### Fase 1 — Tutup celah jembatan warna ✅ SELESAI
 
-### Fase 2 — Bersihkan 84 hardcode hex (🟡 sedang, perlu spot-check)
-Ganti `#be3428` dkk yang ditulis langsung di 84 tempat menjadi `var(--red)` (yang setelah Fase 1 otomatis jadi warna Kyoto). Bisa diotomasi via script regex per file, tapi tiap halaman perlu diverifikasi visual/validator setelahnya karena hardcode bisa muncul di konteks berbeda-beda (background, border, teks).
+Ditambahkan `<link rel="stylesheet" href="assets/kyoto-theme.css">` ke 19 halaman yang masih memuat palet lama tanpa jembatan ini.
+
+### Fase 2 — Bersihkan hardcode hex legacy ✅ SELESAI (lebih besar dari perkiraan: 240 titik, bukan 84)
+
+Angka "84" di ringkasan awal dokumen ini ternyata sampel parsial, bukan total. Setelah dihitung menyeluruh: `#be3428`/`#2f6fed`/`#21875d` dipakai **639+ kali**, tapi sebagian besar (423×) sudah aman lewat pola `var(--red,#be3428)`. Yang benar-benar hardcode telanjang (tidak lewat variabel): **240 titik di 68 halaman**, dibungkus ke `var(--red,...)`/`var(--blue,...)`/`var(--green,...)`. Konteks canvas/array warna-warni (confetti di `Kelas-Online.html`) sengaja dikecualikan karena bukan warna tema, melainkan warna gambar/dekorasi. Ditemukan & diperbaiki juga: 2 regresi kecil dari proses ini sendiri (`<meta theme-color>` sempat ter-isi `var()` yang tidak valid untuk atribut non-CSS, langsung dikoreksi ke nilai literal).
+
+### Fase 2b (baru, ditemukan saat eksekusi) — Satukan warna hero & aksen template ✅ SELESAI
+
+Investigasi lanjutan menemukan masalah **jauh lebih besar** dari klaim awal "#1565c0 di 120 halaman": ternyata ada **20+ galur warna hero berbeda** (biru, ungu, indigo, oranye, teal, dst) tersebar di ratusan halaman `Materi/`, hasil dari beberapa "galur" template berbeda yang di-clone dari waktu ke waktu tanpa pernah disatukan — bukan sistem kategori JLPT/level yang disengaja (dikonfirmasi: modul topik tak berhubungan seperti Kaigo-N2/Kaiwa-Restoran/Grammar-N4 semuanya pakai gradient biru identik).
+
+Dikerjakan dalam 3 sub-batch, semua tervalidasi + di-commit terpisah:
+
+1. **Theme-color mobile browser** disatukan ke `#6B4F3A` di 285 halaman (dari 250 halaman hijau leftover `#2e7d32` + ~35 nilai acak satu-pakai).
+2. **Warna hero** (`.hero{background:linear-gradient(...)}` dan varian `.page-hero`) di 209 halaman dibungkus `var(--primary,...)`/`var(--primary-dark,...)` — 2998 titik total.
+3. **Warna aksen sekunder** (heading/tabel/vocab-item non-hero: `#1a237e`, `#4a148c`, dll) di 122 halaman dibungkus `var(--accent,...)` — 3255 titik.
+
+Selama proses ini dibangun & diverifikasi **proteksi berbasis posisi** untuk blok CSS semantik (`.qopt.correct`/`.qopt.wrong`/`.correct`/`.wrong`/`.incorrect`/`.flagged`) supaya warna "jawaban benar" (hijau) dan "jawaban salah" (pink/merah) tidak ikut tertukar ke warna brand meskipun kebetulan memakai hex yang sama dengan warna hero di sebagian file.
+
+**Sengaja belum disentuh** (didokumentasikan sebagai keputusan sadar, bukan lupa):
+
+- `Kelas-Online.html` — satu-satunya file dengan 4 gradient panel berbeda (bukan 1 identitas halaman tunggal), butuh peninjauan manual.
+- Latar pucat berpasangan (`#f3e5f5`, `#e3f2fd`, dll) — sangat desaturasi, dampak visual "off-brand" kecil dibanding aksen gelapnya yang sudah diperbaiki.
+- Warna kategori exam UI (`.flagged` — oranye "ditandai untuk ditinjau") — sengaja dilindungi, ini status fungsional bukan branding.
 
 ### Fase 3 — Migrasi 7 halaman yatim ke design system (🟡 sedang-besar, per halaman)
 `Papan-Tulis.html`, `Analytics.html`, `Kanji-Trainer.html`, `Speaking-AI.html`, `Landing-Page/landing.html`, `Dashboard/Dashboard.html`. Ini bukan sekadar tambah link CSS — perlu migrasi markup navbar/footer ke `kyoto-navbar.js`, jadi harus dikerjakan & diuji satu per satu.
