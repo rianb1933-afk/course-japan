@@ -105,6 +105,8 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
     <button class="lv-btn active" onclick="setLevel(this,'N5')">N5</button>
     <button class="lv-btn" onclick="setLevel(this,'N4')">N4</button>
     <button class="lv-btn" onclick="setLevel(this,'N3')">N3</button>
+    <button class="lv-btn" onclick="setLevel(this,'N2')">N2</button>
+    <button class="lv-btn" onclick="setLevel(this,'N1')">N1</button>
     <button class="lv-btn" onclick="setLevel(this,'kaigo')">介護 Kaigo</button>
   </div>
 
@@ -174,12 +176,21 @@ const SENTENCES = {
     {jp:'失礼ですが、お名前は',read:'shitsurei desuga onamae wa',mean:'Maaf, boleh tahu nama Anda?'},
     {jp:'どんなに頑張っても結果が出ない',read:'donnani ganbattemo kekka ga denai',mean:'Sekeras apapun usaha, hasilnya tidak keluar'},
     {jp:'妥協点を見つけましょう',read:'dakyouten wo mitsukemashou',mean:'Ayo cari titik kompromi'},
+    {jp:'忙しくても運動する時間を作るようにしています',read:'isogashikutemo undou suru jikan wo tsukuru you ni shiteimasu',mean:'Meskipun sibuk, saya berusaha meluangkan waktu untuk berolahraga'},
+    {jp:'彼は約束を守らないことで有名だ',read:'kare wa yakusoku wo mamoranai koto de yuumei da',mean:'Dia terkenal karena tidak menepati janji'},
+    {jp:'天気予報によると明日は雨が降るそうです',read:'tenki yohou ni yoru to ashita wa ame ga furu sou desu',mean:'Menurut ramalan cuaca, besok katanya akan hujan'},
+    {jp:'できるだけ早く返事をいただけると助かります',read:'dekiru dake hayaku henji wo itadakeru to tasukarimasu',mean:'Akan sangat membantu jika saya bisa mendapat balasan secepat mungkin'},
   ],
   kaigo: [
     {jp:'お体の具合はいかがですか',read:'okarada no guai wa ikagadesuka',mean:'Bagaimana kondisi badan Anda?'},
     {jp:'お手伝いしましょうか',read:'otetsudai shimashouka',mean:'Boleh saya bantu?'},
     {jp:'ゆっくり休んでください',read:'yukkuri yasunde kudasai',mean:'Silakan istirahat dengan tenang'},
     {jp:'痛いところはありますか',read:'itai tokoro wa arimasuka',mean:'Ada bagian yang sakit?'},
+    {jp:'ご利用者様の尊厳を守ることが介護の根本です。',read:'go riyousha sama no songen wo mamoru koto ga kaigo no konpon desu',mean:'Menjaga martabat pengguna layanan adalah inti dari perawatan kaigo.'},
+    {jp:'チームワークなくして質の高い介護は実現できません。',read:'chiimuwaaku naku shite shitsu no takai kaigo wa jitsugen dekimasen',mean:'Tanpa kerja tim, perawatan berkualitas tinggi tidak bisa terwujud.'},
+    {jp:'利用者一人ひとりのニーズに寄り添うことが私たちの使命です。',read:'riyousha hitori hitori no niizu ni yorisou koto ga watashitachi no shimeide su',mean:'Mendampingi kebutuhan setiap pengguna layanan adalah misi kami.'},
+    {jp:'介護記録は客観的事実と主観的観察を区別して正確に書きます。',read:'kaigo kiroku wa kyakkanteki jijitsu to shukanteki kansatsu wo kubetsu shite seikaku ni kakimasu',mean:'Rekod kaigo ditulis dengan akurat, membedakan fakta objektif dan observasi subjektif.'},
+    {jp:'認知症の方のBPSDには非薬物療法を優先して対応します。',read:'ninchishou no kata no BPSD ni wa hiyakubutsu ryouhou wo yuusen shite taiou shimasu',mean:'Untuk BPSD pada penderita demensia, utamakan pendekatan terapi non-farmakologi.'},
   ],
   N2: [
     {jp:'部長は会議中につき後ほどご連絡いたします',read:'buchou wa kaigichuu ni tsuki nochihodo gorenraku itashimasu',mean:'Manajer sedang rapat kami akan menghubungi Anda sebentar lagi'},
@@ -200,14 +211,6 @@ const SENTENCES = {
     {jp:'科学的知見を踏まえた上で政策を立案することが不可欠です。',read:'kagakuteki chiken wo fumaeta ue de seisaku wo ritsuan suru koto ga fukaketsu desu',mean:'Merumuskan kebijakan berdasarkan temuan ilmiah sangat diperlukan.'},
     {jp:'教育の機会均等こそが公正な社会を実現するための礎となります。',read:'kyouiku no kikai kintou koso ga kousei na shakai wo jitsugen suru tame no ishizue to narimasu',mean:'Kesetaraan kesempatan pendidikan merupakan fondasi untuk mewujudkan masyarakat yang adil.'},
     {jp:'テクノロジーの進歩は生活を豊かにする一方で新たなリスクももたらしています。',read:'tekunorojii no shinpo wa seikatsu wo yutaka ni suru ippou de aratana risuku mo motarashite imasu',mean:'Kemajuan teknologi memperkaya kehidupan namun di sisi lain juga membawa risiko baru.'}
-  ]
-,
-  Kaigo: [
-    {jp:'ご利用者様の尊厳を守ることが介護の根本です。',read:'go riyousha sama no songen wo mamoru koto ga kaigo no konpon desu',mean:'Menjaga martabat pengguna layanan adalah inti dari perawatan kaigo.'},
-    {jp:'チームワークなくして質の高い介護は実現できません。',read:'chiimuwaaku naku shite shitsu no takai kaigo wa jitsugen dekimasen',mean:'Tanpa kerja tim, perawatan berkualitas tinggi tidak bisa terwujud.'},
-    {jp:'利用者一人ひとりのニーズに寄り添うことが私たちの使命です。',read:'riyousha hitori hitori no niizu ni yorisou koto ga watashitachi no shimeide su',mean:'Mendampingi kebutuhan setiap pengguna layanan adalah misi kami.'},
-    {jp:'介護記録は客観的事実と主観的観察を区別して正確に書きます。',read:'kaigo kiroku wa kyakkanteki jijitsu to shukanteki kansatsu wo kubetsu shite seikaku ni kakimasu',mean:'Rekod kaigo ditulis dengan akurat, membedakan fakta objektif dan observasi subjektif.'},
-    {jp:'認知症の方のBPSDには非薬物療法を優先して対応します。',read:'ninchishou no kata no BPSD ni wa hiyakubutsu ryouhou wo yuusen shite taiou shimasu',mean:'Untuk BPSD pada penderita demensia, utamakan pendekatan terapi non-farmakologi.'}
   ]
 };
 
