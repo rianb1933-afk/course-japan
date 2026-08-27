@@ -41,11 +41,11 @@ Klaim awal ("cuma 4-5 soal per halaman") ternyata melewatkan bahwa `Speaking-Pra
 
 **Masih berlaku**: `Speaking-Daily`, `Speaking-N2-N1` (ternyata cuma kuis vocab biasa, bukan speaking sungguhan meski namanya begitu), `Listening-Speaking` tetap dengan kuis 4-5 soal. `Speaking-AI.html`/`Pronunciation.html` di root menutupi sebagian lewat AI. Kalau mau diperluas lagi: pertimbangkan menambah lebih banyak halaman speech-recognition seperti pola `Speaking-Practice.html`, bukan sekadar tambah soal kuis pilihan ganda.
 
-### 🟡 3. Reading — sebagian diperbaiki (27 Agustus 2026), Listening masih terbuka
+### ✅ 3. Reading & Listening — SELESAI diperluas (27 Agustus 2026)
 
 **Reading**: ditambahkan 1 bacaan baru + 2 soal ke tiap level N5-N1 (14 soal baru total, lihat `CHANGELOG.md` Website v98) — N5 6→8, N4 6→8, N3 5→7, N2 5→7, N1 5→7. Tiap bacaan baru bertopik berbeda dari yang sudah ada (undangan, ramalan cuaca, buku harian, esai teleworking, editorial demografi) sesuai kompleksitas levelnya.
 
-**Listening masih terbuka**: `Listening-N4.html`–`Listening-N1.html` masih 5-6 soal per level seperti sebelumnya (klaim awal "Listening-N5 0 soal" ternyata salah hitung — halaman itu genuinely pakai format `q:'...'` tanpa kutip berbeda dari yang lain, isinya sebenarnya 20 soal). Kalau mau dilanjutkan: tambah audio-transcript + soal baru ke `Listening-N4`/`N3`/`N2`/`N1` mengikuti pola yang sama seperti perbaikan Reading di atas.
+**Listening juga selesai diperluas**: `Listening-N4.html`–`N1.html` masing-masing dapat +2 soal (N4 6→8, N3 5→7, N2 5→7, N1 6→8). Ditemukan celah nyata saat mengerjakan: tabel "Tipe Soal" di `Listening-N2.html`/`N1.html` menyebut 5/4 tipe soal, tapi kartu strategi/dialog yang tersedia cuma menutupi sebagian — 統合理解 (N2) dan 課題理解 (N1) disebut di tabel tapi genuinely tidak punya kartu contoh sama sekali. Ditambahkan kartu yang hilang untuk keduanya. (Klaim awal "Listening-N5 0 soal" juga terkoreksi — halaman itu pakai format `q:'...'` tanpa kutip berbeda dari yang lain, isinya sebenarnya 20 soal, tidak diikutkan perluasan karena sudah cukup kaya.) Lihat `CHANGELOG.md` Website v98-v99.
 
 ### 🟢 4. Kanji N1 (331 karakter unik) lebih sedikit dari N2 (517)
 

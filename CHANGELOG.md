@@ -8560,3 +8560,13 @@ Sesi ini adalah contoh penting tentang investigasi yang GENUINELY MEMPERDALAM CA
 **Hasil**: jumlah soal per level naik (N5 6→8, N4 6→8, N3/N2/N1 5→7 masing-masing) — 14 soal baru total. Diverifikasi via Playwright (kuis di-cycle sampai soal baru, 0 error JS) dan validasi JSON (json.JSONDecoder.raw_decode). Validator resmi PASSED 0 error 0 warning.
 
 **Catatan**: `Listening-N4`–`N1` masih di angka lama (5-6 soal), belum diperluas — kandidat lanjutan berikutnya.
+
+## Website v99 — Perluas Materi Listening N4-N1: Dialog Baru + 2 Celah Tipe Soal Tak Bercontoh Ditemukan
+
+**Konteks**: Melanjutkan perluasan Reading (Website v98) ke sisi Listening yang masih tertinggal.
+
+**Ditambahkan**: dialog transkrip baru + 2 soal ke `Listening-N4.html` (電話で予約する — reservasi restoran via telepon) dan `Listening-N3.html` (遅れる連絡 — menghubungi karena terlambat), mengikuti format dialog yang sudah ada.
+
+**Celah nyata ditemukan**: `Listening-N2.html` dan `Listening-N1.html` punya tabel "Tipe Soal" yang menyebut 5 dan 4 tipe soal masing-masing, tapi kartu strategi/dialog yang tersedia cuma menutupi sebagian — 統合理解 (integrasi info dari banyak sumber, N2) dan 課題理解 (menentukan tindakan konkret, N1) disebut di tabel namun **tidak punya contoh kartu/dialog sama sekali**. Ditambahkan kartu strategi 統合理解 (N2) dan Dialog 課題理解 dengan skenario eliminasi opsi (N1), masing-masing + 2 soal.
+
+**Hasil**: soal per level naik (N4 6→8, N3 5→7, N2 5→7, N1 6→8) — 8 soal baru total, jumlah kartu di tiap halaman naik dari 4 ke 5. Diverifikasi via Playwright (0 error JS, kartu baru dan text-to-speech "🎧 Dengarkan" berfungsi normal) dan validasi JSON. Validator resmi PASSED 0 error 0 warning.
