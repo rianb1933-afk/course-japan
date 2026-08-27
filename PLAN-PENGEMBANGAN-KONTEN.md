@@ -47,9 +47,13 @@ Klaim awal ("cuma 4-5 soal per halaman") ternyata melewatkan bahwa `Speaking-Pra
 
 **Listening juga selesai diperluas**: `Listening-N4.html`–`N1.html` masing-masing dapat +2 soal (N4 6→8, N3 5→7, N2 5→7, N1 6→8). Ditemukan celah nyata saat mengerjakan: tabel "Tipe Soal" di `Listening-N2.html`/`N1.html` menyebut 5/4 tipe soal, tapi kartu strategi/dialog yang tersedia cuma menutupi sebagian — 統合理解 (N2) dan 課題理解 (N1) disebut di tabel tapi genuinely tidak punya kartu contoh sama sekali. Ditambahkan kartu yang hilang untuk keduanya. (Klaim awal "Listening-N5 0 soal" juga terkoreksi — halaman itu pakai format `q:'...'` tanpa kutip berbeda dari yang lain, isinya sebenarnya 20 soal, tidak diikutkan perluasan karena sudah cukup kaya.) Lihat `CHANGELOG.md` Website v98-v99.
 
-### 🟢 4. Kanji N1 (331 karakter unik) lebih sedikit dari N2 (517)
+### ✅ 4. Kanji N1 — SELESAI diaudit (27 Agustus 2026), kesimpulan berbeda dari dugaan awal
 
-Halaman "Full Kanji N1" genuinely menyebut **lebih sedikit** kanji unik (331) dibanding "Full Kanji N2" (517) — seharusnya terbalik (N1 kumulatif butuh kanji lebih banyak dari N2). Perlu diverifikasi lebih lanjut apakah ini karena N1 sengaja kurasi kanji berfrekuensi tinggi saja (pilihan wajar), atau genuinely belum lengkap.
+Klaim awal ("N1 331 karakter < N2 517, seharusnya terbalik") ternyata membandingkan dua desain berbeda tujuan, bukan celah konten:
+
+- **Temuan sebenarnya**: `Kanji-N1.html` (beda dari `Kanji-N2.html`) sengaja mendelegasikan cakupan LENGKAP ke iframe eksternal (`kanji.tools/kanji/jlpt_kanji/jlpt-n1/`, diverifikasi HTTP 200 — masih aktif) yang menampilkan 1.235 karakter penuh. Array kanji lokal di halaman ini cuma dimaksudkan sebagai "kanji yang sering muncul" (quick-reference), bukan daftar lengkap seperti N2. Jadi bukan celah yang terlewat — ini pilihan arsitektur.
+- **Bug nyata ditemukan & diperbaiki**: terlepas dari itu, 3 kanji genuinely terduplikasi di quick-reference lokal N1 (施/概/鑑 masing-masing 2× dengan gloss beda) — diperbaiki, diganti kanji baru.
+- **Perluasan**: quick-reference lokal N1 tetap diperluas 180→237 kanji unik (54 kanji baru: 法律・行政, 経済・産業, 心理・行動) untuk mengurangi ketergantungan pengguna pada iframe eksternal (berguna bila diblokir/lambat/offline).
 
 ### 🟢 5. Kaiwa masih 10 modul vs Kaigo 100 modul (progres berjalan)
 

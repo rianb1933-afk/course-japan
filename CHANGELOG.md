@@ -8570,3 +8570,21 @@ Sesi ini adalah contoh penting tentang investigasi yang GENUINELY MEMPERDALAM CA
 **Celah nyata ditemukan**: `Listening-N2.html` dan `Listening-N1.html` punya tabel "Tipe Soal" yang menyebut 5 dan 4 tipe soal masing-masing, tapi kartu strategi/dialog yang tersedia cuma menutupi sebagian — 統合理解 (integrasi info dari banyak sumber, N2) dan 課題理解 (menentukan tindakan konkret, N1) disebut di tabel namun **tidak punya contoh kartu/dialog sama sekali**. Ditambahkan kartu strategi 統合理解 (N2) dan Dialog 課題理解 dengan skenario eliminasi opsi (N1), masing-masing + 2 soal.
 
 **Hasil**: soal per level naik (N4 6→8, N3 5→7, N2 5→7, N1 6→8) — 8 soal baru total, jumlah kartu di tiap halaman naik dari 4 ke 5. Diverifikasi via Playwright (0 error JS, kartu baru dan text-to-speech "🎧 Dengarkan" berfungsi normal) dan validasi JSON. Validator resmi PASSED 0 error 0 warning.
+
+## Website v100 — Audit Kanji-N1.html Selesai: Bukan Celah Konten, Tapi 3 Duplikat Diperbaiki + Diperluas 180→237
+
+**Konteks**: Item terakhir plan pengembangan konten — klaim "Kanji N1 (331 char) < Kanji N2 (517 char), seharusnya terbalik".
+
+**Temuan yang mengoreksi asumsi awal**: `Kanji-N1.html` genuinely dirancang berbeda dari `Kanji-N2.html` — mendelegasikan cakupan lengkap (1.235 karakter) ke iframe eksternal `kanji.tools/kanji/jlpt_kanji/jlpt-n1/` (diverifikasi HTTP 200, masih aktif), dengan array lokal cuma sebagai quick-reference "kanji yang sering muncul". Perbandingan "331 vs 517" di analisis awal membandingkan dua desain berbeda tujuan, bukan celah konten yang terlewat.
+
+**Bug nyata tetap ditemukan & diperbaiki**: 3 kanji genuinely terduplikasi di quick-reference lokal (施/概/鑑 masing-masing 2× dengan gloss berbeda) — diganti kanji baru yang genuinely unik.
+
+**Perluasan**: quick-reference lokal tetap diperluas dari 180 → 237 kanji unik (54 kanji baru: 法律・行政, 経済・産業, 心理・行動) untuk mengurangi ketergantungan pengguna pada iframe eksternal.
+
+**Catatan sampingan**: ditemukan file `.freebuff/project-id` tidak dikenal (bukan bagian proyek, kemungkinan artifact proses lain di komputer) ikut ter-commit lewat `git add -A` di commit sebelumnya — dikeluarkan dari git tracking + ditambahkan ke `.gitignore`, file asli tidak dihapus dari disk.
+
+**Verifikasi**: 0 duplikat tersisa, 237 kartu render benar di DOM live (Playwright, 0 error JS). Validator resmi PASSED 0 error 0 warning.
+
+---
+
+**PLAN-PENGEMBANGAN-KONTEN.md — SELESAI SEPENUHNYA**: kelima temuan (bank JLPT, Speaking, Reading, Listening, Kanji N1) sudah ditindaklanjuti. Pola konsisten sepanjang audit: klaim di dokumen analisis lama hampir selalu melebih-lebihkan skala masalah, salah membaca desain sengaja sebagai kekurangan, atau melewatkan format data yang berbeda dari yang diharapkan — verifikasi langsung ke kode/DOM live selalu diperlukan sebelum menyimpulkan sesuatu "kurang" atau "rusak".
