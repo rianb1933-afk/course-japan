@@ -3,10 +3,12 @@
    Mengelola tema situs via localStorage('np-theme'):
      'default' → Kyoto (design system existing, tak tersentuh)
      'anime'   → Anime Classroom (memuat CSS/JS tema secara dinamis)
+     'zen'     → Zen Temple (taman zen statis, memuat CSS/JS tema secara dinamis)
+     'tokyo'   → Tokyo Night (langit malam kota, memuat CSS/JS tema secara dinamis)
 
-   Hanya file ini yang dimuat di semua halaman. Aset tema lain
-   (anime-theme.css, anime-animation.css, anime-background.js,
-   anime-clock.js, anime-particles.js) HANYA dimuat bila tema aktif —
+   Hanya file ini yang dimuat di semua halaman. Aset tema lain (mis.
+   anime-theme.css, zen-theme.css, tokyo-theme.css, dan background
+   builder JS masing-masing) HANYA dimuat bila tema itu aktif —
    pengguna tema default tidak membayar biaya apa pun. Idempoten. */
 (function () {
   'use strict';
@@ -55,23 +57,33 @@
     document.documentElement.setAttribute('data-np-tod', todClass());
   }
 
-  function activate() {
+  function activate(theme) {
     var p = prefix();
-    document.documentElement.setAttribute('data-np-theme', 'anime');
-    if (document.body) document.body.setAttribute('data-np-theme', 'anime');
-    applyTod();
-    setInterval(applyTod, 60000); // cek tiap menit
-    loadCss(p + 'anime-theme.css');
-    loadCss(p + 'anime-animation.css');
-    loadJs(p + 'anime-background.js');
-    loadJs(p + 'anime-clock.js');
-    loadJs(p + 'anime-particles.js');
+    document.documentElement.setAttribute('data-np-theme', theme);
+    if (document.body) document.body.setAttribute('data-np-theme', theme);
+    if (theme === 'anime') {
+      applyTod();
+      setInterval(applyTod, 60000); // cek tiap menit
+      loadCss(p + 'anime-theme.css');
+      loadCss(p + 'anime-animation.css');
+      loadJs(p + 'anime-background.js');
+      loadJs(p + 'anime-clock.js');
+      loadJs(p + 'anime-particles.js');
+    } else if (theme === 'zen') {
+      loadCss(p + 'zen-theme.css');
+      loadJs(p + 'zen-background.js');
+    } else if (theme === 'tokyo') {
+      loadCss(p + 'tokyo-theme.css');
+      loadJs(p + 'tokyo-background.js');
+    }
   }
 
   window.NPTheme = { get: get, set: set };
 
-  if (get() === 'anime') {
-    if (document.body) activate();
-    else document.addEventListener('DOMContentLoaded', activate);
+  var THEMES = ['anime', 'zen', 'tokyo'];
+  var current = get();
+  if (THEMES.indexOf(current) !== -1) {
+    if (document.body) activate(current);
+    else document.addEventListener('DOMContentLoaded', function () { activate(current); });
   }
 })();
