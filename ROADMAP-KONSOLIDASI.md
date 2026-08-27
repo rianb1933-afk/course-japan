@@ -15,7 +15,7 @@ Yang tersisa terkonsentrasi di 3 area: **konfigurasi dari pemilik situs** (PeerJ
 
 ## 🔴 Prioritas tinggi
 
-- [ ] **Nomor WhatsApp `Kontak.html` tidak konsisten dengan halaman lain.** `index.html` dan `FAQ.html` sudah pakai nomor asli (`6281297225557`), tapi `Kontak.html` masih memakai `62818000000` — pola angka nol yang terlihat seperti placeholder yang terlewat saat nomor asli disebar. Perlu dikonfirmasi apakah ini nomor kedua yang disengaja atau memang belum diperbarui.
+- [x] **Nomor WhatsApp `Kontak.html` tidak konsisten dengan halaman lain** — sudah diperbaiki ke `6281297225557` (dikonfirmasi pemilik proyek: `62818000000` memang salah).
 - [ ] **`roomAdmin` LiveKit di-hardcode `false`.** Ditemukan celah eskalasi hak akses di `netlify/functions/livekit-token.js` (client bisa klaim `isHost` tanpa verifikasi) — sudah dimitigasi dengan menonaktifkan grant admin sepenuhnya, tapi ini berarti **moderasi (mute/kick) via jalur LiveKit belum berfungsi** sampai verifikasi kepemilikan room yang aman dibangun. Prioritas tinggi begitu LiveKit mulai dipakai produksi (lihat item konfigurasi di bawah).
 
 ## 🟡 Prioritas sedang
