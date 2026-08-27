@@ -108,8 +108,8 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#1565c0);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
-<button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
+<button onclick="nQ()" class="btn btn-primary" style="flex:1">Soal Berikutnya →</button>
+<button onclick="rQ()" class="btn btn-outline">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
 </div><section style="padding:16px;max-width:860px;margin:20px auto">
@@ -180,13 +180,11 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script>
 
 function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
-var Q=[{"q": "店員に「温めますか」と聞かれたときに希望を伝える答えはどれか。", "opts": ["はい、お願いします", "はい、そうです", "いいえ、痛いです", "いいえ、忙しいです"], "a": 0, "e": "「はい、お願いします」(ya, tolong)で温めを頼む自然な返事。"}, {"q": "レジ袋が必要なときの言い方はどれか。", "opts": ["袋をお願いします", "袋はいらないです", "袋は高いです", "袋はどこですか"], "a": 0, "e": "「袋をお願いします」(tolong kantongnya)で必要と伝える。"}, {"q": "お箸が欲しいときの言い方はどれか。", "opts": ["お箸をつけてください", "お箸は結構です", "お箸はいくらですか", "お箸はだれのですか"], "a": 0, "e": "「〜をつけてください」(tolong sertakan…)で追加を頼む。"}, {"q": "ポイントカードを持っていないときの答えはどれか。", "opts": ["持っていません", "持っています", "わかりません", "知りません"], "a": 0, "e": "「持っていません」(tidak punya)で率直に答えれば十分。"}, {"q": "公共料金を払いたいときの言い方はどれか。", "opts": ["これを払いたいです", "これをください", "これは何ですか", "これはいくらですか"], "a": 0, "e": "「払いたいです」(ingin membayar)で用件を伝える。"}, {"q": "支払い方法をカードにしたいときの言い方はどれか。", "opts": ["カードでお願いします", "カードはだめです", "カードはどこですか", "カードは高いです"], "a": 0, "e": "「〜でお願いします」(dengan…)で支払い方法を指定する。"}, {"q": "トイレを借りたいときの丁寧な言い方はどれか。", "opts": ["トイレを借りてもいいですか", "トイレは高いですか", "トイレはだれのですか", "トイレは何ですか"], "a": 0, "e": "「〜てもいいですか」(bolehkah…?)で許可を求める丁寧な聞き方。"}, {"q": "宅配便を送りたいときに伝える言い方はどれか。", "opts": ["荷物を送りたいです", "荷物を買いたいです", "荷物はいくらですか", "荷物はどこですか"], "a": 0, "e": "「送りたいです」(ingin mengirim)で宅配便の依頼を伝える。"}, {"q": "小銭が足りないときに両替を頼む言い方はどれか。", "opts": ["両替をお願いします", "両替はだめです", "両替は高いです", "両替はどこですか"], "a": 0, "e": "「両替をお願いします」(tolong tukar uang)で頼む。"}, {"q": "レシートが不要なときの言い方はどれか。", "opts": ["レシートは結構です", "レシートをください", "レシートは高いです", "レシートはどこですか"], "a": 0, "e": "「結構です」(tidak usah)で丁寧に断る表現。"}];
-function initKN2(){
-  var list=document.getElementById('kn2List');if(!list)return;
-  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
-}
-function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
+var Q=[{"q": "店員に「温めますか」と聞かれたときに希望を伝える答えはどれか。", "opts": ["はい、お願いします", "はい、そうです", "いいえ、痛いです", "いいえ、忙しいです"], "a": 0, "e": "「はい、お願いします」(ya, tolong)で温めを頼む自然な返事。"}, {"q": "レジ袋が必要なときの言い方はどれか。", "opts": ["袋をお願いします", "袋はいらないです", "袋は高いです", "袋はどこですか"], "a": 0, "e": "「袋をお願いします」(tolong kantongnya)で必要と伝える。"}, {"q": "お箸が欲しいときの言い方はどれか。", "opts": ["お箸をつけてください", "お箸は結構です", "お箸はいくらですか", "お箸はだれのですか"], "a": 0, "e": "「〜をつけてください」(tolong sertakan…)で追加を頼む。"}, {"q": "ポイントカードを持っていないときの答えはどれか。", "opts": ["持っていません", "持っています", "わかりません", "知りません"], "a": 0, "e": "「持っていません」(tidak punya)で率直に答えれば十分。"}, {"q": "公共料金を払いたいときの言い方はどれか。", "opts": ["これを払いたいです", "これをください", "これは何ですか", "これはいくらですか"], "a": 0, "e": "「払いたいです」(ingin membayar)で用件を伝える。"}, {"q": "支払い方法をカードにしたいときの言い方はどれか。", "opts": ["カードでお願いします", "カードはだめです", "カードはどこですか", "カードは高いです"], "a": 0, "e": "「〜でお願いします」(dengan…)で支払い方法を指定する。"}, {"q": "トイレを借りたいときの丁寧な言い方はどれか。", "opts": ["トイレを借りてもいいですか", "トイレは高いですか", "トイレはだれのですか", "トイレは何ですか"], "a": 0, "e": "「〜てもいいですか」(bolehkah…?)で許可を求める丁寧な聞き方。"}, {"q": "宅配便を送りたいときに伝える言い方はどれか。", "opts": ["荷物を送りたいです", "荷物を買いたいです", "荷物はいくらですか", "荷物はどこですか"], "a": 0, "e": "「送りたいです」(ingin mengirim)で宅配便の依頼を伝える。"}, {"q": "小銭が足りないときに両替を頼む言い方はどれか。", "opts": ["両替をお願いします", "両替はだめです", "両替は高いです", "両替はどこですか"], "a": 0, "e": "「両替をお願いします」(tolong tukar uang)で頼む。"}, {"q": "レシートが不要なときの言い方はどれか。", "opts": ["レシートは結構です", "レシートをください", "レシートは高いです", "レシートはどこですか"], "a": 0, "e": "「結構です」(tidak usah)で丁寧に断る表現。"}],qi=0,ok=0,tot=0;
+function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
+rnd();
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
