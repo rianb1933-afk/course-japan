@@ -619,7 +619,7 @@ progCards.forEach(c => progObserver.observe(c));
 // ── STICKY BAR ──
 const stickyBar = document.getElementById('stickyBar');
 const stickyClose = document.getElementById('stickyClose');
-let stickyDismissed = false;
+let stickyDismissed = localStorage.getItem('np-sticky-bar-dismissed') === '1';
 window.addEventListener('scroll', () => {
   if (stickyDismissed) return;
   if (window.scrollY > 600) stickyBar.classList.add('show');
@@ -628,6 +628,7 @@ window.addEventListener('scroll', () => {
 stickyClose.addEventListener('click', () => {
   stickyDismissed = true;
   stickyBar.classList.remove('show');
+  try { localStorage.setItem('np-sticky-bar-dismissed', '1'); } catch (e) {}
 });
 // ── AUTH SYSTEM ──
 let currentUser = null;

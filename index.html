@@ -105,10 +105,6 @@ html,body{overflow-x:hidden}
   .hero-stats{grid-template-columns:1fr 1fr!important}
   .quick-actions{grid-template-columns:1fr 1fr!important}
 }
-/* ── BACK TO TOP BUTTON ── */
-#backToTop{position:fixed;bottom:calc(5rem + env(safe-area-inset-bottom));right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
-#backToTop.visible{opacity:1}
-#backToTop:hover{transform:translateY(-2px)}
 .faq-q{width:100%;border:0;background:transparent;text-align:left}
 /* ── HOMEPAGE MOTION ── */
 @media (prefers-reduced-motion: no-preference){
@@ -1318,12 +1314,6 @@ nav.kn-nav { z-index: 9999 !important; }
      title="Hubungi via WhatsApp">💬</a>
 </div>
 
-<!-- Back to top -->
-<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">↑</button>
-<script>
-const btt=document.getElementById('backToTop');
-window.addEventListener('scroll',()=>btt.classList.toggle('visible',window.scrollY>400),{passive:true});
-</script>
 <script>
 if('serviceWorker' in navigator && !/^(127\.0\.0\.1|localhost|::1)$/.test(location.hostname)){
   window.addEventListener('load', () => {

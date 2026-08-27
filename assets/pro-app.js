@@ -1245,4 +1245,38 @@
     window.proToast?.('Interaksi canggih aktif. Tekan Ctrl/⌘ + K untuk cari cepat.');
     sessionStorage.setItem('proAdvancedHintShown', '1');
   }
+
+  // Rapikan tombol melayang: sampai 8 tombol .pro-fab (masing-masing cuma
+  // 1 karakter kanji tanpa keterangan visual) diinjeksi progresif dari 3
+  // titik kode di atas. Selalu tampilkan 2 yang paling universal (cari
+  // cepat, kembali ke atas), sisanya dikumpulkan di balik satu tombol
+  // "Lainnya" yang jelas berlabel -- fungsi & handler klik yang sudah ada
+  // di atas tidak diubah sama sekali, ini murni penataan tampilan.
+  const floatingActionsBox = document.querySelector('.pro-floating-actions');
+  if (floatingActionsBox && !floatingActionsBox.querySelector('[data-pro-more]')) {
+    const alwaysVisible = ['data-pro-command', 'data-pro-top'];
+    const collapseExtraFabs = () => {
+      floatingActionsBox.querySelectorAll('.pro-fab').forEach((btn) => {
+        const isMain = alwaysVisible.some((attr) => btn.hasAttribute(attr)) || btn.hasAttribute('data-pro-more');
+        btn.classList.toggle('pro-fab-extra', !isMain);
+      });
+    };
+    const moreBtn = document.createElement('button');
+    moreBtn.type = 'button';
+    moreBtn.className = 'pro-fab pro-fab-more';
+    moreBtn.setAttribute('data-pro-more', '');
+    moreBtn.title = 'Menu lainnya';
+    moreBtn.setAttribute('aria-label', 'Menu lainnya');
+    moreBtn.setAttribute('aria-expanded', 'false');
+    moreBtn.textContent = '⋯';
+    moreBtn.addEventListener('click', () => {
+      const open = floatingActionsBox.classList.toggle('pro-fab-open');
+      moreBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    floatingActionsBox.appendChild(moreBtn);
+    collapseExtraFabs();
+    if ('MutationObserver' in window) {
+      new MutationObserver(collapseExtraFabs).observe(floatingActionsBox, { childList: true });
+    }
+  }
 })();

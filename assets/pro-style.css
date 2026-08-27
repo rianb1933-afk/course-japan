@@ -75,7 +75,7 @@ a, button, input, textarea, select, .page-card, .kana-cell, .kanji-card, .gramma
   cursor: pointer;
 }
 
-nav:not(.kn-nav) {
+nav:not(.kn-nav):not(.kn-bottom-nav) {
   height: 68px !important;
   padding: 0 clamp(18px, 5vw, 72px) !important;
   background: var(--nav-bg) !important;
@@ -820,6 +820,55 @@ body.a11y-readable {
   box-shadow: var(--shadow-md);
 }
 
+/* GENUINELY DITAMBAHKAN (rapikan tombol melayang, keluhan "halaman utama
+   berantakan"): sampai 8 tombol .pro-fab berlabel 1 karakter kanji tanpa
+   keterangan visual tumpuk di sudut layar setiap saat. 2 yang paling
+   universal (cari cepat, kembali ke atas) tetap selalu terlihat; sisanya
+   disembunyikan di balik tombol "Lainnya" (pro-fab-more), dibuka lewat
+   klik (logic di pro-app.js/pro-app.min.js, murni CSS di sini). Tooltip
+   teks (dari attribute title yang sudah ada) ditampilkan saat hover/focus
+   supaya karakter kanji tidak lagi jadi tebakan. */
+.pro-fab {
+  position: relative;
+}
+.pro-fab::after {
+  content: attr(title);
+  position: absolute;
+  right: calc(100% + 10px);
+  top: 50%;
+  transform: translateY(-50%) translateX(6px);
+  background: var(--ink, #2d2d2d);
+  color: #fff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  padding: 5px 10px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms, transform 150ms;
+}
+.pro-fab:hover::after,
+.pro-fab:focus-visible::after {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+.pro-fab-extra {
+  display: none !important;
+}
+.pro-floating-actions.pro-fab-open .pro-fab-extra {
+  display: grid !important;
+}
+.pro-fab-more {
+  font-family: inherit;
+  font-size: 20px;
+  letter-spacing: 1px;
+}
+.pro-floating-actions.pro-fab-open .pro-fab-more {
+  color: var(--red);
+}
+
 .pro-toast-stack {
   position: fixed;
   right: 18px;
@@ -1142,7 +1191,7 @@ select {
     padding-bottom: 74px;
   }
 
-  nav:not(.kn-nav) {
+  nav:not(.kn-nav):not(.kn-bottom-nav) {
     height: 62px !important;
   }
 
