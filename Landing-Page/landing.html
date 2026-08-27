@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<script>(function(){var k=['kyoto-theme','nihongo-theme','theme'],s=null;for(var i=0;i<k.length;i++){s=localStorage.getItem(k[i]);if(s)break}if(s==='dark'){document.documentElement.setAttribute('data-dark','');document.documentElement.setAttribute('data-theme','dark')}})();</script>
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
 <meta name="theme-color" content="#6B4F3A">
@@ -29,6 +30,7 @@
   --ff:'Outfit',sans-serif;
   --r:12px;--r-lg:20px;--r-xl:28px;
 }
+[data-dark]{--bg:#0f172a;--white:#1e293b;--ink:#f1f5f9;--ink2:#94a3b8;--ink3:#475569;--border:#334155}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:var(--ff);color:var(--ink);background:var(--bg);overflow-x:hidden}
@@ -36,6 +38,8 @@ a{color:inherit;text-decoration:none}
 img{max-width:100%}
 /* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between}
+[data-dark] nav{background:rgba(15,23,42,.92)}
+.theme-toggle{display:grid;place-items:center;width:36px;height:36px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--ink);font-size:15px;cursor:pointer}
 .nav-logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800}
 .nav-logo-jp{font-family:'Noto Serif JP';font-size:22px;color:var(--blue)}
 .nav-links{display:flex;gap:28px;font-size:14px;font-weight:600;color:var(--ink3)}
@@ -199,10 +203,12 @@ footer{background:#0f172a;color:rgba(255,255,255,.6);padding:60px 5% 40px;font-s
     <a href="#faq">FAQ</a>
   </div>
   <div class="nav-cta">
+    <button type="button" class="theme-toggle" aria-label="Ganti mode terang/gelap" onclick="var d=document.documentElement.toggleAttribute('data-dark');document.documentElement.setAttribute('data-theme',d?'dark':'');['kyoto-theme','nihongo-theme','theme'].forEach(function(k){localStorage.setItem(k,d?'dark':'light')});this.textContent=d?'☀️':'🌙'">🌙</button>
     <a href="../Akun.html" class="btn btn-outline">Masuk</a>
     <a href="../Dashboard/Dashboard.html" class="btn btn-blue">Mulai Gratis</a>
   </div>
 </nav>
+<script>document.querySelector('.theme-toggle').textContent=document.documentElement.hasAttribute('data-dark')?'☀️':'🌙';</script>
 
 <!-- 1. HERO -->
 <section id="hero">
@@ -245,7 +251,7 @@ footer{background:#0f172a;color:rgba(255,255,255,.6);padding:60px 5% 40px;font-s
 </section>
 
 <!-- 3. STUDENT SUCCESS -->
-<section id="success" style="background:#fff">
+<section id="success" style="background:var(--white)">
   <div class="container" style="text-align:center">
     <div class="section-tag">🎓 Kisah Sukses</div>
     <h2 class="section-title">Dari Indonesia ke Jepang</h2>
