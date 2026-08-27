@@ -32,16 +32,34 @@ def seed_of(t): return int(hashlib.md5(t.encode()).hexdigest()[:8],16)%(2**31)
 def esc(s): return s.replace("'","''")
 def arr(tags): return "'{"+', '.join('"'+t+'"' for t in tags)+"}'"
 
+def extract_q(c):
+    """Ekstrak array var Q=[...] dengan aman terhadap deklarasi berantai
+    (var Q=[...],qi=0,ok=0,tot=0;) yang genuinely dipakai di banyak modul
+    lebih baru. Regex lama (`var Q=(\\[.*?\\]);`) mengharuskan `]` langsung
+    diikuti `;` -- ketika diikuti `,qi=0...` malah, `.*?` non-greedy
+    genuinely lari jauh melewati akhir array asli sampai menemukan `];`
+    berikutnya di mana pun itu (bisa di fungsi lain), menghasilkan JSON
+    tercampur teks JS lain yang gagal di-parse (dibuang diam-diam lewat
+    `except: continue`). json.JSONDecoder().raw_decode berhenti tepat di
+    akhir struktur JSON yang valid, apa pun yang menyusul setelahnya."""
+    idx = c.find('var Q=[')
+    if idx == -1:
+        return None
+    start = idx + len('var Q=')
+    try:
+        Q, _ = json.JSONDecoder().raw_decode(c, start)
+    except ValueError:
+        return None
+    return Q
+
 def main():
     os.makedirs(SEED,exist_ok=True)
     rows=[]
     for fn in sorted(os.listdir(MATERI)):
         if fn.startswith('Kaigo') or not fn.endswith('.html'): continue
         c=open(os.path.join(MATERI,fn),encoding='utf-8').read()
-        m=re.search(r'var Q=(\[.*?\]);',c,re.DOTALL)
-        if not m: continue
-        try: Q=json.loads(m.group(1))
-        except: continue
+        Q=extract_q(c)
+        if Q is None: continue
         cat=category_of(fn); jlpt=jlpt_of(fn); diff=difficulty_of(jlpt)
         tags=[cat]+([jlpt.lower()] if jlpt else [])
         for q in Q:
