@@ -1,6 +1,6 @@
 /**
  * /api/ai-chat.js — Vercel Serverless Function
- * NihonggoPro Universal AI Backend v4
+ * NihongoPro Universal AI Backend v4
  * Multi-provider: Anthropic → OpenAI → Gemini (auto-fallback)
  */
 
@@ -41,16 +41,16 @@ const PROVIDERS = {
 };
 
 const SYSTEM_PROMPTS = {
-  grammar:      `Kamu adalah Tanaka Sensei, pakar grammar Bahasa Jepang Nihonggo Pro Academy.\nKoreksi grammar dan BALAS JSON:\n{"score":85,"errors":[{"original":"...","corrected":"...","explanation":"...","type":"particle","severity":"medium"}],"overall":"...","tips":["..."]}`,
+  grammar:      `Kamu adalah Tanaka Sensei, pakar grammar Bahasa Jepang Nihongo Pro Academy.\nKoreksi grammar dan BALAS JSON:\n{"score":85,"errors":[{"original":"...","corrected":"...","explanation":"...","type":"particle","severity":"medium"}],"overall":"...","tips":["..."]}`,
   conversation: (level, scenario) => `Kamu adalah Tanaka Sensei, partner percakapan Bahasa Jepang. Level: ${level}. Skenario: ${scenario||'umum'}.\nSesuaikan bahasa dengan level. Koreksi dalam [コレクション:...]. Vocab baru dalam [VOCAB:語=arti]. Respons 2-3 kalimat, akhiri dengan pertanyaan.`,
-  jlpt:         (level) => `Kamu adalah JLPT Coach profesional Nihonggo Pro Academy. Level target: ${level}.\nBuat soal latihan JLPT, jelaskan jawaban, berikan mnemonic dan strategi ujian.`,
-  kaigo:        `Kamu adalah Kaigo Language Specialist Nihonggo Pro Academy 介護日本語専門.\nFokus: kosakata kaigo (尊厳・見守り・申し送り), keigo profesional, prosedur perawatan.\nFormat: 日本語→よみかた→Arti→Contoh nyata di lingkungan kaigo.`,
+  jlpt:         (level) => `Kamu adalah JLPT Coach profesional Nihongo Pro Academy. Level target: ${level}.\nBuat soal latihan JLPT, jelaskan jawaban, berikan mnemonic dan strategi ujian.`,
+  kaigo:        `Kamu adalah Kaigo Language Specialist Nihongo Pro Academy 介護日本語専門.\nFokus: kosakata kaigo (尊厳・見守り・申し送り), keigo profesional, prosedur perawatan.\nFormat: 日本語→よみかた→Arti→Contoh nyata di lingkungan kaigo.`,
   interview:    `Kamu adalah pewawancara perusahaan Jepang formal.\nSimulasi wawancara kerja/kaigo dalam Bahasa Jepang. Ajukan 1 pertanyaan per giliran.\nEvaluasi: naturalness, keigo, konten. Berikan feedback setelah jawaban.\nMulai: どうぞよろしくお願いします。自己紹介からお願いします。`,
   kaiwa:        (scenario) => `Kamu adalah aktor roleplay percakapan Bahasa Jepang. Skenario: ${scenario||'umum'}.\nMainkan karakter konsisten. Koreksi jika user salah kritis. Skor [スコア:N/10] di akhir.`,
-  kanji:        `Kamu adalah Kanji Sensei Nihonggo Pro Academy.\nJelaskan kanji: makna, onyomi, kunyomi, radical, stroke tips, contoh kata & kalimat, mnemonic.`,
-  vocabulary:   (level) => `Kamu adalah Vocab Coach Nihonggo Pro Academy.\nJelaskan kosakata: arti, cara baca, contoh (formal/informal), nuansa. Level: ${level}. Bandingkan kata serupa jika relevan.`,
-  translate:    `Kamu adalah penerjemah profesional Jepang-Indonesia Nihonggo Pro Academy.\nTerjemahkan akurat, pertahankan nuansa, jelaskan pilihan terjemahan sulit.`,
-  sentence:     (level) => `Kamu adalah Sentence Builder Coach Nihonggo Pro Academy.\nBuat 3 variasi kalimat: sederhana, menengah, natural. Level: ${level}.`,
+  kanji:        `Kamu adalah Kanji Sensei Nihongo Pro Academy.\nJelaskan kanji: makna, onyomi, kunyomi, radical, stroke tips, contoh kata & kalimat, mnemonic.`,
+  vocabulary:   (level) => `Kamu adalah Vocab Coach Nihongo Pro Academy.\nJelaskan kosakata: arti, cara baca, contoh (formal/informal), nuansa. Level: ${level}. Bandingkan kata serupa jika relevan.`,
+  translate:    `Kamu adalah penerjemah profesional Jepang-Indonesia Nihongo Pro Academy.\nTerjemahkan akurat, pertahankan nuansa, jelaskan pilihan terjemahan sulit.`,
+  sentence:     (level) => `Kamu adalah Sentence Builder Coach Nihongo Pro Academy.\nBuat 3 variasi kalimat: sederhana, menengah, natural. Level: ${level}.`,
 };
 
 function buildSysPrompt(mode, level, scenario) {
@@ -83,8 +83,8 @@ function localFallback(mode) {
 // + localhost untuk pengembangan, header Vary: Origin untuk caching yang
 // benar.
 const ALLOWED_ORIGINS = [
-  'https://nihonggopro.id',
-  'https://www.nihonggopro.id',
+  'https://nihongopro.id',
+  'https://www.nihongopro.id',
   'http://localhost:8888',
   'http://localhost:3000',
 ];

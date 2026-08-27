@@ -86,7 +86,7 @@ def build_tags(slug, title, desc):
     stop = {
         'html', 'dan', 'untuk', 'yang', 'dengan', 'ini', 'itu', 'the', 'and', 'for',
         'dari', 'ke', 'di', 'pada', 'atau', 'juga', 'akan', 'bisa', 'dalam', 'materi',
-        'nihonggo', 'pro', 'academy', 'lengkap', 'panduan', 'belajar', 'jepang',
+        'nihongo', 'pro', 'academy', 'lengkap', 'panduan', 'belajar', 'jepang',
         'bahasa', 'audio', 'kuis', 'contoh',
     }
     seen, tags = set(), []

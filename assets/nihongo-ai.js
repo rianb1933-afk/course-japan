@@ -1,5 +1,5 @@
 /**
- * nihongo-ai.js — NihonggoPro Universal AI Client SDK v3.1
+ * nihongo-ai.js — NihongoPro Universal AI Client SDK v3.1
  * Endpoint: /api/ai-chat (Vercel) atau /.netlify/functions/ai-chat (Netlify)
  * TIDAK ada API key di sini — semua di backend
  */

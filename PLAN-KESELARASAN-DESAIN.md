@@ -1,4 +1,4 @@
-# Plan Penyelarasan Tampilan — NihonggoPro Academy
+# Plan Penyelarasan Tampilan — NihongoPro Academy
 
 **Diperbarui:** 27 Agustus 2026
 **Metodologi:** setiap angka di bawah diverifikasi langsung terhadap kode (grep menyeluruh 377 halaman), bukan estimasi. Menggantikan klaim lama "333/335 halaman CSS inline terduplikasi" dan "15+ breakpoint berbeda" yang ternyata meremehkan skala masalah sesungguhnya.

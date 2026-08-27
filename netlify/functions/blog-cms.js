@@ -26,8 +26,8 @@
 const { createClient } = require('@supabase/supabase-js');
 
 const ALLOWED_ORIGINS = [
-  'https://nihonggopro.id',
-  'https://www.nihonggopro.id',
+  'https://nihongopro.id',
+  'https://www.nihongopro.id',
   'http://localhost:8888',
   'http://localhost:3000',
 ];
@@ -203,7 +203,7 @@ exports.handler = async (event) => {
       title: title.trim(),
       body_html,
       tags: Array.isArray(tags) ? tags.slice(0, 5) : [],
-      author: (typeof author === 'string' && author.trim()) ? author.trim().slice(0, 60) : 'Tim NihonggoPro',
+      author: (typeof author === 'string' && author.trim()) ? author.trim().slice(0, 60) : 'Tim NihongoPro',
       read_minutes: Number.isInteger(read_minutes) && read_minutes > 0 ? Math.min(read_minutes, 60) : 5,
       created_by: auth.userId,
     }).select().single();

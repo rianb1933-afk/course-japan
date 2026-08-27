@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generator halaman materi NihonggoPro.
+Generator halaman materi NihongoPro.
 
 Alasan skrip ini ada
 --------------------
@@ -31,7 +31,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MATERI_DIR = os.path.join(ROOT, 'Materi')
 TPL_DIR = os.path.join(ROOT, 'scripts', 'templates')
 
-BASE_URL = 'https://nihonggopro.id'
+BASE_URL = 'https://nihongopro.id'
 
 
 # ── Blok konten ────────────────────────────────────────────────────
@@ -217,7 +217,7 @@ def build_materi(slug, title, kicker, h1, lead, sections, quiz,
         'name': title,
         'description': description,
         'url': f'{BASE_URL}/Materi/{fname}',
-        'provider': {'@type': 'Organization', 'name': 'NihonggoPro', 'url': BASE_URL},
+        'provider': {'@type': 'Organization', 'name': 'NihongoPro', 'url': BASE_URL},
         'inLanguage': 'id',
     }, ensure_ascii=False)
 

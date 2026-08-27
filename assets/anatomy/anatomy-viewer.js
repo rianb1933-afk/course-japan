@@ -1,5 +1,5 @@
 /**
- * anatomy-viewer.js — Nihonggo Pro Academy
+ * anatomy-viewer.js — Nihongo Pro Academy
  * Viewer anatomi 2D interaktif: hotspot aksesibel, panel info, zoom/pan/fullscreen,
  * mode belajar, progress & integrasi XP.
  *

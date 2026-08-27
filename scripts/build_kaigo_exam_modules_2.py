@@ -255,12 +255,12 @@ def js_vocab(vocab):
 def build_one(slug, spec, template):
     c = template
     c = re.sub(r'<title>.*?</title>',
-               f'<title>{spec["title"]} | Nihonggo Pro Academy</title>', c, count=1)
+               f'<title>{spec["title"]} | Nihongo Pro Academy</title>', c, count=1)
     c = re.sub(r'(<meta name="description" content=")[^"]*(">)',
                lambda m: m.group(1) + spec['desc'] + m.group(2), c, count=1)
     c = c.replace('Kaigo-Ujian-N2.html', slug)
     c = re.sub(r'(<meta property="og:title" content=")[^"]*(">)',
-               lambda m: m.group(1) + spec['title'] + ' — Nihonggo Pro Academy' + m.group(2),
+               lambda m: m.group(1) + spec['title'] + ' — Nihongo Pro Academy' + m.group(2),
                c, count=1)
     c = re.sub(r'PH_VOCAB=\[.*?\];', 'PH_VOCAB=' + js_vocab(spec['vocab']) + ';',
                c, count=1, flags=re.DOTALL)

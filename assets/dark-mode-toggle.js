@@ -1,4 +1,4 @@
-/* Nihonggo Pro Academy — Dark Mode Toggle (dark-mode-toggle.js)
+/* Nihongo Pro Academy — Dark Mode Toggle (dark-mode-toggle.js)
    ───────────────────────────────────────────────────────────────────
    PENTING: proyek ini SUDAH memiliki CSS dark mode lengkap di 25+
    halaman & hampir semua file CSS utama (kyoto-design-system.css,

@@ -1,4 +1,4 @@
-/* Nihonggo Pro Academy — Shared security utilities
+/* Nihongo Pro Academy — Shared security utilities
    ───────────────────────────────────────────────────────────────────
    Satu tempat untuk helper keamanan yang dipakai lintas modul. Dibuat
    ADITIF: file lama yang punya htmlEscape/esc lokal TIDAK diubah (demi

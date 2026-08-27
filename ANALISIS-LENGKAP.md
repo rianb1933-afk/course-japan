@@ -1,4 +1,4 @@
-# Laporan Analisis & Perbaikan NihonggoPro v24
+# Laporan Analisis & Perbaikan NihongoPro v24
 **Tanggal:** 29 Juni 2026  
 **Versi:** v24 (Final)  
 **Total file:** 311 file | 240 halaman HTML | 3.0 MB
@@ -7,7 +7,7 @@
 
 ## Ringkasan Eksekutif
 
-Audit menyeluruh terhadap seluruh 311 file project NihonggoPro telah selesai dilaksanakan dalam 4 sesi perbaikan. Dimulai dari ZIP deploy mentah, seluruh bug kritis, celah keamanan, dan masalah SEO telah ditangani. Project kini siap deploy production.
+Audit menyeluruh terhadap seluruh 311 file project NihongoPro telah selesai dilaksanakan dalam 4 sesi perbaikan. Dimulai dari ZIP deploy mentah, seluruh bug kritis, celah keamanan, dan masalah SEO telah ditangani. Project kini siap deploy production.
 
 **Sebelum audit:**
 - 55 broken internal links (2 target unik)
@@ -44,8 +44,8 @@ Audit menyeluruh terhadap seluruh 311 file project NihonggoPro telah selesai dil
 ### Sesi 2 — Bug Kritis & Security (v23)
 | # | File | Perubahan |
 |---|------|-----------|
-| 1 | `assets/pro-app.js` | Typo `nihonggo-pro.html` → `nihongo-pro.html` (2 refs) |
-| 2 | `sitemap.xml` | 113 URL domain: `nihongopro.id` → `nihonggopro.id` |
+| 1 | `assets/pro-app.js` | Typo `nihongo-pro.html` → `nihongo-pro.html` (2 refs) |
+| 2 | `sitemap.xml` | 113 URL domain: `nihongopro.id` → `nihongopro.id` |
 | 3 | 8 HTML files | Canonical & og:url salah filename diperbaiki |
 | 4 | 4 HTML files | GSC verification literal string dihapus → dynamic dari env |
 | 5 | `assets/nihongo-ai.js` | Premium tidak lagi baca `localStorage` flag → Supabase JWT |
@@ -53,13 +53,13 @@ Audit menyeluruh terhadap seluruh 311 file project NihonggoPro telah selesai dil
 | 7 | `assets/nihongo-ai.js` | `Authorization: Bearer` dikirim bersama setiap request AI |
 | 8 | `supabase-schema.sql` | RLS ditambahkan ke tabel `rate_limits` |
 | 9 | `supabase-schema.sql` | Leaderboard: `USING (true)` → `USING (auth.role() = 'authenticated')` |
-| 10 | `index.html` + 1 file | Email distandarisasi ke `hello@nihonggopro.id` |
+| 10 | `index.html` + 1 file | Email distandarisasi ke `hello@nihongopro.id` |
 | 11 | `_redirects` | Disinkronkan dengan 30+ shortcut dari `netlify.toml` |
 
 ### Sesi 3 — SEO & Broken Links (v24)
 | # | Scope | Perubahan |
 |---|-------|-----------|
-| 1 | 49 HTML files | `href` typo `nihonggo-pro.html` → `nihongo-pro.html` diperbaiki di semua halaman |
+| 1 | 49 HTML files | `href` typo `nihongo-pro.html` → `nihongo-pro.html` diperbaiki di semua halaman |
 | 2 | `Blog-SEO.html`, `Progress.html` | Link `JLPT-CBT-N3.html` diperbaiki ke `Materi/JLPT-CBT-N3.html` |
 | 3 | `Ai Tutor Page/` | Renamed → `AI-Tutor-Page/` (aman di semua hosting) |
 | 4 | `Main landing page with navigation/` | Renamed → `Landing-Page/` |
@@ -70,7 +70,7 @@ Audit menyeluruh terhadap seluruh 311 file project NihonggoPro telah selesai dil
 | 9 | 10 HTML files | H1 (SEO-hidden) ditambahkan |
 | 10 | 134 HTML files | Schema.org (LearningResource / Quiz / WebPage / Blog) diinjeksi |
 | 11 | `sitemap.xml` | Diregenerasi: 237 URL, lastmod hari ini, priority & changefreq tepat |
-| 12 | `.env.example` | Domain dikoreksi ke `nihonggopro.id` |
+| 12 | `.env.example` | Domain dikoreksi ke `nihongopro.id` |
 
 ---
 
@@ -81,7 +81,7 @@ Audit menyeluruh terhadap seluruh 311 file project NihonggoPro telah selesai dil
 | Meta description coverage | 205/240 (85%) | **240/240 (100%)** |
 | Schema.org coverage | 105/240 (44%) | **239/240 (99%)** |
 | Broken internal links | 55 | **0** |
-| Domain konsisten | ❌ Split 2 domain | **✅ nihonggopro.id** |
+| Domain konsisten | ❌ Split 2 domain | **✅ nihongopro.id** |
 | Canonical akurat | ❌ 8 salah | **✅ Semua benar** |
 | Sitemap URL | 113 | **237** |
 | Folder URL-safe | ❌ 2 folder spasi | **✅ Semua aman** |
@@ -106,7 +106,7 @@ Audit menyeluruh terhadap seluruh 311 file project NihonggoPro telah selesai dil
 ## Arsitektur Teknis Final
 
 ```
-nihonggopro.id/
+nihongopro.id/
 ├── index.html                    # Landing utama
 ├── Landing-Page/landing.html     # Landing alt (renamed)
 ├── AI-Tutor-Page/AI.html         # AI Tutor (renamed)
@@ -181,7 +181,7 @@ NIHONGO_ADMIN_LOGIN_ENDPOINT=/api/admin-login
 
 ---
 
-*NihonggoPro v24 — Audit selesai 29 Juni 2026*
+*NihongoPro v24 — Audit selesai 29 Juni 2026*
 
 ---
 
@@ -296,7 +296,7 @@ Audit dengan teknik cross-reference JS↔HTML menemukan kelas bug baru yang tida
 | # | Temuan | Dampak | Fix |
 |---|--------|--------|-----|
 | 1 | **Variable name mismatch**: `env.js` mendefinisikan `AI_ENDPOINT`, tapi `nihongo-ai.js` membaca `AI_API_ENDPOINT` | Custom AI endpoint override via env var `EDUMA_AI_API_ENDPOINT` tidak pernah terbaca — selalu fallback ke hardcoded default. Berfungsi normal tapi tidak bisa dikustomisasi | Nama variabel disamakan di `env.js` |
-| 2 | **6 halaman memanggil `NihonggoProgress` tanpa load `platform.js`** (Kanji-Writing, Keigo-Fukushishi, Listening-Speaking, Sertifikat, Grammar-Checker, AI-Sensei) | XP/progress tracking diam-diam tidak tersimpan di halaman ini (dijaga `if` jadi tidak crash, tapi silent failure) | `<script src="platform.min.js">` ditambahkan ke 6 halaman |
+| 2 | **6 halaman memanggil `NihongoProgress` tanpa load `platform.js`** (Kanji-Writing, Keigo-Fukushishi, Listening-Speaking, Sertifikat, Grammar-Checker, AI-Sensei) | XP/progress tracking diam-diam tidak tersimpan di halaman ini (dijaga `if` jadi tidak crash, tapi silent failure) | `<script src="platform.min.js">` ditambahkan ke 6 halaman |
 
 ### Bug Logic di Algoritma SRS — Ditemukan via Unit Test
 

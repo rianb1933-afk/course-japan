@@ -620,7 +620,7 @@ CREATE TABLE IF NOT EXISTS blog_posts (
   slug         text UNIQUE NOT NULL,          -- URL-safe, dipakai di #slug routing
   title        text NOT NULL,
   tags         text[] NOT NULL DEFAULT '{}',
-  author       text NOT NULL DEFAULT 'Tim NihonggoPro',
+  author       text NOT NULL DEFAULT 'Tim NihongoPro',
   read_minutes integer NOT NULL DEFAULT 5,
   -- Body disimpan sebagai HTML sudah jadi (bukan Markdown) supaya konsisten
   -- dengan render 12 artikel lama yang juga langsung HTML -- panel admin

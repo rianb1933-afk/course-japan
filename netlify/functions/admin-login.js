@@ -40,8 +40,8 @@ const { createClient } = require('@supabase/supabase-js');
 
 // ── CORS: whitelist origin, sama seperti function lain (fix v175) ──────
 const ALLOWED_ORIGINS = [
-  'https://nihonggopro.id',
-  'https://www.nihonggopro.id',
+  'https://nihongopro.id',
+  'https://www.nihongopro.id',
   'http://localhost:8888',
   'http://localhost:3000',
 ];

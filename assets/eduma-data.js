@@ -1,5 +1,5 @@
 /**
- * eduma-data.js — Central data layer for Nihonggo Pro Academy / Nihonggo Pro Academy
+ * eduma-data.js — Central data layer for Nihongo Pro Academy / Nihongo Pro Academy
  * All content data, user defaults, and scalable structures live here.
  * Replace profile.* with real backend calls (Supabase/Firebase) when ready.
  */

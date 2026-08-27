@@ -1,5 +1,5 @@
 /**
- * Supabase Client — Nihonggo Pro Academy / Nihonggo Pro Academy
+ * Supabase Client — Nihongo Pro Academy / Nihongo Pro Academy
  * Production-ready auth + database layer
  * Replace SUPABASE_URL and SUPABASE_ANON_KEY in env.js or Netlify env vars
  */

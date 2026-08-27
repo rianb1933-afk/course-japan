@@ -146,15 +146,15 @@ self.addEventListener('message', e => {
 // ── PUSH NOTIFICATIONS ────────────────────────────────────────────────────────
 self.addEventListener('push', (event) => {
   let data = {};
-  try { data = event.data?.json() || {}; } catch(e) { data = { title: 'NihonggoPro', body: event.data?.text() || '' }; }
+  try { data = event.data?.json() || {}; } catch(e) { data = { title: 'NihongoPro', body: event.data?.text() || '' }; }
 
-  const title   = data.title || 'NihonggoPro 日本語';
+  const title   = data.title || 'NihongoPro 日本語';
   const options = {
     body:    data.body    || 'Ada yang baru untuk Anda!',
     icon:    data.icon    || '/assets/icon-192.svg',
     badge:   data.badge   || '/assets/icon-192.svg',
     image:   data.image,
-    tag:     data.tag     || 'nihonggopro-notif',
+    tag:     data.tag     || 'nihongopro-notif',
     renotify: true,
     data:    { url: data.url || '/', type: data.type || 'general' },
     actions: data.actions || [

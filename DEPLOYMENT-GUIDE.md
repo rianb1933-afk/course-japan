@@ -1,4 +1,4 @@
-# 🚀 Panduan Deploy NihonggoPro v22 — Nihonggo Pro Academy
+# 🚀 Panduan Deploy NihongoPro v22 — Nihongo Pro Academy
 
 ## Cara Deploy Tercepat (Netlify Drag & Drop)
 
@@ -120,4 +120,4 @@ Auto-fallback: jika Anthropic error → coba OpenAI → coba Gemini.
 
 ---
 
-*NihonggoPro v22 — Platform Belajar Bahasa Jepang N5–N1 + Kaigo 介護福祉士*
+*NihongoPro v22 — Platform Belajar Bahasa Jepang N5–N1 + Kaigo 介護福祉士*

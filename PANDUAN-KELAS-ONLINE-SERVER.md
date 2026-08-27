@@ -47,7 +47,7 @@ Netlify: **Site settings → Environment variables → Add variable**
 
 | Variable       | Nilai contoh                    | Keterangan               |
 |----------------|---------------------------------|--------------------------|
-| `PEERJS_HOST`  | `peer.nihonggopro.id`           | domain PeerServer Anda   |
+| `PEERJS_HOST`  | `peer.nihongopro.id`           | domain PeerServer Anda   |
 | `PEERJS_PORT`  | `443`                           | 443 untuk HTTPS          |
 | `PEERJS_PATH`  | `/myapp`                        | sesuai `--path` di atas  |
 

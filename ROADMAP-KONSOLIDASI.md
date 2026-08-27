@@ -1,4 +1,4 @@
-# Roadmap Konsolidasi — NihonggoPro Academy
+# Roadmap Konsolidasi — NihongoPro Academy
 
 **Diperbarui:** 27 Agustus 2026
 **Metodologi:** setiap klaim di bawah diverifikasi ulang langsung terhadap kode/data pada tanggal di atas (grep, baca file, hitung isi JSON) — bukan disalin mentah dari `ANALISIS-KEKURANGAN.md` atau `ROADMAP-PENGEMBANGAN.md`. Kedua dokumen itu sebagian sudah usang (lihat catatan v179 di `ANALISIS-KEKURANGAN.md`); dokumen ini menggantikannya sebagai sumber prioritas yang berlaku sekarang. `CHANGELOG.md` (373 halaman, 200+ entri versi) tetap jadi arsip riwayat detail — dokumen ini hanya meringkas **apa yang masih perlu dikerjakan**.

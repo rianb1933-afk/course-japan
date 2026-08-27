@@ -1,4 +1,4 @@
-/* Nihonggo Pro Academy — Bottom Navigation (mobile) 2026
+/* Nihongo Pro Academy — Bottom Navigation (mobile) 2026
    Self-inject: menambahkan bilah navigasi bawah khas aplikasi untuk layar
    kecil. Muncul hanya di mobile (dikontrol CSS @media). Tidak mengubah navbar
    atas yang sudah ada — ini pelengkap untuk akses cepat di satu tangan.

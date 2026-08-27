@@ -1,4 +1,4 @@
-/* Nihonggo Pro Academy — Live Classroom via LiveKit (SFU)
+/* Nihongo Pro Academy — Live Classroom via LiveKit (SFU)
    ───────────────────────────────────────────────────────────────────
    Alternatif untuk arsitektur PeerJS mesh yang ada di Kelas-Online.html.
    Mesh: tiap peserta upload video ke SEMUA peserta lain (tak skalabel).

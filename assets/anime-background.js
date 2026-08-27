@@ -1,4 +1,4 @@
-/* Nihonggo Pro Academy — Anime Background Builder (anime-background.js)
+/* Nihongo Pro Academy — Anime Background Builder (anime-background.js)
    Membangun layer classroom (langit, matahari, jendela, tirai, meja),
    maskot AI Sensei (SVG placeholder) dengan greeting di Dashboard, dan
    IntersectionObserver untuk reveal kartu. Idempoten & ringan. */

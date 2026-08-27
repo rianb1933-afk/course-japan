@@ -1,7 +1,7 @@
 /**
  * 京都 KYOTO THEME SCRIPT
  * Handles dark/light mode toggle, Kyoto UI enhancements
- * for NihonggoPro platform.
+ * for NihongoPro platform.
  */
 (function () {
   'use strict';

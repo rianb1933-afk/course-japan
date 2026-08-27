@@ -1,4 +1,4 @@
-# Analisis Kekurangan NihonggoPro Academy
+# Analisis Kekurangan NihongoPro Academy
 
 <!-- markdownlint-disable MD012 MD022 MD029 MD032 -->
 

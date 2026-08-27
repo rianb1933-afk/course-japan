@@ -1,4 +1,4 @@
-/* Nihonggo Pro Academy — Site Motion (site-motion.js)
+/* Nihongo Pro Academy — Site Motion (site-motion.js)
    ───────────────────────────────────────────────────────────────────
    Animasi ringan universal untuk SEMUA halaman: elemen muncul dengan
    fade+slide halus saat discroll ke layar (scroll reveal), dan

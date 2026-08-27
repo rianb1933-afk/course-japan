@@ -1,4 +1,4 @@
-# CI/CD Setup — NihonggoPro
+# CI/CD Setup — NihongoPro
 
 Project ini menggunakan GitHub Actions untuk validasi otomatis dan deploy.
 
@@ -10,7 +10,7 @@ Menjalankan `scripts/validate.py` yang mengecek:
 - Sintaks JS valid di semua file `.js`
 - JSON config valid (manifest, vercel.json)
 - Tidak ada broken internal link
-- Domain konsisten (`nihonggopro.id`) di semua canonical/og:url/sitemap
+- Domain konsisten (`nihongopro.id`) di semua canonical/og:url/sitemap
 - Canonical URL cocok dengan nama file aslinya
 - SEO dasar: meta description, title, H1, schema.org di semua halaman
 - Tidak ada duplicate HTML id statis
@@ -46,7 +46,7 @@ git push origin main
         ↓ (jika lolos)
 [deploy.yml] jalan — validasi lagi sebagai gate, lalu deploy ke Netlify
         ↓
-Site live di nihonggopro.id
+Site live di nihongopro.id
 ```
 
 ### Tanpa GitHub (Manual Deploy)

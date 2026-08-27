@@ -1,4 +1,4 @@
-/* Nihonggo Pro Academy — Tokyo Night Background Builder (tokyo-background.js)
+/* Nihongo Pro Academy — Tokyo Night Background Builder (tokyo-background.js)
    Membangun layer langit malam kota Tokyo: bintang berkelip (dimatikan
    otomatis bila reduce-motion aktif), cahaya neon ambient, dan siluet
    gedung dengan jendela menyala (posisi/tinggi acak tapi deterministik

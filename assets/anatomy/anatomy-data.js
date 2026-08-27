@@ -1,5 +1,5 @@
 /**
- * anatomy-data.js — Nihonggo Pro Academy
+ * anatomy-data.js — Nihongo Pro Academy
  * Data istilah anatomi dasar untuk halaman Anatomi-Dasar.html
  *
  * Struktur tiap istilah (sesuai spesifikasi refactor):

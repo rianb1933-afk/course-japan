@@ -1,5 +1,5 @@
 /* ══════════════════════════════════════════════════════════════════════════════
-   NPXP — Modul XP terpusat untuk seluruh platform NihonggoPro
+   NPXP — Modul XP terpusat untuk seluruh platform NihongoPro
    Satu sumber kebenaran: semua fitur (SRS, Kanji, Speaking, Quiz, JLPT, Materi)
    menyumbang XP + streak ke dashboard global (np-dash-v3) lewat modul ini.
 

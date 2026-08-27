@@ -1,4 +1,4 @@
-# Ringkasan Audit Tema & Tampilan — NihonggoPro
+# Ringkasan Audit Tema & Tampilan — NihongoPro
 
 Dokumen ini merangkum seluruh audit tema dan tampilan yang genuinely dilakukan
 terhadap platform, mencakup Fase W-Z (audit arsitektural + sampel) dan putaran

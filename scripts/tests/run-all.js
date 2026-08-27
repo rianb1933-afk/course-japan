@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * NihonggoPro — Test Runner
+ * NihongoPro — Test Runner
  * ===========================
  * Discovers and runs every scripts/tests/test-*.js suite against the
  * REAL production code in assets/platform.js (loaded via vm, not duplicated).
@@ -24,7 +24,7 @@ if (testFiles.length === 0) {
 }
 
 async function run() {
-  console.log('🧪 NihonggoPro Test Runner\n' + '='.repeat(50));
+  console.log('🧪 NihongoPro Test Runner\n' + '='.repeat(50));
 
   let totalPass = 0;
   let totalFail = 0;

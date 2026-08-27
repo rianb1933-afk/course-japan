@@ -1,4 +1,4 @@
-# Plan Pengembangan Konten Bahasa Jepang — NihonggoPro Academy
+# Plan Pengembangan Konten Bahasa Jepang — NihongoPro Academy
 
 **Diperbarui:** 27 Agustus 2026
 **Metodologi:** setiap angka di bawah dihitung langsung dari isi 322 halaman `Materi/` dan bank soal (`seed/jlpt_questions.json`), bukan estimasi — mengikuti disiplin yang sama dengan plan-plan sebelumnya di sesi ini (verifikasi dulu, baru simpulkan).

@@ -1,4 +1,4 @@
-/* Nihonggo Pro Academy — Theme Manager (anime-theme.js)
+/* Nihongo Pro Academy — Theme Manager (anime-theme.js)
    ───────────────────────────────────────────────────────────────────
    Mengelola tema situs via localStorage('np-theme'):
      'default' → Kyoto (design system existing, tak tersentuh)

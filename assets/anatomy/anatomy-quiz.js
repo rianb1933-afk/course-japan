@@ -1,5 +1,5 @@
 /**
- * anatomy-quiz.js — Nihonggo Pro Academy
+ * anatomy-quiz.js — Nihongo Pro Academy
  * Logic kuis tulisan (34 soal existing, DIPERTAHANKAN UTUH dari versi sebelumnya —
  * tidak ada satu soal maupun pembahasan yang diubah/dihapus) + Mode Kuis Visual baru
  * (Tahap 5.3): sistem meminta user memilih lokasi hotspot yang benar di diagram.

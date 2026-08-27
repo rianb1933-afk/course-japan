@@ -1,4 +1,4 @@
-# CHANGELOG — NihonggoPro Academy
+# CHANGELOG — NihongoPro Academy
 
 Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
@@ -11,9 +11,9 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 - Memperbaiki homepage yang menampilkan breadcrumbs, chatbot, dan alat aksesibilitas sebagai HTML polos.
 - Penyebab: `assets/pro-style.css` hanya dipreload tetapi tidak diterapkan sebagai stylesheet, sementara `pro-app.min.js` bergantung pada file tersebut.
 - `index.html` sekarang memuat `pro-style.css` sebagai stylesheet aktif.
-- Cache `sw.js` dinaikkan ke `eduma-kaigo-v86-homepage-fix-1` dan `service-worker.js` ke `nihonggo-pro-v123` agar browser tidak mempertahankan homepage lama.
+- Cache `sw.js` dinaikkan ke `eduma-kaigo-v86-homepage-fix-1` dan `service-worker.js` ke `nihongo-pro-v123` agar browser tidak mempertahankan homepage lama.
 - Hotfix kedua menambahkan critical CSS untuk menutup panel `pro-app` sebelum dibuka, membersihkan registrasi/cache PWA lama khusus pada localhost, dan menonaktifkan registrasi Service Worker saat pengembangan lokal.
-- Cache produksi selanjutnya dinaikkan ke `eduma-kaigo-v86-homepage-fix-2` dan `nihonggo-pro-v124`.
+- Cache produksi selanjutnya dinaikkan ke `eduma-kaigo-v86-homepage-fix-2` dan `nihongo-pro-v124`.
 
 ### Fitur baru
 
@@ -35,7 +35,7 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 - `assets/np-xp.js` — activity tracking terpusat tanpa mengubah sumber kebenaran XP `np-dash-v3`.
 - `assets/np-materi-progress.js` — pencatatan membuka dan menyelesaikan materi.
 - `sw.js` — cache `eduma-kaigo-v85` dinaikkan ke `eduma-kaigo-v86` dan aset dashboard baru diprecache.
-- `service-worker.js` — cache `nihonggo-pro-v121` dinaikkan ke `nihonggo-pro-v122` dan aset dashboard baru diprecache.
+- `service-worker.js` — cache `nihongo-pro-v121` dinaikkan ke `nihongo-pro-v122` dan aset dashboard baru diprecache.
 - `Blog.html` — 13 tautan JavaScript-only diberi URL/fragment nyata agar tetap berfungsi sebagai progressive enhancement dan validator strict bersih.
 
 ### Migrasi data
@@ -1009,7 +1009,7 @@ Menindaklanjuti field yang sengaja dikosongkan di v173 (`kaigoExample`, `aliases
 - `create-payment.js` — risiko **lebih serius**: domain asing bisa memicu pembuatan transaksi Midtrans atas nama situs ini
 - `livekit-token.js` — risiko: domain asing membuat token akses kelas live
 
-**Perbaikan**: whitelist origin (`nihonggopro.id` + localhost dev) diterapkan konsisten di ketiganya. Diverifikasi via test logic terisolasi: origin resmi tetap diizinkan apa adanya, origin asing SELALU di-fallback ke origin resmi (bukan diizinkan) — cara kerja CORS untuk memblokir cross-origin request tak dikenal.
+**Perbaikan**: whitelist origin (`nihongopro.id` + localhost dev) diterapkan konsisten di ketiganya. Diverifikasi via test logic terisolasi: origin resmi tetap diizinkan apa adanya, origin asing SELALU di-fallback ke origin resmi (bukan diizinkan) — cara kerja CORS untuk memblokir cross-origin request tak dikenal.
 
 ### 🐛 Bug konfigurasi ditemukan & diperbaiki sendiri sebelum jadi masalah nyata
 Saat memperbaiki `netlify.toml` (`command = ""` → `command = "npm ci"` sesuai rekomendasi dokumen), disadari **`package-lock.json` tidak ada** — kalau perubahan itu disimpan begitu saja, **setiap deploy akan gagal total** (`npm ci` mensyaratkan lock file valid). Digenerate `package-lock.json` baru, lalu **diverifikasi nyata** dengan menjalankan `npm ci` dari nol — berhasil, 13 paket ter-install, 0 vulnerability.
@@ -1411,7 +1411,7 @@ Field `aliases` sebelumnya kosong di 116/123 istilah (dicatat jujur di komentar 
 11 tab lengkap sesuai spesifikasi: 概要 (ringkasan), 解剖 (anatomi 4 ruang jantung + katup + arteri koroner), 生理 (fisiologi — diagram alur sirkulasi pulmonal & sistemik persis seperti dicontohkan: ventrikel kanan→paru-paru→atrium kiri, dan ventrikel kiri→tubuh→atrium kanan), 加齢変化 (perubahan penuaan: arteriosklerosis, elastisitas otot jantung menurun, dst), 疾患 (4 penyakit umum: hipertensi, gagal jantung, infark miokard, aritmia), 症状 (7 gejala + kondisi darurat), 観察 (6 poin observasi caregiver), 介護 (tindakan perawatan + kapan harus melapor), 用語 (tabel kosakata + 3 kalimat klinis), クイズ (mini kuis 3 soal dengan proteksi double-answer), 症例 (Clinical Case Simulator: skenario lansia dengan gejala gagal jantung, 3 pertanyaan interaktif, penjelasan lengkap).
 
 ### 🐛 Bug kritis ditemukan & diperbaiki via verifikasi fungsional
-Uji Playwright pertama menunjukkan **0 dari 11 tab terdeteksi** — investigasi mengungkap: `kyoto-navbar.js` punya mekanisme yang SENGAJA menghapus semua tag `<nav>` di halaman (`document.querySelectorAll('nav:not(.dash-nav):not(.ai-nav)').forEach(el => el.remove())`) sebagai pembersihan navbar lama sebelum migrasi — perilaku ini benar untuk file lain, tapi kontainer tab baru ini juga ditulis sebagai `<nav id="organTabs">`, sehingga IKUT TERHAPUS sebagai korban tak sengaja. Diperbaiki: diganti ke `<div role="tablist">` (tetap aksesibel, tidak butuh tag semantik `<nav>` karena bukan navigasi situs). **Pelajaran dicatat untuk halaman organ berikutnya**: selalu pakai `<div>`, tidak pernah `<nav>`, untuk elemen non-navbar-utama di halaman NihonggoPro.
+Uji Playwright pertama menunjukkan **0 dari 11 tab terdeteksi** — investigasi mengungkap: `kyoto-navbar.js` punya mekanisme yang SENGAJA menghapus semua tag `<nav>` di halaman (`document.querySelectorAll('nav:not(.dash-nav):not(.ai-nav)').forEach(el => el.remove())`) sebagai pembersihan navbar lama sebelum migrasi — perilaku ini benar untuk file lain, tapi kontainer tab baru ini juga ditulis sebagai `<nav id="organTabs">`, sehingga IKUT TERHAPUS sebagai korban tak sengaja. Diperbaiki: diganti ke `<div role="tablist">` (tetap aksesibel, tidak butuh tag semantik `<nav>` karena bukan navigasi situs). **Pelajaran dicatat untuk halaman organ berikutnya**: selalu pakai `<div>`, tidak pernah `<nav>`, untuk elemen non-navbar-utama di halaman NihongoPro.
 
 ### Bug lain ditemukan validator otomatis, diperbaiki
 - Path asset salah (`assets/env.js` seharusnya `../assets/env.js` — file berada di `Materi/`, bukan root).
@@ -2579,7 +2579,7 @@ Audit awal menemukan tab Penyakit SUDAH diperdalam dengan baik pada sesi kerja t
 
 ### 🎉 MILESTONE PROYEK: SELURUH 11 ORGAN TRILOGI ANATOMI SELESAI
 
-Dengan selesainya Sistem Reproduksi, seluruh 11 organ tubuh manusia kini memiliki trilogi 3-level lengkap (Dasar, Menengah, Lanjutan) di NihonggoPro:
+Dengan selesainya Sistem Reproduksi, seluruh 11 organ tubuh manusia kini memiliki trilogi 3-level lengkap (Dasar, Menengah, Lanjutan) di NihongoPro:
 
 1. ✅ Kardiovaskular
 2. ✅ Saraf
@@ -3069,12 +3069,12 @@ Entry `/service-worker.js` dengan header identik genuinely muncul DUA KALI di ar
 5. Hapus duplikasi entry `/service-worker.js`.
 
 ### Temuan #2: CORS wildcard di fungsi serverless Vercel
-`api/ai-chat.js` (fungsi Vercel yang memanggil API AI berbayar Anthropic/OpenAI/Gemini dengan API key server-side) genuinely memakai `Access-Control-Allow-Origin: '*'` -- mengizinkan situs MANAPUN memanggil endpoint dari browser pengguna. Meski dilindungi rate-limit internal (mengurangi tapi tidak menghilangkan risiko resource-abuse/quota-theft), ini genuinely tidak konsisten dengan kebijakan `_headers`-nya Netlify yang membatasi origin ke `https://nihonggopro.id`.
+`api/ai-chat.js` (fungsi Vercel yang memanggil API AI berbayar Anthropic/OpenAI/Gemini dengan API key server-side) genuinely memakai `Access-Control-Allow-Origin: '*'` -- mengizinkan situs MANAPUN memanggil endpoint dari browser pengguna. Meski dilindungi rate-limit internal (mengurangi tapi tidak menghilangkan risiko resource-abuse/quota-theft), ini genuinely tidak konsisten dengan kebijakan `_headers`-nya Netlify yang membatasi origin ke `https://nihongopro.id`.
 
-Investigasi lebih dalam menemukan `netlify/functions/ai-chat.js` (versi Netlify dari fungsi yang SAMA) GENUINELY SUDAH DIPERBAIKI dari wildcard yang sama persis di sesi sebelumnya -- komentar in-file eksplisit menyebut "Dulu Access-Control-Allow-Origin: '*'... Sekarang hanya origin resmi NihonggoPro (+ localhost untuk pengembangan) yang diizinkan", dengan implementasi dynamic origin validation (`ALLOWED_ORIGINS` whitelist + `corsHeadersFor()` + header `Vary: Origin` untuk caching yang benar) -- versi Vercel genuinely tertinggal, tidak ikut diperbaiki saat itu.
+Investigasi lebih dalam menemukan `netlify/functions/ai-chat.js` (versi Netlify dari fungsi yang SAMA) GENUINELY SUDAH DIPERBAIKI dari wildcard yang sama persis di sesi sebelumnya -- komentar in-file eksplisit menyebut "Dulu Access-Control-Allow-Origin: '*'... Sekarang hanya origin resmi NihongoPro (+ localhost untuk pengembangan) yang diizinkan", dengan implementasi dynamic origin validation (`ALLOWED_ORIGINS` whitelist + `corsHeadersFor()` + header `Vary: Origin` untuk caching yang benar) -- versi Vercel genuinely tertinggal, tidak ikut diperbaiki saat itu.
 
 ### Perbaikan `api/ai-chat.js`
-Pola `corsHeadersFor()` dari `netlify/functions/ai-chat.js` disalin PERSIS (disesuaikan API Vercel: `req.headers` bukan `event.headers`) -- whitelist origin (`nihonggopro.id`, `www.nihonggopro.id`, localhost dev), header `Vary: Origin`. `CORS` yang sebelumnya konstanta top-level statis diubah jadi variabel lokal di dalam `handler`, dihitung dinamis per-request berdasarkan origin pemanggil.
+Pola `corsHeadersFor()` dari `netlify/functions/ai-chat.js` disalin PERSIS (disesuaikan API Vercel: `req.headers` bukan `event.headers`) -- whitelist origin (`nihongopro.id`, `www.nihongopro.id`, localhost dev), header `Vary: Origin`. `CORS` yang sebelumnya konstanta top-level statis diubah jadi variabel lokal di dalam `handler`, dihitung dinamis per-request berdasarkan origin pemanggil.
 
 ### Verifikasi
 - `vercel.json` dikonfirmasi tetap JSON valid setelah edit (`python3 -m json.tool`).
@@ -3104,7 +3104,7 @@ Diperbaiki dengan `aria-label` deskriptif per-konteks: "Tutup chatbot AI", "Tutu
 ### Dukungan keyboard Escape: hanya command palette yang bisa ditutup, 5 panel lain tidak
 Audit event listener `keydown` global di `pro-app.js` menemukan HANYA command palette (`Ctrl/Cmd+K`) yang genuinely punya dukungan `Escape` untuk menutup -- keenam panel lain (termasuk chat, search, dsb yang baru diperbaiki ARIA label-nya) TIDAK BISA ditutup dengan `Escape` sama sekali, memaksa pengguna keyboard-only/screen reader mencari tombol close secara manual via Tab, atau berpotensi "terjebak" di dalam panel tanpa cara keluar yang jelas.
 
-Diperbaiki dengan memperluas listener `Escape` yang sudah ada -- ditambahkan pengecekan terhadap 6 selector panel (`.nihongo-a11y-panel`, `.nihongo-chat-panel`, `.nihongo-collab-panel`, `.nihongo-reco-panel`, `.nihongo-search-panel`, `.nihonggo-pro-panel`), menutup panel manapun yang genuinely sedang terbuka -- pola satu listener terpusat, bukan menambah listener terpisah per-panel (lebih mudah dipelihara, konsisten dengan arsitektur yang sudah ada).
+Diperbaiki dengan memperluas listener `Escape` yang sudah ada -- ditambahkan pengecekan terhadap 6 selector panel (`.nihongo-a11y-panel`, `.nihongo-chat-panel`, `.nihongo-collab-panel`, `.nihongo-reco-panel`, `.nihongo-search-panel`, `.nihongo-pro-panel`), menutup panel manapun yang genuinely sedang terbuka -- pola satu listener terpusat, bukan menambah listener terpisah per-panel (lebih mudah dipelihara, konsisten dengan arsitektur yang sudah ada).
 
 ### Verifikasi menyeluruh (Playwright)
 - `Kelas-Online.html`: 0 error JS, body ter-render lengkap (349KB, meski div-balance regex melaporkan tidak seimbang -- dikonfirmasi PRE-EXISTING, area yang diedit genuinely tidak mengandung tag `<div>` sama sekali), `previewChatImage()` dikonfirmasi genuinely menghasilkan modal dengan `role="dialog"`, `aria-label`, dan `alt` yang benar.
@@ -3866,7 +3866,7 @@ Ini genuinely temuan performa berdampak PALING BESAR sepanjang seluruh riwayat a
 Pemetaan seluruh referensi `kyoto-navbar.min.css/js?v=20260623` mengonfirmasi SELURUH 366 halaman yang memuat file ini GENUINELY memakai versi query-string yang identik -- tidak ada halaman tertinggal dengan versi lama. File shared lain (`kyoto-bundle.min.css`, `kyoto-theme.js`, `np-xp.js`, dll) dikonfirmasi TIDAK memakai query-string, namun diverifikasi ini GENUINELY BUKAN bug -- file-file ini masuk daftar `PRECACHE` di `sw.js`, di mana invalidasi genuinely dikontrol oleh nama `CACHE` global (di-bump setiap deploy) yang menghapus SELURUH cache lama di event `activate`, bukan per-file query-string. Kedua strategi (query-string untuk beberapa file, precache-global untuk file lain) dikonfirmasi genuinely valid dan tidak saling bertentangan.
 
 ### Temuan utama: `service-worker.js` adalah file MATI TOTAL yang rutin di-bump versi sia-sia
-Pencarian sistematis (`grep -rl "register('/service-worker.js')"`) terhadap SELURUH 373 halaman mengonfirmasi GENUINELY 0 halaman mendaftarkan file ini secara langsung -- kontras dengan `sw.js` yang GENUINELY didaftarkan 366 halaman. Version bump untuk `service-worker.js` (`nihonggo-pro-v1` hingga `v209`, dilakukan di SETIAP sesi deploy sepanjang riwayat proyek) genuinely SIA-SIA jika file ini genuinely tidak pernah dipakai.
+Pencarian sistematis (`grep -rl "register('/service-worker.js')"`) terhadap SELURUH 373 halaman mengonfirmasi GENUINELY 0 halaman mendaftarkan file ini secara langsung -- kontras dengan `sw.js` yang GENUINELY didaftarkan 366 halaman. Version bump untuk `service-worker.js` (`nihongo-pro-v1` hingga `v209`, dilakukan di SETIAP sesi deploy sepanjang riwayat proyek) genuinely SIA-SIA jika file ini genuinely tidak pernah dipakai.
 
 ### Investigasi lanjutan mengungkap kebenaran lebih kompleks: file ini GENUINELY dipakai, tapi menciptakan race condition berbahaya
 Pencarian diperluas ke file non-HTML menemukan `assets/pro-app.js` (dan `.min.js`) GENUINELY mendaftarkan `service-worker.js` secara terpisah dari registrasi `/sw.js` yang sudah ada di banyak halaman -- mengubah kesimpulan awal (dead file) menjadi GENUINELY LEBIH SERIUS: dual-registration aktif.
@@ -3939,7 +3939,7 @@ Investigasi arsitektur `platform.js` mengonfirmasi pola state management: `_stat
 Simulasi Playwright dengan SATU browser context dan DUA tab (halaman sama, `window.NP.State` module genuine, bukan localStorage langsung): Tab 1 dan Tab 2 dibuka bersamaan (XP awal 110). Tab 1 menambah 50 XP (jadi 160, tersimpan ke localStorage). Tab 2 (masih memegang `_state` in-memory LAMA dari saat dibuka, 110 XP) kemudian menambah 25 XP -- GENUINELY menghasilkan localStorage akhir 135 (110+25), BUKAN 185 (160+25) yang seharusnya jika kedua update tersimpan. Update Tab 1 (+50 XP, senilai 25 poin bersih setelah dikurangi overwrite) GENUINELY HILANG secara diam-diam -- dikonfirmasi angka presisi via pengukuran genuine, bukan estimasi.
 
 ### Skala dampak: 221 halaman proyek berisiko
-Pencarian sistematis (`grep -rl "platform.js"`) mengonfirmasi 221 halaman total memuat script ini -- pengguna yang genuinely membuka lebih dari satu tab NihonggoPro secara bersamaan (skenario umum: membuka materi belajar di satu tab, Dashboard di tab lain untuk cek progress) berisiko mengalami kehilangan XP/streak/progress secara senyap tanpa pesan error apapun.
+Pencarian sistematis (`grep -rl "platform.js"`) mengonfirmasi 221 halaman total memuat script ini -- pengguna yang genuinely membuka lebih dari satu tab NihongoPro secara bersamaan (skenario umum: membuka materi belajar di satu tab, Dashboard di tab lain untuk cek progress) berisiko mengalami kehilangan XP/streak/progress secara senyap tanpa pesan error apapun.
 
 ### Perbaikan: sinkronisasi lintas-tab via mekanisme browser standar
 `window.addEventListener('storage', ...)` ditambahkan ke `platform.js` dan `.min.js` -- event `storage` browser GENUINELY hanya terpicu di tab LAIN (bukan tab yang menulis), dipakai untuk me-reload `_state` dari `e.newValue` setiap kali tab lain menyimpan perubahan ke `STATE_KEY`, memastikan tab manapun tidak pernah menimpa dengan versi stale. Pendekatan ini genuinely idiomatik dan minimal-invasif -- tidak mengubah struktur `_state` maupun fungsi-fungsi yang sudah ada, hanya menambah lapisan sinkronisasi pasif.
@@ -4259,8 +4259,8 @@ Sesi pengembangan yang dimaksudkan sebagai peningkatan UX sederhana (menghubungk
 
 **Konteks**: Prioritas 3 (terakhir) dari plan pengembangan Kelas Online -- melengkapi integrasi platform (v277 XP, v278 ringkasan sesi) dengan mengaitkan jumlah kuis yang dijawab benar/salah di kelas live ke statistik `quizTotal` pada sistem progress utama (`np-state-v3`), yang genuinely dipakai fitur achievement (`quiz_10`, `quiz_100`) dan kemungkinan Dashboard.
 
-### Investigasi API: NihonggoProgress.logActivity() ditemukan sebagai kontrak yang GENUINELY tepat
-Berbeda dari v277 (yang genuinely butuh 5 lapis debugging untuk menemukan API yang benar), sesi ini GENUINELY langsung menemukan API yang tepat dari pembacaan struktur `platform.js`: `NihonggoProgress.logActivity(type, label)` -- method yang secara eksplisit menangani `type: 'quiz'` (menambah `quizTotal`) dan `markStudyToday()` otomatis, terpisah dari `NP.State.addXP` yang genuinely hanya untuk poin XP.
+### Investigasi API: NihongoProgress.logActivity() ditemukan sebagai kontrak yang GENUINELY tepat
+Berbeda dari v277 (yang genuinely butuh 5 lapis debugging untuk menemukan API yang benar), sesi ini GENUINELY langsung menemukan API yang tepat dari pembacaan struktur `platform.js`: `NihongoProgress.logActivity(type, label)` -- method yang secara eksplisit menangani `type: 'quiz'` (menambah `quizTotal`) dan `markStudyToday()` otomatis, terpisah dari `NP.State.addXP` yang genuinely hanya untuk poin XP.
 
 ### Temuan risiko KRITIS ditemukan SEBELUM implementasi (bukan sesudah): recordAns() dipanggil untuk SEMUA peserta, bukan hanya lokal
 Investigasi titik integrasi (`window.recordAns`, sudah di-patch v182 untuk bug fix XP sebelumnya) mengonfirmasi fungsi ini GENUINELY dipanggil dari DUA jalur: (1) event data-channel `'quiz-ans'` yang diterima SETIAP kali PESERTA MANAPUN menjawab (broadcast P2P, diterima semua partisipan termasuk yang bukan penjawab), dan (2) pemanggilan lokal khusus host mencatat jawabannya sendiri. Tanpa penanganan khusus, menambahkan `logActivity('quiz', ...)` langsung di titik ini GENUINELY akan mencatat progress kuis milik PESERTA LAIN sebagai milik pengguna lokal -- bug data attribution yang serius, ditemukan dan dicegah SEBELUM kode ditulis (bukan ditemukan lewat debugging setelah bug terjadi, pola yang beda dari v277/v278).
@@ -5098,7 +5098,7 @@ Investigasi `addPart()` (`scores[name]=scores[name]||0`) mengungkap celah yang G
 Berbeda dari v304 (yang secara sadar membatasi cakupan hanya ke `qAnswers`), sesi ini memperbaiki SELURUH sistem `scores` mengingat tingkat keparahan yang lebih tinggi: (1) `addPart()` -- inisialisasi `scores[id]` bukan `scores[name]`; (2) `recordAns()` -- akumulasi skor memakai `answerKey` (sama dengan kunci `qAnswers`, konsisten); (3-4) DUA leaderboard (`renderQResults()`, tampilan akhir sesi) -- mencari nama dari `participants` berdasarkan id untuk tampilan, bukan lagi memakai kunci `scores` langsung sebagai nama; (5) `exportScores()` (CSV) -- pola pencarian nama identik; (6) inisialisasi skor diri sendiri di `enterRoom()` -- diubah dari `scores[myName]` menjadi `scores['local']`, konsisten dengan `id:'local'` yang dipakai `participants` untuk merepresentasikan diri sendiri.
 
 ### Bug REGRESI ditemukan dan diperbaiki DALAM sesi yang sama: mismatch kunci untuk host sendiri
-Verifikasi lanjutan (sebelum sempat dianggap selesai) menemukan bug BARU yang GENUINELY saya perkenalkan sendiri: `answerQ()`/`submitFill()` mengirim `myPid` (peer ID sungguhan, mis. `"nihonggopro-ABC123"`) ke `recordAns()` untuk SEMUA kasus -- termasuk saat DIRI SENDIRI (host) menjawab. Namun `scores['local']` (diinisialisasi `enterRoom()`) genuinely memakai kunci `'local'`, BUKAN peer ID sungguhan -- mismatch ini menyebabkan skor host sendiri tersimpan di kunci yang GENUINELY BERBEDA dari yang dicari `renderParts()` (`scores[p.id]`, dan `p.id` untuk diri sendiri adalah `'local'`). Dibuktikan konkret: `scores['local']` tetap 0 sementara `scores['nihonggopro-ABC123']` mendapat 10 -- host TIDAK PERNAH melihat skornya sendiri bertambah di tampilan, meski genuinely tersimpan di suatu tempat. Diperbaiki dengan MEMISAHKAN `pid` untuk broadcast (peer ID sungguhan, relevan bagi PENERIMA lain) dari `pid` untuk pemanggilan LOKAL `recordAns()` (harus `'local'`, konsisten dengan skema id diri sendiri).
+Verifikasi lanjutan (sebelum sempat dianggap selesai) menemukan bug BARU yang GENUINELY saya perkenalkan sendiri: `answerQ()`/`submitFill()` mengirim `myPid` (peer ID sungguhan, mis. `"nihongopro-ABC123"`) ke `recordAns()` untuk SEMUA kasus -- termasuk saat DIRI SENDIRI (host) menjawab. Namun `scores['local']` (diinisialisasi `enterRoom()`) genuinely memakai kunci `'local'`, BUKAN peer ID sungguhan -- mismatch ini menyebabkan skor host sendiri tersimpan di kunci yang GENUINELY BERBEDA dari yang dicari `renderParts()` (`scores[p.id]`, dan `p.id` untuk diri sendiri adalah `'local'`). Dibuktikan konkret: `scores['local']` tetap 0 sementara `scores['nihongopro-ABC123']` mendapat 10 -- host TIDAK PERNAH melihat skornya sendiri bertambah di tampilan, meski genuinely tersimpan di suatu tempat. Diperbaiki dengan MEMISAHKAN `pid` untuk broadcast (peer ID sungguhan, relevan bagi PENERIMA lain) dari `pid` untuk pemanggilan LOKAL `recordAns()` (harus `'local'`, konsisten dengan skema id diri sendiri).
 
 ### Verifikasi menyeluruh: 4 skenario, mencakup kebocoran, regresi diri sendiri, tampilan, dan independensi skor
 - `node --check` valid untuk seluruh script inline di setiap tahap perbaikan.
@@ -5986,7 +5986,7 @@ Sesi ini menetapkan pemeriksaan struktur form sebagai LANGKAH STANDAR baru dalam
 Dikonfirmasi `Premium.html` GENUINELY 0 tag `<form>`, div-balance seimbang (opens=206, closes=206).
 
 ### Pemetaan mengungkap model bisnis genuine: tanpa checkout otomatis
-Diperiksa seluruh CTA -- GENUINELY seluruh tombol paket berbayar (Pro Bulanan, Pro Tahunan) mengarah ke `mailto:hello@nihonggopro.id`, BUKAN integrasi payment gateway. Dikonfirmasi "Midtrans" genuinely 0 hasil di seluruh JavaScript proyek (`pro-app.min.js` dan lainnya) -- membuktikan platform genuinely memakai model manual (kontak email untuk berlangganan), bukan checkout otomatis.
+Diperiksa seluruh CTA -- GENUINELY seluruh tombol paket berbayar (Pro Bulanan, Pro Tahunan) mengarah ke `mailto:hello@nihongopro.id`, BUKAN integrasi payment gateway. Dikonfirmasi "Midtrans" genuinely 0 hasil di seluruh JavaScript proyek (`pro-app.min.js` dan lainnya) -- membuktikan platform genuinely memakai model manual (kontak email untuk berlangganan), bukan checkout otomatis.
 
 ### Celah nyata ditemukan: teks mengklaim proses yang genuinely tidak terjadi
 Ditemukan section "Metode Pembayaran" GENUINELY mengklaim "Pembayaran diproses via Midtrans" dan "akses Premium aktif dalam <5 menit" -- klaim yang GENUINELY TIDAK SESUAI dengan perilaku CTA sesungguhnya (email manual, memerlukan respons manusia, bukan otomatis). Ini genuinely inkonsistensi konten yang berpotensi mengecewakan pengguna yang mengharapkan aktivasi instan setelah pembayaran self-service.
@@ -6227,7 +6227,7 @@ Diuji membuka link verifikasi (`?id=NP-N5-999999`) dari browser GENUINELY bersih
 Dikonfirmasi tidak ada backend function terkait sertifikat di `netlify/functions/` -- desain client-side-only genuinely disengaja, bukan bug implementasi yang lupa menyambungkan API. Memperbaiki arsitektur penuh (memerlukan backend/database untuk verifikasi lintas-perangkat) GENUINELY di luar cakupan yang aman diselesaikan hanya di sisi frontend. Perbaikan difokuskan pada bagian yang genuinely dalam kendali: KEJUJURAN PESAN.
 
 ### Perbaikan: pesan "Tidak Ditemukan" diubah agar jujur tentang keterbatasan
-Diubah judul "Tidak Ditemukan" menjadi "Tidak Ditemukan **di Perangkat Ini**", dan pesan "Pastikan ID dimasukkan dengan benar" (menyalahkan input) diganti dengan penjelasan genuinely jujur tentang keterbatasan verifikasi lokal, disertai arahan untuk menghubungi Nihonggo Pro Academy untuk verifikasi manual jika sertifikat genuinely diterbitkan di perangkat/akun lain.
+Diubah judul "Tidak Ditemukan" menjadi "Tidak Ditemukan **di Perangkat Ini**", dan pesan "Pastikan ID dimasukkan dengan benar" (menyalahkan input) diganti dengan penjelasan genuinely jujur tentang keterbatasan verifikasi lokal, disertai arahan untuk menghubungi Nihongo Pro Academy untuk verifikasi manual jika sertifikat genuinely diterbitkan di perangkat/akun lain.
 
 ### Verifikasi menyeluruh: 2 skenario, membuktikan perbaikan dan regresi
 - Div-balance dikonfirmasi TETAP seimbang setelah perbaikan (26=26).
@@ -7410,7 +7410,7 @@ Dua kasus yang awalnya terlihat seperti gap diinvestigasi dan dikonfirmasi GENUI
 
 ### Item 2: Audit CSP -- verifikasi independen terhadap klaim "sudah diverifikasi menyeluruh"
 Mengingat komentar `netlify.toml` genuinely mengklaim CSP "diverifikasi via grep menyeluruh, bukan asumsi", dilakukan verifikasi INDEPENDEN: diekstrak seluruh domain dipakai di kode (26 domain) dan dibandingkan dengan whitelist CSP -- ditemukan 14 domain "tidak tercakup". Diinvestigasi SATU PER SATU (bukan langsung disimpulkan sebagai 14 celah):
-- 11 domain GENUINELY FALSE-POSITIF: navigasi `<a href target="_blank">` biasa (jisho.org, youtube.com, instagram.com), `window.open()` untuk WhatsApp (wa.me), `.href` link biasa (kanji.sljfaq.org), komentar dokumentasi developer (dashboard.sandbox.midtrans.com, web-push-codelab.glitch.me, cloud.livekit.io, www.metered.ca), atau referensi domain/skema milik situs sendiri (nihonggopro.id, www.nihonggopro.id, schema.org) -- semuanya GENUINELY TIDAK MEMBUTUHKAN CSP whitelist karena bukan `fetch()`/`script src`/`iframe`.
+- 11 domain GENUINELY FALSE-POSITIF: navigasi `<a href target="_blank">` biasa (jisho.org, youtube.com, instagram.com), `window.open()` untuk WhatsApp (wa.me), `.href` link biasa (kanji.sljfaq.org), komentar dokumentasi developer (dashboard.sandbox.midtrans.com, web-push-codelab.glitch.me, cloud.livekit.io, www.metered.ca), atau referensi domain/skema milik situs sendiri (nihongopro.id, www.nihongopro.id, schema.org) -- semuanya GENUINELY TIDAK MEMBUTUHKAN CSP whitelist karena bukan `fetch()`/`script src`/`iframe`.
 
 ### Celah nyata ditemukan: Firebase Auth dynamic import genuinely tidak tercakup CSP
 `www.gstatic.com` GENUINELY DIKONFIRMASI dipanggil via `import()` dynamic SUNGGUHAN di `assets/index-page.js` (fungsi `getFirebaseAuth()`), untuk memuat Firebase SDK -- fitur OPSIONAL yang GENUINELY DIDOKUMENTASIKAN sebagai jalur produksi (diaktifkan via `window.NIHONGO_FIREBASE_CONFIG`, dengan pesan alert eksplisit mengarahkan admin untuk mengonfigurasinya). Domain ini GENUINELY TIDAK ADA di CSP manapun -- jika fitur ini diaktifkan di produksi, dynamic import akan diblokir CSP secara DIAM-DIAM (hanya `console.warn`, tidak ada pesan jelas ke pengguna).
@@ -7447,7 +7447,7 @@ Dipetakan sistematis seluruh 6 aset ber-versi (`?v=N`) di `CORE_ASSETS` terhadap
 Diganti 3 entri sia-sia dengan versi `.min.` yang genuinely benar. NAMUN, `str_replace` PERTAMA genuinely SECARA TIDAK SENGAJA MENGHAPUS 4 baris lain yang seharusnya tetap ada (`AI-Tutor-Page/AI.html`, `QUIZ/nihongo-pro.html`, `pro-style.css`, `neko-theme.css?v=3`) -- ditemukan segera via pemeriksaan `view` file lengkap SEBELUM melanjutkan ke langkah berikutnya, dan dikoreksi dengan mengembalikan baris yang genuinely hilang.
 
 ### Versi CACHE_NAME di-increment
-`nihonggo-pro-v209` -> `v210`, GENUINELY DIPERLUKAN agar service worker browser pengguna mendeteksi update dan menjalankan ulang precache dengan daftar yang sudah diperbaiki (tanpa increment, browser akan terus memakai cache lama tanpa pernah menerima perubahan).
+`nihongo-pro-v209` -> `v210`, GENUINELY DIPERLUKAN agar service worker browser pengguna mendeteksi update dan menjalankan ulang precache dengan daftar yang sudah diperbaiki (tanpa increment, browser akan terus memakai cache lama tanpa pernah menerima perubahan).
 
 ### Verifikasi menyeluruh dengan koreksi kedua atas kesalahan metodologi verifikasi sendiri
 Script verifikasi pertama genuinely melaporkan KONTRADIKSI (bagian satu bilang "sudah dihapus dengan benar", bagian lain bilang "masih ditemukan") -- diinvestigasi dan dikonfirmasi FALSE-POSITIF dari regex verifikasi sendiri yang genuinely menangkap teks nama file di DALAM KOMENTAR DOKUMENTASI (yang menyebutnya dalam kutip tunggal, identik dengan syntax array JS), bukan array genuine. Dikoreksi dengan mengecualikan komentar sebelum ekstraksi array -- GENUINELY 70 aset, 0 tidak ditemukan. Komentar juga disederhanakan agar tidak lagi menyebut nama file persis dalam kutip tunggal, mencegah kebingungan verifikasi otomatis di masa depan.
@@ -7963,7 +7963,7 @@ Dicari di seluruh 373 halaman: lorem ipsum (0), placeholder text generik/coming 
 - **11 `console.log` di Kelas-Online.html**: dikonfirmasi genuinely log status teknis (LiveKit/ICE/realtime/Supabase room_code), TANPA data sensitif, genuinely membantu debugging fitur WebRTC kompleks yang sudah diaudit ekstensif sebelumnya. Dipertahankan sebagai keputusan sadar, bukan dibersihkan -- manfaat developer melebihi risiko minimal.
 
 ### Celah nyata ditemukan: judul duplikat mengungkap halaman usang
-Dicari judul halaman (`<title>`) duplikat di seluruh 373 halaman -- GENUINELY DITEMUKAN 1 pasang: `Verify.html` dan `Certificate-Verify.html`, keduanya berjudul "Verifikasi Sertifikat — Nihonggo Pro Academy". Diinvestigasi lebih dalam: `Certificate-Pro.html` genuinely HANYA menautkan ke `Certificate-Verify.html` (2 kali, termasuk sebagai URL publik "nihonggopro.id/verify"), sementara `Verify.html` GENUINELY 0 LINK MASUK dari manapun di seluruh proyek -- mengonfirmasi halaman ini genuinely usang, digantikan `Certificate-Verify.html` yang lebih lengkap (214 vs 102 baris).
+Dicari judul halaman (`<title>`) duplikat di seluruh 373 halaman -- GENUINELY DITEMUKAN 1 pasang: `Verify.html` dan `Certificate-Verify.html`, keduanya berjudul "Verifikasi Sertifikat — Nihongo Pro Academy". Diinvestigasi lebih dalam: `Certificate-Pro.html` genuinely HANYA menautkan ke `Certificate-Verify.html` (2 kali, termasuk sebagai URL publik "nihongopro.id/verify"), sementara `Verify.html` GENUINELY 0 LINK MASUK dari manapun di seluruh proyek -- mengonfirmasi halaman ini genuinely usang, digantikan `Certificate-Verify.html` yang lebih lengkap (214 vs 102 baris).
 
 ### Perbaikan
 Ditambahkan redirect 301 dari `/Verify.html` ke `/Certificate-Verify.html` di `netlify.toml`, mengikuti pola yang sudah terbukti (`Progress.html`, Website v54) -- mengamankan bookmark/link eksternal lama, bukan menghapus file. Dikonfirmasi `robots.txt` sudah konsisten (Disallow untuk `Verify.html` sudah ada dari perbaikan Website v70 sebelumnya).
@@ -8010,7 +8010,7 @@ Sesi ini menegaskan bahwa audit performa tidak selalu berarti "menemukan banyak 
 **Konteks**: Fase DD (penutup plan) -- pemindaian sistematis seluruh link eksternal di 373 halaman untuk domain yang mungkin sudah mati/berubah.
 
 ### Inventarisasi menyeluruh
-Diekstrak seluruh 423 link `href="https://..."` unik di seluruh proyek -- GENUINELY DIKONFIRMASI 372 di antaranya genuinely domain sendiri (`nihonggopro.id`, link internal absolut), sisanya infrastruktur yang sudah diverifikasi sebelumnya (Google Fonts, cdnjs, Google Tag Manager, WhatsApp). Domain konten edukatif eksternal genuine yang memerlukan verifikasi: 25 domain.
+Diekstrak seluruh 423 link `href="https://..."` unik di seluruh proyek -- GENUINELY DIKONFIRMASI 372 di antaranya genuinely domain sendiri (`nihongopro.id`, link internal absolut), sisanya infrastruktur yang sudah diverifikasi sebelumnya (Google Fonts, cdnjs, Google Tag Manager, WhatsApp). Domain konten edukatif eksternal genuine yang memerlukan verifikasi: 25 domain.
 
 ### Verifikasi via web search: sampel representatif lintas spektrum
 Mengingat sandbox tidak dapat melakukan fetch bebas ke internet, dilakukan verifikasi via `web_search` untuk 6 domain yang mewakili spektrum situs besar hingga organisasi kecil non-profit: `nihongoconteppei.com` (podcast populer), `hukumusume.com` (koleksi cerita rakyat), `jlptsensei.com` (blog JLPT besar), `kanji.tools` (database kanji), `www.jlpt.jp` (situs resmi JLPT), `www3.nhk.or.jp/news/easy` (berita NHK), dan `tadoku.org` (organisasi non-profit kecil).

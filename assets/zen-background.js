@@ -1,4 +1,4 @@
-/* Nihonggo Pro Academy — Zen Background Builder (zen-background.js)
+/* Nihongo Pro Academy — Zen Background Builder (zen-background.js)
    Membangun layer taman zen (pegunungan, pasir, batu, lumut, torii).
    Statis (tanpa animasi) sesuai suasana "ketenangan". Idempoten & ringan. */
 (function () {

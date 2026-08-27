@@ -22,8 +22,8 @@ from kaigo_catalog import (  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'Materi', 'Kaigo.html')
-BASE_URL = 'https://nihonggopro.id'
-BRAND = 'Nihonggo Pro Academy'
+BASE_URL = 'https://nihongopro.id'
+BRAND = 'Nihongo Pro Academy'
 NL = '\n'
 
 

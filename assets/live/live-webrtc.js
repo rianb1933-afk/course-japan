@@ -1,5 +1,5 @@
 /**
- * live-webrtc.js — NihonggoPro Live Classroom
+ * live-webrtc.js — NihongoPro Live Classroom
  * WebRTC / PeerJS layer: camera, mic, screen share, connections
  * Requires: peerjs, EDUMA_ENV (from env.js)
  */
@@ -30,17 +30,17 @@ const LiveWebRTC = {
           { urls: 'stun:stun.cloudflare.com:3478' },
           {
             urls:       window.EDUMA_ENV?.TURN_URL        || 'turn:global.relay.metered.ca:80',
-            username:   window.EDUMA_ENV?.TURN_USERNAME   || 'nihonggopro',
+            username:   window.EDUMA_ENV?.TURN_USERNAME   || 'nihongopro',
             credential: window.EDUMA_ENV?.TURN_CREDENTIAL || 'kaigo2025',
           },
           {
             urls:       window.EDUMA_ENV?.TURN_URL_TCP    || 'turn:global.relay.metered.ca:80?transport=tcp',
-            username:   window.EDUMA_ENV?.TURN_USERNAME   || 'nihonggopro',
+            username:   window.EDUMA_ENV?.TURN_USERNAME   || 'nihongopro',
             credential: window.EDUMA_ENV?.TURN_CREDENTIAL || 'kaigo2025',
           },
           {
             urls:       window.EDUMA_ENV?.TURN_URL_TLS    || 'turns:global.relay.metered.ca:443?transport=tcp',
-            username:   window.EDUMA_ENV?.TURN_USERNAME   || 'nihonggopro',
+            username:   window.EDUMA_ENV?.TURN_USERNAME   || 'nihongopro',
             credential: window.EDUMA_ENV?.TURN_CREDENTIAL || 'kaigo2025',
           },
         ],

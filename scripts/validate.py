@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-NihonggoPro — Automated Site Validator
+NihongoPro — Automated Site Validator
 ========================================
 Consolidates every audit check performed manually during the v22-v26
 review cycles into one repeatable script. Run this before every deploy.
@@ -334,7 +334,7 @@ def check_broken_links():
 # ──────────────────────────────────────────────────────────────────
 # CHECK 4: Domain consistency in canonical / og:url / sitemap
 # ──────────────────────────────────────────────────────────────────
-CANONICAL_DOMAIN = 'nihonggopro.id'
+CANONICAL_DOMAIN = 'nihongopro.id'
 
 
 def check_domain_consistency():
@@ -627,7 +627,7 @@ def check_service_worker():
 # CHECK 12: Global object usage cross-referenced with script loading
 # ──────────────────────────────────────────────────────────────────
 GLOBAL_OBJECT_DEPENDENCIES = {
-    'NihonggoProgress': ('platform.min.js', 'platform.js'),
+    'NihongoProgress': ('platform.min.js', 'platform.js'),
     'NihongoAI': ('nihongo-ai.js',),
     'EDUMA_DATA': ('eduma-data.js',),
 }
@@ -639,11 +639,11 @@ def check_global_object_dependencies():
     for fpath in files:
         r = rel(fpath)
         c = read(fpath)
-        defines_own = re.search(r'(?:window|global)\.NihonggoProgress\s*=\s*\{', c)
+        defines_own = re.search(r'(?:window|global)\.NihongoProgress\s*=\s*\{', c)
         for obj_name, script_names in GLOBAL_OBJECT_DEPENDENCIES.items():
             if not re.search(r'\b' + obj_name + r'\b', c):
                 continue
-            if obj_name == 'NihonggoProgress' and defines_own:
+            if obj_name == 'NihongoProgress' and defines_own:
                 continue
             loaded = any(s in c for s in script_names) or any(
                 re.search(r'src="[^"]*' + re.escape(s.replace('.min', '')) + r'"', c) for s in script_names
@@ -1359,7 +1359,7 @@ def check_kaigo_catalog():
 
 
 def main():
-    print("🔍 NihonggoPro Site Validator\n" + "=" * 50)
+    print("🔍 NihongoPro Site Validator\n" + "=" * 50)
 
     checks = [
         check_links_and_assets,

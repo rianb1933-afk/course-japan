@@ -1,4 +1,4 @@
-/* Nihonggo Pro Academy — Skip-link (aksesibilitas keyboard, WCAG AA)
+/* Nihongo Pro Academy — Skip-link (aksesibilitas keyboard, WCAG AA)
    ───────────────────────────────────────────────────────────────────
    Menyuntikkan "Lewati ke konten utama" di awal <body> dan menandai
    landmark tujuan bila belum ada, tanpa mengubah HTML halaman. Aman

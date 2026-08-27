@@ -6,13 +6,13 @@
 <link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
 <meta name="theme-color" content="#6B4F3A">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Analitik Belajar – NihonggoPro</title>
-<link rel="canonical" href="https://nihonggopro.id/Analytics.html">
-<meta property="og:title" content="Analytics — Analisis Kemajuan Belajar | Nihonggo Pro">
+<title>Analitik Belajar – NihongoPro</title>
+<link rel="canonical" href="https://nihongopro.id/Analytics.html">
+<meta property="og:title" content="Analytics — Analisis Kemajuan Belajar | Nihongo Pro">
 <meta property="og:description" content="Pantau kemajuan belajar bahasa Jepang: aktivitas, kekuatan-kelemahan, prediksi JLPT, dan perbandingan.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://nihonggopro.id/Analytics.html">
-<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta property="og:url" content="https://nihongopro.id/Analytics.html">
+<meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <meta name="twitter:card" content="summary_large_image">
 
 <meta name="description" content="Dashboard analitik belajar bahasa Jepang Kaigo. Pantau waktu belajar, vocab, grammar, kanji, kelemahan, dan prediksi JLPT Anda.">
@@ -94,15 +94,15 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink)}
 .comp-avg{color:var(--ink3);width:44px;flex-shrink:0}
 .comp-label{width:80px;flex-shrink:0;font-weight:600}
 </style>
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"NihonggoPro Learning Analytics","description":"Dashboard analitik belajar bahasa Jepang Kaigo"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"NihongoPro Learning Analytics","description":"Dashboard analitik belajar bahasa Jepang Kaigo"}</script>
 <link rel="manifest" href="/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="NihonggoPro">
-<meta property="og:site_name" content="Nihonggo Pro Academy">
-<meta name="twitter:title" content="Analitik Belajar – NihonggoPro">
+<meta name="apple-mobile-web-app-title" content="NihongoPro">
+<meta property="og:site_name" content="Nihongo Pro Academy">
+<meta name="twitter:title" content="Analitik Belajar – NihongoPro">
 <meta name="twitter:description" content="Dashboard analitik belajar bahasa Jepang Kaigo. Pantau waktu belajar, vocab, grammar, kanji, kelemahan, dan prediksi JLPT Anda.">
-<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 </head>
 <body>
 
@@ -612,7 +612,7 @@ function exportReport() {
   const range = getRange(hist, _period);
   const totalMins = range.reduce((a,r)=>a+(r.data.minutes||0),0);
   const totalVocab = range.reduce((a,r)=>a+(r.data.vocab||0),0);
-  const report = `LAPORAN BELAJAR NihonggoPro
+  const report = `LAPORAN BELAJAR NihongoPro
 Periode: ${_period} hari (${new Date(Date.now()-_period*86400000).toLocaleDateString('id-ID')} – ${new Date().toLocaleDateString('id-ID')})
 ========================================
 Waktu Belajar Total: ${Math.floor(totalMins/60)} jam ${totalMins%60} menit
@@ -621,7 +621,7 @@ Grammar Dikuasai: ${range.reduce((a,r)=>a+(r.data.grammar||0),0)} pola
 Kanji Dipelajari: ${range.reduce((a,r)=>a+(r.data.kanji||0),0)} kanji
 Rata-rata Harian: ${Math.round(totalMins/_period)} menit
 ========================================
-Dibuat: ${new Date().toLocaleString('id-ID')} | NihonggoPro Academy`;
+Dibuat: ${new Date().toLocaleString('id-ID')} | NihongoPro Academy`;
 
   const a = document.createElement('a');
   a.href = 'data:text/plain,' + encodeURIComponent(report);
@@ -639,7 +639,7 @@ if('serviceWorker' in navigator){
         var w=r.installing;
         w.addEventListener('statechange',function(){
           if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
           }
         });
       });

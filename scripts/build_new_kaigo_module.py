@@ -183,14 +183,14 @@ def main():
 
     # 1. Title
     c = re.sub(r'<title>.*?</title>',
-               f'<title>{NEW_TITLE} | Nihonggo Pro Academy</title>', c, count=1)
+               f'<title>{NEW_TITLE} | Nihongo Pro Academy</title>', c, count=1)
     # 2. Description
     c = re.sub(r'(<meta name="description" content=")[^"]*(">)',
                lambda m: m.group(1) + NEW_DESC + m.group(2), c, count=1)
     # 3. Canonical + OG url + og:title + og image tetap
     c = c.replace('Kaigo-Ujian-N2.html', NEW_SLUG)
     c = re.sub(r'(<meta property="og:title" content=")[^"]*(">)',
-               lambda m: m.group(1) + NEW_TITLE + ' — Nihonggo Pro Academy' + m.group(2),
+               lambda m: m.group(1) + NEW_TITLE + ' — Nihongo Pro Academy' + m.group(2),
                c, count=1)
 
     # 4. Ganti PH_VOCAB

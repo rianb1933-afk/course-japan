@@ -1,5 +1,5 @@
 /**
- * env.js — NihonggoPro / Nihonggo Pro Academy
+ * env.js — NihongoPro / Nihongo Pro Academy
  * Konfigurasi environment untuk production.
  *
  * CARA MENGISI:
@@ -23,7 +23,7 @@
   window.EDUMA_ENV = Object.assign(
     {
       // ── SITE ──────────────────────────────────────────────────────────────
-      SITE_URL:            read("EDUMA_SITE_URL", "https://nihonggopro.id"),
+      SITE_URL:            read("EDUMA_SITE_URL", "https://nihongopro.id"),
 
       // ── ANALYTICS ─────────────────────────────────────────────────────────
       GA_MEASUREMENT_ID:   read("EDUMA_GA_MEASUREMENT_ID", ""),
@@ -63,7 +63,7 @@
       TURN_URL:            read("TURN_URL",         "turn:global.relay.metered.ca:80"),
       TURN_URL_TCP:        read("TURN_URL_TCP",     "turn:global.relay.metered.ca:80?transport=tcp"),
       TURN_URL_TLS:        read("TURN_URL_TLS",     "turns:global.relay.metered.ca:443?transport=tcp"),
-      TURN_USERNAME:       read("TURN_USERNAME",     "nihonggopro"),
+      TURN_USERNAME:       read("TURN_USERNAME",     "nihongopro"),
       TURN_CREDENTIAL:     read("TURN_CREDENTIAL",   "kaigo2025"),
 
       // ── PWA Push Notifications (optional) ────────────────────────────────

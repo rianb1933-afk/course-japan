@@ -1,4 +1,4 @@
-# Panduan Deploy dan Domain Nihonggo Pro Academy
+# Panduan Deploy dan Domain Nihongo Pro Academy
 
 Web ini sudah siap online sebagai static website. Pilihan termudah: Netlify atau Vercel.
 
@@ -6,8 +6,8 @@ Web ini sudah siap online sebagai static website. Pilihan termudah: Netlify atau
 
 Saya sarankan pilih salah satu nama berikut, lalu cek ketersediaannya di registrar seperti Niagahoster, Rumahweb, Namecheap, Cloudflare Registrar, atau Google Domains/Squarespace:
 
-- `nihonggopro-riyan.com`
-- `nihonggopro.id`
+- `nihongopro-riyan.com`
+- `nihongopro.id`
 - `belajarnihongo.id`
 - `riyansensei.com`
 - `jlptpro.id`
@@ -108,7 +108,7 @@ Setelah deploy, buka halaman `Platform-Features.html`, klik `Test AI`, atau buka
 
 ## Setelah Domain Aktif
 
-Domain default di metadata proyek ini memakai `https://nihonggopro.id`. Jika kamu memakai domain lain, ganti domain tersebut di:
+Domain default di metadata proyek ini memakai `https://nihongopro.id`. Jika kamu memakai domain lain, ganti domain tersebut di:
 
 - `robots.txt`
 - `sitemap.xml`

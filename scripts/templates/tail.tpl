@@ -69,7 +69,7 @@ if('serviceWorker' in navigator){
         const w = r.installing;
         w.addEventListener('statechange', () => {
           if(w.state === 'installed' && navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?')) location.reload();
           }
         });
       });

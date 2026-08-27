@@ -134,13 +134,13 @@ def js_vocab(vocab):
 
 def build_one(slug, spec, template):
     c = template
-    full_title = f'{spec["title"]} | Nihonggo Pro Academy'
+    full_title = f'{spec["title"]} | Nihongo Pro Academy'
     c = re.sub(r'<title>.*?</title>', f'<title>{full_title}</title>', c, count=1)
     c = re.sub(r'(<meta name="description" content=")[^"]*(">)',
                lambda m: m.group(1) + spec['desc'] + m.group(2), c, count=1)
     c = c.replace('Kaigo-Ujian-N2.html', slug)
     c = re.sub(r'(<meta property="og:title" content=")[^"]*(">)',
-               lambda m: m.group(1) + spec['title'] + ' — Nihonggo Pro Academy' + m.group(2), c, count=1)
+               lambda m: m.group(1) + spec['title'] + ' — Nihongo Pro Academy' + m.group(2), c, count=1)
     # Field-field ini luput diperbaiki di 3 batch Kaiwa sebelumnya (masih
     # membawa teks "Quiz Kaigo Level N2" dari template) -- diperbaiki di sini
     # supaya modul baru tidak mewarisi bug metadata sosial-share/JSON-LD yang sama.

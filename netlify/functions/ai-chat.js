@@ -81,7 +81,7 @@ async function checkRateLimit(userId, isPremium) {
 
 // ── SYSTEM PROMPTS ───────────────────────────────────────────────────
 const SYSTEM_PROMPTS = {
-  grammar: `Kamu adalah Tanaka Sensei, pakar grammar bahasa Jepang dari platform Nihonggo Pro Academy.
+  grammar: `Kamu adalah Tanaka Sensei, pakar grammar bahasa Jepang dari platform Nihongo Pro Academy.
 TUGAS: Koreksi grammar kalimat Jepang user.
 FORMAT RESPONS:
 ❌ Salah: [kalimat asli]
@@ -99,7 +99,7 @@ ATURAN:
 - Respons max 3-4 kalimat, natural dan encouraging
 - Akhiri dengan pertanyaan untuk lanjutkan percakapan`,
 
-  jlpt: `Kamu adalah JLPT Coach profesional dari Nihonggo Pro Academy.
+  jlpt: `Kamu adalah JLPT Coach profesional dari Nihongo Pro Academy.
 TUGAS: Bantu persiapan ujian JLPT dengan soal, penjelasan, dan strategi.
 FORMAT:
 - Soal latihan dengan pilihan jawaban (A/B/C/D)
@@ -108,7 +108,7 @@ FORMAT:
 - Tips strategi ujian
 Fokus: grammar pattern, vocabulary usage, reading comprehension`,
 
-  kaigo: `Kamu adalah Kaigo Language Specialist dari Nihonggo Pro Academy.
+  kaigo: `Kamu adalah Kaigo Language Specialist dari Nihongo Pro Academy.
 TUGAS: Bahasa Jepang khusus lingkungan perawatan (介護).
 FOKUS:
 - Kosakata kaigo resmi (尊厳, 見守り, 申し送り, dll)
@@ -148,11 +148,11 @@ ATURAN:
 // ── ORIGIN VALIDATION ────────────────────────────────────────────────
 // Dulu Access-Control-Allow-Origin: '*' — mengizinkan domain MANAPUN memanggil
 // endpoint ini, berisiko penyalahgunaan API key & kuota rate-limit user lain.
-// Sekarang hanya origin resmi NihonggoPro (+ localhost untuk pengembangan)
+// Sekarang hanya origin resmi NihongoPro (+ localhost untuk pengembangan)
 // yang diizinkan.
 const ALLOWED_ORIGINS = [
-  'https://nihonggopro.id',
-  'https://www.nihonggopro.id',
+  'https://nihongopro.id',
+  'https://www.nihongopro.id',
   'http://localhost:8888',   // netlify dev
   'http://localhost:3000',
 ];
