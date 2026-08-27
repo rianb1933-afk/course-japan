@@ -41,9 +41,11 @@ Klaim awal ("cuma 4-5 soal per halaman") ternyata melewatkan bahwa `Speaking-Pra
 
 **Masih berlaku**: `Speaking-Daily`, `Speaking-N2-N1` (ternyata cuma kuis vocab biasa, bukan speaking sungguhan meski namanya begitu), `Listening-Speaking` tetap dengan kuis 4-5 soal. `Speaking-AI.html`/`Pronunciation.html` di root menutupi sebagian lewat AI. Kalau mau diperluas lagi: pertimbangkan menambah lebih banyak halaman speech-recognition seperti pola `Speaking-Practice.html`, bukan sekadar tambah soal kuis pilihan ganda.
 
-### 🟡 3. Reading & Listening: 1 set soal per level, tanpa varian lanjutan
+### 🟡 3. Reading — sebagian diperbaiki (27 Agustus 2026), Listening masih terbuka
 
-Beda dari Grammar/Kosakata (yang punya Review/Tambahan/Lanjut per level → lebih banyak repetisi), `Reading-N*.html` dan `Listening-N*.html` masing-masing cuma **5-6 soal** per level, satu halaman, tanpa halaman "Reading-N3-Lanjut" dsb. Volume latihan jauh lebih sedikit dibanding skill lain untuk level yang sama.
+**Reading**: ditambahkan 1 bacaan baru + 2 soal ke tiap level N5-N1 (14 soal baru total, lihat `CHANGELOG.md` Website v98) — N5 6→8, N4 6→8, N3 5→7, N2 5→7, N1 5→7. Tiap bacaan baru bertopik berbeda dari yang sudah ada (undangan, ramalan cuaca, buku harian, esai teleworking, editorial demografi) sesuai kompleksitas levelnya.
+
+**Listening masih terbuka**: `Listening-N4.html`–`Listening-N1.html` masih 5-6 soal per level seperti sebelumnya (klaim awal "Listening-N5 0 soal" ternyata salah hitung — halaman itu genuinely pakai format `q:'...'` tanpa kutip berbeda dari yang lain, isinya sebenarnya 20 soal). Kalau mau dilanjutkan: tambah audio-transcript + soal baru ke `Listening-N4`/`N3`/`N2`/`N1` mengikuti pola yang sama seperti perbaikan Reading di atas.
 
 ### 🟢 4. Kanji N1 (331 karakter unik) lebih sedikit dari N2 (517)
 

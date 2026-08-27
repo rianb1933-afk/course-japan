@@ -8545,3 +8545,18 @@ Sesi ini adalah contoh penting tentang investigasi yang GENUINELY MEMPERDALAM CA
 **Perbaikan**: tombol N2 & N1 ditambahkan; 5 kalimat 'Kaigo' digabung ke key 'kaigo' yang benar (4→9 kalimat), duplikat dihapus; N3 (tadinya 3 kalimat, paling tipis) ditambah 4 kalimat baru (→7).
 
 **Verifikasi**: Playwright — keenam tab berfungsi, kalimat yang tadinya tak terjangkau kini termuat benar, 0 error JS. Validator resmi PASSED 0 error 0 warning.
+
+## Website v98 — Perluas Materi Reading N5-N1: 5 Bacaan Baru + 14 Soal
+
+**Konteks**: Melanjutkan plan pengembangan konten (Reading & Listening dicatat sebagai skill dengan volume latihan paling sedikit — cuma 1 set soal per level, tanpa varian lanjutan seperti Grammar/Kosakata).
+
+**Ditambahkan**: 1 bacaan baru + 2 soal pemahaman ke setiap level `Reading-N5.html` sampai `Reading-N1.html`, mengikuti format yang sudah ada (teks pendek → soal terkait) dan menaikkan kompleksitas sesuai level:
+- N5: 招待状 (undangan ulang tahun)
+- N4: 天気予報 (ramalan cuaca)
+- N3: 日記 (buku harian)
+- N2: esai opini テレワーク
+- N1: 論説文 少子高齢化と労働力人口
+
+**Hasil**: jumlah soal per level naik (N5 6→8, N4 6→8, N3/N2/N1 5→7 masing-masing) — 14 soal baru total. Diverifikasi via Playwright (kuis di-cycle sampai soal baru, 0 error JS) dan validasi JSON (json.JSONDecoder.raw_decode). Validator resmi PASSED 0 error 0 warning.
+
+**Catatan**: `Listening-N4`–`N1` masih di angka lama (5-6 soal), belum diperluas — kandidat lanjutan berikutnya.
