@@ -84,6 +84,13 @@
 工事は1ヶ月くらい続く見込みです。ご迷惑をおかけしますが、ご協力をお願いいたします。
 </div></div>
 
+<div class="sec"><h3>🌦️ Teks 3 — 天気予報 (Ramalan Cuaca)</h3>
+<div style="background:var(--kyoto-cream-deep);border-radius:10px;padding:16px;margin:10px 0;font-size:.9rem;line-height:1.9;color:var(--ink)">
+今日は朝から雨が降っています。午後には雨は止みますが、風が強くなるでしょう。<br>
+明日は晴れる予定ですが、気温が下がるので、暖かい服を着たほうがいいです。<br>
+週末はまた雨が降るかもしれません。
+</div></div>
+
 <div class="sec"><h3>🎯 N4読解 攻略ポイント</h3>
 <div class="tbl-wrap"><table class="tbl">
 <tr><th>問題タイプ</th><th>攻略法</th></tr>
@@ -112,7 +119,7 @@
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
 </div></main>
 <script>
-var Q=[{"q": "ミーティングの場所はどう変わりましたか？", "opts": ["会議室からカフェに変わった", "カフェから会議室に変わった", "変わらない", "中止になった"], "a": 0, "e": "「会議室が使えなくなったので、カフェ『さくら』に変更します」とある。場所が変更された。"}, {"q": "ミーティングの時間はどうなりましたか？", "opts": ["午前から午後に変わった", "時間は変わらず午後2時から", "1時間早くなった", "わからない"], "a": 1, "e": "「時間は変わらず午後2時からです」と明記されている。場所だけが変更された。"}, {"q": "木村さんは明日何を持ってくる必要がありますか？", "opts": ["パソコン", "資料", "お弁当", "何も持ってこなくていい"], "a": 1, "e": "「資料は持ってきてください」と依頼されている。〜てください=tolong lakukan~。"}, {"q": "道路工事は何時から何時まで行われますか？", "opts": ["朝7時から夕方6時まで", "朝9時から夕方5時まで", "24時間", "夜だけ"], "a": 0, "e": "「工事は朝7時から夕方6時まで行われる予定です」とある。"}, {"q": "工事中、気をつけるべきことは何ですか？", "opts": ["駅を使わないこと", "自転車や車の運転", "音がうるさいこと", "工事現場に入ること"], "a": 1, "e": "「自転車や車を運転する方は気をつけてください」とある。道が狭くなるため。"}, {"q": "工事はどのくらい続く予定ですか？", "opts": ["1週間", "1ヶ月くらい", "半年", "1年"], "a": 1, "e": "「工事は1ヶ月くらい続く見込みです」とある。見込み=perkiraan/estimasi。"}],qi=0,ok=0,tot=0;
+var Q=[{"q": "ミーティングの場所はどう変わりましたか？", "opts": ["会議室からカフェに変わった", "カフェから会議室に変わった", "変わらない", "中止になった"], "a": 0, "e": "「会議室が使えなくなったので、カフェ『さくら』に変更します」とある。場所が変更された。"}, {"q": "ミーティングの時間はどうなりましたか？", "opts": ["午前から午後に変わった", "時間は変わらず午後2時から", "1時間早くなった", "わからない"], "a": 1, "e": "「時間は変わらず午後2時からです」と明記されている。場所だけが変更された。"}, {"q": "木村さんは明日何を持ってくる必要がありますか？", "opts": ["パソコン", "資料", "お弁当", "何も持ってこなくていい"], "a": 1, "e": "「資料は持ってきてください」と依頼されている。〜てください=tolong lakukan~。"}, {"q": "道路工事は何時から何時まで行われますか？", "opts": ["朝7時から夕方6時まで", "朝9時から夕方5時まで", "24時間", "夜だけ"], "a": 0, "e": "「工事は朝7時から夕方6時まで行われる予定です」とある。"}, {"q": "工事中、気をつけるべきことは何ですか？", "opts": ["駅を使わないこと", "自転車や車の運転", "音がうるさいこと", "工事現場に入ること"], "a": 1, "e": "「自転車や車を運転する方は気をつけてください」とある。道が狭くなるため。"}, {"q": "工事はどのくらい続く予定ですか？", "opts": ["1週間", "1ヶ月くらい", "半年", "1年"], "a": 1, "e": "「工事は1ヶ月くらい続く見込みです」とある。見込み=perkiraan/estimasi。"}, {"q": "今日の午後の天気はどうなりますか？", "opts": ["雨がもっと強くなる", "雨は止むが風が強くなる", "雪が降る", "晴れて暖かくなる"], "a": 1, "e": "「午後には雨は止みますが、風が強くなるでしょう」とある。〜でしょう=perkiraan (mungkin/kemungkinan)。"}, {"q": "明日、何に気をつけたほうがいいですか？", "opts": ["傘を持っていくこと", "暖かい服を着ること", "日焼け止めを塗ること", "早く帰ること"], "a": 1, "e": "「気温が下がるので、暖かい服を着たほうがいいです」とある。〜たほうがいい=sebaiknya~。"}],qi=0,ok=0,tot=0;
 function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
 function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
 function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
