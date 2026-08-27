@@ -13,6 +13,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -26,78 +28,21 @@
      dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["夜勤", "yakin", "shift malam"], ["夜間ケア", "yakan kea", "perawatan malam"], ["巡回", "junkai", "patroli"], ["引き継ぎ", "hikitsugi", "serah terima"], ["夜間せん妄", "yakan senmo", "delirium malam"], ["転倒", "tonto", "jatuh"], ["急変", "kyuhen", "perburukan mendadak"], ["ナースコール", "naasu kooru", "bel perawat"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#1a237e)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#1a237e);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.page-hero{background:linear-gradient(135deg,var(--primary,#1a237e),var(--primary-dark,#283593));color:#fff;padding:48px 20px 32px;text-align:center}
-.page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
-.badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
-.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#1a237e);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#1a237e);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e8eaf6}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#e8eaf6;color:var(--primary,#1a237e)}
-.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
-.tbl tr:hover td{background:#f5f6ff}
-.tip{background:#e8eaf6;border-left:3px solid #3949ab;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.warn{background:#fff3e0;border-left:3px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.danger{background:#ffebee;border-left:3px solid #e53935;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.steps{counter-reset:step;list-style:none;padding:0;margin:10px 0}
-.steps li{counter-increment:step;display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;font-size:.9rem}
-.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:var(--primary,#1a237e);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
-.timeline{position:relative;padding-left:24px}
-.timeline::before{content:'';position:absolute;left:8px;top:0;bottom:0;width:2px;background:#c5cae9}
-.tl-item{position:relative;margin-bottom:16px;padding:12px 14px;background:var(--white);border:1px solid var(--border-light);border-radius:10px}
-.tl-item::before{content:'';position:absolute;left:-20px;top:18px;width:10px;height:10px;border-radius:50%;background:var(--primary,#1a237e);border:2px solid #fff;box-shadow:0 0 0 2px #3949ab}
-.tl-time{font-size:.75rem;font-weight:700;color:var(--primary,#1a237e);margin-bottom:4px}
-.tl-content{font-size:.88rem;line-height:1.6}
-.dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px}
-.dialog-title{font-size:.95rem;font-weight:700;color:var(--primary,#1a237e);margin-bottom:12px}
-.dl{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
-.spk{min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;margin-top:2px}
-.sp-c{background:#e8eaf6;color:var(--primary,#1a237e)}
-.sp-r{background:#e8f5e9;color:#1b5e20}
-.sp-n{background:#fce4ec;color:#880e4f}
-.jp{font-size:.92rem;font-weight:500;color:var(--ink)}
-.id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
-.tts-btn{border:none;background:var(--primary,#1a237e);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
-.phrase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:12px 0}
-.phrase-card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-.p-jp{font-size:.95rem;font-weight:600;color:var(--ink)}
-.p-id{font-size:.85rem;color:var(--primary,#1a237e);margin-top:4px}
-.qbox{background:#e8eaf6;border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;width:100%;text-align:left;font-family:inherit}
-.qopt:hover{background:#e8eaf6}
-.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"夜間ケア 夜勤 Kaigo — Perawatan Shift Malam | Nihongo Pro Academy","description":"Panduan lengkap夜間ケア dan夜勤 dalam kaigo: prosedur keamanan malam, pengecekan berkala, penanganan insiden, kosakata, dan dialog Jepang.","url":"https://nihongopro.id/Materi/Kaigo-Yakan-Care.html","educationalLevel":"Intermediate","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy","url":"https://nihongopro.id"},"image":"https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -286,7 +231,6 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div>
 </div></section></main>
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 
 var PHRASES=[
   ['夜勤','yakin','shift malam'],
@@ -320,25 +264,6 @@ if(pg)PHRASES.forEach(function(p){
 var Q=[{"q": "夜間に転倒を発見した際、介護士が最初にすべきことは？", "opts": ["すぐに利用者を起こす", "安全を確認してから救急要請", "状況を記録してから対応", "ほかのスタッフが来るまで待つ"], "a": 1, "e": "まず意識・呼吸・出血の有無を確認することが最初にすべきこと。夜間で人手が少ない状況でも、本人の状態把握を最優先し、その後速やかに応援や医療職への連絡を行う。"}, {"q": "夜間巡回チェックで確認すべき事項として正しくないものは？", "opts": ["呼吸の確認", "顔色・皮膚の確認", "利用者の夢の内容", "排泄の必要性確認"], "a": 2, "e": "呼吸状態・体位・室温・안전確認などが夜間巡回で確認すべき事項となる。これらと無関係な項目（職員の私的な予定等）は、巡回時のチェック事項には含まれない。"}, {"q": "夜間せん妄（夜間に突然混乱・興奮する症状）への対応として正しいのは？", "opts": ["大声で呼んで覚醒させる", "明るい照明をすべてつける", "穏やかな声と親しみある環境で安心感を与える", "縛り付けて落ち着かせる"], "a": 2, "e": "否定せず穏やかに声をかけ、安心できる環境を整えることが正しい対応。強く制止したり叱ったりすることは、混乱と興奮をさらに強めてしまう危険がある。"}, {"q": "夜勤の「引き継ぎ（ひきつぎ）」で重要な内容は？", "opts": ["スタッフの個人的な話", "夜間の利用者の状態変化・対応内容・特記事項", "食事メニュー", "テレビ番組の予定"], "a": 1, "e": "利用者の状態変化・実施したケア・注意事項を正確に伝えることが重要となる。夜間の出来事が日中のケアに影響するため、漏れのない情報伝達が求められる。"}, {"q": "夜間、利用者が「トイレに行きたい」と訴えた場合の対応は？", "opts": ["朝まで我慢してもらう", "すぐに付き添ってトイレへ", "おむつを使うよう説得する", "放置する"], "a": 1, "e": "排泄の訴えには迅速に対応する。我慢させたり放置すると転倒リスクが高まる。夜間の移動は転倒しやすいため、必ず付き添いかポータブルトイレを活用する。"}, {"q": "夜間巡回時の照明に関する正しい対応は？", "opts": ["すべての電気をつける", "懐中電灯を直接顔に当てる", "足元灯を使い直接顔に光を当てない", "巡回中は暗くて何も確認しない"], "a": 2, "e": "利用者の睡眠を妨げないよう、必要最小限の明かりを使うことが正しい対応。明るすぎる照明は覚醒を促してしまうため、足元灯や懐中電灯の活用が望ましいとされる。"}, {"q": "夜勤中に「夜間せん妄（やかんせんもう）」を示す症状は？", "opts": ["静かに眠っている", "夜になると急に混乱・興奮・幻覚・見当識障害が現れる", "食欲が増す", "血圧が下がる"], "a": 1, "e": "夜間せん妄=夜間に急性の意識混濁・見当識障害・興奮・幻覚が現れる状態。高齢者に多く、入院・環境変化・薬・脱水・感染症が誘因。昼夜逆転・大声・徘徊として現れることが多い。"}, {"q": "夜勤の「巡回（じゅんかい）」の主な目的は？", "opts": ["利用者を起こすため", "安全確認・体位変換・おむつ確認・異常の早期発見のため", "掃除のため", "薬を配るため"], "a": 1, "e": "夜間巡回の目的: ①転倒・転落・誤嚥などの異常早期発見②体位変換(褥瘡予防)③おむつ・排泄確認④呼吸・顔色の観察。通常2時間ごとが目安。記録にも残す。"}, {"q": "夜間巡視の目的として正しいのはどれか。", "opts": ["安否・睡眠状態・異常の早期発見", "起こすため", "記録のため", "監視"], "a": 0, "e": "利用者の安全確認と、体調変化の早期発見が夜間巡視の目的となる。単なる見回りではなく、呼吸状態や体位、異常の有無を確認する重要な観察業務として位置づけられる。"}, {"q": "夜間の転倒が多い場面はどれか。", "opts": ["トイレへの移動時", "就寝中", "食事中", "入浴中"], "a": 0, "e": "夜間のトイレ移動時が最も転倒の多い場面とされる。暗さ・寝起きのふらつき・急ぐ心理などの要因が重なるため、足元灯の設置や見守り体制の強化が特に重要になる。"}, {"q": "睡眠を妨げない巡視の工夫はどれか。", "opts": ["足元灯を使い静かに観察", "電気を全部つける", "大声で確認", "揺り起こす"], "a": 0, "e": "足音や物音を最小限に抑え、必要最小限の照明で巡視することが工夫として重要。頻繁な声かけや明るすぎる照明は、利用者の睡眠を妨げる大きな原因となってしまう。"}, {"q": "夜間せん妄への対応として適切なのはどれか。", "opts": ["安心する声かけと環境調整", "叱責", "拘束", "放置"], "a": 0, "e": "否定せず穏やかに接し、安心できる環境を整えることが適切な対応。原因（脱水・薬剤・環境変化等）を探りながら、医療職とも連携して対応することが望ましい。"}, {"q": "夜勤帯の急変時にまず行うことはどれか。", "opts": ["状態確認と応援・オンコール連絡", "朝まで待つ", "記録のみ", "放置"], "a": 0, "e": "利用者の状態確認と、応援・医療職への速やかな連絡が最初に行うべきこと。人手が少ない夜間だからこそ、一人で抱え込まず早期に連携することが重要になる。"}, {"q": "夜間頻尿の利用者への支援はどれか。", "opts": ["就寝前排尿・ポータブルトイレ検討", "水分大量摂取", "放置", "叱る"], "a": 0, "e": "トイレまでの動線を安全に整え、必要に応じてポータブルトイレを活用することが支援となる。転倒リスクを減らしながら、排泄の自立をできる限り保つ工夫が求められる。"}, {"q": "夜勤明けの申し送りで伝えるべきことはどれか。", "opts": ["夜間の睡眠・排泄・異常の有無", "感想のみ", "天気", "雑談"], "a": 0, "e": "夜間の状態変化・実施したケア・注意すべき事項を正確に伝えることが重要となる。日中のケアの継続性を保つため、漏れのない情報引き継ぎが専門職として求められる。"}, {"q": "利用者の昼夜逆転を改善する日中の関わりはどれか。", "opts": ["日光浴・活動を促し昼寝を短く", "日中も寝かせる", "カフェイン夜に", "放置"], "a": 0, "e": "日中の活動量を増やし、光刺激を積極的に取り入れることが昼夜逆転の改善に有効。生活リズムを整えることで、夜間の自然な睡眠を促すことができるようになる。"}, {"q": "夜間の低血糖を疑うサインはどれか。", "opts": ["冷汗・ふるえ・意識もうろう", "元気", "食欲", "高熱"], "a": 0, "e": "冷や汗・手の震え・意識のもうろう感などが低血糖を疑うサインとなる。糖尿病のある利用者では夜間に低血糖を起こすことがあるため、これらの兆候への注意が必要になる。"}, {"q": "夜勤者自身の健康管理として適切なのはどれか。", "opts": ["仮眠・食事・明けの休息を確保", "徹夜続き", "食事抜き", "無理を重ねる"], "a": 0, "e": "十分な休息と、規則正しい生活リズムの維持が夜勤者自身の健康管理として重要。自身の体調が万全でなければ、質の高いケアを提供し続けることは難しくなってしまう。"}, {"q": "夜間の呼吸状態で報告すべき異常はどれか。", "opts": ["無呼吸・いびきの急変・呼吸苦", "静かな寝息", "規則的な呼吸", "寝返り"], "a": 0, "e": "呼吸の停止・不規則な呼吸・著しい呼吸困難などが報告すべき異常となる。これらは生命に関わるサインであるため、発見次第速やかな報告と対応が求められる。"}, {"q": "夜間帯の少人数体制で大切なのはどれか。", "opts": ["優先順位と応援体制の確認", "全部同時に", "一人で全て", "順序なし"], "a": 0, "e": "優先順位を判断し、必要時に速やかに応援を求めることが少人数体制で大切な姿勢。一人で全てを抱え込もうとすることは、対応の遅れや事故につながる危険がある。"}];
 
 var qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-if(typeof init==='function')init(); rnd();
 </script>
-<script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
-</script>
+
 </body></html>

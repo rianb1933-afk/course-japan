@@ -13,6 +13,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -26,71 +28,21 @@
      dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["口腔ケア", "kuchiku kea", "perawatan mulut"], ["義歯", "gishi", "gigi palsu"], ["歯磨き", "hamigaki", "menyikat gigi"], ["うがい", "ugai", "berkumur"], ["誤嚥性肺炎", "goen-sei haien", "pneumonia aspirasi"], ["スポンジブラシ", "suponji burashi", "sikat spons"], ["口腔乾燥", "koukou kanso", "mulut kering"], ["口内炎", "kounaien", "sariawan"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#0d47a1)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#0d47a1);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.page-hero{background:linear-gradient(135deg,var(--primary,#0d47a1),var(--primary-dark,#1565c0));color:#fff;padding:48px 20px 32px;text-align:center}
-.page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
-.badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
-.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#0d47a1);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#0d47a1);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e3f2fd}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#e3f2fd;color:var(--primary,#0d47a1)}
-.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
-.tbl tr:hover td{background:#f5f9ff}
-.tip{background:#e3f2fd;border-left:3px solid var(--primary-dark,#1565c0);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.warn{background:#fff3e0;border-left:3px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.steps{counter-reset:step;list-style:none;padding:0;margin:10px 0}
-.steps li{counter-increment:step;display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;font-size:.9rem}
-.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:var(--primary,#0d47a1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
-.dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px}
-.dialog-title{font-size:.95rem;font-weight:700;color:var(--primary,#0d47a1);margin-bottom:12px}
-.dl{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
-.spk{min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;margin-top:2px}
-.sp-c{background:#e3f2fd;color:var(--primary,#0d47a1)}
-.sp-r{background:#e8f5e9;color:#1b5e20}
-.jp{font-size:.92rem;font-weight:500;color:var(--ink)}
-.id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
-.tts-btn{border:none;background:var(--primary,#0d47a1);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
-.phrase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:12px 0}
-.phrase-card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px;transition:all .2s}
-.phrase-card:hover{border-color:var(--primary,#0d47a1);box-shadow:0 2px 8px rgba(13,71,161,.1)}
-.p-jp{font-size:.95rem;font-weight:600;color:var(--ink)}
-.p-id{font-size:.85rem;color:var(--primary,#0d47a1);margin-top:4px}
-.qbox{background:#e3f2fd;border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;width:100%;text-align:left;font-family:inherit}
-.qopt:hover{background:#e3f2fd}
-.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"口腔ケア Kaigo — Perawatan Mulut Lansia | Nihongo Pro Academy","description":"Panduan lengkap口腔ケア dalam kaigo: prosedur sikat gigi, gigi palsu, mencegah誤嚥性肺炎, kosakata Jepang, dan dialog nyata.","url":"https://nihongopro.id/Materi/Kaigo-Kuchiku-Care.html","educationalLevel":"Intermediate","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy","url":"https://nihongopro.id"},"image":"https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -296,7 +248,6 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div>
 </div></section></main>
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 
 var PHRASES=[
   ['口腔ケア','kuchiku kea','perawatan mulut'],
@@ -330,25 +281,6 @@ if(pg)PHRASES.forEach(function(p){
 var Q=[{"q": "義歯ケアで「入れ歯を洗う時の注意点」は何ですか？", "opts": ["熱湯で殺菌する", "冷水か洗浄剤で洗う", "乾燥させてから保管", "石鹸で洗う"], "a": 1, "e": "義歯は外して流水と義歯専用ブラシで洗浄することが注意点。熱湯を使うと変形の原因となるため避け、通常のお湯や水で丁寧に洗浄することが求められる。"}, {"q": "誤嚥性肺炎を予防するために食後に行う口腔ケアの目的は？", "opts": ["消化を助けるため", "口の中の細菌を減らし誤嚥を防ぐため", "食欲を増すため", "睡眠を助けるため"], "a": 1, "e": "食後の口腔ケアは、口腔内の細菌繁殖を抑え、誤嚥性肺炎を予防することを目的とする。食べかすや細菌が気管に入り込むリスクを減らすため、毎食後の実施が推奨される。"}, {"q": "「うがいができない利用者」への口腔ケア方法は？", "opts": ["口腔ケアを省略する", "スポンジブラシで口を拭う", "水を大量に流し込む", "氷で冷やす"], "a": 1, "e": "うがいができない利用者には、スポンジブラシを用いて口腔内を拭き取る方法が適している。誤嚥に注意しながら、少量ずつ丁寧にケアを行うことが求められる。"}, {"q": "口腔ケアの声かけとして正しいのは？", "opts": ["「口を開けろ」", "「歯磨きをしましょう、よろしいですか？」", "「早く終わらせます」", "「痛くしてもいいですか？」"], "a": 1, "e": "「お口をきれいにしましょうね」など、これから行うケアの内容を事前に伝える声かけが正しい。無言でケアを始めると、利用者に不安や抵抗感を与えてしまう可能性がある。"}, {"q": "義歯ケアで上の義歯を外す際の正しい手順は？", "opts": ["下の義歯から外す", "上の義歯を回しながら外し、次に下を外す", "同時に両方外す", "薬を使ってゆるめる"], "a": 1, "e": "義歯の前方を軽く下に押しながら、ゆっくりと外すのが正しい手順とされる。無理な力を加えると、歯茎を傷つけたり義歯を破損させたりする危険があるため、慎重な操作が求められる。"}, {"q": "口内炎（こうないえん）を発見したとき、介護士が最初にすべきことは？", "opts": ["自分で薬を塗る", "看護師または医師に報告する", "何もしない", "利用者に市販薬を勧める"], "a": 1, "e": "口内炎を発見したら、まず状態を観察し、看護師など医療職へ報告することが最初にすべきこと。自己判断で薬を塗るなどの対応は避け、専門的な判断につなげる必要がある。"}, {"q": "「誤嚥性肺炎（ごえんせいはいえん）」を予防する口腔ケアの仕組みは？", "opts": ["口臭を防ぐだけ", "口腔内の細菌を減らすことで、誤嚥しても肺炎を引き起こす菌が少なくなる", "歯を白くする", "食欲を増進させる"], "a": 1, "e": "誤嚥性肺炎の予防機序: 口腔内の細菌(口腔常在菌)が誤嚥と一緒に気管・肺に入ることで炎症が起きる。口腔ケアで口腔内細菌数を減少→誤嚥しても肺炎リスクが下がる。高齢者の肺炎の約70%が誤嚥性。"}, {"q": "義歯（ぎし/gigi palsu）の正しい洗浄方法は？", "opts": ["熱湯で消毒する", "専用の義歯洗浄剤と義歯ブラシで洗い、保管する時は水または義歯洗浄液に浸す", "歯磨き粉で磨く", "乾燥させて保管する"], "a": 1, "e": "義歯の洗浄: 熱湯は変形の原因→NG。歯磨き粉は研磨剤で傷がつく→NG。専用義歯ブラシ+義歯洗浄剤で洗浄。就寝時は外して義歯洗浄液または水に浸して保管(乾燥で変形)。"}, {"q": "口腔ケアの主な目的はどれか。", "opts": ["誤嚥性肺炎の予防と口腔清潔", "体重増加", "視力回復", "筋力増強"], "a": 0, "e": "誤嚥性肺炎の予防と、口腔内の清潔保持が口腔ケアの主な目的。唾液分泌を促す効果もあり、単なる見た目の清潔さだけでなく、全身の健康にも関わる重要なケアである。"}, {"q": "口腔ケアのタイミングとして適切なのはどれか。", "opts": ["毎食後と就寝前", "週1回", "月1回", "しない"], "a": 0, "e": "毎食後と就寝前が口腔ケアの適切なタイミングとされる。これらのタイミングで実施することで、細菌の繁殖を効果的に抑え、誤嚥性肺炎のリスクを低減できる。"}, {"q": "義歯の手入れで正しいのはどれか。", "opts": ["外して流水と義歯ブラシで洗う", "熱湯", "つけたまま", "乾燥保管"], "a": 0, "e": "外して流水と義歯専用ブラシで洗浄することが正しい手入れ。熱湯での洗浄は変形の原因となるため避け、就寝時は水につけて保管することが望ましいとされる。"}, {"q": "口腔ケア時の誤嚥を防ぐ姿勢はどれか。", "opts": ["座位か横向きで顔を下向きに", "仰向け", "顎を上げる", "立位で急ぐ"], "a": 0, "e": "座位か、顔を横に向けた姿勢をとることが誤嚥を防ぐ基本的な方法となる。仰向けの姿勢では水分や汚れが喉の奥へ流れ込みやすく、誤嚥のリスクが高まってしまうため注意が必要である。"}, {"q": "経口摂取のない人の口腔ケアはどれか。", "opts": ["必要である(乾燥・細菌予防)", "不要", "週1回", "しない"], "a": 0, "e": "経口摂取がなくても、口腔ケアは必要とされる。食べていなくても口腔内は乾燥し細菌が繁殖しやすいため、清潔保持と肺炎予防のために継続的なケアが欠かせない。"}, {"q": "口腔内で観察すべきことはどれか。", "opts": ["乾燥・出血・炎症・汚れ", "髪型", "服", "時計"], "a": 0, "e": "乾燥・出血・炎症の有無を口腔ケアの際に観察することが重要。これらの異常に早く気づくことで、感染症や口腔トラブルの早期発見につなげることができる。"}, {"q": "うがいが難しい人への口腔ケアはどれか。", "opts": ["スポンジブラシで拭き取る", "強くうがい", "放置", "水を流し込む"], "a": 0, "e": "スポンジブラシを用いて口腔内を拭き取る方法が適している。誤嚥に注意しながら、少量ずつ丁寧に実施することが、うがいが難しい利用者への安全なケアとなる。"}, {"q": "口腔乾燥への対応はどれか。", "opts": ["保湿剤や水分で潤す", "放置", "熱風", "こする"], "a": 0, "e": "保湿剤や適切な水分補給を用いて口腔内を潤すことが基本的な対応となる。乾燥を放置すると細菌が繁殖しやすくなり、感染や不快感の原因となるため、こまめな保湿ケアの継続が重要になる。"}, {"q": "口腔ケアを嫌がる人への対応はどれか。", "opts": ["理由を探り短時間で優しく", "無理強い", "放置", "叱る"], "a": 0, "e": "嫌がる理由を探りながら、短時間で優しく実施することが適切な対応。無理強いは信頼関係を損ない、かえってケアへの抵抗感を強めてしまう可能性がある。"}, {"q": "歯ブラシの当て方で適切なのはどれか。", "opts": ["歯と歯茎の境を優しく小刻みに", "強くゴシゴシ", "当てない", "1回だけ"], "a": 0, "e": "歯と歯茎の境目を優しく小刻みに動かして磨くことが適切な当て方とされる。強い力でゴシゴシと磨くことは、歯茎を傷つけて出血や痛みを引き起こす原因となるため避けなければならない。"}, {"q": "口腔ケアが全身に及ぼす良い影響はどれか。", "opts": ["肺炎予防と食欲・QOL向上", "体重増", "視力回復", "筋力増"], "a": 0, "e": "肺炎予防と、食欲・QOLの向上が口腔ケアの全身への良い影響。口腔内が清潔に保たれることで、食事をおいしく感じられ、全身の健康にも良い影響を与えることができる。"}, {"q": "口腔ケア後の記録として適切なのはどれか。", "opts": ["口腔状態や異常の有無を記録", "記録しない", "記憶", "曖昧に"], "a": 0, "e": "口腔内の状態や異常の有無を具体的に記録することが適切とされる。記録を怠ると、状態変化への気づきが遅れるだけでなく、多職種間での正確な情報共有にも支障をきたしてしまう。"}];
 
 var qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-if(typeof init==='function')init(); rnd();
 </script>
-<script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
-</script>
+
 </body></html>

@@ -12,6 +12,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -25,57 +27,22 @@
      dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["職場", "shokuba", "tempat kerja"], ["報連相", "horenso", "lapor-hubung-konsultasi"], ["時間厳守", "jikan genshu", "tepat waktu"], ["協調性", "kyochosei", "kerja sama"], ["上司", "joshi", "atasan"], ["同僚", "doryo", "rekan kerja"], ["挨拶", "aisatsu", "salam"], ["残業", "zangyo", "lembur"], ["有給休暇", "yukyu kyuka", "cuti berbayar"], ["改善", "kaizen", "perbaikan berkelanjutan"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#1565c0)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#1565c0);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,var(--primary,#1565c0),var(--primary-dark,#1976d2));color:#fff;padding:48px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
-.bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
-.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#1565c0);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#1565c0);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
-.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
-.tip{background:var(--matcha-pale);border-left:3px solid var(--matcha);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
-.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.card.open .det{display:block}
-.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.83rem;color:var(--ink-mid)}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Quiz Kaigo Level N2 介護N2 | Nihongo Pro Academy", "description": "Latihan soal ujian kaigo level N2 介護N2. Simulasi soal bahasa Jepang untuk tenaga kaigo bersertifikat di fasilitas perawatan Jepang.", "url": "https://nihongopro.id/Materi/Kaigo-Shokuba-Bunka.html", "educationalLevel": "Upper-Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Budaya Kerja Jepang 職場文化 | Nihongo Pro Academy", "description": "Modul budaya kerja Jepang 職場文化: 報連相, ketepatan waktu, kerja tim, hierarki, dan adaptasi pekerja asing. Latihan dwibahasa.", "url": "https://nihongopro.id/Materi/Kaigo-Shokuba-Bunka.html", "educationalLevel": "Upper-Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -83,10 +50,10 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <meta name="apple-mobile-web-app-title" content="NihongoPro">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nihongo Pro Academy">
-<meta property="og:description" content="Latihan soal ujian kaigo level N2 介護N2. Simulasi soal bahasa Jepang untuk tenaga kaigo bersertifikat di fasilitas perawatan Jepang.">
+<meta property="og:description" content="Modul budaya kerja Jepang 職場文化: 報連相, ketepatan waktu, kerja tim, hierarki, dan adaptasi pekerja asing. Latihan dwibahasa.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Quiz Kaigo Level N2 介護N2">
-<meta name="twitter:description" content="Latihan soal ujian kaigo level N2 介護N2. Simulasi soal bahasa Jepang untuk tenaga kaigo bersertifikat di fasilitas perawatan Jepang.">
+<meta name="twitter:title" content="Budaya Kerja Jepang 職場文化">
+<meta name="twitter:description" content="Modul budaya kerja Jepang 職場文化: 報連相, ketepatan waktu, kerja tim, hierarki, dan adaptasi pekerja asing. Latihan dwibahasa.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head><body>
@@ -179,14 +146,12 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div></section></main>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var Q=[{"q": "「報連相(ほうれんそう)」の意味はどれか。", "opts": ["報告・連絡・相談", "掃除", "休憩", "残業"], "a": 0, "e": "報連相=報告・連絡・相談(lapor-hubung-konsultasi). 日本の職場の基本。"}, {"q": "日本の職場で重視される時間の考え方はどれか。", "opts": ["時間厳守(遅刻しない)", "遅れてよい", "自由", "気にしない"], "a": 0, "e": "時間厳守(tepat waktu)が重視される. 5分前行動が好まれる。"}, {"q": "仕事を休むときの適切な対応はどれか。", "opts": ["事前に上司へ連絡する", "無断で休む", "当日放置", "同僚任せ"], "a": 0, "e": "休む時は事前連絡(hubungi lebih dulu). 無断欠勤は信頼を失う。"}, {"q": "職場での挨拶の役割はどれか。", "opts": ["良い人間関係の基礎", "不要", "形だけ", "面倒"], "a": 0, "e": "挨拶(salam)は人間関係の基礎. 「おはようございます」等を明るく。"}, {"q": "分からない仕事があるときの対応はどれか。", "opts": ["自己判断せず相談・確認する", "勝手に進める", "放置", "隠す"], "a": 0, "e": "不明点は相談・確認(tanya & konfirmasi). 自己判断のミスを防ぐ。"}, {"q": "チームで働くために大切な姿勢はどれか。", "opts": ["協調性と助け合い", "自分勝手", "競争のみ", "無関心"], "a": 0, "e": "協調性・助け合い(kerja sama)がチームケアの質を高める。"}, {"q": "ミスをしたときの適切な対応はどれか。", "opts": ["速やかに報告し対策を相談", "隠す", "放置", "言い訳"], "a": 0, "e": "ミスは速やかに報告(lapor segera)し再発防止を相談. 隠さない。"}, {"q": "外国人職員が職場に馴染むために有効なのはどれか。", "opts": ["積極的に挨拶し分からない事を質問する", "黙って耐える", "孤立する", "諦める"], "a": 0, "e": "挨拶と質問(salam & bertanya)で信頼を築く. 分からない事は早めに確認。"}];
 function initKN2(){
   var list=document.getElementById('kn2List');if(!list)return;
   list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
 }
 function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
@@ -199,47 +164,5 @@ if(typeof init==='function')init(); rnd();
 </section>
 <script>
 var QKZ=[{"q": "介護過程の「アセスメント」で収集する情報に含まれないのは？", "opts": ["ADLの状況", "スタッフの希望", "心身の状態", "家族・社会関係"], "a": 1, "e": "アセスメントで収集: 身体状況・ADL・認知機能・生活歴・価値観・家族関係・経済状況・社会参加・環境等。スタッフの希望はアセスメント情報ではなく介護計画に反映する立場の情報。"}, {"q": "「ICF」の「活動」と「参加」の違いは？", "opts": ["同じ", "活動=個人レベルの動作(歩く・食べる)、参加=社会的な場面での役割・関与(地域活動・仕事)", "参加の方が簡単", "どちらも医療的概念"], "a": 1, "e": "ICF活動=個人レベルの生活行為(歩く・食べる・着替える)。参加=社会的生活への関与(地域活動・趣味・仕事・家庭内役割)。障害があっても「参加」できることが重要。"}, {"q": "「自立支援」で最も重視されるのは？", "opts": ["できるだけ全部してあげる", "その人の意思・選択・決定を最大限尊重すること", "健常者と同じにすること", "速く終わらせること"], "a": 1, "e": "自立支援の核心=意思決定の自尊重。身体的自立だけでなく「自分のことを自分で決める」精神的自立が最重要。介護職はその実現を支援する役割を担う。"}, {"q": "「認知症と成年後見制度」の関係で正しいのは？", "opts": ["認知症なら自動的に後見人がつく", "判断能力が不十分になった場合に家庭裁判所が後見人を選任して権利を守る制度", "家族が自由に財産を管理できる", "医師が決める"], "a": 1, "e": "成年後見制度: 認知症等で判断能力が低下した場合、家庭裁判所が後見人(法定後見)を選任。後見人は財産管理・法律行為を代行。本人の意思・尊厳の尊重が前提。"}, {"q": "「介護福祉士国家試験」の合格に必要な筆記試験の問題数は？", "opts": ["50問", "125問", "200問", "30問"], "a": 1, "e": "介護福祉士国家試験: 筆記試験125問(11科目群)。実技試験(または実技試験免除)もある。合格基準は総得点の60%程度+各科目群で0点がないこと。年1回1月に実施。"}, {"q": "「認知症の人の意思決定支援」で正しいのは？", "opts": ["家族が全て決める", "認知症でも本人の意思・選好を最大限尊重し、できる限り本人が決定できるよう支援する", "医師が決める", "何も確認しなくていい"], "a": 1, "e": "意思決定支援: 認知症があっても意思決定の権利は残る。①本人に分かりやすく説明②十分な時間③必要なら環境調整。本人が決めるための「支援」であり代わりに決めることが最後の手段。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){
-  if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
-  q.opts.forEach(function(o,i){var b=document.createElement('button');
-  b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-  b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
-  b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
-  b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
-  b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:#880e4f;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
-  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
-  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
-  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
-  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){
-  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';totZ++;
-  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  else okZ++;
-  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
-function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

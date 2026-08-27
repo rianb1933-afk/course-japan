@@ -11,9 +11,10 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 </script>
 <script src="../assets/env.js"></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
@@ -24,21 +25,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["バリデーション", "baridee-shon", "validation therapy"], ["ユマニチュード", "yumanicchuudo", "Humanitude"], ["共感", "kyokan", "empati"], ["傾聴", "keisho", "mendengar aktif"], ["見当識", "kentoshiki", "orientasi"], ["パーソンセンタードケア", "paason sentaado kea", "person-centered care"], ["徘徊", "haikai", "wandering"], ["夕暮れ症候群", "yugure shokougun", "sundowning"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#4a148c)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#4a148c);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -231,11 +226,7 @@ function renderPhrases(){
   });
 }
 
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById("qc");if(!c)return;var oo=document.createElement("div");oo.className="qopts";q.opts.forEach(function(o,i){var b=document.createElement("button");b.className="qopt";b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement("div");bx.className="qbox";var qq=document.createElement("div");qq.className="qq";qq.textContent=(qi%Q.length+1)+". "+q.q;var ex=document.createElement("div");ex.className="qexp";ex.id="qe";bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML="";c.appendChild(bx);var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-renderDialog();renderPhrases();rnd();
-</script>
+renderDialog();renderPhrases();</script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
 <div id="qkZ"></div>
@@ -247,67 +238,5 @@ renderDialog();renderPhrases();rnd();
 </section>
 <script>
 var QKZ=[{"q": "「バリデーション療法」の創始者は？", "opts": ["Tom Kitwood", "Naomi Feil", "Virginia Henderson", "Florence Nightingale"], "a": 1, "e": "バリデーション療法=Naomi Feilが1963年頃から開発。感情を否定せず受け入れることで認知症の方の不安・孤立を軽減。世界中の認知症ケアに影響を与えた。"}, {"q": "「帰宅願望」の背後にある感情として最も多いのは？", "opts": ["旅行したい", "不安・孤独・安心できる場所を求める気持ち", "退屈", "お腹が空いた"], "a": 1, "e": "帰宅願望=安心できる場所(家・若い頃の家)への渇望。「帰りたい」=「不安で安心したい」のサイン。場所より感情に寄り添うことが鍵。"}, {"q": "コミュニケーションで「目線を合わせる」ことの意味は？", "opts": ["見下すため", "相手と同じ高さで話すことで安心感・尊重の気持ちを伝える", "見えにくいから", "ケアの手順"], "a": 1, "e": "目線を合わせる=しゃがむ・椅子に座る。上から見下ろす姿勢は威圧感を与える。目線を同じ高さにすることで平等・安心・信頼関係が生まれる。"}, {"q": "「声のトーン・速さ」が認知症ケアで特に重要な理由は？", "opts": ["聞こえにくいから", "言語理解が低下しても声の感情・トーンは伝わり続けるから", "決まりだから", "効率的だから"], "a": 1, "e": "認知症が進んでも感情は伝わる。穏やかな声=安心感。大きな声・早口=不安・恐怖。非言語の感情伝達は言語より長く保たれる。"}, {"q": "「繰り返し同じことを聞く」利用者への対応は？", "opts": ["「さっき言いました」と指摘", "毎回初めて聞くように答え、その感情に注目する", "無視する", "叱る"], "a": 1, "e": "繰り返し質問への対応: 「さっき言った」は禁止。その質問の背後の感情(不安？確認？)を受け止め毎回丁寧に答える。不安が減れば質問も減ることがある。"}, {"q": "「思い出の物(写真・音楽)」をケアに活用する根拠は？", "opts": ["気分転換のため", "感情記憶・遠隔記憶は認知症が進んでも比較的保たれるから", "コスト節約", "決まりだから"], "a": 1, "e": "感情記憶・手続き記憶は扁桃体・大脳基底核に保存→海馬が障害されるアルツハイマーでも長く残る。懐かしい歌・写真が笑顔を引き出すのはこのため。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){
-  if(!QKZ.length)return;
-  var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');
-  if(!c)return;
-  var oo=document.createElement('div');
-  oo.style.cssText='display:grid;gap:8px';
-  q.opts.forEach(function(o,i){
-    var b=document.createElement('button');
-    b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-    b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
-    b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
-    b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
-    b.onclick=function(){ansZ(b,i,q.a,q.e);};
-    oo.appendChild(b);
-  });
-  var bx=document.createElement('div');
-  bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');
-  qn.style.cssText='font-size:.72rem;background:var(--primary,#4a148c);color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
-  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
-  var qq=document.createElement('div');
-  qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';
-  qq.textContent=q.q;
-  var ex=document.createElement('div');
-  ex.id='qeZ';
-  ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
-  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-  c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qsZ');
-  if(s)s.textContent='Skor: '+okZ+'/'+totZ;
-}
-function ansZ(btn,c,a,e){
-  var bs=btn.parentNode.querySelectorAll('button');
-  if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';totZ++;
-  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  if(c!==a){
-    btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  } else okZ++;
-  var ex=document.getElementById('qeZ');
-  if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
-  var s=document.getElementById('qsZ');
-  if(s)s.textContent='Skor: '+okZ+'/'+totZ;
-}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
-function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

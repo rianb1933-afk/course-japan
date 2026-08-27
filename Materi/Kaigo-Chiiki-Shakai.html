@@ -12,6 +12,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -37,6 +39,8 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -242,7 +246,6 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 </div>
 </div></section></main>
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var PH=[["地域共生社会", "chiiki kyosei shakai", "masyarakat inklusif komunitas"], ["地域包括ケア", "chiiki houkatsu kea", "perawatan terpadu berbasis komunitas"], ["地域包括支援センター", "chiiki houkatsu shien sentaa", "pusat dukungan terpadu lokal"], ["在宅医療", "zaitaku iryo", "perawatan medis di rumah"], ["フレイル", "fureiru", "frailty / kelemahan"], ["介護予防", "kaigo yobo", "pencegahan kebutuhan perawatan"], ["ボランティア", "borantia", "sukarelawan"], ["共生", "kyosei", "koeksistensi / hidup berdampingan"], ["我が事", "waga-koto", "peduli sesama seperti diri sendiri"], ["縦割り", "tategiri", "sistem sektoral / silo"], ["包括的支援", "houkatsu-teki shien", "dukungan komprehensif"], ["地域密着型", "chiiki mitchakugata", "berbasis komunitas lokal"], ["生活支援", "seikatsu shien", "dukungan kehidupan"], ["認知症サポーター", "ninchisho sapoota", "sukarelawan demensia"], ["孤立", "koritsu", "isolasi sosial"]];
 var pg=document.getElementById('pg');
 if(pg)PH.forEach(function(p){
@@ -252,49 +255,5 @@ if(pg)PH.forEach(function(p){
   var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);
 });
 var Q=[{"q": "「地域共生社会」の理念を表すキーワードとして正しいのは？", "opts": ["施設ケア優先", "「我が事・丸ごと」の地域づくり", "個人での問題解決", "医療優先"], "a": 1, "e": "地域共生社会のキーワード: 「我が事・丸ごと」。我が事=地域の問題を自分のこととして関わる。丸ごと=属性・世代・障害の有無を問わず包括的に支援する。「縦割り」行政の壁を越えた包括的支援体制の構築が目標。"}, {"q": "地域包括支援センターの4つの業務として正しい組み合わせは？", "opts": ["医療・手術・投薬・入院", "総合相談支援・権利擁護・包括的継続的マネジメント・介護予防ケアマネジメント", "掃除・料理・入浴・移乗", "採用・研修・評価・解雇"], "a": 1, "e": "地域包括支援センターの4機能: ①総合相談支援②権利擁護③包括的・継続的マネジメント支援④介護予防ケアマネジメント。各市区町村に設置され、地域の高齢者支援の中核を担う。"}, {"q": "「地域包括ケアシステム」の5要素に含まれないのは？", "opts": ["住まい", "医療", "介護", "工場(生産)"], "a": 3, "e": "地域包括ケアシステムの5要素: 住まい・医療・介護・予防・生活支援。高齢者が住み慣れた地域で尊厳ある自立した生活を継続できるよう、これら5つのサービスを一体的に提供する体制を構築することが目標。"}, {"q": "「フレイル(frailty)」とは何ですか？", "opts": ["筋肉が増える状態", "加齢に伴い身体・心理・社会的な健康が低下し要介護になりやすくなった虚弱状態", "骨折した状態", "入院している状態"], "a": 1, "e": "フレイル=「虚弱」を意味し、健康と要介護の中間の状態。身体的フレイル(筋力・体重低下)・心理的フレイル(うつ・認知機能低下)・社会的フレイル(孤立・引きこもり)の3側面がある。早期発見と予防が重要。"}, {"q": "地域包括支援センターが行う「権利擁護」の具体例は？", "opts": ["施設への強制入居", "高齢者虐待防止・成年後見制度の活用支援・消費者被害防止の支援", "医療費の削減", "交通の整備"], "a": 1, "e": "地域包括支援センターの権利擁護機能: ①高齢者虐待の防止・対応②成年後見制度の活用支援③悪質な訪問販売などの消費者被害防止④必要に応じた市区町村・専門機関への繋ぎ。"}, {"q": "「地域密着型サービス」の特徴は？", "opts": ["全国どこでも利用できる", "住み慣れた地域での生活継続を目的とし、原則としてその市区町村の住民が利用できる", "施設入居が前提", "医療サービスのみ"], "a": 1, "e": "地域密着型サービス: 住み慣れた地域で暮らし続けられるよう設計。原則としてその市区町村に住む住民が対象。小規模多機能居宅介護・グループホーム・定期巡回サービスなどが含まれる。"}, {"q": "「フレイル」の予防に効果的な3つのアプローチは？", "opts": ["安静・食事制限・薬", "運動・栄養・社会参加", "医療・手術・入院", "睡眠・薬・制限"], "a": 1, "e": "フレイル予防の3本柱: ①運動(筋力・バランス訓練・ウォーキング)②栄養(タンパク質・カルシウムの充足、低栄養予防)③社会参加(人との交流・役割を持つ・地域活動への参加)。3つを組み合わせることで効果が高まる。"}, {"q": "「認知症サポーター」制度の目的として最も正しいのは？", "opts": ["認知症者を施設に入れる", "認知症を正しく理解し温かく見守れる「応援者」を地域で増やす", "医療費を削減する", "介護士の仕事を代行する"], "a": 1, "e": "認知症サポーター：厚生労働省推進の制度。認知症サポーター養成講座を受講した市民が認知症を正しく理解し、地域で認知症の人や家族を支える「応援者」になる。全国で1400万人以上が養成されている（2023年現在）。"}, {"q": "地域包括ケアシステムの目的はどれか。", "opts": ["住み慣れた地域で自分らしく暮らし続ける", "施設に集める", "病院中心", "家族任せ"], "a": 0, "e": "地域包括ケアシステムの目的は、住み慣れた地域で、医療・介護・生活支援などを一体的に受けながら、自分らしく暮らし続けられる仕組みを作ること。施設や病院に集約するのではなく、地域全体で支える体制づくりを目指す。"}, {"q": "地域包括支援センターの役割はどれか。", "opts": ["高齢者の総合相談・支援の窓口", "病院", "警察", "銀行"], "a": 0, "e": "地域包括支援センターは、高齢者に関する総合的な相談や権利擁護などを担う地域の拠点としての役割を持つ。介護・医療・福祉にまたがる幅広い相談に対応し、必要な支援やサービスへとつなぐ機能を果たしている。"}, {"q": "インフォーマルサポートに含まれるのはどれか。", "opts": ["家族・近隣・ボランティア", "介護保険サービス", "病院", "行政給付"], "a": 0, "e": "インフォーマルサポートには、家族・近隣住民・ボランティアなど、制度に基づかない支援が含まれる。介護保険サービスのような公的な制度（フォーマルサポート）と組み合わせることで、より充実した生活支援が可能になる。"}, {"q": "地域で高齢者を支える「見守り」の意義はどれか。", "opts": ["孤立や異変の早期発見", "監視", "干渉", "排除"], "a": 0, "e": "見守りの意義は、孤立や体調の異変を早期に発見し、必要な支援につなげること。監視ではなく、さりげない気配りによって高齢者に安心感を与えながら、地域全体で支え合う関係を築くことにある。"}, {"q": "民生委員の役割として正しいのはどれか。", "opts": ["地域住民の相談・見守りを担う", "医療行為", "逮捕", "融資"], "a": 0, "e": "民生委員は、地域住民からの相談に応じ、見守りや必要な支援へのつなぎ役を担うボランティアとしての役割を持つ。行政と住民の橋渡し役として、地域福祉を支える重要な存在となっている。"}, {"q": "高齢者の社会参加を促す意義はどれか。", "opts": ["生きがいと介護予防につながる", "負担増", "孤立", "不要"], "a": 0, "e": "社会参加を促すことは、高齢者の生きがいの創出や介護予防に効果的とされる。人との関わりや役割を持ち続けることが、心身の健康維持やQOLの向上につながるため、積極的な参加の機会づくりが重要視される。"}, {"q": "認知症サポーターの役割はどれか。", "opts": ["認知症を正しく理解し地域で支える", "治療する", "隔離する", "監視する"], "a": 0, "e": "認知症サポーターは、認知症について正しく理解し、地域の中で温かく見守り支える役割を担う。専門的な治療を行う立場ではなく、日常生活の中で自然な形で認知症の人を支える存在として位置づけられている。"}, {"q": "地域ケア会議の目的はどれか。", "opts": ["多職種で課題を共有し支援を検討", "雑談", "評価のみ", "記録"], "a": 0, "e": "地域ケア会議の目的は、多職種が連携して個別の支援課題や地域全体の課題を検討すること。単なる情報交換の場ではなく、具体的な支援策や地域資源の活用方法を話し合う実践的な場として機能する。"}, {"q": "共生社会の考え方として正しいのはどれか。", "opts": ["高齢者・障害者も共に暮らせる社会", "分離", "排除", "隔離"], "a": 0, "e": "共生社会とは、高齢者や障害者も含め、誰もが役割を持ちながら共に生きる社会を目指す考え方。特定の人々を分離・排除するのではなく、多様な人々が共存できる社会づくりを理念とする。"}, {"q": "地域の助け合い(互助)の例はどれか。", "opts": ["住民同士の支え合い活動", "保険給付", "病院受診", "行政命令"], "a": 0, "e": "住民同士による自発的な支え合いの活動が、互助の代表的な例。行政による公的な支援（公助）や保険制度（共助）とは異なり、地域住民が自主的に支え合う関係として、地域福祉の重要な一角を担っている。"}, {"q": "高齢者の孤立死を防ぐ取り組みはどれか。", "opts": ["見守りネットワークと定期訪問", "放置", "監視カメラのみ", "隔離"], "a": 0, "e": "見守りネットワークの構築や定期的な訪問が、孤立死を防ぐための重要な取り組みとなる。地域全体で高齢者の様子を気にかけ合う体制を作ることで、異変の早期発見と対応につなげることができる。"}, {"q": "地域資源を活用する意義はどれか。", "opts": ["多様な支援で生活を豊かに支える", "負担増", "混乱", "不要"], "a": 0, "e": "地域資源を活用することで、制度に基づく支援だけではカバーしきれない多様なニーズに応え、生活をより豊かに支えることができる。公的サービスと地域資源を組み合わせることが、包括的な支援の実現につながる。"}];var qi=0,ok=0,tot=0;
-function rnd(){
-  if(!Q.length)return;
-  var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;
-  var oo=document.createElement('div');oo.className='qopts';
-  q.opts.forEach(function(o,i){
-    var b=document.createElement('button');b.className='qopt';b.textContent=o;
-    b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);
-  });
-  var bx=document.createElement('div');bx.className='qbox';
-  var qq=document.createElement('div');qq.className='qq';
-  qq.textContent=(qi%Q.length+1)+'/'+Q.length+' — '+q.q;
-  var ex=document.createElement('div');ex.className='qexp';ex.id='qe';
-  bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-  c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;
-}
-function ans(b,c,a,e){
-  var bs=document.querySelectorAll('.qopt');
-  if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';tot++;
-  bs[a].classList.add('correct');
-  if(c!==a)b.classList.add('wrong');else ok++;
-  var ex=document.getElementById('qe');
-  if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}
-  var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;
-}
-function nQ(){qi=(qi+1)%Q.length;rnd();}
-function rQ(){qi=0;ok=0;tot=0;rnd();}
-if(typeof init==='function')init();rnd();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

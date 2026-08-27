@@ -12,6 +12,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -25,63 +27,21 @@
      dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["老化", "roka", "penuaan"], ["サルコペニア", "sarukopenia", "sarkopenia"], ["骨粗鬆症", "kotsusoshosho", "osteoporosis"], ["フレイル", "fureiru", "frailty"], ["廃用症候群", "haiyou shokougun", "sindrom disuse"], ["起立性低血圧", "kiritsu-sei teiketstuatsu", "hipotensi ortostatik"], ["ポリファーマシー", "pori-faamasii", "polifarmasi"], ["老年症候群", "ronen shokougun", "sindrom geriatri"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#01579b)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#01579b);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,var(--primary,#01579b),var(--primary-dark,#0277bd));color:#fff;padding:48px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
-.bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
-.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#01579b);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#01579b);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e1f5fe}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#e1f5fe;color:var(--primary,#01579b)}
-.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light);vertical-align:top}
-.tip{background:#e1f5fe;border-left:3px solid var(--primary,#01579b);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.warn{background:#fff3e0;border-left:3px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.steps{counter-reset:step;list-style:none;padding:0;margin:10px 0}
-.steps li{counter-increment:step;display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;font-size:.9rem}
-.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:var(--primary,#01579b);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
-.dl{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
-.spk{min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;margin-top:2px}
-.sp-c{background:#e1f5fe;color:var(--primary,#01579b)} .sp-r{background:#e8f5e9;color:#1b5e20} .sp-n{background:#e3f2fd;color:var(--accent,#1565c0)}
-.jp{font-size:.92rem;font-weight:500;color:var(--ink)} .id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
-.tts{border:none;background:var(--primary,#01579b);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
-.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:12px 0}
-.pc{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-.qbox{background:#e1f5fe;border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;width:100%;text-align:left;font-family:inherit}
-.qopt:hover{background:#e1f5fe}
-.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"老化のしくみ — Fisiologi Penuaan | Nihongo Pro Academy","description":"Panduan 老化のしくみ dalam kaigo: teori, prosedur, dialog, kosakata, quiz ujian nasional.","url":"https://nihongopro.id/Materi/Kaigo-Roka-Shikumi.html","educationalLevel":"Intermediate","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy","url":"https://nihongopro.id"},"image":"https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -264,7 +224,6 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div>
 </div></section></main>
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var PH=[["老化", "roka", "penuaan / proses menua"], ["生理的老化", "seiriteki roka", "penuaan fisiologis (normal)"], ["病的老化", "byoteki roka", "penuaan patologis (akibat penyakit)"], ["加齢", "kareи", "pertambahan usia"], ["筋肉量の減少", "kinnikuryo no gensho", "penurunan massa otot / sarkopenia"], ["サルコペニア", "sarukopenia", "sarkopenia — hilang massa otot terkait usia"], ["骨粗鬆症", "kotsusoshosho", "osteoporosis — kepadatan tulang menurun"], ["動脈硬化", "domyakukoka", "arteriosklerosis — pengerasan pembuluh darah"], ["免疫力の低下", "men-ekiichi no teika", "penurunan imunitas"], ["嚥下機能の低下", "enge kino no teika", "penurunan fungsi menelan"], ["認知機能の低下", "ninchi kino no teika", "penurunan fungsi kognitif"], ["体温調節機能", "taion chōsetsu kino", "kemampuan regulasi suhu tubuh"], ["廃用症候群", "haiyō shōkōgun", "sindrom disuse (memburuk karena tidak aktif)"], ["フレイル", "fureiru", "frailty — kerentanan lansia (antara sehat dan tidak berdaya)"]];
 var pg=document.getElementById('pg');
 if(pg)PH.forEach(function(p){var d=document.createElement('div');d.className='pc';
@@ -272,24 +231,5 @@ d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[
 var btn=document.createElement('button');btn.textContent='🔊';btn.className='tts';var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});
 var Q=[{"q": "高齢者の「起立性低血圧」の原因は？", "opts": ["水分の過剰摂取", "血圧調節機能の低下により、急に立つと血圧が下がる", "心臓が強くなりすぎる", "食欲が増す"], "a": 1, "e": "起立性低血圧=急に立ち上がった際に血圧が低下し、めまい・失神を引き起こす状態。高齢者は自律神経の調節機能が低下するため起こりやすい。ゆっくり立ち上がることが予防策。"}, {"q": "「サルコペニア」とは何ですか？", "opts": ["骨密度の低下", "加齢に伴う筋肉量・筋力の低下", "皮膚が薄くなること", "認知機能の低下"], "a": 1, "e": "サルコペニア=加齢に伴う骨格筋量・筋力・身体機能の低下。転倒・骨折・フレイルのリスク因子。タンパク質摂取と筋力トレーニングで予防・改善が可能。"}, {"q": "高齢者が熱中症になりやすい理由は？", "opts": ["活動量が増えるため", "体温調節機能と口渇感の低下", "食欲が低下するため", "睡眠が減るため"], "a": 1, "e": "体温調節機能の低下と、口渇感の鈍化が主な理由とされる。暑さや水分不足を自覚しにくく自ら対応できないため、周囲が積極的に水分補給や室温管理を促す必要がある。"}, {"q": "フレイルの5基準（Friedの定義）に含まれないのは？", "opts": ["体重減少", "筋力低下", "疲労感", "記憶力の低下"], "a": 3, "e": "フレイルの5基準: 体重減少・筋力低下（握力）・疲労感・歩行速度低下・身体活動量低下。3項目以上でフレイル。認知機能低下は「認知的フレイル」では含まれるが基本定義には含まれない。"}, {"q": "高齢者の嚥下機能低下への介護対応として正しいのは？", "opts": ["固形食を多くする", "食事形態を工夫し（刻み・とろみ）、食事姿勢を30度以上に保つ", "水分を制限する", "横になって食べさせる"], "a": 1, "e": "嚥下機能低下への対応: 食事形態調整（刻み・とろみ・ゼリー）+姿勢管理（30-90度のファウラー位）+食後口腔ケア+食事中の観察。横臥位での食事は誤嚥の最大リスク。"}, {"q": "高齢者の「多剤併用（ポリファーマシー）」が問題となる理由は？", "opts": ["薬が多いと効果が上がるから", "肝腎機能低下により薬の代謝が遅く副作用・相互作用リスクが高まるから", "薬代が高いから", "薬の管理が大変だから"], "a": 1, "e": "ポリファーマシー=多剤併用の問題。高齢者は肝腎機能低下で薬の代謝・排泄が遅くなり、副作用・薬物相互作用リスクが高まる。転倒・認知機能低下・食欲不振の原因になることも。"}, {"q": "「老年症候群」に含まれる症状として正しいのは？", "opts": ["骨密度の増加", "転倒・フレイル・認知機能低下・排泄障害・褥瘡などの複合的な症状群", "筋肉量の増加", "食欲の増加"], "a": 1, "e": "老年症候群=加齢とともに増加する複合的な健康問題の総称。転倒・フレイル・認知症・尿失禁・褥瘡・嚥下障害などが含まれる。単一疾患ではなく複数の問題が絡み合うのが特徴。"}, {"q": "加齢に伴う「免疫機能の低下」が介護現場で重要な理由は？", "opts": ["免疫は年齢に関係ない", "感染症への抵抗力が下がり、肺炎・インフルエンザ・尿路感染症などに罹患しやすく、重症化しやすいため感染管理が最重要", "老化は止められない", "薬で補える"], "a": 1, "e": "高齢者の免疫低下：①T細胞機能低下②皮膚バリア低下③嚥下機能低下による誤嚥性肺炎④膀胱機能低下による尿路感染症⑤栄養状態低下。介護施設での感染管理（手洗い・マスク・ワクチン接種推奨）が生命を守る。"}, {"q": "加齢による身体変化として正しいのはどれか。", "opts": ["予備力の低下", "皮膚弾力増加", "骨密度上昇", "唾液増加"], "a": 0, "e": "予備力の低下が加齢による身体変化として正しい。皮膚の弾力増加や骨密度上昇ではなく、様々な身体機能の余力が減少していくことが老化の一般的な特徴となる。"}, {"q": "生理的老化の特徴はどれか。", "opts": ["誰にでも起こる不可逆変化", "病気による", "治療で治る", "一部だけ"], "a": 0, "e": "誰にでも起こる不可逆的な変化が生理的老化の特徴。病気による老化（病的老化）とは異なり、加齢に伴い全ての人に共通して見られる自然な変化を指す概念である。"}, {"q": "高齢者の感覚変化として正しいのはどれか。", "opts": ["高音が聞こえにくい", "視野拡大", "味覚鋭敏", "触覚敏感"], "a": 0, "e": "高音が聞こえにくくなることが高齢者の感覚変化として正しい。視野の拡大や味覚の鋭敏化ではなく、聴力・視覚・味覚ともに加齢によって鈍化する傾向が見られる。"}, {"q": "サルコペニアの説明はどれか。", "opts": ["加齢による筋肉量・筋力低下", "骨折", "難聴", "便秘"], "a": 0, "e": "加齢による筋肉量・筋力の低下がサルコペニアの説明。転倒やフレイルの一因となるため、適切な栄養摂取と運動習慣による予防・改善が重要な課題とされている。"}, {"q": "高齢者の体温調節の特徴はどれか。", "opts": ["調節力低下で熱中症・低体温になりやすい", "汗が多い", "変化なし", "調節力向上"], "a": 0, "e": "調節力が低下し、熱中症・低体温になりやすいことが特徴。汗をかきにくくなる一方で環境変化への適応力も落ちるため、季節に応じた環境調整への配慮が欠かせない。"}, {"q": "高齢者の薬物への反応の特徴はどれか。", "opts": ["代謝・排泄が遅く作用が強く出やすい", "速い", "影響なし", "若者と同じ"], "a": 0, "e": "代謝・排泄が遅く、薬の作用が強く出やすいことが特徴。肝臓や腎臓の機能低下により、若年者と同じ量でも副作用が出やすくなるため、慎重な服薬管理が求められる。"}, {"q": "老年症候群に含まれるのはどれか。", "opts": ["転倒・失禁・低栄養", "骨折のみ", "がんのみ", "感染のみ"], "a": 0, "e": "転倒・失禁・低栄養など高齢者に多い症状群が老年症候群に含まれる。単一の疾患ではなく、加齢に伴い複合的に現れやすい症状のまとまりとして理解される概念である。"}, {"q": "高齢者の消化機能の変化はどれか。", "opts": ["唾液・消化液減少で便秘しやすい", "消化促進", "吸収向上", "食欲増進"], "a": 0, "e": "唾液や消化液の減少により、便秘しやすくなることが変化の特徴。消化機能の低下を補うため、水分・食物繊維の摂取や適度な運動による予防が重要になる。"}, {"q": "高齢者の循環器の変化はどれか。", "opts": ["動脈硬化で高血圧になりやすい", "血管柔軟", "心拍増加", "変化なし"], "a": 0, "e": "動脈硬化により、高血圧になりやすいことが循環器の変化。血管が硬くなることで血圧の変動が大きくなり、起立性低血圧のリスクも高まる傾向が見られる。"}, {"q": "廃用症候群の予防に有効なのはどれか。", "opts": ["適度な活動と早期離床", "安静のみ", "不動", "寝たきり"], "a": 0, "e": "適度な活動と、早期離床が廃用症候群の予防に有効。安静を続けることは筋力や心肺機能の低下を招くため、できる範囲での活動維持が重要な予防策となる。"}, {"q": "高齢者の心理的特徴で配慮すべきことはどれか。", "opts": ["喪失体験が重なりやすい", "感情喪失", "記憶全消失", "学習不能"], "a": 0, "e": "喪失体験が重なりやすいことへの配慮が必要となる。退職や配偶者との死別など、様々な喪失を経験する時期であるため、傾聴と心理的な支援が特に求められる。"}, {"q": "高齢者の脱水が起こりやすい理由はどれか。", "opts": ["口渇感の低下と体内水分減少", "汗が多い", "腎機能向上", "水分過剰"], "a": 0, "e": "口渇感の低下と、体内水分量の減少が脱水が起こりやすい理由。喉の渇きを自覚しにくいため、周囲がこまめな水分補給を促す積極的な関わりが必要になる。"}];
 var qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-if(typeof init==='function')init(); rnd();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

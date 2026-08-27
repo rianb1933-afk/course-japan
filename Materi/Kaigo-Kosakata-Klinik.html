@@ -13,15 +13,7 @@
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["バイタルサイン", "baitaru sain", "tanda vital"], ["血圧", "ketsuatsu", "tekanan darah"], ["脈拍", "myakuhaku", "denyut nadi"], ["体温", "taion", "suhu tubuh"], ["浮腫", "fushu", "edema"], ["チアノーゼ", "chianooze", "sianosis"], ["呼吸音", "kokyu-on", "suara napas"], ["意識障害", "ishiki shogai", "gangguan kesadaran"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#2e7d32">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
@@ -157,6 +149,8 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/kaigo-progress.js" defer></script>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -441,7 +435,6 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 const QUIZ_KLINIK = [
   {q:'Apa bahasa Jepang dari "dekubitus / luka tekan"?', opts:['拘縮（こうしゅく）','褥瘡（じょくそう）','浮腫（むくみ）','廃用症候群'], ans:1, exp:'褥瘡（じょくそう）adalah dekubitus. Pencegahan dengan体位変換 (ubah posisi) setiap 2 jam.'},
   {q:'Bahasa Jepang dari "aspirasi / tersedak makanan ke saluran napas"?', opts:['誤嚥（ごえん）','嚥下（えんか）','咀嚼（そしゃく）','嘔吐（おうと）'], ans:0, exp:'誤嚥（ごえん）= aspirasi. Komplikasi terberatnya adalah 誤嚥性肺炎 (pneumonia aspirasi).'},
@@ -530,6 +523,8 @@ function rstQ(){qIdx=0;qScore=0;document.getElementById('quizWrap').innerHTML=`<
 initQuiz(QUIZ_KLINIK);
 </script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -547,41 +542,6 @@ initQuiz(QUIZ_KLINIK);
 </section>
 <script>
 var QKZ=[{"q": "「褥瘡」の英語表現は？", "opts": ["pressure ulcer/bedsore", "diabetes", "fracture", "infection"], "a": 0, "e": "褥瘡はpressure ulcer（プレッシャーアルサー）またはbedsore（ベッドソア）と英語で表現される。長時間の圧迫によって皮膚や組織が損傷する状態を指し、体位変換による予防が重要とされる。"}, {"q": "「誤嚥」の意味は？", "opts": ["食欲がない", "食べ物・液体が気管に入ること", "嚥下が正常", "むせない"], "a": 1, "e": "誤嚥（ごえん）とは、食物や液体が誤って気管（呼吸の通り道）に入ってしまうことを意味する。英語ではaspirationと呼ばれ、誤嚥性肺炎の直接的な原因となるため、食事介助において特に注意が必要な状態である。"}, {"q": "「失禁」(しっきん)の意味は？", "opts": ["便秘", "排泄を我慢できない状態", "排泄量が多い", "排泄がない"], "a": 1, "e": "失禁とは、自分の意思とは関係なく尿や便が漏れてしまう状態を意味する。英語ではincontinenceと呼ばれ、身体的な要因だけでなく心理的な影響も大きいため、羞恥心への配慮が特に重要となる。"}, {"q": "「拘縮」(こうしゅく)の意味は？", "opts": ["筋肉が強くなる", "関節・筋肉が硬くなり動かなくなること", "痛みがある", "腫れること"], "a": 1, "e": "拘縮とは、関節が固まり動きにくくなった状態を意味する。英語ではcontractureと呼ばれ、長期間の不動が主な原因となるため、日々のROM訓練や体位変換による予防が重視される。"}, {"q": "「転倒」と「転落」の違いは？", "opts": ["同じ", "転倒=同一平面で倒れる、転落=高い所から落ちる", "転落の方が軽い", "どちらも骨折のみ"], "a": 1, "e": "転倒(てんとう)=jatuh di permukaan yang sama(床で転ぶ). 転落(てんらく)=jatuh dari tempat yang lebih tinggi(ベッドから落ちる). 報告書で区別して記録。"}, {"q": "「バイタルサイン」に含まれる4項目は？", "opts": ["身長・体重・血液型・視力", "体温・脈拍・呼吸・血圧", "血糖値・コレステロール・尿酸・ヘモグロビン", "痛み・浮腫・発疹・意識"], "a": 1, "e": "バイタルサイン=生命徴候。4大バイタル: ①体温(正常36-37°C)②脈拍(60-100回/分)③呼吸(12-20回/分)④血圧(収縮期<140mmHg)。意識・SpO₂を加えて6項目とすることもある。"}, {"q": "「浮腫（むくみ）」が介護において重要な観察ポイントである理由は？", "opts": ["美容上の問題", "心臓・腎臓・肝臓疾患のサインである可能性があるため", "暑いと必ず起こる", "食べすぎのサイン"], "a": 1, "e": "浮腫（組織に水分が貯留した状態）は心不全・腎不全・肝硬変・薬の副作用のサインであることがある。下肢の浮腫は特に高齢者に多い。「押すとへこむか」を確認し、変化があれば看護師に報告。"}, {"q": "「バイタルサイン」の4大指標として正しい組み合わせは？", "opts": ["身長・体重・血糖・尿量", "体温・血圧・脈拍・呼吸（SpO₂を加えた5指標が現代の標準）", "食欲・水分量・排泄・睡眠", "意識・疼痛・浮腫・体重"], "a": 1, "e": "バイタルサイン4大指標：①体温②血圧③脈拍④呼吸数。現代ではSpO₂（酸素飽和度）を加えた5項目が標準的。これらは「生命維持の徴候」であり、変化が生命の危機につながるため最優先で観察・報告する。"}, {"q": "「バイタルサイン」を構成する4要素に含まれないのはどれか。", "opts": ["体重", "体温", "脈拍", "血圧"], "a": 0, "e": "基本的なバイタルサインは体温・脈拍・血圧・呼吸の4要素で構成される（近年はSpO2も含めることが多い）。体重はこれらには含まれず、栄養状態の指標として別に扱われる。"}, {"q": "「浮腫(ふしゅ)」の意味はどれか。", "opts": ["体内に水分がたまりむくむこと", "発熱", "発疹", "脱水"], "a": 0, "e": "浮腫とは、体内に水分がたまりむくむ状態を意味する。英語ではedemaと呼ばれ、心不全や腎機能低下など、様々な疾患のサインとして現れることがあるため、観察が重要な症状の一つとされる。"}, {"q": "「チアノーゼ」の意味はどれか。", "opts": ["酸素不足で唇や皮膚が青紫になる状態", "発熱状態", "発疹", "高血圧"], "a": 0, "e": "チアノーゼとは、酸素不足により唇や皮膚が青紫色になる状態を指す。英語ではcyanosisと呼ばれ、呼吸・循環器系の重大な異常を示す緊急性の高いサインとして扱われる。"}, {"q": "「せん妄」の英語表現はどれか。", "opts": ["delirium", "dementia", "depression", "disability"], "a": 0, "e": "せん妄はdelirium（デリリウム）と英語で表現される。急性で可逆的な意識障害を指し、慢性進行性の認知症（dementia）とは明確に区別される医学用語として重要である。"}, {"q": "「褥瘡(じょくそう)」の英語表現はどれか。", "opts": ["pressure ulcer / bedsore", "fracture", "infection", "dehydration"], "a": 0, "e": "褥瘡はpressure ulcerまたはbedsoreと英語で表現される。長時間の圧迫による皮膚・組織の損傷を指し、定期的な体位変換や体圧分散用具の使用によって予防される。"}, {"q": "「誤嚥」の意味はどれか。", "opts": ["食物や液体が誤って気管に入ること", "食べ過ぎ", "消化不良", "嘔吐"], "a": 0, "e": "誤嚥とは、食物や液体が誤って気管に入ってしまうことを意味する。英語ではaspirationと呼ばれ、誤嚥性肺炎の主な原因となるため、食事介助時の姿勢や一口量への配慮が欠かせない。"}, {"q": "「拘縮(こうしゅく)」の意味はどれか。", "opts": ["関節が固まり動きにくくなること", "骨折", "炎症", "感染"], "a": 0, "e": "拘縮とは、関節が固まり動きにくくなる状態を指す。英語ではcontractureと呼ばれ、不動が主な原因となるため、ROM訓練や体位変換による予防が介護現場で重視されている。"}, {"q": "「せつじょく」ではなく正しい読み方はどれか。", "opts": ["じょくそう", "せきそう", "じゅくそう", "せつそう"], "a": 0, "e": "「褥瘡」の正しい読み方は「じょくそう」である。誤って「せつじょく」と読まれることがあるが、医療・介護現場で正確な用語の読み方を理解しておくことは重要になる。"}, {"q": "「ADL」と「IADL」の違いはどれか。", "opts": ["ADLは基本動作、IADLは手段的(買い物等)動作", "同じ意味", "IADLの方が基本的", "無関係"], "a": 0, "e": "ADLは食事・排泄・入浴などの基本的な動作を指すのに対し、IADLは買い物・電話・金銭管理など、より複雑な手段的な動作を指すという違いがある。両者を区別して評価することで、支援の必要な範囲をより具体的に把握できる。"}, {"q": "「せん妄」と「認知症」の英語での区別はどれか。", "opts": ["delirium(急性)とdementia(慢性)", "同じ単語", "dementiaの方が急性", "区別なし"], "a": 0, "e": "せん妄はdelirium（急性で可逆的）、認知症はdementia（慢性で進行性）と英語で明確に区別される。この区別は、症状の原因と対応方法が大きく異なるため、臨床上非常に重要な意味を持つ。"}, {"q": "「バイタル」の中で「SpO2」が示すものはどれか。", "opts": ["血中酸素飽和度", "血圧", "脈拍数", "体温"], "a": 0, "e": "SpO2は、血液中にどれだけ酸素が含まれているかを示す経皮的動脈血酸素飽和度を表す。95%以上が一般的な目安とされ、呼吸状態を把握する上で重要な指標として活用される。"}, {"q": "「既往歴」の意味はどれか。", "opts": ["過去にかかった病気の記録", "現在の症状", "将来の予測", "家族の病歴のみ"], "a": 0, "e": "既往歴とは、過去にかかった病気や治療の記録を意味する。現在の症状ではなく過去の病歴を指す用語であり、アセスメントや医療的判断において重要な情報として扱われる。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-var oo=document.createElement('div');oo.style.display='grid';oo.style.gap='7px';
-q.opts.forEach(function(o,i){var b=document.createElement('button');
-b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-b.textContent=o;b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:10px;font-size:.92rem';
-qq.textContent=(qiZ%QKZ.length+1)+'. '+q.q;
-var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none';
-bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
-var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-bs[a].dataset.d='1';totZ++;
-bs[a].style.background='#e8f5e9';bs[a].style.borderColor='#43a047';bs[a].style.color='#1b5e20';
-if(c!==a){btn.style.background='#fce4ec';btn.style.borderColor='#e91e63';btn.style.color='#880e4f';}
-else okZ++;
-var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}
-var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();} function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body>
 </html>

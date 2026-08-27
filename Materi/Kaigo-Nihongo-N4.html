@@ -13,15 +13,7 @@
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["ご利用者様", "go-riyosha sama", "pengguna (honorifik)"], ["申し訳ございません", "moshiwake gozaimasen", "mohon maaf (formal)"], ["いかがですか", "ikaga desu ka", "bagaimana? (sopan)"], ["〜てもよろしいですか", "te mo yoroshii desu ka", "bolehkah saya ~?"], ["恐れ入りますが", "osoreirimasu ga", "mohon maaf mengganggu"], ["お体の具合", "o-karada no guai", "kondisi kesehatan"], ["よろしくお願いします", "yoroshiku onegai shimasu", "mohon bantuannya"], ["お大事に", "o-daiji ni", "semoga lekas sembuh"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#2e7d32">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
@@ -157,6 +149,8 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/kaigo-progress.js" defer></script>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -298,7 +292,6 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 </div>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 const QUIZ_NHG = [
   {q:'Cara sopan menawarkan makan kepada residen dalam bahasa kaigo?', opts:['食べますか？','ご飯にしますか？','お食事はいかがですか？','飯食う？'], ans:2, exp:'お食事はいかがですか？adalah ungkapan keigo yang tepat untuk menawarkan makan. Menggunakan "お食事" (o-shokuji) yang lebih sopan dari ご飯.'},
   {q:'"残存機能（ざんそんきのう）" artinya?', opts:['Fungsi yang hilang','Kemampuan/fungsi yang masih dimiliki residen','Fungsi alat bantu','Fungsi tim kaigo'], ans:1, exp:'残存機能 adalah kemampuan yang masih dimiliki residen. Prinsip 自立支援 adalah memanfaatkan sisa kemampuan ini — biarkan residen melakukan sendiri apa yang masih bisa.'},
@@ -380,6 +373,8 @@ function rstQ(){qIdx=0;qScore=0;document.getElementById('quizWrap').innerHTML=`<
 initQuiz(QUIZ_NHG);
 </script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -397,41 +392,6 @@ initQuiz(QUIZ_NHG);
 </section>
 <script>
 var QKZ=[{"q": "「お体の具合はいかがですか？」は何を聞いている？", "opts": ["仕事の状況", "体調・健康状態", "食事の好み", "天気の感想"], "a": 1, "e": "利用者の体調を丁寧に尋ねる表現で、健康状態や気分について尋ねている。日常的な声かけとして、利用者の変化にいち早く気づくための重要なコミュニケーション手段となる。"}, {"q": "「少々お待ちください」の意味は？", "opts": ["すぐ来る", "少し待ってください(礼儀的なお願い)", "来られない", "急いでください"], "a": 1, "e": "「少々お待ちください」は「mohon tunggu sebentar」を意味し、相手を丁寧に待たせる際に使う表現。ビジネスや介護の場面で頻繁に使われる、丁寧語の基本的な言い回しである。"}, {"q": "「〜ていただけますか？」の使い方は？", "opts": ["命令", "丁寧なお願い(〜してもらえますか？)", "確認", "報告"], "a": 1, "e": "〜ていただけますか=bolehkah ~?(丁寧な依頼)。「来ていただけますか？」=bisakah Anda datang?。最も丁寧な依頼表現の一つ。"}, {"q": "「ご迷惑をおかけして申し訳ありません」はどんな時？", "opts": ["感謝の時", "迷惑・不便をかけた時の謝罪", "挨拶の時", "確認の時"], "a": 1, "e": "ご迷惑をおかけして=menyusahkan Anda。申し訳ありません=sangat minta maaf。ケアミス・遅延など問題が起きた時の正式な謝罪。"}, {"q": "「よろしくお願いいたします」の意味は？", "opts": ["バイバイ", "これからもどうぞよろしく・お願いします(締めの丁寧表現)", "ありがとう", "すみません"], "a": 1, "e": "よろしくお願いいたします=mohon bimbingannya / terima kasih atas perhatiannya。メール・会話の締め、初対面、依頼の後に使う万能な丁寧表現。"}, {"q": "「〜させていただきます」を介護現場で使う正しい例は？", "opts": ["「入浴させていただきます」(自分が入浴する)", "「体温を測らせていただきます」(利用者に許可を求めてケアする)", "「食べさせていただきます」(自分が食べる)", "「眠らせていただきます」"], "a": 1, "e": "〜させていただく=相手の許可を得て行動する丁寧な表現。「体温を測らせていただきます」=あなたの許可をいただいて体温を測ります。ケア前の同意取得フレーズとして重要。"}, {"q": "利用者に「お変わりはございませんか」と聞く時の意味は？", "opts": ["変化を嫌がっている", "体調や生活に変化・問題がないか丁寧に確認している", "引っ越しの確認", "お金の確認"], "a": 1, "e": "お変わりはございませんか=「変わったことはありませんか」の最丁寧形。介護士が利用者の訪問開始時に体調・気分・生活の変化を確認する定番フレーズ。"}, {"q": "介護記録でよく使う「〜ていただく」の正しい使い方は？", "opts": ["「食べたいただく」", "「食べていただきました（食べてもらいました）」など、利用者・家族への敬意を示す補助動詞", "「食べていただく」は敬語ではない", "目上の人に対してのみ使う"], "a": 1, "e": "〜ていただく：「〜てもらう」の敬語形。介護記録・会話で頻出。例：「入浴していただきました」「薬を飲んでいただきました」。利用者・家族への尊重を示す表現として介護現場での標準的な言葉遣い。"}, {"q": "「〜たことがあります」の意味はどれか。", "opts": ["pernah melakukan…", "sedang melakukan…", "akan melakukan…", "tidak pernah…"], "a": 0, "e": "「〜たことがあります」は「pernah melakukan…」を意味し、過去の経験を表すN4レベルの重要文法。「行ったことがあります」のように、経験の有無を伝える際に使われる。"}, {"q": "「〜ばいい」の意味はどれか。", "opts": ["sebaiknya…", "jangan…", "harus…", "tidak boleh…"], "a": 0, "e": "「〜ばいい」は「sebaiknya…」を意味し、助言や提案を表す表現。相手に何かを勧めたり、望ましい行動を伝えたりする際に使われる、日常会話で頻出の文法である。"}, {"q": "「〜ようになる」の意味はどれか。", "opts": ["menjadi bisa…", "tidak bisa lagi…", "harus…", "ingin…"], "a": 0, "e": "「〜ようになる」は「menjadi bisa…」を意味し、状態や能力の変化を表す文法。以前はできなかったことができるようになった、という変化のプロセスを伝える際に使用される。"}, {"q": "「〜なければなりません」の意味はどれか。", "opts": ["harus…", "tidak boleh…", "boleh…", "tidak perlu…"], "a": 0, "e": "「〜なければなりません」は「harus…」を意味し、義務や必要性を表す基本文法。「行かなければなりません」のように、しなければならないことを伝える際に広く使われる。"}, {"q": "「〜ておく」の意味はどれか。", "opts": ["melakukan sesuatu sebagai persiapan", "melakukan berulang", "tidak melakukan", "sedang melakukan"], "a": 0, "e": "「〜ておく」は、事前の準備としてある行動をとることを意味する表現。「準備しておきます」のように、後のための準備行動を表す際に使われるN4文法の一つである。"}, {"q": "「〜そうです(様態)」の意味はどれか。", "opts": ["kelihatannya…", "kabarnya…", "pasti…", "tidak mungkin…"], "a": 0, "e": "様態を表す「〜そうです」は「kelihatannya…」を意味し、見た目からの推測を伝える表現。「おいしそうです」のように、視覚的な印象に基づく判断を表す際に使われる。"}, {"q": "「〜ながら」の意味はどれか。", "opts": ["sambil melakukan dua hal sekaligus", "setelah melakukan", "sebelum melakukan", "tidak melakukan"], "a": 0, "e": "「〜ながら」は「sambil…」を意味し、二つの動作を同時に行うことを表す文法。「歩きながら話す」のように、同時進行の動作を伝える際に日常的に使われる表現である。"}, {"q": "「〜てしまう」のニュアンスはどれか。", "opts": ["menyesalkan hasil suatu tindakan", "bermaksud melakukan", "akan melakukan", "ingin melakukan"], "a": 0, "e": "「〜てしまう」は、完了に加えて残念な気持ちを伴うニュアンスを表す。「忘れてしまいました」のように、意図せず起きたことへの後悔や困惑を伝える際に使われる表現である。"}, {"q": "「〜かもしれません」の意味はどれか。", "opts": ["mungkin…", "pasti…", "tidak mungkin…", "harus…"], "a": 0, "e": "「〜かもしれません」は「mungkin…」を意味し、確信度の低い推量を表す表現。「雨が降るかもしれません」のように、可能性を控えめに伝える際に使われる基本文法である。"}, {"q": "「〜のに」の意味はどれか。", "opts": ["padahal…", "karena…", "jika…", "sambil…"], "a": 0, "e": "「〜のに」は「padahal…」を意味し、逆接や不満のニュアンスを表す接続表現。「頑張ったのに失敗した」のように、期待と異なる結果への感情を伝える際に使われる。"}, {"q": "「〜てもいいです」の意味はどれか。", "opts": ["boleh…", "harus…", "tidak boleh…", "jangan…"], "a": 0, "e": "「〜てもいいです」は「boleh…」を意味し、許可を表す基本文法。「使ってもいいです」のように、相手に何かをすることを許可する際に日常的に使われる表現である。"}, {"q": "「〜はずです」の意味はどれか。", "opts": ["seharusnya…", "mungkin tidak…", "tidak pernah…", "jangan…"], "a": 0, "e": "「〜はずです」は「seharusnya…」を意味し、確信度の高い推量を表す表現。「もう着いているはずです」のように、根拠に基づいた強い推測を伝える際に使われる文法である。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-var oo=document.createElement('div');oo.style.display='grid';oo.style.gap='7px';
-q.opts.forEach(function(o,i){var b=document.createElement('button');
-b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-b.textContent=o;b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:10px;font-size:.92rem';
-qq.textContent=(qiZ%QKZ.length+1)+'. '+q.q;
-var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none';
-bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
-var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-bs[a].dataset.d='1';totZ++;
-bs[a].style.background='#e8f5e9';bs[a].style.borderColor='#43a047';bs[a].style.color='#1b5e20';
-if(c!==a){btn.style.background='#fce4ec';btn.style.borderColor='#e91e63';btn.style.color='#880e4f';}
-else okZ++;
-var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}
-var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();} function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body>
 </html>

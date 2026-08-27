@@ -13,15 +13,7 @@
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["疾患", "shikkan", "penyakit"], ["脳卒中", "nousottchu", "stroke"], ["認知症", "ninchisho", "demensia"], ["骨粗鬆症", "kotsusoshosho", "osteoporosis"], ["糖尿病", "tounyobyo", "diabetes"], ["高血圧", "kouketsuatsu", "hipertensi"], ["心不全", "shin-fuzen", "gagal jantung"], ["COPD", "COPD", "penyakit paru obstruktif"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#2e7d32">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
@@ -157,6 +149,8 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/kaigo-progress.js" defer></script>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -305,7 +299,6 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 </div>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 const QUIZ_PEN = [
   {q:'Demensia jenis apa yang paling sering disertai halusinasi visual (幻視)?', opts:['アルツハイマー型','血管性認知症','レビー小体型認知症','前頭側頭型認知症'], ans:2, exp:'レビー小体型認知症 khas dengan 幻視 (halusinasi visual yang jelas dan mendetail), gejala Parkinson, dan fluktuasi kesadaran.'},
   {q:'"徘徊（はいかい）" adalah BPSD yang berarti?', opts:['Menolak makan','Berkeliaran tanpa tujuan','Inkontinensia','Halusinasi'], ans:1, exp:'徘徊 adalah perilaku berkeliaran tanpa tujuan yang jelas pada residen demensia. Pendekatan: jangan dikekang, pastikan lingkungan aman.'},
@@ -390,6 +383,8 @@ function rstQ(){qIdx=0;qScore=0;document.getElementById('quizWrap').innerHTML=`<
 initQuiz(QUIZ_PEN);
 </script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -407,41 +402,6 @@ initQuiz(QUIZ_PEN);
 </section>
 <script>
 var QKZ=[{"q": "「高血圧」のケアで介護職が観察すべきことは？", "opts": ["体重のみ", "定期的なBP測定・頭痛・めまい・降圧剤の副作用", "食欲のみ", "体温のみ"], "a": 1, "e": "頭痛・めまい・顔面紅潮などの随伴症状と、血圧測定値の変化を観察することが重要。これらの異常に気づいたら速やかに看護師へ報告し、医療的な判断につなげる必要がある。"}, {"q": "「糖尿病」利用者で最も注意すべき症状は？", "opts": ["食欲増進", "低血糖(冷汗・震え・意識混濁)", "発熱", "咳"], "a": 1, "e": "低血糖の症状（冷や汗・手の震え・意識のもうろう感等）が最も注意すべき症状となる。急速に進行し重篤な意識障害に至る可能性があるため、早期発見と迅速な対応が求められる。"}, {"q": "「パーキンソン病」の特徴的な症状は？", "opts": ["記憶障害", "振戦・固縮・無動・姿勢反射障害の4徴候", "幻視", "食欲低下"], "a": 1, "e": "振戦・筋固縮・無動・姿勢反射障害の四大症状が特徴的とされる。これらの運動症状に加え、便秘やうつといった非運動症状も伴うことが多く、総合的な理解が必要になる。"}, {"q": "脳卒中後の「左片麻痺」の利用者の食事介助で配慮することは？", "opts": ["右から食べさせる", "左側に食べ物が見えるよう配置・左側への注意を促す", "速く食べさせる", "液体のみ"], "a": 1, "e": "健側（右側）に食べ物を配置し、患側（左側）への注意を促すことが配慮点。左片麻痺では左側の空間を認識しにくい半側空間無視を伴うことがあり、食事の見落としに注意が必要となる。"}, {"q": "「骨粗鬆症」の利用者で特に注意すべきことは？", "opts": ["血圧管理", "転倒予防・骨折リスク低減", "食欲", "睡眠"], "a": 1, "e": "軽微な力でも骨折しうるため、急な動作や強い圧迫を避けることが特に注意すべき点。日常のわずかな動作でも圧迫骨折等が起こりうるほど、骨が脆弱化している状態を理解する必要がある。"}, {"q": "「COPDの利用者」に対して特に注意すべき介護上のポイントは？", "opts": ["骨折に注意", "呼吸困難への対応と酸素投与中の安全管理・活動量の調整", "血糖値の管理", "認知機能のみ確認"], "a": 1, "e": "COPD(慢性閉塞性肺疾患)の介護: 動作時の息切れ・呼吸困難が最大の問題。酸素療法中は火気厳禁。活動量を調整しながら呼吸リハビリを支援。喫煙歴のある高齢者に多い。"}, {"q": "「高血圧（こうけつあつ）」の利用者に介護士が特に注意すべきことは？", "opts": ["体重の増加", "急な体位変換・激しい運動・極端な温度変化(入浴時など)を避ける", "食事量の増加", "睡眠を短くする"], "a": 1, "e": "高血圧の介護: 急な動作や体位変換→血圧急上昇リスク。熱い風呂→血管拡張→血圧急低下。ストレス・寒冷刺激も血圧を上げる。毎日の血圧測定と記録が重要。"}, {"q": "「心不全」の利用者への介護で「毎朝体重を測る」理由は？", "opts": ["食欲確認のため", "体液貯留（浮腫）を早期発見するため。2〜3日で2kg以上の増加は水分過多のサインで要報告", "骨密度確認のため", "栄養状態確認のため"], "a": 1, "e": "心不全の体重管理：心不全では心臓のポンプ機能低下→体内に水分が溜まる→浮腫・体重増加。毎日同時刻（起床後排尿後）に測定。2〜3日で2kg以上増加は心不全悪化のサイン→即看護師・医師に報告。"}, {"q": "高齢者に多い「変形性膝関節症」の主な症状はどれか。", "opts": ["膝の痛みと可動域制限", "発熱", "記憶障害", "呼吸困難"], "a": 0, "e": "変形性膝関節症(osteoartritis lutut)は膝の痛み・可動域制限(nyeri & keterbatasan gerak)が主症状。"}, {"q": "高齢者の「白内障」が生活に与える影響はどれか。", "opts": ["視力低下による転倒リスクの増加", "聴力低下", "記憶障害", "運動機能向上"], "a": 0, "e": "視力低下による転倒リスクの増加が白内障の生活への影響。見えにくさから段差や障害物に気づきにくくなり、事故のリスクが高まるため、環境整備での配慮が重要になる。"}, {"q": "高齢者の「難聴」への対応で適切なのはどれか。", "opts": ["正面から口を見せてゆっくり話す", "後ろから大声で話す", "筆談のみに頼る", "無視する"], "a": 0, "e": "正面から口を見せて、ゆっくり話すことが適切な対応。後ろから大声で話すことや、筆談のみに頼ることは、かえってコミュニケーションを困難にしてしまう可能性がある。"}, {"q": "高齢者の「前立腺肥大」が引き起こしやすい症状はどれか。", "opts": ["頻尿や排尿困難", "便秘のみ", "視力低下", "記憶障害"], "a": 0, "e": "頻尿や排尿困難が前立腺肥大による典型的な症状。男性高齢者に多く見られ、夜間のトイレ回数増加にもつながるため、排泄介助の際の配慮が必要になる。"}, {"q": "高齢者の「帯状疱疹」の特徴はどれか。", "opts": ["神経に沿った痛みを伴う発疹", "全身の発熱のみ", "記憶障害", "呼吸困難"], "a": 0, "e": "神経に沿った痛みを伴う発疹が帯状疱疹の特徴。過去に感染した水痘ウイルスが再活性化することで発症し、強い神経痛を伴うことが多いため早期の医療的対応が重要となる。"}, {"q": "高齢者の「関節リウマチ」の特徴的な症状はどれか。", "opts": ["朝のこわばりと関節の腫れ", "発熱のみ", "視力低下", "記憶障害"], "a": 0, "e": "朝のこわばりと、関節の腫れが関節リウマチの特徴的な症状。これらの症状により日常動作に支障をきたすことが多いため、介助の際には無理のない範囲での支援が求められる。"}, {"q": "高齢者の「貧血」が生活に与える影響はどれか。", "opts": ["倦怠感やめまいで活動性が低下する", "活力が向上する", "無関係", "食欲が増進する"], "a": 0, "e": "倦怠感やめまいにより活動性が低下することが貧血の生活への影響。日常の動作への意欲や体力に影響を及ぼすため、原因の把握と適切な栄養管理が重要になる。"}, {"q": "高齢者の「誤嚥性肺炎」の主な原因はどれか。", "opts": ["嚥下機能低下による食物・唾液の誤嚥", "運動不足のみ", "水分過多", "栄養過多"], "a": 0, "e": "嚥下機能の低下による、食物・唾液の誤嚥が主な原因となる。加齢に伴う嚥下機能の衰えが背景にあるため、食事姿勢や口腔ケアを通じた予防が重視される。"}, {"q": "高齢者の「変形性脊椎症」への配慮はどれか。", "opts": ["無理のない姿勢と適度な運動を勧める", "安静を強制する", "激しい運動を勧める", "無関係"], "a": 0, "e": "無理のない姿勢と、適度な運動を勧めることが配慮として適切。安静を強制したり激しい運動を勧めたりすることは、かえって症状を悪化させる可能性がある。"}, {"q": "高齢者の疾患管理で「多疾患併存(マルチモビディティ)」が意味することはどれか。", "opts": ["複数の慢性疾患を同時に抱える状態", "単一の疾患のみ", "治療の必要がない状態", "急性疾患のみ"], "a": 0, "e": "マルチモビディティ(multimorbiditas)=複数の慢性疾患(beberapa penyakit kronis)を同時に抱える状態。"}, {"q": "高齢者の「褥瘡」予防と栄養状態の関係はどれか。", "opts": ["低栄養は褥瘡リスクを高める", "栄養状態は無関係", "高栄養は逆にリスクを高める", "予防に栄養は関係ない"], "a": 0, "e": "低栄養は褥瘡のリスクを高める関係にある。栄養状態が悪いと皮膚の耐久性が低下し、圧迫による損傷を受けやすくなるため、適切な栄養管理が褥瘡予防に直結する。"}, {"q": "高齢者の「フレイル」の概念が示すものはどれか。", "opts": ["加齢に伴う心身の脆弱性が高まった状態", "完全な健康状態", "若年層の状態", "急性疾患のみ"], "a": 0, "e": "加齢に伴う心身の脆弱性が高まった状態をフレイルという概念は示している。完全な健康状態でも重度の要介護状態でもない中間的な段階であり、早期の介入で改善が可能とされる。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-var oo=document.createElement('div');oo.style.display='grid';oo.style.gap='7px';
-q.opts.forEach(function(o,i){var b=document.createElement('button');
-b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-b.textContent=o;b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:10px;font-size:.92rem';
-qq.textContent=(qiZ%QKZ.length+1)+'. '+q.q;
-var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none';
-bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
-var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-bs[a].dataset.d='1';totZ++;
-bs[a].style.background='#e8f5e9';bs[a].style.borderColor='#43a047';bs[a].style.color='#1b5e20';
-if(c!==a){btn.style.background='#fce4ec';btn.style.borderColor='#e91e63';btn.style.color='#880e4f';}
-else okZ++;
-var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}
-var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();} function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body>
 </html>

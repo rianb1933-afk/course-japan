@@ -11,6 +11,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js"></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
@@ -21,57 +23,21 @@
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["感染症", "kansen-sho", "penyakit infeksi"], ["標準予防策", "hyojun yobo-saku", "kewaspadaan standar"], ["手指衛生", "shushi eisei", "kebersihan tangan"], ["PPE", "PPE", "alat pelindung diri"], ["飛沫感染", "himatsu kansen", "penularan droplet"], ["空気感染", "kuki kansen", "penularan airborne"], ["接触感染", "sesshoku kansen", "penularan kontak"], ["次亜塩素酸", "jia ensosan", "natrium hipoklorit"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#37474f)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#37474f);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,var(--primary,#37474f),var(--primary-dark,#546e7a));color:#fff;padding:48px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
-.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
-.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#37474f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
-.tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
-.tbl tr:hover td{background:rgba(0,0,0,.03)}
-.tip{background:#f0faf0;border-left:3px solid #43a047;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
-.card.open .det{display:block}
-.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.83rem;color:#666;line-height:1.7}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:#fff;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;text-align:left;width:100%;font-family:inherit}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.85rem;color:#555;display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Pengendalian Infeksi Kaigo 感染対策 | Nihongo Pro Academy", "description": "Pengendalian Infeksi Kaigo 感染対策 — Nihongo Pro Academy", "url": "https://nihongopro.id/Materi/Kaigo-Infection-Control.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -226,12 +192,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div></section></main>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var Q=[{"q": "WHOの手指衛生5つのタイミングの1つ目は？", "opts": ["食事の前", "患者に触れる前", "患者に触れた後", "手が汚れた時"], "a": 1, "e": "WHOが定める手指衛生の5つのタイミングの1つ目は「患者に触れる前」。この最初のタイミングを守ることで、介助者の手を介した病原体の持ち込みを防ぎ、感染予防の第一歩とすることができる。"}, {"q": "ノロウイルス感染後の適切な消毒剤は？", "opts": ["アルコール消毒のみ", "次亜塩素酸ナトリウム(塩素系)", "石鹸のみ", "熱湯のみ"], "a": 1, "e": "ノロウイルスの消毒には、次亜塩素酸ナトリウムなどの塩素系消毒剤が適切とされる。アルコール消毒だけでは十分な効果が得られないため、嘔吐物処理等の際は塩素系消毒剤を用いることが重要になる。"}, {"q": "「疥癬(かいせん)」の感染経路は？", "opts": ["空気感染", "直接の皮膚接触(ダニが移る)", "飛沫感染", "食べ物"], "a": 1, "e": "疥癬は、皮膚と皮膚の直接接触によって感染するダニによる皮膚疾患。空気感染ではなく接触感染が主な経路であるため、標準予防策に加え接触予防策の徹底が求められる。"}, {"q": "結核(TBC)のケアで必要な特別な対策は？", "opts": ["通常のマスクでよい", "N95マスクの着用と空気感染予防策", "手袋のみ", "特別な対策不要"], "a": 1, "e": "結核は空気感染するため、通常の標準予防策に加え、N95マスクの着用や陰圧室での管理など、空気予防策が特別に必要となる。他の感染症とは異なる、より厳重な対策が求められる疾患である。"}, {"q": "手袋を外した後に必ず行うべきことは？", "opts": ["次の患者へ行く", "手指衛生(手洗い・消毒)を行う", "手袋を捨てる", "記録する"], "a": 1, "e": "手袋を外した後は、必ず手指衛生（手洗いまたは手指消毒）を行う必要がある。手袋を着用していたからといって手指衛生を省略してよいわけではなく、外した後の衛生管理も感染予防の重要な要素となる。"}, {"q": "「接触予防策」が必要な感染症は？", "opts": ["結核・麻疹・水痘", "MRSA・ノロウイルス・疥癬", "インフルエンザ・RSウイルス", "梅毒・HIV"], "a": 1, "e": "疥癬や耐性菌（MRSA等）保菌といった、接触によって感染が広がる感染症には接触予防策が必要となる。手袋やガウンの着用、器具の個別管理などを通じて、接触による感染拡大を防ぐ。"}, {"q": "「標準予防策」の基本的考え方は？", "opts": ["感染確定患者だけ対策", "すべての血液・体液・分泌物は感染性があると見なして対応", "医療従事者のみ実施", "手袋だけすれば十分"], "a": 1, "e": "標準予防策の基本的考え方は、全ての血液・体液・分泌物を感染源とみなして対応すること。症状の有無にかかわらず、全ての利用者に対して一律に適用することで、感染リスクを低減する基本的な考え方である。"}, {"q": "施設でノロウイルス集団感染発生時の消毒薬は？", "opts": ["アルコール70%", "次亜塩素酸ナトリウム0.1%以上", "石鹸と水のみ", "紫外線ランプ"], "a": 1, "e": "集団感染発生時には、次亜塩素酸ナトリウムなどの塩素系消毒薬を用いて速やかに対応することが求められる。適切な濃度での消毒を徹底することが、感染拡大を防ぐ上で極めて重要になる。"}, {"q": "感染性廃棄物（使用済み手袋・汚染ガーゼ）の正しい廃棄方法は？", "opts": ["普通のゴミ箱", "感染性廃棄物専用容器(バイオハザードマーク付き)", "流し台", "そのまま放置"], "a": 1, "e": "感染性廃棄物は、専用の容器に分別し、密閉した状態で処理することが正しい廃棄方法。一般ゴミと混ぜたり、素手で扱ったりすることは、感染拡大のリスクを高めるため厳禁とされている。"}, {"q": "PPE（個人防護具）の正しい「脱ぐ順序」は？", "opts": ["手袋→エプロン→マスクの順", "マスク→手袋→エプロンの順", "どの順でも同じ", "全部一緒に脱ぐ"], "a": 0, "e": "PPEは汚染された物から先に脱ぐ: 手袋(最も汚染)→エプロン→マスク(最後=顔に近い清潔部分)。各ステップ後に手指衛生。この順序は試験頻出。"}, {"q": "標準予防策における手指衛生のタイミングとして正しいのはどれか。", "opts": ["ケア前後・体液に触れた後", "1日1回のみ", "気が向いたとき", "不要な場合が多い"], "a": 0, "e": "ケアの前後や、体液に触れた後に手指衛生を行うことが標準予防策における正しいタイミング。1日1回だけといった不十分な頻度では、感染予防の効果を十分に得ることができない。"}, {"q": "個人防護具(PPE)の着脱順序で重要なことはどれか。", "opts": ["決められた順序で汚染を広げないよう着脱する", "順序は関係ない", "早く着脱すればよい", "脱ぐ順序は不要"], "a": 0, "e": "決められた順序で着脱し、汚染を広げないようにすることが重要。順序を守らずに着脱すると、防護具についた病原体が自身や周囲に付着し、感染拡大の原因となる危険がある。"}, {"q": "インフルエンザ流行期の施設内対策はどれか。", "opts": ["手洗い励行と早期の症状把握", "対策不要", "感染者を放置", "換気をしない"], "a": 0, "e": "手洗いの励行と、症状の早期把握が流行期の基本的な対策となる。対策を行わない、感染者を放置するといった対応は、施設内での感染拡大を招く重大なリスクとなる。"}, {"q": "疥癬(かいせん)が疑われる利用者への対応はどれか。", "opts": ["個室対応と専門医への相談", "通常通り対応", "放置する", "他利用者と同室のまま"], "a": 0, "e": "個室での対応と、専門医への相談が疥癬疑い時の適切な対応。通常通りの対応を続けたり、他の利用者と同室のままにしたりすることは、接触感染を広げてしまう危険がある。"}, {"q": "ノロウイルス感染疑い時の嘔吐物処理で重要なことはどれか。", "opts": ["適切な消毒剤(次亜塩素酸等)で速やかに処理する", "水拭きのみで済ませる", "放置してよい", "素手で処理"], "a": 0, "e": "次亜塩素酸などの適切な消毒剤を用いて、速やかに処理することが重要。水拭きだけで済ませたり、素手で処理したりすることは、周囲への感染拡大を招く危険な対応となる。"}, {"q": "施設内での感染対策委員会の役割はどれか。", "opts": ["感染対策の方針策定と教育・監視", "記録の保管のみ", "無関係な業務", "職員の評価のみ"], "a": 0, "e": "感染対策の方針策定と、職員への教育・監視を担うことが感染対策委員会の役割。記録の保管だけにとどまらず、施設全体の感染予防体制を組織的に構築・維持する重要な機能を持つ。"}, {"q": "経管栄養実施者の感染予防で重要なことはどれか。", "opts": ["清潔な操作と器具の適切な管理", "器具の使い回し", "手洗い省略", "無関係な配慮"], "a": 0, "e": "清潔な操作と、使用する器具の適切な管理が経管栄養実施時の感染予防で重要。器具の使い回しや手洗いの省略は、感染リスクを大きく高めてしまうため、清潔操作の徹底が欠かせない。"}, {"q": "耐性菌(MRSA等)保菌者へのケアで重要なことはどれか。", "opts": ["標準予防策の徹底と過度な差別をしないこと", "隔離して一切関わらない", "通常ケアで問題ない", "家族にも会わせない"], "a": 0, "e": "標準予防策を徹底しながら、過度な差別をしないことが重要となる。保菌しているというだけで一切関わらない、家族にも会わせないといった過剰な対応は、本人の尊厳を損なう不適切な対応である。"}, {"q": "職員自身の感染予防で重要なワクチン接種はどれか。", "opts": ["インフルエンザ等の推奨ワクチン接種", "ワクチンは不要", "任意で構わない", "効果はない"], "a": 0, "e": "インフルエンザなど、推奨されているワクチンの接種が職員自身の感染予防として重要。ワクチン接種は、自分自身だけでなく、ケアする利用者を感染から守ることにもつながる。"}, {"q": "換気が感染対策上重要な理由はどれか。", "opts": ["空気中の病原体濃度を下げるため", "無関係", "室温調整のためだけ", "匂い対策のためだけ"], "a": 0, "e": "換気は、空気中に含まれる病原体の濃度を下げる効果があるため、感染対策上重要とされる。室温調整や匂い対策のためだけでなく、感染予防の観点からも定期的な換気が欠かせない。"}],qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById("qc");if(!c)return;var oo=document.createElement("div");oo.className="qopts";q.opts.forEach(function(o,i){var b=document.createElement("button");b.className="qopt";b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement("div");bx.className="qbox";var qq=document.createElement("div");qq.className="qq";qq.textContent=(qi%Q.length+1)+". "+q.q;var ex=document.createElement("div");ex.className="qexp";ex.id="qe";bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML="";c.appendChild(bx);var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-rnd();
 </script><section style="max-width:900px;margin:0 auto;padding:0 20px 0">
 <div style="background:#fff;border:1px solid rgba(55,71,79,.1);border-radius:12px;padding:18px;margin:12px 0">
 <h3 style="color:var(--primary,#37474f);margin:0 0 12px;font-size:1rem">🦠 感染経路と予防策まとめ</h3>
@@ -254,50 +215,5 @@ rnd();
 </section>
 <script>
 var QKZ=[{"q": "感染症の「感染経路」で「飛沫感染」の予防策は？", "opts": ["手洗いのみ", "サージカルマスク着用・換気・距離確保", "N95マスクのみ", "手袋のみ"], "a": 1, "e": "飛沫感染=咳・くしゃみで出る飛沫(1m以内)。インフルエンザ・新型コロナ等。サージカルマスク・換気・1〜2m距離確保が有効。N95は空気感染向け。"}, {"q": "「接触感染」の予防で最重要なことは？", "opts": ["マスク", "手指衛生(手洗い・手指消毒)+手袋の適切な使用", "換気", "距離"], "a": 1, "e": "接触感染=直接接触または物(ドアノブ・手すり)経由。ノロウイルス・MRSA・疥癬等。手指衛生が最重要。手袋は使用後すぐ外して手洗い。"}, {"q": "「疥癬(かいせん)」の正しい感染経路は？", "opts": ["飛沫", "直接の皮膚接触でダニが移る", "空気", "食べ物"], "a": 1, "e": "疥癬=ヒゼンダニによる皮膚疾患。直接の長時間の皮膚接触で感染。施設でアウトブレークしやすい。全身に発疹・かゆみ。長袖手袋着用・寝具の熱湯洗濯が必要。"}, {"q": "「標準予防策(スタンダードプリコーション)」とは？", "opts": ["感染者のみに行う対策", "全ての利用者の血液・体液等を感染性があるとみなして行う対策", "特別な患者のみ", "手洗いのみ"], "a": 1, "e": "標準予防策=全利用者に適用。血液・体液・分泌物・排泄物・粘膜・傷のある皮膚はすべて感染性がある前提でAPDを使用。感染のある人だけでなく全員に。"}, {"q": "「アウトブレーク(集団感染)」発生時の最初の対応は？", "opts": ["様子を見る", "即施設長・看護師に報告+感染者の隔離+感染拡大防止措置開始", "薬を配る", "掃除のみ"], "a": 1, "e": "アウトブレーク対応: ①即報告(施設長・看護師・必要なら保健所) ②感染者の隔離 ③手指衛生強化 ④環境消毒 ⑤スタッフの健康管理。スピードが重要。"}, {"q": "手指消毒でアルコールが「効かない」代表的な病原体は？", "opts": ["インフルエンザ", "ノロウイルス・芽胞形成菌(C.difficile等)", "MRSA", "コロナウイルス"], "a": 1, "e": "アルコール無効: ノロウイルス(次亜塩素酸ナトリウムが有効)・芽胞(C.difficile=熱または次亜塩素酸)。これらは石鹸手洗いが重要。アルコール有効=インフル・コロナ・MRSA等。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){
-  if(!QKZ.length)return;
-  var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
-  q.opts.forEach(function(o,i){
-    var b=document.createElement('button');
-    b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-    b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
-    b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
-    b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
-    b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:var(--primary,#37474f);color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
-  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
-  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
-  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
-  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-  c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){
-  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';totZ++;
-  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  else okZ++;
-  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
-function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

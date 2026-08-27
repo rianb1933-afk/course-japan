@@ -11,6 +11,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js"></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
@@ -21,57 +23,21 @@
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["栄養", "eiyou", "nutrisi"], ["摂食嚥下", "sessyoku enge", "makan dan menelan"], ["嚥下障害", "enge shogai", "disfagia"], ["食欲不振", "shokuyoku fushin", "kurang nafsu makan"], ["脱水", "dassui", "dehidrasi"], ["水分摂取量", "suibun sesshu-ryo", "asupan cairan"], ["管理栄養士", "kanri eiyoshi", "ahli gizi"], ["ミールラウンド", "miiru raundo", "meal round"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#2e7d32)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#2e7d32);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,var(--primary,#2e7d32),var(--primary-dark,#388e3c));color:#fff;padding:48px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
-.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
-.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#2e7d32);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#2e7d32);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
-.tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
-.tbl tr:hover td{background:rgba(0,0,0,.03)}
-.tip{background:#f0faf0;border-left:3px solid #43a047;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
-.card.open .det{display:block}
-.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.83rem;color:#666;line-height:1.7}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:#fff;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;text-align:left;width:100%;font-family:inherit}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.85rem;color:#555;display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Nutrisi & Gizi Kaigo 栄養管理 | Nihongo Pro Academy", "description": "Nutrisi dan gizi kaigo 栄養管理. Panduan kebutuhan gizi lansia, diet khusus penyakit, teknik makan aman, dan pemantauan nutrisi untuk tenaga perawat Jepang.", "url": "https://nihongopro.id/Materi/Kaigo-Nutrition.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -227,12 +193,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div></section></main>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var Q=[{"q": "「誤嚥」とは何ですか？", "opts": ["正しく食べること", "食べ物や液体が気管に入ること", "食欲がないこと", "食べ過ぎること"], "a": 1, "e": "誤嚥(ごえん)=aspirasi; makanan/cairan masuk ke trakea(気管). 誤嚥性肺炎の原因. むせ・湿った声・食後の微熱で疑う。"}, {"q": "とろみ剤を使う主な目的は？", "opts": ["味をよくする", "嚥下障害の方が安全に飲み込めるよう液体を増粘する", "カロリーを増やす", "消化を助ける"], "a": 1, "e": "嚥下障害のある人が安全に水分を摂取できるよう、飲み込みやすくすることがとろみ剤の主な目的。さらさらとした液体は喉の奥へ流れる速度が速く誤嚥しやすいため、粘度を調整することで安全性を高める。"}, {"q": "食事中に「食後に声がガラガラ」になった時は？", "opts": ["様子を見る", "湿性嗄声=誤嚥の疑いがある→すぐ看護師に報告", "水を飲ませる", "食事を続けさせる"], "a": 1, "e": "誤嚥している可能性があるため、食事を中断し、咳を促しながら状態を観察することが適切な対応。放置すると誤嚥性肺炎につながる危険があるため、速やかな対応が求められる。"}, {"q": "MNA(Mini Nutritional Assessment)の目的は？", "opts": ["血圧を測る", "高齢者の栄養状態・栄養不足リスクをスクリーニングする", "運動能力を評価する", "認知機能を測る"], "a": 1, "e": "高齢者の栄養状態を客観的に評価することがMNAの目的。スコアに基づいて低栄養のリスクを判定し、早期の栄養介入につなげるための国際的に用いられる評価ツールである。"}, {"q": "高齢者の1日に必要な水分量は？", "opts": ["500mL", "1500-2000mL", "3000mL", "100mL"], "a": 1, "e": "体重や状態に応じておよそ1000〜1500ml程度が目安とされる。ただし個人差が大きいため、医師の指示がある場合はそれに従い、脱水予防のための適切な水分管理が求められる。"}, {"q": "高齢者の低栄養を示す指標はどれか。", "opts": ["体重減少とアルブミン値の低下", "体重増加", "血圧上昇", "視力低下"], "a": 0, "e": "体重減少とアルブミン値の低下が低栄養を示す代表的な指標。これらの変化を継続的に観察することで、低栄養の早期発見と適切な栄養介入につなげることができる。"}, {"q": "高齢者の食欲不振の主な原因として考えられるのはどれか。", "opts": ["味覚の変化・薬の副作用・孤食", "運動不足のみ", "水分過多", "若さ"], "a": 0, "e": "味覚の変化・薬の副作用・孤食などが食欲不振の主な原因として考えられる。これらの要因を理解し、原因に応じた対応を行うことが食事支援の質を高める鍵となる。"}, {"q": "経口摂取が困難な高齢者への栄養補給法の一つはどれか。", "opts": ["経管栄養や補助栄養食品の活用", "無理に食べさせる", "絶食のまま", "水のみ与える"], "a": 0, "e": "経管栄養や、栄養補助食品の活用が経口摂取困難な場合の栄養補給法の一つ。本人の状態に応じて適切な方法を選択し、必要な栄養を確保することが重要になる。"}, {"q": "高齢者に必要なタンパク質摂取が重要な理由はどれか。", "opts": ["筋肉量維持とサルコペニア予防のため", "太らせるため", "味のため", "不要だから"], "a": 0, "e": "筋肉量の維持と、サルコペニアの予防のためにタンパク質摂取が重要となる。加齢による筋力低下を防ぎ、日常生活の自立を支える上で欠かせない栄養素とされている。"}, {"q": "食物繊維が高齢者の食事に必要な理由はどれか。", "opts": ["便秘予防のため", "味付けのため", "カロリー確保のため", "不要だから"], "a": 0, "e": "便秘予防のために食物繊維が必要とされる。十分な水分摂取と合わせて食物繊維を摂ることで、高齢者に多く見られる便秘の予防や改善に大きな効果が期待できる。"}, {"q": "嚥下障害のある利用者の食形態として適切なのはどれか。", "opts": ["ミキサー食やとろみ付き食", "硬い普通食", "そのままの液体", "乾燥した食品"], "a": 0, "e": "ミキサー食やとろみ付き食が嚥下障害のある利用者に適切な食形態。誤嚥のリスクを減らしながら、必要な栄養を安全に摂取できるよう工夫された食事形態となる。"}, {"q": "高齢者のビタミンD不足が引き起こす問題はどれか。", "opts": ["骨密度低下と骨折リスク増加", "視力向上", "筋力増強", "免疫過剰"], "a": 0, "e": "骨密度の低下と、骨折リスクの増加がビタミンD不足による問題。日光浴や食事からの摂取によってビタミンDを補うことが、骨の健康維持のために重要となる。"}, {"q": "栄養ケアマネジメントにおけるアセスメントの目的はどれか。", "opts": ["個別の栄養状態を把握し計画を立てる", "一律の献立を作る", "記録のためだけ", "不要な作業"], "a": 0, "e": "個別の栄養状態を把握し、適切な計画を立てることがアセスメントの目的。一律の対応ではなく、その人固有の状態に応じた栄養管理を実現するための重要な出発点となる。"}, {"q": "脱水予防のための食事の工夫はどれか。", "opts": ["汁物やゼリーなど水分を含む食品を取り入れる", "水分の多い食品を避ける", "塩分を増やす", "無関係"], "a": 0, "e": "汁物やゼリーなど、水分を含む食品を取り入れることが脱水予防の工夫。水分摂取が苦手な高齢者でも、食事の中で自然に水分を補給できるよう配慮することが有効とされる。"}, {"q": "認知症の人の食事拒否に対する栄養面の対応はどれか。", "opts": ["好物や食べやすい形態を工夫する", "無理に食べさせる", "栄養を諦める", "叱る"], "a": 0, "e": "好物や食べやすい形態を工夫することが栄養面での対応。無理に食べさせようとするのではなく、本人が食べやすいと感じる工夫を重ねることで、栄養摂取の機会を確保する。"}, {"q": "高齢者の食事における「見た目・彩り」の重要性はどれか。", "opts": ["食欲増進とQOL向上につながる", "無関係", "カロリーのみ重要", "時間短縮のため"], "a": 0, "e": "食欲の増進とQOLの向上につながることが見た目・彩りの重要性。栄養価だけでなく、食事を楽しむという心理的な側面も、高齢者の食生活を支える大切な要素となる。"}, {"q": "経管栄養から経口摂取へ移行する際の注意点はどれか。", "opts": ["嚥下機能を評価しながら段階的に進める", "急に切り替える", "評価不要", "本人任せ"], "a": 0, "e": "嚥下機能を評価しながら、段階的に進めることが移行時の注意点。急に切り替えるのではなく、専門職による評価をもとに慎重にステップを踏むことが安全な移行につながる。"}, {"q": "高齢者の水分摂取量の目安として適切なのはどれか。", "opts": ["体重や状態に応じ1日1000-1500ml程度を目安にする", "無制限", "極端に制限", "1日100mlのみ"], "a": 0, "e": "体重や状態に応じ、1日1000〜1500ml程度を目安にすることが適切とされる。無制限や極端な制限ではなく、個々の状態に合わせた適切な水分管理が求められる。"}, {"q": "高齢者の食事介助でむせを防ぐ姿勢の工夫はどれか。", "opts": ["顎を引いた姿勢を保つ", "顎を上げる", "仰向け", "立ったまま"], "a": 0, "e": "顎を引いた姿勢を保つことがむせを防ぐ姿勢の工夫。この姿勢により気道が狭まり、食物が気管に入りにくくなるため、誤嚥予防の基本的な対策として重視されている。"}, {"q": "栄養状態の評価に使われる体格指数はどれか。", "opts": ["BMI(体格指数)", "血圧", "脈拍", "体温"], "a": 0, "e": "BMI（体格指数）が栄養状態評価に使われる代表的な指標。体重と身長から算出され、栄養状態を客観的に把握するための基本的な評価ツールの一つとして活用されている。"}],qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById("qc");if(!c)return;var oo=document.createElement("div");oo.className="qopts";q.opts.forEach(function(o,i){var b=document.createElement("button");b.className="qopt";b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement("div");bx.className="qbox";var qq=document.createElement("div");qq.className="qq";qq.textContent=(qi%Q.length+1)+". "+q.q;var ex=document.createElement("div");ex.className="qexp";ex.id="qe";bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML="";c.appendChild(bx);var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-rnd();
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:var(--primary,#2e7d32);margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
@@ -245,50 +206,5 @@ rnd();
 </section>
 <script>
 var QKZ=[{"q": "「低栄養」の代表的な原因で介護施設に多いものは？", "opts": ["食べすぎ", "嚥下障害・食欲低下・うつ・口腔問題・認知症による食事行動変化", "運動不足", "薬の効き過ぎ"], "a": 1, "e": "低栄養の主な原因: ①嚥下障害で食べにくい ②食欲低下(薬・うつ・環境) ③口腔問題(義歯・口内炎) ④認知症による食事動作の困難。多職種で原因探索が必要。"}, {"q": "「たんぱく質」不足が高齢者に与える最大の影響は？", "opts": ["頭痛", "サルコペニア(筋肉減少)→転倒・褥瘡・免疫低下", "高血圧", "視力低下"], "a": 1, "e": "たんぱく質不足→サルコペニア(筋肉・筋力低下)。高齢者必要量=体重×1.0-1.2g/日。サルコペニア→転倒リスク増・褥瘡治癒遅延・免疫力低下→感染症リスク増。"}, {"q": "「食形態コード3」はどんな食事？", "opts": ["液体のみ", "ソフト食(一口大・やわらかい・歯茎でつぶせる程度)", "ペースト・ムース状", "通常の食事"], "a": 1, "e": "嚥下調整食コード: 0=液体, 1=ゼリー, 2=ムース/ペースト, 3=ソフト食/ミキサー食, 4=やわらか食, 普通食. コード3=歯茎でつぶせる硬さ。"}, {"q": "「食事観察」で異常と判断して報告すべき状況は？", "opts": ["普通に食べている", "むせが続く・食後に声が変わる・食事に30分以上かかる", "水を飲んでいる", "好きな食べ物を食べている"], "a": 1, "e": "要報告の食事観察: ①むせ・咳(誤嚥) ②湿性嗄声(食後の濁った声=誤嚥サイン) ③30分以上かかる(疲労→誤嚥リスク増) ④著しく摂取量少ない。これらは誤嚥性肺炎のサイン。"}, {"q": "「糖尿病」利用者の食事で介護職が注意すること？", "opts": ["何でも食べてよい", "食事量・食事時間・甘いものの摂取・残食量を正確に観察・記録・報告する", "食事を制限する", "自己判断で食事を変える"], "a": 1, "e": "糖尿病の食事管理: 介護職は①食事量の観察②残食量の記録③間食のチェック④食事時間の確認が役割。制限・変更は栄養士・医師の指示に従う。自己判断は禁止。"}, {"q": "「脱水」の観察で重要な「皮膚ツルゴール」とは？", "opts": ["皮膚の色", "皮膚をつまんで離した時の戻り具合(遅ければ脱水を疑う)", "皮膚の温度", "皮膚のかゆみ"], "a": 1, "e": "皮膚ツルゴール=皮膚の弾力。手背や前腕内側をつまんで離す→正常は1秒以内に戻る。2秒以上=脱水の可能性。高齢者は口渇感が鈍いため皮膚観察が重要。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){
-  if(!QKZ.length)return;
-  var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
-  q.opts.forEach(function(o,i){
-    var b=document.createElement('button');
-    b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-    b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
-    b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
-    b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
-    b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:var(--primary,#2e7d32);color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
-  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
-  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
-  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
-  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-  c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){
-  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';totZ++;
-  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  else okZ++;
-  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
-function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

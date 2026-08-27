@@ -12,6 +12,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -37,6 +39,8 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -227,7 +231,6 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:10px">Skor: 0/0</p>
 </div></main>
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var PH=[["嚥下", "enge", "menelan / deglutisi"], ["誤嚥", "goen", "aspirasi / tersedak"], ["誤嚥性肺炎", "goen-sei haien", "pneumonia aspirasi"], ["嚥下反射", "enge hansha", "refleks menelan"], ["不顕性誤嚥", "fuken-sei goen", "aspirasi senyap / silent aspiration"], ["とろみ", "toromi", "kekentalan / thickener"], ["きざみ食", "kizami-shoku", "makanan cincang"], ["ミキサー食", "mikisaa-shoku", "makanan blender / purée"], ["頭部前傾", "tobu zenkkei", "kepala menunduk ke depan"], ["体幹安定", "taikan antei", "stabilitas batang tubuh"], ["口腔ケア", "kuchiku kea", "perawatan mulut"], ["食形態", "shoku-keitai", "tekstur/bentuk makanan"], ["ファウラー位", "fauraa-i", "posisi fowler"], ["咀嚼", "soshaku", "mengunyah"], ["食塊", "shokkai", "bolus makanan"]];
 var pg=document.getElementById('pg');
 if(pg)PH.forEach(function(p){
@@ -237,49 +240,5 @@ if(pg)PH.forEach(function(p){
   var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);
 });
 var Q=[{"q": "嚥下の「咽頭期」で起きることと、障害時のリスクは？", "opts": ["咀嚼・食塊形成 / 食物が口に残る", "嚥下反射で食物が食道へ進む。気管は閉鎖 / 反射遅延で誤嚥", "食道の蠕動 / 逆流", "脳が食物を認識 / 食欲不振"], "a": 1, "e": "咽頭期=嚥下反射が起き、食塊が咽頭→食道へ進む。同時に気管の入口(喉頭蓋)が閉鎖して気管への侵入を防ぐ。嚥下反射の遅延・消失が誤嚥の最大リスク。高齢者・脳卒中後に多い。"}, {"q": "「不顕性誤嚥（ふけんせいごえん）」の説明として正しいのは？", "opts": ["むせや咳が激しい誤嚥", "むせや咳などの症状なく気管に食物が入る誤嚥。夜間睡眠中の唾液誤嚥が典型", "液体だけが誤嚥する現象", "食道に食物が残る現象"], "a": 1, "e": "不顕性誤嚥=むせ・咳嗽が出ない誤嚥。「むせないから安全」は誤り。高齢者は咳嗽反射が低下しているため多い。食後の微熱・繰り返す肺炎が唯一のサインになることも。口腔ケアで菌数を減らすことが予防の核心。"}, {"q": "嚥下障害がある利用者の食事姿勢として最も適切なのは？", "opts": ["完全な仰臥位(横になった状態)", "頭部をやや後ろに傾けた姿勢", "頭部前傾(あごを引く)の座位90°または30-60°ファウラー位", "横向きに寝た状態"], "a": 2, "e": "誤嚥予防姿勢: あごを引いた座位90°が理想。あごを引くことで喉頭蓋が気管を閉じやすくなり、食物が気管に入りにくい。座位困難ならファウラー位30-60°。仰臥位は最もNGな姿勢。"}, {"q": "「きざみ食」を嚥下障害のある利用者に使わない理由は？", "opts": ["見た目が悪いから", "噛みやすくなるが細かいバラバラの食物が誤嚥しやすくなるため", "消化が悪いから", "栄養が失われるから"], "a": 1, "e": "きざみ食=咀嚼力低下の方向け(嚥下正常が前提)。細かく刻むと食物がバラバラになり、口腔内でまとまらず誤嚥リスクが上がる。嚥下障害には逆効果。とろみ食・ミキサー食が適切。"}, {"q": "食後に利用者の「声がガラガラ・濡れた感じ(wet voice)」になった場合は何を疑う？", "opts": ["風邪", "咽頭に食物が残っている可能性→誤嚥のサイン", "脱水", "正常な変化"], "a": 1, "e": "湿性嗄声(wet voice)=食後に声がガラガラ・濡れた感じになること。咽頭に食物・液体が残留しているサイン。「痰がらみの声」とも言う。誤嚥の重要なサインとして看護師に即報告。"}, {"q": "食事介助で「一口量」の目安として正しいのは？", "opts": ["口いっぱいに入れる", "ティースプーン1〜2杯程度。飲み込みを確認してから次を入れる", "大きなスプーンで効率よく", "量は気にしない"], "a": 1, "e": "一口量の適量はティースプーン1〜2杯(約3〜5mL)。多すぎると口腔内でまとめられず誤嚥リスク上昇。必ず飲み込みを確認(喉が動く/声の確認)してから次の一口。「急かさない」ことが原則。"}, {"q": "誤嚥性肺炎予防として「口腔ケア」が有効な医学的根拠は？", "opts": ["口が綺麗になるから気持ちがいい", "口腔内細菌を減らすことで、誤嚥しても肺炎を引き起こす菌が少なくなるから", "嚥下機能が直接改善するから", "体力が上がるから"], "a": 1, "e": "口腔ケアの誤嚥性肺炎予防メカニズム: 口腔内常在菌(特にStreptococcus pneumoniaeなど)が誤嚥時に肺に入ることで炎症が起きる。口腔ケアで菌数を大幅に減らすことでリスクを下げる。毎食後のケアが理想。"}, {"q": "食事中にむせが続き、顔色が悪くなった場合の正しい対応の順序は？", "opts": ["記録してから報告する", "食事をすぐ止め、前傾姿勢を保ちながら背部叩打→口腔内確認→ナースコール", "水を飲ませる", "仰臥位にする"], "a": 1, "e": "誤嚥対応: ①食事即中断②前傾座位を保つ③背部叩打(肩甲骨間を強く叩く)④口腔内を確認⑤改善なければナースコール。水で流そうとするのは誤嚥を深部に押し込むためNG。仰臥位もNG。"}, {"q": "食事介助の基本姿勢として適切なのはどれか。", "opts": ["座位で顎を引く", "仰向け", "顎を上げる", "歩きながら"], "a": 0, "e": "座位で顎を引いた姿勢が食事介助の基本となる。この姿勢は気道を狭め、食物が気管に入りにくくする効果があり、30度以上上体を起こすことで誤嚥予防につながる。"}, {"q": "嚥下しやすい食形態はどれか。", "opts": ["とろみをつけた食事", "さらさらの液体", "硬い塊", "乾いた食品"], "a": 0, "e": "とろみをつけた食事が嚥下しやすい食形態となる。さらさらの液体は喉の奥へ流れる速度が速く誤嚥しやすいため、粘度を調整することで安全な嚥下を助けることができる。"}, {"q": "食事介助で一口量として適切なのはどれか。", "opts": ["ティースプーン1杯程度", "大盛り", "極少", "不問"], "a": 0, "e": "ティースプーン1杯程度が一口量として適切とされる。大盛りの一口は誤嚥のリスクを高めるため、飲み込みを確認してから次の一口を進めることが安全な介助の基本となる。"}, {"q": "食事中のむせへの初期対応はどれか。", "opts": ["いったん止め咳を促す", "水を飲ませる", "急がせる", "背中を強打"], "a": 0, "e": "いったん食事を止め、咳を促すことが初期対応の基本。むせは異物を排出しようとする防御反応であるため、落ち着かせながら咳による喀出を優先し様子を観察する必要がある。"}, {"q": "脱水予防のための工夫はどれか。", "opts": ["こまめな水分摂取を促す", "水分制限", "一気飲み", "放置"], "a": 0, "e": "こまめな水分摂取を促すことが脱水予防の工夫となる。高齢者は口渇感が鈍く自覚しにくいため、意識的に水分補給の機会を作ることが脱水を防ぐ上で重要になる。"}, {"q": "食事の楽しみを支える配慮はどれか。", "opts": ["彩り・好物・季節感を取り入れる", "同じ物", "急がせる", "無関心"], "a": 0, "e": "彩り・好物・季節感を取り入れることが食事の楽しみを支える配慮。栄養面だけでなく、視覚的な満足感や季節を感じる工夫が食欲とQOLの向上につながる。"}, {"q": "経口摂取が難しい人の観察点はどれか。", "opts": ["体重・食事量・むせの有無", "髪型", "服", "時間のみ"], "a": 0, "e": "体重・食事量・むせの有無を観察することが重要となる。これらの変化を継続的に観察することで、低栄養や誤嚥のリスクを早期に発見し対応につなげることができる。"}, {"q": "食後の口腔ケアが重要な理由はどれか。", "opts": ["誤嚥性肺炎を予防する", "体重増加", "視力回復", "筋力増強"], "a": 0, "e": "誤嚥性肺炎を予防することが口腔ケアが重要な理由。食後の口腔内には細菌が繁殖しやすいため、清潔に保つことで肺炎リスクを大幅に低減することができる。"}, {"q": "自助具(食事用)の目的はどれか。", "opts": ["自分で食べられるよう補助", "介助者が楽", "装飾", "不要"], "a": 0, "e": "自分で食べられるよう補助することが自助具の目的。持ちやすいスプーン等を活用することで、介護者への依存を減らし、本人の自立した食事摂取を支援することができる。"}, {"q": "食事拒否がある利用者への対応はどれか。", "opts": ["理由を探り環境や声かけを工夫", "無理に入れる", "下げる", "叱る"], "a": 0, "e": "理由を探り、環境や声かけを工夫することが適切な対応。無理に食べさせようとすることは誤嚥のリスクを高めるだけでなく、本人との信頼関係も損なう可能性がある。"}, {"q": "視覚障害のある人への配膳説明はどれか。", "opts": ["クロックポジションで位置を伝える", "黙って置く", "指さし", "急がせる"], "a": 0, "e": "クロックポジションで位置を伝えることが適切な配膳説明。「3時にご飯」のように時計の位置に例えて伝えることで、視覚に頼らず自力での食事摂取を支援できる。"}, {"q": "食事介助のペースとして適切なのはどれか。", "opts": ["本人のペースに合わせ飲み込みを待つ", "急がせる", "一気に", "無視"], "a": 0, "e": "本人のペースに合わせ、飲み込みを待つことが適切なペース。急がせることは誤嚥のリスクを高めるため、確認しながら次の一口を進める丁寧な介助が求められる。"}];var qi=0,ok=0,tot=0;
-function rnd(){
-  if(!Q.length)return;
-  var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;
-  var oo=document.createElement('div');oo.className='qopts';
-  q.opts.forEach(function(o,i){
-    var b=document.createElement('button');b.className='qopt';b.textContent=o;
-    b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);
-  });
-  var bx=document.createElement('div');bx.className='qbox';
-  var qq=document.createElement('div');qq.className='qq';
-  qq.textContent=(qi%Q.length+1)+'/'+Q.length+' — '+q.q;
-  var ex=document.createElement('div');ex.className='qexp';ex.id='qe';
-  bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-  c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;
-}
-function ans(b,c,a,e){
-  var bs=document.querySelectorAll('.qopt');
-  if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';tot++;
-  bs[a].classList.add('correct');
-  if(c!==a)b.classList.add('wrong');else ok++;
-  var ex=document.getElementById('qe');
-  if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}
-  var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;
-}
-function nQ(){qi=(qi+1)%Q.length;rnd();}
-function rQ(){qi=0;ok=0;tot=0;rnd();}
-if(typeof init==='function')init();rnd();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

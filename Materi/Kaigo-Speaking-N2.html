@@ -11,9 +11,10 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 </script>
 <script src="../assets/env.js"></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
@@ -24,21 +25,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["引き継ぎ", "hikitsugi", "serah terima shift"], ["申し送り", "moshi-okuri", "handover"], ["観察記録", "kansatsu kiroku", "catatan observasi"], ["バイタル測定", "baitaru sokutei", "pengukuran vital"], ["口腔ケア報告", "kuchiku kea hokoku", "laporan perawatan mulut"], ["ヒヤリハット", "hiyari-hatto", "near miss"], ["夜間対応", "yakan taiou", "penanganan malam"], ["緊急連絡", "kinkyuu renraku", "kontak darurat"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#1b5e20)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#1b5e20);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -227,11 +222,7 @@ function renderPhrases(){
   });
 }
 
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById("qc");if(!c)return;var oo=document.createElement("div");oo.className="qopts";q.opts.forEach(function(o,i){var b=document.createElement("button");b.className="qopt";b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement("div");bx.className="qbox";var qq=document.createElement("div");qq.className="qq";qq.textContent=(qi%Q.length+1)+". "+q.q;var ex=document.createElement("div");ex.className="qexp";ex.id="qe";bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML="";c.appendChild(bx);var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-renderDialogs();renderPhrases();rnd();
-</script>
+renderDialogs();renderPhrases();</script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:var(--primary,#1b5e20);margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
 <div id="qkZ"></div>
@@ -243,47 +234,5 @@ renderDialogs();renderPhrases();rnd();
 </section>
 <script>
 var QKZ=[{"q": "N2レベルの介護会話で「ご都合はいかがでしょうか？」の使い場面は？", "opts": ["怒っている時", "面会・打ち合わせの日程調整など相手の都合を確認する時", "食事の前", "記録する時"], "a": 1, "e": "ご都合はいかがでしょうか=bagaimana jadwal Anda?。予約・日程調整の際に使う丁寧な表現。「いつ来られますか？」より格上。家族・業者への連絡で使う。"}, {"q": "「状況が変わりましたのでご連絡いたしました」の意味は？", "opts": ["何もない", "状況に変化があったので連絡しています(報告の丁寧な導入)", "謝罪している", "確認を求めている"], "a": 1, "e": "「状況が変わりましたのでご連絡」=状態変化の報告フレーズ。家族・関係機関への変化報告で使う。続けて「〇〇様が〜でして」と具体的内容を伝える。"}, {"q": "「ご確認いただけますでしょうか」は何を求めている？", "opts": ["何もしなくていい", "相手に内容を確認してもらうよう、非常に丁寧に依頼している", "命令している", "批判している"], "a": 1, "e": "ご確認いただけますでしょうか=mohon untuk dikonfirmasi。「確認してください」の最丁寧版。ケアプラン・書類の確認をお願いする際に使う。"}, {"q": "「差し支えなければ」という前置きの役割は？", "opts": ["強制する", "相手が断りやすい雰囲気を作りながら依頼・質問する配慮の表現", "急がせる", "批判する"], "a": 1, "e": "差し支えなければ=kalau tidak keberatan=相手に断る余地を与えながら依頼する配慮の表現。「差し支えなければ、お名前をお教えいただけますか？」等。"}, {"q": "「ご不便をおかけして大変恐れ入ります」の意味は？", "opts": ["感謝している", "不便・ご迷惑をかけたことを非常に丁寧に詫びている", "確認を求めている", "急いでいる"], "a": 1, "e": "ご不便をおかけして=menyusahkan Anda。恐れ入ります=sangat minta maaf(最丁寧の謝罪)。施設の工事・行事変更など利用者・家族に不便をかける際に使う。"}, {"q": "「今後ともよろしくお願い申し上げます」の使い場面は？", "opts": ["初対面のみ", "手紙・メール・会話の締めくくり・継続的な関係への感謝と依頼", "謝罪の時", "緊急時"], "a": 1, "e": "今後ともよろしくお願い申し上げます=最も丁寧な締めの言葉。継続的な関係(家族・ケアマネ・医療機関等)への感謝と協力依頼を含む。文書・会話両方で使う。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){
-  if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
-  q.opts.forEach(function(o,i){var b=document.createElement('button');
-  b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-  b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
-  b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
-  b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
-  b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:var(--primary,#1b5e20);color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
-  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
-  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
-  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
-  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){
-  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';totZ++;
-  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:var(--primary,#1b5e20);border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  else okZ++;
-  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
-function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

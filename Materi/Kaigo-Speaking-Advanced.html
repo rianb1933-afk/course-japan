@@ -11,9 +11,10 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 </script>
 <script src="../assets/env.js"></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
@@ -24,21 +25,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["インシデント報告", "inshidento hokoku", "laporan insiden"], ["急変対応", "kyuhen taiou", "penanganan kritis"], ["多職種連携", "ta-shokushu renkkei", "kolaborasi multidisiplin"], ["ケースカンファレンス", "keesu kanfarensu", "case conference"], ["ターミナルケア", "taminaru kea", "perawatan terminal"], ["グリーフケア", "guriifu kea", "grief care"], ["ACP", "ACP", "advance care planning"], ["意思決定支援", "ishi kettei shien", "dukungan keputusan"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#1b5e20)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#1b5e20);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -221,11 +216,7 @@ function renderPhrases(){
     d.appendChild(btn);g.appendChild(d);
   });
 }
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-renderDialogs();renderPhrases();rnd();
-</script>
+renderDialogs();renderPhrases();</script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:var(--primary,#1b5e20);margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
 <div id="qkZ"></div>
@@ -237,50 +228,5 @@ renderDialogs();renderPhrases();rnd();
 </section>
 <script>
 var QKZ=[{"q": "「SBAR」を使った報告の「S(Situation)」は何を伝える？", "opts": ["過去の病歴", "今何が起きているか(現在の状況)", "自分の意見", "次の予定"], "a": 1, "e": "SBAR-S=Situation=今起きていること。「田中様が突然胸を押さえています」等。最初に何が起きているかを端的に伝える。その後B(背景)A(評価)R(要求)と続く。"}, {"q": "「多職種への情報共有」で介護職が最も貢献できる情報は？", "opts": ["医療的判断", "日常のケアで観察した生活・行動・状態の変化(最も接触が多いため)", "薬の情報", "検査結果"], "a": 1, "e": "介護職は最も多く利用者に接触する→日常の変化に最初に気づく。「いつもと違う」という小さな気づきが多職種のアセスメントに重要な情報を提供する。"}, {"q": "家族への報告で「クッション言葉」を使う目的は？", "opts": ["時間稼ぎ", "不安・ショックを与える前に配慮を示し、コミュニケーションを円滑にするため", "礼儀のみ", "決まりだから"], "a": 1, "e": "クッション言葉: 「ご心配をおかけして申し訳ありません」「少し気になることがありますので」等。難しい情報を伝える前の緩衝材。家族の不安を最小化しながら正確に伝える。"}, {"q": "「報告後の記録」で大切なことは？", "opts": ["記録しなくてよい", "報告内容・報告先・報告時刻・その後の対応を正確に記録する", "後で書く", "口頭だけでよい"], "a": 1, "e": "報告後は必ず記録: ①報告内容(何を) ②報告先(誰に) ③報告時刻 ④指示内容 ⑤その後の対応。記録がなければ法的に「やっていない」と同じ。当日中に記録。"}, {"q": "「引き継ぎ(申し送り)」の効果的な方法は？", "opts": ["長く詳しく全て話す", "重要事項を優先順位をつけて簡潔に・正確に伝える", "急いで終わらせる", "メモなしで口頭のみ"], "a": 1, "e": "効果的な申し送り: ①優先順位(緊急・重要を先に) ②簡潔・正確(余分な話はしない) ③5W1H(誰が・いつ・どこで・何を・なぜ・どのように) ④確認(受け手が理解したか確認)。"}, {"q": "「否定的な情報」を伝える際に避けるべきことは？", "opts": ["正確な事実を伝える", "事実を隠す・誇張する・責任をなすりつける", "証拠を持参する", "上司に相談する"], "a": 1, "e": "否定的情報を伝える時に絶対NGなこと: 事実の隠蔽・誇張・責任転嫁・感情的になること。正確な事実+対応策を冷静に。「誰の責任か」より「どう防ぐか」に焦点。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){
-  if(!QKZ.length)return;
-  var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
-  q.opts.forEach(function(o,i){
-    var b=document.createElement('button');
-    b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-    b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
-    b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
-    b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
-    b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:var(--primary,#1b5e20);color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
-  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
-  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
-  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
-  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-  c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){
-  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';totZ++;
-  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:var(--primary,#1b5e20);border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  else okZ++;
-  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
-function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

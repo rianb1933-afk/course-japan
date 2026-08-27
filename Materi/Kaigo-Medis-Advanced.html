@@ -11,6 +11,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js"></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
@@ -21,56 +23,21 @@
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["バイタルサイン", "baitaru sain", "tanda vital"], ["血圧", "ketsuatsu", "tekanan darah"], ["体温", "taion", "suhu tubuh"], ["脈拍", "myakuhaku", "denyut nadi"], ["呼吸数", "kokyusuu", "frekuensi napas"], ["SpO₂", "SpO2", "saturasi oksigen"], ["意識レベル", "ishiki reberu", "tingkat kesadaran"], ["浮腫", "fushu", "edema"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#1565c0)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#1565c0);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,var(--primary,#1565c0),var(--primary-dark,#1976d2));color:#fff;padding:44px 20px 28px;text-align:center}
-.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
-.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:10px}
-.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#1565c0);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.1rem;font-weight:700;color:var(--primary,#1565c0);margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
-.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
-.tbl th{padding:7px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05)}
-.tbl td{padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)}
-.tbl tr:hover td{background:rgba(0,0,0,.02)}
-.tip{background:#f0faf0;border-left:3px solid #43a047;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
-.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
-.card.open .det{display:block}
-.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.82rem;color:#666;line-height:1.7}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
-.qbox{background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:16px 0}
-.qq{font-weight:600;margin-bottom:10px;font-size:.92rem}
-.qopts{display:grid;gap:7px}
-.qopt{background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Kaigo Medis Lanjutan 医療連携応用 | Nihongo Pro Academy", "description": "Kaigo Medis Lanjutan 医療連携応用 — materi tingkat lanjut — Nihongo Pro Academy", "url": "https://nihongopro.id/Materi/Kaigo-Medis-Advanced.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -215,13 +182,8 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div></section></main>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var Q=[{"q": "「FAST」はどんな疾患のサインか？", "opts": ["心筋梗塞", "脳卒中(stroke)の早期認識", "骨折", "低血糖"], "a": 1, "e": "FAST=脳卒中のサイン. F=Face(顔の歪み), A=Arm(片腕脱力), S=Speech(言語障害), T=Time(すぐ119). 突然の発症が特徴。"}, {"q": "降圧剤を飲んでいる利用者で特に注意すべき副作用は？", "opts": ["高血圧", "起立性低血圧(立ち上がり時の急激な血圧低下)", "発熱", "呼吸困難"], "a": 1, "e": "降圧剤=obat darah tinggi. 副作用: 起立性低血圧(体位性低血圧)=tekanan darah turun saat berdiri→めまい・転倒リスク。"}, {"q": "低血糖の症状として正しいのは？", "opts": ["体温上昇", "冷汗・震え・めまい・意識混濁", "血圧上昇", "発熱"], "a": 1, "e": "低血糖(ていけっとう)=hypoglycemia. 症状: 冷汗・震え・めまい・意識混濁. インスリン使用者に多い. 意識あり→砂糖. なし→119。"}, {"q": "SpO2が90%未満の時の対応は？", "opts": ["様子を見る", "即座に看護師に報告・必要なら119番", "水を飲ませる", "運動させる"], "a": 1, "e": "SpO2が90%未満になった場合は、直ちに看護師等の医療職へ報告することが必要な対応。低酸素状態を示す危険なサインであり、速やかな報告と対応が求められる。"}, {"q": "医療略語「ADL」とは何の略か？", "opts": ["Advanced Daily Living", "Activities of Daily Living=日常生活動作", "Annual Daily Log", "Assisted Daily Life"], "a": 1, "e": "ADLはActivities of Daily Living（日常生活動作）の略。食事・排泄・入浴・移動など、日常生活を送る上で欠かせない基本的な動作全般を指す介護・医療の基本用語である。"}, {"q": "高齢者の脱水症状として注意すべきサインはどれか。", "opts": ["皮膚の張りの低下・口渇・尿量減少", "発疹", "食欲増進", "多汗のみ"], "a": 0, "e": "皮膚の張りの低下、口渇、尿量の減少が脱水症状として注意すべきサイン。高齢者は口渇感が鈍いため自覚しにくく、これらの兆候の観察が特に重要になる。"}, {"q": "高齢者の褥瘡(じょくそう)発生の主な要因はどれか。", "opts": ["同一体位による持続的な圧迫", "運動のしすぎ", "水分過多", "栄養過多"], "a": 0, "e": "同一体位による持続的な圧迫が褥瘡発生の主な要因。長時間同じ姿勢を続けることで血流が阻害され、皮膚や組織の損傷につながるため、定期的な体位変換が予防に欠かせない。"}, {"q": "糖尿病の利用者に低血糖症状が出たときの対応はどれか。", "opts": ["速やかに糖分を摂取させ看護師に報告", "運動させる", "水だけ飲ませる", "放置する"], "a": 0, "e": "速やかに糖分を摂取させ、看護師へ報告することが適切な対応。放置すると意識障害に進行する危険があるため、早期の対応と医療職への連携が重要になる。"}, {"q": "心不全のある利用者の観察点はどれか。", "opts": ["浮腫・呼吸困難・体重増加", "食欲増進のみ", "発疹", "視力"], "a": 0, "e": "浮腫・呼吸困難・体重増加が心不全のある利用者の重要な観察点。これらの変化は心不全の悪化を示すサインであり、早期に気づき報告することが求められる。"}, {"q": "褥瘡予防のための体位変換の目安はどれか。", "opts": ["2時間ごと程度", "24時間ごと", "1週間ごと", "不要"], "a": 0, "e": "2時間ごと程度が体位変換の目安となる。この頻度で体位を変えることで、特定部位への圧迫を分散し、褥瘡発生のリスクを効果的に低減することができる。"}, {"q": "高齢者の骨折で特に注意すべき部位はどれか。", "opts": ["大腿骨頸部", "指先", "耳", "肩の一部のみ"], "a": 0, "e": "大腿骨頸部が高齢者の骨折で特に注意すべき部位。この部位の骨折は寝たきりのリスクが高く、その後の生活に大きな影響を及ぼすため、転倒予防が極めて重要になる。"}, {"q": "COPD(慢性閉塞性肺疾患)の利用者への配慮はどれか。", "opts": ["呼吸しやすい姿勢と禁煙環境の維持", "運動禁止", "水分制限", "高カロリー食のみ"], "a": 0, "e": "呼吸しやすい姿勢の確保と、禁煙環境の維持がCOPD利用者への基本的な配慮。呼吸機能が低下しているため、日常生活の中でこれらの配慮を続けることが重要になる。"}, {"q": "認知症合併の糖尿病患者への服薬支援で注意すべきことはどれか。", "opts": ["飲み忘れ・過剰摂取を防ぐ見守り", "本人任せにする", "無関心でよい", "薬を隠す"], "a": 0, "e": "飲み忘れや過剰摂取を防ぐための見守りが重要となる。認知症により服薬管理が困難になりやすいため、介護職による丁寧な確認と継続的な支援が欠かせない。"}, {"q": "高齢者の肺炎リスクを高める要因はどれか。", "opts": ["誤嚥と免疫力低下", "運動過多", "水分過多", "若さ"], "a": 0, "e": "誤嚥と免疫力の低下が高齢者の肺炎リスクを高める主な要因。これらの要因が重なることで誤嚥性肺炎を発症しやすくなるため、口腔ケアや姿勢への配慮が予防につながる。"}, {"q": "抗凝固薬を服用している利用者への配慮はどれか。", "opts": ["出血傾向に注意し転倒を防ぐ", "運動を強制", "水分制限", "無関係"], "a": 0, "e": "出血傾向に注意し、転倒を防ぐことが抗凝固薬服用者への配慮。薬の作用により出血が止まりにくくなっているため、日常生活の中での怪我や転倒を特に警戒する必要がある。"}, {"q": "高齢者の甲状腺機能低下症でみられやすい症状はどれか。", "opts": ["倦怠感・便秘・体重増加", "多汗・体重減少", "興奮", "高熱"], "a": 0, "e": "倦怠感・便秘・体重増加が甲状腺機能低下症で見られやすい症状。これらの変化は加齢による自然な衰えと見過ごされがちであるため、注意深い観察が求められる。"}, {"q": "慢性腎臓病の利用者の食事で注意すべきことはどれか。", "opts": ["塩分・タンパク質の調整", "高塩分食推奨", "水分無制限", "カロリー制限のみ"], "a": 0, "e": "塩分とタンパク質の摂取調整が慢性腎臓病の食事管理で重要な注意点。腎臓への負担を軽減するため、医師や管理栄養士の指示に基づいた食事内容の調整が必要になる。"}, {"q": "高齢者の多剤併用(ポリファーマシー)が問題となる理由はどれか。", "opts": ["副作用や相互作用のリスクが高まるため", "効果が増すだけ", "問題ない", "費用のためだけ"], "a": 0, "e": "副作用や薬同士の相互作用のリスクが高まることが多剤併用の問題点。多くの薬を同時に服用することで、予期せぬ体調変化が生じやすくなるため、定期的な薬の見直しが重要になる。"}, {"q": "高齢者の起立性低血圧への対応はどれか。", "opts": ["ゆっくり体位を変え急な起立を避ける", "急に立たせる", "放置する", "水分制限"], "a": 0, "e": "ゆっくりと体位を変え、急な起立を避けることが起立性低血圧への対応。急に立ち上がるとめまいや転倒のリスクが高まるため、段階的な動作を心がける必要がある。"}, {"q": "高齢者の便秘が重篤な合併症につながる例はどれか。", "opts": ["腸閉塞のリスク", "無関係", "体重増加のみ", "食欲増進"], "a": 0, "e": "腸閉塞のリスクが、重度の便秘が引き起こしうる合併症の例。単なる不快感にとどまらず、重篤な状態に進行する可能性があるため、早期の対応と予防が重要になる。"}],qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById("qc");if(!c)return;var oo=document.createElement("div");oo.className="qopts";q.opts.forEach(function(o,i){var b=document.createElement("button");b.className="qopt";b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement("div");bx.className="qbox";var qq=document.createElement("div");qq.className="qq";qq.textContent=(qi%Q.length+1)+". "+q.q;var ex=document.createElement("div");ex.className="qexp";ex.id="qe";bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML="";c.appendChild(bx);var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-if(typeof xi==="function")xi();rnd();
-</script><section style="max-width:900px;margin:0 auto;padding:0 20px 0">
+if(typeof xi==="function")xi();</script><section style="max-width:900px;margin:0 auto;padding:0 20px 0">
 <div style="background:#fff;border:1px solid rgba(21,101,192,.1);border-radius:12px;padding:18px;margin:12px 0">
 <h3 style="color:var(--primary,#1565c0);margin:0 0 12px;font-size:1rem">🚨 緊急時対応フローチャート</h3>
 <table style="width:100%;border-collapse:collapse;font-size:.84rem">
@@ -243,50 +205,5 @@ if(typeof xi==="function")xi();rnd();
 </section>
 <script>
 var QKZ=[{"q": "「FAST」で脳卒中を疑うサインは？", "opts": ["熱が出た", "Face(顔の歪み)+Arm(片腕の脱力)+Speech(言語障害)+Time(すぐ119)", "頭痛のみ", "血圧が高い"], "a": 1, "e": "FAST=脳卒中早期認識ツール。突然の顔の歪み・片腕の脱力・言語障害のどれか一つでも→即119番。時間=脳細胞。「Time is brain」。"}, {"q": "「低血糖」の症状で正しいのは？", "opts": ["高熱", "冷汗・震え・動悸・めまい・意識混濁", "血圧上昇", "咳"], "a": 1, "e": "低血糖症状: 初期=冷汗・震え・動悸・空腹感。進行=めまい・集中力低下・意識混濁。インスリン使用者に多い。意識あれば砂糖水・ブドウ糖。意識なしは絶対に口から与えず119番。"}, {"q": "「起立性低血圧」の予防として正しいのは？", "opts": ["すぐ立たせる", "ベッドから起き上がる時はゆっくり段階的に(臥位→座位→立位)", "降圧剤を増やす", "水分制限"], "a": 1, "e": "起立性低血圧予防: 臥位(3分)→ゆっくり座位(3分)→立位の順で段階的に。急に立つと血圧が下がりめまい・転倒の原因になる。降圧剤・脱水・長期臥床で起きやすい。"}, {"q": "SpO2が89%の利用者に最初にすることは？", "opts": ["様子を見る", "即座に看護師に報告し指示を待つ", "水を飲ませる", "運動させる"], "a": 1, "e": "SpO2 89%=危険な低酸素状態。正常95%以上。90%未満は緊急性が高い。即報告。看護師指示下で酸素投与が必要になる場合が多い。介護職は処置せず報告が第一。"}, {"q": "「誤嚥性肺炎」の「誤嚥」を防ぐ食事姿勢は？", "opts": ["仰向け", "可能なら90度座位・ベッドなら30度以上のギャッジアップ+頸部前屈", "横向き", "うつ伏せ"], "a": 1, "e": "誤嚥防止体位: 90度座位が最良。ベッドでは最低30度(できれば45-60度)以上のギャッジアップ。頸部を軽く前屈(顎引き)。食後も30分は同姿勢を維持。"}, {"q": "「褥瘡」のステージI(発赤のみ)で適切な対応は？", "opts": ["しばらく様子を見る", "即看護師に報告+体位変換で圧迫除去+皮膚保護", "直接マッサージする", "テープを貼る"], "a": 1, "e": "褥瘡Stage I(発赤・皮膚は保たれている): 即看護師報告→体位変換で圧迫除去→保湿・皮膚保護材使用。この段階で適切に対処すれば悪化を防げる。Stage IIに進むと治癒に時間がかかる。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){
-  if(!QKZ.length)return;
-  var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
-  q.opts.forEach(function(o,i){
-    var b=document.createElement('button');
-    b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-    b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
-    b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
-    b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
-    b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:var(--primary,#1565c0);color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
-  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
-  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
-  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
-  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-  c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){
-  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';totZ++;
-  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  else okZ++;
-  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
-function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

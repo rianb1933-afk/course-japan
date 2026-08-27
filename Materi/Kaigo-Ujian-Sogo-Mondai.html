@@ -12,6 +12,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -25,57 +27,22 @@
      dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["総合問題", "sogo mondai", "soal terintegrasi (kasus)"], ["事例", "jirei", "kasus/skenario"], ["利用者", "riyosha", "pengguna layanan"], ["脳梗塞", "no-kosoku", "stroke iskemik"], ["片麻痺", "katamahi", "hemiplegia (lumpuh separuh)"], ["糖尿病", "tonyobyo", "diabetes"], ["リハビリ", "rihabiri", "rehabilitasi"], ["在宅", "zaitaku", "perawatan di rumah"], ["多職種", "tashokushu", "multiprofesi"], ["看取り", "mitori", "perawatan akhir hayat"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#1565c0)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#1565c0);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,var(--primary,#1565c0),var(--primary-dark,#1976d2));color:#fff;padding:48px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
-.bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
-.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#1565c0);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#1565c0);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
-.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
-.tip{background:var(--matcha-pale);border-left:3px solid var(--matcha);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
-.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.card.open .det{display:block}
-.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.83rem;color:var(--ink-mid)}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Quiz Kaigo Level N2 介護N2 | Nihongo Pro Academy", "description": "Latihan soal ujian kaigo level N2 介護N2. Simulasi soal bahasa Jepang untuk tenaga kaigo bersertifikat di fasilitas perawatan Jepang.", "url": "https://nihongopro.id/Materi/Kaigo-Ujian-Sogo-Mondai.html", "educationalLevel": "Upper-Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Simulasi Ujian 介護福祉士 — 総合問題 (Soal Kasus) | Nihongo Pro Academy", "description": "Latihan 総合問題 ujian nasional 介護福祉士: soal berbasis kasus (事例) yang mengintegrasikan komunikasi, teknik perawatan, etika, dan proses perawatan dalam skenario利用者 nyata. Pembahasan dwibahasa.", "url": "https://nihongopro.id/Materi/Kaigo-Ujian-Sogo-Mondai.html", "educationalLevel": "Upper-Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -83,10 +50,10 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <meta name="apple-mobile-web-app-title" content="NihongoPro">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Nihongo Pro Academy">
-<meta property="og:description" content="Latihan soal ujian kaigo level N2 介護N2. Simulasi soal bahasa Jepang untuk tenaga kaigo bersertifikat di fasilitas perawatan Jepang.">
+<meta property="og:description" content="Latihan 総合問題 ujian nasional 介護福祉士: soal berbasis kasus (事例) yang mengintegrasikan komunikasi, teknik perawatan, etika, dan proses perawatan dalam skenario利用者 nyata. Pembahasan dwibahasa.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Quiz Kaigo Level N2 介護N2">
-<meta name="twitter:description" content="Latihan soal ujian kaigo level N2 介護N2. Simulasi soal bahasa Jepang untuk tenaga kaigo bersertifikat di fasilitas perawatan Jepang.">
+<meta name="twitter:title" content="Simulasi Ujian 介護福祉士 — 総合問題 (Soal Kasus)">
+<meta name="twitter:description" content="Latihan 総合問題 ujian nasional 介護福祉士: soal berbasis kasus (事例) yang mengintegrasikan komunikasi, teknik perawatan, etika, dan proses perawatan dalam skenario利用者 nyata. Pembahasan dwibahasa.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head><body>
@@ -179,14 +146,12 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div></section></main>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var Q=[{"q": "【事例1】田中さん(78歳・男性)は脳梗塞後、右片麻痺がある。上着を着るとき、介護福祉士の対応として適切なのはどれか。", "opts": ["右手(患側)から袖を通す", "左手(健側)から袖を通す", "全部介助する", "自分で全てさせる"], "a": 0, "e": "着患脱健=着るときは患側(sisi lemah)の右から通す. 脱ぐときは健側から。負担を減らす基本原則。"}, {"q": "【事例1続き】田中さんは言葉が出にくい運動性失語がある。意思疎通の工夫として適切なのはどれか。", "opts": ["長い質問を続ける", "はい/いいえで答えられる質問や絵カードを使う", "急がせる", "会話を避ける"], "a": 1, "e": "運動性失語=理解はできる. 閉じた質問・絵カード(kartu gambar)で答えやすくし、待つ姿勢が大切。"}, {"q": "【事例1続き】田中さんの歩行介助で介護福祉士が立つ位置として適切なのはどれか。", "opts": ["健側の前", "患側のやや後方", "正面", "遠く離れて"], "a": 1, "e": "患側(sisi lemah)のやや後方に立ち、転倒に備える. ふらつきを支えられる位置が安全。"}, {"q": "【事例2】佐藤さん(85歳・女性)はアルツハイマー型認知症。夕方になると「家に帰る」と落ち着かない。適切な対応はどれか。", "opts": ["「家です」と強く否定する", "気持ちを受け止め安心できるよう関わる", "部屋に閉じ込める", "無視する"], "a": 1, "e": "夕暮れ症候群. 否定せず気持ちを受容(menerima perasaan)し、安心感を与え関心を他に向ける。"}, {"q": "【事例2続き】佐藤さんが食事をとろうとしない。まず考えるべき対応はどれか。", "opts": ["無理に食べさせる", "拒否の理由(体調・環境・不安)を探る", "食事を下げる", "叱る"], "a": 1, "e": "拒否には理由がある. 体調・義歯・環境・不安など背景(latar belakang)を探り工夫する。"}, {"q": "【事例2続き】佐藤さんへの声かけとして最も適切なのはどれか。", "opts": ["後ろから大声で", "正面から目線を合わせ穏やかに短く", "早口で複数の指示", "赤ちゃん言葉で"], "a": 1, "e": "正面から目線を合わせ、穏やかに一つずつ(satu per satu). 尊厳を守り驚かせない。"}, {"q": "【事例3】鈴木さん(70歳・男性)は糖尿病で在宅生活。低血糖の症状として注意すべきはどれか。", "opts": ["発汗・ふるえ・意識低下", "便秘", "発疹", "関節痛"], "a": 0, "e": "低血糖=発汗・動悸・ふるえ・意識低下(hipoglikemia). 早期発見し補食、重篤時は医療へ連絡。"}, {"q": "【事例3続き】鈴木さんの在宅ケアで多職種連携が必要な理由として正しいのはどれか。", "opts": ["責任分散のため", "医療・リハ・生活支援を総合的に支えるため", "会議を増やすため", "記録のため"], "a": 1, "e": "在宅では医師・看護・リハ・介護が連携(kolaborasi)し、生活と医療を総合的に支える。"}, {"q": "【事例3続き】鈴木さんが「もう何もしたくない」と話す。適切な対応はどれか。", "opts": ["励まし続ける", "気持ちを傾聴し受け止める", "話題を変える", "放置する"], "a": 1, "e": "まず傾聴(mendengarkan)し感情を受け止める. 安易な励ましより、寄り添う姿勢が支えになる。"}, {"q": "【事例4】山田さん(90歳・女性)は終末期で施設看取りを希望。ケアの基本として適切なのはどれか。", "opts": ["延命を最優先", "本人の意思と尊厳を尊重し苦痛を和らげる", "面会を制限", "積極的治療のみ"], "a": 1, "e": "看取りケア=本人の意思・尊厳(martabat)を尊重し、苦痛緩和と安楽を重視. ACPで希望を確認。"}, {"q": "【事例4続き】山田さんの家族が不安を訴えている。介護福祉士の対応として適切なのはどれか。", "opts": ["専門用語で説明", "家族の気持ちに寄り添い分かりやすく状況を伝える", "情報を与えない", "任せきりにする"], "a": 1, "e": "家族も支援対象. 不安(kekhawatiran)に寄り添い、状況を分かりやすく伝え共に過ごせるよう支える。"}, {"q": "【事例4続き】看取り後の介護福祉士自身の心のケア(グリーフケア)として適切なのはどれか。", "opts": ["感情を無視する", "チームで振り返り気持ちを共有する", "一人で抱える", "すぐ忘れる"], "a": 1, "e": "介護者もグリーフ(kedukaan)を経験する. チームで振り返り気持ちを共有し支え合うことが大切。"}, {"q": "【事例5】新規利用者の介護計画を立てる。最初に行うべきことはどれか。", "opts": ["すぐに計画を書く", "アセスメント(情報収集・分析)を行う", "評価する", "契約のみ"], "a": 1, "e": "介護過程はアセスメント(pengkajian)から. 情報収集・分析で課題を明確にしてから計画する。"}, {"q": "【事例5続き】利用者の状態が変化したときの適切な対応はどれか。", "opts": ["計画を変えない", "再アセスメントし計画を見直す", "放置する", "評価しない"], "a": 1, "e": "状態変化時は再アセスメント(kaji ulang)し計画修正. PDCAを循環させ最適なケアを保つ。"}, {"q": "【事例5続き】介護記録の書き方として適切なのはどれか。", "opts": ["主観的な決めつけ", "客観的事実を具体的に記録", "曖昧に書く", "記憶で後日まとめる"], "a": 1, "e": "記録は客観的事実(fakta objektif)を5W1Hで具体的に. 多職種で共有され根拠にもなる。"}, {"q": "【事例6】中村さん(45歳・男性)は知的障害がある。作業の説明として適切なのはどれか。", "opts": ["一度に多くを説明", "短く具体的に、実際にやって見せる", "専門用語で話す", "急がせる"], "a": 1, "e": "知的障害では短く具体的に・見本を見せる(tunjukkan contoh). 一つずつ、本人のペースを尊重する。"}, {"q": "【事例6続き】中村さんが作業をやり遂げたときの関わりとして適切なのはどれか。", "opts": ["何も言わない", "具体的に褒め達成感を支える", "次を急がせる", "やり直させる"], "a": 1, "e": "できたことを具体的に褒め、達成感・自己肯定感(rasa percaya diri)を高める. エンパワメントの視点。"}, {"q": "【事例6続き】中村さんの自己決定を支える対応はどれか。", "opts": ["介護者が決める", "分かりやすい選択肢を示し本人に選んでもらう", "選ばせない", "家族に任せる"], "a": 1, "e": "絵や実物で分かりやすい選択肢(pilihan jelas)を示し、本人が選べるよう支援する。"}, {"q": "【事例7】小林さん(72歳・女性)はパーキンソン病で動作が緩慢。食事介助で注意すべきことはどれか。", "opts": ["急いで食べさせる", "十分な時間をとり誤嚥に注意する", "立ったまま食べさせる", "会話を続ける"], "a": 1, "e": "パーキンソン病は嚥下障害を伴いやすい. 時間を十分とり、姿勢を整え誤嚥(aspirasi)に注意。"}, {"q": "【事例7続き】小林さんの歩行で「すくみ足」がみられる。対応として適切なのはどれか。", "opts": ["強く引っ張る", "声かけやリズム・目印で歩き出しを促す", "放置する", "車いすのみにする"], "a": 1, "e": "すくみ足には「イチニ」の号令やライン(irama & tanda)で歩行開始を促す工夫が有効。転倒に注意。"}, {"q": "【事例7続き】小林さんの転倒予防として適切な環境整備はどれか。", "opts": ["床に物を置く", "段差をなくし手すりを設置する", "照明を暗くする", "滑りやすい床にする"], "a": 1, "e": "段差解消・手すり設置・明るい照明(bebas hambatan)で転倒予防. 動線を整える。"}, {"q": "【事例8】高橋さん(80歳・男性)は独居で人との交流が少ない。適切な支援はどれか。", "opts": ["放置する", "地域の通いの場やサービスにつなげる", "施設入所を強制", "訪問をやめる"], "a": 1, "e": "社会的孤立には地域資源・通いの場(tempat berkumpul)につなげ、交流と役割を持てるよう支援。"}, {"q": "【事例8続き】高橋さんの生活を支える多職種連携で介護福祉士の役割はどれか。", "opts": ["医療行為をする", "生活状況を把握し情報を共有・つなぐ", "薬を処方する", "一人で抱える"], "a": 1, "e": "介護福祉士は生活状況を把握し、ケアマネや地域包括と情報共有・連携(hubungkan)する役割。"}, {"q": "【事例8続き】高橋さんが「誰にも迷惑をかけたくない」と話す。適切な対応はどれか。", "opts": ["同意して引き下がる", "気持ちを受け止め支援の意味を丁寧に伝える", "無視する", "叱る"], "a": 1, "e": "気持ちを受容(menerima perasaan)しつつ、支援は権利であることを丁寧に伝え孤立を防ぐ。"}, {"q": "【事例9】渡辺さん(75歳・女性)は転倒による骨折後、リハビリ中。自立支援の視点で適切なのはどれか。", "opts": ["すべて介助する", "できる動作は見守り、できない部分を支える", "動かさない", "急がせる"], "a": 1, "e": "自立支援=できる動作は本人に(dukung mandiri)、過介助を避ける. 残存機能を活かす。"}, {"q": "【事例9続き】渡辺さんが「また転ぶのが怖い」と不安を訴える。適切な対応はどれか。", "opts": ["無理に歩かせる", "不安を受け止め安全に配慮しながら段階的に進める", "諦めさせる", "無視する"], "a": 1, "e": "転倒後の不安(ketakutan)に寄り添い、安全を確保しつつ小さな成功体験を積み重ねる。"}, {"q": "【事例9続き】渡辺さんのリハビリ目標設定として適切なのはどれか。", "opts": ["介護者が決める", "本人の希望を反映し実現可能な目標にする", "高すぎる目標", "目標を立てない"], "a": 1, "e": "目標は本人の希望を反映し具体的・実現可能(realistis)に. 意欲を引き出し主体性を支える。"}, {"q": "【事例10】伊藤さん(88歳・女性)本人は在宅希望だが家族は施設を希望。介護福祉士の対応として適切なのはどれか。", "opts": ["家族の意向を優先", "本人の意思を尊重し多職種・家族と話し合いを支える", "介護者が決める", "放置する"], "a": 1, "e": "本人の意思(kehendak)を尊重しつつ、家族の思いも受け止め、多職種で合意形成を支援する。"}, {"q": "【事例10続き】本人と家族の意向が対立するとき介護福祉士がとるべき姿勢はどれか。", "opts": ["どちらかの味方をする", "中立的に双方の思いを傾聴し調整を図る", "無関心", "決定を急がせる"], "a": 1, "e": "中立的立場で双方を傾聴(mendengarkan)し、本人の権利擁護を軸に調整・合意形成を支える。"}, {"q": "【事例10続き】伊藤さんの意思決定支援(ACP)として適切なのはどれか。", "opts": ["一度決めたら変えない", "本人の価値観を確認し繰り返し話し合う", "家族だけで決める", "話し合わない"], "a": 1, "e": "ACP=本人の価値観を確認し、状態変化に応じ繰り返し話し合う(diskusi berulang)プロセス。"}];
 function initKN2(){
   var list=document.getElementById('kn2List');if(!list)return;
   list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
 }
 function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
@@ -199,47 +164,5 @@ if(typeof init==='function')init(); rnd();
 </section>
 <script>
 var QKZ=[{"q": "介護過程の「アセスメント」で収集する情報に含まれないのは？", "opts": ["ADLの状況", "スタッフの希望", "心身の状態", "家族・社会関係"], "a": 1, "e": "アセスメントで収集: 身体状況・ADL・認知機能・生活歴・価値観・家族関係・経済状況・社会参加・環境等。スタッフの希望はアセスメント情報ではなく介護計画に反映する立場の情報。"}, {"q": "「ICF」の「活動」と「参加」の違いは？", "opts": ["同じ", "活動=個人レベルの動作(歩く・食べる)、参加=社会的な場面での役割・関与(地域活動・仕事)", "参加の方が簡単", "どちらも医療的概念"], "a": 1, "e": "ICF活動=個人レベルの生活行為(歩く・食べる・着替える)。参加=社会的生活への関与(地域活動・趣味・仕事・家庭内役割)。障害があっても「参加」できることが重要。"}, {"q": "「自立支援」で最も重視されるのは？", "opts": ["できるだけ全部してあげる", "その人の意思・選択・決定を最大限尊重すること", "健常者と同じにすること", "速く終わらせること"], "a": 1, "e": "自立支援の核心=意思決定の自尊重。身体的自立だけでなく「自分のことを自分で決める」精神的自立が最重要。介護職はその実現を支援する役割を担う。"}, {"q": "「認知症と成年後見制度」の関係で正しいのは？", "opts": ["認知症なら自動的に後見人がつく", "判断能力が不十分になった場合に家庭裁判所が後見人を選任して権利を守る制度", "家族が自由に財産を管理できる", "医師が決める"], "a": 1, "e": "成年後見制度: 認知症等で判断能力が低下した場合、家庭裁判所が後見人(法定後見)を選任。後見人は財産管理・法律行為を代行。本人の意思・尊厳の尊重が前提。"}, {"q": "「介護福祉士国家試験」の合格に必要な筆記試験の問題数は？", "opts": ["50問", "125問", "200問", "30問"], "a": 1, "e": "介護福祉士国家試験: 筆記試験125問(11科目群)。実技試験(または実技試験免除)もある。合格基準は総得点の60%程度+各科目群で0点がないこと。年1回1月に実施。"}, {"q": "「認知症の人の意思決定支援」で正しいのは？", "opts": ["家族が全て決める", "認知症でも本人の意思・選好を最大限尊重し、できる限り本人が決定できるよう支援する", "医師が決める", "何も確認しなくていい"], "a": 1, "e": "意思決定支援: 認知症があっても意思決定の権利は残る。①本人に分かりやすく説明②十分な時間③必要なら環境調整。本人が決めるための「支援」であり代わりに決めることが最後の手段。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){
-  if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
-  q.opts.forEach(function(o,i){var b=document.createElement('button');
-  b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-  b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
-  b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
-  b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
-  b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:#880e4f;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
-  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
-  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
-  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
-  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){
-  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';totZ++;
-  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  else okZ++;
-  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
-function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

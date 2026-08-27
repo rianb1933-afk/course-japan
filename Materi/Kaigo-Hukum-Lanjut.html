@@ -11,6 +11,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js"></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
@@ -21,57 +23,21 @@
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["権利擁護", "kenri yogo", "advokasi hak"], ["成年後見制度", "seinen koiken seido", "perwalian dewasa"], ["後見人", "koiken-nin", "wali"], ["インフォームドコンセント", "informed consent", "persetujuan berdasarkan informasi"], ["自己決定権", "jiko kettei ken", "hak menentukan diri"], ["差別禁止", "sabetsu kinshi", "larangan diskriminasi"], ["虐待防止", "gyak-tai boshi", "pencegahan kekerasan"], ["権利", "kenri", "hak"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#37474f)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#37474f);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,var(--primary,#37474f),var(--primary-dark,#546e7a));color:#fff;padding:48px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
-.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
-.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#37474f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
-.tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
-.tbl tr:hover td{background:rgba(0,0,0,.03)}
-.tip{background:#f0faf0;border-left:3px solid #43a047;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
-.card.open .det{display:block}
-.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.83rem;color:#666;line-height:1.7}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
-.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:#fff;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;text-align:left;width:100%;font-family:inherit}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.85rem;color:#555;display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Hukum & Regulasi Kaigo 介護法規 | Nihongo Pro Academy", "description": "Hukum & Regulasi Kaigo 介護法規 — panduan lengkap — Nihongo Pro Academy", "url": "https://nihongopro.id/Materi/Kaigo-Hukum-Lanjut.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -211,12 +177,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div></section></main>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var Q=[{"q": "介護保険制度はいつから始まったか？", "opts": ["1990年", "2000年", "2010年", "2015年"], "a": 1, "e": "介護保険制度は2000年（平成12年）に開始された。それ以前の措置制度から、利用者が自らサービスを選択できる契約型の制度へと転換した、日本の社会保障制度における大きな改革の一つとされている。"}, {"q": "介護保険の第1号被保険者は何歳以上？", "opts": ["40歳", "55歳", "65歳", "75歳"], "a": 2, "e": "介護保険の第1号被保険者は65歳以上の人が該当する。要介護状態になった原因を問わず、保険給付の対象となる点が、40〜65歳未満の第2号被保険者との大きな違いとなっている。"}, {"q": "「身体拘束廃止の3つの条件」に含まれないのは？", "opts": ["切迫性", "非代替性", "一時性", "家族の希望"], "a": 3, "e": "身体拘束が例外的に許容される3要件は「切迫性・非代替性・一時性」。これらを全て満たす場合のみ、チームでの慎重な検討を経て例外的に認められるものであり、単なる利便性や職員都合はこの条件に含まれない。"}, {"q": "介護職員の守秘義務について正しいのは？", "opts": ["在職中のみ", "退職後も義務が続く", "家族には話してもよい", "SNSへの投稿は自由"], "a": 1, "e": "介護職員の守秘義務は、業務上知り得た利用者の情報を正当な理由なく漏らさない義務であり、退職後も継続する。在職中だけでなく生涯にわたって守るべき、専門職としての重要な法的・倫理的責任である。"}, {"q": "「高齢者虐待」として認められないのはどれか？", "opts": ["怒鳴りつける", "バカと言う", "ゆっくり丁寧に介護する", "必要なケアをしない"], "a": 2, "e": "高齢者虐待には、身体的虐待・心理的虐待・経済的虐待・性的虐待・ネグレクトの5種類が定義されている。単なる意見の相違や、正当な理由に基づくケア上の制限は、これらの虐待には該当しない。"}, {"q": "介護保険法における「要介護認定」の目的はどれか。", "opts": ["必要な介護の程度を客観的に判定する", "費用を減らす", "職員を減らす", "無関係"], "a": 0, "e": "要介護認定の目的は、必要な介護の程度を客観的な基準に基づいて判定すること。この判定結果に応じて利用できるサービスの範囲や支給限度額が決まるため、公平な制度運用の基盤となる重要な仕組みである。"}, {"q": "高齢者虐待防止法が定める通報義務はどれか。", "opts": ["虐待を発見した者は速やかに通報する義務がある", "通報は任意", "家族のみ通報可", "通報禁止"], "a": 0, "e": "高齢者虐待防止法は、虐待を発見した者に速やかな通報義務を課している。通報は任意ではなく法的な義務であり、家族以外の第三者であっても発見した場合には通報しなければならない。"}, {"q": "身体拘束が例外的に許容される「切迫性・非代替性・一時性」の3要件の意味はどれか。", "opts": ["生命の危険が切迫し他に方法がなく一時的な場合のみ", "いつでも拘束可", "家族が望めば常に可", "職員判断のみで可"], "a": 0, "e": "3要件=切迫性・非代替性・一時性(darurat, tak ada alternatif, sementara)を全て満たす場合のみ例外的に許容。"}, {"q": "個人情報保護法における「要配慮個人情報」に含まれるのはどれか。", "opts": ["病歴や障害の有無などの機微情報", "氏名のみ", "住所のみ", "電話番号のみ"], "a": 0, "e": "病歴や障害の有無など、特に慎重な取り扱いが必要な機微情報が要配慮個人情報に含まれる。氏名や住所などの一般的な個人情報よりも、さらに厳重な管理体制が求められる情報として区別されている。"}, {"q": "労働基準法が介護職に適用される内容はどれか。", "opts": ["労働時間・休憩・休日の規定", "利用者への対応方法", "介護技術", "医療行為の範囲"], "a": 0, "e": "労働基準法は、労働時間・休憩・休日といった労働条件を規定し、介護職にも適用される。利用者への対応方法や介護技術ではなく、働く側の労働条件を守るための法律として機能している。"}, {"q": "社会福祉士及び介護福祉士法が定める介護福祉士の義務はどれか。", "opts": ["誠実義務・信用失墜行為の禁止・秘密保持義務", "給与規定", "勤務時間", "資格更新義務"], "a": 0, "e": "誠実義務・信用失墜行為の禁止・秘密保持義務が、この法律で定められる介護福祉士の主な義務。専門職としての品位と利用者の信頼を守るため、これらの義務が法的に位置づけられている。"}, {"q": "介護サービス提供における契約の重要性はどれか。", "opts": ["利用者の権利と提供内容を明確にするため", "形式的手続きのみ", "職員保護のみ", "不要な手続き"], "a": 0, "e": "契約は、利用者の権利とサービス提供内容を明確にするために重要な役割を持つ。形式的な手続きにとどまらず、利用者が安心してサービスを利用できるための法的な保障として機能している。"}, {"q": "成年後見制度の3類型に含まれないのはどれか。", "opts": ["後見・保佐・補助", "介護保険", "後見のみ", "補助のみ"], "a": 0, "e": "成年後見制度は、判断能力の程度に応じて「後見・保佐・補助」の3類型に分かれる。これらは判断能力の程度によって支援の範囲が異なり、本人の状況に応じた適切な類型が選択される。"}, {"q": "介護記録の法的保存期間の一般的な考え方はどれか。", "opts": ["定められた期間(自治体等の基準に従い)適切に保存する", "即座に廃棄可", "保存不要", "永久に不要"], "a": 0, "e": "介護記録は、定められた基準に従って一定期間適切に保存する法的義務がある。事故対応やサービスの検証に必要となるため、即座に廃棄したり保存を怠ったりすることは認められない。"}, {"q": "介護保険サービスにおける苦情申立ての仕組みはどれか。", "opts": ["事業所・市町村・国民健康保険団体連合会等に申立て可能", "申立て制度はない", "裁判のみ", "家族のみ可能"], "a": 0, "e": "事業所や市町村、国民健康保険団体連合会など、複数の窓口に苦情を申し立てられる仕組みが整えられている。利用者が不満や問題を感じた際に、適切な機関に相談できる制度的な保障となっている。"}, {"q": "介護職員の資格取得を促進する制度の目的はどれか。", "opts": ["人材育成と介護の質の向上", "資格の権威付けのみ", "規制強化のみ", "無関係"], "a": 0, "e": "人材育成と介護の質の向上が、資格取得促進制度の目的とされる。単なる資格の権威付けではなく、専門性を持った人材を増やし、介護サービス全体の質を高めることを目指す制度である。"}, {"q": "介護保険の第2号被保険者の年齢範囲はどれか。", "opts": ["40歳以上65歳未満", "20歳以上40歳未満", "65歳以上のみ", "年齢制限なし"], "a": 0, "e": "第2号被保険者は40歳以上65歳未満の人が該当する。特定疾病が原因で要介護状態になった場合にのみ給付の対象となる点が、原因を問わない第1号被保険者との違いとなっている。"}, {"q": "介護サービス事業者の指定制度の目的はどれか。", "opts": ["一定の基準を満たす事業者にサービス提供を認める", "誰でも自由に開業できる", "規制は不要", "無関係"], "a": 0, "e": "一定の基準を満たす事業者にのみサービス提供を認めることが指定制度の目的。誰でも自由に開業できる仕組みではなく、人員配置や設備等の基準を満たした事業者だけが介護保険サービスを提供できる。"}, {"q": "ケアマネジャー(介護支援専門員)の法的役割はどれか。", "opts": ["ケアプラン作成とサービス調整", "医療行為の実施", "介護報酬の決定", "法律の制定"], "a": 0, "e": "ケアプランの作成とサービス調整が、ケアマネジャーの主な法的役割となる。医療行為の実施や介護報酬の決定は業務範囲外であり、利用者に合わせた支援計画の立案と関係機関との調整が中心的な役割である。"}, {"q": "介護保険の地域支援事業の目的はどれか。", "opts": ["介護予防と地域包括的な支援体制の構築", "施設整備のみ", "医療行為の提供", "無関係"], "a": 0, "e": "介護予防と、地域包括的な支援体制の構築が地域支援事業の目的とされる。施設整備や医療行為の提供が目的ではなく、地域全体で高齢者を支える仕組みづくりに重点を置いた事業である。"}],qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById("qc");if(!c)return;var oo=document.createElement("div");oo.className="qopts";q.opts.forEach(function(o,i){var b=document.createElement("button");b.className="qopt";b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement("div");bx.className="qbox";var qq=document.createElement("div");qq.className="qq";qq.textContent=(qi%Q.length+1)+". "+q.q;var ex=document.createElement("div");ex.className="qexp";ex.id="qe";bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML="";c.appendChild(bx);var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-rnd();
 </script><section style="max-width:900px;margin:0 auto;padding:0 20px 0">
 <div style="background:#fff;border:1px solid rgba(55,71,79,.1);border-radius:12px;padding:18px;margin:12px 0">
 <h3 style="color:var(--primary,#37474f);margin:0 0 12px;font-size:1rem">⚖️ 介護に関わる主要法律まとめ</h3>
@@ -239,50 +200,5 @@ rnd();
 </section>
 <script>
 var QKZ=[{"q": "「介護福祉士」の義務で「誠実義務」の内容は？", "opts": ["勤務時間を守る", "常に利用者の人格を尊重し、良質なサービスを誠実に提供する義務", "書類を正確に書く", "上司の指示に従う"], "a": 1, "e": "誠実義務(社会福祉士及び介護福祉士法44条の2): 個人の尊厳を保持し、自立した日常生活を営めるよう、誠実にその者の立場に立って支援する義務。"}, {"q": "「守秘義務」は退職後どうなるか？", "opts": ["なくなる", "退職後も生涯継続する", "3年で終わる", "転職すれば終わる"], "a": 1, "e": "守秘義務は生涯継続(社会福祉士及び介護福祉士法46条)。退職後も利用者の個人情報は漏らしてはいけない。SNS投稿も違反。違反すると1年以下の懲役または30万円以下の罰金。"}, {"q": "「成年後見制度」で後見人を選任するのは誰か？", "opts": ["施設長", "家庭裁判所", "医師", "市区町村長"], "a": 1, "e": "成年後見制度: 家庭裁判所が後見人(法定後見)を選任。または本人が元気なうちに選んでおく任意後見もある。認知症等で判断能力が不十分な人の権利・財産を守る。"}, {"q": "「高齢者虐待」の報告義務者はどれか？", "opts": ["家族のみ", "介護施設の職員は虐待を発見したら市区町村に通報義務がある", "医師のみ", "誰でも任意"], "a": 1, "e": "高齢者虐待防止法: 施設職員が利用者への虐待を発見した場合は市区町村への通報義務(義務規定)。家族による虐待を発見した場合も通報することが推奨される。"}, {"q": "「個人情報保護法」で要配慮個人情報に含まれるのは？", "opts": ["住所", "健康・医療情報・障害・犯罪歴等(センシティブな情報)", "名前", "電話番号"], "a": 1, "e": "要配慮個人情報=特に慎重な取り扱いが必要。健康情報・医療歴・障害・犯罪歴・信条等が含まれる。漏洩した場合は一般個人情報より重い罰則が適用される。"}, {"q": "身体拘束が認められる「切迫性」の条件は？", "opts": ["施設の都合", "利用者本人または他の利用者の生命・身体に危険が差し迫っている状態", "家族の同意", "医師の指示だけで"], "a": 1, "e": "身体拘束例外の3条件は全て必要: ①切迫性(生命・身体に危険が差し迫っている) ②非代替性(他の方法がない) ③一時性(一時的)。さらに家族への説明・同意と記録が必要。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){
-  if(!QKZ.length)return;
-  var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
-  q.opts.forEach(function(o,i){
-    var b=document.createElement('button');
-    b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-    b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
-    b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
-    b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
-    b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:var(--primary,#37474f);color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
-  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
-  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
-  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
-  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-  c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){
-  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';totZ++;
-  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  else okZ++;
-  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
-function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

@@ -10,6 +10,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js"></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
@@ -20,19 +22,13 @@
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["自立支援", "jiritsu shien", "dukungan kemandirian"], ["残存機能", "zanzon kino", "fungsi tersisa"], ["廃用症候群", "haiyou shokougun", "sindrom disuse"], ["自己決定", "jiko kettei", "hak menentukan diri"], ["ADL", "ADL", "aktivitas harian"], ["IADL", "IADL", "instrumental ADL"], ["過介護", "ka-kaigo", "over-caring"], ["エンパワメント", "enpawamento", "pemberdayaan"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#1b5e20)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#1b5e20);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script><script src="../assets/supabase-client.js"></script>
 <script src="../assets/analytics-loader.js" defer></script><script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -229,42 +225,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div></section></main>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var Q=[{"q": "自立支援介護で「全部してあげる=良いケア」が間違いな理由は？", "opts": ["ルール違反", "できることを奪うと廃用症候群が進み、かえって状態が悪化するから", "時間がかかるから", "家族が嫌がるから"], "a": 1, "e": "自立支援の核心: 「する=与える」だけでなく「しない(できることは本人に)」もケアの重要な選択。できることを奪う=廃用→筋力低下→転倒・褥瘡→より重介護化という悪循環を防ぐ。"}, {"q": "「竹内孝仁理論」の4大アプローチに含まれないのは？", "opts": ["水分", "睡眠", "食事", "排便"], "a": 1, "e": "竹内理論4大アプローチ: ①水分(1日1500mL以上) ②食事(経口摂取) ③排便(自然排便) ④運動(歩行). 睡眠は含まれない。この4つを改善することで「寝たきり」「おむつ」が改善できる人がいることを示した。"}, {"q": "「残存機能」の正しい評価方法は？", "opts": ["できないと判断したら介助", "時間・環境・補助具・声かけがあればできるかを観察して判断する", "家族に聞く", "医師が決める"], "a": 1, "e": "残存機能評価: 「できない」と即判断する前に①時間をかければできるか ②環境を整えればできるか ③補助具があれば ④声かけで動機づければ。条件次第でできることが多くある。"}, {"q": "「精神的自立」の支援で最も重要なことは？", "opts": ["全部決めてあげる", "「どうしたいですか？」と本人の意思を聞き、自己決定を最大限尊重すること", "家族が決める", "施設のルールで決める"], "a": 1, "e": "精神的自立=自分のことを自分で決める権利。介護職は選択肢を提供し、本人が選べるよう支援する役割。「どうしたいですか？」の一言が自立支援の出発点。"}, {"q": "「安全のため」を理由に本人の活動を過度に制限することを何と呼ぶか？", "opts": ["良いケア", "管理型ケア(過保護ケア)=QOL・尊厳を損なう可能性がある", "標準的ケア", "予防的ケア"], "a": 1, "e": "管理型ケア=「安全最優先」で本人の意思・活動・自由を制限しすぎること。例: 「転倒したら困る」と歩かせない。結果として廃用が進み、かえって状態悪化・QOL低下につながる危険。"}, {"q": "「社会的自立」の支援として正しいのは？", "opts": ["施設内だけで完結", "地域活動・人間関係への参加・役割を持つ機会を積極的に提供する", "家族だけと交流", "テレビだけ見させる"], "a": 1, "e": "社会的自立=社会への参加・役割を持つこと。地域のサークル・ボランティア・施設内の役割(花の水やり等)。「必要とされる・役に立てる」体験がQOL・生きがい・精神的健康に深く関わる。"}, {"q": "「ICFモデル」で「自立」を捉える視点として正しいのは？", "opts": ["完全に一人で全てできること", "できないことが少ないこと", "その人なりの参加・活動ができること(依存していても自己決定があれば自立)", "身体機能が完全なこと"], "a": 2, "e": "ICFでの自立=身体的に全て一人でできることではない。「本人が望む形で、必要なサポートを受けながら社会参加できる状態」が現代的自立の概念。依存=非自立ではない。"}, {"q": "「介護予防」の主な目的は？", "opts": ["全ての高齢者を施設に入居させる", "要介護状態になることを防ぎ、悪化を遅らせ、改善を図ること", "薬を増やすこと", "活動を制限すること"], "a": 1, "e": "介護予防=①要介護状態への移行予防②現状の維持③状態改善が目標。フレイル・廃用症候群の予防が核心。運動・栄養・社会参加の3本柱で取り組む。介護保険の「予防給付」がこれを支援。"}, {"q": "自立支援介護の基本理念はどれか。", "opts": ["残存機能を活かし本人の力を引き出す", "全て介助する", "依存を促す", "効率優先"], "a": 0, "e": "残存機能を活かし、本人の力を引き出すことが自立支援介護の基本理念。全て介助してしまうのではなく、できることは本人に行ってもらいながら支援するという考え方が中心にある。"}, {"q": "過介助が引き起こす問題はどれか。", "opts": ["残存機能の低下と依存の助長", "自立促進", "機能向上", "問題なし"], "a": 0, "e": "残存機能の低下と、依存の助長が過介助の主な問題。できることまで全て介助してしまうと、本人の身体機能や意欲が失われ、かえって自立から遠ざかってしまう結果を招く。"}, {"q": "自立支援における「できるADL」と「しているADL」の違いはどれか。", "opts": ["能力と実際の生活動作の差を評価する視点", "同じ意味", "無関係", "評価不要"], "a": 0, "e": "「できるADL」は本人の能力、「しているADL」は実際の生活の中で行っている動作という違いがある。この差を評価することで、能力はあるのに実践されていない部分を見つけ、支援方針に活かすことができる。"}, {"q": "水分摂取が自立支援に重要な理由はどれか。", "opts": ["脱水防止と身体機能維持のため", "味のため", "習慣だから", "無関係"], "a": 0, "e": "適切な水分摂取は、脱水防止だけでなく身体機能の維持や意欲の向上にも寄与するため、自立支援において重要とされる。水分不足は活力の低下や体調不良につながり、自立した生活の妨げとなる。"}, {"q": "離床(ベッドから起きること)を促す意義はどれか。", "opts": ["廃用症候群を防ぎ活動性を保つ", "休息のため", "無意味", "負担増のみ"], "a": 0, "e": "離床を促すことで、廃用症候群を防ぎ、活動性を保つ意義がある。寝たきりの状態が続くと筋力や心肺機能が低下するため、できる範囲で体を起こす機会を作ることが自立支援につながる。"}, {"q": "自立支援における目標設定で大切なのはどれか。", "opts": ["本人の意向を反映し実現可能にする", "職員が一方的に決める", "抽象的でよい", "目標不要"], "a": 0, "e": "本人の意向を反映し、実現可能な目標を設定することが大切。職員が一方的に決める抽象的な目標では、本人のモチベーションや実際の生活改善につながりにくい。"}, {"q": "排便コントロールが自立支援上重要な理由はどれか。", "opts": ["生活リズムと尊厳に直結するため", "無関係", "効率のため", "記録のため"], "a": 0, "e": "排便コントロールは、生活リズムと尊厳に直結する重要な要素であるため、自立支援上大切にされる。排泄の自立は本人の自尊心にも関わるため、丁寧な支援が求められる。"}, {"q": "「してあげる介護」から「共にする介護」への転換の意味はどれか。", "opts": ["本人の主体性を尊重し協働する姿勢", "全て代行する姿勢", "無関心", "効率優先"], "a": 0, "e": "本人の主体性を尊重し、共に取り組む姿勢への転換を意味する。全て代行するのではなく、本人と協力しながら支援を進めることで、自立への意欲を引き出すことができる。"}, {"q": "自立支援介護における運動機能訓練の意義はどれか。", "opts": ["筋力・バランス能力を維持し転倒を防ぐ", "無意味", "負担のみ", "不要"], "a": 0, "e": "筋力やバランス能力を維持し、転倒を防ぐことが運動機能訓練の意義。身体機能の低下を防ぐことは、日常生活動作の自立を支える基盤となる重要な取り組みである。"}, {"q": "認知症の人への自立支援で大切な視点はどれか。", "opts": ["残存能力を見極め本人のペースで支援する", "全介助が基本", "急がせる", "無視"], "a": 0, "e": "残存能力を見極め、本人のペースで支援することが大切な視点。全介助を基本とするのではなく、認知症があっても本人ができることを見出し、それを活かす姿勢が求められる。"}, {"q": "自立支援介護がQOL向上につながる理由はどれか。", "opts": ["主体性と生きがいを高めるため", "効率化のため", "費用削減のため", "無関係"], "a": 0, "e": "主体性と生きがいを高めることが、自立支援介護がQOL向上につながる理由。効率化や費用削減が目的なのではなく、本人らしく生きる力を支えることがQOLの向上に直結する。"}, {"q": "家族への自立支援の説明で大切なことはどれか。", "opts": ["過保護にならず見守る大切さを伝える", "全て任せるよう伝える", "無関心でよいと伝える", "説明不要"], "a": 0, "e": "過保護にならず、見守ることの大切さを家族にも伝えることが重要。家族が全てを代わりにやってしまうと、本人の自立の機会が失われてしまうため、家族の理解と協力も欠かせない。"}],qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;
-var oo=document.createElement('div');oo.className='qopts';
-q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';
-b.textContent=String.fromCharCode(65+i)+'. '+o;
-b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});
-var bx=document.createElement('div');bx.className='qbox';
-var qn=document.createElement('div');qn.className='qnum';qn.textContent='Soal '+(qi%Q.length+1)+' / '+Q.length;
-var qq=document.createElement('div');qq.className='qq';qq.textContent=q.q;
-var ex=document.createElement('div');ex.className='qexp';ex.id='qe';
-bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-c.innerHTML='';c.appendChild(bx);
-var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;
-bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');
-if(c!==a)b.classList.add('wrong');else ok++;
-var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}
-var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
 document.querySelectorAll('.card').forEach(function(c){c.addEventListener('click',function(){this.classList.toggle('open');});});
-rnd();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

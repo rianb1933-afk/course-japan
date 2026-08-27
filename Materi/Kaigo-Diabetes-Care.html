@@ -10,6 +10,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js"></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
@@ -20,19 +22,13 @@
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["糖尿病", "tounyobyo", "diabetes"], ["低血糖", "teikettoukochi", "hipoglikemia"], ["高血糖", "koukettoukochi", "hiperglikemia"], ["血糖値", "kettouatchi", "kadar gula darah"], ["インスリン", "insurin", "insulin"], ["HbA1c", "HbA1c", "kontrol gula jangka panjang"], ["フットケア", "futto kea", "perawatan kaki"], ["冷汗", "hiyaase", "keringat dingin"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#e65100)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#e65100);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script><script src="../assets/supabase-client.js"></script>
 <script src="../assets/analytics-loader.js" defer></script><script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -231,39 +227,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div></section></main>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var Q=[{"q": "低血糖の「早期症状」として正しいものは？", "opts": ["高熱", "冷汗・手足の震え・動悸・顔面蒼白", "血圧上昇", "むくみ"], "a": 1, "e": "低血糖の早期症状には、冷や汗・手の震え・動悸・空腹感などがある。これらは血糖値が急速に低下し始めたサインであり、早期に気づいて対応することで、意識障害等のより重篤な状態への進行を防ぐことができる。"}, {"q": "「意識がある低血糖」への最初の対応は？", "opts": ["119番", "ブドウ糖10g(砂糖20g)をすぐ摂取させる", "水を飲ませる", "様子を見る"], "a": 1, "e": "意識がある場合は、速やかにブドウ糖や糖分を含む飲食物を摂取させることが最初の対応。放置すると意識障害に進行する危険があるため、症状に気づいた時点で迅速に対応し、その後看護師等へ報告することが重要。"}, {"q": "「低血糖で意識がない」時に絶対してはいけないことは？", "opts": ["119番を呼ぶ", "口から糖分を与える(誤嚥の危険がある)", "回復体位", "バイタル確認"], "a": 1, "e": "意識がない状態で無理に飲食物を口に入れることは、誤嚥や窒息の危険があるため絶対に行ってはいけない。この場合は速やかに医療職・救急への連絡を優先し、専門的な処置（グルカゴン注射等）につなげる必要がある。"}, {"q": "糖尿病患者の「足の観察」で最も重要な理由は？", "opts": ["きれいにするため", "末梢神経障害で感覚が鈍くなり、小さな傷に気づかず壊疽(切断)に進む危険があるから", "ルールだから", "家族のため"], "a": 1, "e": "糖尿病では神経障害により足の感覚が鈍くなり、小さな傷や炎症に気づきにくくなる。気づかないまま悪化すると潰瘍や壊疽に至る危険があるため、日常的な足の観察は重篤な合併症を防ぐ上で極めて重要な役割を持つ。"}, {"q": "糖尿病患者の爪切りで正しいのは？", "opts": ["深爪にする", "爪の角を切らず、できるだけ看護師が行う", "介護職が自由に行う", "爪は切らない"], "a": 1, "e": "深爪や皮膚を傷つけないよう、まっすぐ切り角を丸くしすぎない（スクエアカット）方法が推奨される。神経障害により痛みを感じにくいため、小さな傷から感染や潰瘍に進行するリスクがあり、慎重な爪切りが求められる。"}, {"q": "食事の「残食量(残したもの)」を正確に記録する理由は？", "opts": ["形式的", "低血糖のリスク計算・栄養評価・インスリン量の判断に重要な情報になるから", "家族のため", "見た目のため"], "a": 1, "e": "残食量の記録は、実際の摂取カロリーや栄養状態を正確に把握し、血糖コントロールや栄養管理の判断材料とするために重要。曖昧な記録では、医療職が適切な治療方針を立てる際の情報が不正確になってしまう。"}, {"q": "糖尿病の利用者が「多尿（たにょう）・多飲（たいん）・体重減少」を訴えた場合に疑うのは？", "opts": ["低血糖", "高血糖（血糖コントロール不良）", "脱水のみ", "正常な状態"], "a": 1, "e": "多尿・多飲・体重減少は、血糖コントロールが悪化し高血糖状態が続いていることを示唆する典型的な症状。これらの変化に気づいたら速やかに看護師・医師へ報告し、血糖値の確認や治療方針の見直しにつなげる必要がある。"}, {"q": "糖尿病の利用者の「シックデイ（sick day）」での注意点は？", "opts": ["薬を自己判断で止める", "食事が摂れない時も血糖管理が必要。必ず医師・看護師に連絡し指示を仰ぐ", "水分を控える", "普通通り介護する"], "a": 1, "e": "発熱や体調不良の日（シックデイ）は、食事量が減っても自己判断でインスリンや内服薬を中止せず、水分補給を続けながら医療職に相談することが基本。体調不良時こそ血糖値が不安定になりやすく、慎重な対応が必要。"}, {"q": "糖尿病の「三大合併症」に含まれるのはどれか。", "opts": ["網膜症・腎症・神経障害", "骨折・肺炎・便秘", "認知症・うつ病・不眠", "高血圧のみ"], "a": 0, "e": "糖尿病の三大合併症は、網膜症・腎症・神経障害。これらは高血糖状態が長期間続くことで血管や神経が障害されて起こり、視力低下・腎機能低下・感覚障害などにつながるため、血糖コントロールと定期的な観察が重要となる。"}, {"q": "糖尿病の利用者のフットケアが重要な理由はどれか。", "opts": ["神経障害で傷に気づきにくく壊疽のリスクがあるため", "見た目のため", "無関係", "時間つぶしのため"], "a": 0, "e": "糖尿病による神経障害で足の感覚が鈍くなり、小さな傷や炎症に気づきにくくなるため、放置すると潰瘍や壊疽に進行する危険がある。日常的な足の観察とケアが、重篤な合併症を防ぐ上で欠かせない。"}, {"q": "インスリン注射の保管方法として正しいのはどれか。", "opts": ["未使用は冷蔵、使用中は常温可の指示に従う", "常に冷凍", "常温放置のみ", "日光に当てる"], "a": 0, "e": "未使用のインスリンは冷蔵保存し、使用中のものは製品の指示に従って常温保存が可能な場合もある。常温放置のみや冷凍保存は、薬剤の効果を損なう危険があるため、正しい保管方法を守ることが重要。"}, {"q": "食後高血糖を防ぐための食事の工夫はどれか。", "opts": ["野菜から先に食べる食べる順序の工夫", "炭水化物から先に食べる", "一気に食べる", "食事回数を減らす"], "a": 0, "e": "野菜から先に食べるなど、食べる順序を工夫することで、食後の血糖値上昇を緩やかにする効果が期待できる。炭水化物から先に食べたり、一気に食べたりする食べ方は、血糖値の急上昇を招きやすい。"}, {"q": "糖尿病患者の運動療法で注意すべきことはどれか。", "opts": ["低血糖に備え補食を用意する", "運動は禁止", "激しい運動を推奨", "水分制限"], "a": 0, "e": "運動前後は低血糖に備えて補食を用意しておくことが重要な注意点。運動を完全に禁止したり、逆に激しい運動を無条件に推奨したりするのではなく、状態に応じた適切な運動量を医療職と相談しながら進める必要がある。"}, {"q": "HbA1c(ヘモグロビンA1c)が示すものはどれか。", "opts": ["過去1-2ヶ月の平均血糖値", "その日の血糖値のみ", "血圧", "コレステロール値"], "a": 0, "e": "HbA1cは、過去1〜2ヶ月間の平均的な血糖値を反映する検査指標。その日の血糖値だけでなく、長期的な血糖コントロールの状態を把握できるため、糖尿病管理において重要な指標として使われる。"}, {"q": "糖尿病利用者の口腔ケアが重要な理由はどれか。", "opts": ["歯周病と血糖コントロールが相互に影響するため", "無関係", "見た目のためだけ", "時間つぶしのため"], "a": 0, "e": "糖尿病では歯周病にかかりやすく、また歯周病があると血糖コントロールが悪化しやすいという相互関係がある。そのため、口腔ケアは単なる清潔保持だけでなく、糖尿病管理の一環としても重要な意味を持つ。"}, {"q": "シックデイ(発熱等で体調不良の日)の糖尿病管理はどれか。", "opts": ["水分補給を続け医療職に相談する", "薬を自己判断で中止", "食事を完全に断つ", "普段通り無視してよい"], "a": 0, "e": "シックデイには、水分補給を続けながら、自己判断で薬を中止せず医療職に相談することが基本。体調不良時は血糖値が不安定になりやすいため、普段以上に慎重な観察と対応が求められる。"}, {"q": "糖尿病の利用者における「低血糖」の対応で優先すべきことはどれか。", "opts": ["速やかに糖分を補給し意識状態を観察する", "放置して様子を見る", "運動させる", "水のみ与える"], "a": 0, "e": "低血糖時は速やかな糖分補給と、意識状態の観察を優先することが基本対応。意識がない場合は無理に飲食物を与えず、速やかに医療職・救急への連絡を優先する必要がある。"}, {"q": "糖尿病利用者の血糖自己測定(SMBG)における介護職の役割はどれか。", "opts": ["測定の見守りと結果の記録・報告", "測定値の医学的判断", "薬の処方", "治療方針の決定"], "a": 0, "e": "介護職の役割は、測定の見守りと、結果の記録・報告にとどまる。測定値に基づく治療方針の判断や薬の調整は医療職の専門領域であり、介護職が自己判断で行うことはできない。"}, {"q": "糖尿病腎症が進行した場合の食事療法はどれか。", "opts": ["タンパク質・塩分の制限", "タンパク質を増やす", "無制限の食事", "水分を増やすだけ"], "a": 0, "e": "糖尿病腎症が進行した場合は、タンパク質や塩分の摂取制限が必要になることが多い。腎臓への負担を軽減するための食事管理であり、医師・管理栄養士の指示に基づいて調整される。"}, {"q": "糖尿病利用者の「靴選び」で注意すべきことはどれか。", "opts": ["圧迫や傷を作らない適切なサイズを選ぶ", "デザイン重視で選ぶ", "きつめを選ぶ", "素足を推奨"], "a": 0, "e": "圧迫や傷を作らない、足に合った適切なサイズの靴を選ぶことが重要な注意点。神経障害により痛みを感じにくいため、きつい靴による圧迫や傷に気づかないまま悪化させてしまうリスクがある。"}],qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;
-var oo=document.createElement('div');oo.className='qopts';
-q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';
-b.textContent=String.fromCharCode(65+i)+'. '+o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});
-var bx=document.createElement('div');bx.className='qbox';
-var qn=document.createElement('div');qn.className='qnum';qn.textContent='Soal '+(qi%Q.length+1)+' / '+Q.length;
-var qq=document.createElement('div');qq.className='qq';qq.textContent=q.q;
-var ex=document.createElement('div');ex.className='qexp';ex.id='qe';
-bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
-var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;
-bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;
-var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}
-var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
 document.querySelectorAll('.card').forEach(function(c){c.addEventListener('click',function(){this.classList.toggle('open');});});
-rnd();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

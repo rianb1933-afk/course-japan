@@ -13,6 +13,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -26,73 +28,21 @@
      dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["喀痰吸引", "kakutan kyuin", "suction dahak"], ["痰", "tan", "dahak"], ["吸引器", "kyuinki", "mesin suction"], ["吸引カテーテル", "kyuin kateeteeru", "kateter suction"], ["口腔内吸引", "koukouna-i kyuin", "suction oral"], ["鼻腔内吸引", "bikouna-i kyuin", "suction nasal"], ["吸引圧", "kyuin-atsu", "tekanan hisap"], ["SpO₂", "SpO2", "saturasi oksigen"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#b71c1c)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#b71c1c);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.page-hero{background:linear-gradient(135deg,var(--primary,#b71c1c),var(--primary-dark,#c62828));color:#fff;padding:48px 20px 32px;text-align:center}
-.page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
-.badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
-.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#b71c1c);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#b71c1c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #ffebee}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#ffebee;color:var(--primary,#b71c1c)}
-.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light);vertical-align:top}
-.tbl tr:hover td{background:#fff5f5}
-.tip{background:#ffebee;border-left:3px solid var(--primary-dark,#c62828);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.warn{background:#fff3e0;border-left:3px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.danger{background:#ffebee;border-left:4px solid #e53935;padding:14px 16px;border-radius:0 10px 10px 0;font-size:.88rem;margin:14px 0;font-weight:500}
-.steps{counter-reset:step;list-style:none;padding:0;margin:10px 0}
-.steps li{counter-increment:step;display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;font-size:.9rem}
-.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:var(--primary,#b71c1c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
-.type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:12px 0}
-.type-card{background:var(--white);border:2px solid #ffcdd2;border-radius:12px;padding:14px}
-.type-title{font-weight:700;color:var(--primary,#b71c1c);font-size:.95rem;margin-bottom:6px}
-.type-where{font-size:.82rem;color:var(--primary-dark,#c62828);background:#ffebee;padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:8px}
-.type-body{font-size:.85rem;line-height:1.7;color:var(--ink)}
-.dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px}
-.dialog-title{font-size:.95rem;font-weight:700;color:var(--primary,#b71c1c);margin-bottom:12px}
-.dl{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
-.spk{min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;margin-top:2px}
-.sp-c{background:#ffebee;color:var(--primary,#b71c1c)}
-.sp-r{background:#e8f5e9;color:#1b5e20}
-.sp-n{background:#e3f2fd;color:var(--accent,#1565c0)}
-.jp{font-size:.92rem;font-weight:500;color:var(--ink)}
-.id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
-.tts-btn{border:none;background:var(--primary,#b71c1c);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
-.qbox{background:#ffebee;border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;width:100%;text-align:left;font-family:inherit}
-.qopt:hover{background:#ffebee}
-.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"喀痰吸引 — Suction Dahak Kaigo | Nihongo Pro Academy","description":"Panduan喀痰吸引 dalam kaigo: prosedur, jenis, indikasi, kosakata, dialog, dan quiz ujian 医療的ケア.","url":"https://nihongopro.id/Materi/Kaigo-Katan-Kyuin.html","educationalLevel":"Intermediate","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy","url":"https://nihongopro.id"},"image":"https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -224,7 +174,6 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
 </div></main>
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 
 var PHRASES=[
   ['喀痰吸引','kakutan kyuin','suction dahak'],
@@ -260,25 +209,6 @@ if(pg)PHRASES.forEach(function(p){
 var Q=[{"q": "介護福祉士が喀痰吸引を実施できる条件として正しいのは？", "opts": ["誰でもできる", "研修を受ければ医師の指示なしに実施できる", "認定特定行為業務従事者として登録し、医師の指示と本人・家族の同意が必要", "利用者が希望すれば自由に実施できる"], "a": 2, "e": "所定の研修を修了し、医師の指示のもとで実施することが介護福祉士が吸引を行える条件。研修を受けていない、あるいは指示のない状態での実施は認められておらず、安全な実施のための厳格な条件が定められている。"}, {"q": "口腔内吸引の適切な吸引時間は？", "opts": ["30秒以内", "1分以内", "10-15秒以内", "時間制限なし"], "a": 2, "e": "1回あたり10〜15秒以内が口腔内吸引の適切な時間の目安。長時間の吸引は低酸素状態を招く危険があるため、短時間で効果的に行うことが求められる。"}, {"q": "口腔内吸引の適切な吸引圧（目安）は？", "opts": ["20-50 mmHg", "80-150 mmHg", "200-250 mmHg", "圧力は関係ない"], "a": 1, "e": "口腔・鼻腔内: 80-150 mmHg。気管カニューレ内: 80-120 mmHg。高すぎると粘膜損傷、低すぎると効果なし。数値は必須知識。"}, {"q": "吸引中に血性の痰（血が混じった痰）が確認された場合の対応は？", "opts": ["そのまま吸引を続ける", "吸引を中止し、すぐに看護師に報告する", "量を増やして吸引する", "様子を見て翌日報告する"], "a": 1, "e": "直ちに吸引を中止し、看護師など医療職へ速やかに報告することが適切な対応。血性の痰は出血や損傷を示す可能性があり、医療的な判断が必要な重要なサインとなる。"}, {"q": "喀痰吸引を行う前に必ず確認すべきことは？", "opts": ["天気", "文書による同意と医師の指示", "利用者の好きな食べ物", "部屋の温度"], "a": 1, "e": "本人の状態（呼吸状態・顔色等）と、指示された吸引の範囲・方法を確認することが実施前に必要。確認を怠ると、不適切な吸引による事故や、指示範囲を超えた実施につながる危険がある。"}, {"q": "吸引後に記録すべき内容として適切でないのは？", "opts": ["吸引した時間", "痰の量・色・粘稠度", "吸引後のSpO₂と呼吸状態", "介護士の趣味"], "a": 3, "e": "痰の性状・量、実施時刻、利用者の様子などが記録すべき内容であり、これらとは無関係な情報（天気や職員の気分等）は記録として適切でない。正確で必要な情報のみを記載することが求められる。"}, {"q": "吸引時にSpO₂が急激に低下（90%以下）した場合の対応は？", "opts": ["吸引を続ける", "吸引を中止し、酸素投与しながら看護師を呼ぶ", "速度を上げて吸引する", "様子を見る"], "a": 1, "e": "直ちに吸引を中止し、呼吸状態を確認した上で速やかに看護師へ報告することが適切な対応。SpO2の急激な低下は低酸素状態を示す危険なサインであり、迅速な対応が求められる。"}, {"q": "喀痰吸引の実施中に「唾液・粘液が少量でないカテーテルを口腔から引き抜くのに要する時間」の目安は？", "opts": ["5分以内", "10〜15秒以内", "30秒以内", "1分以内"], "a": 1, "e": "喀痰吸引時間：口腔内吸引は1回10〜15秒以内が原則。長時間の吸引は低酸素・粘膜損傷のリスクがある。複数回吸引する場合は30秒〜1分のインターバルを置く。吸引圧は100〜150mmHg（施設基準による）。"}, {"q": "喀痰吸引の1回の吸引時間の目安はどれか。", "opts": ["10〜15秒以内", "1分", "3分", "制限なし"], "a": 0, "e": "1回10〜15秒以内が喀痰吸引の時間の目安とされる。長時間の吸引は低酸素状態を招く危険があるため、この目安を超えないよう注意しながら実施することが重要。"}, {"q": "吸引前に手指衛生を行う理由はどれか。", "opts": ["感染予防のため", "時間短縮", "痰を減らす", "記録"], "a": 0, "e": "感染予防のために手指衛生は欠かせない基本操作となる。清潔な操作を徹底することで、利用者の気道を病原体から守り、安全な吸引を行うことができる。"}, {"q": "吸引中に顔色が悪くなったときの対応はどれか。", "opts": ["直ちに中止し呼吸を確認・報告", "続ける", "強く吸う", "放置"], "a": 0, "e": "直ちに吸引を中止し、呼吸状態を確認した上で報告することが適切な対応。顔色不良は低酸素状態を示すサインであるため、速やかな対応が利用者の安全を守る鍵となる。"}, {"q": "介護福祉士が吸引できる範囲はどれか。", "opts": ["研修修了後、指示範囲の口腔・鼻腔・気管カニューレ内", "自由に", "気管深部", "不可"], "a": 0, "e": "研修を修了し、医師の指示範囲内で、口腔・鼻腔・気管カニューレ内の吸引を行うことができる。気管の奥深くまでの吸引など、指示範囲を超える処置は医療職の専門領域として区別される。"}, {"q": "吸引カテーテルの取り扱いで正しいのはどれか。", "opts": ["清潔に管理し使い回さない", "洗って再利用", "床に置く", "放置"], "a": 0, "e": "清潔に管理し、使い回さないことが吸引カテーテルの正しい取り扱い。洗って再利用したり、不衛生な状態で放置したりすることは、感染源となる危険な行為である。"}, {"q": "吸引後の観察項目はどれか。", "opts": ["痰の性状・量・呼吸状態", "室温", "体重", "髪型"], "a": 0, "e": "痰の性状・量、そして利用者の呼吸状態を吸引後に観察することが重要。これらを確認せずに終わらせると、異常の早期発見が遅れ、状態悪化を見逃す危険がある。"}, {"q": "吸引の実施前に本人に行うことはどれか。", "opts": ["説明し同意を得る", "無言で行う", "急ぐ", "家族に言う"], "a": 0, "e": "説明を行い、同意を得ることが実施前に本人へ行うべき対応。無言で行うことは、本人に不安や恐怖を与えるだけでなく、協力を得られず実施が困難になる可能性もある。"}, {"q": "吸引を控えるべき状況はどれか。", "opts": ["直後に嘔吐や強い苦痛があるとき", "痰が多いとき", "指示があるとき", "朝"], "a": 0, "e": "直後に嘔吐や強い苦痛が見られる場合は、吸引を控えて状態を確認することが適切。無理に実施を続けることは、誤嚥や状態悪化のリスクを高めるため、慎重な判断が求められる。"}, {"q": "痰を出しやすくする介助はどれか。", "opts": ["水分補給と体位ドレナージ", "水分制限", "安静のみ", "無視"], "a": 0, "e": "水分補給と、体位ドレナージ（適切な体位の工夫）が痰を出しやすくする介助として有効。これにより吸引の頻度や負担を減らしながら、自然な排痰を促すことができる。"}, {"q": "吸引の記録として適切なのはどれか。", "opts": ["時刻・痰の性状・利用者の様子", "記録しない", "記憶", "曖昧に"], "a": 0, "e": "実施時刻、痰の性状、利用者の様子を正確に記録することが適切。記録を怠ったり曖昧にしたりすると、事故発生時の根拠としても機能せず、多職種での情報共有にも支障をきたす。"}, {"q": "吸引器の準備で確認することはどれか。", "opts": ["吸引圧と作動確認", "色", "重さ", "メーカー"], "a": 0, "e": "吸引圧の設定と、機器が正常に作動するかを準備段階で確認することが重要。これらの確認を怠ると、不適切な圧力での吸引により利用者に負担をかけてしまう危険がある。"}, {"q": "気管カニューレ使用者への配慮はどれか。", "opts": ["カニューレ周囲の清潔と皮膚観察", "放置", "強く触る", "無視"], "a": 0, "e": "カニューレ周囲の清潔保持と、皮膚状態の観察が気管カニューレ使用者への重要な配慮。これらを怠ると、感染や皮膚トラブルといった合併症を見逃す危険がある。"}];
 
 var qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-if(typeof init==='function')init(); rnd();
 </script>
-<script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
-</script>
+
 </body></html>

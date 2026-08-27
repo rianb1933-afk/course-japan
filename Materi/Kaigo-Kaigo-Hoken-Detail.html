@@ -12,6 +12,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -37,6 +39,8 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -232,7 +236,6 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:10px">Skor: 0/0</p>
 </div></main>
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var PH=[["介護保険制度", "kaigo hoken seido", "sistem asuransi perawatan"], ["保険者", "hoken-sha", "pihak pengelola asuransi (kota/kabupaten)"], ["被保険者", "hihoken-sha", "peserta asuransi / tertanggung"], ["第1号被保険者", "daiichi-go hihoken-sha", "peserta kategori 1 (65+)"], ["第2号被保険者", "daini-go hihoken-sha", "peserta kategori 2 (40-64)"], ["要介護認定", "yo-kaigo nintei", "penilaian kebutuhan perawatan"], ["要介護度", "yo-kaigo do", "tingkat kebutuhan perawatan"], ["支給限度額", "shikyu gentogaku", "plafon biaya yang ditanggung asuransi"], ["ケアマネジャー", "kea manajaa", "manajer perawatan"], ["ケアプラン", "kea puran", "rencana perawatan"], ["訪問介護", "homon kaigo", "kunjungan perawatan"], ["通所介護", "tsuusho kaigo", "perawatan harian (day care)"], ["特別養護老人ホーム", "tokubetsu yogo rojin hoomu", "panti jompo khusus (特養)"], ["介護支援専門員", "kaigo shien senmon-in", "spesialis dukungan perawatan / care manager"], ["地域包括支援センター", "chiiki houkatsu shien sentaa", "pusat dukungan terpadu lokal"]];
 var pg=document.getElementById('pg');
 if(pg)PH.forEach(function(p){
@@ -242,49 +245,5 @@ if(pg)PH.forEach(function(p){
   var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);
 });
 var Q=[{"q": "介護保険の「保険者」は誰ですか？", "opts": ["国(厚生労働省)", "市区町村", "都道府県", "介護保険組合"], "a": 1, "e": "介護保険の保険者は市町村（および特別区）である。制度の運営主体として、保険料の徴収や要介護認定、給付の管理などを行う責任を担っており、住民に最も身近な行政単位として制度全体を支えている。"}, {"q": "第2号被保険者(40〜64歳)が介護保険を受給できる条件は？", "opts": ["65歳になるまで受給できない", "16種類の特定疾病による要介護・要支援状態になった場合", "加齢による要介護状態であれば受給できる", "申請すれば誰でも受給できる"], "a": 1, "e": "第2号被保険者は原則として65歳未満のため、「加齢」だけでは受給できない。受給できるのは「特定疾病(16種類)」が原因で要介護・要支援になった場合のみ。特定疾病例: ALS・初老期認知症・脳血管疾患・糖尿病性神経障害など。"}, {"q": "要介護認定の流れで「一次判定」とは何ですか？", "opts": ["医師が直接判断する", "コンピューターが訪問調査結果を点数化して要介護度を仮算定する", "ケアマネジャーが決定する", "申請者が自己申告する"], "a": 1, "e": "一次判定=コンピューターシステムによる機械的な判定。訪問調査の74項目の結果を入力すると要介護度の目安が算出される。これは暫定値であり、介護認定審査会で専門家が二次判定を行う。"}, {"q": "「特別養護老人ホーム(特養)」への入居要件は？", "opts": ["要支援2以上", "要介護3以上(特例で要介護1・2も可)", "要介護1以上", "医師の診断書があれば誰でも"], "a": 1, "e": "特養(特別養護老人ホーム)の入居条件: 要介護3以上が原則。例外として在宅での生活が困難な場合は要介護1・2でも特例入居が可能。終身の住まいとして機能し、需要が多く待機者が多い施設。"}, {"q": "ケアマネジャーがモニタリングで「最低月1回の訪問」を行う目的は？", "opts": ["利用者との友好関係を保つため", "ケアプランの実施状況を確認し、目標達成度・新たな課題を評価して計画を更新するため", "サービス費用を請求するため", "法律で定められているだけで意味はない"], "a": 1, "e": "モニタリング=ケアプランの実施状況の定期評価。最低月1回の居宅訪問が基準。目的: ①目標達成度の確認②新たなニーズ・問題の発見③サービスの過不足の調整④計画の見直し。介護士からの日々の観察報告がモニタリングの重要な情報源となる。"}, {"q": "介護保険の財源構成として正しいのは？", "opts": ["全額税金(公費)", "保険料100%", "保険料50%＋公費(税金)50%", "国が全額負担"], "a": 2, "e": "介護保険の財源: 保険料50%(第1号・第2号被保険者の保険料)＋公費50%(国25%・都道府県12.5%・市区町村12.5%)。利用者は原則1割負担(所得に応じて2〜3割)。"}, {"q": "介護保険の「第1号被保険者」と「第2号被保険者」の違いで正しいのは？", "opts": ["第1号は65歳以上で原因不問。第2号は40〜64歳で特定疾病のみ対象", "どちらも同じ条件", "第1号は医療保険加入者のみ", "第2号は全員対象"], "a": 0, "e": "第1号(65歳以上)=要介護・要支援なら原因を問わず受給可。第2号(40〜64歳)=16種類の特定疾病による場合のみ。特定疾病例: ALS・初老期認知症・脳血管疾患・糖尿病合併症・末期がん等。"}, {"q": "介護保険の「区分支給限度額」を超えてサービスを利用した場合は？", "opts": ["全額保険が負担", "超えた分は全額自己負担（10割）になる", "追加申請で自動的に上限が上がる", "ケアマネジャーが負担する"], "a": 1, "e": "区分支給限度額：要介護度ごとに月額の上限が定められている（例：要介護3=約270,480円）。この上限内のサービスは1〜3割負担。超えた分は保険給付の対象外となり、利用者が全額（10割）負担する。"}, {"q": "介護保険の保険者はどれか。", "opts": ["市町村", "国のみ", "会社", "個人"], "a": 0, "e": "介護保険の保険者は市町村。国や都道府県ではなく、住民に最も身近な行政単位である市町村が、保険料徴収や認定業務など制度運営の中心的な役割を果たしている。"}, {"q": "第1号被保険者の年齢はどれか。", "opts": ["65歳以上", "40〜64歳", "20歳以上", "18歳以上"], "a": 0, "e": "第1号被保険者は65歳以上の人が該当する。要介護状態になった原因を問わず給付対象となる点が、特定疾病のみが対象となる第2号被保険者との違いとなっている。"}, {"q": "要介護認定の申請先はどれか。", "opts": ["市町村の窓口", "病院", "警察", "学校"], "a": 0, "e": "要介護認定の申請先は市町村（の窓口）となる。申請を受けて、市町村が認定調査や審査会での審査を経て、要介護度を正式に判定する一連の手続きが行われる。"}, {"q": "要介護度の区分はどれか。", "opts": ["要支援1-2、要介護1-5", "要介護1-10", "3段階のみ", "区分なし"], "a": 0, "e": "要介護度は、要支援1・2および要介護1〜5の区分で構成されている。この区分に応じて利用できるサービスの内容や支給限度額が異なり、状態に応じた適切な支援を受けられる仕組みとなっている。"}, {"q": "ケアプランを作成する専門職はどれか。", "opts": ["ケアマネジャー(介護支援専門員)", "医師のみ", "警察", "教師"], "a": 0, "e": "ケアプランは、ケアマネジャー（介護支援専門員）が作成する専門職。利用者の状況を踏まえ、適切なサービスを組み合わせた計画を専門的な視点から立案する役割を担う。"}, {"q": "介護保険サービス利用時の自己負担割合は原則どれか。", "opts": ["1割(所得により2-3割)", "5割", "全額", "無料"], "a": 0, "e": "原則1割の自己負担が基本となり、所得に応じて2割・3割となる場合がある。全額自己負担ではなく、保険制度によって費用の大部分がカバーされる仕組みとなっている。"}, {"q": "居宅サービスに含まれるのはどれか。", "opts": ["訪問介護・通所介護など", "入院のみ", "手術", "旅行"], "a": 0, "e": "訪問介護や通所介護（デイサービス）などが居宅サービスに含まれる。自宅で生活しながら利用できるサービス群として、施設サービスとは区別されている。"}, {"q": "施設サービスに含まれるのはどれか。", "opts": ["特別養護老人ホームなど", "ホテル", "学校", "病院外来"], "a": 0, "e": "特別養護老人ホームなどへの入所サービスが施設サービスに含まれる。自宅で生活しながら利用する居宅サービスとは異なり、施設に入所して受けるサービスとして区分されている。"}, {"q": "介護保険の給付対象外となるのはどれか。", "opts": ["日常生活に不要な贅沢品", "手すり設置", "車椅子貸与", "訪問介護"], "a": 0, "e": "同居家族のための家事など、本人の生活支援に直接関係しない内容は給付対象外となる。制度の趣旨に沿った、本人自身への支援のみが給付の対象として認められている。"}, {"q": "要介護認定の有効期間が過ぎたらどうするか。", "opts": ["更新申請をする", "放置", "自動継続", "再申請不可"], "a": 0, "e": "有効期間が過ぎる前に、更新の申請を行う必要がある。申請を怠ると、サービスの継続利用に支障が生じる可能性があるため、期限を把握し余裕を持って手続きすることが重要になる。"}, {"q": "地域密着型サービスの例はどれか。", "opts": ["グループホーム(認知症対応型)", "大病院", "ホテル", "遠方施設"], "a": 0, "e": "小規模多機能型居宅介護などが、地域密着型サービスの例として挙げられる。住み慣れた地域で受けられる、比較的小規模なサービス類型として位置づけられている。"}, {"q": "介護保険制度の理念として正しいのはどれか。", "opts": ["自立支援と利用者本位", "施設収容", "家族任せ", "管理"], "a": 0, "e": "自立支援と、利用者本位のサービス選択が介護保険制度の理念として掲げられている。措置制度から契約制度への転換により、利用者自身がサービスを選べる仕組みへと変わった背景を持つ。"}];var qi=0,ok=0,tot=0;
-function rnd(){
-  if(!Q.length)return;
-  var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;
-  var oo=document.createElement('div');oo.className='qopts';
-  q.opts.forEach(function(o,i){
-    var b=document.createElement('button');b.className='qopt';b.textContent=o;
-    b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);
-  });
-  var bx=document.createElement('div');bx.className='qbox';
-  var qq=document.createElement('div');qq.className='qq';
-  qq.textContent=(qi%Q.length+1)+'/'+Q.length+' — '+q.q;
-  var ex=document.createElement('div');ex.className='qexp';ex.id='qe';
-  bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-  c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;
-}
-function ans(b,c,a,e){
-  var bs=document.querySelectorAll('.qopt');
-  if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';tot++;
-  bs[a].classList.add('correct');
-  if(c!==a)b.classList.add('wrong');else ok++;
-  var ex=document.getElementById('qe');
-  if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}
-  var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;
-}
-function nQ(){qi=(qi+1)%Q.length;rnd();}
-function rQ(){qi=0;ok=0;tot=0;rnd();}
-if(typeof init==='function')init();rnd();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>

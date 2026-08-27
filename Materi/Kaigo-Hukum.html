@@ -13,15 +13,7 @@
      (elemen target genuinely berada di <body>, setelah <head>). -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["社会福祉士及び介護福祉士法", "shakai fukushi-shi ho", "UU Pekerja Sosial Kaigo"], ["老人福祉法", "rojin fukushi ho", "UU Kesejahteraan Lansia"], ["介護保険法", "kaigo hoken ho", "UU Asuransi Perawatan"], ["権利", "kenri", "hak"], ["義務", "gimu", "kewajiban"], ["責任", "sekinin", "tanggung jawab"], ["法令遵守", "horyo junshu", "kepatuhan hukum"], ["守秘義務", "shuhi gimu", "kerahasiaan"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#2e7d32">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js"></script>
@@ -157,6 +149,8 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/kaigo-progress.js" defer></script>
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -318,7 +312,6 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 </div>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 const QUIZ_HK = [
   {q:'介護保険法が施行された年は?', opts:['1995年','1998年','2000年','2006年'], ans:2, exp:'介護保険法は2000年（平成12年）4月1日に施行されました。高齢者の介護を社会全体で支える仕組みとして導入されました。'},
   {q:'要介護3以上の方が入居できる施設型サービスは?', opts:['グループホーム','有料老人ホーム','特別養護老人ホーム（特養）','デイサービス'], ans:2, exp:'特別養護老人ホーム（特養）は原則として要介護3以上の方が対象。最も介護度の高い方を受け入れる施設です。'},
@@ -402,6 +395,8 @@ function rstQ(){qIdx=0;qScore=0;document.getElementById('quizWrap').innerHTML=`<
 initQuiz(QUIZ_HK);
 </script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
@@ -419,41 +414,6 @@ initQuiz(QUIZ_HK);
 </section>
 <script>
 var QKZ=[{"q": "「介護保険法」が施行されたのはいつ？", "opts": ["1990年", "2000年", "2010年", "2015年"], "a": 1, "e": "介護保険法は1997年に成立し、2000年（平成12年）から施行された。措置制度から契約に基づく利用者本位の制度へと転換した、日本の高齢者福祉における大きな法改正である。"}, {"q": "「第1号被保険者」と「第2号被保険者」の違いは？", "opts": ["同じ", "第1号=65歳以上、第2号=40-64歳(特定疾病のみ給付)", "第1号=若い人", "第2号=高齢者"], "a": 1, "e": "第1号被保険者は65歳以上で要介護状態になれば原因を問わず給付対象となるのに対し、第2号被保険者は40〜65歳未満で特定疾病が原因の場合のみ給付対象となるという違いがある。"}, {"q": "「居宅サービス」に含まれないものは？", "opts": ["訪問介護", "特別養護老人ホーム入所", "デイサービス", "訪問看護"], "a": 1, "e": "居宅サービスには訪問介護・通所介護（デイサービス）などが含まれるが、特別養護老人ホームのような施設への入所サービスは、居宅サービスではなく施設サービスに分類される。"}, {"q": "「ケアプラン」を作成するのは誰か？", "opts": ["介護職員", "介護支援専門員(ケアマネジャー)", "医師", "施設長"], "a": 1, "e": "ケアプランは、ケアマネジャー（介護支援専門員）が利用者・家族の意向を踏まえて作成する。専門的な視点から必要なサービスを組み合わせ、一貫した支援の方針を示す重要な計画書となる。"}, {"q": "「地域包括支援センター」の主な役割は？", "opts": ["入院手続き", "地域の高齢者の総合相談・権利擁護・ケアマネジメント支援", "薬を処方する", "施設管理"], "a": 1, "e": "地域包括支援センターは、高齢者やその家族からの総合的な相談対応、権利擁護、介護予防支援などを担う地域の拠点としての役割を持つ。地域における高齢者福祉の中核的な機能を果たしている。"}, {"q": "介護福祉士の資格を定める法律は？", "opts": ["老人福祉法", "社会福祉士及び介護福祉士法", "介護保険法", "障害者総合支援法"], "a": 1, "e": "介護福祉士の資格・業務・義務は「社会福祉士及び介護福祉士法」(1987年)に規定。守秘義務(第46条)・誠実義務・信用失墜行為の禁止も同法に明記。"}, {"q": "「インフォームドコンセント」の正しい意味は？", "opts": ["医師が治療方針を決める", "十分な説明を受けた上での本人の自発的同意", "家族が代わりに同意する", "施設長が決定する"], "a": 1, "e": "インフォームドコンセント=情報提供に基づく本人の自発的同意。介護でもケア前に説明し同意を得ることが原則。バイスティックの自己決定原則と直結。"}, {"q": "介護福祉士の「守秘義務」（社会福祉士及び介護福祉士法第46条）で正しいのは？", "opts": ["在職中のみ有効", "退職後も継続して有効。正当な理由なく業務上知り得た秘密を漏らしてはならない", "家族には自由に話せる", "SNSでの投稿は問題ない"], "a": 1, "e": "守秘義務の継続性：法46条は「正当な理由なく業務上知り得た秘密を漏らしてはならない」と定める。退職後も有効。違反した場合は1年以下の懲役または30万円以下の罰金（法50条）。SNSへの投稿も含まれる。"}, {"q": "介護保険サービスの利用者負担割合の原則はどれか。", "opts": ["原則1割(所得により2-3割)", "全額自己負担", "全額無料", "一律5割"], "a": 0, "e": "原則として利用者負担は1割であり、所得に応じて2割または3割になる場合がある。全額自己負担や全額無料ではなく、保険制度によって費用の大部分がカバーされる仕組みとなっている。"}, {"q": "「地域密着型サービス」の特徴はどれか。", "opts": ["住み慣れた地域で受けられる小規模サービス", "全国どこでも同一内容", "大規模施設限定", "都市部限定"], "a": 0, "e": "住み慣れた地域で受けられる小規模なサービスであることが地域密着型サービスの特徴。全国一律の大規模施設サービスとは異なり、地域に根ざしたきめ細かな支援を提供することを目指している。"}, {"q": "介護支援専門員(ケアマネジャー)の資格要件はどれか。", "opts": ["実務経験と試験合格・研修修了が必要", "誰でもすぐなれる", "資格不要", "学歴のみで決まる"], "a": 0, "e": "実務経験と試験合格、そして研修修了が資格要件として求められる。誰でもすぐになれる資格ではなく、専門的な知識と実務経験を積んだ上で、試験と研修を経て取得する専門資格である。"}, {"q": "介護保険審査会の役割はどれか。", "opts": ["要介護認定の不服申立てを審査する", "保険料を徴収する", "事業所を運営する", "無関係な機関"], "a": 0, "e": "要介護認定の結果に対する不服申立てを審査することが、介護保険審査会の役割。保険料の徴収や事業所運営を行う機関ではなく、認定結果に納得できない場合の救済手続きを担う機関である。"}, {"q": "「地域包括支援センター」の設置根拠となる法律はどれか。", "opts": ["介護保険法", "労働基準法", "医療法", "建築基準法"], "a": 0, "e": "地域包括支援センターは、介護保険法に基づいて設置されている。労働基準法や医療法ではなく、高齢者福祉・介護保険制度の枠組みの中に位置づけられた機関である。"}, {"q": "介護福祉士国家試験の実施団体はどれか。", "opts": ["公益財団法人社会福祉振興・試験センター", "厚生労働省が直接実施", "都道府県ごとに異なる団体", "民間企業"], "a": 0, "e": "介護福祉士国家試験は、公益財団法人社会福祉振興・試験センターが実施している。厚生労働省が直接試験を行うのではなく、専門の試験実施機関が全国統一の試験を運営している。"}, {"q": "「福祉用具貸与」が介護保険の給付対象となる条件はどれか。", "opts": ["要介護度等の条件を満たす用具に限られる", "全ての用具が対象", "貸与制度はない", "要支援者は対象外"], "a": 0, "e": "要介護度などの一定の条件を満たす福祉用具に限り、貸与が給付対象となる。全ての福祉用具が対象となるわけではなく、利用者の状態に応じた適切な用具のみが給付の対象として認められている。"}, {"q": "介護報酬の改定サイクルはどれか。", "opts": ["原則3年ごとに見直される", "毎月改定", "10年に1度", "改定されない"], "a": 0, "e": "介護報酬は原則として3年ごとに見直される仕組みとなっている。毎月や10年に一度といった頻度ではなく、社会情勢や介護現場の実態を踏まえて定期的に改定されるサイクルが設けられている。"}, {"q": "「事業者指定の取消し」が行われる主な理由はどれか。", "opts": ["不正請求や重大な運営基準違反", "些細な書類ミス", "職員の退職", "利用者数の減少"], "a": 0, "e": "不正請求や重大な運営基準違反が、事業者指定取消しの主な理由となる。些細な書類ミスや職員の退職といった軽微な事情ではなく、悪質な違反行為に対する重い処分として位置づけられている。"}, {"q": "「介護保険外サービス」の特徴はどれか。", "opts": ["保険給付対象外で全額自己負担のサービス", "保険で全額カバー", "存在しない", "要介護者のみ利用可"], "a": 0, "e": "保険給付の対象外で、全額自己負担となるサービスであることが介護保険外サービスの特徴。保険で全額カバーされるわけではないが、その分、制度の枠を超えた柔軟な内容を選べる利点がある。"}, {"q": "「運営基準」が介護事業所に課す義務はどれか。", "opts": ["人員配置・設備・記録管理等の基準遵守", "利益追求のみ", "無関係", "基準は存在しない"], "a": 0, "e": "人員配置・設備・記録管理など、多岐にわたる基準の遵守を運営基準は義務付けている。利益追求のみを目的とするのではなく、一定の質を保ったサービス提供を担保するための基準として定められている。"}, {"q": "介護保険の「支給限度額」の意味はどれか。", "opts": ["要介護度ごとに定められた1ヶ月の利用上限額", "無制限に使える金額", "罰金額", "職員の給与額"], "a": 0, "e": "要介護度ごとに定められた、1ヶ月あたりの利用上限額を支給限度額と呼ぶ。無制限に使える金額ではなく、この上限を超えた分は全額自己負担となるため、計画的なサービス利用が求められる。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-var oo=document.createElement('div');oo.style.display='grid';oo.style.gap='7px';
-q.opts.forEach(function(o,i){var b=document.createElement('button');
-b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-b.textContent=o;b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:10px;font-size:.92rem';
-qq.textContent=(qiZ%QKZ.length+1)+'. '+q.q;
-var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none';
-bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
-var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-bs[a].dataset.d='1';totZ++;
-bs[a].style.background='#e8f5e9';bs[a].style.borderColor='#43a047';bs[a].style.color='#1b5e20';
-if(c!==a){btn.style.background='#fce4ec';btn.style.borderColor='#e91e63';btn.style.color='#880e4f';}
-else okZ++;
-var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}
-var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();} function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body>
 </html>

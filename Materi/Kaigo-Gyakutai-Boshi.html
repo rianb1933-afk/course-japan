@@ -13,6 +13,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -26,71 +28,21 @@
      dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["虐待防止", "gyak-tai boshi", "pencegahan kekerasan"], ["身体的虐待", "shintai-teki gyak-tai", "kekerasan fisik"], ["心理的虐待", "shinri-teki gyak-tai", "kekerasan psikologis"], ["経済的虐待", "keizai-teki gyak-tai", "eksploitasi finansial"], ["放棄", "hoki", "penelantaran"], ["通報義務", "tsuho gimu", "kewajiban melaporkan"], ["市区町村", "shi-ku-choson", "pemerintah kota"], ["セルフネグレクト", "serufu negureku-to", "self-neglect"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#880e4f)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#880e4f);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.page-hero{background:linear-gradient(135deg,var(--primary,#880e4f),var(--primary-dark,#ad1457));color:#fff;padding:48px 20px 32px;text-align:center}
-.page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
-.badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
-.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#880e4f);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#880e4f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #fce4ec}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#fce4ec;color:var(--primary,#880e4f)}
-.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light);vertical-align:top}
-.tbl tr:hover td{background:#fce4ec33}
-.tip{background:#fce4ec;border-left:3px solid var(--primary,#880e4f);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.warn{background:#fff3e0;border-left:3px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.steps{counter-reset:step;list-style:none;padding:0;margin:10px 0}
-.steps li{counter-increment:step;display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;font-size:.9rem}
-.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:var(--primary,#880e4f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
-.dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px}
-.dialog-title{font-size:.95rem;font-weight:700;color:var(--primary,#880e4f);margin-bottom:12px}
-.dl{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
-.spk{min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;margin-top:2px}
-.sp-c{background:#fce4ec;color:var(--primary,#880e4f)}
-.sp-r{background:#e8f5e9;color:#1b5e20}
-.sp-n{background:#e3f2fd;color:var(--accent,#1565c0)}
-.jp{font-size:.92rem;font-weight:500;color:var(--ink)}
-.id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
-.tts-btn{border:none;background:var(--primary,#880e4f);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
-.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:12px 0}
-.pc{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-.pj{font-size:.95rem;font-weight:600;color:var(--ink)}
-.pr{font-size:.75rem;color:var(--ink-mid);margin:2px 0}
-.pi{font-size:.85rem;color:var(--primary,#880e4f)}
-.qbox{background:#fce4ec;border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;width:100%;text-align:left;font-family:inherit}
-.qopt:hover{background:#fce4ec}
-.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"虐待防止 — Pencegahan Kekerasan pada Lansia | Nihongo Pro Academy","description":"Panduan 虐待防止 dalam kaigo: teori, prosedur, dialog Jepang, kosakata, quiz ujian nasional.","url":"https://nihongopro.id/Materi/Kaigo-Gyakutai-Boshi.html","educationalLevel":"Intermediate","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy","url":"https://nihongopro.id"},"image":"https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -229,31 +181,11 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div>
 </div></section></main>
 <script>
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var PH=[["虐待防止", "gyak-tai boshi", "pencegahan kekerasan/perlakuan buruk"], ["高齢者虐待", "kourei-sha gyak-tai", "kekerasan pada lansia"], ["身体的虐待", "shintai-teki gyak-tai", "kekerasan fisik"], ["心理的虐待", "shinri-teki gyak-tai", "kekerasan psikologis/emosional"], ["性的虐待", "sei-teki gyak-tai", "kekerasan seksual"], ["経済的虐待", "keizai-teki gyak-tai", "eksploitasi finansial"], ["放棄・放置", "hoki / hochi", "penelantaran / abandonment"], ["通報義務", "tsuhō gimu", "kewajiban melaporkan (hukum)"], ["市区町村", "shi-ku-chōson", "pemerintah kota/kabupaten (penerima laporan)"], ["養介護施設従事者", "yo-kaigo shisetsu juujisha", "tenaga fasilitas kaigo (wajib lapor)"], ["セルフネグレクト", "serufu negureku-to", "self-neglect (penelantaran diri sendiri)"], ["権利擁護", "kenri yogo", "advokasi hak / perlindungan hak"], ["身体拘束", "shintai kosoku", "restriksi fisik (termasuk penyalahgunaan)"], ["高齢者虐待防止法", "kourei-sha gyak-tai boshi ho", "UU Pencegahan Kekerasan pada Lansia (2006)"]];
 var pg=document.getElementById('pg');
 if(pg)PH.forEach(function(p){var d=document.createElement('div');d.className='pc';d.innerHTML='<div class="pj">'+p[0]+'</div><div class="pr">'+p[1]+'</div><div class="pi">🇮🇩 '+p[2]+'</div>';var btn=document.createElement('button');btn.textContent='🔊';btn.className='tts-btn';var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});
 var Q=[{"q": "「高齢者虐待防止法」における「養介護施設従事者」の義務は？", "opts": ["虐待を発見しても施設内で解決する", "虐待を発見したら市区町村に通報する義務がある", "家族だけに報告する", "秘密にする"], "a": 1, "e": "養介護施設従事者には、虐待を発見した場合の速やかな通報義務が課されている。虐待の早期発見・対応を制度的に支える重要な規定であり、発見しても通報しないことは法律違反にあたる。"}, {"q": "「身体拘束」が例外的に許容される3条件（3原則）は？", "opts": ["施設の都合・費用節約・人手不足", "切迫性・非代替性・一時性", "利用者の希望・家族の同意・医師の指示", "法律がない・記録がない・同意書がある"], "a": 1, "e": "身体拘束が許容されるのは切迫性（生命の危険）・非代替性（他の方法がない）・一時性（一時的）の3つ全てを満たす場合のみ。記録と定期的見直しも必須。"}, {"q": "心理的虐待の具体例に当てはまるのは？", "opts": ["食事を提供しない", "「邪魔者」と怒鳴りつける", "財布を盗む", "身体を拘束する"], "a": 1, "e": "威圧的な言葉での脅し、無視、怒鳴りつけるといった行為が心理的虐待の具体例に当てはまる。身体的な暴力を伴わなくても、精神的な苦痛を与える言動は虐待として扱われることを理解しておく必要がある。"}, {"q": "虐待を疑ったが確信が持てない場合、介護士がすべき対応は？", "opts": ["確信がないので何もしない", "確認が取れるまで様子を見る", "疑いの段階でも上司や市区町村に相談・報告する", "他のスタッフに口外しない"], "a": 2, "e": "確信が持てない場合でも、疑いの時点で速やかに上司や関係機関に相談・報告することが適切な対応。「確信がないから様子を見る」という判断は、虐待の発見や対応の遅れにつながる危険がある。"}, {"q": "「セルフネグレクト」とは何ですか？", "opts": ["他者から受ける経済的搾取", "自分自身への適切なケアを放棄する状態", "施設スタッフによる心理的虐待", "家族による身体的暴力"], "a": 1, "e": "セルフネグレクト=自分自身を適切にケアしない状態（食事・衛生・医療を拒否するなど）。高齢者虐待防止法には含まれないが、市区町村が支援介入する対象となる場合がある。"}, {"q": "「経済的虐待」の具体例は？", "opts": ["怒鳴りつける", "年金・預貯金を本人の意思に反して使う", "食事を与えない", "身体を拘束する"], "a": 1, "e": "本人の同意なく財産や年金を使い込む、必要な費用を渡さないといった行為が経済的虐待の具体例。身体的な暴力とは異なる形の虐待であるため、金銭面での不自然な状況にも注意を払う必要がある。"}, {"q": "虐待の早期発見のためのサインとして正しいのは？", "opts": ["利用者が笑顔でいる", "原因不明の傷・あざ、急な体重減少、怯えた様子、介護者を怖がる様子", "食欲が増している", "よく眠れている"], "a": 1, "e": "虐待のサイン: 説明のつかない傷・あざ、急な体重減少、介護者の前での怯え、衛生状態の悪化、不自然な謝罪行動など。複数のサインに気づいたら速やかに報告・相談。"}, {"q": "「高齢者虐待防止法」で規定されている虐待の5類型に含まれないのは？", "opts": ["身体的虐待", "心理的虐待", "経済的虐待", "社会的排除（これは独立した類型ではない）"], "a": 3, "e": "高齢者虐待防止法の5類型：①身体的虐待②心理的虐待③性的虐待④経済的虐待⑤放棄・放任（ネグレクト）。「社会的排除」は独立した法的類型ではない（ネグレクトや心理的虐待に含まれる場合がある）。"}, {"q": "高齢者虐待の種類に含まれないのはどれか。", "opts": ["適切な介護", "身体的虐待", "心理的虐待", "経済的虐待"], "a": 0, "e": "高齢者虐待には、身体的虐待・心理的虐待・経済的虐待・性的虐待・ネグレクト（介護放棄）の5種類が定義されている。これらに該当しない一般的な生活上の不便さや意見の相違は虐待には含まれない。"}, {"q": "ネグレクト(介護放棄)の例はどれか。", "opts": ["必要な食事や世話をしない", "散歩に付き添う", "会話する", "受診に同行"], "a": 0, "e": "必要な食事や清潔ケアを提供しない、医療を受けさせないといった行為がネグレクトの例として挙げられる。積極的な暴力ではなく、必要なケアを怠ることも虐待の一形態として扱われる点に注意が必要。"}, {"q": "経済的虐待の例はどれか。", "opts": ["年金を無断で使う", "買い物を手伝う", "貯金を守る", "説明する"], "a": 0, "e": "本人の同意なく預貯金を使い込んだり、生活に必要な費用を渡さなかったりすることが経済的虐待の例。金銭的な搾取や不当な管理も、高齢者の権利を侵害する重大な虐待行為として扱われる。"}, {"q": "虐待を発見した職員がとるべき対応はどれか。", "opts": ["速やかに通報・報告する", "黙っておく", "家族任せ", "様子見のみ"], "a": 0, "e": "速やかに上司や関係機関へ通報することが、虐待を発見した職員がとるべき対応。高齢者虐待防止法では通報が義務づけられており、見て見ぬふりをすることは法律違反にあたる重大な問題となる。"}, {"q": "虐待が起こりやすい背景として正しいのはどれか。", "opts": ["介護者の孤立や負担の増大", "十分な支援", "休息", "相談体制"], "a": 0, "e": "介護者の疲労やストレス、知識・技術の不足、孤立した介護環境などが、虐待が起こりやすい背景として挙げられる。これらの要因を理解することは、虐待の予防策を検討する上でも重要になる。"}, {"q": "身体拘束が原則禁止される理由はどれか。", "opts": ["尊厳と身体の自由を侵害する", "手間がかかる", "費用", "記録増"], "a": 0, "e": "身体拘束は、利用者の自由と尊厳を著しく侵害する行為であるため原則禁止とされている。安全確保を理由にした安易な拘束は人権侵害にあたり、例外的に認められる場合も厳格な条件を満たす必要がある。"}, {"q": "心理的虐待に該当するのはどれか。", "opts": ["暴言・侮辱・無視", "入浴介助", "食事介助", "散歩"], "a": 0, "e": "怒鳴る、無視する、脅すといった言動が心理的虐待に該当する。身体的な暴力がなくても、精神的な苦痛を与える行為は虐待として扱われ、利用者の心の健康に深刻な影響を及ぼす可能性がある。"}, {"q": "虐待防止のために施設で有効な取り組みはどれか。", "opts": ["研修と相談体制の整備", "放置", "隠蔽", "個人任せ"], "a": 0, "e": "職員研修の実施や、相談しやすい職場環境づくり、複数の目でのチェック体制などが虐待防止に有効な取り組みとされる。個人の意識だけに頼るのではなく、組織的な仕組みづくりが重要になる。"}, {"q": "セルフネグレクトの説明として正しいのはどれか。", "opts": ["本人が自分の世話を放棄した状態", "他者による虐待", "治療法", "制度"], "a": 0, "e": "セルフネグレクトとは、本人自身が必要な生活行為やケアを行わず、自己の健康・安全を損なう状態を指す。他者からの虐待とは異なり、本人自身の状態として区別されるが、支援が必要な深刻な状況とされる。"}, {"q": "虐待を疑ったときの記録として適切なのはどれか。", "opts": ["客観的事実を具体的に記録", "推測で書く", "記録しない", "曖昧に"], "a": 0, "e": "見聞きした事実を客観的かつ具体的に記録することが適切。感想や憶測を交えず、時刻や状況を正確に記載することで、その後の対応や関係機関との連携に役立つ信頼性のある記録となる。"}, {"q": "高齢者虐待防止法の目的はどれか。", "opts": ["高齢者の権利と尊厳を守る", "施設の利益", "職員評価", "記録"], "a": 0, "e": "高齢者虐待防止法は、高齢者の権利利益の擁護と虐待の予防・早期発見・対応を目的として制定されている。養護者や施設従事者による虐待を防ぎ、高齢者が安全に生活できる社会を目指す法律。"}, {"q": "身体拘束の例外3要件に含まれないのはどれか。", "opts": ["効率性", "切迫性", "非代替性", "一時性"], "a": 0, "e": "身体拘束が例外的に許容される3要件は「切迫性・非代替性・一時性」。これらは生命の危険が切迫し、他に方法がなく、一時的な場合にのみ限定される厳格な条件であり、単なる「安全のため」という理由だけでは該当しない。"}];
 var qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-if(typeof init==='function')init(); rnd();
 </script>
-<script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
-</script>
+
 </body></html>

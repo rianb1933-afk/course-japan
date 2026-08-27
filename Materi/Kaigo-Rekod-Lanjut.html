@@ -12,6 +12,8 @@
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
+
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
 <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
@@ -25,60 +27,21 @@
      dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
 <script>
 document.addEventListener('DOMContentLoaded', function(){
-var PH_VOCAB=[["アセスメントシート", "asesumento shiito", "lembar asesmen"], ["ケース記録", "keesu kiroku", "catatan kasus"], ["申し送り", "moshi-okuri", "serah terima"], ["経過記録", "keika kiroku", "catatan perkembangan"], ["インシデントレポート", "inshidento ripooto", "laporan insiden"], ["個別支援計画", "kobetsu shien keikaku", "rencana dukungan"], ["情報共有", "joho kyoyu", "berbagi informasi"], ["モニタリング", "monitaringu", "pemantauan"]];
-var pgv=document.getElementById('pg');
-if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-+'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:var(--primary,#1565c0)">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:var(--primary,#1565c0);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
-var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+renderVocabGrid('pg', PH_VOCAB);
 });
 </script>
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,var(--primary,#1565c0),var(--primary-dark,#1976d2));color:#fff;padding:48px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
-.bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
-.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#1565c0);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#1565c0);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
-.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
-.tip{background:var(--matcha-pale);border-left:3px solid var(--matcha);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
-.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.card.open .det{display:block}
-.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.83rem;color:var(--ink-mid)}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
-.qexp.show{display:block}
-.tab-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.tab{padding:7px 16px;border-radius:20px;border:1px solid var(--border-mid);background:var(--cream);cursor:pointer;font-size:.85rem;transition:all .2s}
-.tab.active,.tab:hover{background:var(--primary,#1565c0);color:#fff;border-color:var(--primary,#1565c0)}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Rekod & Dokumentasi Kaigo Lanjutan 介護記録 | Nihongo Pro Academy", "description": "Panduan lengkap penulisan rekod kaigo — SOAPノート, observasi objektif vs subjektif, terminologi rekod, dan contoh dokumentasi.", "url": "https://nihongopro.id/Materi/Kaigo-Rekod-Lanjut.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -228,12 +191,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div></section></main>
 <script>
 
-function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
 var Q=[{"q": "客観的記録(O)の例として正しいのは？", "opts": ["機嫌が悪そうだった", "血圧 130/85 mmHg", "元気がないように見えた", "楽しそうな様子だった"], "a": 1, "e": "記録は客観的事実を書く。「機嫌が悪そう」「元気がない」「楽しそう」は主観的推測。「血圧130/85mmHg」のような測定値・観察事実が正しい記録。"}, {"q": "主観的記録(S)とは何ですか？", "opts": ["介護士の意見", "利用者・家族の言葉・訴え", "スタッフの推測", "看護師の判断だけ"], "a": 1, "e": "主観的情報(S)=利用者・家族が実際に述べた言葉や訴え。「痛い」「眠れない」など本人の表現をそのまま記録する。介護士の意見や推測とは区別する。"}, {"q": "記録の書き間違えはどう修正する？", "opts": ["修正液で消す", "消しゴムで消す", "二重線を引いてサインと日時を書く", "そのまま書き直す"], "a": 2, "e": "二重線を引いて訂正者が押印し、訂正日を明記する方法で修正する。修正液で消したり書き直して破棄したりすることは、記録の信頼性を損なう改ざんと疑われる危険な行為となる。"}, {"q": "転倒が起きた場合の記録の順番は？", "opts": ["記録→報告→対応", "対応→上司・看護師に報告→記録", "記録だけすればよい", "家族に連絡してから記録"], "a": 1, "e": "発見時の状況、実施した対応、その後の経過という時系列に沿って記録することが基本。時系列を崩さず正確に記載することで、事故の検証や再発防止策の検討に役立てることができる。"}, {"q": "「5W1H」の記録とは？", "opts": ["5種類の検査", "いつ・どこで・誰が・何を・なぜ・どのように", "5回以上書く", "5分以内に書く"], "a": 1, "e": "いつ・どこで・誰が・何を・なぜ・どのようにという要素を押さえた記録方法。この枠組みを意識することで、誰が読んでも状況を正確に理解できる客観的な記録を作成できる。"}, {"q": "SOAPのAは何を意味する？", "opts": ["アセスメント(観察・評価)", "行動", "代替", "記録"], "a": 0, "e": "SOAPのAはAssessment（アセスメント）を意味する。主観的情報（S）と客観的情報（O）を踏まえた専門的な分析・評価を記載する重要な部分として位置づけられている。"}, {"q": "SOAP記録の「A(アセスメント)」に書く内容はどれか。", "opts": ["S・Oを踏まえた専門的な分析・評価", "本人の発言のみ", "バイタル数値のみ", "次回の予定のみ"], "a": 0, "e": "S・Oを踏まえた専門的な分析・評価を書くことがアセスメントの内容。本人の発言やバイタル数値をそのまま書くのではなく、それらを踏まえた専門的な判断を記載する部分となる。"}, {"q": "SOAP記録の「P(プラン)」に書く内容はどれか。", "opts": ["今後の具体的な支援計画", "過去の記録", "感想", "無関係な情報"], "a": 0, "e": "今後の具体的な支援計画をプランに書くことが基本。過去の記録や感想ではなく、アセスメントを踏まえた今後の対応方針を明確に記載する部分として位置づけられる。"}, {"q": "フォーカスチャーティングの利点はどれか。", "opts": ["問題点に焦点を当て時系列で記録できる", "記録量を減らせるだけ", "誰でも読めない", "形式が複雑なだけ"], "a": 0, "e": "問題点に焦点を当て、時系列で記録できることが利点。記録量を単に減らすためではなく、重要な問題点を明確にしながら経過を追いやすくする記録方式として活用される。"}, {"q": "記録における「客観的情報(O)」の例はどれか。", "opts": ["体温37.5℃、血圧130/80", "「痛い」という発言", "「つらそう」という印象", "気分が良さそう"], "a": 0, "e": "体温37.5℃、血圧130/80のような数値・観察された事実が客観的情報の例。「痛い」という発言や印象といった主観的情報とは明確に区別して記録することが求められる。"}, {"q": "記録者の署名・記名が必要な理由はどれか。", "opts": ["責任の所在を明確にするため", "形式のためだけ", "時間がかかるだけ", "不要な手間"], "a": 0, "e": "責任の所在を明確にするために署名・記名が必要とされる。形式的な手続きではなく、誰がその記録を書いたかを明確にすることで、記録の信頼性を担保する意味を持つ。"}, {"q": "介護過程の記録とケアプランの関係はどれか。", "opts": ["記録がケアプラン見直しの根拠になる", "無関係", "記録は不要", "ケアプランのみで十分"], "a": 0, "e": "日々の記録がケアプラン見直しの根拠になるという関係にある。記録なしにケアプランを適切に見直すことは難しく、両者は密接に結びついた重要な関係を持っている。"}, {"q": "「叙述記録」の特徴はどれか。", "opts": ["自由な文章で経過を記述する形式", "数値のみ記載", "チェック式のみ", "写真のみ"], "a": 0, "e": "自由な文章で経過を記述する形式が叙述記録の特徴。数値やチェック式とは異なり、状況を詳細に伝えやすい反面、簡潔さに欠ける場合もあるため使い分けが重要になる。"}, {"q": "記録の保管における個人情報保護の配慮はどれか。", "opts": ["施錠管理とアクセス制限", "誰でも見られる場所に置く", "共有フォルダで無制限公開", "配慮不要"], "a": 0, "e": "施錠管理とアクセス制限が保管における重要な配慮。誰でも見られる場所への放置や、無制限な共有は、情報漏洩のリスクを大きく高める不適切な取り扱いとなる。"}, {"q": "記録監査(モニタリング)の目的はどれか。", "opts": ["記録の質と一貫性を確保するため", "職員を罰するため", "記録を減らすため", "無関係"], "a": 0, "e": "記録の質と一貫性を確保することが監査の目的。職員を罰するためではなく、記録全体の水準を維持し、支援の質を担保するための重要な取り組みとして行われる。"}, {"q": "ICT(情報通信技術)を使った記録共有の利点はどれか。", "opts": ["リアルタイムで多職種が情報を共有できる", "紙の方が優れている", "共有できない", "時間がかかるだけ"], "a": 0, "e": "リアルタイムで多職種が情報を共有できることが利点。紙の記録と異なり、必要な情報を即座に確認・更新できる点が、業務効率と連携の質を高める効果を持つ。"}, {"q": "記録に「~と思われる」等の推測表現を使うときの注意点はどれか。", "opts": ["事実と推測を明確に区別して書く", "断定的に書く", "使用禁止のみ", "無関係"], "a": 0, "e": "事実と推測を明確に区別して書くことが重要な注意点となる。断定的に書いたり、両者を区別せず混在させたりすることは、記録を読む多職種に誤解を与える危険がある。"}, {"q": "退院・退所時のサマリー記録の意義はどれか。", "opts": ["次の支援先へ継続的なケア情報を引き継ぐため", "不要な書類", "記録の終了を示すだけ", "無関係"], "a": 0, "e": "次の支援先へ継続的なケア情報を引き継ぐことが意義となる。単なる記録の終了を示すものではなく、支援の連続性を保つための重要な引き継ぎ資料として機能する。"}, {"q": "記録における「経過観察」の意義はどれか。", "opts": ["状態変化を継続的に把握し早期対応につなげる", "形式のためだけ", "無関係", "記録量を増やすため"], "a": 0, "e": "状態変化を継続的に把握し、早期対応につなげることが経過観察の意義。一度の記録だけで終わらせず、継続的な観察の積み重ねが異常の早期発見に直結する。"}, {"q": "記録の「一貫性」が重要な理由はどれか。", "opts": ["異なる職員間でも同じ基準で情報を評価できるため", "個性を出すため", "無関係", "記録を減らすため"], "a": 0, "e": "異なる職員間でも同じ基準で情報を評価できるようにするためとされる。一貫性のない記録は、職員によって解釈が異なり、質の高いケアの継続を妨げる原因となってしまう。"}],qi=0,ok=0,tot=0;
-function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
-function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
-if(typeof init==='function')init(); rnd();
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:var(--primary,#1565c0);margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
@@ -246,50 +204,5 @@ if(typeof init==='function')init(); rnd();
 </section>
 <script>
 var QKZ=[{"q": "「観察記録」に含めるべきでないのは？", "opts": ["バイタルサインの数値", "スタッフの私的な感情や推測", "利用者の発言", "排泄の状態"], "a": 1, "e": "記録に含めない: スタッフの感情(困った・嫌だ)・推測(〜だと思う・〜のようだ)・価値判断。含めるべき: 観察した事実・測定値・利用者の言葉・行動。"}, {"q": "「夜間の申し送り」で特に重視されることは？", "opts": ["天気", "夜間に起きた状態変化・転倒・不眠・徘徊・緊急対応などの事実", "勤務の感想", "利用者の好み"], "a": 1, "e": "夜間申し送りで重要: ①夜間の状態変化(発熱・不眠等) ②転倒やインシデント ③実施した対応とその結果 ④次のシフトへの引き継ぎ事項(未完了ケア)。"}, {"q": "「記録の保存期間」はどのくらいか(介護保険施設の場合)？", "opts": ["1年", "最低2年(施設によっては5年以上)", "6ヶ月", "10年"], "a": 1, "e": "介護保険施設の記録保存: 運営基準で最低2年以上。実際は5年・10年保存する施設も多い。電子記録でもバックアップが必要。法的証拠になる可能性がある。"}, {"q": "「ケア記録の目的」として正しくないのは？", "opts": ["ケアの継続性の確保", "スタッフの仕事量を増やすため", "情報の多職種共有", "根拠に基づくケアの評価"], "a": 1, "e": "ケア記録の目的: ①ケアの継続性確保(誰でも同じケアができる) ②多職種情報共有 ③法的証拠 ④根拠に基づくケア評価 ⑤利用者・家族への説明責任。仕事量を増やすためではない。"}, {"q": "「服薬記録」で必ず確認・記録することは？", "opts": ["薬の色のみ", "誰が・いつ・何の薬を・何錠・どのように与えたか・服薬したか確認", "量のみ", "時間のみ"], "a": 1, "e": "服薬記録の必須項目: ①実施者 ②実施時刻 ③薬品名・用量 ④服薬確認(実際に飲んだか)。服薬拒否・飲み込めなかった場合も記録。介護職が行える範囲の確認と記録。"}, {"q": "電子記録システム導入の最大のメリットは？", "opts": ["コストがかかる", "リアルタイムの多職種間情報共有と検索性・統計活用が可能になる", "紙より時間がかかる", "難しい"], "a": 1, "e": "電子記録のメリット: リアルタイム共有・検索性・統計・レセプト連動・バックアップ。デメリット: 初期コスト・教育・システム障害。日本の介護現場でICT化が急速に進んでいる。"}],qiZ=0,okZ=0,totZ=0;
-function rndZ(){
-  if(!QKZ.length)return;
-  var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
-  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
-  q.opts.forEach(function(o,i){
-    var b=document.createElement('button');
-    b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
-    b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
-    b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
-    b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
-    b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
-  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:var(--primary,#1565c0);color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
-  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
-  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
-  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
-  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
-  c.innerHTML='';c.appendChild(bx);
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function ansZ(btn,c,a,e){
-  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
-  bs[a].dataset.d='1';totZ++;
-  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
-  else okZ++;
-  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
-  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
-function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
-function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
-rndZ();
-</script><script>
-if('serviceWorker' in navigator){
-  window.addEventListener('load',function(){
-    navigator.serviceWorker.register('/sw.js').then(function(r){
-      r.addEventListener('updatefound',function(){
-        var w=r.installing;
-        w.addEventListener('statechange',function(){
-          if(w.state==='installed'&&navigator.serviceWorker.controller){
-            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
-          }
-        });
-      });
-    }).catch(function(){});
-  });
-}
 </script>
 </body></html>
