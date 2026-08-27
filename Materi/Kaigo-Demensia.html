@@ -30,9 +30,9 @@ var pgv=document.getElementById('pg');
 if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
 d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
 +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#4a148c">🇮🇩 '+p[2]+'</div>';
++'<div style="font-size:.85rem;color:var(--primary,#4a148c)">🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#4a148c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+btn.style.cssText='border:none;background:var(--primary,#4a148c);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
 });
 </script>
@@ -47,22 +47,22 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.page-hero{background:linear-gradient(135deg,#4a148c,#7b1fa2);color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero{background:linear-gradient(135deg,var(--primary,#4a148c),var(--primary-dark,#7b1fa2));color:#fff;padding:48px 20px 32px;text-align:center}
 .page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
 .badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .info-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.info-card h3{color:#4a148c;margin:0 0 10px;font-size:1rem}
+.info-card h3{color:var(--primary,#4a148c);margin:0 0 10px;font-size:1rem}
 .term-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
 .term-card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:14px;cursor:pointer;transition:all .2s}
-.term-card:hover{border-color:#4a148c;box-shadow:0 2px 8px rgba(74,20,140,.1)}
+.term-card:hover{border-color:var(--primary,#4a148c);box-shadow:0 2px 8px rgba(74,20,140,.1)}
 .term-card.open .t-detail{display:block}
-.t-jp{font-size:1rem;font-weight:700;color:#4a148c}
+.t-jp{font-size:1rem;font-weight:700;color:var(--primary,#4a148c)}
 .t-read{font-size:.78rem;color:var(--ink-mid);margin:2px 0}
 .t-id{font-size:.88rem;color:var(--ink);margin:4px 0}
-.t-cat{display:inline-block;font-size:.7rem;background:#f3e5f5;color:#4a148c;padding:2px 8px;border-radius:10px;margin-bottom:4px}
+.t-cat{display:inline-block;font-size:.7rem;background:#f3e5f5;color:var(--primary,#4a148c);padding:2px 8px;border-radius:10px;margin-bottom:4px}
 .t-detail{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.82rem;color:var(--ink-mid)}
-.stitle{font-size:1.2rem;font-weight:700;color:#4a148c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #f3e5f5}
-.tip{background:#f3e5f5;border-left:3px solid #7b1fa2;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:16px 0}
+.stitle{font-size:1.2rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #f3e5f5}
+.tip{background:#f3e5f5;border-left:3px solid var(--primary-dark,#7b1fa2);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:16px 0}
 .table{width:100%;border-collapse:collapse;font-size:.85rem;margin:12px 0}
 .table th{background:#f3e5f5;padding:8px 12px;text-align:left;font-size:.8rem}
 .table td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
@@ -155,7 +155,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
   </ul>
 </div>
 
-<h2 style="font-size:1.2rem;font-weight:700;color:#4a148c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 
 <!-- dlg-v2 -->
 <div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#1a237e;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e8eaf6">💬 認知症の理解とケア</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1a237e;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8eaf6">🧠 Dialog 1 — 帰宅願望</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8eaf6;color:#1a237e;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">家に帰りたいんです。主人が心配しているから。<button aria-label="Ucapkan: 家に帰りたいんです。主人が心配しているから。" onclick="speak('家に帰りたいんです。主人が心配しているから。')" style="border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Ingin pulang. Suami pasti khawatir.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8eaf6;color:#1a237e;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">ご主人が心配されているんですね。今日は夕食を一緒に食べてから考えましょうか。今日の夕食はお好きなサーモンですよ。<button aria-label="Ucapkan: ご主人が心配されているんですね。今日は夕食を一緒に食べてから…" onclick="speak('ご主人が心配されているんですね。今日は夕食を一緒に食べてから考えましょうか。今日の夕食はお好きなサーモンですよ。')" style="border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Suami khawatir ya. Makan malam bersama dulu ya. Menu malam ini salmon kesukaan Anda.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8eaf6;color:#1a237e;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">（落ち着いてくる）そうね、まず食べましょうか。<button aria-label="Ucapkan: （落ち着いてくる）そうね、まず食べましょうか。" onclick="speak('（落ち着いてくる）そうね、まず食べましょうか。')" style="border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">(Mulai tenang) Iya ya, makan dulu.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1a237e;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8eaf6">💊 Dialog 2 — 服薬支援</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8eaf6;color:#1a237e;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">この薬は飲みたくないです。<button aria-label="Ucapkan: この薬は飲みたくないです。" onclick="speak('この薬は飲みたくないです。')" style="border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Tidak mau minum obat ini.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8eaf6;color:#1a237e;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">何か気になることがありますか？<button aria-label="Ucapkan: 何か気になることがありますか？" onclick="speak('何か気になることがありますか？')" style="border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Ada yang mengganjal?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8eaf6;color:#1a237e;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">この薬は血圧を安定させるお薬です。小さいので飲みやすいですよ。お水と一緒にどうぞ。<button aria-label="Ucapkan: この薬は血圧を安定させるお薬です。小さいので飲みやすいですよ…" onclick="speak('この薬は血圧を安定させるお薬です。小さいので飲みやすいですよ。お水と一緒にどうぞ。')" style="border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Obat ini untuk menstabilkan tekanan darah. Kecil, mudah ditelan. Bersama air ya.</div></div></div></div></div>
@@ -166,7 +166,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <h2 class="stitle">🧠 Quiz Demensia</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-  <button onclick="nextQ()" style="flex:1;padding:12px;background:#4a148c;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+  <button onclick="nextQ()" style="flex:1;padding:12px;background:var(--primary,#4a148c);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
   <button onclick="resetQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
@@ -285,10 +285,10 @@ function resetQ(){qIdx=0;ok=0;tot=0;renderQ();}
 renderTerms();renderQ();
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 40px">
-<h2 style="font-size:1.1rem;font-weight:700;color:#4a148c;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz</h2>
+<h2 style="font-size:1.1rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz</h2>
 <div id="qkZ"></div>
 <div style="display:flex;gap:10px;margin-top:10px">
-<button onclick="nQkZ()" style="flex:1;padding:11px;background:#4a148c;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:var(--primary,#4a148c);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>

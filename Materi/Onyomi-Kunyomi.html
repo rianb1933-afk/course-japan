@@ -27,17 +27,17 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.page-hero{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero{background:linear-gradient(135deg,var(--primary,#1a1a2e),var(--primary-dark,#16213e));color:#fff;padding:48px 20px 32px;text-align:center}
 .page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
 .badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .theory-box{background:var(--kyoto-cream-deep);border-radius:14px;padding:20px 24px;margin:20px 0}
 .theory-box h3{color:var(--kyoto-brown);margin:0 0 8px;font-size:1rem}
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
 .compare-card{border-radius:12px;padding:18px;text-align:center}
-.on-card{background:linear-gradient(135deg,#1a1a2e22,#1a1a2e11);border:2px solid #1a1a2e33}
+.on-card{background:linear-gradient(135deg,var(--primary,#1a1a2e)22,var(--primary,#1a1a2e)11);border:2px solid var(--primary,#1a1a2e)33}
 .kun-card{background:linear-gradient(135deg,#2d6a4f22,#2d6a4f11);border:2px solid #2d6a4f33}
 .compare-title{font-size:1.1rem;font-weight:700;margin-bottom:8px}
-.on-color{color:#1a1a2e} .kun-color{color:#2d6a4f}
+.on-color{color:var(--primary,#1a1a2e)} .kun-color{color:#2d6a4f}
 .kanji-grid{display:grid;gap:12px}
 .kanji-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s}
 .kanji-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.1)}
@@ -46,13 +46,13 @@
 .k-readings{display:none;margin:8px 0}
 .k-on,.k-kun{display:flex;align-items:flex-start;gap:8px;margin:4px 0;font-size:.88rem}
 .k-label{font-weight:700;min-width:36px;font-size:.78rem;padding:2px 6px;border-radius:4px;text-align:center}
-.on-label{background:#1a1a2e;color:#fff} .kun-label{background:#2d6a4f;color:#fff}
+.on-label{background:var(--primary,#1a1a2e);color:#fff} .kun-label{background:#2d6a4f;color:#fff}
 .k-words{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.82rem;color:var(--ink-mid)}
 .pattern-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem}
 .pattern-table th{background:var(--kyoto-cream-deep);padding:8px 12px;text-align:left;font-size:.82rem}
 .pattern-table td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
 .pattern-table tr:hover td{background:var(--kyoto-cream-deep)}
-.section-title{font-size:1.2rem;font-weight:700;color:#1a1a2e;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border-light)}
+.section-title{font-size:1.2rem;font-weight:700;color:var(--primary,#1a1a2e);margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border-light)}
 .quiz-box{background:var(--kyoto-cream-deep);border-radius:14px;padding:20px;margin:24px 0}
 .quiz-q{font-weight:600;margin-bottom:12px;color:var(--ink)}
 .quiz-opts{display:grid;gap:8px}
@@ -96,7 +96,7 @@
     <div class="compare-card on-card">
       <div class="compare-title on-color">音読み Onyomi</div>
       <p style="font-size:.88rem;color:var(--ink-mid);margin:8px 0">Bacaan Cina (sino-Japanese)<br>Digunakan dalam <strong>kata majemuk</strong><br>dan <strong>kata serapan Cina</strong></p>
-      <div style="font-size:.82rem;background:#1a1a2e11;padding:8px;border-radius:8px;margin-top:8px">
+      <div style="font-size:.82rem;background:var(--primary,#1a1a2e)11;padding:8px;border-radius:8px;margin-top:8px">
         <strong>山</strong> → サン (san)<br>
         山脈(さんみゃく) = pegunungan<br>
         富士山(ふじさん) = Gunung Fuji
@@ -139,7 +139,7 @@
   <h2 class="section-title">🧠 Latihan Quiz</h2>
   <div id="quizContainer"></div>
   <div style="display:flex;gap:12px;margin-top:16px">
-    <button onclick="nextQ()" style="flex:1;padding:12px;background:#1a1a2e;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:.95rem">Soal Berikutnya →</button>
+    <button onclick="nextQ()" style="flex:1;padding:12px;background:var(--primary,#1a1a2e);color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:.95rem">Soal Berikutnya →</button>
     <button onclick="resetQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
   </div>
   <p id="qScore" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>

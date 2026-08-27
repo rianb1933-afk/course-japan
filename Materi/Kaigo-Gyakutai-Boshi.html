@@ -31,9 +31,9 @@ var pgv=document.getElementById('pg');
 if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
 d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
 +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#880e4f">🇮🇩 '+p[2]+'</div>';
++'<div style="font-size:.85rem;color:var(--primary,#880e4f)">🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#880e4f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+btn.style.cssText='border:none;background:var(--primary,#880e4f);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
 });
 </script>
@@ -48,36 +48,36 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.page-hero{background:linear-gradient(135deg,#880e4f,#ad1457);color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero{background:linear-gradient(135deg,var(--primary,#880e4f),var(--primary-dark,#ad1457));color:#fff;padding:48px 20px 32px;text-align:center}
 .page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
 .badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#880e4f;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #fce4ec}
+.sec h3{color:var(--primary,#880e4f);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#880e4f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #fce4ec}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#fce4ec;color:#880e4f}
+.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#fce4ec;color:var(--primary,#880e4f)}
 .tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light);vertical-align:top}
 .tbl tr:hover td{background:#fce4ec33}
-.tip{background:#fce4ec;border-left:3px solid #880e4f;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+.tip{background:#fce4ec;border-left:3px solid var(--primary,#880e4f);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
 .warn{background:#fff3e0;border-left:3px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
 .steps{counter-reset:step;list-style:none;padding:0;margin:10px 0}
 .steps li{counter-increment:step;display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;font-size:.9rem}
-.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:#880e4f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:var(--primary,#880e4f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
 .dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px}
-.dialog-title{font-size:.95rem;font-weight:700;color:#880e4f;margin-bottom:12px}
+.dialog-title{font-size:.95rem;font-weight:700;color:var(--primary,#880e4f);margin-bottom:12px}
 .dl{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
 .spk{min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;margin-top:2px}
-.sp-c{background:#fce4ec;color:#880e4f}
+.sp-c{background:#fce4ec;color:var(--primary,#880e4f)}
 .sp-r{background:#e8f5e9;color:#1b5e20}
 .sp-n{background:#e3f2fd;color:#1565c0}
 .jp{font-size:.92rem;font-weight:500;color:var(--ink)}
 .id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
-.tts-btn{border:none;background:#880e4f;color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
+.tts-btn{border:none;background:var(--primary,#880e4f);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
 .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:12px 0}
 .pc{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
 .pj{font-size:.95rem;font-weight:600;color:var(--ink)}
 .pr{font-size:.75rem;color:var(--ink-mid);margin:2px 0}
-.pi{font-size:.85rem;color:#880e4f}
+.pi{font-size:.85rem;color:var(--primary,#880e4f)}
 .qbox{background:#fce4ec;border-radius:14px;padding:20px;margin:20px 0}
 .qq{font-weight:600;margin-bottom:12px}
 .qopts{display:grid;gap:8px}
@@ -154,76 +154,76 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div>
 <h2 class="st">📚 Kosakata 虐待防止</h2>
 <div class="pg" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#880e4f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg2"></div>
 <h2 class="st">🧠 Quiz 虐待防止 — 国家試験対策</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#880e4f;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#880e4f);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
 </div><section style="padding:16px;max-width:860px;margin:20px auto">
-<h2 style="font-size:1rem;color:#880e4f;border-bottom:3px solid #880e4f;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 高齢者虐待防止</h2>
+<h2 style="font-size:1rem;color:var(--primary,#880e4f);border-bottom:3px solid var(--primary,#880e4f);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 高齢者虐待防止</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
-<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('虐待')" title="クリックで発音">🔊 虐待</div>
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('虐待')" title="クリックで発音">🔊 虐待</div>
   <div style="font-size:.8rem;color:#777">gyakutai</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">kekerasan / perlakuan salah</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('身体的虐待')" title="クリックで発音">🔊 身体的虐待</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('身体的虐待')" title="クリックで発音">🔊 身体的虐待</div>
   <div style="font-size:.8rem;color:#777">shintai-teki gyakutai</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">kekerasan fisik</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('心理的虐待')" title="クリックで発音">🔊 心理的虐待</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('心理的虐待')" title="クリックで発音">🔊 心理的虐待</div>
   <div style="font-size:.8rem;color:#777">shinri-teki gyakutai</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">kekerasan psikologis</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('性的虐待')" title="クリックで発音">🔊 性的虐待</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('性的虐待')" title="クリックで発音">🔊 性的虐待</div>
   <div style="font-size:.8rem;color:#777">seiteki gyakutai</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">kekerasan seksual</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('経済的虐待')" title="クリックで発音">🔊 経済的虐待</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('経済的虐待')" title="クリックで発音">🔊 経済的虐待</div>
   <div style="font-size:.8rem;color:#777">keizai-teki gyakutai</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">eksploitasi finansial</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('ネグレクト')" title="クリックで発音">🔊 ネグレクト</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('ネグレクト')" title="クリックで発音">🔊 ネグレクト</div>
   <div style="font-size:.8rem;color:#777">negurēkuto</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">penelantaran</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('通報義務')" title="クリックで発音">🔊 通報義務</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('通報義務')" title="クリックで発音">🔊 通報義務</div>
   <div style="font-size:.8rem;color:#777">tsūhō gimu</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">kewajiban melapor</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('高齢者虐待防止法')" title="クリックで発音">🔊 高齢者虐待防止法</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('高齢者虐待防止法')" title="クリックで発音">🔊 高齢者虐待防止法</div>
   <div style="font-size:.8rem;color:#777">kōreisha gyakutai bōshi-hō</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">UU Pencegahan Kekerasan Lansia</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('権利擁護')" title="クリックで発音">🔊 権利擁護</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('権利擁護')" title="クリックで発音">🔊 権利擁護</div>
   <div style="font-size:.8rem;color:#777">kenri yōgo</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">advokasi hak</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('早期発見')" title="クリックで発音">🔊 早期発見</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('早期発見')" title="クリックで発音">🔊 早期発見</div>
   <div style="font-size:.8rem;color:#777">sōki hakken</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">deteksi dini</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('専門的介入')" title="クリックで発音">🔊 専門的介入</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('専門的介入')" title="クリックで発音">🔊 専門的介入</div>
   <div style="font-size:.8rem;color:#777">senmon-teki kainyū</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">intervensi profesional</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('地域包括支援センター')" title="クリックで発音">🔊 地域包括支援センター</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('地域包括支援センター')" title="クリックで発音">🔊 地域包括支援センター</div>
   <div style="font-size:.8rem;color:#777">chiiki hōkatsu shien sentā</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">pusat dukungan terpadu lokal</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('身体拘束')" title="クリックで発音">🔊 身体拘束</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('身体拘束')" title="クリックで発音">🔊 身体拘束</div>
   <div style="font-size:.8rem;color:#777">shintai kōsoku</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">restriksi fisik</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('サイン')" title="クリックで発音">🔊 サイン</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('サイン')" title="クリックで発音">🔊 サイン</div>
   <div style="font-size:.8rem;color:#777">sain</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">tanda-tanda</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #880e4f">
-  <div style="font-size:1.05rem;font-weight:700;color:#880e4f" onclick="speak('養護者')" title="クリックで発音">🔊 養護者</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#880e4f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f)" onclick="speak('養護者')" title="クリックで発音">🔊 養護者</div>
   <div style="font-size:.8rem;color:#777">yōgosha</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">pengasuh / wali</div>
 </div>

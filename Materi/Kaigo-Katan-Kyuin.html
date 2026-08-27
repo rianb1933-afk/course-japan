@@ -31,9 +31,9 @@ var pgv=document.getElementById('pg');
 if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
 d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
 +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#b71c1c">🇮🇩 '+p[2]+'</div>';
++'<div style="font-size:.85rem;color:var(--primary,#b71c1c)">🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+btn.style.cssText='border:none;background:var(--primary,#b71c1c);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
 });
 </script>
@@ -48,38 +48,38 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.page-hero{background:linear-gradient(135deg,#b71c1c,#c62828);color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero{background:linear-gradient(135deg,var(--primary,#b71c1c),var(--primary-dark,#c62828));color:#fff;padding:48px 20px 32px;text-align:center}
 .page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
 .badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#b71c1c;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#b71c1c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #ffebee}
+.sec h3{color:var(--primary,#b71c1c);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#b71c1c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #ffebee}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#ffebee;color:#b71c1c}
+.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#ffebee;color:var(--primary,#b71c1c)}
 .tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light);vertical-align:top}
 .tbl tr:hover td{background:#fff5f5}
-.tip{background:#ffebee;border-left:3px solid #c62828;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+.tip{background:#ffebee;border-left:3px solid var(--primary-dark,#c62828);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
 .warn{background:#fff3e0;border-left:3px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
 .danger{background:#ffebee;border-left:4px solid #e53935;padding:14px 16px;border-radius:0 10px 10px 0;font-size:.88rem;margin:14px 0;font-weight:500}
 .steps{counter-reset:step;list-style:none;padding:0;margin:10px 0}
 .steps li{counter-increment:step;display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;font-size:.9rem}
-.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:#b71c1c;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:var(--primary,#b71c1c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
 .type-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin:12px 0}
 .type-card{background:var(--white);border:2px solid #ffcdd2;border-radius:12px;padding:14px}
-.type-title{font-weight:700;color:#b71c1c;font-size:.95rem;margin-bottom:6px}
-.type-where{font-size:.82rem;color:#c62828;background:#ffebee;padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:8px}
+.type-title{font-weight:700;color:var(--primary,#b71c1c);font-size:.95rem;margin-bottom:6px}
+.type-where{font-size:.82rem;color:var(--primary-dark,#c62828);background:#ffebee;padding:3px 8px;border-radius:6px;display:inline-block;margin-bottom:8px}
 .type-body{font-size:.85rem;line-height:1.7;color:var(--ink)}
 .dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px}
-.dialog-title{font-size:.95rem;font-weight:700;color:#b71c1c;margin-bottom:12px}
+.dialog-title{font-size:.95rem;font-weight:700;color:var(--primary,#b71c1c);margin-bottom:12px}
 .dl{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
 .spk{min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;margin-top:2px}
-.sp-c{background:#ffebee;color:#b71c1c}
+.sp-c{background:#ffebee;color:var(--primary,#b71c1c)}
 .sp-r{background:#e8f5e9;color:#1b5e20}
 .sp-n{background:#e3f2fd;color:#1565c0}
 .jp{font-size:.92rem;font-weight:500;color:var(--ink)}
 .id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
-.tts-btn{border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
+.tts-btn{border:none;background:var(--primary,#b71c1c);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
 .qbox{background:#ffebee;border-radius:14px;padding:20px;margin:20px 0}
 .qq{font-weight:600;margin-bottom:12px}
 .qopts{display:grid;gap:8px}
@@ -213,12 +213,12 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <h2 class="st">📚 Kosakata 喀痰吸引</h2>
 <div id="phraseGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:12px 0"></div>
 
-<h2 style="font-size:1.2rem;font-weight:700;color:#b71c1c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#b71c1c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 <h2 class="st">🧠 Quiz 喀痰吸引 — 医療的ケア</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#b71c1c;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#b71c1c);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
@@ -251,9 +251,9 @@ if(pg)PHRASES.forEach(function(p){
   d.style.cssText='background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px';
   d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
     +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-    +'<div style="font-size:.85rem;color:#b71c1c">🇮🇩 '+p[2]+'</div>';
+    +'<div style="font-size:.85rem;color:var(--primary,#b71c1c)">🇮🇩 '+p[2]+'</div>';
   var btn=document.createElement('button');btn.textContent='🔊';
-  btn.style.cssText='border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:6px';
+  btn.style.cssText='border:none;background:var(--primary,#b71c1c);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:6px';
   var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);
 });
 

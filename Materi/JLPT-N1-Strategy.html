@@ -31,23 +31,23 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:860px;margin:0 auto;padding:0 20px}
-.page-hero{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero{background:linear-gradient(135deg,var(--primary,#1a237e),var(--primary-dark,#283593));color:#fff;padding:48px 20px 32px;text-align:center}
 .page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
 .badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .score-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:20px 0}
 .score-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:14px;text-align:center}
-.score-num{font-size:2rem;font-weight:700;color:#1a237e}
+.score-num{font-size:2rem;font-weight:700;color:var(--primary,#1a237e)}
 .score-label{font-size:.8rem;color:var(--ink-mid);margin-top:4px}
 .section-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.section-card h3{color:#1a237e;margin:0 0 10px;font-size:1rem}
+.section-card h3{color:var(--primary,#1a237e);margin:0 0 10px;font-size:1rem}
 .tip-list{list-style:none;padding:0;margin:0}
 .tip-list li{padding:6px 0;border-bottom:1px solid var(--border-light);font-size:.88rem}
 .tip-list li:last-child{border-bottom:none}
-.tip-list li::before{content:"✅ ";color:#1a237e}
+.tip-list li::before{content:"✅ ";color:var(--primary,#1a237e)}
 .warning-list li::before{content:"⚠️ "}
 .week-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:16px 0}
 .week-card{background:var(--kyoto-cream-deep);border-radius:10px;padding:14px}
-.week-card h4{margin:0 0 8px;color:#1a237e;font-size:.95rem}
+.week-card h4{margin:0 0 8px;color:var(--primary,#1a237e);font-size:.95rem}
 .week-card ul{margin:0;padding-left:16px;font-size:.83rem;color:var(--ink-mid)}
 .quiz-box{background:#e8eaf6;border-radius:14px;padding:20px;margin:20px 0}
 .quiz-q{font-weight:600;margin-bottom:12px}
@@ -58,9 +58,9 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 .quiz-opt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
 .quiz-exp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
 .quiz-exp.show{display:block}
-.section-title{font-size:1.2rem;font-weight:700;color:#1a237e;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e8eaf6}
+.section-title{font-size:1.2rem;font-weight:700;color:var(--primary,#1a237e);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e8eaf6}
 .progress-bar-outer{background:#e8eaf6;border-radius:8px;height:8px;margin:6px 0}
-.progress-bar-inner{height:100%;border-radius:8px;background:#1a237e}
+.progress-bar-inner{height:100%;border-radius:8px;background:var(--primary,#1a237e)}
 </style>
 
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Strategi JLPT N1 | Nihonggo Pro Academy", "description": "Panduan lengkap strategi lulus JLPT N1 — analisis soal, prioritas belajar, manajemen waktu, dan tips mengerjakan setiap seksi.", "url": "https://nihonggopro.id/Materi/JLPT-N1-Strategy.html", "educationalLevel": "Advanced", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
@@ -96,7 +96,7 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
   </div>
 
   <div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0">
-    <h3 style="color:#1a237e;margin:0 0 12px">📋 Distribusi Soal N1</h3>
+    <h3 style="color:var(--primary,#1a237e);margin:0 0 12px">📋 Distribusi Soal N1</h3>
     <div style="font-size:.88rem">
       <div style="margin:8px 0"><strong>言語知識 (語彙・文字)</strong> — 35 menit
         <div class="progress-bar-outer"><div class="progress-bar-inner" style="width:35%"></div></div>
@@ -175,7 +175,7 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
   <h2 class="section-title">🧠 Quiz Strategi N1</h2>
   <div id="quizContainer"></div>
   <div style="display:flex;gap:12px;margin-top:12px">
-    <button onclick="nextQ()" style="flex:1;padding:12px;background:#1a237e;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+    <button onclick="nextQ()" style="flex:1;padding:12px;background:var(--primary,#1a237e);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
     <button onclick="resetQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
   </div>
   <p id="qScore" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>

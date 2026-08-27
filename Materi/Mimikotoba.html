@@ -26,21 +26,21 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:920px;margin:0 auto;padding:0 20px}
-.page-hero{background:linear-gradient(135deg,#6a1b9a,#ab47bc);color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero{background:linear-gradient(135deg,var(--primary,#6a1b9a),var(--primary-dark,#ab47bc));color:#fff;padding:48px 20px 32px;text-align:center}
 .page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
 .badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .cat-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
 .cat-tab{padding:7px 16px;border-radius:20px;border:1px solid var(--border-mid);background:var(--cream);cursor:pointer;font-size:.85rem;transition:all .2s}
-.cat-tab.active,.cat-tab:hover{background:#6a1b9a;color:#fff;border-color:#6a1b9a}
+.cat-tab.active,.cat-tab:hover{background:var(--primary,#6a1b9a);color:#fff;border-color:var(--primary,#6a1b9a)}
 .mimi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
 .mimi-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s;text-align:center}
 .mimi-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(106,27,154,.15)}
 .mimi-card.revealed .m-id{display:block}
-.m-word{font-size:1.5rem;font-weight:700;color:#6a1b9a;margin-bottom:4px}
+.m-word{font-size:1.5rem;font-weight:700;color:var(--primary,#6a1b9a);margin-bottom:4px}
 .m-read{font-size:.82rem;color:var(--ink-mid);margin-bottom:6px}
 .m-type{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:10px;margin-bottom:8px}
 .type-giongo{background:#e3f2fd;color:#1565c0}
-.type-gitaigo{background:#f3e5f5;color:#6a1b9a}
+.type-gitaigo{background:#f3e5f5;color:var(--primary,#6a1b9a)}
 .type-gijougo{background:#e8f5e9;color:#2e7d32}
 .m-id{display:none;font-size:.88rem;color:var(--ink);margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light)}
 .m-ex{font-size:.78rem;color:var(--ink-mid);margin-top:4px;font-style:italic}
@@ -48,7 +48,7 @@
 .type-row{display:flex;gap:16px;flex-wrap:wrap;margin:12px 0}
 .type-chip{padding:8px 16px;border-radius:10px;font-size:.85rem;font-weight:600}
 .search-box{width:100%;padding:10px 14px;border:1px solid var(--border-mid);border-radius:10px;font-size:.9rem;margin-bottom:12px;box-sizing:border-box}
-.section-title{font-size:1.2rem;font-weight:700;color:#6a1b9a;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #f3e5f5}
+.section-title{font-size:1.2rem;font-weight:700;color:var(--primary,#6a1b9a);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #f3e5f5}
 .quiz-box{background:#f3e5f5;border-radius:14px;padding:20px;margin:20px 0}
 .quiz-q{font-weight:600;margin-bottom:12px}
 .quiz-opts{display:grid;gap:8px}
@@ -108,7 +108,7 @@
   <h2 class="section-title">🧠 Quiz Onomatopoeia</h2>
   <div id="quizContainer"></div>
   <div style="display:flex;gap:12px;margin-top:12px">
-    <button onclick="nextQ()" style="flex:1;padding:12px;background:#6a1b9a;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+    <button onclick="nextQ()" style="flex:1;padding:12px;background:var(--primary,#6a1b9a);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
     <button onclick="resetQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
   </div>
   <p id="qScore" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
