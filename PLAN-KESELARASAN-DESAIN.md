@@ -82,8 +82,14 @@ Masalah sebenarnya: 145 halaman men-download font Google `Outfit` (bandwidth ter
 ### Fase 6 — Sentralisasi komponen tombol & kartu (🟡 besar, jangka panjang)
 Definisikan `.btn`/`.card` standar di design system (kalau belum lengkap), lalu ganti `style=""` ad-hoc di halaman-halaman yang belum punya class ini. Pekerjaan besar karena menyentuh markup, bukan cuma CSS — cocok dikerjakan halaman-per-halaman seiring waktu.
 
-### Fase 7 — Footer konsisten (🟢 opsional, prioritas rendah)
-Tambahkan `<footer>` seragam ke sisa 254 halaman yang belum punya, atau putuskan footer memang tidak wajib di semua tipe halaman (mis. halaman kuis fullscreen).
+### Fase 7 — Footer konsisten ✅ SELESAI (ternyata cuma 2 halaman yang genuinely kelewat)
+
+"254 halaman tanpa footer" di klaim awal salah kaprah — mayoritas mutlak itu memang **sengaja** tidak punya footer, konsisten dengan konvensi proyek sendiri (`scripts/validate.py`: *"Footer bukan standar universal di semua materi... hanya dilaporkan sebagai catatan, bukan error"*). Diperiksa 12 halaman root tanpa footer satu per satu:
+
+- **10 genuinely sengaja**: `Admin-Pro`, `Analytics`, `Kanji-Trainer`, `Papan-Tulis`, `Payment-Receipt`, `Speaking-AI`, `Teacher-Dashboard`, `Theme-Settings`, `Ujian` (fokus ujian, footer akan mengganggu), `Verify` (struk/verifikasi, bukan halaman jelajah).
+- **2 genuinely kelewat**: `Blog-SEO.html` ("Blog & Artikel" — halaman konten biasa) dan `Progress.html` ("Progress Belajar Saya") — ditambahkan footer standar (sama persis dengan `FAQ.html`/`About.html`).
+
+242/321 halaman Materi (kuis/latihan) **sengaja tidak disentuh** — footer di tengah sesi kuis akan jadi distraksi, bukan bug.
 
 ### Fase 8 — Perkuat dark-mode override (🟡 sedang, terkait Fase 2)
 Setelah hardcode hex dibersihkan (Fase 2), audit ulang halaman dengan CSS inline besar (`Kelas-Online.html`, `Akun.html`, `Materi/Kana-Hiragana-Katakana.html`) untuk memastikan elemen custom-nya benar-benar berganti warna saat dark mode aktif.
