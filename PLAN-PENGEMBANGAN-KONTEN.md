@@ -27,9 +27,11 @@
 
 ## Temuan konkret (bukan dugaan)
 
-### 🔴 1. Bank soal JLPT: field level rusak total — 0/277 soal punya `jlpt_level`
+### ✅ 1. Bank soal JLPT: SELESAI DIPERBAIKI (27 Agustus 2026) — ternyata lebih parah dari dugaan awal
 
-Diperiksa langsung isi `seed/jlpt_questions.json`: **semua 277 soal** (100%) punya `"jlpt_level": null`, tanpa terkecuali — termasuk soal dari modul yang jelas terikat level tertentu (mis. `Grammar-Sonkeigo-Kenjougo.html`, yang secara materi jelas N3/N2). Ini genuinely bug di `scripts/build_jlpt_question_bank.py` (field tidak pernah diisi), bukan desain sengaja. Dampak: fitur apa pun yang butuh filter "tampilkan soal N3 saja" dari bank ini tidak bisa berfungsi sama sekali — datanya ada, tapi tidak bisa disaring per level.
+Klaim awal "0/277 soal punya `jlpt_level`" benar sebagai gejala, tapi diagnosis awal ("field tidak pernah diisi") salah. Akar masalah sesungguhnya: regex ekstraksi `var Q=(\[.*?\]);` di `scripts/build_jlpt_question_bank.py` gagal total untuk modul yang menulis `var Q=[...],qi=0,ok=0,tot=0;` (deklarasi berantai, dipakai banyak modul lebih baru) — `.*?` non-greedy lari jauh melewati akhir array asli mencari `];` berikutnya di mana pun, menghasilkan JSON rusak yang gagal parse dan **dibuang diam-diam tanpa peringatan**. Dampaknya bukan cuma "level kosong" — puluhan modul lebih baru (termasuk semua yang bernama `*-N1-*`/`*-N2-*` dst.) **hilang total dari bank**, bukan cuma levelnya.
+
+Diperbaiki dengan `json.JSONDecoder().raw_decode()` (berhenti tepat di akhir JSON valid, robust terhadap apa pun yang menyusul). Hasil: bank naik dari **277 → 711 soal unik** (2.6×), level JLPT kini terisi benar (N1=52, N2=69, N3=47, N4=27, N5=23 — sisanya soal umum/topikal yang wajar tidak terikat 1 level).
 
 ### 🟡 2. Speaking adalah skill paling tipis dari 4 skill inti (Reading/Listening/Writing/Speaking)
 
@@ -60,7 +62,7 @@ Sudah ditambah 6→10 sesi ini (`Kaiwa-Byouin`, `Kaiwa-Konbini`, `Kaiwa-Shokuba`
 
 ## Rekomendasi urutan pengerjaan
 
-1. **🔴 Perbaiki `jlpt_level` di bank soal JLPT** — bug teknis murni, cepat diperbaiki (isi ulang field saat build bank dari level yang sudah tersirat di nama/isi modul sumber), berdampak langsung ke fitur filter level mana pun yang bergantung pada data ini.
+1. ✅ **Perbaiki bank soal JLPT** — selesai (lihat temuan #1 di atas).
 2. **🟡 Perluas materi Speaking terstruktur** — tambah beberapa modul speaking per level/skenario (mengikuti pola soal pilih-respons yang sudah terbukti di Kaiwa/Kaigo), bukan cuma andalkan AI Speaking Coach yang sifatnya generik.
 3. **🟡 Tambah varian Reading/Listening per level** (mis. `Reading-N3-Lanjut.html`) — replikasi pola yang sudah terbukti di Grammar/Kosakata untuk menambah volume latihan.
 4. **🟢 Audit kanji N1** — konfirmasi apakah 331 karakter itu representasi lengkap kurasi N1, atau perlu ditambah menuju cakupan yang lebih sepadan dengan N2.
