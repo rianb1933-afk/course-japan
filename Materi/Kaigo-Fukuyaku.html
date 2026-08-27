@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dukungan Obat 服薬支援 | Nihonggo Pro Academy</title>
+  <meta name="description" content="Modul dukungan obat 服薬支援: aturan pemberian obat, batas kewenangan介護職, cek 5 benar, efek samping, dan pelaporan. Latihan dwibahasa.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Fukuyaku.html">
+<meta property="og:title" content="Dukungan Obat 服薬支援 — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Fukuyaku.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js" defer></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
+     lanjutan): dikonfirmasi pola bug identik dengan 32 halaman yang
+     sudah diperbaiki sebelumnya -- tag script eksternal genuinely
+     mengabaikan konten inline karena atribut src hadir. Pemindaian
+     PERTAMA genuinely tidak lengkap (hanya menangkap tag tanpa atribut
+     tambahan) -- 74 halaman TAMBAHAN dengan variasi atribut (mis. defer)
+     genuinely terlewat, ditemukan setelah pemindaian ulang dengan pola
+     yang genuinely lebih komprehensif. Dipisah ke tag terpisah,
+     dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["服薬", "fukuyaku", "minum obat"], ["薬", "kusuri", "obat"], ["処方", "shoho", "resep"], ["副作用", "fukusayo", "efek samping"], ["飲み忘れ", "nomiwasure", "lupa minum obat"], ["内服", "naifuku", "obat oral"], ["軟膏", "nanko", "salep"], ["点眼", "tengan", "obat tetes mata"], ["確認", "kakunin", "konfirmasi/cek"], ["与薬", "yoyaku", "pemberian obat"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#1565c0">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js" defer></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
+.sec h3{color:#1565c0;margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
+.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
+.tip{background:var(--matcha-pale);border-left:3px solid var(--matcha);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+.card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.card.open .det{display:block}
+.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.83rem;color:var(--ink-mid)}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
+.qq{font-weight:600;margin-bottom:12px}
+.qopts{display:grid;gap:8px}
+.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
+.qopt:hover{background:rgba(0,0,0,.04)}
+.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Dukungan Obat 服薬支援 | Nihonggo Pro Academy", "description": "Materi kaigo: Dukungan Obat 服薬支援. Kosakata, teori, dan latihan soal bahasa Jepang untuk tenaga kaigo di Jepang.", "url": "https://nihonggopro.id/Materi/Kaigo-Fukuyaku.html", "educationalLevel": "Upper-Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Latihan soal ujian kaigo level N2 介護N2. Simulasi soal bahasa Jepang untuk tenaga kaigo bersertifikat di fasilitas perawatan Jepang.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Quiz Kaigo Level N2 介護N2">
+<meta name="twitter:description" content="Latihan soal ujian kaigo level N2 介護N2. Simulasi soal bahasa Jepang untuk tenaga kaigo bersertifikat di fasilitas perawatan Jepang.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">🏥 N2·介護</span><h1>Quiz Kaigo Level N2 介護N2</h1></div>
+<div class="wrap" style="padding-top:24px">
+<div class="tip">💡 N2レベルのカイゴ問題は概念・原則・倫理の理解が中心。介護福祉士試験対策にも直結する内容です!</div>
+<div id="kn2List"></div>
+<h2 style="font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<div class="pg-vocab" id="pg"></div>
+
+
+<!-- enriched-v3 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:#4a148c;margin:0 0 12px;font-size:1rem;font-weight:700">📝 N2介護語彙 — 頻出専門用語</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#4a148c">語彙</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#4a148c">読み方</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#4a148c">介護での使用場面</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">誤嚥性肺炎</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">goen-sei haien</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">嚥下障害の食事報告・カンファレンス</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">廃用症候群</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">haiyou shokougun</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">リハビリ計画・活動促進の文脈</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">褥瘡(じょくそう)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">jokuso</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">体位変換記録・皮膚観察報告</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">バイタルサイン</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">baitaru sain</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">毎日の観察記録・申し送り</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">インシデントレポート</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">inshidento ripooto</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">事故報告書・振り返り会議</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">アセスメント</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">asesumento</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">介護計画作成プロセス</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ケアカンファレンス</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">kea kanfarensu</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">多職種会議の呼び方</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ターミナルケア</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">taminaru kea</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">終末期ケア・看取り計画</td></tr></table></div></div>
+
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:rgba(0,0,0,.04);border-left:3px solid #4a148c;padding:12px 15px;border-radius:0 10px 10px 0;font-size:.87rem;margin:16px 0;line-height:1.8">📝 <b>N2試験対策 — 介護頻出テーマ</b>:<br>① 認知症のBPSD(行動心理症状)対応<br>② 介護過程のアセスメントとICF活用<br>③ 法的根拠(介護保険法・高齢者虐待防止法・障害者総合支援法)<br>④ 多職種連携とコミュニケーション技術<br>⑤ 終末期ケアとACP<br><br>💡 <b>N2スコアアップのコツ</b>: 単語の意味だけでなく「介護場面でどう使うか」の文脈理解が重要。読解問題では「介護士として何が適切か」という視点で解く。</div></div>
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#4a148c;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #f3e5f5">💬 介護 N2 語彙・表現</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#4a148c;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f3e5f5">📝 Dialog 1 — N2語彙の実践場面</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#f3e5f5;color:#4a148c;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">（ケアカンファレンスで）田中様の嚥下機能について報告します。誤嚥性肺炎のリスクが高まっています。STの評価では、咽頭期の遅延と不顕性誤嚥の疑いがあります。<button aria-label="Ucapkan: （ケアカンファレンスで）田中様の嚥下機能について報告します。…" onclick="speak('（ケアカンファレンスで）田中様の嚥下機能について報告します。誤嚥性肺炎のリスクが高まっています。STの評価では、咽頭期の遅延と不顕性誤嚥の疑いがあります。')" style="border:none;background:#4a148c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">(Di konferensi) Saya laporkan fungsi menelan Bu Tanaka. Risiko pneumonia aspirasi meningkat. Evaluasi ST: ada keterlambatan fase faringeal dan dugaan silent aspiration.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#f3e5f5;color:#4a148c;margin-top:1px;flex-shrink:0">医師</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">ありがとうございます。食形態の変更とポジショニングの見直しを提案します。<button aria-label="Ucapkan: ありがとうございます。食形態の変更とポジショニングの見直しを…" onclick="speak('ありがとうございます。食形態の変更とポジショニングの見直しを提案します。')" style="border:none;background:#4a148c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Terima kasih. Saya sarankan perubahan tekstur makanan dan peninjauan positioning.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#4a148c;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #f3e5f5">📊 Dialog 2 — 記録と専門用語</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#f3e5f5;color:#4a148c;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">今日の田中様の観察記録です。「腹部膨満著明、腸蠕動音低下。排ガス・排便なし（3日間）。看護師へ報告済み、下剤投与の指示あり」。<button aria-label="Ucapkan: 今日の田中様の観察記録です。「腹部膨満著明、腸蠕動音低下。排…" onclick="speak('今日の田中様の観察記録です。「腹部膨満著明、腸蠕動音低下。排ガス・排便なし（3日間）。看護師へ報告済み、下剤投与の指示あり」。')" style="border:none;background:#4a148c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Catatan observasi Bu Tanaka hari ini: kembung perut jelas, suara peristaltik menurun. Tidak ada flatus/BAB (3 hari). Sudah dilaporkan ke perawat, ada instruksi pemberian laksatif.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#f3e5f5;color:#4a148c;margin-top:1px;flex-shrink:0">看護師</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">専門的な記録が書けていますね。この表現はカルテにも使えますよ。<button aria-label="Ucapkan: 専門的な記録が書けていますね。この表現はカルテにも使えますよ…" onclick="speak('専門的な記録が書けていますね。この表現はカルテにも使えますよ。')" style="border:none;background:#4a148c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Catatannya sudah profesional. Ekspresi ini bisa digunakan di rekam medis juga.</div></div></div></div></div>
+<h2 class="st">🧠 Quiz</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+<button onclick="nQ()" style="flex:1;padding:12px;background:#1565c0;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
+</div>
+<p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
+</div><section style="padding:16px;max-width:860px;margin:20px auto">
+<h2 style="font-size:1rem;color:#1a237e;border-bottom:3px solid #1a237e;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 介護福祉士国家試験N2</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('国家試験')" title="クリックで発音">🔊 国家試験</div>
+  <div style="font-size:.8rem;color:#777">kokka shiken</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">ujian nasional / ujian negara</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('出題基準')" title="クリックで発音">🔊 出題基準</div>
+  <div style="font-size:.8rem;color:#777">shudai kijun</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">standar soal ujian</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('人間と社会')" title="クリックで発音">🔊 人間と社会</div>
+  <div style="font-size:.8rem;color:#777">ningen to shakai</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">manusia dan masyarakat</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('介護')" title="クリックで発音">🔊 介護</div>
+  <div style="font-size:.8rem;color:#777">kaigo</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">perawatan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('こころとからだのしくみ')" title="クリックで発音">🔊 こころとからだのしくみ</div>
+  <div style="font-size:.8rem;color:#777">kokoro to karada no shikumi</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">mekanisme jiwa dan raga</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('医療的ケア')" title="クリックで発音">🔊 医療的ケア</div>
+  <div style="font-size:.8rem;color:#777">iryō-teki kea</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">tindakan medis perawatan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('コミュニケーション技術')" title="クリックで発音">🔊 コミュニケーション技術</div>
+  <div style="font-size:.8rem;color:#777">komyunikēshon gijutsu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">teknik komunikasi</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('生活支援技術')" title="クリックで発音">🔊 生活支援技術</div>
+  <div style="font-size:.8rem;color:#777">seikatsu shien gijutsu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">teknik dukungan kehidupan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('介護過程')" title="クリックで発音">🔊 介護過程</div>
+  <div style="font-size:.8rem;color:#777">kaigo katei</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">proses perawatan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('総合問題')" title="クリックで発音">🔊 総合問題</div>
+  <div style="font-size:.8rem;color:#777">sōgō mondai</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">soal komprehensif</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('出題数')" title="クリックで発音">🔊 出題数</div>
+  <div style="font-size:.8rem;color:#777">shudai-sū</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">jumlah soal</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('合格基準')" title="クリックで発音">🔊 合格基準</div>
+  <div style="font-size:.8rem;color:#777">gōkaku kijun</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kriteria kelulusan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('実技試験')" title="クリックで発音">🔊 実技試験</div>
+  <div style="font-size:.8rem;color:#777">jitsugi shiken</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">ujian praktik</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('受験資格')" title="クリックで発音">🔊 受験資格</div>
+  <div style="font-size:.8rem;color:#777">juken shikaku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">syarat ujian</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1a237e">
+  <div style="font-size:1.05rem;font-weight:700;color:#1a237e" onclick="speak('合格率')" title="クリックで発音">🔊 合格率</div>
+  <div style="font-size:.8rem;color:#777">gōkaku-ritsu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">tingkat kelulusan</div>
+</div>
+</div></section></main>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+var Q=[{"q": "介護職が服薬でできる支援はどれか。", "opts": ["医師の指示範囲で服薬を見守り・介助する", "薬を処方する", "量を変える", "注射する"], "a": 0, "e": "介護職は医師・看護師の指示の範囲内で、服薬の声かけ・見守り・介助（薬を手渡す、飲み込みを確認する等）を行うことができる。ただし、薬の処方・用量の変更・注射は医療行為にあたり、介護職には認められていない。役割の境界を正しく理解することが、安全な服薬支援の前提となる。"}, {"q": "服薬介助で確認すべき「5R」に含まれるのはどれか。", "opts": ["正しい人・薬・量・時間・方法", "色", "値段", "形"], "a": 0, "e": "服薬の5R（5つの正しさ）とは、正しい利用者（Right Patient）・正しい薬（Right Drug）・正しい量（Right Dose）・正しい時間（Right Time）・正しい方法（Right Route）を指す。これらを毎回確認することで誤薬を防ぐ。色や値段、形といった要素は5Rには含まれない。"}, {"q": "薬を飲み忘れたときの対応はどれか。", "opts": ["自己判断せず看護師・医師に相談", "2回分飲ませる", "無視する", "翌日まとめる"], "a": 0, "e": "服薬を忘れた場合、自己判断で「2回分をまとめて飲ませる」「翌日にまとめる」といった対応は薬の効きすぎや副作用のリスクを高めるため危険。看護師や医師に相談し、その薬の特性に応じた正しい対応（次回通常量で再開する等）を確認することが原則。"}, {"q": "副作用が疑われるときの対応はどれか。", "opts": ["観察し記録して速やかに報告", "放置", "薬を増やす", "隠す"], "a": 0, "e": "薬の副作用が疑われる症状（発疹・めまい・食欲不振など）が見られたら、まず状態を観察・記録し、速やかに看護師・医師へ報告する。自己判断で薬を中止したり、様子を見て放置したりすると、重篤な副作用を見逃す危険がある。早期の報告が対応の鍵となる。"}, {"q": "服薬時の姿勢として適切なのはどれか。", "opts": ["座位で上体を起こす", "寝たまま", "急いで", "歩きながら"], "a": 0, "e": "服薬時は座位で上体を起こした姿勢をとり、しっかりと水（またはとろみ水）で飲み込むことが誤嚥予防の基本。寝たまま服薬すると、薬が食道に留まったり気管に入る危険がある。姿勢を整えてから服薬を促すことが、安全な服薬介助の基本原則。"}, {"q": "薬の保管で正しいのはどれか。", "opts": ["指示通りに保管し他人の薬と混ぜない", "日光に当てる", "混ぜる", "放置"], "a": 0, "e": "薬は医師・薬剤師の指示通りに保管し、利用者ごとに区別して管理する（他の利用者の薬と混ぜない）。日光や高温多湿を避けた保管も薬の効果を保つために重要。誤って他人の薬を服用させてしまう事故を防ぐため、個人ごとの厳密な管理が欠かせない。"}, {"q": "服薬介助の記録として適切なのはどれか。", "opts": ["服薬の有無・時間・様子を記録", "記録しない", "記憶に頼る", "曖昧に書く"], "a": 0, "e": "服薬介助の記録には、服薬の有無、時刻、服薬時の利用者の様子（嫌がった、むせた等）を正確に残すことが重要。記録がないと、飲み忘れや重複投与の確認ができず、事故につながる危険がある。記憶に頼らず、その都度正確に記録する習慣が求められる。"}, {"q": "内服薬を飲ませるとき誤嚥を防ぐ工夫はどれか。", "opts": ["一錠ずつ、十分な水で、姿勢を整える", "一度に多く", "水なし", "急がせる"], "a": 0, "e": "誤嚥を防ぐには、一錠ずつ、十分な量の水（またはとろみをつけた水）で、座位など正しい姿勢を保って服薬することが基本。一度に多くの錠剤をまとめて飲ませたり、水なしで服薬させたりすると、喉に詰まる・気管に入るリスクが高まる。"}, {"q": "薬を利用者間で取り違えないための工夫はどれか。", "opts": ["名前と薬を照合し一人ずつ確認", "まとめて配る", "記憶で配る", "急ぐ"], "a": 0, "e": "薬の取り違えを防ぐには、利用者ごとに薬を分けて保管・管理し（名前を明記した薬箱やケースの利用等）、配薬時に利用者名と薬を必ず照合することが重要。複数の利用者の薬をまとめて置いたり、確認を省略したりすることは、重大な誤薬事故につながる危険な行為。"}, {"q": "軟膏を塗るときの衛生管理はどれか。", "opts": ["手指衛生と清潔な用具を使う", "素手で使い回す", "汚れた手", "無視"], "a": 0, "e": "軟膏を塗布する際は、手指衛生（手洗い・手指消毒）を行い、清潔な手袋や綿棒を使用して感染を防ぐことが基本。同じ手で複数の利用者に触れる、汚れた手のまま塗布するといった行為は、感染拡大のリスクを高めるため避けなければならない。"}, {"q": "点眼薬を差すときの姿勢はどれか。", "opts": ["上を向き下まぶたを軽く引く", "下を向く", "横向き", "急がせる"], "a": 0, "e": "点眼薬は、顔を上に向けた姿勢（仰臥位または座位で頭を後ろに傾ける）で、下まぶたを軽く引いて結膜嚢に薬液を落とすのが基本的な方法。うつむいた姿勢では薬液がこぼれやすく、正確に投与できない。清潔な手で行い、容器の先端が目に触れないよう注意する。"}, {"q": "服薬を嫌がる利用者への対応はどれか。", "opts": ["理由を確認し無理強いせず相談", "無理に飲ませる", "放置", "叱る"], "a": 0, "e": "服薬を嫌がる理由（味、量、飲みにくさ、不安等）を探り、剤形の変更（可能であれば）や声かけの工夫、タイミングの調整などで対応する。無理やり口に押し込むような対応は誤嚥や本人の尊厳を傷つける危険があるため避け、必要に応じて医療職と相談しながら方法を検討する。"}, {"q": "薬の飲み合わせについて介護職がすべきことはどれか。", "opts": ["疑問は薬剤師・看護師に確認", "自己判断で中止", "混ぜる", "無視"], "a": 0, "e": "薬の飲み合わせ（相互作用）についての医学的判断は医師・薬剤師の役割であり、介護職が自己判断で調整することはできない。気になる症状や新しい薬の追加があった場合は、気づいたことを正確に医療職へ伝え、専門的な判断を仰ぐことが介護職の役割となる。"}, {"q": "服薬時間を守る重要性はどれか。", "opts": ["薬効を正しく保つため", "習慣のため", "記録のため", "不要"], "a": 0, "e": "薬には血中濃度を一定に保つことで効果を発揮するものが多く、服薬時間がずれると効果が不十分になったり、副作用のリスクが高まったりする。「だいたいの時間でよい」という考え方は誤りであり、指示された時間を可能な限り守って服薬介助を行うことが重要。"}, {"q": "錠剤が飲み込みにくい利用者への配慮はどれか。", "opts": ["指示に基づき形状変更を相談する", "勝手に砕く", "無理に飲ませる", "放置"], "a": 0, "e": "錠剤が飲み込みにくい利用者には、医師・薬剤師に相談の上で剤形の変更（粉薬・水薬・貼付薬等）や、とろみ水の使用を検討する。自己判断で錠剤を砕いたり、カプセルを開けたりすると、薬の効果や吸収に影響が出る場合があるため、必ず専門職に確認してから対応する。"}, {"q": "服薬後の観察点はどれか。", "opts": ["飲み込み確認と体調変化", "無視", "すぐ立たせる", "放置"], "a": 0, "e": "服薬後は、薬の効果が期待通り現れているか、副作用と思われる症状（発疹・めまい・眠気等）がないかを観察することが重要。「飲ませたら終わり」ではなく、服薬後の様子まで継続して見守り、変化があれば速やかに記録・報告する。"}, {"q": "軟膏を塗るときの介護職の対応で適切なのはどれか。", "opts": ["指示された部位に清潔な手袋で塗る", "好きな量を塗る", "傷口に勝手に塗る", "放置"], "a": 0, "e": "軟膏塗布は医師・看護師の指示範囲内で介護職が行える場合があるが、指示された部位・量・回数を正確に守ることが前提。自己判断で塗る範囲や量を変えることは避け、疑問があれば必ず看護師に確認してから実施する。"}, {"q": "点眼薬をさすときの注意点はどれか。", "opts": ["容器の先を目やまつげに触れさせない", "強く押し当てる", "何滴でもよい", "目をこする"], "a": 0, "e": "点眼薬は容器の先端がまつ毛や眼に直接触れないよう注意し、清潔な手で実施する。複数の点眼薬がある場合は、医師・薬剤師の指示された順番と間隔を守ることも重要。先端が触れると薬液が汚染され、感染のリスクが高まる。"}, {"q": "服薬拒否がある利用者への対応はどれか。", "opts": ["理由を探り医療職に相談", "無理に飲ませる", "放置", "叱る"], "a": 0, "e": "服薬拒否が続く場合は、無理強いせず理由を探り（味、体調、認知機能の影響等）、看護師や医師と相談しながら対応方法を検討する。力づくで飲ませることは誤嚥や身体的リスク、尊厳の侵害につながるため絶対に避けるべき対応。"}, {"q": "薬の飲み合わせ(相互作用)について介護職ができることはどれか。", "opts": ["気づいたら医療職に報告", "自分で判断して中止", "混ぜて飲ませる", "無視"], "a": 0, "e": "介護職ができるのは、気になる症状の変化や新たに開始された薬の情報を正確に観察・記録し、医療職へ伝えることまで。相互作用の医学的判断や薬の調整は医師・薬剤師の専門領域であり、介護職が独自に判断してはならない。"}];
+qi=0,ok=0,tot=0;
+function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function nQ(){qi=(qi+1)%Q.length;rnd();}
+function rQ(){qi=0;ok=0;tot=0;rnd();}
+function initKN2(){
+  var list=document.getElementById('kn2List');if(!list)return;
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+Q.length+' soal konsep dan etika kaigo — klik Soal Berikutnya untuk mulai quiz!</p>';
+}
+function init(){initKN2();}
+if(typeof init==='function')init(); rnd();
+</script>
+<section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
+<h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
+<div id="qkZ"></div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:#880e4f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">🔄 Reset</button>
+</div>
+<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</section>
+<script>
+var QKZ=[{"q": "介護過程の「アセスメント」で収集する情報に含まれないのは？", "opts": ["ADLの状況", "スタッフの希望", "心身の状態", "家族・社会関係"], "a": 1, "e": "アセスメントで収集: 身体状況・ADL・認知機能・生活歴・価値観・家族関係・経済状況・社会参加・環境等。スタッフの希望はアセスメント情報ではなく介護計画に反映する立場の情報。"}, {"q": "「ICF」の「活動」と「参加」の違いは？", "opts": ["同じ", "活動=個人レベルの動作(歩く・食べる)、参加=社会的な場面での役割・関与(地域活動・仕事)", "参加の方が簡単", "どちらも医療的概念"], "a": 1, "e": "ICF活動=個人レベルの生活行為(歩く・食べる・着替える)。参加=社会的生活への関与(地域活動・趣味・仕事・家庭内役割)。障害があっても「参加」できることが重要。"}, {"q": "「自立支援」で最も重視されるのは？", "opts": ["できるだけ全部してあげる", "その人の意思・選択・決定を最大限尊重すること", "健常者と同じにすること", "速く終わらせること"], "a": 1, "e": "自立支援の核心=意思決定の自尊重。身体的自立だけでなく「自分のことを自分で決める」精神的自立が最重要。介護職はその実現を支援する役割を担う。"}, {"q": "「認知症と成年後見制度」の関係で正しいのは？", "opts": ["認知症なら自動的に後見人がつく", "判断能力が不十分になった場合に家庭裁判所が後見人を選任して権利を守る制度", "家族が自由に財産を管理できる", "医師が決める"], "a": 1, "e": "成年後見制度: 認知症等で判断能力が低下した場合、家庭裁判所が後見人(法定後見)を選任。後見人は財産管理・法律行為を代行。本人の意思・尊厳の尊重が前提。"}, {"q": "「介護福祉士国家試験」の合格に必要な筆記試験の問題数は？", "opts": ["50問", "125問", "200問", "30問"], "a": 1, "e": "介護福祉士国家試験: 筆記試験125問(11科目群)。実技試験(または実技試験免除)もある。合格基準は総得点の60%程度+各科目群で0点がないこと。年1回1月に実施。"}, {"q": "「認知症の人の意思決定支援」で正しいのは？", "opts": ["家族が全て決める", "認知症でも本人の意思・選好を最大限尊重し、できる限り本人が決定できるよう支援する", "医師が決める", "何も確認しなくていい"], "a": 1, "e": "意思決定支援: 認知症があっても意思決定の権利は残る。①本人に分かりやすく説明②十分な時間③必要なら環境調整。本人が決めるための「支援」であり代わりに決めることが最後の手段。"}],qiZ=0,okZ=0,totZ=0;
+function rndZ(){
+  if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
+  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
+  q.opts.forEach(function(o,i){var b=document.createElement('button');
+  b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
+  b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
+  b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
+  b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
+  b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
+  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
+  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:#880e4f;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
+  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
+  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
+  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
+  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
+  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function ansZ(btn,c,a,e){
+  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
+  bs[a].dataset.d='1';totZ++;
+  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
+  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
+  else okZ++;
+  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
+  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
+function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
+rndZ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

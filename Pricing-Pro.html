@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<script src="assets/dark-mode-toggle.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Harga & Paket — Nihonggo Pro Academy Nihonggo Pro Academy</title>
+<meta property="og:title" content="Harga & Paket Premium | Nihonggo Pro Academy">
+<meta property="og:description" content="Paket belajar bahasa Jepang: Free, Premium Rp49k/bln, Lifetime+Kaigo Rp399k. AI Tutor unlimited, sertifikat QR.">
+<meta property="og:url" content="https://nihonggopro.id/Pricing-Pro.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Harga & Paket Premium | Nihonggo Pro Academy">
+<meta name="twitter:description" content="Paket belajar bahasa Jepang: Free, Premium Rp49k/bln, Lifetime+Kaigo Rp399k. AI Tutor unlimited, sertifikat QR.">
+<meta name="description" content="Paket belajar bahasa Jepang: Free, Premium Monthly Rp49k, Lifetime+Kaigo Rp399k. AI Tutor unlimited, JLPT mock test, sertifikat QR.">
+<link rel="canonical" href="https://nihonggopro.id/Pricing-Pro.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Pricing Nihonggo Pro Academy","url":"https://nihonggopro.id/Pricing-Pro.html","description":"Paket belajar bahasa Jepang dan Kaigo"}</script>
+
+<link rel="stylesheet" href="assets/design-system.css">
+<style>
+body { min-height: 100vh; }
+.p-nav { height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(16px,4vw,48px); background: var(--nav-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(16px); }
+.p-brand { font-family: var(--font-jp); font-size: 20px; font-weight: 700; color: var(--primary); text-decoration: none; }
+
+/* HERO */
+.pricing-hero { background: var(--ink); color: white; padding: clamp(40px,6vw,72px) clamp(16px,5vw,72px); text-align: center; }
+.pricing-hero h1 { font-family: var(--font-jp); font-size: clamp(26px,5vw,44px); margin-bottom: 12px; }
+.pricing-hero p { font-size: 15px; color: rgba(255,255,255,.6); max-width: 480px; margin: 0 auto 20px; }
+.billing-toggle { display: inline-flex; background: rgba(255,255,255,.1); border-radius: 20px; padding: 4px; gap: 2px; }
+.billing-opt { padding: 6px 18px; border-radius: 16px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all var(--t-fast); color: rgba(255,255,255,.6); border: none; background: none; font-family: var(--font-sans); }
+.billing-opt.active { background: white; color: var(--ink); }
+.save-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; background: var(--green); color: white; font-size: 10px; font-weight: 800; margin-left: 6px; }
+
+/* CARDS */
+.pricing-section { max-width: 1060px; margin: 0 auto; padding: 48px clamp(16px,4vw,32px) 32px; }
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 20px; margin-bottom: 48px; }
+.plan-card {
+  background: var(--white); border-radius: var(--r-xl); border: 1px solid var(--border);
+  overflow: hidden; transition: all var(--t-med) var(--ease-out); box-shadow: var(--shadow-xs);
+}
+.plan-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+.plan-card.featured { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary), var(--shadow-md); }
+.plan-head { padding: 24px 24px 16px; }
+.plan-badge { display: inline-block; padding: 3px 10px; border-radius: 5px; font-size: 10px; font-weight: 800; margin-bottom: 10px; }
+.plan-badge.popular  { background: var(--primary); color: white; }
+.plan-badge.free     { background: var(--green-pale); color: var(--green); }
+.plan-badge.lifetime { background: rgba(124,58,237,.1); color: #7c3aed; }
+.plan-name  { font-family: var(--font-jp); font-size: 20px; font-weight: 700; margin-bottom: 4px; }
+.plan-price { font-family: var(--font-jp); font-size: 38px; font-weight: 800; line-height: 1; margin-bottom: 4px; }
+.plan-price sub { font-size: 14px; font-weight: 600; color: var(--ink-soft); font-family: var(--font-sans); }
+.plan-period { font-size: 12px; color: var(--ink-soft); height: 18px; }
+.plan-desc  { font-size: 13px; color: var(--ink-soft); margin: 10px 0 16px; line-height: 1.6; }
+.plan-body  { padding: 0 24px 24px; border-top: 1px solid var(--border); padding-top: 16px; }
+.feat-list  { list-style: none; margin-bottom: 20px; }
+.feat-list li { font-size: 13px; padding: 5px 0; display: flex; align-items: flex-start; gap: 8px; color: var(--ink-mid); line-height: 1.5; }
+.feat-list li::before { content: '✅'; flex-shrink: 0; font-size: 12px; }
+.feat-list li.no { opacity: .45; }
+.feat-list li.no::before { content: '✕'; font-size: 14px; font-weight: 800; color: var(--ink-faint); }
+
+/* COMPARISON TABLE */
+.comp-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--r-xl); overflow: hidden; border: 1px solid var(--border); box-shadow: var(--shadow-xs); margin-bottom: 48px; }
+.comp-table th { background: var(--ink); color: white; padding: 12px 16px; font-size: 13px; font-weight: 700; text-align: center; }
+.comp-table th:first-child { text-align: left; }
+.comp-table td { padding: 11px 16px; font-size: 13px; border-bottom: 1px solid var(--border); text-align: center; vertical-align: middle; }
+.comp-table td:first-child { text-align: left; font-weight: 600; color: var(--ink-mid); }
+.comp-table tr:last-child td { border-bottom: none; }
+.comp-table tr:nth-child(even) td { background: var(--cream); }
+
+/* FAQ */
+.faq-item { background: var(--white); border-radius: var(--r-lg); border: 1px solid var(--border); margin-bottom: 8px; overflow: hidden; }
+.faq-q { padding: 14px 18px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: background var(--t-fast); }
+.faq-q:hover { background: var(--cream); }
+.faq-arrow { transition: transform .3s; }
+.faq-a { padding: 0 18px; font-size: 13px; color: var(--ink-mid); line-height: 1.8; max-height: 0; overflow: hidden; transition: all .35s ease; }
+.faq-item.open .faq-a { max-height: 200px; padding: 0 18px 14px; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+/* GUARANTEE */
+.guarantee { background: linear-gradient(135deg,var(--ink),#1a0a20); border-radius: var(--r-xl); padding: 32px; text-align: center; margin-bottom: 48px; }
+.guarantee h3 { font-family: var(--font-jp); font-size: 22px; color: white; margin-bottom: 8px; }
+.guarantee p  { font-size: 14px; color: rgba(255,255,255,.55); max-width: 460px; margin: 0 auto; }
+
+/* MODAL */
+.pay-modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); z-index: 500; align-items: center; justify-content: center; padding: 16px; }
+.pay-modal.open { display: flex; }
+.pay-box { background: var(--white); border-radius: var(--r-xl); padding: 28px; width: 100%; max-width: 440px; box-shadow: var(--shadow-lg); animation: popIn .3s var(--ease-out); }
+@keyframes popIn { from{transform:scale(.94) translateY(10px);opacity:0} to{transform:scale(1) translateY(0);opacity:1} }
+.pay-method-row { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin: 14px 0; }
+.pay-method-btn { padding: 10px; border-radius: var(--r-md); border: 1.5px solid var(--border-mid); background: var(--white); font-family: var(--font-sans); font-size: 12px; font-weight: 700; cursor: pointer; transition: all var(--t-fast); }
+.pay-method-btn:hover { border-color: var(--primary); color: var(--primary); }
+.pay-method-btn.selected { border-color: var(--primary); background: var(--primary-pale); color: var(--primary); }
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<script>
+/* Muat Snap.js Midtrans secara dinamis. Client Key & environment dari env.js
+   (window.EDUMA_ENV). Bila belum diset, Snap tidak dimuat dan processPayment()
+   akan menampilkan pesan "belum aktif" — bukan memberi premium palsu. */
+(function () {
+  var env = window.EDUMA_ENV || {};
+  var clientKey = env.MIDTRANS_CLIENT_KEY;
+  if (!clientKey) return; // belum dikonfigurasi → lewati
+  var isProd = String(env.MIDTRANS_IS_PRODUCTION) === 'true';
+  var src = isProd
+    ? 'https://app.midtrans.com/snap/snap.js'
+    : 'https://app.sandbox.midtrans.com/snap/snap.js';
+  var s = document.createElement('script');
+  s.src = src;
+  s.setAttribute('data-client-key', clientKey);
+  document.head.appendChild(s);
+})();
+</script>
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+
+<nav class="p-nav">
+  <a class="p-brand" href="index.html">Nihonggo Pro Academy</a>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="index.html" class="btn btn-sm btn-outline hide-mobile" style="text-decoration:none">🏠 Beranda</a>
+    <a href="Dashboard/Dashboard.html" class="btn btn-sm btn-outline hide-mobile" style="text-decoration:none">📊 Dashboard</a>
+    <button aria-label="Tombol" class="icon-btn" data-theme-toggle>🌙</button>
+  </div>
+</nav>
+
+<div class="pricing-hero">
+  <h1>Pilih Paket Belajar</h1>
+  <p>Mulai gratis, upgrade kapan saja. Tidak ada biaya tersembunyi.</p>
+  <div class="billing-toggle">
+    <button class="billing-opt active" onclick="setBilling('monthly',this)">Bulanan</button>
+    <button class="billing-opt" onclick="setBilling('yearly',this)">Tahunan <span class="save-badge">Hemat 30%</span></button>
+  </div>
+</div>
+
+<div class="pricing-section">
+  <div class="pricing-grid">
+    <!-- FREE -->
+    <div class="plan-card">
+      <div class="plan-head">
+        <div class="plan-badge free">GRATIS SELAMANYA</div>
+        <div class="plan-name">Free Plan</div>
+        <div class="plan-price">Rp 0</div>
+        <div class="plan-period">&nbsp;</div>
+        <div class="plan-desc">Untuk memulai belajar. Akses materi dasar dan fitur inti.</div>
+      </div>
+      <div class="plan-body">
+        <ul class="feat-list">
+          <li>Materi JLPT N5–N4 lengkap</li>
+          <li>10 modul Kaigo</li>
+          <li>SRS Flashcard (30 kartu/hari)</li>
+          <li>JLPT CBT Practice Mode</li>
+          <li>Dashboard progres lokal</li>
+          <li>AI Tutor (5 pesan/hari)</li>
+          <li class="no">AI Tutor unlimited</li>
+          <li class="no">JLPT N3–N1 Exam Mode</li>
+          <li class="no">Sertifikat Digital + QR</li>
+          <li class="no">Sync multi-device</li>
+        </ul>
+        <a href="Akun.html" class="btn btn-outline" style="display:flex;justify-content:center;text-decoration:none;width:100%">Mulai Gratis</a>
+      </div>
+    </div>
+
+    <!-- PREMIUM -->
+    <div class="plan-card featured">
+      <div class="plan-head">
+        <div class="plan-badge popular">⭐ PALING POPULER</div>
+        <div class="plan-name">Premium</div>
+        <div class="plan-price" id="premPrice">Rp 49.000<sub>/bln</sub></div>
+        <div class="plan-period" id="premPeriod">Rp 49.000/bulan · batal kapan saja</div>
+        <div class="plan-desc">Untuk belajar serius. AI Tutor unlimited dan fitur premium.</div>
+      </div>
+      <div class="plan-body">
+        <ul class="feat-list">
+          <li>Semua fitur Free</li>
+          <li><b>AI Tutor unlimited</b></li>
+          <li>JLPT CBT N5–N1 Exam + Review Mode</li>
+          <li>SRS Flashcard unlimited</li>
+          <li>Sertifikat Digital + QR Verify</li>
+          <li>Progress sync multi-device</li>
+          <li>Kaigo Simulator semua skenario</li>
+          <li>Download PDF materi</li>
+          <li>Badge Premium eksklusif</li>
+          <li>Prioritas support</li>
+        </ul>
+        <button class="btn btn-primary" style="width:100%" onclick="openModal('premium')">Upgrade Sekarang →</button>
+      </div>
+    </div>
+
+    <!-- LIFETIME -->
+    <div class="plan-card">
+      <div class="plan-head">
+        <div class="plan-badge lifetime">💎 TERBAIK</div>
+        <div class="plan-name">Lifetime + Kaigo</div>
+        <div class="plan-price">Rp 399.000<sub> sekali</sub></div>
+        <div class="plan-period">Bayar sekali, akses selamanya</div>
+        <div class="plan-desc">Investasi terbaik. Akses seumur hidup + course Kaigo bundle.</div>
+      </div>
+      <div class="plan-body">
+        <ul class="feat-list">
+          <li>Semua fitur Premium</li>
+          <li><b>Akses seumur hidup</b></li>
+          <li>Kaigo course bundle lengkap</li>
+          <li>Kelas live online (4x/bulan)</li>
+          <li>Sertifikat fisik digital + frame</li>
+          <li>1-on-1 session tutor</li>
+          <li>Update materi gratis selamanya</li>
+          <li>Akses komunitas eksklusif</li>
+          <li>Badge Lifetime eksklusif</li>
+        </ul>
+        <button class="btn btn-primary" style="width:100%;background:linear-gradient(135deg,#7c3aed,#4f46e5)" onclick="openModal('lifetime')">Beli Lifetime →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GUARANTEE -->
+  <div class="guarantee">
+    <h3>🛡️ Garansi Uang Kembali 7 Hari</h3>
+    <p>Tidak puas dalam 7 hari pertama? Kami kembalikan 100% uang Anda tanpa pertanyaan apapun.</p>
+  </div>
+
+  <!-- COMPARISON TABLE -->
+  <h2 style="font-family:var(--font-jp);font-size:26px;text-align:center;margin-bottom:20px">Perbandingan Lengkap</h2>
+  <table class="comp-table">
+    <thead><tr><th>Fitur</th><th>Free</th><th>Premium</th><th>Lifetime</th></tr></thead>
+    <tbody>
+      <tr><td>Materi JLPT N5–N4</td><td>✅</td><td>✅</td><td>✅</td></tr>
+      <tr><td>Materi JLPT N3–N1</td><td>Terbatas</td><td>✅</td><td>✅</td></tr>
+      <tr><td>10 Modul Kaigo</td><td>✅</td><td>✅</td><td>✅</td></tr>
+      <tr><td>SRS Flashcard</td><td>30/hari</td><td>Unlimited</td><td>Unlimited</td></tr>
+      <tr><td>AI Tutor</td><td>5 msg/hari</td><td>Unlimited</td><td>Unlimited</td></tr>
+      <tr><td>JLPT CBT</td><td>Practice</td><td>Exam+Review</td><td>Semua Mode</td></tr>
+      <tr><td>Sertifikat + QR</td><td>❌</td><td>✅</td><td>✅ + Fisik</td></tr>
+      <tr><td>Sync Multi-Device</td><td>❌</td><td>✅</td><td>✅</td></tr>
+      <tr><td>Kaigo Simulator</td><td>2 skenario</td><td>6 skenario</td><td>Unlimited</td></tr>
+      <tr><td>Kelas Live</td><td>❌</td><td>❌</td><td>4x/bulan</td></tr>
+      <tr><td>1-on-1 Tutor</td><td>❌</td><td>❌</td><td>✅</td></tr>
+      <tr><td><b>Harga</b></td><td><b>Rp 0</b></td><td><b id="tblPremPrice">Rp 49k/bln</b></td><td><b>Rp 399k</b></td></tr>
+    </tbody>
+  </table>
+
+  <!-- FAQ -->
+  <h2 style="font-family:var(--font-jp);font-size:26px;text-align:center;margin-bottom:20px">FAQ</h2>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Apakah ada uji coba gratis?<span class="faq-arrow">▾</span></div>
+    <div class="faq-a">Ya! Plan Free tersedia selamanya tanpa kartu kredit. Upgrade ke Premium kapan saja.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Metode pembayaran apa yang diterima?<span class="faq-arrow">▾</span></div>
+    <div class="faq-a">Transfer bank, QRIS, GoPay, OVO, Dana, dan kartu kredit/debit via Midtrans.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Apakah sertifikat diakui secara resmi?<span class="faq-arrow">▾</span></div>
+    <div class="faq-a">Sertifikat kami adalah bukti penyelesaian kursus digital dengan QR verification — berguna untuk portofolio dan CV, bukan pengganti JLPT resmi dari Japan Foundation.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Bagaimana jika tidak puas?<span class="faq-arrow">▾</span></div>
+    <div class="faq-a">Garansi uang kembali 7 hari, 100%, tanpa pertanyaan. Hubungi kami via email atau WhatsApp.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q" onclick="toggleFaq(this)">Apakah materi terus diperbarui?<span class="faq-arrow">▾</span></div>
+    <div class="faq-a">Ya! Semua pengguna Premium dan Lifetime mendapat update materi, soal latihan, dan fitur baru secara gratis.</div>
+  </div>
+</div>
+
+<!-- PAYMENT MODAL -->
+<div class="pay-modal" id="payModal" onclick="closeModal(event)">
+  <div class="pay-box" onclick="event.stopPropagation()">
+    <h3 style="font-family:var(--font-jp);font-size:20px;margin-bottom:6px" id="modalTitle">Upgrade Premium</h3>
+    <p style="font-size:13px;color:var(--ink-soft);margin-bottom:16px" id="modalDesc"></p>
+    <div style="background:var(--cream);border-radius:var(--r-md);padding:12px;margin-bottom:14px">
+      <div style="font-size:11px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Pilih Metode Bayar</div>
+      <div class="pay-method-row">
+        <button class="pay-method-btn" onclick="selPay(this,'Transfer Bank')">🏦 Transfer Bank</button>
+        <button class="pay-method-btn" onclick="selPay(this,'QRIS')">📱 QRIS</button>
+        <button class="pay-method-btn" onclick="selPay(this,'GoPay')">💚 GoPay</button>
+        <button class="pay-method-btn" onclick="selPay(this,'OVO')">💜 OVO</button>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;padding-top:10px;border-top:1px solid var(--border)">
+      <span style="font-size:14px;font-weight:700">Total</span>
+      <span style="font-family:var(--font-jp);font-size:24px;font-weight:800;color:var(--primary)" id="modalPrice">Rp 49.000</span>
+    </div>
+    <button class="btn btn-primary btn-lg" style="width:100%" onclick="processPayment()">🔒 Bayar Sekarang</button>
+    <p style="font-size:11px;color:var(--ink-soft);text-align:center;margin-top:8px">Aman via Midtrans · Garansi 7 hari</p>
+    <button onclick="closeModalDirect()" class="btn btn-ghost btn-sm" style="width:100%;margin-top:4px">Batal</button>
+  </div>
+</div>
+
+<script src="assets/platform.min.js" defer></script>
+<script>
+function toggleFaq(el) { el.closest('.faq-item').classList.toggle('open'); }
+
+let curBilling = 'monthly', curPlan = '', curPayMethod = '';
+const PRICES = { premium: { monthly: 49000, yearly: 34300 }, lifetime: 399000 };
+
+function setBilling(b, btn) {
+  curBilling = b;
+  document.querySelectorAll('.billing-opt').forEach(x => x.classList.remove('active'));
+  btn.classList.add('active');
+  const pm = b === 'yearly' ? PRICES.premium.yearly : PRICES.premium.monthly;
+  document.getElementById('premPrice').innerHTML = `Rp ${pm.toLocaleString('id-ID')}<sub>/bln</sub>`;
+  document.getElementById('premPeriod').textContent = b === 'yearly'
+    ? `Rp ${(pm*12).toLocaleString('id-ID')}/tahun · hemat 30%`
+    : 'Rp 49.000/bulan · batal kapan saja';
+  document.getElementById('tblPremPrice').textContent = `Rp ${pm.toLocaleString('id-ID')}/bln`;
+}
+
+function openModal(plan) {
+  curPlan = plan; curPayMethod = '';
+  document.querySelectorAll('.pay-method-btn').forEach(b => b.classList.remove('selected'));
+  const names = { premium: 'Premium', lifetime: 'Lifetime + Kaigo' };
+  const descs = {
+    premium: 'AI Tutor unlimited, JLPT Exam Mode, Sertifikat QR, dan lebih banyak!',
+    lifetime: 'Akses seumur hidup + Kaigo bundle + 1-on-1 tutor session.',
+  };
+  const price = plan === 'premium'
+    ? (curBilling === 'yearly' ? PRICES.premium.yearly : PRICES.premium.monthly)
+    : PRICES.lifetime;
+  document.getElementById('modalTitle').textContent = 'Upgrade ke ' + names[plan];
+  document.getElementById('modalDesc').textContent = descs[plan];
+  document.getElementById('modalPrice').textContent = 'Rp ' + price.toLocaleString('id-ID');
+  document.getElementById('payModal').classList.add('open');
+}
+function closeModal(e) { if (e.target === document.getElementById('payModal')) closeModalDirect(); }
+function closeModalDirect() { document.getElementById('payModal').classList.remove('open'); }
+
+function selPay(btn, m) {
+  document.querySelectorAll('.pay-method-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected'); curPayMethod = m;
+}
+
+function processPayment() {
+  if (!curPayMethod) { NP.Toast.show('⚠️ Pilih metode pembayaran', 'error'); return; }
+
+  // Peta paket UI → planId yang dikenal server (create-payment.js).
+  var planId = curPlan === 'lifetime' ? 'premium-lifetime' : 'premium-monthly';
+  var user = (NP.State && NP.State.getUser && NP.State.getUser()) || {};
+  var authUserId = null;
+  try {
+    if (window.SupabaseClient && window.SupabaseClient.Auth && typeof window.SupabaseClient.Auth.user === 'function') {
+      var authUser = window.SupabaseClient.Auth.user();
+      authUserId = authUser && authUser.id;
+    }
+  } catch (e) {}
+  if (!authUserId) {
+    NP.Toast.show('⚠️ Silakan login terlebih dahulu sebelum berlangganan Premium.');
+    return;
+  }
+
+  NP.Toast.show('💳 Menghubungkan ke payment gateway…');
+
+  var session = window.SupabaseClient && window.SupabaseClient.Auth && window.SupabaseClient.Auth.session();
+  var accessToken = session && session.access_token;
+  if (!accessToken) {
+    NP.Toast.show('⚠️ Sesi login tidak tersedia. Silakan login kembali.', 'error');
+    return;
+  }
+
+  fetch('/api/create-payment', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + accessToken },
+    body: JSON.stringify({ planId: planId, name: user.name || '', email: user.email || '' })
+  }).then(function (r) {
+    return r.json().then(function (data) { return { ok: r.ok, status: r.status, data: data }; });
+  }).then(function (res) {
+    // Payment belum dikonfigurasi di server (503) → JUJUR, jangan beri premium palsu.
+    if (res.status === 503) {
+      NP.Toast.show('Pembayaran online belum aktif. Hubungi admin untuk aktivasi.', 'error');
+      return;
+    }
+    if (!res.ok || !res.data.token) {
+      NP.Toast.show('⚠️ Gagal memulai pembayaran. Coba lagi.', 'error');
+      return;
+    }
+
+    // Snap.js harus sudah dimuat (lihat <script> Midtrans di <head>).
+    if (typeof window.snap === 'undefined' || !window.snap.pay) {
+      NP.Toast.show('⚠️ Snap.js belum termuat. Periksa MIDTRANS_CLIENT_KEY.', 'error');
+      return;
+    }
+
+    closeModalDirect();
+
+    // Detail dari server untuk ditampilkan di halaman receipt.
+    var rc = res.data;
+    var q = 'plan=' + encodeURIComponent(rc.plan || planId)
+          + '&order=' + encodeURIComponent(rc.orderId || '')
+          + '&amount=' + encodeURIComponent(rc.amount || '');
+
+    window.snap.pay(rc.token, {
+      onSuccess: function () {
+        // CATATAN: status premium FINAL ditentukan server via webhook Supabase,
+        // bukan baris ini. Halaman receipt hanya konfirmasi + langkah lanjut.
+        window.location.href = 'Payment-Receipt.html?status=success&' + q;
+      },
+      onPending: function () {
+        window.location.href = 'Payment-Receipt.html?status=pending&' + q;
+      },
+      onError: function () {
+        window.location.href = 'Payment-Receipt.html?status=error&' + q;
+      },
+      onClose: function () { NP.Toast.show('Pembayaran dibatalkan.', 'info'); }
+    });
+  }).catch(function () {
+    NP.Toast.show('⚠️ Tidak dapat terhubung ke server pembayaran.', 'error');
+  });
+}
+
+// KEAMANAN/STABILITAS: NP.Nav.init() butuh window.NP, yang berasal dari
+// platform.min.js (dimuat dengan defer) -- HARUS menunggu, bukan dipanggil
+// langsung di top-level (pola bug yang sama dengan Kaigo-Simulator.html v177).
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.NP && NP.Nav && typeof NP.Nav.init === 'function') NP.Nav.init('');
+});
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kanji-N5.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kanji N5–N1</a>
+          <a href="/Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar</a>
+          <a href="/Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kosakata</a>
+          <a href="/Materi/Fondasi-Bahasa-Jepang.html" style="color:rgba(255,255,255,.6);text-decoration:none">Fondasi Jepang</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Tools</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/JLPT-CBT.html" style="color:rgba(255,255,255,.6);text-decoration:none">CBT Simulator</a>
+          <a href="/SRS-Flashcard.html" style="color:rgba(255,255,255,.6);text-decoration:none">SRS Flashcard</a>
+          <a href="/Grammar-Checker.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar Checker</a>
+          <a href="/AI-Tutor-Pro.html" style="color:rgba(255,255,255,.6);text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Kaigo</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Materi/Kaigo.html#kg-h-ujian" style="color:rgba(255,255,255,.6);text-decoration:none">Persiapan Ujian</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

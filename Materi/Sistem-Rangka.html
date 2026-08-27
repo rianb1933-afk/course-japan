@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#44403c">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>骨格系 Sistem Rangka — Tulang &amp; Osteoporosis Bahasa Jepang untuk Kaigo | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Rangka — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Rangka.html","description":"Pembelajaran mendalam sistem rangka dalam bahasa Jepang — anatomi tulang, remodeling tulang, perubahan penuaan, osteoporosis dan patah tulang, observasi, dan perawatan Kaigo.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Pelajari sistem rangka secara mendalam dalam bahasa Jepang — anatomi tulang, proses remodeling tulang, perubahan akibat penuaan, osteoporosis dan patah tulang lansia, observasi, dan perawatan Kaigo.">
+<meta property="og:title" content="骨格系 Sistem Rangka — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Anatomi, fisiologi, dan perawatan Kaigo sistem rangka dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Rangka.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#f5f5f4,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#44403c;border-color:#44403c;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#44403c;background:#f5f5f4;border:1px solid #d6d3d1;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#44403c;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#44403c}
+.organ-tab.active{color:#44403c;border-bottom-color:#44403c}
+.organ-tab:focus-visible{outline:2px solid #44403c;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #f5f5f4;color:#1c1917}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#44403c}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#f5f5f4;border-color:#d6d3d1}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#f5f5f4;color:#44403c;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #44403c;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.bone-wrap{max-width:340px;margin:16px auto;padding:16px;background:var(--white,#fff);border-radius:14px;border:1px solid var(--border-light,#eee)}
+@keyframes osteoclastEat{0%,100%{opacity:.3;transform:scale(1)}50%{opacity:1;transform:scale(1.15)}}
+@keyframes osteoblastBuild{0%,40%{opacity:.3;transform:scale(1)}70%,100%{opacity:1;transform:scale(1.15)}}
+@keyframes boneDensity{0%,100%{opacity:.85}50%{opacity:.55}}
+.bn-osteoclast{animation:osteoclastEat 3s ease-in-out infinite}
+.bn-osteoblast{animation:osteoblastBuild 3s ease-in-out infinite}
+.bn-bone{animation:boneDensity 3s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.bn-osteoclast,.bn-osteoblast,.bn-bone{animation:none}}
+.bn-th{font-size:12px;font-weight:800;fill:var(--ink,#222)}
+.bn-ts{font-size:10.5px;fill:var(--ink-mid,#666)}
+.bone-legend{display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:11.5px;color:var(--ink-mid,#666);flex-wrap:wrap}
+.bone-legend span{display:inline-flex;align-items:center;gap:5px}
+.bone-swatch{display:inline-block;width:12px;height:12px;border-radius:50%}
+.bone-controls{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.bone-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:700}
+.bone-btn.active{background:#f5f5f4;border-color:#44403c;color:#44403c}
+
+.model3d-wrap{max-width:560px;margin:16px auto;padding:16px;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px}
+.model3d-canvas-wrap{position:relative;width:100%;height:360px;border-radius:10px;overflow:hidden;background:#f5f7fb;touch-action:none}
+.model3d-loading,.model3d-error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink-mid,#666);text-align:center;padding:20px}
+.model3d-error{color:#44403c}
+.model3d-info-panel{margin-top:10px;padding:10px 12px;background:#f8f9fb;border-radius:10px;font-size:13px}
+.model3d-info-panel strong{display:block;margin-bottom:2px;font-size:14px}
+.model3d-detail-text{color:var(--ink-mid,#666)}
+.model3d-controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.model3d-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:8px 14px;font-size:12.5px;cursor:pointer;font-weight:700}
+.model3d-btn.active{background:#fef2f2;border-color:#dc2626;color:#dc2626}
+.model3d-disclaimer{margin:10px 0 0;font-size:11px;color:var(--ink-soft,#999);line-height:1.5}
+
+.case-sim{background:var(--white,#fff);border:2px solid #d6d3d1;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#f5f5f4;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#44403c;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#44403c}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Rangka.html" class="current">① 基礎 Dasar</a>
+      <a href="Sistem-Rangka-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Rangka-Lanjutan.html">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🦴 Level 2-4 — Sistem Rangka</span>
+    <h1><span class="jp-big">骨格系</span>Sistem Rangka — Tulang &amp; Osteoporosis</h1>
+    <p class="lead">Anatomi tulang, proses remodeling tulang, perubahan penuaan, osteoporosis &amp; risiko patah tulang lansia, hingga perawatan Kaigo — dengan animasi remodeling interaktif.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi rangka">
+  <button class="organ-tab active" data-tab="ringkasan" role="tab" aria-selected="true">概要 Ringkasan</button>
+  <button class="organ-tab" data-tab="anatomi" role="tab" aria-selected="false">解剖 Anatomi</button>
+  <button class="organ-tab" data-tab="fisiologi" role="tab" aria-selected="false">生理 Fisiologi</button>
+  <button class="organ-tab" data-tab="penuaan" role="tab" aria-selected="false">加齢変化 Penuaan</button>
+  <button class="organ-tab" data-tab="penyakit" role="tab" aria-selected="false">疾患 Penyakit</button>
+  <button class="organ-tab" data-tab="gejala" role="tab" aria-selected="false">症状 Gejala</button>
+  <button class="organ-tab" data-tab="observasi" role="tab" aria-selected="false">観察 Observasi</button>
+  <button class="organ-tab" data-tab="perawatan" role="tab" aria-selected="false">介護 Perawatan</button>
+  <button class="organ-tab" data-tab="kosakata" role="tab" aria-selected="false">用語 Kosakata</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <!-- ═══════════ 概要 RINGKASAN ═══════════ -->
+  <div class="organ-panel active" id="panel-ringkasan">
+    <h2>概要 — Ringkasan Sistem Rangka</h2>
+    <p>Sistem rangka (骨格系, こっかくけい) terdiri dari 206 tulang pada orang dewasa, memberi struktur tubuh, melindungi organ dalam, dan bekerja sama dengan otot untuk gerakan lewat persendian (関節, かんせつ).</p>
+    <div class="info-card">
+      <h3 style="margin-top:0">Kenapa penting untuk Kaigo?</h3>
+      <p style="margin-bottom:0">Osteoporosis (tulang keropos) sangat umum pada lansia, terutama wanita pasca-menopause, dan meningkatkan risiko patah tulang bahkan dari jatuh ringan. Patah tulang panggul pada lansia bisa berdampak besar pada kemandirian jangka panjang.</p>
+    </div>
+    <h3>Fungsi utama</h3>
+    <ul>
+      <li>Memberi struktur dan bentuk tubuh</li>
+      <li>Melindungi organ vital (tengkorak melindungi otak, tulang rusuk melindungi jantung/paru)</li>
+      <li>Bekerja sama dengan otot untuk menghasilkan gerakan</li>
+      <li>Menyimpan mineral (kalsium, fosfor) dan memproduksi sel darah (di sumsum tulang)</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 解剖 ANATOMI ═══════════ -->
+  <div class="organ-panel" id="panel-anatomi">
+    <h2>解剖 — Anatomi Tulang &amp; Sendi</h2>
+    <p>Tulang bukan jaringan mati — di dalamnya ada sel-sel aktif dan pembuluh darah yang terus memperbarui strukturnya sepanjang hidup.</p>
+    <h3>Tulang penting terkait risiko lansia</h3>
+    <ul>
+      <li><strong>大腿骨 (だいたいこつ) — Tulang Paha (Femur)</strong>: tulang terpanjang, patah di bagian leher femur (leher paha) sangat umum dan serius pada lansia</li>
+      <li><strong>脊椎 (せきつい) — Tulang Belakang</strong>: rentan kompresi akibat osteoporosis, menyebabkan postur membungkuk</li>
+      <li><strong>手首の骨 (てくびのほね) — Tulang Pergelangan Tangan</strong>: sering patah saat menahan tubuh ketika jatuh</li>
+    </ul>
+    <h3>Sendi (関節, かんせつ)</h3>
+    <p>Titik pertemuan dua tulang atau lebih, memungkinkan gerakan. Jenis utama: sendi engsel (siku, lutut — gerak satu arah) dan sendi peluru (bahu, panggul — gerak segala arah).</p>
+
+    <h3>🧊 Model 3D interaktif — panggul &amp; femur</h3>
+    <div class="model3d-wrap">
+      <div id="skeleton3dContainer" class="model3d-canvas-wrap">
+        <div id="skeleton3dLoading" class="model3d-loading">Memuat model 3D…</div>
+        <div id="skeleton3dError" class="model3d-error" style="display:none">Model 3D gagal dimuat. Coba muat ulang halaman.</div>
+      </div>
+      <div class="model3d-info-panel">
+        <strong id="skeleton3dName">Klik bagian tulang untuk detail</strong>
+        <div id="skeleton3dDetail" class="model3d-detail-text">Putar dengan drag/geser, perbesar dengan scroll/pinch.</div>
+        <div id="skeleton3dKaigo" class="model3d-detail-text" style="margin-top:6px;font-style:italic"></div>
+      </div>
+      <div class="model3d-controls">
+        <button type="button" id="skeleton3dResetBtn" class="model3d-btn">↺ Reset kamera</button>
+        <button type="button" id="skeleton3dFractureBtn" class="model3d-btn">🚨 Simulasi Fraktur</button>
+      </div>
+      <div id="skeleton3dFractureText" class="info-card danger" style="display:none;margin-top:10px">
+        <strong>Saat dicurigai patah tulang leher femur:</strong>
+        <ol style="margin:6px 0 0;padding-left:20px;font-size:13px">
+          <li>Jangan paksa pengguna berdiri atau berjalan</li>
+          <li>Hindari menarik, memutar, atau meluruskan tungkai</li>
+          <li>Jaga posisi aman dan segera panggil perawat</li>
+          <li>Catat waktu, lokasi, mekanisme jatuh, nyeri, dan perubahan bentuk tungkai</li>
+        </ol>
+      </div>
+      <p class="model3d-disclaimer">Model edukatif bergaya sederhana untuk pembelajaran istilah anatomi — bukan untuk diagnosis, operasi, atau pengukuran klinis.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 生理 FISIOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-fisiologi">
+    <h2>生理 — Proses Remodeling Tulang</h2>
+    <p>Tulang terus-menerus diperbarui lewat keseimbangan dua jenis sel: <strong>osteoklas (破骨細胞, はこつさいぼう)</strong> yang memecah jaringan tulang lama, dan <strong>osteoblas (骨芽細胞, こつがさいぼう)</strong> yang membentuk jaringan tulang baru.</p>
+
+    <h3>🦴 Animasi remodeling tulang — interaktif</h3>
+    <div class="bone-wrap">
+      <svg width="100%" viewBox="0 0 300 180" role="img" aria-label="Animasi remodeling tulang: osteoklas memecah tulang lama, osteoblas membentuk tulang baru, menjaga kepadatan tulang">
+        <rect class="bn-bone" x="40" y="70" width="220" height="40" fill="#a8a29e" rx="8"/>
+        <circle class="bn-osteoclast" cx="90" cy="90" r="16" fill="#dc2626" opacity=".7"/>
+        <circle class="bn-osteoblast" cx="210" cy="90" r="16" fill="#0891b2" opacity=".7"/>
+        <text class="bn-th" x="90" y="55" text-anchor="middle">1</text>
+        <text class="bn-ts" x="90" y="42" text-anchor="middle">Osteoklas (memecah)</text>
+        <text class="bn-th" x="210" y="55" text-anchor="middle">2</text>
+        <text class="bn-ts" x="210" y="42" text-anchor="middle">Osteoblas (membentuk)</text>
+        <text class="bn-ts" x="150" y="140" text-anchor="middle">Kepadatan tulang (骨密度)</text>
+      </svg>
+      <div class="bone-legend">
+        <span><i class="bone-swatch" style="background:#dc2626"></i>Osteoklas (penyerapan)</span>
+        <span><i class="bone-swatch" style="background:#0891b2"></i>Osteoblas (pembentukan)</span>
+      </div>
+      <div class="bone-controls">
+        <button type="button" id="boneToggleBtn" class="bone-btn active">⏸ Jeda animasi</button>
+      </div>
+    </div>
+
+    <h3>Keseimbangan remodeling</h3>
+    <ul>
+      <li><strong>Masa muda</strong>: pembentukan tulang (osteoblas) lebih cepat dari penyerapan — kepadatan tulang meningkat hingga puncaknya di usia 20-30an</li>
+      <li><strong>Penuaan</strong>: penyerapan (osteoklas) mulai melebihi pembentukan — kepadatan tulang perlahan menurun</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Osteoporosis terjadi</strong> saat penyerapan tulang jauh melebihi pembentukan dalam waktu lama, membuat tulang menjadi rapuh dan berpori — bisa patah bahkan dari benturan ringan.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 加齢変化 PERUBAHAN PENUAAN ═══════════ -->
+  <div class="organ-panel" id="panel-penuaan">
+    <h2>加齢に伴う変化 — Perubahan Rangka Akibat Penuaan</h2>
+    <ul>
+      <li><strong>Kepadatan tulang menurun</strong> — terutama cepat pada wanita pasca-menopause akibat penurunan hormon estrogen</li>
+      <li><strong>Tulang belakang bisa mengalami kompresi bertahap</strong> — menyebabkan penurunan tinggi badan dan postur membungkuk</li>
+      <li><strong>Tulang rawan sendi menipis</strong> — berkontribusi pada nyeri sendi dan kekakuan (osteoartritis)</li>
+      <li><strong>Waktu penyembuhan patah tulang lebih lama</strong> dibanding usia muda</li>
+    </ul>
+    <div class="info-card warn">
+      <h3 style="margin-top:0">⚠️ Relevansi Kaigo</h3>
+      <p style="margin-bottom:0">Kombinasi tulang rapuh (osteoporosis) dan risiko jatuh (terkait sistem saraf/otot) menjelaskan kenapa pencegahan jatuh adalah prioritas utama Kaigo — patah tulang panggul pada lansia sering jadi titik balik menuju ketergantungan penuh.</p>
+    </div>
+
+    <h3>Modifikasi lingkungan sebagai pencegahan konkret</h3>
+    <p>Karena tulang yang rapuh membuat trauma RINGAN sekalipun berisiko patah serius, mengurangi kemungkinan jatuh itu sendiri menjadi strategi pencegahan yang sama pentingnya dengan menjaga kepadatan tulang. Area rumah yang sering jadi lokasi jatuh: kamar mandi (lantai licin), tangga (pencahayaan kurang), dan area dengan karpet/kabel yang bisa membuat tersandung.</p>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Langkah praktis yang bisa dibantu caregiver:</strong> memastikan pencahayaan cukup terutama jalur ke kamar mandi malam hari, memasang pegangan di area berisiko, merapikan kabel/karpet yang bisa membuat tersandung, dan alas kaki yang tidak licin — perubahan sederhana ini sering memberi dampak besar mengurangi risiko jatuh dibanding hanya berfokus pada faktor kesehatan tulang semata.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 疾患 PENYAKIT ═══════════ -->
+  <div class="organ-panel" id="panel-penyakit">
+    <h2>疾患 — Kondisi Rangka Umum pada Lansia</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">骨粗鬆症 (こつそしょうしょう) — Osteoporosis</h3>
+      <p style="margin-bottom:0">Tulang menjadi rapuh dan berpori akibat penyerapan tulang melebihi pembentukan, sangat meningkatkan risiko patah tulang. Sering disebut "penyakit diam-diam" karena tidak menimbulkan gejala jelas sampai terjadi patah tulang — inilah kenapa pencegahan jatuh dan menjaga kesehatan tulang (kalsium, vitamin D, aktivitas menahan beban) menjadi prioritas, bukan menunggu gejala muncul.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">大腿骨頸部骨折 (だいたいこつけいぶこっせつ) — Patah Tulang Leher Femur</h3>
+      <p style="margin-bottom:0">Patah tulang di bagian atas tulang paha, salah satu cedera PALING SERIUS pada lansia — sering butuh operasi dan berdampak besar pada mobilitas jangka panjang. PENTING dipahami: risiko terbesar bukan hanya dari patah tulang itu sendiri, tapi dari KOMPLIKASI selama pemulihan (imobilisasi lama meningkatkan risiko pneumonia, sindrom disuse, pembekuan darah) — inilah kenapa mobilisasi dini pasca-operasi (sesuai arahan medis) sangat ditekankan, bukan istirahat total berkepanjangan.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">変形性関節症 (へんけいせいかんせつしょう) — Osteoartritis</h3>
+      <p style="margin-bottom:0">Kerusakan tulang rawan sendi akibat pemakaian bertahun-tahun, menyebabkan nyeri dan kekakuan sendi, umum di lutut dan panggul. Berbeda dari rheumatoid arthritis (dibahas di materi Otot) yang bersifat AUTOIMUN dan sering simetris dengan kekakuan pagi lama, osteoartritis lebih terkait "pemakaian" bertahap, biasanya memburuk dengan AKTIVITAS dan membaik dengan ISTIRAHAT — pembeda pola ini membantu membedakan kedua kondisi.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">脊椎圧迫骨折 (せきついあっぱくこっせつ) — Patah Kompresi Tulang Belakang</h3>
+      <p style="margin-bottom:0">Tulang belakang "menciut" akibat tekanan pada tulang yang sudah rapuh, bisa terjadi TANPA jatuh sama sekali pada osteoporosis berat — misalnya hanya dari mengangkat benda ringan atau gerakan membungkuk biasa. Karena tidak selalu didahului trauma jelas, kondisi ini kadang terlewat dan disalahartikan sebagai "sakit punggung biasa karena usia" — nyeri punggung baru yang signifikan pada lansia dengan risiko osteoporosis tetap perlu dievaluasi meski tidak ada riwayat jatuh.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 症状 GEJALA ═══════════ -->
+  <div class="organ-panel" id="panel-gejala">
+    <h2>症状 — Gejala yang Perlu Diwaspadai</h2>
+    <ul>
+      <li><strong>腰痛 (ようつう)</strong> — Nyeri punggung bawah, bisa tanda kompresi tulang belakang</li>
+      <li><strong>身長が縮む</strong> — Tinggi badan berkurang seiring waktu (tanda osteoporosis tulang belakang)</li>
+      <li><strong>猫背 (ねこぜ)</strong> — Postur membungkuk</li>
+      <li><strong>関節の痛みとこわばり</strong> — Nyeri dan kekakuan sendi, terutama pagi hari</li>
+      <li><strong>転倒後の強い痛みと変形</strong> — Nyeri hebat dan bentuk tidak normal setelah jatuh — WASPADA patah tulang</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">🚨 Kapan ini darurat?</h3>
+      <p style="margin-bottom:0">Setelah jatuh, jika ada nyeri hebat, tidak bisa berdiri/menahan beban di kaki, atau bentuk tungkai tampak tidak normal (memendek/berputar) — WASPADA patah tulang leher femur, segera cari bantuan medis, JANGAN memaksa untuk bergerak/berdiri.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 観察 OBSERVASI ═══════════ -->
+  <div class="organ-panel" id="panel-observasi">
+    <h2>観察 — Poin Observasi Caregiver</h2>
+    <p>Observasi rutin membantu deteksi bertahap risiko osteoporosis/deformitas maupun catatan penting pasca-kejadian jatuh.</p>
+
+    <h3>Observasi perubahan bertahap (risiko osteoporosis)</h3>
+    <ul>
+      <li><strong>姿勢の変化</strong> — Perubahan postur (membungkuk bertambah dari waktu ke waktu) — bisa jadi tanda patah kompresi tulang belakang yang berkembang bertahap, bahkan tanpa nyeri hebat</li>
+      <li><strong>身長の変化</strong> — Perubahan tinggi badan — penurunan bertahap yang cukup signifikan dari waktu ke waktu adalah salah satu tanda tersembunyi osteoporosis tulang belakang</li>
+      <li><strong>関節の腫れや変形</strong> — Bengkak atau perubahan bentuk sendi — perhatikan apakah muncul mendadak (mengarah ke cedera akut) atau bertahap (mengarah ke osteoartritis)</li>
+    </ul>
+
+    <h3>Observasi terkait risiko dan kejadian jatuh</h3>
+    <ul>
+      <li><strong>転倒歴</strong> — Riwayat jatuh, seberapa sering dan bagaimana kejadiannya. Catat detail penting: posisi terjatuh, apakah ada nyeri langsung setelahnya, dan berapa lama (jika pernah) tergeletak sebelum dibantu — detail terakhir ini penting untuk menilai risiko komplikasi seperti rhabdomiolisis (dibahas di materi Otot Lanjutan)</li>
+      <li><strong>歩行時の様子</strong> — Cara berjalan, ada tidaknya keluhan nyeri saat bergerak. Perubahan pola berjalan yang BARU MUNCUL setelah kejadian jatuh (meski tampak ringan) perlu dievaluasi, karena patah tulang tertentu bisa tidak langsung terlihat jelas</li>
+    </ul>
+
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Prinsip pencatatan:</strong> nyeri yang MUNCUL BARU atau MEMBURUK setelah jatuh — bahkan jatuh yang tampak "ringan" — sebaiknya tidak langsung dianggap memar biasa pada lansia dengan risiko osteoporosis, karena patah tulang kompresi bisa terjadi dari trauma minimal.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 介護 PERAWATAN ═══════════ -->
+  <div class="organ-panel" id="panel-perawatan">
+    <h2>介護 — Tindakan Perawatan Kaigo</h2>
+    <h3>Pencegahan patah tulang</h3>
+    <ul>
+      <li>Terapkan pencegahan jatuh secara ketat (lihat juga Sistem Saraf) — lingkungan aman, pencahayaan cukup, pendampingan mobilisasi</li>
+      <li>Dukung asupan kalsium dan vitamin D sesuai anjuran ahli gizi/dokter</li>
+      <li>Dorong aktivitas menahan beban ringan (seperti berjalan) sesuai kemampuan untuk menjaga kepadatan tulang</li>
+    </ul>
+    <h3>Jika terjadi jatuh</h3>
+    <ul>
+      <li>Jangan buru-buru memindahkan/mendudukkan korban jatuh sebelum menilai kondisi</li>
+      <li>Amati tanda nyeri hebat, ketidakmampuan bergerak, atau bentuk tubuh tidak normal</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">📞 Kapan harus melapor/panggil darurat?</h3>
+      <ul style="margin-bottom:0">
+        <li>Jatuh disertai nyeri hebat atau tidak bisa menahan beban tubuh → SEGERA, jangan paksa bergerak</li>
+        <li>Bentuk tungkai/sendi tampak tidak normal setelah jatuh</li>
+        <li>Nyeri punggung baru yang hebat, terutama pada penderita osteoporosis</li>
+        <li>Penurunan tinggi badan yang signifikan dan cepat</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════ 用語 KOSAKATA ═══════════ -->
+  <div class="organ-panel" id="panel-kosakata">
+    <h2>用語 — Kosakata Jepang Sistem Rangka</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">骨</td><td>ほね</td><td>Tulang</td><td>Bone</td></tr>
+        <tr><td class="jp">関節</td><td>かんせつ</td><td>Sendi</td><td>Joint</td></tr>
+        <tr><td class="jp">骨折</td><td>こっせつ</td><td>Patah tulang</td><td>Fracture</td></tr>
+        <tr><td class="jp">骨粗鬆症</td><td>こつそしょうしょう</td><td>Osteoporosis</td><td>Osteoporosis</td></tr>
+        <tr><td class="jp">転倒</td><td>てんとう</td><td>Jatuh</td><td>Fall</td></tr>
+        <tr><td class="jp">腰痛</td><td>ようつう</td><td>Nyeri punggung bawah</td><td>Lower back pain</td></tr>
+        <tr><td class="jp">大腿骨</td><td>だいたいこつ</td><td>Tulang paha</td><td>Femur</td></tr>
+        <tr><td class="jp">脊椎</td><td>せきつい</td><td>Tulang belakang</td><td>Spine</td></tr>
+        <tr><td class="jp">猫背</td><td>ねこぜ</td><td>Postur membungkuk</td><td>Hunched posture</td></tr>
+        <tr><td class="jp">骨密度</td><td>こつみつど</td><td>Kepadatan tulang</td><td>Bone density</td></tr>
+        <tr><td class="jp">大腿骨頸部骨折</td><td>だいたいこつけいぶこっせつ</td><td>Patah tulang leher femur</td><td>Femoral neck fracture</td></tr>
+        <tr><td class="jp">変形性関節症</td><td>へんけいせいかんせつしょう</td><td>Osteoartritis</td><td>Osteoarthritis</td></tr>
+        <tr><td class="jp">脊椎圧迫骨折</td><td>せきついあっぱくこっせつ</td><td>Patah kompresi tulang belakang</td><td>Vertebral compression fracture</td></tr>
+        <tr><td class="jp">早期離床</td><td>そうきりしょう</td><td>Mobilisasi dini</td><td>Early mobilization</td></tr>
+        <tr><td class="jp">手すり</td><td>てすり</td><td>Pegangan (di dinding)</td><td>Handrail</td></tr>
+        <tr><td class="jp">床の滑りやすさ</td><td>ゆかのすべりやすさ</td><td>Lantai licin</td><td>Slippery floor</td></tr>
+        <tr><td class="jp">カルシウム</td><td>かるしうむ</td><td>Kalsium</td><td>Calcium</td></tr>
+        <tr><td class="jp">ビタミンD</td><td>びたみんでぃー</td><td>Vitamin D</td><td>Vitamin D</td></tr>
+        <tr><td class="jp">股関節</td><td>こかんせつ</td><td>Sendi panggul</td><td>Hip joint</td></tr>
+        <tr><td class="jp">軟骨</td><td>なんこつ</td><td>Tulang rawan</td><td>Cartilage</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis</h3>
+    <div class="clinical-sentence">
+      <div class="jp">転倒後、足に強い痛みを訴えています。</div>
+      <div class="id">Setelah jatuh, mengeluh nyeri hebat di kaki.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">最近、身長が縮んだ気がします。</div>
+      <div class="id">Akhir-akhir ini merasa tinggi badannya berkurang.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">立つことができません。</div>
+      <div class="id">Tidak bisa berdiri.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia wanita dengan riwayat osteoporosis terjatuh di kamar mandi. Ia mengeluh nyeri hebat di area pinggul kanan dan tidak bisa berdiri atau menahan beban di kaki kanan sama sekali. Kaki kanan tampak sedikit lebih pendek dan memutar ke luar dibanding kaki kiri.
+      </div>
+      <div class="case-question">
+        <label>1. Sistem tubuh mana yang kemungkinan besar bermasalah?</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Sistem rangka</option>
+          <option value="wrong">Sistem urinaria</option>
+          <option value="wrong">Sistem endokrin</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Kombinasi gejala ini (nyeri hebat + tidak bisa menahan beban + kaki memendek/memutar setelah jatuh) paling mengarah ke:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Kram otot biasa</option>
+          <option value="correct">Patah tulang leher femur (大腿骨頸部骨折)</option>
+          <option value="wrong">Osteoartritis ringan</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan caregiver yang PALING tepat sekarang:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Memaksa membantunya berdiri untuk memastikan seberapa parah</option>
+          <option value="correct">Jangan gerakkan, segera cari bantuan medis</option>
+          <option value="wrong">Menyuruhnya beristirahat dan melihat perkembangannya besok</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+// v204: Model 3D panggul & femur -- diintegrasikan dari file yang disediakan
+// pengguna (skeleton_hip_3d_kaigo_package.zip). Semua pelajaran dari
+// integrasi sebelumnya (Jantung v191, Otak v202, Paru-paru v203) diterapkan
+// LANGSUNG sejak kode ini pertama ditulis: import map, ResizeObserver,
+// normalisasi underscore->spasi untuk nama node GLTFLoader.
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+(async function () {
+  const container = document.getElementById('skeleton3dContainer');
+  const loadingEl = document.getElementById('skeleton3dLoading');
+  const errorEl = document.getElementById('skeleton3dError');
+  const nameEl = document.getElementById('skeleton3dName');
+  const detailEl = document.getElementById('skeleton3dDetail');
+  const kaigoEl = document.getElementById('skeleton3dKaigo');
+  if (!container) return;
+
+  function showError(msg) {
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (errorEl) { errorEl.style.display = 'flex'; errorEl.textContent = msg; }
+    console.warn('[Skeleton 3D Viewer]', msg);
+  }
+
+  if (!window.WebGLRenderingContext) {
+    showError('Browser Anda tidak mendukung WebGL -- model 3D tidak dapat ditampilkan. Fitur lain di halaman ini tetap berfungsi normal.');
+    return;
+  }
+
+  let metadata = {};
+  try {
+    const res = await fetch('../assets/models/skeleton/hip-data.json');
+    metadata = await res.json();
+  } catch (err) {
+    console.warn('[Skeleton 3D Viewer] Metadata gagal dimuat, label akan pakai nama mesh mentah:', err);
+  }
+
+  try {
+    const FALLBACK_W = 560, FALLBACK_H = 360;
+    let width = container.clientWidth || FALLBACK_W;
+    let height = container.clientHeight || FALLBACK_H;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    const defaultCamPos = { x: 4.8, y: 3.1, z: 6.3 };
+    camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, 0, -0.7);
+    controls.minDistance = 3.5;
+    controls.maxDistance = 11;
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(function (entries) {
+        for (const entry of entries) {
+          const w = entry.contentRect.width, h = entry.contentRect.height;
+          if (w > 0 && h > 0 && (w !== width || h !== height)) {
+            width = w; height = h;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+          }
+        }
+      });
+      resizeObserver.observe(container);
+    }
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x66758b, 2.5));
+    const key = new THREE.DirectionalLight(0xffffff, 2.7); key.position.set(5, 7, 8); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xc8dcff, 1.3); rim.position.set(-5, 2, -5); scene.add(rim);
+
+    let skeleton = null, fractureMode = false, selected = null, fractureMesh = null;
+    const selectable = [];
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+
+    // Nama asli dari GLTFLoader pakai underscore (pelajaran v202) --
+    // "Garis Fraktur Leher Femur" jadi "Garis_Fraktur_Leher_Femur".
+    function rawNameOf(n) { return (n || '').replace(/ /g, '_'); }
+
+    new GLTFLoader().load(
+      '../assets/models/skeleton/hip_femur_educational.glb',
+      function (gltf) {
+        skeleton = gltf.scene;
+        gltf.scene.traverse(function (o) {
+          if (!o.isMesh) return;
+          o.material = o.material.clone();
+          o.material.roughness = 0.58; o.material.metalness = 0;
+          o.userData.baseColor = o.material.color.clone();
+          o.userData.baseEmissive = o.material.emissive.clone();
+          if (o.name === rawNameOf('Garis Fraktur Leher Femur')) {
+            fractureMesh = o;
+            o.visible = false; // tersembunyi default -- hanya muncul saat simulasi fraktur aktif
+          }
+          selectable.push(o);
+        });
+        scene.add(skeleton);
+        if (loadingEl) loadingEl.style.display = 'none';
+      },
+      undefined,
+      function (err) {
+        showError('Model 3D gagal dimuat. Coba muat ulang halaman -- fitur lain tetap berfungsi normal.');
+      }
+    );
+
+    function labelFor(rawName) {
+      const name = (rawName || '').replace(/_/g, ' ');
+      const m = metadata[name];
+      if (!m) return { title: name || 'Bagian tidak dikenal', detail: 'Metadata tidak tersedia untuk bagian ini.', kaigo: '' };
+      return { title: name + '（' + m.jp + '） ' + m.en, detail: m.function, kaigo: '介護ポイント: ' + m.kaigo };
+    }
+
+    renderer.domElement.addEventListener('pointerdown', function (e) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const visibleSelectable = selectable.filter(function (o) { return o.visible; });
+      const hit = raycaster.intersectObjects(visibleSelectable, false)[0];
+      if (!hit) return;
+      selectPart(hit.object);
+    });
+
+    function selectPart(obj) {
+      if (selected) selected.scale.setScalar(1);
+      selected = obj;
+      obj.scale.setScalar(1.055);
+      const name = obj.name || (obj.parent && obj.parent.name) || 'unknown';
+      const label = labelFor(name);
+      if (nameEl) nameEl.textContent = label.title;
+      if (detailEl) detailEl.textContent = label.detail;
+      if (kaigoEl) kaigoEl.textContent = label.kaigo;
+    }
+
+    const resetBtn = document.getElementById('skeleton3dResetBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+        controls.target.set(0, 0, -0.7);
+        controls.update();
+      });
+    }
+
+    // Simulasi fraktur: menyorot leher/kepala/trokanter femur kanan +
+    // menampilkan garis fraktur -- menghubungkan visual 3D dengan skenario
+    // patah tulang leher femur yang sudah dijelaskan di tab 症例 halaman ini.
+    const fractureBtn = document.getElementById('skeleton3dFractureBtn');
+    const fractureTextEl = document.getElementById('skeleton3dFractureText');
+    if (fractureBtn) {
+      const affectedRaw = ['Leher Femur Kanan', 'Kepala Femur Kanan', 'Trokanter Mayor Kanan'].map(rawNameOf);
+      fractureBtn.addEventListener('click', function () {
+        fractureMode = !fractureMode;
+        fractureBtn.classList.toggle('active', fractureMode);
+        fractureBtn.textContent = fractureMode ? '✅ Matikan Simulasi' : '🚨 Simulasi Fraktur';
+        if (fractureTextEl) fractureTextEl.style.display = fractureMode ? 'block' : 'none';
+        if (fractureMesh) fractureMesh.visible = fractureMode;
+        selectable.forEach(function (o) {
+          const n = o.name || '';
+          if (fractureMode && affectedRaw.includes(n)) {
+            o.material.color.set(n === rawNameOf('Leher Femur Kanan') ? 0xd53b3b : 0xe89b82);
+            o.material.emissive.set(0x330000);
+          } else if (n !== rawNameOf('Garis Fraktur Leher Femur')) {
+            o.material.color.copy(o.userData.baseColor);
+            o.material.emissive.copy(o.userData.baseEmissive);
+          }
+        });
+        if (fractureMode && fractureMesh) selectPart(fractureMesh);
+      });
+    }
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  } catch (err) {
+    showError('Terjadi kesalahan saat menyiapkan viewer 3D -- fitur lain tetap berfungsi normal.');
+  }
+})();
+</script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var boneBtn = document.getElementById('boneToggleBtn');
+  if (boneBtn) {
+    boneBtn.addEventListener('click', function () {
+      var svg = document.querySelector('.bone-wrap svg');
+      var elements = svg.querySelectorAll('.bn-osteoclast, .bn-osteoblast, .bn-bone');
+      var paused = boneBtn.dataset.paused === 'true';
+      if (!paused) {
+        elements.forEach(function (el) { el.style.animationPlayState = 'paused'; });
+        boneBtn.textContent = '▶ Lanjutkan animasi';
+        boneBtn.dataset.paused = 'true';
+      } else {
+        elements.forEach(function (el) { el.style.animationPlayState = 'running'; });
+        boneBtn.textContent = '⏸ Jeda animasi';
+        boneBtn.dataset.paused = 'false';
+      }
+    });
+  }
+
+  var MINI_Q = [
+    { q: 'Sel yang memecah jaringan tulang lama disebut?', opts: ['Osteoblas', 'Osteoklas', 'Osteosit'], a: 1 },
+    { q: 'Tulang yang paling sering patah serius pada lansia akibat jatuh adalah?', opts: ['Tulang jari', 'Leher tulang paha (femur)', 'Tulang rusuk'], a: 1 },
+    { q: 'Setelah jatuh dengan nyeri hebat dan tidak bisa menahan beban, tindakan yang benar adalah?', opts: ['Memaksa berdiri untuk cek separah apa', 'Jangan gerakkan, cari bantuan medis segera', 'Menyuruh istirahat semalam dulu'], a: 1 },
+    { q: 'Risiko terbesar pasca-patah tulang leher femur bukan hanya dari patahnya sendiri, tapi dari?', opts: ['Komplikasi selama pemulihan seperti pneumonia dan sindrom disuse akibat imobilisasi lama', 'Warna kulit di sekitar area patah', 'Suhu ruangan saat pemulihan'], a: 0 },
+    { q: 'Perbedaan pola nyeri yang membantu membedakan osteoartritis adalah nyeri yang cenderung?', opts: ['Memburuk dengan aktivitas dan membaik dengan istirahat', 'Selalu konstan tanpa dipengaruhi aktivitas', 'Hanya muncul di pagi hari saja'], a: 0 },
+    { q: 'Patah kompresi tulang belakang pada osteoporosis berat bisa terjadi?', opts: ['Hanya dari jatuh dengan benturan keras', 'Bahkan tanpa jatuh sama sekali, dari trauma minimal seperti mengangkat benda ringan', 'Tidak pernah terjadi tanpa kecelakaan besar'], a: 1 },
+    { q: 'Nyeri punggung baru yang signifikan pada lansia berisiko osteoporosis sebaiknya disikapi dengan?', opts: ['Selalu dianggap sakit punggung biasa karena usia', 'Tetap dievaluasi meski tidak ada riwayat jatuh', 'Diabaikan jika tidak disertai riwayat trauma'], a: 1 },
+    { q: 'Selain menjaga kepadatan tulang, strategi pencegahan patah tulang yang sama pentingnya adalah?', opts: ['Mengurangi kemungkinan jatuh lewat modifikasi lingkungan rumah', 'Menghindari semua aktivitas fisik sama sekali', 'Tidak ada strategi lain selain suplemen'], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Nyeri hebat + tidak bisa menahan beban + kaki memendek/memutar setelah jatuh pada penderita osteoporosis adalah tanda klasik <strong>patah tulang leher femur (大腿骨頸部骨折)</strong> — salah satu cedera paling serius pada lansia. JANGAN memaksa bergerak (bisa memperparah cedera), segera cari bantuan medis.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: perhatikan kombinasi tanda fisik yang SANGAT SPESIFIK di sini (kaki memendek dan memutar, tidak bisa menahan beban sama sekali) — ini bukan sekadar memar atau kram, tapi tanda cedera tulang serius yang butuh penanganan medis segera TANPA memaksa pergerakan lebih lanjut.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

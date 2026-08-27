@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+<script src="../assets/dark-mode-toggle.js"></script>
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7f4ed">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Dashboard privat NihonggoPro untuk memantau target, progres JLPT, review, XP, dan aktivitas belajar.">
+  <title>Smart Learning Dashboard — NihonggoPro</title>
+  <link rel="icon" type="image/svg+xml" href="../assets/icon-192.svg">
+  <link rel="manifest" href="../manifest.json">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/dashboard-v86.css?v=86">
+  <script src="../assets/env.js" defer></script>
+  <script src="../assets/supabase-client.js" defer></script>
+  <script src="../assets/np-xp.js?v=86" defer></script>
+  <script src="../assets/dashboard-catalog-v86.js?v=86" defer></script>
+  <script src="../assets/dashboard-v86.js?v=86" defer></script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"NihonggoPro Smart Learning Dashboard","applicationCategory":"EducationalApplication","inLanguage":"id"}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Lewati ke konten utama</a>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Navigasi dashboard">
+      <a class="brand" href="../index.html" aria-label="NihonggoPro beranda">
+        <span class="brand-mark" aria-hidden="true">日</span>
+        <span><strong>NihonggoPro</strong><small>Smart Learning</small></span>
+      </a>
+      <nav class="side-nav">
+        <p class="nav-label">Ruang belajar</p>
+        <a class="is-active" href="Dashboard.html" aria-current="page"><span aria-hidden="true">⌂</span> Ringkasan</a>
+        <a href="../Materi/Materi.html"><span aria-hidden="true">本</span> Materi</a>
+        <a href="../SRS-Flashcard.html"><span aria-hidden="true">復</span> Smart Review <b id="navDueBadge" hidden>0</b></a>
+        <a href="../Analytics.html"><span aria-hidden="true">分</span> Analitik</a>
+        <p class="nav-label">Latihan</p>
+        <a href="../JLPT-CBT.html"><span aria-hidden="true">試</span> JLPT CBT</a>
+        <a href="../AI-Tutor-Pro.html"><span aria-hidden="true">先</span> AI Tutor</a>
+        <a href="../Speaking-AI.html"><span aria-hidden="true">話</span> Speaking</a>
+      </nav>
+      <div class="sidebar-profile">
+        <div class="avatar avatar-sm" id="sideAvatar" aria-hidden="true">P</div>
+        <div><strong id="sideName">Peserta</strong><span id="sideMeta">Level 1</span></div>
+        <a href="../Profil.html" aria-label="Buka profil">›</a>
+      </div>
+    </aside>
+
+    <div class="page-column">
+      <header class="topbar">
+        <button class="mobile-menu" id="mobileMenu" type="button" aria-label="Buka navigasi" aria-expanded="false">☰</button>
+        <a class="mobile-brand" href="../index.html"><span aria-hidden="true">日</span> NihonggoPro</a>
+        <nav class="top-actions" aria-label="Tindakan akun">
+          <button class="icon-button" id="themeToggle" type="button" aria-label="Ganti tema">◐</button>
+          <a class="profile-link" href="../Profil.html"><span class="avatar avatar-xs" id="topAvatar" aria-hidden="true">P</span><span id="topName">Peserta</span></a>
+        </nav>
+      </header>
+
+      <main id="main-content" tabindex="-1">
+        <div id="dashboardStatus" class="sr-only" role="status" aria-live="polite"></div>
+
+        <section class="welcome-panel" aria-labelledby="welcomeTitle">
+          <div class="welcome-copy">
+            <p class="eyebrow" id="localDate">Hari ini</p>
+            <h1 id="welcomeTitle"><span class="skeleton skeleton-text"></span></h1>
+            <p id="welcomeSubtitle">Menyiapkan rencana belajar Anda…</p>
+            <div class="welcome-actions">
+              <a class="button button-primary" id="continuePrimary" href="../Materi/Materi.html">Lanjutkan belajar <span aria-hidden="true">→</span></a>
+              <a class="button button-soft" href="../SRS-Flashcard.html"><span id="heroDue">0</span> kartu perlu review</a>
+            </div>
+          </div>
+          <div class="profile-summary">
+            <div class="avatar avatar-lg" id="heroAvatar" aria-hidden="true">P</div>
+            <div><span>Target aktif</span><strong id="targetLevel">N5</strong></div>
+            <div><span>Total XP</span><strong id="heroXP">0</strong></div>
+            <div><span>Level</span><strong id="heroLevel">1</strong></div>
+          </div>
+        </section>
+
+        <section class="priority-grid" aria-label="Prioritas belajar hari ini">
+          <article class="card daily-card">
+            <div class="section-heading">
+              <div><p class="eyebrow">Fokus hari ini</p><h2>Daily Goal</h2></div>
+              <button class="text-button" id="editGoals" type="button">Atur target</button>
+            </div>
+            <div class="goal-overview">
+              <div class="goal-ring" id="goalRing" role="img" aria-label="Target harian 0 persen"><strong id="goalPercent">0%</strong><span>selesai</span></div>
+              <div><strong id="goalSummary">0 dari 7 target</strong><p id="goalEncouragement">Mulai dari satu langkah kecil.</p></div>
+            </div>
+            <div id="dailyGoalList" class="goal-list" aria-busy="true"></div>
+          </article>
+
+          <div class="priority-stack">
+            <article class="card streak-card">
+              <div class="section-heading">
+                <div><p class="eyebrow">Konsistensi</p><h2>Study Streak</h2></div>
+                <span class="status-pill" id="todayStreakStatus">Belum aktif</span>
+              </div>
+              <div class="streak-numbers"><div><strong id="currentStreak">0</strong><span>hari sekarang</span></div><div><strong id="bestStreak">0</strong><span>rekor terbaik</span></div></div>
+              <div class="week-strip" id="weekStrip" aria-label="Aktivitas tujuh hari terakhir"></div>
+              <p class="card-note" id="streakDeadline">Selesaikan satu aktivitas hari ini untuk memulai streak.</p>
+            </article>
+
+            <article class="card xp-card">
+              <div class="section-heading"><div><p class="eyebrow">Pertumbuhan</p><h2>XP & Level</h2></div><span class="level-chip" id="levelChip">Lv. 1</span></div>
+              <div class="xp-total"><strong id="xpTotal">0 XP</strong><span id="xpToday">+0 hari ini</span></div>
+              <div class="progress-track" role="progressbar" aria-label="XP menuju level berikutnya" aria-valuemin="0" aria-valuemax="500" aria-valuenow="0" id="xpProgress"><span id="xpProgressFill"></span></div>
+              <div class="progress-caption"><span id="xpInLevel">0 / 500 XP</span><span id="xpRemaining">500 XP lagi</span></div>
+              <ul class="activity-mini" id="xpHistory"></ul>
+            </article>
+          </div>
+        </section>
+
+        <section class="content-grid">
+          <article class="card continue-card">
+            <div class="section-heading"><div><p class="eyebrow">Kembali ke jalur</p><h2>Lanjutkan Belajar</h2></div><a href="../Materi/Materi.html">Semua materi</a></div>
+            <div id="continueLearning" class="continue-list"></div>
+          </article>
+
+          <article class="card review-card">
+            <div class="section-heading"><div><p class="eyebrow">Prioritas otomatis</p><h2>Smart Review</h2></div><a href="../SRS-Flashcard.html">Lihat semua</a></div>
+            <div id="smartReview" class="review-list"></div>
+            <a class="button button-primary button-block" id="startReview" href="../SRS-Flashcard.html">Mulai review</a>
+          </article>
+        </section>
+
+        <section class="card jlpt-card" aria-labelledby="jlptTitle">
+          <div class="section-heading"><div><p class="eyebrow">Kurikulum</p><h2 id="jlptTitle">Progress JLPT N5–N1</h2></div><span class="data-note">Dihitung dari progres materi tersimpan</span></div>
+          <div class="jlpt-tabs" id="jlptTabs" role="tablist" aria-label="Level JLPT"></div>
+          <div id="jlptPanel" role="tabpanel" tabindex="0"></div>
+        </section>
+
+        <section class="content-grid recommendation-grid">
+          <article class="card recommendation-card">
+            <div class="section-heading"><div><p class="eyebrow">Berdasarkan data Anda</p><h2>Rekomendasi Belajar</h2></div><button class="icon-button compact" id="refreshRecommendations" type="button" aria-label="Segarkan rekomendasi">↻</button></div>
+            <div id="recommendationList" class="recommendation-list"></div>
+          </article>
+
+          <article class="card schedule-card">
+            <div class="section-heading"><div><p class="eyebrow">Agenda</p><h2>Jadwal Mendatang</h2></div><a href="../Kelas-Online.html">Kelola</a></div>
+            <div id="upcomingSchedule"></div>
+          </article>
+        </section>
+
+        <section class="card analytics-card" aria-labelledby="weeklyTitle">
+          <div class="section-heading chart-heading"><div><p class="eyebrow">Tujuh hari terakhir</p><h2 id="weeklyTitle">Statistik Mingguan</h2></div><div class="chart-legend"><span><i class="legend-minutes"></i> Menit</span><span><i class="legend-xp"></i> XP</span></div></div>
+          <div class="weekly-kpis" id="weeklyKpis"></div>
+          <div id="weeklyChart" class="weekly-chart" role="img" aria-label="Grafik menit belajar dan XP tujuh hari terakhir"></div>
+        </section>
+
+        <section class="card heatmap-card" aria-labelledby="heatmapTitle">
+          <div class="section-heading"><div><p class="eyebrow">90 hari terakhir</p><h2 id="heatmapTitle">Activity Heatmap</h2></div><div class="heat-legend" aria-label="Legenda intensitas"><span>Rendah</span><i data-level="0"></i><i data-level="1"></i><i data-level="2"></i><i data-level="3"></i><i data-level="4"></i><span>Tinggi</span></div></div>
+          <div class="heatmap-scroll" tabindex="0" aria-label="Peta aktivitas dapat digulir mendatar"><div class="heatmap" id="activityHeatmap"></div></div>
+        </section>
+
+        <section class="card league-card" aria-labelledby="leagueTitle">
+          <div class="section-heading"><div><p class="eyebrow">Kompetisi mingguan</p><h2 id="leagueTitle">Liga Anda</h2></div></div>
+          <div id="leagueWidget"></div>
+        </section>
+
+        <section class="card skills-card" aria-labelledby="skillsTitle">
+          <div class="section-heading"><div><p class="eyebrow">Analisis performa</p><h2 id="skillsTitle">Kekuatan &amp; Kelemahan</h2></div></div>
+          <div id="weakSkills"></div>
+        </section>
+
+        <section class="card kaigo-card" aria-labelledby="kaigoTitle">
+          <div class="section-heading"><div><p class="eyebrow">Jalur perawatan · 介護</p><h2 id="kaigoTitle">Progress Kaigo</h2></div><a class="button button-soft" href="../Materi/Kaigo.html">Buka Hub Kaigo</a></div>
+          <div id="kaigoProgress"></div>
+        </section>
+
+        <section class="quick-section" aria-labelledby="quickTitle">
+          <div class="section-heading"><div><p class="eyebrow">Mulai cepat</p><h2 id="quickTitle">Quick Actions</h2></div></div>
+          <div class="quick-grid" id="quickActions"></div>
+        </section>
+      </main>
+
+      <footer class="dashboard-footer"><span>Data belajar tersimpan aman di perangkat dan disinkronkan saat Anda login.</span><a href="../Privacy.html">Privasi</a></footer>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Navigasi seluler">
+    <a class="is-active" href="Dashboard.html" aria-current="page"><span aria-hidden="true">⌂</span>Beranda</a>
+    <a href="../Materi/Materi.html"><span aria-hidden="true">本</span>Materi</a>
+    <a href="../SRS-Flashcard.html"><span aria-hidden="true">復</span>Review</a>
+    <a href="../Profil.html"><span aria-hidden="true">人</span>Profil</a>
+  </nav>
+
+  <dialog id="goalDialog" class="goal-dialog" aria-labelledby="goalDialogTitle">
+    <form method="dialog" id="goalForm">
+      <div class="dialog-heading"><div><p class="eyebrow">Personalisasi</p><h2 id="goalDialogTitle">Atur target harian</h2></div><button class="icon-button" value="cancel" aria-label="Tutup">×</button></div>
+      <p class="dialog-copy">Target disimpan di perangkat ini dan tetap dapat digunakan tanpa login.</p>
+      <div id="goalFields" class="goal-fields"></div>
+      <div class="dialog-actions"><button class="button button-soft" value="cancel">Batal</button><button class="button button-primary" id="saveGoals" value="default">Simpan target</button></div>
+    </form>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">Dashboard membutuhkan JavaScript. Materi tetap dapat dibuka melalui <a href="../Materi/Materi.html">pusat materi</a>.</div></noscript>
+<script src="../assets/anime-theme.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<button id="npDarkToggle" aria-label="Ganti mode gelap/terang" title="Mode gelap/terang" class="np-dark-toggle-btn" style="position:fixed;bottom:20px;left:20px;z-index:900;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--border-mid,rgba(107,79,58,.18));background:var(--surface,#fff);color:var(--ink,#2d2d2d);font-size:20px;cursor:pointer;box-shadow:var(--shadow-md,0 8px 28px rgba(0,0,0,.1));transition:transform .2s"
+  onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'"
+  onclick="window.NPDark && window.NPDark.toggle(); this.textContent = (window.NPDark.isDarkActive()?'☀️':'🌙');">🌙</button>
+<script>
+(function(){
+  var b=document.getElementById('npDarkToggle');
+  if(!b) return;
+  function sync(){ b.textContent = (window.NPDark && window.NPDark.isDarkActive()) ? '☀️' : '🌙'; }
+  document.addEventListener('np-dark-change', sync);
+  document.addEventListener('DOMContentLoaded', sync);
+  sync();
+})();
+</script>
+</body>
+</html>

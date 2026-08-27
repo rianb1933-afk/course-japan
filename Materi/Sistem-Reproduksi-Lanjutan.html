@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#3b0764">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>生殖器系（上級）Reproduksi Lanjutan — Komplikasi Bedah &amp; Onkologi Dasar untuk Calon Perawat | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Reproduksi Lanjutan — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Reproduksi-Lanjutan.html","description":"Pembelajaran tingkat lanjutan sistem reproduksi dalam bahasa Jepang — komplikasi bedah prostat, dasar onkologi ginekologi dan prostat, farmakologi hormon mendalam, dan terminologi onkologi-geriatri untuk calon perawat dan tenaga medis.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Materi tingkat lanjutan sistem reproduksi — komplikasi bedah prostat, dasar onkologi, farmakologi hormon mendalam, dan terminologi dalam bahasa Jepang untuk calon perawat dan tenaga medis.">
+<meta property="og:title" content="生殖器系（上級）Reproduksi Lanjutan — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Komplikasi bedah prostat, dasar onkologi, dan farmakologi hormon mendalam dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Reproduksi-Lanjutan.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#faf5ff,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#3b0764;border-color:#3b0764;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#3b0764;background:#faf5ff;border:1px solid #e9d5ff;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#3b0764;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#3b0764}
+.organ-tab.active{color:#3b0764;border-bottom-color:#3b0764}
+.organ-tab:focus-visible{outline:2px solid #3b0764;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #faf5ff;color:#1e0340}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#3b0764}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#faf5ff;border-color:#e9d5ff}
+.info-card.scope{background:#f8fafc;border-color:#cbd5e1}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#faf5ff;color:#3b0764;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #3b0764;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#3b0764}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.case-sim{background:var(--white,#fff);border:2px solid #e9d5ff;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#faf5ff;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#3b0764;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Reproduksi.html">① 基礎 Dasar</a>
+      <a href="Sistem-Reproduksi-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Reproduksi-Lanjutan.html" class="current">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🌸 Level Lanjutan — Komplikasi Bedah &amp; Onkologi Dasar</span>
+    <h1><span class="jp-big">生殖器系（上級）</span>Reproduksi Lanjutan</h1>
+    <p class="lead">Komplikasi bedah prostat, dasar onkologi terkait usia, dan farmakologi hormon mendalam — untuk calon perawat, tenaga medis, dan pelajar bahasa Jepang tingkat teknis tertinggi.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi reproduksi lanjutan">
+  <button class="organ-tab active" data-tab="komplikasi" role="tab" aria-selected="true">術後合併症 Komplikasi Bedah Prostat</button>
+  <button class="organ-tab" data-tab="onkologi" role="tab" aria-selected="false">腫瘍学 Dasar Onkologi Terkait Usia</button>
+  <button class="organ-tab" data-tab="retensi" role="tab" aria-selected="false">尿閉 Retensi Urine Akut</button>
+  <button class="organ-tab" data-tab="farmakologi" role="tab" aria-selected="false">薬理詳細 Farmakologi Hormon Mendalam</button>
+  <button class="organ-tab" data-tab="paliatif" role="tab" aria-selected="false">緩和ケア Prinsip Perawatan Paliatif</button>
+  <button class="organ-tab" data-tab="icu" role="tab" aria-selected="false">用語 Istilah Onkologi-Geriatri</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <div class="info-card scope">
+    <strong>Tentang materi tingkat lanjutan ini:</strong>
+    <p style="margin:6px 0 0">Konten ini menjelaskan KONSEP dan MEKANISME untuk tujuan edukasi bahasa dan pemahaman klinis dasar — BUKAN pengganti pendidikan keperawatan formal, protokol rumah sakit, atau panduan dosis obat. Angka/dosis spesifik sengaja tidak dicantumkan karena bervariasi menurut kondisi pasien dan kebijakan institusi; selalu ikuti pelatihan resmi dan protokol fasilitas.</p>
+  </div>
+
+  <!-- ═══════════ 術後合併症 KOMPLIKASI BEDAH PROSTAT ═══════════ -->
+  <div class="organ-panel active" id="panel-komplikasi">
+    <h2>術後合併症 — Komplikasi Bedah Prostat</h2>
+    <p>TURP (transurethral resection of prostate, dibahas di materi Urinaria Lanjutan) adalah salah satu prosedur umum untuk BPH berat — meski umumnya aman, beberapa komplikasi pasca-operasi penting dikenali caregiver.</p>
+
+    <h3>Perdarahan pasca-operasi</h3>
+    <p>Urine berwarna kemerahan RINGAN dalam beberapa hari pertama pasca-TURP relatif umum — tapi perdarahan yang BERAT atau MEMBURUK (urine sangat merah pekat, bekuan darah besar, atau disertai tanda syok seperti pusing/lemas) butuh evaluasi segera, bukan dianggap "biasa" begitu saja.</p>
+
+    <h3>Sindrom TURP (klasik, meski kini lebih jarang dengan teknik modern)</h3>
+    <p style="margin-bottom:0">Kondisi langka akibat penyerapan cairan irigasi berlebihan selama prosedur, menyebabkan gangguan elektrolit (terutama natrium rendah, dibahas prinsip umumnya di materi lain) — tanda meliputi kebingungan, mual, gangguan penglihatan. Meski jarang dengan teknik modern, kewaspadaan terhadap perubahan status mental pasca-prosedur urologi tetap relevan.</p>
+  </div>
+
+  <!-- ═══════════ 腫瘍学 DASAR ONKOLOGI TERKAIT USIA ═══════════ -->
+  <div class="organ-panel" id="panel-onkologi">
+    <h2>腫瘍学 — Dasar Onkologi Terkait Usia</h2>
+    <p>Beberapa kanker sistem reproduksi lebih umum terkait usia — pemahaman dasar membantu caregiver mengenali kapan gejala butuh evaluasi lebih lanjut.</p>
+
+    <h3>Kanker prostat — konsep umum</h3>
+    <p>Salah satu kanker paling umum pada pria lansia — PENTING dipahami bahwa banyak kasus berkembang SANGAT LAMBAT (kadang disebut "indolent"), sehingga pendekatan penanganan bisa bervariasi luas dari pemantauan aktif (tanpa intervensi langsung, hanya pemantauan berkala) hingga pengobatan aktif, tergantung karakteristik kanker spesifik dan kondisi kesehatan individu secara keseluruhan.</p>
+
+    <h3>Kanker endometrium — konsep umum</h3>
+    <p style="margin-bottom:0">Kanker lapisan rahim, lebih umum PASCA-menopause — gejala kunci yang PENTING dikenali adalah perdarahan vagina APAPUN setelah menopause (saat menstruasi seharusnya sudah berhenti total) — tanda ini TIDAK BOLEH diabaikan sebagai "hal kecil" dan selalu butuh evaluasi medis, karena deteksi dini sangat memengaruhi hasil penanganan.</p>
+  </div>
+
+  <!-- ═══════════ 尿閉 RETENSI URINE AKUT ═══════════ -->
+  <div class="organ-panel" id="panel-retensi">
+    <h2>尿閉 — Retensi Urine Akut Pasca-Prosedur Urologi</h2>
+    <p>Berkaitan dengan konsep retensi urine yang dibahas di materi Urinaria — pada konteks pasca-prosedur prostat, retensi bisa terjadi akibat pembengkakan sementara jaringan pasca-operasi, bahkan setelah obstruksi asli (BPH) sudah ditangani.</p>
+
+    <h3>Kenapa kateter sementara sering dipakai pasca-TURP</h3>
+    <p style="margin-bottom:0">Kateter urine sementara pasca-operasi prostat membantu drainase urine SELAMA jaringan yang dioperasi mengalami pembengkakan awal pasca-bedah (proses penyembuhan normal) — pelepasan kateter dilakukan setelah jaringan cukup pulih untuk berkemih mandiri, dan kegagalan berkemih setelah kateter dilepas (bisa jadi tanda retensi berlanjut) perlu dilaporkan segera.</p>
+  </div>
+
+  <!-- ═══════════ 薬理詳細 FARMAKOLOGI HORMON MENDALAM ═══════════ -->
+  <div class="organ-panel" id="panel-farmakologi">
+    <h2>薬理詳細 — Farmakologi Hormon Mendalam</h2>
+    <h3>Terapi deprivasi androgen pada kanker prostat</h3>
+    <p>Pada beberapa kasus kanker prostat, terapi yang menekan produksi/aksi testosteron (yang bisa "memberi makan" pertumbuhan sel kanker prostat tertentu) dipertimbangkan sebagai bagian penanganan — prinsip berbeda dari penggunaan hormon untuk MENGGANTIKAN kekurangan (seperti HRT pada menopause, dibahas di level Menengah), di sini justru MENGURANGI hormon untuk tujuan terapeutik.</p>
+
+    <h3>Efek samping terapi hormon jangka panjang</h3>
+    <p style="margin-bottom:0">Baik HRT maupun terapi deprivasi androgen punya efek samping jangka panjang yang perlu dipantau — termasuk dampak pada kepadatan tulang (kaitan dengan materi Rangka) dan kesehatan kardiovaskular (kaitan dengan materi Kardiovaskular) — menggarisbawahi lagi bagaimana hormon reproduksi berdampak sistemik luas, bukan terbatas pada organ reproduksi saja.</p>
+  </div>
+
+  <!-- ═══════════ 緩和ケア PRINSIP PERAWATAN PALIATIF ═══════════ -->
+  <div class="organ-panel" id="panel-paliatif">
+    <h2>緩和ケア — Prinsip Dasar Perawatan Paliatif Terkait</h2>
+    <p>Pada kondisi kanker sistem reproduksi lanjut atau kondisi kronis kompleks, prinsip perawatan paliatif (dibahas secara umum, bukan spesifik satu penyakit) berfokus pada kualitas hidup dan kenyamanan — bisa berjalan BERSAMAAN dengan pengobatan aktif, bukan hanya di tahap akhir kehidupan.</p>
+
+    <h3>Komunikasi yang berpusat pada nilai individu</h3>
+    <p style="margin-bottom:0">Diskusi tentang preferensi penanganan (termasuk pilihan seperti pemantauan aktif vs pengobatan aktif pada kanker prostat indolent yang dibahas di tab sebelumnya) idealnya mempertimbangkan NILAI dan PRIORITAS individu pasien — apa yang penting bagi kualitas hidup mereka — bukan hanya pertimbangan medis semata. Caregiver berperan mendukung komunikasi terbuka ini, bukan mengambil alih keputusan.</p>
+  </div>
+
+  <!-- ═══════════ 用語 ISTILAH ONKOLOGI-GERIATRI ═══════════ -->
+  <div class="organ-panel" id="panel-icu">
+    <h2>用語 — Terminologi Onkologi-Geriatri Terkait</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">経尿道的前立腺切除術後出血</td><td>けいにょうどうてきぜんりつせんせつじょじゅつごしゅっけつ</td><td>Perdarahan pasca-TURP</td><td>Post-TURP bleeding</td></tr>
+        <tr><td class="jp">TUR症候群</td><td>てぃーゆーあーるしょうこうぐん</td><td>Sindrom TURP</td><td>TUR syndrome</td></tr>
+        <tr><td class="jp">低ナトリウム血症</td><td>ていなとりうむけっしょう</td><td>Hiponatremia</td><td>Hyponatremia</td></tr>
+        <tr><td class="jp">前立腺がん</td><td>ぜんりつせんがん</td><td>Kanker prostat</td><td>Prostate cancer</td></tr>
+        <tr><td class="jp">経過観察</td><td>けいかかんさつ</td><td>Pemantauan aktif</td><td>Active surveillance</td></tr>
+        <tr><td class="jp">緩徐進行性</td><td>かんじょしんこうせい</td><td>Berkembang lambat (indolent)</td><td>Slow-growing/indolent</td></tr>
+        <tr><td class="jp">子宮内膜がん</td><td>しきゅうないまくがん</td><td>Kanker endometrium</td><td>Endometrial cancer</td></tr>
+        <tr><td class="jp">閉経後出血</td><td>へいけいごしゅっけつ</td><td>Perdarahan pasca-menopause</td><td>Postmenopausal bleeding</td></tr>
+        <tr><td class="jp">アンドロゲン除去療法</td><td>あんどろげんじょきょりょうほう</td><td>Terapi deprivasi androgen</td><td>Androgen deprivation therapy</td></tr>
+        <tr><td class="jp">一時的カテーテル留置</td><td>いちじてきかてーてるりゅうち</td><td>Kateter sementara</td><td>Temporary catheterization</td></tr>
+        <tr><td class="jp">術後腫脹</td><td>じゅつごしゅちょう</td><td>Pembengkakan pasca-operasi</td><td>Postoperative swelling</td></tr>
+        <tr><td class="jp">緩和ケア</td><td>かんわけあ</td><td>Perawatan paliatif</td><td>Palliative care</td></tr>
+        <tr><td class="jp">生活の質</td><td>せいかつのしつ</td><td>Kualitas hidup</td><td>Quality of life</td></tr>
+        <tr><td class="jp">価値観に基づく意思決定</td><td>かちかんにもとづくいしけってい</td><td>Pengambilan keputusan berbasis nilai</td><td>Values-based decision-making</td></tr>
+        <tr><td class="jp">骨密度への影響</td><td>こつみつどへのえいきょう</td><td>Dampak pada kepadatan tulang</td><td>Impact on bone density</td></tr>
+        <tr><td class="jp">心血管系リスク</td><td>しんけっかんけいりすく</td><td>Risiko kardiovaskular</td><td>Cardiovascular risk</td></tr>
+        <tr><td class="jp">長期的モニタリング</td><td>ちょうきてきもにたりんぐ</td><td>Pemantauan jangka panjang</td><td>Long-term monitoring</td></tr>
+        <tr><td class="jp">術後意識変容</td><td>じゅつごいしきへんよう</td><td>Perubahan status mental pasca-operasi</td><td>Postoperative mental status change</td></tr>
+        <tr><td class="jp">早期発見</td><td>そうきはっけん</td><td>Deteksi dini</td><td>Early detection</td></tr>
+        <tr><td class="jp">患者中心のケア</td><td>かんじゃちゅうしんのけあ</td><td>Perawatan berpusat pada pasien</td><td>Patient-centered care</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis tingkat lanjut</h3>
+    <div class="clinical-sentence">
+      <div class="jp">術後出血の増悪があり、緊急評価が必要です。</div>
+      <div class="id">Ada perburukan perdarahan pasca-operasi, perlu evaluasi darurat.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">閉経後出血を認め、子宮内膜がんの精査を行います。</div>
+      <div class="id">Ditemukan perdarahan pasca-menopause, akan dilakukan pemeriksaan lanjutan kanker endometrium.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">患者の価値観に基づいた意思決定を支援します。</div>
+      <div class="id">Pengambilan keputusan berdasarkan nilai pasien akan didukung.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis Tingkat Lanjutan</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang wanita lansia yang sudah menopause bertahun-tahun lalu mengalami perdarahan vagina ringan yang muncul tiba-tiba. Ia dan keluarganya menganggap ini "mungkin menstruasi yang kembali sebentar" atau "hal kecil yang akan hilang sendiri" dan berencana menunggu beberapa minggu untuk melihat perkembangannya.
+      </div>
+      <div class="case-question">
+        <label>1. Perdarahan vagina APAPUN pada wanita yang sudah lama menopause harus disikapi sebagai:</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Tanda yang perlu evaluasi medis, karena bisa terkait kondisi seperti kanker endometrium</option>
+          <option value="wrong">Kemungkinan menstruasi yang "kembali" secara normal</option>
+          <option value="wrong">Selalu hal kecil yang bisa ditunggu tanpa evaluasi</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Kenapa perdarahan pasca-menopause TIDAK BOLEH diabaikan sebagai "hal kecil"?</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Deteksi dini kondisi seperti kanker endometrium sangat memengaruhi hasil penanganan</option>
+          <option value="wrong">Perdarahan pasca-menopause tidak pernah memiliki makna klinis</option>
+          <option value="wrong">Menstruasi memang bisa kembali normal bertahun-tahun setelah menopause</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan yang PALING tepat sebagai caregiver dalam situasi ini:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Menunggu beberapa minggu untuk melihat apakah perdarahan berhenti sendiri</option>
+          <option value="correct">Mendorong evaluasi medis segera, tanpa menunda karena dianggap "hal kecil"</option>
+          <option value="wrong">Menganggap ini normal karena wanita tersebut pernah menstruasi sebelumnya</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var MINI_Q = [
+    { q: 'Perdarahan pasca-TURP yang BERAT atau MEMBURUK (bukan ringan) sebaiknya disikapi dengan?', opts: ['Evaluasi segera, tidak dianggap "biasa" begitu saja', 'Selalu diabaikan karena dianggap normal pasca-operasi', 'Ditunggu tanpa batas waktu'], a: 0 },
+    { q: 'Kanker prostat pada banyak kasus berkembang dengan kecepatan yang?', opts: ['Sangat lambat (indolent)', 'Selalu sangat cepat dan agresif', 'Tidak pernah bervariasi antar kasus'], a: 0 },
+    { q: 'Perdarahan vagina APAPUN setelah menopause adalah tanda yang?', opts: ['Perlu evaluasi medis, bisa terkait kanker endometrium', 'Selalu bisa diabaikan sebagai hal kecil', 'Merupakan menstruasi yang kembali normal'], a: 0 },
+    { q: 'Kateter sementara pasca-TURP membantu drainase urine selama?', opts: ['Jaringan yang dioperasi mengalami pembengkakan awal pasca-bedah', 'Seumur hidup pasien', 'Tidak ada alasan klinis yang jelas'], a: 0 },
+    { q: 'Terapi deprivasi androgen pada kanker prostat bertujuan?', opts: ['Menekan produksi/aksi testosteron yang bisa memberi makan pertumbuhan sel kanker', 'Meningkatkan produksi testosteron', 'Menggantikan kekurangan testosteron seperti HRT'], a: 0 },
+    { q: 'Perawatan paliatif bisa berjalan?', opts: ['Bersamaan dengan pengobatan aktif, bukan hanya di tahap akhir kehidupan', 'Hanya dimulai setelah semua pengobatan dihentikan', 'Tidak pernah relevan sebelum tahap akhir kehidupan'], a: 0 },
+    { q: 'Diskusi preferensi penanganan (seperti pemantauan aktif vs pengobatan aktif) idealnya mempertimbangkan?', opts: ['Nilai dan prioritas individu pasien, bukan hanya pertimbangan medis semata', 'Hanya pertimbangan medis tanpa melibatkan preferensi pasien', 'Keputusan yang diambil sepenuhnya oleh caregiver'], a: 0 },
+    { q: 'Baik HRT maupun terapi deprivasi androgen memiliki efek samping jangka panjang yang bisa memengaruhi?', opts: ['Kepadatan tulang dan kesehatan kardiovaskular', 'Hanya organ reproduksi tanpa dampak sistemik', 'Tidak ada efek samping jangka panjang yang perlu dipantau'], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Perdarahan vagina APAPUN pada wanita yang sudah lama menopause adalah tanda PENTING yang butuh evaluasi medis -- BUKAN "menstruasi yang kembali" (secara biologis tidak terjadi begitu saja bertahun-tahun setelah menopause) dan BUKAN "hal kecil" yang bisa ditunggu. Kondisi seperti kanker endometrium adalah salah satu kemungkinan penyebab yang perlu disingkirkan, dan DETEKSI DINI sangat memengaruhi hasil penanganan. Tindakan tepat: mendorong evaluasi medis SEGERA, tanpa menunda beberapa minggu untuk "melihat perkembangan".'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: perdarahan vagina pada wanita yang sudah lama menopause TIDAK PERNAH bisa dianggap "menstruasi kembali normal" atau "hal kecil" -- ini tanda yang selalu butuh evaluasi medis karena kaitannya dengan kondisi yang deteksi dininya sangat penting.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

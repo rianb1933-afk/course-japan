@@ -1,0 +1,1423 @@
+#!/usr/bin/env python3
+"""
+NihonggoPro — Automated Site Validator
+========================================
+Consolidates every audit check performed manually during the v22-v26
+review cycles into one repeatable script. Run this before every deploy.
+
+Usage:
+    python3 scripts/validate.py
+    python3 scripts/validate.py --strict   # exit 1 on any warning too
+
+Exit codes:
+    0 = all checks passed (or only warnings, without --strict)
+    1 = at least one ERROR found (or a WARNING with --strict)
+"""
+
+import re
+import os
+import sys
+import json
+import glob
+import subprocess
+from collections import Counter, defaultdict
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+STRICT = '--strict' in sys.argv
+
+errors = []
+warnings = []
+passed = []
+
+
+def err(check, msg):
+    errors.append(f"[{check}] {msg}")
+
+
+def warn(check, msg):
+    warnings.append(f"[{check}] {msg}")
+
+
+def ok(check, msg):
+    passed.append(f"[{check}] {msg}")
+
+
+def all_html_files():
+    return _index().html_paths
+
+
+def rel(fpath):
+    return os.path.relpath(fpath, ROOT)
+
+
+def read(fpath):
+    """Isi file, di-cache. Tiap file dibaca dari disk PERSIS SEKALI per run."""
+    idx = _index()
+    if fpath in idx.text:
+        return idx.text[fpath]
+    try:
+        with open(fpath, 'r', encoding='utf-8', errors='ignore') as f:
+            idx.text[fpath] = f.read()
+    except OSError:
+        idx.text[fpath] = ''
+    return idx.text[fpath]
+
+
+class _Index:
+    """Indeks proyek — dikumpulkan sekali, dipakai semua check.
+
+    Validator lama memanggil glob.glob 10x dan membaca file yang sama berulang
+    di 20 check berbeda: 28 detik untuk 304 halaman. Di sini tiap file dibaca
+    sekali; check-check berikutnya memakai data yang sudah ada.
+    """
+
+    def __init__(self):
+        self.html_paths = sorted(
+            path for path in glob.glob(os.path.join(ROOT, '**', '*.html'), recursive=True)
+            if 'node_modules' not in os.path.relpath(path, ROOT).split(os.sep)
+        )
+
+        # Semua file di repo (untuk cek src/href menunjuk file yang ada)
+        self.all_files = set()
+        for dirpath, dirnames, filenames in os.walk(ROOT):
+            dirnames[:] = [d for d in dirnames
+                           if d not in ('.git', 'node_modules', '__pycache__')]
+            for fn in filenames:
+                self.all_files.add(os.path.join(dirpath, fn))
+
+        self.text = {}      # path -> isi mentah
+        self.ids = {}       # path -> set(id)
+        self.markup = {}    # path -> isi TANPA <script> (href/src NYATA saja)
+        self.hrefs = {}     # path -> [href]
+        self.srcs = {}      # path -> [src]
+
+        for p in self.html_paths:
+            # Baca LANGSUNG, bukan lewat read(): read() memanggil _index(), dan
+            # _IDX belum ter-assign selama __init__ masih berjalan → rekursi tak
+            # terbatas. Cache-nya diisi di sini, jadi read() tetap nol-I/O nanti.
+            try:
+                with open(p, 'r', encoding='utf-8', errors='ignore') as f:
+                    c = f.read()
+            except OSError:
+                c = ''
+            self.text[p] = c
+
+            self.ids[p] = set(re.findall(r'\bid=["\']([^"\']+)["\']', c))
+
+            # markup = HTML tanpa isi <script>. Dipakai untuk href & struktur
+            # anchor, supaya string di dalam JS (mis. href="#'+id+'") tidak
+            # dikira tautan sungguhan.
+            m = re.sub(r'<script[\s\S]*?</script>', '', c)
+            self.markup[p] = m
+            self.hrefs[p] = re.findall(r'href=["\']([^"\']+)["\']', m)
+
+            # src justru HARUS diambil dari teks mentah: <script src="..."> ada di
+            # dalam tag <script>, jadi kalau kita pakai `m` (yang membuang seluruh
+            # blok script) setiap JS eksternal luput dari pemeriksaan.
+            self.srcs[p] = re.findall(r'<(?:script|img|iframe|source|audio|video)\b[^>]*?\bsrc=["\']([^"\']+)["\']', c)
+
+
+_IDX = None
+
+
+def _index():
+    global _IDX
+    if _IDX is None:
+        _IDX = _Index()
+    return _IDX
+
+
+EXTERNAL_PREFIXES = ('http://', 'https://', 'mailto:', 'tel:', 'javascript:',
+                     'data:', '//', 'sms:', 'intent:', '#!')
+
+
+def is_external(href):
+    return href.startswith(EXTERNAL_PREFIXES)
+
+
+def resolve(href, from_path):
+    """(path_absolut, fragment) untuk href lokal; (None, None) bila eksternal.
+
+    Menangani: root-relative (/x.html), relatif (../x.html), query (?a=1),
+    fragment (#id), dan href kosong.
+    """
+    if not href or is_external(href):
+        return None, None
+
+    frag = None
+    if '#' in href:
+        href, frag = href.split('#', 1)
+    href = href.split('?')[0]
+
+    if not href:                     # "#id" → halaman itu sendiri
+        return from_path, frag
+
+    if href.startswith('/'):
+        target = os.path.join(ROOT, href.lstrip('/'))
+    else:
+        target = os.path.normpath(os.path.join(os.path.dirname(from_path), href))
+
+    return target, frag
+
+
+def is_in_script_tag(content, pos):
+    before = content[:pos]
+    return before.rfind('<script') > before.rfind('</script>')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 1: JS syntax validity
+# ──────────────────────────────────────────────────────────────────
+def check_inline_js_syntax():
+    """Syntax semua blok <script> inline, diperiksa seakurat browser (node).
+
+    Versi lama menjalankan `node --check` sebagai subprocess TERPISAH untuk tiap
+    blok script — ratusan proses, 23 detik dari total 30 detik runtime validator.
+    Di sini semua blok dikirim ke SATU proses node yang memeriksanya berurutan
+    dan melaporkan hasilnya sebagai JSON.
+    """
+    idx = _index()
+
+    script_re = re.compile(r'<script((?![^>]*\bsrc=)[^>]*)>(.*?)</script>', re.DOTALL)
+    blocks = []          # (file_rel, urutan, kode, is_module)
+
+    for p in idx.html_paths:
+        for n, (attrs, body) in enumerate(script_re.findall(idx.text[p])):
+            b = body.strip()
+            if len(b) < 10:
+                continue
+            # JSON-LD dan blok data murni bukan JavaScript — lewati.
+            if b.startswith('{') or b.startswith('['):
+                continue
+            # type="module" mendukung import/export -- vm.Script (non-module)
+            # akan salah melaporkan "Cannot use import statement outside a
+            # module" sebagai error sintaks padahal itu genuinely valid ES
+            # module. Ditandai terpisah supaya diperiksa dengan cara yang benar.
+            is_module = bool(re.search(r'type\s*=\s*["\']module["\']', attrs))
+            blocks.append({'file': rel(p), 'i': n, 'code': body, 'is_module': is_module})
+
+    if not blocks:
+        ok('inline-js-syntax', 'No inline scripts to check')
+        return
+
+    # Satu proses node memeriksa semua blok. Blok type="module" divalidasi
+    # lewat vm.SourceTextModule (butuh --experimental-vm-modules) karena
+    # vm.Script biasa tidak mendukung import/export -- salah lapor sebagai
+    # error sintaks padahal modul itu valid.
+    checker = """
+const vm = require('vm');
+let input = '';
+process.stdin.on('data', d => input += d);
+process.stdin.on('end', async () => {
+  const blocks = JSON.parse(input);
+  const bad = [];
+  for (const b of blocks) {
+    try {
+      if (b.is_module) {
+        if (typeof vm.SourceTextModule !== 'function') {
+          continue;
+        }
+        const mod = new vm.SourceTextModule(b.code, { identifier: b.file });
+        await mod.link(() => { throw new Error('__skip_link__'); }).catch(e => {
+          if (!String(e.message).includes('__skip_link__')) throw e;
+        });
+      } else {
+        new vm.Script(b.code, { filename: b.file });
+      }
+    } catch (e) {
+      bad.push({ file: b.file, i: b.i, msg: String(e.message).slice(0, 150) });
+    }
+  }
+  process.stdout.write(JSON.stringify(bad));
+});
+"""
+
+    try:
+        proc = subprocess.run(
+            ['node', '--experimental-vm-modules', '-e', checker],
+            input=json.dumps(blocks),
+            capture_output=True, text=True, timeout=120,
+        )
+    except FileNotFoundError:
+        warn('inline-js-syntax', 'node tidak ditemukan — validasi JS inline dilewati')
+        return
+    except subprocess.TimeoutExpired:
+        err('inline-js-syntax', 'Pemeriksaan JS inline melebihi batas waktu')
+        return
+
+    try:
+        bad = json.loads(proc.stdout or '[]')
+    except json.JSONDecodeError:
+        err('inline-js-syntax', f'Pemeriksa JS gagal: {proc.stderr[:200]}')
+        return
+
+    if bad:
+        for b in bad[:6]:
+            err('inline-js-syntax', f"{b['file']} (script #{b['i']}): {b['msg']}")
+        if len(bad) > 6:
+            err('inline-js-syntax', f'…dan {len(bad) - 6} blok bermasalah lainnya')
+    else:
+        ok('inline-js-syntax',
+           f'{len(blocks)} inline scripts across {len(idx.html_paths)} HTML files have valid syntax')
+
+
+def check_js_syntax():
+    js_files = glob.glob(os.path.join(ROOT, 'assets', '*.js')) + \
+        glob.glob(os.path.join(ROOT, 'netlify', 'functions', '*.js')) + \
+        glob.glob(os.path.join(ROOT, 'api', '*.js'))
+    bad = []
+    for f in js_files:
+        try:
+            result = subprocess.run(['node', '--check', f], capture_output=True, text=True, timeout=10)
+            if result.returncode != 0:
+                bad.append((rel(f), result.stderr.strip()[:200]))
+        except FileNotFoundError:
+            warn('js-syntax', 'node not found — skipping JS syntax validation')
+            return
+        except Exception as e:
+            bad.append((rel(f), str(e)))
+    if bad:
+        for f, e in bad:
+            err('js-syntax', f'{f}: {e}')
+    else:
+        ok('js-syntax', f'{len(js_files)} JS files have valid syntax')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 2: JSON validity (manifests, configs)
+# ──────────────────────────────────────────────────────────────────
+def check_json_validity():
+    json_files = ['manifest.webmanifest', 'manifest.json', 'vercel.json']
+    bad = []
+    checked = 0
+    for name in json_files:
+        fpath = os.path.join(ROOT, name)
+        if not os.path.exists(fpath):
+            continue
+        checked += 1
+        try:
+            json.loads(read(fpath))
+        except json.JSONDecodeError as e:
+            bad.append((name, str(e)))
+    if bad:
+        for f, e in bad:
+            err('json-validity', f'{f}: {e}')
+    else:
+        ok('json-validity', f'{checked} JSON config files are valid')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 3: Broken internal links
+# ──────────────────────────────────────────────────────────────────
+def check_broken_links():
+    files = all_html_files()
+    all_set = {rel(f) for f in files}
+    broken = []
+    for fpath in files:
+        r = rel(fpath)
+        c = read(fpath)
+        for link in re.findall(r'href="([^"#?]+\.html)"', c):
+            if link.startswith('http') or link.startswith('//'):
+                continue
+            folder = os.path.dirname(r)
+            target = link.lstrip('/') if link.startswith('/') else os.path.normpath(os.path.join(folder, link))
+            target = target.replace('\\', '/')
+            if target not in all_set:
+                broken.append((r, link, target))
+    if broken:
+        for r, link, target in broken:
+            err('broken-links', f'{r} → "{link}" (resolved: {target}) does not exist')
+    else:
+        ok('broken-links', f'0 broken internal links across {len(files)} pages')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 4: Domain consistency in canonical / og:url / sitemap
+# ──────────────────────────────────────────────────────────────────
+CANONICAL_DOMAIN = 'nihonggopro.id'
+
+
+def check_domain_consistency():
+    files = all_html_files()
+    bad_domain = []
+    for fpath in files:
+        r = rel(fpath)
+        c = read(fpath)
+        for m in re.finditer(r'(?:canonical|og:url)["\']?\s+(?:href|content)="(https?://([^/"]+))', c):
+            domain = m.group(2)
+            if domain != CANONICAL_DOMAIN:
+                bad_domain.append((r, domain))
+    sitemap_path = os.path.join(ROOT, 'sitemap.xml')
+    if os.path.exists(sitemap_path):
+        sm = read(sitemap_path)
+        loc_urls = re.findall(r'<loc>(https?://([^/]+))/', sm)
+        sm_domains = {d for _, d in loc_urls}
+        for d in sm_domains:
+            if d != CANONICAL_DOMAIN:
+                bad_domain.append(('sitemap.xml', d))
+    if bad_domain:
+        for r, d in bad_domain:
+            err('domain-consistency', f'{r}: uses domain "{d}" instead of "{CANONICAL_DOMAIN}"')
+    else:
+        ok('domain-consistency', f'All canonical/og:url/sitemap entries use {CANONICAL_DOMAIN}')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 5: Canonical URL matches actual filename
+# ──────────────────────────────────────────────────────────────────
+def check_canonical_filename_match():
+    files = all_html_files()
+    mismatches = []
+    for fpath in files:
+        r = rel(fpath)
+        fname = os.path.basename(fpath)
+        c = read(fpath)
+        m = re.search(r'rel="canonical"\s+href="(https?://[^"]+)"', c)
+        if m:
+            url_fname = m.group(1).split('/')[-1]
+            if url_fname and url_fname != fname and url_fname.endswith('.html'):
+                mismatches.append((r, url_fname))
+    if mismatches:
+        for r, f in mismatches:
+            err('canonical-match', f'{r}: canonical points to "{f}" (filename mismatch)')
+    else:
+        ok('canonical-match', 'All canonical URLs match their actual filename')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 6: SEO basics — meta description, title, H1, schema.org
+# ──────────────────────────────────────────────────────────────────
+def check_seo_basics():
+    # File berawalan '_' adalah halaman internal (mis. _REVIEW.html) yang di-noindex,
+    # jadi tidak wajib punya meta SEO publik.
+    files = [f for f in all_html_files() if not os.path.basename(f).startswith('_')]
+    no_desc, short_desc, no_title, no_h1, no_schema = [], [], [], [], []
+    no_og = []
+    for fpath in files:
+        r = rel(fpath)
+        c = read(fpath)
+
+        # Halaman noindex (privat/redirect) tidak wajib punya Open Graph.
+        head = c[:c.find('</head>')] if '</head>' in c else c
+        is_noindex = 'noindex' in head
+        if not is_noindex:
+            if 'og:title' not in c or 'og:description' not in c or 'twitter:card' not in c:
+                no_og.append(r)
+
+        desc_m = re.search(r'<meta\s+name="description"\s+content="([^"]*)"', c)
+        if not desc_m or not desc_m.group(1).strip():
+            no_desc.append(r)
+        elif len(desc_m.group(1)) < 50:
+            short_desc.append(r)
+
+        title_m = re.search(r'<title>([^<]+)</title>', c)
+        if not title_m or not title_m.group(1).strip():
+            no_title.append(r)
+
+        if not re.search(r'<h1[\s>]', c):
+            no_h1.append(r)
+
+        if 'application/ld+json' not in c and 'Admin' not in r:
+            no_schema.append(r)
+
+    if no_desc:
+        err('seo-meta-desc', f'{len(no_desc)} pages missing meta description: {no_desc[:5]}{"..." if len(no_desc) > 5 else ""}')
+    else:
+        ok('seo-meta-desc', f'All {len(files)} pages have a meta description')
+
+    if short_desc:
+        warn('seo-meta-desc-length', f'{len(short_desc)} pages have a meta description under 50 chars: {short_desc[:5]}')
+
+    if no_title:
+        err('seo-title', f'{len(no_title)} pages missing <title>: {no_title}')
+    else:
+        ok('seo-title', f'All {len(files)} pages have a title')
+
+    if no_h1:
+        err('seo-h1', f'{len(no_h1)} pages missing <h1>: {no_h1}')
+    else:
+        ok('seo-h1', f'All {len(files)} pages have an H1')
+
+    if no_schema:
+        warn('seo-schema', f'{len(no_schema)} non-admin pages missing schema.org: {no_schema}')
+    else:
+        ok('seo-schema', 'All non-admin pages have schema.org markup')
+
+    if no_og:
+        warn('seo-open-graph', f'{len(no_og)} indexable pages missing og:/twitter: tags: {no_og[:5]}')
+    else:
+        ok('seo-open-graph', 'All indexable pages have Open Graph + Twitter cards')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 7: Duplicate static HTML ids (excludes JS template literals)
+# ──────────────────────────────────────────────────────────────────
+def check_duplicate_ids():
+    files = all_html_files()
+    issues = []
+    for fpath in files:
+        r = rel(fpath)
+        c = read(fpath)
+        static_ids = []
+        for m in re.finditer(r'\bid="([a-zA-Z][\w-]*)"', c):
+            if not is_in_script_tag(c, m.start()):
+                static_ids.append(m.group(1))
+        dupes = [i for i, cnt in Counter(static_ids).items() if cnt > 1]
+        if dupes:
+            issues.append((r, dupes))
+    if issues:
+        for r, d in issues:
+            err('duplicate-ids', f'{r}: duplicate static IDs {d}')
+    else:
+        ok('duplicate-ids', f'No duplicate static HTML ids across {len(files)} pages')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 8: Accessibility — alt text, lang attribute, form labels
+# ──────────────────────────────────────────────────────────────────
+def check_accessibility():
+    files = all_html_files()
+    no_alt, no_lang, unlabeled = [], [], []
+    for fpath in files:
+        r = rel(fpath)
+        c = read(fpath)
+
+        for img in re.findall(r'<img\s+[^>]*>', c):
+            if 'alt=' not in img:
+                no_alt.append((r, img[:60]))
+
+        if not re.search(r'<html[^>]*\slang=', c):
+            no_lang.append(r)
+
+        for inp_m in re.finditer(r'<input\s+[^>]*>', c):
+            inp = inp_m.group(0)
+            if 'type="hidden"' in inp:
+                continue
+            has_aria = 'aria-label' in inp or 'aria-labelledby' in inp
+            id_m = re.search(r'id="([^"]+)"', inp)
+            has_for_label = bool(id_m) and f'for="{id_m.group(1)}"' in c
+            # Check implicit wrapping: <label> ... <input> ... </label>
+            before = c[:inp_m.start()]
+            last_label_open = before.rfind('<label')
+            last_label_close = before.rfind('</label>')
+            is_wrapped_in_label = last_label_open > last_label_close
+            if not has_aria and not has_for_label and not is_wrapped_in_label and 'placeholder' not in inp:
+                unlabeled.append((r, inp[:60]))
+
+    if no_alt:
+        err('a11y-alt', f'{len(no_alt)} images missing alt text')
+    else:
+        ok('a11y-alt', f'All images have alt text across {len(files)} pages')
+
+    if no_lang:
+        err('a11y-lang', f'{len(no_lang)} pages missing lang attribute: {no_lang}')
+    else:
+        ok('a11y-lang', 'All pages have a lang attribute')
+
+    if unlabeled:
+        warn('a11y-labels', f'{len(unlabeled)} form inputs without label/aria-label: {[u[0] for u in unlabeled][:5]}')
+    else:
+        ok('a11y-labels', 'All form inputs have labels or aria-labels')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 9: Security — no hardcoded secrets, no localStorage premium trust
+# ──────────────────────────────────────────────────────────────────
+def check_security():
+    files = all_html_files() + glob.glob(os.path.join(ROOT, 'assets', '*.js')) + \
+        glob.glob(os.path.join(ROOT, 'netlify', 'functions', '*.js'))
+    secret_pattern = re.compile(r'sk-ant-[a-zA-Z0-9_-]{10,}|sk-proj-[a-zA-Z0-9_-]{10,}|AIza[a-zA-Z0-9_-]{20,}')
+    leaks = []
+    for fpath in files:
+        c = read(fpath)
+        for m in secret_pattern.finditer(c):
+            leaks.append((rel(fpath), m.group(0)[:15] + '...'))
+    if leaks:
+        for r, s in leaks:
+            err('security-secrets', f'{r}: possible hardcoded API key "{s}"')
+    else:
+        ok('security-secrets', 'No hardcoded API keys found')
+
+    # Check premium trust isn't solely client-side localStorage flag
+    ai_js = os.path.join(ROOT, 'assets', 'nihongo-ai.js')
+    if os.path.exists(ai_js):
+        c = read(ai_js)
+        if re.search(r"localStorage\.getItem\('np-premium'\)\s*===\s*'1'", c):
+            err('security-premium-bypass', 'nihongo-ai.js still trusts localStorage np-premium flag directly')
+        else:
+            ok('security-premium-bypass', 'Premium status is not solely trusted from localStorage')
+
+    # Check admin login has no hardcoded plaintext password
+    admin_login = os.path.join(ROOT, 'Admin-Login.html')
+    if os.path.exists(admin_login):
+        c = read(admin_login)
+        if re.search(r"password\s*===\s*'[a-zA-Z0-9]{4,}'", c):
+            err('security-hardcoded-admin', 'Admin-Login.html contains a hardcoded plaintext password check')
+        else:
+            ok('security-hardcoded-admin', 'No hardcoded admin password found')
+
+    # Check TURN/STUN credentials are not hardcoded as literal fallbacks in the
+    # frontend. TURN credentials in `credential: '...'` string literals are
+    # visible to every visitor and let anyone abuse relay bandwidth. They must
+    # come from EDUMA_ENV (Netlify env), not literal defaults.
+    turn_leaks = []
+    for fpath in all_html_files():
+        c = read(fpath)
+        # Only inspect files that actually configure WebRTC ICE servers.
+        if 'iceServers' not in c:
+            continue
+        # A hardcoded `credential: '...'` literal is the reliable TURN-secret
+        # signal (STUN needs no credential; only TURN does). `username` alone is
+        # too generic (guest usernames etc.), so key on credential literals.
+        for m in re.finditer(r"credential\s*:\s*'([^']{3,})'", c):
+            turn_leaks.append((rel(fpath), m.group(1)[:12]))
+    if turn_leaks:
+        for r, v in turn_leaks[:5]:
+            err('security-turn-credentials', f'{r}: hardcoded TURN credential literal "{v}..." — move to EDUMA_ENV')
+    else:
+        ok('security-turn-credentials', 'No hardcoded TURN/ICE credentials in frontend')
+
+    # Payment identity must come from a server-verified Supabase JWT. A userId
+    # supplied by the browser can otherwise bind a successful payment to the
+    # wrong account.
+    payment_fn = os.path.join(ROOT, 'netlify', 'functions', 'create-payment.js')
+    if os.path.exists(payment_fn):
+        c = read(payment_fn)
+        has_jwt_check = "auth/v1/user" in c and "authHeader.startsWith('Bearer ')" in c
+        trusts_body_user = re.search(r"body\.userId|body\[['\"]userId['\"]\]", c)
+        if not has_jwt_check or trusts_body_user:
+            err('security-payment-identity', 'create-payment.js must derive user identity from a verified JWT, not request body')
+        else:
+            ok('security-payment-identity', 'Payment identity is derived from a verified Supabase JWT')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 10: No URL-unsafe folder names (spaces)
+# ──────────────────────────────────────────────────────────────────
+def check_folder_names():
+    space_folders = []
+    for f in glob.glob(os.path.join(ROOT, '**/'), recursive=True):
+        if os.path.normpath(f) == os.path.normpath(ROOT):
+            continue
+        name = os.path.basename(f.rstrip('/'))
+        if ' ' in name:
+            space_folders.append(rel(f))
+    if space_folders:
+        err('folder-names', f'Folders with spaces (URL-unsafe): {space_folders}')
+    else:
+        ok('folder-names', 'No folders with spaces in their name')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 11: Service worker cache version present
+# ──────────────────────────────────────────────────────────────────
+def check_service_worker():
+    for fname in ['sw.js', 'service-worker.js']:
+        fpath = os.path.join(ROOT, fname)
+        if not os.path.exists(fpath):
+            continue
+        c = read(fpath)
+        if 'allSettled' not in c:
+            warn('sw-resilience', f'{fname} does not use Promise.allSettled for precache — one missing file may fail entire install')
+        else:
+            ok('sw-resilience', f'{fname} uses allSettled for resilient precache install')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 12: Global object usage cross-referenced with script loading
+# ──────────────────────────────────────────────────────────────────
+GLOBAL_OBJECT_DEPENDENCIES = {
+    'NihonggoProgress': ('platform.min.js', 'platform.js'),
+    'NihongoAI': ('nihongo-ai.js',),
+    'EDUMA_DATA': ('eduma-data.js',),
+}
+
+
+def check_global_object_dependencies():
+    files = all_html_files()
+    issues = []
+    for fpath in files:
+        r = rel(fpath)
+        c = read(fpath)
+        defines_own = re.search(r'(?:window|global)\.NihonggoProgress\s*=\s*\{', c)
+        for obj_name, script_names in GLOBAL_OBJECT_DEPENDENCIES.items():
+            if not re.search(r'\b' + obj_name + r'\b', c):
+                continue
+            if obj_name == 'NihonggoProgress' and defines_own:
+                continue
+            loaded = any(s in c for s in script_names) or any(
+                re.search(r'src="[^"]*' + re.escape(s.replace('.min', '')) + r'"', c) for s in script_names
+            )
+            if not loaded:
+                issues.append((r, obj_name, script_names[0]))
+    if issues:
+        for r, obj, src in issues:
+            err('global-deps', f'{r}: uses "{obj}" but does not load {src}')
+    else:
+        ok('global-deps', 'All pages load the scripts their global object usage depends on')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 13: env.js variable names match what consumer scripts read
+# ──────────────────────────────────────────────────────────────────
+def check_env_variable_consistency():
+    env_path = os.path.join(ROOT, 'assets', 'env.js')
+    if not os.path.exists(env_path):
+        return
+    env_c = read(env_path)
+    defined_vars = set(re.findall(r'(\w+):\s*read\(', env_c))
+
+    consumer_files = glob.glob(os.path.join(ROOT, 'assets', '*.js')) + all_html_files()
+    used_vars = set()
+    for fpath in consumer_files:
+        if fpath == env_path or '.min.' in fpath:
+            continue
+        c = read(fpath)
+        used_vars |= set(re.findall(r'EDUMA_ENV\??\.(\w+)', c))
+        used_vars |= set(re.findall(r'\benv\.(\w+)', c))
+
+    # Only flag vars that look like they SHOULD be env vars (uppercase convention)
+    used_vars = {v for v in used_vars if v.isupper() or '_' in v}
+    missing = used_vars - defined_vars
+    # Filter out known false positives (generic .env access on non-EDUMA objects)
+    missing = {v for v in missing if v not in ('NODE_ENV', 'PROD', 'DEV', 'MODE')}
+
+    if missing:
+        err('env-consistency', f'Variables read by consumers but not defined in env.js: {sorted(missing)}')
+    else:
+        ok('env-consistency', 'All EDUMA_ENV variables read by consumers are defined in env.js')
+
+
+# ──────────────────────────────────────────────────────────────────
+# CHECK 14: Unit test suite (SRS algorithm, XP/level system)
+# ──────────────────────────────────────────────────────────────────
+def check_unit_tests():
+    runner = os.path.join(ROOT, 'scripts', 'tests', 'run-all.js')
+    if not os.path.exists(runner):
+        warn('unit-tests', 'No test runner found at scripts/tests/run-all.js — skipping')
+        return
+    try:
+        result = subprocess.run(['node', runner], capture_output=True, text=True, timeout=30, cwd=ROOT)
+    except FileNotFoundError:
+        warn('unit-tests', 'node not found — skipping unit test execution')
+        return
+    except Exception as e:
+        err('unit-tests', f'Failed to run test suite: {e}')
+        return
+
+    last_line = [l for l in result.stdout.strip().split('\n') if l.startswith('RESULT:')]
+    summary = last_line[-1] if last_line else '(no summary line found)'
+
+    if result.returncode != 0:
+        err('unit-tests', f'Test suite failed — {summary}')
+        for line in result.stdout.split('\n'):
+            if '❌' in line or '→' in line:
+                err('unit-tests', f'  {line.strip()}')
+    else:
+        ok('unit-tests', f'All unit tests passed — {summary}')
+
+
+
+def check_materi_parity():
+    """Setiap halaman materi harus punya fitur inti: service worker (offline),
+    footer (navigasi), dan progress tracking (XP/gamifikasi).
+    Mencegah regresi saat materi baru ditambahkan."""
+    materi_dir = os.path.join(ROOT, 'Materi')
+    if not os.path.isdir(materi_dir):
+        return
+
+    missing_sw, missing_footer, missing_progress = [], [], []
+    bad_jsonld = []
+    empty_materi = []
+    total = 0
+    for fname in sorted(os.listdir(materi_dir)):
+        if not fname.endswith('.html'):
+            continue
+        # Materi.html adalah halaman indeks, bukan materi pembelajaran
+        if fname == 'Materi.html':
+            continue
+        total += 1
+        c = read(os.path.join(materi_dir, fname))
+        if 'serviceWorker.register' not in c:
+            missing_sw.append(fname)
+        if '<footer' not in c:
+            missing_footer.append(fname)
+
+        # JSON-LD Course.name harus cocok dengan judul halaman. Template yang
+        # disalin antar-materi pernah membawa nama materi lain, sehingga Google
+        # mengindeks beberapa halaman dengan nama identik yang salah.
+        head = c.split('</head>')[0]
+        title_m = re.search(r'<title>(.*?)</title>', head, re.DOTALL)
+        page_title = title_m.group(1).split('—')[0].strip() if title_m else ''
+        for m in re.finditer(r'<script type="application/ld\+json">(.*?)</script>',
+                             head, re.DOTALL):
+            try:
+                data = json.loads(m.group(1))
+            except (ValueError, TypeError):
+                continue
+            if data.get('@type') != 'Course':
+                continue
+            ld_name = data.get('name', '')
+            if page_title and ld_name:
+                def words(s):
+                    return set(re.sub(r'[()（）]', ' ', s.lower()).split())
+                if not (words(page_title) & words(ld_name)):
+                    bad_jsonld.append(f'{fname} (JSON-LD: "{ld_name[:30]}")')
+        # Progress tracking bisa lewat modul auto-hook (kaigo-progress.js /
+        # np-materi-progress.js) ATAU panggilan NPXP langsung untuk kuis
+        # dengan pola non-standar. Halaman tanpa kuis tidak wajib punya hook.
+        has_quiz = ('"q":' in c) or ("{q:" in c) or ('var Q' in c)
+        has_progress = (
+            'np-materi-progress.js' in c
+            or 'kaigo-progress.js' in c
+            or re.search(r'NPXP\.(recordQuiz|recordVocab|award|recordSession)\s*\(', c)
+        )
+        if has_quiz and not has_progress:
+            missing_progress.append(fname)
+
+        # Deteksi materi placeholder/kosong: materi pembelajaran bahasa Jepang
+        # harus memuat konten Jepang yang memadai (di HTML maupun di array data
+        # JS seperti kuis/kosakata). Ambang 50 karakter kana/kanji sangat
+        # konservatif — materi asli rata-rata ribuan. Ini menangkap file yang
+        # ter-deploy sebagai kerangka kosong tanpa isi pelajaran.
+        # PENGECUALIAN: materi yang memuat datanya secara dinamis (fetch JSON /
+        # skrip data khusus seperti kanji-writing.js) wajar punya sedikit teks
+        # Jepang inline — jangan tandai sebagai kosong.
+        loads_external_data = (
+            'fetch(' in c
+            or 'kanji-writing.js' in c
+            or re.search(r'<script src="[^"]*(?:kanji|vocab|data)[^"]*\.js', c) is not None
+        )
+        jp_chars = len(re.findall(r'[\u3040-\u30ff\u4e00-\u9fff]', c))
+        if jp_chars < 50 and not loads_external_data:
+            empty_materi.append(f'{fname} ({jp_chars} char JP)')
+
+    def report(label, items, msg, level='err'):
+        if items:
+            sample = ', '.join(items[:5]) + (f' (+{len(items) - 5} lagi)' if len(items) > 5 else '')
+            (err if level == 'err' else warn)('materi-parity', f'{len(items)}/{total} materi {msg}: {sample}')
+        else:
+            ok('materi-parity', f'All {total} materi have {label}')
+
+    report('service worker (offline support)', missing_sw, 'tanpa serviceWorker.register')
+    report('progress tracking on quiz pages', missing_progress, 'punya kuis tapi tanpa progress hook')
+    report('matching JSON-LD Course name', bad_jsonld,
+           'punya JSON-LD Course.name yang tidak cocok dengan judul halaman')
+    report('sufficient Japanese content', empty_materi,
+           'nyaris tanpa konten Jepang (placeholder/kosong?)')
+    # Footer bukan standar universal di semua materi (banyak materi lama tidak punya),
+    # jadi hanya dilaporkan sebagai catatan, bukan error.
+    if not missing_footer:
+        ok('materi-parity', f'All {total} materi have footer')
+
+
+def check_search_index():
+    """Setiap materi harus bisa ditemukan lewat Search.html.
+
+    INDEX dulu ditulis manual, sehingga 205 dari 254 materi tak pernah
+    didaftarkan — pengguna mencari materi yang ada tapi tidak menemukannya.
+    Perbaikan: scripts/build_search_index.py membangun INDEX dari file materi.
+    Check ini memastikan indeks tidak usang lagi setelah materi ditambah.
+    """
+    search_path = os.path.join(ROOT, 'Search.html')
+    materi_dir = os.path.join(ROOT, 'Materi')
+    if not (os.path.exists(search_path) and os.path.isdir(materi_dir)):
+        return
+
+    index = read(search_path)
+    indexed = set(re.findall(r"url:'/Materi/([^']+\.html)'", index))
+
+    on_disk = {
+        f for f in os.listdir(materi_dir)
+        if f.endswith('.html') and f != 'Materi.html' and not f.startswith('_')
+    }
+
+    missing = sorted(on_disk - indexed)
+    stale = sorted(indexed - on_disk)
+
+    if missing:
+        sample = ', '.join(missing[:5]) + (f' (+{len(missing) - 5} lagi)' if len(missing) > 5 else '')
+        err('search-index',
+            f'{len(missing)}/{len(on_disk)} materi tidak bisa dicari di Search.html: {sample} '
+            f'— jalankan: python3 scripts/build_search_index.py')
+    else:
+        ok('search-index', f'All {len(on_disk)} materi are findable via Search.html')
+
+    if stale:
+        sample = ', '.join(stale[:5])
+        err('search-index',
+            f'{len(stale)} entri Search.html menunjuk materi yang sudah tidak ada: {sample}')
+
+
+def check_missing_dom_elements():
+    """Cari getElementById(...) yang elemennya tidak ada dan diakses tanpa guard.
+
+    Bug nyata yang ditemukan lewat check ini di Kelas-Online.html:
+      - #liveToast tidak ada → liveNotify() diam-diam gagal, 79 notifikasi
+        (termasuk 'Koneksi terputus') tidak pernah tampil.
+      - #aiSenseiPanel tidak ada → tombol AI Sensei melempar TypeError.
+      - #liveToolBar tidak ada → masuk ruang kelas melempar TypeError.
+
+    Pola khasnya: CSS dan fungsi sudah ditulis, markup-nya lupa. Halaman tetap
+    lolos syntax check, jadi hanya cek seperti ini yang menangkapnya.
+    """
+    for path in all_html_files():
+        rel = os.path.relpath(path, ROOT)
+        c = read(path)
+
+        static_ids = set(re.findall(r'id=["\']([^"\']+)["\']', c))
+        # Elemen yang dibuat dinamis: el.id = 'foo'
+        dynamic_ids = set(re.findall(r"""\.id\s*=\s*['"]([^'"]+)['"]""", c))
+        available = static_ids | dynamic_ids
+
+        # Hanya akses langsung (.style, .classList, .value, ...) yang bisa
+        # melempar TypeError. getElementById(...) yang hasilnya disimpan lalu
+        # dicek (if (!el) return) aman dan tidak dilaporkan.
+        crashers = set()
+        for m in re.finditer(r"""getElementById\(\s*['"]([^'"]+)['"]\s*\)\s*\.\w+""", c):
+            eid = m.group(1)
+            if eid not in available:
+                crashers.add(eid)
+
+        if crashers:
+            sample = ', '.join(f'#{e}' for e in sorted(crashers)[:5])
+            extra = f' (+{len(crashers) - 5} lagi)' if len(crashers) > 5 else ''
+            err('missing-dom',
+                f'{rel}: {len(crashers)} elemen diakses langsung tapi tidak ada di DOM '
+                f'(akan melempar TypeError): {sample}{extra}')
+
+        # FITUR MATI SENYAP: fungsi init* / render* yang langsung `return` karena
+        # container-nya tidak ada. Tidak crash, jadi tidak pernah ketahuan — tapi
+        # fiturnya tidak pernah jalan.
+        #
+        # Bug nyata yang tertangkap pola ini:
+        #   - initAIHub() di AI-Tutor-Pro → 10 AI tools tidak pernah dirender.
+        #   - liveNotify() di Kelas-Online → 79 notifikasi tidak pernah tampil.
+        dead_features = []
+        pattern = re.compile(
+            r"""function\s+((?:init|render|setup|mount|build)\w*)\s*\([^)]*\)\s*\{\s*
+                (?:const|let|var)\s+\w+\s*=\s*document\.getElementById\(\s*['"]([^'"]+)['"]\s*\)\s*;\s*
+                if\s*\(\s*!\s*\w+\s*\)\s*return\s*;""",
+            re.VERBOSE,
+        )
+        for m in pattern.finditer(c):
+            fn_name, eid = m.group(1), m.group(2)
+            if eid in available:
+                continue   # container ada → fungsi bisa jalan
+            # Fungsi ini benar-benar dipanggil? Kalau tidak, itu cuma kode mati.
+            called = len(re.findall(rf'(?<![\w.]){re.escape(fn_name)}\s*\(', c)) - 1
+            if called > 0:
+                dead_features.append(f'{fn_name}() → #{eid}')
+
+        if dead_features:
+            sample = ', '.join(dead_features[:3])
+            extra = f' (+{len(dead_features) - 3} lagi)' if len(dead_features) > 3 else ''
+            err('dead-feature',
+                f'{rel}: {len(dead_features)} fitur dipanggil tapi langsung berhenti '
+                f'karena container-nya tidak ada di DOM: {sample}{extra}')
+
+
+def check_class_selector_crashers():
+    """Cari querySelector('.className') yang diakses langsung tanpa guard,
+    di mana .className tidak pernah muncul sebagai class="..." di HTML.
+
+    Bug nyata yang ditemukan lewat check ini (v181): 25 dari 26 halaman yang
+    memuat toggleTheme()/IIFE dark-mode punya
+    document.querySelector('.theme-toggle').textContent=... TANPA guard,
+    padahal elemen <button class="theme-toggle"> tidak pernah ada di HTML
+    halaman itu — menyebabkan "Cannot set properties of null" di SETIAP
+    load halaman (bukan cuma saat fitur dipakai, karena ini IIFE top-level).
+
+    Pola serupa check_missing_dom_elements (yang cek getElementById), tapi
+    untuk querySelector dengan class selector sederhana (.foo), yang tidak
+    tertangkap check itu karena bentuknya berbeda.
+    """
+    for path in all_html_files():
+        rel = os.path.relpath(path, ROOT)
+        c = read(path)
+
+        static_classes = set()
+        for m in re.finditer(r'class=["\']([^"\']+)["\']', c):
+            static_classes.update(m.group(1).split())
+        # Elemen kelas yang dibuat dinamis: el.className = 'foo' / el.classList.add('foo')
+        dynamic_classes = set(re.findall(r"""classList\.add\(\s*['"]([^'"]+)['"]""", c))
+        dynamic_classes |= set(re.findall(r"""\.className\s*=\s*['"]([^'"]+)['"]""", c))
+        available = static_classes | dynamic_classes
+
+        crashers = set()
+        # querySelector('.foo').xxx -- akses langsung tanpa disimpan ke variabel dulu
+        for m in re.finditer(r"""querySelector\(\s*['"]\.([\w-]+)['"]\s*\)\s*\.\w+""", c):
+            cls = m.group(1)
+            if cls not in available:
+                crashers.add(cls)
+
+        if crashers:
+            sample = ', '.join(f'.{c}' for c in sorted(crashers)[:5])
+            extra = f' (+{len(crashers) - 5} lagi)' if len(crashers) > 5 else ''
+            err('class-selector-crash',
+                f'{rel}: querySelector mengakses class yang tidak ada di HTML tanpa guard '
+                f'(akan melempar TypeError setiap load): {sample}{extra}')
+
+
+def check_cross_script_function_calls():
+    """Cari function call top-level di satu <script> tag yang function-nya
+    baru didefinisikan di <script> tag LAIN yang muncul setelahnya.
+
+    Bug nyata yang ditemukan lewat check ini (v181): 7 halaman Materi/Kaigo-*.html
+    memanggil initQuiz(QUIZ_XXX) di SCRIPT PERTAMA (top-level), tapi
+    function initQuiz(){} baru didefinisikan di SCRIPT KEDUA ("Quiz engine").
+    Function hoisting TIDAK lintas tag <script> terpisah -- ReferenceError
+    "initQuiz is not defined" di SETIAP load halaman, kuis mati total sejak awal.
+
+    Ini kelas bug berbeda dari check_global_object_dependencies (yang cek
+    dependency ke script EKSTERNAL seperti platform.js) -- di sini kedua
+    fungsi sama-sama inline di file yang sama, hanya beda tag <script>.
+    """
+    for path in all_html_files():
+        rel = os.path.relpath(path, ROOT)
+        c = read(path)
+
+        scripts = []
+        for m in re.finditer(r'<script(?:\s[^>]*)?>(.*?)</script>', c, re.DOTALL):
+            tag_open = c[max(0, m.start()-40):m.start()]
+            if 'src=' in tag_open or 'application/ld+json' in tag_open:
+                continue  # skip external scripts & JSON-LD
+            scripts.append(m.group(1))
+
+        if len(scripts) < 2:
+            continue
+
+        problems = []
+        for i, code in enumerate(scripts):
+            # Baris top-level (depth 0 sederhana: tidak dalam function{} lokal
+            # terdeteksi via heuristik longgar -- baris yang PERSIS "fnName(args);"
+            # tanpa indentasi dalam blok function di atasnya dalam script ini)
+            for m in re.finditer(r'^([A-Za-z_$][\w$]*)\(\s*[\w.$]*\s*\)\s*;\s*$', code, re.MULTILINE):
+                fn_name = m.group(1)
+                if fn_name in ('function', 'if', 'for', 'while', 'switch', 'return'):
+                    continue
+                defined_in_this_script = re.search(rf'function\s+{re.escape(fn_name)}\s*\(', code)
+                if defined_in_this_script:
+                    continue  # aman, didefinisikan di script yang sama
+                # Cek apakah didefinisikan di script LAIN yang urutannya SETELAH ini
+                for j in range(i + 1, len(scripts)):
+                    if re.search(rf'function\s+{re.escape(fn_name)}\s*\(', scripts[j]):
+                        problems.append(f'{fn_name}() dipanggil di script #{i+1}, baru didefinisikan di script #{j+1}')
+                        break
+
+        if problems:
+            sample = '; '.join(problems[:3])
+            extra = f' (+{len(problems) - 3} lagi)' if len(problems) > 3 else ''
+            err('cross-script-call',
+                f'{rel}: function dipanggil sebelum didefinisikan lintas <script> tag '
+                f'(ReferenceError setiap load): {sample}{extra}')
+
+
+def check_minified_drift():
+    """Peringatkan bila assets/<name>.js dan <name>.min.js berbeda LOGIKA.
+
+    Halaman memuat versi .min.js, tapi unit test dan perbaikan biasanya menyasar
+    versi .js. Kalau keduanya menyimpang, perbaikan tidak pernah sampai ke
+    pengguna — dan test bisa lulus terhadap kode yang tidak dijalankan siapa pun.
+
+    Kasus nyata (v81): assets/platform.js punya clamp levelProgress dan validasi
+    rating SRS, tapi platform.min.js — yang dimuat 190 halaman — tidak punya
+    keduanya. 46 unit test lulus menguji kode yang tidak dipakai produksi.
+
+    Yang SENGAJA tidak dilaporkan: beda gaya penulisan semata. index-page.min.js
+    ditranspilasi ke ES5 (var + function(){}) sementara sumbernya memakai const +
+    arrow function. Logikanya sama persis, jadi itu bukan drift yang berbahaya.
+    """
+    def logic_signature(code):
+        """Sidik jari logika, tahan terhadap perbedaan gaya penulisan.
+
+        Halaman memuat .min.js; kalau sumber dan .min menyimpang, perbaikan tidak
+        pernah sampai ke pengguna (kasus v81: platform.min.js kehilangan clamp
+        levelProgress, 46 test lulus menguji kode yang tak dipakai).
+
+        Tapi membandingkan teks mentah menghasilkan peringatan palsu: .min sering
+        ditranspilasi ke ES5, mengubah `el => f(el)` jadi `function (el) { f(el); }`.
+        Itu beda GAYA, bukan logika. Normalisasi di bawah menyamakan gaya
+        deklarasi, pembungkus fungsi, dan kurung kurawal opsional arrow, lalu
+        membuang semua spasi — sehingga yang tersisa hanya perbedaan nyata.
+        """
+        code = re.sub(r'/\*[\s\S]*?\*/', '', code)
+        code = re.sub(r'^\s*//.*$', '', code, flags=re.M)
+
+        # var/let/const → sama
+        code = re.sub(r'\b(?:const|let|var)\b', 'V', code)
+
+        # Arrow → function. Tangani `x => expr`, `(x) => expr`, `x => { ... }`.
+        code = re.sub(r'\(([^()]*)\)\s*=>', r'FN(\1)', code)
+        code = re.sub(r'\b([A-Za-z_$][\w$]*)\s*=>', r'FN(\1)', code)
+        code = re.sub(r'\bfunction\s*\(', 'FN(', code)
+
+        # Buang kurung kurawal, titik koma, dan SEMUA spasi: `{ f(x); }` dan
+        # `f(x)` jadi identik, sehingga arrow ringkas == function berkurung.
+        code = re.sub(r'[{};\s]+', '', code)
+        return code
+
+    for min_path in sorted(glob.glob(os.path.join(ROOT, 'assets', '*.min.js'))):
+        src_path = min_path[:-len('.min.js')] + '.js'
+        if not os.path.exists(src_path):
+            continue
+
+        name = os.path.basename(src_path)
+        if logic_signature(read(src_path)) == logic_signature(read(min_path)):
+            ok('minified-drift', f'{name} matches its .min.js (logic identical)')
+            continue
+
+        # Beda nyata: tunjukkan baris yang hanya ada di sumber, supaya jelas apa
+        # yang belum sampai ke .min.
+        def statements(code):
+            code = re.sub(r'/\*[\s\S]*?\*/', '', code)
+            code = re.sub(r'^\s*//.*$', '', code, flags=re.M)
+            return {re.sub(r'\s+', ' ', s).strip()
+                    for s in code.split('\n') if len(s.strip()) > 30}
+
+        only_src = sorted(statements(read(src_path)) - statements(read(min_path)))
+        hint = f' Contoh yang belum ada di .min: {only_src[0][:70]}…' if only_src else ''
+        err('minified-drift',
+            f'{name}: sumber dan .min.js berbeda LOGIKA. Halaman memuat .min.js, '
+            f'jadi perubahan di {name} tidak sampai ke pengguna.{hint}')
+
+def check_kaigo_hub():
+    """Materi/Kaigo.html harus menaut SEMUA Kaigo-*.html, dan Materi.html tidak
+    boleh lagi memuat daftar panjangnya.
+
+    Kaigo.html dibangun oleh scripts/build_kaigo_page.py. Kalau materi Kaigo baru
+    ditambahkan tapi generator tidak dijalankan ulang, materi itu jadi yatim:
+    filenya ada, tapi tidak muncul di pusat materi Kaigo.
+    """
+    hub = os.path.join(ROOT, 'Materi', 'Kaigo.html')
+    materi_dir = os.path.join(ROOT, 'Materi')
+    if not os.path.exists(hub):
+        err('kaigo-hub', 'Materi/Kaigo.html tidak ada — jalankan: python3 scripts/build_kaigo_page.py')
+        return
+
+    hub_src = read(hub)
+    linked = set(re.findall(r'href="(Kaigo-[^"]+\.html)"', hub_src))
+    on_disk = {
+        f for f in os.listdir(materi_dir)
+        if f.startswith('Kaigo-') and f.endswith('.html')
+    }
+
+    missing = sorted(on_disk - linked)
+    stale = sorted(linked - on_disk)
+
+    if missing:
+        sample = ', '.join(missing[:5]) + (f' (+{len(missing) - 5} lagi)' if len(missing) > 5 else '')
+        err('kaigo-hub',
+            f'{len(missing)}/{len(on_disk)} materi Kaigo tidak tertaut di Materi/Kaigo.html: '
+            f'{sample} — jalankan: python3 scripts/build_kaigo_page.py')
+    elif stale:
+        err('kaigo-hub',
+            f'{len(stale)} tautan di Materi/Kaigo.html menunjuk file yang tidak ada: {", ".join(stale[:5])}')
+    else:
+        ok('kaigo-hub', f'All {len(on_disk)} Kaigo materi are linked from Materi/Kaigo.html')
+
+    # Materi.html seharusnya hanya menaut hub-nya, bukan 40+ modul satu per satu.
+    index_src = read(os.path.join(materi_dir, 'Materi.html'))
+    direct = re.findall(r'href="(Kaigo-[^"]+\.html)"', index_src)
+    if direct:
+        err('kaigo-hub',
+            f'Materi/Materi.html masih menaut {len(direct)} modul Kaigo langsung '
+            f'(mis. {direct[0]}). Daftar itu sudah dipindah ke Materi/Kaigo.html.')
+    elif 'href="Kaigo.html"' in index_src:
+        ok('kaigo-hub', 'Materi.html links to the Kaigo hub instead of listing every module')
+    else:
+        warn('kaigo-hub', 'Materi/Materi.html tidak punya tautan ke Kaigo.html')
+
+
+def check_links_and_assets():
+    """Satu lintasan untuk semua rujukan: href, src, fragment, CSS, JS, gambar.
+
+    Menggantikan beberapa check terpisah yang masing-masing membaca ulang seluruh
+    proyek. Memakai indeks (_index) sehingga tiap file hanya dibaca sekali.
+    """
+    idx = _index()
+
+    broken_href, broken_src, broken_frag, malformed = [], [], [], []
+    js_driven = []
+
+    for p in idx.html_paths:
+        r = rel(p)
+        markup = idx.markup[p]
+
+        for href in idx.hrefs[p]:
+            h = href.strip()
+            if not h:
+                malformed.append(f'{r}: href kosong')
+                continue
+            if is_external(h):
+                continue
+            if h == '#':
+                # <a href="#" onclick="...; return false"> = tombol yang dibuka JS.
+                # Pola lazim dan disengaja — bukan link rusak, tapi tetap dicatat:
+                # kalau JS mati, elemen ini tidak melakukan apa-apa.
+                anchor = re.search(
+                    r'<a[^>]*href=["\']#["\'][^>]*>', markup)
+                if anchor and 'onclick' in anchor.group(0):
+                    js_driven.append(r)
+                else:
+                    malformed.append(f'{r}: href="#" tanpa handler (link mati)')
+                continue
+
+            target, frag = resolve(h, p)
+            if target is None:
+                continue
+
+            if not os.path.exists(target):
+                broken_href.append(f'{r} → {href}')
+                continue
+
+            if frag and target in idx.ids and frag not in idx.ids[target]:
+                broken_frag.append(f'{r} → {href}')
+
+        for src in idx.srcs[p]:
+            s = src.strip()
+            if not s or is_external(s):
+                continue
+            # src yang dirakit JS saat runtime (`src="${url}"`, `src="'+x+'"`).
+            # Nilainya baru ada di browser, jadi tidak bisa — dan tidak perlu —
+            # dicocokkan dengan file di disk.
+            if '${' in s or '{{' in s or "'+" in s or '"+' in s:
+                continue
+            target, _ = resolve(s, p)
+            if target and not os.path.exists(target):
+                broken_src.append(f'{r} → {src}')
+
+    def report(name, items, label):
+        if items:
+            sample = '; '.join(items[:4])
+            extra = f' (+{len(items) - 4} lagi)' if len(items) > 4 else ''
+            err(name, f'{len(items)} {label}: {sample}{extra}')
+        else:
+            ok(name, f'No {label}')
+
+    report('broken-href', broken_href, 'tautan menunjuk file yang tidak ada')
+    report('broken-src', broken_src, 'src (CSS/JS/gambar) menunjuk file yang tidak ada')
+    report('broken-fragment', broken_frag, 'fragment (#anchor) tanpa elemen tujuan')
+    report('malformed-href', malformed, 'href kosong / tidak valid')
+
+    if js_driven:
+        pages = sorted(set(js_driven))
+        warn('js-driven-link',
+             f'{len(js_driven)} <a href="#" onclick="..."> di {len(pages)} halaman '
+             f'({", ".join(pages[:3])}): berfungsi lewat JS, tapi jadi link mati '
+             f'kalau JS gagal dimuat. Pertimbangkan <button> atau href sungguhan.')
+
+
+def check_anchor_structure():
+    """Nested anchor dan anchor yang tidak tertutup.
+
+    Nested <a> membuat browser memecah markup dan link jadi tak bisa diklik.
+    Pola `<a href="x.html"</a>` (tag pembuka tanpa '>') pernah membuat 3 link
+    Kaigo mati di Materi.html.
+    """
+    idx = _index()
+    nested, unclosed, malformed = [], [], []
+
+    for p in idx.html_paths:
+        r = rel(p)
+        m = idx.markup[p]
+
+        if re.search(r'<a\b[^>]*>(?:(?!</a>).)*?<a\b', m, re.DOTALL):
+            nested.append(r)
+
+        opens = len(re.findall(r'<a\b', m))
+        closes = len(re.findall(r'</a>', m))
+        if opens != closes:
+            unclosed.append(f'{r} ({opens} buka / {closes} tutup)')
+
+        # <a href="x"</a> — tag pembuka tidak ditutup dengan '>'
+        if re.search(r'<a\s[^>]*"</a>', m):
+            malformed.append(r)
+
+    if nested:
+        err('nested-anchor', f'{len(nested)} halaman punya <a> bersarang: {", ".join(nested[:4])}')
+    else:
+        ok('nested-anchor', 'No nested anchors')
+
+    if unclosed:
+        err('unclosed-anchor', f'{len(unclosed)} halaman: {"; ".join(unclosed[:4])}')
+    else:
+        ok('unclosed-anchor', 'All anchors balanced')
+
+    if malformed:
+        err('malformed-anchor',
+            f'{len(malformed)} halaman punya <a ...</a> tanpa ">": {", ".join(malformed[:4])}')
+    else:
+        ok('malformed-anchor', 'No malformed anchor tags')
+
+
+def check_head_body_hygiene():
+    """Cegah kembalinya dua kelas kerusakan struktural yang sudah diperbaiki:
+
+    1. skip-link <a class="skip-to-content"> DI DALAM <head>. Browser menutup
+       <head> lebih awal untuk memindahkannya ke <body>, memicu error parser.
+       Elemen ini harus berada di <body>.
+    2. Tombol back-to-top dengan DUA id (id="backToTop" ... id="bttBtn"). HTML
+       melarang atribut ganda; hanya bttBtn yang dipakai JS.
+    """
+    idx = _index()
+    skip_in_head, dup_id = [], []
+
+    for p in idx.html_paths:
+        r = rel(p)
+        c = idx.text[p]
+        h = c.find('</head>')
+        if h > 0:
+            head = c[:h]
+            if re.search(r'<a\s[^>]*class="skip-to-content"', head):
+                skip_in_head.append(r)
+        if re.search(r'<button\s+id="backToTop"[^>]*\bid="bttBtn"', c):
+            dup_id.append(r)
+
+    if skip_in_head:
+        err('skip-link-placement',
+            f'{len(skip_in_head)} halaman punya skip-link di <head> (harus di <body>): {", ".join(skip_in_head[:4])}')
+    else:
+        ok('skip-link-placement', 'All skip-links are in <body>')
+
+    if dup_id:
+        err('duplicate-button-id',
+            f'{len(dup_id)} halaman punya tombol back-to-top ber-id ganda: {", ".join(dup_id[:4])}')
+    else:
+        ok('duplicate-button-id', 'No duplicate back-to-top ids')
+
+
+def check_kaigo_catalog():
+    """Katalog Kaigo ↔ file di disk ↔ kartu di Kaigo.html harus konsisten."""
+    sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+    try:
+        import kaigo_catalog
+        import importlib
+        importlib.reload(kaigo_catalog)
+    except Exception as e:                      # katalog rusak = error, bukan crash
+        err('kaigo-catalog', f'Tidak bisa memuat scripts/kaigo_catalog.py: {e}')
+        return
+
+    MODULES = kaigo_catalog.MODULES
+    materi_dir = os.path.join(ROOT, 'Materi')
+
+    on_disk = {f for f in os.listdir(materi_dir)
+               if f.startswith('Kaigo-') and f.endswith('.html')}
+    in_catalog = {m['filename'] for m in MODULES.values()}
+
+    orphan = sorted(on_disk - in_catalog)
+    ghost = sorted(in_catalog - on_disk)
+
+    if orphan:
+        err('kaigo-catalog',
+            f'{len(orphan)} file Kaigo tidak ada di katalog: {", ".join(orphan[:4])} '
+            f'— tambahkan ke scripts/kaigo_catalog.py')
+    if ghost:
+        err('kaigo-catalog',
+            f'{len(ghost)} entri katalog menunjuk file yang tidak ada: {", ".join(ghost[:4])}')
+    if not orphan and not ghost:
+        ok('kaigo-catalog', f'Catalog and disk agree on all {len(on_disk)} Kaigo modules')
+
+    # Integritas metadata
+    bad = []
+    for slug, m in MODULES.items():
+        pre = m.get('prerequisite')
+        nxt = m.get('recommended_next')
+        if pre and pre not in MODULES:
+            bad.append(f'{slug}: prerequisite "{pre}" tidak ada di katalog')
+        if nxt and nxt not in MODULES:
+            bad.append(f'{slug}: recommended_next "{nxt}" tidak ada di katalog')
+        if m.get('level') not in kaigo_catalog.LEVEL_NAMES:
+            bad.append(f'{slug}: level "{m.get("level")}" tidak dikenal')
+        if not isinstance(m.get('duration'), int) or not (1 <= m['duration'] <= 180):
+            bad.append(f'{slug}: duration {m.get("duration")} di luar rentang wajar')
+
+    if bad:
+        err('kaigo-catalog', f'{len(bad)} metadata bermasalah: {"; ".join(bad[:3])}')
+    else:
+        ok('kaigo-catalog', 'Module metadata is internally consistent')
+
+    # Halaman hasil generate harus cocok dengan katalog
+    hub = os.path.join(ROOT, 'Materi', 'Kaigo.html')
+    if not os.path.exists(hub):
+        err('kaigo-catalog', 'Materi/Kaigo.html tidak ada — jalankan build_kaigo_page.py')
+        return
+
+    src = read(hub)
+    card_ids = re.findall(r'id="kg-card-([^"]+)"', src)
+
+    dupes = sorted({c for c in card_ids if card_ids.count(c) > 1})
+    if dupes:
+        err('kaigo-catalog', f'{len(dupes)} kartu duplikat di Kaigo.html: {", ".join(dupes[:4])}')
+
+    if len(card_ids) != len(MODULES):
+        err('kaigo-catalog',
+            f'Kaigo.html punya {len(card_ids)} kartu, katalog punya {len(MODULES)} modul '
+            f'— jalankan: python3 scripts/build_kaigo_page.py')
+    elif not dupes:
+        ok('kaigo-catalog', f'Kaigo.html renders exactly {len(card_ids)} cards, one per module')
+
+
+def main():
+    print("🔍 NihonggoPro Site Validator\n" + "=" * 50)
+
+    checks = [
+        check_links_and_assets,
+        check_anchor_structure,
+        check_head_body_hygiene,
+        check_kaigo_catalog,
+        check_js_syntax,
+        check_inline_js_syntax,
+        check_json_validity,
+        check_broken_links,
+        check_domain_consistency,
+        check_canonical_filename_match,
+        check_seo_basics,
+        check_duplicate_ids,
+        check_accessibility,
+        check_security,
+        check_folder_names,
+        check_service_worker,
+        check_global_object_dependencies,
+        check_env_variable_consistency,
+        check_materi_parity,
+        check_search_index,
+        check_kaigo_hub,
+        check_missing_dom_elements,
+        check_class_selector_crashers,
+        check_cross_script_function_calls,
+        check_minified_drift,
+        check_unit_tests,
+    ]
+
+    for check in checks:
+        check()
+
+    print(f"\n✅ PASSED ({len(passed)})")
+    for p in passed:
+        print(f"   {p}")
+
+    if warnings:
+        print(f"\n⚠️  WARNINGS ({len(warnings)})")
+        for w in warnings:
+            print(f"   {w}")
+
+    if errors:
+        print(f"\n❌ ERRORS ({len(errors)})")
+        for e in errors:
+            print(f"   {e}")
+
+    print("\n" + "=" * 50)
+    if errors:
+        print(f"RESULT: FAILED — {len(errors)} error(s), {len(warnings)} warning(s)")
+        sys.exit(1)
+    elif warnings and STRICT:
+        print(f"RESULT: FAILED (strict mode) — {len(warnings)} warning(s)")
+        sys.exit(1)
+    else:
+        print(f"RESULT: PASSED — {len(warnings)} warning(s), 0 errors")
+        sys.exit(0)
+
+
+if __name__ == '__main__':
+    main()

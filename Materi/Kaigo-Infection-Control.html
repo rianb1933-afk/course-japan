@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Pengendalian Infeksi Kaigo 感染対策 | Nihonggo Pro Academy</title>
+<meta name="description" content="Pengendalian Infeksi Kaigo 感染対策 — Nihonggo Pro Academy">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Infection-Control.html">
+<meta property="og:title" content="Pengendalian Infeksi Kaigo 感染対策 — Nihonggo Pro Academy">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["感染症", "kansen-sho", "penyakit infeksi"], ["標準予防策", "hyojun yobo-saku", "kewaspadaan standar"], ["手指衛生", "shushi eisei", "kebersihan tangan"], ["PPE", "PPE", "alat pelindung diri"], ["飛沫感染", "himatsu kansen", "penularan droplet"], ["空気感染", "kuki kansen", "penularan airborne"], ["接触感染", "sesshoku kansen", "penularan kontak"], ["次亜塩素酸", "jia ensosan", "natrium hipoklorit"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#37474f">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,#37474f,#546e7a);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
+.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
+.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
+.sec h3{color:#37474f;margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
+.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
+.tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
+.tbl tr:hover td{background:rgba(0,0,0,.03)}
+.tip{background:#f0faf0;border-left:3px solid #43a047;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
+.card.open .det{display:block}
+.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.83rem;color:#666;line-height:1.7}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px}
+.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
+.qq{font-weight:600;margin-bottom:12px}
+.qopts{display:grid;gap:8px}
+.qopt{background:#fff;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;text-align:left;width:100%;font-family:inherit}
+.qopt:hover{background:rgba(0,0,0,.04)}
+.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.85rem;color:#555;display:none}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Pengendalian Infeksi Kaigo 感染対策 | Nihonggo Pro Academy", "description": "Pengendalian Infeksi Kaigo 感染対策 — Nihonggo Pro Academy", "url": "https://nihonggopro.id/Materi/Kaigo-Infection-Control.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Pengendalian Infeksi Kaigo 感染対策 — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Infection-Control.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pengendalian Infeksi Kaigo 感染対策">
+<meta name="twitter:description" content="Pengendalian Infeksi Kaigo 感染対策 — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">🦠 介護·感染</span><h1>Pengendalian Infeksi Kaigo 感染対策</h1></div>
+<div class="wrap" style="padding-top:24px">
+<div class="tip">💡 Pengendalian infeksi adalah tanggung jawab SEMUA staf, bukan hanya perawat. Kebersihan tangan adalah intervensi tunggal paling efektif!</div>
+<div class="sec"><h3>🤲 5 Momen Cuci Tangan WHO</h3>
+<div class="tbl-wrap"><table class="tbl">
+<tr><th>Momen</th><th>Kapan</th><th>Bahasa Jepang</th></tr>
+<tr><td>1</td><td>Sebelum menyentuh pasien</td><td>患者に触れる前</td></tr>
+<tr><td>2</td><td>Sebelum prosedur bersih/aseptik</td><td>清潔・無菌操作の前</td></tr>
+<tr><td>3</td><td>Setelah risiko terpapar cairan tubuh</td><td>体液に触れた後</td></tr>
+<tr><td>4</td><td>Setelah menyentuh pasien</td><td>患者に触れた後</td></tr>
+<tr><td>5</td><td>Setelah menyentuh lingkungan pasien</td><td>患者周囲の環境に触れた後</td></tr>
+</table></div></div>
+<div class="sec"><h3>🦠 Infeksi Umum di Fasilitas Kaigo</h3>
+<div class="tbl-wrap"><table class="tbl">
+<tr><th>Infeksi</th><th>Bahasa Jepang</th><th>Cara Penularan</th><th>Pencegahan Utama</th></tr>
+<tr><td>Influenza</td><td>インフルエンザ</td><td>Droplet (飛沫)</td><td>Vaksin, masker, ventilasi</td></tr>
+<tr><td>Norovirus</td><td>ノロウイルス</td><td>Fecal-oral, kontak</td><td>Cuci tangan sabun, disinfeksi klorin</td></tr>
+<tr><td>COVID-19</td><td>新型コロナウイルス感染症</td><td>Droplet, aerosol</td><td>Vaksin, masker, ventilasi</td></tr>
+<tr><td>MRSA</td><td>メチシリン耐性黄色ブドウ球菌</td><td>Kontak langsung</td><td>Cuci tangan, APD, isolasi</td></tr>
+<tr><td>疥癬 (Scabies)</td><td>疥癬(かいせん)</td><td>Kontak kulit langsung</td><td>APD lengkap, cuci linen panas</td></tr>
+<tr><td>結核 (TBC)</td><td>結核(けっかく)</td><td>Airborne (空気感染)</td><td>N95 masker, ruang tekanan negatif</td></tr>
+</table></div></div>
+<div class="sec"><h3>🛡️ Level APD (Alat Pelindung Diri)</h3>
+<div class="tbl-wrap"><table class="tbl">
+<tr><th>Bahasa Jepang</th><th>Indonesia</th><th>Kapan Dipakai</th></tr>
+<tr><td>手袋(てぶくろ)</td><td>Sarung tangan</td><td>Kontak dengan cairan tubuh, luka</td></tr>
+<tr><td>マスク</td><td>Masker</td><td>Droplet precautions, respiratory symptoms</td></tr>
+<tr><td>ガウン/エプロン</td><td>Gown/Apron</td><td>Risiko percikan cairan tubuh</td></tr>
+<tr><td>ゴーグル/フェイスシールド</td><td>Pelindung mata</td><td>Risiko percikan ke mata</td></tr>
+<tr><td>N95マスク</td><td>Masker N95</td><td>Airborne precautions (TBC, COVID aerosol)</td></tr>
+</table></div></div>
+
+<div style="max-width:900px;margin:0 auto;padding:0 20px">
+<div style="background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0">
+<h3 style="color:#37474f;margin:0 0 10px;font-size:1rem">🧤 Prosedur Memakai dan Melepas APD</h3>
+<table style="width:100%;border-collapse:collapse;font-size:.85rem">
+<tr style="background:rgba(0,0,0,.05)"><th style="padding:8px 12px;text-align:left">Urutan PAKAI</th><th style="padding:8px 12px;text-align:left">Urutan LEPAS</th></tr>
+<tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">① 手指衛生</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">① 手袋を外す</td></tr>
+<tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">② ガウン/エプロン</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">② 手指衛生</td></tr>
+<tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">③ マスク</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">③ ガウン/エプロンを外す</td></tr>
+<tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">④ ゴーグル/フェイスシールド</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">④ 手指衛生</td></tr>
+<tr><td style="padding:8px 12px">⑤ 手袋</td><td style="padding:8px 12px">⑤ マスク/ゴーグルを外す → 手指衛生</td></tr>
+</table>
+<div style="background:#fff3e0;border-radius:8px;padding:10px 14px;margin-top:10px;font-size:.83rem;color:#e65100">
+⚠️ <b>脱ぐ時の原則</b>: 汚染面が内側になるように折り畳む. 手を汚染しないよう注意. 手袋を外したら必ず手指衛生!
+</div></div>
+<div style="background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0">
+<h3 style="color:#37474f;margin:0 0 10px;font-size:1rem">🧼 手洗い vs 手指消毒 — いつ使う？</h3>
+<table style="width:100%;border-collapse:collapse;font-size:.85rem">
+<tr style="background:rgba(0,0,0,.05)"><th style="padding:8px 12px;text-align:left">方法</th><th style="padding:8px 12px;text-align:left">使うタイミング</th><th style="padding:8px 12px;text-align:left">時間</th></tr>
+<tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">流水+石鹸手洗い</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">目に見える汚染、ノロウイルス後</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)">40-60秒</td></tr>
+<tr><td style="padding:8px 12px">アルコール手指消毒</td><td style="padding:8px 12px">日常的なケア前後(汚染なし)</td><td style="padding:8px 12px">20-30秒</td></tr>
+</table></div>
+</div>
+
+<h2 style="font-size:1.2rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<div class="pg-vocab" id="pg"></div>
+
+
+<!-- enriched-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:#1b5e20;margin:0 0 12px;font-size:1rem;font-weight:700">🦠 感染経路別予防策</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">感染経路</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">主な疾患</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">標準予防策に加える対策</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">接触感染</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ノロウイルス・MRSA・疥癬</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">手袋・ガウン・環境消毒(次亜塩素酸)・専用物品</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">飛沫感染</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">インフルエンザ・COVID-19・百日咳</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">サージカルマスク・飛沫防護(フェイスシールド)・換気</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">空気感染</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">結核・麻疹・水痘</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">N95マスク・陰圧個室・空気交換</td></tr></table><div style="background:rgba(0,0,0,.04);border-left:3px solid #1b5e20;padding:12px 15px;border-radius:0 10px 10px 0;font-size:.87rem;margin:12px 0;line-height:1.7">💡 標準予防策(Standard Precautions): すべての利用者の血液・体液・排泄物・傷のある皮膚・粘膜は感染リスクがあるとみなして対応する基本原則。手指衛生・PPE(グローブ・マスク・ガウン)が核心。</div></div></div>
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#1b5e20;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e8f5e9">💬 感染症対策の実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1b5e20;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9">🧤 Dialog 1 — 感染対策の確認</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">新人介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">先輩、ノロウイルスが疑われる利用者の排泄介助の時、どんな対策が必要ですか？<button aria-label="Ucapkan: 先輩、ノロウイルスが疑われる利用者の排泄介助の時、どんな対策…" onclick="speak('先輩、ノロウイルスが疑われる利用者の排泄介助の時、どんな対策が必要ですか？')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Senpai, saat bantuan toilet untuk pengguna yang dicurigai norovirus, tindakan pencegahan apa yang diperlukan?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">先輩介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">接触感染と飛沫感染の予防が必要です。手袋とエプロン、必要に応じてマスクを着用してください。処置後は次亜塩素酸ナトリウムで消毒します。<button aria-label="Ucapkan: 接触感染と飛沫感染の予防が必要です。手袋とエプロン、必要に応…" onclick="speak('接触感染と飛沫感染の予防が必要です。手袋とエプロン、必要に応じてマスクを着用してください。処置後は次亜塩素酸ナトリウムで消毒します。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Perlu mencegah penularan kontak dan droplet. Kenakan sarung tangan, apron, dan masker jika perlu. Setelah tindakan desinfeksi dengan natrium hipoklorit.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1b5e20;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9">🤧 Dialog 2 — 発熱利用者の対応</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">看護師さん、田中様が38.2度の発熱です。咳も少しあります。<button aria-label="Ucapkan: 看護師さん、田中様が38.2度の発熱です。咳も少しあります。" onclick="speak('看護師さん、田中様が38.2度の発熱です。咳も少しあります。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Suster, Bu Tanaka demam 38.2°C. Ada sedikit batuk juga.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">看護師</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">わかりました。個室対応と飛沫予防策を取ります。マスク着用と手指衛生を徹底してください。入室時はガウンもお願いします。<button aria-label="Ucapkan: わかりました。個室対応と飛沫予防策を取ります。マスク着用と手…" onclick="speak('わかりました。個室対応と飛沫予防策を取ります。マスク着用と手指衛生を徹底してください。入室時はガウンもお願いします。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Mengerti. Akan diisolasi kamar dan terapkan kewaspadaan droplet. Kenakan masker dan jaga kebersihan tangan. Saat masuk ruangan pakai gown juga.</div></div></div></div></div>
+<h2 class="st">🧠 Quiz</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+<button onclick="nQ()" style="flex:1;padding:12px;background:#37474f;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQ()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qs" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</div><section style="padding:16px;max-width:860px;margin:20px auto">
+<h2 style="font-size:1rem;color:#b71c1c;border-bottom:3px solid #b71c1c;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 感染管理</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('感染管理')" title="クリックで発音">🔊 感染管理</div>
+  <div style="font-size:.8rem;color:#777">kansen kanri</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">manajemen infeksi</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('標準予防策')" title="クリックで発音">🔊 標準予防策</div>
+  <div style="font-size:.8rem;color:#777">hyōjun yobōsaku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">standard precautions</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('手指衛生')" title="クリックで発音">🔊 手指衛生</div>
+  <div style="font-size:.8rem;color:#777">shushi eisei</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kebersihan tangan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('手洗い')" title="クリックで発音">🔊 手洗い</div>
+  <div style="font-size:.8rem;color:#777">tearai</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">cuci tangan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('手指消毒')" title="クリックで発音">🔊 手指消毒</div>
+  <div style="font-size:.8rem;color:#777">shushi shōdoku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">disinfeksi tangan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('個人防護具')" title="クリックで発音">🔊 個人防護具</div>
+  <div style="font-size:.8rem;color:#777">kojin bōgogu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">APD / alat pelindung diri</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('マスク')" title="クリックで発音">🔊 マスク</div>
+  <div style="font-size:.8rem;color:#777">masuku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">masker</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('手袋')" title="クリックで発音">🔊 手袋</div>
+  <div style="font-size:.8rem;color:#777">tebukuro</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">sarung tangan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('ガウン')" title="クリックで発音">🔊 ガウン</div>
+  <div style="font-size:.8rem;color:#777">gaun</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">gaun / apron</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('ゴーグル')" title="クリックで発音">🔊 ゴーグル</div>
+  <div style="font-size:.8rem;color:#777">gōguru</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kacamata pelindung</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('隔離')" title="クリックで発音">🔊 隔離</div>
+  <div style="font-size:.8rem;color:#777">kakuri</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">isolasi</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('接触予防策')" title="クリックで発音">🔊 接触予防策</div>
+  <div style="font-size:.8rem;color:#777">sesshoku yobōsaku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">contact precautions</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('飛沫予防策')" title="クリックで発音">🔊 飛沫予防策</div>
+  <div style="font-size:.8rem;color:#777">himatsu yobōsaku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">droplet precautions</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('空気予防策')" title="クリックで発音">🔊 空気予防策</div>
+  <div style="font-size:.8rem;color:#777">kūki yobōsaku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">airborne precautions</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('消毒・滅菌')" title="クリックで発音">🔊 消毒・滅菌</div>
+  <div style="font-size:.8rem;color:#777">shōdoku / mekkin</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">disinfeksi / sterilisasi</div>
+</div>
+</div></section></main>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+var Q=[{"q": "WHOの手指衛生5つのタイミングの1つ目は？", "opts": ["食事の前", "患者に触れる前", "患者に触れた後", "手が汚れた時"], "a": 1, "e": "WHOが定める手指衛生の5つのタイミングの1つ目は「患者に触れる前」。この最初のタイミングを守ることで、介助者の手を介した病原体の持ち込みを防ぎ、感染予防の第一歩とすることができる。"}, {"q": "ノロウイルス感染後の適切な消毒剤は？", "opts": ["アルコール消毒のみ", "次亜塩素酸ナトリウム(塩素系)", "石鹸のみ", "熱湯のみ"], "a": 1, "e": "ノロウイルスの消毒には、次亜塩素酸ナトリウムなどの塩素系消毒剤が適切とされる。アルコール消毒だけでは十分な効果が得られないため、嘔吐物処理等の際は塩素系消毒剤を用いることが重要になる。"}, {"q": "「疥癬(かいせん)」の感染経路は？", "opts": ["空気感染", "直接の皮膚接触(ダニが移る)", "飛沫感染", "食べ物"], "a": 1, "e": "疥癬は、皮膚と皮膚の直接接触によって感染するダニによる皮膚疾患。空気感染ではなく接触感染が主な経路であるため、標準予防策に加え接触予防策の徹底が求められる。"}, {"q": "結核(TBC)のケアで必要な特別な対策は？", "opts": ["通常のマスクでよい", "N95マスクの着用と空気感染予防策", "手袋のみ", "特別な対策不要"], "a": 1, "e": "結核は空気感染するため、通常の標準予防策に加え、N95マスクの着用や陰圧室での管理など、空気予防策が特別に必要となる。他の感染症とは異なる、より厳重な対策が求められる疾患である。"}, {"q": "手袋を外した後に必ず行うべきことは？", "opts": ["次の患者へ行く", "手指衛生(手洗い・消毒)を行う", "手袋を捨てる", "記録する"], "a": 1, "e": "手袋を外した後は、必ず手指衛生（手洗いまたは手指消毒）を行う必要がある。手袋を着用していたからといって手指衛生を省略してよいわけではなく、外した後の衛生管理も感染予防の重要な要素となる。"}, {"q": "「接触予防策」が必要な感染症は？", "opts": ["結核・麻疹・水痘", "MRSA・ノロウイルス・疥癬", "インフルエンザ・RSウイルス", "梅毒・HIV"], "a": 1, "e": "疥癬や耐性菌（MRSA等）保菌といった、接触によって感染が広がる感染症には接触予防策が必要となる。手袋やガウンの着用、器具の個別管理などを通じて、接触による感染拡大を防ぐ。"}, {"q": "「標準予防策」の基本的考え方は？", "opts": ["感染確定患者だけ対策", "すべての血液・体液・分泌物は感染性があると見なして対応", "医療従事者のみ実施", "手袋だけすれば十分"], "a": 1, "e": "標準予防策の基本的考え方は、全ての血液・体液・分泌物を感染源とみなして対応すること。症状の有無にかかわらず、全ての利用者に対して一律に適用することで、感染リスクを低減する基本的な考え方である。"}, {"q": "施設でノロウイルス集団感染発生時の消毒薬は？", "opts": ["アルコール70%", "次亜塩素酸ナトリウム0.1%以上", "石鹸と水のみ", "紫外線ランプ"], "a": 1, "e": "集団感染発生時には、次亜塩素酸ナトリウムなどの塩素系消毒薬を用いて速やかに対応することが求められる。適切な濃度での消毒を徹底することが、感染拡大を防ぐ上で極めて重要になる。"}, {"q": "感染性廃棄物（使用済み手袋・汚染ガーゼ）の正しい廃棄方法は？", "opts": ["普通のゴミ箱", "感染性廃棄物専用容器(バイオハザードマーク付き)", "流し台", "そのまま放置"], "a": 1, "e": "感染性廃棄物は、専用の容器に分別し、密閉した状態で処理することが正しい廃棄方法。一般ゴミと混ぜたり、素手で扱ったりすることは、感染拡大のリスクを高めるため厳禁とされている。"}, {"q": "PPE（個人防護具）の正しい「脱ぐ順序」は？", "opts": ["手袋→エプロン→マスクの順", "マスク→手袋→エプロンの順", "どの順でも同じ", "全部一緒に脱ぐ"], "a": 0, "e": "PPEは汚染された物から先に脱ぐ: 手袋(最も汚染)→エプロン→マスク(最後=顔に近い清潔部分)。各ステップ後に手指衛生。この順序は試験頻出。"}, {"q": "標準予防策における手指衛生のタイミングとして正しいのはどれか。", "opts": ["ケア前後・体液に触れた後", "1日1回のみ", "気が向いたとき", "不要な場合が多い"], "a": 0, "e": "ケアの前後や、体液に触れた後に手指衛生を行うことが標準予防策における正しいタイミング。1日1回だけといった不十分な頻度では、感染予防の効果を十分に得ることができない。"}, {"q": "個人防護具(PPE)の着脱順序で重要なことはどれか。", "opts": ["決められた順序で汚染を広げないよう着脱する", "順序は関係ない", "早く着脱すればよい", "脱ぐ順序は不要"], "a": 0, "e": "決められた順序で着脱し、汚染を広げないようにすることが重要。順序を守らずに着脱すると、防護具についた病原体が自身や周囲に付着し、感染拡大の原因となる危険がある。"}, {"q": "インフルエンザ流行期の施設内対策はどれか。", "opts": ["手洗い励行と早期の症状把握", "対策不要", "感染者を放置", "換気をしない"], "a": 0, "e": "手洗いの励行と、症状の早期把握が流行期の基本的な対策となる。対策を行わない、感染者を放置するといった対応は、施設内での感染拡大を招く重大なリスクとなる。"}, {"q": "疥癬(かいせん)が疑われる利用者への対応はどれか。", "opts": ["個室対応と専門医への相談", "通常通り対応", "放置する", "他利用者と同室のまま"], "a": 0, "e": "個室での対応と、専門医への相談が疥癬疑い時の適切な対応。通常通りの対応を続けたり、他の利用者と同室のままにしたりすることは、接触感染を広げてしまう危険がある。"}, {"q": "ノロウイルス感染疑い時の嘔吐物処理で重要なことはどれか。", "opts": ["適切な消毒剤(次亜塩素酸等)で速やかに処理する", "水拭きのみで済ませる", "放置してよい", "素手で処理"], "a": 0, "e": "次亜塩素酸などの適切な消毒剤を用いて、速やかに処理することが重要。水拭きだけで済ませたり、素手で処理したりすることは、周囲への感染拡大を招く危険な対応となる。"}, {"q": "施設内での感染対策委員会の役割はどれか。", "opts": ["感染対策の方針策定と教育・監視", "記録の保管のみ", "無関係な業務", "職員の評価のみ"], "a": 0, "e": "感染対策の方針策定と、職員への教育・監視を担うことが感染対策委員会の役割。記録の保管だけにとどまらず、施設全体の感染予防体制を組織的に構築・維持する重要な機能を持つ。"}, {"q": "経管栄養実施者の感染予防で重要なことはどれか。", "opts": ["清潔な操作と器具の適切な管理", "器具の使い回し", "手洗い省略", "無関係な配慮"], "a": 0, "e": "清潔な操作と、使用する器具の適切な管理が経管栄養実施時の感染予防で重要。器具の使い回しや手洗いの省略は、感染リスクを大きく高めてしまうため、清潔操作の徹底が欠かせない。"}, {"q": "耐性菌(MRSA等)保菌者へのケアで重要なことはどれか。", "opts": ["標準予防策の徹底と過度な差別をしないこと", "隔離して一切関わらない", "通常ケアで問題ない", "家族にも会わせない"], "a": 0, "e": "標準予防策を徹底しながら、過度な差別をしないことが重要となる。保菌しているというだけで一切関わらない、家族にも会わせないといった過剰な対応は、本人の尊厳を損なう不適切な対応である。"}, {"q": "職員自身の感染予防で重要なワクチン接種はどれか。", "opts": ["インフルエンザ等の推奨ワクチン接種", "ワクチンは不要", "任意で構わない", "効果はない"], "a": 0, "e": "インフルエンザなど、推奨されているワクチンの接種が職員自身の感染予防として重要。ワクチン接種は、自分自身だけでなく、ケアする利用者を感染から守ることにもつながる。"}, {"q": "換気が感染対策上重要な理由はどれか。", "opts": ["空気中の病原体濃度を下げるため", "無関係", "室温調整のためだけ", "匂い対策のためだけ"], "a": 0, "e": "換気は、空気中に含まれる病原体の濃度を下げる効果があるため、感染対策上重要とされる。室温調整や匂い対策のためだけでなく、感染予防の観点からも定期的な換気が欠かせない。"}],qi=0,ok=0,tot=0;
+function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById("qc");if(!c)return;var oo=document.createElement("div");oo.className="qopts";q.opts.forEach(function(o,i){var b=document.createElement("button");b.className="qopt";b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement("div");bx.className="qbox";var qq=document.createElement("div");qq.className="qq";qq.textContent=(qi%Q.length+1)+". "+q.q;var ex=document.createElement("div");ex.className="qexp";ex.id="qe";bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML="";c.appendChild(bx);var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
+function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
+function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
+rnd();
+</script><section style="max-width:900px;margin:0 auto;padding:0 20px 0">
+<div style="background:#fff;border:1px solid rgba(55,71,79,.1);border-radius:12px;padding:18px;margin:12px 0">
+<h3 style="color:#37474f;margin:0 0 12px;font-size:1rem">🦠 感染経路と予防策まとめ</h3>
+<table style="width:100%;border-collapse:collapse;font-size:.84rem">
+<tr style="background:rgba(0,0,0,.05)"><th style="padding:7px 10px;text-align:left">感染経路</th><th style="padding:7px 10px;text-align:left">代表疾患</th><th style="padding:7px 10px;text-align:left">主な予防策</th></tr>
+<tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">飛沫感染</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">インフルエンザ・COVID-19</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">マスク・換気・距離確保</td></tr>
+<tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">空気感染</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">結核・麻疹・水痘</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">N95マスク・陰圧室</td></tr>
+<tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">接触感染</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">MRSA・ノロ・疥癬</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">手指衛生・手袋・隔離</td></tr>
+<tr><td style="padding:7px 10px">経口感染</td><td style="padding:7px 10px">ノロウイルス・サルモネラ</td><td style="padding:7px 10px">手洗い・食品管理・塩素消毒</td></tr>
+</table></div></section>
+
+<section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
+<h2 style="font-size:1.1rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
+<div id="qkZ"></div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:#37474f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">🔄 Reset</button>
+</div>
+<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</section>
+<script>
+var QKZ=[{"q": "感染症の「感染経路」で「飛沫感染」の予防策は？", "opts": ["手洗いのみ", "サージカルマスク着用・換気・距離確保", "N95マスクのみ", "手袋のみ"], "a": 1, "e": "飛沫感染=咳・くしゃみで出る飛沫(1m以内)。インフルエンザ・新型コロナ等。サージカルマスク・換気・1〜2m距離確保が有効。N95は空気感染向け。"}, {"q": "「接触感染」の予防で最重要なことは？", "opts": ["マスク", "手指衛生(手洗い・手指消毒)+手袋の適切な使用", "換気", "距離"], "a": 1, "e": "接触感染=直接接触または物(ドアノブ・手すり)経由。ノロウイルス・MRSA・疥癬等。手指衛生が最重要。手袋は使用後すぐ外して手洗い。"}, {"q": "「疥癬(かいせん)」の正しい感染経路は？", "opts": ["飛沫", "直接の皮膚接触でダニが移る", "空気", "食べ物"], "a": 1, "e": "疥癬=ヒゼンダニによる皮膚疾患。直接の長時間の皮膚接触で感染。施設でアウトブレークしやすい。全身に発疹・かゆみ。長袖手袋着用・寝具の熱湯洗濯が必要。"}, {"q": "「標準予防策(スタンダードプリコーション)」とは？", "opts": ["感染者のみに行う対策", "全ての利用者の血液・体液等を感染性があるとみなして行う対策", "特別な患者のみ", "手洗いのみ"], "a": 1, "e": "標準予防策=全利用者に適用。血液・体液・分泌物・排泄物・粘膜・傷のある皮膚はすべて感染性がある前提でAPDを使用。感染のある人だけでなく全員に。"}, {"q": "「アウトブレーク(集団感染)」発生時の最初の対応は？", "opts": ["様子を見る", "即施設長・看護師に報告+感染者の隔離+感染拡大防止措置開始", "薬を配る", "掃除のみ"], "a": 1, "e": "アウトブレーク対応: ①即報告(施設長・看護師・必要なら保健所) ②感染者の隔離 ③手指衛生強化 ④環境消毒 ⑤スタッフの健康管理。スピードが重要。"}, {"q": "手指消毒でアルコールが「効かない」代表的な病原体は？", "opts": ["インフルエンザ", "ノロウイルス・芽胞形成菌(C.difficile等)", "MRSA", "コロナウイルス"], "a": 1, "e": "アルコール無効: ノロウイルス(次亜塩素酸ナトリウムが有効)・芽胞(C.difficile=熱または次亜塩素酸)。これらは石鹸手洗いが重要。アルコール有効=インフル・コロナ・MRSA等。"}],qiZ=0,okZ=0,totZ=0;
+function rndZ(){
+  if(!QKZ.length)return;
+  var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
+  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
+  q.opts.forEach(function(o,i){
+    var b=document.createElement('button');
+    b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
+    b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
+    b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
+    b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
+    b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
+  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
+  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:#37474f;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
+  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
+  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
+  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
+  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
+  c.innerHTML='';c.appendChild(bx);
+  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function ansZ(btn,c,a,e){
+  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
+  bs[a].dataset.d='1';totZ++;
+  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
+  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
+  else okZ++;
+  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
+  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
+function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
+rndZ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

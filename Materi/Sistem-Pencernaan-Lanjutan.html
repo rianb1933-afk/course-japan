@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#052e16">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>消化器系（上級）Pencernaan Lanjutan — Obstruksi Usus &amp; Perdarahan GI untuk Calon Perawat | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Pencernaan Lanjutan — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Pencernaan-Lanjutan.html","description":"Pembelajaran tingkat lanjutan sistem pencernaan dalam bahasa Jepang — obstruksi usus, perdarahan gastrointestinal akut, farmakologi mendalam, prosedur bedah, dan terminologi ICU gastrointestinal untuk calon perawat dan tenaga medis.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Materi tingkat lanjutan sistem pencernaan — obstruksi usus, perdarahan GI akut, farmakologi mendalam, dan prosedur bedah dalam bahasa Jepang untuk calon perawat dan tenaga medis.">
+<meta property="og:title" content="消化器系（上級）Pencernaan Lanjutan — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Obstruksi usus, perdarahan GI akut, farmakologi mendalam, dan prosedur bedah dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Pencernaan-Lanjutan.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#f0fdf4,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#052e16;border-color:#052e16;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#052e16;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#052e16;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#052e16}
+.organ-tab.active{color:#052e16;border-bottom-color:#052e16}
+.organ-tab:focus-visible{outline:2px solid #052e16;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #f0fdf4;color:#021c0d}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#052e16}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#f0fdf4;border-color:#bbf7d0}
+.info-card.scope{background:#f8fafc;border-color:#cbd5e1}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#f0fdf4;color:#052e16;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #052e16;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#052e16}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.case-sim{background:var(--white,#fff);border:2px solid #bbf7d0;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#f0fdf4;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#052e16;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Pencernaan.html">① 基礎 Dasar</a>
+      <a href="Sistem-Pencernaan-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Pencernaan-Lanjutan.html" class="current">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🍽️ Level Lanjutan — Obstruksi Usus &amp; Perdarahan GI</span>
+    <h1><span class="jp-big">消化器系（上級）</span>Pencernaan Lanjutan</h1>
+    <p class="lead">Obstruksi usus, perdarahan gastrointestinal akut, farmakologi mendalam, dan prosedur bedah pencernaan — untuk calon perawat, tenaga medis, dan pelajar bahasa Jepang tingkat teknis tertinggi.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi pencernaan lanjutan">
+  <button class="organ-tab active" data-tab="obstruksi" role="tab" aria-selected="true">腸閉塞 Obstruksi Usus</button>
+  <button class="organ-tab" data-tab="perdarahan" role="tab" aria-selected="false">消化管出血 Perdarahan GI Akut</button>
+  <button class="organ-tab" data-tab="farmakologi" role="tab" aria-selected="false">薬理詳細 Farmakologi</button>
+  <button class="organ-tab" data-tab="bedah" role="tab" aria-selected="false">外科的治療 Bedah &amp; Stoma</button>
+  <button class="organ-tab" data-tab="prosedur" role="tab" aria-selected="false">処置 Prosedur &amp; Alat</button>
+  <button class="organ-tab" data-tab="icu" role="tab" aria-selected="false">ICU用語 Istilah ICU GI</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <div class="info-card scope">
+    <strong>Tentang materi tingkat lanjutan ini:</strong>
+    <p style="margin:6px 0 0">Konten ini menjelaskan KONSEP dan MEKANISME untuk tujuan edukasi bahasa dan pemahaman klinis dasar — BUKAN pengganti pendidikan keperawatan formal, protokol rumah sakit, atau panduan dosis obat. Angka/dosis spesifik sengaja tidak dicantumkan karena bervariasi menurut kondisi pasien dan kebijakan institusi; selalu ikuti pelatihan resmi dan protokol fasilitas.</p>
+  </div>
+
+  <!-- ═══════════ 腸閉塞 OBSTRUKSI USUS ═══════════ -->
+  <div class="organ-panel active" id="panel-obstruksi">
+    <h2>腸閉塞 — Obstruksi Usus (Ileus)</h2>
+    <p>Obstruksi usus (腸閉塞, ちょうへいそく) terjadi saat aliran isi usus terhambat — kondisi darurat bedah potensial yang butuh pengenalan cepat.</p>
+
+    <h3>Klasifikasi berdasarkan mekanisme</h3>
+    <ul>
+      <li><strong>機械的腸閉塞 — Obstruksi mekanis</strong>: penyumbatan FISIK (perlengketan pasca-operasi, tumor, hernia yang terjepit) — usus di atas sumbatan tetap aktif bergerak, sering menyebabkan nyeri kolik (hilang-timbul)</li>
+      <li><strong>機能的腸閉塞（イレウス） — Ileus fungsional</strong>: usus BERHENTI bergerak meski tidak ada sumbatan fisik (sering pasca-operasi, akibat gangguan elektrolit, atau obat tertentu) — nyeri cenderung konstan, bukan kolik</li>
+    </ul>
+    <div class="info-card warn">
+      <p style="margin-bottom:0"><strong>Relevansi klinis:</strong> membedakan pola nyeri (kolik vs konstan) dan riwayat (operasi sebelumnya, obat yang dikonsumsi) membantu mengarahkan kecurigaan jenis obstruksi — meski diagnosis pasti tetap butuh pencitraan dan evaluasi medis.</p>
+    </div>
+
+    <h3>Tanda klasik obstruksi usus</h3>
+    <ul>
+      <li>Nyeri perut (pola tergantung jenis obstruksi)</li>
+      <li>Muntah (bisa berbau feses pada obstruksi yang letaknya rendah/lama)</li>
+      <li>Perut kembung/distensi</li>
+      <li>Tidak bisa buang angin/BAB (obstipasi) pada obstruksi komplit</li>
+    </ul>
+    <p style="margin-bottom:0">Obstruksi usus yang dibiarkan bisa berkembang jadi komplikasi serius: gangguan aliran darah ke segmen usus yang terjepit (iskemia/nekrosis usus) — inilah kenapa pengenalan dan evaluasi CEPAT penting, bukan sekadar "menunggu membaik sendiri".</p>
+  </div>
+
+  <!-- ═══════════ 消化管出血 PERDARAHAN GI AKUT ═══════════ -->
+  <div class="organ-panel" id="panel-perdarahan">
+    <h2>消化管出血 — Perdarahan Gastrointestinal Akut</h2>
+    <h3>Klasifikasi lokasi perdarahan</h3>
+    <ul>
+      <li><strong>上部消化管出血 — Perdarahan GI atas</strong>: sumber di esofagus/lambung/duodenum — sering muncul sebagai muntah darah (segar atau seperti bubuk kopi) atau melena (feses hitam pekat)</li>
+      <li><strong>下部消化管出血 — Perdarahan GI bawah</strong>: sumber di usus halus bagian bawah/usus besar/rektum — sering muncul sebagai darah segar bercampur feses (hematochezia)</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Prinsip penting:</strong> WARNA darah/feses memberi petunjuk lokasi perdarahan (darah yang lebih lama kontak dengan asam lambung/enzim cenderung lebih gelap/hitam) — tapi ini hanya petunjuk umum, bukan kepastian, karena perdarahan GI atas MASIF sekalipun bisa muncul sebagai darah segar jika transit ususnya sangat cepat.</p>
+    </div>
+
+    <h3>Tanda syok akibat kehilangan darah</h3>
+    <p style="margin-bottom:0">Perdarahan GI akut signifikan bisa menyebabkan syok hipovolemik (dibahas prinsip umumnya di materi Kardiovaskular Lanjutan) — tanda yang perlu diwaspadai: pusing/lemas terutama saat berdiri, denyut jantung cepat, tekanan darah turun, kulit pucat/dingin. Kombinasi tanda perdarahan GI (muntah darah/melena/hematochezia) DENGAN tanda syok adalah kondisi darurat yang butuh respons segera.</p>
+  </div>
+
+  <!-- ═══════════ 薬理詳細 FARMAKOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-farmakologi">
+    <h2>薬理詳細 — Farmakologi Gastrointestinal Mendalam</h2>
+    <h3>Terapi supresi asam pada perdarahan GI atas</h3>
+    <p>Pada kecurigaan perdarahan GI atas, terapi supresi asam (PPI dosis tinggi) sering dimulai LEBIH DULU sebelum konfirmasi endoskopi — prinsipnya menstabilkan bekuan darah yang sudah terbentuk di area perdarahan, karena suasana asam justru mengganggu stabilitas bekuan.</p>
+
+    <h3>Prokinetik (促進薬)</h3>
+    <p style="margin-bottom:0">Obat yang merangsang gerakan usus — dipertimbangkan pada kondisi tertentu seperti gastroparesis (pengosongan lambung melambat) atau ileus fungsional pasca-operasi, BERBEDA dari laksatif yang bekerja lebih ke arah usus besar/feses.</p>
+
+    <h3>Interaksi obat dan risiko perdarahan GI</h3>
+    <p style="margin-bottom:0">Kombinasi NSAID (obat anti-nyeri umum) dengan antikoagulan/antiplatelet meningkatkan risiko perdarahan saluran cerna secara signifikan — prinsip penting saat meninjau riwayat obat pasien lansia yang sering mengonsumsi kombinasi obat untuk nyeri sendi DAN obat jantung/pencegah stroke sekaligus (polifarmasi).</p>
+  </div>
+
+  <!-- ═══════════ 外科的治療 BEDAH & STOMA ═══════════ -->
+  <div class="organ-panel" id="panel-bedah">
+    <h2>外科的治療 — Prinsip Bedah &amp; Perawatan Stoma</h2>
+    <h3>Reseksi usus — konsep umum</h3>
+    <p>Pengangkatan sebagian usus yang rusak/sakit (akibat tumor, iskemia, obstruksi berat) — sisa usus kemudian disambung kembali (anastomosis) bila memungkinkan, atau dialihkan lewat stoma bila penyambungan langsung tidak aman dilakukan.</p>
+
+    <h3>Jenis stoma — konsep dasar</h3>
+    <ul>
+      <li><strong>結腸ストーマ (けっちょうすとーま) — Kolostomi</strong>: lubang buatan dari usus besar ke permukaan perut, feses keluar lewat stoma ke kantong khusus</li>
+      <li><strong>回腸ストーマ (かいちょうすとーま) — Ileostomi</strong>: lubang buatan dari usus halus (ileum), output cenderung lebih cair karena belum melewati proses penyerapan air di usus besar</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Relevansi Kaigo:</strong> perawatan kulit di sekitar stoma sangat penting karena isi usus (terutama ileostomi yang lebih cair dan mengandung enzim pencernaan aktif) bisa mengiritasi kulit sekitar bila bocor/menempel lama — pemantauan kondisi kulit peristoma dan penggantian kantong yang tepat waktu adalah bagian penting perawatan.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 処置 PROSEDUR & ALAT ═══════════ -->
+  <div class="organ-panel" id="panel-prosedur">
+    <h2>処置 — Prosedur &amp; Alat Diagnostik Pencernaan</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">上部消化管内視鏡検査 — Endoskopi Saluran Cerna Atas</h3>
+      <p style="margin-bottom:0">Kamera fleksibel dimasukkan lewat mulut untuk melihat langsung esofagus-lambung-duodenum — dipakai diagnosis (tukak, tumor, sumber perdarahan) sekaligus terapi (menghentikan perdarahan aktif, mengambil sampel jaringan).</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">大腸内視鏡検査 — Kolonoskopi</h3>
+      <p style="margin-bottom:0">Kamera fleksibel dimasukkan lewat rektum untuk melihat usus besar — dipakai untuk skrining kanker kolorektal, diagnosis sumber perdarahan GI bawah, dan pengambilan polip.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">経鼻胃管 (けいびいかん) — NG Tube untuk Dekompresi</h3>
+      <p style="margin-bottom:0">Berbeda dari NGT untuk pemberian nutrisi, selang ini dipakai untuk MENGELUARKAN isi lambung (dekompresi) pada kondisi seperti obstruksi usus — mengurangi tekanan dan risiko muntah/aspirasi.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ ICU用語 ISTILAH ICU GI ═══════════ -->
+  <div class="organ-panel" id="panel-icu">
+    <h2>ICU用語 — Terminologi ICU Gastrointestinal</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">機械的腸閉塞</td><td>きかいてきちょうへいそく</td><td>Obstruksi usus mekanis</td><td>Mechanical bowel obstruction</td></tr>
+        <tr><td class="jp">機能的腸閉塞</td><td>きのうてきちょうへいそく</td><td>Ileus fungsional</td><td>Functional ileus</td></tr>
+        <tr><td class="jp">上部消化管出血</td><td>じょうぶしょうかかんしゅっけつ</td><td>Perdarahan GI atas</td><td>Upper GI bleeding</td></tr>
+        <tr><td class="jp">下部消化管出血</td><td>かぶしょうかかんしゅっけつ</td><td>Perdarahan GI bawah</td><td>Lower GI bleeding</td></tr>
+        <tr><td class="jp">血便</td><td>けつべん</td><td>Hematochezia (darah segar di feses)</td><td>Hematochezia</td></tr>
+        <tr><td class="jp">虚血</td><td>きょけつ</td><td>Iskemia</td><td>Ischemia</td></tr>
+        <tr><td class="jp">壊死</td><td>えし</td><td>Nekrosis</td><td>Necrosis</td></tr>
+        <tr><td class="jp">吻合</td><td>ふんごう</td><td>Anastomosis (penyambungan)</td><td>Anastomosis</td></tr>
+        <tr><td class="jp">結腸ストーマ</td><td>けっちょうすとーま</td><td>Kolostomi</td><td>Colostomy</td></tr>
+        <tr><td class="jp">回腸ストーマ</td><td>かいちょうすとーま</td><td>Ileostomi</td><td>Ileostomy</td></tr>
+        <tr><td class="jp">ストーマ周囲皮膚</td><td>すとーましゅういひふ</td><td>Kulit peristoma</td><td>Peristomal skin</td></tr>
+        <tr><td class="jp">促進薬</td><td>そくしんやく</td><td>Prokinetik</td><td>Prokinetic agent</td></tr>
+        <tr><td class="jp">胃不全麻痺</td><td>いふぜんまひ</td><td>Gastroparesis</td><td>Gastroparesis</td></tr>
+        <tr><td class="jp">上部消化管内視鏡検査</td><td>じょうぶしょうかかんないしきょうけんさ</td><td>Endoskopi GI atas</td><td>Upper GI endoscopy</td></tr>
+        <tr><td class="jp">大腸内視鏡検査</td><td>だいちょうないしきょうけんさ</td><td>Kolonoskopi</td><td>Colonoscopy</td></tr>
+        <tr><td class="jp">経鼻胃管</td><td>けいびいかん</td><td>Selang nasogastrik (dekompresi)</td><td>NG tube for decompression</td></tr>
+        <tr><td class="jp">循環血液量減少性ショック</td><td>じゅんかんけつえきりょうげんしょうせいしょっく</td><td>Syok hipovolemik</td><td>Hypovolemic shock</td></tr>
+        <tr><td class="jp">腹膜炎</td><td>ふくまくえん</td><td>Peritonitis</td><td>Peritonitis</td></tr>
+        <tr><td class="jp">腹部膨満</td><td>ふくぶぼうまん</td><td>Distensi perut</td><td>Abdominal distension</td></tr>
+        <tr><td class="jp">吐血</td><td>とけつ</td><td>Hematemesis (muntah darah)</td><td>Hematemesis</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis tingkat ICU</h3>
+    <div class="clinical-sentence">
+      <div class="jp">腹部膨満と嘔吐があり、腸閉塞が疑われます。</div>
+      <div class="id">Ada distensi perut dan muntah, dicurigai obstruksi usus.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">吐血を認め、上部消化管出血が疑われます。</div>
+      <div class="id">Ditemukan hematemesis, dicurigai perdarahan GI atas.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">ストーマ周囲皮膚の状態を毎日観察してください。</div>
+      <div class="id">Amati kondisi kulit peristoma setiap hari.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis Tingkat Lanjutan</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Pasien lansia dengan riwayat operasi usus sebelumnya mengeluh nyeri perut hilang-timbul (kolik), perut kembung, dan belum buang angin/BAB selama 2 hari. Keluarga berencana memberi obat pencahar dari apotek untuk "melancarkan" sebelum melapor ke fasilitas medis.
+      </div>
+      <div class="case-question">
+        <label>1. Kombinasi riwayat operasi usus + nyeri kolik + tidak bisa BAB/buang angin paling mengarah ke kemungkinan:</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Obstruksi usus, kemungkinan terkait perlengketan pasca-operasi sebelumnya</option>
+          <option value="wrong">Sembelit biasa yang bisa diatasi laksatif rumahan</option>
+          <option value="wrong">Tidak ada kaitan dengan riwayat operasi sebelumnya</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Memberi obat pencahar SEBELUM evaluasi medis pada kasus dengan kecurigaan obstruksi usus berisiko karena:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Bisa memperburuk kondisi bila genuinely ada obstruksi mekanis yang butuh evaluasi/tindakan khusus, bukan sekadar dilancarkan</option>
+          <option value="wrong">Pencahar selalu aman diberikan pada kondisi apapun</option>
+          <option value="wrong">Tidak ada risiko sama sekali dalam situasi ini</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan yang PALING tepat sebagai caregiver dalam situasi ini:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Memberi pencahar dulu, evaluasi medis bila tidak membaik</option>
+          <option value="correct">Segera melaporkan kombinasi gejala ini ke tenaga medis TANPA memberi obat pencahar terlebih dahulu</option>
+          <option value="wrong">Menunggu beberapa hari lagi untuk melihat perkembangan</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var MINI_Q = [
+    { q: 'Obstruksi usus akibat sumbatan fisik (mis. perlengketan pasca-operasi) disebut?', opts: ['Obstruksi mekanis', 'Ileus fungsional', 'Gastroparesis'], a: 0 },
+    { q: 'Ileus fungsional BERBEDA dari obstruksi mekanis karena?', opts: ['Selalu menyebabkan nyeri kolik', 'Usus berhenti bergerak meski tidak ada sumbatan fisik', 'Hanya terjadi pada anak-anak'], a: 1 },
+    { q: 'Feses hitam pekat (melena) umumnya mengindikasikan sumber perdarahan di?', opts: ['Saluran cerna atas', 'Selalu saluran cerna bawah', 'Tidak ada kaitan dengan lokasi'], a: 0 },
+    { q: 'Kenapa terapi supresi asam (PPI) sering dimulai LEBIH DULU pada kecurigaan perdarahan GI atas?', opts: ['Untuk menstabilkan bekuan darah, karena suasana asam mengganggu stabilitasnya', 'Tidak ada alasan khusus', 'Untuk mempercepat perdarahan'], a: 0 },
+    { q: 'Output ileostomi cenderung lebih CAIR dibanding kolostomi karena?', opts: ['Belum melewati proses penyerapan air di usus besar', 'Ileostomi selalu lebih besar ukurannya', 'Tidak ada perbedaan sama sekali'], a: 0 },
+    { q: 'Kombinasi NSAID dengan antikoagulan/antiplatelet meningkatkan risiko?', opts: ['Perdarahan saluran cerna', 'Sembelit ringan', 'Tidak ada risiko tambahan'], a: 0 },
+    { q: 'Kombinasi tanda perdarahan GI DENGAN tanda syok (pusing, denyut cepat, tekanan darah turun) menandakan?', opts: ['Kondisi ringan yang bisa ditunggu', 'Kondisi darurat yang butuh respons segera', 'Tidak ada kaitan antar tanda tersebut'], a: 1 },
+    { q: 'Perawatan kulit peristoma penting terutama karena?', opts: ['Isi usus bisa mengiritasi kulit sekitar bila bocor/menempel lama', 'Tidak ada risiko iritasi kulit sama sekali', 'Hanya relevan untuk kolostomi, bukan ileostomi'], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Kombinasi riwayat operasi usus sebelumnya + nyeri kolik + tidak bisa BAB/buang angin adalah pola klasik yang mengarah ke OBSTRUKSI USUS, kemungkinan akibat perlengketan (adhesi) pasca-operasi. Memberi pencahar TANPA evaluasi medis dulu berisiko memperburuk kondisi bila genuinely ada sumbatan mekanis -- pencahar mendorong usus bekerja lebih keras melawan sumbatan yang ada, alih-alih membantu. Tindakan tepat adalah SEGERA melaporkan kombinasi gejala ini ke tenaga medis tanpa mencoba "melancarkan" sendiri terlebih dahulu.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: kombinasi riwayat operasi usus + nyeri kolik + tidak bisa BAB/buang angin adalah tanda peringatan obstruksi usus -- pemberian pencahar dalam situasi ini BUKAN langkah aman, karena bisa memperburuk kondisi bila genuinely ada sumbatan mekanis.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

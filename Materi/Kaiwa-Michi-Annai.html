@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Kaiwa: Bertanya Arah 道案内 | Nihonggo Pro Academy</title>
+  <meta name="description" content="Percakapan bertanya & menunjukkan arah bahasa Jepang 道案内: menanyakan lokasi, arah belok, patokan, dan jarak. Latihan pilih respons + kosakata dwibahasa.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaiwa-Michi-Annai.html">
+<meta property="og:title" content="Kaiwa: Bertanya Arah 道案内 — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaiwa-Michi-Annai.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js" defer></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
+     lanjutan): dikonfirmasi pola bug identik dengan 32 halaman yang
+     sudah diperbaiki sebelumnya -- tag script eksternal genuinely
+     mengabaikan konten inline karena atribut src hadir. Pemindaian
+     PERTAMA genuinely tidak lengkap (hanya menangkap tag tanpa atribut
+     tambahan) -- 74 halaman TAMBAHAN dengan variasi atribut (mis. defer)
+     genuinely terlewat, ditemukan setelah pemindaian ulang dengan pola
+     yang genuinely lebih komprehensif. Dipisah ke tag terpisah,
+     dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["すみません", "sumimasen", "permisi/maaf"], ["どこ", "doko", "di mana"], ["まっすぐ", "massugu", "lurus"], ["右", "migi", "kanan"], ["左", "hidari", "kiri"], ["曲がる", "magaru", "belok"], ["近く", "chikaku", "dekat"], ["遠い", "tooi", "jauh"], ["信号", "shingou", "lampu lalu lintas"], ["駅", "eki", "stasiun"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#1565c0">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js" defer></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
+.sec h3{color:#1565c0;margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
+.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
+.tip{background:var(--matcha-pale);border-left:3px solid var(--matcha);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+.card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.card.open .det{display:block}
+.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.83rem;color:var(--ink-mid)}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
+.qq{font-weight:600;margin-bottom:12px}
+.qopts{display:grid;gap:8px}
+.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
+.qopt:hover{background:rgba(0,0,0,.04)}
+.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Kaiwa: Bertanya Arah 道案内 | Nihonggo Pro Academy", "description": "Latihan percakapan bahasa Jepang untuk bertanya dan memberi arah 道案内 -- kosakata, pola kalimat, dan simulasi dialog.", "url": "https://nihonggopro.id/Materi/Kaiwa-Michi-Annai.html", "educationalLevel": "Beginner", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Percakapan bertanya & menunjukkan arah bahasa Jepang 道案内: menanyakan lokasi, arah belok, patokan, dan jarak. Latihan pilih respons + kosakata dwibahasa.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kaiwa: Bertanya Arah 道案内">
+<meta name="twitter:description" content="Percakapan bertanya & menunjukkan arah bahasa Jepang 道案内: menanyakan lokasi, arah belok, patokan, dan jarak. Latihan pilih respons + kosakata dwibahasa.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">🔰 Pemula·会話</span><h1>Kaiwa: Bertanya Arah 道案内</h1></div>
+<div class="wrap" style="padding-top:24px">
+<div class="tip">💡 Pola kalimat dan kosakata di halaman ini fokus pada percakapan sehari-hari tingkat pemula -- praktikkan dengan mendengarkan audio dan mencoba quiz di bawah!</div>
+<div id="kn2List"></div>
+<h2 style="font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<div class="pg-vocab" id="pg"></div>
+
+
+<h2 class="st">🧠 Quiz</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+<button onclick="nQ()" style="flex:1;padding:12px;background:#1565c0;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
+</div>
+<p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
+</div></section></main>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+var Q=[{"q": "知らない場所を尋ねるときの切り出しはどれか。", "opts": ["すみません、駅はどこですか", "こんばんは", "いただきます", "おやすみ"], "a": 0, "e": "「すみません、〜はどこですか」(permisi, di mana…?) adalah pembuka standar untuk bertanya arah kepada orang asing di jalan. Kata すみません penting sebagai pembuka sopan sebelum mengajukan pertanyaan."}, {"q": "「まっすぐ行ってください」の意味はどれか。", "opts": ["lurus terus", "belok kanan", "berhenti", "kembali"], "a": 0, "e": "まっすぐ berarti lurus, dan 「行ってください」berarti 'silakan pergi/jalan'. Kalimat ini adalah instruksi arah paling dasar yang sering muncul dalam petunjuk jalan sederhana."}, {"q": "「次の信号を右に曲がってください」の「右」はどれか。", "opts": ["kanan", "kiri", "depan", "belakang"], "a": 0, "e": "右 berarti kanan, sedangkan 左 berarti kiri. Kalimat lengkapnya berarti 'di lampu lalu lintas berikutnya, silakan belok kanan' — pola umum dalam memberi arah menggunakan penanda lokasi seperti lampu lalu lintas."}, {"q": "距離を尋ねる言い方はどれか。", "opts": ["ここから遠いですか", "何時ですか", "いくらですか", "だれですか"], "a": 0, "e": "「遠いですか」(jauh?) adalah pertanyaan sederhana untuk mengetahui apakah tujuan masih jauh. Lawan katanya adalah 近い (dekat), yang sering muncul dalam jawaban seperti いいえ、近いです."}, {"q": "道を教えてもらったお礼はどれか。", "opts": ["ありがとうございます", "さようなら", "いただきます", "はじめまして"], "a": 0, "e": "Setelah diberi tahu arah jalan, ucapan terima kasih yang tepat adalah 「ありがとうございます」. Ini menunjukkan sopan santun dasar setelah menerima bantuan dari orang asing di jalan."}, {"q": "「駅の近くです」の「近く」の意味はどれか。", "opts": ["dekat", "jauh", "dalam", "atas"], "a": 0, "e": "近く berarti dekat/di sekitar. Kalimat 「駅の近くです」berarti 'dekat stasiun', pola yang sama bisa dipakai untuk lokasi lain seperti 「コンビニの近く」(dekat minimarket)."}, {"q": "分からないとき丁寧に聞き返す言い方はどれか。", "opts": ["もう一度お願いします", "だめです", "知りません", "いいです"], "a": 0, "e": "「もう一度お願いします」(tolong ulangi) dipakai saat tidak menangkap penjelasan arah dengan jelas. Ungkapan ini sopan dan tidak akan membuat orang yang menjelaskan merasa tersinggung."}, {"q": "「歩いて10分ぐらいです」の意味はどれか。", "opts": ["sekitar 10 menit jalan kaki", "10 jam", "10 km naik mobil", "tidak tahu"], "a": 0, "e": "Kalimat ini berarti 'sekitar 10 menit jalan kaki'. Pola 歩いて〜分ぐらい adalah cara umum menyampaikan estimasi waktu tempuh berjalan kaki menuju suatu tempat."}, {"q": "目印(patokan)を尋ねる言い方はどれか。", "opts": ["近くに何がありますか", "いくらですか", "何時ですか", "だれですか"], "a": 0, "e": "「近くに何がありますか」(ada apa di dekatnya?) dipakai untuk menanyakan penanda/landmark di sekitar tujuan, membantu memastikan lokasi yang benar tanpa harus mengandalkan alamat detail."}, {"q": "道案内で「渡ってください」が使われる場所はどれか。", "opts": ["横断歩道・橋", "部屋の中", "椅子", "机"], "a": 0, "e": "渡る berarti menyeberang, biasanya dipakai untuk instruksi melewati zebra cross atau jembatan. 「渡ってください」berarti 'silakan menyeberang', bagian umum dari petunjuk arah yang melibatkan penyeberangan jalan."}];
+qi=0,ok=0,tot=0;
+function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function nQ(){qi=(qi+1)%Q.length;rnd();}
+function rQ(){qi=0;ok=0;tot=0;rnd();}
+rQ();
+function initKN2(){
+  var list=document.getElementById('kn2List');if(!list)return;
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+Q.length+' soal latihan percakapan — klik Soal Berikutnya untuk mulai quiz!</p>';
+}
+function init(){initKN2();}
+if(typeof init==='function')init(); rnd();
+</script>
+script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

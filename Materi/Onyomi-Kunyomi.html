@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>On'yomi & Kun'yomi 音読み・訓読み | Nihonggo Pro Academy</title>
+<meta name="description" content="Panduan lengkap on'yomi dan kun'yomi — cara membaca kanji, pola umum, dan latihan interaktif untuk JLPT N4-N2.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Onyomi-Kunyomi.html">
+<meta property="og:title" content="On'yomi & Kun'yomi — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Onyomi-Kunyomi.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js" defer></script>
+<script src="../assets/supabase-client.js" defer></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.page-hero{background:linear-gradient(135deg,#1a1a2e,#16213e);color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.badge{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.theory-box{background:var(--kyoto-cream-deep);border-radius:14px;padding:20px 24px;margin:20px 0}
+.theory-box h3{color:var(--kyoto-brown);margin:0 0 8px;font-size:1rem}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:20px 0}
+.compare-card{border-radius:12px;padding:18px;text-align:center}
+.on-card{background:linear-gradient(135deg,#1a1a2e22,#1a1a2e11);border:2px solid #1a1a2e33}
+.kun-card{background:linear-gradient(135deg,#2d6a4f22,#2d6a4f11);border:2px solid #2d6a4f33}
+.compare-title{font-size:1.1rem;font-weight:700;margin-bottom:8px}
+.on-color{color:#1a1a2e} .kun-color{color:#2d6a4f}
+.kanji-grid{display:grid;gap:12px}
+.kanji-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s}
+.kanji-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.kanji-card.revealed .k-readings,.kanji-card.revealed .k-words{display:block}
+.k-char{font-size:2.5rem;font-weight:700;text-align:center;color:var(--ink);margin-bottom:8px}
+.k-readings{display:none;margin:8px 0}
+.k-on,.k-kun{display:flex;align-items:flex-start;gap:8px;margin:4px 0;font-size:.88rem}
+.k-label{font-weight:700;min-width:36px;font-size:.78rem;padding:2px 6px;border-radius:4px;text-align:center}
+.on-label{background:#1a1a2e;color:#fff} .kun-label{background:#2d6a4f;color:#fff}
+.k-words{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.82rem;color:var(--ink-mid)}
+.pattern-table{width:100%;border-collapse:collapse;margin:16px 0;font-size:.88rem}
+.pattern-table th{background:var(--kyoto-cream-deep);padding:8px 12px;text-align:left;font-size:.82rem}
+.pattern-table td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
+.pattern-table tr:hover td{background:var(--kyoto-cream-deep)}
+.section-title{font-size:1.2rem;font-weight:700;color:#1a1a2e;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--border-light)}
+.quiz-box{background:var(--kyoto-cream-deep);border-radius:14px;padding:20px;margin:24px 0}
+.quiz-q{font-weight:600;margin-bottom:12px;color:var(--ink)}
+.quiz-opts{display:grid;gap:8px}
+.quiz-opt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
+.quiz-opt:hover{background:var(--kyoto-cream-deep)}
+.quiz-opt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
+.quiz-opt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.quiz-exp{margin-top:10px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
+.quiz-exp.show{display:block}
+.tip-box{background:var(--matcha-pale);border-left:3px solid var(--matcha);border-radius:0 10px 10px 0;padding:12px 16px;margin:16px 0;font-size:.88rem}
+.search-box{width:100%;padding:10px 14px;border:1px solid var(--border-mid);border-radius:10px;font-size:.9rem;margin-bottom:16px;box-sizing:border-box}
+</style>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "On'yomi & Kun'yomi 音読み・訓読み | Nihonggo Pro Academy", "description": "Panduan lengkap on'yomi dan kun'yomi — cara membaca kanji, pola umum, dan latihan interaktif untuk JLPT N4-N2.", "url": "https://nihonggopro.id/Materi/Onyomi-Kunyomi.html", "educationalLevel": "Beginner", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Panduan lengkap on'yomi dan kun'yomi — cara membaca kanji, pola umum, dan latihan interaktif untuk JLPT N4-N2.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="On'yomi & Kun'yomi 音読み・訓読み">
+<meta name="twitter:description" content="Panduan lengkap on'yomi dan kun'yomi — cara membaca kanji, pola umum, dan latihan interaktif untuk JLPT N4-N2.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<main id="main-content">
+<div class="page-hero">
+  <span class="badge">📖 N4 · N3 · N2</span>
+  <h1>音読み・訓読み<br>On'yomi & Kun'yomi</h1>
+  <p>Panduan membaca kanji: cara membedakan, pola, dan latihan</p>
+</div>
+
+<div class="wrap" style="padding-top:24px">
+
+  <div class="compare-grid">
+    <div class="compare-card on-card">
+      <div class="compare-title on-color">音読み Onyomi</div>
+      <p style="font-size:.88rem;color:var(--ink-mid);margin:8px 0">Bacaan Cina (sino-Japanese)<br>Digunakan dalam <strong>kata majemuk</strong><br>dan <strong>kata serapan Cina</strong></p>
+      <div style="font-size:.82rem;background:#1a1a2e11;padding:8px;border-radius:8px;margin-top:8px">
+        <strong>山</strong> → サン (san)<br>
+        山脈(さんみゃく) = pegunungan<br>
+        富士山(ふじさん) = Gunung Fuji
+      </div>
+    </div>
+    <div class="compare-card kun-card">
+      <div class="compare-title kun-color">訓読み Kunyomi</div>
+      <p style="font-size:.88rem;color:var(--ink-mid);margin:8px 0">Bacaan Jepang asli<br>Digunakan untuk <strong>kanji tunggal</strong><br>dan <strong>kata Jepang murni</strong></p>
+      <div style="font-size:.82rem;background:#2d6a4f11;padding:8px;border-radius:8px;margin-top:8px">
+        <strong>山</strong> → やま (yama)<br>
+        山(やま) = gunung<br>
+        山道(やまみち) = jalan gunung
+      </div>
+    </div>
+  </div>
+
+  <div class="theory-box">
+    <h3>🔑 Cara Membedakan: Aturan Umum</h3>
+    <table class="pattern-table">
+      <tr><th>Pola</th><th>Biasanya</th><th>Contoh</th></tr>
+      <tr><td>Kanji + Kanji (majemuk)</td><td>音読み (Onyomi)</td><td>電車(でんしゃ)、学校(がっこう)</td></tr>
+      <tr><td>Kanji + hiragana (okurigana)</td><td>訓読み (Kunyomi)</td><td>食べる、書く、見る</td></tr>
+      <tr><td>Kanji tunggal dengan arti benda</td><td>訓読み</td><td>山(やま)、川(かわ)、木(き)</td></tr>
+      <tr><td>Prefix/suffix formal</td><td>音読み</td><td>〜的(てき)、〜化(か)、〜性(せい)</td></tr>
+      <tr><td>Nama orang Jepang</td><td>訓読み (biasanya)</td><td>田中(たなか)、山本(やまもと)</td></tr>
+      <tr><td>Nama tempat resmi</td><td>音読み (campuran)</td><td>東京(とうきょう)、大阪(おおさか)</td></tr>
+    </table>
+  </div>
+
+  <div class="tip-box">
+    <strong>💡 Tips Hafalan:</strong> Bayangkan Onyomi seperti "kata bahasa Inggris dari Latin" — terasa lebih formal dan sering muncul dalam kosakata akademis/bisnis. Kunyomi seperti "kata bahasa Inggris asli Saxon" — lebih sehari-hari dan alami.
+  </div>
+
+  <h2 class="section-title">📚 Kanji Ganda — On vs Kun</h2>
+  <input type="text" class="search-box" id="searchBox" placeholder="🔍 Cari kanji..." oninput="filterKanji()">
+  <p style="font-size:.83rem;color:var(--ink-mid);margin-bottom:12px">💡 Klik kartu untuk melihat bacaan dan contoh kata</p>
+  
+  <div class="kanji-grid" id="kanjiGrid"></div>
+
+  <h2 class="section-title">🧠 Latihan Quiz</h2>
+  <div id="quizContainer"></div>
+  <div style="display:flex;gap:12px;margin-top:16px">
+    <button onclick="nextQ()" style="flex:1;padding:12px;background:#1a1a2e;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:.95rem">Soal Berikutnya →</button>
+    <button onclick="resetQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
+  </div>
+  <p id="qScore" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
+</div>
+</main>
+
+<script>
+const KANJI_DATA = [
+{k:'日',on:'ニチ・ジツ',kun:'ひ・か',mn:'hari; matahari',on_ex:'日本(にほん)=Jepang, 毎日(まいにち)=setiap hari, 日曜(にちよう)=Minggu',kun_ex:'日(ひ)=matahari/hari, 今日(きょう)=hari ini, 昨日(きのう)=kemarin'},
+{k:'月',on:'ゲツ・ガツ',kun:'つき',mn:'bulan; bulan sabit',on_ex:'月曜(げつよう)=Senin, 毎月(まいつき)=setiap bulan, 来月(らいげつ)=bulan depan',kun_ex:'月(つき)=bulan (di langit), 月夜(つきよ)=malam bulan purnama'},
+{k:'水',on:'スイ',kun:'みず',mn:'air',on_ex:'水曜(すいよう)=Rabu, 水道(すいどう)=air ledeng, 水分(すいぶん)=kadar air',kun_ex:'水(みず)=air, 水着(みずぎ)=pakaian renang'},
+{k:'火',on:'カ',kun:'ひ',mn:'api; kebakaran',on_ex:'火曜(かよう)=Selasa, 火事(かじ)=kebakaran, 花火(はなび)=kembang api',kun_ex:'火(ひ)=api, 火遊び(ひあそび)=bermain api'},
+{k:'山',on:'サン',kun:'やま',mn:'gunung',on_ex:'山脈(さんみゃく)=pegunungan, 富士山(ふじさん)=Gunung Fuji, 山岳(さんがく)=pegunungan tinggi',kun_ex:'山(やま)=gunung, 山道(やまみち)=jalan gunung, 山登り(やまのぼり)=mendaki gunung'},
+{k:'川',on:'セン',kun:'かわ',mn:'sungai',on_ex:'河川(かせん)=sungai-sungai (formal), 川岸(せんがん)=tepi sungai',kun_ex:'川(かわ)=sungai, 川原(かわら)=tepian sungai'},
+{k:'木',on:'モク・ボク',kun:'き・こ',mn:'pohon; kayu',on_ex:'木曜(もくよう)=Kamis, 木材(もくざい)=kayu bahan bangunan, 樹木(じゅもく)=pohon',kun_ex:'木(き)=pohon, 木陰(こかげ)=bayangan pohon'},
+{k:'人',on:'ジン・ニン',kun:'ひと',mn:'orang; manusia',on_ex:'人間(にんげん)=manusia, 外国人(がいこくじん)=orang asing, 人気(にんき)=popularitas',kun_ex:'人(ひと)=orang, 人々(ひとびと)=orang-orang'},
+{k:'手',on:'シュ',kun:'て',mn:'tangan',on_ex:'手術(しゅじゅつ)=operasi, 選手(せんしゅ)=atlet, 手段(しゅだん)=cara/metode',kun_ex:'手(て)=tangan, 手紙(てがみ)=surat, 手伝い(てつだい)=bantuan'},
+{k:'目',on:'モク・ボク',kun:'め',mn:'mata',on_ex:'目的(もくてき)=tujuan, 注目(ちゅうもく)=perhatian, 項目(こうもく)=item',kun_ex:'目(め)=mata, 目玉(めだま)=bola mata, 目覚め(めざめ)=kebangkitan'},
+{k:'力',on:'リョク・リキ',kun:'ちから',mn:'kekuatan; tenaga',on_ex:'努力(どりょく)=usaha, 体力(たいりょく)=stamina, 電力(でんりょく)=tenaga listrik',kun_ex:'力(ちから)=kekuatan, 力強い(ちからづよい)=bertenaga'},
+{k:'金',on:'キン・コン',kun:'かね・かな',mn:'emas; uang; logam',on_ex:'金曜(きんよう)=Jumat, 金額(きんがく)=jumlah uang, 黄金(おうごん)=emas',kun_ex:'お金(おかね)=uang, 金物(かなもの)=barang logam'},
+{k:'大',on:'ダイ・タイ',kun:'おお',mn:'besar; banyak',on_ex:'大学(だいがく)=universitas, 大事(だいじ)=penting, 大統領(だいとうりょう)=presiden',kun_ex:'大きい(おおきい)=besar, 大人(おとな)=orang dewasa'},
+{k:'小',on:'ショウ',kun:'こ・ちい',mn:'kecil; sedikit',on_ex:'小説(しょうせつ)=novel, 小学校(しょうがっこう)=SD, 縮小(しゅくしょう)=pengurangan',kun_ex:'小さい(ちいさい)=kecil, 小川(おがわ)=anak sungai'},
+{k:'上',on:'ジョウ・ショウ',kun:'うえ・あ・のぼ',mn:'atas; naik',on_ex:'上昇(じょうしょう)=kenaikan, 上司(じょうし)=atasan, 向上(こうじょう)=peningkatan',kun_ex:'上(うえ)=atas, 上る(のぼる)=naik/mendaki'},
+{k:'下',on:'カ・ゲ',kun:'した・さ・くだ',mn:'bawah; turun',on_ex:'地下(ちか)=bawah tanah, 下降(かこう)=penurunan, 以下(いか)=di bawah',kun_ex:'下(した)=bawah, 下がる(さがる)=turun, 靴下(くつした)=kaus kaki'},
+{k:'中',on:'チュウ',kun:'なか',mn:'tengah; dalam',on_ex:'中国(ちゅうごく)=China, 中学(ちゅうがく)=SMP, 集中(しゅうちゅう)=konsentrasi',kun_ex:'中(なか)=dalam/tengah, 仲間(なかま)=teman'},
+{k:'心',on:'シン',kun:'こころ',mn:'hati; pikiran',on_ex:'心配(しんぱい)=khawatir, 安心(あんしん)=tenang/lega, 感心(かんしん)=kagum',kun_ex:'心(こころ)=hati, 心地(ここち)=perasaan'},
+{k:'時',on:'ジ',kun:'とき',mn:'waktu; saat',on_ex:'時間(じかん)=waktu, 時代(じだい)=era, 同時(どうじ)=bersamaan',kun_ex:'時(とき)=saat/ketika, 時々(ときどき)=kadang-kadang'},
+{k:'年',on:'ネン',kun:'とし',mn:'tahun',on_ex:'今年(ことし)=tahun ini, 来年(らいねん)=tahun depan, 年齢(ねんれい)=usia',kun_ex:'年(とし)=tahun/usia, 年上(としうえ)=lebih tua'},
+{k:'国',on:'コク',kun:'くに',mn:'negara; tanah air',on_ex:'国際(こくさい)=internasional, 外国(がいこく)=negara asing, 国家(こっか)=negara/lagu kebangsaan',kun_ex:'国(くに)=negara/tanah air'},
+{k:'話',on:'ワ',kun:'はなし・はな',mn:'bicara; cerita',on_ex:'会話(かいわ)=percakapan, 電話(でんわ)=telepon, 話題(わだい)=topik',kun_ex:'話(はなし)=cerita, 話す(はなす)=berbicara'},
+{k:'語',on:'ゴ',kun:'かた',mn:'bahasa; kata',on_ex:'日本語(にほんご)=bahasa Jepang, 語学(ごがく)=studi bahasa, 単語(たんご)=kata',kun_ex:'語る(かたる)=bercerita/berbicara'},
+{k:'見',on:'ケン',kun:'み',mn:'melihat; terlihat',on_ex:'意見(いけん)=pendapat, 見学(けんがく)=kunjungan belajar, 発見(はっけん)=penemuan',kun_ex:'見る(みる)=melihat, 見える(みえる)=terlihat'},
+{k:'書',on:'ショ',kun:'か',mn:'menulis; tulisan',on_ex:'書類(しょるい)=dokumen, 読書(どくしょ)=membaca buku, 辞書(じしょ)=kamus',kun_ex:'書く(かく)=menulis, 書き方(かきかた)=cara menulis'},
+];
+
+const QUIZ = [
+{q:'「日本」の「日」はどう読む？',opts:['にち','に','ひ','か'],ans:1,exp:'日本(にほん/にっぽん)の「日」は音読み「ニ」。日曜日は「にちようび」、今日は「きょう」。'},
+{q:'「山道」の「山」は音読み？訓読み？',opts:['音読み(サン)','訓読み(やま)','音読み(やま)','訓読み(サン)'],ans:1,exp:'「山道(やまみち)」=jalan gunung。山=やま(訓読み)。音読みは「さんみゃく(山脈)」のように使う。'},
+{q:'「電話」の読み方は？',opts:['でんわ','でんはな','かいわ','てんわ'],ans:0,exp:'電話(でんわ)=telepon。電=デン(音読み)、話=ワ(音読み)。漢字+漢字の組み合わせは通常音読み。'},
+{q:'「水着」の読み方は？',opts:['すいちゃく','みずき','みずぎ','すいぎ'],ans:2,exp:'水着(みずぎ)=baju renang。水=みず(訓読み)、着=ぎ(変形)。訓読み同士の組み合わせ。'},
+{q:'「大学」の「大」の読み方は？',opts:['おお','ダイ','タイ','おおきい'],ans:1,exp:'大学(だいがく)=universitas。大=ダイ(音読み)、学=ガク(音読み)。漢字+漢字=通常音読み。'},
+{q:'訓読みを使う代表的なパターンは？',opts:['漢字+漢字の複合語','漢字+送り仮名（例:食べる）','略語','数字'],ans:1,exp:'訓読みは「食べる」「書く」「見る」のように漢字+送り仮名(ひらがな)の形が多い。'},
+{q:'「日曜日」の正しい読み方は？',opts:['にちようひ','にちようび','じつようび','ひようび'],ans:1,exp:'日曜日(にちようび)=hari Minggu。日=にち、曜=よう、日=び(濁音化)。全て音読み。'},
+{q:'「心配」の読み方は？',opts:['こころくばり','しんぱい','こころはい','しんくばり'],ans:1,exp:'心配(しんぱい)=khawatir。心=シン(音読み)、配=ハイ(音読み)。漢字+漢字で音読み。'},
+{q:'「上手」の正しい読み方は？',opts:['うえて','じょうず','かみて','しょうず'],ans:1,exp:'上手(じょうず)=mahir/pandai。上=ジョウ(音読み)、手=ズ(濁音)。訓読みは「上(うえ)の手」。'},
+{q:'「時々」の読み方は？',opts:['じじ','ときどき','じどき','ときじ'],ans:1,exp:'時々(ときどき)=kadang-kadang。時=とき(訓読み)。畳語(じょうご)は訓読みが多い。'},
+{q:'「中学校」の全ての漢字の読み方は？',opts:['なかがっこう','ちゅうがっこう','なかがくこう','ちゅうがくこう'],ans:1,exp:'中学校(ちゅうがっこう)=SMP。中=チュウ、学=ガク(促音化→ガッ)、校=コウ。全て音読み。'},
+{q:'「見る」の「見」の読み方は？',opts:['ケン（音読み）','みる（訓読み）','ゲン（音読み）','みえ（訓読み）'],ans:1,exp:'「見る」の「見」は訓読み(みる)。音読みは「意見(いけん)」「発見(はっけん)」の「ケン」。'},
+];
+
+let search = '', qIdx=0, corr=0, tot=0;
+
+function filterKanji() {
+  search = document.getElementById('searchBox').value.toLowerCase();
+  render();
+}
+
+function render() {
+  const data = search ? KANJI_DATA.filter(k =>
+    k.k.includes(search)||k.on.toLowerCase().includes(search)||k.kun.includes(search)||k.mn.toLowerCase().includes(search)
+  ) : KANJI_DATA;
+  document.getElementById('kanjiGrid').innerHTML = data.map(k => `
+    <div class="kanji-card" onclick="this.classList.toggle('revealed')">
+      <div class="k-char">${k.k}</div>
+      <div style="text-align:center;font-size:.85rem;color:var(--ink-mid)">${k.mn}</div>
+      <div class="k-readings">
+        <div class="k-on"><span class="k-label on-label">音</span><span>${k.on}</span></div>
+        <div class="k-kun"><span class="k-label kun-label">訓</span><span>${k.kun}</span></div>
+      </div>
+      <div class="k-words">
+        <div><strong>音読み例:</strong> ${k.on_ex}</div>
+        <div style="margin-top:4px"><strong>訓読み例:</strong> ${k.kun_ex}</div>
+      </div>
+    </div>
+  `).join('') || '<p style="text-align:center;color:var(--ink-mid);padding:20px">Tidak ditemukan.</p>';
+}
+
+function renderQ() {
+  const q = QUIZ[qIdx % QUIZ.length];
+  document.getElementById('quizContainer').innerHTML = `
+    <div class="quiz-box">
+      <div class="quiz-q">${qIdx+1}. ${q.q}</div>
+      <div class="quiz-opts">
+        ${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="ans(this,${i},${q.ans},'${q.exp.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">${o}</button>`).join('')}
+      </div>
+      <div class="quiz-exp" id="qExp"></div>
+    </div>`;
+  document.getElementById('qScore').textContent='Skor: '+corr+'/'+tot;
+}
+
+function ans(btn,chosen,correct,exp){
+  if(document.querySelector('.quiz-opt.correct'))return;
+  tot++;
+  document.querySelectorAll('.quiz-opt')[correct].classList.add('correct');
+  if(chosen!==correct)btn.classList.add('wrong');else corr++;
+  const e=document.getElementById('qExp');e.textContent='💡 '+exp;e.classList.add('show');
+  document.getElementById('qScore').textContent='Skor: '+corr+'/'+tot;
+}
+function nextQ(){qIdx=(qIdx+1)%QUIZ.length;renderQ();}
+function resetQ(){qIdx=0;corr=0;tot=0;renderQ();}
+
+render();
+renderQ();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

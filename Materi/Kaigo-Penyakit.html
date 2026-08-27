@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["疾患", "shikkan", "penyakit"], ["脳卒中", "nousottchu", "stroke"], ["認知症", "ninchisho", "demensia"], ["骨粗鬆症", "kotsusoshosho", "osteoporosis"], ["糖尿病", "tounyobyo", "diabetes"], ["高血圧", "kouketsuatsu", "hipertensi"], ["心不全", "shin-fuzen", "gagal jantung"], ["COPD", "COPD", "penyakit paru obstruktif"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#2e7d32">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Penyakit Utama Lansia & Pendekatan Kaigo — 介護福祉士 | NihonggoPro</title>
+<meta name="description" content="Penyakit umum lansia dalam kaigo. Panduan memahami demensia, stroke, osteoporosis, dan penyakit kronis lain yang umum ditemui tenaga kaigo di Jepang.">>
+<meta property="og:title" content="Kosakata Klinis & Medis 介護 — NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Penyakit.html">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Penyakit Utama Lansia & Pendekatan Kaigo — 介護福祉士 | NihonggoPro", "description": "Penyakit utama yang umum diderita lansia dan pendekatan kaigo yang sesuai: gejala, penanganan, serta bahasa Jepang yang sering muncul di ujian nasional 国家試験.", "url": "https://nihonggopro.id/Materi/Kaigo-Penyakit.html", "provider": {"@type": "Organization", "name": "NihonggoPro"}, "educationalLevel": "N4", "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"介護福祉士","item":"https://nihonggopro.id/Materi/Kaigo-Fukushishi-Overview.html"},{"@type":"ListItem","position":4,"name":"Penyakit Utama Lansia & Pendekatan Kaigo","item":"https://nihonggopro.id/Materi/Kaigo-Penyakit.html"}]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:2px;list-style:none}
+
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+.hamb{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border-mid);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.hamb span{display:block;width:16px;height:2px;background:var(--ink);border-radius:1px}
+@media(max-width:768px){.nav-links{display:none!important}.hamb{display:flex!important}}
+.hero{padding:clamp(40px,6vw,64px) clamp(16px,5vw,72px) 40px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"病気";position:absolute;right:-10px;bottom:-30px;font-family:"Noto Serif JP",serif;font-size:160px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:1.1;margin-bottom:.625rem}
+.hero-desc{color:rgba(255,255,255,.62);font-size:14px;line-height:1.85;max-width:640px;margin-bottom:1.25rem}
+.breadcrumb{padding:.5rem clamp(16px,5vw,72px);background:var(--white);border-bottom:1px solid var(--border);font-size:12px;color:var(--ink-soft)}
+.breadcrumb a{color:var(--ink-soft);text-decoration:none}.breadcrumb a:hover{color:var(--red)}.breadcrumb span{margin:0 .35rem}
+/* Module 
+.mod-link{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:7px;font-size:12px;font-weight:700;color:var(--ink-mid);text-decoration:none;transition:all .15s;margin-right:.3rem}
+.mod-link:hover,.mod-link.active{background:var(--red-pale);color:var(--red)}
+/* Layout */
+.page-layout{display:grid;grid-template-columns:220px 1fr;flex:1}
+@media(max-width:860px){.page-layout{grid-template-columns:1fr}.toc-panel{display:none}}
+.toc-panel{position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;border-right:1px solid var(--border);background:var(--white);padding:1.25rem}
+.toc-title{font-size:10px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.toc-a{display:block;padding:.3rem .5rem;border-radius:6px;font-size:12px;color:var(--ink-mid);text-decoration:none;transition:all .15s;border-left:2px solid transparent;margin-bottom:.1rem}
+.toc-a:hover,.toc-a.on{background:var(--red-pale);color:var(--red);border-left-color:var(--red);font-weight:700}
+.toc-a.sub{padding-left:1rem;font-size:11px}
+.content{padding:2rem clamp(16px,4vw,48px) 5rem;min-width:0;max-width:900px}
+/* Sections */
+.sec{margin-bottom:3rem;scroll-margin-top:88px}
+.sec-num{font-size:10px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
+.sec h2{font-family:"Noto Serif JP",serif;font-size:clamp(20px,3vw,28px);margin-bottom:.5rem}
+.sec-desc{color:var(--ink-mid);font-size:14px;line-height:1.85;margin-bottom:1.25rem}
+.sec h3{font-family:"Noto Serif JP",serif;font-size:18px;margin:1.75rem 0 .875rem;display:flex;align-items:center;gap:.5rem}
+.sec h3::before{content:'';display:block;width:4px;height:18px;background:var(--red);border-radius:2px;flex-shrink:0}
+.sec h4{font-size:14px;font-weight:800;margin:1.25rem 0 .5rem}
+/* Info boxes */
+.box{border-radius:10px;padding:.875rem 1.125rem;margin-bottom:1rem;border:.5px solid;font-size:13px;line-height:1.75}
+.box.tip{background:var(--blue-pale);border-color:rgba(47,111,237,.2);color:var(--ink-mid)}
+.box.warn{background:var(--gold-pale,rgba(185,137,47,.08));border-color:rgba(185,137,47,.2)}
+.box.red{background:var(--red-pale);border-color:rgba(190,52,40,.15)}
+.box.green{background:var(--green-pale);border-color:rgba(33,135,93,.2)}
+.box-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.box.tip .box-title{color:var(--blue)}.box.warn .box-title{color:var(--gold)}.box.red .box-title{color:var(--red)}.box.green .box-title{color:var(--green)}
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;margin-bottom:1.5rem}
+.vc{background:var(--white);border-radius:12px;padding:1.125rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);transition:all .2s}
+.vc:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.07);border-color:var(--red)}
+.vc-jp{font-family:"Noto Serif JP",serif;font-size:20px;font-weight:700;margin-bottom:.15rem}
+.vc-rom{font-size:11px;color:var(--ink-soft);font-style:italic;margin-bottom:.3rem}
+.vc-id{font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem}
+.vc-ex{font-size:12px;color:var(--ink-mid);border-top:.5px solid var(--border);padding-top:.4rem;margin-top:.4rem;line-height:1.6}
+.vc-ex-jp{font-family:"Noto Serif JP",serif;font-weight:600;color:var(--ink)}
+.lv-badge{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:800;margin-bottom:.4rem}
+/* Table */
+.tbl{width:100%;border-collapse:collapse;margin-bottom:1.5rem;background:var(--white);border-radius:12px;overflow:hidden;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
+.tbl th{background:var(--ink);color:#fff;padding:.625rem 1rem;font-size:12px;font-weight:700;text-align:left}
+.tbl td{padding:.625rem 1rem;font-size:13px;border-bottom:.5px solid var(--border);line-height:1.6;vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.td-jp{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:600}
+/* Procedure steps */
+.steps{display:flex;flex-direction:column;gap:.625rem;margin-bottom:1.5rem}
+.step{display:flex;gap:.875rem;align-items:flex-start;padding:.875rem 1rem;background:var(--white);border-radius:10px;border:.5px solid var(--border-mid)}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-title{font-size:14px;font-weight:700;margin-bottom:.2rem}
+.step-jp{font-family:"Noto Serif JP",serif;font-size:14px;color:var(--ink);margin-bottom:.15rem}
+.step-id{font-size:12px;color:var(--ink-soft)}
+.step-note{font-size:11px;color:var(--gold);font-weight:600;margin-top:.2rem}
+/* Dialog */
+.dialog{background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.25rem}
+.dialog-title{font-size:13px;font-weight:800;margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem}
+.d-turn{display:flex;gap:.625rem;align-items:flex-start;margin-bottom:.5rem}
+.d-role{min-width:48px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;text-align:center;flex-shrink:0}
+.d-text .jp{font-family:"Noto Serif JP",serif;font-size:13px;font-weight:600;margin-bottom:.1rem}
+.d-text .id{font-size:11px;color:var(--ink-soft)}
+/* Quiz */
+.quiz-wrap{background:var(--ink);color:#fff;border-radius:14px;padding:1.5rem;margin-top:2rem}
+.q-title{font-size:13px;font-weight:800;color:rgba(255,255,255,.7);margin-bottom:1rem}
+.q-text{font-family:"Noto Serif JP",serif;font-size:17px;margin-bottom:1rem;line-height:1.65}
+.q-opts{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.875rem}
+.q-opt{padding:.75rem 1rem;border-radius:8px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;font-family:Outfit,sans-serif;font-size:13px;font-weight:600;text-align:left;transition:all .15s}
+.q-opt:hover{border-color:rgba(255,255,255,.4)}
+.q-opt.ok{border-color:#22c55e;background:rgba(34,197,94,.2)}
+.q-opt.ng{border-color:#ef4444;background:rgba(239,68,68,.2)}
+.q-fb{font-size:12px;color:rgba(255,255,255,.65);padding:.625rem;background:rgba(255,255,255,.06);border-radius:7px;display:none;line-height:1.65}
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:.875rem}
+.q-btn{height:34px;padding:0 14px;border-radius:8px;border:none;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+.q-btn.nxt{background:var(--red);color:#fff}
+.q-btn.rst{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+/* btt */
+#bttBtn{position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
+*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/kaigo-progress.js" defer></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Penyakit umum lansia dalam kaigo. Panduan memahami demensia, stroke, osteoporosis, dan penyakit kronis lain yang umum ditemui tenaga kaigo di Jepang.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Penyakit.html">
+<meta name="twitter:title" content="Penyakit Utama Lansia & Pendekatan Kaigo — 介護福祉士">
+<meta name="twitter:description" content="Penyakit umum lansia dalam kaigo. Panduan memahami demensia, stroke, osteoporosis, dan penyakit kronis lain yang umum ditemui tenaga kaigo di Jepang.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<div class="breadcrumb">
+  <a href="../index.html">Beranda</a><span>›</span>
+  <a href="Materi.html">Materi</a><span>›</span>
+  <a href="Kaigo-Fukushishi-Overview.html">介護福祉士</a><span>›</span>
+  <strong>Penyakit Utama Lansia & Pendekatan Kaigo</strong>
+</div>
+<div class="module-nav">
+  <a href="Kaigo-Fukushishi-Overview.html" class="mod-link">🏠 Overview</a>
+  <a href="Kaigo-Bahasa.html" class="mod-link">🗣️ Bahasa Dasar</a>
+  <a href="Kaigo-Kosakata-Klinik.html" class="mod-link">💊 Kosakata Klinik</a>
+  <a href="Kaigo-Prosedur.html" class="mod-link">📋 Prosedur</a>
+  <a href="Kaigo-Penyakit.html" class="mod-link active">🏥 Penyakit Lansia</a>
+  <a href="Kaigo-Hukum.html" class="mod-link ">⚖️ Hukum & Etika</a>
+  <a href="Kaigo-Komunikasi.html" class="mod-link ">💬 Komunikasi</a>
+  <a href="Kaigo-Nihongo-N4.html" class="mod-link ">📝 Bahasa Jepang N4</a>
+  <a href="Kaigo-Rekod.html" class="mod-link ">📄 Penulisan Rekod</a>
+  <a href="Kaigo-Ujian-Nasional.html" class="mod-link ">🎯 Ujian Nasional</a>
+</div>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker">🏥 Penyakit Lansia · N3–N1</div>
+    <h1>Penyakit Utama Lansia & Pendekatan Kaigo</h1>
+    <p class="hero-desc">Panduan lengkap penyakit utama lansia yang harus dikuasai 介護福祉士: demensia (4 jenis+BPSD), stroke, diabetes, Parkinson — beserta pendekatan kaigo yang tepat.</p>
+  </div>
+</section>
+<div style="display:flex;flex:1">
+<nav class="toc-panel" aria-label="Daftar isi" id="tocPanel"><div class="toc-title">📋 Daftar Isi</div><div id="tocList"></div></nav>
+<div class="content" id="mainContent" role="main">
+
+<div class="sec" id="demensia">
+  <div class="sec-num">Bagian 1</div>
+  <h2>認知症 — Demensia (Detail Lengkap)</h2>
+  <p class="sec-desc">Demensia adalah topik terbesar dalam ujian nasional 介護福祉士. Memahami jenis, gejala, BPSD, dan pendekatan kaigo yang tepat sangat krusial.</p>
+  <div class="box red"><div class="box-title">🔴 Wajib Hafal: 4 Jenis Utama Demensia</div>
+    ① アルツハイマー型（最多60–70%）② 血管性 ③ レビー小体型 ④ 前頭側頭型 — Masing-masing memiliki gejala dan pendekatan kaigo yang berbeda.</div>
+  <table class="tbl">
+    <thead><tr><th>Jenis</th><th>Gejala Khas</th><th>Pendekatan Kaigo</th><th>頻出</th></tr></thead>
+    <tbody>
+      <tr><td class="td-jp">アルツハイマー型</td><td>記憶障害（新しいことが覚えられない）、見当識障害、判断力低下。進行性。</td><td>スケジュールを一定に。シンプルな言葉で説明。失敗を責めない。</td><td>★★★</td></tr>
+      <tr><td class="td-jp">血管性認知症</td><td>まだら認知症（できることとできないことの差が大きい）、感情失禁、抑うつ</td><td>感情に寄り添う。まだらを理解して残存機能を活かす。</td><td>★★★</td></tr>
+      <tr><td class="td-jp">レビー小体型</td><td>幻視（よく見える幻覚）、パーキンソン症状、レム睡眠行動障害、変動する認知機能</td><td>幻視を否定しない。転倒予防。薬に敏感なため慎重に。</td><td>★★★</td></tr>
+      <tr><td class="td-jp">前頭側頭型</td><td>人格変化・脱抑制、常同行動（同じ行動を繰り返す）、言語障害</td><td>ルーティンを活用。危険行動への対策。感情的に反応しない。</td><td>★★</td></tr>
+    </tbody>
+  </table>
+  <h3 id="bpsd">BPSD — Gejala Psikologis & Perilaku Demensia</h3>
+  <div class="box tip"><div class="box-title">💡 Apa itu BPSD?</div>
+    BPSD (Behavioral and Psychological Symptoms of Dementia / 認知症の行動・心理症状) adalah gejala non-kognitif yang sangat mempengaruhi kualitas hidup residen dan tantangan terbesar kaigo sehari-hari.</div>
+  <table class="tbl">
+    <thead><tr><th>BPSD</th><th>Bahasa Jepang</th><th>Pendekatan Kaigo</th></tr></thead>
+    <tbody>
+      <tr><td>Wandering / berkeliaran</td><td class="td-jp">徘徊（はいかい）</td><td>Tidak dikekang, pastikan keamanan lingkungan, GPS tracker, ajak aktivitas</td></tr>
+      <tr><td>Agitasi / kekerasan</td><td class="td-jp">興奮・暴力行為</td><td>Cari pemicu, tidak berargumen, pendekatan tenang, alihkan perhatian</td></tr>
+      <tr><td>Menolak perawatan</td><td class="td-jp">介護拒否</td><td>Jangan paksa, tunggu momen tepat, coba pendekatan berbeda</td></tr>
+      <tr><td>Inkontinensia fungsional</td><td class="td-jp">機能性尿失禁</td><td>Jadwal toilet berkala (2 jam sekali), tidak menyalahkan</td></tr>
+      <tr><td>Gejala malam hari</td><td class="td-jp">夜間せん妄・不眠</td><td>Pencahayaan cukup siang hari, aktivitas, hindari tidur siang berlebihan</td></tr>
+      <tr><td>Bayangan cermin</td><td class="td-jp">鏡像現象</td><td>Tutup cermin jika menyebabkan distres</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sec" id="stroke-detail">
+  <div class="sec-num">Bagian 2</div>
+  <h2>脳卒中後遺症 — Pemulihan Pasca Stroke</h2>
+  <p class="sec-desc">Stroke adalah penyebab utama 要介護状態 (kondisi membutuhkan kaigo) di Jepang. Memahami defisit dan pendekatan rehabilitatif sangat penting.</p>
+  <table class="tbl">
+    <thead><tr><th>Defisit</th><th>Bahasa Jepang</th><th>Implikasi untuk Kaigo</th></tr></thead>
+    <tbody>
+      <tr><td>Hemiplegia (lumpuh separuh)</td><td class="td-jp">片麻痺（かたまひ）</td><td>Transfer dari sisi sehat. Bantu sisi lemah selalu.</td></tr>
+      <tr><td>Afasia (gangguan bicara)</td><td class="td-jp">失語症（しつごしょう）</td><td>Bicara pelan, kalimat pendek, gunakan gambar/isyarat</td></tr>
+      <tr><td>Disfagia (gangguan menelan)</td><td class="td-jp">嚥下障害（えんかしょうがい）</td><td>Modifikasi konsistensi makanan, posisi makan tepat</td></tr>
+      <tr><td>Neglect (pengabaian sisi)</td><td class="td-jp">半側空間無視</td><td>Tempatkan benda penting di sisi yang diperhatikan</td></tr>
+      <tr><td>Inkontinensia</td><td class="td-jp">排泄障害</td><td>Jadwal toilet berkala, komunikasi alternatif</td></tr>
+      <tr><td>Gangguan kognitif</td><td class="td-jp">高次脳機能障害</td><td>Instruksi satu per satu, rutinitas konsisten</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sec" id="diabetes-kaigo">
+  <div class="sec-num">Bagian 3</div>
+  <h2>糖尿病 — Diabetes dalam Konteks Kaigo</h2>
+  <div class="box warn"><div class="box-title">⚠️ Waspadai Hipoglikemia</div>
+    低血糖症状: 冷汗（ひや汗）、ふるえ、動悸、意識障害 — Jika residen menunjukkan gejala ini setelah tidak makan atau minum obat diabetes, <strong>segera lapor perawat!</strong></div>
+  <table class="tbl">
+    <thead><tr><th>Komplikasi</th><th>Bahasa Jepang</th><th>Peran Kaigo</th></tr></thead>
+    <tbody>
+      <tr><td>Neuropati perifer</td><td class="td-jp">糖尿病性神経障害</td><td>Periksa kaki setiap hari (luka kecil bisa jadi borok). Jangan berjalan tanpa alas kaki.</td></tr>
+      <tr><td>Retinopati</td><td class="td-jp">糖尿病性網膜症</td><td>Pencahayaan baik, hindari jatuh akibat penglihatan buruk</td></tr>
+      <tr><td>Nefropati</td><td class="td-jp">糖尿病性腎症</td><td>Pantau urin output, tanda edema</td></tr>
+      <tr><td>Luka kaki diabetik</td><td class="td-jp">糖尿病性足病変</td><td>Inspeksi kaki harian, laporkan luka sekecil apapun</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sec" id="parkinson-kaigo">
+  <div class="sec-num">Bagian 4</div>
+  <h2>パーキンソン病 — Penyakit Parkinson</h2>
+  <div class="box tip"><div class="box-title">💡 3 Gejala Motorik Utama (3主徴)</div>
+    <strong>① 振戦（しんせん）</strong>= tremor istirahat &nbsp;|&nbsp; <strong>② 筋固縮（きんこしゅく）</strong>= rigiditas &nbsp;|&nbsp; <strong>③ 無動（むどう）</strong>= akinesia / bradikinesia</div>
+  <table class="tbl">
+    <thead><tr><th>Tantangan</th><th>Pendekatan Kaigo</th></tr></thead>
+    <tbody>
+      <tr><td>Freezing (tiba-tiba tidak bisa melangkah)</td><td>Minta "angkat lutut tinggi" atau letakkan garis di lantai sebagai panduan</td></tr>
+      <tr><td>Mikrografi (tulisan sangat kecil)</td><td>Sediakan kertas bergaris besar, gunakan alat tulis grip lebar</td></tr>
+      <tr><td>Disfagia</td><td>Makanan bertekstur halus, makan perlahan</td></tr>
+      <tr><td>Ortostatik hipotensi</td><td>Ubah posisi perlahan, tunggu sebelum berdiri penuh</td></tr>
+      <tr><td>Sembelit</td><td>Hidrasi cukup, serat, aktivitas fisik yang memungkinkan</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz-penyakit">
+  <div class="sec-num">Quiz</div>
+  <h2>Quiz Penyakit Lansia</h2>
+  <!-- dlg-injected -->
+<h2 style="font-size:1.2rem;font-weight:700;color:#b71c1c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">💬 Dialog Penyakit</h2>
+<div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px"><div style="font-size:.95rem;font-weight:700;color:#b71c1c;margin-bottom:12px">🫀 Dialog 1 — 心不全症状の報告</div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:2px">介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">看護師さん、山田様の足のむくみが昨日より明らかに増えています。息苦しさも訴えています。<button aria-label="Ucapkan: 看護師さん、山田様の足のむくみが昨日より明らかに増えています…" onclick="speak('看護師さん、山田様の足のむくみが昨日より明らかに増えています。息苦しさも訴えています。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Suster, pembengkakan kaki Pak Yamada jelas lebih buruk dari kemarin. Juga mengeluh sesak.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:2px">看護師</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">わかりました。心不全の悪化が考えられます。血圧と酸素飽和度を測ってください。<button aria-label="Ucapkan: わかりました。心不全の悪化が考えられます。血圧と酸素飽和度を…" onclick="speak('わかりました。心不全の悪化が考えられます。血圧と酸素飽和度を測ってください。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Mengerti. Kemungkinan perburukan gagal jantung. Ukur tekanan darah dan SpO2.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px"><div style="font-size:.95rem;font-weight:700;color:#b71c1c;margin-bottom:12px">💊 Dialog 2 — 服薬支援</div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:2px">田中さん</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">血圧が安定しているから、もう薬は要らないんじゃないかしら。<button aria-label="Ucapkan: 血圧が安定しているから、もう薬は要らないんじゃないかしら。" onclick="speak('血圧が安定しているから、もう薬は要らないんじゃないかしら。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Tekanan darah sudah stabil, mungkin tidak perlu obat lagi.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:2px">介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">そのお気持ちはわかります。でも安定しているのはお薬のおかげかもしれません。先生に相談しましょう。<button aria-label="Ucapkan: そのお気持ちはわかります。でも安定しているのはお薬のおかげか…" onclick="speak('そのお気持ちはわかります。でも安定しているのはお薬のおかげかもしれません。先生に相談しましょう。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Saya mengerti. Tapi justru karena obat tekanannya stabil. Mari konsultasikan ke dokter.</div></div></div></div>
+
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#b71c1c;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #ffebee">💬 疾患別介護の実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#b71c1c;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #ffebee">🩺 Dialog 1 — COPD利用者への対応</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">（歩いた後、息切れが激しい）ちょっと…苦しくて。<button aria-label="Ucapkan: （歩いた後、息切れが激しい）ちょっと…苦しくて。" onclick="speak('（歩いた後、息切れが激しい）ちょっと…苦しくて。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">(Setelah berjalan, napas sangat tersengal) Sedikit... sesak.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">少し休みましょう。椅子に座ってください。（SpO₂を測定）94%ですね。ゆっくり息を吐いてください。口すぼめ呼吸をしましょうか。<button aria-label="Ucapkan: 少し休みましょう。椅子に座ってください。（SpO₂を測定）9…" onclick="speak('少し休みましょう。椅子に座ってください。（SpO₂を測定）94%ですね。ゆっくり息を吐いてください。口すぼめ呼吸をしましょうか。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Istirahat dulu. Silakan duduk. (Mengukur SpO2) 94% ya. Hembuskan napas pelan-pelan. Coba pernapasan bibir mencucu.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#b71c1c;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #ffebee">💊 Dialog 2 — 高血圧の服薬支援</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">血圧が安定してきたから、もう薬は飲まなくていいかしら。<button aria-label="Ucapkan: 血圧が安定してきたから、もう薬は飲まなくていいかしら。" onclick="speak('血圧が安定してきたから、もう薬は飲まなくていいかしら。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Tekanan darah sudah stabil, mungkin tidak perlu obat lagi.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">お気持ちはわかります。でも血圧が安定しているのはお薬のおかげかもしれませんよ。自分で止めるのは危険なことがあります。先生に相談しましょうか。<button aria-label="Ucapkan: お気持ちはわかります。でも血圧が安定しているのはお薬のおかげ…" onclick="speak('お気持ちはわかります。でも血圧が安定しているのはお薬のおかげかもしれませんよ。自分で止めるのは危険なことがあります。先生に相談しましょうか。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Saya mengerti. Tapi tekanannya stabil justru mungkin karena obat. Berhenti sendiri bisa berbahaya. Mau konsultasikan ke dokter?</div></div></div></div></div>
+<div class="quiz-wrap" id="quizWrap">
+    <div class="q-title">🎯 Soal <span id="qNum">1</span>/<span id="qTot"></span></div>
+    <div class="q-text" id="qText"></div>
+    <div class="q-opts" id="qOpts"></div>
+    <div class="q-fb" id="qFb"></div>
+    <div class="q-nav">
+      <button class="q-btn rst" onclick="rstQ()">↺ Ulangi</button>
+      <div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="qSc">0</span></div>
+      <button class="q-btn nxt" onclick="nxtQ()" id="qNxt" style="display:none">Berikutnya →</button>
+    </div>
+  </div>
+</div>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+const QUIZ_PEN = [
+  {q:'Demensia jenis apa yang paling sering disertai halusinasi visual (幻視)?', opts:['アルツハイマー型','血管性認知症','レビー小体型認知症','前頭側頭型認知症'], ans:2, exp:'レビー小体型認知症 khas dengan 幻視 (halusinasi visual yang jelas dan mendetail), gejala Parkinson, dan fluktuasi kesadaran.'},
+  {q:'"徘徊（はいかい）" adalah BPSD yang berarti?', opts:['Menolak makan','Berkeliaran tanpa tujuan','Inkontinensia','Halusinasi'], ans:1, exp:'徘徊 adalah perilaku berkeliaran tanpa tujuan yang jelas pada residen demensia. Pendekatan: jangan dikekang, pastikan lingkungan aman.'},
+  {q:'Saat residen pasca stroke dengan hemiplegi kanan ingin berpindah ke kursi roda, kursi roda diletakkan di?', opts:['Sisi kanan (麻痺側)','Sisi kiri (健側)','Di depan tempat tidur','Tidak masalah'], ans:1, exp:'Kursi roda diletakkan di sisi kiri (健側/sisi sehat) agar residen dapat menggunakan sisi yang kuat untuk berpindah.'},
+  {q:'Gejala hipoglikemia yang harus segera dilaporkan adalah?', opts:['Peningkatan nafsu makan','Kulit kering','Keringat dingin, gemetar, gangguan kesadaran','Sembelit'], ans:2, exp:'Hipoglikemia: 冷汗（ひや汗）、ふるえ、動悸、意識障害 adalah gejala darurat. Segera lapor perawat dan jangan biarkan residen sendirian.'},
+  {q:'"まだら認知症" adalah ciri khas demensia jenis apa?', opts:['アルツハイマー型','血管性認知症','レビー小体型','前頭側頭型'], ans:1, exp:'血管性認知症 ditandai "まだら認知症" — ada kemampuan yang masih baik dan ada yang sangat terganggu, tidak progresif merata seperti Alzheimer.'},
+  {q:'Seorang residen Parkinson tiba-tiba tidak bisa melangkah (freezing). Apa yang harus dilakukan?', opts:['Paksa dorong ke depan','Angkat tubuhnya','Minta angkat lutut tinggi atau berikan garis panduan di lantai','Biarkan sampai bisa sendiri'], ans:2, exp:'Saat freezing pada Parkinson, minta pasien untuk "angkat lutut tinggi" atau berikan garis horizontal di lantai sebagai panduan visual untuk memulai melangkah.'},
+  {q:'Apa yang dimaksud "高次脳機能障害" pada pasien pasca stroke?', opts:['Kelumpuhan otot','Gangguan kognisi tinggi (memori, perhatian, fungsi eksekutif)','Nyeri kronis','Gangguan penglihatan'], ans:1, exp:'高次脳機能障害 adalah gangguan fungsi kognitif tinggi seperti memori, perhatian, kemampuan perencanaan, dan bahasa — yang sering tidak terlihat dari luar tapi sangat mempengaruhi kehidupan harian.'},
+];
+</script>
+
+</div>
+</div>
+<button id="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">↑</button>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.6);padding:1.5rem clamp(16px,5vw,72px)"><div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between"><div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:18px;font-weight:700">Nihonggo Pro Academy</div><div style="display:flex;gap:1rem;font-size:13px"><a href="../index.html" style="color:rgba(255,255,255,.5);text-decoration:none">Beranda</a><a href="Materi.html" style="color:rgba(255,255,255,.5);text-decoration:none">Materi</a><a href="Kaigo-Fukushishi-Overview.html" style="color:rgba(255,255,255,.5);text-decoration:none">介護福祉士</a><a href="../FAQ.html" style="color:rgba(255,255,255,.5);text-decoration:none">FAQ</a></div><div style="font-size:11px;color:rgba(255,255,255,.25)">© 2025 NihonggoPro</div></div></footer>
+
+<script>
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+const btt=document.getElementById('bttBtn');window.addEventListener('scroll',()=>btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});
+// Auto-build TOC
+(()=>{
+  const headings=document.querySelectorAll('#mainContent h2[id],#mainContent h3[id]');
+  const tl=document.getElementById('tocList');
+  if(!tl)return;
+  headings.forEach(h=>{
+    const a=document.createElement('a');
+    a.href='#'+h.id;a.className='toc-a'+(h.tagName==='H3'?' sub':'');
+    a.textContent=h.textContent.replace(/^[▪●■]\s*/,'');
+    tl.appendChild(a);
+  });
+  // Active state
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const a=tl.querySelector('a[href="#'+e.target.id+'"]');
+      if(a)a.classList.toggle('on',e.isIntersecting);
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  headings.forEach(h=>obs.observe(h));
+})();
+// Quiz engine
+let qIdx=0,qScore=0,qAnswered=false;
+function initQuiz(data){
+  window._qData=[...data].sort(()=>Math.random()-.5);
+  qIdx=0;qScore=0;renderQ();
+}
+function renderQ(){
+  const d=window._qData;if(!d||!d[qIdx])return;
+  const q=d[qIdx];
+  document.getElementById('qNum').textContent=qIdx+1;
+  document.getElementById('qTot').textContent=d.length;
+  document.getElementById('qText').textContent=q.q;
+  document.getElementById('qOpts').innerHTML=q.opts.map((o,i)=>`<button class="q-opt" onclick="ansQ(${i},this)">${String.fromCharCode(65+i)}. ${o}</button>`).join('');
+  document.getElementById('qFb').style.display='none';
+  document.getElementById('qNxt').style.display='none';
+  qAnswered=false;
+}
+function ansQ(idx,btn){
+  if(qAnswered)return;qAnswered=true;
+  const q=window._qData[qIdx];
+  document.querySelectorAll('.q-opt')[q.ans].classList.add('ok');
+  if(idx!==q.ans)btn.classList.add('ng');else qScore++;
+  document.getElementById('qSc').textContent=qScore;
+  document.getElementById('qFb').textContent=q.exp;
+  document.getElementById('qFb').style.display='block';
+  document.getElementById('qNxt').style.display='block';
+}
+function nxtQ(){
+  qIdx++;
+  const d=window._qData;
+  if(qIdx>=d.length){
+    const pct=Math.round(qScore/d.length*100);
+    document.getElementById('quizWrap').innerHTML=`<div style="text-align:center;padding:1.5rem"><div style="font-size:40px;margin-bottom:.5rem">${pct>=80?'🏆':pct>=60?'📚':'🔄'}</div><div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:.3rem">Skor: ${qScore}/${d.length} (${pct}%)</div><div style="color:rgba(255,255,255,.6);margin-bottom:1rem">${pct>=80?'Siap ujian nasional!':pct>=60?'Terus berlatih!':'Review materi dan ulangi.'}</div><button class="q-btn nxt" onclick="rstQ()" style="margin:0 auto">↺ Ulangi</button></div>`;
+    return;
+  }
+  renderQ();
+}
+function rstQ(){qIdx=0;qScore=0;document.getElementById('quizWrap').innerHTML=`<div class="q-title">🎯 Soal <span id="qNum">1</span>/<span id="qTot"></span></div><div class="q-text" id="qText"></div><div class="q-opts" id="qOpts"></div><div class="q-fb" id="qFb"></div><div class="q-nav"><button class="q-btn rst" onclick="rstQ()">↺ Ulangi</button><div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="qSc">0</span></div><button class="q-btn nxt" onclick="nxtQ()" id="qNxt" style="display:none">Berikutnya →</button></div>`;initQuiz(window._qData);}
+// Dipindah dari script pertama (v181): initQuiz butuh function initQuiz()
+// yang didefinisikan DI SINI (script kedua) -- memanggilnya dari script
+// pertama menyebabkan ReferenceError karena hoisting tak lintas <script>.
+initQuiz(QUIZ_PEN);
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+
+<section style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.1rem;font-weight:700;color:#1565c0;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz</h2>
+<div id="qkZ"></div>
+<div style="display:flex;gap:10px;margin-top:10px">
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:#1565c0;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
+</section>
+<script>
+var QKZ=[{"q": "「高血圧」のケアで介護職が観察すべきことは？", "opts": ["体重のみ", "定期的なBP測定・頭痛・めまい・降圧剤の副作用", "食欲のみ", "体温のみ"], "a": 1, "e": "頭痛・めまい・顔面紅潮などの随伴症状と、血圧測定値の変化を観察することが重要。これらの異常に気づいたら速やかに看護師へ報告し、医療的な判断につなげる必要がある。"}, {"q": "「糖尿病」利用者で最も注意すべき症状は？", "opts": ["食欲増進", "低血糖(冷汗・震え・意識混濁)", "発熱", "咳"], "a": 1, "e": "低血糖の症状（冷や汗・手の震え・意識のもうろう感等）が最も注意すべき症状となる。急速に進行し重篤な意識障害に至る可能性があるため、早期発見と迅速な対応が求められる。"}, {"q": "「パーキンソン病」の特徴的な症状は？", "opts": ["記憶障害", "振戦・固縮・無動・姿勢反射障害の4徴候", "幻視", "食欲低下"], "a": 1, "e": "振戦・筋固縮・無動・姿勢反射障害の四大症状が特徴的とされる。これらの運動症状に加え、便秘やうつといった非運動症状も伴うことが多く、総合的な理解が必要になる。"}, {"q": "脳卒中後の「左片麻痺」の利用者の食事介助で配慮することは？", "opts": ["右から食べさせる", "左側に食べ物が見えるよう配置・左側への注意を促す", "速く食べさせる", "液体のみ"], "a": 1, "e": "健側（右側）に食べ物を配置し、患側（左側）への注意を促すことが配慮点。左片麻痺では左側の空間を認識しにくい半側空間無視を伴うことがあり、食事の見落としに注意が必要となる。"}, {"q": "「骨粗鬆症」の利用者で特に注意すべきことは？", "opts": ["血圧管理", "転倒予防・骨折リスク低減", "食欲", "睡眠"], "a": 1, "e": "軽微な力でも骨折しうるため、急な動作や強い圧迫を避けることが特に注意すべき点。日常のわずかな動作でも圧迫骨折等が起こりうるほど、骨が脆弱化している状態を理解する必要がある。"}, {"q": "「COPDの利用者」に対して特に注意すべき介護上のポイントは？", "opts": ["骨折に注意", "呼吸困難への対応と酸素投与中の安全管理・活動量の調整", "血糖値の管理", "認知機能のみ確認"], "a": 1, "e": "COPD(慢性閉塞性肺疾患)の介護: 動作時の息切れ・呼吸困難が最大の問題。酸素療法中は火気厳禁。活動量を調整しながら呼吸リハビリを支援。喫煙歴のある高齢者に多い。"}, {"q": "「高血圧（こうけつあつ）」の利用者に介護士が特に注意すべきことは？", "opts": ["体重の増加", "急な体位変換・激しい運動・極端な温度変化(入浴時など)を避ける", "食事量の増加", "睡眠を短くする"], "a": 1, "e": "高血圧の介護: 急な動作や体位変換→血圧急上昇リスク。熱い風呂→血管拡張→血圧急低下。ストレス・寒冷刺激も血圧を上げる。毎日の血圧測定と記録が重要。"}, {"q": "「心不全」の利用者への介護で「毎朝体重を測る」理由は？", "opts": ["食欲確認のため", "体液貯留（浮腫）を早期発見するため。2〜3日で2kg以上の増加は水分過多のサインで要報告", "骨密度確認のため", "栄養状態確認のため"], "a": 1, "e": "心不全の体重管理：心不全では心臓のポンプ機能低下→体内に水分が溜まる→浮腫・体重増加。毎日同時刻（起床後排尿後）に測定。2〜3日で2kg以上増加は心不全悪化のサイン→即看護師・医師に報告。"}, {"q": "高齢者に多い「変形性膝関節症」の主な症状はどれか。", "opts": ["膝の痛みと可動域制限", "発熱", "記憶障害", "呼吸困難"], "a": 0, "e": "変形性膝関節症(osteoartritis lutut)は膝の痛み・可動域制限(nyeri & keterbatasan gerak)が主症状。"}, {"q": "高齢者の「白内障」が生活に与える影響はどれか。", "opts": ["視力低下による転倒リスクの増加", "聴力低下", "記憶障害", "運動機能向上"], "a": 0, "e": "視力低下による転倒リスクの増加が白内障の生活への影響。見えにくさから段差や障害物に気づきにくくなり、事故のリスクが高まるため、環境整備での配慮が重要になる。"}, {"q": "高齢者の「難聴」への対応で適切なのはどれか。", "opts": ["正面から口を見せてゆっくり話す", "後ろから大声で話す", "筆談のみに頼る", "無視する"], "a": 0, "e": "正面から口を見せて、ゆっくり話すことが適切な対応。後ろから大声で話すことや、筆談のみに頼ることは、かえってコミュニケーションを困難にしてしまう可能性がある。"}, {"q": "高齢者の「前立腺肥大」が引き起こしやすい症状はどれか。", "opts": ["頻尿や排尿困難", "便秘のみ", "視力低下", "記憶障害"], "a": 0, "e": "頻尿や排尿困難が前立腺肥大による典型的な症状。男性高齢者に多く見られ、夜間のトイレ回数増加にもつながるため、排泄介助の際の配慮が必要になる。"}, {"q": "高齢者の「帯状疱疹」の特徴はどれか。", "opts": ["神経に沿った痛みを伴う発疹", "全身の発熱のみ", "記憶障害", "呼吸困難"], "a": 0, "e": "神経に沿った痛みを伴う発疹が帯状疱疹の特徴。過去に感染した水痘ウイルスが再活性化することで発症し、強い神経痛を伴うことが多いため早期の医療的対応が重要となる。"}, {"q": "高齢者の「関節リウマチ」の特徴的な症状はどれか。", "opts": ["朝のこわばりと関節の腫れ", "発熱のみ", "視力低下", "記憶障害"], "a": 0, "e": "朝のこわばりと、関節の腫れが関節リウマチの特徴的な症状。これらの症状により日常動作に支障をきたすことが多いため、介助の際には無理のない範囲での支援が求められる。"}, {"q": "高齢者の「貧血」が生活に与える影響はどれか。", "opts": ["倦怠感やめまいで活動性が低下する", "活力が向上する", "無関係", "食欲が増進する"], "a": 0, "e": "倦怠感やめまいにより活動性が低下することが貧血の生活への影響。日常の動作への意欲や体力に影響を及ぼすため、原因の把握と適切な栄養管理が重要になる。"}, {"q": "高齢者の「誤嚥性肺炎」の主な原因はどれか。", "opts": ["嚥下機能低下による食物・唾液の誤嚥", "運動不足のみ", "水分過多", "栄養過多"], "a": 0, "e": "嚥下機能の低下による、食物・唾液の誤嚥が主な原因となる。加齢に伴う嚥下機能の衰えが背景にあるため、食事姿勢や口腔ケアを通じた予防が重視される。"}, {"q": "高齢者の「変形性脊椎症」への配慮はどれか。", "opts": ["無理のない姿勢と適度な運動を勧める", "安静を強制する", "激しい運動を勧める", "無関係"], "a": 0, "e": "無理のない姿勢と、適度な運動を勧めることが配慮として適切。安静を強制したり激しい運動を勧めたりすることは、かえって症状を悪化させる可能性がある。"}, {"q": "高齢者の疾患管理で「多疾患併存(マルチモビディティ)」が意味することはどれか。", "opts": ["複数の慢性疾患を同時に抱える状態", "単一の疾患のみ", "治療の必要がない状態", "急性疾患のみ"], "a": 0, "e": "マルチモビディティ(multimorbiditas)=複数の慢性疾患(beberapa penyakit kronis)を同時に抱える状態。"}, {"q": "高齢者の「褥瘡」予防と栄養状態の関係はどれか。", "opts": ["低栄養は褥瘡リスクを高める", "栄養状態は無関係", "高栄養は逆にリスクを高める", "予防に栄養は関係ない"], "a": 0, "e": "低栄養は褥瘡のリスクを高める関係にある。栄養状態が悪いと皮膚の耐久性が低下し、圧迫による損傷を受けやすくなるため、適切な栄養管理が褥瘡予防に直結する。"}, {"q": "高齢者の「フレイル」の概念が示すものはどれか。", "opts": ["加齢に伴う心身の脆弱性が高まった状態", "完全な健康状態", "若年層の状態", "急性疾患のみ"], "a": 0, "e": "加齢に伴う心身の脆弱性が高まった状態をフレイルという概念は示している。完全な健康状態でも重度の要介護状態でもない中間的な段階であり、早期の介入で改善が可能とされる。"}],qiZ=0,okZ=0,totZ=0;
+function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
+var oo=document.createElement('div');oo.style.display='grid';oo.style.gap='7px';
+q.opts.forEach(function(o,i){var b=document.createElement('button');
+b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
+b.textContent=o;b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
+var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
+var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:10px;font-size:.92rem';
+qq.textContent=(qiZ%QKZ.length+1)+'. '+q.q;
+var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none';
+bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function ansZ(btn,c,a,e){var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
+bs[a].dataset.d='1';totZ++;
+bs[a].style.background='#e8f5e9';bs[a].style.borderColor='#43a047';bs[a].style.color='#1b5e20';
+if(c!==a){btn.style.background='#fce4ec';btn.style.borderColor='#e91e63';btn.style.color='#880e4f';}
+else okZ++;
+var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();} function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
+rndZ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

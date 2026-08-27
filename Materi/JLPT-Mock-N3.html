@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JLPT Mock Test N3 模擬試験 | Nihonggo Pro Academy</title>
+<meta name="description" content="JLPT Mock Test N3 模擬試験 — 25 soal campuran, timer 40 menit, skor otomatis.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/JLPT-Mock-N3.html">
+<meta property="og:title" content="JLPT Mock Test N3 模擬試験 — Nihonggo Pro Academy">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,#bf360c,#d84315);color:#fff;padding:44px 20px 28px;text-align:center}
+.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 6px;font-family:"Noto Serif JP",serif}
+.bdg{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:10px}
+.sbox{background:#fff;border-radius:14px;padding:28px;text-align:center;margin:24px 0;border:1px solid rgba(0,0,0,.08);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.iv{font-size:1.4rem;font-weight:700;color:#333;font-family:"Noto Serif JP",serif}
+.il{font-size:.72rem;color:#888;margin-top:2px}
+.ii{background:#f5f5f5;border-radius:10px;padding:12px;text-align:center}
+.sbtn{background:linear-gradient(135deg,#bf360c,#d84315);color:#fff;border:none;border-radius:10px;padding:13px 40px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:12px;transition:all .2s;font-family:inherit}
+.sbtn:hover{opacity:.9;transform:translateY(-1px)}
+.ch{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:10px;padding:10px 16px;margin-bottom:12px;border:1px solid rgba(0,0,0,.08)}
+.ct{font-weight:700;font-size:.92rem}
+.ctm{font-size:1.2rem;font-weight:700;font-family:"Noto Serif JP",serif}
+.ctm.warn{color:#e53935;animation:blink .8s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.cp{font-size:.8rem;color:#888}
+.qn{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:12px}
+@media(max-width:480px){.qn{grid-template-columns:repeat(5,1fr)}}
+.qd{width:100%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:.7rem;cursor:pointer;font-weight:600;background:#fff;transition:all .2s}
+.qd.cur{background:linear-gradient(135deg,#bf360c,#d84315);border-color:linear-gradient(135deg,#bf360c,#d84315);color:#fff}
+.qd.ans{background:#e8f5e9;border-color:#43a047;color:#2e7d32}
+.qd.flg{background:#fff3e0;border-color:#fb8c00;color:#e65100}
+.qbx{background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,.08);margin-bottom:12px}
+.qm{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:6px}
+.qnum{font-size:.78rem;font-weight:700;background:#f0f0f0;padding:3px 10px;border-radius:20px}
+.qcat{font-size:.7rem;background:#e8eaf6;color:#3d1b69;padding:3px 10px;border-radius:20px;font-weight:600}
+.qfbtn{font-size:.72rem;border:1px solid #fb8c00;color:#fb8c00;background:none;border-radius:20px;padding:3px 10px;cursor:pointer}
+.qfbtn.on{background:#fb8c00;color:#fff}
+.qtxt{font-size:.95rem;font-weight:600;margin-bottom:16px;line-height:1.65}
+.qopts{display:grid;gap:8px}
+.qopt{background:#fafafa;border:2px solid rgba(0,0,0,.1);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
+.qopt:hover{border-color:linear-gradient(135deg,#bf360c,#d84315);background:#f0f4ff}
+.qopt.sel{border-color:linear-gradient(135deg,#bf360c,#d84315);background:#f0f4ff;font-weight:600}
+.qopt.cor{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
+.qopt.wrg{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.nb{padding:10px 18px;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;font-family:inherit}
+.np{background:#f5f5f5;color:#333;border:1px solid #ddd}
+.nn{background:linear-gradient(135deg,#bf360c,#d84315);color:#fff;flex:1}
+.ns{background:#2e7d32;color:#fff;flex:1}
+.rb{background:#fff;border-radius:14px;padding:28px;text-align:center;margin:24px 0;border:1px solid rgba(0,0,0,.08)}
+.sr{width:120px;height:120px;border-radius:50%;margin:0 auto 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:5px solid linear-gradient(135deg,#bf360c,#d84315);background:#f5f5f5}
+.sn{font-size:2rem;font-weight:700;font-family:"Noto Serif JP",serif;line-height:1}
+.sl{font-size:.68rem;color:#888}
+.gb{display:inline-block;font-size:.82rem;font-weight:700;padding:5px 18px;border-radius:100px;margin:10px 0}
+.gs{background:#fff3e0;color:#e65100}
+.ga{background:#e8f5e9;color:#2e7d32}
+.gb2{background:#e3f2fd;color:#1565c0}
+.gc{background:#fce4ec;color:#c62828}
+.rst{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.ri{background:#f5f5f5;border-radius:8px;padding:10px;text-align:center}
+.rn{font-size:1.3rem;font-weight:700;font-family:"Noto Serif JP",serif}
+.rl{font-size:.7rem;color:#888}
+.rh{font-size:1.05rem;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid #eee;font-family:"Noto Serif JP",serif}
+.ai{background:#fff;border-radius:8px;padding:12px;margin-bottom:8px;border-left:4px solid #ccc}
+.ai.ok{border-left-color:#43a047}
+.ai.ng{border-left-color:#e91e63}
+.aq{font-size:.85rem;font-weight:600;margin-bottom:4px;line-height:1.5}
+.ae{font-size:.78rem;color:#555;line-height:1.6;background:#f9f9f9;border-radius:6px;padding:6px 8px;margin-top:5px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "JLPT Mock Test N3 模擬試験 | Nihonggo Pro Academy", "description": "JLPT Mock Test N3 模擬試験 — 25 soal campuran, timer 40 menit, skor otomatis.", "url": "https://nihonggopro.id/Materi/JLPT-Mock-N3.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="JLPT Mock Test N3 模擬試験 — 25 soal campuran, timer 40 menit, skor otomatis.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/JLPT-Mock-N3.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JLPT Mock Test N3 模擬試験">
+<meta name="twitter:description" content="JLPT Mock Test N3 模擬試験 — 25 soal campuran, timer 40 menit, skor otomatis.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">📝 JLPT N3</span><h1>JLPT Mock Test N3 模擬試験</h1>
+<p style="font-size:.85rem;opacity:.85;margin-top:6px">25 soal campuran · 40 menit · Soal diacak</p></div>
+<div class="wrap" style="padding-top:20px">
+<div id="sv">
+  <div class="sbox">
+    <h2 style="color:#333;margin-bottom:8px;font-family:'Noto Serif JP',serif">Mock Test N3</h2>
+    <p style="color:#666;font-size:.88rem">Simulasi ujian JLPT N3 — Grammar, Kosakata, dan Reading</p>
+    <div class="ig">
+      <div class="ii"><div class="iv">25</div><div class="il">Soal</div></div>
+      <div class="ii"><div class="iv">40</div><div class="il">Menit</div></div>
+      <div class="ii"><div class="iv">60%</div><div class="il">Lulus</div></div>
+    </div>
+    <button class="sbtn" onclick="startTest()">Mulai Mock Test N3</button>
+  </div>
+</div>
+<div id="tv" style="display:none">
+  <div class="ch">
+    <div><div class="ct">Mock Test N3</div><div class="cp" id="cprog">1/25</div></div>
+    <div class="ctm" id="ctimer">00:00</div>
+  </div>
+  <div class="qn" id="qnav"></div>
+  <div class="qbx" id="qbx"></div>
+  <div class="nav">
+    <button aria-label="Goq" class="nb np" onclick="goQ(-1)">←</button>
+    <button class="nb nn" id="bnn" onclick="goQ(1)">Berikutnya →</button>
+    <button class="nb ns" id="bns" style="display:none" onclick="submitTest()">✅ Selesai</button>
+  </div>
+</div>
+<div id="rv" style="display:none">
+  <div class="rb">
+    <h2 style="color:#333;margin-bottom:14px;font-family:'Noto Serif JP',serif">Hasil Mock Test N3</h2>
+    <div class="sr"><div class="sn" id="rsn">0</div><div class="sl">dari 25</div></div>
+    <div class="gb" id="rgb"></div>
+    <div style="font-weight:700;margin:6px 0" id="rmsg"></div>
+    <div style="font-size:.88rem;color:#666" id="rpct"></div>
+    <div class="rst">
+      <div class="ri"><div class="rn" id="rok" style="color:#2e7d32">0</div><div class="rl">Benar</div></div>
+      <div class="ri"><div class="rn" id="rng" style="color:#c62828">0</div><div class="rl">Salah</div></div>
+      <div class="ri"><div class="rn" id="rsk" style="color:#888">0</div><div class="rl">Lewat</div></div>
+    </div>
+    <div style="margin-top:14px">
+      <button onclick="restartTest()" style="background:linear-gradient(135deg,#bf360c,#d84315);color:#fff;border:none;border-radius:8px;padding:10px 28px;cursor:pointer;font-size:.9rem;font-weight:700;margin:4px;font-family:inherit">Ulangi</button>
+      <button onclick="showRev()" style="background:#f5f5f5;border:1px solid #ddd;border-radius:8px;padding:10px 20px;cursor:pointer;font-size:.88rem;font-weight:600;margin:4px;font-family:inherit">Pembahasan</button>
+    </div>
+  </div>
+  <div id="revs" style="display:none">
+    <div class="rh">📝 Pembahasan Lengkap</div>
+    <div id="ral"></div>
+  </div>
+</div>
+</div></main>
+<script>
+var QD=[{"cat": "文法", "q": "彼女が来なかった（　）、パーティーは盛り上がらなかった。", "opts": ["せいで", "おかげで", "ために", "ので"], "a": 0, "e": "せいで=karena ~ (negatif). 来なかったせいで盛り上がらなかった=gara-gara dia tidak datang, pesta tidak meriah。"}, {"cat": "語彙", "q": "この問題は（　）的に解決しなければならない。", "opts": ["根本", "基本", "原本", "元本"], "a": 0, "e": "根本的に(こんぽんてき)=secara mendasar; dari akarnya. 根本的な解決=solusi mendasar. 基本的=pada dasarnya(umumnya)."}, {"cat": "文法", "q": "どんなに疲れていても、仕事を（　）わけにはいかない。", "opts": ["やめる", "やめた", "やめない", "やめて"], "a": 1, "e": "〜わけにはいかない=tidak bisa ~ (karena kewajiban/aturan). やめたわけにはいかない=tidak bisa berhenti begitu saja."}, {"cat": "語彙", "q": "彼は（　）な人物で、誰からも信頼されている。", "opts": ["誠実", "正直", "素直", "謙虚"], "a": 0, "e": "誠実(せいじつ)=jujur dan setia; integritas tinggi. 誠実な人物=orang yang berintegritas. 正直=jujur(tidak bohong)."}, {"cat": "文法", "q": "新しい法律が（　）にしたがって、手続きが変わった。", "opts": ["施行", "施工", "実施", "実行"], "a": 0, "e": "施行(しこう)=berlakunya undang-undang. 法律の施行=pemberlakuan hukum. 施工=konstruksi. 実施=pelaksanaan."}, {"cat": "文法", "q": "彼女は歌が上手で、（　）踊りも得意だ。", "opts": ["そのうえ", "そして", "それで", "ですから"], "a": 0, "e": "そのうえ=di atas itu; selain itu(累加). 上手で、そのうえ踊りも=pandai menyanyi, di atas itu pandai menari juga。"}, {"cat": "語彙", "q": "この仕事は（　）がかかるが、やりがいがある。", "opts": ["手間", "手段", "手前", "手首"], "a": 0, "e": "手間(てま)=waktu dan usaha; kerja keras. 手間がかかる=memerlukan banyak usaha. やりがいがある=rewarding."}, {"cat": "文法", "q": "父は病気にも（　）、毎日仕事に行った。", "opts": ["かかわらず", "よらず", "関して", "対して"], "a": 0, "e": "にもかかわらず=meskipun ~; walaupun. 病気にもかかわらず仕事に行く=pergi kerja meskipun sakit。"}, {"cat": "語彙", "q": "その映画は感動的で、（　）が流れた。", "opts": ["涙", "汗", "血", "水"], "a": 0, "e": "涙(なみだ)が流れた=air mata mengalir. 感動して涙が出る=menangis terharu. 感動的な映画の典型的な表現。"}, {"cat": "文法", "q": "彼は（　）ながら、しっかりした仕事をする。", "opts": ["若い", "若く", "若さ", "若み"], "a": 0, "e": "〜ながら=meskipun ~; walaupun(逆接). 若いながらしっかりした仕事=walaupun muda, kerjanya bagus。"}, {"cat": "読解", "q": "「棚からぼたもち」の意味は？", "opts": ["努力が実った", "思いがけない幸運が転がり込んでくること", "お菓子を食べること", "困難を乗り越えること"], "a": 1, "e": "棚からぼたもち=keberuntungan datang tanpa disangka. 棚=rak, ぼたもち=kue mochi. 努力せずに幸運が訪れる意味。"}, {"cat": "文法", "q": "この店は値段は高いが、（　）品質はいい。", "opts": ["その分", "それほど", "そのため", "したがって"], "a": 0, "e": "その分(ぶん)=sebagai gantinya; seimbang dengan itu. 値段は高いが、その分品質はいい=mahal, tapi sebanding kualitasnya。"}, {"cat": "語彙", "q": "彼は失敗を（　）にして、さらに成長した。", "opts": ["糧", "食料", "材料", "原料"], "a": 0, "e": "糧(かて)にする=menjadikan sebagai bahan/pelajaran. 失敗を糧にする=menjadikan kegagalan sebagai pelajaran. 慣用的表現。"}, {"cat": "文法", "q": "（　）に違いない、彼がやったのは。", "opts": ["彼", "彼が", "彼に", "彼を"], "a": 0, "e": "〜に違いない=pasti ~; tidak salah lagi. 彼に違いない=pasti dia(yang melakukannya). Dengan konteks pertanyaan di awal。"}, {"cat": "語彙", "q": "彼女の説明は（　）で分かりやすかった。", "opts": ["明快", "明確", "明白", "明瞭"], "a": 0, "e": "明快(めいかい)=jelas dan mudah dipahami; terang benderang. 明快な説明=penjelasan yang jelas. 明確=pasti; tegas(makna lebih formal)."}, {"cat": "文法", "q": "この仕事を（　）には、まず資格が必要だ。", "opts": ["する", "するため", "した", "する際"], "a": 3, "e": "〜際(さい)には=pada saat ~; ketika ~. この仕事をする際には=ketika mengerjakan pekerjaan ini. 条件・場面を示す。"}, {"cat": "語彙", "q": "計画が（　）もなく崩れてしまった。", "opts": ["あと", "跡", "後", "後"], "a": 1, "e": "跡形(あとかた)もなく=tanpa sisa; hilang lenyap. 計画が跡形もなく崩れた=rencana hancur tanpa sisa. 慣用句。"}, {"cat": "文法", "q": "彼女は美しい（　）か、頭もいい。", "opts": ["ばかり", "だけ", "のみ", "のみなら"], "a": 3, "e": "〜のみならず=tidak hanya ~; bahkan. 美しいのみならず頭もいい=tidak hanya cantik, bahkan pintarjuga。"}, {"cat": "語彙", "q": "この薬は（　）があるので、用量を守ること。", "opts": ["副作用", "作用", "反応", "効果"], "a": 0, "e": "副作用(ふくさよう)=efek samping. 副作用がある薬=obat yang punya efek samping. 用量を守る=ikuti dosis yang ditentukan。"}, {"cat": "文法", "q": "試験まで時間が（　）こと、毎日勉強しよう。", "opts": ["ない", "ある", "少ない", "多い"], "a": 2, "e": "時間が少ないこと=mengingat waktu yang sedikit. ことを理由に〜しよう=dengan alasan ~ mari ~. 動機づけの表現。"}, {"cat": "語彙", "q": "彼は問題の（　）をつかんでいない。", "opts": ["本質", "性質", "品質", "特質"], "a": 0, "e": "本質(ほんしつ)=esensi; inti. 問題の本質をつかむ=memahami esensi masalah. 表面でなく核心を見る意味。"}, {"cat": "文法", "q": "（　）ことだし、そろそろ帰りましょう。", "opts": ["遅い", "遅く", "遅くなった", "遅くなる"], "a": 2, "e": "〜ことだし=mengingat ~ ; karena ~. 遅くなったことだし=mengingat sudah terlambat, mari pulang. 理由の柔らかい言い方。"}, {"cat": "語彙", "q": "この計画には（　）の余地がある。", "opts": ["改善", "改変", "変更", "修正"], "a": 0, "e": "改善(かいぜん)の余地=masih ada ruang untuk perbaikan. 改善の余地がある=ada ruang untuk diperbaiki. ビジネスでよく使う。"}, {"cat": "文法", "q": "彼が来る（　）かどうか、まだ分からない。", "opts": ["かどうか", "かどうか", "か", "のか"], "a": 2, "e": "〜か=apakah ~(疑問間接). 来るかどうか=apakah dia akan datang atau tidak. 来るか来ないか の省略形。"}, {"cat": "読解", "q": "「二兎を追う者は一兎をも得ず」の教訓は？", "opts": ["速く走れ", "二つのことを同時に求めると両方失う", "うさぎを飼え", "一生懸命努力せよ"], "a": 1, "e": "二兎を追う者は一兎をも得ず=yang mengejar dua kelinci tidak akan mendapat satu pun. 欲張って二つを求めると両方失うという教え。"}];
+var qs=[],ans2={},cur=0,flg={},tLeft=2400,tInt=null;
+function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function startTest(){testMockSubmitted=false;qs=shuffle(QD);ans2={};flg={};cur=0;tLeft=2400;
+  document.getElementById('sv').style.display='none';
+  document.getElementById('tv').style.display='block';
+  document.getElementById('rv').style.display='none';
+  renderNav();showQ(0);
+  tInt=setInterval(function(){tLeft--;var m=Math.floor(tLeft/60),s=tLeft%60;
+    var el=document.getElementById('ctimer');
+    if(el){el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;el.className='ctm'+(tLeft<=60?' warn':'');}
+    if(tLeft<=0){clearInterval(tInt);submitTest();}},1000);}
+function renderNav(){var nav=document.getElementById('qnav');if(!nav)return;nav.innerHTML='';
+  qs.forEach(function(q,i){var d=document.createElement('div');d.className='qd'+(i===cur?' cur':flg[i]?' flg':ans2[i]!==undefined?' ans':'');
+    d.textContent=i+1;d.onclick=(function(x){return function(){cur=x;showQ(x);}})(i);nav.appendChild(d);});}
+function showQ(i){var q=qs[i];if(!q)return;
+  var p=document.getElementById('cprog');if(p)p.textContent=(i+1)+'/25';
+  var bx=document.getElementById('qbx');if(!bx)return;
+  var fl=flg[i];
+  bx.innerHTML='<div class="qm"><span class="qnum">Q'+(i+1)+'</span><span class="qcat">'+q.cat+'</span>'
+    +'<button aria-label="Tombol" class="qfbtn'+(fl?' on':'')+'" id="fb">🚩</button></div>'
+    +'<div class="qtxt">'+q.q+'</div><div class="qopts" id="qop"></div>';
+  document.getElementById('fb').onclick=function(){flg[i]=!flg[i];showQ(i);};
+  var op=document.getElementById('qop');
+  q.opts.forEach(function(o,j){var b=document.createElement('button');b.className='qopt'+(ans2[i]===j?' sel':'');
+    b.textContent=(j+1)+'. '+o;b.onclick=(function(qi,ai){return function(){selA(qi,ai);};})(i,j);op.appendChild(b);});
+  var bn=document.getElementById('bnn'),bs=document.getElementById('bns');
+  if(bn)bn.style.display=i<24?'block':'none';
+  if(bs)bs.style.display=i===24?'block':'none';
+  renderNav();}
+function selA(qi,ai){ans2[qi]=ai;var op=document.getElementById('qop');
+  if(op)op.querySelectorAll('.qopt').forEach(function(b,j){b.className='qopt'+(j===ai?' sel':'');});
+  renderNav();}
+function goQ(d){cur=Math.max(0,Math.min(24,cur+d));showQ(cur);}
+// GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Keempat, Fase R):
+// guard flag untuk mencegah submitTest() genuinely dieksekusi dua kali,
+// mengikuti pola yang sudah terbukti di JLPT-CBT.html (Website v25) dan
+// JLPT-Mock-N4/N5.html (sesi ini). Dua jalur pemanggilan identik (tombol
+// manual + timer otomatis) genuinely ada tanpa perlindungan sebelumnya.
+var testMockSubmitted = false;
+function submitTest(){if(testMockSubmitted)return;testMockSubmitted=true;clearInterval(tInt);var ok=0,ng=0,sk=0;
+  qs.forEach(function(q,i){if(ans2[i]===undefined)sk++;else if(ans2[i]===q.a)ok++;else ng++;});
+  var pct=Math.round(ok/25*100);
+  document.getElementById('tv').style.display='none';document.getElementById('rv').style.display='block';
+  document.getElementById('rsn').textContent=ok;document.getElementById('rok').textContent=ok;
+  document.getElementById('rng').textContent=ng;document.getElementById('rsk').textContent=sk;
+  document.getElementById('rpct').textContent=pct+'% ('+ok+'/25 benar)';
+  var g,gc,msg;
+  if(pct>=90){g='S — Luar Biasa!';gc='gs';msg='🏆 Siap ujian JLPT sungguhan!';}
+  else if(pct>=75){g='A — Sangat Baik';gc='ga';msg='🎉 Hampir sempurna!';}
+  else if(pct>=60){g='B — Lulus';gc='gb2';msg='✅ Lulus! Terus semangat!';}
+  else{g='C — Belajar Lagi';gc='gc';msg='📚 Pelajari materi lagi!';}
+  var rgb=document.getElementById('rgb');if(rgb){rgb.textContent=g;rgb.className='gb '+gc;}
+  var rm=document.getElementById('rmsg');if(rm){rm.textContent=msg;rm.style.color=pct>=60?'#2e7d32':'#c62828';}}
+function showRev(){var s=document.getElementById('revs');if(!s)return;
+  s.style.display=s.style.display==='none'?'block':'none';if(s.style.display==='none')return;
+  var ral=document.getElementById('ral');if(!ral)return;ral.innerHTML='';
+  qs.forEach(function(q,i){var ua=ans2[i],isOk=ua===q.a,isSkip=ua===undefined;
+    var d=document.createElement('div');d.className='ai '+(isSkip?'':isOk?'ok':'ng');
+    d.innerHTML='<div class="aq">Q'+(i+1)+'. ['+q.cat+'] '+q.q+'</div>'
+      +'<div style="font-size:.78rem;color:#2e7d32;margin-bottom:2px">✅ '+q.opts[q.a]+'</div>'
+      +(!isSkip&&!isOk?'<div style="font-size:.78rem;color:#c62828;margin-bottom:2px">❌ '+q.opts[ua]+'</div>':'')
+      +(isSkip?'<div style="font-size:.78rem;color:#888">⏭️ Tidak dijawab</div>':'')
+      +'<div class="ae">💡 '+q.e+'</div>';
+    ral.appendChild(d);});}
+function restartTest(){document.getElementById('rv').style.display='none';
+  var rs=document.getElementById('revs');if(rs)rs.style.display='none';startTest();}
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

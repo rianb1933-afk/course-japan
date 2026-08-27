@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Dokumentasi Kaigo 介護記録 | Nihonggo Pro Academy</title>
+<meta name="description" content="Dokumentasi perawatan kaigo 介護記録. Cara menulis catatan harian perawatan, laporan insiden, dan formulir resmi untuk tenaga kaigo di Jepang.">>
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Dokumentasi.html">
+<meta property="og:title" content="Dokumentasi Kaigo 介護記録 — Nihonggo Pro Academy">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["記録", "kiroku", "pencatatan"], ["報告", "hokoku", "laporan"], ["連絡", "renraku", "komunikasi"], ["相談", "sodan", "konsultasi"], ["SOAP", "SOAP", "format catatan"], ["フェイスシート", "feisu shiito", "lembar identitas"], ["引き継ぎ", "hikitsugi", "serah terima"], ["個人情報", "kojin joho", "informasi pribadi"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#1565c0">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
+.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
+.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
+.sec h3{color:#1565c0;margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
+.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
+.tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
+.tbl tr:hover td{background:rgba(0,0,0,.03)}
+.tip{background:#f0faf0;border-left:3px solid #43a047;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.card.open .det{display:block}
+.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.83rem;color:#666;line-height:1.7}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.phrase-box{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px}
+.phrase-jp{font-size:.95rem;font-weight:600;color:#1565c0;margin-bottom:4px}
+.phrase-r{font-size:.75rem;color:#888;margin-bottom:3px}
+.phrase-id{font-size:.85rem;color:#333}
+.dialog-line{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:.88rem;line-height:1.6}
+.line-staff{background:#e3f2fd;border-left:3px solid #1565c0}
+.line-pt{background:#f5f5f5;border-left:3px solid #9e9e9e}
+.spk{font-size:.72rem;font-weight:700;margin-bottom:4px}
+.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
+.qq{font-weight:600;margin-bottom:12px}
+.qopts{display:grid;gap:8px}
+.qopt{background:#fff;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;text-align:left;width:100%;font-family:inherit}
+.qopt:hover{background:rgba(0,0,0,.04)}
+.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.85rem;color:#555;display:none}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Dokumentasi Kaigo 介護記録 | Nihonggo Pro Academy", "description": "Dokumentasi perawatan kaigo 介護記録. Cara menulis catatan harian perawatan, laporan insiden, dan formulir resmi untuk tenaga kaigo di Jepang.", "url": "https://nihonggopro.id/Materi/Kaigo-Dokumentasi.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Dokumentasi perawatan kaigo 介護記録. Cara menulis catatan harian perawatan, laporan insiden, dan formulir resmi untuk tenaga kaigo di Jepang.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Dokumentasi.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Dokumentasi Kaigo 介護記録">
+<meta name="twitter:description" content="Dokumentasi perawatan kaigo 介護記録. Cara menulis catatan harian perawatan, laporan insiden, dan formulir resmi untuk tenaga kaigo di Jepang.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">📋 介護·記録</span><h1>Dokumentasi Kaigo 介護記録</h1></div>
+<div class="wrap" style="padding-top:24px">
+<div class="tip">💡 Dokumentasi adalah tulang punggung perawatan kaigo. Catatan yang akurat melindungi residen, petugas, dan fasilitas secara hukum!</div>
+<div class="sec"><h3>📝 Prinsip Dokumentasi Kaigo</h3>
+<div class="tbl-wrap"><table class="tbl">
+<tr><th>Prinsip</th><th>Penjelasan</th><th>Contoh</th></tr>
+<tr><td><b>客観的事実</b><br>(Fakta Objektif)</td><td>Catat apa yang dilihat/diukur, bukan interpretasi</td><td>❌ 「元気がない」<br>✅「食欲なし、発話少ない」</td></tr>
+<tr><td><b>5W1H</b></td><td>When/Who/Where/What/Why/How</td><td>「14:00、食堂にて、〇〇様が転倒」</td></tr>
+<tr><td><b>タイムリー</b><br>(Tepat Waktu)</td><td>Catat segera setelah kejadian</td><td>インシデント後すぐに記録</td></tr>
+<tr><td><b>正確性</b><br>(Akurasi)</td><td>Gunakan terminologi yang tepat dan konsisten</td><td>測定値は数値で記録</td></tr>
+<tr><td><b>守秘義務</b><br>(Kerahasiaan)</td><td>Data pribadi residen harus dilindungi</td><td>記録は施設外に持ち出さない</td></tr>
+</table></div></div>
+<div class="sec"><h3>📊 Jenis Catatan Kaigo</h3>
+<div class="g2">
+<div class="card" onclick="this.classList.toggle('open')">
+<b>ケア記録 (Catatan Perawatan Harian)</b>
+<div class="det">内容: ADL状況(食事/入浴/排泄/移動)、バイタルサイン、服薬、利用者の言動・表情<br>頻度: 毎シフト<br>書式例: 「9:00 朝食全量摂取。笑顔で会話あり。BP:130/80。」</div>
+</div>
+<div class="card" onclick="this.classList.toggle('open')">
+<b>申し送り記録 (Serah Terima Shift)</b>
+<div class="det">内容: 前シフトからの重要事項引き継ぎ。状態変化・注意事項・未完了タスク<br>書式例: 「田中様: 昨日より食欲低下あり、水分摂取も少ない。本日観察強化のこと。」</div>
+</div>
+<div class="card" onclick="this.classList.toggle('open')">
+<b>インシデント報告 (Laporan Insiden)</b>
+<div class="det">内容: 転倒・誤薬・異食など. 5W1H で詳細記録. 再発防止策も記載<br>重要: 事実のみ記載。推測・感情は含めない。当日中に提出。</div>
+</div>
+<div class="card" onclick="this.classList.toggle('open')">
+<b>ケアプラン記録</b>
+<div class="det">内容: 利用者の目標・支援計画・評価. 多職種で共有. 定期的に見直し(最低6ヶ月ごと)。</div>
+</div>
+<div class="card" onclick="this.classList.toggle('open')">
+<b>バイタルサイン記録</b>
+<div class="det">血圧(BP)・体温(BT)・脈拍(P)・呼吸数(R)・SpO2. 単位と基準値も記録。異常値はすぐ看護師に報告。</div>
+</div>
+<div class="card" onclick="this.classList.toggle('open')">
+<b>栄養・水分記録</b>
+<div class="det">食事摂取量(%で記録: 全量=100%, 半量=50%等)、水分量(mLで記録)。嚥下状況・食形態も記載。</div>
+</div>
+</div></div>
+<div class="sec"><h3>✍️ 記録の書き方 — 例文テンプレート</h3>
+<div class="tbl-wrap"><table class="tbl">
+<tr><th>場面</th><th>良い記録例</th></tr>
+<tr><td>食事</td><td>「12:00 昼食: ご飯全量、おかず8割摂取。嚥下良好。水分200mL摂取。」</td></tr>
+<tr><td>入浴</td><td>「10:30 入浴実施。皮膚に発赤なし。本人より「気持ちよかった」と発言あり。」</td></tr>
+<tr><td>転倒</td><td>「15:20 デイルーム入口にて転倒。右膝に1cm擦り傷。バイタル正常。看護師報告済み。」</td></tr>
+<tr><td>認知症症状</td><td>「16:00 「家に帰りたい」と訴え5回。声かけで落ち着く。夕方の帰宅願望増強。」</td></tr>
+<tr><td>状態変化</td><td>「11:00 顔色不良・発熱38.2度・食欲なし。看護師報告、バイタル測定追加で実施。」</td></tr>
+</table></div></div>
+<h2 style="font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<div class="pg-vocab" id="pg"></div>
+
+
+<!-- enriched-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:#1b5e20;margin:0 0 12px;font-size:1rem;font-weight:700">📝 介護記録の書き方原則</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">原則</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">内容</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">NG例→OK例</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">客観性</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">見たこと・聞いたことを事実通りに</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">「元気そう」→「食事全量摂取し笑顔で話された」</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">具体性</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">数字・固有名詞を使って具体的に</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">「少し食べた」→「主食5割・副菜3割摂取」</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">正確性</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">誤字・誤記なく正確に</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">曖昧な表現を避ける</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">タイムリー</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ケア直後に記録</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">記憶が薄れる前に</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">個人情報保護</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">鍵のかかる場所で管理</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">持ち出し・SNS投稿禁止</td></tr></table><div style="background:rgba(0,0,0,.04);border-left:3px solid #1b5e20;padding:12px 15px;border-radius:0 10px 10px 0;font-size:.87rem;margin:12px 0;line-height:1.7">💡 SOAP記録: S=主観(本人の言葉)・O=客観(観察事実)・A=アセスメント・P=計画</div></div></div>
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#1b5e20;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e8f5e9">💬 介護ドキュメンテーションの実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1b5e20;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9">📝 Dialog 1 — SOAPによる記録</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">先輩介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">田中さん、今日の記録をSOAP形式で書いてみましょう。Sは主観的情報です。田中様が「食欲がない」とおっしゃっていましたね。<button aria-label="Ucapkan: 田中さん、今日の記録をSOAP形式で書いてみましょう。Sは主…" onclick="speak('田中さん、今日の記録をSOAP形式で書いてみましょう。Sは主観的情報です。田中様が「食欲がない」とおっしゃっていましたね。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">B-san, coba tulis catatan hari ini dalam format SOAP. S adalah informasi subjektif. Bu Tanaka mengatakan tidak nafsu makan ya.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">新人介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">はい。Oは客観的情報ですね。食事量は40%でした。<button aria-label="Ucapkan: はい。Oは客観的情報ですね。食事量は40%でした。" onclick="speak('はい。Oは客観的情報ですね。食事量は40%でした。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Ya. O adalah informasi objektif. Asupan makan 40%.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">先輩介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">そうです。Aはアセスメント。食欲低下により低栄養リスクあり。Pは計画。管理栄養士へ相談、栄養補助食品の追加を検討。<button aria-label="Ucapkan: そうです。Aはアセスメント。食欲低下により低栄養リスクあり。…" onclick="speak('そうです。Aはアセスメント。食欲低下により低栄養リスクあり。Pは計画。管理栄養士へ相談、栄養補助食品の追加を検討。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Betul. A adalah asesmen: risiko malnutrisi karena penurunan nafsu makan. P adalah rencana: konsultasi ahli gizi, pertimbangkan suplemen nutrisi.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1b5e20;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9">💻 Dialog 2 — 電子記録の活用</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">電子記録に今日の観察を入力しましょう。バイタルはシステムに自動入力されていますね。今日の特記事項は「右足首の浮腫が昨日より軽減」です。<button aria-label="Ucapkan: 電子記録に今日の観察を入力しましょう。バイタルはシステムに自…" onclick="speak('電子記録に今日の観察を入力しましょう。バイタルはシステムに自動入力されていますね。今日の特記事項は「右足首の浮腫が昨日より軽減」です。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Mari masukkan observasi hari ini ke catatan elektronik. Vital sudah terinput otomatis ya. Catatan khusus hari ini: edema pergelangan kaki kanan lebih ringan dari kemarin.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">主任</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">よい観察ですね。浮腫の変化は看護師への引き継ぎも忘れずに。<button aria-label="Ucapkan: よい観察ですね。浮腫の変化は看護師への引き継ぎも忘れずに。" onclick="speak('よい観察ですね。浮腫の変化は看護師への引き継ぎも忘れずに。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Observasi yang baik. Perubahan edema jangan lupa diserahterimakan ke perawat.</div></div></div></div></div>
+<h2 class="st">🧠 Quiz</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+<button onclick="nQ()" style="flex:1;padding:12px;background:#1565c0;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQ()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qs" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</div><section style="padding:16px;max-width:860px;margin:20px auto">
+<h2 style="font-size:1rem;color:#4a148c;border-bottom:3px solid #4a148c;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 介護記録・ドキュメンテーション</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('介護記録')" title="クリックで発音">🔊 介護記録</div>
+  <div style="font-size:.8rem;color:#777">kaigo kiroku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">catatan perawatan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('客観的記録')" title="クリックで発音">🔊 客観的記録</div>
+  <div style="font-size:.8rem;color:#777">kyakkan-teki kiroku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">catatan objektif</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('SOAPノート')" title="クリックで発音">🔊 SOAPノート</div>
+  <div style="font-size:.8rem;color:#777">SOAP nōto</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">catatan SOAP</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('S（主観的情報）')" title="クリックで発音">🔊 S（主観的情報）</div>
+  <div style="font-size:.8rem;color:#777">S (shukan-teki jōhō)</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">S: informasi subjektif</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('O（客観的情報）')" title="クリックで発音">🔊 O（客観的情報）</div>
+  <div style="font-size:.8rem;color:#777">O (kyakkan-teki jōhō)</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">O: informasi objektif</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('A（評価）')" title="クリックで発音">🔊 A（評価）</div>
+  <div style="font-size:.8rem;color:#777">A (hyōka)</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">A: penilaian</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('P（計画）')" title="クリックで発音">🔊 P（計画）</div>
+  <div style="font-size:.8rem;color:#777">P (keikaku)</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">P: rencana tindakan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('申し送り')" title="クリックで発音">🔊 申し送り</div>
+  <div style="font-size:.8rem;color:#777">moshi-okuri</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">handover / serah terima</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('ヒヤリハット')" title="クリックで発音">🔊 ヒヤリハット</div>
+  <div style="font-size:.8rem;color:#777">hiyari hatto</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">near-miss / kejadian hampir celaka</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('インシデントレポート')" title="クリックで発音">🔊 インシデントレポート</div>
+  <div style="font-size:.8rem;color:#777">inshidento repōto</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">laporan insiden</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('個人情報')" title="クリックで発音">🔊 個人情報</div>
+  <div style="font-size:.8rem;color:#777">kojin jōhō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">informasi pribadi</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('守秘義務')" title="クリックで発音">🔊 守秘義務</div>
+  <div style="font-size:.8rem;color:#777">shuhi gimu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kewajiban kerahasiaan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('電子記録')" title="クリックで発音">🔊 電子記録</div>
+  <div style="font-size:.8rem;color:#777">denshi kiroku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">catatan elektronik</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('証拠性')" title="クリックで発音">🔊 証拠性</div>
+  <div style="font-size:.8rem;color:#777">shōko-sei</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">nilai pembuktian</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #4a148c">
+  <div style="font-size:1.05rem;font-weight:700;color:#4a148c" onclick="speak('5W1H')" title="クリックで発音">🔊 5W1H</div>
+  <div style="font-size:.8rem;color:#777">5W1H</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">siapa-apa-kapan-di mana-mengapa-bagaimana</div>
+</div>
+</div></section></main>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+var Q=[{"q": "介護記録の「客観的事実」の原則とは？", "opts": ["感情や推測を書く", "見たこと・測ったことを正確に書く", "きれいに書く", "長く詳しく書く"], "a": 1, "e": "客観的事実とは、主観的な解釈や感想を交えず、実際に観察された数値や行動をそのまま記載する原則。「不機嫌そうだった」ではなく「〇時に大声を出した」のように具体的に書くことで、多職種が正確に状況を共有できる。"}, {"q": "「申し送り」の目的は？", "opts": ["自分のメモ", "シフト交代時に重要情報を次のスタッフに引き継ぐ", "管理者への報告", "家族への連絡"], "a": 1, "e": "申し送りは、勤務交代時に利用者の状態や実施したケアの内容を次の担当者へ正確に引き継ぐことを目的とする。情報が正確に伝わらないと、ケアの継続性が損なわれ、利用者の安全にも関わる重大なリスクとなる。"}, {"q": "インシデント報告書で最重要なのは？", "opts": ["感情を詳しく書く", "5W1Hで事実のみを正確に記録すること", "推測も含めて書く", "後で書く"], "a": 1, "e": "インシデント報告書で最も重要なのは、事実を時系列で正確に記載し、再発防止につなげること。責任追及や処罰が目的ではなく、同じ事故を繰り返さないための情報共有と対策検討が本来の目的となる。"}, {"q": "食事摂取量「半量」は何%？", "opts": ["25%", "50%", "75%", "100%"], "a": 1, "e": "食事記録における「半量」は摂取量の約50%を意味する。「全量」100%、「7割」70%などと合わせて、栄養状態を把握するための共通の記録基準として多職種間で使われる。"}, {"q": "バイタルサイン「SpO2」は何を測る？", "opts": ["血圧", "血中酸素飽和度", "体温", "脈拍"], "a": 1, "e": "SpO2は経皮的動脈血酸素飽和度、つまり血液中にどれだけ酸素が含まれているかを示す指標を測定する。95%以上が一般的な目安とされ、低下時は呼吸状態の異常を示す重要なサインとなる。"}, {"q": "介護記録を「5W1H」で書く目的はどれか。", "opts": ["誰が読んでも状況を正確に理解できるため", "記録量を増やすため", "形式のためだけ", "時間短縮のためだけ"], "a": 0, "e": "5W1H（いつ・どこで・誰が・何を・なぜ・どのように）を意識して書くことで、誰が読んでも状況を正確に理解できる記録になる。曖昧な記述では、多職種間での正確な情報共有が難しくなってしまう。"}, {"q": "記録に「感想」ではなく「事実」を書くべき理由はどれか。", "opts": ["多職種が正確な状況を共有できるため", "感想の方が伝わりやすいから", "事実は退屈だから", "規則だから仕方なく"], "a": 0, "e": "事実に基づいた記述は、多職種が正確な状況を共有し、適切な判断につなげるために不可欠。感想や主観的な評価が中心の記録では、後から読んだ人が実際の状況を正しく把握できない危険がある。"}, {"q": "記録の「改ざん」が禁止される理由はどれか。", "opts": ["法的証拠としての信頼性を損なうため", "面倒だから", "時間がかかるから", "無関係"], "a": 0, "e": "記録の改ざんは、介護記録が持つ法的な証拠としての信頼性を著しく損なう重大な違反行為。事故対応やサービスの検証において、記録の正確性が保たれていることが前提となるため、厳しく禁止されている。"}, {"q": "介護記録の保存が法的に義務づけられる理由はどれか。", "opts": ["事故対応やサービスの検証に必要なため", "趣味のため", "場所を取るだけ", "不要な習慣"], "a": 0, "e": "記録の保存は、事故発生時の状況確認やサービス内容の検証に必要となるため、法的に義務づけられている。保存を怠ると、後日のトラブル対応や質の検証が困難になり、利用者・事業所双方に不利益が生じる可能性がある。"}, {"q": "利用者の発言をそのまま記録する「逐語記録」が有効な場面はどれか。", "opts": ["重要な意思表示や訴えがあったとき", "毎回すべての会話", "雑談のとき", "不要なとき"], "a": 0, "e": "本人の意思表示や訴えが特に重要な場面では、逐語記録（発言をそのまま書き残す方法）が有効。要約してしまうと、本人の本来のニュアンスや意図が失われる可能性があるため、重要な発言は原文のまま記録することが推奨される。"}, {"q": "電子記録システムのメリットはどれか。", "opts": ["情報共有の迅速化と検索性の向上", "記録が消えやすい", "誰でも編集し放題", "責任の所在が曖昧になる"], "a": 0, "e": "電子記録システムは、情報共有の迅速化と検索性の向上という大きなメリットを持つ。紙の記録と異なり、必要な情報をすぐに検索でき、複数の職員が同時に確認・更新できる点が業務効率と情報共有の質を高める。"}, {"q": "記録における「略語」使用の注意点はどれか。", "opts": ["施設内で統一された略語のみ使用する", "自由な略語を使ってよい", "略語は禁止のみ", "無関係"], "a": 0, "e": "略語を使う場合は、施設内で統一されたものだけを使用することが重要な注意点。個人が独自に作った略語を使うと、他の職員が誤解したり読み取れなかったりする危険があるため、共通のルールを守る必要がある。"}, {"q": "ヒヤリハット記録と事故報告書の違いはどれか。", "opts": ["ヒヤリハットは事故に至らなかった事例を記録する", "同じ書類", "事故報告書の方が軽い", "ヒヤリハットは不要"], "a": 0, "e": "ヒヤリハットは、実際の事故には至らなかったが危険を感じた事例を記録するもので、再発防止のための情報として活用される。一方、事故報告書は実際に発生した事故についての記録であり、両者は目的も対象も異なる。"}, {"q": "記録の「経時記録」とは何か。", "opts": ["時間の経過に沿って出来事を記録する方式", "写真のみの記録", "感想文形式", "月1回の記録"], "a": 0, "e": "経時記録とは、時間の経過に沿って出来事を記録していく方式のこと。利用者の状態変化を時系列で追いやすく、特に急変時や継続的な観察が必要な場面で有効に活用される記録方法。"}, {"q": "記録を書く際に避けるべき表現はどれか。", "opts": ["決めつけた主観的な評価", "事実の描写", "時刻の記載", "本人の発言"], "a": 0, "e": "決めつけによる主観的な評価表現は、記録を書く際に避けるべき。「わがままだ」等の断定的な表現ではなく、実際に観察された事実や発言をそのまま記述することが、正確で客観的な記録につながる。"}, {"q": "多職種で使う記録様式を統一する意義はどれか。", "opts": ["情報の見落としを防ぎ連携をスムーズにする", "記録を複雑にするため", "時間を増やすため", "無関係"], "a": 0, "e": "記録様式を統一することで、情報の見落としを防ぎ、多職種間の連携をスムーズにする効果がある。職種ごとにバラバラの様式を使っていると、重要な情報が正しく伝わらないリスクが高まる。"}, {"q": "記録の訂正方法として正しいのはどれか。", "opts": ["二重線を引き訂正者が押印し訂正日を記す", "修正液で消す", "書き直して破棄", "消しゴムで消す"], "a": 0, "e": "記録を訂正する際は、二重線を引いて訂正者が押印し、訂正日を明記する方法が正しい。修正液で消したり、書き直して元の記録を破棄したりする方法は、改ざんを疑われる原因となるため避けなければならない。"}, {"q": "記録における「客観性」を保つための工夫はどれか。", "opts": ["数値や具体的な観察事実を記載する", "感想を中心に書く", "推測のみ書く", "省略する"], "a": 0, "e": "数値や具体的な観察事実をそのまま記載することが、客観性を保つための基本的な工夫。感想や推測を中心に書くのではなく、実際に見聞きした事実を正確に記述することが求められる。"}, {"q": "記録の即時性(タイムリーに書くこと)が重要な理由はどれか。", "opts": ["記憶が新しいうちに正確に記録できるため", "後で書けばよいから", "時間があるときでよい", "無関係"], "a": 0, "e": "記憶が新しいうちに記録することで、より正確で詳細な内容を残すことができる。時間が経ってから記録すると、細部を忘れたり、記憶が曖昧になったりして、記録の正確性が損なわれる危険がある。"}, {"q": "利用者・家族が記録の開示を求めた場合の対応はどれか。", "opts": ["規定に沿って適切に開示手続きを行う", "一切拒否する", "無条件に全て見せる", "無視する"], "a": 0, "e": "施設の規定に沿って、適切な開示手続きを行うことが基本対応。一律に拒否したり、逆に無条件に全て見せたりするのではなく、定められた手順とプライバシーへの配慮を両立させながら対応する必要がある。"}],qi=0,ok=0,tot=0;
+function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById("qc");if(!c)return;var oo=document.createElement("div");oo.className="qopts";q.opts.forEach(function(o,i){var b=document.createElement("button");b.className="qopt";b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement("div");bx.className="qbox";var qq=document.createElement("div");qq.className="qq";qq.textContent=(qi%Q.length+1)+". "+q.q;var ex=document.createElement("div");ex.className="qexp";ex.id="qe";bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML="";c.appendChild(bx);var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
+function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
+function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
+rnd();
+</script>
+<section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
+<h2 style="font-size:1.1rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
+<div id="qkZ"></div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:#1565c0;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">🔄 Reset</button>
+</div>
+<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</section>
+<script>
+var QKZ=[{"q": "介護記録で「客観的事実」の書き方は？", "opts": ["「元気がない」と書く", "「発話少なく、食事摂取量2割、BP128/84」と数値・観察で書く", "気持ちを書く", "推測を書く"], "a": 1, "e": "客観的記録=観察できる事実+数値のみ。×「元気がない」→✅「発話が平常より少なく、昼食2割摂取、BP128/84mmHg」。感情・推測は除外。"}, {"q": "「ヒヤリハット」と「インシデント」の違いは？", "opts": ["同じ", "ヒヤリハット=事故未然(ヒヤリとしたが怪我なし)、インシデント=実際に軽度の事故が起きた", "インシデントの方が軽い", "どちらも同じ対応"], "a": 1, "e": "ヒヤリハット=near miss(事故寸前・怪我なし)。インシデント=実際に軽度の事故・トラブルが起きた。アクシデント=重大事故。報告して再発防止に活かす。"}, {"q": "申し送りで必ず伝えるべき情報の優先順位は？", "opts": ["楽しい話を先に", "状態変化・注意事項・未完了タスクを最優先で伝える", "長い話を先に", "どれでも同じ"], "a": 1, "e": "申し送り優先順位: ①緊急・重要な状態変化 ②注意が必要な事項 ③未完了のケア ④継続観察事項。簡潔・正確・時系列で伝える。引き継ぎミスが事故の原因になる。"}, {"q": "「SOAP記録」のAとは何か？", "opts": ["アクション", "Assessment=評価・アセスメント(観察情報から専門職が判断したこと)", "目標", "記録"], "a": 1, "e": "SOAP: S=Subjective(主観/利用者の言葉) O=Objective(客観/測定値) A=Assessment(評価/専門職の判断) P=Plan(計画)。Aは観察からの専門的判断が入る。"}, {"q": "食事摂取量「全量の半分」は記録上何割？", "opts": ["3割", "5割(半量)", "7割", "2割"], "a": 1, "e": "摂取量記録: 全量=10割(100%)。半量=5割(50%)。3割=30%。2割=20%。数値で統一することで多職種間での共通認識が生まれる。"}, {"q": "「個人情報保護」の観点で介護記録の取り扱いで正しいのは？", "opts": ["自由に持ち帰れる", "施設外持出禁止・SNS投稿禁止・業務目的外使用禁止", "コピーして保管してよい", "家族なら誰でも閲覧可"], "a": 1, "e": "個人情報保護法+介護倫理: 記録は業務目的のみ。施設外持出・SNS投稿・不必要な第三者への開示は全て禁止。退職後も守秘義務は継続する。"}],qiZ=0,okZ=0,totZ=0;
+function rndZ(){
+  if(!QKZ.length)return;
+  var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');
+  if(!c)return;
+  var oo=document.createElement('div');
+  oo.style.cssText='display:grid;gap:8px';
+  q.opts.forEach(function(o,i){
+    var b=document.createElement('button');
+    b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
+    b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
+    b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
+    b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
+    b.onclick=function(){ansZ(b,i,q.a,q.e);};
+    oo.appendChild(b);
+  });
+  var bx=document.createElement('div');
+  bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
+  var qn=document.createElement('div');
+  qn.style.cssText='font-size:.72rem;background:#1565c0;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
+  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
+  var qq=document.createElement('div');
+  qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';
+  qq.textContent=q.q;
+  var ex=document.createElement('div');
+  ex.id='qeZ';
+  ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
+  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
+  c.innerHTML='';c.appendChild(bx);
+  var s=document.getElementById('qsZ');
+  if(s)s.textContent='Skor: '+okZ+'/'+totZ;
+}
+function ansZ(btn,c,a,e){
+  var bs=btn.parentNode.querySelectorAll('button');
+  if(bs[a].dataset.d)return;
+  bs[a].dataset.d='1';totZ++;
+  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
+  if(c!==a){
+    btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
+  } else okZ++;
+  var ex=document.getElementById('qeZ');
+  if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
+  var s=document.getElementById('qsZ');
+  if(s)s.textContent='Skor: '+okZ+'/'+totZ;
+}
+function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
+function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
+rndZ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

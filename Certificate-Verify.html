@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Verifikasi Sertifikat — Nihonggo Pro Academy</title>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Verifikasi Sertifikat Nihonggo Pro Academy", "url": "https://nihonggopro.id/Certificate-Verify.html", "description": "Verifikasi keaslian sertifikat Nihonggo Pro Academy dengan Certificate ID."}</script>
+<meta property="og:title" content="Verifikasi Sertifikat | Nihonggo Pro Academy">
+<meta property="og:description" content="Verifikasi keaslian sertifikat Nihonggo Pro Academy dengan Certificate ID.">
+<meta property="og:url" content="https://nihonggopro.id/Certificate-Verify.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Verifikasi Sertifikat | Nihonggo Pro Academy">
+<meta name="twitter:description" content="Verifikasi keaslian sertifikat Nihonggo Pro Academy dengan Certificate ID.">
+<link rel="canonical" href="https://nihonggopro.id/Certificate-Verify.html">
+<meta name="description" content="Verifikasi keaslian sertifikat digital Nihonggo Pro Academy dengan Certificate ID.">
+
+<link rel="stylesheet" href="assets/design-system.css">
+<style>
+body { min-height: 100vh; display: flex; flex-direction: column; }
+
+.v-brand { font-family: var(--font-jp); font-size: 19px; font-weight: 700; color: var(--primary); text-decoration: none; }
+.v-wrap { max-width: 560px; margin: 48px auto; padding: 0 16px 80px; flex: 1; }
+.v-card { background: var(--white); border-radius: var(--r-xl); padding: 32px; border: 1px solid var(--border); text-align: center; box-shadow: var(--shadow-md); }
+.v-icon { font-size: 60px; margin-bottom: 14px; }
+.v-title { font-family: var(--font-jp); font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.v-desc { font-size: 14px; color: var(--ink-soft); margin-bottom: 24px; }
+.cert-input {
+  width: 100%; height: 54px; border: 2px solid var(--border-mid); border-radius: var(--r-lg);
+  font-family: monospace; font-size: 18px; text-align: center; text-transform: uppercase;
+  background: var(--cream); color: var(--ink); outline: none; letter-spacing: .1em;
+  transition: border-color var(--t-fast); margin-bottom: 12px;
+}
+.cert-input:focus { border-color: var(--primary); }
+.result-box { margin-top: 20px; padding: 20px; border-radius: var(--r-lg); text-align: left; display: none; }
+.result-box.valid   { background: var(--green-pale); border: 1px solid rgba(26,138,90,.3); }
+.result-box.invalid { background: var(--primary-pale); border: 1px solid rgba(190,52,40,.2); }
+.result-title { text-align: center; font-family: var(--font-jp); font-size: 18px; margin: 8px 0 16px; }
+.result-row { display: flex; gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,.06); font-size: 13px; }
+.result-row:last-child { border-bottom: none; }
+.rr-label { color: var(--ink-soft); font-weight: 600; width: 100px; flex-shrink: 0; }
+.rr-val   { font-weight: 700; }
+</style>
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<nav>
+  <a class="v-brand" href="index.html">Nihonggo Pro Academy · Verify</a>
+  <div style="display:flex;gap:8px">
+    <a href="Certificate-Pro.html" class="btn btn-sm btn-outline" style="text-decoration:none">📜 Buat Sertifikat</a>
+    <button aria-label="Tombol" class="icon-btn" data-theme-toggle>🌙</button>
+  </div>
+</nav>
+
+<div class="v-wrap">
+  <div class="v-card">
+    <div class="v-icon">🔍</div>
+    <h1 class="v-title">Verifikasi Sertifikat</h1>
+    <p class="v-desc">Masukkan Certificate ID untuk memverifikasi keaslian sertifikat Nihonggo Pro Academy.</p>
+    <input class="cert-input" id="certID" type="text" placeholder="NP-N5-XXXXXX" maxlength="15"
+      oninput="this.value=this.value.toUpperCase()"
+      onkeydown="if(event.key==='Enter')verify()" aria-label="ID sertifikat">
+    <button class="btn btn-primary btn-lg" style="width:100%" onclick="verify()">🔍 Verifikasi</button>
+    <div class="result-box" id="resultBox"></div>
+    <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--border);font-size:12px;color:var(--ink-soft)">
+      Punya sertifikat? <a href="Certificate-Pro.html" style="color:var(--primary);font-weight:700;text-decoration:none">Generate sertifikat baru →</a>
+    </div>
+  </div>
+</div>
+
+<script src="assets/platform.min.js" defer></script>
+<script>
+const urlID = new URLSearchParams(location.search).get('id');
+if (urlID) { document.getElementById('certID').value = urlID.toUpperCase(); }
+
+function verify() {
+  const id = document.getElementById('certID').value.trim().toUpperCase();
+  const box = document.getElementById('resultBox');
+  if (!id || id.length < 6) { box.style.display = 'none'; return; }
+  // Search localStorage
+  const hist = JSON.parse(localStorage.getItem('cert-history') || '[]');
+  const st   = JSON.parse(localStorage.getItem('np-state-v3') || '{}');
+  const certs = st.user?.certificates || [];
+  const all = [...hist, ...certs];
+  const found = all.find(c => (c.id||'').toUpperCase() === id);
+  box.style.display = 'block';
+  if (found) {
+    box.className = 'result-box valid';
+    const d = found.at ? new Date(found.at).toLocaleDateString('id-ID',{year:'numeric',month:'long',day:'numeric'}) : '—';
+    box.innerHTML = `
+      <div style="text-align:center;font-size:32px;margin-bottom:6px">✅</div>
+      <div class="result-title">Sertifikat Valid!</div>
+      <div class="result-row"><span class="rr-label">Certificate ID</span><span class="rr-val" style="font-family:monospace;font-size:12px;color:var(--primary)">${found.id||id}</span></div>
+      <div class="result-row"><span class="rr-label">Nama</span><span class="rr-val">${found.name||'—'}</span></div>
+      <div class="result-row"><span class="rr-label">Level</span><span class="rr-val">${found.level||'—'}</span></div>
+      <div class="result-row"><span class="rr-label">Diterbitkan</span><span class="rr-val" style="font-family:var(--font-sans);font-size:13px;font-weight:600">${d}</span></div>
+      <div class="result-row"><span class="rr-label">Penerbit</span><span class="rr-val">Nihonggo Pro Academy — nihonggopro.id</span></div>`;
+  } else {
+    box.className = 'result-box invalid';
+    box.innerHTML = `
+      <div style="text-align:center;font-size:32px;margin-bottom:6px">❌</div>
+      <div class="result-title">Tidak Ditemukan di Perangkat Ini</div>
+      <p style="font-size:13px;color:var(--ink-mid);text-align:center">ID "<b>${id}</b>" tidak ditemukan di riwayat perangkat ini. <!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Kedua, Fase E): dikonfirmasi via investigasi arsitektur bahwa verifikasi genuinely hanya membaca localStorage lokal -- data GENUINELY TIDAK dibagikan antar perangkat/browser. Pesan sebelumnya ("Pastikan ID dimasukkan dengan benar") genuinely MENYESATKAN untuk sertifikat asli yang diverifikasi dari perangkat berbeda dari yang menerbitkannya (skenario paling umum untuk fitur verifikasi pihak ketiga, sesuai tujuan fitur ini di meta description halaman). Pesan diperbaiki agar genuinely jujur tentang keterbatasan ini. -->Jika sertifikat ini genuinely diterbitkan di perangkat/akun lain, verifikasi saat ini belum bisa mengonfirmasi dari sini — hubungi Nihonggo Pro Academy untuk verifikasi manual.</p>`;
+  }
+}
+if (urlID) setTimeout(verify, 300);
+
+// KEAMANAN/STABILITAS: NP.Nav.init() butuh window.NP, yang berasal dari
+// platform.min.js (dimuat dengan defer) -- HARUS menunggu, bukan dipanggil
+// langsung di top-level (pola bug yang sama dengan Kaigo-Simulator.html v177).
+document.addEventListener('DOMContentLoaded', function () {
+  if (window.NP && NP.Nav && typeof NP.Nav.init === 'function') NP.Nav.init('');
+});
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kanji-N5.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kanji N5–N1</a>
+          <a href="/Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar</a>
+          <a href="/Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kosakata</a>
+          <a href="/Materi/Fondasi-Bahasa-Jepang.html" style="color:rgba(255,255,255,.6);text-decoration:none">Fondasi Jepang</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Tools</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/JLPT-CBT.html" style="color:rgba(255,255,255,.6);text-decoration:none">CBT Simulator</a>
+          <a href="/SRS-Flashcard.html" style="color:rgba(255,255,255,.6);text-decoration:none">SRS Flashcard</a>
+          <a href="/Grammar-Checker.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar Checker</a>
+          <a href="/AI-Tutor-Pro.html" style="color:rgba(255,255,255,.6);text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Kaigo</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Materi/Kaigo.html#kg-h-ujian" style="color:rgba(255,255,255,.6);text-decoration:none">Persiapan Ujian</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

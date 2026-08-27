@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#5b21b6">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>神経系（中級）Saraf Menengah — Fisiologi Neuron &amp; Klasifikasi Stroke untuk Calon Perawat | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Saraf Menengah — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Saraf-Menengah.html","description":"Pembelajaran tingkat menengah sistem saraf dalam bahasa Jepang — fisiologi impuls neuron, klasifikasi stroke, tahapan demensia, farmakologi neurologis dasar, dan terminologi rumah sakit untuk calon perawat dan pelajar bahasa Jepang tingkat lanjut.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Materi tingkat menengah sistem saraf — fisiologi neuron, klasifikasi stroke, tahapan demensia, farmakologi, dan terminologi rumah sakit dalam bahasa Jepang.">
+<meta property="og:title" content="神経系（中級）Saraf Menengah — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Fisiologi neuron mendalam, klasifikasi stroke, dan farmakologi neurologis dalam bahasa Jepang untuk calon perawat.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Saraf-Menengah.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#f5f3ff,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#5b21b6;border-color:#5b21b6;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#5b21b6;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#5b21b6;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#5b21b6}
+.organ-tab.active{color:#5b21b6;border-bottom-color:#5b21b6}
+.organ-tab:focus-visible{outline:2px solid #5b21b6;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #f5f3ff;color:#1e1033}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#5b21b6}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#f5f3ff;border-color:#ddd6fe}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#f5f3ff;color:#5b21b6;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #5b21b6;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.stage-wrap{max-width:520px;margin:16px auto;padding:16px;background:var(--white,#fff);border-radius:14px;border:1px solid var(--border-light,#eee)}
+.stage-bar{display:flex;gap:4px;margin-bottom:12px}
+.stage-seg{flex:1;height:8px;border-radius:4px;background:#e9e4dd;cursor:pointer;transition:background .2s}
+.stage-seg.active{background:#5b21b6}
+.stage-label{font-size:13px;font-weight:700;margin-bottom:4px}
+.stage-desc{font-size:13px;color:var(--ink-mid,#666);line-height:1.6}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#5b21b6}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.case-sim{background:var(--white,#fff);border:2px solid #ddd6fe;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#f5f3ff;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#5b21b6;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Saraf.html">① 基礎 Dasar</a>
+      <a href="Sistem-Saraf-Menengah.html" class="current">② 中級 Menengah</a>
+      <a href="Sistem-Saraf-Lanjutan.html">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🧠 Level Menengah — Fisiologi Neuron &amp; Stroke</span>
+    <h1><span class="jp-big">神経系（中級）</span>Saraf Menengah</h1>
+    <p class="lead">Fisiologi impuls neuron, klasifikasi stroke, tahapan demensia, dan farmakologi neurologis dasar — untuk calon perawat dan pelajar bahasa Jepang tingkat lanjut.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi saraf menengah">
+  <button class="organ-tab active" data-tab="impuls" role="tab" aria-selected="true">神経インパルス Impuls Saraf</button>
+  <button class="organ-tab" data-tab="stroke" role="tab" aria-selected="false">脳卒中分類 Klasifikasi Stroke</button>
+  <button class="organ-tab" data-tab="demensia" role="tab" aria-selected="false">認知症段階 Tahapan Demensia</button>
+  <button class="organ-tab" data-tab="farmakologi" role="tab" aria-selected="false">薬理 Farmakologi</button>
+  <button class="organ-tab" data-tab="penilaian" role="tab" aria-selected="false">評価 Penilaian Neurologis</button>
+  <button class="organ-tab" data-tab="karte" role="tab" aria-selected="false">カルテ用語 Istilah Rumah Sakit</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <!-- ═══════════ 神経インパルス IMPULS SARAF ═══════════ -->
+  <div class="organ-panel active" id="panel-impuls">
+    <h2>神経インパルス — Fisiologi Impuls Saraf</h2>
+    <p>Materi Dasar menjelaskan neuron mengirim sinyal lewat sinapsis. Di level ini, kita bahas MEKANISME LISTRIK di balik sinyal tersebut — dasar untuk memahami bagaimana obat dan kerusakan saraf memengaruhi fungsi tubuh.</p>
+
+    <h3>Potensial aksi (活動電位, かつどうでんい)</h3>
+    <p>Sinyal saraf bukan aliran listrik sederhana seperti kabel — melainkan gelombang perubahan muatan listrik yang "merambat" di sepanjang membran sel saraf:</p>
+    <ul>
+      <li><strong>Potensial istirahat</strong>: sel saraf yang tidak aktif punya muatan negatif di dalam relatif terhadap luar sel, dijaga oleh pompa natrium-kalium</li>
+      <li><strong>Depolarisasi</strong>: saat sel dirangsang cukup kuat, kanal natrium terbuka, ion natrium masuk deras, muatan dalam sel berubah jadi positif — inilah "puncak" sinyal</li>
+      <li><strong>Repolarisasi</strong>: kanal kalium terbuka, ion kalium keluar, muatan kembali negatif, sel siap menerima sinyal berikutnya</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Prinsip "semua atau tidak sama sekali":</strong> begitu ambang rangsang tercapai, potensial aksi SELALU mencapai puncak yang sama — tidak ada "setengah sinyal". Kekuatan rangsangan direpresentasikan lewat FREKUENSI sinyal (semakin kuat rangsangan, semakin sering sinyal dikirim), bukan besar amplitudonya.</p>
+    </div>
+
+    <h3>Selubung mielin dan kecepatan konduksi</h3>
+    <p>Banyak akson dibungkus <strong>selubung mielin (髄鞘, ずいしょう)</strong> — lapisan lemak yang bertindak sebagai isolator, memungkinkan sinyal "melompat" antar celah (Nodus Ranvier) alih-alih merambat titik demi titik. Ini mempercepat konduksi sinyal HINGGA RATUSAN KALI LIPAT dibanding akson tanpa mielin.</p>
+    <div class="info-card warn">
+      <p style="margin-bottom:0"><strong>Relevansi klinis:</strong> penyakit yang merusak mielin (seperti multiple sclerosis) menyebabkan konduksi sinyal melambat atau terputus, menjelaskan gejala seperti kelemahan, gangguan sensasi, atau masalah koordinasi.</p>
+    </div>
+
+    <h3>Neurotransmiter utama</h3>
+    <ul>
+      <li><strong>アセチルコリン (Asetilkolin)</strong>: penting untuk kontraksi otot dan fungsi memori</li>
+      <li><strong>ドーパミン (Dopamin)</strong>: terkait kontrol gerakan dan sistem penghargaan — berkurang signifikan pada Parkinson</li>
+      <li><strong>セロトニン (Serotonin)</strong>: memengaruhi suasana hati, tidur, dan nafsu makan</li>
+      <li><strong>グルタミン酸 (Glutamat)</strong>: neurotransmiter eksitatori utama otak, penting untuk pembelajaran dan memori</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 脳卒中分類 KLASIFIKASI STROKE ═══════════ -->
+  <div class="organ-panel" id="panel-stroke">
+    <h2>脳卒中分類 — Klasifikasi Stroke Lebih Rinci</h2>
+    <p>Level Dasar membedakan stroke iskemik dan hemoragik. Di sini kita bahas klasifikasi berdasarkan mekanisme dan lokasi yang menentukan gejala spesifik.</p>
+
+    <h3>Subtipe stroke iskemik berdasarkan mekanisme</h3>
+    <ul>
+      <li><strong>血栓性 (けっせんせい) — Trombotik</strong>: gumpalan darah terbentuk LANGSUNG di pembuluh darah otak yang sudah menyempit akibat aterosklerosis</li>
+      <li><strong>塞栓性 (そくせんせい) — Embolik</strong>: gumpalan darah terbentuk di TEMPAT LAIN (sering di jantung, misalnya akibat fibrilasi atrium) lalu terbawa aliran darah dan menyumbat pembuluh otak</li>
+      <li><strong>一過性脳虚血発作 (TIA) — Serangan Iskemik Sepintas</strong>: gejala stroke yang muncul lalu MEMBAIK SENDIRI dalam hitungan menit-jam (secara klasik didefinisikan di bawah 24 jam). TIA adalah PERINGATAN KERAS — risiko stroke sesungguhnya meningkat signifikan dalam hari-minggu setelahnya, sehingga tetap harus dievaluasi segera meski gejala sudah hilang</li>
+    </ul>
+
+    <h3>Teritori vaskular dan gejala terkait lokasi</h3>
+    <p>Gejala stroke bervariasi tergantung arteri otak mana yang tersumbat — konsep ini membantu memahami kenapa gejala tiap pasien bisa sangat berbeda:</p>
+    <ul>
+      <li><strong>Arteri serebri media</strong> (paling sering terkena): kelemahan wajah-lengan lebih menonjol dibanding tungkai, gangguan bicara jika mengenai sisi dominan</li>
+      <li><strong>Arteri serebri anterior</strong>: kelemahan tungkai lebih menonjol dibanding lengan, perubahan kepribadian</li>
+      <li><strong>Sirkulasi posterior (batang otak/otak kecil)</strong>: gangguan keseimbangan, pusing berat, gangguan penglihatan ganda, gejala BISA muncul di kedua sisi tubuh (berbeda dari pola satu-sisi klasik)</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa ini penting bagi caregiver:</strong> stroke sirkulasi posterior sering TERLEWAT karena tidak menunjukkan pola klasik "satu sisi lemah" — gejala pusing berat dan gangguan keseimbangan yang tiba-tiba tetap harus dicurigai sebagai kemungkinan stroke, bukan diabaikan sebagai "vertigo biasa".</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 認知症段階 TAHAPAN DEMENSIA ═══════════ -->
+  <div class="organ-panel" id="panel-demensia">
+    <h2>認知症段階 — Tahapan Progresi Demensia</h2>
+    <p>Memahami tahapan umum membantu caregiver menyesuaikan pendekatan perawatan dan berkomunikasi lebih jelas dengan tenaga medis serta keluarga tentang perkembangan kondisi.</p>
+
+    <h3>🔄 Gambaran tahapan — interaktif</h3>
+    <div class="stage-wrap">
+      <div class="stage-bar">
+        <div class="stage-seg active" data-stage="0"></div>
+        <div class="stage-seg" data-stage="1"></div>
+        <div class="stage-seg" data-stage="2"></div>
+      </div>
+      <div class="stage-label" id="stageLabel">Tahap Ringan（軽度）</div>
+      <div class="stage-desc" id="stageDesc">Lupa kejadian baru, kesulitan menemukan kata yang tepat, mulai kesulitan mengelola keuangan/jadwal kompleks — tapi masih mampu mandiri untuk sebagian besar aktivitas harian.</div>
+    </div>
+
+    <h3>Karakteristik umum tiap tahap</h3>
+    <ul>
+      <li><strong>Tahap ringan (軽度)</strong>: perubahan sering hanya disadari orang terdekat, kemandirian sebagian besar terjaga</li>
+      <li><strong>Tahap sedang (中等度)</strong>: butuh bantuan aktivitas harian yang lebih kompleks (memasak, mengelola obat), disorientasi waktu/tempat lebih sering, perubahan perilaku/suasana hati mulai muncul</li>
+      <li><strong>Tahap berat (高度)</strong>: butuh bantuan penuh aktivitas dasar (makan, mandi, berpakaian), komunikasi verbal sangat terbatas, sering tidak mengenali orang terdekat</li>
+    </ul>
+    <div class="info-card warn">
+      <p style="margin-bottom:0"><strong>Catatan penting:</strong> progresi TIDAK selalu linear rapi — bisa ada periode stabil lama, lalu penurunan lebih cepat, terutama pada demensia vaskular yang polanya "bertahap" mengikuti kejadian gangguan aliran darah otak berulang.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 薬理 FARMAKOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-farmakologi">
+    <h2>薬理 — Farmakologi Neurologis Dasar</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">抗血小板薬 (こうけっしょうばんやく) — Antiplatelet</h3>
+      <p style="margin-bottom:0">Dipakai pasca-stroke iskemik/TIA untuk mencegah kekambuhan, dengan mencegah trombosit saling menempel membentuk gumpalan. Risiko utama: perdarahan, terutama jika terjatuh atau benturan kepala.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">抗認知症薬 (こうにんちしょうやく) — Obat Anti-Demensia</h3>
+      <p style="margin-bottom:0">Tidak menyembuhkan, tapi bisa memperlambat penurunan fungsi kognitif pada sebagian pasien dengan bekerja pada sistem neurotransmiter (mis. meningkatkan ketersediaan asetilkolin). Efektivitas bervariasi antar individu.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">レボドパ (Levodopa)</h3>
+      <p style="margin-bottom:0">Obat utama Parkinson — diubah tubuh menjadi dopamin untuk menggantikan yang berkurang. PENTING: efektivitas bisa menurun seiring waktu ("wearing-off"), dan jadwal minum obat yang KONSISTEN sangat penting karena keterlambatan bisa memicu gejala motorik memburuk mendadak.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">抗てんかん薬 (こうてんかんやく) — Obat Antiepilepsi</h3>
+      <p style="margin-bottom:0">Menstabilkan aktivitas listrik otak untuk mencegah kejang. Sama seperti obat Parkinson, KONSISTENSI jadwal minum sangat penting — kadar obat yang naik-turun bisa memicu kejang breakthrough.</p>
+    </div>
+
+    <h3>Prinsip umum: kenapa konsistensi jadwal obat neurologis krusial</h3>
+    <p>Banyak obat neurologis (Levodopa, antiepilepsi) bekerja dengan menjaga KADAR STABIL zat tertentu di otak — berbeda dari beberapa obat lain yang lebih toleran terhadap keterlambatan. Caregiver berperan penting memastikan jadwal minum obat konsisten dan segera melaporkan jika terjadi keterlambatan signifikan.</p>
+  </div>
+
+  <!-- ═══════════ 評価 PENILAIAN NEUROLOGIS ═══════════ -->
+  <div class="organ-panel" id="panel-penilaian">
+    <h2>評価 — Konsep Dasar Penilaian Neurologis</h2>
+    <h3>Skala Koma Glasgow (GCS) — konsep dasar</h3>
+    <p>Glasgow Coma Scale (グラスゴー・コーマ・スケール) adalah sistem penilaian tingkat kesadaran yang dipakai luas di fasilitas medis, menilai tiga aspek:</p>
+    <ul>
+      <li><strong>Membuka mata (開眼)</strong>: spontan, terhadap suara, terhadap nyeri, atau tidak sama sekali</li>
+      <li><strong>Respons verbal (言語反応)</strong>: bicara terorientasi baik, bingung, kata tidak jelas, suara tidak bermakna, atau tidak ada respons</li>
+      <li><strong>Respons motorik (運動反応)</strong>: mengikuti perintah, melokalisasi nyeri, menarik diri dari nyeri, atau tidak ada respons</li>
+    </ul>
+    <p>Skor total berkisar 3 (terendah, tidak responsif sama sekali) sampai 15 (sadar penuh) — dipakai untuk memantau TREN perubahan kesadaran dari waktu ke waktu, bukan sekadar angka tunggal.</p>
+
+    <h3>Mini-Mental State Examination (MMSE) — konsep dasar</h3>
+    <p style="margin-bottom:0">Tes skrining kognitif singkat yang menilai orientasi, ingatan, perhatian, bahasa, dan kemampuan visuospasial lewat serangkaian pertanyaan dan tugas sederhana — dipakai sebagai salah satu alat bantu skrining awal demensia, BUKAN alat diagnosis tunggal yang berdiri sendiri.</p>
+  </div>
+
+  <!-- ═══════════ カルテ用語 ISTILAH RUMAH SAKIT ═══════════ -->
+  <div class="organ-panel" id="panel-karte">
+    <h2>カルテ用語 — Terminologi Pencatatan Medis</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">活動電位</td><td>かつどうでんい</td><td>Potensial aksi</td><td>Action potential</td></tr>
+        <tr><td class="jp">髄鞘</td><td>ずいしょう</td><td>Selubung mielin</td><td>Myelin sheath</td></tr>
+        <tr><td class="jp">血栓性</td><td>けっせんせい</td><td>Trombotik</td><td>Thrombotic</td></tr>
+        <tr><td class="jp">塞栓性</td><td>そくせんせい</td><td>Embolik</td><td>Embolic</td></tr>
+        <tr><td class="jp">一過性脳虚血発作</td><td>いっかせいのうきょけつほっさ</td><td>TIA (serangan iskemik sepintas)</td><td>Transient ischemic attack</td></tr>
+        <tr><td class="jp">中等度</td><td>ちゅうとうど</td><td>Tahap sedang</td><td>Moderate stage</td></tr>
+        <tr><td class="jp">レボドパ</td><td>れぼどぱ</td><td>Levodopa</td><td>Levodopa</td></tr>
+        <tr><td class="jp">グラスゴー・コーマ・スケール</td><td>ぐらすごー・こーま・すけーる</td><td>Skala Koma Glasgow</td><td>Glasgow Coma Scale</td></tr>
+        <tr><td class="jp">開眼</td><td>かいがん</td><td>Membuka mata</td><td>Eye opening</td></tr>
+        <tr><td class="jp">見当識障害</td><td>けんとうしきしょうがい</td><td>Disorientasi</td><td>Disorientation</td></tr>
+        <tr><td class="jp">神経伝達物質</td><td>しんけいでんたつぶっしつ</td><td>Neurotransmiter</td><td>Neurotransmitter</td></tr>
+        <tr><td class="jp">ドーパミン</td><td>どーぱみん</td><td>Dopamin</td><td>Dopamine</td></tr>
+        <tr><td class="jp">脳血管疾患</td><td>のうけっかんしっかん</td><td>Penyakit serebrovaskular</td><td>Cerebrovascular disease</td></tr>
+        <tr><td class="jp">運動反応</td><td>うんどうはんのう</td><td>Respons motorik</td><td>Motor response</td></tr>
+        <tr><td class="jp">言語反応</td><td>げんごはんのう</td><td>Respons verbal</td><td>Verbal response</td></tr>
+        <tr><td class="jp">抗てんかん薬</td><td>こうてんかんやく</td><td>Obat antiepilepsi</td><td>Antiepileptic drug</td></tr>
+        <tr><td class="jp">脳血流</td><td>のうけつりゅう</td><td>Aliran darah otak</td><td>Cerebral blood flow</td></tr>
+        <tr><td class="jp">脱髄</td><td>だつずい</td><td>Demielinisasi</td><td>Demyelination</td></tr>
+        <tr><td class="jp">認知機能検査</td><td>にんちきのうけんさ</td><td>Tes fungsi kognitif</td><td>Cognitive function test</td></tr>
+        <tr><td class="jp">局所症状</td><td>きょくしょしょうじょう</td><td>Gejala fokal</td><td>Focal symptoms</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis tingkat rumah sakit</h3>
+    <div class="clinical-sentence">
+      <div class="jp">意識レベルはグラスゴー・コーマ・スケールで評価します。</div>
+      <div class="id">Tingkat kesadaran dinilai menggunakan Skala Koma Glasgow.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">一過性脳虚血発作の既往があり、経過観察が必要です。</div>
+      <div class="id">Ada riwayat TIA, perlu pemantauan lanjutan.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">レボドパの内服時間を一定に保つことが重要です。</div>
+      <div class="id">Penting menjaga waktu minum Levodopa tetap konsisten.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis Tingkat Menengah</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia tiba-tiba mengalami pusing berat, kesulitan menjaga keseimbangan, dan penglihatan ganda selama sekitar 20 menit, lalu gejalanya membaik sepenuhnya. Ia menolak dibawa ke fasilitas medis karena "sudah membaik dan merasa baik-baik saja sekarang".
+      </div>
+      <div class="case-question">
+        <label>1. Pola gejala ini (pusing berat + gangguan keseimbangan + penglihatan ganda, tanpa kelemahan satu sisi klasik) paling mengarah ke kemungkinan:</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Vertigo biasa, tidak perlu dikhawatirkan</option>
+          <option value="correct">Kemungkinan TIA sirkulasi posterior</option>
+          <option value="wrong">Efek kelelahan biasa</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Fakta bahwa gejala sudah MEMBAIK SEPENUHNYA berarti:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Tidak perlu evaluasi lebih lanjut karena sudah membaik</option>
+          <option value="correct">TETAP perlu evaluasi segera — TIA adalah peringatan keras risiko stroke sesungguhnya dalam waktu dekat</option>
+          <option value="wrong">Menandakan itu bukan masalah neurologis sama sekali</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan yang PALING tepat sebagai caregiver:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Tetap dorong dan bantu memfasilitasi evaluasi medis segera meski pasien menolak awalnya, jelaskan pentingnya</option>
+          <option value="wrong">Menghormati penolakan sepenuhnya tanpa penjelasan lebih lanjut</option>
+          <option value="wrong">Menunggu sampai gejala muncul lagi baru bertindak</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var STAGES = [
+    { label: 'Tahap Ringan（軽度）', desc: 'Lupa kejadian baru, kesulitan menemukan kata yang tepat, mulai kesulitan mengelola keuangan/jadwal kompleks — tapi masih mampu mandiri untuk sebagian besar aktivitas harian.' },
+    { label: 'Tahap Sedang（中等度）', desc: 'Butuh bantuan aktivitas harian yang lebih kompleks (memasak, mengelola obat), disorientasi waktu/tempat lebih sering muncul, perubahan perilaku atau suasana hati mulai terlihat.' },
+    { label: 'Tahap Berat（高度）', desc: 'Butuh bantuan penuh untuk aktivitas dasar (makan, mandi, berpakaian), komunikasi verbal sangat terbatas, sering tidak mengenali orang terdekat.' },
+  ];
+  document.querySelectorAll('.stage-seg').forEach(function (seg) {
+    seg.addEventListener('click', function () {
+      var idx = parseInt(seg.dataset.stage, 10);
+      document.querySelectorAll('.stage-seg').forEach(function (s, i) { s.classList.toggle('active', i <= idx); });
+      document.getElementById('stageLabel').textContent = STAGES[idx].label;
+      document.getElementById('stageDesc').textContent = STAGES[idx].desc;
+    });
+  });
+
+  var MINI_Q = [
+    { q: 'Prinsip "semua atau tidak sama sekali" pada potensial aksi berarti?', opts: ['Kekuatan rangsangan direpresentasikan lewat frekuensi sinyal, bukan besar amplitudo', 'Sinyal bisa berupa setengah kekuatan', 'Setiap sel saraf punya kekuatan sinyal berbeda-beda'], a: 0 },
+    { q: 'Fungsi utama selubung mielin adalah?', opts: ['Memperlambat sinyal untuk keamanan', 'Mempercepat konduksi sinyal lewat "lompatan" antar celah', 'Menghasilkan neurotransmiter'], a: 1 },
+    { q: 'Stroke yang gumpalan darahnya terbentuk di jantung lalu terbawa ke otak disebut?', opts: ['Stroke trombotik', 'Stroke embolik', 'Stroke hemoragik'], a: 1 },
+    { q: 'TIA (serangan iskemik sepintas) penting diwaspadai karena?', opts: ['Selalu berakhir fatal', 'Merupakan peringatan keras risiko stroke sesungguhnya dalam waktu dekat', 'Tidak ada kaitannya dengan stroke'], a: 1 },
+    { q: 'Stroke yang mengenai sirkulasi posterior sering terlewat karena?', opts: ['Tidak menunjukkan pola klasik kelemahan satu sisi', 'Tidak pernah menimbulkan gejala', 'Hanya terjadi pada usia muda'], a: 0 },
+    { q: 'Pada tahap demensia mana pasien umumnya masih mandiri untuk sebagian besar aktivitas harian?', opts: ['Tahap berat', 'Tahap sedang', 'Tahap ringan'], a: 2 },
+    { q: 'Kenapa konsistensi jadwal minum Levodopa sangat penting?', opts: ['Keterlambatan bisa memicu gejala motorik Parkinson memburuk mendadak', 'Obat ini tidak berbahaya jika telat', 'Levodopa hanya perlu diminum sesekali'], a: 0 },
+    { q: 'Glasgow Coma Scale menilai tiga aspek: membuka mata, respons verbal, dan?', opts: ['Respons motorik', 'Tekanan darah', 'Suhu tubuh'], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Pola gejala pusing berat, gangguan keseimbangan, dan penglihatan ganda TANPA kelemahan satu sisi klasik adalah gambaran khas TIA sirkulasi posterior — jenis yang paling sering TERLEWAT karena tidak sesuai pola "stroke klasik" yang umum dikenali. Fakta gejala sudah membaik BUKAN alasan menunda evaluasi — justru TIA adalah sinyal risiko stroke sesungguhnya dalam hari-minggu ke depan, dan caregiver perlu membantu memfasilitasi evaluasi medis meski pasien awalnya menolak.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: gejala yang sudah "membaik sepenuhnya" bukan berarti aman diabaikan pada kasus neurologis mendadak — justru pola TANPA kelemahan satu sisi klasik (pusing, keseimbangan, penglihatan ganda) adalah jenis stroke/TIA yang paling sering terlewat karena tidak sesuai ekspektasi umum.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

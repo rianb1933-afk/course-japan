@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Template Latihan Mandiri JLPT — Nihonggo Pro Academy</title>
+<meta name="description" content="Template latihan mandiri untuk belajar bahasa Jepang: jurnal harian, catatan kosakata, review kesalahan, shadowing log, dan tracking JLPT mingguan.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Template-Latihan-Mandiri.html">
+<meta property="og:title" content="Template Latihan Mandiri JLPT — Nihonggo Pro Academy">
+<meta property="og:description" content="Format praktis untuk mencatat kosakata, kalimat, kesalahan, shadowing, dan progres belajar JLPT.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Template-Latihan-Mandiri.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.brand{display:flex;align-items:baseline;gap:10px}.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:22px}.brand span{font-size:12px;color:var(--ink-soft);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap}.print-btn{background:var(--red);color:#fff;cursor:pointer}
+.hero{background:#17181d;color:#fff;padding:58px 5vw 38px;position:relative;overflow:hidden}.hero:before{content:"記録";position:absolute;right:4vw;bottom:-72px;font-family:"Noto Serif JP",serif;font-size:220px;color:rgba(255,255,255,.045);line-height:1}
+.inner{width:min(1120px,100%);margin:0 auto;position:relative}.kicker{display:inline-flex;padding:5px 11px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(32px,5vw,58px);line-height:1.12;margin-bottom:12px}.lead{max-width:760px;color:rgba(255,255,255,.7);font-size:16px}
+.section{padding:38px 5vw}.section-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:18px}.label{font-size:11px;font-weight:900;color:var(--red);letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}h2{font-family:"Noto Serif JP",serif;font-size:clamp(24px,3vw,34px);line-height:1.2}.sub{max-width:650px;color:var(--ink-soft);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.sheet{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow-sm);break-inside:avoid}.sheet h3{font-size:17px;margin-bottom:10px}.sheet p{font-size:13px;color:var(--ink-soft);margin-bottom:12px}.rows{display:grid;gap:8px}.row{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:start;border:1px solid var(--border);border-radius:8px;padding:10px}.row b{font-size:12px;color:var(--ink-mid)}.line{min-height:26px;border-bottom:1px dashed var(--border-mid)}
+.mini-table{width:100%;border-collapse:collapse}.mini-table th,.mini-table td{border:1px solid var(--border);padding:8px;font-size:12px;text-align:left;vertical-align:top}.mini-table th{background:var(--cream);color:var(--ink-soft)}
+.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.16);border-radius:8px;padding:14px;color:var(--ink-mid);font-size:13px;margin-top:14px}
+@media(max-width:860px){.section-head{display:block}.grid{grid-template-columns:1fr}.row{grid-template-columns:1fr}}
+@media print{/* legacy nav hidden by kyoto-navbar.min.js */.section{padding:0}.grid{grid-template-columns:1fr}.sheet{box-shadow:none;margin-bottom:12px;page-break-inside:avoid}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Template Latihan Mandiri JLPT","url":"https://nihonggopro.id/Materi/Template-Latihan-Mandiri.html","description":"Template dan jadwal belajar mandiri untuk JLPT","inLanguage":"id"}</script>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Template Latihan Mandiri JLPT — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Template Latihan Mandiri JLPT — Nihonggo Pro Academy","item":"https://nihonggopro.id/Materi/Template-Latihan-Mandiri.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  .nav-links{display:none!important}
+  
+  
+  
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="Template latihan mandiri untuk belajar bahasa Jepang: jurnal harian, catatan kosakata, review kesalahan, shadowing log, dan tracking JLPT mingguan.">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<main id="main-content">
+  <section class="hero">
+    <div class="inner">
+      <div class="kicker">Arsip Materi Belajar</div>
+      <h1>Template Latihan<br>Belajar Mandiri JLPT</h1>
+      <p class="lead">Format siap pakai untuk belajar harian. Gunakan di browser, cetak sebagai lembar latihan, atau salin ke buku catatan.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head">
+        <div><div class="label">Lembar Belajar</div><h2>Catat perkembangan belajarmu</h2></div>
+        <p class="sub">Template ini melengkapi materi, flashcard, latihan soal, dan planner. Fokusnya mencatat proses belajar agar kesalahan tidak berulang.</p>
+      </div>
+
+      <div class="grid">
+        <article class="sheet">
+          <h3>1. Jurnal Harian 15 Menit</h3>
+          <p>Isi setelah belajar singkat agar konsistensi tetap terlihat.</p>
+          <div class="rows">
+            <div class="row"><b>Tanggal/Level</b><div class="line"></div></div>
+            <div class="row"><b>Target Hari Ini</b><div class="line"></div></div>
+            <div class="row"><b>3 Kosakata Baru</b><div class="line"></div></div>
+            <div class="row"><b>1 Grammar</b><div class="line"></div></div>
+            <div class="row"><b>Kalimat Sendiri</b><div class="line"></div></div>
+            <div class="row"><b>Perlu Diulangi Besok</b><div class="line"></div></div>
+          </div>
+        </article>
+
+        <article class="sheet">
+          <h3>2. Catatan Kosakata Aktif</h3>
+          <p>Jangan hanya tulis arti. Tambahkan kolokasi dan contoh kalimat.</p>
+          <table class="mini-table">
+            <thead><tr><th>Kata</th><th>Cara Membaca</th><th>Arti</th><th>Kolokasi / Contoh</th></tr></thead>
+            <tbody><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody>
+          </table>
+        </article>
+
+        <article class="sheet">
+          <h3>3. Review Kesalahan</h3>
+          <p>Catat akar masalah, bukan hanya jawaban benar.</p>
+          <table class="mini-table">
+            <thead><tr><th>Soal / Materi</th><th>Salah Karena</th><th>Aturan Benar</th><th>Contoh Baru</th></tr></thead>
+            <tbody><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody>
+          </table>
+        </article>
+
+        <article class="sheet">
+          <h3>4. Shadowing Log</h3>
+          <p>Pakai untuk listening dan speaking. Nilai ritme, pelafalan, dan pemahaman.</p>
+          <table class="mini-table">
+            <thead><tr><th>Audio/Dengar</th><th>Durasi</th><th>Putaran</th><th>Catatan Bunyi Sulit</th></tr></thead>
+            <tbody><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr></tbody>
+          </table>
+        </article>
+
+        <article class="sheet">
+          <h3>5. Kanji Breakdown</h3>
+          <p>Belajar kanji lewat arti, reading, komponen, dan compound.</p>
+          <div class="rows">
+            <div class="row"><b>Kanji</b><div class="line"></div></div>
+            <div class="row"><b>Arti Inti</b><div class="line"></div></div>
+            <div class="row"><b>On / Kun</b><div class="line"></div></div>
+            <div class="row"><b>3 Compound</b><div class="line"></div></div>
+            <div class="row"><b>Kalimat</b><div class="line"></div></div>
+          </div>
+        </article>
+
+        <article class="sheet">
+          <h3>6. Weekly JLPT Check</h3>
+          <p>Gunakan setiap akhir minggu untuk memilih fokus minggu berikutnya.</p>
+          <table class="mini-table">
+            <thead><tr><th>Area</th><th>Skor / Rasa</th><th>Masalah</th><th>Aksi Minggu Depan</th></tr></thead>
+            <tbody><tr><td>Vocab</td><td></td><td></td><td></td></tr><tr><td>Tata Bahasa</td><td></td><td></td><td></td></tr><tr><td>Membaca</td><td></td><td></td><td></td></tr><tr><td>Listening</td><td></td><td></td><td></td></tr></tbody>
+          </table>
+        </article>
+      </div>
+
+      <div class="note">Saran: pakai satu template per sesi belajar. Template yang terlalu lengkap dipakai sekaligus biasanya membuat belajar terasa berat.</div>
+    </div>
+  </section>
+
+<div style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.2rem;font-weight:700;color:#2e7d32;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz — 理解チェック</h2>
+<div id="qcx"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+<button onclick="nQx()" style="flex:1;padding:12px;background:#2e7d32;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit">Soal Berikutnya →</button>
+<button onclick="rQx()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ccc;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qsx" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</div>
+<script>
+var Qx=[{"q": "効果的な自主学習(自習)スケジュールの作り方は？", "opts": ["勉強したい時だけやる", "固定した時間帯に毎日少しずつ(例: 30分/日)継続する方が、週1回まとめてやるより効果的", "長時間を週1回やる", "休日だけやる"], "a": 1, "e": "学習効果: 週1回3時間より毎日30分の方が記憶定着が良い。スペースド・リピティション(分散学習)は語学学習の科学的根拠がある最強の記憶法。習慣化が最大のコツ。"}, {"q": "「アウトプット練習」として一人でできることは？", "opts": ["テキストを読むだけ", "シャドーイング・独り言練習・日記・SNS投稿・言語交換アプリなど", "単語帳を見るだけ", "授業を聞くだけ"], "a": 1, "e": "一人でできるアウトプット: 日本語日記・Twitter/X投稿(日本語)・シャドーイング・独り言実況・LanguageExchangeアプリでの文字交換など。インプットだけでは運用力がつかない。"}, {"q": "JLPT学習で「過去問」をどう活用すべきか？", "opts": ["過去問だけやれば十分", "試験の形式・時間配分・出題傾向の把握に使い、弱点発見後に教材に戻って強化する補完的な教材として使う", "過去問は見ない", "最初から過去問だけやる"], "a": 1, "e": "過去問の正しい使い方: ①試験形式を知る②時間配分の練習③弱点発見→教材に戻って補強→再度過去問で確認のサイクル。過去問だけでは語彙・文法力の根本的な強化にはならない。"}];var qix=0,okx=0,totx=0;
+function rndx(){if(!Qx.length)return;var q=Qx[qix%Qx.length],c=document.getElementById('qcx');if(!c)return;var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';q.opts.forEach(function(o,i){var b=document.createElement('button');b.style.cssText='background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;width:100%;text-align:left;font-family:inherit';b.textContent=o;b.onclick=function(){ansx(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0';var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px';qq.textContent=(qix%Qx.length+1)+'. '+q.q;var ex=document.createElement('div');ex.id='qex';ex.style.cssText='margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.85rem;color:#666;display:none';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qsx');if(s)s.textContent='Skor: '+okx+'/'+totx;}
+function ansx(b,c,a,e){var bs=document.querySelectorAll('#qcx button');if(bs[a].dataset.d)return;bs[a].dataset.d='1';totx++;bs[a].style.cssText='background:#e8f5e9;border:1px solid #4caf50;border-radius:8px;padding:10px 14px;cursor:default;font-size:.9rem;width:100%;text-align:left;font-family:inherit;color:#1b5e20';if(c!==a)b.style.cssText='background:#fce4ec;border:1px solid #e91e63;border-radius:8px;padding:10px 14px;cursor:default;font-size:.9rem;width:100%;text-align:left;font-family:inherit;color:#880e4f';else okx++;var ex=document.getElementById('qex');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}var s=document.getElementById('qsx');if(s)s.textContent='Skor: '+okx+'/'+totx;}
+function nQx(){qix=(qix+1)%Qx.length;rndx();} function rQx(){qix=0;okx=0;totx=0;rndx();}
+rndx();
+</script></main>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head"><div><div class="label">Isi Tata Bahasa</div><h2>Latihan isi partikel & grammar</h2></div><p class="sub">Cetak, isi dengan pensil, lalu cek kunci di bawah. Ulangi minggu depan tanpa melihat kunci.</p></div>
+    <div class="grid">
+      <div class="sheet">
+        <h3>Partikel N5 — Set A</h3>
+        <p>Isi blanko dengan partikel yang tepat: は / が / を / に / で / へ / と / も</p>
+        <div class="rows">
+          <div class="row"><b>1.</b><div><span class="line">わたし＿＿がくせいです。</span></div></div>
+          <div class="row"><b>2.</b><div><span class="line">まいにちがっこう＿＿いきます。</span></div></div>
+          <div class="row"><b>3.</b><div><span class="line">としょかん＿＿ほん＿＿よみます。</span></div></div>
+          <div class="row"><b>4.</b><div><span class="line">ともだち＿＿えいが＿＿みました。</span></div></div>
+          <div class="row"><b>5.</b><div><span class="line">にほんご＿＿べんきょうしています。</span></div></div>
+          <div class="row"><b>6.</b><div><span class="line">あした とうきょう＿＿いきます。</span></div></div>
+          <div class="row"><b>7.</b><div><span class="line">ねこ＿＿います。いぬ＿＿います。</span></div></div>
+          <div class="row"><b>8.</b><div><span class="line">しちじ＿＿おきます。</span></div></div>
+        </div>
+        <details style="margin-top:.75rem"><summary style="font-size:12px;color:var(--ink-soft);cursor:pointer">Lihat kunci jawaban</summary>
+          <ol style="font-size:12px;color:var(--ink-mid);padding-left:1rem;margin-top:.5rem;display:grid;gap:.2rem">
+            <li>は</li><li>に</li><li>で / を</li><li>と / を</li><li>を</li><li>へ / に</li><li>が / も</li><li>に</li>
+          </ol>
+        </details>
+      </div>
+      <div class="sheet">
+        <h3>Konjugasi N4 — Set A</h3>
+        <p>Ubah kata kerja ke bentuk yang diminta.</p>
+        <div class="rows">
+          <div class="row"><b>食べる</b><div><span class="line">て-form: _____ / た-form: _____ / ない: _____</span></div></div>
+          <div class="row"><b>飲む</b><div><span class="line">て-form: _____ / た-form: _____ / ない: _____</span></div></div>
+          <div class="row"><b>書く</b><div><span class="line">て-form: _____ / た-form: _____ / ない: _____</span></div></div>
+          <div class="row"><b>話す</b><div><span class="line">て-form: _____ / た-form: _____ / ない: _____</span></div></div>
+          <div class="row"><b>来る</b><div><span class="line">て-form: _____ / た-form: _____ / ない: _____</span></div></div>
+          <div class="row"><b>する</b><div><span class="line">て-form: _____ / た-form: _____ / ない: _____</span></div></div>
+          <div class="row"><b>待つ</b><div><span class="line">て-form: _____ / た-form: _____ / ない: _____</span></div></div>
+          <div class="row"><b>行く</b><div><span class="line">て-form: _____ / た-form: _____ / ない: _____</span></div></div>
+        </div>
+        <details style="margin-top:.75rem"><summary style="font-size:12px;color:var(--ink-soft);cursor:pointer">Lihat kunci jawaban</summary>
+          <ul style="font-size:12px;color:var(--ink-mid);padding-left:1rem;margin-top:.5rem;display:grid;gap:.2rem">
+            <li>食べて / 食べた / 食べない</li><li>飲んで / 飲んだ / 飲まない</li>
+            <li>書いて / 書いた / 書かない</li><li>話して / 話した / 話さない</li>
+            <li>来て / 来た / 来ない</li><li>して / した / しない</li>
+            <li>待って / 待った / 待たない</li><li>行って⚠️ / 行った / 行かない</li>
+          </ul>
+        </details>
+      </div>
+      <div class="sheet">
+        <h3>Grammar Pattern N3 — Set A</h3>
+        <p>Terjemahkan kalimat ke bahasa Indonesia, lalu identifikasi pola grammar yang dipakai.</p>
+        <div class="rows">
+          <div class="row"><b>1.</b><div><span class="line">日本語が話せるようになりました。</span><div style="height:20px;border-bottom:1px dashed var(--border-mid);margin-top:4px"></div></div></div>
+          <div class="row"><b>2.</b><div><span class="line">時間さえあれば、行けます。</span><div style="height:20px;border-bottom:1px dashed var(--border-mid);margin-top:4px"></div></div></div>
+          <div class="row"><b>3.</b><div><span class="line">彼女は忙しいにもかかわらず、手伝ってくれた。</span><div style="height:20px;border-bottom:1px dashed var(--border-mid);margin-top:4px"></div></div></div>
+          <div class="row"><b>4.</b><div><span class="line">雨が降ったとたん、試合が中止になった。</span><div style="height:20px;border-bottom:1px dashed var(--border-mid);margin-top:4px"></div></div></div>
+          <div class="row"><b>5.</b><div><span class="line">高いものがいいとは限らない。</span><div style="height:20px;border-bottom:1px dashed var(--border-mid);margin-top:4px"></div></div></div>
+        </div>
+        <details style="margin-top:.75rem"><summary style="font-size:12px;color:var(--ink-soft);cursor:pointer">Lihat kunci jawaban</summary>
+          <ol style="font-size:12px;color:var(--ink-mid);padding-left:1rem;margin-top:.5rem;display:grid;gap:.35rem">
+            <li>Sudah bisa berbicara bahasa Jepang. — 〜ようになる</li>
+            <li>Asal ada waktu, bisa pergi. — 〜さえ〜ば</li>
+            <li>Meskipun sibuk, dia membantu. — 〜にもかかわらず</li>
+            <li>Tepat saat hujan turun, pertandingan dihentikan. — 〜たとたん</li>
+            <li>Barang mahal belum tentu bagus. — 〜とは限らない</li>
+          </ol>
+        </details>
+      </div>
+      <div class="sheet">
+        <h3>5. Rencana Mingguan</h3>
+        <p>Isi target dan hasil nyata. Review tiap Minggu malam.</p>
+        <div class="rows">
+          <div class="row"><b>Senin</b><div><span class="line">Target: _____ / Selesai: _____</span></div></div>
+          <div class="row"><b>Selasa</b><div><span class="line">Target: _____ / Selesai: _____</span></div></div>
+          <div class="row"><b>Rabu</b><div><span class="line">Target: _____ / Selesai: _____</span></div></div>
+          <div class="row"><b>Kamis</b><div><span class="line">Target: _____ / Selesai: _____</span></div></div>
+          <div class="row"><b>Jumat</b><div><span class="line">Target: _____ / Selesai: _____</span></div></div>
+          <div class="row"><b>Sabtu</b><div><span class="line">Mock/Review: _____ poin salah</span></div></div>
+          <div class="row"><b>Minggu</b><div><span class="line">Pola salah: _____ / Rencana minggu depan: _____</span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head">
+      <div><div class="label">Catatan Digital</div><h2>Jurnal Belajar Digital — デジタル学習ノート</h2></div>
+      <p class="sub">Isi jurnal harian langsung di sini. Data tersimpan di browser, tidak akan hilang saat tab ditutup.</p>
+    </div>
+    
+    <div style="display:grid;gap:1rem;max-width:700px">
+      <!-- Daily log -->
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+        <h3 style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:.75rem">📅 Catatan Hari Ini</h3>
+        <div style="display:flex;gap:.75rem;margin-bottom:.75rem">
+          <input type="date" id="logDate" style="padding:7px 10px;border:.5px solid var(--border-mid);border-radius:8px;font-size:13px;background:var(--cream)" aria-label="Tanggal catatan belajar">
+          <select id="logLevel" style="padding:7px 10px;border:.5px solid var(--border-mid);border-radius:8px;font-size:13px;background:var(--cream)">
+            <option>N5</option><option>N4</option><option selected>N3</option><option>N2</option><option>N1</option>
+          </select>
+          <input type="number" id="logMinutes" min="5" max="300" value="30" style="width:70px;padding:7px 10px;border:.5px solid var(--border-mid);border-radius:8px;font-size:13px;background:var(--cream)" aria-label="Menit belajar">
+          <span style="font-size:12px;color:var(--ink-soft);align-self:center">menit</span>
+        </div>
+        <textarea id="logText" placeholder="Apa yang dipelajari hari ini? Grammar baru, kanji yang sulit, kosakata, atau catatan lain..." style="width:100%;height:90px;padding:10px;border:.5px solid var(--border-mid);border-radius:8px;font-size:13px;background:var(--cream);resize:vertical;font-family:inherit"></textarea>
+        <div style="display:flex;gap:.5rem;margin-top:.5rem">
+          <button onclick="saveLog()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:8px 16px;font-size:12px;font-weight:700;cursor:pointer">Simpan Catatan</button>
+          <span id="logSaved" style="font-size:12px;color:var(--ink-soft);align-self:center"></span>
+        </div>
+      </div>
+      
+      <!-- Vocab notes -->
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+        <h3 style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:.75rem">📝 Kosakata Baru</h3>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.75rem">
+          <input id="vocabJP" type="text" placeholder="日本語" style="flex:1;min-width:80px;padding:8px 10px;border:.5px solid var(--border-mid);border-radius:8px;font-size:14px;font-family:'Noto Serif JP',serif;background:var(--cream)" aria-label="Kosakata Jepang">
+          <input id="vocabRead" type="text" placeholder="よみかた" style="flex:1;min-width:80px;padding:8px 10px;border:.5px solid var(--border-mid);border-radius:8px;font-size:13px;background:var(--cream)" aria-label="Cara baca kosakata">
+          <input id="vocabID" type="text" placeholder="Arti dalam Bahasa Indonesia" style="flex:1;min-width:100px;padding:8px 10px;border:.5px solid var(--border-mid);border-radius:8px;font-size:13px;background:var(--cream)" aria-label="Arti kosakata">
+          <button aria-label="Savevocab" onclick="saveVocab()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">+</button>
+        </div>
+        <div id="vocabList" style="display:grid;gap:.35rem;max-height:200px;overflow-y:auto"></div>
+      </div>
+      
+      <!-- Error notes -->
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+        <h3 style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:.75rem">❌ Kesalahan yang Tercatat</h3>
+        <div style="display:flex;gap:.5rem;margin-bottom:.75rem">
+          <input id="errorNote" type="text" placeholder="Contoh: sering tukar に dan で..." style="flex:1;padding:8px 10px;border:.5px solid var(--border-mid);border-radius:8px;font-size:13px;background:var(--cream)" aria-label="Catatan kesalahan">
+          <button aria-label="Saveerror" onclick="saveError()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer">+</button>
+        </div>
+        <div id="errorList" style="display:grid;gap:.35rem;max-height:180px;overflow-y:auto"></div>
+      </div>
+      
+      <!-- Log history -->
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem">
+          <h3 style="font-size:14px;font-weight:700;color:var(--ink)">📚 Riwayat Belajar</h3>
+          <button onclick="clearAll()" style="font-size:11px;color:var(--ink-faint);background:none;border:none;cursor:pointer">Hapus Semua</button>
+        </div>
+        <div id="logHistory" style="max-height:250px;overflow-y:auto;display:grid;gap:.5rem"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const KEYS = { logs: 'templateLogs_v1', vocab: 'templateVocab_v1', errors: 'templateErrors_v1' };
+let logs=[], vocab=[], errors=[];
+
+function loadData() {
+  try { logs = JSON.parse(localStorage.getItem(KEYS.logs)||'[]'); } catch(e){ logs=[]; }
+  try { vocab = JSON.parse(localStorage.getItem(KEYS.vocab)||'[]'); } catch(e){ vocab=[]; }
+  try { errors = JSON.parse(localStorage.getItem(KEYS.errors)||'[]'); } catch(e){ errors=[]; }
+}
+function saveData(key, arr) { localStorage.setItem(key, JSON.stringify(arr)); }
+
+// Pre-fill date
+document.getElementById('logDate').value = new Date().toISOString().slice(0,10);
+
+function saveLog() {
+  const text = document.getElementById('logText').value.trim();
+  const date = document.getElementById('logDate').value;
+  const level = document.getElementById('logLevel').value;
+  const mins = document.getElementById('logMinutes').value;
+  if (!text) { alert('Isi catatan dulu.'); return; }
+  logs.unshift({ date, level, mins, text, id: Date.now() });
+  saveData(KEYS.logs, logs);
+  document.getElementById('logText').value = '';
+  document.getElementById('logSaved').textContent = '✓ Tersimpan!';
+  setTimeout(() => document.getElementById('logSaved').textContent = '', 2000);
+  renderHistory();
+}
+
+function saveVocab() {
+  const jp = document.getElementById('vocabJP').value.trim();
+  const read = document.getElementById('vocabRead').value.trim();
+  const id = document.getElementById('vocabID').value.trim();
+  if (!jp || !id) { alert('Isi kata Jepang dan artinya.'); return; }
+  vocab.unshift({ jp, read, id, date: new Date().toISOString().slice(0,10), checked: false, id2: Date.now() });
+  saveData(KEYS.vocab, vocab);
+  ['vocabJP','vocabRead','vocabID'].forEach(id => document.getElementById(id).value = '');
+  renderVocab();
+}
+
+function saveError() {
+  const text = document.getElementById('errorNote').value.trim();
+  if (!text) return;
+  errors.unshift({ text, date: new Date().toISOString().slice(0,10), id: Date.now() });
+  saveData(KEYS.errors, errors);
+  document.getElementById('errorNote').value = '';
+  renderErrors();
+}
+
+function renderVocab() {
+  const el = document.getElementById('vocabList');
+  if (!vocab.length) { el.innerHTML = '<div style="font-size:12px;color:var(--ink-faint)">Belum ada kosakata.</div>'; return; }
+  el.innerHTML = vocab.slice(0, 20).map((v,i) => `
+    <div style="display:flex;gap:8px;align-items:center;padding:.4rem .5rem;background:var(--cream);border-radius:6px;font-size:12px">
+      <span style="font-family:'Noto Serif JP',serif;font-size:15px;font-weight:600;color:var(--ink);min-width:50px">${v.jp}</span>
+      <span style="color:var(--ink-faint)">${v.read||''}</span>
+      <span style="flex:1;color:var(--ink-mid)">${v.id}</span>
+      <button aria-label="Vocab.splice" onclick="vocab.splice(${i},1);saveData('${KEYS.vocab}',vocab);renderVocab()" style="background:none;border:none;cursor:pointer;color:var(--ink-faint);font-size:11px">✕</button>
+    </div>`).join('');
+}
+
+function renderErrors() {
+  const el = document.getElementById('errorList');
+  if (!errors.length) { el.innerHTML = '<div style="font-size:12px;color:var(--ink-faint)">Belum ada catatan kesalahan.</div>'; return; }
+  el.innerHTML = errors.slice(0, 15).map((e,i) => `
+    <div style="display:flex;gap:8px;align-items:center;padding:.4rem .5rem;background:var(--red-pale);border-radius:6px;font-size:12px">
+      <span style="flex:1;color:var(--ink-mid)">${e.text}</span>
+      <span style="color:var(--ink-faint);font-size:10px">${e.date}</span>
+      <button aria-label="Errors.splice" onclick="errors.splice(${i},1);saveData('${KEYS.errors}',errors);renderErrors()" style="background:none;border:none;cursor:pointer;color:var(--ink-faint)">✕</button>
+    </div>`).join('');
+}
+
+function renderHistory() {
+  const el = document.getElementById('logHistory');
+  if (!logs.length) { el.innerHTML = '<div style="font-size:12px;color:var(--ink-faint)">Belum ada catatan.</div>'; return; }
+  el.innerHTML = logs.slice(0, 10).map((l,i) => `
+    <div style="background:var(--cream);border-radius:8px;padding:.6rem .75rem;font-size:12px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:.2rem">
+        <span style="font-weight:700;color:var(--red)">${l.level}</span>
+        <span style="color:var(--ink-faint)">${l.date} · ${l.mins} mnt</span>
+        <button aria-label="Logs.splice" onclick="logs.splice(${i},1);saveData('${KEYS.logs}',logs);renderHistory()" style="background:none;border:none;cursor:pointer;color:var(--ink-faint)">✕</button>
+      </div>
+      <div style="color:var(--ink-mid)">${l.text}</div>
+    </div>`).join('');
+  const totalMins = logs.reduce((s,l) => s+Number(l.mins||0), 0);
+  el.insertAdjacentHTML('beforeend', `<div style="font-size:11px;color:var(--ink-faint);padding:.25rem 0">Total: ${logs.length} sesi · ${totalMins} menit</div>`);
+}
+
+function clearAll() {
+  if (!confirm('Hapus semua catatan? Tidak bisa dikembalikan.')) return;
+  Object.values(KEYS).forEach(k => localStorage.removeItem(k));
+  logs=[]; vocab=[]; errors=[];
+  renderVocab(); renderErrors(); renderHistory();
+}
+
+loadData(); renderVocab(); renderErrors(); renderHistory();
+</script>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head">
+      <div><div class="label">Drill Cepat</div><h2>Template Drill Harian — 毎日の練習テンプレ</h2></div>
+      <p class="sub">Salin ke jurnal atau kertas. Isi 10-15 menit per hari untuk progress yang terasa.</p>
+    </div>
+    <div style="display:grid;gap:1.25rem">
+
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+        <h3 style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:.75rem">📝 Template Vocab Baru</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:.75rem;font-size:12px;color:var(--ink-soft);font-weight:700">
+          <div>漢字/かな</div><div>読み方</div><div>Arti + Contoh</div>
+        </div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);background:var(--cream);border-radius:8px;padding:.75rem;display:grid;gap:.35rem">
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;border-bottom:.5px solid var(--border);padding-bottom:.35rem"><span>影響</span><span>えいきょう</span><span>pengaruh · 悪影響がある</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;border-bottom:.5px solid var(--border);padding-bottom:.35rem"><span>判断</span><span>はんだん</span><span>penilaian · 的確な判断</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;border-bottom:.5px solid var(--border);padding-bottom:.35rem"><span>維持</span><span>いじ</span><span>mempertahankan · 関係を維持する</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;color:var(--ink-faint);font-style:italic"><span>[kata baru]</span><span>[読み方]</span><span>[arti] · [contoh]</span></div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+        <h3 style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:.75rem">📐 Template Grammar Pattern</h3>
+        <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);background:var(--cream);border-radius:8px;padding:.75rem;display:grid;gap:.5rem">
+          <div><strong style="color:var(--red)">Pattern:</strong> 〜にもかかわらず</div>
+          <div><strong>Structure:</strong> Noun/Plain + にもかかわらず</div>
+          <div><strong>Meaning:</strong> Walaupun ~ / Meskipun ~</div>
+          <div><strong>Contoh 1:</strong> 雨にもかかわらず、試合は続いた。</div>
+          <div><strong>Contoh 2:</strong> [buatmu sendiri → ____________にもかかわらず、____________。]</div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+        <h3 style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:.75rem">🔄 Template Transformasi Kalimat</h3>
+        <p style="font-size:12px;color:var(--ink-soft);margin-bottom:.75rem">Ubah ke bentuk grammar yang diminta.</p>
+        <div style="font-size:13px;color:var(--ink-mid);background:var(--cream);border-radius:8px;padding:.75rem;display:grid;gap:.4rem">
+          <div>食べる → て-form: <span style="font-family:'Noto Serif JP',serif;color:var(--red)">食べて</span></div>
+          <div>飲む → ている: <span style="font-family:'Noto Serif JP',serif;color:var(--red)">飲んでいる</span></div>
+          <div>行く → たことがある: <span style="font-family:'Noto Serif JP',serif;color:var(--red)">行ったことがある</span></div>
+          <div style="color:var(--ink-faint)">[kata kerja] → [form]: ______</div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+        <h3 style="font-size:14px;font-weight:700;color:var(--ink);margin-bottom:.75rem">✏️ Template Jurnal Singkat</h3>
+        <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);background:var(--cream);border-radius:8px;padding:.75rem;display:grid;gap:.35rem;line-height:1.8">
+          <div>今日は<span style="color:var(--ink-faint)">___</span>を勉強しました。</div>
+          <div>難しかったのは<span style="color:var(--ink-faint)">___</span>です。</div>
+          <div>でも<span style="color:var(--ink-faint)">___</span>が分かるようになりました。</div>
+          <div>明日は<span style="color:var(--ink-faint)">___</span>を練習します。</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head"><div>
+      <div class="label">Jurnal Digital</div>
+      <h2>Catatan Belajar Harian — 毎日の学習ノート</h2>
+    </div></div>
+    <div style="display:grid;gap:1rem;max-width:760px">
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+        <input id="noteDate" type="date" style="padding:8px 12px;border:.5px solid var(--border-mid);border-radius:8px;font-size:13px;background:var(--cream)" aria-label="Tanggal catatan">
+        <select id="noteLevel" style="padding:8px 12px;border:.5px solid var(--border-mid);border-radius:8px;font-size:13px;background:var(--cream)">
+          <option value="N5">N5</option><option value="N4">N4</option>
+          <option value="N3" selected>N3</option><option value="N2">N2</option><option value="N1">N1</option>
+        </select>
+        <button onclick="simpanCatatan()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;cursor:pointer">💾 Simpan</button>
+        <button onclick="eksporCatatan()" style="background:var(--cream);border:.5px solid var(--border-mid);border-radius:8px;padding:8px 14px;font-size:13px;cursor:pointer">📥 Ekspor</button>
+      </div>
+      <textarea id="noteInput" rows="5" placeholder="Tulis catatan hari ini: apa yang dipelajari, pola grammar baru, kosakata, atau kesalahan yang perlu diperbaiki..."
+        style="padding:12px;border:.5px solid var(--border-mid);border-radius:10px;font-size:13px;font-family:'Noto Serif JP',serif;resize:vertical;background:var(--cream);width:100%;box-sizing:border-box"></textarea>
+      <div id="noteList" style="display:grid;gap:.5rem"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+const NOTE_KEY = 'nihonggopro_notes';
+function getNotes() {
+  try { return JSON.parse(localStorage.getItem(NOTE_KEY) || '[]'); } catch { return []; }
+}
+function simpanCatatan() {
+  const text = document.getElementById('noteInput').value.trim();
+  if (!text) return;
+  const notes = getNotes();
+  const date = document.getElementById('noteDate').value || new Date().toISOString().split('T')[0];
+  const level = document.getElementById('noteLevel').value;
+  notes.unshift({ date, level, text, id: Date.now() });
+  localStorage.setItem(NOTE_KEY, JSON.stringify(notes.slice(0, 50)));
+  document.getElementById('noteInput').value = '';
+  renderNotes();
+}
+function hapusCatatan(id) {
+  const notes = getNotes().filter(n => n.id !== id);
+  localStorage.setItem(NOTE_KEY, JSON.stringify(notes));
+  renderNotes();
+}
+function renderNotes() {
+  const notes = getNotes();
+  const el = document.getElementById('noteList');
+  if (!notes.length) { el.innerHTML = '<div style="font-size:13px;color:var(--ink-soft);padding:.5rem">Belum ada catatan tersimpan.</div>'; return; }
+  el.innerHTML = notes.map(n => `
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:.85rem 1rem">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:.4rem">
+        <div style="display:flex;gap:.5rem;align-items:center">
+          <span style="font-size:11px;font-weight:700;background:var(--red);color:#fff;border-radius:4px;padding:2px 7px">${n.level}</span>
+          <span style="font-size:11px;color:var(--ink-soft)">${n.date}</span>
+        </div>
+        <button onclick="hapusCatatan(${n.id})" style="background:none;border:none;color:var(--ink-faint);cursor:pointer;font-size:15px" title="Hapus">✕</button>
+      </div>
+      <div style="font-size:13px;color:var(--ink);white-space:pre-wrap;line-height:1.7">${n.text}</div>
+    </div>`).join('');
+}
+function eksporCatatan() {
+  const notes = getNotes();
+  if (!notes.length) return alert('Tidak ada catatan untuk diekspor.');
+  const text = notes.map(n => `[${n.date}] ${n.level}
+${n.text}`).join('\n\n---\n\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/plain;charset=utf-8,' + encodeURIComponent(text);
+  a.download = 'catatan-belajar-jepang.txt';
+  a.click();
+}
+// Init tanggal hari ini
+document.getElementById('noteDate').value = new Date().toISOString().split('T')[0];
+renderNotes();
+</script>
+
+<script src="../assets/pro-app.min.js" defer></script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html>

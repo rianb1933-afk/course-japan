@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Flashcard Grammar 文法フラッシュカード | Nihonggo Pro Academy</title>
+<meta name="description" content="Flashcard interaktif tata bahasa Jepang N5-N1 — balik kartu, uji diri sendiri, filter per level. Metode belajar SRS yang efektif.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Flashcard-Grammar.html">
+<meta property="og:title" content="Flashcard Grammar 文法 — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Flashcard-Grammar.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js" defer></script>
+<script src="../assets/supabase-client.js" defer></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:700px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0;justify-content:center}
+.tab{padding:7px 18px;border-radius:20px;border:1px solid var(--border-mid);background:var(--cream);cursor:pointer;font-size:.85rem;font-weight:600;transition:all .2s}
+.tab.active,.tab:hover{background:#4a148c;color:#fff;border-color:#4a148c}
+.fc-area{perspective:1000px;margin:20px 0}
+.fc{width:100%;min-height:200px;position:relative;transform-style:preserve-3d;transition:transform .5s;cursor:pointer}
+.fc.flipped{transform:rotateY(180deg)}
+.fc-front,.fc-back{position:absolute;width:100%;min-height:200px;backface-visibility:hidden;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;box-sizing:border-box;text-align:center}
+.fc-front{background:var(--white);border:2px solid #4a148c;box-shadow:0 4px 20px rgba(74,20,140,.15)}
+.fc-back{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;transform:rotateY(180deg)}
+.fc-level{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:12px;margin-bottom:12px}
+.lvN5{background:#e8f5e9;color:#2e7d32}
+.lvN4{background:#e3f2fd;color:#1565c0}
+.lvN3{background:#fff3e0;color:#e65100}
+.lvN2{background:#fce4ec;color:#c62828}
+.lvN1{background:#f3e5f5;color:#4a148c}
+.fc-pattern{font-size:1.6rem;font-weight:700;color:#4a148c;margin:8px 0}
+.fc-cat{font-size:.78rem;color:var(--ink-mid)}
+.fc-id{font-size:1.2rem;font-weight:700;color:#fff;margin:8px 0}
+.fc-ex{font-size:.88rem;color:rgba(255,255,255,.85);margin-top:8px}
+.fc-hint{font-size:.78rem;color:var(--ink-mid);margin-top:12px}
+.controls{display:flex;gap:10px;margin:16px 0;justify-content:center;flex-wrap:wrap}
+.btn{padding:10px 20px;border:none;border-radius:10px;cursor:pointer;font-size:.9rem;font-weight:600;transition:all .2s}
+.btn-flip{background:#4a148c;color:#fff}
+.btn-know{background:#4caf50;color:#fff}
+.btn-learn{background:#e91e63;color:#fff}
+.btn-skip{background:var(--cream);color:var(--ink);border:1px solid var(--border-mid)}
+.btn:hover{opacity:.85;transform:translateY(-1px)}
+.progress-wrap{background:var(--border-light);border-radius:8px;height:8px;margin:16px 0}
+.progress-fill{height:100%;border-radius:8px;background:#4a148c;transition:width .3s}
+.stats{display:flex;gap:16px;justify-content:center;font-size:.85rem;color:var(--ink-mid);margin:8px 0}
+.stat-val{font-weight:700}
+.stat-know{color:#4caf50} .stat-learn{color:#e91e63}
+.complete-box{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;border-radius:16px;padding:32px;text-align:center;margin:20px 0;display:none}
+.complete-box h2{margin:0 0 12px}
+.tip{background:var(--matcha-pale);border-left:3px solid var(--matcha);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Flashcard Grammar 文法フラッシュカード | Nihonggo Pro Academy", "description": "Flashcard interaktif tata bahasa Jepang N5-N1 — balik kartu, uji diri sendiri, filter per level. Metode belajar SRS yang efektif.", "url": "https://nihonggopro.id/Materi/Flashcard-Grammar.html", "educationalLevel": "Beginner", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Flashcard interaktif tata bahasa Jepang N5-N1 — balik kartu, uji diri sendiri, filter per level. Metode belajar SRS yang efektif.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Flashcard Grammar 文法フラッシュカード">
+<meta name="twitter:description" content="Flashcard interaktif tata bahasa Jepang N5-N1 — balik kartu, uji diri sendiri, filter per level. Metode belajar SRS yang efektif.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">🃏 N5 → N1</span><h1>文法フラッシュカード<br>Flashcard Grammar</h1><p>Balik kartu — uji diri sendiri — hafal pola</p></div>
+<div class="wrap" style="padding-top:24px">
+<div class="tip">💡 Klik kartu untuk membalik. Jika sudah hafal klik ✅ Hafal, jika belum klik 🔄 Pelajari. Kartu yang belum hafal akan muncul lagi.</div>
+<div class="tabs" id="levelTabs">
+  <button class="tab active" onclick="setLevel('semua',this)">📋 Semua</button>
+  <button class="tab" onclick="setLevel('N5',this)">N5</button>
+  <button class="tab" onclick="setLevel('N4',this)">N4</button>
+  <button class="tab" onclick="setLevel('N3',this)">N3</button>
+  <button class="tab" onclick="setLevel('N2',this)">N2</button>
+  <button class="tab" onclick="setLevel('N1',this)">N1</button>
+</div>
+<div class="stats">
+  <span>Total: <span class="stat-val" id="statTotal">0</span></span>
+  <span class="stat-know">✅ Hafal: <span class="stat-val" id="statKnow">0</span></span>
+  <span class="stat-learn">🔄 Pelajari: <span class="stat-val" id="statLearn">0</span></span>
+</div>
+<div class="progress-wrap"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+<p id="cardCounter" style="text-align:center;font-size:.83rem;color:var(--ink-mid)">Kartu 0 / 0</p>
+
+<div class="fc-area">
+  <div class="fc" id="flashcard" onclick="flipCard()">
+    <div class="fc-front" id="fcFront">
+      <span class="fc-level" id="fcLevel"></span>
+      <div class="fc-pattern" id="fcPattern"></div>
+      <div class="fc-cat" id="fcCat"></div>
+      <div class="fc-hint" style="margin-top:16px">👆 Klik untuk lihat arti</div>
+    </div>
+    <div class="fc-back" id="fcBack">
+      <span class="fc-level" id="fcLevelBack" style="background:rgba(255,255,255,.2);color:#fff"></span>
+      <div class="fc-id" id="fcId"></div>
+      <div class="fc-ex" id="fcEx"></div>
+    </div>
+  </div>
+</div>
+
+<div class="controls">
+  <button class="btn btn-know" onclick="markKnow()">✅ Hafal</button>
+  <button class="btn btn-learn" onclick="markLearn()">🔄 Pelajari lagi</button>
+  <button class="btn btn-skip" onclick="nextCard()">⏭ Skip</button>
+  <button class="btn btn-flip" onclick="flipCard()">🔄 Balik Kartu</button>
+</div>
+
+<div class="complete-box" id="completeBox">
+  <h2>🎉 Selesai!</h2>
+  <p id="completeMsg"></p>
+  <button onclick="resetDeck()" style="margin-top:12px;padding:12px 24px;background:rgba(255,255,255,.2);color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:1rem">🔄 Ulang Semua</button>
+</div>
+</div></main>
+<script>
+var ALL=[{"p": "〜は〜です", "id": "adalah ~", "ex": "私は学生です。= Saya adalah pelajar.", "lv": "N5", "cat": "基本"}, {"p": "〜が好きです", "id": "suka ~", "ex": "音楽が好きです。= Suka musik.", "lv": "N5", "cat": "感情"}, {"p": "〜てください", "id": "tolong ~; mohon ~", "ex": "ここに座ってください。= Tolong duduk di sini.", "lv": "N5", "cat": "依頼"}, {"p": "〜ませんか", "id": "maukah ~? (ajakan)", "ex": "一緒に行きませんか。= Maukah pergi bersama?", "lv": "N5", "cat": "勧誘"}, {"p": "〜ましょう", "id": "mari ~; ayo ~", "ex": "食べましょう。= Mari makan.", "lv": "N5", "cat": "勧誘"}, {"p": "〜てもいい", "id": "boleh ~", "ex": "帰ってもいいですか。= Boleh pulang?", "lv": "N4", "cat": "許可"}, {"p": "〜てはいけない", "id": "tidak boleh ~; dilarang ~", "ex": "ここで食べてはいけない。= Tidak boleh makan di sini.", "lv": "N4", "cat": "禁止"}, {"p": "〜なければならない", "id": "harus ~; wajib ~", "ex": "勉強しなければならない。= Harus belajar.", "lv": "N4", "cat": "義務"}, {"p": "〜かもしれない", "id": "mungkin ~", "ex": "雨が降るかもしれない。= Mungkin hujan.", "lv": "N4", "cat": "推測"}, {"p": "〜んです / のです", "id": "(penjelasan/konteks)", "ex": "頭が痛いんです。= (Soalnya) kepala saya sakit.", "lv": "N4", "cat": "説明"}, {"p": "〜すぎる", "id": "terlalu ~", "ex": "食べすぎた。= Terlalu banyak makan.", "lv": "N4", "cat": "程度"}, {"p": "〜やすい / にくい", "id": "mudah ~ / susah ~", "ex": "この本は読みやすい。= Buku ini mudah dibaca.", "lv": "N4", "cat": "性質"}, {"p": "〜はずだ", "id": "seharusnya ~; pasti ~", "ex": "彼は来るはずだ。= Seharusnya dia datang.", "lv": "N3", "cat": "推測"}, {"p": "〜ように", "id": "agar ~; supaya ~", "ex": "忘れないようにメモした。= Catat agar tidak lupa.", "lv": "N3", "cat": "目的"}, {"p": "〜わけではない", "id": "bukan berarti ~", "ex": "嫌いなわけではない。= Bukan berarti tidak suka.", "lv": "N3", "cat": "論理"}, {"p": "〜ために（目的）", "id": "untuk ~; demi ~", "ex": "合格するために勉強する。= Belajar untuk lulus.", "lv": "N3", "cat": "目的"}, {"p": "〜ものだ", "id": "seharusnya ~; memang ~", "ex": "子供は元気なものだ。= Anak-anak memang energetik.", "lv": "N3", "cat": "習慣"}, {"p": "〜ことにする", "id": "memutuskan untuk ~", "ex": "毎日運動することにした。= Memutuskan olahraga tiap hari.", "lv": "N3", "cat": "決定"}, {"p": "〜おかげで", "id": "berkat ~", "ex": "先生のおかげで合格した。= Berkat guru, bisa lulus.", "lv": "N3", "cat": "理由"}, {"p": "〜せいで", "id": "gara-gara ~", "ex": "雨のせいで遅れた。= Gara-gara hujan terlambat.", "lv": "N3", "cat": "理由"}, {"p": "〜にもかかわらず", "id": "meskipun ~; walaupun ~", "ex": "雨にもかかわらず試合は続いた。= Meskipun hujan, pertandingan lanjut.", "lv": "N2", "cat": "逆接"}, {"p": "〜かねない", "id": "bisa saja ~ (negatif)", "ex": "このまま放置すると大問題になりかねない。= Bisa jadi masalah besar.", "lv": "N2", "cat": "可能性"}, {"p": "〜ざるを得ない", "id": "terpaksa ~; tidak bisa tidak ~", "ex": "行かざるを得ない。= Terpaksa pergi.", "lv": "N2", "cat": "義務"}, {"p": "〜に反して", "id": "berlawanan dengan ~", "ex": "予想に反して簡単だった。= Berlawanan dengan dugaan, mudah.", "lv": "N2", "cat": "逆接"}, {"p": "〜をめぐって", "id": "seputar ~; mengenai ~", "ex": "予算をめぐって議論が続く。= Diskusi terus seputar anggaran.", "lv": "N2", "cat": "テーマ"}, {"p": "〜だけあって", "id": "pantas saja ~; wajar ~", "ex": "プロだけあって仕事が速い。= Pantas saja profesional, kerja cepat.", "lv": "N2", "cat": "当然"}, {"p": "〜に際して", "id": "pada saat ~; dalam rangka ~", "ex": "入学に際して手続きが必要だ。= Saat masuk perlu prosedur.", "lv": "N2", "cat": "時間"}, {"p": "〜からには", "id": "karena sudah ~; mengingat ~", "ex": "引き受けたからには最後までやる。= Karena sudah menerima, kerjakan sampai selesai.", "lv": "N2", "cat": "条件"}, {"p": "〜いかんによらず", "id": "terlepas dari ~", "ex": "結果いかんによらず最善を尽くす。= Terlepas dari hasil, lakukan yang terbaik.", "lv": "N1", "cat": "条件"}, {"p": "〜をおいて(他にない)", "id": "selain ~ tidak ada yang lain", "ex": "この仕事は彼をおいて他にいない。= Selain dia tidak ada yang cocok.", "lv": "N1", "cat": "強調"}, {"p": "〜に足る", "id": "layak ~; pantas ~", "ex": "信頼に足る人物だ。= Orang yang layak dipercaya.", "lv": "N1", "cat": "評価"}, {"p": "〜ずにはおかない", "id": "pasti akan ~; tidak bisa tidak ~", "ex": "その映画は感動させずにはおかない。= Film itu pasti mengharukan.", "lv": "N1", "cat": "必然"}, {"p": "〜もさることながら", "id": "tidak hanya ~, bahkan ~", "ex": "技術もさることながら経験も必要だ。= Tidak hanya skill, pengalaman juga perlu.", "lv": "N1", "cat": "強調"}];
+var deck=[],cur=0,knowSet=new Set(),learnSet=new Set(),flipped=false,curLevel='semua';
+
+function setLevel(lv,btn){
+  curLevel=lv;
+  document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  resetDeck();
+}
+
+function resetDeck(){
+  deck=curLevel==='semua'?ALL.slice():ALL.filter(function(c){return c.lv===curLevel;});
+  // shuffle
+  for(var i=deck.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=deck[i];deck[i]=deck[j];deck[j]=t;}
+  cur=0;knowSet=new Set();learnSet=new Set();
+  document.getElementById('completeBox').style.display='none';
+  showCard();
+  updateStats();
+}
+
+function showCard(){
+  if(!deck.length)return;
+  if(cur>=deck.length){showComplete();return;}
+  var c=deck[cur];
+  flipped=false;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fcLevel').textContent=c.lv;
+  document.getElementById('fcLevel').className='fc-level lv'+c.lv;
+  document.getElementById('fcPattern').textContent=c.p;
+  document.getElementById('fcCat').textContent=c.cat;
+  document.getElementById('fcLevelBack').textContent=c.lv;
+  document.getElementById('fcId').textContent='🇮🇩 '+c.id;
+  document.getElementById('fcEx').textContent='📝 '+c.ex;
+  document.getElementById('cardCounter').textContent='Kartu '+(cur+1)+' / '+deck.length;
+  var pct=Math.round((cur/deck.length)*100);
+  document.getElementById('progressFill').style.width=pct+'%';
+}
+
+function flipCard(){
+  flipped=!flipped;
+  document.getElementById('flashcard').classList.toggle('flipped',flipped);
+}
+
+function markKnow(){try{if(window.NPXP){NPXP.recordVocab('grammar',1);NPXP.award('grammar',3);}}catch(e){}
+  if(cur<deck.length){knowSet.add(cur);learnSet.delete(cur);}
+  cur++;updateStats();showCard();
+}
+
+function markLearn(){try{if(window.NPXP){NPXP.recordVocab('grammar',1);NPXP.award('grammar',1);}}catch(e){}
+  if(cur<deck.length){learnSet.add(cur);knowSet.delete(cur);}
+  cur++;updateStats();showCard();
+}
+
+function nextCard(){cur++;showCard();updateStats();}
+
+function updateStats(){
+  document.getElementById('statTotal').textContent=deck.length;
+  document.getElementById('statKnow').textContent=knowSet.size;
+  document.getElementById('statLearn').textContent=learnSet.size;
+}
+
+function showComplete(){
+  var box=document.getElementById('completeBox');
+  box.style.display='block';
+  document.getElementById('completeMsg').textContent=
+    '✅ Hafal: '+knowSet.size+' kartu | 🔄 Perlu belajar: '+learnSet.size+' kartu dari '+deck.length+' total.';
+  document.getElementById('flashcard').style.display='none';
+  document.querySelector('.controls').style.display='none';
+}
+
+resetDeck();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

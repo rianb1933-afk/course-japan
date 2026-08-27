@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JLPT CBT Simulator N5 模擬試験 | Nihonggo Pro Academy</title>
+<meta name="description" content="Simulasi ujian JLPT N5 mode komputer — 30 soal N5 grammar dan vocabulary dengan timer 25 menit dan pembahasan lengkap.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/JLPT-CBT-N5.html">
+<meta property="og:title" content="JLPT CBT Simulator N5 — Nihonggo Pro Academy">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{max-width:840px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,#1b5e20,#43a047);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
+.bdg{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
+.start-box{background:#fff;border-radius:16px;padding:32px;text-align:center;margin:28px 0;border:2px solid rgba(0,0,0,.08);box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.start-box h2{color:#2e7d32;margin:0 0 10px;font-family:'Noto Serif JP',serif}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.info-item{background:#e8f5e9;border-radius:10px;padding:14px;text-align:center}
+.info-val{font-size:1.5rem;font-weight:700;color:#2e7d32;font-family:'Noto Serif JP',serif}
+.info-lbl{font-size:.75rem;color:#6a6a6a;margin-top:2px}
+.start-btn{background:linear-gradient(135deg,#1b5e20,#43a047);color:#fff;border:none;border-radius:12px;padding:15px 44px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:14px;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.2);font-family:inherit}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.25)}
+.cbt-header{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:12px;padding:12px 18px;margin-bottom:14px;border:1px solid rgba(0,0,0,.08)}
+.cbt-title{font-weight:700;color:#2e7d32;font-size:.95rem}
+.cbt-timer{font-size:1.3rem;font-weight:700;color:#2e7d32;font-family:'Noto Serif JP',serif}
+.cbt-timer.warn{color:#e53935;animation:blink .8s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.cbt-prog{font-size:.82rem;color:#888}
+.q-nav{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-bottom:14px}
+.qn-dot{width:30px;height:30px;border-radius:50%;border:2px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:.72rem;cursor:pointer;font-weight:600;transition:all .2s;background:#fff}
+.qn-dot.current{border-color:#2e7d32;background:#2e7d32;color:#fff}
+.qn-dot.answered{background:#e8f5e9;border-color:#43a047;color:#2e7d32}
+.qn-dot.flagged{background:#fff3e0;border-color:#fb8c00;color:#e65100}
+@media(max-width:480px){.q-nav{grid-template-columns:repeat(6,1fr)}}
+.q-box{background:#fff;border-radius:14px;padding:24px;border:1px solid rgba(0,0,0,.08);margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px}
+.q-num{font-size:.8rem;font-weight:700;color:#2e7d32;background:#e8f5e9;padding:3px 10px;border-radius:20px}
+.q-cat{font-size:.72rem;background:#e8f5e9;color:#2e7d32;padding:3px 10px;border-radius:20px;font-weight:600}
+.q-flag-btn{font-size:.75rem;background:none;border:1px solid #fb8c00;color:#fb8c00;border-radius:20px;padding:3px 10px;cursor:pointer}
+.q-flag-btn.flagged{background:#fb8c00;color:#fff}
+.q-text{font-size:1rem;font-weight:600;color:#111;margin-bottom:18px;line-height:1.65}
+.q-opts{display:grid;gap:10px}
+.q-opt{background:#fafafa;border:2px solid rgba(0,0,0,.1);border-radius:10px;padding:12px 16px;cursor:pointer;font-size:.9rem;transition:all .2s;text-align:left;font-family:inherit;color:#111;width:100%}
+.q-opt:hover{border-color:#2e7d32;background:#e8f5e9}
+.q-opt.selected{border-color:#2e7d32;background:#e8f5e9;font-weight:600}
+.q-opt.correct{border-color:#43a047;background:#e8f5e9;color:#2e7d32}
+.q-opt.wrong{border-color:#e53935;background:#ffebee;color:#c62828}
+.nav-btns{display:flex;gap:10px;flex-wrap:wrap}
+.nav-btn{padding:10px 20px;border:none;border-radius:10px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s;font-family:inherit}
+.btn-prev{background:#f5f5f5;border:1px solid rgba(0,0,0,.12);color:#2e7d32}
+.btn-next{background:#2e7d32;color:#fff;flex:1}
+.btn-submit{background:#2e7d32;color:#fff;flex:1}
+.result-box{background:#fff;border-radius:16px;padding:32px;text-align:center;margin:28px 0;border:2px solid rgba(0,0,0,.08)}
+.score-ring{width:130px;height:130px;border-radius:50%;margin:0 auto 18px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:6px solid #2e7d32;background:#e8f5e9}
+.score-num{font-size:2.2rem;font-weight:700;color:#2e7d32;font-family:'Noto Serif JP',serif;line-height:1}
+.score-lbl{font-size:.7rem;color:#888}
+.grade-badge{display:inline-block;font-size:.85rem;font-weight:700;padding:6px 20px;border-radius:100px;margin:12px 0}
+.grade-s{background:#fff3e0;color:#e65100}
+.grade-a{background:#e8f5e9;color:#2e7d32}
+.grade-b{background:#e3f2fd;color:#1565c0}
+.grade-c{background:#fce4ec;color:#c62828}
+.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.rst{background:#e8f5e9;border-radius:10px;padding:12px;text-align:center}
+.rst-num{font-size:1.4rem;font-weight:700;color:#2e7d32;font-family:'Noto Serif JP',serif}
+.rst-num.ok{color:#2e7d32}.rst-num.ng{color:#c62828}
+.rst-lbl{font-size:.72rem;color:#888}
+.btn-retry{background:#2e7d32;color:#fff;border:none;border-radius:10px;padding:12px 32px;cursor:pointer;font-size:.95rem;font-weight:700;margin:14px 6px 0;font-family:inherit}
+.btn-review{background:#f5f5f5;border:1px solid rgba(0,0,0,.2);color:#2e7d32;border-radius:10px;padding:12px 24px;cursor:pointer;font-size:.9rem;font-weight:600;margin:14px 6px 0;font-family:inherit}
+.review-header{font-size:1.1rem;font-weight:700;color:#2e7d32;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e8f5e9;font-family:'Noto Serif JP',serif}
+.ans-item{background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:10px;border-left:4px solid #ccc}
+.ans-item.ok{border-left-color:#43a047}
+.ans-item.ng{border-left-color:#e53935}
+.ans-q{font-size:.88rem;font-weight:600;margin-bottom:6px;line-height:1.5}
+.ans-exp{font-size:.8rem;color:#666;line-height:1.6;background:#f9f9f9;border-radius:6px;padding:8px 10px;margin-top:6px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Quiz", "name": "JLPT CBT Simulator N5 模擬試験 | Nihonggo Pro Academy", "description": "Simulasi ujian JLPT N5 mode komputer — 30 soal N5 grammar dan vocabulary dengan timer 25 menit dan pembahasan lengkap.", "url": "https://nihonggopro.id/Materi/JLPT-CBT-N5.html", "educationalLevel": "Beginner", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}}</script>
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Simulasi ujian JLPT N5 mode komputer — 30 soal N5 grammar dan vocabulary dengan timer 25 menit dan pembahasan lengkap.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/JLPT-CBT-N5.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JLPT CBT Simulator N5 模擬試験">
+<meta name="twitter:description" content="Simulasi ujian JLPT N5 mode komputer — 30 soal N5 grammar dan vocabulary dengan timer 25 menit dan pembahasan lengkap.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero">
+  <span class="bdg">N5 入門</span>
+  <h1>JLPT CBT Simulator N5<br>模擬試験 Simulasi Ujian N5</h1>
+  <p style="font-size:.88rem;opacity:.85;margin-top:6px">Grammar · Vocabulary · 25 menit · Level Dasar</p>
+</div>
+<div class="wrap" style="padding-top:24px">
+<div id="startView">
+  <div class="start-box">
+    <h2>JLPT N5 模擬試験</h2>
+    <p style="color:#666;font-size:.9rem;margin-top:6px">Simulasi ujian JLPT N5 — soal diacak tiap sesi</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-val">30</div><div class="info-lbl">Soal</div></div>
+      <div class="info-item"><div class="info-val">25</div><div class="info-lbl">Menit</div></div>
+      <div class="info-item"><div class="info-val">60%</div><div class="info-lbl">Target Lulus</div></div>
+    </div>
+    <p style="font-size:.82rem;color:#888;margin:10px 0">文法 · 語彙 · 読解</p>
+    <button class="start-btn" onclick="startCBT()">Mulai Ujian N5</button>
+  </div>
+</div>
+<div id="cbtView" style="display:none">
+  <div class="cbt-header">
+    <div><div class="cbt-title">JLPT N5 模擬試験</div><div class="cbt-prog" id="prog">Soal 1 dari 30</div></div>
+    <div class="cbt-timer" id="timer">25:00</div>
+  </div>
+  <div class="q-nav" id="qNav"></div>
+  <div class="q-box" id="qBox"></div>
+  <div class="nav-btns">
+    <button class="nav-btn btn-prev" onclick="goQ(-1)">Sebelumnya</button>
+    <button class="nav-btn btn-next" id="btnNext" onclick="goQ(1)">Berikutnya</button>
+    <button class="nav-btn btn-submit" id="btnSubmit" style="display:none" onclick="submitCBT()">Selesai &amp; Nilai</button>
+  </div>
+  <p style="text-align:center;font-size:.78rem;color:#aaa;margin-top:10px">Klik nomor soal untuk loncat ke soal mana saja</p>
+</div>
+<div id="resultView" style="display:none">
+  <div class="result-box">
+    <h2 style="color:#2e7d32;margin-bottom:16px;font-family:'Noto Serif JP',serif">Hasil Ujian N5</h2>
+    <div class="score-ring"><div class="score-num" id="scoreNum">0</div><div class="score-lbl">dari 30</div></div>
+    <div class="grade-badge" id="gradeBadge"></div>
+    <div style="font-size:1.05rem;font-weight:700;margin:10px 0" id="scoreMsg"></div>
+    <div style="font-size:.9rem;color:#666" id="scorePct"></div>
+    <div class="result-stats">
+      <div class="rst"><div class="rst-num ok" id="okCount">0</div><div class="rst-lbl">Benar</div></div>
+      <div class="rst"><div class="rst-num ng" id="ngCount">0</div><div class="rst-lbl">Salah</div></div>
+      <div class="rst"><div class="rst-num" id="skipCount" style="color:#888">0</div><div class="rst-lbl">Lewat</div></div>
+    </div>
+    <button class="btn-retry" onclick="restartCBT()">Ulangi Ujian</button>
+    <button class="btn-review" onclick="showReview()">Lihat Pembahasan</button>
+  </div>
+  <div id="reviewSection" style="display:none">
+    <div class="review-header">Pembahasan Lengkap</div>
+    <div id="ansList"></div>
+  </div>
+</div>
+</div></main>
+<script>
+var QS_DATA = [{"n": 1, "cat": "文法", "q": "わたし___がくせいです。", "opts": ["は", "を", "に", "で"], "a": 0, "e": "は=penanda topik. 「私は学生です」=Saya adalah pelajar. Partikel paling dasar untuk subjek kalimat."}, {"n": 2, "cat": "文法", "q": "きのう、ともだち___あいました。", "opts": ["を", "に", "へ", "と"], "a": 1, "e": "〜に会う=bertemu dengan ~. 友達に会いました=bertemu dengan teman. に menandai sasaran pertemuan."}, {"n": 3, "cat": "語彙", "q": "「あさ」の意味は？", "opts": ["malam", "pagi", "siang", "sore"], "a": 1, "e": "朝(あさ)=pagi. Kosakata waktu dasar N5: 朝(pagi)、昼(siang)、夜(malam)。"}, {"n": 4, "cat": "文法", "q": "まいにち　６じ___おきます。", "opts": ["で", "に", "を", "へ"], "a": 1, "e": "〜に起きる=bangun pada jam ~. Partikel に dipakai untuk menunjuk waktu spesifik (jam, tanggal)."}, {"n": 5, "cat": "語彙", "q": "「たべます」の辞書形は？", "opts": ["たべる", "たべて", "たべた", "たべない"], "a": 0, "e": "食べます(masu形)の辞書形(kamus)は食べる。ます形から辞書形に変換するのはN5基本文法。"}, {"n": 6, "cat": "文法", "q": "きょうしつ___がくせいが　５にん　います。", "opts": ["で", "に", "を", "と"], "a": 1, "e": "〜にいます=ada di ~ (keberadaan). 教室に学生がいます=ada pelajar di kelas. います=untuk makhluk hidup."}, {"n": 7, "cat": "語彙", "q": "「おおきい」の反対語は？", "opts": ["ちいさい", "たかい", "やすい", "ながい"], "a": 0, "e": "大きい(besar)⇔小さい(kecil)。N5でよく出る反対語(antonim)のペア。"}, {"n": 8, "cat": "文法", "q": "この　ほん___わたしのです。", "opts": ["は", "が", "を", "に"], "a": 0, "e": "この本は私のです=buku ini punya saya. は=penanda topik untuk menjelaskan tentang sesuatu."}, {"n": 9, "cat": "文法", "q": "でんしゃ___がっこうへ　いきます。", "opts": ["を", "に", "で", "と"], "a": 2, "e": "〜で行く=pergi dengan/naik ~. 電車で行きます=pergi naik kereta. で=alat transportasi/cara."}, {"n": 10, "cat": "語彙", "q": "「やすみ」の意味は？", "opts": ["pekerjaan", "libur", "sekolah", "makanan"], "a": 1, "e": "休み(やすみ)=libur/istirahat. 休みの日=hari libur。基本的な日常語彙。"}, {"n": 11, "cat": "文法", "q": "わたしは　まいあさ　コーヒー___のみます。", "opts": ["が", "を", "に", "へ"], "a": 1, "e": "〜を飲む=minum ~. コーヒーを飲みます=minum kopi. を=penanda objek langsung."}, {"n": 12, "cat": "文法", "q": "きょうは　あめ___ふっています。", "opts": ["は", "が", "を", "に"], "a": 1, "e": "雨が降っています=hujan turun. が=penanda subjek untuk fenomena alam/kejadian."}, {"n": 13, "cat": "語彙", "q": "「はやい」の意味は？", "opts": ["lambat", "cepat", "besar", "kecil"], "a": 1, "e": "早い/速い(はやい)=cepat. N5基本形容詞。早い(waktu)、速い(kecepatan)両方あり。"}, {"n": 14, "cat": "文法", "q": "これは　わたし___ともだちです。", "opts": ["は", "の", "を", "に"], "a": 1, "e": "〜の=kepunyaan/penghubung kata benda. 私の友達=teman saya. の=partikel kepemilikan dasar."}, {"n": 15, "cat": "文法", "q": "にちようび___　うちで　やすみます。", "opts": ["は", "に", "を", "で"], "a": 1, "e": "日曜日に休みます=beristirahat pada hari Minggu. に=penanda waktu spesifik (hari, jam, tanggal)."}, {"n": 16, "cat": "語彙", "q": "「あたらしい」の反対語は？", "opts": ["ふるい", "おおきい", "やすい", "ながい"], "a": 0, "e": "新しい(baru)⇔古い(lama). N5基本の形容詞ペア。"}, {"n": 17, "cat": "文法", "q": "テーブルの　うえ___ねこが　います。", "opts": ["に", "へ", "を", "が"], "a": 0, "e": "〜の上に=di atas ~. テーブルの上に猫がいます=ada kucing di atas meja. に=lokasi keberadaan."}, {"n": 18, "cat": "語彙", "q": "「いそがしい」の意味は？", "opts": ["santai", "sibuk", "senang", "sedih"], "a": 1, "e": "忙しい(いそがしい)=sibuk. 仕事が忙しいです=pekerjaan sedang sibuk. N5基本形容詞。"}, {"n": 19, "cat": "文法", "q": "わたしは　にほんご___べんきょうします。", "opts": ["を", "に", "へ", "で"], "a": 0, "e": "〜を勉強する=belajar ~. 日本語を勉強します=belajar bahasa Jepang. を=objek aktivitas."}, {"n": 20, "cat": "文法", "q": "らいしゅう、かぞく___りょこうします。", "opts": ["は", "と", "を", "に"], "a": 1, "e": "〜と旅行する=bepergian bersama ~. 家族と旅行します=bepergian bersama keluarga. と=partner aktivitas."}, {"n": 21, "cat": "語彙", "q": "「のみもの」の意味は？", "opts": ["makanan", "minuman", "pakaian", "buku"], "a": 1, "e": "飲み物(のみもの)=minuman. 食べ物(makanan)と飲み物(minuman)はN5基本の対の語彙。"}, {"n": 22, "cat": "文法", "q": "あの　たてもの___　としょかんです。", "opts": ["は", "を", "に", "で"], "a": 0, "e": "あの建物は図書館です=gedung itu adalah perpustakaan. は=topik kalimat untuk menjelaskan identitas sesuatu."}, {"n": 23, "cat": "文法", "q": "わたしは　７じはん___おきます。", "opts": ["を", "に", "で", "へ"], "a": 1, "e": "〜時に起きる=bangun jam ~. 7時半に起きます=bangun jam 7.30. に=waktu spesifik."}, {"n": 24, "cat": "語彙", "q": "「げんき」の意味は？", "opts": ["sakit", "sehat/semangat", "lelah", "sedih"], "a": 1, "e": "元気(げんき)=sehat/bersemangat. お元気ですか=apa kabar? N5の挨拶で頻出。"}, {"n": 25, "cat": "文法", "q": "きのうの　よる、テレビ___みました。", "opts": ["が", "を", "に", "へ"], "a": 1, "e": "〜を見る=menonton ~. テレビを見ました=menonton TV. を=objek langsung dari kata kerja melihat."}, {"n": 26, "cat": "文法", "q": "がっこう___　うちまで　あるきます。", "opts": ["を", "に", "から", "で"], "a": 2, "e": "〜から〜まで=dari ~ sampai ~. 学校から家まで歩きます=jalan kaki dari sekolah sampai rumah."}, {"n": 27, "cat": "語彙", "q": "「しずか」の意味は？", "opts": ["ramai", "tenang", "panas", "dingin"], "a": 1, "e": "静か(しずか)=tenang/sunyi. 静かな部屋=kamar yang tenang. な形容詞(na-keiyoushi)の代表例。"}, {"n": 28, "cat": "文法", "q": "せんせい、しつもん___　いいですか。", "opts": ["を", "して", "しても", "した"], "a": 2, "e": "〜てもいいですか=bolehkah saya ~? 質問してもいいですか=bolehkah saya bertanya? Te-form + もいいですか=meminta izin."}, {"n": 29, "cat": "語彙", "q": "「たかい」の反対語は？", "opts": ["やすい", "おおきい", "ちいさい", "ながい"], "a": 0, "e": "高い(mahal/tinggi)⇔安い(murah). 文脈によって「高い」は値段にも高さにも使う。"}, {"n": 30, "cat": "読解", "q": "「すみません、トイレはどこですか」の意味は？", "opts": ["maaf, di mana toiletnya?", "maaf, saya lapar", "terima kasih banyak", "selamat pagi"], "a": 0, "e": "すみません=permisi/maaf (untuk memulai pertanyaan). トイレはどこですか=di mana toiletnya? N5基本会話表現。"}];
+var questions = [], answers = {}, cur = 0, flagged = {}, timerInt = null, timeLeft = 1500;
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function startCBT() {
+  cbtSubmitted = false; // genuinely reset guard untuk ujian baru
+  questions = shuffle(QS_DATA);
+  answers = {}; flagged = {}; cur = 0; timeLeft = 1500;
+  document.getElementById('startView').style.display = 'none';
+  document.getElementById('cbtView').style.display = 'block';
+  document.getElementById('resultView').style.display = 'none';
+  renderNav(); showQ(0);
+  timerInt = setInterval(function() {
+    timeLeft--;
+    var m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+    var tEl = document.getElementById('timer');
+    if (tEl) tEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    if (tEl) tEl.className = 'cbt-timer' + (timeLeft <= 300 ? ' warn' : '');
+    if (timeLeft <= 0) { clearInterval(timerInt); submitCBT(); }
+  }, 1000);
+}
+
+function renderNav() {
+  var nav = document.getElementById('qNav');
+  if (!nav) return;
+  nav.innerHTML = '';
+  questions.forEach(function(q, i) {
+    var d = document.createElement('div');
+    var cls = 'qn-dot';
+    if (i === cur) cls += ' current';
+    else if (flagged[i]) cls += ' flagged';
+    else if (answers[i] !== undefined) cls += ' answered';
+    d.className = cls; d.textContent = i + 1;
+    d.onclick = (function(idx) { return function() { cur = idx; showQ(idx); }; })(i);
+    nav.appendChild(d);
+  });
+}
+
+function showQ(i) {
+  var q = questions[i]; if (!q) return;
+  var pg = document.getElementById('prog');
+  if (pg) pg.textContent = 'Soal ' + (i + 1) + ' dari 30';
+  var qb = document.getElementById('qBox'); if (!qb) return;
+  var isFlagged = flagged[i] ? true : false;
+  qb.innerHTML = '<div class="q-meta">'
+    + '<span class="q-num">Q ' + (i + 1) + '</span>'
+    + '<span class="q-cat">' + q.cat + '</span>'
+    + '<button class="q-flag-btn' + (isFlagged ? ' flagged' : '') + '" id="flagBtn">Tandai</button>'
+    + '</div><div class="q-text">' + q.q + '</div><div class="q-opts" id="opts"></div>';
+  document.getElementById('flagBtn').onclick = function() { toggleFlag(i); };
+  var oo = document.getElementById('opts');
+  q.opts.forEach(function(opt, j) {
+    var btn = document.createElement('button');
+    btn.className = 'q-opt' + (answers[i] === j ? ' selected' : '');
+    btn.textContent = (j + 1) + '. ' + opt;
+    btn.onclick = (function(qi, ai) { return function() { selectAns(qi, ai); }; })(i, j);
+    oo.appendChild(btn);
+  });
+  var bn = document.getElementById('btnNext');
+  var bs = document.getElementById('btnSubmit');
+  if (bn) bn.style.display = i < 29 ? 'inline-block' : 'none';
+  if (bs) bs.style.display = i === 29 ? 'inline-block' : 'none';
+  renderNav();
+}
+
+function selectAns(qi, ai) {
+  answers[qi] = ai;
+  var oo = document.getElementById('opts');
+  if (oo) oo.querySelectorAll('.q-opt').forEach(function(b, j) {
+    b.className = 'q-opt' + (j === ai ? ' selected' : '');
+  });
+  renderNav();
+}
+
+function toggleFlag(i) { flagged[i] = !flagged[i]; showQ(i); }
+function goQ(d) { cur = Math.max(0, Math.min(29, cur + d)); showQ(cur); }
+
+// GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Keempat, Fase R):
+// guard flag untuk mencegah submitCBT() genuinely dieksekusi dua kali,
+// mengikuti pola yang sudah terbukti di JLPT-CBT.html (Website v25)
+// dan JLPT-CBT-N3.html (sesi ini). Dikonfirmasi risiko nyata mengingat
+// ada DUA jalur pemanggilan: timer otomatis saat waktu habis DAN
+// tombol "Selesai & Nilai" manual -- keduanya genuinely bisa
+// menyebabkan XP/progress terduplikasi tanpa guard ini.
+var cbtSubmitted = false;
+function submitCBT() {
+  if(cbtSubmitted) return;
+  cbtSubmitted = true;
+  clearInterval(timerInt);
+  var ok = 0, ng = 0, skip = 0;
+  questions.forEach(function(q, i) {
+    if (answers[i] === undefined) skip++;
+    else if (answers[i] === q.a) ok++;
+    else ng++;
+  });
+  var pct = Math.round(ok / 30 * 100);
+  document.getElementById('cbtView').style.display = 'none';
+  document.getElementById('resultView').style.display = 'block';
+  document.getElementById('scoreNum').textContent = ok;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('skipCount').textContent = skip;
+  document.getElementById('scorePct').textContent = pct + '% (' + ok + '/30 soal benar)';
+  var grade, gClass, msg;
+  if (pct >= 90) { grade = 'S — 最優秀!'; gClass = 'grade-s'; msg = 'Luar biasa! Siap ujian JLPT N5 sungguhan!'; }
+  else if (pct >= 75) { grade = 'A — 優秀'; gClass = 'grade-a'; msg = 'Sangat bagus! Hampir sempurna!'; }
+  else if (pct >= 60) { grade = 'B — 合格'; gClass = 'grade-b'; msg = 'Lulus! Terus pertahankan!'; }
+  else { grade = 'C — 要努力'; gClass = 'grade-c'; msg = 'Belum lulus. Pelajari lagi materi N5!'; }
+  var gb = document.getElementById('gradeBadge');
+  if (gb) { gb.textContent = grade; gb.className = 'grade-badge ' + gClass; }
+  var sm = document.getElementById('scoreMsg');
+  if (sm) { sm.textContent = msg; sm.style.color = pct >= 60 ? '#2e7d32' : '#c62828'; }
+}
+
+function showReview() {
+  var sec = document.getElementById('reviewSection'); if (!sec) return;
+  sec.style.display = sec.style.display === 'none' ? 'block' : 'none';
+  if (sec.style.display === 'none') return;
+  var list = document.getElementById('ansList'); if (!list) return;
+  list.innerHTML = '';
+  questions.forEach(function(q, i) {
+    var ua = answers[i];
+    var isOk = ua === q.a;
+    var isSkip = ua === undefined;
+    var d = document.createElement('div');
+    d.className = 'ans-item ' + (isSkip ? '' : (isOk ? 'ok' : 'ng'));
+    d.innerHTML = '<div class="ans-q">Q' + (i + 1) + '. [' + q.cat + '] ' + q.q + '</div>'
+      + '<div style="font-size:.82rem;color:#2e7d32;margin-bottom:3px">Jawaban benar: ' + q.opts[q.a] + '</div>'
+      + (!isSkip && !isOk ? '<div style="font-size:.82rem;color:#c62828;margin-bottom:3px">Jawaban kamu: ' + q.opts[ua] + '</div>' : '')
+      + (isSkip ? '<div style="font-size:.82rem;color:#888;margin-bottom:3px">Tidak dijawab</div>' : '')
+      + '<div class="ans-exp">' + q.e + '</div>';
+    list.appendChild(d);
+  });
+}
+
+function restartCBT() {
+  document.getElementById('resultView').style.display = 'none';
+  var rs = document.getElementById('reviewSection');
+  if (rs) rs.style.display = 'none';
+  startCBT();
+}
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

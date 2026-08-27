@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radikal & Komponen Kanji — Nihonggo Pro Academy</title>
+<meta name="description" content="Panduan radikal dan komponen kanji untuk belajar JLPT: arti dasar, posisi radikal, contoh kanji, strategi menghafal, dan latihan analisis bentuk.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Radikal-Kanji.html">
+<meta property="og:title" content="Radikal & Komponen Kanji — Nihonggo Pro Academy">
+<meta property="og:description" content="Belajar kanji lewat radikal, komponen, posisi, dan strategi mnemonic agar tidak sekadar menghafal bentuk.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Radikal-Kanji.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.brand{display:flex;align-items:baseline;gap:10px}.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:22px}.brand span{font-size:12px;color:var(--ink-soft);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap}
+.hero{background:#17181d;color:#fff;padding:58px 5vw 38px;position:relative;overflow:hidden}.hero:before{content:"部首";position:absolute;right:4vw;bottom:-72px;font-family:"Noto Serif JP",serif;font-size:220px;color:rgba(255,255,255,.045);line-height:1}
+.inner{width:min(1120px,100%);margin:0 auto;position:relative}.kicker{display:inline-flex;padding:5px 11px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(32px,5vw,58px);line-height:1.12;margin-bottom:12px}.lead{max-width:760px;color:rgba(255,255,255,.7);font-size:16px}
+.section{padding:38px 5vw}.section-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:18px}.label{font-size:11px;font-weight:900;color:var(--red);letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}h2{font-family:"Noto Serif JP",serif;font-size:clamp(24px,3vw,34px);line-height:1.2}.sub{max-width:650px;color:var(--ink-soft);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.radical{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:16px;box-shadow:var(--shadow-sm)}.radical .char{font-family:"Noto Serif JP",serif;font-size:42px;color:var(--red);line-height:1}.radical b{display:block;margin:8px 0 4px}.radical p{font-size:13px;color:var(--ink-mid)}
+.table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-sm)}.table th,.table td{padding:12px;border-bottom:1px solid var(--border);font-size:13px;text-align:left;vertical-align:top}.table th{background:var(--cream);color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.table tr:last-child td{border-bottom:0}.jp{font-family:"Noto Serif JP",serif}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.step{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:16px}.step b{display:block;color:var(--red);margin-bottom:6px}.step span{font-size:13px;color:var(--ink-mid)}
+.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.16);border-radius:8px;padding:14px;color:var(--ink-mid);font-size:13px;margin-top:14px}
+@media(max-width:900px){.section-head{display:block}.grid,.steps{grid-template-columns:1fr 1fr}.table{display:block;overflow-x:auto}}
+@media(max-width:620px){.grid,.steps{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Radikal Kanji Bahasa Jepang", "description": "214 radikal kanji dengan makna dan cara membaca", "url": "https://nihonggopro.id/Materi/Radikal-Kanji.html", "provider": {"@type": "Organization", "name": "NihonggoPro", "url": "https://nihonggopro.id"}, "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Radikal & Komponen Kanji — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Radikal & Komponen Kanji — Nihonggo Pro Academy","item":"https://nihonggopro.id/Materi/Radikal-Kanji.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  .nav-links{display:none!important}
+  
+  
+  
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="Panduan radikal dan komponen kanji untuk belajar JLPT: arti dasar, posisi radikal, contoh kanji, strategi menghafal, dan latihan analisis bentuk.">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<main id="main-content">
+  <section class="hero">
+    <div class="inner">
+      <div class="kicker">Komponen Kanji</div>
+      <h1>Radikal dan<br>Komponen Kanji</h1>
+      <p class="lead">Radikal membantu melihat pola bentuk dan makna kanji. Tujuannya bukan menebak semua arti dengan sempurna, tetapi membuat kanji lebih mudah dikenali, dikelompokkan, dan diingat.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Radikal Inti</div><h2>Radikal yang sering muncul</h2></div><p class="sub">Mulai dari radikal umum ini sebelum masuk daftar yang lebih besar. Hafalkan sebagai petunjuk makna, bukan terjemahan mutlak.</p></div>
+      <div class="grid">
+        <article class="radical"><div class="char">氵</div><b>Air/Cairan (氵)</b><p>Muncul pada 海, 洗, 酒, 泳. Sering terkait air, cairan, atau aktivitas basah.</p></article>
+        <article class="radical"><div class="char">亻</div><b>Orang/Manusia (亻)</b><p>Muncul pada 休, 体, 住, 働. Sering terkait manusia, tindakan, atau status orang.</p></article>
+        <article class="radical"><div class="char">扌</div><b>Tangan/Aksi (扌)</b><p>Muncul pada 持, 打, 探, 押. Banyak berkaitan dengan tindakan fisik.</p></article>
+        <article class="radical"><div class="char">言</div><b>Kata/Bahasa (言)</b><p>Muncul pada 話, 読, 語, 説. Sering terkait bicara, membaca, menjelaskan.</p></article>
+        <article class="radical"><div class="char">心</div><b>Hati/Pikiran (心)</b><p>Muncul sebagai 心 atau 忄 pada 思, 急, 情, 忘. Terkait emosi dan pikiran.</p></article>
+        <article class="radical"><div class="char">木</div><b>Pohon/Kayu (木)</b><p>Muncul pada 林, 森, 校, 橋. Bisa terkait pohon, kayu, struktur.</p></article>
+        <article class="radical"><div class="char">日</div><b>Matahari/Waktu (日)</b><p>Muncul pada 明, 時, 映, 暗. Terkait waktu, cahaya, hari.</p></article>
+        <article class="radical"><div class="char">食</div><b>Makan (食)</b><p>Muncul pada 飲, 飯, 館. Terkait makan, minum, makanan, tempat makan.</p></article>
+        <article class="radical"><div class="char">糸</div><b>Benang/Hubungan (糸)</b><p>Muncul pada 紙, 終, 練, 線. Bisa terkait benang, garis, ikatan, proses.</p></article>
+        <article class="radical"><div class="char">金</div><b>Logam/Uang (金)</b><p>Muncul pada 銀, 鉄, 鏡. Terkait logam, alat, uang.</p></article>
+        <article class="radical"><div class="char">口</div><b>Mulut/Bukaan (口)</b><p>Muncul pada 君, 味, 呼, 問. Bisa terkait mulut, bicara, suara, bukaan.</p></article>
+        <article class="radical"><div class="char">⻌</div><b>Gerak/Jalan (辶)</b><p>Muncul pada 近, 週, 道, 運. Sering terkait perpindahan, jalan, proses.</p></article>
+        <article class="radical"><div class="char">火 / 灬</div><b>Api/Panas (火)</b><p>Muncul pada 焼, 熱, 煙, 炎. Bentuk bawah 灬 ada di: 照, 熟, 然.</p></article>
+        <article class="radical"><div class="char">土</div><b>Tanah/Bumi (土)</b><p>Muncul pada 地, 坂, 場, 堂. Terkait tempat, permukaan, atau bangunan di atas tanah.</p></article>
+        <article class="radical"><div class="char">女</div><b>Perempuan/Wanita (女)</b><p>Muncul pada 母, 妹, 姉, 嫁, 婚. Terkait perempuan, status sosial, dan hubungan keluarga.</p></article>
+        <article class="radical"><div class="char">子</div><b>Anak (子)</b><p>Muncul pada 孫, 学, 孤, 字. Terkait anak, keturunan, dan belajar.</p></article>
+        <article class="radical"><div class="char">車</div><b>Kendaraan/Roda (車)</b><p>Muncul pada 輸, 転, 軽, 連, 輪. Terkait kendaraan, transportasi, putaran roda.</p></article>
+        <article class="radical"><div class="char">貝</div><b>Kerang/Uang (貝)</b><p>Muncul pada 財, 買, 売, 貿, 費, 賞. Kerang adalah uang zaman dulu → banyak kanji ekonomi.</p></article>
+        <article class="radical"><div class="char">雨</div><b>Hujan/Cuaca (雨)</b><p>Muncul pada 雪, 雷, 霧, 露, 霜. Posisinya selalu di atas kanji.</p></article>
+        <article class="radical"><div class="char">目</div><b>Mata/Penglihatan (目)</b><p>Muncul pada 見, 視, 眠, 眼, 盲. Terkait mata, melihat, dan tidur.</p></article>
+        <article class="radical"><div class="char">刀 / 刂</div><b>Pisau/Memotong (刀/刂)</b><p>刂 di kanan kanji: 切, 別, 利, 到, 判. Terkait memotong dan memisahkan.</p></article>
+        <article class="radical"><div class="char">力</div><b>Kekuatan/Usaha (力)</b><p>Muncul pada 助, 動, 勉, 働, 効. Terkait tenaga, usaha, kerja keras.</p></article>
+        <article class="radical"><div class="char">門</div><b>Gerbang</b><p>Muncul pada 開, 閉, 間, 聞, 問. Apa yang ada di dalam atau di luar pintu.</p></article>
+        <article class="radical"><div class="char">竹 / ⺮</div><b>Bambu</b><p>Muncul pada 笑, 算, 筆, 管, 箱. Banyak benda dari bambu: pena, kotak, tabung.</p></article>
+        <article class="radical"><div class="char">田</div><b>Sawah / ladang</b><p>Muncul pada 男, 留, 界, 略. Terkait lahan persegi yang terbagi.</p></article>
+        <article class="radical"><div class="char">宀</div><b>Atap / rumah</b><p>Muncul pada 家, 室, 宿, 安, 宝. Terkait tempat tinggal dan perlindungan.</p></article>
+        <article class="radical"><div class="char">艹</div><b>Rumput / tanaman</b><p>Muncul pada 花, 草, 茶, 葉, 菜, 薬. Tanaman yang lebih pendek dari pohon.</p></article>
+        <article class="radical"><div class="char">囗</div><b>Pagar / wadah</b><p>Muncul pada 国, 園, 図, 回, 団. Terkait sesuatu yang ada di dalam batas.</p></article>
+        <article class="radical"><div class="char">虫</div><b>Serangga / hewan kecil</b><p>Muncul pada 蛇, 蜂, 蚊, 蝶, 蛙. Terkait serangga dan reptil kecil.</p></article>
+        <article class="radical"><div class="char">足 / ⻊</div><b>Kaki / melangkah</b><p>Muncul pada 走, 路, 踏, 跳, 距. Terkait kaki, berjalan, melompat.</p></article>
+        <article class="radical"><div class="char">山</div><b>Gunung</b><p>Muncul pada 岩, 峰, 崖, 峡. Terkait pegunungan dan topografi tinggi.</p></article>
+        <article class="radical"><div class="char">石</div><b>Batu / mineral</b><p>Muncul pada 岩, 砂, 硬, 碑, 砕. Terkait batu, mineral, kekerasan.</p></article>
+        <article class="radical"><div class="char">白</div><b>Putih / terang</b><p>Muncul pada 明, 百, 泊, 皆, 的. Terkait cahaya, warna putih, kejelasan.</p></article>
+        <article class="radical"><div class="char">耳</div><b>Telinga</b><p>Muncul pada 聞, 聴, 職, 聖. Terkait telinga dan mendengar.</p></article>
+        <article class="radical"><div class="char">走</div><b>Berlari</b><p>Muncul pada 起, 超, 越, 赴. Terkait gerakan cepat atau melampaui sesuatu.</p></article>
+        <article class="radical"><div class="char">頁</div><b>Kepala / halaman</b><p>Muncul pada 頭, 顔, 題, 頼, 類. Terkait kepala, wajah, dan awal sesuatu.</p></article>
+        <article class="radical"><div class="char">馬</div><b>Kuda</b><p>Muncul pada 駅, 騎, 驚, 駆. Stasiun (駅) awalnya adalah pos kuda.</p></article>
+        <article class="radical"><div class="char">彳</div><b>Langkah kecil</b><p>Muncul pada 行, 後, 待, 彼, 得. Terkait pergerakan perlahan atau menunggu.</p></article>
+        <article class="radical"><div class="char">冫</div><b>Es / dingin</b><p>Muncul pada 冬, 冷, 凍, 准. Terkait suhu dingin dan membeku.</p></article>
+        <article class="radical"><div class="char">广</div><b>Gedung / tempat luas</b><p>Muncul pada 広, 庭, 度, 府, 店. Terkait bangunan lebar atau area luas.</p></article>
+        <article class="radical"><div class="char">米</div><b>Beras / padi</b><p>Muncul pada 粉, 精, 糖, 粗, 粒. Terkait beras, tepung, dan bahan makanan pokok.</p></article>
+        <article class="radical"><div class="char">鳥</div><b>Burung</b><p>Muncul pada 鶏, 鴨, 鷹, 鶴. Terkait hewan berbulu yang bisa terbang.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Posisi Radikal</div><h2>Posisi radikal dalam kanji</h2></div><p class="sub">Radikal bisa berubah bentuk tergantung posisinya. Bentuk kecil di kiri sering disebut varian radikal.</p></div>
+      <table class="table">
+        <thead><tr><th>Posisi</th><th>Contoh</th><th>Cara membaca bentuk</th><th>Latihan</th></tr></thead>
+        <tbody>
+          <tr><td>Kiri</td><td class="jp">氵 + 毎 = 海</td><td>Radikal memberi petunjuk tema, bagian kanan sering memberi petunjuk bunyi atau bentuk.</td><td>Cari 10 kanji dengan 氵.</td></tr>
+          <tr><td>Kanan</td><td class="jp">言 + 寺 = 詩</td><td>Bagian kanan bisa menjadi komponen makna atau bunyi.</td><td>Bandingkan 語, 話, 読.</td></tr>
+          <tr><td>Atas</td><td class="jp">艹 + 化 = 花</td><td>Radikal atas sering mengecil agar muat di kotak kanji.</td><td>Kumpulkan kanji dengan 艹.</td></tr>
+          <tr><td>Bawah</td><td class="jp">思 = 田 + 心</td><td>Bagian bawah bisa memberi makna emosi/pikiran.</td><td>Bandingkan 思, 忘, 急.</td></tr>
+          <tr><td>Mengelilingi</td><td class="jp">国, 図, 園</td><td>Radikal luar memberi wadah atau batas.</td><td>Tulis bagian luar dulu sesuai urutan gores.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Alur Belajar</div><h2>Cara belajar kanji lewat komponen</h2></div><p class="sub">Gunakan alur ini untuk kanji baru N4 ke atas, saat jumlah karakter mulai terasa banyak.</p></div>
+      <div class="steps">
+        <div class="step"><b>1. Pecah bentuk</b><span>Lihat radikal utama dan komponen lain. Jangan langsung hafal gambar utuh.</span></div>
+        <div class="step"><b>2. Cari kata</b><span>Temukan 2-3 vocabulary yang memakai kanji itu.</span></div>
+        <div class="step"><b>3. Buat cerita</b><span>Gunakan radikal sebagai mnemonic singkat, bukan cerita terlalu panjang.</span></div>
+        <div class="step"><b>4. Review aktif</b><span>Lihat arti, tulis kanji dari memori, lalu cek detail gores.</span></div>
+      </div>
+      <div class="note">Catatan penting: radikal membantu mengingat, tetapi arti kanji tetap harus dipelajari lewat vocabulary dan konteks kalimat.</div>
+    </div>
+  </section>
+
+<div style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.2rem;font-weight:700;color:#4527a0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz — 理解チェック</h2>
+<div id="qcx"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+<button onclick="nQx()" style="flex:1;padding:12px;background:#4527a0;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit">Soal Berikutnya →</button>
+<button onclick="rQx()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ccc;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qsx" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</div>
+<script>
+var Qx=[{"q": "漢字の「部首（ぶしゅ）」とは何ですか？", "opts": ["漢字の読み方", "漢字を分類するための基本的な構成要素", "漢字の筆順", "漢字の意味"], "a": 1, "e": "部首=漢字を辞書で引く時の分類基準となる構成要素。「木へん(木)」→材・村・林など木に関係する漢字。部首を知ると未知の漢字の意味が推測できる。"}, {"q": "「さんずい(氵)」を部首に持つ漢字の共通点は？", "opts": ["火に関係する", "水・液体に関係することが多い", "山に関係する", "空気に関係する"], "a": 1, "e": "さんずい(氵)=水(水)の変形。水・液体に関係: 海・川・池・泳・泡・液・清・汚など。部首から意味を推測する練習がN2-N1レベルの漢字習得に効果的。"}, {"q": "漢字の「音読み」と「訓読み」の違いは？", "opts": ["同じ", "音読み=中国語由来の読み、訓読み=日本語固有の読み", "音読みは現代語のみ", "訓読みは常に2文字"], "a": 1, "e": "音読み=漢字が中国から伝わった時の発音(漢音・呉音など)。訓読み=漢字の意味に対応する日本語の読み。「山」音読み=さん、訓読み=やま。一つの漢字に複数の読みがある。"}, {"q": "部首「火(ひへん/れっか)」を持つ漢字の例は？", "opts": ["海・河・湖", "炎・焼・熱・燃", "桜・森・枝", "空・雲・電"], "a": 1, "e": "火へん/れっか=火に関係する漢字。炎(ほのお)・焼(やく)・熱(ねつ)・燃(もえる)・灯(とう)など。灬(れっか)はひへんの形が変化したもの。"}, {"q": "「一」「二」「三」は何という部首に分類される？", "opts": ["数字部首", "一部(いちぶ)または画数1の部首", "横線部首", "算数部首"], "a": 1, "e": "「一」は部首「一(いち)」に属する。漢字辞典では画数1の最初の部首として登場。一・丁・七などが含まれる。画数の少ない漢字の分類に使われる。"}];var qix=0,okx=0,totx=0;
+function rndx(){if(!Qx.length)return;var q=Qx[qix%Qx.length],c=document.getElementById('qcx');if(!c)return;var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';q.opts.forEach(function(o,i){var b=document.createElement('button');b.style.cssText='background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;width:100%;text-align:left;font-family:inherit';b.textContent=o;b.onclick=function(){ansx(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0';var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px';qq.textContent=(qix%Qx.length+1)+'. '+q.q;var ex=document.createElement('div');ex.id='qex';ex.style.cssText='margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.85rem;color:#666;display:none';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qsx');if(s)s.textContent='Skor: '+okx+'/'+totx;}
+function ansx(b,c,a,e){var bs=document.querySelectorAll('#qcx button');if(bs[a].dataset.d)return;bs[a].dataset.d='1';totx++;bs[a].style.cssText='background:#e8f5e9;border:1px solid #4caf50;border-radius:8px;padding:10px 14px;cursor:default;font-size:.9rem;width:100%;text-align:left;font-family:inherit;color:#1b5e20';if(c!==a)b.style.cssText='background:#fce4ec;border:1px solid #e91e63;border-radius:8px;padding:10px 14px;cursor:default;font-size:.9rem;width:100%;text-align:left;font-family:inherit;color:#880e4f';else okx++;var ex=document.getElementById('qex');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}var s=document.getElementById('qsx');if(s)s.textContent='Skor: '+okx+'/'+totx;}
+function nQx(){qix=(qix+1)%Qx.length;rndx();} function rQx(){qix=0;okx=0;totx=0;rndx();}
+rndx();
+</script></main>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head">
+      <div><div class="label">Quiz Radikal</div><h2>Tebak Radikal dalam Kanji</h2></div>
+      <p class="sub">Kanji ditampilkan — tebak radikalnya. 10 soal per sesi.</p>
+    </div>
+    <div id="radQuizBox" style="max-width:520px"></div>
+  </div>
+</section>
+
+<script>
+const radQs=[
+  {kanji:'海',q:'Kanji 海 (laut) mengandung radikal apa?',opts:['氵(air)','火(api)','土(tanah)','山(gunung)'],ans:0,exp:'氵 (sanzui) = air mengalir. Muncul di 海,河,泳,波.'},
+  {kanji:'森',q:'Kanji 森 (hutan lebat) mengandung radikal apa?',opts:['草','木(pohon)','竹','山'],ans:1,exp:'木 = pohon. 森 terdiri dari tiga 木 → hutan lebat.'},
+  {kanji:'明',q:'Kanji 明 (terang) terdiri dari radikal apa?',opts:['日+月','目+力','白+人','火+土'],ans:0,exp:'日 (matahari) + 月 (bulan) = 明 (terang).'},
+  {kanji:'男',q:'Kanji 男 (laki-laki) terdiri dari apa?',opts:['田+力','人+土','口+手','山+人'],ans:0,exp:'田 (sawah) + 力 (tenaga/kekuatan) = 男 (laki-laki yang bekerja di sawah).'},
+  {kanji:'言',q:'Kanji 言 (berkata) — radikalnya sendiri. Muncul di kanji mana?',opts:['語,話,読','海,河,泳','森,林,木','山,岩,峰'],ans:0,exp:'言 muncul di 語(bahasa), 話(bicara), 読(baca), 詩(puisi).'},
+  {kanji:'花',q:'Kanji 花 (bunga) mengandung radikal apa di bagian atas?',opts:['木','艹(tanaman)','草','竹'],ans:1,exp:'艹 (kusa-kanmuri) = radikal tanaman/rumput. Muncul di 花,草,茶,葉.'},
+  {kanji:'休',q:'Kanji 休 (istirahat) terdiri dari?',opts:['人+木','女+子','火+水','口+目'],ans:0,exp:'人(orang) bersandar pada 木(pohon) = 休(istirahat).'},
+  {kanji:'見',q:'Kanji 見 (melihat) mengandung radikal apa di bagian atas?',opts:['耳','目(mata)','口','頁'],ans:1,exp:'目 (mata) di atas 儿 (orang berjalan) = orang yang melihat.'},
+  {kanji:'山',q:'Kanji dengan radikal 山 (gunung) adalah?',opts:['岩,岡,峰','森,林,木','池,海,川','花,草,茶'],ans:0,exp:'岩(batu besar), 岡(bukit kecil), 峰(puncak gunung) semuanya mengandung 山.'},
+  {kanji:'母',q:'Kanji 母 (ibu) muncul dalam compound mana?',opts:['母国語,祖母,乳母','父親,兄弟,姉妹','子供,孫,甥','妻,夫,嫁'],ans:0,exp:'母国語(bahasa ibu), 祖母(nenek), 乳母(pengasuh).'},
+  {kanji:'食',q:'Kanji 食 (makan/makanan) muncul dalam?',opts:['食堂,食事,朝食','歩く,走る,泳ぐ','読む,書く,見る','買う,売る,借りる'],ans:0,exp:'食堂(kafetaria), 食事(makan/makanan), 朝食(sarapan).'},
+  {kanji:'水',q:'Radikal 氵 adalah bentuk lain dari 水. Di kanji mana 氵 muncul?',opts:['海,池,泳','岩,峰,山','森,林,木','花,草,茶'],ans:0,exp:'氵 muncul di 海(laut), 池(kolam), 泳(berenang), 波(gelombang).'},
+,
+  {kanji:'明',q:'Kanji 明 (terang/jelas) terdiri dari radikal apa?',opts:['日(matahari)+月(bulan)','火(api)+水(air)','木(pohon)+山(gunung)','土(tanah)+人(orang)'],ans:0,exp:'明 = 日(matahari) + 月(bulan). Keduanya memancarkan cahaya → terang/jelas.'},
+  {kanji:'休',q:'Kanji 休 (istirahat) mengandung radikal apa?',opts:['人+山','人+木','口+木','手+木'],ans:1,exp:'休 = 亻(orang/manusia) + 木(pohon). Orang bersandar di pohon → istirahat.'},
+  {kanji:'晴',q:'Kanji 晴 (cerah) mengandung radikal apa?',opts:['月+青','日+青','水+青','火+青'],ans:1,exp:'晴 = 日(matahari) + 青(biru). Langit biru dengan matahari → cerah.'},
+  {kanji:'語',q:'Kanji 語 (bahasa/kata) mengandung radikal apa?',opts:['言+吾','口+吾','耳+吾','見+吾'],ans:0,exp:'語 = 言(ucapan/perkataan) + 吾(aku). Ucapan dari diri = bahasa/kata.'},
+  {kanji:'読',q:'Kanji 読 (membaca) mengandung radikal apa?',opts:['言+売','口+売','耳+売','目+売'],ans:0,exp:'読 = 言(perkataan) + 売(jual→menjual). Membaca = memproses kata-kata tertulis.'},
+  {kanji:'聞',q:'Kanji 聞 (mendengar) mengandung radikal apa?',opts:['耳+門','目+門','口+門','心+門'],ans:0,exp:'聞 = 耳(telinga) + 門(gerbang). Telinga di balik gerbang → mendengar melalui pintu.'},
+  {kanji:'思',q:'Kanji 思 (berpikir/merasa) mengandung radikal apa?',opts:['田+心','日+心','口+心','土+心'],ans:0,exp:'思 = 田(sawah→kepala) + 心(hati). Kepala dan hati bekerja bersama = berpikir.'},
+  {kanji:'愛',q:'Radikal utama di kanji 愛 (cinta) adalah?',opts:['心(hati)','手(tangan)','目(mata)','口(mulut)'],ans:0,exp:'愛 mengandung 心(こころ = hati). Cinta berasal dari hati. Juga ada 夂(kaki berjalan lambat).'},
+  {kanji:'働',q:'Kanji 働 (bekerja) mengandung radikal apa?',opts:['亻(orang)+動(bergerak)','手+動','足+動','力+動'],ans:0,exp:'働 = 亻(orang) + 動(bergerak). Orang yang bergerak = bekerja. Kanji Jepang asli (国字).'},
+  {kanji:'週',q:'Kanji 週 (minggu) mengandung unsur apa?',opts:['辶(berjalan)+周(keliling)','日+七','月+周','木+周'],ans:0,exp:'週 = 辶(berjalan/jalan) + 周(keliling). Waktu yang berputar/beredar = minggu.'},
+,
+  {kanji:'食',q:'Kanji 食 (makan/makanan) mengandung radikal apa?',opts:['食(makanan/makan)','口(mulut)','米(beras)','土(tanah)'],ans:0,exp:'食 sendiri adalah radikal: makan/makanan. Muncul di 飲食(飲=minum+食=makan), 食事, 食堂.'},
+  {kanji:'林',q:'Kanji 林 (hutan kecil) terdiri dari apa?',opts:['木+木 (dua pohon)','木+水','山+木','土+木'],ans:0,exp:'林 = 木+木. Dua pohon = hutan kecil. Lebih kecil dari 森 (tiga pohon=hutan besar).'},
+  {kanji:'好',q:'Kanji 好 (suka/baik) terdiri dari apa?',opts:['女(wanita)+子(anak)','口+女','手+子','心+子'],ans:0,exp:'好 = 女(wanita) + 子(anak). Wanita dengan anak = kebahagiaan/hal yang baik = suka.'},
+  {kanji:'岩',q:'Kanji 岩 (batu besar/karang) terdiri dari apa?',opts:['山(gunung)+石(batu)','土+石','水+石','山+木'],ans:0,exp:'岩 = 山(gunung) + 石(batu). Batu di gunung = batu besar/karang.'},
+  {kanji:'花',q:'Kanji 花 (bunga) mengandung radikal apa?',opts:['艹(tanaman)+化(berubah)','木+化','草+木','土+木'],ans:0,exp:'花 = 艹(kusa/rumput/tanaman) + 化(berubah). Tanaman yang berubah mekar = bunga.'},
+  {kanji:'空',q:'Kanji 空 (langit/kosong) terdiri dari apa?',opts:['穴(lubang)+工(kerja)','山+白','大+白','雨+白'],ans:0,exp:'空 = 穴(lubang/rongga) + 工(mengerjakan). Kekosongan yang dikerjakan = langit/kosong.'},
+  {kanji:'音',q:'Kanji 音 (suara) terdiri dari apa?',opts:['立(berdiri)+日(matahari)','口+日','耳+日','月+日'],ans:0,exp:'音 = 立(berdiri) + 日(matahari/hari). Bayangan berdiri tegak = nada yang jelas = suara.'},
+  {kanji:'楽',q:'Kanji 楽 (musik/menyenangkan) mengandung unsur apa?',opts:['木(kayu)+白+幺×2','口+木','心+木','土+木'],ans:0,exp:'楽 = 木(kayu/instrumen) di tengah motif ornamen. Instrumen musik → suara menyenangkan → menyenangkan.'},
+  {kanji:'国',q:'Kanji 国 (negara) terdiri dari apa?',opts:['囗(kotak/batas)+玉(permata)','口+大','土+人','山+王'],ans:0,exp:'国 = 囗(batas wilayah) + 玉(permata). Wilayah berisi permata = negara/kerajaan.'},
+  {kanji:'語',q:'Kanji 語 (bahasa/kata) terdiri dari apa?',opts:['言(ucapan)+吾(saya)','口+語','耳+吾','見+言'],ans:0,exp:'語 = 言(言偏 = ucapan) + 吾(saya). Ucapan dari diri = bahasa/kata.'},
+  {kanji:'親',q:'Kanji 親 (orangtua/dekat) terdiri dari apa?',opts:['立+木+見','心+木+日','口+見','耳+木'],ans:0,exp:'親 = 立(berdiri) + 木(pohon) + 見(melihat). Berdiri di pohon untuk melihat = menunggu anak = orangtua.'},
+  {kanji:'週',q:'Kanji 週 (minggu) mengandung unsur apa?',opts:['辶(berjalan)+周(keliling)','日+7','月+周','土+周'],ans:0,exp:'週 = 辶(shinnyuu = jalan/bergerak) + 周(keliling). Waktu yang berputar = satu minggu.'},
+  {kanji:'新',q:'Kanji 新 (baru) terdiri dari apa?',opts:['立+木+斤(kapak)','新+木','口+木','土+斤'],ans:0,exp:'新 = 立+木+斤(kapak). Memotong pohon baru dengan kapak = baru. Muncul di 新聞, 新しい.'},
+  {kanji:'有',q:'Kanji 有 (ada/memiliki) terdiri dari apa?',opts:['ナ(tangan)+月(bulan/daging)','口+月','人+月','土+有'],ans:0,exp:'有 = ナ (tangan yang memberi) + 月 (daging). Memegang daging = memiliki/ada.'},
+  {kanji:'天',q:'Kanji 天 (langit/surga) terdiri dari apa?',opts:['一(satu)+大(besar)','人+大','口+大','山+一'],ans:0,exp:'天 = 一(satu garis/puncak) + 大(besar/orang). Di atas kepala orang yang besar = langit.'},
+  {kanji:'地',q:'Kanji 地 (tanah/bumi) mengandung radikal apa?',opts:['土(tanah)+也(juga)','山+土','水+土','口+土'],ans:0,exp:'地 = 土(tanah) + 也(pembentuk bunyi chi). 土 adalah radikal utama yang bermakna "tanah".'},
+  {kanji:'体',q:'Kanji 体 (tubuh) terdiri dari apa?',opts:['亻(orang)+本(asal/pokok)','人+木','手+骨','足+心'],ans:0,exp:'体 = 亻(ninben = orang) + 本(pokok/asal). Pokok dari seseorang = tubuh.'},
+  {kanji:'電',q:'Kanji 電 (listrik) terdiri dari apa?',opts:['雨(hujan)+申(petir)','日+光','火+水','天+力'],ans:0,exp:'電 = 雨(hujan) + 申(petir). Petir saat hujan = listrik. Muncul di 電話, 電車, 電気.'},
+  {kanji:'道',q:'Kanji 道 (jalan) mengandung radikal apa?',opts:['辶(berjalan)+首(kepala)','山+人','行+土','足+方'],ans:0,exp:'道 = 辶(shinnyuu/berjalan) + 首(kepala/menuju). Berjalan dengan arah tujuan = jalan/cara.'},
+  {kanji:'答',q:'Kanji 答 (jawaban) terdiri dari apa?',opts:['竹(bambu)+合(cocok)','口+合','耳+合','言+合'],ans:0,exp:'答 = 竹(bamboo/tablet bambu) + 合(cocok). Tulisan bambu yang cocok = jawaban.'},
+,
+  {kanji:'思',q:'Kanji 思(おもう/思う) = berpikir/merasa. Tersusun dari?',opts:['田(sawah)+心(hati)','口(mulut)+心(hati)','日(matahari)+心(hati)','土(tanah)+心(hati)'],ans:0,exp:'思 = 田(hatake=ladang, tapi di sini = kepala/otak secara konseptual) + 心(hati/pikiran). Hati yang memikirkan sesuatu = berpikir/merasa.'},
+  {kanji:'明',q:'Kanji 明(あかるい/明る) = terang/jelas. Tersusun dari?',opts:['日(matahari)+月(bulan)','口(mulut)+日(matahari)','火(api)+日(matahari)','日+土'],ans:0,exp:'明 = 日(matahari) + 月(bulan). Dua sumber cahaya = sangat terang. 明る+い = terang, 説明 = penjelasan, 明日 = besok.'},
+  {kanji:'森',q:'Kanji 森(もり) = hutan lebat. Tersusun dari?',opts:['木+木+木 (tiga pohon)','木+木 (dua pohon)','山+木+木','土+木+木'],ans:0,exp:'森 = 木×3. Tiga pohon = hutan lebat. Bandingkan: 木(satu pohon), 林(dua pohon=hutan kecil), 森(tiga pohon=hutan lebat).'},
+  {kanji:'愛',q:'Kanji 愛(あい) = cinta. Mengandung radikal apa di tengah?',opts:['心(hati/perasaan)','手(tangan)','口(mulut)','目(mata)'],ans:0,exp:'愛 mengandung 心 di tengah (dalam bentuk sedikit berbeda). Cinta berasal dari hati. 愛する=mencintai, 愛情=kasih sayang.'},
+  {kanji:'寒',q:'Kanji 寒(さむい) = dingin. Tersusun dari unsur apa di bagian atas?',opts:['宀(atap/rumah)','山(gunung)','雨(hujan)','冬(musim dingin)'],ans:0,exp:'寒 = 宀(atap) + berbagai goresan = di dalam rumah sekalipun terasa dingin. 寒い=dingin, 寒気=rasa dingin/demam.'},
+  {kanji:'暖',q:'Kanji 暖(あたたかい) = hangat. Mengandung radikal apa di kiri?',opts:['日(matahari)','火(api)','心(hati)','水(air)'],ans:0,exp:'暖 = 日(matahari)+bagian kanan. Kehangatan dari matahari. 暖かい=hangat, 暖房=pemanas ruangan, 温暖=hangat.'},
+  {kanji:'飛',q:'Kanji 飛(とぶ) = terbang. Bentuknya menggambarkan apa?',opts:['Burung mengembangkan sayap','Ikan berenang','Orang berlari','Angin berhembus'],ans:0,exp:'飛 menggambarkan visual burung/serangga yang mengembangkan sayap dan terbang. 飛ぶ=terbang, 飛行機=pesawat, 飛び越える=melompati.'},
+  {kanji:'鳥',q:'Kanji 鳥(とり) = burung. Muncul di kanji apa?',opts:['島(pulau),鶴(bangau),鳴(berbunyi)','海(laut),川(sungai),山(gunung)','手(tangan),足(kaki),頭(kepala)','雨(hujan),風(angin),雲(awan)'],ans:0,exp:'鳥 muncul di: 島(しま)=pulau (gunung+鳥), 鶴(つる)=burung bangau, 鳴く(なく)=berbunyi (口+鳥). Banyak kanji hewan punya kaki/komponen binatang.'},
+,
+  {kanji:'国',q:'Kanji 国(くに/コク) = negara. Tersusun dari?',opts:['囗(bingkai/daerah)+玉(berharga/permata)','口(mulut)+土(tanah)','日(matahari)+土(tanah)','囗+木(pohon)'],ans:0,exp:'国 = 囗(kotak=batas wilayah) + 玉(berharga). Negara = wilayah berbatas yang berharga. 国語=bahasa nasional, 外国=negara asing, 国際=internasional.'},
+  {kanji:'語',q:'Kanji 語(かたる/ゴ) = bahasa/kata. Tersusun dari?',opts:['言(kata)+吾(aku)','口(mulut)+語','日(matahari)+言','人(orang)+言'],ans:0,exp:'語 = 言(perkataan) + 吾(aku/pembicara). Bahasa = perkataan dari seseorang. 日本語=bahasa Jepang, 英語=bahasa Inggris, 語る=bercerita.'},
+  {kanji:'親',q:'Kanji 親(おや/シン) = orang tua/akrab. Tersusun dari?',opts:['立(berdiri)+木(pohon)+見(melihat)','手(tangan)+親=dari atas','子(anak)+見(melihat)','木(pohon)+人(orang)'],ans:0,exp:'親 = 立+木(pohon tegak) + 見(melihat). Orang tua = yang terus memandang anaknya dari atas pohon. 親切=kebaikan hati, 親友=teman akrab, 両親=kedua orang tua.'},
+  {kanji:'週',q:'Kanji 週(シュウ) = minggu. Mengandung radikal apa?',opts:['辶(perjalanan/gerak)+土周','日(matahari)+間','月(bulan)+日','辶+周(berkeliling)'],ans:3,exp:'週 = 辶(berjalan/perjalanan) + 周(berkeliling). Satu pekan = perjalanan satu siklus. 今週=minggu ini, 先週=minggu lalu, 来週=minggu depan.'},
+  {kanji:'医',q:'Kanji 医(いしゃ/イ) = dokter/kedokteran. Berasal dari?',opts:['匸(kotak/tempat penyimpanan)+矢(anak panah)','人(orang)+心(hati)','手(tangan)+薬(obat)','口(mulut)+白'],ans:0,exp:'医 = 匸(kotak/wadah) + 矢(anak panah = jarum suntik kuno). Wadah berisi alat medis = kedokteran. 医者=dokter, 医療=pengobatan, 医学=ilmu kedokteran.'},
+];
+
+let rqIdx=0,rqScore=0,rqActive=[];
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+rqActive=shuffleArr([...radQs]).slice(0,10);
+
+function renderRadQ(){
+  const box=document.getElementById('radQuizBox');
+  if(rqIdx>=rqActive.length){
+    box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.5rem;text-align:center">
+      <div style="font-size:32px;font-weight:700;color:var(--red)">${rqScore}/${rqActive.length}</div>
+      <div style="font-size:13px;color:var(--ink-soft);margin:.5rem 0">soal benar</div>
+      <button onclick="rqIdx=0;rqScore=0;rqActive=shuffleArr([...radQs]).slice(0,10);renderRadQ()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">Ulangi</button>
+    </div>`;
+    return;
+  }
+  const q=rqActive[rqIdx];
+  const opts=q.opts.map((o,i)=>`<button onclick="checkRadQ(${i})" style="width:100%;text-align:left;background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;transition:all .15s">${o}</button>`).join('');
+  box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+    <div style="font-size:11px;font-weight:700;color:var(--red);margin-bottom:.5rem">SOAL ${rqIdx+1}/${rqActive.length}</div>
+    <div style="font-family:'Noto Serif JP',serif;font-size:56px;text-align:center;color:var(--ink);margin:.5rem 0 1rem">${q.kanji}</div>
+    <p style="font-size:14px;color:var(--ink);margin-bottom:.75rem">${q.q}</p>
+    <div style="display:grid;gap:.5rem" id="rqOpts">${opts}</div>
+    <div id="rqExp" style="display:none;margin-top:.75rem;padding:.6rem .85rem;background:var(--cream);border-radius:8px;font-size:12px;color:var(--ink-mid)"></div>
+  </div>`;
+}
+function checkRadQ(i){
+  const q=rqActive[rqIdx];
+  const correct=i===q.ans;
+  if(correct)rqScore++;
+  document.querySelectorAll('#rqOpts button').forEach((b,idx)=>{
+    b.disabled=true;
+    if(idx===q.ans)b.style.background='var(--green-pale,#eafaf1)';
+    if(idx===i&&!correct)b.style.background='var(--red-pale)';
+  });
+  const exp=document.getElementById('rqExp');
+  exp.style.display='block';exp.innerHTML=`${correct?'✓':'✗'} ${q.exp}`;exp.style.color=correct?'var(--red)':'var(--ink-mid)';
+  setTimeout(()=>{rqIdx++;renderRadQ();},1600);
+}
+renderRadQ();
+</script>
+<script src="../assets/pro-app.min.js" defer></script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      
+  </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html>

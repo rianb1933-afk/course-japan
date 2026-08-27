@@ -1,0 +1,148 @@
+/* Nihonggo Pro Academy — Anime Classroom Theme (anime-theme.css)
+   ───────────────────────────────────────────────────────────────────
+   Semua rule di-scope ke [data-np-theme="anime"] agar tema default
+   (Kyoto) tidak terpengaruh sama sekali. Layer background dibuat murni
+   CSS gradient (tanpa gambar berat). Warna: hijau papan tulis, coklat
+   kayu, cream, kuning matahari, sedikit merah sakura. */
+
+/* ── Palet tema ── */
+[data-np-theme="anime"] {
+  --an-board: #2F5D50;        /* hijau papan tulis */
+  --an-board-deep: #234A40;
+  --an-wood: #8B5E3C;         /* coklat kayu meja */
+  --an-wood-light: #A9764F;
+  --an-cream: #FBF6EA;
+  --an-sun: #FFD98A;
+  --an-sakura: #E8A0A8;
+  --an-chalk: #F4F1E6;        /* putih kapur */
+  --an-sky-top: #9CCBEF;
+  --an-sky-bot: #DDEFFA;
+}
+
+/* Waktu hari mengubah langit (data-np-tod di <html>) */
+[data-np-tod="morning"][data-np-theme="anime"],
+[data-np-theme="anime"] { --an-sky-top:#9CCBEF; --an-sky-bot:#E8F4FC; }
+html[data-np-tod="afternoon"] [data-np-theme="anime"],
+[data-np-theme="anime"][data-np-tod="afternoon"] { --an-sky-top:#7FB8E8; --an-sky-bot:#D6ECFA; }
+html[data-np-tod="sunset"] [data-np-theme="anime"],
+[data-np-theme="anime"][data-np-tod="sunset"] { --an-sky-top:#F2A65A; --an-sky-bot:#F8D9A0; }
+html[data-np-tod="night"] [data-np-theme="anime"],
+[data-np-theme="anime"][data-np-tod="night"] { --an-sky-top:#1C2A44; --an-sky-bot:#2E4266; --an-sun:#E8ECF4; }
+
+/* ── Latar halaman: biarkan layer #npAnimeBg terlihat ── */
+body[data-np-theme="anime"] {
+  background: transparent !important;
+}
+
+/* Layer background (dibuat anime-background.js) */
+#npAnimeBg {
+  position: fixed; inset: 0; z-index: -2; overflow: hidden;
+  pointer-events: none;
+}
+/* L1: langit */
+#npAnimeBg .an-sky {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, var(--an-sky-top), var(--an-sky-bot) 70%);
+  transition: background 2s ease;
+}
+/* Matahari kiri-atas (bulan saat malam) */
+#npAnimeBg .an-sun {
+  position: absolute; top: 6%; left: 7%; width: 120px; height: 120px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--an-sun) 0%, rgba(255,217,138,.35) 55%, transparent 72%);
+  filter: blur(1px);
+}
+/* L3: bingkai jendela kelas */
+#npAnimeBg .an-window {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, transparent calc(33% - 5px), rgba(139,94,60,.5) calc(33% - 5px), rgba(139,94,60,.5) calc(33% + 5px), transparent calc(33% + 5px)),
+    linear-gradient(90deg, transparent calc(66% - 5px), rgba(139,94,60,.5) calc(66% - 5px), rgba(139,94,60,.5) calc(66% + 5px), transparent calc(66% + 5px)),
+    linear-gradient(0deg, transparent calc(50% - 5px), rgba(139,94,60,.5) calc(50% - 5px), rgba(139,94,60,.5) calc(50% + 5px), transparent calc(50% + 5px));
+  opacity: .35;
+}
+/* Tirai kiri & kanan */
+#npAnimeBg .an-curtain {
+  position: absolute; top: 0; width: 90px; height: 62%;
+  background: linear-gradient(180deg, rgba(251,246,234,.92), rgba(251,246,234,.55));
+  box-shadow: inset -12px 0 18px rgba(0,0,0,.05);
+  transform-origin: top center;
+}
+#npAnimeBg .an-curtain.left { left: 0; border-radius: 0 0 60% 0; }
+#npAnimeBg .an-curtain.right { right: 0; border-radius: 0 0 0 60%; box-shadow: inset 12px 0 18px rgba(0,0,0,.05); }
+/* L5: meja kayu di bawah */
+#npAnimeBg .an-desk {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 88px;
+  background:
+    repeating-linear-gradient(90deg, rgba(0,0,0,.045) 0 2px, transparent 2px 90px),
+    linear-gradient(180deg, var(--an-wood-light), var(--an-wood));
+  border-top: 4px solid rgba(0,0,0,.12);
+}
+#npAnimeBg .an-desk .an-props {
+  position: absolute; right: 4%; bottom: 14px; font-size: 30px;
+  letter-spacing: 10px; opacity: .9; pointer-events: auto; user-select: none;
+}
+#npAnimeBg .an-desk .an-props span { display: inline-block; transition: transform .25s ease; }
+#npAnimeBg .an-desk .an-props span:hover { transform: translateY(-6px) rotate(-4deg); }
+
+/* Malam: interior hangat */
+html[data-np-tod="night"] #npAnimeBg .an-desk { filter: brightness(.85); }
+html[data-np-tod="night"] #npAnimeBg .an-window { opacity: .5; }
+
+/* ── Jam dinding (anime-clock.js) ── */
+#npAnimeClock {
+  position: fixed; top: 74px; right: 14px; z-index: 40;
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--an-cream);
+  border: 4px solid var(--an-wood);
+  box-shadow: 0 4px 14px rgba(0,0,0,.18);
+}
+#npAnimeClock .hand {
+  position: absolute; left: 50%; bottom: 50%; transform-origin: bottom center;
+  background: #3a3a3a; border-radius: 2px;
+}
+#npAnimeClock .h { width: 3px; height: 16px; margin-left: -1.5px; }
+#npAnimeClock .m { width: 2px; height: 22px; margin-left: -1px; }
+#npAnimeClock .s { width: 1px; height: 24px; margin-left: -.5px; background: #A63A3A; }
+#npAnimeClock .pin { position: absolute; left: 50%; top: 50%; width: 6px; height: 6px;
+  margin: -3px 0 0 -3px; border-radius: 50%; background: var(--an-wood); }
+@media (max-width: 640px) { #npAnimeClock { display: none; } } /* hemat ruang mobile */
+
+/* ── Kartu bergaya kertas + aksen kayu ── */
+[data-np-theme="anime"] .card,
+[data-np-theme="anime"] .panel {
+  background: var(--an-cream);
+  border: 1px solid rgba(139,94,60,.28);
+  box-shadow: 0 6px 18px rgba(60,40,20,.10);
+}
+
+/* Papan tulis: elemen hero/header gelap jadi chalkboard */
+[data-np-theme="anime"] .hero,
+[data-np-theme="anime"] .an-chalkboard {
+  background: linear-gradient(180deg, var(--an-board), var(--an-board-deep)) !important;
+  border-bottom: 10px solid var(--an-wood);
+  color: var(--an-chalk);
+}
+[data-np-theme="anime"] .hero h1 { color: var(--an-chalk); text-shadow: 0 1px 0 rgba(0,0,0,.25); }
+
+/* Aksen sakura kecil di navbar */
+[data-np-theme="anime"] .kn-link.is-active,
+[data-np-theme="anime"] .kn-link:hover { color: var(--an-sakura); }
+
+/* ── AI Sensei mascot ── */
+#npSensei {
+  position: fixed; right: 16px; bottom: 84px; z-index: 45;
+  width: 64px; height: 64px; cursor: pointer; border: none; background: none; padding: 0;
+}
+#npSensei svg { width: 100%; height: 100%; filter: drop-shadow(0 4px 10px rgba(0,0,0,.2)); }
+#npSenseiSay {
+  position: fixed; right: 88px; bottom: 92px; z-index: 45; max-width: 240px;
+  background: var(--an-cream); color: #3a3a3a; border: 2px solid var(--an-wood);
+  border-radius: 14px 14px 4px 14px; padding: 10px 14px; font-size: 13px; line-height: 1.5;
+  box-shadow: 0 6px 18px rgba(0,0,0,.15); display: none;
+}
+#npSenseiSay.show { display: block; }
+@media (max-width: 640px) { #npSensei { bottom: 76px; } #npSenseiSay { bottom: 84px; } }
+
+/* Konten di atas layer */
+[data-np-theme="anime"] main, [data-np-theme="anime"] .wrap { position: relative; z-index: 1; }

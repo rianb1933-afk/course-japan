@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Prosedur Darurat Kaigo 緊急時対応完全ガイド | Nihonggo Pro Academy</title>
+<meta name="description" content="CPR · AED · 誤嚥 · 転倒 · 骨折 · 急変時の報告 — Nihonggo Pro Academy">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Emergency.html">
+<meta property="og:title" content="Prosedur Darurat Kaigo 緊急時対応完全ガイド — Nihonggo Pro Academy">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["急変", "kyuhen", "perburukan mendadak"], ["心肺蘇生", "shinpai sosei", "CPR"], ["AED", "AED", "defibrillator"], ["ナースコール", "naasu kooru", "bel perawat"], ["誤嚥", "goen", "aspirasi"], ["119番", "hyaku-juukyu ban", "nomor darurat"], ["回復体位", "kaifuku tai-i", "posisi pemulihan"], ["気道確保", "kido kakuho", "bebaskan jalan napas"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#b71c1c">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+*{box-sizing:border-box}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,#b71c1c,#c62828);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 6px;font-family:"Noto Serif JP",serif;line-height:1.3}
+.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.78rem;margin-bottom:10px}
+.sub{font-size:.85rem;opacity:.85;margin-top:6px}
+.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:14px 0}
+.sec h2{font-size:1rem;font-weight:700;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08);color:#b71c1c}
+.st{font-size:1.1rem;font-weight:700;margin:24px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08);color:#b71c1c}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
+.tbl th{padding:8px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05);font-weight:600}
+.tbl td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.06);vertical-align:top;line-height:1.5}
+.tip{background:#f0faf0;border-left:3px solid #43a047;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0;line-height:1.6}
+.warn{background:#fff3e0;border-left:3px solid #ff9800;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
+.err{background:#fce4ec;border-left:3px solid #e91e63;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
+.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
+.card .det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.82rem;color:#555;line-height:1.7}
+.card.open .det{display:block}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.kv{background:#f5f5f5;border-radius:8px;padding:10px 12px;font-size:.84rem}
+.kv b{display:block;margin-bottom:3px}
+.qbox{background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:12px 0}
+.qnum{font-size:.72rem;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px;background:#b71c1c}
+.qq{font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5}
+.qopts{display:grid;gap:8px}
+.qopt{background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
+.qopt:hover{background:rgba(0,0,0,.04)}
+.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Prosedur Darurat Kaigo 緊急時対応完全ガイド | Nihonggo Pro Academy", "description": "CPR · AED · 誤嚥 · 転倒 · 骨折 · 急変時の報告 — Nihonggo Pro Academy", "url": "https://nihonggopro.id/Materi/Kaigo-Emergency.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="CPR · AED · 誤嚥 · 転倒 · 骨折 · 急変時の報告 — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Emergency.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Prosedur Darurat Kaigo 緊急時対応完全ガイド">
+<meta name="twitter:description" content="CPR · AED · 誤嚥 · 転倒 · 骨折 · 急変時の報告 — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">🏥 介護</span><h1>Prosedur Darurat Kaigo 緊急時対応完全ガイド</h1><p class="sub">CPR · AED · 誤嚥 · 転倒 · 骨折 · 急変時の報告</p></div>
+<div class="wrap" style="padding-top:20px">
+
+<div class="err">🚨 緊急時の原則: <b>自分の安全確保 → 安全確認 → 119番/看護師報告 → 応急処置</b>。医療処置は資格のある職員に任せ、介護職は「観察・報告・環境整備」が最重要役割。</div>
+
+<div class="sec">
+<h2>❤️ 心肺蘇生(CPR)の基本</h2>
+<div class="warn">⚠️ 介護福祉士はCPRの講習を受けていることが前提。実施は施設のルール・家族の意向(DNR)を確認してから。</div>
+<table class="tbl">
+<tr><th>ステップ</th><th>アクション</th><th>ポイント</th></tr>
+<tr><td>①安全確認</td><td>周囲の安全を確認(自分が危険な場所にいないか)</td><td>まず自分の安全が最優先</td></tr>
+<tr><td>②反応確認</td><td>「大丈夫ですか？」と大声+肩をたたく</td><td>反応なし→次のステップへ</td></tr>
+<tr><td>③119番・AED手配</td><td>大声で「119番とAEDをお願いします！」</td><td>一人の時は先に119番</td></tr>
+<tr><td>④呼吸確認</td><td>10秒以内で胸の上がり下がりを確認</td><td>「死戦期呼吸(ガスピング)」も無呼吸と判断</td></tr>
+<tr><td>⑤胸骨圧迫</td><td>胸の中央を5-6cm、100-120回/分で圧迫</td><td>「ビーキ・ジー」のリズム or 押し歌</td></tr>
+<tr><td>⑥AED</td><td>電源ON→音声指示に従う→ショック後すぐ再開</td><td>ショック中は誰も触れない!</td></tr>
+</table>
+</div>
+
+<div class="sec">
+<h2>🍴 誤嚥・窒息への対応</h2>
+<div class="g2">
+<div class="card"><b>意識あり・窒息</b>
+<div class="det">
+① 「詰まりましたか？」と確認<br>
+② <b>ハイムリッヒ法</b>: 後ろから腕を回し、みぞおち上に両手を当てて素早く引き上げる<br>
+③ 乳幼児・妊婦・高度肥満者には背部叩打法<br>
+④ 吐き出せたら口腔内確認<br>
+⑤ 高齢者・骨粗鬆症→肋骨骨折リスクあり→力加減注意
+</div></div>
+<div class="card"><b>意識なし・窒息</b>
+<div class="det">
+① 即119番<br>
+② CPR開始(胸骨圧迫で異物が出ることがある)<br>
+③ 異物が見えたら指でかき出す(見えない場合は盲目的に探らない)<br>
+④ AED到着次第使用
+</div></div>
+<div class="card"><b>「むせ」の見分け方</b>
+<div class="det">
+軽度のむせ: 咳ができる→「咳を続けてください」と声かけ<br>
+重度: 咳ができない・声が出ない・顔色チアノーゼ→ハイムリッヒ法<br>
+毎回のむせ→嚥下評価依頼
+</div></div>
+<div class="card"><b>誤嚥防止の再確認</b>
+<div class="det">
+食事体位の確認(90度座位)<br>
+食形態の確認(嚥下レベルに合っているか)<br>
+食事ペース(急がせていないか)<br>
+口腔ケアの実施状況
+</div></div>
+</div>
+</div>
+
+<div class="sec">
+<h2>🦴 転倒・骨折時の対応</h2>
+<table class="tbl">
+<tr><th>状況</th><th>対応</th><th>注意</th></tr>
+<tr><td>転倒直後</td><td>「大丈夫ですか？」→意識・出血確認→すぐ動かさない</td><td>骨折があれば動かすと悪化</td></tr>
+<tr><td>骨折が疑われる時</td><td>動かさず固定・保温→看護師→119番判断</td><td>大腿骨頸部骨折最多</td></tr>
+<tr><td>頭部打撲</td><td>意識確認・吐き気・瞳孔確認→即報告</td><td>遅延して症状出ることあり</td></tr>
+<tr><td>記録</td><td>いつ・どこで・何をしていた・どう倒れた・傷の状態</td><td>5W1Hで客観的に</td></tr>
+</table>
+<div class="err">⚠️ 「転倒させてしまった」と隠さず即報告。隠蔽は重大な倫理違反。報告→記録→再発防止策が正しいプロセス。</div>
+</div>
+
+<div class="sec">
+<h2>📞 急変時の報告 — SBARフォーマット</h2>
+<table class="tbl">
+<tr><th>S - Situation</th><th>「〇〇様が〜の状態です」(今何が起きているか)</th></tr>
+<tr><th>B - Background</th><th>「普段は〜ですが」「〜の既往があります」(背景情報)</th></tr>
+<tr><th>A - Assessment</th><th>「私は〜だと思います」(介護職としての観察評価)</th></tr>
+<tr><th>R - Recommendation</th><th>「すぐ来ていただけますか / 119番しますか」(何が必要か)</th></tr>
+</table>
+<div class="tip">💡 例: 「S: 田中様が突然胸を押さえて苦しそうです。B: 心臓病の既往あります。A: 心筋梗塞の可能性があると思います。R: 119番しますか？すぐ来てください!」</div>
+</div>
+
+<h2 style="font-size:1.2rem;font-weight:700;color:#b71c1c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<div class="pg-vocab" id="pg"></div>
+
+
+<!-- enriched-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:#b71c1c;margin:0 0 12px;font-size:1rem;font-weight:700">🚨 緊急対応フローチャート</h3><div style="font-size:.88rem;line-height:2"><b>① 発見</b>: 倒れている、呼びかけに応じない<br><b>② 安全確認</b>: 周囲の安全を確認（転落・感電の危険がないか）<br><b>③ 意識確認</b>: 「田中さん、聞こえますか？」と呼びかけ・肩をたたく<br><b>④ ナースコール</b>: 応じなければ即ナースコール・119番<br><b>⑤ 呼吸確認</b>: 胸の動きを10秒以内で確認<br><b>⑥ AED</b>: 呼吸なし→AEDと胸骨圧迫（訓練を受けた場合）<br><b>⑦ 記録</b>: 発見時刻・状態・対応をメモ</div><div style="background:rgba(0,0,0,.04);border-left:3px solid #b71c1c;padding:12px 15px;border-radius:0 10px 10px 0;font-size:.87rem;margin:12px 0;line-height:1.7">⚠️ 「頭部後屈・あご先挙上」は呼吸確認・気道確保に使う。素人は胸骨圧迫を優先。</div></div></div>
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#b71c1c;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #ffebee">💬 緊急対応の実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#b71c1c;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #ffebee">🚨 Dialog 1 — 転倒発見時の対応</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">山田さん！大丈夫ですか？（ナースコールを押しながら）今、動かないでください。<button aria-label="Ucapkan: 山田さん！大丈夫ですか？（ナースコールを押しながら）今、動か…" onclick="speak('山田さん！大丈夫ですか？（ナースコールを押しながら）今、動かないでください。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Pak Yamada! Baik-baik saja? (Sambil tekan bel perawat) Jangan bergerak dulu.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">（看護師へ）山田様が廊下で転倒されました。右膝に痛みを訴えています。意識は清明、バイタルは今から測定します。至急来てください。<button aria-label="Ucapkan: （看護師へ）山田様が廊下で転倒されました。右膝に痛みを訴えて…" onclick="speak('（看護師へ）山田様が廊下で転倒されました。右膝に痛みを訴えています。意識は清明、バイタルは今から測定します。至急来てください。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">(ke perawat) Pak Yamada jatuh di koridor. Mengeluh nyeri lutut kanan. Kesadaran baik, vital sedang diukur. Mohon segera ke sini.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#b71c1c;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #ffebee">🫀 Dialog 2 — 急変対応</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">田中さん、顔色が悪いですね。気分はどうですか？<button aria-label="Ucapkan: 田中さん、顔色が悪いですね。気分はどうですか？" onclick="speak('田中さん、顔色が悪いですね。気分はどうですか？')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Bu Tanaka, wajahnya pucat. Bagaimana perasaannya?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">（弱々しく）胸が…苦しくて。<button aria-label="Ucapkan: （弱々しく）胸が…苦しくて。" onclick="speak('（弱々しく）胸が…苦しくて。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">(Lemah) Dada... sesak.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">（すぐナースコール）看護師さん！田中様が胸苦しさを訴えています！SpO₂をはかります！<button aria-label="Ucapkan: （すぐナースコール）看護師さん！田中様が胸苦しさを訴えていま…" onclick="speak('（すぐナースコール）看護師さん！田中様が胸苦しさを訴えています！SpO₂をはかります！')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">(Segera tekan bel) Suster! Bu Tanaka mengeluh sesak dada! Saya ukur SpO2!</div></div></div></div></div>
+<h2 class="st">🧠 Latihan Soal & Pembahasan</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<button onclick="nQ()" style="flex:1;padding:12px;background:#b71c1c;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit">Soal Berikutnya →</button>
+<button onclick="rQ()" style="padding:12px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">🔄 Reset</button>
+</div>
+<p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</div><section style="padding:16px;max-width:860px;margin:20px auto">
+<h2 style="font-size:1rem;color:#b71c1c;border-bottom:3px solid #b71c1c;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 緊急時対応</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('緊急事態')" title="クリックで発音">🔊 緊急事態</div>
+  <div style="font-size:.8rem;color:#777">kinkyū jitai</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">situasi darurat</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('心肺蘇生')" title="クリックで発音">🔊 心肺蘇生</div>
+  <div style="font-size:.8rem;color:#777">shinpai sosei</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">resusitasi jantung-paru (CPR)</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('AED')" title="クリックで発音">🔊 AED</div>
+  <div style="font-size:.8rem;color:#777">AED</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">defibrilator otomatis</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('一次救命処置')" title="クリックで発音">🔊 一次救命処置</div>
+  <div style="font-size:.8rem;color:#777">ichiji kyūmei shochi</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">bantuan hidup dasar (BLS)</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('意識確認')" title="クリックで発音">🔊 意識確認</div>
+  <div style="font-size:.8rem;color:#777">ishiki kakunin</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">pemeriksaan kesadaran</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('呼吸確認')" title="クリックで発音">🔊 呼吸確認</div>
+  <div style="font-size:.8rem;color:#777">kokkyū kakunin</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">pemeriksaan pernapasan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('胸骨圧迫')" title="クリックで発音">🔊 胸骨圧迫</div>
+  <div style="font-size:.8rem;color:#777">kyōkotsu asshaku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kompresi dada</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('人工呼吸')" title="クリックで発音">🔊 人工呼吸</div>
+  <div style="font-size:.8rem;color:#777">jinkō kokyū</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">pernapasan buatan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('119番')" title="クリックで発音">🔊 119番</div>
+  <div style="font-size:.8rem;color:#777">hyaku-jū-kyū-ban</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">nomor darurat 119</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('ショック症状')" title="クリックで発音">🔊 ショック症状</div>
+  <div style="font-size:.8rem;color:#777">shokku shōjō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">gejala syok</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('窒息')" title="クリックで発音">🔊 窒息</div>
+  <div style="font-size:.8rem;color:#777">chissoku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">tersedak / aspirasi total</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('ハイムリック法')" title="クリックで発音">🔊 ハイムリック法</div>
+  <div style="font-size:.8rem;color:#777">haimuriku-hō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">manuver Heimlich</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('骨折')" title="クリックで発音">🔊 骨折</div>
+  <div style="font-size:.8rem;color:#777">kossetsu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">patah tulang</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('転倒')" title="クリックで発音">🔊 転倒</div>
+  <div style="font-size:.8rem;color:#777">tentō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">jatuh</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('脳卒中')" title="クリックで発音">🔊 脳卒中</div>
+  <div style="font-size:.8rem;color:#777">nōsocchū</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">stroke</div>
+</div>
+</div></section></main>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+var Q=[{"q": "CPR(胸骨圧迫)の正しいテンポは？", "opts": ["50-60回/分", "100-120回/分", "200回以上/分", "自由なテンポ"], "a": 1, "e": "胸骨圧迫のテンポ=100-120回/分(ガイドライン2020)。「スタービリー・ジー」のリズム、または「アンパンマンのマーチ」「蛍の光」などの歌に合わせると覚えやすい。"}, {"q": "ハイムリッヒ法が使えない対象者は？", "opts": ["高齢者", "乳児・妊婦・高度肥満者(背部叩打法を使う)", "全員に使える", "男性のみ"], "a": 1, "e": "ハイムリッヒ法禁忌: 乳幼児・妊婦・高度肥満者。これらの対象には背部叩打法(背中を叩く)を使用。高齢者には骨粗鬆症による肋骨骨折リスクがあるため力加減に注意。"}, {"q": "「死戦期呼吸(ガスピング)」を確認した時はどうするか？", "opts": ["呼吸があるので待つ", "無呼吸と判断してCPRを開始する", "様子を見る", "水を飲ませる"], "a": 1, "e": "死戦期呼吸=agonal breathing=心停止直後に起きる不規則なあえぎ呼吸。「呼吸している」と誤認してはいけない。無呼吸と判断してCPRを即開始する。"}, {"q": "転倒直後に骨折が疑われる時の最初の対応は？", "opts": ["すぐ動かして椅子へ", "無理に動かさず固定・保温し看護師に報告する", "水を飲ませる", "マッサージする"], "a": 1, "e": "骨折疑い時: 無理に動かすと骨折部位がずれて神経・血管を傷つける危険。その場で安静・保温(衝撃で体温低下)→看護師報告→救急判断。特に大腿骨頸部骨折は多く、動かすと致命的になる場合も。"}, {"q": "「SBAR」の「A(Assessment)」で介護職が伝えるのは？", "opts": ["利用者の名前", "介護職としての観察に基づく評価・判断(〜の可能性があると思います)", "次の予定", "過去の記録のみ"], "a": 1, "e": "SBAR A=Assessment=介護職としての観察評価。「心筋梗塞の可能性があると思います」「脳卒中のサインに見えます」など。専門的判断ではなく観察に基づく評価を伝える。これで医療職が迅速に判断できる。"}, {"q": "転倒を発見した時に「隠す」ことが絶対にダメな理由は？", "opts": ["怖いから", "倫理違反・法的問題・利用者への二次被害リスクがあるから", "面倒だから", "家族が怒るから"], "a": 1, "e": "転倒の隠蔽=重大な倫理違反。①利用者が骨折等の怪我を見逃される危険 ②法的問題(業務上過失) ③インシデント報告義務違反。「報告→記録→分析→再発防止」が唯一正しいプロセス。"}, {"q": "AEDのショックを与える時に必ず確認することは？", "opts": ["自分が持っていること", "その場にいる全員が患者に触れていないこと(離れていること)", "乾燥していること", "日付"], "a": 1, "e": "AED除細動時: 「全員離れてください!」と確認。電気が通電している人に触れると感電の危険。「私は離れています、皆さんも離れていますか?」と声で確認してからボタンを押す。"}, {"q": "利用者が突然意識を失った場合の正しい初期対応の順序は？", "opts": ["食事を提供する", "安全確認→呼びかけ→反応なし→助けを呼ぶ(ナースコール/119)→AED→一次救命処置(BLS)", "記録から始める", "家族に連絡してから対応する"], "a": 1, "e": "意識消失時の対応：①安全確認②肩を叩いて呼びかけ③反応なし→大声で助けを呼ぶ・ナースコール・119番④AEDを持ってくるよう依頼⑤呼吸確認⑥心肺蘇生(BLS)開始。「叫ぶ→助けを呼ぶ→BLS」の流れを覚える。"}, {"q": "AEDのパッドを貼る位置として正しいのはどれか。", "opts": ["胸の右上と左下側", "背中のみ", "頭部", "足のみ"], "a": 0, "e": "AEDのパッド（電極）は胸の右上（鎖骨の下あたり）と、左下の脇腹に近い位置に貼るのが標準。パッド自体にイラストで貼付位置が印刷されているため、慌てず確認しながら貼ることができる。背中や頭部、足に貼っても電流が心臓を通過せず全く効果がない。汗や水で胸が濡れている場合は、貼る前にタオルで拭き取ることも忘れてはならない。"}, {"q": "熱中症が疑われる利用者への初期対応はどれか。", "opts": ["涼しい場所へ移動し体を冷やす", "温める", "運動させる", "放置する"], "a": 0, "e": "熱中症が疑われたら、まず涼しい場所（日陰やエアコンの効いた室内）へ移動させ、衣服を緩めて首・脇の下・そけい部などの太い血管が通る部分を冷やす。同時に水分・塩分の補給を促す（意識が明瞭な場合のみ）。温める・運動させる対応は体温をさらに上げてしまい危険。意識障害や高体温が続く場合は救急要請が必要。"}, {"q": "骨折が疑われる場合の応急対応はどれか。", "opts": ["患部を動かさず固定し医療機関へ連絡", "無理に動かす", "マッサージする", "放置する"], "a": 0, "e": "骨折が疑われるときは、無理に動かさず患部を固定し、医療機関へ速やかに連絡することが基本。骨折部位を動かすと、骨の破片が周囲の神経や血管を傷つける危険があるため、マッサージや無理な牽引は厳禁。冷却・保温にも配慮しながら、看護師や救急への報告・判断を仰ぐ。"}, {"q": "意識のない利用者を発見したときの体位はどれか。", "opts": ["回復体位(側臥位)で気道確保", "仰向けのまま", "うつ伏せ", "座らせる"], "a": 0, "e": "意識はないが呼吸がある場合は、回復体位（側臥位）をとらせることで、嘔吐物や分泌物による誤嚥・窒息を防ぐことができる。仰向けのままでは吐いたものが気道に流れ込む危険があり、うつ伏せでは呼吸状態の観察がしづらい。座らせるのは体を支える力がない状態では不適切で転倒の危険もある。"}, {"q": "地震発生時、介護職がまず行うべきことはどれか。", "opts": ["利用者の安全確保と身を守る行動", "走って外へ出る", "記録を優先する", "電話をかける"], "a": 0, "e": "地震が起きた瞬間は、まず利用者の安全確保（頭を守る、落下物から離れる等）を最優先し、揺れが収まるまで無理に移動させない。慌てて外へ走り出ると転倒や落下物での負傷リスクが高まる。揺れが収まった後に、火の元確認・利用者の安否確認・避難の要否判断へと進む。"}, {"q": "食物アレルギーによるアナフィラキシーの兆候はどれか。", "opts": ["呼吸困難・じんましん・血圧低下", "食欲増進", "眠気のみ", "便秘"], "a": 0, "e": "アナフィラキシーは呼吸困難、じんましんなどの皮膚症状、血圧低下（ショック状態）が急速に進行する重篤なアレルギー反応。数分から数十分で命に関わる状態になり得るため、症状に気づいたら直ちに救急要請し、エピペン等の緊急薬があれば使用の判断を仰ぐ。食欲増進や便秘は無関係な選択肢。"}, {"q": "転倒直後、まず確認すべきことはどれか。", "opts": ["意識・呼吸・出血の有無", "服の汚れ", "時間", "周囲の反応"], "a": 0, "e": "転倒直後はまず意識の有無、呼吸の状態、出血の有無を確認する。これらは生命に直結する情報であり、最優先で観察すべき項目。服の汚れや周囲の反応といった情報は二次的なものであり、まず本人の状態把握を優先しなければ重大な見落としにつながる。"}, {"q": "緊急時の連絡体制で重要なことはどれか。", "opts": ["緊急連絡先リストを常に最新に保つ", "連絡先は不要", "記憶に頼る", "家族任せにする"], "a": 0, "e": "緊急連絡先リスト（家族・医療機関・救急）を常に最新の状態に保つことが、いざという時に迅速な対応を可能にする。連絡先が古い・間違っていると、必要な人に連絡が取れず対応が遅れてしまう。記憶に頼る、家族任せにするといった対応では緊急時に機能しない。"}, {"q": "停電時の医療機器使用者への対応はどれか。", "opts": ["非常用電源の確保と医療機関への連絡", "無視する", "電池を抜く", "様子を見るだけ"], "a": 0, "e": "在宅酸素療法など医療機器を使用している利用者がいる場合、停電時は非常用電源（バッテリー・発電機等）の確保と、速やかな医療機関への連絡が必要。機器が止まると生命に直結するため、平常時から非常用電源の点検・訓練をしておくことが重要。無視や放置は命に関わる。"}, {"q": "救急搬送時に同行者が伝えるべき情報はどれか。", "opts": ["既往歴・服薬内容・発症時の状況", "天気", "職員の名前のみ", "無関係な情報"], "a": 0, "e": "救急隊には、既往歴（持病）・服薬内容・発症時の状況（いつ・どのように・何をしていたか）を正確に伝えることが、搬送先での迅速な処置判断に直結する。天気や職員の名前など無関係な情報ではなく、医学的に重要な情報を整理して簡潔に伝える準備が必要。"}, {"q": "感染症が疑われる利用者への緊急対応はどれか。", "opts": ["隔離と防護具着用で拡大を防ぐ", "通常通り対応", "無視する", "他の利用者と接触させる"], "a": 0, "e": "感染症が疑われる場合は、他の利用者への感染拡大を防ぐため隔離（個室対応）し、対応する職員は防護具（マスク・手袋・ガウン等）を着用する。通常通りの対応や他の利用者との接触の継続は、施設全体への感染拡大を招く危険がある。"}, {"q": "誤嚥による窒息時、意識があるうちに行う対応はどれか。", "opts": ["咳を促し出せない場合は背部叩打法を行う", "水を飲ませる", "仰向けに寝かせる", "様子を見るだけ"], "a": 0, "e": "意識がある窒息では、まず咳を促す（咳ができれば異物を自力で排出できる可能性が高い）。咳ができない・声が出ない場合は、ハイムリッヒ法（後ろから腹部を圧迫し押し上げる）や背部叩打法を行う。高齢者や骨粗鬆症の人には力加減に注意し、肋骨骨折等の二次被害を防ぐ。"}],qi=0,ok=0,tot=0;
+function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;
+var oo=document.createElement('div');oo.className='qopts';
+q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';
+b.textContent=String.fromCharCode(65+i)+'. '+o;
+b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});
+var bx=document.createElement('div');bx.className='qbox';
+var qn=document.createElement('div');qn.className='qnum';qn.textContent='Soal '+(qi%Q.length+1)+' / '+Q.length;
+var qq=document.createElement('div');qq.className='qq';qq.textContent=q.q;
+var ex=document.createElement('div');ex.className='qexp';ex.id='qe';
+bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
+c.innerHTML='';c.appendChild(bx);
+var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;
+bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');
+if(c!==a)b.classList.add('wrong');else ok++;
+var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}
+var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
+document.querySelectorAll('.card').forEach(function(c){c.addEventListener('click',function(){this.classList.toggle('open');});});
+rnd();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

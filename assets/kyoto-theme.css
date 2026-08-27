@@ -1,0 +1,555 @@
+/* ═══════════════════════════════════════════════════════════════
+   京都 KYOTO THEME — Global Overrides
+   Replaces all old red/blue brand colors with Kyoto palette
+   Import AFTER all other CSS files.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Re-bind all legacy CSS variables to Kyoto tokens ── */
+:root {
+  /* Old pro-style.css vars → Kyoto */
+  --red:          #A63A3A;
+  --red-soft:     #C04444;
+  --red-pale:     #FAEAEA;
+  --ink:          #2D2D2D;
+  --ink-mid:      #4A4A4A;
+  --ink-soft:     #6E6E6E;
+  --ink-faint:    #A0A0A0;
+  --cream:        #F8F3E9;
+  --white:        #FEFCF8;
+  --surface:      #FEFCF8;
+  --border:       rgba(107,79,58,.10);--border-light:rgba(107,79,58,.05);--ink2:#4A4A4A;
+  --border-mid:   rgba(107,79,58,.18);
+  --gold:         #C89B3C;
+  --gold-pale:    #FBF4E3;
+  --green:        #5B7C5B;
+  --green-pale:   #EAF2E8;
+  --nav-bg:       rgba(248,243,233,.96);
+  --blue:         #4A7FA5;
+  --blue-pale:    #EBF4FB;
+  --shadow-sm:    0 4px 16px rgba(107,79,58,.08);
+  --shadow-md:    0 8px 32px rgba(107,79,58,.12);
+  --motion-fast:  140ms;
+  --motion-med:   260ms;
+  --motion-slow:  440ms;
+
+  /* design-system.css vars → Kyoto */
+  --primary:        #6B4F3A;
+  --primary-soft:   #8B6E56;
+  --primary-pale:   #F5EDE0;
+  --primary-dark:   #553C2B;
+  --raised:         #F0E8D8;
+  --shadow-xs:      0 1px 4px rgba(45,45,45,.06);
+  --shadow-lg:      0 20px 60px rgba(107,79,58,.16);
+  --r-xs: 3px; --r-sm: 6px; --r-md: 10px;
+  --r-lg: 14px; --r-xl: 20px;
+  --font-sans: 'DM Sans','Noto Sans JP',system-ui,sans-serif;
+  --font-jp:   'Noto Serif JP','Shippori Mincho B1',serif;
+  --ease-out:  cubic-bezier(0.16,1,0.3,1);
+  --t-fast:    140ms; --t-med: 260ms; --t-slow: 440ms;
+
+  /* Extend */
+  --kyoto-brown:    #6B4F3A;
+  --kyoto-red:      #A63A3A;
+  --matcha:         #5B7C5B;
+  --matcha-pale:    #EAF2E8;
+  --matcha-soft:    #7A9E7A;
+  --kyoto-cream:    #F8F3E9;
+  --charcoal:       #2D2D2D;
+}
+
+/* ── Dark Mode Kyoto Night ── */
+[data-theme="dark"] {
+  --red:          #C89B3C;
+  --red-soft:     #D4AA56;
+  --red-pale:     rgba(200,155,60,.12);
+  --ink:          #F5F5F5;
+  --ink-mid:      #D0CFC9;
+  --ink-soft:     #9A9890;
+  --ink-faint:    #666460;
+  --cream:        #111111;
+  --white:        #1A1A1A;
+  --surface:      #1A1A1A;
+  --border:       rgba(200,155,60,.10);
+  --border-mid:   rgba(200,155,60,.18);
+  --gold-pale:    rgba(200,155,60,.14);
+  --green-pale:   rgba(91,124,91,.16);
+  --blue-pale:    rgba(74,127,165,.14);
+  --nav-bg:       rgba(17,17,17,.96);
+  --shadow-sm:    0 4px 16px rgba(0,0,0,.36);
+  --shadow-md:    0 8px 32px rgba(0,0,0,.44);
+  --shadow-xs:    0 1px 4px rgba(0,0,0,.28);
+  --shadow-lg:    0 20px 60px rgba(0,0,0,.52);
+  --primary:      #C89B3C;
+  --primary-soft: #D4AA56;
+  --primary-pale: rgba(200,155,60,.12);
+  --primary-dark: #A87C28;
+  --raised:       #222222;
+  --green:        #7A9E7A;
+}
+
+/* ══════════════════════════════════════
+   GLOBAL BODY & BACKGROUND
+   ══════════════════════════════════════ */
+html { -webkit-font-smoothing: antialiased; }
+
+body {
+  background: var(--cream) !important;
+  color: var(--ink) !important;
+  font-family: 'DM Sans','Noto Sans JP',system-ui,sans-serif !important;
+  position: relative;
+}
+
+/* Replace old radial gradient with Kyoto washi atmosphere */
+body::after {
+  background:
+    radial-gradient(ellipse 80% 60% at 15% 10%, rgba(200,155,60,.06), transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 85%, rgba(107,79,58,.05), transparent 60%) !important;
+  opacity: 1 !important;
+}
+
+/* ══════════════════════════════════════
+   NAVIGATION KYOTO OVERRIDE
+   ══════════════════════════════════════ */
+nav,
+.dash-nav,
+.topbar {
+  background: rgba(248,243,233,.96) !important;
+  border-bottom: 1px solid rgba(107,79,58,.12) !important;
+  backdrop-filter: blur(20px) saturate(1.6) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(1.6) !important;
+  box-shadow: none !important;
+}
+[data-theme="dark"] nav,
+[data-theme="dark"] .dash-nav,
+[data-theme="dark"] .topbar {
+  background: rgba(17,17,17,.96) !important;
+  border-bottom-color: rgba(200,155,60,.12) !important;
+}
+
+/* Logo */
+.nav-logo-jp,
+.dash-brand-jp,
+.brand strong {
+  color: #6B4F3A !important;
+  font-family: 'Noto Serif JP',serif !important;
+}
+[data-theme="dark"] .nav-logo-jp,
+[data-theme="dark"] .dash-brand-jp,
+[data-theme="dark"] .brand strong {
+  color: #C89B3C !important;
+}
+
+/* Nav links hover */
+.nav-links a:hover,
+.nav-links a.active,
+.dash-nav-links a:hover,
+.dash-nav-links a.active {
+  background: #F5EDE0 !important;
+  color: #6B4F3A !important;
+}
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active,
+[data-theme="dark"] .dash-nav-links a:hover,
+[data-theme="dark"] .dash-nav-links a.active {
+  background: rgba(200,155,60,.12) !important;
+  color: #C89B3C !important;
+}
+
+/* ══════════════════════════════════════
+   BUTTONS KYOTO
+   ══════════════════════════════════════ */
+.btn-primary,
+.btn-sm.btn-primary,
+.nav-cta,
+.plan-btn.filled,
+.as-new-btn,
+.send-btn,
+button[class*="primary"] {
+  background: #6B4F3A !important;
+  border-color: #6B4F3A !important;
+  color: #FEFCF8 !important;
+  box-shadow: 0 4px 16px rgba(107,79,58,.25) !important;
+}
+.btn-primary:hover,
+.nav-cta:hover,
+.plan-btn.filled:hover {
+  background: #553C2B !important;
+  border-color: #553C2B !important;
+  box-shadow: 0 6px 22px rgba(107,79,58,.35) !important;
+}
+
+[data-theme="dark"] .btn-primary,
+[data-theme="dark"] .nav-cta,
+[data-theme="dark"] .plan-btn.filled {
+  background: #C89B3C !important;
+  border-color: #C89B3C !important;
+  color: #1A1A1A !important;
+}
+
+/* Outline / secondary buttons */
+.btn-outline,
+.plan-btn:not(.filled),
+.btn-white {
+  border-color: rgba(107,79,58,.25) !important;
+  color: #6B4F3A !important;
+}
+.btn-outline:hover { background: #F5EDE0 !important; }
+
+/* Focus ring */
+*:focus-visible,
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline-color: #6B4F3A !important;
+}
+[data-theme="dark"] *:focus-visible { outline-color: #C89B3C !important; }
+
+/* ══════════════════════════════════════
+   CARDS & SURFACES
+   ══════════════════════════════════════ */
+.card,
+.sec,
+.stat-card,
+.page-card,
+.auth-modal,
+.modal-box {
+  background: #FEFCF8 !important;
+  border-color: rgba(107,79,58,.10) !important;
+}
+[data-theme="dark"] .card,
+[data-theme="dark"] .sec,
+[data-theme="dark"] .stat-card,
+[data-theme="dark"] .page-card,
+[data-theme="dark"] .modal-box {
+  background: #1A1A1A !important;
+  border-color: rgba(200,155,60,.10) !important;
+}
+
+/* ══════════════════════════════════════
+   HERO SECTIONS — Dark panels
+   ══════════════════════════════════════ */
+.hero-bar,
+.prem-cta,
+[class*="hero"]:not(.hero-chip):not(.hero-left):not(.hero-right) {
+  background: #2D2D2D !important;
+}
+[data-theme="dark"] .hero-bar,
+[data-theme="dark"] .prem-cta {
+  background: #0D0D0D !important;
+  border: 1px solid rgba(200,155,60,.12) !important;
+}
+
+/* ── Replace red gradient blobs ── */
+.hero-bar::before { background: radial-gradient(circle, rgba(200,155,60,.15), transparent 70%) !important; }
+.hero-bar::after  { background: radial-gradient(circle, rgba(107,79,58,.10), transparent 70%) !important; }
+
+/* ══════════════════════════════════════
+   PROGRESS FILLS — Kyoto gradients
+   ══════════════════════════════════════ */
+.jlpt-fill,
+.goal-fill,
+.km-fill,
+.timer-bar-fill,
+.progress-fill,
+.lvl-xpfill,
+.xp-fill {
+  background: linear-gradient(90deg, #6B4F3A, #C89B3C) !important;
+}
+
+/* Matcha for daily goal */
+.goal-fill[style*="green"] { background: #5B7C5B !important; }
+/* Blue-ish for weekly */
+.goal-fill[style*="blue"]  { background: #4A7FA5 !important; }
+
+/* ══════════════════════════════════════
+   HEATMAP CALENDAR
+   ══════════════════════════════════════ */
+.cal-cell.l1 { background: #EAF2E8 !important; }
+.cal-cell.l2 { background: #7A9E7A !important; }
+.cal-cell.l3 { background: #5B7C5B !important; }
+.cal-cell.today-mark { background: #6B4F3A !important; box-shadow: 0 0 0 1.5px #6B4F3A !important; }
+[data-theme="dark"] .cal-cell.today-mark { background: #C89B3C !important; box-shadow: 0 0 0 1.5px #C89B3C !important; }
+
+/* ══════════════════════════════════════
+   QUIZ OPTIONS
+   ══════════════════════════════════════ */
+.quiz-opt:hover:not(.disabled),
+.quiz-opt.selected { border-color: #6B4F3A !important; background: #F5EDE0 !important; }
+.quiz-opt.correct  { border-color: #5B7C5B !important; background: #EAF2E8 !important; }
+.quiz-opt.incorrect { border-color: #A63A3A !important; background: #FAEAEA !important; }
+
+/* ══════════════════════════════════════
+   ACHIEVEMENTS
+   ══════════════════════════════════════ */
+.ach-item.earned {
+  border-color: #C89B3C !important;
+  background: #FBF4E3 !important;
+  box-shadow: 0 2px 10px rgba(200,155,60,.15) !important;
+}
+
+/* ══════════════════════════════════════
+   LEVEL BADGES (JLPT)
+   ══════════════════════════════════════ */
+.badge-n5 { background: rgba(91,124,91,.14) !important;  color: #3D6E3D !important; }
+.badge-n4 { background: rgba(74,127,165,.14) !important; color: #2A5F8A !important; }
+.badge-n3 { background: rgba(200,155,60,.14) !important; color: #8B6A1C !important; }
+.badge-n2 { background: rgba(166,58,58,.14) !important;  color: #A63A3A !important; }
+.badge-n1 { background: rgba(107,79,58,.14) !important;  color: #553C2B !important; }
+.badge-kaigo { background: rgba(91,124,139,.14) !important; color: #3A6B7C !important; }
+
+/* ══════════════════════════════════════
+   INPUT FOCUS
+   ══════════════════════════════════════ */
+input:focus,
+textarea:focus,
+select:focus,
+.auth-input:focus {
+  border-color: #6B4F3A !important;
+  box-shadow: 0 0 0 3px rgba(107,79,58,.12) !important;
+  outline: none !important;
+}
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus {
+  border-color: #C89B3C !important;
+  box-shadow: 0 0 0 3px rgba(200,155,60,.15) !important;
+}
+
+/* ══════════════════════════════════════
+   MOBILE NAV
+   ══════════════════════════════════════ */
+.mobile-nav-item.active,
+.mobile-nav-item:hover { color: #6B4F3A !important; }
+[data-theme="dark"] .mobile-nav-item.active,
+[data-theme="dark"] .mobile-nav-item:hover { color: #C89B3C !important; }
+
+/* ══════════════════════════════════════
+   SCROLLBAR
+   ══════════════════════════════════════ */
+::-webkit-scrollbar-thumb { background: rgba(107,79,58,.25) !important; }
+::-webkit-scrollbar-thumb:hover { background: #8B6E56 !important; }
+
+/* ══════════════════════════════════════
+   PREMIUM BANNER
+   ══════════════════════════════════════ */
+.prem-cta-btn {
+  background: #C89B3C !important;
+  border: none !important;
+  color: #1A1209 !important;
+  font-weight: 700 !important;
+}
+.prem-cta-btn:hover { background: #D4AA56 !important; }
+
+/* ══════════════════════════════════════
+   STAT CARDS — Kanji watermarks
+   ══════════════════════════════════════ */
+.stat-card {
+  position: relative;
+  overflow: hidden;
+}
+/* Color stat icons via data attr — done in JS */
+.stat-card .stat-val { color: #6B4F3A !important; }
+[data-theme="dark"] .stat-card .stat-val { color: #C89B3C !important; }
+
+/* ══════════════════════════════════════
+   KAIGO MODULE CARDS
+   ══════════════════════════════════════ */
+.kaigo-mod:hover {
+  border-color: #6B4F3A !important;
+  background: #F5EDE0 !important;
+}
+
+/* ══════════════════════════════════════
+   AUTH MODAL KYOTO
+   ══════════════════════════════════════ */
+.auth-banner {
+  background: linear-gradient(160deg, #2D2D2D, #1A1209) !important;
+}
+.auth-banner-logo {
+  color: #C89B3C !important;
+}
+.auth-tab.active {
+  color: #6B4F3A !important;
+  border-bottom-color: #6B4F3A !important;
+}
+.auth-submit {
+  background: #6B4F3A !important;
+  border-color: #6B4F3A !important;
+}
+.auth-submit:hover { background: #553C2B !important; }
+
+/* ══════════════════════════════════════
+   FEATURE TAGS / EYEBROWS
+   ══════════════════════════════════════ */
+.label,
+.eyebrow,
+[class*="eyebrow"],
+[class*="label"] {
+  color: #6B4F3A !important;
+}
+
+/* ══════════════════════════════════════
+   BACK TO TOP BUTTON
+   ══════════════════════════════════════ */
+#backToTop, #btt {
+  background: #6B4F3A !important;
+  box-shadow: 0 4px 14px rgba(107,79,58,.3) !important;
+}
+#backToTop:hover, #btt:hover { background: #553C2B !important; }
+
+/* ══════════════════════════════════════
+   CHAT / AI TUTOR
+   ══════════════════════════════════════ */
+.send-btn,
+[class*="send"] {
+  background: #6B4F3A !important;
+  border-color: #6B4F3A !important;
+  color: white !important;
+}
+
+/* User bubble */
+[class*="user-msg"],
+[class*="user-bubble"],
+.msg.user .bubble {
+  background: #6B4F3A !important;
+  color: white !important;
+}
+[data-theme="dark"] [class*="user-msg"],
+[data-theme="dark"] .msg.user .bubble {
+  background: #C89B3C !important;
+  color: #1A1209 !important;
+}
+
+/* ══════════════════════════════════════
+   TOASTS
+   ══════════════════════════════════════ */
+.toast.success { background: #5B7C5B !important; }
+.toast.error   { background: #A63A3A !important; }
+.toast.gold    { background: #C89B3C !important; color: #1A1209 !important; }
+
+/* ══════════════════════════════════════
+   WASHI PAPER TEXTURE on key surfaces
+   ══════════════════════════════════════ */
+.sec,
+.plan-card,
+.auth-modal,
+.hero-bar {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E") !important;
+}
+
+/* ══════════════════════════════════════
+   THEME TOGGLE BUTTON
+   ══════════════════════════════════════ */
+.theme-toggle,
+[data-theme-toggle],
+.icon-btn[data-theme-toggle] {
+  background: #FEFCF8 !important;
+  border: 1px solid rgba(107,79,58,.20) !important;
+  color: #6B4F3A !important;
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 140ms;
+}
+.theme-toggle:hover,
+[data-theme-toggle]:hover {
+  background: #F5EDE0 !important;
+  border-color: rgba(107,79,58,.35) !important;
+}
+[data-theme="dark"] .theme-toggle,
+[data-theme="dark"] [data-theme-toggle] {
+  background: #222222 !important;
+  border-color: rgba(200,155,60,.22) !important;
+  color: #C89B3C !important;
+}
+
+/* ══════════════════════════════════════
+   LEADERBOARD YOU ROW
+   ══════════════════════════════════════ */
+.lb-you {
+  background: #F5EDE0 !important;
+  border: 1px solid rgba(107,79,58,.22) !important;
+}
+[data-theme="dark"] .lb-you {
+  background: rgba(200,155,60,.10) !important;
+  border-color: rgba(200,155,60,.22) !important;
+}
+
+/* ══════════════════════════════════════
+   SECTION ACTION LINKS
+   ══════════════════════════════════════ */
+.sec-action,
+a[class*="action"],
+a[class*="more"],
+a[class*="link"]:not([class*="footer"]) {
+  color: #6B4F3A !important;
+}
+[data-theme="dark"] .sec-action { color: #C89B3C !important; }
+
+/* ══════════════════════════════════════
+   REC XP BADGES
+   ══════════════════════════════════════ */
+.rec-xp, .xp-tag, [class*="xp"] { color: #C89B3C !important; }
+
+/* ══════════════════════════════════════
+   CHALLENGE BANNER
+   ══════════════════════════════════════ */
+.ch-banner {
+  background: linear-gradient(135deg, #FBF4E3, #F8F3E9) !important;
+  border: 1px solid rgba(200,155,60,.22) !important;
+}
+.ch-x { color: #C89B3C !important; }
+
+/* ══════════════════════════════════════
+   PREMIUM MODAL / CTA
+   ══════════════════════════════════════ */
+[class*="premium-modal"],
+[id*="premiumModal"],
+[class*="upgrade-modal"] {
+  background: linear-gradient(160deg, #1A1209, #2D2D2D) !important;
+}
+
+/* Final token layer: older theme files use !important on the same variables.
+   Keep Kyoto as the last visual authority when both theme layers are loaded. */
+:root {
+  --cream: #F8F3E9 !important;
+  --white: #FEFCF8 !important;
+  --surface: #FEFCF8 !important;
+  --ink: #2D2D2D !important;
+  --ink-mid: #4A4A4A !important;
+  --ink-soft: #6E6E6E !important;
+  --border: rgba(107,79,58,.10) !important;
+  --border-mid: rgba(107,79,58,.18) !important;
+  --gold: #C89B3C !important;
+  --green: #5B7C5B !important;
+  --blue: #4A7FA5 !important;
+  --nav-bg: rgba(248,243,233,.96) !important;
+  --primary: #6B4F3A !important;
+  --primary-soft: #8B6E56 !important;
+  --primary-dark: #553C2B !important;
+}
+
+[data-theme="dark"] {
+  --cream: #111111 !important;
+  --white: #1A1A1A !important;
+  --surface: #1A1A1A !important;
+  --ink: #F5F5F5 !important;
+  --ink-mid: #D0CFC9 !important;
+  --ink-soft: #9A9890 !important;
+  --border: rgba(200,155,60,.10) !important;
+  --border-mid: rgba(200,155,60,.18) !important;
+  --gold: #C89B3C !important;
+  --green: #7A9E7A !important;
+  --nav-bg: rgba(17,17,17,.96) !important;
+  --primary: #C89B3C !important;
+  --primary-soft: #D4AA56 !important;
+  --primary-dark: #A87C28 !important;
+}
+
+body {
+  background: var(--cream) !important;
+  color: var(--ink) !important;
+}

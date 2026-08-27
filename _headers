@@ -1,0 +1,32 @@
+/*
+  X-Content-Type-Options: nosniff
+
+
+# ── Header keamanan lain (X-Frame-Options, Referrer-Policy,
+# Permissions-Policy, CSP, X-XSS-Protection) sekarang HANYA di netlify.toml
+# (v179) -- sebelumnya terduplikasi di sini dengan nilai Permissions-Policy
+# BERBEDA (camera=* di sini vs camera=(self) di netlify.toml), membingungkan
+# walau netlify.toml yang menang. X-Content-Type-Options dipertahankan di
+# sini karena nilainya identik di kedua file (aman, tidak ada drift).
+
+/sw.js
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/service-worker.js
+  Cache-Control: no-cache, no-store, must-revalidate
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/api/*
+  Access-Control-Allow-Origin: https://nihonggopro.id
+  Access-Control-Allow-Methods: POST, OPTIONS
+
+/Admin-Login.html
+  X-Robots-Tag: noindex, nofollow
+
+/Admin-Dashboard.html
+  X-Robots-Tag: noindex, nofollow
+
+/Admin-Pro.html
+  X-Robots-Tag: noindex, nofollow

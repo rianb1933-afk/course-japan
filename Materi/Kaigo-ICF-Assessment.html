@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ICF & アセスメント完全ガイド ICF・介護過程 | Nihonggo Pro Academy</title>
+<meta name="description" content="ICF分類 · 介護過程4段階 · アセスメントシート · ケアプラン — Nihonggo Pro Academy">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-ICF-Assessment.html">
+<meta property="og:title" content="ICF & アセスメント完全ガイド ICF・介護過程 — Nihonggo Pro Academy">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["ICF", "ICF", "Klasifikasi Fungsi Internasional"], ["心身機能", "shinshin kino", "fungsi tubuh dan mental"], ["活動", "katsudo", "aktivitas"], ["参加", "sanka", "partisipasi"], ["環境因子", "kankyo inshi", "faktor lingkungan"], ["個人因子", "kojin inshi", "faktor personal"], ["アセスメント", "asesumento", "asesmen"], ["ストレングス", "sutorengusu", "kekuatan/strengths"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#1b5e20">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+*{box-sizing:border-box}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 6px;font-family:"Noto Serif JP",serif;line-height:1.3}
+.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.78rem;margin-bottom:10px}
+.sub{font-size:.85rem;opacity:.85;margin-top:6px}
+.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:14px 0}
+.sec h2{font-size:1rem;font-weight:700;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08);color:#1b5e20}
+.st{font-size:1.1rem;font-weight:700;margin:24px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08);color:#1b5e20}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
+.tbl th{padding:8px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05);font-weight:600}
+.tbl td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.06);vertical-align:top;line-height:1.5}
+.tip{background:#f0faf0;border-left:3px solid #43a047;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0;line-height:1.6}
+.warn{background:#fff3e0;border-left:3px solid #ff9800;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
+.err{background:#fce4ec;border-left:3px solid #e91e63;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
+.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
+.card .det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.82rem;color:#555;line-height:1.7}
+.card.open .det{display:block}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.kv{background:#f5f5f5;border-radius:8px;padding:10px 12px;font-size:.84rem}
+.kv b{display:block;margin-bottom:3px}
+.qbox{background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:12px 0}
+.qnum{font-size:.72rem;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px;background:#1b5e20}
+.qq{font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5}
+.qopts{display:grid;gap:8px}
+.qopt{background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
+.qopt:hover{background:rgba(0,0,0,.04)}
+.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "ICF & アセスメント完全ガイド ICF・介護過程 | Nihonggo Pro Academy", "description": "ICF分類 · 介護過程4段階 · アセスメントシート · ケアプラン — Nihonggo Pro Academy", "url": "https://nihonggopro.id/Materi/Kaigo-ICF-Assessment.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="ICF分類 · 介護過程4段階 · アセスメントシート · ケアプラン — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-ICF-Assessment.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ICF & アセスメント完全ガイド ICF・介護過程">
+<meta name="twitter:description" content="ICF分類 · 介護過程4段階 · アセスメントシート · ケアプラン — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">🏥 介護</span><h1>ICF & アセスメント完全ガイド ICF・介護過程</h1><p class="sub">ICF分類 · 介護過程4段階 · アセスメントシート · ケアプラン</p></div>
+<div class="wrap" style="padding-top:20px">
+
+<div class="tip">💡 ICFとアセスメントは介護福祉士国家試験の最重要テーマの一つ。「できないこと」だけでなく「できること・強み」も評価するのがICFの核心です。</div>
+
+<div class="sec">
+<h2>📊 ICF(国際生活機能分類)の構造</h2>
+<table class="tbl">
+<tr><th>概念</th><th>定義</th><th>例(脳卒中右片麻痺の場合)</th></tr>
+<tr><td><b>健康状態</b></td><td>疾病・障害・けが</td><td>脳梗塞</td></tr>
+<tr><td><b>心身機能・構造</b></td><td>体・心の機能と構造</td><td>右上肢の運動機能低下、失語</td></tr>
+<tr><td><b>活動(Activity)</b></td><td>個人が実行できる動作・行為</td><td>一人でのトイレ、食事摂取</td></tr>
+<tr><td><b>参加(Participation)</b></td><td>社会・家庭・地域での役割・関与</td><td>家族との食事、地域のサークル活動</td></tr>
+<tr><td><b>環境因子</b></td><td>社会・物的・人的環境</td><td>手すり設置、家族の支援、サービス利用</td></tr>
+<tr><td><b>個人因子</b></td><td>年齢・性別・生活歴・価値観</td><td>元気な頃の趣味、仕事歴、性格</td></tr>
+</table>
+<div class="tip">💡 ICFの最大の特徴: <b>相互作用モデル</b>。これらの要素は互いに影響し合う。環境を整えることで「活動」「参加」が改善できる。</div>
+</div>
+
+<div class="sec">
+<h2>🔄 介護過程(かいごかてい)4ステップ</h2>
+<div class="g2">
+<div class="kv"><b>① アセスメント(Assessment)</b>利用者の現状を多面的に情報収集・分析。強みと課題を明確化。ICFを使って包括的に評価。</div>
+<div class="kv"><b>② 計画立案(Planning)</b>長期目標・短期目標・具体的な支援内容を設定。「誰が・いつ・何を・どのように」を明記。</div>
+<div class="kv"><b>③ 実施(Implementation)</b>計画に基づいてケアを実施。本人・家族・多職種と連携しながら。</div>
+<div class="kv"><b>④ 評価(Evaluation)</b>目標の達成度を評価。達成できていなければ再アセスメントへ。PDCAサイクル。</div>
+</div>
+</div>
+
+<div class="sec">
+<h2>📋 アセスメントで収集する情報</h2>
+<table class="tbl">
+<tr><th>カテゴリ</th><th>収集内容</th><th>主な情報源</th></tr>
+<tr><td>基本情報</td><td>氏名・年齢・疾病・障害・服薬</td><td>記録・家族・主治医</td></tr>
+<tr><td>ADL状況</td><td>食事・排泄・入浴・移動・更衣 各々の自立度</td><td>観察・本人・介護記録</td></tr>
+<tr><td>認知・精神</td><td>認知症の有無・MMSE・抑うつ・BPSDの有無</td><td>看護師・心理士</td></tr>
+<tr><td>社会・家族</td><td>家族構成・キーパーソン・社会保険・経済状況</td><td>家族・ケアマネジャー</td></tr>
+<tr><td>生活歴・価値観</td><td>職歴・趣味・宗教・食の好み・これからの希望</td><td>本人・家族・回想法</td></tr>
+<tr><td>環境</td><td>居室の構造・手すり・家族の介護力・地域資源</td><td>観察・家族</td></tr>
+<tr><td>強み・残存能力</td><td>今できること・本人の得意なこと・好きなこと</td><td>本人・観察</td></tr>
+</table>
+</div>
+
+<div class="sec">
+<h2>🎯 ケアプランの目標設定</h2>
+<div class="g2">
+<div class="card"><b>良い目標の条件(SMART)</b>
+<div class="det">Specific(具体的)・Measurable(測定できる)・Achievable(達成可能)・Relevant(本人の望みと関連)・Time-bound(期限あり)。<br>良い例:「3ヶ月後に手すりを使って一人でトイレに行ける」<br>悪い例:「元気になる」(漠然すぎる)</div></div>
+<div class="card"><b>長期目標 vs 短期目標</b>
+<div class="det">長期目標(6ヶ月〜1年): 利用者の最終的なゴール「地域のサークルに参加できる」<br>短期目標(1〜3ヶ月): 長期目標への中間ステップ「週3回のリハビリで歩行距離を50m伸ばす」</div></div>
+<div class="card"><b>本人中心のケアプラン</b>
+<div class="det">「私たちが決める」ではなく「本人・家族が望む生活」から出発。ACP(人生会議)の理念と連動。「あなたはどんな生活がしたいですか？」が出発点。</div></div>
+<div class="card"><b>多職種でのケアカンファレンス</b>
+<div class="det">ケアプランは介護職だけでなく、ケアマネ・看護師・PT・OT・ST・栄養士・医師が参加して決める。介護職は日常観察からの情報提供が最大の貢献。</div></div>
+</div>
+</div>
+
+<!-- content-enriched -->
+<div style="max-width:900px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📖 ICFアセスメントの実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0"><h3 style="color:#1565c0;margin:0 0 10px;font-size:1rem">ICF 6要素のアセスメント視点</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.07);color:#1565c0">ICF要素</th><th style="padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.07);color:#1565c0">アセスメントする内容</th><th style="padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.07);color:#1565c0">情報収集の方法</th><tr><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">心身機能・身体構造</td><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">筋力・関節可動域・認知機能・感覚機能</td><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">観察・検査・医療記録</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">活動(Activity)</td><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">ADLの実際の遂行能力(できる・できない)</td><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">直接観察・ADL評価スケール</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">参加(Participation)</td><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">社会的役割・地域活動・人間関係への関与</td><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">インタビュー・生活歴確認</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">環境因子</td><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">住環境・福祉用具・家族サポート・制度利用</td><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">家庭訪問・家族面談</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">個人因子</td><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">年齢・価値観・生活歴・目標・趣味</td><td style="padding:8px 12px;border-bottom:1px solid var(--border-light);font-size:.85rem;vertical-align:top">本人インタビュー・生活歴聴取</td></tr></table><div style="background:rgba(0,0,0,.04);border-left:3px solid #1565c0;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0">💡 ICFの特徴: 「何ができないか」だけでなく「何ができるか(ストレングス)」「環境を変えればできるか」を積極的に評価する。プラス面の視点が支援計画の質を上げる。</div></div></div>
+<h2 style="font-size:1.2rem;font-weight:700;color:#1b5e20;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<div class="pg-vocab" id="pg"></div>
+
+
+<!-- enriched-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:#1565c0;margin:0 0 12px;font-size:1rem;font-weight:700">📊 ICF評価の実践マトリックス</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1565c0">ICF要素</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1565c0">具体的な評価内容</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1565c0">情報収集源</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">心身機能・構造</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">筋力/ROM/認知機能/感覚/疼痛</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">観察・PT/OT評価・医療記録</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">活動(Activity)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ADL実際の遂行能力(できる/できない)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ADL評価ツール・直接観察</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">参加(Participation)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">社会的役割・交流・趣味活動</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">インタビュー・生活歴</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">環境因子(+/-)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">住環境・家族支援・制度利用・用具</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">家庭訪問・家族面談</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">個人因子</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">価値観・生活歴・目標・性格・年齢</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">本人インタビュー</td></tr></table><div style="background:rgba(0,0,0,.04);border-left:3px solid #1565c0;padding:12px 15px;border-radius:0 10px 10px 0;font-size:.87rem;margin:12px 0;line-height:1.7">💡 ICFの強み: できないことだけでなく「できること・ストレングス・環境を変えればできること」を積極的に評価する。これがケアプランの質を上げる。</div></div></div>
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#1565c0;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e3f2fd">💬 ICFアセスメントの実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1565c0;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e3f2fd">📋 Dialog 1 — ICFを活用した支援計画</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:#1565c0;margin-top:1px;flex-shrink:0">ケアマネ</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">田中様のICFアセスメントを一緒に確認しましょう。心身機能はどうですか？<button aria-label="Ucapkan: 田中様のICFアセスメントを一緒に確認しましょう。心身機能は…" onclick="speak('田中様のICFアセスメントを一緒に確認しましょう。心身機能はどうですか？')" style="border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Mari tinjau bersama asesmen ICF Bu Tanaka. Bagaimana fungsi fisik dan mentalnya?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:#1565c0;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">歩行は杖で自立できます。認知機能は短期記憶が低下していますが、長期記憶は良好です。<button aria-label="Ucapkan: 歩行は杖で自立できます。認知機能は短期記憶が低下していますが…" onclick="speak('歩行は杖で自立できます。認知機能は短期記憶が低下していますが、長期記憶は良好です。')" style="border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Berjalan bisa mandiri dengan tongkat. Fungsi kognitif: memori jangka pendek menurun, tapi jangka panjang masih baik.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:#1565c0;margin-top:1px;flex-shrink:0">ケアマネ</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">環境因子はどうですか？<button aria-label="Ucapkan: 環境因子はどうですか？" onclick="speak('環境因子はどうですか？')" style="border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Bagaimana faktor lingkungannya?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:#1565c0;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">ご自宅には手すりがないため、転倒リスクが高い状況です。住宅改修の検討が必要です。<button aria-label="Ucapkan: ご自宅には手すりがないため、転倒リスクが高い状況です。住宅改…" onclick="speak('ご自宅には手すりがないため、転倒リスクが高い状況です。住宅改修の検討が必要です。')" style="border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Di rumah tidak ada pegangan tangan, risiko jatuh tinggi. Perlu dipertimbangkan renovasi rumah.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1565c0;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e3f2fd">💪 Dialog 2 — ストレングスの引き出し</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:#1565c0;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">山田さん、昔はどんなことが得意でしたか？<button aria-label="Ucapkan: 山田さん、昔はどんなことが得意でしたか？" onclick="speak('山田さん、昔はどんなことが得意でしたか？')" style="border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Pak Yamada, dulu apa yang jago?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:#1565c0;margin-top:1px;flex-shrink:0">山田さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">料理が得意で、毎日家族のために作っていたよ。<button aria-label="Ucapkan: 料理が得意で、毎日家族のために作っていたよ。" onclick="speak('料理が得意で、毎日家族のために作っていたよ。')" style="border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Pintar masak, setiap hari masak untuk keluarga.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:#1565c0;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">料理がお得意なんですね。今度の料理レクリエーションに参加しませんか？皆さんに教えてもらえますか？<button aria-label="Ucapkan: 料理がお得意なんですね。今度の料理レクリエーションに参加しま…" onclick="speak('料理がお得意なんですね。今度の料理レクリエーションに参加しませんか？皆さんに教えてもらえますか？')" style="border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Jago masak ya. Mau ikut rekreasi memasak? Bisa ajari yang lain?</div></div></div></div></div>
+<h2 class="st">🧠 Latihan Soal & Pembahasan</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<button onclick="nQ()" style="flex:1;padding:12px;background:#1b5e20;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit">Soal Berikutnya →</button>
+<button onclick="rQ()" style="padding:12px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">🔄 Reset</button>
+</div>
+<p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</div><section style="padding:16px;max-width:860px;margin:20px auto">
+<h2 style="font-size:1rem;color:#004d40;border-bottom:3px solid #004d40;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — ICF・アセスメント</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('ICF')" title="クリックで発音">🔊 ICF</div>
+  <div style="font-size:.8rem;color:#777">ICF</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">International Classification of Functioning</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('健康状態')" title="クリックで発音">🔊 健康状態</div>
+  <div style="font-size:.8rem;color:#777">kenkō jōtai</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kondisi kesehatan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('心身機能・構造')" title="クリックで発音">🔊 心身機能・構造</div>
+  <div style="font-size:.8rem;color:#777">shinshin kinō kōzō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">fungsi dan struktur tubuh</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('活動')" title="クリックで発音">🔊 活動</div>
+  <div style="font-size:.8rem;color:#777">katsudō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">aktivitas</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('参加')" title="クリックで発音">🔊 参加</div>
+  <div style="font-size:.8rem;color:#777">sanka</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">partisipasi</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('環境因子')" title="クリックで発音">🔊 環境因子</div>
+  <div style="font-size:.8rem;color:#777">kankyō inshi</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">faktor lingkungan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('個人因子')" title="クリックで発音">🔊 個人因子</div>
+  <div style="font-size:.8rem;color:#777">kojin inshi</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">faktor personal</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('促進因子')" title="クリックで発音">🔊 促進因子</div>
+  <div style="font-size:.8rem;color:#777">sokushin inshi</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">faktor pendukung</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('阻害因子')" title="クリックで発音">🔊 阻害因子</div>
+  <div style="font-size:.8rem;color:#777">sogai inshi</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">faktor penghambat</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('バリア')" title="クリックで発音">🔊 バリア</div>
+  <div style="font-size:.8rem;color:#777">baria</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">hambatan / barrier</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('アセスメント')" title="クリックで発音">🔊 アセスメント</div>
+  <div style="font-size:.8rem;color:#777">asesumento</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">penilaian / asesmen</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('ニーズ')" title="クリックで発音">🔊 ニーズ</div>
+  <div style="font-size:.8rem;color:#777">nīzu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kebutuhan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('強み')" title="クリックで発音">🔊 強み</div>
+  <div style="font-size:.8rem;color:#777">tsuyomi</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kekuatan / potensi</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('生活機能')" title="クリックで発音">🔊 生活機能</div>
+  <div style="font-size:.8rem;color:#777">seikatsu kinō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">fungsi kehidupan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('WHO')" title="クリックで発音">🔊 WHO</div>
+  <div style="font-size:.8rem;color:#777">WHO</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">World Health Organization</div>
+</div>
+</div></section></main>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+var Q=[{"q": "ICFの「参加(Participation)」とは何を指す？", "opts": ["身体の動作", "地域活動・家庭での役割・社会的な関与", "食べること", "歩くこと"], "a": 1, "e": "ICF参加=社会レベルの生活関与。例: 地域のサークル参加・家族との食事・ボランティア・宗教活動・趣味のグループ。身体機能や活動が制限されても環境整備で参加を実現できる。"}, {"q": "「アセスメント」で最も重要な情報として含めるべきは？", "opts": ["スタッフの意見のみ", "できないことだけでなく、できること(強み・残存能力)も含む多面的な情報", "医師の指示のみ", "家族の意向のみ"], "a": 1, "e": "ICFに基づくアセスメントの特徴: 機能障害・できないことだけでなく、強み・残存能力・環境因子・個人因子(価値観・生活歴)も含む。「できること」から支援を設計するのが自立支援の基本。"}, {"q": "「SMARTな目標」の「M」は何を意味する？", "opts": ["医療的", "Measurable(測定できる・達成が確認できる)", "マルチプル", "毎日"], "a": 1, "e": "SMART: S=Specific(具体的) M=Measurable(測定可能) A=Achievable(達成可能) R=Relevant(本人の望みと関連) T=Time-bound(期限あり)。M=「一人でトイレに行ける」など達成したか確認できる指標。"}, {"q": "介護過程の「評価」フェーズで行うことは？", "opts": ["計画を作る", "目標の達成度を確認し、達成できていなければ再アセスメントを行う", "実施する", "情報収集のみ"], "a": 1, "e": "介護過程評価: 設定した目標(長期・短期)が達成できたかを期限に評価。達成できた→次の目標へ。できていない→なぜできないかを再アセスメント→計画修正。PDCAサイクルで継続改善。"}, {"q": "「ケアカンファレンス」で介護職の最も重要な貢献は？", "opts": ["医療的判断", "毎日の観察から得た利用者の生活・行動・変化についての詳細な情報提供", "書類の整理", "会議の進行"], "a": 1, "e": "ケアカンファレンスでの介護職の役割: 最も多く接触する職種として、日常生活の様子・変化・本人の言葉・行動パターンなどの豊富な観察情報を提供する。これが多職種連携の中心的な貢献。"}, {"q": "ICFで「環境因子」が改善されると何が変わるか？", "opts": ["疾病が治る", "活動や参加の制限が軽減され、生活機能が向上することがある", "薬が変わる", "記憶が戻る"], "a": 1, "e": "ICFの相互作用モデル: 環境因子(手すり設置・福祉用具・家族支援・社会サービス)を改善すると、同じ心身機能障害でも「活動」「参加」の制限が大きく軽減できる。環境改善=介護の重要な介入手段。"}, {"q": "「長期目標」と「短期目標」の正しい関係は？", "opts": ["短期の方が重要", "短期目標は長期目標達成のための中間ステップ", "同じ内容でよい", "家族が決める"], "a": 1, "e": "長期目標=利用者の最終的な望む生活・状態(6ヶ月〜1年)。短期目標=長期目標に向けた段階的なステップ(1〜3ヶ月)。例: 長期「一人で外出できる」→短期「手すりで10m歩行できる」。"}, {"q": "ICFにおける「環境因子」が「活動・参加」に与える影響の例として正しいのは？", "opts": ["加齢は環境因子", "段差のある建物（バリア）は車椅子ユーザーの外出参加を阻害する環境因子", "薬の副作用は環境因子", "筋力低下は環境因子"], "a": 1, "e": "ICFの環境因子：物的環境（建物・道路・器具）・社会的環境（制度・支援）・態度（他者の偏見）が「活動・参加」を促進または阻害する。バリアフリー化=阻害因子の除去。福祉用具の提供=促進因子の追加。"}, {"q": "ICFにおける「心身機能・身体構造」とは何か。", "opts": ["身体の機能や構造そのもの", "社会参加", "環境因子", "個人因子"], "a": 0, "e": "心身機能・身体構造とは、身体の生理的な機能や解剖学的な構造そのものを指すICFの構成要素。環境因子や個人因子とは区別され、身体そのものの状態を評価する視点として位置づけられている。"}, {"q": "ICFの「環境因子」に含まれるのはどれか。", "opts": ["福祉用具や住環境、周囲の人の支援", "本人の性格", "病気の重さ", "身体機能"], "a": 0, "e": "福祉用具、住環境、周囲の人々の支援などが環境因子に含まれる。本人を取り巻く外的な要因を指し、これらを整えることで生活のしやすさに大きな影響を与えることができる。"}, {"q": "ICFの「個人因子」の例はどれか。", "opts": ["年齢・性格・価値観など個人の特性", "住環境", "制度", "介護サービス"], "a": 0, "e": "年齢・性格・価値観といった、その人固有の特性が個人因子の例として挙げられる。住環境や制度といった外的な要因とは異なり、本人そのものが持つ内的な特性を指すICFの構成要素。"}, {"q": "アセスメントで主観的情報と客観的情報を区別する理由はどれか。", "opts": ["両方バランスよく捉え全体像を把握するため", "主観のみ重要だから", "客観のみ重要だから", "区別不要だから"], "a": 0, "e": "両方の情報をバランスよく捉えることで、利用者の全体像をより正確に把握できるため区別が重要となる。主観的な訴えと客観的なデータの両方を組み合わせることが、質の高いアセスメントにつながる。"}, {"q": "ICFモデルの特徴として正しいのはどれか。", "opts": ["障害を環境との相互作用として捉える", "障害を個人の問題のみとする", "医学的視点のみ", "評価不要"], "a": 0, "e": "ICFモデルの特徴は、障害を個人の問題だけでなく、環境との相互作用として捉える視点にある。医学的な側面だけでなく、社会的・環境的な要因も含めた包括的な理解を目指す点が特徴となっている。"}, {"q": "アセスメントの情報収集で優先すべき視点はどれか。", "opts": ["本人・家族の意向と生活歴を含む全体像", "数値データのみ", "職員の観察のみ", "過去の記録のみ"], "a": 0, "e": "本人・家族の意向や生活歴を含めた全体像の把握を優先すべき視点とする。数値データや職員の観察だけに偏らず、多面的な情報を収集することが、適切な支援計画につながる。"}, {"q": "ICFの「活動」と「参加」の違いはどれか。", "opts": ["活動は個人の遂行、参加は社会的関わり", "同じ意味", "活動が参加を含む", "区別不要"], "a": 0, "e": "活動は個人が課題や動作を遂行すること、参加は家庭や社会生活への関わりを指すという違いがある。両者は密接に関連しながらも、ICFでは異なる視点として区別して評価される。"}, {"q": "アセスメントを定期的に見直す理由はどれか。", "opts": ["状態は変化するため最新情報で計画を最適化する", "一度で十分だから", "形式的だから", "時間の無駄だから"], "a": 0, "e": "利用者の状態は変化するため、最新の情報に基づいて計画を最適化する必要があるという理由から、定期的な見直しが求められる。一度きりのアセスメントでは、状態変化に対応した適切な支援ができなくなる。"}, {"q": "ICF視点でのケアプラン作成の利点はどれか。", "opts": ["環境調整も含めた包括的な支援を計画できる", "身体面のみ計画", "時間短縮のみ", "記録簡略化のみ"], "a": 0, "e": "環境調整も含めた包括的な支援を計画できることが、ICF視点でのケアプラン作成の利点。身体機能面だけに焦点を当てるのではなく、環境や社会参加も含めた総合的な計画を立てることができる。"}, {"q": "「阻害因子」と「促進因子」の違いはどれか。", "opts": ["生活を妨げるか助けるかの環境要因の違い", "同じ意味", "個人因子のみ", "身体機能のみ"], "a": 0, "e": "阻害因子は生活を妨げる環境要因、促進因子は生活を助ける環境要因という違いがある。同じ環境でも、その人にとって阻害となるか促進となるかは状況によって異なるため、丁寧な評価が求められる。"}, {"q": "多職種でICFを共有する意義はどれか。", "opts": ["共通言語として情報を統合し連携しやすくする", "記録を増やすため", "評価を複雑にするため", "不要な作業"], "a": 0, "e": "ICFは共通言語として、多職種が情報を統合し連携しやすくする意義を持つ。異なる専門職がそれぞれの用語で語るのではなく、共通の枠組みを用いることで、円滑な情報共有と連携が可能になる。"}, {"q": "利用者の「参加」を支援する具体例はどれか。", "opts": ["趣味活動やレクリエーションへの参加を促す", "外出禁止", "孤立させる", "活動制限"], "a": 0, "e": "趣味活動やレクリエーションへの参加を促すことが、「参加」を支援する具体例として挙げられる。外出を制限したり孤立させたりするのではなく、社会的な関わりの機会を積極的に作ることが重要になる。"}],qi=0,ok=0,tot=0;
+function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;
+var oo=document.createElement('div');oo.className='qopts';
+q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';
+b.textContent=String.fromCharCode(65+i)+'. '+o;
+b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});
+var bx=document.createElement('div');bx.className='qbox';
+var qn=document.createElement('div');qn.className='qnum';qn.textContent='Soal '+(qi%Q.length+1)+' / '+Q.length;
+var qq=document.createElement('div');qq.className='qq';qq.textContent=q.q;
+var ex=document.createElement('div');ex.className='qexp';ex.id='qe';
+bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
+c.innerHTML='';c.appendChild(bx);
+var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;
+bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');
+if(c!==a)b.classList.add('wrong');else ok++;
+var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}
+var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
+document.querySelectorAll('.card').forEach(function(c){c.addEventListener('click',function(){this.classList.toggle('open');});});
+rnd();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

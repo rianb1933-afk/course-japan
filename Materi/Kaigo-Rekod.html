@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["介護記録", "kaigo kiroku", "rekod perawatan"], ["観察", "kansatsu", "observasi"], ["報告", "hokoku", "pelaporan"], ["連絡", "renraku", "komunikasi"], ["SOAP", "SOAP", "format catatan"], ["引き継ぎ", "hikitsugi", "serah terima"], ["客観的", "kyakkanteki", "objektif"], ["主観的", "shukanteki", "subjektif"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#2e7d32">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Penulisan Rekod & Dokumentasi Asuhan — 介護福祉士 | NihonggoPro</title>
+<meta name="description" content="Penulisan rekod dan dokumentasi asuhan 介護福祉士: cara menulis catatan harian, laporan shift, dan dokumentasi resmi dalam bahasa Jepang.">
+<meta property="og:title" content="Kosakata Klinis & Medis 介護 — NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Rekod.html">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Penulisan Rekod & Dokumentasi Asuhan — 介護福祉士 | NihonggoPro", "description": "Cara menulis rekod dan dokumentasi asuhan kaigo yang benar: format laporan, istilah baku, serta bahasa Jepang yang sering muncul di ujian nasional 国家試験.", "url": "https://nihonggopro.id/Materi/Kaigo-Rekod.html", "provider": {"@type": "Organization", "name": "NihonggoPro"}, "educationalLevel": "N4", "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"介護福祉士","item":"https://nihonggopro.id/Materi/Kaigo-Fukushishi-Overview.html"},{"@type":"ListItem","position":4,"name":"Penulisan Rekod & Dokumentasi Asuhan","item":"https://nihonggopro.id/Materi/Kaigo-Rekod.html"}]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:2px;list-style:none}
+
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+.hamb{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border-mid);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.hamb span{display:block;width:16px;height:2px;background:var(--ink);border-radius:1px}
+@media(max-width:768px){.nav-links{display:none!important}.hamb{display:flex!important}}
+.hero{padding:clamp(40px,6vw,64px) clamp(16px,5vw,72px) 40px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"記録";position:absolute;right:-10px;bottom:-30px;font-family:"Noto Serif JP",serif;font-size:160px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:1.1;margin-bottom:.625rem}
+.hero-desc{color:rgba(255,255,255,.62);font-size:14px;line-height:1.85;max-width:640px;margin-bottom:1.25rem}
+.breadcrumb{padding:.5rem clamp(16px,5vw,72px);background:var(--white);border-bottom:1px solid var(--border);font-size:12px;color:var(--ink-soft)}
+.breadcrumb a{color:var(--ink-soft);text-decoration:none}.breadcrumb a:hover{color:var(--red)}.breadcrumb span{margin:0 .35rem}
+/* Module 
+.mod-link{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:7px;font-size:12px;font-weight:700;color:var(--ink-mid);text-decoration:none;transition:all .15s;margin-right:.3rem}
+.mod-link:hover,.mod-link.active{background:var(--red-pale);color:var(--red)}
+/* Layout */
+.page-layout{display:grid;grid-template-columns:220px 1fr;flex:1}
+@media(max-width:860px){.page-layout{grid-template-columns:1fr}.toc-panel{display:none}}
+.toc-panel{position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;border-right:1px solid var(--border);background:var(--white);padding:1.25rem}
+.toc-title{font-size:10px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.toc-a{display:block;padding:.3rem .5rem;border-radius:6px;font-size:12px;color:var(--ink-mid);text-decoration:none;transition:all .15s;border-left:2px solid transparent;margin-bottom:.1rem}
+.toc-a:hover,.toc-a.on{background:var(--red-pale);color:var(--red);border-left-color:var(--red);font-weight:700}
+.toc-a.sub{padding-left:1rem;font-size:11px}
+.content{padding:2rem clamp(16px,4vw,48px) 5rem;min-width:0;max-width:900px}
+/* Sections */
+.sec{margin-bottom:3rem;scroll-margin-top:88px}
+.sec-num{font-size:10px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
+.sec h2{font-family:"Noto Serif JP",serif;font-size:clamp(20px,3vw,28px);margin-bottom:.5rem}
+.sec-desc{color:var(--ink-mid);font-size:14px;line-height:1.85;margin-bottom:1.25rem}
+.sec h3{font-family:"Noto Serif JP",serif;font-size:18px;margin:1.75rem 0 .875rem;display:flex;align-items:center;gap:.5rem}
+.sec h3::before{content:'';display:block;width:4px;height:18px;background:var(--red);border-radius:2px;flex-shrink:0}
+.sec h4{font-size:14px;font-weight:800;margin:1.25rem 0 .5rem}
+/* Info boxes */
+.box{border-radius:10px;padding:.875rem 1.125rem;margin-bottom:1rem;border:.5px solid;font-size:13px;line-height:1.75}
+.box.tip{background:var(--blue-pale);border-color:rgba(47,111,237,.2);color:var(--ink-mid)}
+.box.warn{background:var(--gold-pale,rgba(185,137,47,.08));border-color:rgba(185,137,47,.2)}
+.box.red{background:var(--red-pale);border-color:rgba(190,52,40,.15)}
+.box.green{background:var(--green-pale);border-color:rgba(33,135,93,.2)}
+.box-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.box.tip .box-title{color:var(--blue)}.box.warn .box-title{color:var(--gold)}.box.red .box-title{color:var(--red)}.box.green .box-title{color:var(--green)}
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;margin-bottom:1.5rem}
+.vc{background:var(--white);border-radius:12px;padding:1.125rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);transition:all .2s}
+.vc:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.07);border-color:var(--red)}
+.vc-jp{font-family:"Noto Serif JP",serif;font-size:20px;font-weight:700;margin-bottom:.15rem}
+.vc-rom{font-size:11px;color:var(--ink-soft);font-style:italic;margin-bottom:.3rem}
+.vc-id{font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem}
+.vc-ex{font-size:12px;color:var(--ink-mid);border-top:.5px solid var(--border);padding-top:.4rem;margin-top:.4rem;line-height:1.6}
+.vc-ex-jp{font-family:"Noto Serif JP",serif;font-weight:600;color:var(--ink)}
+.lv-badge{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:800;margin-bottom:.4rem}
+/* Table */
+.tbl{width:100%;border-collapse:collapse;margin-bottom:1.5rem;background:var(--white);border-radius:12px;overflow:hidden;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
+.tbl th{background:var(--ink);color:#fff;padding:.625rem 1rem;font-size:12px;font-weight:700;text-align:left}
+.tbl td{padding:.625rem 1rem;font-size:13px;border-bottom:.5px solid var(--border);line-height:1.6;vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.td-jp{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:600}
+/* Procedure steps */
+.steps{display:flex;flex-direction:column;gap:.625rem;margin-bottom:1.5rem}
+.step{display:flex;gap:.875rem;align-items:flex-start;padding:.875rem 1rem;background:var(--white);border-radius:10px;border:.5px solid var(--border-mid)}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-title{font-size:14px;font-weight:700;margin-bottom:.2rem}
+.step-jp{font-family:"Noto Serif JP",serif;font-size:14px;color:var(--ink);margin-bottom:.15rem}
+.step-id{font-size:12px;color:var(--ink-soft)}
+.step-note{font-size:11px;color:var(--gold);font-weight:600;margin-top:.2rem}
+/* Dialog */
+.dialog{background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.25rem}
+.dialog-title{font-size:13px;font-weight:800;margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem}
+.d-turn{display:flex;gap:.625rem;align-items:flex-start;margin-bottom:.5rem}
+.d-role{min-width:48px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;text-align:center;flex-shrink:0}
+.d-text .jp{font-family:"Noto Serif JP",serif;font-size:13px;font-weight:600;margin-bottom:.1rem}
+.d-text .id{font-size:11px;color:var(--ink-soft)}
+/* Quiz */
+.quiz-wrap{background:var(--ink);color:#fff;border-radius:14px;padding:1.5rem;margin-top:2rem}
+.q-title{font-size:13px;font-weight:800;color:rgba(255,255,255,.7);margin-bottom:1rem}
+.q-text{font-family:"Noto Serif JP",serif;font-size:17px;margin-bottom:1rem;line-height:1.65}
+.q-opts{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.875rem}
+.q-opt{padding:.75rem 1rem;border-radius:8px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;font-family:Outfit,sans-serif;font-size:13px;font-weight:600;text-align:left;transition:all .15s}
+.q-opt:hover{border-color:rgba(255,255,255,.4)}
+.q-opt.ok{border-color:#22c55e;background:rgba(34,197,94,.2)}
+.q-opt.ng{border-color:#ef4444;background:rgba(239,68,68,.2)}
+.q-fb{font-size:12px;color:rgba(255,255,255,.65);padding:.625rem;background:rgba(255,255,255,.06);border-radius:7px;display:none;line-height:1.65}
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:.875rem}
+.q-btn{height:34px;padding:0 14px;border-radius:8px;border:none;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+.q-btn.nxt{background:var(--red);color:#fff}
+.q-btn.rst{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+/* btt */
+#bttBtn{position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
+*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/kaigo-progress.js" defer></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Penulisan rekod dan dokumentasi asuhan 介護福祉士: cara menulis catatan harian, laporan shift, dan dokumentasi resmi dalam bahasa Jepang.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Rekod.html">
+<meta name="twitter:title" content="Penulisan Rekod & Dokumentasi Asuhan — 介護福祉士">
+<meta name="twitter:description" content="Penulisan rekod dan dokumentasi asuhan 介護福祉士: cara menulis catatan harian, laporan shift, dan dokumentasi resmi dalam bahasa Jepang.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<div class="breadcrumb"><a href="../index.html">Beranda</a><span>›</span><a href="Materi.html">Materi</a><span>›</span><a href="Kaigo-Fukushishi-Overview.html">介護福祉士</a><span>›</span><strong>Penulisan Rekod & Dokumentasi Asuhan</strong></div>
+<div class="module-nav">
+  <a href="Kaigo-Fukushishi-Overview.html" class="mod-link">🏠 Overview</a>
+  <a href="Kaigo-Bahasa.html" class="mod-link">🗣️ Bahasa Dasar</a>
+  <a href="Kaigo-Kosakata-Klinik.html" class="mod-link">💊 Kosakata Klinik</a>
+  <a href="Kaigo-Prosedur.html" class="mod-link">📋 Prosedur</a>
+  <a href="Kaigo-Penyakit.html" class="mod-link">🏥 Penyakit Lansia</a>
+  <a href="Kaigo-Hukum.html" class="mod-link">⚖️ Hukum & Etika</a>
+  <a href="Kaigo-Komunikasi.html" class="mod-link">💬 Komunikasi</a>
+  <a href="Kaigo-Nihongo-N4.html" class="mod-link ">📝 Bahasa Jepang N4</a>
+  <a href="Kaigo-Rekod.html" class="mod-link active">📄 Penulisan Rekod</a>
+  <a href="Kaigo-Ujian-Nasional.html" class="mod-link ">🎯 Ujian Nasional</a>
+</div>
+<section class="hero"><div class="hero-inner"><div class="kicker">📄 Penulisan Rekod · N3–N4</div><h1>Penulisan Rekod & Dokumentasi Asuhan</h1><p class="hero-desc">Cara menulis rekod harian yang benar, template catatan kegiatan, penulisan laporan insiden, dan perbedaan ケアプラン vs 日常記録 dalam konteks 介護福祉士.</p></div></section>
+<div style="display:flex;flex:1">
+<nav class="toc-panel" aria-label="Daftar isi"><div class="toc-title">📋 Daftar Isi</div><div id="tocList"></div></nav>
+<div class="content" id="mainContent" role="main">
+<div class="sec" id="prinsip-rekod">
+  <div class="sec-num">Bagian 1</div>
+  <h2>記録の基本原則 — Prinsip Dasar Penulisan Rekod</h2>
+  <p class="sec-desc">Rekod (記録) adalah dokumen legal yang melindungi residen, keluarga, dan perawat. Rekod yang buruk dapat menyebabkan masalah hukum dan keselamatan yang serius.</p>
+  <div class="box green"><div class="box-title">✅ 5 Prinsip Rekod yang Baik (5W1H)</div>
+    <strong>When</strong>（いつ）・<strong>Where</strong>（どこで）・<strong>Who</strong>（だれが）・<strong>What</strong>（なにを）・<strong>Why</strong>（なぜ）・<strong>How</strong>（どのように）<br>
+    <em>Kapan · Di mana · Siapa · Apa · Mengapa · Bagaimana</em></div>
+  <table class="tbl">
+    <thead><tr><th>Prinsip</th><th>Penjelasan</th><th>Contoh Salah</th><th>Contoh Benar</th></tr></thead>
+    <tbody>
+      <tr><td>客観的（faktual）</td><td>Tulis fakta yang diamati, bukan interpretasi</td><td class="td-jp">機嫌が悪そうだった</td><td class="td-jp">「やめてほしい」と発言された</td></tr>
+      <tr><td>具体的（spesifik）</td><td>Sebutkan waktu, angka, kondisi spesifik</td><td class="td-jp">少し食べた</td><td class="td-jp">昼食を5割程度摂取された</td></tr>
+      <tr><td>簡潔（ringkas）</td><td>Kalimat pendek dan langsung ke intinya</td><td>Penjelasan yang sangat panjang</td><td>Kalimat pendek, padat informasi</td></tr>
+      <tr><td>正確（akurat）</td><td>Tidak memperbesar atau mengecilkan</td><td class="td-jp">ものすごく痛がっていた</td><td class="td-jp">「痛い」と訴え、表情に苦痛が見られた</td></tr>
+      <tr><td>速やかに（tepat waktu）</td><td>Catat sesegera mungkin setelah kejadian</td><td>Catat di akhir shift untuk banyak residen</td><td>Catat sesaat setelah tindakan</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sec" id="catatan-harian">
+  <div class="sec-num">Bagian 2</div>
+  <h2>日常記録の書き方 — Penulisan Catatan Harian</h2>
+  <div class="box tip"><div class="box-title">💡 Struktur Catatan Harian</div>
+    【日時】→【観察内容】→【介助内容】→【利用者の反応】→【特記事項】</div>
+  <h3 id="template-harian">Template & Contoh Kalimat</h3>
+  <table class="tbl">
+    <thead><tr><th>Kategori</th><th>Contoh Kalimat Rekod</th><th>Terjemahan</th></tr></thead>
+    <tbody>
+      <tr><td>Makan</td><td class="td-jp">昼食を8割程度摂取。主食・副食ともに完食に近い状態で摂取された。食事中に咳き込みは見られなかった。</td><td>Makan siang dikonsumsi sekitar 80%. Hampir menghabiskan semua hidangan. Tidak ada batuk saat makan.</td></tr>
+      <tr><td>Mandi</td><td class="td-jp">入浴介助を実施。浴槽内で「気持ちいい」と笑顔で発言。皮膚に発赤・傷等の異常は認められなかった。</td><td>Bantuan mandi dilaksanakan. Di dalam bak berkata "nyaman" sambil tersenyum. Tidak ditemukan kemerahan, luka, atau kelainan kulit.</td></tr>
+      <tr><td>BAK/BAB</td><td class="td-jp">10:30、排尿あり。淡黄色・混濁なし・量はやや少量。ご本人より「スッキリした」との発言あり。</td><td>Pukul 10:30, BAK. Warna kuning pucat, tidak keruh, jumlah sedikit. Residen berkata "lega".</td></tr>
+      <tr><td>Transfer</td><td class="td-jp">車椅子への移乗介助を実施。立位の際に「ふらつく」との訴えあり。安全確認の上、着座を確認した。</td><td>Bantuan transfer ke kursi roda dilaksanakan. Saat berdiri mengatakan "pusing/goyah". Setelah konfirmasi keamanan, residen duduk dengan aman.</td></tr>
+      <tr><td>Tidur</td><td class="td-jp">21:00就寝。夜間2:30頃「トイレに行きたい」との訴えあり。排尿後、再入眠されたことを確認した。</td><td>Tidur pukul 21:00. Sekitar pukul 02:30 menyatakan ingin ke toilet. Setelah BAK, dikonfirmasi kembali tidur.</td></tr>
+      <tr><td>Kondisi umum</td><td class="td-jp">終日穏やかな様子で過ごされた。表情明るく、スタッフへの笑顔での挨拶が見られた。</td><td>Menghabiskan hari dengan tenang. Ekspresi cerah, menyapa staf dengan senyum.</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sec" id="incident-report">
+  <div class="sec-num">Bagian 3</div>
+  <h2>インシデント・事故報告書 — Incident & Accident Report</h2>
+  <div class="box red"><div class="box-title">🔴 Lapor Segera, Tulis Detail</div>
+    Saat terjadi insiden (jatuh, luka, dll.): ① 安全確認（keselamatan dulu）② 報告（lapor atasan）③ 対応（tangani）④ 記録（catat detail）</div>
+  <table class="tbl">
+    <thead><tr><th>Bagian Report</th><th>Yang Harus Ditulis</th><th>Contoh</th></tr></thead>
+    <tbody>
+      <tr><td>発生日時</td><td>Tanggal, waktu tepat</td><td class="td-jp">2025年3月15日（土）14:35頃</td></tr>
+      <tr><td>発生場所</td><td>Lokasi spesifik</td><td class="td-jp">1階食堂、テーブル付近</td></tr>
+      <tr><td>発見者</td><td>Nama perawat yang menemukan</td><td class="td-jp">介護スタッフ○○が発見</td></tr>
+      <tr><td>状況</td><td>Kondisi saat ditemukan, fakta objektif</td><td class="td-jp">利用者が床に座り込んでいた。「転んだ」との発言あり。右膝に擦り傷あり。意識清明、会話可能。</td></tr>
+      <tr><td>対応</td><td>Tindakan yang diambil</td><td class="td-jp">看護師へ報告、傷の処置を実施。ご家族へ電話にて報告。</td></tr>
+      <tr><td>原因と再発防止</td><td>Analisis penyebab dan pencegahan</td><td class="td-jp">床の濡れが原因と推測。床の清掃強化・見回り頻度を増やす。</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="sec" id="care-plan-rekod">
+  <div class="sec-num">Bagian 4</div>
+  <h2>ケア記録 vs ケアプラン — Rekod vs Care Plan</h2>
+  <table class="tbl">
+    <thead><tr><th>Dokumen</th><th>Bahasa Jepang</th><th>Isi & Fungsi</th><th>Dibuat oleh</th></tr></thead>
+    <tbody>
+      <tr><td>Care Plan</td><td class="td-jp">ケアプラン（介護計画書）</td><td>Tujuan, strategi, dan rencana perawatan individual. Dievaluasi berkala.</td><td>ケアマネジャー (care manager)</td></tr>
+      <tr><td>Daily Record</td><td class="td-jp">日常生活記録</td><td>Catatan harian: ADL, kondisi, respons residen</td><td>介護スタッフ（あなた）</td></tr>
+      <tr><td>Vital Signs Record</td><td class="td-jp">バイタルサイン記録</td><td>Suhu, TD, nadi, SpO2 — dicatat dengan waktu</td><td>介護スタッフ/看護師</td></tr>
+      <tr><td>Incident Report</td><td class="td-jp">事故・ヒヤリハット報告書</td><td>Kejadian tidak terduga — untuk analisis dan pencegahan</td><td>介護スタッフ（あなた）</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz-rekod">
+  <div class="sec-num">Quiz</div>
+  <h2>Quiz Penulisan Rekod</h2>
+  <!-- dlg-injected -->
+<h2 style="font-size:1.2rem;font-weight:700;color:#1b5e20;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">💬 Dialog Rekod</h2>
+<div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px"><div style="font-size:.95rem;font-weight:700;color:#1b5e20;margin-bottom:12px">📝 Dialog 1 — 申し送り（日勤→夜勤）</div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:2px">日勤介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">夜勤お疲れ様です。田中様についてお伝えします。今日の昼食は8割摂取されました。<button aria-label="Ucapkan: 夜勤お疲れ様です。田中様についてお伝えします。今日の昼食は8…" onclick="speak('夜勤お疲れ様です。田中様についてお伝えします。今日の昼食は8割摂取されました。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Selamat datang shift malam. Ada info tentang Bu Tanaka. Makan siang tadi 80% habis.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:2px">夜勤介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">了解です。バイタルはどうでしたか？<button aria-label="Ucapkan: 了解です。バイタルはどうでしたか？" onclick="speak('了解です。バイタルはどうでしたか？')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Mengerti. Bagaimana vital sign?</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:2px">日勤介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">体温36.4度、血圧128/76で安定しています。15時にトイレ誘導しました。排尿あり、量は問題なし。<button aria-label="Ucapkan: 体温36.4度、血圧128/76で安定しています。15時にト…" onclick="speak('体温36.4度、血圧128/76で安定しています。15時にトイレ誘導しました。排尿あり、量は問題なし。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Suhu 36.4°C, tekanan darah 128/76 stabil. Jam 15:00 diantar ke toilet. Ada BAK, jumlah normal.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px"><div style="font-size:.95rem;font-weight:700;color:#1b5e20;margin-bottom:12px">✏️ Dialog 2 — 記録の書き方指導</div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:2px">先輩介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">この記録に「元気そうだった」とありますが、具体的に書きましょう。<button aria-label="Ucapkan: この記録に「元気そうだった」とありますが、具体的に書きましょ…" onclick="speak('この記録に「元気そうだった」とありますが、具体的に書きましょう。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Di catatan ini ada "tampak sehat", coba tulis lebih spesifik.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:2px">介護士B</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">どのように書けばいいですか？<button aria-label="Ucapkan: どのように書けばいいですか？" onclick="speak('どのように書けばいいですか？')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Bagaimana cara menulisnya?</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:2px">先輩介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">「食事全量摂取し笑顔で会話された。バイタルは平常範囲内」のように事実を書きます。<button aria-label="Ucapkan: 「食事全量摂取し笑顔で会話された。バイタルは平常範囲内」のよ…" onclick="speak('「食事全量摂取し笑顔で会話された。バイタルは平常範囲内」のように事実を書きます。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Seperti "menghabiskan semua makanan, berbicara sambil senyum. Vital sign dalam batas normal". Tulis faktanya.</div></div></div></div>
+
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#1b5e20;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e8f5e9">💬 介護記録の実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1b5e20;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9">📋 Dialog 1 — 申し送りの実践</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">夜勤介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">日勤の皆さん、申し送りをします。田中様、夜間2時にトイレ誘導しました。転倒なし。山田様は夜中に2回起き上がり、見守りが必要でした。<button aria-label="Ucapkan: 日勤の皆さん、申し送りをします。田中様、夜間2時にトイレ誘導…" onclick="speak('日勤の皆さん、申し送りをします。田中様、夜間2時にトイレ誘導しました。転倒なし。山田様は夜中に2回起き上がり、見守りが必要でした。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Serah terima ke staf siang. Bu Tanaka, jam 2 malam diantar ke toilet, tidak jatuh. Pak Yamada 2 kali bangun tengah malam, perlu pengawasan.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">日勤介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">山田様の夜間の状況、詳しく教えてください。何か訴えがありましたか？<button aria-label="Ucapkan: 山田様の夜間の状況、詳しく教えてください。何か訴えがありまし…" onclick="speak('山田様の夜間の状況、詳しく教えてください。何か訴えがありましたか？')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Kondisi malam Pak Yamada, ceritakan lebih detail. Ada keluhan?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">夜勤介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">「眠れない」とおっしゃっていました。看護師に報告済みです。<button aria-label="Ucapkan: 「眠れない」とおっしゃっていました。看護師に報告済みです。" onclick="speak('「眠れない」とおっしゃっていました。看護師に報告済みです。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Mengatakan tidak bisa tidur. Sudah dilaporkan ke perawat.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1b5e20;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9">✏️ Dialog 2 — 記録の書き方指導</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">先輩介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">田中さん、この記録に「元気そうだった」と書いてありますが、もっと具体的に書きましょう。<button aria-label="Ucapkan: 田中さん、この記録に「元気そうだった」と書いてありますが、も…" onclick="speak('田中さん、この記録に「元気そうだった」と書いてありますが、もっと具体的に書きましょう。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">B-san, di catatan ini tertulis tampak sehat, coba tulis lebih spesifik.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">介護士B</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">どのように書けばいいですか？<button aria-label="Ucapkan: どのように書けばいいですか？" onclick="speak('どのように書けばいいですか？')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Bagaimana cara menulisnya?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">先輩介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">例えば「食事を全量摂取し、食後に笑顔で「おいしかった」と発話された。バイタルは安定」のように、観察した事実を具体的に書きます。<button aria-label="Ucapkan: 例えば「食事を全量摂取し、食後に笑顔で「おいしかった」と発話…" onclick="speak('例えば「食事を全量摂取し、食後に笑顔で「おいしかった」と発話された。バイタルは安定」のように、観察した事実を具体的に書きます。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Misalnya: menghabiskan semua makanan, setelah makan tersenyum dan berkata enak. Vital stabil. Tulis fakta observasi secara spesifik.</div></div></div></div></div>
+<div class="quiz-wrap" id="quizWrap">
+    <div class="q-title">🎯 Soal <span id="qNum">1</span>/<span id="qTot"></span></div>
+    <div class="q-text" id="qText"></div>
+    <div class="q-opts" id="qOpts"></div>
+    <div class="q-fb" id="qFb"></div>
+    <div class="q-nav">
+      <button class="q-btn rst" onclick="rstQ()">↺ Ulangi</button>
+      <div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="qSc">0</span></div>
+      <button class="q-btn nxt" onclick="nxtQ()" id="qNxt" style="display:none">Berikutnya →</button>
+    </div>
+  </div>
+</div>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+const QUIZ_RKD = [
+  {q:'Mana penulisan rekod yang paling tepat (objektif dan spesifik)?', opts:['機嫌が悪そうだった','昼食を少し食べた','「やめてください」と発言し、介助を拒否された','とても元気だった'], ans:2, exp:'Rekod yang baik menggunakan fakta observasi yang objektif dan mengutip langsung ucapan residen. "Terlihat mood buruk" adalah interpretasi — bukan fakta.'},
+  {q:'Saat terjadi insiden (residen jatuh), urutan tindakan yang benar adalah?', opts:['記録→報告→対応→安全確認','安全確認→報告→対応→記録','報告→安全確認→記録→対応','対応→記録→報告→安全確認'], ans:1, exp:'Urutan yang benar: ① 安全確認（pastikan keselamatan residen dulu）② 報告（lapor atasan/perawat）③ 対応（tangani）④ 記録（catat detail kejadian）.'},
+  {q:'Konsumsi makan 80% bagaimana cara menulisnya yang tepat dalam rekod?', opts:['少し食べた','ほとんど食べた','昼食を8割程度摂取された','食べ残しがあった'], ans:2, exp:'8割程度摂取された adalah cara yang paling objektif dan spesifik. Angka lebih informatif daripada deskripsi subjektif seperti "少し" atau "ほとんど".'},
+  {q:'ケアプランは誰が作成するか?', opts:['介護スタッフ（あなた）','看護師','ケアマネジャー','利用者本人'], ans:2, exp:'ケアプラン（介護計画書）はケアマネジャー（介護支援専門員）が作成します。介護スタッフはケアプランに沿って日常の記録を書く役割です。'},
+  {q:'"ヒヤリハット" と"インシデント（事故）"の違いは?', opts:['同じ意味','ヒヤリハットは軽い事故、インシデントは重大事故','ヒヤリハットは「危なかった」という near miss、インシデントは実際に起きた事故','インシデントは予防できた事故、ヒヤリハットは予防できなかった'], ans:2, exp:'ヒヤリハット = near miss（危うく事故になりそうだったが実際には起きなかった）。インシデント = 実際に何らかの被害が生じた事故。両方記録・報告することで再発防止につながります。'},
+];
+</script>
+</div>
+</div><button id="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">↑</button>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.6);padding:1.5rem clamp(16px,5vw,72px)"><div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between"><div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:18px;font-weight:700">Nihonggo Pro Academy</div><div style="display:flex;gap:1rem;font-size:13px"><a href="../index.html" style="color:rgba(255,255,255,.5);text-decoration:none">Beranda</a><a href="Materi.html" style="color:rgba(255,255,255,.5);text-decoration:none">Materi</a><a href="Kaigo-Fukushishi-Overview.html" style="color:rgba(255,255,255,.5);text-decoration:none">介護福祉士</a><a href="../FAQ.html" style="color:rgba(255,255,255,.5);text-decoration:none">FAQ</a></div><div style="font-size:11px;color:rgba(255,255,255,.25)">© 2025 NihonggoPro</div></div></footer>
+
+<script>
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+const btt=document.getElementById('bttBtn');window.addEventListener('scroll',()=>btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});
+// Auto-build TOC
+(()=>{
+  const headings=document.querySelectorAll('#mainContent h2[id],#mainContent h3[id]');
+  const tl=document.getElementById('tocList');
+  if(!tl)return;
+  headings.forEach(h=>{
+    const a=document.createElement('a');
+    a.href='#'+h.id;a.className='toc-a'+(h.tagName==='H3'?' sub':'');
+    a.textContent=h.textContent.replace(/^[▪●■]\s*/,'');
+    tl.appendChild(a);
+  });
+  // Active state
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const a=tl.querySelector('a[href="#'+e.target.id+'"]');
+      if(a)a.classList.toggle('on',e.isIntersecting);
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  headings.forEach(h=>obs.observe(h));
+})();
+// Quiz engine
+let qIdx=0,qScore=0,qAnswered=false;
+function initQuiz(data){
+  window._qData=[...data].sort(()=>Math.random()-.5);
+  qIdx=0;qScore=0;renderQ();
+}
+function renderQ(){
+  const d=window._qData;if(!d||!d[qIdx])return;
+  const q=d[qIdx];
+  document.getElementById('qNum').textContent=qIdx+1;
+  document.getElementById('qTot').textContent=d.length;
+  document.getElementById('qText').textContent=q.q;
+  document.getElementById('qOpts').innerHTML=q.opts.map((o,i)=>`<button class="q-opt" onclick="ansQ(${i},this)">${String.fromCharCode(65+i)}. ${o}</button>`).join('');
+  document.getElementById('qFb').style.display='none';
+  document.getElementById('qNxt').style.display='none';
+  qAnswered=false;
+}
+function ansQ(idx,btn){
+  if(qAnswered)return;qAnswered=true;
+  const q=window._qData[qIdx];
+  document.querySelectorAll('.q-opt')[q.ans].classList.add('ok');
+  if(idx!==q.ans)btn.classList.add('ng');else qScore++;
+  document.getElementById('qSc').textContent=qScore;
+  document.getElementById('qFb').textContent=q.exp;
+  document.getElementById('qFb').style.display='block';
+  document.getElementById('qNxt').style.display='block';
+}
+function nxtQ(){
+  qIdx++;
+  const d=window._qData;
+  if(qIdx>=d.length){
+    const pct=Math.round(qScore/d.length*100);
+    document.getElementById('quizWrap').innerHTML=`<div style="text-align:center;padding:1.5rem"><div style="font-size:40px;margin-bottom:.5rem">${pct>=80?'🏆':pct>=60?'📚':'🔄'}</div><div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:.3rem">Skor: ${qScore}/${d.length} (${pct}%)</div><div style="color:rgba(255,255,255,.6);margin-bottom:1rem">${pct>=80?'Siap ujian nasional!':pct>=60?'Terus berlatih!':'Review materi dan ulangi.'}</div><button class="q-btn nxt" onclick="rstQ()" style="margin:0 auto">↺ Ulangi</button></div>`;
+    return;
+  }
+  renderQ();
+}
+function rstQ(){qIdx=0;qScore=0;document.getElementById('quizWrap').innerHTML=`<div class="q-title">🎯 Soal <span id="qNum">1</span>/<span id="qTot"></span></div><div class="q-text" id="qText"></div><div class="q-opts" id="qOpts"></div><div class="q-fb" id="qFb"></div><div class="q-nav"><button class="q-btn rst" onclick="rstQ()">↺ Ulangi</button><div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="qSc">0</span></div><button class="q-btn nxt" onclick="nxtQ()" id="qNxt" style="display:none">Berikutnya →</button></div>`;initQuiz(window._qData);}
+// Dipindah dari script pertama (v181): initQuiz butuh function initQuiz()
+// yang didefinisikan DI SINI (script kedua) -- memanggilnya dari script
+// pertama menyebabkan ReferenceError karena hoisting tak lintas <script>.
+initQuiz(QUIZ_RKD);
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+
+<section style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.1rem;font-weight:700;color:#1565c0;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz</h2>
+<div id="qkZ"></div>
+<div style="display:flex;gap:10px;margin-top:10px">
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:#1565c0;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
+</section>
+<script>
+var QKZ=[{"q": "「5W1H」の介護記録への応用は？", "opts": ["関係ない", "いつ・どこで・誰が・何を・なぜ・どのように=客観的記録の基本", "書き方の飾り", "難しすぎる"], "a": 1, "e": "5W1H=介護記録の基本。When(いつ)Where(どこで)Who(誰が)What(何を)Why(なぜ)How(どのように)。全て含めることで客観的・完全な記録に。"}, {"q": "食事摂取量「全量」は何%？", "opts": ["50%", "75%", "100%", "25%"], "a": 2, "e": "食事記録における「全量」は摂取量の約100%を意味する。「半量」50%、「7割」70%などと合わせて、栄養状態を把握するための共通の記録基準として多職種間で使われている。"}, {"q": "「記録の訂正」で正しい方法は？", "opts": ["修正液で消す", "誤った部分に二重線を引き、訂正者のサイン・日時を記入する", "全部書き直す", "消しゴムで消す"], "a": 1, "e": "二重線を引いて訂正者が押印し、訂正日を明記する方法が正しいとされる。修正液で消したり書き直して破棄したりすることは、記録の信頼性を損なう改ざんと疑われる危険な行為となる。"}, {"q": "「電子記録システム」の利点は？", "opts": ["コストが高い", "情報共有の迅速化・検索性の向上・多職種でのリアルタイム共有", "難しい", "紙より時間がかかる"], "a": 1, "e": "情報共有の迅速化と、検索性の向上が電子記録システムの利点。紙の記録と異なり、必要な情報を即座に確認・更新できる点が、多職種間の連携の質を大きく高めることにつながる。"}, {"q": "「個人情報の第三者への提供」で正当な理由に含まれるのは？", "opts": ["知人への情報共有", "医療機関・多職種での連携に必要な場合", "SNSでの情報発信", "家族以外の誰でも"], "a": 1, "e": "生命に関わる緊急事態や、法令に基づく場合が正当な理由に含まれる。単なる利便性や興味本位での提供は、この正当な理由には該当せず、守秘義務違反となる危険がある。"}, {"q": "介護記録で「客観的事実」として正しく記録されているのは？", "opts": ["「機嫌が悪そうだった」", "「14時に『足が痛い』と訴え、顔をしかめた」", "「怒っていると思われる」", "「今日は調子が良さそうだった」"], "a": 1, "e": "体温37.5℃、血圧130/80のような具体的な数値や、実際に観察された行動が客観的事実として正しい記録。感想や推測を交えず、実際に見聞きしたことをそのまま記載することが求められる。"}, {"q": "「SOAPノート」の「O」(Objective)に記録するのは？", "opts": ["利用者の訴え", "測定値・観察した客観的情報（バイタル・行動など）", "介護士のアセスメント", "ケア計画"], "a": 1, "e": "SOAP: S=Subjective(利用者の訴え)、O=Objective(客観的情報・バイタル・行動観察)、A=Assessment(評価・判断)、P=Plan(計画)。"}, {"q": "介護記録における「客観的事実」の書き方として正しいのは？", "opts": ["「元気そうだった」", "「14時に食事を全量摂取。食後30分間座位保持。発熱なし(36.5°C)。本人より「食事がおいしかった」と発言あり」", "「今日も普通だった」", "「何となく気になった」"], "a": 1, "e": "介護記録の原則：①5W1H（いつ・どこで・誰が・何を・なぜ・どのように）②観察した事実を客観的に記載③利用者の発言は「 」で引用④推測・感想と事実を混在させない。主観語（元気そう・普通など）は避け、数値・行動・発言を具体的に記録する。"}, {"q": "介護記録における「主観的情報」と「客観的情報」を分ける理由はどれか。", "opts": ["情報の性質を明確にし正確な判断につなげるため", "記録を増やすためだけ", "形式のためだけ", "区別は不要"], "a": 0, "e": "両方をバランスよく捉え、全体像を把握するためとされる。本人の訴えと数値データを区別して記録することで、より正確で多角的なアセスメントにつなげることができる。"}, {"q": "介護記録の「即時記録」の原則が重要な理由はどれか。", "opts": ["記憶が新しいうちに正確な記録ができるため", "後でまとめて書けばよいから", "記憶に頼ればよいから", "無関係"], "a": 0, "e": "記憶が新しいうちに正確な記録ができるためとされる。時間が経ってから記録すると細部を忘れたり記憶が曖昧になったりして、記録の正確性が損なわれてしまう危険がある。"}, {"q": "介護記録の「情報公開請求」への対応原則はどれか。", "opts": ["規定の手続きに沿って適切に対応する", "全て拒否する", "無条件に開示する", "無視してよい"], "a": 0, "e": "規定に沿って適切に開示手続きを行うことが原則となる。一律に拒否したり、逆に無条件で全て見せたりするのではなく、定められた手順とプライバシー保護を両立させる対応が求められる。"}, {"q": "「ヒヤリハット」記録を分析する目的はどれか。", "opts": ["再発防止策を導き出すため", "処罰のため", "記録を増やすためだけ", "無関係"], "a": 0, "e": "ヒヤリハット分析(analisis nyaris kecelakaan)は再発防止策(cegah kejadian ulang)を導くため。"}, {"q": "介護記録の「共有」が多職種連携に果たす役割はどれか。", "opts": ["情報の一貫性を保ち連携をスムーズにする", "記録を複雑にするだけ", "連携には無関係", "時間を増やすだけ"], "a": 0, "e": "情報の一貫性を保ち、連携をスムーズにする役割を果たす。記録を通じた正確な情報共有がなければ、職種間で対応がばらつき、利用者に不利益が生じる恐れがある。"}, {"q": "デジタル記録システム導入のメリットはどれか。", "opts": ["検索性向上とリアルタイム共有が可能になる", "メリットはない", "記録が消えやすくなる", "誰でも編集可能で問題ない"], "a": 0, "e": "検索性の向上と、リアルタイム共有が可能になることがメリット。紙の記録では時間がかかる情報の検索や共有が、デジタル化によって大幅に効率化される。"}, {"q": "記録における「個人の感想」の扱いはどれか。", "opts": ["事実と区別し必要最小限にとどめる", "積極的に多く書く", "事実より優先する", "一切書かない"], "a": 0, "e": "事実と区別し、必要最小限にとどめることが適切な扱い。感想を多く盛り込むことは、記録の客観性を損ない、多職種間での正確な情報共有を妨げる原因となってしまう。"}, {"q": "記録監査で確認される主なポイントはどれか。", "opts": ["正確性・一貫性・適時性", "文字の綺麗さのみ", "記録の長さのみ", "職員の好みのみ"], "a": 0, "e": "正確性・一貫性・適時性が主なポイントとなる。文字の綺麗さや記録の長さではなく、内容が正確で一貫しており、適切なタイミングで書かれているかが評価の中心となる。"}, {"q": "記録の「事実」と「解釈」を分けて書く利点はどれか。", "opts": ["誤解を防ぎ多職種で正確に共有できる", "記録が長くなるだけ", "利点はない", "形式のためだけ"], "a": 0, "e": "誤解を防ぎ、多職種で正確に共有できることが利点。事実と解釈を混在させると、読み手によって受け取り方が変わり、正確な情報伝達が難しくなってしまう。"}, {"q": "記録における「特記事項」欄の使い方はどれか。", "opts": ["通常と異なる重要な変化を記載する", "毎回全て記載する", "使わなくてよい", "感想のみ書く"], "a": 0, "e": "通常と異なる重要な変化を記載することが正しい使い方。毎回全ての内容を記載する欄ではなく、特に注目すべき変化や出来事を強調して伝えるための欄として活用される。"}, {"q": "介護記録が裁判等で証拠となる場合の条件はどれか。", "opts": ["正確かつ適時に記載されていること", "感想が豊富なこと", "長文であること", "無関係"], "a": 0, "e": "正確かつ適時に記載されていることが条件となる。感想が豊富なことや長文であることは証拠能力に関係なく、事実に基づいた正確でタイムリーな記録であることが重視される。"}, {"q": "多職種記録の統一書式導入の目的はどれか。", "opts": ["情報の齟齬を防ぎ連携を円滑にする", "記録者の自由度を減らすだけ", "目的はない", "効率を下げるだけ"], "a": 0, "e": "情報の齟齬を防ぎ、連携を円滑にすることが目的となる。記録者の自由度を制限することが目的なのではなく、共通の形式によって誰もが正確に情報を読み取れるようにするためである。"}],qiZ=0,okZ=0,totZ=0;
+function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
+var oo=document.createElement('div');oo.style.display='grid';oo.style.gap='7px';
+q.opts.forEach(function(o,i){var b=document.createElement('button');
+b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
+b.textContent=o;b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
+var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
+var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:10px;font-size:.92rem';
+qq.textContent=(qiZ%QKZ.length+1)+'. '+q.q;
+var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none';
+bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function ansZ(btn,c,a,e){var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
+bs[a].dataset.d='1';totZ++;
+bs[a].style.background='#e8f5e9';bs[a].style.borderColor='#43a047';bs[a].style.color='#1b5e20';
+if(c!==a){btn.style.background='#fce4ec';btn.style.borderColor='#e91e63';btn.style.color='#880e4f';}
+else okZ++;
+var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();} function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
+rndZ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

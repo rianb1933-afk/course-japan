@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#6d28d9">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>神経系 Sistem Saraf — Otak &amp; Saraf Bahasa Jepang untuk Kaigo | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Saraf — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Saraf.html","description":"Pembelajaran mendalam sistem saraf dalam bahasa Jepang — anatomi otak, transmisi impuls saraf, perubahan penuaan, stroke dan demensia, observasi, dan perawatan Kaigo.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Pelajari sistem saraf secara mendalam dalam bahasa Jepang — anatomi otak, cara kerja transmisi saraf, perubahan akibat penuaan, stroke dan demensia, observasi, dan perawatan Kaigo.">
+<meta property="og:title" content="神経系 Sistem Saraf — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Anatomi, fisiologi, dan perawatan Kaigo sistem saraf dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Saraf.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#f5f3ff,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#6d28d9;border-color:#6d28d9;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#6d28d9;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#6d28d9;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#6d28d9}
+.organ-tab.active{color:#6d28d9;border-bottom-color:#6d28d9}
+.organ-tab:focus-visible{outline:2px solid #6d28d9;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #f5f3ff;color:#1a0a2e}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#6d28d9}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#f5f3ff;border-color:#ddd6fe}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#f5f3ff;color:#6d28d9;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #6d28d9;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.neuron-wrap{max-width:340px;margin:16px auto;padding:16px;background:var(--white,#fff);border-radius:14px;border:1px solid var(--border-light,#eee)}
+@keyframes impulseMove{0%{offset-distance:0%;opacity:0}8%{opacity:1}90%{opacity:1}100%{offset-distance:100%;opacity:0}}
+@keyframes synapseFlash{0%,80%,100%{opacity:.3}88%{opacity:1}}
+.nv-impulse{offset-path:path('M40 200 C120 200 160 150 220 150 C280 150 300 200 340 200');animation:impulseMove 2.5s linear infinite}
+.nv-synapse{animation:synapseFlash 2.5s linear infinite}
+@media (prefers-reduced-motion:reduce){.nv-impulse,.nv-synapse{animation:none}}
+.nv-th{font-size:12px;font-weight:800;fill:var(--ink,#222)}
+.nv-ts{font-size:10.5px;fill:var(--ink-mid,#666)}
+.neuron-legend{display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:11.5px;color:var(--ink-mid,#666);flex-wrap:wrap}
+.neuron-legend span{display:inline-flex;align-items:center;gap:5px}
+.neuron-swatch{display:inline-block;width:12px;height:12px;border-radius:50%}
+.neuron-controls{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.neuron-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:700}
+.neuron-btn.active{background:#f5f3ff;border-color:#6d28d9;color:#6d28d9}
+
+.model3d-wrap{max-width:560px;margin:16px auto;padding:16px;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px}
+.model3d-canvas-wrap{position:relative;width:100%;height:360px;border-radius:10px;overflow:hidden;background:#f5f7fb;touch-action:none}
+.model3d-loading,.model3d-error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink-mid,#666);text-align:center;padding:20px}
+.model3d-error{color:#6d28d9}
+.model3d-info-panel{margin-top:10px;padding:10px 12px;background:#f8f9fb;border-radius:10px;font-size:13px}
+.model3d-info-panel strong{display:block;margin-bottom:2px;font-size:14px}
+.model3d-detail-text{color:var(--ink-mid,#666)}
+.model3d-controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.model3d-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:8px 14px;font-size:12.5px;cursor:pointer;font-weight:700}
+.model3d-btn.active{background:#fef2f2;border-color:#dc2626;color:#dc2626}
+.model3d-disclaimer{margin:10px 0 0;font-size:11px;color:var(--ink-soft,#999);line-height:1.5}
+
+.case-sim{background:var(--white,#fff);border:2px solid #ddd6fe;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#f5f3ff;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#6d28d9;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#6d28d9}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Saraf.html" class="current">① 基礎 Dasar</a>
+      <a href="Sistem-Saraf-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Saraf-Lanjutan.html">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🧠 Level 2-4 — Sistem Saraf</span>
+    <h1><span class="jp-big">神経系</span>Sistem Saraf — Otak &amp; Saraf</h1>
+    <p class="lead">Anatomi otak, transmisi impuls saraf, perubahan penuaan, stroke &amp; demensia, hingga perawatan Kaigo — dengan animasi impuls saraf interaktif.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi saraf">
+  <button class="organ-tab active" data-tab="ringkasan" role="tab" aria-selected="true">概要 Ringkasan</button>
+  <button class="organ-tab" data-tab="anatomi" role="tab" aria-selected="false">解剖 Anatomi</button>
+  <button class="organ-tab" data-tab="fisiologi" role="tab" aria-selected="false">生理 Fisiologi</button>
+  <button class="organ-tab" data-tab="penuaan" role="tab" aria-selected="false">加齢変化 Penuaan</button>
+  <button class="organ-tab" data-tab="penyakit" role="tab" aria-selected="false">疾患 Penyakit</button>
+  <button class="organ-tab" data-tab="gejala" role="tab" aria-selected="false">症状 Gejala</button>
+  <button class="organ-tab" data-tab="observasi" role="tab" aria-selected="false">観察 Observasi</button>
+  <button class="organ-tab" data-tab="perawatan" role="tab" aria-selected="false">介護 Perawatan</button>
+  <button class="organ-tab" data-tab="kosakata" role="tab" aria-selected="false">用語 Kosakata</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <!-- ═══════════ 概要 RINGKASAN ═══════════ -->
+  <div class="organ-panel active" id="panel-ringkasan">
+    <h2>概要 — Ringkasan Sistem Saraf</h2>
+    <p>Sistem saraf (神経系, しんけいけい) terdiri dari <strong>otak (脳, のう)</strong>, <strong>sumsum tulang belakang (脊髄, せきずい)</strong>, dan jaringan saraf di seluruh tubuh — mengatur gerakan, sensasi, pikiran, ingatan, dan fungsi organ dalam secara otomatis.</p>
+    <div class="info-card">
+      <h3 style="margin-top:0">Kenapa penting untuk Kaigo?</h3>
+      <p style="margin-bottom:0">Stroke dan demensia adalah dua kondisi saraf paling umum pada lansia dan berdampak besar pada kemampuan hidup mandiri. Caregiver yang mengenali tanda-tanda awal (kelemahan mendadak, bicara tidak jelas, kebingungan progresif) dapat membantu penanganan lebih cepat dan tepat.</p>
+    </div>
+    <h3>Fungsi utama</h3>
+    <ul>
+      <li>Mengontrol gerakan otot (sadar dan tidak sadar)</li>
+      <li>Memproses sensasi (nyeri, sentuhan, suhu, penglihatan, pendengaran)</li>
+      <li>Mengatur fungsi organ dalam secara otomatis (jantung, pencernaan, pernapasan)</li>
+      <li>Menyimpan ingatan dan memungkinkan proses berpikir</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 解剖 ANATOMI ═══════════ -->
+  <div class="organ-panel" id="panel-anatomi">
+    <h2>解剖 — Anatomi Sistem Saraf</h2>
+    <p>Sistem saraf dibagi menjadi <strong>sistem saraf pusat (中枢神経系, ちゅうすうしんけいけい)</strong> — otak dan sumsum tulang belakang — dan <strong>sistem saraf tepi (末梢神経系, まっしょうしんけいけい)</strong> — saraf yang menyebar ke seluruh tubuh.</p>
+    <h3>Bagian utama otak</h3>
+    <ul>
+      <li><strong>大脳 (だいのう) — Otak Besar (Cerebrum)</strong>: pusat berpikir, ingatan, bahasa, dan gerakan sadar</li>
+      <li><strong>小脳 (しょうのう) — Otak Kecil (Cerebellum)</strong>: koordinasi gerakan dan keseimbangan</li>
+      <li><strong>脳幹 (のうかん) — Batang Otak</strong>: mengatur fungsi vital otomatis (napas, detak jantung)</li>
+      <li><strong>海馬 (かいば) — Hipokampus</strong>: berperan penting dalam pembentukan ingatan baru (terkait erat dengan demensia)</li>
+    </ul>
+    <h3>Sistem saraf otonom (自律神経, じりつしんけい)</h3>
+    <p>Mengatur fungsi tubuh di luar kendali sadar (detak jantung, pencernaan, keringat) — terbagi menjadi simpatik (respons "lawan atau lari") dan parasimpatik (relaksasi dan pemulihan).</p>
+
+    <h3>🧊 Model 3D interaktif — otak</h3>
+    <div class="model3d-wrap">
+      <div id="brain3dContainer" class="model3d-canvas-wrap">
+        <div id="brain3dLoading" class="model3d-loading">Memuat model 3D…</div>
+        <div id="brain3dError" class="model3d-error" style="display:none">Model 3D gagal dimuat. Coba muat ulang halaman.</div>
+      </div>
+      <div class="model3d-info-panel">
+        <strong id="brain3dName">Klik bagian otak untuk detail</strong>
+        <div id="brain3dDetail" class="model3d-detail-text">Putar dengan drag/geser, perbesar dengan scroll/pinch.</div>
+        <div id="brain3dKaigo" class="model3d-detail-text" style="margin-top:6px;font-style:italic"></div>
+      </div>
+      <div class="model3d-controls">
+        <button type="button" id="brain3dResetBtn" class="model3d-btn">↺ Reset kamera</button>
+        <button type="button" id="brain3dStrokeBtn" class="model3d-btn">🚨 Simulasi Stroke (FAST)</button>
+      </div>
+      <p class="model3d-disclaimer">Model edukatif bergaya sederhana untuk pembelajaran istilah anatomi — bukan untuk diagnosis, operasi, atau pengukuran klinis.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 生理 FISIOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-fisiologi">
+    <h2>生理 — Cara Kerja Transmisi Saraf</h2>
+    <p>Saraf berkomunikasi lewat sinyal listrik dan kimiawi yang disebut <strong>impuls saraf (神経インパルス)</strong>, bergerak sepanjang sel saraf (neuron, ニューロン) menuju sel saraf berikutnya lewat celah kecil bernama <strong>sinapsis (シナプス)</strong>.</p>
+
+    <h3>⚡ Animasi transmisi impuls saraf — interaktif</h3>
+    <div class="neuron-wrap">
+      <svg width="100%" viewBox="0 0 380 260" role="img" aria-label="Animasi transmisi impuls saraf: sinyal listrik bergerak sepanjang neuron menuju sinapsis untuk diteruskan ke neuron berikutnya">
+        <path d="M40 200 C120 200 160 150 220 150 C280 150 300 200 340 200" fill="none" stroke="#c4b5fd" stroke-width="10" stroke-linecap="round" opacity=".5"/>
+        <circle cx="40" cy="200" r="24" fill="#ddd6fe"/>
+        <circle class="nv-synapse" cx="220" cy="150" r="10" fill="#6d28d9"/>
+        <circle cx="340" cy="200" r="24" fill="#ddd6fe"/>
+        <circle class="nv-impulse" r="7" fill="#facc15"/>
+        <text class="nv-th" x="40" y="238" text-anchor="middle">1</text>
+        <text class="nv-ts" x="40" y="252" text-anchor="middle">Badan sel saraf</text>
+        <text class="nv-th" x="220" y="128" text-anchor="middle">2</text>
+        <text class="nv-ts" x="220" y="115" text-anchor="middle">Sinapsis</text>
+        <text class="nv-th" x="340" y="238" text-anchor="middle">3</text>
+        <text class="nv-ts" x="340" y="252" text-anchor="middle">Neuron berikut</text>
+      </svg>
+      <div class="neuron-legend">
+        <span><i class="neuron-swatch" style="background:#facc15"></i>Impuls listrik</span>
+        <span><i class="neuron-swatch" style="background:#6d28d9"></i>Sinapsis aktif</span>
+      </div>
+      <div class="neuron-controls">
+        <button type="button" id="neuronToggleBtn" class="neuron-btn active">⏸ Jeda animasi</button>
+      </div>
+    </div>
+
+    <h3>Tahapan transmisi</h3>
+    <ul>
+      <li><strong>Potensial aksi (活動電位, かつどうでんい)</strong>: perubahan listrik yang bergerak sepanjang neuron begitu sinyal cukup kuat memicunya</li>
+      <li><strong>Sinapsis (シナプス)</strong>: celah kecil antar-neuron — sinyal listrik diubah jadi kimiawi (neurotransmitter) untuk menyeberang</li>
+      <li><strong>Neurotransmitter</strong>: zat kimia yang membawa pesan ke neuron berikutnya, memicu impuls baru di sana</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa ini penting untuk stroke:</strong> saat aliran darah ke sebagian otak terputus, sel saraf di area itu kehilangan oksigen dan tidak bisa lagi mengirim/menerima impuls dengan benar — inilah sebab gejala stroke muncul mendadak sesuai area otak yang terdampak (mis. kelemahan satu sisi tubuh, bicara tidak jelas).</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 加齢変化 PERUBAHAN PENUAAN ═══════════ -->
+  <div class="organ-panel" id="panel-penuaan">
+    <h2>加齢に伴う変化 — Perubahan Saraf Akibat Penuaan</h2>
+    <ul>
+      <li><strong>Kecepatan transmisi saraf melambat</strong> — refleks dan waktu reaksi menjadi lebih lambat</li>
+      <li><strong>Jumlah sel saraf berkurang secara bertahap</strong> — normal seiring usia, berbeda dari demensia yang jauh lebih signifikan</li>
+      <li><strong>Keseimbangan terganggu</strong> — meningkatkan risiko jatuh</li>
+      <li><strong>Kualitas tidur berubah</strong> — tidur lebih ringan dan sering terbangun</li>
+      <li><strong>Sensitivitas sensorik menurun</strong> — penciuman, perasa, sentuhan halus berkurang</li>
+    </ul>
+    <div class="info-card warn">
+      <h3 style="margin-top:0">⚠️ Relevansi Kaigo</h3>
+      <p style="margin-bottom:0">Penurunan keseimbangan dan waktu reaksi menjelaskan kenapa pencegahan jatuh (転倒予防) adalah salah satu fokus utama perawatan lansia — lingkungan aman dan pengawasan saat mobilisasi sangat penting.</p>
+    </div>
+
+    <h3>Membedakan penuaan normal dari tanda yang perlu dilaporkan</h3>
+    <p>Salah satu tantangan terbesar caregiver adalah membedakan "ini memang wajar karena usia" dari "ini perlu segera dilaporkan". Beberapa panduan umum:</p>
+    <div class="info-card tip">
+      <strong>Cenderung NORMAL (penuaan biasa):</strong>
+      <ul style="margin-bottom:0">
+        <li>Sesekali lupa nama benda tapi ingat kembali setelah diberi petunjuk</li>
+        <li>Butuh waktu sedikit lebih lama untuk memproses informasi baru, tapi tetap bisa memahami</li>
+        <li>Refleks dan gerakan sedikit lebih lambat dibanding dulu, tapi konsisten (tidak tiba-tiba memburuk)</li>
+      </ul>
+    </div>
+    <div class="info-card danger">
+      <strong>Perlu DILAPORKAN dan dievaluasi:</strong>
+      <ul style="margin-bottom:0">
+        <li>Lupa kejadian yang baru saja terjadi dan TIDAK bisa mengingatnya kembali meski diberi petunjuk</li>
+        <li>Kesulitan menyelesaikan tugas yang biasa dilakukan (memasak, mengelola uang) yang sebelumnya lancar</li>
+        <li>Perubahan MENDADAK dalam kesadaran, bicara, atau kekuatan tubuh — bukan bertahap selama bertahun-tahun</li>
+        <li>Tersesat di tempat yang sudah dikenal bertahun-tahun</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════ 疾患 PENYAKIT ═══════════ -->
+  <div class="organ-panel" id="panel-penyakit">
+    <h2>疾患 — Penyakit Saraf Umum pada Lansia</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">脳梗塞 (のうこうそく) — Stroke Iskemik</h3>
+      <p>Penyumbatan pembuluh darah otak yang menghentikan aliran darah ke sebagian otak. Jenis stroke paling umum (sekitar 80% dari seluruh kasus stroke). Kondisi darurat medis — setiap menit berharga karena sel otak yang kekurangan oksigen mulai mati dalam hitungan menit.</p>
+      <p style="margin-bottom:0">Dibedakan dari <strong>脳出血 (のうしゅっけつ) — stroke hemoragik</strong>, yaitu pecahnya pembuluh darah otak (bukan sumbatan) — lebih jarang tapi sering lebih berat. Kedua jenis stroke menunjukkan gejala luar yang mirip, sehingga caregiver tidak perlu (dan tidak bisa) membedakan jenisnya — yang penting adalah mengenali gejala dan segera mencari bantuan medis.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">認知症 (にんちしょう) — Demensia</h3>
+      <p>Penurunan fungsi kognitif (ingatan, berpikir, orientasi) yang cukup signifikan hingga mengganggu aktivitas sehari-hari. Bukan penyakit tunggal, melainkan payung istilah untuk beberapa kondisi:</p>
+      <ul>
+        <li><strong>アルツハイマー型認知症</strong> — jenis paling umum (~60-70% kasus), berkembang perlahan, gejala awal biasanya mudah lupa kejadian baru</li>
+        <li><strong>血管性認知症</strong> — disebabkan gangguan aliran darah otak (termasuk stroke kecil berulang), perkembangan gejala bisa bertahap "naik-turun" berbeda dari Alzheimer yang cenderung menurun perlahan konsisten</li>
+        <li><strong>レビー小体型認知症</strong> — disertai halusinasi visual dan fluktuasi kesadaran yang mencolok dari hari ke hari</li>
+      </ul>
+      <p style="margin-bottom:0">Penting dibedakan dari <strong>せん妄 (delirium)</strong> — kebingungan mendadak dan akut (bisa muncul dalam hitungan jam) sering dipicu infeksi atau perubahan lingkungan, BUKAN demensia meski gejalanya mirip. Delirium berpotensi membaik jika penyebabnya diatasi, sehingga penting tidak langsung diberi label "pikun karena demensia" tanpa evaluasi.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">パーキンソン病 (ぱーきんそんびょう) — Penyakit Parkinson</h3>
+      <p>Gangguan saraf progresif akibat berkurangnya sel penghasil dopamin di otak, menyebabkan empat gejala motorik utama: tremor (gemetar) saat istirahat, kekakuan otot (rigiditas), gerakan melambat (bradikinesia), dan gangguan keseimbangan/postur.</p>
+      <p style="margin-bottom:0">Gejala biasanya muncul lebih dulu di satu sisi tubuh sebelum menyebar. Selain gejala motorik, sering menyertai gejala non-motorik yang kadang terlewat: gangguan penciuman, sembelit, gangguan tidur, dan perubahan suasana hati — beberapa di antaranya muncul bertahun-tahun SEBELUM gejala motorik jelas terlihat.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">てんかん — Epilepsi</h3>
+      <p style="margin-bottom:0">Gangguan aktivitas listrik otak yang menyebabkan kejang berulang. Pada lansia, epilepsi bisa muncul BARU (bukan hanya kondisi sejak muda) — sering dipicu kondisi lain seperti stroke sebelumnya, tumor, atau gangguan metabolik. Kejang tidak selalu berupa kejang seluruh tubuh yang dramatis — bisa juga berupa "bengong" singkat atau gerakan berulang kecil yang mudah tidak disadari sebagai kejang.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 症状 GEJALA ═══════════ -->
+  <div class="organ-panel" id="panel-gejala">
+    <h2>症状 — Gejala yang Perlu Diwaspadai</h2>
+    <ul>
+      <li><strong>片麻痺 (かたまひ)</strong> — Kelemahan/kelumpuhan satu sisi tubuh — tanda klasik stroke</li>
+      <li><strong>ろれつが回らない</strong> — Bicara tidak jelas/cadel</li>
+      <li><strong>顔のゆがみ</strong> — Wajah miring/turun sebelah (facial drooping)</li>
+      <li><strong>物忘れ (ものわすれ)</strong> — Mudah lupa, terutama kejadian baru</li>
+      <li><strong>見当識障害 (けんとうしきしょうがい)</strong> — Disorientasi waktu/tempat/orang, umum pada demensia</li>
+      <li><strong>ふるえ (振戦, しんせん)</strong> — Tremor/gemetar, khas Parkinson</li>
+      <li><strong>意識障害</strong> — Gangguan kesadaran</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">🚨 FAST — Kenali Tanda Stroke</h3>
+      <p style="margin-bottom:0"><strong>F</strong>ace (wajah turun sebelah), <strong>A</strong>rm (lengan lemah satu sisi), <strong>S</strong>peech (bicara tidak jelas), <strong>T</strong>ime (segera hubungi darurat/救急車を呼ぶ). Jika salah satu tanda muncul MENDADAK, ini kondisi darurat — jangan menunggu untuk melihat apakah membaik.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 観察 OBSERVASI ═══════════ -->
+  <div class="organ-panel" id="panel-observasi">
+    <h2>観察 — Poin Observasi Caregiver</h2>
+    <p>Observasi rutin membantu mendeteksi perubahan mendadak (kemungkinan stroke/kondisi akut) maupun perubahan bertahap (kemungkinan progresi demensia/Parkinson) — keduanya butuh respons berbeda.</p>
+
+    <h3>Observasi untuk deteksi DINI perubahan mendadak (kemungkinan stroke)</h3>
+    <ul>
+      <li><strong>意識レベル</strong> — Tingkat kesadaran: waspada penuh, mengantuk, atau sulit dibangunkan. Perubahan MENDADAK adalah tanda bahaya, jauh lebih mengkhawatirkan dibanding kondisi yang sudah berlangsung lama</li>
+      <li><strong>言葉の様子</strong> — Kejelasan bicara, kemampuan memahami pertanyaan. Bicara pelo/cadel yang muncul tiba-tiba (bukan sejak lama) adalah tanda klasik stroke</li>
+      <li><strong>手足の動き</strong> — Kekuatan dan simetri gerakan tangan/kaki kedua sisi. Bandingkan sisi kiri-kanan — kelemahan SATU sisi yang muncul mendadak adalah tanda peringatan penting</li>
+      <li><strong>顔の表情</strong> — Simetri wajah, terutama saat tersenyum. Salah satu sisi wajah "turun"/tidak bergerak simetris adalah bagian dari mnemonic FAST untuk stroke</li>
+    </ul>
+
+    <h3>Observasi untuk pemantauan progresi BERTAHAP (demensia, Parkinson)</h3>
+    <ul>
+      <li><strong>物忘れの程度と変化</strong> — Tingkat lupa dan apakah memburuk dari waktu ke waktu. Catat POLA-nya (lupa kejadian baru vs lupa nama orang dekat) karena pola berbeda bisa mengarah ke jenis demensia berbeda</li>
+      <li><strong>歩行やバランス</strong> — Cara berjalan dan keseimbangan (risiko jatuh). Perhatikan langkah kecil-kecil/menyeret (khas Parkinson) vs langkah tidak stabil umum</li>
+      <li><strong>見当識の変化</strong> — Perubahan orientasi waktu/tempat/orang — catat apakah muncul MENDADAK (curigai delirium, butuh evaluasi segera) atau bertahap selama berbulan-bulan (lebih mengarah ke progresi demensia)</li>
+    </ul>
+
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Prinsip pencatatan yang membantu tenaga medis:</strong> selalu catat KAPAN perubahan mulai terlihat dan SEBERAPA CEPAT terjadi — informasi "sejak kapan" dan "mendadak vs bertahap" ini sering lebih membantu diagnosis dibanding deskripsi gejala itu sendiri.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 介護 PERAWATAN ═══════════ -->
+  <div class="organ-panel" id="panel-perawatan">
+    <h2>介護 — Tindakan Perawatan Kaigo</h2>
+    <h3>Pencegahan jatuh (転倒予防)</h3>
+    <ul>
+      <li>Pastikan lingkungan bebas dari benda yang bisa membuat tersandung</li>
+      <li>Dampingi saat berjalan atau berpindah posisi, terutama malam hari</li>
+      <li>Pastikan pencahayaan cukup, terutama di kamar mandi dan lorong</li>
+    </ul>
+    <h3>Pendampingan demensia</h3>
+    <ul>
+      <li>Bicara dengan tenang, jelas, dan sederhana</li>
+      <li>Jaga rutinitas harian yang konsisten untuk mengurangi kebingungan</li>
+      <li>Validasi perasaan tanpa memperdebatkan ingatan yang keliru secara berlebihan</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">📞 Kapan harus melapor/panggil darurat?</h3>
+      <ul style="margin-bottom:0">
+        <li>Kelemahan mendadak satu sisi tubuh, bicara tidak jelas, atau wajah miring → SEGERA panggil darurat (tanda FAST/stroke)</li>
+        <li>Kebingungan yang memburuk drastis dalam waktu singkat</li>
+        <li>Jatuh dengan benturan kepala, terutama jika disertai muntah atau kesadaran menurun</li>
+        <li>Kejang yang berlangsung lama atau berulang</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════ 用語 KOSAKATA ═══════════ -->
+  <div class="organ-panel" id="panel-kosakata">
+    <h2>用語 — Kosakata Jepang Sistem Saraf</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">脳</td><td>のう</td><td>Otak</td><td>Brain</td></tr>
+        <tr><td class="jp">神経</td><td>しんけい</td><td>Saraf</td><td>Nerve</td></tr>
+        <tr><td class="jp">脳梗塞</td><td>のうこうそく</td><td>Stroke iskemik</td><td>Ischemic stroke</td></tr>
+        <tr><td class="jp">認知症</td><td>にんちしょう</td><td>Demensia</td><td>Dementia</td></tr>
+        <tr><td class="jp">物忘れ</td><td>ものわすれ</td><td>Lupa</td><td>Forgetfulness</td></tr>
+        <tr><td class="jp">片麻痺</td><td>かたまひ</td><td>Kelumpuhan satu sisi</td><td>Hemiplegia</td></tr>
+        <tr><td class="jp">見当識</td><td>けんとうしき</td><td>Orientasi</td><td>Orientation</td></tr>
+        <tr><td class="jp">転倒</td><td>てんとう</td><td>Jatuh</td><td>Fall</td></tr>
+        <tr><td class="jp">振戦</td><td>しんせん</td><td>Tremor</td><td>Tremor</td></tr>
+        <tr><td class="jp">意識</td><td>いしき</td><td>Kesadaran</td><td>Consciousness</td></tr>
+        <tr><td class="jp">脳出血</td><td>のうしゅっけつ</td><td>Stroke hemoragik</td><td>Hemorrhagic stroke</td></tr>
+        <tr><td class="jp">せん妄</td><td>せんもう</td><td>Delirium</td><td>Delirium</td></tr>
+        <tr><td class="jp">血管性認知症</td><td>けっかんせいにんちしょう</td><td>Demensia vaskular</td><td>Vascular dementia</td></tr>
+        <tr><td class="jp">レビー小体型認知症</td><td>れびーしょうたいがたにんちしょう</td><td>Demensia Lewy body</td><td>Lewy body dementia</td></tr>
+        <tr><td class="jp">パーキンソン病</td><td>ぱーきんそんびょう</td><td>Penyakit Parkinson</td><td>Parkinson's disease</td></tr>
+        <tr><td class="jp">寡動</td><td>かどう</td><td>Bradikinesia (gerakan lambat)</td><td>Bradykinesia</td></tr>
+        <tr><td class="jp">てんかん</td><td>てんかん</td><td>Epilepsi</td><td>Epilepsy</td></tr>
+        <tr><td class="jp">痙攣</td><td>けいれん</td><td>Kejang</td><td>Seizure</td></tr>
+        <tr><td class="jp">反射</td><td>はんしゃ</td><td>Refleks</td><td>Reflex</td></tr>
+        <tr><td class="jp">感覚</td><td>かんかく</td><td>Sensasi/indera</td><td>Sensation</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis</h3>
+    <div class="clinical-sentence">
+      <div class="jp">右手に力が入らないようです。</div>
+      <div class="id">Tampaknya tangan kanannya tidak bertenaga.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">最近、物忘れがひどくなってきました。</div>
+      <div class="id">Akhir-akhir ini lupanya semakin parah.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">顔の片側が下がっています。</div>
+      <div class="id">Salah satu sisi wajahnya turun.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia tiba-tiba mengalami kelemahan pada lengan kanan, bicara menjadi tidak jelas (cadel), dan sudut mulut sebelah kanan tampak turun. Semua ini muncul mendadak dalam beberapa menit terakhir, sebelumnya ia tampak baik-baik saja.
+      </div>
+      <div class="case-question">
+        <label>1. Sistem tubuh mana yang kemungkinan besar bermasalah?</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Sistem pencernaan</option>
+          <option value="correct">Sistem saraf</option>
+          <option value="wrong">Sistem muskuloskeletal</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Kombinasi gejala ini (kelemahan mendadak + bicara cadel + wajah turun) paling mengarah ke:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Migrain biasa</option>
+          <option value="correct">Stroke (脳梗塞)</option>
+          <option value="wrong">Kelelahan otot</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan caregiver yang PALING tepat sekarang:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Menyuruhnya istirahat dan menunggu beberapa jam</option>
+          <option value="correct">Segera menghubungi layanan darurat (waktu sangat kritis)</option>
+          <option value="wrong">Memberi minum air putih banyak-banyak</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+// v202: Model 3D otak -- diintegrasikan dari file yang disediakan pengguna
+// (brain_3d_kaigo_package.zip, dibuat via trimesh Python, bukan AI berbayar).
+// Perbaikan dari debugging v191 (import map + ResizeObserver) diterapkan
+// LANGSUNG sejak awal di sini -- tidak perlu mengulang proses debug.
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+(async function () {
+  const container = document.getElementById('brain3dContainer');
+  const loadingEl = document.getElementById('brain3dLoading');
+  const errorEl = document.getElementById('brain3dError');
+  const nameEl = document.getElementById('brain3dName');
+  const detailEl = document.getElementById('brain3dDetail');
+  const kaigoEl = document.getElementById('brain3dKaigo');
+  if (!container) return;
+
+  function showError(msg) {
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (errorEl) { errorEl.style.display = 'flex'; errorEl.textContent = msg; }
+    console.warn('[Brain 3D Viewer]', msg);
+  }
+
+  if (!window.WebGLRenderingContext) {
+    showError('Browser Anda tidak mendukung WebGL -- model 3D tidak dapat ditampilkan. Fitur lain di halaman ini tetap berfungsi normal.');
+    return;
+  }
+
+  let metadata = {};
+  try {
+    const res = await fetch('../assets/models/brain/brain-data.json');
+    metadata = await res.json();
+  } catch (err) {
+    console.warn('[Brain 3D Viewer] Metadata gagal dimuat, label akan pakai nama mesh mentah:', err);
+  }
+
+  try {
+    const FALLBACK_W = 560, FALLBACK_H = 360;
+    let width = container.clientWidth || FALLBACK_W;
+    let height = container.clientHeight || FALLBACK_H;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(42, width / height, 0.1, 100);
+    const defaultCamPos = { x: 4.6, y: 4.0, z: 3.3 };
+    camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, -0.15, -0.1);
+    controls.minDistance = 2.7;
+    controls.maxDistance = 9;
+
+    // ResizeObserver -- pelajaran dari v191: tab ini display:none secara
+    // default, container 0x0 saat script pertama jalan. Diobservasi ulang
+    // begitu tab dibuka.
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(function (entries) {
+        for (const entry of entries) {
+          const w = entry.contentRect.width, h = entry.contentRect.height;
+          if (w > 0 && h > 0 && (w !== width || h !== height)) {
+            width = w; height = h;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+          }
+        }
+      });
+      resizeObserver.observe(container);
+    }
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x728090, 2.3));
+    const key = new THREE.DirectionalLight(0xffffff, 2.4); key.position.set(5, 6, 7); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xbcdcff, 1.4); rim.position.set(-5, 1, -4); scene.add(rim);
+
+    let brain = null, strokeMode = false, selected = null;
+    const selectable = [];
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+
+    new GLTFLoader().load(
+      '../assets/models/brain/brain_educational.glb',
+      function (gltf) {
+        brain = gltf.scene;
+        gltf.scene.traverse(function (o) {
+          if (o.isMesh) {
+            o.material = o.material.clone();
+            o.material.roughness = .58; o.material.metalness = 0;
+            o.userData.baseColor = o.material.color.clone();
+            selectable.push(o);
+          }
+        });
+        scene.add(brain);
+        if (loadingEl) loadingEl.style.display = 'none';
+      },
+      undefined,
+      function (err) {
+        showError('Model 3D gagal dimuat. Coba muat ulang halaman -- fitur lain tetap berfungsi normal.');
+      }
+    );
+
+    // BUG DITEMUKAN & DIPERBAIKI: GLTFLoader Three.js SECARA OTOMATIS
+    // mengubah spasi (" ") menjadi underscore ("_") di nama node lewat
+    // PropertyBinding.sanitizeNodeName() -- dikonfirmasi via dokumentasi
+    // resmi Three.js (github.com/mrdoob/three.js/issues/17832) DAN
+    // pengujian lokal (klik hotspot mengembalikan "Lobus_Frontal_Kiri",
+    // bukan "Lobus Frontal Kiri" seperti di brain-data.json). Nama harus
+    // dinormalisasi (underscore -> spasi) sebelum lookup ke metadata.
+    function labelFor(rawName) {
+      const name = (rawName || '').replace(/_/g, ' ');
+      const m = metadata[name];
+      if (!m) return { title: name || 'Bagian tidak dikenal', detail: 'Metadata tidak tersedia untuk bagian ini.', kaigo: '' };
+      return { title: name + '（' + m.jp + '） ' + m.en, detail: m.function, kaigo: '介護ポイント: ' + m.kaigo };
+    }
+
+    renderer.domElement.addEventListener('pointerdown', function (e) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const hit = raycaster.intersectObjects(selectable, false)[0];
+      if (!hit) return;
+      if (selected) selected.scale.setScalar(1);
+      selected = hit.object;
+      selected.scale.setScalar(1.07);
+      const name = selected.name || (selected.parent && selected.parent.name) || 'unknown';
+      const label = labelFor(name);
+      if (nameEl) nameEl.textContent = label.title;
+      if (detailEl) detailEl.textContent = label.detail;
+      if (kaigoEl) kaigoEl.textContent = label.kaigo;
+    });
+
+    const resetBtn = document.getElementById('brain3dResetBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+        controls.target.set(0, -0.15, -0.1);
+        controls.update();
+      });
+    }
+
+    // Simulasi stroke: menyorot lobus frontal & parietal KIRI merah --
+    // menghubungkan visual 3D dengan mnemonic FAST yang sudah dijelaskan
+    // di tab 症状 Gejala halaman ini.
+    const strokeBtn = document.getElementById('brain3dStrokeBtn');
+    if (strokeBtn) {
+      strokeBtn.addEventListener('click', function () {
+        strokeMode = !strokeMode;
+        strokeBtn.classList.toggle('active', strokeMode);
+        strokeBtn.textContent = strokeMode ? '✅ Matikan Simulasi' : '🚨 Simulasi Stroke (FAST)';
+        selectable.forEach(function (o) {
+          const n = o.name || '';
+          // Nama asli dari GLTFLoader pakai underscore (lihat catatan bug di
+          // labelFor di atas) -- cek harus konsisten dengan format itu.
+          if (strokeMode && (n.includes('Frontal_Kiri') || n.includes('Parietal_Kiri'))) {
+            o.material.color.set(0x8e0000);
+            o.material.emissive.set(0x450000);
+          } else {
+            o.material.color.copy(o.userData.baseColor);
+            o.material.emissive.set(0x000000);
+          }
+        });
+        if (strokeMode && kaigoEl) {
+          kaigoEl.textContent = 'Area merah menunjukkan lobus kiri yang terdampak -- ingat FAST: Face (wajah turun kanan), Arm (lengan kanan lemah), Speech (bicara tidak jelas), Time (segera panggil darurat).';
+          if (nameEl) nameEl.textContent = 'Simulasi: Area otak terdampak stroke sisi kiri';
+        }
+      });
+    }
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  } catch (err) {
+    showError('Terjadi kesalahan saat menyiapkan viewer 3D -- fitur lain tetap berfungsi normal.');
+  }
+})();
+</script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var neuronBtn = document.getElementById('neuronToggleBtn');
+  if (neuronBtn) {
+    neuronBtn.addEventListener('click', function () {
+      var svg = document.querySelector('.neuron-wrap svg');
+      var elements = svg.querySelectorAll('.nv-impulse, .nv-synapse');
+      var paused = neuronBtn.dataset.paused === 'true';
+      if (!paused) {
+        elements.forEach(function (el) { el.style.animationPlayState = 'paused'; });
+        neuronBtn.textContent = '▶ Lanjutkan animasi';
+        neuronBtn.dataset.paused = 'true';
+      } else {
+        elements.forEach(function (el) { el.style.animationPlayState = 'running'; });
+        neuronBtn.textContent = '⏸ Jeda animasi';
+        neuronBtn.dataset.paused = 'false';
+      }
+    });
+  }
+
+  var MINI_Q = [
+    { q: 'Bagian otak yang berperan penting dalam pembentukan ingatan baru adalah?', opts: ['Hipokampus', 'Otak kecil', 'Batang otak'], a: 0 },
+    { q: 'Celah kecil antar-neuron tempat sinyal diteruskan disebut?', opts: ['Akson', 'Sinapsis', 'Dendrit'], a: 1 },
+    { q: 'Dalam FAST (tanda stroke), huruf "S" berarti apa?', opts: ['Sadar (kesadaran)', 'Speech (bicara tidak jelas)', 'Sakit kepala'], a: 1 },
+    { q: 'Kebingungan MENDADAK (bisa muncul dalam hitungan jam, sering dipicu infeksi) berbeda dari demensia dan disebut?', opts: ['Delirium (せん妄)', 'Stroke ringan', 'Penuaan normal'], a: 0 },
+    { q: 'Jenis demensia yang perkembangan gejalanya cenderung "naik-turun" bertahap (bukan menurun konsisten) karena kaitan dengan gangguan aliran darah otak adalah?', opts: ['Demensia Alzheimer', 'Demensia vaskular', 'Demensia Lewy body'], a: 1 },
+    { q: 'Empat gejala motorik utama Parkinson adalah tremor istirahat, kekakuan, gangguan keseimbangan, dan?', opts: ['Gerakan melambat (bradikinesia)', 'Demam tinggi', 'Nyeri sendi'], a: 0 },
+    { q: 'Lupa nama benda tapi BISA mengingat kembali setelah diberi petunjuk termasuk kategori apa?', opts: ['Tanda demensia yang harus dilaporkan', 'Cenderung penuaan normal', 'Tanda stroke'], a: 1 },
+    { q: 'Informasi apa yang PALING membantu tenaga medis saat melaporkan perubahan kondisi neurologis?', opts: ['Warna baju pasien', 'Kapan mulai dan seberapa cepat perubahan terjadi', 'Berat badan pasien'], a: 1 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Kelemahan mendadak satu sisi + bicara cadel + wajah turun sebelah adalah tanda klasik <strong>FAST (Face, Arm, Speech, Time)</strong> untuk stroke (脳梗塞). Ini kondisi darurat waktu-kritis — setiap menit keterlambatan penanganan bisa memperburuk kerusakan otak permanen. WAJIB segera panggil darurat, bukan menunggu.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: perhatikan bahwa ketiga gejala muncul MENDADAK dan menyerang SATU SISI tubuh — pola khas gangguan aliran darah ke satu sisi otak. Kondisi seperti ini adalah salah satu keadaan darurat medis paling waktu-kritis, tindakan yang benar adalah segera memanggil bantuan darurat.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

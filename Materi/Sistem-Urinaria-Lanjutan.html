@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#451a03">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>泌尿器系（上級）Urinaria Lanjutan — Dialisis &amp; Urosepsis untuk Calon Perawat | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Urinaria Lanjutan — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Urinaria-Lanjutan.html","description":"Pembelajaran tingkat lanjutan sistem urinaria dalam bahasa Jepang — dialisis, urosepsis, farmakologi mendalam, prosedur urologi, dan terminologi nefro-ICU untuk calon perawat dan tenaga medis.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Materi tingkat lanjutan sistem urinaria — dialisis, urosepsis, farmakologi mendalam, dan prosedur urologi dalam bahasa Jepang untuk calon perawat dan tenaga medis.">
+<meta property="og:title" content="泌尿器系（上級）Urinaria Lanjutan — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Dialisis, urosepsis, farmakologi mendalam, dan prosedur urologi dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Urinaria-Lanjutan.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#fffbeb,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#451a03;border-color:#451a03;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#451a03;background:#fffbeb;border:1px solid #fde68a;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#451a03;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#451a03}
+.organ-tab.active{color:#451a03;border-bottom-color:#451a03}
+.organ-tab:focus-visible{outline:2px solid #451a03;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #fffbeb;color:#1c0a01}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#451a03}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#fffbeb;border-color:#fde68a}
+.info-card.scope{background:#f8fafc;border-color:#cbd5e1}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#fffbeb;color:#451a03;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #451a03;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#451a03}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.case-sim{background:var(--white,#fff);border:2px solid #fde68a;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#fffbeb;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#451a03;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Urinaria.html">① 基礎 Dasar</a>
+      <a href="Sistem-Urinaria-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Urinaria-Lanjutan.html" class="current">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">💧 Level Lanjutan — Dialisis &amp; Urosepsis</span>
+    <h1><span class="jp-big">泌尿器系（上級）</span>Urinaria Lanjutan</h1>
+    <p class="lead">Dialisis, urosepsis, farmakologi mendalam, dan prosedur urologi — untuk calon perawat, tenaga medis, dan pelajar bahasa Jepang tingkat teknis tertinggi.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi urinaria lanjutan">
+  <button class="organ-tab active" data-tab="dialisis" role="tab" aria-selected="true">透析 Dialisis</button>
+  <button class="organ-tab" data-tab="urosepsis" role="tab" aria-selected="false">尿路性敗血症 Urosepsis</button>
+  <button class="organ-tab" data-tab="farmakologi" role="tab" aria-selected="false">薬理詳細 Farmakologi</button>
+  <button class="organ-tab" data-tab="elektrolit" role="tab" aria-selected="false">電解質異常 Gangguan Elektrolit</button>
+  <button class="organ-tab" data-tab="prosedur" role="tab" aria-selected="false">処置 Prosedur &amp; Alat</button>
+  <button class="organ-tab" data-tab="icu" role="tab" aria-selected="false">ICU用語 Istilah Nefro-ICU</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <div class="info-card scope">
+    <strong>Tentang materi tingkat lanjutan ini:</strong>
+    <p style="margin:6px 0 0">Konten ini menjelaskan KONSEP dan MEKANISME untuk tujuan edukasi bahasa dan pemahaman klinis dasar — BUKAN pengganti pendidikan keperawatan formal, protokol rumah sakit, atau panduan dosis obat. Angka/dosis spesifik sengaja tidak dicantumkan karena bervariasi menurut kondisi pasien dan kebijakan institusi; selalu ikuti pelatihan resmi dan protokol fasilitas.</p>
+  </div>
+
+  <!-- ═══════════ 透析 DIALISIS ═══════════ -->
+  <div class="organ-panel active" id="panel-dialisis">
+    <h2>透析 — Prinsip Dialisis</h2>
+    <p>Dialisis (透析, とうせき) menggantikan sebagian fungsi ginjal saat ginjal tidak lagi mampu menyaring darah secara adekuat — dipakai pada gagal ginjal berat, baik akut maupun kronis stadium akhir.</p>
+
+    <h3>Jenis dialisis utama</h3>
+    <ul>
+      <li><strong>血液透析 (けつえきとうせき) — Hemodialisis</strong>: darah dikeluarkan dari tubuh, disaring lewat mesin dengan membran khusus, lalu dikembalikan ke tubuh — umumnya dilakukan beberapa kali seminggu di fasilitas dialisis, membutuhkan akses vaskular khusus (fistula/kateter)</li>
+      <li><strong>腹膜透析 (ふくまくとうせき) — Dialisis peritoneal</strong>: memanfaatkan membran peritoneum (selaput rongga perut) SENDIRI sebagai filter — cairan dialisat dimasukkan ke rongga perut lewat kateter, dibiarkan beberapa waktu, lalu dikeluarkan. Bisa dilakukan di rumah, memberi fleksibilitas lebih dibanding hemodialisis fasilitas</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Relevansi Kaigo:</strong> pasien dialisis peritoneal di rumah membutuhkan lingkungan bersih dan teknik steril saat pertukaran cairan — caregiver yang terlibat perlu memahami pentingnya kebersihan tangan dan area kerja untuk mencegah peritonitis (infeksi rongga perut), komplikasi serius dialisis peritoneal.</p>
+    </div>
+
+    <h3>Kapan dialisis dipertimbangkan (konsep umum)</h3>
+    <p style="margin-bottom:0">Keputusan memulai dialisis mempertimbangkan kombinasi tingkat keparahan gangguan ginjal, gejala klinis (kelebihan cairan, gangguan elektrolit berat, gejala uremia), dan respons terhadap terapi konservatif — keputusan medis kompleks yang melibatkan diskusi menyeluruh dengan pasien tentang tujuan dan kualitas hidup, terutama pada dialisis jangka panjang.</p>
+  </div>
+
+  <!-- ═══════════ 尿路性敗血症 UROSEPSIS ═══════════ -->
+  <div class="organ-panel" id="panel-urosepsis">
+    <h2>尿路性敗血症 — Urosepsis</h2>
+    <p>Urosepsis adalah kondisi SEPSIS (respons tubuh berlebihan terhadap infeksi yang mengancam organ) yang berasal dari infeksi saluran kemih — komplikasi serius ISK yang tidak tertangani atau pada pasien dengan faktor risiko tertentu (obstruksi saluran kemih, kateter urine lama, diabetes).</p>
+
+    <h3>Kenapa ISK bisa berkembang jadi sepsis</h3>
+    <p>Bakteri dari saluran kemih yang terinfeksi bisa masuk ke aliran darah (bakteremia), memicu respons inflamasi sistemik luas — pada lansia, risiko ini lebih tinggi karena kombinasi sistem imun yang kurang responsif dan gejala ISK awal yang sering tidak khas (dibahas di level Dasar/Menengah), membuat infeksi terlambat dikenali dan diobati.</p>
+
+    <h3>Tanda peringatan urosepsis</h3>
+    <ul>
+      <li>Demam tinggi ATAU justru suhu tubuh rendah (hipotermia — pada lansia, respons demam bisa tidak muncul jelas)</li>
+      <li>Perubahan kesadaran/kebingungan yang MEMBURUK (bukan hanya kebingungan ringan seperti pada ISK biasa)</li>
+      <li>Tekanan darah turun, denyut jantung cepat</li>
+      <li>Napas cepat</li>
+    </ul>
+    <div class="info-card danger">
+      <p style="margin-bottom:0"><strong>Prinsip penting:</strong> kombinasi gejala ISK (atau bahkan gejala ISK yang minim) DENGAN tanda-tanda di atas pada lansia adalah kondisi darurat yang butuh respons segera — urosepsis bisa berkembang cepat dan mengancam nyawa jika terlambat ditangani.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 薬理詳細 FARMAKOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-farmakologi">
+    <h2>薬理詳細 — Farmakologi Mendalam</h2>
+    <h3>Penyesuaian dosis obat pada gangguan fungsi ginjal</h3>
+    <p>Banyak obat (tidak hanya obat urologi) butuh PENYESUAIAN DOSIS pada pasien dengan gangguan fungsi ginjal — karena ginjal yang kurang efektif membuang obat bisa menyebabkan akumulasi dan toksisitas meski dosis "standar" diberikan. Ini prinsip lintas-sistem yang penting dipahami: gangguan ginjal memengaruhi keamanan HAMPIR SEMUA golongan obat, bukan hanya obat urologi.</p>
+
+    <h3>Obat nefrotoksik — konsep umum</h3>
+    <p style="margin-bottom:0">Beberapa golongan obat (termasuk beberapa antibiotik dan NSAID) berpotensi MERUSAK ginjal jika dipakai dalam kondisi tertentu (dehidrasi, fungsi ginjal sudah menurun, kombinasi dengan obat nefrotoksik lain) — prinsip penting saat meninjau riwayat obat pasien dengan gangguan ginjal atau berisiko tinggi mengalaminya.</p>
+
+    <h3>Eritropoietin dan anemia pada penyakit ginjal kronis</h3>
+    <p style="margin-bottom:0">Ginjal yang sehat memproduksi eritropoietin, hormon yang merangsang sumsum tulang memproduksi sel darah merah — pada penyakit ginjal kronis lanjut, produksi ini menurun, menyebabkan anemia yang KHAS terkait gangguan ginjal (bukan sekadar kekurangan zat besi biasa), kadang butuh terapi eritropoietin sintetis.</p>
+  </div>
+
+  <!-- ═══════════ 電解質異常 GANGGUAN ELEKTROLIT ═══════════ -->
+  <div class="organ-panel" id="panel-elektrolit">
+    <h2>電解質異常 — Gangguan Elektrolit Terkait Ginjal</h2>
+    <h3>Hiperkalemia pada gangguan ginjal</h3>
+    <p>Ginjal berperan penting membuang kelebihan kalium — pada gangguan fungsi ginjal, kalium bisa menumpuk (hiperkalemia, 高カリウム血症) hingga level berbahaya. Ini KAITAN PENTING dengan materi Kardiovaskular: hiperkalemia berat bisa memicu aritmia jantung serius, menjelaskan kenapa pemantauan kalium darah begitu krusial pada pasien gangguan ginjal.</p>
+
+    <h3>Kelebihan cairan (fluid overload)</h3>
+    <p style="margin-bottom:0">Ginjal yang gagal membuang cairan berlebih menyebabkan penumpukan cairan tubuh — bisa bermanifestasi sebagai edema (bengkak), sesak napas (cairan menumpuk di paru, kaitan dengan materi Pernapasan), dan peningkatan tekanan darah. Pengelolaan cairan yang cermat (asupan vs pengeluaran) menjadi aspek penting perawatan pasien dengan gangguan ginjal signifikan.</p>
+  </div>
+
+  <!-- ═══════════ 処置 PROSEDUR & ALAT ═══════════ -->
+  <div class="organ-panel" id="panel-prosedur">
+    <h2>処置 — Prosedur &amp; Alat Urologi</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">導尿カテーテル (どうにょうかてーてる) — Kateter Urine</h3>
+      <p style="margin-bottom:0">Selang yang dimasukkan ke kandung kemih untuk mengalirkan urine — bisa sementara (satu kali pemasangan untuk mengosongkan kandung kemih) atau menetap (indwelling, terpasang jangka waktu tertentu). Pemakaian jangka panjang meningkatkan risiko infeksi saluran kemih terkait kateter, sehingga evaluasi berkala kebutuhan pemasangan penting dilakukan.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">経尿道的前立腺切除術 (TURP)</h3>
+      <p style="margin-bottom:0">Prosedur bedah mengangkat sebagian jaringan prostat yang membesar lewat uretra (tanpa sayatan luar) — salah satu penanganan BPH berat yang tidak membaik dengan obat, membantu meredakan obstruksi aliran urine.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">腎生検 (じんせいけん) — Biopsi Ginjal</h3>
+      <p style="margin-bottom:0">Pengambilan sampel jaringan ginjal (biasanya lewat jarum) untuk diagnosis penyebab gangguan ginjal yang tidak jelas dari pemeriksaan lain — membantu menentukan tata laksana yang tepat sesuai penyebab spesifik.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ ICU用語 ISTILAH NEFRO-ICU ═══════════ -->
+  <div class="organ-panel" id="panel-icu">
+    <h2>ICU用語 — Terminologi Nefro-ICU</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">血液透析</td><td>けつえきとうせき</td><td>Hemodialisis</td><td>Hemodialysis</td></tr>
+        <tr><td class="jp">腹膜透析</td><td>ふくまくとうせき</td><td>Dialisis peritoneal</td><td>Peritoneal dialysis</td></tr>
+        <tr><td class="jp">尿路性敗血症</td><td>にょうろせいはいけつしょう</td><td>Urosepsis</td><td>Urosepsis</td></tr>
+        <tr><td class="jp">菌血症</td><td>きんけつしょう</td><td>Bakteremia</td><td>Bacteremia</td></tr>
+        <tr><td class="jp">腎毒性</td><td>じんどくせい</td><td>Nefrotoksisitas</td><td>Nephrotoxicity</td></tr>
+        <tr><td class="jp">エリスロポエチン</td><td>えりすろぽえちん</td><td>Eritropoietin</td><td>Erythropoietin</td></tr>
+        <tr><td class="jp">腎性貧血</td><td>じんせいひんけつ</td><td>Anemia terkait ginjal</td><td>Renal anemia</td></tr>
+        <tr><td class="jp">高カリウム血症</td><td>こうかりうむけっしょう</td><td>Hiperkalemia</td><td>Hyperkalemia</td></tr>
+        <tr><td class="jp">体液過剰</td><td>たいえきかじょう</td><td>Kelebihan cairan tubuh</td><td>Fluid overload</td></tr>
+        <tr><td class="jp">浮腫</td><td>ふしゅ</td><td>Edema</td><td>Edema</td></tr>
+        <tr><td class="jp">留置カテーテル</td><td>りゅうちかてーてる</td><td>Kateter menetap</td><td>Indwelling catheter</td></tr>
+        <tr><td class="jp">経尿道的前立腺切除術</td><td>けいにょうどうてきぜんりつせんせつじょじゅつ</td><td>TURP</td><td>Transurethral resection of prostate</td></tr>
+        <tr><td class="jp">腎生検</td><td>じんせいけん</td><td>Biopsi ginjal</td><td>Renal biopsy</td></tr>
+        <tr><td class="jp">尿毒症</td><td>にょうどくしょう</td><td>Uremia</td><td>Uremia</td></tr>
+        <tr><td class="jp">透析導入</td><td>とうせきどうにゅう</td><td>Inisiasi dialisis</td><td>Dialysis initiation</td></tr>
+        <tr><td class="jp">シャント</td><td>しゃんと</td><td>Fistula/shunt (akses dialisis)</td><td>Vascular access shunt</td></tr>
+        <tr><td class="jp">敗血症性ショック</td><td>はいけつしょうせいしょっく</td><td>Syok septik</td><td>Septic shock</td></tr>
+        <tr><td class="jp">腎代替療法</td><td>じんだいたいりょうほう</td><td>Terapi pengganti ginjal</td><td>Renal replacement therapy</td></tr>
+        <tr><td class="jp">水分出納</td><td>すいぶんすいとう</td><td>Keseimbangan asupan-pengeluaran cairan</td><td>Fluid intake-output balance</td></tr>
+        <tr><td class="jp">意識レベル低下</td><td>いしきれべるていか</td><td>Penurunan tingkat kesadaran</td><td>Decreased level of consciousness</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis tingkat ICU</h3>
+    <div class="clinical-sentence">
+      <div class="jp">尿路性敗血症の疑いがあり、敗血症性ショックに注意します。</div>
+      <div class="id">Dicurigai urosepsis, waspadai kemungkinan syok septik.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">高カリウム血症を認め、緊急透析を検討しています。</div>
+      <div class="id">Ditemukan hiperkalemia, dipertimbangkan dialisis darurat.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">水分出納を厳密に管理してください。</div>
+      <div class="id">Kelola keseimbangan asupan-pengeluaran cairan secara ketat.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis Tingkat Lanjutan</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia dengan kateter urine menetap jangka panjang tiba-tiba mengalami kebingungan yang memburuk drastis, suhu tubuh justru RENDAH (bukan demam), dan tekanan darah tampak menurun dari biasanya. Keluarga menganggap ini "hanya kelelahan biasa karena usia".
+      </div>
+      <div class="case-question">
+        <label>1. Kombinasi kateter urine jangka panjang + kebingungan memburuk drastis + suhu rendah + tekanan darah turun paling mengarah ke kemungkinan:</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Kemungkinan urosepsis/syok septik yang berasal dari infeksi terkait kateter</option>
+          <option value="wrong">Kelelahan biasa akibat usia, tidak perlu evaluasi</option>
+          <option value="wrong">Efek normal dari pemakaian kateter jangka panjang</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Fakta bahwa suhu tubuh RENDAH (bukan demam tinggi) berarti:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">TETAP bisa jadi tanda infeksi berat pada lansia -- respons demam sering tidak muncul jelas, suhu rendah justru bisa jadi tanda peringatan</option>
+          <option value="wrong">Memastikan tidak ada infeksi karena tidak ada demam</option>
+          <option value="wrong">Tidak ada kaitan dengan kemungkinan infeksi</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan yang PALING tepat sebagai caregiver dalam situasi ini:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Menunggu untuk melihat apakah gejala membaik dengan istirahat</option>
+          <option value="correct">Segera mencari evaluasi medis darurat, menjelaskan seluruh kombinasi gejala termasuk riwayat kateter</option>
+          <option value="wrong">Mengganti kateter sendiri untuk mengatasi kemungkinan infeksi</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var MINI_Q = [
+    { q: 'Jenis dialisis yang memanfaatkan membran peritoneum sendiri sebagai filter adalah?', opts: ['Hemodialisis', 'Dialisis peritoneal', 'Keduanya sama'], a: 1 },
+    { q: 'Urosepsis adalah komplikasi serius dari?', opts: ['Infeksi saluran kemih yang berkembang jadi sepsis', 'Dehidrasi ringan', 'Pembesaran prostat jinak biasa'], a: 0 },
+    { q: 'Pada lansia dengan urosepsis, respons demam sering?', opts: ['Selalu muncul sangat tinggi dan jelas', 'Tidak muncul jelas, bahkan bisa suhu rendah', 'Tidak pernah terjadi perubahan suhu'], a: 1 },
+    { q: 'Kenapa gangguan fungsi ginjal memengaruhi keamanan banyak golongan obat, tidak hanya obat urologi?', opts: ['Ginjal yang kurang efektif membuang obat bisa menyebabkan akumulasi dan toksisitas', 'Tidak ada kaitan sama sekali', 'Hanya memengaruhi obat urologi'], a: 0 },
+    { q: 'Hiperkalemia pada gangguan ginjal berbahaya terutama karena bisa memicu?', opts: ['Aritmia jantung serius', 'Sakit kepala ringan', 'Tidak ada bahaya signifikan'], a: 0 },
+    { q: 'Eritropoietin, hormon yang diproduksi ginjal sehat, berfungsi merangsang produksi?', opts: ['Sel darah merah', 'Sel darah putih', 'Trombosit'], a: 0 },
+    { q: 'TURP adalah prosedur bedah untuk mengatasi?', opts: ['BPH berat yang tidak membaik dengan obat', 'Infeksi saluran kemih ringan', 'Batu ginjal kecil'], a: 0 },
+    { q: 'Pemakaian kateter urine jangka panjang meningkatkan risiko?', opts: ['Infeksi saluran kemih terkait kateter', 'Tidak ada risiko tambahan', 'Hanya risiko ketidaknyamanan'], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Kombinasi kateter urine jangka panjang (faktor risiko infeksi) + kebingungan memburuk drastis + suhu RENDAH + tekanan darah turun adalah pola klasik UROSEPSIS/SYOK SEPTIK pada lansia -- yang sering TIDAK menunjukkan demam tinggi seperti pada pasien lebih muda. Ini BUKAN "kelelahan biasa karena usia" -- kombinasi gejala ini adalah kondisi darurat yang butuh evaluasi medis SEGERA, dengan seluruh riwayat (termasuk kateter) disampaikan ke tenaga medis.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: pada lansia, infeksi berat (termasuk urosepsis) sering TIDAK menunjukkan demam tinggi klasik -- suhu rendah justru bisa jadi tanda peringatan penting yang mudah terlewat jika hanya mencari "demam" sebagai tanda infeksi.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

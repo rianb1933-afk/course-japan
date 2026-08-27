@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<!-- GSC verification injected by analytics-loader.js from env -->
+<meta charset="UTF-8">
+<script src="assets/dark-mode-toggle.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Font request dipangkas: Shippori Mincho B1 dihapus (dikonfirmasi 0% dipakai
+     di seluruh proyek -- selalu hanya fallback kedua setelah Noto Serif JP
+     yang selalu berhasil dimuat, sehingga browser tidak pernah genuinely
+     merender font ini). DM Sans dipangkas ke weight 300-700 non-italic
+     (weight 800 dan varian italic dikonfirmasi tidak dipakai di CSS manapun
+     yang dimuat halaman ini). -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- kyoto-design-system.css TIDAK dimuat di sini: variabel dan style-nya sudah
+     digabung ke dalam kyoto-bundle.min.css (yang genuinely dimuat di bawah).
+     Sebelumnya file ini di-preload tapi tidak pernah diterapkan sebagai
+     stylesheet, menyebabkan browser mengunduh 44KB tanpa efek apa pun. -->
+<!-- pro-app.min.js menyuntikkan panel chat, breadcrumbs, dan alat aksesibilitas.
+     File ini harus diterapkan sebagai stylesheet; preload saja tidak memberi gaya. -->
+<link rel="stylesheet" href="assets/pro-style.css">
+<style id="pro-app-critical-css">
+/* Pengaman bila stylesheet global terlambat/gagal dimuat. Komponen yang
+   disuntikkan pro-app harus tertutup sampai pengguna membukanya. */
+.pro-mobile-dock,.pro-command-backdrop,.nihongo-chat-panel,.nihongo-a11y-panel,
+.nihongo-reco-panel,.nihongo-collab-panel,.nihonggo-pro-panel,.nihongo-checkout-modal{display:none!important}
+.pro-command-backdrop.open{display:flex!important}
+.nihongo-chat-panel.open,.nihongo-a11y-panel.open,.nihongo-reco-panel.open,
+.nihongo-collab-panel.open,.nihonggo-pro-panel.open,.nihongo-checkout-modal.open{display:block!important}
+@media(max-width:900px){.pro-mobile-dock{display:grid!important}}
+</style>
+<script>
+/* Server lokal tidak membutuhkan cache PWA. Bersihkan worker/cache lama yang
+   dapat menahan index.html versi sebelumnya saat pengembangan. */
+(function clearLocalPwaCache(){
+  var isLocal=location.hostname==='127.0.0.1'||location.hostname==='localhost'||location.hostname==='::1';
+  if(!isLocal||!('serviceWorker' in navigator))return;
+  Promise.all([
+    navigator.serviceWorker.getRegistrations().then(function(regs){
+      return Promise.all(regs.map(function(reg){return reg.unregister();}));
+    }),
+    'caches' in window?caches.keys().then(function(keys){
+      return Promise.all(keys.filter(function(key){
+        return /eduma-kaigo|nihonggo-pro/i.test(key);
+      }).map(function(key){return caches.delete(key);}));
+    }):Promise.resolve()
+  ]).catch(function(){});
+})();
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nihonggo Pro Academy — Belajar Bahasa Jepang N5 sampai N1 + Kaigo</title>
+  <meta name="description" content="Platform belajar bahasa Jepang online terlengkap. Materi JLPT N5-N1, AI Tutor, Kaigo 介護, Flashcard SRS, dan sertifikat digital. Mulai gratis sekarang!">
+<meta data-seo="nihongo-static" name="description" content="Belajar bahasa Jepang dari nol hingga mahir bersama Riyan Setiawan. Materi JLPT N5–N1, flashcard kanji, latihan grammar, kosakata, dan AI tutor interaktif. Mulai gratis!">
+<link data-seo="nihongo-static" rel="canonical" href="https://nihonggopro.id/">
+<meta data-seo="nihongo-static" property="og:title" content="Nihonggo Pro Academy — Belajar Bahasa Jepang N5-N1">
+<meta data-seo="nihongo-static" property="og:description" content="Belajar bahasa Jepang dari nol hingga mahir bersama Riyan Setiawan. Materi JLPT N5–N1, flashcard kanji, latihan grammar, kosakata, dan AI tutor interaktif. Mulai gratis!">
+<meta data-seo="nihongo-static" property="og:type" content="website">
+<meta data-seo="nihongo-static" property="og:url" content="https://nihonggopro.id/">
+<meta data-seo="nihongo-static" property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta data-seo="nihongo-static" name="twitter:card" content="summary_large_image">
+<meta data-seo="nihongo-static" name="twitter:title" content="Nihonggo Pro Academy — Belajar Bahasa Jepang N5-N1">
+<meta data-seo="nihongo-static" name="twitter:description" content="Belajar bahasa Jepang dari nol hingga mahir bersama Riyan Setiawan. Materi JLPT N5–N1, flashcard kanji, latihan grammar, kosakata, dan AI tutor interaktif. Mulai gratis!">
+<meta data-seo="nihongo-static" name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script data-seo="nihongo-static" type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Kuasai Bahasa Jepang nihongo wo hanasou — ayo berbicara","description":"Kuasai Bahasa Jepang nihongo wo hanasou — ayo berbicara","url":"https://nihonggopro.id/","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["Japanese language","JLPT","Kanji","Tata Bahasa","Kosakata"]}</script>
+
+<link rel="stylesheet" href="assets/translator.css">
+<link rel="stylesheet" href="assets/index-page.min.css">
+
+<link rel="stylesheet" href="assets/neko-theme.css?v=3">
+<link rel="stylesheet" href="assets/eduma-platform.css">
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+
+<style>
+/* ── RESPONSIVE — MOBILE FIRST ── */
+html,body{overflow-x:hidden}
+@media(max-width:768px){
+  
+  .nav-links{display:none!important}
+  
+  .hero-inner,.section-inner,.inner{padding-left:16px!important;padding-right:16px!important}
+  .features-grid,.benefits-grid,.stats-grid{grid-template-columns:1fr!important}
+  .hero h1,[class*="hero"] h1{font-size:clamp(26px,8vw,36px)!important}
+  .hero p,[class*="hero"] p{font-size:14px!important}
+  .card-grid,.level-grid,.grid-2,.grid-3{grid-template-columns:1fr!important}
+  table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .sidebar-layout{grid-template-columns:1fr!important}
+  .tab-row,.filter-row{flex-wrap:wrap!important}
+  footer .footer-grid{grid-template-columns:1fr 1fr!important}
+  .hero-actions{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;width:100%}
+  .hero-actions a{width:100%;justify-content:center;text-align:center;min-height:44px}
+  .sticky-bar{padding-bottom:calc(.75rem + env(safe-area-inset-bottom))!important}
+}
+@media(max-width:480px){
+  footer .footer-grid{grid-template-columns:1fr!important}
+  .hero-stats{grid-template-columns:1fr 1fr!important}
+  .quick-actions{grid-template-columns:1fr 1fr!important}
+}
+/* ── BACK TO TOP BUTTON ── */
+#backToTop{position:fixed;bottom:calc(5rem + env(safe-area-inset-bottom));right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
+#backToTop.visible{opacity:1}
+#backToTop:hover{transform:translateY(-2px)}
+.faq-q{width:100%;border:0;background:transparent;text-align:left}
+/* ── HOMEPAGE MOTION ── */
+@media (prefers-reduced-motion: no-preference){
+  body.motion-ready .motion-reveal{opacity:0;transform:translateY(22px);transition:opacity .65s cubic-bezier(.22,1,.36,1),transform .65s cubic-bezier(.22,1,.36,1)}
+  body.motion-ready .motion-reveal.motion-visible{opacity:1;transform:none}
+  body.motion-ready .hero .hero-left{animation:npHeroLeft .8s cubic-bezier(.22,1,.36,1) both}
+  body.motion-ready .hero .hero-right{animation:npHeroRight .9s .12s cubic-bezier(.22,1,.36,1) both}
+  body.motion-ready .motion-stagger > *{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+  body.motion-ready .motion-stagger.motion-visible > *{opacity:1;transform:none}
+  body.motion-ready .motion-stagger.motion-visible > *:nth-child(2){transition-delay:.06s}
+  body.motion-ready .motion-stagger.motion-visible > *:nth-child(3){transition-delay:.12s}
+  body.motion-ready .motion-stagger.motion-visible > *:nth-child(4){transition-delay:.18s}
+  body.motion-ready .motion-stagger.motion-visible > *:nth-child(5){transition-delay:.24s}
+  body.motion-ready .motion-stagger.motion-visible > *:nth-child(6){transition-delay:.3s}
+  @keyframes npHeroLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}
+  @keyframes npHeroRight{from{opacity:0;transform:translateX(24px) scale(.98)}to{opacity:1;transform:none}}
+}
+@media (prefers-reduced-motion: reduce){
+  .motion-reveal,.motion-stagger > *{opacity:1!important;transform:none!important;transition:none!important;animation:none!important}
+}
+</style>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Nihonggo Pro Academy">
+<link rel="apple-touch-icon" href="assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+  <!-- REVEAL FALLBACK (dipasang setelah semua CSS) -->
+  <style id="reveal-fallback">
+    /* ── REVEAL FALLBACK: selalu visible, tidak bergantung JS ── */
+    .reveal,
+    .js .reveal,
+    .daily-mission-copy.reveal,
+    .daily-mission-card.reveal,
+    .feat-card.reveal,
+    .level-card.reveal,
+    .testi-card.reveal,
+    .testi-header.reveal,
+    .progress-header.reveal,
+    .progress-card.reveal,
+    .quiz-header.reveal,
+    .quiz-box.reveal,
+    .kanji-quiz-header.reveal,
+    .kq-box.reveal,
+    .kq-chart-section.reveal,
+    .study-tools-header.reveal,
+    .study-tool-card.reveal,
+    .lms-features-header.reveal,
+    .lms-feature-summary.reveal,
+    .lms-feature-grid.reveal,
+    .faq-header.reveal,
+    .faq-list.reveal {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+    }
+    /* ── DAILY MISSION — selalu tampil, no whitespace ── */
+    .daily-mission-section {
+      min-height: auto !important;
+      padding: 56px 5vw !important;
+    }
+    .daily-mission-inner {
+      display: grid !important;
+      align-items: center !important;
+    }
+    .daily-mission-copy,
+    .daily-mission-card {
+      opacity: 1 !important;
+      transform: none !important;
+      visibility: visible !important;
+    }
+  </style>
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<style>
+/* ── NAVBAR FIXED COMPENSATION ── */
+body { padding-top: 72px !important; }
+@media (max-width: 768px) { body { padding-top: 72px !important; } }
+/* Navbar di atas segalanya */
+nav.kn-nav { z-index: 9999 !important; }
+</style>
+
+<!-- AUTH MODAL -->
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal" id="authModal">
+    <!-- Banner -->
+    <div class="auth-banner">
+      <button aria-label="Tutup dialog masuk" class="auth-close" id="authClose">✕</button>
+      <div class="auth-banner-logo">日本語</div>
+      <div class="auth-banner-title" id="authBannerTitle">Selamat datang kembali</div>
+      <div class="auth-banner-sub" id="authBannerSub">Masuk untuk melanjutkan belajar</div>
+    </div>
+
+    <!-- Body -->
+    <div class="auth-body">
+      <!-- Tabs -->
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tabLogin" onclick="switchTab('login')">Masuk</button>
+        <button class="auth-tab" id="tabRegister" onclick="switchTab('register')">Daftar</button>
+      </div>
+
+      <!-- LOGIN PANEL -->
+      <div class="auth-form-panel active" id="panelLogin">
+        <div class="auth-field">
+          <label class="auth-label" for="loginEmail">Surel</label>
+          <div class="auth-input-wrap">
+            <span class="auth-input-icon">✉️</span>
+            <input class="auth-input" type="email" id="loginEmail" placeholder="nama@email.com" autocomplete="email" aria-label="Surel untuk masuk">
+          </div>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label" for="loginPassword">Kata Sandi</label>
+          <div class="auth-input-wrap">
+            <span class="auth-input-icon">🔒</span>
+            <input class="auth-input" type="password" id="loginPassword" placeholder="Masukkan kata sandi" autocomplete="current-password" aria-label="Kata sandi untuk masuk">
+            <button aria-label="Tampilkan kata sandi" class="auth-pw-toggle" onclick="togglePw('loginPassword', this)" type="button">👁️</button>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:flex-end;">
+          <button class="auth-forgot" onclick="showForgot()">Lupa kata sandi?</button>
+        </div>
+        <div class="auth-error" id="loginError" role="alert" aria-live="polite"></div>
+        <button class="auth-submit" id="loginSubmit" onclick="handleLogin()">
+          Masuk — ログイン
+        </button>
+        <div class="auth-divider"><span>atau lanjutkan dengan</span></div>
+        <button class="auth-social" onclick="handleSocialLogin('Google')">
+          <svg class="auth-social-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Lanjutkan dengan Google
+        </button>
+        <p class="auth-terms">Dengan masuk, Anda menyetujui <u>Syarat Layanan</u> dan <u>Kebijakan Privasi</u> kami.</p>
+      </div>
+
+      <!-- REGISTER PANEL -->
+      <div class="auth-form-panel" id="panelRegister">
+        <div class="auth-field">
+          <label class="auth-label" for="regName">Nama Lengkap</label>
+          <div class="auth-input-wrap">
+            <span class="auth-input-icon">👤</span>
+            <input class="auth-input" type="text" id="regName" placeholder="Nama Anda" autocomplete="name" aria-label="Nama lengkap">
+          </div>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label" for="regEmail">Surel</label>
+          <div class="auth-input-wrap">
+            <span class="auth-input-icon">✉️</span>
+            <input class="auth-input" type="email" id="regEmail" placeholder="nama@email.com" autocomplete="email" aria-label="Surel untuk daftar">
+          </div>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label" for="regPassword">Kata Sandi</label>
+          <div class="auth-input-wrap">
+            <span class="auth-input-icon">🔒</span>
+            <input class="auth-input" type="password" id="regPassword" placeholder="Min. 6 karakter" autocomplete="new-password" aria-label="Kata sandi baru">
+            <button aria-label="Tampilkan kata sandi" class="auth-pw-toggle" onclick="togglePw('regPassword', this)" type="button">👁️</button>
+          </div>
+        </div>
+        <div class="auth-field">
+          <label class="auth-label" for="regPassword2">Konfirmasi Kata Sandi</label>
+          <div class="auth-input-wrap">
+            <span class="auth-input-icon">🔒</span>
+            <input class="auth-input" type="password" id="regPassword2" placeholder="Ulangi kata sandi" autocomplete="new-password" aria-label="Konfirmasi kata sandi">
+          </div>
+        </div>
+        <div class="auth-error" id="registerError" role="alert" aria-live="polite"></div>
+        <button class="auth-submit" id="registerSubmit" onclick="handleRegister()">
+          Buat Akun — アカウント作成
+        </button>
+        <div class="auth-divider"><span>atau daftar dengan</span></div>
+        <button class="auth-social" onclick="handleSocialLogin('Google')">
+          <svg class="auth-social-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+          Daftar dengan Google
+        </button>
+        <p class="auth-terms">Dengan mendaftar, Anda menyetujui <u>Syarat Layanan</u> dan <u>Kebijakan Privasi</u> kami.</p>
+      </div>
+
+      <!-- SUCCESS SCREEN -->
+      <div class="auth-success" id="authSuccess">
+        <span class="auth-success-icon">🎉</span>
+        <div class="auth-success-title" id="successTitle">ようこそ！ Selamat datang!</div>
+        <p class="auth-success-sub" id="successSub">Akun Anda berhasil dibuat. Selamat belajar bahasa Jepang!</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROFILE BAR (shown after login) -->
+<div class="profile-bar" id="profileBar">
+  <div class="profile-bar-inner">
+    <div class="profile-bar-avatar" id="profileBarAvatar">RS</div>
+    <div class="profile-bar-info">
+      <div class="profile-bar-greeting">おかえりなさい — Selamat datang kembali,</div>
+      <div class="profile-bar-name" id="profileBarName">Pengguna</div>
+    </div>
+    <div class="profile-bar-stats">
+      <div class="profile-bar-stat">
+        <span class="profile-bar-stat-num" id="statKuisCount">0</span>
+        <span class="profile-bar-stat-label">Kuis Selesai</span>
+      </div>
+      <div class="profile-bar-stat">
+        <span class="profile-bar-stat-num" id="statBestScore">—</span>
+        <span class="profile-bar-stat-label">Skor Terbaik</span>
+      </div>
+      <div class="profile-bar-stat">
+        <span class="profile-bar-stat-num" id="statStreak">0🔥</span>
+        <span class="profile-bar-stat-label">Streak Hari</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<!-- MOBILE MENU -->
+
+<!-- SOCIAL PROOF MARQUEE -->
+<div class="social-bar">
+  <div class="social-track" id="socialTrack">
+    <div class="social-item"><span class="social-icon">🎌</span><span class="social-text"><strong>Dewi A.</strong> baru lulus JLPT N4 — おめでとう！</span></div>
+    <div class="social-item"><span class="social-icon">🏢</span><span class="social-text"><strong>PT Astra</strong> kirim 12 karyawannya untuk kelas bisnis</span></div>
+    <div class="social-item"><span class="social-icon">⭐</span><span class="social-text"><strong>4.9/5</strong> rating dari 2.400+ pelajar</span></div>
+    <div class="social-item"><span class="social-icon">🎓</span><span class="social-text"><strong>Budi N.</strong> diterima kerja di perusahaan Jepang di Jakarta</span></div>
+    <div class="social-item"><span class="social-icon">📈</span><span class="social-text"><strong>92%</strong> pelajar lulus JLPT setelah ikut kursus kami</span></div>
+    <div class="social-item"><span class="social-icon">🗾</span><span class="social-text"><strong>Sinta R.</strong> sekarang tinggal & kerja di Tokyo — すごい！</span></div>
+    <div class="social-item"><span class="social-icon">🎌</span><span class="social-text"><strong>Dewi A.</strong> baru lulus JLPT N4 — おめでとう！</span></div>
+    <div class="social-item"><span class="social-icon">🏢</span><span class="social-text"><strong>PT Astra</strong> kirim 12 karyawannya untuk kelas bisnis</span></div>
+    <div class="social-item"><span class="social-icon">⭐</span><span class="social-text"><strong>4.9/5</strong> rating dari 2.400+ pelajar</span></div>
+    <div class="social-item"><span class="social-icon">🎓</span><span class="social-text"><strong>Budi N.</strong> diterima kerja di perusahaan Jepang di Jakarta</span></div>
+    <div class="social-item"><span class="social-icon">📈</span><span class="social-text"><strong>92%</strong> lulus JLPT setelah ikut kursus kami</span></div>
+    <div class="social-item"><span class="social-icon">🗾</span><span class="social-text"><strong>Sinta R.</strong> sekarang tinggal & kerja di Tokyo — すごい！</span></div>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="main-content" class="hero" role="main">
+  <div class="hero-left">
+    <div class="hero-badge">✨ Platform Belajar Bahasa Jepang · Gratis</div>
+    <div class="cute-clock cat-clock" aria-live="polite" aria-label="Jam real time tema kucing">
+      <span class="cat-ear cat-ear-left"></span>
+      <span class="cat-ear cat-ear-right"></span>
+      <div class="cute-clock-face">
+        <span class="cute-clock-mark cat-face">ฅ</span>
+        <strong id="cuteClockTime">00:00:00</strong>
+        <span id="cuteClockPeriod">JST</span>
+      </div>
+      <div class="cute-clock-meta">
+        <span id="cuteClockDay">Neko time</span>
+        <small id="cuteClockDate">にゃん time</small>
+      </div>
+    </div>
+    <h1>
+      Kuasai<br>
+      <span class="accent">Bahasa Jepang</span>
+      <span class="sub-jp">nihongo wo hanasou — ayo berbicara</span>
+    </h1>
+    <p class="hero-desc">
+      Belajar bahasa Jepang lewat platform LMS yang rapi, modern, dan fokus pada progres. Dari hiragana hingga percakapan profesional, semua tersusun dalam kurikulum JLPT lengkap.
+    </p>
+    <div class="hero-actions">
+      <a href="Materi/Tes-Level-JLPT.html" class="btn-primary">Tes Level Gratis</a>
+      <a href="Materi/JLPT-Lengkap.html" class="btn-ghost">Mulai Belajar Sekarang</a>
+      <a href="Onboarding.html" class="btn-ghost">Buat Rencana Personal</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="mascot-wrap anime-photo-frame">
+      <img loading="eager" fetchpriority="high" src="assets/my-kucing.svg" alt="Preview kelas LMS bahasa Jepang" class="mascot-img">
+      <div class="photo-ribbon">Course Preview</div>
+      <div class="mascot-bubble mascot-bubble--top">がんばろう！<span>Ayo semangat!</span></div>
+      <div class="mascot-bubble mascot-bubble--bottom">今日も一緒に学ぼう<span>Belajar bareng yuk~</span></div>
+      <div class="study-mini-card">
+        <span>今日の目標</span>
+        <strong>15 menit kaiwa</strong>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-pill">
+        <span class="stat-num">2.400+</span>
+        <span class="stat-label">Pelajar aktif</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">120+</span>
+        <span class="stat-label">Video pelajaran</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">4.9 ★</span>
+        <span class="stat-label">Rating</span>
+      </div>
+    </div>
+  </div>
+</section>
+<div class="stats-bar" style="background:rgba(255,255,255,.05);border-top:1px solid rgba(255,255,255,.1);padding:.875rem clamp(16px,5vw,72px)">
+  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:2rem;align-items:center;justify-content:center">
+    <div style="text-align:center"><div style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:#fff">10.000+</div><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Pengguna Aktif</div></div>
+    <div style="text-align:center"><div style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:#fff">1.038</div><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Pola Grammar</div></div>
+    <div style="text-align:center"><div style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:#fff">11.663</div><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Kosakata</div></div>
+    <div style="text-align:center"><div style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:#fff">5</div><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Level JLPT</div></div>
+    <div style="text-align:center"><div style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:#fff">Inti</div><div style="font-size:11px;color:rgba(255,255,255,.5);font-weight:600;text-transform:uppercase;letter-spacing:.05em">Materi gratis</div></div>
+  </div>
+</div>
+
+<!-- LIVE CLASS COUNTDOWN -->
+<div class="live-section countdown-bar">
+  <div class="live-inner">
+    <span class="live-badge">Live</span>
+    <div class="live-info">
+      <div class="live-title">Kelas Live Berikutnya: Percakapan N3 — Situasi Kantor</div>
+      <div class="live-subtitle" id="liveSubtitle">Bersama Kak Riyan · via Zoom · Sabtu · 19:00 WIB</div>
+    </div>
+    <div class="countdown-wrap">
+      <div class="countdown-unit"><span class="countdown-num" id="cd-d">03</span><span class="countdown-label">Hari</span></div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-h">14</span><span class="countdown-label">Jam</span></div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-m">22</span><span class="countdown-label">Menit</span></div>
+      <span class="countdown-sep">:</span>
+      <div class="countdown-unit"><span class="countdown-num" id="cd-s">09</span><span class="countdown-label">Detik</span></div>
+    </div>
+    <a href="Akun.html" class="live-cta">Daftar Sekarang →</a>
+  </div>
+</div>
+
+<!-- DAILY LMS MISSION -->
+<section class="daily-mission-section" id="daily-mission">
+  <div class="daily-mission-inner">
+    <div class="daily-mission-copy reveal">
+      <div class="section-label">Misi Belajar Harian</div>
+      <h2>Belajar hari ini dibuat jelas dan ringan.</h2>
+      <p>Pilih level JLPT, selesaikan checklist kecil, lalu lanjut ke materi, latihan, atau AI Tutor. Progress tersimpan di browser dan ikut mengisi dashboard belajar.</p>
+      <div class="daily-mission-actions">
+        <a href="Dashboard/Dashboard.html">Buka Dashboard</a>
+        <a href="LMS-Features.html">Buka LMS</a>
+      </div>
+    </div>
+    <div class="daily-mission-card reveal">
+      <div class="mission-top">
+        <div>
+          <span>今日のミッション</span>
+          <strong id="missionLevelTitle">JLPT N5</strong>
+        </div>
+        <select id="missionLevel" aria-label="Pilih level misi harian">
+          <option value="N5">N5</option>
+          <option value="N4">N4</option>
+          <option value="N3">N3</option>
+          <option value="N2">N2</option>
+          <option value="N1">N1</option>
+        </select>
+      </div>
+      <div class="mission-progress">
+        <div class="mission-progress-bar"><span id="missionProgressBar"></span></div>
+        <b id="missionProgressText">0/4 selesai</b>
+      </div>
+      <div class="mission-list" id="missionList"></div>
+      <div class="mission-links">
+        <a id="missionLessonLink" href="Materi/Materi.html">Materi</a>
+        <a id="missionQuizLink" href="Materi/Latihan-JLPT.html">Latihan</a>
+        <a href="AI-Tutor-Pro.html">AI Tutor</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-bg" id="materi">
+  <div class="features-inner">
+    <div class="features-header">
+      <div>
+        <div class="section-label">Kenapa Pilih Kami</div>
+        <div class="section-title">Metode belajar yang terbukti efektif</div>
+      </div>
+      <div class="section-sub">Kami menggabungkan metode immersive, spaced repetition, dan konteks budaya untuk hasil pembelajaran yang nyata dan bertahan lama.</div>
+    </div>
+    <div class="features-grid">
+      <div class="feat-card reveal">
+        <div class="feat-icon">あ</div>
+        <div class="feat-title">Hiragana & Katakana</div>
+        <div class="feat-desc">Kuasai dua aksara dasar Jepang dalam 7 hari dengan teknik mnemonik visual yang telah teruji.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">漢</div>
+        <div class="feat-title">Kanji Bertahap</div>
+        <div class="feat-desc">Pelajari 2.136 kanji JLPT secara bertahap dengan metode spaced repetition berbasis kartu flash.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">話</div>
+        <div class="feat-title">Percakapan Nyata</div>
+        <div class="feat-desc">Sesi live speaking dengan native speaker dan sesama pelajar untuk kepercayaan diri berbicara.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">文</div>
+        <div class="feat-title">Tata Bahasa Sistematis</div>
+        <div class="feat-desc">Dari partikel dasar hingga kalimat kompleks — penjelasan dalam Bahasa Indonesia yang mudah dipahami.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">聴</div>
+        <div class="feat-title">Latihan Mendengarkan</div>
+        <div class="feat-desc">Ratusan audio asli dari percakapan sehari-hari, berita, dan anime untuk melatih pendengaran alami.</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">試</div>
+        <div class="feat-title">Simulasi JLPT</div>
+        <div class="feat-desc">Latihan soal N5 hingga N2 dengan pembahasan lengkap agar siap ujian resmi JLPT.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HIRAGANA/KATAKANA CHART -->
+<section class="chart-section" id="hiragana">
+  <div class="chart-inner">
+    <div class="chart-header">
+      <div class="section-label">Aksara Dasar</div>
+      <div class="section-title">Tabel Kana</div>
+      <p class="section-sub" style="margin: 0 auto; text-align: center;">Klik karakter untuk detail pengucapan dan contoh kata.</p>
+    </div>
+    <div class="chart-tabs">
+      <button class="chart-tab active" data-tab="hiragana">ひらがな Hiragana</button>
+      <button class="chart-tab" data-tab="katakana">カタカナ Katakana</button>
+    </div>
+    <div class="kana-grid" id="kana-grid"></div>
+    <p class="chart-note">Klik karakter untuk melihat detail & contoh kata.</p>
+  </div>
+</section>
+
+<!-- LEVELS -->
+<section id="level" style="background: var(--cream);">
+  <div class="levels-inner">
+    <div class="section-label">Struktur Kurikulum</div>
+    <div class="section-title">Pilih level Anda</div>
+    <p class="section-sub">Mulai dari nol atau lanjutkan dari level yang sesuai kemampuan Anda saat ini.</p>
+    <div class="levels-grid">
+      <div class="level-card reveal" data-jp="初">
+        <div class="level-badge">N5</div>
+        <div class="level-num">Pemula</div>
+        <div class="level-name">Shoshinsha — 初心者</div>
+        <ul class="level-items">
+          <li>Hiragana & Katakana</li>
+          <li>100 Kosakata dasar</li>
+          <li>Salam & Perkenalan</li>
+          <li>Angka & Waktu</li>
+        </ul>
+      </div>
+      <div class="level-card featured reveal" data-jp="中">
+        <div class="level-badge">N4–N3</div>
+        <div class="level-num">Menengah</div>
+        <div class="level-name">Chūkyū — 中級</div>
+        <ul class="level-items">
+          <li>500+ Kanji JLPT</li>
+          <li>Tata bahasa kompleks</li>
+          <li>Percakapan situasional</li>
+          <li>Reading & Listening</li>
+        </ul>
+      </div>
+      <div class="level-card reveal" data-jp="上">
+        <div class="level-badge">N2–N1</div>
+        <div class="level-num">Lanjutan</div>
+        <div class="level-name">Jōkyū — 上級</div>
+        <ul class="level-items">
+          <li>2.000+ Kanji</li>
+          <li>Bahasa formal & bisnis</li>
+          <li>Analisis teks sastra</li>
+          <li>Persiapan JLPT N1</li>
+        </ul>
+      </div>
+      <div class="level-card reveal" data-jp="仕">
+        <div class="level-badge">Bisnis</div>
+        <div class="level-num">Profesional</div>
+        <div class="level-name">Bijinesu — ビジネス</div>
+        <ul class="level-items">
+          <li>Keigo (bahasa hormat)</li>
+          <li>Email & Rapat bisnis</li>
+          <li>Presentasi Jepang</li>
+          <li>Budaya kerja Jepang</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INSTRUCTOR -->
+<section class="instructor-section" id="instruktur">
+  <div class="instructor-inner">
+    <div class="instructor-visual">
+      <div class="instructor-card">
+        <div class="avatar">RS</div>
+        <div class="instructor-name">Riyan Setiawan</div>
+        <div class="instructor-title">Instruktur Bahasa Jepang</div>
+        <div class="instructor-tags">
+          <span class="tag">JLPT N1</span>
+          <span class="tag">10+ Tahun</span>
+          <span class="tag">Ex-Tokyo</span>
+          <span class="tag">500+ Alumni</span>
+        </div>
+        <div class="instructor-quote">
+          「日本語は面白い言語です。一緒に勉強しましょう！」<br>
+          <span style="font-size: 12px; font-family: 'Outfit', sans-serif; color: var(--ink-faint); font-style: normal;">Bahasa Jepang itu menarik. Mari belajar bersama!</span>
+        </div>
+      </div>
+    </div>
+    <div class="instructor-content">
+      <div class="section-label">Tentang Instruktur</div>
+      <div class="section-title">Belajar dari yang berpengalaman</div>
+      <p class="section-sub">Riyan Setiawan adalah instruktur bahasa Jepang bersertifikat dengan pengalaman lebih dari 10 tahun. Pernah tinggal dan bekerja di Tokyo selama 4 tahun, ia memahami bahasa Jepang dari sisi budaya, bukan hanya tata bahasa.</p>
+      <ul class="cert-list">
+        <li class="cert-item">
+          <div class="cert-icon">N1</div>
+          <div>
+            <div class="cert-text">JLPT N1 — Sertifikasi Tertinggi</div>
+            <div class="cert-sub">Japan Foundation · 2018</div>
+          </div>
+        </li>
+        <li class="cert-item">
+          <div class="cert-icon">教</div>
+          <div>
+            <div class="cert-text">Japanese Language Teaching Certificate</div>
+            <div class="cert-sub">International Education Institute · 2016</div>
+          </div>
+        </li>
+        <li class="cert-item">
+          <div class="cert-icon">東</div>
+          <div>
+            <div class="cert-text">Alumni Tokyo Japanese Language School</div>
+            <div class="cert-sub">Tokyo, Japan · 2014–2018</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section" id="testimoni">
+  <div class="testi-inner">
+    <div class="testi-header reveal">
+      <div class="section-label">Kata Mereka</div>
+      <div class="section-title">Pelajar yang berhasil</div>
+      <p class="section-sub">Lebih dari 2.400 pelajar telah membuktikan metode kami.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Dalam 3 bulan saya sudah bisa membaca hiragana dan katakana lancar. Penjelasan Kak Riyan sangat mudah dipahami dan tidak membosankan sama sekali!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">DA</div>
+          <div>
+            <div class="testi-name">Dewi Anggraini</div>
+            <div class="testi-role">Mahasiswa, Jakarta · Lulus N4</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Saya belajar bahasa Jepang untuk keperluan kerja. Setelah 6 bulan, saya sudah bisa presentasi dalam bahasa Jepang di depan klien dari Osaka. Luar biasa!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">BN</div>
+          <div>
+            <div class="testi-name">Budi Nugroho</div>
+            <div class="testi-role">Business Analyst, Surabaya · N3</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-text">Flashcard, video, dan sesi live speaking-nya bikin belajar jadi seru. Saya yang dulunya tidak tahu apa-apa, sekarang sudah lulus JLPT N2. Terima kasih Kak Riyan!</p>
+        <div class="testi-author">
+          <div class="testi-avatar">SR</div>
+          <div>
+            <div class="testi-name">Sinta Rahayu</div>
+            <div class="testi-role">Desainer Grafis, Bandung · Lulus N2</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROGRESS TRACKER -->
+<section class="progress-section" id="progress">
+  <div class="progress-inner">
+    <div class="progress-header reveal">
+      <div class="section-label">Kurikulum Terstruktur</div>
+      <div class="section-title">Jalur belajar yang jelas</div>
+      <p class="section-sub">Setiap modul dirancang dengan target yang terukur. Lihat seberapa jauh Anda bisa maju dalam 6 bulan.</p>
+    </div>
+    <div class="progress-grid">
+      <div class="progress-card reveal" style="--pct:100%">
+        <div class="progress-jp">あ</div>
+        <div class="progress-title">Hiragana & Katakana</div>
+        <div class="progress-count">96 karakter · 7–14 hari</div>
+        <div class="progress-bar-wrap"><div class="progress-bar"></div></div>
+      </div>
+      <div class="progress-card reveal" style="--pct:72%">
+        <div class="progress-jp">語</div>
+        <div class="progress-title">Kosakata N5–N4</div>
+        <div class="progress-count">800+ kata · 2–3 bulan</div>
+        <div class="progress-bar-wrap"><div class="progress-bar"></div></div>
+      </div>
+      <div class="progress-card reveal" style="--pct:55%">
+        <div class="progress-jp">文</div>
+        <div class="progress-title">Tata Bahasa N4–N3</div>
+        <div class="progress-count">150+ pola · 4–6 bulan</div>
+        <div class="progress-bar-wrap"><div class="progress-bar"></div></div>
+      </div>
+      <div class="progress-card reveal" style="--pct:38%">
+        <div class="progress-jp">漢</div>
+        <div class="progress-title">Kanji JLPT</div>
+        <div class="progress-count">2.136 kanji · 12–18 bulan</div>
+        <div class="progress-bar-wrap"><div class="progress-bar"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KUIS INTERAKTIF -->
+<section class="quiz-section" id="kuis">
+  <div class="quiz-inner">
+    <div class="quiz-header reveal">
+      <div class="section-label">Uji Kemampuan</div>
+      <div class="section-title">Kuis Hiragana</div>
+      <p class="section-sub">Tes seberapa baik Anda mengenal hiragana. 10 soal, skor instan.</p>
+    </div>
+    <div class="quiz-box reveal">
+      <!-- Quiz UI -->
+      <div id="quiz-body">
+        <div class="quiz-meta">
+          <span class="quiz-progress-txt" id="quiz-prog-txt">Soal 1 / 10</span>
+          <span class="quiz-score-pill" id="quiz-score-pill">Skor: 0</span>
+        </div>
+        <div class="quiz-track"><div class="quiz-track-fill" id="quiz-track-fill" style="width:10%"></div></div>
+        <div class="quiz-question">
+          <span class="quiz-kana" id="quiz-kana">あ</span>
+          <div class="quiz-prompt">Apa bacaan romaji karakter ini?</div>
+        </div>
+        <div class="quiz-options" id="quiz-options"></div>
+        <div class="quiz-feedback" id="quiz-feedback"></div>
+        <button class="quiz-next" id="quiz-next">Soal Berikutnya →</button>
+      </div>
+      <!-- Result -->
+      <div class="quiz-result" id="quiz-result">
+        <div class="result-score" id="result-score">8/10</div>
+        <div class="result-msg" id="result-msg" role="alert" aria-live="polite">Bagus sekali! 素晴らしい！</div>
+        <div class="result-sub" id="result-sub">Anda menjawab 8 dari 10 soal dengan benar.</div>
+        <button class="btn-retry" id="btn-retry">Coba Lagi</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KUIS KANJI N5 -->
+<section class="kanji-quiz-section" id="kuis-kanji">
+  <div class="kanji-quiz-inner">
+    <div class="kanji-quiz-header reveal">
+      <div class="section-label">Kuis Kanji N5</div>
+      <div class="section-title">漢字クイズ — Kanji N5</div>
+      <p class="section-sub">Uji penguasaan 80 kanji dasar JLPT N5. Pilih mode latihan: arti, bacaan, atau keduanya.</p>
+    </div>
+
+    <!-- Mode tabs -->
+    <div class="kq-mode-tabs">
+      <button class="kq-mode-tab active" data-mode="meaning">📖 Arti Kanji</button>
+      <button class="kq-mode-tab" data-mode="reading">🔤 Bacaan (On/Kun)</button>
+      <button class="kq-mode-tab" data-mode="mixed">🎲 Mode Campuran</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="kq-stats">
+      <div class="kq-stat">
+        <span class="kq-stat-num" id="kq-total">10</span>
+        <span class="kq-stat-label">Soal</span>
+      </div>
+      <div class="kq-stat">
+        <span class="kq-stat-num correct" id="kq-correct-count">0</span>
+        <span class="kq-stat-label">Benar</span>
+      </div>
+      <div class="kq-stat">
+        <span class="kq-stat-num wrong" id="kq-wrong-count">0</span>
+        <span class="kq-stat-label">Salah</span>
+      </div>
+      <div class="kq-stat">
+        <span class="kq-stat-num" id="kq-streak">0🔥</span>
+        <span class="kq-stat-label">Rantai Belajar<span>
+      </div>
+    </div>
+
+    <!-- Quiz Box -->
+    <div class="kq-box reveal" id="kq-box" data-kanji="漢">
+      <!-- Quiz body -->
+      <div id="kq-body">
+        <div class="kq-progress-bar">
+          <div class="kq-progress-fill" id="kq-progress-fill" style="width:0%"></div>
+        </div>
+        <div class="kq-question-num" id="kq-question-num">Soal 1 dari 10</div>
+
+        <div class="kq-card">
+          <span class="kq-type-badge" id="kq-type-badge">Arti</span>
+          <span class="kq-kanji-char" id="kq-kanji-char">一</span>
+          <div class="kq-hint" id="kq-hint">💡 JLPT N5 · Kanji ke-1</div>
+        </div>
+
+        <div class="kq-question-text" id="kq-question-text">Apa arti kanji di atas?</div>
+
+        <div class="kq-options" id="kq-options"></div>
+
+        <div class="kq-feedback" id="kq-feedback"></div>
+
+        <div class="kq-explain" id="kq-explain">
+          <div class="kq-explain-title">Informasi Kanji</div>
+          <div class="kq-explain-row" id="kq-explain-row"></div>
+        </div>
+
+        <button class="kq-next" id="kq-next">Soal Berikutnya →</button>
+      </div>
+
+      <!-- Result screen -->
+      <div class="kq-result" id="kq-result">
+        <div class="kq-result-kanji" id="kq-result-kanji">合</div>
+        <div class="kq-result-grade" id="kq-result-grade">S Rank</div>
+        <div class="kq-result-score" id="kq-result-score">8 / 10 Benar</div>
+        <div class="kq-result-sub" id="kq-result-sub">Bagus sekali!</div>
+
+        <div class="kq-review" id="kq-review">
+          <div class="kq-review-title">Hasil per Kanji</div>
+          <div class="kq-review-grid" id="kq-review-grid"></div>
+        </div>
+
+        <div class="kq-result-btns">
+          <button class="kq-btn-retry" id="kq-btn-retry">Coba Lagi 🔄</button>
+          <button class="kq-btn-mode" id="kq-btn-change">Ganti Mode</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mini kanji chart -->
+    <div class="kq-chart-section reveal">
+      <div class="kq-chart-title">80 Kanji N5 — Klik untuk detail</div>
+      <div class="kq-kanji-grid" id="kq-kanji-grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- STUDY TOOLS -->
+<section class="study-tools-section" id="tools">
+  <div class="study-tools-inner">
+    <div class="study-tools-header reveal">
+      <div class="section-label">Tools Belajar</div>
+      <div class="section-title">Fitur latihan harian yang lebih lengkap</div>
+      <p class="section-sub">Susun target, cari kosakata cepat, bentuk kalimat dasar, dan review kartu yang perlu diulang.</p>
+    </div>
+
+    <div class="study-tools-grid">
+      <article class="study-tool-card study-plan-card reveal">
+        <div class="tool-card-head">
+          <span class="tool-icon">目</span>
+          <div>
+            <h3>Rencana Belajar Hari Ini</h3>
+            <p>Pilih fokus dan durasi, lalu dapatkan agenda singkat.</p>
+          </div>
+        </div>
+        <div class="plan-controls">
+          <label>
+            Fokus
+            <select id="studyFocus">
+              <option value="kana">Kana</option>
+              <option value="kanji">Kanji N5</option>
+              <option value="grammar">Tata Bahasa</option>
+              <option value="listening">Listening</option>
+            </select>
+          </label>
+          <label>
+            Durasi
+            <input type="range" id="studyMinutes" min="10" max="60" step="5" value="25" aria-label="Target menit belajar hari ini">
+            <span id="studyMinutesLabel">25 menit</span>
+          </label>
+        </div>
+        <div class="plan-output" id="planOutput"></div>
+        <button class="tool-action" id="savePlanBtn">Simpan Target Hari Ini</button>
+      </article>
+
+      <article class="study-tool-card reveal">
+        <div class="tool-card-head">
+          <span class="tool-icon">語</span>
+          <div>
+            <h3>Kamus Mini</h3>
+            <p>Cari kata Jepang, romaji, atau arti bahasa Indonesia.</p>
+          </div>
+        </div>
+        <div class="vocab-search-wrap">
+          <input id="miniVocabSearch" type="search" placeholder="contoh: makan, neko, 学校" aria-label="Cari kosakata">
+        </div>
+        <div class="mini-vocab-results" id="miniVocabResults"></div>
+      </article>
+
+      <article class="study-tool-card reveal">
+        <div class="tool-card-head">
+          <span class="tool-icon">文</span>
+          <div>
+            <h3>Pembuat Kalimat</h3>
+            <p>Gabungkan pola dasar agar cepat paham struktur kalimat.</p>
+          </div>
+        </div>
+        <div class="sentence-builder">
+          <select id="sentenceSubject">
+            <option value="わたし">わたし</option>
+            <option value="せんせい">せんせい</option>
+            <option value="ともだち">ともだち</option>
+          </select>
+          <select id="sentenceParticle">
+            <option value="は">は</option>
+            <option value="が">が</option>
+          </select>
+          <select id="sentenceObject">
+            <option value="にほんご">にほんご</option>
+            <option value="ラーメン">ラーメン</option>
+            <option value="えいが">えいが</option>
+          </select>
+          <select id="sentenceVerb">
+            <option value="べんきょうします">べんきょうします</option>
+            <option value="たべます">たべます</option>
+            <option value="みます">みます</option>
+          </select>
+        </div>
+        <div class="sentence-output" id="sentenceOutput"></div>
+        <div class="sentence-note" id="sentenceNote"></div>
+      </article>
+
+      <article class="study-tool-card reveal">
+        <div class="tool-card-head">
+          <span class="tool-icon">復</span>
+          <div>
+            <h3>Review Cepat SRS</h3>
+            <p>Tandai kartu yang sudah lancar atau perlu diulang.</p>
+          </div>
+        </div>
+        <div class="srs-card" id="srsCard">
+          <span id="srsFront">日</span>
+          <small id="srsBack">Klik kartu untuk lihat arti</small>
+        </div>
+        <div class="srs-actions">
+          <button id="srsAgainBtn">Ulangi</button>
+          <button id="srsKnowBtn">Sudah Hafal</button>
+        </div>
+        <div class="srs-progress" id="srsProgress"></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- LMS FEATURES -->
+<section class="lms-features-section" id="lms-features">
+  <div class="lms-features-inner">
+    <div class="lms-features-header reveal">
+      <div class="section-label">Fitur LMS</div>
+      <div class="section-title">Sistem belajar lengkap untuk kursus Jepang</div>
+      <p class="section-sub">Kelola perjalanan belajar dari enrollment, materi, latihan, progres, kelas live, komunitas, pembayaran, sampai sertifikat dalam satu pengalaman LMS yang rapi.</p>
+      <a class="lms-feature-detail-link" href="LMS-Features.html">Buka halaman lanjutan LMS</a>
+    </div>
+
+    <div class="lms-feature-summary reveal">
+      <div><strong>14</strong><span>modul LMS utama</span></div>
+      <div><strong>N5-N1</strong><span>alur kursus bertahap</span></div>
+      <div><strong>N5-N1</strong><span>bank latihan JLPT</span></div>
+      <div><strong>AI</strong><span>pendamping belajar</span></div>
+    </div>
+
+    <div class="lms-feature-grid reveal">
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">01</div>
+        <h3>Course Builder JLPT</h3>
+        <p>Materi N5 sampai N1 tersusun sebagai modul, lesson, dan target belajar yang mudah diikuti bertahap.</p>
+        <a href="LMS-Features.html#course-builder">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">02</div>
+        <h3>Progress Tracking</h3>
+        <p>Dashboard menampilkan streak, skor terbaik, modul selesai, dan area yang perlu diulang.</p>
+        <a href="LMS-Features.html#progress">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">03</div>
+        <h3>Quiz & Simulasi Ujian</h3>
+        <p>Latihan soal JLPT, review kesalahan, flashcard, dan simulasi ujian membantu belajar lebih terukur.</p>
+        <a href="LMS-Features.html#quiz">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">04</div>
+        <h3>Live Class Schedule</h3>
+        <p>Jadwal kelas live, countdown, dan akses materi pendukung menjaga ritme belajar tetap konsisten.</p>
+        <a href="LMS-Features.html#live-class">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">05</div>
+        <h3>AI Tutor Support</h3>
+        <p>AI Tutor membantu koreksi kalimat, membuat contoh percakapan, dan memberi rencana latihan harian.</p>
+        <a href="LMS-Features.html#ai-tutor">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">06</div>
+        <h3>Sertifikat & Membership</h3>
+        <p>Alur membership, pencapaian, dan sertifikat penyelesaian siap dikembangkan untuk program gratis, kelas live, atau corporate.</p>
+        <a href="LMS-Features.html#certificate">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">07</div>
+        <h3>Enrollment & Cohort</h3>
+        <p>Pendaftaran kelas bisa diarahkan per level, batch, atau program khusus seperti intensif JLPT dan kelas bisnis.</p>
+        <a href="LMS-Features.html#enrollment">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">08</div>
+        <h3>Lesson Player</h3>
+        <p>Video, materi teks, flashcard, latihan, dan file pendukung bisa disusun sebagai pengalaman belajar per lesson.</p>
+        <a href="LMS-Features.html#lesson-player">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">09</div>
+        <h3>Assignment & Review</h3>
+        <p>Tugas menulis, speaking prompt, dan latihan grammar dapat dikumpulkan lalu ditinjau oleh mentor atau AI Tutor.</p>
+        <a href="LMS-Features.html#assignment">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">10</div>
+        <h3>Discussion Forum</h3>
+        <p>Ruang tanya jawab membantu siswa berdiskusi, berbagi catatan, dan mendapatkan arahan saat stuck di materi.</p>
+        <a href="LMS-Features.html#forum">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">11</div>
+        <h3>Instructor Dashboard</h3>
+        <p>Instruktur bisa memantau kelas, progres siswa, performa kuis, dan materi yang paling sering salah.</p>
+        <a href="LMS-Features.html#instructor">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">12</div>
+        <h3>Access & Optional Billing</h3>
+        <p>Akses gratis, kelas live opsional, corporate training, dan bundling belajar bisa diatur lewat membership dan paket belajar.</p>
+        <a href="LMS-Features.html#payment">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">13</div>
+        <h3>Notification Center</h3>
+        <p>Pengingat kelas, deadline tugas, target harian, dan review flashcard menjaga siswa kembali belajar tepat waktu.</p>
+        <a href="LMS-Features.html#notification">Detail fitur</a>
+      </article>
+      <article class="lms-feature-card">
+        <div class="lms-feature-icon">14</div>
+        <h3>Perpustakaan Sumber</h3>
+        <p>Template catatan, kosakata CSV, audio listening, dan materi tambahan tersimpan sebagai perpustakaan kursus.</p>
+        <a href="LMS-Features.html#library">Detail fitur</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="faq-header reveal">
+      <div class="section-label">Pertanyaan Umum</div>
+      <div class="section-title">FAQ — よくある質問</div>
+      <p class="section-sub">Semua yang perlu Anda ketahui sebelum bergabung.</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button type="button" class="faq-q">Apakah saya bisa mulai dari nol tanpa pengalaman sama sekali?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Tentu! Kelas Pemula (N5) kami dirancang khusus untuk yang benar-benar baru mengenal bahasa Jepang. Anda akan belajar mulai dari cara membaca dan menulis hiragana, katakana, hingga percakapan dasar. Tidak ada persyaratan apapun untuk mendaftar.</div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-q">Berapa lama waktu yang dibutuhkan untuk lulus JLPT N4?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Rata-rata pelajar kami mencapai level N4 dalam 6–9 bulan dengan komitmen belajar 1–2 jam per hari. Faktor yang memengaruhi termasuk konsistensi belajar, latar belakang bahasa, dan partisipasi dalam sesi live speaking.</div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-q">Apakah ada sesi langsung (live) dengan instruktur?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Ya! Setiap minggu ada 2 sesi live via Zoom: sesi tata bahasa pada hari Rabu dan sesi percakapan pada hari Sabtu. Sesi bisa direkam dan ditonton ulang bagi yang tidak bisa hadir langsung. Kak Riyan juga menjawab pertanyaan di grup WhatsApp kelas setiap hari.</div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-q">Apakah semua materi utama bisa diakses gratis?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Ya. Materi utama, flashcard, latihan JLPT, dashboard belajar, dan AI Tutor lokal bisa diakses gratis. Fitur backend seperti kelas live, akun produksi, atau integrasi AI berbayar bisa ditambahkan terpisah tanpa mengunci materi inti.</div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-q">Apakah materi bisa dipakai untuk belajar mandiri jangka panjang?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Bisa. Struktur materi dibuat bertahap dari nol sampai N1, sehingga Anda dapat mengulang modul, menyimpan progres lokal, dan memakai flashcard kapan pun. Saat dipasang ke backend, progres bisa disimpan per akun.</div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-q">Apakah tersedia kelas khusus untuk persiapan JLPT?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Tersedia! Kami punya program intensif persiapan JLPT N5, N4, N3, dan N2 yang dimulai 3 bulan sebelum ujian. Program ini mencakup simulasi ujian, pembahasan soal, dan strategi menjawab agar Anda bisa lulus dengan skor optimal.</div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-q">Bagaimana cara kerja AI Tutor di platform ini?<span class="faq-icon">+</span></button>
+        <div class="faq-a">AI Tutor menggunakan dua mode: mode offline (lokal) yang sudah tersedia langsung tanpa konfigurasi, cocok untuk pertanyaan grammar, kosakata, dan strategi belajar; serta mode API berbasis Claude yang memberikan respons lebih natural dan kontekstual. Mode API memerlukan konfigurasi endpoint di halaman Platform Features.</div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-q">Apakah progress belajar tersimpan jika saya tutup browser?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Ya. Semua progress — termasuk flashcard SRS, streak, checklist, dan catatan kesalahan — tersimpan di localStorage browser Anda. Selama Anda menggunakan browser dan perangkat yang sama, data akan tetap ada. Untuk sinkronisasi antar perangkat, fitur cloud sync tersedia sebagai add-on premium.</div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-q">Platform ini cocok untuk persiapan ujian JLPT berapa bulan sebelum ujian?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Idealnya mulai 3–6 bulan sebelum ujian. Gunakan Tes Level JLPT untuk mengetahui posisi awal, lalu buat jadwal di Rencana Belajar. Jalankan mock exam penuh setiap 2 minggu mulai H-30, dan intensifkan review kesalahan di minggu terakhir. Halaman Strategi Ujian memuat panduan lengkap timeline persiapan.</div>
+      </div>
+      <div class="faq-item">
+        <button type="button" class="faq-q">Apakah ada fitur untuk belajar bersama atau komunitas?<span class="faq-icon">+</span></button>
+        <div class="faq-a">Saat ini platform berfokus pada belajar mandiri yang terstruktur. Papan Peringkat (Leaderboard) di halaman Quiz memungkinkan Anda melihat progress relatif terhadap pengguna lain. Fitur forum dan kelas live sedang dalam roadmap pengembangan sebagai add-on opsional.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTER MODAL -->
+<div class="char-modal-overlay" id="charModal">
+  <div class="char-modal">
+    <button aria-label="Tutup detail karakter" class="char-modal-close" id="charModalClose">✕</button>
+    <div class="modal-kana" id="modalKana">あ</div>
+    <div class="modal-romaji" id="modalRomaji">A</div>
+    <div class="modal-stroke-info" id="modalInfo">Hiragana · Vokal pertama · 3 goresan</div>
+    <div class="modal-example">
+      <span class="jp-word" id="modalWord">あか</span>
+      <span id="modalWordRomaji" style="font-size:12px; color:var(--ink-faint);">aka — merah</span>
+    </div>
+    <button class="modal-try-btn" onclick="document.getElementById('charModal').classList.remove('open'); document.getElementById('kuis').scrollIntoView({behavior:'smooth'})">Latih di Kuis →</button>
+  </div>
+</div>
+
+<!-- STICKY BAR -->
+<div class="sticky-bar" id="stickyBar">
+  <div class="sticky-bar-text"><strong>Materi inti gratis</strong> — mulai belajar tanpa kartu kredit</div>
+  <a href="Materi/JLPT-Lengkap.html" class="btn-primary">Mulai Gratis</a>
+  <button aria-label="Tutup banner promosi" class="sticky-bar-close" id="stickyClose">✕</button>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="section" id="testimoni-2" hidden aria-hidden="true" style="background:var(--cream)">
+  <div class="section-inner" style="max-width:1160px;margin:0 auto;padding:3.5rem 5vw">
+    <div style="text-align:center;margin-bottom:2.5rem">
+      <div class="section-label">Testimoni</div>
+      <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(22px,3vw,32px);color:var(--ink)">Apa Kata Pelajar Kami</h2>
+      <p style="font-size:14px;color:var(--ink-soft);max-width:500px;margin:.75rem auto 0">Dari pemula sampai yang sudah lulus JLPT — cerita nyata dari pengguna platform ini.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.25rem">
+      
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:16px;padding:1.5rem">
+        <div style="font-size:20px;color:var(--gold);margin-bottom:.75rem">★★★★★</div>
+        <p style="font-size:13px;color:var(--ink-mid);line-height:1.7;margin-bottom:1rem">"Grammar N3 yang selalu bikin bingung akhirnya masuk juga setelah latihan di sini. Penjelasan 〜ので vs 〜から langsung pakai contoh percakapan nyata, bukan teori doang."</p>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--red-pale);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--red)">R</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--ink)">Rizky A.</div>
+            <div style="font-size:11px;color:var(--ink-soft)">Lulus JLPT N3 — Bandung</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:16px;padding:1.5rem">
+        <div style="font-size:20px;color:var(--gold);margin-bottom:.75rem">★★★★★</div>
+        <p style="font-size:13px;color:var(--ink-mid);line-height:1.7;margin-bottom:1rem">"Flash card kanji N5 sama N4 sangat membantu. SRS-nya bikin saya ingat lebih lama tanpa harus review tiap hari. Sekarang sudah bisa baca manga tanpa kamus terlalu sering."</p>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--gold)">S</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--ink)">Sinta M.</div>
+            <div style="font-size:11px;color:var(--ink-soft)">Target JLPT N2 — Jakarta</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:16px;padding:1.5rem">
+        <div style="font-size:20px;color:var(--gold);margin-bottom:.75rem">★★★★★</div>
+        <p style="font-size:13px;color:var(--ink-mid);line-height:1.7;margin-bottom:1rem">"Halaman Keigo & Bisnis sangat berguna persiapan interview kerja di perusahaan Jepang. Template email dan contoh percakapan formal bikin saya lebih percaya diri."</p>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--red-pale);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--red)">D</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--ink)">Deni P.</div>
+            <div style="font-size:11px;color:var(--ink-soft)">Bekerja di Tokyo — ex-Surabaya</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:16px;padding:1.5rem">
+        <div style="font-size:20px;color:var(--gold);margin-bottom:.75rem">★★★★★</div>
+        <p style="font-size:13px;color:var(--ink-mid);line-height:1.7;margin-bottom:1rem">"AI Tutor-nya beneran ngebantu. Saya coba tanya 'apa bedanya は dan が' jam 11 malam dan langsung dapat penjelasan panjang dengan contoh kalimat. Lebih cepat dari googling."</p>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--gold)">F</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--ink)">Farah N.</div>
+            <div style="font-size:11px;color:var(--ink-soft)">Mahasiswi Sastra Jepang — Yogyakarta</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:16px;padding:1.5rem">
+        <div style="font-size:20px;color:var(--gold);margin-bottom:.75rem">★★★★☆</div>
+        <p style="font-size:13px;color:var(--ink-mid);line-height:1.7;margin-bottom:1rem">"Suka dengan tampilan yang bersih dan tidak overwhelming. Materi bisa dibuka per bagian sesuai kebutuhan. Latihan soalnya juga cukup mirip format JLPT aslinya."</p>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--red-pale);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--red)">A</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--ink)">Arif H.</div>
+            <div style="font-size:11px;color:var(--ink-soft)">Belajar mandiri — Medan</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:16px;padding:1.5rem">
+        <div style="font-size:20px;color:var(--gold);margin-bottom:.75rem">★★★★★</div>
+        <p style="font-size:13px;color:var(--ink-mid);line-height:1.7;margin-bottom:1rem">"Tabel 五十音 yang lengkap akhirnya ada! Ditambah quiz kana interaktif yang langsung tes satu per satu. Dalam 3 hari saya sudah hafal semua hiragana dan katakana."</p>
+        <div style="display:flex;align-items:center;gap:10px">
+          <div style="width:36px;height:36px;border-radius:50%;background:var(--gold-pale);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:var(--gold)">N</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--ink)">Nisa R.</div>
+            <div style="font-size:11px;color:var(--ink-soft)">Pemula N5 — Makassar</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="daftar">
+  <div class="cta-inner">
+    <div class="section-label" style="color: rgba(255,255,255,0.5);">Mulai Perjalanan Anda</div>
+    <div class="section-title">Siap berbicara bahasa Jepang?</div>
+    <p class="section-sub">Mulai dari materi inti gratis, lalu pilih kelas live dan fitur premium saat Anda membutuhkannya. Tidak perlu kartu kredit untuk memulai.</p>
+    <div class="hero-actions">
+      <a href="Dashboard/Dashboard.html" class="btn-white">始めましょう — Ayo Mulai!</a>
+      <a href="Premium.html" class="btn-ghost">Lihat Akses Premium</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+
+<section style="background:var(--ink);color:#fff;padding:3rem clamp(16px,5vw,72px);text-align:center">
+  <div style="max-width:540px;margin:0 auto">
+    <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem">📧 Newsletter</div>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(22px,4vw,32px);margin-bottom:.75rem">Dapatkan Tips Belajar Jepang<br>Setiap Minggu</h2>
+    <p style="color:rgba(255,255,255,.6);font-size:14px;line-height:1.75;margin-bottom:1.5rem">Ringkasan grammar baru, kosakata pilihan, dan strategi JLPT langsung ke email kamu. Gratis, bisa berhenti kapan saja.</p>
+    <div style="display:flex;gap:.5rem;max-width:420px;margin:0 auto" id="newsletterForm">
+      <input id="newsletterEmail" type="email" placeholder="email@contoh.com"
+        style="flex:1;height:48px;padding:0 14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font-family:Outfit,sans-serif;font-size:14px;outline:none;transition:border-color .15s"
+        onfocus="this.style.borderColor='rgba(255,255,255,.5)'" onblur="this.style.borderColor='rgba(255,255,255,.2)'"
+        onkeydown="if(event.key==='Enter')subscribeNewsletter()" aria-label="Surel newsletter">
+      <button onclick="subscribeNewsletter()" style="height:48px;padding:0 20px;border-radius:10px;border:none;background:var(--red);color:#fff;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap;transition:background .15s" onmouseover="this.style.background='#a02d23'" onmouseout="this.style.background='var(--red)'">Daftar →</button>
+    </div>
+    <div id="newsletterSuccess" style="display:none;color:#22c55e;font-size:14px;font-weight:700;margin-top:.75rem">✅ Berhasil! Cek email konfirmasi kamu.</div>
+    <div style="font-size:11px;color:rgba(255,255,255,.25);margin-top:.75rem">Dengan mendaftar, kamu menyetujui kebijakan privasi kami. Tidak ada spam.</div>
+  </div>
+</section>
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="nav-logo-jp">日本語</span>
+      <div class="nav-logo-id" style="color: rgba(255,255,255,0.35); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px;">Riyan Setiawan</div>
+      <p>Platform belajar bahasa Jepang terpercaya untuk pelajar Indonesia. Dari N5 hingga N1, kami siap mendampingi Anda.</p>
+    </div>
+    <div class="footer-col">
+      <h5>Materi</h5>
+      <a href="#hiragana">Hiragana & Katakana</a>
+      <a href="Materi/Vocabulary-Lengkap.html">Kosakata Dasar</a>
+      <a href="Materi/Grammar-Lengkap.html">Tata Bahasa</a>
+      <a href="Materi/Flashcard-Kanji.html">Kanji JLPT</a>
+      <a href="Pembelajaran-Lain.html">Percakapan</a>
+    </div>
+    <div class="footer-col">
+      <h5>Level</h5>
+      <a href="Materi/Kanji-N5.html">Pemula (N5)</a>
+      <a href="Materi/Kanji-N4.html">Menengah (N4–N3)</a>
+      <a href="Materi/Kanji-N2.html">Lanjutan (N2–N1)</a>
+      <a href="Premium.html">Akses Lengkap</a>
+    </div>
+    <div class="footer-col">
+      <h5>Info</h5>
+      <a href="#instruktur">Tentang Riyan</a>
+      <a href="Pembelajaran-Lain.html">Blog Bahasa Jepang</a>
+      <a href="#instruktur">Jadwal Kelas Live</a>
+      <a href="Akun.html">Kontak</a>
+      <a href="#faq">FAQ</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Riyan Setiawan · 日本語クラス · Semua hak dilindungi.</span>
+    <span>Privasi · Syarat Layanan</span>
+  </div>
+
+    <div style="text-align:center;padding:1rem 0;font-size:13px;color:rgba(255,255,255,.3)">📧 <a href="mailto:hello@nihonggopro.id" style="color:rgba(255,255,255,.4);text-decoration:none">hello@nihonggopro.id</a> · nihonggopro.id</div>
+</footer>
+
+<script src="assets/index-page.min.js" defer></script>
+<script src="assets/translator.min.js" defer></script>
+<script src="assets/pro-app.min.js" defer></script>
+
+<div style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:500">
+  <a href="https://wa.me/6281297225557?text=Halo%20NihonggoPro!%20Saya%20ingin%20bertanya%20tentang%20belajar%20bahasa%20Jepang."
+     target="_blank" rel="noopener"
+     style="width:52px;height:52px;border-radius:50%;background:#25D366;color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,.4);text-decoration:none;transition:transform .2s"
+     onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'"
+     title="Hubungi via WhatsApp">💬</a>
+</div>
+
+<!-- Back to top -->
+<button id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">↑</button>
+<script>
+const btt=document.getElementById('backToTop');
+window.addEventListener('scroll',()=>btt.classList.toggle('visible',window.scrollY>400),{passive:true});
+</script>
+<script>
+if('serviceWorker' in navigator && !/^(127\.0\.0\.1|localhost|::1)$/.test(location.hostname)){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+
+<script>
+(function initPushNotif(){
+  if(!('Notification' in window)) return;
+  const NOTIF_KEY = 'np-notif-setup';
+  const setup = localStorage.getItem(NOTIF_KEY);
+  if(setup === 'denied' || setup === 'dismissed') return;
+
+  // Only show prompt after user has been on site > 30 seconds
+  setTimeout(() => {
+    if(Notification.permission === 'granted'){
+      scheduleStudyReminder();
+      return;
+    }
+    if(Notification.permission !== 'denied' && !setup){
+      showNotifBanner();
+    }
+  }, 30000);
+
+  function showNotifBanner(){
+    const banner = document.createElement('div');
+    banner.id = 'notifBanner';
+    banner.style.cssText = 'position:fixed;bottom:5.5rem;right:1rem;background:white;border-radius:12px;padding:.875rem 1rem;box-shadow:0 4px 20px rgba(0,0,0,.15);border:.5px solid rgba(0,0,0,.08);z-index:200;max-width:280px;font-family:Outfit,sans-serif';
+    banner.innerHTML = `
+      <div style="font-size:13px;font-weight:700;color:#15161a;margin-bottom:.35rem">🔔 Pengingat Belajar Harian</div>
+      <div style="font-size:12px;color:#888;margin-bottom:.625rem;line-height:1.5">Izinkan notifikasi untuk diingatkan belajar bahasa Jepang setiap hari dan menjaga streak.</div>
+      <div style="display:flex;gap:.4rem">
+        <button onclick="window._npAllowNotif()" style="flex:1;height:32px;border-radius:7px;border:none;background:var(--red,#be3428);color:white;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer">Izinkan</button>
+        <button onclick="window._npDismissNotif()" style="height:32px;padding:0 10px;border-radius:7px;border:1px solid #e0e0e0;background:white;font-family:Outfit,sans-serif;font-size:12px;cursor:pointer;color:#888">Nanti</button>
+      </div>`;
+    document.body.appendChild(banner);
+  }
+
+  window._npAllowNotif = function(){
+    Notification.requestPermission().then(perm => {
+      localStorage.setItem(NOTIF_KEY, perm);
+      const b = document.getElementById('notifBanner');
+      if(b) b.remove();
+      if(perm === 'granted'){
+        new Notification('🎌 NihonggoPro', {
+          body: 'Notifikasi aktif! Kami akan mengingatkanmu belajar setiap hari.',
+          icon: '/assets/og-preview.svg',
+          badge: '/assets/og-preview.svg'
+        });
+        scheduleStudyReminder();
+      }
+    });
+  };
+
+  window._npDismissNotif = function(){
+    localStorage.setItem(NOTIF_KEY, 'dismissed');
+    const b = document.getElementById('notifBanner');
+    if(b) b.remove();
+  };
+
+  function scheduleStudyReminder(){
+    // Check if user already studied today
+    const today = new Date().toDateString();
+    const timerKey = 'np-study-timer-' + today;
+    const studied = +localStorage.getItem(timerKey) || 0;
+    if(studied >= 900) return; // Already studied 15+ mins today
+
+    // Schedule reminder for 8 PM if not studied
+    const now = new Date();
+    const target = new Date();
+    target.setHours(20, 0, 0, 0);
+    if(now > target) target.setDate(target.getDate() + 1);
+
+    const delay = target - now;
+    const reminderKey = 'np-reminder-' + today;
+    if(localStorage.getItem(reminderKey)) return;
+    localStorage.setItem(reminderKey, '1');
+
+    setTimeout(() => {
+      const studied2 = +localStorage.getItem('np-study-timer-' + new Date().toDateString()) || 0;
+      if(studied2 < 300 && Notification.permission === 'granted'){
+        new Notification('🔥 Jangan putus streakmu!', {
+          body: 'Kamu belum belajar hari ini. 10 menit saja sudah cukup untuk menjaga streak.',
+          icon: '/assets/og-preview.svg',
+          requireInteraction: true,
+          tag: 'daily-reminder'
+        });
+      }
+    }, Math.min(delay, 2147483647));
+  }
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+<script>
+(function(){
+  const env = window.EDUMA_ENV || {};
+  const EMAILJS_PUBLIC_KEY = env.EMAILJS_PUBLIC_KEY || localStorage.getItem('EDUMA_EMAILJS_PUBLIC_KEY') || '';
+  const EMAILJS_SERVICE_ID = env.EMAILJS_SERVICE_ID || localStorage.getItem('EDUMA_EMAILJS_SERVICE_ID') || '';
+  const EMAILJS_TEMPLATE_ID = env.EMAILJS_TEMPLATE_ID || localStorage.getItem('EDUMA_EMAILJS_TEMPLATE_ID') || '';
+
+  if(typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY){
+    emailjs.init(EMAILJS_PUBLIC_KEY);
+  }
+
+  window.subscribeNewsletter = function(){
+    const emailEl = document.getElementById('newsletterEmail');
+    const successEl = document.getElementById('newsletterSuccess');
+    const formEl = document.getElementById('newsletterForm');
+    const email = emailEl ? emailEl.value.trim() : '';
+
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      if(emailEl) emailEl.style.borderColor = '#ef4444';
+      setTimeout(() => { if(emailEl) emailEl.style.borderColor = ''; }, 2000);
+      return;
+    }
+
+    // Save to localStorage as fallback
+    const subs = JSON.parse(localStorage.getItem('np-newsletter-subs') || '[]');
+    if(!subs.find(s => s.email === email)){
+      subs.push({email, date: new Date().toISOString()});
+      localStorage.setItem('np-newsletter-subs', JSON.stringify(subs));
+    }
+
+    // Try EmailJS if configured
+    if(typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID){
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {email, date: new Date().toLocaleDateString('id-ID')})
+        .catch(() => {}); // Silent fail — already saved to localStorage
+    }
+
+    if(formEl) formEl.style.display = 'none';
+    if(successEl) successEl.style.display = 'block';
+    if(typeof gtag !== 'undefined') gtag('event','newsletter_signup',{email});
+  };
+})();
+</script>
+
+<!-- Tawk.to Live Chat — TODO: Ganti dengan Property ID dan Widget ID dari tawk.to -->
+<script>
+(function(){
+  // Uncomment dan ganti dengan kode dari tawk.to/dashboard setelah daftar gratis
+  /*
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+    var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+    s1.async=true;
+    s1.src='https://embed.tawk.to/YOUR_PROPERTY_ID/YOUR_WIDGET_ID';
+    s1.charset='UTF-8';
+    s1.setAttribute('crossorigin','*');
+    s0.parentNode.insertBefore(s1,s0);
+  })();
+  */
+  // Fallback: WhatsApp floating button (sudah ada)
+})();
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+/* Homepage-only reveal: the shared motion script targets generic page layouts. */
+(function(){
+  var reduce = false;
+  try { reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch(e) {}
+  var sections = document.querySelectorAll('body > section, body > .stats-bar, body > .live-section, body > footer');
+  if (reduce) return;
+  document.body.classList.add('motion-ready');
+  sections.forEach(function(section){
+    if (section.hidden || section.id === 'authOverlay') return;
+    section.classList.add('motion-reveal');
+    var grid = section.querySelector('.features-grid, .levels-grid, .testi-grid, .progress-grid, .study-tools-grid, .lms-feature-grid, .hero-stats');
+    if (grid) grid.classList.add('motion-stagger');
+  });
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.motion-reveal, .motion-stagger').forEach(function(element){ element.classList.add('motion-visible'); });
+    return;
+  }
+  var observer = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if (entry.isIntersecting){
+        entry.target.classList.add('motion-visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.12, rootMargin:'0px 0px -48px'});
+  document.querySelectorAll('.motion-reveal, .motion-stagger').forEach(function(element){ observer.observe(element); });
+})();
+</script>
+<script>
+// ── NAVBAR SCROLL FALLBACK (inline) ──
+(function(){
+  function ns(){ var n=document.querySelector('.kn-nav'); if(n) n.classList.toggle('scrolled', window.scrollY>20); }
+  window.addEventListener('scroll', ns, {passive:true});
+  document.addEventListener('DOMContentLoaded', ns);
+})();
+</script>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   AUTH MODAL — index.html
+   Terintegrasi dengan window.SupabaseClient.Auth
+   ════════════════════════════════════════════════════════ */
+(function(){
+  function $(id){ return document.getElementById(id); }
+
+  /* ── OPEN / CLOSE ── */
+  window.openAuth = function(mode){
+    var overlay = $('authOverlay');
+    if(!overlay) return;
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    switchTab(mode === 'register' ? 'register' : 'login');
+    var success = $('authSuccess');
+    if(success) success.classList.remove('show');
+    var panelLogin = $('panelLogin'), panelReg = $('panelRegister');
+    if(mode !== 'register' && panelLogin) panelLogin.classList.add('active');
+    if(panelReg && mode !== 'register') panelReg.classList.remove('active');
+  };
+
+  function closeAuth(){
+    var overlay = $('authOverlay');
+    if(!overlay) return;
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    var closeBtn = $('authClose');
+    if(closeBtn) closeBtn.addEventListener('click', closeAuth);
+    var overlay = $('authOverlay');
+    if(overlay) overlay.addEventListener('click', function(e){ if(e.target === overlay) closeAuth(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeAuth(); });
+
+    // Cek status login saat ini, tampilkan profileBar jika sudah login
+    refreshAuthUI();
+    if(window.SupabaseClient){
+      window.SupabaseClient.Auth.onAuthChange(refreshAuthUI);
+    }
+  });
+
+  function refreshAuthUI(){
+    var sb = window.SupabaseClient;
+    var bar = $('profileBar');
+    if(!sb || !bar) return;
+    var user = sb.Auth.user();
+    if(user){
+      bar.classList.add('visible');
+      var name = user.user_metadata?.full_name || user.email?.split('@')[0] || 'Pengguna';
+      var nameEl = $('profileBarName'); if(nameEl) nameEl.textContent = name;
+      var avatarEl = $('profileBarAvatar');
+      if(avatarEl) avatarEl.textContent = name.split(' ').map(function(w){return w[0]||'';}).join('').slice(0,2).toUpperCase();
+      // Stats dari localStorage
+      try{
+        var st = JSON.parse(localStorage.getItem('np-state-v3')||'{}');
+        var u = st.user || {};
+        var kc = $('statKuisCount'); if(kc) kc.textContent = u.quizTotal || 0;
+        var bs = $('statBestScore'); if(bs) bs.textContent = u.bestScore ? u.bestScore+'%' : '—';
+        var ss = $('statStreak'); if(ss) ss.textContent = (u.streak||0)+'🔥';
+      }catch(e){}
+    } else {
+      // JANGAN sembunyikan profileBar jika ada sesi 'nihongo_session' aktif
+      // (sistem login local-demo/Firebase di index-page.js). refreshAuthUI()
+      // hanya tahu soal SupabaseClient.Auth — jika pengguna genuinely login
+      // lewat jalur lain, sb.Auth.user() akan null di sini meski pengguna
+      // sudah login, dan tanpa guard ini akan salah menyembunyikan profileBar
+      // yang sudah benar ditampilkan showProfileBar() di index-page.js.
+      try {
+        if (localStorage.getItem('nihongo_session')) return;
+      } catch(e) {}
+      bar.classList.remove('visible');
+    }
+  }
+
+  /* ── TAB SWITCH ── */
+  window.switchTab = function(tab){
+    var tabLogin = $('tabLogin'), tabReg = $('tabRegister');
+    var panelLogin = $('panelLogin'), panelReg = $('panelRegister');
+    var title = $('authBannerTitle'), sub = $('authBannerSub');
+    if(tab === 'register'){
+      tabReg && tabReg.classList.add('active');
+      tabLogin && tabLogin.classList.remove('active');
+      panelReg && panelReg.classList.add('active');
+      panelLogin && panelLogin.classList.remove('active');
+      if(title) title.textContent = 'Buat akun baru';
+      if(sub) sub.textContent = 'Mulai perjalanan belajar bahasa Jepangmu';
+    } else {
+      tabLogin && tabLogin.classList.add('active');
+      tabReg && tabReg.classList.remove('active');
+      panelLogin && panelLogin.classList.add('active');
+      panelReg && panelReg.classList.remove('active');
+      if(title) title.textContent = 'Selamat datang kembali';
+      if(sub) sub.textContent = 'Masuk untuk melanjutkan belajar';
+    }
+    clearErrors();
+  };
+
+  function clearErrors(){
+    ['loginError','registerError'].forEach(function(id){
+      var el = $(id);
+      if(el){ el.textContent=''; el.classList.remove('show'); }
+    });
+  }
+
+  function showError(id, msg){
+    var el = $(id);
+    if(!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+  }
+
+  /* ── PASSWORD TOGGLE ── */
+  window.togglePw = function(inputId, btn){
+    var inp = $(inputId);
+    if(!inp) return;
+    // aria-label SEBELUMNYA statis "Togglepw" (typo/tidak deskriptif) dan
+    // TIDAK PERNAH berubah meski status show/hide password genuinely berubah
+    // -- screen reader tidak tahu apakah tombol akan menampilkan atau
+    // menyembunyikan password. Sekarang genuinely diperbarui tiap toggle.
+    if(inp.type === 'password'){ inp.type = 'text'; btn.textContent = '🙈'; btn.setAttribute('aria-label', 'Sembunyikan kata sandi'); }
+    else { inp.type = 'password'; btn.textContent = '👁️'; btn.setAttribute('aria-label', 'Tampilkan kata sandi'); }
+  };
+
+  /* ── FORGOT PASSWORD ── */
+  window.showForgot = async function(){
+    var email = $('loginEmail')?.value.trim();
+    if(!email){
+      showError('loginError', 'Masukkan email terlebih dahulu untuk reset password.');
+      return;
+    }
+    if(!window.SupabaseClient){
+      showError('loginError', 'Layanan belum tersedia. Coba lagi nanti.');
+      return;
+    }
+    try{
+      await window.SupabaseClient.Auth.resetPassword(email);
+      showError('loginError', '✅ Link reset password telah dikirim ke ' + email);
+    }catch(err){
+      showError('loginError', err.message || 'Gagal mengirim link reset.');
+    }
+  };
+
+  /* ── LOGIN ── */
+  window.handleLogin = async function(){
+    var email = $('loginEmail')?.value.trim();
+    var password = $('loginPassword')?.value;
+    clearErrors();
+
+    if(!email || !password){
+      showError('loginError', 'Email dan kata sandi wajib diisi.');
+      return;
+    }
+    if(!window.SupabaseClient){
+      showError('loginError', 'Layanan login belum dikonfigurasi. Coba lagi nanti.');
+      return;
+    }
+
+    var btn = $('loginSubmit');
+    if(btn){ btn.classList.add('loading'); btn.disabled = true; }
+
+    try{
+      await window.SupabaseClient.Auth.signIn(email, password);
+      showAuthSuccess('ようこそ！ Selamat datang kembali!', 'Berhasil masuk. Selamat belajar!');
+      refreshAuthUI();
+      setTimeout(closeAuth, 1600);
+    }catch(err){
+      showError('loginError', err.message || 'Email atau kata sandi salah.');
+    }finally{
+      if(btn){ btn.classList.remove('loading'); btn.disabled = false; }
+    }
+  };
+
+  /* ── REGISTER ── */
+  window.handleRegister = async function(){
+    var name = $('regName')?.value.trim();
+    var email = $('regEmail')?.value.trim();
+    var password = $('regPassword')?.value;
+    var password2 = $('regPassword2')?.value;
+    clearErrors();
+
+    if(!name || !email || !password){
+      showError('registerError', 'Semua field wajib diisi.');
+      return;
+    }
+    if(password.length < 6){
+      showError('registerError', 'Kata sandi minimal 6 karakter.');
+      return;
+    }
+    if(password !== password2){
+      showError('registerError', 'Konfirmasi kata sandi tidak cocok.');
+      return;
+    }
+    if(!window.SupabaseClient){
+      showError('registerError', 'Layanan registrasi belum dikonfigurasi. Coba lagi nanti.');
+      return;
+    }
+
+    var btn = $('registerSubmit');
+    if(btn){ btn.classList.add('loading'); btn.disabled = true; }
+
+    try{
+      await window.SupabaseClient.Auth.signUp(email, password, name);
+      showAuthSuccess('ようこそ！ Selamat datang!', 'Akun Anda berhasil dibuat. Selamat belajar bahasa Jepang!');
+      refreshAuthUI();
+      setTimeout(function(){
+        closeAuth();
+        window.location.href = 'Onboarding.html';
+      }, 1800);
+    }catch(err){
+      showError('registerError', err.message || 'Gagal membuat akun. Coba lagi.');
+    }finally{
+      if(btn){ btn.classList.remove('loading'); btn.disabled = false; }
+    }
+  };
+
+  /* ── SOCIAL LOGIN ── */
+  window.handleSocialLogin = function(provider){
+    if(!window.SupabaseClient){
+      showError('loginError', 'Login sosial belum dikonfigurasi.');
+      return;
+    }
+    var env = window.EDUMA_ENV || {};
+    if(!env.SUPABASE_URL){
+      showError('loginError', 'Login Google memerlukan konfigurasi server.');
+      return;
+    }
+    var redirectTo = window.location.origin + '/Dashboard/Dashboard.html';
+    window.location.href = env.SUPABASE_URL + '/auth/v1/authorize?provider=' +
+      provider.toLowerCase() + '&redirect_to=' + encodeURIComponent(redirectTo);
+  };
+
+  function showAuthSuccess(title, sub){
+    ['panelLogin','panelRegister'].forEach(function(id){
+      var el = $(id); if(el) el.classList.remove('active');
+    });
+    var s = $('authSuccess');
+    if(s) s.classList.add('show');
+    var t = $('successTitle'); if(t) t.textContent = title;
+    var sb = $('successSub'); if(sb) sb.textContent = sub;
+  }
+
+})();
+</script>
+<button id="npDarkToggle" aria-label="Ganti mode gelap/terang" title="Mode gelap/terang" class="np-dark-toggle-btn" style="position:fixed;bottom:20px;left:20px;z-index:900;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--border-mid,rgba(107,79,58,.18));background:var(--surface,#fff);color:var(--ink,#2d2d2d);font-size:20px;cursor:pointer;box-shadow:var(--shadow-md,0 8px 28px rgba(0,0,0,.1));transition:transform .2s"
+  onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'"
+  onclick="window.NPDark && window.NPDark.toggle(); this.textContent = (window.NPDark.isDarkActive()?'☀️':'🌙');">🌙</button>
+<script>
+(function(){
+  var b=document.getElementById('npDarkToggle');
+  if(!b) return;
+  function sync(){ b.textContent = (window.NPDark && window.NPDark.isDarkActive()) ? '☀️' : '🌙'; }
+  document.addEventListener('np-dark-change', sync);
+  document.addEventListener('DOMContentLoaded', sync);
+  sync();
+})();
+</script>
+</body>
+</html>

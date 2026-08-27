@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wago Kango Gairaigo 和語漢語外来語 | Nihonggo Pro Academy</title>
+<meta name="description" content="Panduan tiga jenis kosakata Jepang — Wago (kata asli Jepang), Kango (kata serapan Cina), dan Gairaigo (kata serapan Barat) dengan 100+ contoh.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Wago-Kango-Gairaigo.html">
+<meta property="og:title" content="Wago Kango Gairaigo — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Wago-Kango-Gairaigo.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js" defer></script>
+<script src="../assets/supabase-client.js" defer></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+.page-hero{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.type-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:20px 0}
+.type-box{border-radius:12px;padding:18px}
+.wago{background:#e8f5e9;border:2px solid #4caf50}
+.kango{background:#e3f2fd;border:2px solid #2196f3}
+.gairaigo{background:#fff3e0;border:2px solid #ff9800}
+.type-box h3{margin:0 0 8px;font-size:1rem}
+.wago h3{color:#2e7d32}.kango h3{color:#1565c0}.gairaigo h3{color:#e65100}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.tab{padding:7px 16px;border-radius:20px;border:1px solid var(--border-mid);background:var(--cream);cursor:pointer;font-size:.85rem;transition:all .2s}
+.tab.active,.tab:hover{background:#1a237e;color:#fff;border-color:#1a237e}
+.word-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px}
+.word-card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px;transition:all .2s}
+.word-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.wc-type{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:10px;margin-bottom:6px;font-weight:600}
+.wc-w{color:#2e7d32}.wc-k{color:#1565c0}.wc-g{color:#e65100}
+.wc-wbg{background:#e8f5e9}.wc-kbg{background:#e3f2fd}.wc-gbg{background:#fff3e0}
+.w-jp{font-size:.95rem;font-weight:700;color:var(--ink)}
+.w-read{font-size:.78rem;color:var(--ink-mid);margin:2px 0}
+.w-id{font-size:.85rem;color:var(--ink-mid)}
+.w-note{font-size:.75rem;color:var(--matcha);margin-top:4px}
+.search{width:100%;padding:10px 14px;border:1px solid var(--border-mid);border-radius:10px;font-size:.9rem;margin-bottom:12px;box-sizing:border-box}
+.stitle{font-size:1.2rem;font-weight:700;color:#1a237e;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e3f2fd}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:12px 0}
+.tbl th{background:#e3f2fd;padding:8px 12px;text-align:left;font-size:.8rem}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
+.qbox{background:#e3f2fd;border-radius:14px;padding:20px;margin:20px 0}
+.qq{font-weight:600;margin-bottom:12px}
+.qopts{display:grid;gap:8px}
+.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
+.qopt:hover{background:#e3f2fd}
+.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
+.qexp.show{display:block}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Wago Kango Gairaigo 和語漢語外来語 | Nihonggo Pro Academy", "description": "Panduan tiga jenis kosakata Jepang — Wago (kata asli Jepang), Kango (kata serapan Cina), dan Gairaigo (kata serapan Barat) dengan 100+ contoh.", "url": "https://nihonggopro.id/Materi/Wago-Kango-Gairaigo.html", "educationalLevel": "Beginner", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Panduan tiga jenis kosakata Jepang — Wago (kata asli Jepang), Kango (kata serapan Cina), dan Gairaigo (kata serapan Barat) dengan 100+ contoh.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Wago Kango Gairaigo 和語漢語外来語">
+<meta name="twitter:description" content="Panduan tiga jenis kosakata Jepang — Wago (kata asli Jepang), Kango (kata serapan Cina), dan Gairaigo (kata serapan Barat) dengan 100+ contoh.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="page-hero">
+  <span class="badge">📚 N4 · N3 · N2</span>
+  <h1>和語・漢語・外来語<br>Tiga Jenis Kosakata Jepang</h1>
+  <p>Bedakan Wago, Kango, dan Gairaigo — kunci memahami kosakata Jepang</p>
+</div>
+<div class="wrap" style="padding-top:24px">
+
+<div class="type-grid">
+  <div class="type-box wago">
+    <h3>🌿 和語 (Wago)</h3>
+    <p style="font-size:.83rem;margin:0;color:#2e7d32">Kata asli Jepang. Biasanya ditulis dalam hiragana atau kanji dengan bacaan kun-yomi.<br>
+    例: 水(みず)=air, 山(やま)=gunung, 食べる=makan</p>
+  </div>
+  <div class="type-box kango">
+    <h3>📖 漢語 (Kango)</h3>
+    <p style="font-size:.83rem;margin:0;color:#1565c0">Kata serapan dari Cina (Sino-Japanese). Biasanya kanji dengan bacaan on-yomi. Lebih formal.<br>
+    例: 水分(すいぶん)=kandungan air, 山岳(さんがく)=pegunungan</p>
+  </div>
+  <div class="type-box gairaigo">
+    <h3>🌍 外来語 (Gairaigo)</h3>
+    <p style="font-size:.83rem;margin:0;color:#e65100">Kata serapan dari bahasa Barat (terutama Inggris). Ditulis dalam katakana.<br>
+    例: ウォーター=water, マウンテン=mountain</p>
+  </div>
+</div>
+
+<h2 class="stitle">📊 Perbandingan Trio — Konsep Sama, 3 Cara Ungkap</h2>
+<table class="tbl">
+<tr><th>Konsep</th><th>🌿 和語</th><th>📖 漢語</th><th>🌍 外来語</th><th>Nuansa</th></tr>
+<tr><td>air</td><td>みず / お湯</td><td>水分(すいぶん)</td><td>ウォーター</td><td>みず=sehari-hari, 水分=formal/medis, ウォーター=kafe/gaya hidup</td></tr>
+<tr><td>makan</td><td>食べる(たべる)</td><td>食事(しょくじ)</td><td>イート</td><td>食べる=sehari-hari, 食事=formal/resmi, イート=jarang</td></tr>
+<tr><td>rumah</td><td>家(いえ)</td><td>住宅(じゅうたく)</td><td>ホーム</td><td>いえ=rumah sendiri, 住宅=properti/formal, ホーム=suasana rumah</td></tr>
+<tr><td>pekerjaan</td><td>仕事(しごと)</td><td>業務(ぎょうむ)</td><td>ワーク</td><td>仕事=sehari-hari, 業務=formal/bisnis, ワーク=workstyle/casual</td></tr>
+<tr><td>waktu</td><td>時(とき)</td><td>時間(じかん)</td><td>タイム</td><td>時=saat/momen, 時間=durasi/jam, タイム=sports/casual</td></tr>
+<tr><td>manusia</td><td>人(ひと)</td><td>人間(にんげん)</td><td>ヒューマン</td><td>ひと=orang biasa, 人間=manusia sebagai spesies, ヒューマン=konsep</td></tr>
+</table>
+
+<h2 class="stitle">🔍 Ciri Pengenalan</h2>
+<table class="tbl">
+<tr><th>Jenis</th><th>Script</th><th>Struktur</th><th>Nuansa</th><th>Contoh</th></tr>
+<tr><td>🌿 和語</td><td>ひらがな/漢字(訓読み)</td><td>Sering punya okurigana</td><td>Natural, sehari-hari</td><td>食べる、見る、大きい</td></tr>
+<tr><td>📖 漢語</td><td>漢字(音読み)</td><td>Biasanya 2 kanji</td><td>Formal, akademik</td><td>食事、視覚、経済</td></tr>
+<tr><td>🌍 外来語</td><td>カタカナ</td><td>Fonetik bahasa asal</td><td>Modern, kasual, teknis</td><td>テレビ、パソコン</td></tr>
+</table>
+
+<input type="text" class="search" id="sb" placeholder="🔍 Cari kata..." oninput="filterW()">
+<div class="tabs">
+  <button class="tab active" onclick="setC('semua',this)">📋 Semua</button>
+  <button class="tab" onclick="setC('wago',this)">🌿 和語</button>
+  <button class="tab" onclick="setC('kango',this)">📖 漢語</button>
+  <button class="tab" onclick="setC('gairaigo',this)">🌍 外来語</button>
+</div>
+<div class="word-grid" id="wg"></div>
+
+<h2 class="stitle">🧠 Quiz</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+  <button onclick="nextQ()" style="flex:1;padding:12px;background:#1a237e;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+  <button onclick="resetQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
+</div>
+<p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
+</div></main>
+<script>
+var WORDS=[
+  // Wago
+  {jp:'食べる',r:'たべる',id:'makan',type:'wago',note:'動詞の基本形。自然な日常表現。'},
+  {jp:'見る',r:'みる',id:'melihat',type:'wago',note:'目で見る。 cf. 視る(みる)も書く。'},
+  {jp:'大きい',r:'おおきい',id:'besar',type:'wago',note:'形容詞。大きな(おおきな)と使い分け。'},
+  {jp:'小さい',r:'ちいさい',id:'kecil',type:'wago',note:'形容詞。小さな(ちいさな)も使う。'},
+  {jp:'早い',r:'はやい',id:'cepat/awal',type:'wago',note:'速い(はやい)=kecepatan vs 早い=waktu awal。'},
+  {jp:'家(うち)',r:'うち',id:'rumah (sendiri)',type:'wago',note:'自分の家・家族を指す。家(いえ)より親しみやすい。'},
+  {jp:'手紙',r:'てがみ',id:'surat',type:'wago',note:'て=tangan+がみ(紙)=kertas。和語compound。'},
+  {jp:'木',r:'き',id:'pohon; kayu',type:'wago',note:'自然の木。木曜日(もくようび)はon-yomi。'},
+  {jp:'川',r:'かわ',id:'sungai',type:'wago',note:'자연地名: 利根川(とねがわ)。PN: 川本(かわもと)。'},
+  {jp:'水',r:'みず',id:'air (dingin)',type:'wago',note:'冷たい水。お湯(ゆ)=air panas。cf. 水分(kango)。'},
+  // Kango
+  {jp:'食事',r:'しょくじ',id:'makan (formal); makanan',type:'kango',note:'食+事。フォーマルな場面で。食べる(wago)より格式高い。'},
+  {jp:'視覚',r:'しかく',id:'indera penglihatan',type:'kango',note:'視+覚。医学・学術用語。cf.見る(wago)。'},
+  {jp:'経済',r:'けいざい',id:'ekonomi',type:'kango',note:'2文字漢語。学術・ニュースでよく使う。'},
+  {jp:'教育',r:'きょういく',id:'pendidikan',type:'kango',note:'教+育。formalな文脈で。教える(wago)より包括的。'},
+  {jp:'社会',r:'しゃかい',id:'masyarakat; sosial',type:'kango',note:'社+会。社会問題=masalah sosial。'},
+  {jp:'水分',r:'すいぶん',id:'kandungan air; hidrasi',type:'kango',note:'水+分。医療・栄養表現。水(みず=wago)との違い。'},
+  {jp:'時間',r:'じかん',id:'waktu; durasi',type:'kango',note:'時+間。時(とき=wago)は感覚的・瞬間的。時間は継続的。'},
+  {jp:'目的',r:'もくてき',id:'tujuan',type:'kango',note:'目+的。フォーマルな目的表現。'},
+  {jp:'問題',r:'もんだい',id:'masalah; soal',type:'kango',note:'問+題。日常でも学術でも頻繁に使う。'},
+  {jp:'関係',r:'かんけい',id:'hubungan; keterkaitan',type:'kango',note:'関+係。人間関係=hubungan antarmanusia。'},
+  // Gairaigo
+  {jp:'テレビ',r:'てれび',id:'televisi',type:'gairaigo',note:'television の省略。カタカナで書く。'},
+  {jp:'パソコン',r:'ぱそこん',id:'komputer (PC)',type:'gairaigo',note:'personal computer の省略。'},
+  {jp:'スマホ',r:'すまほ',id:'smartphone',type:'gairaigo',note:'smartphone の省略。スマートフォンの短縮。'},
+  {jp:'コーヒー',r:'こーひー',id:'kopi',type:'gairaigo',note:'coffee から。外来語はカタカナで表記。'},
+  {jp:'アパート',r:'あぱーと',id:'apartemen',type:'gairaigo',note:'apartment から。マンションより小規模。'},
+  {jp:'バス',r:'ばす',id:'bus',type:'gairaigo',note:'bus から。バス停(ていりゅうじょ)=halte bus。'},
+  {jp:'ケア',r:'けあ',id:'perawatan; care',type:'gairaigo',note:'care から。介護・医療でよく使う。'},
+  {jp:'チーム',r:'ちーむ',id:'tim',type:'gairaigo',note:'team から。チームワーク=teamwork。'},
+  {jp:'ストレス',r:'すとれす',id:'stres',type:'gairaigo',note:'stress から。現代社会の重要な概念。'},
+  {jp:'サービス',r:'さーびす',id:'layanan; servis',type:'gairaigo',note:'service から。サービス業=industri jasa。'},
+];
+var cat='semua',src='';
+function setC(c,btn){cat=c;document.querySelectorAll('.tab').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');render();}
+function filterW(){src=document.getElementById('sb').value.toLowerCase();render();}
+function getTypeLabel(t){return t==='wago'?'🌿 和語':t==='kango'?'📖 漢語':'🌍 外来語';}
+function getTypeCls(t){return t==='wago'?'wc-wbg wc-w':t==='kango'?'wc-kbg wc-k':'wc-gbg wc-g';}
+function render(){
+  var items=WORDS;
+  if(cat!=='semua')items=items.filter(function(i){return i.type===cat;});
+  if(src)items=items.filter(function(i){return i.jp.includes(src)||i.r.includes(src)||i.id.toLowerCase().includes(src);});
+  var g=document.getElementById('wg');
+  g.innerHTML='';
+  items.forEach(function(w){
+    var d=document.createElement('div');
+    d.className='word-card';
+    d.innerHTML='<span class="wc-type '+getTypeCls(w.type)+'">'+getTypeLabel(w.type)+'</span><div class="w-jp">'+w.jp+'</div><div class="w-read">'+w.r+'</div><div class="w-id">🇮🇩 '+w.id+'</div><div class="w-note">💡 '+w.note+'</div>';
+    g.appendChild(d);
+  });
+}
+var QUIZ=[
+  {q:'「食べる」はどの種類の言葉？',opts:['漢語','和語','外来語','混種語'],a:1,e:'食べる=和語(Wago). 動詞に送り仮名がついて、訓読みで読む。「食事(しょくじ)」は漢語(Kango)。'},
+  {q:'カタカナで書かれた言葉は通常？',opts:['和語','漢語','外来語','全部'],a:2,e:'外来語(Gairaigo)=カタカナで表記。テレビ、コーヒー、スマホなど。例外: オノマトペ(擬音語)もカタカナ。'},
+  {q:'「経済」「教育」「社会」のような2文字漢語は？',opts:['和語','漢語(音読み)','外来語','和製英語'],a:1,e:'漢語=音読みの漢字熟語。中国から伝わった語彙。フォーマルで学術的。和語より抽象的な概念表現が得意。'},
+  {q:'「水(みず)」と「水分(すいぶん)」の違いは？',opts:['同じ意味','みず=和語(日常), すいぶん=漢語(医療/格式)','すいぶん=和語','みず=漢語'],a:1,e:'みず=和語(wago)=日常の水。水分(すいぶん)=漢語(kango)=含水量・医療表現。同じ漢字でも読み方と使用場面が違う。'},
+  {q:'日本語の語彙のうち最も多いのは？',opts:['和語','漢語','外来語','和製英語'],a:1,e:'漢語が約47%で最多。和語約35%、外来語約9%、混種語約9%。漢語は中国からの影響で江戸時代までに大量に流入。'},
+  {q:'「ケア」はどの種類？',opts:['和語','漢語','外来語（英語のcareから）','和製英語'],a:2,e:'ケア=外来語(gairaigo)。英語のcareから。介護・医療でよく使われる。cf. 介護(かいご)=漢語。'},
+  {q:'「手紙(てがみ)」はどの種類？',opts:['漢語','和語','外来語','混種語'],a:1,e:'手紙=和語。て(手)+がみ(紙)。和語同士の複合語。cf. 書簡(しょかん)=漢語(formalな手紙)。'},
+  {q:'外来語をカタカナで書く主な理由は？',opts:['難しいから','外国語起源を示すため','美しいから','昔からの習慣だから'],a:1,e:'カタカナは外来語起源を視覚的に示す。読者が「これは借用語」とすぐわかる。また、擬音語・強調にも使われる。'},
+  {q:'「パソコン」はどこから来た言葉？',opts:['フランス語','ドイツ語','英語(personal computer)','中国語'],a:2,e:'パソコン=personal computerの省略。英語由来の外来語。日本語では省略や変形が多い: テレビ(television), スマホ(smartphone).'},
+  {q:'漢語の特徴として正しいのは？',opts:['カタカナで書く','音読みの漢字を使い、フォーマルな文脈で使われる','ひらがなのみ','送り仮名がある'],a:1,e:'漢語=音読み漢字+フォーマル文脈。学術・ニュース・ビジネスで多い。例:経済、教育、社会、時間。'},
+];
+render();
+var qIdx=0,ok=0,tot=0;
+function renderQ(){if(!QUIZ.length)return;var q=QUIZ[qIdx%QUIZ.length];var c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var box=document.createElement('div');box.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qIdx%QUIZ.length+1)+'. '+q.q;var exp=document.createElement('div');exp.className='qexp';exp.id='qe';box.appendChild(qq);box.appendChild(oo);box.appendChild(exp);c.innerHTML='';c.appendChild(box);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function ans(btn,c,a,exp){var btns=document.querySelectorAll('.qopt');if(btns[a].dataset.done)return;btns[a].dataset.done='1';tot++;btns[a].classList.add('correct');if(c!==a)btn.classList.add('wrong');else ok++;var e=document.getElementById('qe');if(e){e.textContent='💡 '+exp;e.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function nextQ(){qIdx=(qIdx+1)%QUIZ.length;renderQ();}
+function resetQ(){qIdx=0;ok=0;tot=0;renderQ();}
+renderQ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

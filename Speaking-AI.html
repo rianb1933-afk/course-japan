@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Speaking AI Coach – NihonggoPro</title>
+<link rel="canonical" href="https://nihonggopro.id/Speaking-AI.html">
+<meta property="og:title" content="AI Speaking — Latihan Bicara Bahasa Jepang | Nihonggo Pro">
+<meta property="og:description" content="Latihan berbicara bahasa Jepang dengan AI: penilaian pengucapan, intonasi, kelancaran, dan skenario Kaigo OSCE.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Speaking-AI.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+
+<meta name="description" content="Latihan speaking bahasa Jepang dengan AI feedback real-time. Rekam suara, dapatkan skor pengucapan, dan koreksi intonasi dari AI Sensei.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Serif+JP:wght@700&display=swap" rel="stylesheet">
+<script src="assets/env.js" defer></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Ketiga, Fase J):
+     dikonfirmasi via investigasi bahwa tag script eksternal di atas
+     genuinely TIDAK PERNAH mengeksekusi konten inline yang sebelumnya
+     ditulis di baris yang sama -- spesifikasi HTML genuinely
+     mengabaikan konten inline sepenuhnya saat atribut src hadir pada
+     tag script. window.ShadowMode = {active:false} genuinely tidak
+     pernah dieksekusi. Dipisah ke tag script tersendiri di bawah ini
+     agar genuinely berjalan. Dikonfirmasi dampak fungsional sebelumnya
+     nihil (tidak ada elemen UI yang memanggil window.ShadowMode),
+     namun diperbaiki untuk kejelasan struktural kode. -->
+<script>window.ShadowMode = {active:false};</script>
+<script src="assets/pitch-analyzer.js" defer></script>
+<style>
+:root{
+  --bg:#f8f9fb;--white:#fff;--ink:#0f172a;--ink2:#475569;--ink3:#94a3b8;
+  --border:#e2e8f0;--surface:#f1f5f9;
+  --blue:#2563eb;--blue-l:#eff6ff;--blue-d:#1d4ed8;
+  --green:#16a34a;--green-l:#dcfce7;
+  --red:#dc2626;--red-l:#fee2e2;
+  --orange:#ea580c;--orange-l:#fff7ed;
+  --purple:#7c3aed;--purple-l:#f5f3ff;
+  --gold:#d97706;
+  --r:12px;--r-lg:20px;--ff:'Outfit',sans-serif;
+  --sh:0 2px 12px rgba(0,0,0,.07);--sh-lg:0 8px 32px rgba(0,0,0,.12);
+}
+[data-dark]{--bg:#0f172a;--white:#1e293b;--ink:#f1f5f9;--ink2:#94a3b8;--ink3:#475569;--border:#334155;--surface:#1e293b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);background:var(--bg);color:var(--ink);min-height:100vh}
+a{color:inherit;text-decoration:none}
+/* topbar */
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tb-brand{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800}
+.tb-brand-jp{font-family:'Noto Serif JP';font-size:20px;color:var(--blue)}
+.tb-nav{display:flex;gap:6px}
+.tb-btn{font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:none;cursor:pointer;background:var(--surface);color:var(--ink2)}
+.tb-btn:hover,.tb-btn.active{background:var(--blue-l);color:var(--blue)}
+/* layout */
+.page{max-width:960px;margin:0 auto;padding:28px 20px}
+h1.page-title{font-size:26px;font-weight:900;margin-bottom:6px}
+.page-sub{font-size:14px;color:var(--ink2);margin-bottom:32px}
+/* cards */
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:24px;box-shadow:var(--sh);margin-bottom:20px}
+.card-title{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px}
+/* mic button */
+.mic-wrap{display:flex;flex-direction:column;align-items:center;gap:16px;padding:20px 0}
+.mic-btn{width:90px;height:90px;border-radius:50%;border:none;cursor:pointer;font-size:36px;display:flex;align-items:center;justify-content:center;transition:.2s;position:relative}
+.mic-btn.idle{background:var(--blue-l);color:var(--blue);box-shadow:0 0 0 0 rgba(37,99,235,.4)}
+.mic-btn.recording{background:var(--red);color:#fff;animation:pulse 1.2s infinite}
+.mic-btn.processing{background:var(--orange-l);color:var(--orange)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(220,38,38,.5)}70%{box-shadow:0 0 0 18px rgba(220,38,38,0)}100%{box-shadow:0 0 0 0 rgba(220,38,38,0)}}
+.mic-status{font-size:13px;font-weight:600;color:var(--ink2)}
+.mic-timer{font-size:22px;font-weight:800;color:var(--red);min-height:30px}
+/* waveform */
+.waveform{display:flex;align-items:center;gap:3px;height:50px;justify-content:center;margin:8px 0}
+.wave-bar{width:4px;border-radius:99px;background:var(--blue);transition:height .1s}
+/* score ring */
+.score-display{display:flex;flex-direction:column;align-items:center;gap:8px}
+.score-ring{width:110px;height:110px;position:relative}
+.score-ring svg{transform:rotate(-90deg)}
+.score-ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900}
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}
+.score-sub{background:var(--surface);border-radius:10px;padding:12px;text-align:center}
+.score-sub-num{font-size:20px;font-weight:800}
+.score-sub-label{font-size:10px;color:var(--ink3);margin-top:2px}
+/* transcript */
+.transcript-box{background:var(--surface);border-radius:10px;padding:16px;font-size:14px;line-height:1.8;min-height:60px;border:1px solid var(--border)}
+.transcript-jp{font-family:'Noto Serif JP';font-size:16px;color:var(--ink);margin-bottom:6px}
+.transcript-id{font-size:12px;color:var(--ink2)}
+/* feedback */
+.feedback-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.feedback-item:last-child{border-bottom:none}
+.fb-icon{width:34px;height:34px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.fb-label{font-size:12px;font-weight:700;margin-bottom:3px}
+.fb-text{font-size:12px;color:var(--ink2);line-height:1.6}
+/* scenario selector */
+.scenarios{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-bottom:20px}
+.scenario-card{background:var(--white);border:2px solid var(--border);border-radius:var(--r);padding:14px;cursor:pointer;transition:.15s}
+.scenario-card:hover,.scenario-card.active{border-color:var(--blue);background:var(--blue-l)}
+.sc-emoji{font-size:24px;margin-bottom:6px}
+.sc-title{font-size:13px;font-weight:700}
+.sc-level{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;display:inline-block;margin-top:4px}
+/* history */
+.history-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
+.history-item:last-child{border-bottom:none}
+.history-score{width:42px;height:42px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;flex-shrink:0}
+/* progress bar */
+.pb-track{height:8px;background:var(--surface);border-radius:99px;overflow:hidden;flex:1}
+.pb-fill{height:100%;border-radius:99px;transition:width .6s ease}
+/* mode tabs */
+.mode-tabs{display:flex;gap:8px;margin-bottom:20px}
+.mode-tab{flex:1;padding:10px;border:2px solid var(--border);border-radius:var(--r);cursor:pointer;text-align:center;font-size:13px;font-weight:700;transition:.15s;background:var(--white)}
+.mode-tab.active{border-color:var(--blue);background:var(--blue-l);color:var(--blue)}
+/* mobile */
+@media(max-width:600px){.score-grid{grid-template-columns:repeat(2,1fr)}.scenarios{grid-template-columns:1fr 1fr}}
+</style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"NihonggoPro Speaking AI Coach","description":"Latihan speaking bahasa Jepang dengan AI feedback real-time","inLanguage":"id"}</script>
+<script src="assets/np-xp.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:title" content="Speaking AI Coach – NihonggoPro">
+<meta name="twitter:description" content="Latihan speaking bahasa Jepang dengan AI feedback real-time. Rekam suara, dapatkan skor pengucapan, dan koreksi intonasi dari AI Sensei.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-brand">
+    <span class="tb-brand-jp">日</span>
+    <span>Speaking AI Coach</span>
+  </div>
+  <div class="tb-nav">
+    <a href="Dashboard/Dashboard.html" class="tb-btn">🏠 Dashboard</a>
+    <a href="AI-Tutor-Pro.html" class="tb-btn">🤖 AI Tools</a>
+    <button aria-label="Document.documentelement.toggleattribute" class="tb-btn" onclick="document.documentElement.toggleAttribute('data-dark')">🌙</button>
+  </div>
+</div>
+
+<div class="page">
+  <h1 class="page-title">🎙️ Speaking AI Coach</h1>
+  <p class="page-sub">Latih pengucapan bahasa Jepang Kaigo — rekam suara, dapatkan skor real-time, dan koreksi dari AI Sensei.</p>
+
+  <!-- MODE TABS -->
+  <div class="mode-tabs">
+    <div class="mode-tab active" onclick="setMode('free')" id="tab-free">🎤 Latihan Bebas</div>
+    <div class="mode-tab" onclick="setMode('scenario')" id="tab-scenario">🏥 Skenario Kaigo</div>
+    <div class="mode-tab" onclick="setMode('shadowing')" id="tab-shadowing">🔁 Shadowing</div>
+    <div class="mode-tab" onclick="setMode('history')" id="tab-history">📊 Riwayat</div>
+  </div>
+
+  <!-- FREE MODE -->
+  <div id="mode-free">
+    <div class="card">
+      <div class="card-title">📝 Target Ucapan</div>
+      <div class="transcript-box" style="margin-bottom:12px;cursor:pointer" id="targetText" onclick="speakTarget()">
+        <div class="transcript-jp" id="targetJP">田中様、お食事の準備ができましたよ。ゆっくり召し上がってください。</div>
+        <div class="transcript-id" id="targetID">Bu Tanaka, makanan sudah siap. Silakan makan pelan-pelan.</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <button onclick="speakTarget()" style="font-size:12px;padding:6px 14px;border:1px solid var(--border);border-radius:8px;background:var(--white);cursor:pointer">🔊 Dengar Contoh</button>
+        <button onclick="nextPhrase()" style="font-size:12px;padding:6px 14px;border:1px solid var(--border);border-radius:8px;background:var(--white);cursor:pointer">⏭ Frasa Berikutnya</button>
+        <select id="levelSel" onchange="filterPhrases(this.value)" style="font-size:12px;padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:var(--white)">
+          <option value="all">Semua Level</option>
+          <option value="N5">N5</option><option value="N4" selected>N4</option>
+          <option value="N3">N3</option><option value="Kaigo">Kaigo Pro</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- MIC + RECORDING -->
+    <div class="card">
+      <div class="card-title">🎙️ Rekam Suara Anda</div>
+      <div class="mic-wrap">
+        <div class="waveform" id="waveform">
+          <div class="wave-bar" style="height:8px" id="w1"></div>
+          <div class="wave-bar" style="height:8px" id="w2"></div>
+          <div class="wave-bar" style="height:8px" id="w3"></div>
+          <div class="wave-bar" style="height:8px" id="w4"></div>
+          <div class="wave-bar" style="height:8px" id="w5"></div>
+          <div class="wave-bar" style="height:8px" id="w6"></div>
+          <div class="wave-bar" style="height:8px" id="w7"></div>
+        </div>
+        <div class="mic-timer" id="micTimer"></div>
+        <button aria-label="Togglerecording" class="mic-btn idle" id="micBtn" onclick="toggleRecording()">🎙️</button>
+        <div class="mic-status" id="micStatus">Tekan untuk mulai rekam</div>
+      </div>
+    </div>
+
+    <!-- RESULT -->
+    <div class="card" id="resultCard" style="display:none">
+      <div class="card-title">📊 Hasil Analisis AI</div>
+      <!-- Score Ring -->
+      <div class="score-display">
+        <div class="score-ring">
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="45" fill="none" stroke="var(--surface)" stroke-width="10"/>
+            <circle id="scoreCircle" cx="55" cy="55" r="45" fill="none" stroke="var(--green)" stroke-width="10"
+              stroke-dasharray="283" stroke-dashoffset="283" stroke-linecap="round"
+              style="transition:stroke-dashoffset 1s ease"/>
+          </svg>
+          <div class="score-ring-num" id="totalScore">—</div>
+        </div>
+        <div style="font-size:13px;font-weight:700;color:var(--ink2)" id="scoreLabel">Menganalisis...</div>
+        <div style="font-size:10px;color:var(--ink3,#999);margin-top:4px" id="pitchDataNote"></div>
+      </div>
+      <div class="score-grid">
+        <div class="score-sub">
+          <div class="score-sub-num" id="sc1" style="color:var(--blue)">—</div>
+          <div class="score-sub-label">Pengucapan</div>
+        </div>
+        <div class="score-sub">
+          <div class="score-sub-num" id="sc2" style="color:var(--purple)">—</div>
+          <div class="score-sub-label">Intonasi</div>
+        </div>
+        <div class="score-sub">
+          <div class="score-sub-num" id="sc3" style="color:var(--green)">—</div>
+          <div class="score-sub-label">Kelancaran</div>
+        </div>
+        <div class="score-sub">
+          <div class="score-sub-num" id="sc4" style="color:var(--orange)">—</div>
+          <div class="score-sub-label">Akurasi</div>
+        </div>
+      </div>
+
+      <!-- Transcript -->
+      <div style="margin-top:20px">
+        <div class="card-title">💬 Transkripsi</div>
+        <div class="transcript-box" id="transcriptResult">Mendengarkan...</div>
+      </div>
+
+      <!-- AI Feedback -->
+      <div style="margin-top:16px">
+        <div class="card-title">🤖 Feedback AI Sensei</div>
+        <div id="aiFeedback">
+          <div class="feedback-item">
+            <div class="fb-icon" style="background:var(--blue-l)">⏳</div>
+            <div><div class="fb-label">AI sedang menganalisis...</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
+        <button onclick="toggleRecording()" style="padding:8px 18px;background:var(--blue);color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700">🔄 Coba Lagi</button>
+        <button onclick="nextPhrase()" style="padding:8px 18px;background:var(--green);color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:13px;font-weight:700">⏭ Frasa Berikutnya</button>
+        <button onclick="saveResult()" style="padding:8px 18px;border:1px solid var(--border);background:var(--white);border-radius:10px;cursor:pointer;font-size:13px">💾 Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENARIO MODE -->
+  <div id="mode-scenario" style="display:none">
+    <div class="scenarios" id="scenarioGrid"></div>
+    <div class="card" id="scenarioActive" style="display:none">
+      <div class="card-title" id="scenarioTitle">Skenario</div>
+      <div id="scenarioContent"></div>
+    </div>
+  </div>
+
+  <!-- SHADOWING MODE -->
+  <div id="mode-shadowing" style="display:none">
+    <div class="card">
+      <div class="card-title">🔁 Mode Shadowing</div>
+      <p style="font-size:13px;color:var(--ink2);margin-bottom:16px">Dengarkan audio, lalu ucapkan ulang secepat mungkin mengikuti ritme aslinya.</p>
+      <div id="shadowPhraseList" style="display:flex;flex-direction:column;gap:10px"></div>
+    </div>
+  </div>
+
+  <!-- HISTORY MODE -->
+  <div id="mode-history" style="display:none">
+    <div class="card">
+      <div class="card-title">📊 Statistik Speaking</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px">
+        <div class="score-sub"><div class="score-sub-num" id="hsTotalSessions" style="color:var(--blue)">0</div><div class="score-sub-label">Total Sesi</div></div>
+        <div class="score-sub"><div class="score-sub-num" id="hsAvgScore" style="color:var(--green)">0</div><div class="score-sub-label">Skor Rata-rata</div></div>
+        <div class="score-sub"><div class="score-sub-num" id="hsBestScore" style="color:var(--gold)">0</div><div class="score-sub-label">Skor Tertinggi</div></div>
+        <div class="score-sub"><div class="score-sub-num" id="hsTotalPhrases" style="color:var(--purple)">0</div><div class="score-sub-label">Frasa Dilatih</div></div>
+      </div>
+      <div id="historyList" style="display:flex;flex-direction:column"></div>
+    </div>
+    <!-- Progress per skill -->
+    <div class="card">
+      <div class="card-title">📈 Progress Skill</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:80px;font-size:12px;font-weight:700">Pengucapan</span><div class="pb-track"><div class="pb-fill" id="prog1" style="width:0%;background:var(--blue)"></div></div><span style="font-size:12px;color:var(--ink3);width:32px" id="prog1t">0%</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:80px;font-size:12px;font-weight:700">Intonasi</span><div class="pb-track"><div class="pb-fill" id="prog2" style="width:0%;background:var(--purple)"></div></div><span style="font-size:12px;color:var(--ink3);width:32px" id="prog2t">0%</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:80px;font-size:12px;font-weight:700">Kelancaran</span><div class="pb-track"><div class="pb-fill" id="prog3" style="width:0%;background:var(--green)"></div></div><span style="font-size:12px;color:var(--ink3);width:32px" id="prog3t">0%</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:80px;font-size:12px;font-weight:700">Akurasi</span><div class="pb-track"><div class="pb-fill" id="prog4" style="width:0%;background:var(--orange)"></div></div><span style="font-size:12px;color:var(--ink3);width:32px" id="prog4t">0%</span></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+// ── DATA ─────────────────────────────────────────────────────────────────────
+const PHRASES = {
+  N5: [
+    {jp:'おはようございます。今日もよろしくお願いします。',id:'Selamat pagi. Mohon kerjasama hari ini juga.'},
+    {jp:'田中さん、大丈夫ですか？',id:'Bu Tanaka, apakah Anda baik-baik saja?'},
+    {jp:'食事の時間ですよ。',id:'Waktunya makan.'},
+    {jp:'ゆっくり食べてください。',id:'Makanlah pelan-pelan.'},
+    {jp:'お水を飲みますか？',id:'Mau minum air?'},
+    {jp:'トイレに行きますか？',id:'Mau ke toilet?'},
+    {jp:'痛いですか？',id:'Apakah sakit?'},
+  ],
+  N4: [
+    {jp:'田中様、お食事の準備ができましたよ。ゆっくり召し上がってください。',id:'Bu Tanaka, makanan sudah siap. Silakan makan pelan-pelan.'},
+    {jp:'体温を測らせていただきます。よろしいですか？',id:'Izinkan saya mengukur suhu tubuh Anda. Bolehkah?'},
+    {jp:'今日のお薬は三種類です。お水と一緒にどうぞ。',id:'Obat hari ini ada tiga jenis. Silakan diminum bersama air.'},
+    {jp:'移乗のお手伝いをします。一緒に立ち上がりましょうか。',id:'Saya bantu untuk berpindah. Mari berdiri bersama.'},
+    {jp:'どこか痛いところはありますか？遠慮なくおっしゃってください。',id:'Apakah ada yang sakit? Silakan katakan tanpa sungkan.'},
+  ],
+  N3: [
+    {jp:'田中様、本日のバイタルサインを測定させていただきます。血圧と体温、脈拍を確認します。',id:'Bu Tanaka, izin mengukur tanda vital Anda hari ini. Akan diperiksa tekanan darah, suhu, dan denyut nadi.'},
+    {jp:'誤嚥に気をつけながら、一口ずつゆっくりと召し上がってください。',id:'Sambil berhati-hati agar tidak tersedak, silakan makan satu suap demi satu dengan pelan.'},
+    {jp:'褥瘡予防のため、体位変換を2時間ごとに行っております。',id:'Untuk mencegah luka tekan, kami melakukan perubahan posisi setiap 2 jam.'},
+  ],
+  Kaigo: [
+    {jp:'田中様、嚥下機能の評価のため、まず水分のとろみ食から始めさせていただきます。',id:'Bu Tanaka, untuk evaluasi fungsi menelan, kami mulai dengan makanan berkonsistensi kental terlebih dahulu.'},
+    {jp:'ケアプランの見直しについて、ご家族の方も交えてカンファレンスを行いたいと思います。',id:'Mengenai peninjauan rencana perawatan, kami ingin mengadakan konferensi dengan melibatkan keluarga.'},
+    {jp:'多職種連携のもと、リハビリテーションの目標を再設定いたしました。',id:'Di bawah kolaborasi multidisiplin, kami telah menetapkan ulang target rehabilitasi.'},
+  ],
+};
+
+const SCENARIOS = [
+  {id:'morning',emoji:'🌅',title:'Sapaan Pagi',level:'N5',color:'#eff6ff',textColor:'#1d4ed8',
+   lines:[
+    {role:'介護士',jp:'田中様、おはようございます。よくお休みになれましたか？',id:'Bu Tanaka, selamat pagi. Apakah tidurnya nyenyak?'},
+    {role:'利用者',jp:'ええ、ぐっすり眠れましたよ。',id:'Ya, tidur dengan nyenyak.'},
+    {role:'介護士',jp:'それはよかったです。今日も一日よろしくお願いします。朝食の準備ができました。',id:'Syukurlah. Mohon kerja samanya hari ini juga. Sarapan sudah siap.'},
+   ]},
+  {id:'medication',emoji:'💊',title:'Pemberian Obat',level:'N4',color:'#f5f3ff',textColor:'#6d28d9',
+   lines:[
+    {role:'介護士',jp:'田中様、お薬の時間です。今日は三種類ございます。',id:'Bu Tanaka, waktunya minum obat. Hari ini ada tiga jenis.'},
+    {role:'利用者',jp:'この薬、飲みにくいんですよ。',id:'Obat ini susah ditelannya.'},
+    {role:'介護士',jp:'そうですか。では、少し砕いてゼリーに混ぜてもよろしいですか？先生に確認します。',id:'Begitu ya. Kalau begitu, bolehkah saya hancurkan dan campur dengan jeli? Saya konfirmasi ke dokter dulu.'},
+   ]},
+  {id:'emergency',emoji:'🚨',title:'Laporan Darurat',level:'N3',color:'#fef2f2',textColor:'#991b1b',
+   lines:[
+    {role:'介護士',jp:'看護師さん、緊急です。田中様が意識が朦朧としています。',id:'Suster, darurat. Bu Tanaka tampak kesadarannya menurun.'},
+    {role:'看護師',jp:'わかりました。バイタルを測定してください。',id:'Mengerti. Tolong ukur tanda vital.'},
+    {role:'介護士',jp:'血圧が90/60です。SpO₂は93%です。脈拍は96で頻脈気味です。',id:'Tekanan darah 90/60. SpO2 93%. Nadi 96, agak takikardi.'},
+   ]},
+  {id:'osce',emoji:'🏥',title:'OSCE Simulator',level:'Kaigo',color:'#ecfdf5',textColor:'#065f46',
+   lines:[
+    {role:'試験官',jp:'では、移乗介助の実技試験を始めます。田中様をベッドから車椅子に移乗してください。',id:'Baik, kami mulai ujian praktik bantuan transfer. Tolong pindahkan Bu Tanaka dari tempat tidur ke kursi roda.'},
+    {role:'受験者',jp:'はい。田中様、これから車椅子に移りますので、一緒に立ち上がりましょうか。',id:'Baik. Bu Tanaka, sekarang kita akan pindah ke kursi roda. Mari berdiri bersama.'},
+    {role:'試験官',jp:'体の向きと声かけの仕方は適切でした。次に、安全確認のポイントを説明してください。',id:'Arah tubuh dan cara membantu sudah tepat. Selanjutnya, jelaskan poin-poin pengecekan keamanan.'},
+   ]},
+];
+
+const SHADOWING_PHRASES = [
+  {jp:'お食事の準備ができましたよ。',id:'Makanan sudah siap.'},
+  {jp:'体温を測らせていただきます。',id:'Izin mengukur suhu tubuh.'},
+  {jp:'痛いところはありますか？',id:'Apakah ada yang sakit?'},
+  {jp:'ゆっくり召し上がってください。',id:'Silakan makan pelan-pelan.'},
+  {jp:'薬の時間です。お水と一緒にどうぞ。',id:'Waktunya minum obat. Bersama air ya.'},
+];
+
+// ── STORE ─────────────────────────────────────────────────────────────────────
+const SPK_KEY = 'np-speaking-v2';
+let spkHistory = [];
+try { spkHistory = JSON.parse(localStorage.getItem(SPK_KEY)||'[]'); } catch(e){}
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let _recording = false;
+let _recognition = null;
+let _mediaStream = null;
+let _recordTimer = null;
+let _recSeconds = 0;
+let _waveInterval = null;
+let _currentTranscript = '';
+let _phraseIdx = 0;
+// v183: analisis pitch NYATA (bukan Math.random()) via assets/pitch-analyzer.js
+// BUG YANG DIHINDARI (pola sama seperti v177/v178/v181): pitch-analyzer.js
+// dimuat dengan `defer`, jadi window.PitchAnalyzer BELUM TENTU ada saat
+// baris ini dieksekusi (script inline tanpa defer jalan segera saat
+// parsing). Inisialisasi HARUS menunggu DOMContentLoaded.
+let _pitchAnalyzer = null;
+document.addEventListener('DOMContentLoaded', function () {
+  if (typeof PitchAnalyzer !== 'undefined') {
+    _pitchAnalyzer = new PitchAnalyzer();
+  }
+});
+let _lastPitchResult = null;
+let _currentMode = 'free';
+let _levelFilter = 'N4';
+
+// ── MODE SWITCH ───────────────────────────────────────────────────────────────
+function setMode(mode) {
+  _currentMode = mode;
+  ['free','scenario','shadowing','history'].forEach(m => {
+    document.getElementById('mode-'+m).style.display = m===mode?'block':'none';
+    const tab = document.getElementById('tab-'+m);
+    if (tab) tab.classList.toggle('active', m===mode);
+  });
+  if (mode==='scenario') renderScenarios();
+  if (mode==='shadowing') renderShadowing();
+  if (mode==='history') renderHistory();
+}
+
+// ── PHRASE MANAGEMENT ─────────────────────────────────────────────────────────
+function filterPhrases(level) {
+  _levelFilter = level==='all' ? 'N4' : level;
+  _phraseIdx = 0;
+  showPhrase();
+}
+
+function showPhrase() {
+  const pool = PHRASES[_levelFilter] || PHRASES.N4;
+  const p = pool[_phraseIdx % pool.length];
+  document.getElementById('targetJP').textContent = p.jp;
+  document.getElementById('targetID').textContent = p.id;
+  document.getElementById('resultCard').style.display = 'none';
+}
+
+function nextPhrase() {
+  _phraseIdx++;
+  showPhrase();
+}
+
+function speakTarget() {
+  const txt = document.getElementById('targetJP').textContent;
+  if (!txt) return;
+  const u = new SpeechSynthesisUtterance(txt);
+  u.lang = 'ja-JP'; u.rate = 0.85;
+  const voices = speechSynthesis.getVoices();
+  const jp = voices.find(v=>v.lang.startsWith('ja'));
+  if (jp) u.voice = jp;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+}
+
+// ── RECORDING ─────────────────────────────────────────────────────────────────
+function toggleRecording() {
+  if (_recording) stopRecording();
+  else startRecording();
+}
+
+function startRecording() {
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SR) {
+    alert('Browser Anda tidak mendukung Web Speech API. Coba Chrome atau Edge terbaru.');
+    return;
+  }
+  _recording = true;
+  _currentTranscript = '';
+  _recSeconds = 0;
+  document.getElementById('resultCard').style.display = 'none';
+
+  const btn = document.getElementById('micBtn');
+  btn.className = 'mic-btn recording';
+  btn.textContent = '⏹';
+  document.getElementById('micStatus').textContent = 'Sedang merekam... ucapkan frasa di atas';
+
+  // Timer
+  document.getElementById('micTimer').textContent = '0:00';
+  _recordTimer = setInterval(() => {
+    _recSeconds++;
+    const m = Math.floor(_recSeconds/60), s = _recSeconds%60;
+    document.getElementById('micTimer').textContent = `${m}:${String(s).padStart(2,'0')}`;
+    if (_recSeconds >= 30) stopRecording(); // max 30s
+  }, 1000);
+
+  // Waveform animation
+  _waveInterval = setInterval(animateWave, 100);
+
+  // Speech recognition
+  _recognition = new SR();
+  _recognition.lang = 'ja-JP';
+  _recognition.continuous = true;
+  _recognition.interimResults = true;
+  _recognition.onresult = e => {
+    let txt = '';
+    for (let i=e.resultIndex;i<e.results.length;i++) txt += e.results[i][0].transcript;
+    _currentTranscript = txt;
+    document.getElementById('micStatus').textContent = `"${txt.slice(0,30)}..."`;
+  };
+  _recognition.onerror = () => stopRecording();
+  try { _recognition.start(); } catch(e) { console.warn(e); }
+
+  // v183: mulai analisis pitch NYATA secara paralel (tidak menggantikan
+  // Speech Recognition -- transkrip teks tetap dipakai untuk skor accuracy,
+  // pitch contour dipakai untuk skor intonasi yang genuinely diukur dari
+  // audio, bukan Math.random()). Gagal diam-diam kalau user tolak izin mic
+  // kedua kali atau browser tidak dukung -- fallback tetap tersedia di
+  // calculateScore().
+  _lastPitchResult = null;
+  if (_pitchAnalyzer && _pitchAnalyzer.isSupported()) {
+    _pitchAnalyzer.startRecording().catch(err => {
+      console.warn('Analisis pitch tidak tersedia:', err.message);
+    });
+  }
+}
+
+async function stopRecording() {
+  _recording = false;
+  clearInterval(_recordTimer);
+  clearInterval(_waveInterval);
+  try { _recognition?.stop(); } catch(e){}
+
+  const btn = document.getElementById('micBtn');
+  btn.className = 'mic-btn processing';
+  btn.textContent = '⏳';
+  document.getElementById('micStatus').textContent = 'Menganalisis dengan AI...';
+  document.getElementById('micTimer').textContent = '';
+  resetWave();
+
+  // v183: ambil hasil analisis pitch NYATA (kontur F0 dari audio mentah)
+  // sebelum menghitung skor -- ini yang dipakai calculateScore() untuk
+  // intonasi, menggantikan Math.random() yang sebelumnya di sana.
+  if (_pitchAnalyzer && _pitchAnalyzer._recording) {
+    try { _lastPitchResult = await _pitchAnalyzer.stopRecording(); }
+    catch(e) { console.warn('Gagal mengambil hasil pitch:', e.message); _lastPitchResult = null; }
+  }
+
+  // Show result after analysis
+  setTimeout(() => {
+    btn.className = 'mic-btn idle';
+    btn.textContent = '🎙️';
+    document.getElementById('micStatus').textContent = 'Tekan untuk rekam lagi';
+    showResult(_currentTranscript || '');
+  }, 500);
+}
+
+function animateWave() {
+  for (let i=1;i<=7;i++) {
+    const el = document.getElementById('w'+i);
+    if (el) el.style.height = (Math.random()*38+6)+'px';
+  }
+}
+function resetWave() {
+  for (let i=1;i<=7;i++) {
+    const el = document.getElementById('w'+i);
+    if (el) el.style.height = '8px';
+  }
+}
+
+// ── RESULT + AI FEEDBACK ─────────────────────────────────────────────────────
+async function showResult(transcript) {
+  const target = document.getElementById('targetJP').textContent;
+  document.getElementById('resultCard').style.display = 'block';
+  document.getElementById('resultCard').scrollIntoView({behavior:'smooth'});
+  document.getElementById('transcriptResult').textContent = transcript || '(tidak terdeteksi — pastikan microphone aktif dan ucapkan lebih keras)';
+
+  // Calculate score
+  const scores = calculateScore(transcript, target);
+  animateScore(scores);
+
+  // AI Feedback
+  await getAIFeedback(transcript, target, scores);
+
+  // Save
+  spkHistory.unshift({
+    date: new Date().toISOString(),
+    target, transcript, scores,
+    level: _levelFilter,
+  });
+  spkHistory = spkHistory.slice(0,50);
+  localStorage.setItem(SPK_KEY, JSON.stringify(spkHistory));
+}
+
+function calculateScore(transcript, target) {
+  // Simple scoring based on character overlap + length ratio
+  if (!transcript) return {total:0, pronunciation:0, intonation:0, fluency:0, accuracy:0, pitchDataAvailable:false};
+
+  // Accuracy: character-level match
+  const tChars = [...target.replace(/[ぁ-んァ-ン一-龯]/g,'').toLowerCase()];
+  const sChars = [...transcript.replace(/[ぁ-んァ-ン一-龯]/g,'').toLowerCase()];
+  const match = [...transcript].filter(c=>[...target].includes(c)).length;
+  const accuracy = Math.min(Math.round(match/Math.max(target.length,1)*100), 100);
+
+  // Fluency: based on transcript length vs target length
+  const ratio = transcript.length/Math.max(target.length,1);
+  const fluency = Math.min(Math.round(ratio*80 + 20), 100);
+
+  // v183 BUG FIX: pronunciation & intonation SEBELUMNYA dihitung dengan
+  // Math.random() -- angka acak yang terlihat masuk akal tapi TIDAK
+  // mengukur apa pun dari suara user sungguhan. Sekarang memakai hasil
+  // analisis pitch NYATA dari assets/pitch-analyzer.js (autocorrelation
+  // pada audio mentah dari mikrofon), dengan fallback jujur jika analisis
+  // pitch gagal/tidak tersedia (bukan diam-diam kembali ke random).
+  let intonation, pitchDataAvailable = false;
+  if (typeof _lastPitchResult !== 'undefined' && _lastPitchResult && !_lastPitchResult.insufficientData) {
+    intonation = _lastPitchResult.scores.intonationStability;
+    pitchDataAvailable = true;
+  } else {
+    // Fallback: TIDAK memakai Math.random(). Estimasi konservatif dari
+    // fluency saja (proxy kasar, secara eksplisit ditandai tidak berbasis
+    // audio pitch nyata lewat pitchDataAvailable:false untuk transparansi UI).
+    intonation = Math.round(fluency * 0.7);
+  }
+
+  // Pronunciation: kombinasi accuracy (dari transkrip STT) + kejelasan
+  // suara (voiced ratio dari pitch analyzer, kalau tersedia) -- BUKAN lagi
+  // accuracy + angka acak.
+  let pronunciation;
+  if (pitchDataAvailable && _lastPitchResult.stats.sampleCount > 0) {
+    // Sample count tinggi relatif durasi rekaman = suara terdeteksi jelas/
+    // konsisten (bukan terputus-putus atau terlalu pelan untuk dianalisis)
+    const clarityBonus = Math.min(Math.round(_lastPitchResult.stats.sampleCount / 3), 20);
+    pronunciation = Math.min(accuracy + clarityBonus - 10, 100);
+    pronunciation = Math.max(pronunciation, Math.round(accuracy * 0.7)); // jangan turun drastis di bawah accuracy
+  } else {
+    pronunciation = accuracy; // fallback jujur: hanya berbasis transkrip, tidak ditambah apa pun
+  }
+
+  const total = Math.round((accuracy*0.4 + pronunciation*0.3 + fluency*0.2 + intonation*0.1));
+  return {total, pronunciation, intonation, fluency, accuracy, pitchDataAvailable};
+}
+
+function animateScore({total, pronunciation, intonation, fluency, accuracy, pitchDataAvailable}) {
+  const color = total>=80?'var(--green)':total>=60?'var(--orange)':'var(--red)';
+  const label = total>=90?'🏆 Sempurna!':total>=80?'✅ Bagus!':total>=60?'😊 Cukup Baik':'📖 Perlu Latihan';
+
+  document.getElementById('scoreCircle').style.stroke = color;
+  const offset = 283*(1-total/100);
+  setTimeout(()=>document.getElementById('scoreCircle').style.strokeDashoffset=offset,100);
+  document.getElementById('totalScore').textContent = total;
+  document.getElementById('scoreLabel').textContent = label;
+  document.getElementById('sc1').textContent = pronunciation;
+  document.getElementById('sc2').textContent = intonation;
+  document.getElementById('sc3').textContent = fluency;
+  document.getElementById('sc4').textContent = accuracy;
+  // v183: transparansi jujur -- beri tahu user apakah skor intonasi berbasis
+  // analisis pitch audio nyata, atau fallback (mic tidak terdeteksi/browser
+  // tak didukung/suara terlalu pelan) -- bukan diam-diam menyembunyikan
+  // keterbatasan.
+  const note = document.getElementById('pitchDataNote');
+  if (note) {
+    note.textContent = pitchDataAvailable
+      ? '🎵 Intonasi diukur dari analisis pitch suara Anda'
+      : '⚠️ Analisis pitch tidak tersedia — skor intonasi estimasi dasar';
+  }
+}
+
+async function getAIFeedback(transcript, target, scores) {
+  const fb = document.getElementById('aiFeedback');
+  fb.innerHTML = '<div class="feedback-item"><div class="fb-icon" style="background:var(--blue-l)">⏳</div><div><div class="fb-label">AI sedang menganalisis pengucapan Anda...</div></div></div>';
+
+  const prompt = `Saya baru saja berlatih mengucapkan kalimat Jepang ini:
+
+Target: "${target}"
+Yang saya ucapkan: "${transcript || '(tidak terdeteksi)'}"
+Skor total: ${scores.total}/100
+
+Berikan feedback singkat (3 poin) dalam Bahasa Indonesia:
+1. ✅ Apa yang sudah baik
+2. ⚠️ Apa yang perlu diperbaiki (fokus pada pengucapan/intonasi)
+3. 💡 Tips spesifik untuk kata yang sulit (sertakan contoh)
+
+Format: gunakan bullet points, singkat dan langsung.`;
+
+  try {
+    const ep = window.EDUMA_ENV?.AI_API_ENDPOINT||'/api/ai-chat';
+    const res = await fetch(ep,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,
+        messages:[{role:'user',content:prompt}]})
+    });
+    const data = await res.json();
+    const reply = data.content?.[0]?.text || 'Maaf, AI tidak dapat memberikan feedback saat ini.';
+    renderAIFeedback(reply, scores);
+  } catch(e) {
+    renderAIFeedback('• ✅ Terus berlatih dengan konsisten\n• ⚠️ Perhatikan panjang pendek vokal Jepang\n• 💡 Dengarkan native speaker dan ikuti ritmenya', scores);
+  }
+}
+
+function renderAIFeedback(text, scores) {
+  try{ if(window.NPXP){ var _sc=scores&&scores.overall?scores.overall:(scores&&scores.total?scores.total:70); NPXP.recordSession('speaking', 3, Math.round(_sc/5)); } }catch(e){}
+  const fb = document.getElementById('aiFeedback');
+  const lines = text.split('\n').filter(l=>l.trim());
+  const icons = ['✅','⚠️','💡','📝','🎯'];
+  const bgs = ['var(--green-l)','var(--orange-l)','var(--blue-l)','var(--purple-l)','var(--surface)'];
+  fb.innerHTML = lines.map((line,i)=>`
+    <div class="feedback-item">
+      <div class="fb-icon" style="background:${bgs[i%bgs.length]}">${icons[i%icons.length]}</div>
+      <div><div class="fb-text">${line.replace(/^[•\-*]\s*/,'')}</div></div>
+    </div>`).join('');
+}
+
+function saveResult() {
+  alert('✅ Hasil disimpan ke riwayat speaking Anda!');
+}
+
+// ── SCENARIO MODE ─────────────────────────────────────────────────────────────
+function renderScenarios() {
+  const grid = document.getElementById('scenarioGrid');
+  grid.innerHTML = SCENARIOS.map(s=>`
+    <div class="scenario-card" onclick="openScenario('${s.id}')" id="sc-${s.id}">
+      <div class="sc-emoji">${s.emoji}</div>
+      <div class="sc-title">${s.title}</div>
+      <div class="sc-level" style="background:${s.color};color:${s.textColor}">${s.level}</div>
+    </div>`).join('');
+}
+
+function openScenario(id) {
+  const s = SCENARIOS.find(x=>x.id===id);
+  if (!s) return;
+  document.querySelectorAll('.scenario-card').forEach(c=>c.classList.remove('active'));
+  document.getElementById('sc-'+id)?.classList.add('active');
+  document.getElementById('scenarioTitle').textContent = `${s.emoji} ${s.title} (${s.level})`;
+  document.getElementById('scenarioContent').innerHTML = s.lines.map((line,i)=>`
+    <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);align-items:flex-start">
+      <div style="font-size:11px;font-weight:700;color:${i%2===0?'var(--blue)':'var(--ink3)'};width:60px;flex-shrink:0;margin-top:2px">${line.role}</div>
+      <div style="flex:1">
+        <div style="font-family:'Noto Serif JP';font-size:14px;margin-bottom:4px">${line.jp}</div>
+        <div style="font-size:12px;color:var(--ink2)">${line.id}</div>
+      </div>
+      <button onclick="practiceScenarioLine(${i},'${s.id}')" 
+        style="padding:5px 10px;border:none;background:var(--blue);color:#fff;border-radius:8px;cursor:pointer;font-size:11px;flex-shrink:0">🎙️ Latih</button>
+    </div>`).join('');
+  document.getElementById('scenarioActive').style.display = 'block';
+}
+
+function practiceScenarioLine(idx, scenarioId) {
+  const s = SCENARIOS.find(x=>x.id===scenarioId);
+  if (!s) return;
+  const line = s.lines[idx];
+  document.getElementById('targetJP').textContent = line.jp;
+  document.getElementById('targetID').textContent = line.id;
+  setMode('free');
+  speakTarget();
+}
+
+// ── SHADOWING MODE ────────────────────────────────────────────────────────────
+function renderShadowing() {
+  const el = document.getElementById('shadowPhraseList');
+  el.innerHTML = SHADOWING_PHRASES.map((p,i)=>`
+    <div style="background:var(--surface);border-radius:var(--r);padding:14px;display:flex;align-items:center;gap:12px">
+      <div style="flex:1">
+        <div style="font-family:'Noto Serif JP';font-size:15px;margin-bottom:4px">${p.jp}</div>
+        <div style="font-size:12px;color:var(--ink2)">${p.id}</div>
+      </div>
+      <div style="display:flex;gap:6px">
+        <button aria-label="Shadowspeak" onclick="shadowSpeak(${i})" 
+          style="padding:6px 12px;border:none;background:var(--blue);color:#fff;border-radius:8px;cursor:pointer;font-size:12px">🔊</button>
+        <button aria-label="Shadowrecord" onclick="shadowRecord(${i})"
+          style="padding:6px 12px;border:none;background:var(--green);color:#fff;border-radius:8px;cursor:pointer;font-size:12px">🎙️</button>
+      </div>
+    </div>`).join('');
+}
+
+function shadowSpeak(idx) {
+  const p = SHADOWING_PHRASES[idx];
+  const u = new SpeechSynthesisUtterance(p.jp);
+  u.lang='ja-JP';u.rate=0.8;
+  const v=speechSynthesis.getVoices().find(x=>x.lang.startsWith('ja'));
+  if(v)u.voice=v;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+
+function shadowRecord(idx) {
+  const p = SHADOWING_PHRASES[idx];
+  document.getElementById('targetJP').textContent = p.jp;
+  document.getElementById('targetID').textContent = p.id;
+  setMode('free');
+  setTimeout(startRecording, 500);
+}
+
+// ── HISTORY ───────────────────────────────────────────────────────────────────
+function renderHistory() {
+  const total = spkHistory.length;
+  const avg = total ? Math.round(spkHistory.reduce((a,h)=>a+(h.scores?.total||0),0)/total) : 0;
+  const best = total ? Math.max(...spkHistory.map(h=>h.scores?.total||0)) : 0;
+  const phrases = total;
+
+  document.getElementById('hsTotalSessions').textContent = total;
+  document.getElementById('hsAvgScore').textContent = avg;
+  document.getElementById('hsBestScore').textContent = best;
+  document.getElementById('hsTotalPhrases').textContent = phrases;
+
+  // Skill averages
+  if (total) {
+    const avgSk = k => Math.round(spkHistory.reduce((a,h)=>a+(h.scores?.[k]||0),0)/total);
+    [['prog1','pronunciation'],['prog2','intonation'],['prog3','fluency'],['prog4','accuracy']].forEach(([id,k])=>{
+      const v = avgSk(k);
+      document.getElementById(id).style.width = v+'%';
+      document.getElementById(id+'t').textContent = v+'%';
+    });
+  }
+
+  const list = document.getElementById('historyList');
+  if (!total) {
+    list.innerHTML = '<div style="text-align:center;padding:24px;color:var(--ink3);font-size:13px">Belum ada riwayat. Mulai latihan speaking!</div>';
+    return;
+  }
+  list.innerHTML = spkHistory.slice(0,20).map(h=>{
+    const score = h.scores?.total||0;
+    const color = score>=80?'var(--green)':score>=60?'var(--orange)':'var(--red)';
+    const dt = new Date(h.date).toLocaleDateString('id-ID',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    return `<div class="history-item">
+      <div class="history-score" style="background:${color}22;color:${color}">${score}</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:12px;font-weight:700;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${h.target}</div>
+        <div style="font-size:11px;color:var(--ink3);margin-top:2px">${dt} · Level ${h.level||'N4'}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  showPhrase();
+  renderScenarios();
+  // Load voices
+  speechSynthesis.onvoiceschanged = () => {};
+  speechSynthesis.getVoices();
+});
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+<script src="assets/anime-theme.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+</body>
+</html>

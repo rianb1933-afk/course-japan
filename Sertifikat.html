@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<script src="assets/platform.min.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+<link rel="stylesheet" href="assets/pro-style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sertifikat Belajar Bahasa Jepang — Nihonggo Pro Academy</title>
+<meta name="description" content="Dapatkan sertifikat belajar bahasa Jepang otomatis dari NihonggoPro. Sertifikat digital untuk level N5, N4, N3, N2, N1 yang bisa diunduh dan dibagikan.">
+<meta property="og:title" content="Sertifikat Bahasa Jepang — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Sertifikat.html">
+<link rel="canonical" href="https://nihonggopro.id/Sertifikat.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Generator Sertifikat Bahasa Jepang","url":"https://nihonggopro.id/Sertifikat.html"}</script>
+
+<link rel="stylesheet" href="assets/legacy-bundle.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+
+.brand{display:flex;align-items:baseline;gap:8px}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-right{display:flex;gap:8px;align-items:center}
+
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;cursor:pointer;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+
+.hero{padding:clamp(40px,6vw,68px) clamp(16px,5vw,72px) 40px;background:var(--ink);color:#fff}
+.hero-inner{max-width:1000px;margin:0 auto;text-align:center}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(185,137,47,.2);color:#f0b429;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,48px);line-height:1.15;margin-bottom:.75rem}
+.hero p{color:rgba(255,255,255,.62);font-size:15px;max-width:580px;margin:0 auto}
+
+.main{max-width:1000px;margin:2.5rem auto;padding:0 clamp(16px,5vw,40px) 5rem;display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:start}
+@media(max-width:800px){.main{grid-template-columns:1fr}}
+
+/* Form */
+.form-card{background:var(--white);border-radius:16px;padding:1.75rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
+.form-card h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:1.25rem}
+.frow{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.875rem}
+.frow label{font-size:11px;font-weight:800;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.06em}
+.frow input,.frow select{width:100%;padding:10px 13px;border-radius:9px;border:1.5px solid var(--border-mid);font-family:Outfit,sans-serif;font-size:14px;color:var(--ink);background:var(--cream);outline:none;transition:border-color .15s}
+.frow input:focus,.frow select:focus{border-color:var(--gold)}
+.level-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem;margin-bottom:.875rem}
+.lv-btn{padding:.625rem .25rem;border-radius:8px;border:1.5px solid var(--border-mid);background:var(--white);cursor:pointer;text-align:center;font-family:Outfit,sans-serif;transition:all .15s}
+.lv-btn .lv-name{font-weight:800;font-size:14px}
+.lv-btn .lv-sub{font-size:10px;color:var(--ink-soft);margin-top:1px}
+.lv-btn.on{border-color:var(--gold);background:rgba(185,137,47,.08)}
+.lv-btn.on .lv-name{color:var(--gold)}
+.gen-btn{width:100%;height:50px;border-radius:12px;border:none;background:linear-gradient(135deg,var(--gold),#e09420);color:#fff;font-family:Outfit,sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.5rem;margin-top:.25rem}
+.gen-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(185,137,47,.35)}
+.achievement-toggle{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.875rem}
+.ach-item{display:flex;align-items:center;gap:.5rem;padding:.5rem .625rem;border-radius:7px;background:var(--cream);border:.5px solid var(--border);cursor:pointer}
+.ach-check{accent-color:var(--gold);width:15px;height:15px}
+.ach-label{font-size:13px;font-weight:600}
+
+/* Preview */
+.preview-card{background:var(--white);border-radius:16px;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);overflow:hidden}
+.preview-head{padding:.875rem 1.25rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.preview-head h3{font-size:14px;font-weight:800}
+.preview-body{padding:1rem}
+.cert-preview{border-radius:8px;overflow:hidden}
+
+/* Certificate canvas container */
+#certCanvas{display:block;width:100%;border-radius:8px;border:.5px solid var(--border)}
+
+.dl-row{display:flex;gap:.5rem;padding:.875rem 1.25rem;border-top:1px solid var(--border)}
+.dl-btn{flex:1;height:42px;border-radius:9px;border:none;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:.35rem}
+.dl-btn.primary{background:linear-gradient(135deg,var(--gold),#e09420);color:#fff}
+.dl-btn.primary:hover{transform:translateY(-1px)}
+.dl-btn.secondary{background:var(--white);border:1.5px solid var(--border-mid);color:var(--ink-mid)}
+.dl-btn.secondary:hover{border-color:var(--gold);color:var(--gold)}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:400;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
+.toast{background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:8px;font-size:13px;font-weight:600;opacity:0;transform:translateY(8px);transition:all .3s}
+.toast.show{opacity:1;transform:translateY(0)}
+</style>
+
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Sertifikat Bahasa Jepang — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+<style>
+.nav-links-main{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.nav-links-main a{display:inline-flex;align-items:center;height:36px;padding:0 12px;border-radius:8px;color:var(--ink-soft);font-weight:600;font-size:14px;transition:all .15s;text-decoration:none}
+.nav-links-main a:hover,.nav-links-main a.active{background:var(--red-pale,#fef2f2);color:var(--red,#be3428)}
+@media(max-width:768px){.nav-links-main{display:none!important}.nav-links-main.open{display:flex!important;position:fixed;top:68px;left:0;right:0;background:var(--nav-bg,white);flex-direction:column;padding:.75rem;border-bottom:1px solid var(--border,#e0e0e0);box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:99;backdrop-filter:blur(14px)}.nav-links-main.open li{width:100%}.nav-links-main.open a{width:100%;height:44px;border-radius:8px}}
+.hamb-btn-sm{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border-mid,#e0e0e0);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.hamb-btn-sm span{display:block;width:16px;height:2px;background:var(--ink,#15161a);border-radius:1px}
+@media(max-width:768px){.hamb-btn-sm{display:flex!important}}
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Dapatkan sertifikat belajar bahasa Jepang otomatis dari NihonggoPro. Sertifikat digital untuk level N5, N4, N3, N2, N1 yang bisa diunduh dan dibagikan.">
+<meta name="twitter:description" content="Dapatkan sertifikat belajar bahasa Jepang otomatis dari NihonggoPro. Sertifikat digital untuk level N5, N4, N3, N2, N1 yang bisa diunduh dan dibagikan.">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
+<section id="main-content" class="hero" role="main">
+  <div class="hero-inner">
+    <div class="kicker">🏆 Sertifikat Digital</div>
+    <h1>Sertifikat Belajar<br>Bahasa Jepang</h1>
+    <p>Buat sertifikat digital untuk menandai pencapaianmu. Unduh sebagai PNG dan bagikan ke LinkedIn, CV, atau media sosial.</p>
+  </div>
+</section>
+
+<div class="main">
+  <!-- FORM -->
+  <div class="form-card">
+    <h2>🎓 Informasi Sertifikat</h2>
+    
+    <div class="frow">
+      <label>Nama Penerima</label>
+      <input id="certName" type="text" placeholder="Nama lengkapmu" oninput="updatePreview()" aria-label="Nama pemegang sertifikat">
+    </div>
+    
+    <div class="frow" style="margin-bottom:.5rem"><label>Level Sertifikat</label></div>
+    <div class="level-grid">
+      <div class="lv-btn on" data-lv="N5" onclick="setLevel(this)"><div class="lv-name">N5</div><div class="lv-sub">Pemula</div></div>
+      <div class="lv-btn" data-lv="N4" onclick="setLevel(this)"><div class="lv-name">N4</div><div class="lv-sub">Dasar</div></div>
+      <div class="lv-btn" data-lv="N3" onclick="setLevel(this)"><div class="lv-name">N3</div><div class="lv-sub">Menengah</div></div>
+      <div class="lv-btn" data-lv="N2" onclick="setLevel(this)"><div class="lv-name">N2</div><div class="lv-sub">Lanjut</div></div>
+      <div class="lv-btn" data-lv="N1" onclick="setLevel(this)"><div class="lv-name">N1</div><div class="lv-sub">Mahir</div></div>
+    </div>
+
+    <div class="frow">
+      <label>Tanggal Penyelesaian</label>
+      <input id="certDate" type="date" oninput="updatePreview()" aria-label="Tanggal sertifikat">
+    </div>
+    
+    <div class="frow">
+      <label>Nama Instruktur / Platform</label>
+      <input id="certInstructor" type="text" value="NihonggoPro — nihonggopro.id" oninput="updatePreview()" aria-label="Nama instruktur">
+    </div>
+
+    <div style="font-size:11px;font-weight:800;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem">🏅 Pencapaian (opsional)</div>
+    <div class="achievement-toggle">
+      <label class="ach-item"><input type="checkbox" class="ach-check" value="quiz100" aria-label="Pencapaian: 100 quiz selesai" onchange="updatePreview()"> <span class="ach-label">🏆 Skor Kuis 100%</span></label>
+      <label class="ach-item"><input type="checkbox" class="ach-check" value="streak30" aria-label="Pencapaian: streak 30 hari" onchange="updatePreview()"> <span class="ach-label">🔥 30 Hari Streak</span></label>
+      <label class="ach-item"><input type="checkbox" class="ach-check" value="vocab500" aria-label="Pencapaian: 500 kosakata dikuasai" onchange="updatePreview()"> <span class="ach-label">📚 500+ Vocab Hafal</span></label>
+      <label class="ach-item"><input type="checkbox" class="ach-check" value="grammar60" aria-label="Pencapaian: 60 pola grammar dikuasai" onchange="updatePreview()"> <span class="ach-label">🔤 60 Grammar Dikuasai</span></label>
+    </div>
+
+    <button class="gen-btn" onclick="generateCert()" aria-label="Buat sertifikat">🏆 Buat Sertifikat</button>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview-card">
+    <div class="preview-head">
+      <h3>👁 Preview</h3>
+      <span style="font-size:12px;color:var(--ink-soft)">Update otomatis</span>
+    </div>
+    <div class="preview-body">
+      <canvas id="certCanvas" width="600" height="420"></canvas>
+    </div>
+    <div class="dl-row">
+      <button class="dl-btn primary" onclick="downloadCert()">📥 Unduh PNG</button>
+      <button class="dl-btn secondary" onclick="copyCertLink()">🔗 Salin Link</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+// GENUINELY DIPERBAIKI (Fase EE, Verifikasi Visual): tombol toggleTheme() legacy dihapus (duplikat dengan navbar resmi kyoto-navbar.js). IIFE inisialisasi tema dipertahankan (mencegah flash-of-wrong-theme sebelum navbar defer selesai load), disesuaikan tanpa referensi elemen yang dihapus.
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+function toast(m,d=3000){const w=document.getElementById('toastWrap');const el=document.createElement('div');el.className='toast';el.textContent=m;w.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),350);},d);}
+
+let certLevel = 'N5';
+const levelColors = {
+  N5: {bg:'#1a2744', accent:'var(--blue,#2f6fed)', light:'#7aa9ff', name:'Foundation'},
+  N4: {bg:'#1a2e24', accent:'var(--green,#21875d)', light:'#6fcf97', name:'Elementary'},
+  N3: {bg:'#2a2010', accent:'#b9892f', light:'#f0c56e', name:'Intermediate'},
+  N2: {bg:'#2a1212', accent:'var(--red,#be3428)', light:'#fc8179', name:'Upper Intermediate'},
+  N1: {bg:'#1e1235', accent:'#9333ea', light:'#c084fc', name:'Advanced'},
+};
+
+// Set today's date
+document.getElementById('certDate').value = new Date().toISOString().split('T')[0];
+
+// Try to load user data
+(function loadUser(){
+  const sess = JSON.parse(localStorage.getItem('np-session')||'null');
+  if(!sess) return;
+  const users = JSON.parse(localStorage.getItem('np-users')||'{}');
+  const user = users[sess.uid];
+  if(user){ document.getElementById('certName').value = user.name; }
+  const prog = JSON.parse(localStorage.getItem('np-progress-'+sess.uid)||'{}');
+  if(prog.level){ setLevel(document.querySelector('[data-lv="'+prog.level+'"]')); }
+  // Auto-check achievements
+  if(prog.streak>=30) document.querySelector('[value="streak30"]').checked = true;
+  if(prog.vocabLearned>=500) document.querySelector('[value="vocab500"]').checked = true;
+  if(prog.grammarLearned>=60) document.querySelector('[value="grammar60"]').checked = true;
+  updatePreview();
+})();
+
+function setLevel(btn){
+  if(!btn) return;
+  certLevel = btn.dataset.lv;
+  document.querySelectorAll('.lv-btn').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  updatePreview();
+}
+
+function updatePreview(){
+  drawCertificate(false);
+}
+function generateCert(){
+  const serial = drawCertificate(true);
+  toast('🏆 Sertifikat berhasil dibuat! ID: '+serial, 5000);
+}
+
+function drawCertificate(final){
+  const canvas = document.getElementById('certCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = 600, H = 420;
+  ctx.clearRect(0,0,W,H);
+  
+  const col = levelColors[certLevel];
+  const name = document.getElementById('certName').value || 'Nama Penerima';
+  const dateVal = document.getElementById('certDate').value;
+  const dateStr = dateVal ? new Date(dateVal).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) : new Date().toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+  const instructor = document.getElementById('certInstructor').value || 'NihonggoPro';
+  const achievements = [...document.querySelectorAll('.ach-check:checked')].map(c=>c.value);
+  
+  // Background
+  ctx.fillStyle = col.bg;
+  ctx.fillRect(0,0,W,H);
+  
+  // Decorative circles
+  ctx.globalAlpha = 0.06;
+  ctx.fillStyle = col.accent;
+  ctx.beginPath(); ctx.arc(-30, -30, 200, 0, Math.PI*2); ctx.fill();
+  ctx.beginPath(); ctx.arc(W+30, H+30, 220, 0, Math.PI*2); ctx.fill();
+  ctx.globalAlpha = 1;
+  
+  // Border frame
+  const pad = 18;
+  ctx.strokeStyle = col.accent;
+  ctx.lineWidth = 1.5;
+  ctx.strokeRect(pad, pad, W-pad*2, H-pad*2);
+  ctx.strokeStyle = col.light;
+  ctx.lineWidth = 0.5;
+  ctx.globalAlpha = 0.4;
+  ctx.strokeRect(pad+6, pad+6, W-pad*2-12, H-pad*2-12);
+  ctx.globalAlpha = 1;
+  
+  // Top accent line
+  ctx.fillStyle = col.accent;
+  ctx.fillRect(pad, pad, W-pad*2, 3);
+  
+  // Logo area
+  ctx.fillStyle = col.light;
+  ctx.globalAlpha = 0.9;
+  ctx.font = 'bold 14px "Noto Serif JP", serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('Nihonggo Pro Academy', W/2, 60);
+  ctx.globalAlpha = 0.5;
+  ctx.font = '10px Outfit, sans-serif';
+  ctx.fillText('nihonggopro.id', W/2, 75);
+  ctx.globalAlpha = 1;
+  
+  // Certificate title
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 13px Outfit, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.globalAlpha = 0.7;
+  ctx.fillText('SERTIFIKAT PENYELESAIAN', W/2, 105);
+  ctx.globalAlpha = 1;
+  
+  // Divider
+  ctx.strokeStyle = col.accent;
+  ctx.lineWidth = 1;
+  ctx.globalAlpha = 0.5;
+  ctx.beginPath(); ctx.moveTo(W/2-80,112); ctx.lineTo(W/2+80,112); ctx.stroke();
+  ctx.globalAlpha = 1;
+  
+  // Recipient name
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 28px "Noto Serif JP", serif';
+  ctx.textAlign = 'center';
+  ctx.fillText(name, W/2, 148);
+  
+  // Subtitle
+  ctx.globalAlpha = 0.65;
+  ctx.font = '12px Outfit, sans-serif';
+  ctx.fillText('telah berhasil menyelesaikan program belajar', W/2, 168);
+  ctx.globalAlpha = 1;
+  
+  // Level badge (big)
+  const bw=140, bh=52, bx=(W-bw)/2, by=182;
+  const grad = ctx.createLinearGradient(bx,by,bx+bw,by+bh);
+  grad.addColorStop(0, col.accent); grad.addColorStop(1, col.light);
+  ctx.fillStyle = grad;
+  ctx.beginPath();
+  ctx.roundRect ? ctx.roundRect(bx,by,bw,bh,10) : (ctx.rect(bx,by,bw,bh));
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 24px "Noto Serif JP", serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('JLPT '+certLevel, W/2, by+30);
+  ctx.font = '11px Outfit, sans-serif';
+  ctx.globalAlpha = 0.85;
+  ctx.fillText(col.name, W/2, by+44);
+  ctx.globalAlpha = 1;
+  
+  // Date & instructor
+  ctx.fillStyle = 'rgba(255,255,255,0.55)';
+  ctx.font = '11px Outfit, sans-serif';
+  ctx.textAlign = 'left';
+  ctx.fillText('Tanggal: '+dateStr, 40, 258);
+  ctx.textAlign = 'right';
+  ctx.fillText('Instruktur: '+instructor, W-40, 258);
+  
+  // Divider
+  ctx.strokeStyle = col.accent;
+  ctx.lineWidth = 0.8;
+  ctx.globalAlpha = 0.3;
+  ctx.beginPath(); ctx.moveTo(40,266); ctx.lineTo(W-40,266); ctx.stroke();
+  ctx.globalAlpha = 1;
+  
+  // Achievements
+  const achLabels = {quiz100:'🏆 Skor 100%', streak30:'🔥 30 Hari Streak', vocab500:'📚 500 Vocab', grammar60:'🔤 60 Grammar'};
+  if(achievements.length){
+    ctx.fillStyle='rgba(255,255,255,0.55)';
+    ctx.font='10px Outfit,sans-serif';
+    ctx.textAlign='center';
+    ctx.fillText('Pencapaian:', W/2, 285);
+    const achW = Math.min(460/achievements.length, 110);
+    const totalW = achievements.length * (achW+8);
+    let achX = (W - totalW) / 2;
+    achievements.forEach(a=>{
+      ctx.fillStyle=col.accent;
+      ctx.globalAlpha=0.25;
+      ctx.beginPath();
+      ctx.roundRect ? ctx.roundRect(achX,292,achW,22,5) : ctx.rect(achX,292,achW,22);
+      ctx.fill();
+      ctx.globalAlpha=1;
+      ctx.fillStyle=col.light;
+      ctx.font='9px Outfit,sans-serif';
+      ctx.textAlign='center';
+      ctx.fillText(achLabels[a]||a, achX+achW/2, 307);
+      achX += achW + 8;
+    });
+  }
+  
+  // Serial number
+  const serial = 'NP-'+certLevel+'-'+Date.now().toString(36).toUpperCase().slice(-6);
+  ctx.fillStyle='rgba(255,255,255,0.2)';
+  ctx.font='9px Outfit,sans-serif';
+  ctx.textAlign='center';
+  ctx.fillText('No. Sertifikat: '+serial, W/2, H-25);
+  
+  // Bottom bar
+  ctx.fillStyle=col.accent;
+  ctx.fillRect(pad, H-pad-3, W-pad*2, 3);
+  
+  // GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Kedua, Fase F):
+  // dikonfirmasi via investigasi mendalam bahwa `serial` di atas genuinely
+  // SUDAH dibuat dengan format TEPAT yang genuinely diharapkan
+  // Certificate-Verify.html (`NP-{level}-{6 karakter}`), namun genuinely
+  // HANYA digambar ke canvas sebagai teks visual -- TIDAK PERNAH disimpan
+  // ke localStorage manapun. Ini membuat SELURUH sistem "Verifikasi
+  // Sertifikat" genuinely terputus dari sumbernya: `Certificate-Verify.html`
+  // membaca dari `cert-history`, namun genuinely TIDAK ADA halaman manapun
+  // yang pernah mengisinya -- dikonfirmasi bahkan verifikasi di PERANGKAT
+  // YANG SAMA genuinely akan gagal, bukan hanya lintas-perangkat (temuan
+  // Website v14 sebelumnya). Disambungkan di sini (hanya saat `final`,
+  // yaitu genuinely saat pengguna mengklik "Buat Sertifikat", bukan setiap
+  // kali preview genuinely dirender ulang) agar genuinely konsisten dengan
+  // struktur data yang dibaca Certificate-Verify.html: {id, name, level, at}.
+  if(final){
+    try{
+      const hist = JSON.parse(localStorage.getItem('cert-history')||'[]');
+      hist.push({ id: serial, name: name, level: certLevel, at: new Date().toISOString() });
+      localStorage.setItem('cert-history', JSON.stringify(hist));
+    }catch(e){}
+  }
+  
+  if(final && window.NihonggoProgress){
+    NihonggoProgress.logActivity('certificate','Sertifikat '+certLevel+' dibuat');
+  }
+  return serial;
+}
+
+function downloadCert(){
+  const name = document.getElementById('certName').value || 'sertifikat';
+  const canvas = document.getElementById('certCanvas');
+  const a = document.createElement('a');
+  a.download = 'sertifikat-'+certLevel+'-'+name.replace(/\s+/g,'-').toLowerCase()+'.png';
+  a.href = canvas.toDataURL('image/png',1.0);
+  a.click();
+  toast('📥 Sertifikat diunduh!');
+}
+
+function copyCertLink(){
+  navigator.clipboard.writeText('https://nihonggopro.id/Sertifikat.html?level='+certLevel).then(()=>toast('🔗 Link disalin!')).catch(()=>toast('Link: nihonggopro.id/Sertifikat.html'));
+}
+
+// Init
+updatePreview();
+// URL params
+const params = new URLSearchParams(location.search);
+if(params.get('level')){
+  const btn = document.querySelector('[data-lv="'+params.get('level')+'"]');
+  if(btn) setLevel(btn);
+}
+</script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="Materi/JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Materi/Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Materi/Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Materi/Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="Blog.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Blog</a>
+          <a href="Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<script>
+(function(){
+  var btn=document.getElementById('hambSmall');
+  if(!btn)return;
+  btn.addEventListener('click',function(){
+    var nl=document.querySelector('.nav-links-main');
+    if(!nl)return;
+    var open=nl.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+  });
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('nav')){
+      var nl=document.querySelector('.nav-links-main');
+      if(nl)nl.classList.remove('open');
+    }
+  });
+})();
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+</body>
+</html>

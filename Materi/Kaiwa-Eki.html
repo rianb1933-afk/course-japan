@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Kaiwa: Di Stasiun 駅 | Nihonggo Pro Academy</title>
+  <meta name="description" content="Percakapan di stasiun bahasa Jepang 駅: membeli tiket, menanyakan peron, jadwal kereta, dan transit. Latihan pilih respons + kosakata dwibahasa.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaiwa-Eki.html">
+<meta property="og:title" content="Kaiwa: Di Stasiun 駅 — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaiwa-Eki.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js" defer></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
+     lanjutan): dikonfirmasi pola bug identik dengan 32 halaman yang
+     sudah diperbaiki sebelumnya -- tag script eksternal genuinely
+     mengabaikan konten inline karena atribut src hadir. Pemindaian
+     PERTAMA genuinely tidak lengkap (hanya menangkap tag tanpa atribut
+     tambahan) -- 74 halaman TAMBAHAN dengan variasi atribut (mis. defer)
+     genuinely terlewat, ditemukan setelah pemindaian ulang dengan pola
+     yang genuinely lebih komprehensif. Dipisah ke tag terpisah,
+     dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["切符", "kippu", "tiket"], ["電車", "densha", "kereta"], ["ホーム", "hoomu", "peron"], ["次の", "tsugi no", "berikutnya"], ["乗り換え", "norikae", "transit/ganti kereta"], ["何番線", "nanbansen", "peron nomor berapa"], ["料金", "ryoukin", "tarif"], ["急行", "kyuukou", "kereta ekspres"], ["各駅停車", "kakueki teisha", "kereta lokal (tiap stasiun)"], ["改札", "kaisatsu", "gerbang tiket"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#1565c0">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js" defer></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
+.sec h3{color:#1565c0;margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
+.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
+.tip{background:var(--matcha-pale);border-left:3px solid var(--matcha);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+.card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
+.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.card.open .det{display:block}
+.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.83rem;color:var(--ink-mid)}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
+.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
+.qq{font-weight:600;margin-bottom:12px}
+.qopts{display:grid;gap:8px}
+.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
+.qopt:hover{background:rgba(0,0,0,.04)}
+.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Kaiwa: Di Stasiun 駅 | Nihonggo Pro Academy", "description": "Latihan percakapan bahasa Jepang untuk situasi di stasiun kereta 駅 -- kosakata, pola kalimat, dan simulasi dialog.", "url": "https://nihonggopro.id/Materi/Kaiwa-Eki.html", "educationalLevel": "Beginner", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Percakapan di stasiun bahasa Jepang 駅: membeli tiket, menanyakan peron, jadwal kereta, dan transit. Latihan pilih respons + kosakata dwibahasa.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kaiwa: Di Stasiun 駅">
+<meta name="twitter:description" content="Percakapan di stasiun bahasa Jepang 駅: membeli tiket, menanyakan peron, jadwal kereta, dan transit. Latihan pilih respons + kosakata dwibahasa.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">🔰 Pemula·会話</span><h1>Kaiwa: Di Stasiun 駅</h1></div>
+<div class="wrap" style="padding-top:24px">
+<div class="tip">💡 Pola kalimat dan kosakata di halaman ini fokus pada percakapan sehari-hari tingkat pemula -- praktikkan dengan mendengarkan audio dan mencoba quiz di bawah!</div>
+<div id="kn2List"></div>
+<h2 style="font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<div class="pg-vocab" id="pg"></div>
+
+
+<h2 class="st">🧠 Quiz</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+<button onclick="nQ()" style="flex:1;padding:12px;background:#1565c0;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
+</div>
+<p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
+</div></section></main>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+var Q=[{"q": "切符を買いたいときの言い方はどれか。", "opts": ["東京までの切符をください", "切符", "東京", "ください切符"], "a": 0, "e": "「〜までの切符をください」(minta tiket sampai…) menyebutkan tujuan sebelum meminta tiket, pola standar saat membeli tiket kereta di loket atau mesin otomatis."}, {"q": "何番線か尋ねる言い方はどれか。", "opts": ["何番線ですか", "いくらですか", "何時ですか", "だれですか"], "a": 0, "e": "「何番線ですか」(peron nomor berapa?) dipakai untuk menanyakan nomor peron kereta yang dituju, penting terutama di stasiun besar dengan banyak jalur."}, {"q": "「乗り換え」の意味はどれか。", "opts": ["ganti kereta/transit", "turun", "tiket", "peron"], "a": 0, "e": "乗り換え berarti transit/berganti kereta. Pola 「〜で乗り換えます」menunjukkan di stasiun mana penumpang harus turun dan naik kereta lain untuk melanjutkan perjalanan."}, {"q": "次の電車の時刻を尋ねる言い方はどれか。", "opts": ["次の電車は何時ですか", "次", "電車", "何"], "a": 0, "e": "「次の電車は何時ですか」(kereta berikutnya jam berapa?) adalah pertanyaan umum di stasiun untuk mengetahui jadwal kereta selanjutnya, terutama jika kereta yang diinginkan baru saja berangkat."}, {"q": "「急行」と「各駅停車」の違いはどれか。", "opts": ["急行は速く主要駅のみ停車", "同じ", "各駅が速い", "急行は遅い"], "a": 0, "e": "急行 (ekspres) hanya berhenti di stasiun-stasiun utama sehingga lebih cepat, sedangkan 各駅停車 berhenti di semua stasiun. Memahami perbedaan ini penting agar tidak salah naik kereta dan melewatkan stasiun tujuan."}, {"q": "料金を尋ねる言い方はどれか。", "opts": ["料金はいくらですか", "料金", "いくら料金", "だれ"], "a": 0, "e": "「料金はいくらですか」(tarifnya berapa?) dipakai untuk menanyakan ongkos perjalanan kereta, biasanya dijawab dengan menyebutkan nominal dalam yen sesuai jarak tempuh."}, {"q": "改札(kaisatsu)で必要なものはどれか。", "opts": ["切符またはICカード", "パスポート", "財布のみ", "何もいらない"], "a": 0, "e": "改札 adalah gerbang tiket yang harus dilewati untuk masuk/keluar peron. Yang diperlukan adalah tiket kertas atau kartu IC (seperti Suica/Pasmo) yang ditap atau dimasukkan ke mesin."}, {"q": "道に迷ったとき駅員に尋ねる言い方はどれか。", "opts": ["すみません、〜線はどこですか", "うるさい", "早く", "知らない"], "a": 0, "e": "「すみません、〜線はどこですか」(di mana jalur…?) dipakai untuk bertanya kepada petugas stasiun saat bingung mencari jalur yang benar di stasiun besar dengan banyak jalur."}, {"q": "電車が遅れているときのアナウンス語はどれか。", "opts": ["遅れ(keterlambatan)", "出発", "到着", "満員"], "a": 0, "e": "遅れ berarti keterlambatan. Pengumuman 「電車が遅れています」sering terdengar di stasiun saat ada gangguan operasional, memberi tahu penumpang bahwa kereta tidak datang tepat waktu."}, {"q": "目的の駅で降りる準備を表す言い方はどれか。", "opts": ["次で降ります", "乗ります", "待ちます", "戻ります"], "a": 0, "e": "「次で降ります」(turun di berikutnya) memberi tahu bahwa penumpang akan turun di stasiun selanjutnya, berguna saat memberi tahu orang di sekitar atau petugas kereta yang padat."}];
+qi=0,ok=0,tot=0;
+function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function nQ(){qi=(qi+1)%Q.length;rnd();}
+function rQ(){qi=0;ok=0;tot=0;rnd();}
+rQ();
+function initKN2(){
+  var list=document.getElementById('kn2List');if(!list)return;
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+Q.length+' soal latihan percakapan — klik Soal Berikutnya untuk mulai quiz!</p>';
+}
+function init(){initKN2();}
+if(typeof init==='function')init(); rnd();
+</script>
+script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

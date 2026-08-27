@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+<link rel="stylesheet" href="assets/pro-style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tentang NihonggoPro — Platform Belajar Bahasa Jepang</title>
+<meta name="description" content="NihonggoPro adalah platform belajar bahasa Jepang gratis N5-N1 yang dibuat oleh Riyan Setiawan untuk membantu orang Indonesia belajar Jepang secara terstruktur.">
+<meta property="og:title" content="Tentang NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Platform belajar bahasa Jepang N5-N1 gratis, lengkap, dan terstruktur.">
+<meta property="og:url" content="https://nihonggopro.id/About.html">
+<link rel="canonical" href="https://nihonggopro.id/About.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"NihonggoPro","url":"https://nihonggopro.id","description":"Platform belajar bahasa Jepang N5-N1 gratis dan terstruktur","founder":{"@type":"Person","name":"Riyan Setiawan"}}</script>
+
+<link rel="stylesheet" href="assets/legacy-bundle.min.css">
+
+    <style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+
+.brand{display:flex;align-items:baseline;gap:8px}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+
+
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;cursor:pointer;transition:all .15s;text-decoration:none;display:inline-flex;align-items:center}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+.hero{padding:clamp(44px,7vw,76px) clamp(16px,5vw,72px) 44px;background:var(--ink);color:#fff}
+.hero-inner{max-width:900px;margin:0 auto}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(28px,5vw,52px);line-height:1.1;margin-bottom:.75rem}
+.hero p{color:rgba(255,255,255,.65);font-size:15px;line-height:1.85}
+.main{max-width:900px;margin:3rem auto;padding:0 clamp(16px,5vw,40px) 5rem}
+.section{margin-bottom:3rem}
+.section h2{font-family:"Noto Serif JP",serif;font-size:clamp(22px,3vw,30px);margin-bottom:.75rem}
+.section p{color:var(--ink-mid);font-size:15px;line-height:1.85;margin-bottom:1rem}
+.card{background:var(--white);border-radius:14px;padding:1.5rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1rem;margin-bottom:2rem}
+.stat-box{background:var(--white);border-radius:12px;padding:1.25rem;text-align:center;border:.5px solid var(--border-mid)}
+.stat-box strong{font-family:"Noto Serif JP",serif;font-size:30px;display:block;color:var(--red);line-height:1.1;margin-bottom:.2rem}
+.stat-box span{font-size:12px;color:var(--ink-soft);font-weight:600}
+.team-card{display:flex;align-items:center;gap:1.25rem;background:var(--white);border-radius:14px;padding:1.5rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1rem}
+.avatar{width:64px;height:64px;border-radius:50%;background:var(--red);color:#fff;font-family:"Noto Serif JP",serif;font-size:26px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.team-info h3{font-size:18px;font-weight:800;margin-bottom:.2rem}
+.team-info p{font-size:13px;color:var(--ink-soft);line-height:1.65}
+.badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:800;background:var(--red-pale);color:var(--red);margin-right:.35rem;margin-top:.35rem}
+.timeline{display:flex;flex-direction:column;gap:1rem}
+.tl-item{display:flex;gap:1rem;align-items:flex-start}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--red);margin-top:5px;flex-shrink:0}
+.tl-line{width:2px;background:var(--border);margin:0 4px;flex-shrink:0}
+.tl-content h4{font-size:14px;font-weight:800;margin-bottom:.2rem}
+.tl-content p{font-size:13px;color:var(--ink-soft);line-height:1.6}
+.tl-year{font-size:11px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.2rem}
+@media(max-width:600px){.team-card{flex-direction:column}}
+</style>
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Tentang NihonggoPro">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  
+
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="NihonggoPro adalah platform belajar bahasa Jepang gratis N5-N1 yang dibuat oleh Riyan Setiawan untuk membantu orang Indonesia belajar Jepang secara terstruktur.">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
+<section id="main-content" class="hero" role="main">
+  <div class="hero-inner">
+    <div class="kicker">🎌 Tentang Kami</div>
+    <h1>NihonggoPro —<br>Belajar Jepang Lebih Mudah</h1>
+    <p>Platform belajar bahasa Jepang N5–N1 yang dibuat untuk membantu orang Indonesia mencapai mimpi mereka: kuliah di Jepang, bekerja di perusahaan Jepang, atau sekadar menikmati anime tanpa subtitle.</p>
+  </div>
+</section>
+
+<div class="main">
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-box"><strong>10.000+</strong><span>Pengguna Aktif</span></div>
+    <div class="stat-box"><strong>1.038</strong><span>Pola Grammar</span></div>
+    <div class="stat-box"><strong>11.663</strong><span>Kosakata</span></div>
+    <div class="stat-box"><strong>N5–N1</strong><span>Level Didukung</span></div>
+    <div class="stat-box"><strong>100%</strong><span>Gratis</span></div>
+  </div>
+
+  <!-- Misi -->
+  <div class="section">
+    <h2>🎯 Misi Kami</h2>
+    <p>Kami percaya bahwa belajar bahasa Jepang seharusnya tidak membutuhkan biaya mahal atau akses ke buku-buku eksklusif. NihonggoPro hadir untuk menyediakan materi berkualitas tinggi — setara bimbel Jepang premium — secara gratis dan mudah diakses siapa saja di Indonesia.</p>
+    <p>Semua materi N5–N1, grammar, kosakata, kanji, dan latihan JLPT tersedia tanpa biaya. Tidak perlu kartu kredit. Tidak perlu registrasi untuk mulai belajar.</p>
+    <div class="card" style="margin-top:1rem;background:var(--red-pale);border-color:rgba(190,52,40,.15)">
+      <div style="font-size:18px;font-family:'Noto Serif JP',serif;color:var(--red);font-weight:700;margin-bottom:.5rem">"Siapapun berhak belajar bahasa Jepang."</div>
+      <div style="font-size:13px;color:var(--ink-mid)">— Riyan Setiawan, Pendiri NihonggoPro</div>
+    </div>
+  </div>
+
+  <!-- Tim -->
+  <div class="section">
+    <h2>👨‍💻 Tim Kami</h2>
+    <div class="team-card">
+      <div class="avatar">R</div>
+      <div class="team-info">
+        <h3>Riyan Setiawan</h3>
+        <p>Pendiri & Pengajar Utama. Belajar bahasa Jepang secara otodidak sejak 2018, lulus JLPT N2 pada 2021. Membangun NihonggoPro karena frustrasi dengan materi belajar yang tersebar dan tidak terstruktur.</p>
+        <div style="margin-top:.5rem">
+          <span class="badge">JLPT N2</span>
+          <span class="badge">Kelas Online</span>
+          <span class="badge">Kurikulum</span>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem">
+      <div style="font-size:14px;font-weight:700;margin-bottom:.5rem">🤝 Bergabung dengan Tim</div>
+      <p style="font-size:13px;color:var(--ink-mid);margin-bottom:.75rem">Kami selalu mencari kontributor konten, pengajar bahasa Jepang, dan pengembang yang mau membantu platform ini berkembang.</p>
+      <a href="mailto:hello@nihonggopro.id" style="display:inline-flex;align-items:center;height:36px;padding:0 16px;border-radius:8px;background:var(--red);color:#fff;font-size:13px;font-weight:700;text-decoration:none">Hubungi Kami →</a>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="section">
+    <h2>📅 Perjalanan NihonggoPro</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div style="display:flex;flex-direction:column;align-items:center"><div class="tl-dot"></div><div class="tl-line" style="flex:1;min-height:40px"></div></div>
+        <div class="tl-content" style="padding-bottom:1rem">
+          <div class="tl-year">2022</div>
+          <h4>Mulai sebagai catatan belajar pribadi</h4>
+          <p>Riyan mulai mendokumentasikan perjalanan belajar JLPT-nya dalam bentuk halaman HTML sederhana.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div style="display:flex;flex-direction:column;align-items:center"><div class="tl-dot"></div><div class="tl-line" style="flex:1;min-height:40px"></div></div>
+        <div class="tl-content" style="padding-bottom:1rem">
+          <div class="tl-year">2023</div>
+          <h4>Diluncurkan sebagai platform publik</h4>
+          <p>NihonggoPro diluncurkan dengan materi N5 dan N4 pertama. Dalam 3 bulan, dikunjungi 1.000+ pengguna unik.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div style="display:flex;flex-direction:column;align-items:center"><div class="tl-dot"></div><div class="tl-line" style="flex:1;min-height:40px"></div></div>
+        <div class="tl-content" style="padding-bottom:1rem">
+          <div class="tl-year">2024</div>
+          <h4>Ekspansi ke N1–N3 + AI Tutor</h4>
+          <p>Ditambahkan materi N3, N2, N1, dan integrasi AI Tutor pertama untuk latihan percakapan interaktif.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div style="display:flex;flex-direction:column;align-items:center"><div class="tl-dot"></div></div>
+        <div class="tl-content">
+          <div class="tl-year">2025</div>
+          <h4>Kelas Online Live + Grammar Checker AI</h4>
+          <p>Diluncurkan platform kelas video live, AI Grammar Checker, sistem akun murid, dan sertifikat digital.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kontak -->
+  <div class="section">
+    <h2>📬 Hubungi Kami</h2>
+    <div class="card">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem">
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;margin-bottom:.4rem">Email</div>
+          <a href="mailto:hello@nihonggopro.id" style="color:var(--red);font-weight:700;font-size:14px;text-decoration:none">hello@nihonggopro.id</a>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;margin-bottom:.4rem">Website</div>
+          <a href="https://nihonggopro.id" style="color:var(--red);font-weight:700;font-size:14px;text-decoration:none">nihonggopro.id</a>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;margin-bottom:.4rem">Lapor Bug</div>
+          <a href="mailto:bug@nihonggopro.id" style="color:var(--ink-mid);font-weight:600;font-size:14px;text-decoration:none">bug@nihonggopro.id</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.65);padding:2rem clamp(16px,5vw,72px)">
+  <div style="max-width:900px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between">
+    <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:18px;font-weight:700">Nihonggo Pro Academy</div>
+    <div style="display:flex;gap:1rem;font-size:13px;flex-wrap:wrap">
+      <a href="index.html" style="color:rgba(255,255,255,.55);text-decoration:none">Beranda</a>
+      <a href="Materi/Materi.html" style="color:rgba(255,255,255,.55);text-decoration:none">Materi</a>
+      <a href="Kelas-Online.html" style="color:rgba(255,255,255,.55);text-decoration:none">Kelas Live</a>
+      <a href="FAQ.html" style="color:rgba(255,255,255,.55);text-decoration:none">FAQ</a>
+      <a href="Privacy.html" style="color:rgba(255,255,255,.55);text-decoration:none">Privasi</a>
+      <a href="Akun.html" style="color:rgba(255,255,255,.55);text-decoration:none">Akun</a>
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,.3)">© 2025 NihonggoPro</div>
+  </div>
+</footer>
+
+<script>
+// GENUINELY DIPERBAIKI (Fase EE, Verifikasi Visual): tombol toggleTheme() legacy dihapus (duplikat dengan navbar resmi kyoto-navbar.js). IIFE inisialisasi tema dipertahankan (mencegah flash-of-wrong-theme sebelum navbar defer selesai load), disesuaikan tanpa referensi elemen yang dihapus.
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+</body>
+</html>

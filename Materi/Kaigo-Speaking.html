@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kaigo Speaking 介護スピーキング | Nihonggo Pro Academy</title>
+<meta name="description" content="Latihan percakapan bahasa Jepang untuk kaigo — dialog nyata dengan residen, keluarga, dan tim medis. Dilengkapi audio TTS dan latihan roleplay.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Speaking.html">
+<meta property="og:title" content="Kaigo Speaking 介護 — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Speaking.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js" defer></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N,
+     lanjutan): dikonfirmasi pola bug identik dengan 32 halaman yang
+     sudah diperbaiki sebelumnya -- tag script eksternal genuinely
+     mengabaikan konten inline karena atribut src hadir. Pemindaian
+     PERTAMA genuinely tidak lengkap (hanya menangkap tag tanpa atribut
+     tambahan) -- 74 halaman TAMBAHAN dengan variasi atribut (mis. defer)
+     genuinely terlewat, ditemukan setelah pemindaian ulang dengan pola
+     yang genuinely lebih komprehensif. Dipisah ke tag terpisah,
+     dibungkus DOMContentLoaded untuk mengantisipasi masalah timing DOM. -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["声かけ", "koe-kake", "pendekatan verbal"], ["傾聴", "keisho", "mendengar aktif"], ["食事介助", "shokuji kaijo", "bantuan makan"], ["入浴介助", "nyuyoku kaijo", "bantuan mandi"], ["排泄介助", "haisetsu kaijo", "bantuan toilet"], ["朝の声かけ", "asa no koe-kake", "sapaan pagi"], ["緊急時", "kinkyuuji", "saat darurat"], ["家族対応", "kazoku taiou", "komunikasi keluarga"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#1b5e20">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js" defer></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.page-hero{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.cat-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+.cat-tab{padding:7px 16px;border-radius:20px;border:1px solid var(--border-mid);background:var(--cream);cursor:pointer;font-size:.85rem;transition:all .2s}
+.cat-tab.active,.cat-tab:hover{background:#1b5e20;color:#fff;border-color:#1b5e20}
+.dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px}
+.dialog-title{font-size:.95rem;font-weight:700;color:#1b5e20;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.dialog-line{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
+.speaker{min-width:48px;font-size:.72rem;font-weight:700;padding:3px 8px;border-radius:6px;text-align:center;margin-top:2px}
+.sp-care{background:#e8f5e9;color:#1b5e20}
+.sp-user{background:#e3f2fd;color:#1565c0}
+.sp-family{background:#fff3e0;color:#e65100}
+.line-jp{font-size:.92rem;color:var(--ink);font-weight:500}
+.line-id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
+.speak-btn{border:none;background:#1b5e20;color:#fff;border-radius:8px;padding:4px 10px;cursor:pointer;font-size:.78rem;margin-top:4px}
+.speak-btn:hover{background:#2e7d32}
+.section-title{font-size:1.2rem;font-weight:700;color:#1b5e20;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e8f5e9}
+.phrase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin:12px 0}
+.phrase-card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .2s}
+.phrase-card:hover{border-color:#1b5e20;box-shadow:0 2px 8px rgba(27,94,32,.1)}
+.phrase-card.revealed .p-id{display:block}
+.p-jp{font-size:.95rem;font-weight:600;color:var(--ink)}
+.p-read{font-size:.78rem;color:var(--ink-mid);margin:2px 0}
+.p-id{display:none;font-size:.85rem;color:#1b5e20;margin-top:6px;padding-top:6px;border-top:1px dashed var(--border-light)}
+.p-ctx{font-size:.72rem;color:var(--ink-mid);margin-top:3px}
+.quiz-box{background:#e8f5e9;border-radius:14px;padding:20px;margin:20px 0}
+.quiz-q{font-weight:600;margin-bottom:12px}
+.quiz-opts{display:grid;gap:8px}
+.quiz-opt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
+.quiz-opt:hover{background:#e8f5e9}
+.quiz-opt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
+.quiz-opt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.quiz-exp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
+.quiz-exp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Kaigo Speaking 介護スピーキング | Nihonggo Pro Academy", "description": "Latihan percakapan bahasa Jepang untuk kaigo — dialog nyata dengan residen, keluarga, dan tim medis. Dilengkapi audio TTS dan latihan roleplay.", "url": "https://nihonggopro.id/Materi/Kaigo-Speaking.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Latihan percakapan bahasa Jepang untuk kaigo — dialog nyata dengan residen, keluarga, dan tim medis. Dilengkapi audio TTS dan latihan roleplay.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kaigo Speaking 介護スピーキング">
+<meta name="twitter:description" content="Latihan percakapan bahasa Jepang untuk kaigo — dialog nyata dengan residen, keluarga, dan tim medis. Dilengkapi audio TTS dan latihan roleplay.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<main id="main-content">
+<div class="page-hero">
+  <span class="badge">🗣️ Kaigo Speaking</span>
+  <h1>介護スピーキング<br>Latihan Percakapan Kaigo</h1>
+  <p>Dialog nyata dengan residen, keluarga, dan tim medis</p>
+</div>
+<div class="wrap" style="padding-top:24px">
+  <div class="cat-tabs">
+    <button class="cat-tab active" onclick="setCat('semua',this)">📋 Semua</button>
+    <button class="cat-tab" onclick="setCat('pagi',this)">🌅 Rutinitas Pagi</button>
+    <button class="cat-tab" onclick="setCat('makan',this)">🍱 Makan</button>
+    <button class="cat-tab" onclick="setCat('perawatan',this)">🛁 Perawatan</button>
+    <button class="cat-tab" onclick="setCat('keluarga',this)">👨‍👩‍👧 Keluarga</button>
+    <button class="cat-tab" onclick="setCat('darurat',this)">🚨 Darurat</button>
+    <button class="cat-tab" onclick="setCat('laporan',this)">📋 Laporan</button>
+  </div>
+
+  <div id="dialogArea"></div>
+
+  <h2 class="section-title">💬 Frasa Penting Kaigo</h2>
+  <p style="font-size:.83rem;color:var(--ink-mid);margin-bottom:12px">💡 Klik untuk melihat terjemahan</p>
+  <div class="phrase-grid" id="phraseGrid"></div>
+
+  <h2 class="section-title">🧠 Quiz Dialog Kaigo</h2>
+  <div id="quizContainer"></div>
+  <div style="display:flex;gap:12px;margin-top:12px">
+    <button onclick="nextQ()" style="flex:1;padding:12px;background:#1b5e20;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+    <button onclick="resetQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
+  </div>
+  <p id="qScore" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
+</div>
+<h2 style="font-size:1.2rem;font-weight:700;color:#1b5e20;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+
+
+<!-- enriched-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:#1b5e20;margin:0 0 12px;font-size:1rem;font-weight:700">🗣️ N5〜N4 声かけフレーズ集</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">場面</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">日本語</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">インドネシア語</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">朝の声かけ</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">おはようございます。今日の調子はいかがですか？</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">Selamat pagi. Bagaimana kondisi hari ini?</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">食事前</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">お食事の準備ができましたよ。召し上がりますか？</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">Makanan sudah siap. Mau makan?</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">入浴前</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">お風呂のご準備ができました。入られますか？</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">Mandi sudah siap. Mau masuk?</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">就寝前</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">お休みの時間ですよ。ゆっくり休んでください。</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">Waktunya istirahat. Istirahat yang nyaman ya.</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">体調確認</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">どこか痛いところはありますか？</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">Ada yang sakit?</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">感謝</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ありがとうございます。いつもよくやってくださいますね。</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">Terima kasih. Selalu bersemangat ya.</td></tr></table><div style="background:rgba(0,0,0,.04);border-left:3px solid #1b5e20;padding:12px 15px;border-radius:0 10px 10px 0;font-size:.87rem;margin:12px 0;line-height:1.7">💡 声かけの3原則: ①相手の目線で話す②ゆっくり短く③笑顔で穏やかに</div></div></div>
+
+<!-- enriched-v3 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:#1b5e20;margin:0 0 12px;font-size:1rem;font-weight:700">🎤 N5・N4スピーキング演習</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">場面</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">目標フレーズ</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">ポイント</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">朝の挨拶</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">おはようございます。よく眠れましたか？</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">笑顔・目線を合わせる</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">食事介助</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">一口ずつゆっくりどうぞ。おいしいですか？</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ペースを確認しながら</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">入浴前確認</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">お体の調子はいかがですか？</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">体調確認が先</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">緊急時</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">〇〇さん、大丈夫ですか？今、助けます！</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">大きくはっきり</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">感謝</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ありがとうございます。よくできましたね。</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">肯定的フィードバック</td></tr></table></div></div>
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#1b5e20;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e8f5e9">💬 介護 Speaking — N5レベル声かけ</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1b5e20;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9">🌅 Dialog 1 — 朝の声かけ</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">田中さん、おはようございます。よく眠れましたか？<button aria-label="Ucapkan: 田中さん、おはようございます。よく眠れましたか？" onclick="speak('田中さん、おはようございます。よく眠れましたか？')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Selamat pagi Bu Tanaka. Bisa tidur nyenyak?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">ええ、ぐっすりと眠れましたよ。<button aria-label="Ucapkan: ええ、ぐっすりと眠れましたよ。" onclick="speak('ええ、ぐっすりと眠れましたよ。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Iya, tidur nyenyak.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">よかったです。今日も一日よろしくお願いします。朝ごはんの準備ができましたよ。<button aria-label="Ucapkan: よかったです。今日も一日よろしくお願いします。朝ごはんの準備…" onclick="speak('よかったです。今日も一日よろしくお願いします。朝ごはんの準備ができましたよ。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Syukurlah. Selamat menjalani hari ya. Sarapan sudah siap.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1b5e20;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9">🍽️ Dialog 2 — 食事前の声かけ</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">山田さん、お食事の時間ですよ。今日はお粥と味噌汁です。<button aria-label="Ucapkan: 山田さん、お食事の時間ですよ。今日はお粥と味噌汁です。" onclick="speak('山田さん、お食事の時間ですよ。今日はお粥と味噌汁です。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Pak Yamada, waktunya makan. Hari ini ada bubur dan sup miso.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">山田さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">ありがとうございます。少し食欲があります。<button aria-label="Ucapkan: ありがとうございます。少し食欲があります。" onclick="speak('ありがとうございます。少し食欲があります。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Terima kasih. Ada sedikit nafsu makan.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#1b5e20;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">ゆっくり食べてください。一口ずつどうぞ。<button aria-label="Ucapkan: ゆっくり食べてください。一口ずつどうぞ。" onclick="speak('ゆっくり食べてください。一口ずつどうぞ。')" style="border:none;background:#1b5e20;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Makan pelan-pelan ya. Satu suap demi satu.</div></div></div></div></div>
+<div class="pg-vocab" id="pg"></div>
+<section style="padding:16px;max-width:860px;margin:20px auto">
+<h2 style="font-size:1rem;color:#004d40;border-bottom:3px solid #004d40;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 介護スピーキング基礎</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('声かけ')" title="クリックで発音">🔊 声かけ</div>
+  <div style="font-size:.8rem;color:#777">koegake</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">menyapa / berbicara lebih dahulu</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('報告')" title="クリックで発音">🔊 報告</div>
+  <div style="font-size:.8rem;color:#777">hōkoku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">pelaporan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('敬語')" title="クリックで発音">🔊 敬語</div>
+  <div style="font-size:.8rem;color:#777">keigo</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">bahasa hormat</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('〜ですか')" title="クリックで発音">🔊 〜ですか</div>
+  <div style="font-size:.8rem;color:#777">desu ka</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">apakah...?</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('〜ましょうか')" title="クリックで発音">🔊 〜ましょうか</div>
+  <div style="font-size:.8rem;color:#777">mashō ka</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">maukah / bolehkah kita...?</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('〜てください')" title="クリックで発音">🔊 〜てください</div>
+  <div style="font-size:.8rem;color:#777">te kudasai</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">tolong...</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('〜いいですか')" title="クリックで発音">🔊 〜いいですか</div>
+  <div style="font-size:.8rem;color:#777">ii desu ka</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">bolehkah...?</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('お願いします')" title="クリックで発音">🔊 お願いします</div>
+  <div style="font-size:.8rem;color:#777">onegai shimasu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">tolong / mohon</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('大丈夫ですか')" title="クリックで発音">🔊 大丈夫ですか</div>
+  <div style="font-size:.8rem;color:#777">daijōbu desu ka</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">apakah Anda baik-baik saja?</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('どうぞ')" title="クリックで発音">🔊 どうぞ</div>
+  <div style="font-size:.8rem;color:#777">dōzo</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">silakan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('ゆっくり')" title="クリックで発音">🔊 ゆっくり</div>
+  <div style="font-size:.8rem;color:#777">yukkuri</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">pelan-pelan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('一緒に')" title="クリックで発音">🔊 一緒に</div>
+  <div style="font-size:.8rem;color:#777">issho ni</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">bersama-sama</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('手伝います')" title="クリックで発音">🔊 手伝います</div>
+  <div style="font-size:.8rem;color:#777">tetsudaimasu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">saya bantu</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('確認します')" title="クリックで発音">🔊 確認します</div>
+  <div style="font-size:.8rem;color:#777">kakunin shimasu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">saya konfirmasi</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #004d40">
+  <div style="font-size:1.05rem;font-weight:700;color:#004d40" onclick="speak('終わりました')" title="クリックで発音">🔊 終わりました</div>
+  <div style="font-size:.8rem;color:#777">owarimasita</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">sudah selesai</div>
+</div>
+</div></section></main>
+<script>
+function speak(text){if('speechSynthesis' in window){const u=new SpeechSynthesisUtterance(text);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+
+const DIALOGS=[
+{title:'🌅 Rutinitas Pagi — 朝の声かけ',cat:'pagi',lines:[
+  {sp:'care',jp:'おはようございます。〇〇さん、よく眠れましたか？',id:'Selamat pagi, Bu/Pak ~. Apakah tidurnya nyenyak?'},
+  {sp:'user',jp:'ああ、まあまあかな。少し肩が凝っているけどね。',id:'Ah, lumayan. Tapi bahunya agak pegal.'},
+  {sp:'care',jp:'そうですか。後でマッサージしましょうか？今から着替えのお手伝いをしてもよろしいですか？',id:'Begitu ya. Nanti mau saya pijat? Boleh saya bantu ganti pakaian sekarang?'},
+  {sp:'user',jp:'ええ、お願いします。',id:'Iya, tolong ya.'},
+  {sp:'care',jp:'では、右腕から袖を通しましょうか。ゆっくりでいいですよ。',id:'Baiklah, mari masukkan lengan kanan dulu. Pelan-pelan saja ya.'},
+]},
+{title:'🍱 Waktu Makan — 食事介助',cat:'makan',lines:[
+  {sp:'care',jp:'〇〇さん、お食事の時間ですよ。今日のメニューはご飯と味噌汁と焼き魚です。',id:'Bu/Pak ~, sudah waktunya makan. Menu hari ini nasi, miso soup, dan ikan bakar.'},
+  {sp:'user',jp:'ありがとう。でも、今日は食欲があまりないんだよ。',id:'Terima kasih. Tapi hari ini selera makannya kurang.'},
+  {sp:'care',jp:'そうですか。少しだけでも食べてみませんか？栄養が大切ですから。',id:'Begitu ya. Coba makan sedikit saja, Bu/Pak? Nutrisi itu penting.'},
+  {sp:'user',jp:'そうだね。じゃあ、少しだけ。',id:'Iya betul. Kalau begitu, sedikit saja.'},
+  {sp:'care',jp:'では、スプーンをお使いになりますか？ゆっくり召し上がってください。',id:'Mau pakai sendok? Silakan makan pelan-pelan ya.'},
+]},
+{title:'🛁 Mandi & Perawatan — 入浴介助',cat:'perawatan',lines:[
+  {sp:'care',jp:'〇〇さん、お風呂の時間です。お湯の温度は42度ですが、いかがでしょうか？',id:'Bu/Pak ~, waktunya mandi. Suhu air 42 derajat, bagaimana?'},
+  {sp:'user',jp:'少し熱いかな。もう少しぬるくしてもらえますか？',id:'Agak panas ya. Bisakah dikurangi sedikit?'},
+  {sp:'care',jp:'はい、すぐに調整します。では、40度にしましょうか？',id:'Baik, segera saya sesuaikan. Bagaimana kalau 40 derajat?'},
+  {sp:'user',jp:'それくらいがちょうどいいです。',id:'Itu pas sekali.'},
+  {sp:'care',jp:'では、ゆっくり入りましょう。滑らないように気をつけてくださいね。',id:'Baiklah, mari masuk perlahan. Hati-hati jangan sampai terpeleset ya.'},
+]},
+{title:'👨‍👩‍👧 Komunikasi dengan Keluarga',cat:'keluarga',lines:[
+  {sp:'family',jp:'すみません、父の様子はいかがですか？',id:'Permisi, bagaimana kondisi ayah saya?'},
+  {sp:'care',jp:'〇〇様のお父様ですね。最近、食欲も回復してきて、毎日少しずつリハビリも続けています。',id:'Bapak dari Tn./Ny. ~ ya. Belakangan ini nafsu makan sudah membaik, dan setiap hari terus menjalani rehabilitasi sedikit demi sedikit.'},
+  {sp:'family',jp:'それは良かったです。何か気をつけることはありますか？',id:'Syukurlah. Apakah ada hal yang perlu diperhatikan?'},
+  {sp:'care',jp:'はい、夜間に少し不安定なことがありますので、ご面会の際はゆっくりお話しいただけると助かります。',id:'Iya, kadang malam hari agak tidak stabil. Saat berkunjung, kami mohon Anda berbicara pelan-pelan.'},
+  {sp:'family',jp:'わかりました。ありがとうございます。',id:'Mengerti. Terima kasih.'},
+]},
+{title:'🚨 Situasi Darurat — 緊急時',cat:'darurat',lines:[
+  {sp:'user',jp:'（倒れそうになる）',id:'(hampir jatuh)'},
+  {sp:'care',jp:'〇〇さん！大丈夫ですか？今すぐ支えます。',id:'Bu/Pak ~! Apa tidak apa-apa? Saya pegang sekarang.'},
+  {sp:'user',jp:'ちょっとめまいが…',id:'Agak pusing...'},
+  {sp:'care',jp:'わかりました。すぐに横になりましょう。ナースコールを押します。',id:'Baik. Mari berbaring dulu. Saya tekan bel perawat.'},
+  {sp:'care',jp:'（内線で）ナースステーション、〇〇さんのお部屋でめまいが起きています。バイタル測定をお願いします。',id:'(lewat interkom) Nurse station, di kamar Bu/Pak ~ ada yang pusing. Mohon ukur tanda vital.'},
+]},
+{title:'📋 Laporan Pergantian Shift — 申し送り',cat:'laporan',lines:[
+  {sp:'care',jp:'お疲れ様です。申し送りをします。〇〇さんは今日、朝食を半分召し上がりました。',id:'Kerja keras. Saya menyampaikan laporan. Bu/Pak ~ tadi pagi makan setengah porsi.'},
+  {sp:'care',jp:'バイタルは血圧130/85、体温36.8度、脈拍72で安定していました。',id:'Tanda vital: tekanan darah 130/85, suhu 36,8 derajat, denyut nadi 72, stabil.'},
+  {sp:'care',jp:'14時ごろ、少し痛みの訴えがありましたが、様子を見て落ち着きました。',id:'Sekitar pukul 14.00 sempat mengeluh sakit, tapi setelah dipantau sudah tenang.'},
+  {sp:'care',jp:'排泄は2回で問題ありませんでした。夜間は水分補給にご注意ください。',id:'Buang air besar 2 kali, tidak ada masalah. Malam ini harap perhatikan asupan cairan.'},
+]},
+];
+
+const PHRASES=[
+{jp:'少し痛みますか？',read:'すこしいたみますか？',id:'Apakah sedikit sakit?',ctx:'Menanyakan rasa sakit'},
+{jp:'体の具合はいかがですか？',read:'からだのぐあいはいかがですか？',id:'Bagaimana kondisi tubuhnya?',ctx:'Menanyakan kondisi umum'},
+{jp:'ゆっくりでいいですよ。',read:'ゆっくりでいいですよ。',id:'Pelan-pelan saja ya.',ctx:'Menenangkan saat perawatan'},
+{jp:'何かお手伝いできることはありますか？',read:'なにかおてつだいできることはありますか？',id:'Apakah ada yang bisa saya bantu?',ctx:'Menawarkan bantuan'},
+{jp:'転ばないように気をつけてください。',read:'ころばないようにきをつけてください。',id:'Hati-hati jangan sampai jatuh ya.',ctx:'Peringatan keselamatan'},
+{jp:'お気持ちはよくわかります。',read:'おきもちはよくわかります。',id:'Saya sangat memahami perasaan Anda.',ctx:'Empati & dukungan emosional'},
+{jp:'ナースコールがあればすぐに参ります。',read:'なあすこおるがあればすぐにまいります。',id:'Jika ada bel perawat, saya segera datang.',ctx:'Memastikan respons cepat'},
+{jp:'お薬のお時間です。',read:'おくすりのおじかんです。',id:'Waktunya minum obat.',ctx:'Pemberian obat'},
+{jp:'排便はございましたか？',read:'はいべんはございましたか？',id:'Sudah buang air besar?',ctx:'Menanyakan kondisi BAB'},
+{jp:'今日のリハビリは頑張りましたね。',read:'きょうのりはびりはがんばりましたね。',id:'Rehabilitasi hari ini kerja keras ya.',ctx:'Memberikan apresiasi'},
+{jp:'ご家族から電話がありましたよ。',read:'ごかぞくからでんわがありましたよ。',id:'Ada telepon dari keluarga Anda.',ctx:'Menyampaikan pesan'},
+{jp:'お体を拭かせていただきます。',read:'おからだをふかせていただきます。',id:'Izinkan saya menyeka tubuh Anda.',ctx:'Meminta izin sebelum kontak fisik'},
+{jp:'食事の前にうがいをしましょう。',read:'しょくじのまえにうがいをしましょう。',id:'Mari berkumur sebelum makan.',ctx:'Persiapan makan'},
+{jp:'体位を変えますね。少し動かしますよ。',read:'たいいをかえますね。すこしうごかしますよ。',id:'Saya ubah posisi ya. Sedikit bergerak.',ctx:'Mengubah posisi tubuh'},
+{jp:'何かご不安なことはありますか？',read:'なにかごふあんなことはありますか？',id:'Apakah ada yang mengkhawatirkan Anda?',ctx:'Mendengarkan kekhawatiran'},
+{jp:'本日もよろしくお願いいたします。',read:'ほんじつもよろしくおねがいいたします。',id:'Mohon kerjasamanya hari ini juga.',ctx:'Salam kepada rekan kerja'},
+];
+
+const QUIZ=[
+{q:'利用者が「痛い」と言った時、最初の言葉として正しいのは？',opts:['無視する','「そうですか。大丈夫ですか？どこが痛いですか？」','「薬を飲んでください」','「あとで見ます」'],ans:1,exp:'まず共感を示してから詳細を確認する。Dengarkan dulu, tunjukkan empati, baru tanya lokasi dan tingkat rasa sakit.'},
+{q:'移乗介助を始める前に必ず言う言葉は？',opts:['何も言わなくていい','「今から体を動かしますよ。」と声をかける','「早く移動してください」','「力を入れてください」'],ans:1,exp:'必ず声かけをしてから介助を始める。突然体を触るのは失礼で、利用者が驚いて転倒する危険もある。'},
+{q:'家族から「父の状態を教えて」と言われた時の正しい対応は？',opts:['詳しく全部話す','基本的な状態を伝えつつ、詳しくは担当者や看護師に相談するよう案内する','「知りません」と言う','記録を渡す'],ans:1,exp:'情報共有は大切だが、医療情報は担当者・看護師が行うべき。基本情報は伝えつつ、詳細は適切な担当者に繋ぐ。'},
+{q:'「申し送り」で最も重要なことは？',opts:['早く終わらせる','客観的な事実と変化点を正確に次のシフトに伝える','良いことだけ言う','口頭のみで十分'],ans:1,exp:'申し送り=laporan pergantian shift. 正確な情報伝達が利用者の安全に関わる。バイタル、食事、排泄、特記事項を伝える。'},
+{q:'「褥瘡予防」のための声かけとして正しいのは？',opts:['何も言わず姿勢を変える','「体位を変えますね。少し動かしますよ。」','「起きてください」','「早く動いてください」'],ans:1,exp:'体位変換の前は必ず声かけ。利用者に今から何をするかを伝え、心理的準備をさせることが大切。'},
+{q:'「入浴介助」でお湯の温度を確認する時は？',opts:['確認しなくていい','「お湯の温度は〇度ですが、いかがでしょうか？」','「これでいいですよ」','熱くても我慢してもらう'],ans:1,exp:'入浴前に必ず湯温を確認。高齢者は感覚が鈍くなっていることがあるため、実際の温度と共に確認が必要。40〜42度が一般的。'},
+{q:'食事介助で「半分しか食べなかった」場合の対応は？',opts:['無理に食べさせる','記録に残し、食欲不振の原因を探り、必要に応じて看護師に報告する','叱る','何もしない'],ans:1,exp:'食事摂取量の変化は重要なバイタルサイン。記録→原因究明→看護師への報告が基本。栄養不足は健康に直結する。'},
+{q:'緊急時（転倒・急変）の第一対応として正しい順序は？',opts:['記録→報告→対応','安全確保→ナースコール/報告→観察→記録','とにかく動かす','家族に連絡してから'],ans:1,exp:'緊急時: ①安全確保(利用者を支える/動かさない) ②ナースコール・上司へ報告 ③観察(バイタル等) ④記録。独断で行動しない。'},
+{q:'「ご家族が面会に来られました」と伝える時の敬語は？',opts:['家族が来たよ','〇〇様、ご家族がいらっしゃいました。','誰かが来たよ','家族です'],ans:1,exp:'いらっしゃいました=尊敬語 untuk いる/くる。利用者の家族を呼ぶ時は丁寧な敬語を使う。'},
+{q:'「排泄介助」を申し出る時の適切な声かけは？',opts:['排便しましたか？','〇〇さん、お手洗いに行かれますか？','トイレ行って','早くして'],ans:1,exp:'排泄は非常にプライバシーに関わる行為。丁寧な言葉遣いで、利用者の尊厳を守ることが最優先。'},
+];
+
+let cat='semua',qIdx=0,ok=0,tot=0;
+function setCat(c,btn){cat=c;document.querySelectorAll('.cat-tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderDialogs();}
+
+function renderDialogs(){
+  const items=cat==='semua'?DIALOGS:DIALOGS.filter(d=>d.cat===cat);
+  document.getElementById('dialogArea').innerHTML=items.map(d=>`
+    <div class="dialog-card">
+      <div class="dialog-title">💬 ${d.title}</div>
+      ${d.lines.map(l=>`
+        <div class="dialog-line">
+          <span class="speaker sp-${l.sp}">${l.sp==='care'?'介護士':l.sp==='user'?'利用者':'家族'}</span>
+          <div>
+            <div class="line-jp">${l.jp}</div>
+            <div class="line-id">🇮🇩 ${l.id}</div>
+            <button class="speak-btn" onclick="speak('${l.jp.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">🔊 聞く</button>
+          </div>
+        </div>`).join('')}
+    </div>`).join('');
+  
+  document.getElementById('phraseGrid').innerHTML=PHRASES.map(p=>`
+    <div class="phrase-card" onclick="this.classList.toggle('revealed')">
+      <div class="p-jp">${p.jp}</div>
+      <div class="p-read">${p.read}</div>
+      <div class="p-id">🇮🇩 ${p.id}</div>
+      <div class="p-ctx">📍 ${p.ctx}</div>
+    </div>`).join('');
+}
+
+function renderQ(){
+  const q=QUIZ[qIdx%QUIZ.length];
+  document.getElementById('quizContainer').innerHTML=`<div class="quiz-box"><div class="quiz-q">${qIdx+1}. ${q.q}</div><div class="quiz-opts">${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="ans(this,${i},${q.ans},'${q.exp.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')"> ${o}</button>`).join('')}</div><div class="quiz-exp" id="qExp"></div></div>`;
+  document.getElementById('qScore').textContent='Skor: '+ok+'/'+tot;
+}
+function ans(btn,c,a,exp){if(document.querySelector('.quiz-opt.correct'))return;tot++;document.querySelectorAll('.quiz-opt')[a].classList.add('correct');if(c!==a)btn.classList.add('wrong');else ok++;const e=document.getElementById('qExp');e.textContent='💡 '+exp;e.classList.add('show');document.getElementById('qScore').textContent='Skor: '+ok+'/'+tot;}
+function nextQ(){qIdx=(qIdx+1)%QUIZ.length;renderQ();}
+function resetQ(){qIdx=0;ok=0;tot=0;renderQ();}
+renderDialogs();renderQ();
+</script>
+
+<section style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.1rem;font-weight:700;color:#1b5e20;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz</h2>
+<div id="qkZ"></div>
+<div style="display:flex;gap:10px;margin-top:10px">
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:#1b5e20;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
+</section>
+<script>
+var QKZ=[{"q": "「おはようございます、よく眠れましたか？」の目的は？", "opts": ["形式", "一日の始まりに状態確認と関係構築を同時に行う", "挨拶のみ", "記録のため"], "a": 1, "e": "朝の挨拶と、体調確認を同時に行うことが目的。日常的な声かけを通じて、利用者の睡眠状態や体調の変化にいち早く気づくきっかけを作る役割を果たす。"}, {"q": "食事介助中の声かけで最重要なのは？", "opts": ["速く食べるよう促す", "「おいしいですか？」など気持ちに寄り添いながら嚥下状態も観察する", "黙って介助", "量だけ確認"], "a": 1, "e": "食事介助中の声かけ: ①「おいしいですか？」「お口に合いますか？」で気持ちに寄り添う ②むせ・嚥下状態も観察 ③焦らせない。楽しい食事＝栄養摂取向上。"}, {"q": "「痛みがある」と訴える利用者への最初の対応は？", "opts": ["無視", "「どこが痛いですか？」と詳しく聞き看護師に報告する", "痛み止めを渡す", "様子を見る"], "a": 1, "e": "痛みへの対応: ①傾聴・共感「痛いんですね、大変でしたね」 ②詳しく確認(どこ・いつから・どんな痛み・10段階) ③看護師への報告 ④記録。痛みは重大サインのこともある。"}, {"q": "「気持ちの良い天気ですね」などの「世間話」の介護における意義は？", "opts": ["意味がない", "利用者の気分・認知・コミュニケーション能力を確認しつつ信頼関係を深める", "時間の無駄", "挨拶のみ"], "a": 1, "e": "世間話・日常会話の意義: ①利用者の気分把握 ②コミュニケーション能力の確認 ③信頼関係構築 ④認知機能の間接的評価。「今日の天気は？」も見当識確認になる。"}, {"q": "「就寝前の声かけ」で伝えるべき最重要事項は？", "opts": ["明日の予定のみ", "お疲れさまでした+何かあればいつでも呼んでください(安心感の提供)", "おやすみのみ", "明日の天気"], "a": 1, "e": "就寝前の声かけ: ①「今日も一日お疲れさまでした」(労い) ②「何かあればいつでも呼んでください」(安心感)。夜間の孤独感・不安を減らし安眠を助ける。"}, {"q": "認知症の利用者が「家に帰りたい」と繰り返す時の正しい対応は？", "opts": ["「ここが家ですよ」と現実を否定する", "「お家のことが心配なんですね」と気持ちを受け止め、安心できる言葉と活動で関心を転換する", "帰れないことを論理的に説明する", "無視する"], "a": 1, "e": "認知症の「帰宅願望」への対応: ①気持ちを否定しない②感情に共感する③安心できる言葉をかける④好きな活動に誘うなどで関心を転換。論理的説明や否定は混乱・不安を増大させる。"}, {"q": "利用者が「誰も来てくれない」と寂しそうに言った時の最適な声かけは？", "opts": ["「そんなことないですよ」と否定する", "「寂しいですね。少しお話しましょうか」と感情を受け止め寄り添う", "「忙しいので後で」と伝える", "「家族を呼びますか？」とだけ言う"], "a": 1, "e": "寂しさの訴えへの対応: 否定せず感情を受容し、傾聴の姿勢を示す。バイスティックの受容・非審判的態度の実践。一緒にいることを伝える言葉が安心感を生む。"}, {"q": "介護現場での「敬語」使用で注意すべき点は？", "opts": ["利用者に対して全くタメ口でよい", "過度に子ども扱いする「幼児語（赤ちゃん言葉）」（ごはんバッバしようね等）は尊厳を損なうため使わない", "敬語は不要", "大声で話す"], "a": 1, "e": "介護での言葉遣い：利用者は「子どもではなく大人」。幼児語（バッバ・ネンネ・チョッチョ等）は利用者の尊厳を傷つける。適切な敬語（〜ですか・〜いたします・〜でしょうか）を使いながら、親しみやすい丁寧な言葉遣いが理想。"}, {"q": "利用者に体温を測ることを伝える言い方はどれか。", "opts": ["「体温を測らせていただきますね」", "「熱測る」", "無言で測る", "「動かないで」"], "a": 0, "e": "「体温を測らせていただきますね」と丁寧に事前説明することが適切な言い方。無言で測定を始めると、利用者を驚かせたり不安にさせたりする原因となってしまう。"}, {"q": "食事介助を始める前の声かけはどれか。", "opts": ["「お食事の時間ですよ、始めましょうか」", "「食べて」", "無言で始める", "「早く」"], "a": 0, "e": "「お食事の時間ですよ、始めましょうか」と意向を確認する声かけが適切。一方的に始めるのではなく、本人の準備や気持ちに配慮した声かけが尊厳あるケアにつながる。"}, {"q": "入浴介助前の適切な声かけはどれか。", "opts": ["「お風呂に入りましょうか、準備しますね」", "「風呂入れ」", "無言で連れて行く", "急かす言葉"], "a": 0, "e": "「お風呂に入りましょうか、準備しますね」と安心感を与える声かけが適切とされる。無言で連れて行ったり急かしたりすることは、不安や抵抗感を生む原因となる。"}, {"q": "移乗介助前に伝える言葉はどれか。", "opts": ["「体を支えますので、ゆっくり立ちましょう」", "「早く立って」", "無言で持ち上げる", "強く引っ張る"], "a": 0, "e": "「体を支えますので、ゆっくり立ちましょう」と安心させてから移乗することが適切。突然持ち上げたり引っ張ったりすることは、恐怖心と転倒リスクを高めてしまう。"}, {"q": "利用者が痛みを訴えたときの返答はどれか。", "opts": ["「どこが痛みますか、詳しく教えてください」", "「我慢して」", "無視する", "「大したことない」"], "a": 0, "e": "「どこが痛みますか、詳しく教えてください」と具体的に確認することが適切な返答。我慢を促したり無視したりすることは、重大な症状の見落としにつながる危険がある。"}, {"q": "排泄介助を申し出る適切な言い方はどれか。", "opts": ["「お手伝いしましょうか」と控えめに尋ねる", "「トイレ行くの?」", "無言で連れて行く", "大声で聞く"], "a": 0, "e": "「お手伝いしましょうか」と控えめに尋ねることが適切な申し出方。排泄は最もプライベートな行為であるため、羞恥心に配慮した丁寧な声かけが求められる。"}, {"q": "利用者を励ますときの適切な言葉はどれか。", "opts": ["「よく頑張っていますね」", "「まだまだですね」", "無言", "否定的な言葉"], "a": 0, "e": "「よく頑張っていますね」と努力を認める肯定的な言葉が適切とされる。否定的な言葉や無言の対応は、本人の意欲を削いでしまう結果につながる可能性がある。"}, {"q": "服薬を勧める適切な言い方はどれか。", "opts": ["「お薬の時間です、一緒に確認しましょう」", "「薬飲んで」", "無言で渡す", "「早く飲んで」"], "a": 0, "e": "「お薬の時間です、一緒に確認しましょう」と丁寧に促すことが適切な言い方。無言で薬を渡したり急かしたりすることは、誤薬や不安の原因となってしまう。"}, {"q": "利用者の意向を確認する適切な聞き方はどれか。", "opts": ["「どうされたいですか」と本人の希望を尋ねる", "「こうしてください」と指示する", "勝手に決める", "無視する"], "a": 0, "e": "「どうされたいですか」と本人の希望を直接尋ねることが適切な聞き方。介護者が勝手に決めてしまうことは、自己決定権を軽視する対応となってしまう。"}, {"q": "車椅子に移る際の声かけはどれか。", "opts": ["「車椅子に移りますね、支えていますので大丈夫です」", "「早く乗って」", "無言で移す", "強引に移す"], "a": 0, "e": "「車椅子に移りますね、支えていますので大丈夫です」と安心させる声かけが適切。何をするか、どう支えるかを具体的に伝えることで、利用者の不安を和らげることができる。"}, {"q": "利用者の家族に状態を報告する適切な言い方はどれか。", "opts": ["「本日の様子についてご報告させていただきます」", "「変わりないよ」", "報告しない", "事務的に一言のみ"], "a": 0, "e": "「本日の様子についてご報告させていただきます」と丁寧に切り出すことが適切。報告を省略したり事務的すぎる対応をしたりすることは、家族の信頼を損なう原因となる。"}, {"q": "利用者の家族に急変を電話で伝える際の第一声はどれか。", "opts": ["「〇〇施設です、△△様のことでご連絡いたしました」", "「もしもし」のみ", "「大変です!」", "無言で用件のみ"], "a": 0, "e": "「〇〇施設です、△△様のことでご連絡いたしました」と施設名と用件を明確に伝えることが第一声として適切。慌てた印象を与えず、正確な情報伝達を優先することが重要になる。"}],qiZ=0,okZ=0,totZ=0;
+function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
+var oo=document.createElement('div');oo.style.display='grid';oo.style.gap='7px';
+q.opts.forEach(function(o,i){var b=document.createElement('button');
+b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
+b.textContent=o;b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
+var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
+var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:10px;font-size:.92rem';
+qq.textContent=(qiZ%QKZ.length+1)+'. '+q.q;
+var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none';
+bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function ansZ(btn,c,a,e){var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
+bs[a].dataset.d='1';totZ++;
+bs[a].style.background='#e8f5e9';bs[a].style.borderColor='#43a047';bs[a].style.color='#1b5e20';
+if(c!==a){btn.style.background='#fce4ec';btn.style.borderColor='#e91e63';btn.style.color='#880e4f';}
+else okZ++;
+var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();} function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
+rndZ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

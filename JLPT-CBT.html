@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<script src="assets/dark-mode-toggle.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JLPT CBT Simulator — Exam, Practice, Review Mode | NihonggoPro</title>
+<meta name="description" content="Simulasi ujian JLPT CBT lengkap: Exam Mode timer, Practice Mode feedback langsung, Review Mode soal salah, analytics hasil per kategori.">
+<meta property="og:title" content="JLPT CBT Simulator — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="canonical" href="https://nihonggopro.id/JLPT-CBT.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"JLPT Mock Test CBT N5-N1","description":"Simulasi ujian JLPT dengan exam mode, practice mode, review mode","provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"url":"https://nihonggopro.id/JLPT-CBT.html"}</script>
+
+<link rel="stylesheet" href="assets/design-system.css">
+<style>
+/* ══════════════════════════════════════
+   試験 JLPT CBT — KYOTO EXAM ROOM
+   ══════════════════════════════════════ */
+
+/* Header bar */
+.jlpt-header, .cbt-header, .exam-header {
+  background: #2D2D2D !important;
+  border-bottom: 1px solid rgba(200,155,60,.15) !important;
+}
+
+/* Level selector badges */
+.level-tab, .level-btn, .jlpt-level-btn {
+  border-radius: 6px !important;
+  transition: all 140ms !important;
+}
+.level-tab.active, .level-btn.active,
+.level-tab[data-active], .level-btn[data-active] {
+  background: #6B4F3A !important;
+  color: white !important;
+  border-color: #6B4F3A !important;
+}
+[data-theme="dark"] .level-tab.active { background: #C89B3C !important; color: #1A1209 !important; }
+
+/* Mode buttons */
+.mode-tab.active, .exam-mode.active, .cbt-mode.active {
+  background: #6B4F3A !important;
+  color: white !important;
+}
+[data-theme="dark"] .mode-tab.active { background: #C89B3C !important; color: #1A1209 !important; }
+
+/* Answer options */
+.opt:hover:not(.disabled):not(.correct):not(.incorrect) {
+  border-color: #6B4F3A !important;
+  background: #F5EDE0 !important;
+}
+.opt.selected { border-color: #6B4F3A !important; background: #F5EDE0 !important; }
+.opt.correct  { border-color: #5B7C5B !important; background: #EAF2E8 !important; }
+.opt.incorrect { border-color: #A63A3A !important; background: #FAEAEA !important; }
+
+/* Timer */
+.timer-display, .exam-timer {
+  font-family: 'Noto Serif JP', serif !important;
+  color: var(--ink) !important;
+}
+.timer-low, .timer-warning { color: #A63A3A !important; }
+
+/* Progress */
+.exam-progress, .q-progress { background: linear-gradient(90deg, #6B4F3A, #C89B3C) !important; }
+
+/* Submit / Next button */
+.submit-btn, .next-btn, .btn-exam-primary {
+  background: #6B4F3A !important;
+  border-color: #6B4F3A !important;
+  color: white !important;
+}
+[data-theme="dark"] .submit-btn, [data-theme="dark"] .next-btn {
+  background: #C89B3C !important;
+  border-color: #C89B3C !important;
+  color: #1A1209 !important;
+}
+
+/* Score panel */
+.score-circle, .result-circle {
+  border-color: #6B4F3A !important;
+  color: #6B4F3A !important;
+}
+[data-theme="dark"] .score-circle { border-color: #C89B3C !important; color: #C89B3C !important; }
+
+/* Category breakdown */
+.cat-bar { background: linear-gradient(90deg, #6B4F3A, #C89B3C) !important; }
+</style>
+<style>
+body { min-height: 100vh; }
+.cbt-nav {
+  height: 60px; display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(16px,4vw,40px); background: var(--nav-bg);
+  border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100;
+  backdrop-filter: blur(16px);
+}
+.cbt-brand { font-family: var(--font-jp); font-size: 19px; font-weight: 700; color: var(--primary); text-decoration: none; }
+.cbt-main { max-width: 880px; margin: 0 auto; padding: 28px clamp(12px,4vw,32px) 80px; }
+
+/* SCREEN */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* HOME */
+.home-hero { text-align: center; padding: 32px 0 24px; }
+.home-hero h1 { font-family: var(--font-jp); font-size: clamp(24px,5vw,38px); margin-bottom: 8px; }
+.home-hero p { font-size: 15px; color: var(--ink-soft); max-width: 480px; margin: 0 auto 28px; }
+.level-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(130px,1fr)); gap: 12px; margin-bottom: 24px; }
+.lv-card {
+  background: var(--white); border-radius: var(--r-lg); padding: 18px 12px;
+  border: 2px solid var(--border); text-align: center; cursor: pointer;
+  transition: all var(--t-med) var(--ease-out); box-shadow: var(--shadow-xs);
+}
+.lv-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--border-str); }
+.lv-card.sel { border-color: var(--primary); background: var(--primary-pale); box-shadow: 0 0 0 2px var(--primary); }
+.lv-jp { font-family: var(--font-jp); font-size: 32px; font-weight: 700; margin-bottom: 4px; }
+.lv-label { font-size: 11px; color: var(--ink-soft); margin-bottom: 8px; }
+.lv-q { font-size: 11px; font-weight: 800; color: var(--ink-mid); }
+.mode-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 28px; }
+@media(max-width:500px) { .mode-grid { grid-template-columns: 1fr; } }
+.mode-card {
+  background: var(--white); border-radius: var(--r-md); padding: 14px;
+  border: 2px solid var(--border); text-align: center; cursor: pointer;
+  transition: all var(--t-fast);
+}
+.mode-card:hover { border-color: var(--border-str); }
+.mode-card.sel { border-color: var(--primary); background: var(--primary-pale); }
+.mc-ic { font-size: 26px; margin-bottom: 6px; }
+.mc-name { font-size: 13px; font-weight: 800; margin-bottom: 3px; }
+.mc-desc { font-size: 11px; color: var(--ink-soft); }
+
+/* EXAM TOP BAR */
+.exam-topbar {
+  background: var(--white); border-radius: var(--r-lg); padding: 14px 20px;
+  border: 1px solid var(--border); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 14px; flex-wrap: wrap;
+  box-shadow: var(--shadow-xs);
+}
+.exam-timer {
+  font-family: var(--font-jp); font-size: 24px; font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.exam-timer.urgent { color: var(--primary); animation: blink .5s infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:.4} }
+.prog-track { flex: 1; min-width: 120px; height: 6px; background: var(--border); border-radius: 99px; overflow: hidden; }
+.prog-fill { height: 100%; background: var(--primary); border-radius: 99px; transition: width .3s; }
+
+/* Q MAP */
+.q-map { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 14px; }
+.qm { width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--border); background: var(--white); font-size: 10px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--t-fast); }
+.qm.ans { background: var(--blue); border-color: var(--blue); color: white; }
+.qm.cur { border-color: var(--primary); color: var(--primary); }
+.qm.flag { background: var(--gold); border-color: var(--gold); color: white; }
+
+/* QUESTION CARD */
+.q-card { background: var(--white); border-radius: var(--r-xl); border: 1px solid var(--border); box-shadow: var(--shadow-sm); overflow: hidden; margin-bottom: 14px; }
+.q-head { padding: 20px 24px; border-bottom: 1px solid var(--border); background: var(--cream); }
+.q-meta { display: flex; gap: 6px; margin-bottom: 10px; }
+.q-text { font-family: var(--font-jp); font-size: 18px; line-height: 1.8; }
+.q-body { padding: 20px 24px; }
+.q-opts { display: flex; flex-direction: column; gap: 8px; }
+.q-opt {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 13px 16px; border-radius: var(--r-md);
+  border: 2px solid var(--border); background: var(--white);
+  font-family: var(--font-jp); font-size: 15px; text-align: left;
+  cursor: pointer; transition: all var(--t-fast); line-height: 1.6;
+}
+.q-opt:hover:not([disabled]):not(.locked) { border-color: var(--primary); background: var(--primary-pale); }
+.q-opt.sel  { border-color: var(--primary); background: var(--primary-pale); }
+.q-opt.ok   { border-color: var(--green) !important; background: var(--green-pale) !important; }
+.q-opt.ng   { border-color: var(--red) !important; background: var(--red-pale) !important; }
+.opt-key { width: 26px; height: 26px; border-radius: 50%; background: var(--cream); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex-shrink: 0; font-family: var(--font-sans); }
+.q-explain { margin-top: 14px; padding: 12px 14px; border-radius: var(--r-md); background: var(--cream); font-size: 13px; line-height: 1.8; display: none; border-left: 3px solid var(--primary); }
+.q-explain.show { display: block; }
+.q-nav { display: flex; justify-content: space-between; align-items: center; padding: 14px 24px; border-top: 1px solid var(--border); }
+
+/* RESULT */
+.result-hero { text-align: center; padding: 32px 16px 24px; }
+.score-ring {
+  width: 140px; height: 140px; border-radius: 50%;
+  border: 6px solid var(--green); margin: 0 auto 16px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  background: var(--white); box-shadow: var(--shadow-md);
+}
+.score-ring.fail { border-color: var(--primary); }
+.score-pct { font-family: var(--font-jp); font-size: 44px; font-weight: 700; line-height: 1; }
+.score-frac { font-size: 12px; color: var(--ink-soft); }
+.pass-badge { display: inline-block; padding: 5px 16px; border-radius: 20px; font-size: 14px; font-weight: 800; margin-bottom: 14px; }
+.pass-badge.pass { background: var(--green-pale); color: var(--green); }
+.pass-badge.fail { background: var(--primary-pale); color: var(--primary); }
+.analytics-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(140px,1fr)); gap: 12px; margin: 20px 0; }
+.an-card { background: var(--white); border-radius: var(--r-md); padding: 14px; border: 1px solid var(--border); text-align: center; }
+.an-val { font-family: var(--font-jp); font-size: 26px; font-weight: 700; margin-bottom: 4px; }
+.an-lbl { font-size: 11px; color: var(--ink-soft); }
+
+/* HISTORY */
+.hist-item { display: flex; align-items: center; gap: 10px; padding: 10px; border-radius: var(--r-md); background: var(--white); border: 1px solid var(--border); margin-bottom: 6px; font-size: 13px; }
+.hist-score { margin-left: auto; font-size: 14px; font-weight: 800; }
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<script src="assets/np-xp.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Simulasi ujian JLPT CBT lengkap: Exam Mode timer, Practice Mode feedback langsung, Review Mode soal salah, analytics hasil per kategori.">
+<meta property="og:url" content="https://nihonggopro.id/JLPT-CBT.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JLPT CBT Simulator — Exam, Practice, Review Mode">
+<meta name="twitter:description" content="Simulasi ujian JLPT CBT lengkap: Exam Mode timer, Practice Mode feedback langsung, Review Mode soal salah, analytics hasil per kategori.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+
+<nav class="cbt-nav">
+  <a class="cbt-brand" href="index.html">Nihonggo Pro Academy · JLPT CBT</a>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="Dashboard/Dashboard.html" class="btn btn-sm btn-outline hide-mobile" style="text-decoration:none">📊 Dashboard</a>
+    <a href="SRS-Flashcard.html" class="btn btn-sm btn-outline hide-mobile" style="text-decoration:none">🃏 SRS</a>
+    <button aria-label="Tombol" class="icon-btn" data-theme-toggle>🌙</button>
+  </div>
+</nav>
+
+<div class="cbt-main">
+
+  <!-- HOME -->
+  <div class="screen active" id="scrHome">
+    <div class="home-hero">
+      <h1>🎯 JLPT Mock Test CBT</h1>
+      <p>Simulasi ujian JLPT setara kondisi nyata. Pilih level, mode, lalu mulai!</p>
+    </div>
+    <div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Pilih Level JLPT</div>
+    <div class="level-grid">
+      <div class="lv-card sel" onclick="selLv('N5',this)"><div class="lv-jp">N5</div><div class="lv-label">Pemula</div><div class="lv-q">25 soal · 50 mnt</div></div>
+      <div class="lv-card" onclick="selLv('N4',this)"><div class="lv-jp">N4</div><div class="lv-label">Dasar</div><div class="lv-q">35 soal · 75 mnt</div></div>
+      <div class="lv-card" onclick="selLv('N3',this)"><div class="lv-jp">N3</div><div class="lv-label">Menengah</div><div class="lv-q">40 soal · 80 mnt</div></div>
+      <div class="lv-card" onclick="selLv('N2',this)"><div class="lv-jp">N2</div><div class="lv-label">Lanjutan</div><div class="lv-q">50 soal · 105 mnt</div></div>
+      <div class="lv-card" onclick="selLv('N1',this)"><div class="lv-jp">N1</div><div class="lv-label">Mahir</div><div class="lv-q">55 soal · 110 mnt</div></div>
+    </div>
+    <div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Pilih Mode</div>
+    <div class="mode-grid">
+      <div class="mode-card sel" onclick="selMode('exam',this)"><div class="mc-ic">⏱</div><div class="mc-name">Exam Mode</div><div class="mc-desc">Timer + kondisi ujian nyata</div></div>
+      <div class="mode-card" onclick="selMode('practice',this)"><div class="mc-ic">📚</div><div class="mc-name">Practice Mode</div><div class="mc-desc">Tanpa timer, lihat jawaban langsung</div></div>
+      <div class="mode-card" onclick="selMode('review',this)"><div class="mc-ic">🔍</div><div class="mc-name">Review Mode</div><div class="mc-desc">Ulangi soal yang pernah salah</div></div>
+    </div>
+    <button class="btn btn-primary btn-xl" style="width:100%;max-width:320px;display:flex;margin:0 auto" onclick="startExam()">🎯 Mulai Ujian</button>
+    <div style="margin-top:32px">
+      <div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">📊 Riwayat Hasil</div>
+      <div id="histList"></div>
+    </div>
+  </div>
+
+  <!-- EXAM -->
+  <div class="screen" id="scrExam">
+    <div class="exam-topbar">
+      <span class="badge badge-primary" id="examLvBadge">N5</span>
+      <span class="badge badge-blue" id="examModeBadge">Exam</span>
+      <span class="exam-timer" id="examTimer">50:00</span>
+      <div class="prog-track"><div class="prog-fill" id="progFill" style="width:4%"></div></div>
+      <span style="font-size:13px;font-weight:700;color:var(--ink-soft)" id="qCounter">1/25</span>
+    </div>
+    <div class="q-map" id="qMap"></div>
+    <div class="q-card">
+      <div class="q-head">
+        <div class="q-meta">
+          <span class="badge" id="qLvBadge"></span>
+          <span class="badge badge-blue" id="qCatBadge"></span>
+        </div>
+        <div class="q-text" id="qText"></div>
+      </div>
+      <div class="q-body">
+        <div class="q-opts" id="qOpts"></div>
+        <div class="q-explain" id="qExplain"></div>
+      </div>
+      <div class="q-nav">
+        <button class="btn btn-outline btn-sm" onclick="prevQ()">← Sebelumnya</button>
+        <button class="btn btn-ghost btn-sm" onclick="flagQ()" id="flagBtn">🚩 Tandai</button>
+        <button class="btn btn-primary btn-sm" onclick="nextQ()">Berikutnya →</button>
+      </div>
+    </div>
+    <div style="text-align:center">
+      <button class="btn btn-outline" onclick="finishExam()" style="margin-right:8px">Selesai & Lihat Hasil</button>
+      <button class="btn btn-ghost" onclick="goHome()">← Kembali</button>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="scrResult">
+    <div class="result-hero">
+      <div class="score-ring" id="scoreRing">
+        <div class="score-pct" id="scorePct">0%</div>
+        <div class="score-frac" id="scoreFrac">0/0</div>
+      </div>
+      <div class="pass-badge" id="passBadge">—</div>
+      <h2 style="font-family:var(--font-jp);font-size:20px;margin-bottom:6px" id="resultTitle"></h2>
+      <p style="font-size:13px;color:var(--ink-soft);max-width:400px;margin:0 auto" id="resultSub"></p>
+    </div>
+    <div class="analytics-grid" id="analytics"></div>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:24px">
+      <button class="btn btn-outline" onclick="goHome()">← Kembali</button>
+      <button class="btn btn-primary" onclick="startExam()">↺ Ulangi</button>
+      <a href="AI-Tutor-Pro.html" class="btn btn-ghost" style="text-decoration:none;border:1px solid var(--border-mid)">🤖 Review dengan AI</a>
+    </div>
+    <div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:12px">Review Jawaban</div>
+    <div id="reviewList"></div>
+  </div>
+
+</div>
+
+<script src="assets/platform.min.js" defer></script>
+<script>
+// Catatan: State/Toast diisi di dalam DOMContentLoaded di bawah, karena
+// platform.min.js dimuat dengan `defer` sehingga window.NP belum tentu ada
+// saat script inline ini pertama dieksekusi.
+let State, Toast;
+
+// ── STATE ────────────────────────────────────────────────────────────
+let selLevel = 'N5', currentMode = 'exam';
+let questions = [], curQ = 0, answers = {}, flagged = new Set();
+let timerSecs = 0, timerIv = null;
+// GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Ketiga, Fase J):
+// guard flag untuk mencegah finishExam() genuinely dieksekusi dua kali.
+// Dikonfirmasi via pengujian bahwa memanggil finishExam() dua kali
+// genuinely menghasilkan duplikasi entri riwayat dan XP ganda -- risiko
+// nyata (meski probabilitas rendah) mengingat ada DUA jalur pemanggilan:
+// tombol "Selesai & Lihat Hasil" (aksi pengguna) DAN timer otomatis saat
+// waktu habis, yang genuinely bisa terpicu berdekatan.
+let examFinished = false;
+const HIST_KEY = 'np-cbt-history';
+const TIME = { N5:3000,N4:4500,N3:4800,N2:6300,N1:6600 };
+
+// ── QUESTION BANK ────────────────────────────────────────────────────
+const QBANK = [
+  // N5 Grammar
+  {id:'n5g1',lv:'N5',cat:'Grammar',q:'「私（わたし）___学生です。」に入る助詞は？',opts:['が','は','を','に'],ans:1,ex:'「は」は主題マーカー。「私は〜です」が基本形。'},
+  {id:'n5g2',lv:'N5',cat:'Grammar',q:'「毎日（まいにち）」の意味は？',opts:['every week','every day','every month','every year'],ans:1,ex:'毎日（まいにち）= every day。毎＝every、日＝day。'},
+  {id:'n5g3',lv:'N5',cat:'Grammar',q:'「食べ___ください」に入る語は？',opts:['て','で','に','を'],ans:0,ex:'〜てください = tolong lakukan〜. V-te form + ください.'},
+  {id:'n5g4',lv:'N5',cat:'Grammar',q:'「学校___行きます」に入る助詞は？',opts:['に','が','は','を'],ans:0,ex:'方向を示す「に」。学校に行く = pergi ke sekolah。'},
+  {id:'n5g5',lv:'N5',cat:'Grammar',q:'「今（いま）何時（なんじ）___か？」に入る語は？',opts:['で','です','に','が'],ans:1,ex:'〜ですか？ は丁寧な質問の形。'},
+  // N5 Vocabulary
+  {id:'n5v1',lv:'N5',cat:'Vocabulary',q:'「大きい」の反対語は？',opts:['高い','小さい','重い','長い'],ans:1,ex:'大きい（大）⇔ 小さい（小）は対義語。'},
+  {id:'n5v2',lv:'N5',cat:'Vocabulary',q:'「食べる」の丁寧形は？',opts:['食べます','食べた','食べない','食べよう'],ans:0,ex:'食べます は食べる のます形（丁寧形）。'},
+  {id:'n5v3',lv:'N5',cat:'Vocabulary',q:'「水（みず）」の意味は？',opts:['fire','air','water','earth'],ans:2,ex:'水（みず）= water。漢字「水」は水を表す。'},
+  // N5 Kanji
+  {id:'n5k1',lv:'N5',cat:'Kanji',q:'「山（___）」の読み方は？',opts:['かわ','やま','もり','はな'],ans:1,ex:'山（やま）= mountain。音読みはサン。'},
+  {id:'n5k2',lv:'N5',cat:'Kanji',q:'「日本語」の読み方は？',opts:['にほんご','にっぽんご','にほんぎょ','にっぽんき'],ans:0,ex:'日本語（にほんご）= bahasa Jepang。'},
+  // N4
+  {id:'n4g1',lv:'N4',cat:'Grammar',q:'「もっと早く来___よかったです」に入る語は？',opts:['て','ば','たら','なら'],ans:1,ex:'〜ばよかった = "I should have〜". 後悔の表現。'},
+  {id:'n4g2',lv:'N4',cat:'Grammar',q:'「彼は医者___、英語も話します」の（　）は？',opts:['なので','なのに','として','だから'],ans:2,ex:'〜として = "as (in the role of)". 医者として = as a doctor.'},
+  {id:'n4v1',lv:'N4',cat:'Vocabulary',q:'「確認（かくにん）」の意味は？',opts:['申し込み','確認/check','準備','説明'],ans:1,ex:'確認（かくにん）= confirmation, verification.'},
+  {id:'n4k1',lv:'N4',cat:'Kanji',q:'「介護（___）」の読み方は？',opts:['かいしゃ','かいご','かんご','かいそく'],ans:1,ex:'介護（かいご）= care, nursing. 介＝assist, 護＝protect。'},
+  // N3
+  {id:'n3g1',lv:'N3',cat:'Grammar',q:'「〜ようにしています」の意味は？',opts:['これからする予定','いつもしようと努力している','してしまった','するはずだ'],ans:1,ex:'〜ようにしています = I try to / I make a habit of. 継続的な努力。'},
+  {id:'n3g2',lv:'N3',cat:'Grammar',q:'「計画通り___なかった」の（　）は？',opts:['行き','行か','行け','行こ'],ans:1,ex:'〜なかった の前は動詞ない形。行かなかった。'},
+  // Kaigo
+  {id:'kg1',lv:'Kaigo',cat:'Kaigo',q:'「褥瘡（じょくそう）」とは何ですか？',opts:['骨折','床ずれ（圧迫による皮膚障害）','認知症','誤嚥'],ans:1,ex:'褥瘡（じょくそう）= luka tekan / bedsore. 長期臥床で発生。体位変換で予防。'},
+  {id:'kg2',lv:'Kaigo',cat:'Kaigo',q:'食事中にむせ込みがある利用者への対応は？',opts:['急いで食べさせる','水を大量に飲ませる','食事を中止して状態を確認する','記録しない'],ans:2,ex:'誤嚥リスクがあるため中止・観察・報告。誤嚥性肺炎の予防が重要。'},
+  {id:'kg3',lv:'Kaigo',cat:'Kaigo',q:'「申し送り（もうしおくり）」の意味は？',opts:['薬の投与','シフト交代時の情報引き継ぎ','入浴介助','食事記録'],ans:1,ex:'申し送り = serah terima informasi antar shift. 介護の重要業務。'},
+  {id:'kg4',lv:'Kaigo',cat:'Kaigo',q:'片麻痺（右側）利用者を車いすへ移乗させる場合、車いすを置く位置は？',opts:['麻痺側（右）','健側（左）','正面','背面'],ans:1,ex:'健側（左）に車いすを置き、健側の力を使って安全に移乗。'},
+];
+
+function getLvColor(lv) {
+  return {N5:'badge-n5',N4:'badge-n4',N3:'badge-n3',N2:'badge-n2',N1:'badge-n1',Kaigo:'badge-kaigo'}[lv]||'badge-primary';
+}
+
+// ── SELECTION ────────────────────────────────────────────────────────
+function selLv(lv, el) {
+  selLevel = lv;
+  document.querySelectorAll('.lv-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+function selMode(m, el) {
+  currentMode = m;
+  document.querySelectorAll('.mode-card').forEach(c => c.classList.remove('sel'));
+  el.classList.add('sel');
+}
+
+// ── EXAM ─────────────────────────────────────────────────────────────
+function startExam() {
+  examFinished = false; // genuinely reset guard untuk ujian baru
+  questions = [...QBANK].sort(() => Math.random() - .5);
+  curQ = 0; answers = {}; flagged = new Set();
+  document.getElementById('examLvBadge').textContent = selLevel;
+  document.getElementById('examModeBadge').textContent = currentMode === 'exam' ? '⏱ Exam' : currentMode === 'practice' ? '📚 Practice' : '🔍 Review';
+  clearInterval(timerIv);
+  timerSecs = currentMode === 'exam' ? (TIME[selLevel] || 3000) : 0;
+  if (currentMode === 'exam') {
+    timerIv = setInterval(() => {
+      timerSecs--;
+      updateTimer();
+      if (timerSecs <= 0) { clearInterval(timerIv); finishExam(); }
+      if (timerSecs === 300) Toast.show('⚠️ Sisa waktu 5 menit!', 'error');
+    }, 1000);
+  }
+  updateTimer(); buildMap(); renderQ(); show('Exam');
+}
+
+function updateTimer() {
+  const el = document.getElementById('examTimer');
+  if (currentMode !== 'exam') { el.textContent = '∞'; return; }
+  const m = Math.floor(timerSecs / 60), s = timerSecs % 60;
+  el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.classList.toggle('urgent', timerSecs < 120);
+}
+
+function buildMap() {
+  document.getElementById('qMap').innerHTML = questions.map((q, i) => `
+    <div class="qm ${answers[i] !== undefined ? 'ans' : ''} ${i === curQ ? 'cur' : ''} ${flagged.has(i) ? 'flag' : ''}"
+      onclick="goToQ(${i})" title="Q${i+1}">${i+1}</div>`
+  ).join('');
+}
+
+function renderQ() {
+  const q = questions[curQ];
+  if (!q) return;
+  document.getElementById('qLvBadge').textContent = q.lv;
+  document.getElementById('qLvBadge').className = 'badge ' + getLvColor(q.lv);
+  document.getElementById('qCatBadge').textContent = q.cat;
+  document.getElementById('qText').textContent = q.q;
+  document.getElementById('qCounter').textContent = `${curQ+1}/${questions.length}`;
+  document.getElementById('progFill').style.width = ((curQ+1)/questions.length*100) + '%';
+  const answered = answers[curQ] !== undefined;
+  document.getElementById('qOpts').innerHTML = q.opts.map((o, i) => {
+    let cls = 'q-opt';
+    if (currentMode === 'practice' && answered) {
+      cls += i === q.ans ? ' ok' : answers[curQ] === i ? ' ng' : '';
+    } else if (answered && answers[curQ] === i) cls += ' sel';
+    return `<button class="${cls}" onclick="ansQ(${i},this)" ${answered && currentMode === 'exam' ? 'disabled' : ''}>
+      <span class="opt-key">${String.fromCharCode(65+i)}</span><span>${o}</span>
+    </button>`;
+  }).join('');
+  const expEl = document.getElementById('qExplain');
+  if (currentMode === 'practice' && answered) {
+    expEl.innerHTML = `<strong>${answers[curQ] === q.ans ? '✅ Benar!' : '❌ Salah.'}</strong> ${q.ex}`;
+    expEl.classList.add('show');
+  } else { expEl.classList.remove('show'); }
+  document.getElementById('flagBtn').textContent = flagged.has(curQ) ? '🏳 Hapus' : '🚩 Tandai';
+  buildMap();
+}
+
+function ansQ(idx, btn) {
+  if (answers[curQ] !== undefined && currentMode === 'exam') return;
+  answers[curQ] = idx;
+  if (currentMode === 'practice' && idx === questions[curQ].ans) {
+    State.addXP(5, 'Jawaban Benar!');
+  }
+  renderQ();
+}
+
+function nextQ()  { if (curQ < questions.length - 1) { curQ++; renderQ(); } }
+function prevQ()  { if (curQ > 0) { curQ--; renderQ(); } }
+function goToQ(i) { curQ = i; renderQ(); }
+function flagQ()  { flagged.has(curQ) ? flagged.delete(curQ) : flagged.add(curQ); renderQ(); }
+
+function finishExam() {
+  if (examFinished) return; // genuinely cegah eksekusi ganda (lihat komentar deklarasi examFinished)
+  examFinished = true;
+  clearInterval(timerIv);
+  const total = questions.length;
+  const correct = questions.filter((q, i) => answers[i] === q.ans).length;
+  const pct = Math.round(correct / total * 100);
+  const passed = pct >= 60;
+  try{ if(window.NPXP) NPXP.recordQuiz('jlpt', correct, total); }catch(e){}
+  // Score ring
+  document.getElementById('scorePct').textContent = pct + '%';
+  document.getElementById('scoreFrac').textContent = `${correct}/${total}`;
+  const ring = document.getElementById('scoreRing');
+  ring.className = 'score-ring ' + (passed ? '' : 'fail');
+  const pb = document.getElementById('passBadge');
+  pb.textContent = passed ? `✅ LULUS — ${selLevel}` : `❌ Belum Lulus — ${selLevel}`;
+  pb.className = 'pass-badge ' + (passed ? 'pass' : 'fail');
+  document.getElementById('resultTitle').textContent = passed ? 'Selamat! Kamu lulus mock test ini.' : 'Terus berlatih! Kamu pasti bisa.';
+  document.getElementById('resultSub').textContent = `Benar ${correct} dari ${total} soal (${pct}%). Passing score: 60%.`;
+  // Analytics
+  const byCat = {};
+  questions.forEach((q, i) => {
+    if (!byCat[q.cat]) byCat[q.cat] = { ok: 0, tot: 0 };
+    byCat[q.cat].tot++;
+    if (answers[i] === q.ans) byCat[q.cat].ok++;
+  });
+  document.getElementById('analytics').innerHTML = Object.entries(byCat).map(([cat, v]) =>
+    `<div class="an-card"><div class="an-val">${Math.round(v.ok/v.tot*100)}%</div><div class="an-lbl">${cat}</div></div>`
+  ).join('');
+  // Review list
+  document.getElementById('reviewList').innerHTML = questions.map((q, i) => `
+    <div style="background:var(--white);border-radius:var(--r-md);padding:14px;border:1px solid var(--border);margin-bottom:10px">
+      <div style="display:flex;gap:6px;margin-bottom:8px">
+        <span class="badge ${getLvColor(q.lv)}">${q.lv}</span>
+        <span class="badge badge-blue">${q.cat}</span>
+        <span style="margin-left:auto;font-size:14px;font-weight:800;color:${answers[i]===q.ans?'var(--green)':'var(--primary)'}">${answers[i]===q.ans?'✅':'❌'}</span>
+      </div>
+      <div style="font-family:var(--font-jp);font-size:14px;margin-bottom:8px">${q.q}</div>
+      <div style="font-size:11px;color:var(--ink-soft);margin-bottom:6px">${q.opts.map((o,oi)=>`<span style="color:${oi===q.ans?'var(--green)':oi===answers[i]&&answers[i]!==q.ans?'var(--primary)':'inherit'};font-weight:${oi===q.ans||oi===answers[i]?700:400}">${String.fromCharCode(65+oi)}. ${o}</span>`).join(' · ')}</div>
+      <div style="font-size:12px;padding:8px 10px;background:var(--cream);border-radius:var(--r-sm)">${q.ex}</div>
+    </div>`
+  ).join('');
+  // Save history
+  const hist = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+  hist.unshift({ lv: selLevel, mode: currentMode, pct, correct, total, at: new Date().toISOString() });
+  localStorage.setItem(HIST_KEY, JSON.stringify(hist.slice(0, 10)));
+  // XP
+  const xpEarned = passed ? 100 : 30;
+  State.addXP(xpEarned, `CBT ${selLevel} ${passed ? 'Lulus' : 'Selesai'}`);
+  State.updateUser({ quizTotal: (State.getUser().quizTotal || 0) + 1 });
+  show('Result');
+}
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('scr' + id).classList.add('active');
+  if (id === 'Home') renderHistory();
+}
+function goHome() { clearInterval(timerIv); show('Home'); }
+
+function renderHistory() {
+  const hist = JSON.parse(localStorage.getItem(HIST_KEY) || '[]');
+  const el = document.getElementById('histList');
+  if (!hist.length) { el.innerHTML = '<p style="font-size:13px;color:var(--ink-soft)">Belum ada riwayat ujian.</p>'; return; }
+  el.innerHTML = hist.map(h => `
+    <div class="hist-item">
+      <span class="badge ${getLvColor(h.lv)}">${h.lv}</span>
+      <div><div style="font-weight:700">${h.mode==='exam'?'⏱ Exam':h.mode==='practice'?'📚 Practice':'🔍 Review'}</div>
+      <div style="font-size:10px;color:var(--ink-soft)">${new Date(h.at).toLocaleDateString('id-ID')}</div></div>
+      <span class="hist-score" style="color:${h.pct>=60?'var(--green)':'var(--primary)'}">${h.pct}%</span>
+    </div>`
+  ).join('');
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') nextQ();
+  if (e.key === 'ArrowLeft')  prevQ();
+  if (e.key >= '1' && e.key <= '4') {
+    const btns = document.querySelectorAll('#qOpts .q-opt');
+    if (btns[+e.key - 1]) btns[+e.key - 1].click();
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  State = NP.State; Toast = NP.Toast;
+  renderHistory();
+  NP.Nav.init('');
+});
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kanji-N5.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kanji N5–N1</a>
+          <a href="/Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar</a>
+          <a href="/Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kosakata</a>
+          <a href="/Materi/Fondasi-Bahasa-Jepang.html" style="color:rgba(255,255,255,.6);text-decoration:none">Fondasi Jepang</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Tools</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/JLPT-CBT.html" style="color:rgba(255,255,255,.6);text-decoration:none">CBT Simulator</a>
+          <a href="/SRS-Flashcard.html" style="color:rgba(255,255,255,.6);text-decoration:none">SRS Flashcard</a>
+          <a href="/Grammar-Checker.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar Checker</a>
+          <a href="/AI-Tutor-Pro.html" style="color:rgba(255,255,255,.6);text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Kaigo</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Materi/Kaigo.html#kg-h-ujian" style="color:rgba(255,255,255,.6);text-decoration:none">Persiapan Ujian</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

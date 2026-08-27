@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<!-- GSC verification injected by analytics-loader.js from env -->
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nihonggo Pro Academy — Kuis & Fitur Profesional</title>
+  <meta name="description" content="Latihan soal JLPT interaktif untuk N5 sampai N1. Kuis grammar, kosakata, kanji, dan kaigo. Uji kemampuan bahasa Jepangmu sekarang!">
+<meta data-seo="nihongo-static" name="description" content="Platform belajar bahasa Jepang untuk JLPT N5 sampai N1 dengan materi, flashcard, quiz, AI tutor, dan progress belajar.">
+<link data-seo="nihongo-static" rel="canonical" href="https://nihonggopro.id/QUIZ/nihongo-pro.html">
+<meta data-seo="nihongo-static" property="og:title" content="Nihonggo Pro Academy — Quiz &amp; Fitur Profesional">
+<meta data-seo="nihongo-static" property="og:description" content="Platform belajar bahasa Jepang untuk JLPT N5 sampai N1 dengan materi, flashcard, quiz, AI tutor, dan progress belajar.">
+<meta data-seo="nihongo-static" property="og:type" content="website">
+<meta data-seo="nihongo-static" property="og:url" content="https://nihonggopro.id/QUIZ/nihongo-pro.html">
+<meta data-seo="nihongo-static" property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta data-seo="nihongo-static" name="twitter:card" content="summary_large_image">
+<meta data-seo="nihongo-static" name="twitter:title" content="Nihonggo Pro Academy — Quiz &amp; Fitur Profesional">
+<meta data-seo="nihongo-static" name="twitter:description" content="Platform belajar bahasa Jepang untuk JLPT N5 sampai N1 dengan materi, flashcard, quiz, AI tutor, dan progress belajar.">
+<meta data-seo="nihongo-static" name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script data-seo="nihongo-static" type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Nihonggo Pro Academy — Kuis &amp; Fitur Profesional","description":"Platform belajar bahasa Jepang untuk JLPT N5 sampai N1 dengan materi, flashcard, quiz, AI tutor, dan progress belajar.","url":"https://nihonggopro.id/QUIZ/nihonggo-pro.html","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["Japanese language","JLPT","Kanji","Tata Bahasa","Kosakata"]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/translator.css">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --red: #C0392B; --red-soft: #E8534A; --red-pale: #FDECEA;
+  --ink: #0F0F12; --ink-mid: #3A3A42; --ink-soft: #7A7A86; --ink-faint: #BBBBC6;
+  --cream: #FAF8F5; --white: #FFFFFF;
+  --border: rgba(15,15,18,0.1); --border-mid: rgba(15,15,18,0.18);
+  --gold: #D4A042; --gold-pale: #FBF0D8;
+  --green: #27AE60; --green-pale: #E8F8F0;
+  --nav-bg: rgba(250,248,245,0.92);
+  --surface: var(--white);
+}
+[data-theme="dark"] {
+  --red: #E8534A; --red-soft: #FF6B5B; --red-pale: rgba(232,83,74,0.15);
+  --ink: #F0EEE9; --ink-mid: #B8B6B0; --ink-soft: #7A7A86; --ink-faint: #4A4A54;
+  --cream: #111114; --white: #1C1C20;
+  --border: rgba(255,255,255,0.07); --border-mid: rgba(255,255,255,0.12);
+  --gold: #D4A042; --gold-pale: rgba(212,160,66,0.15);
+  --green: #2ECC71; --green-pale: rgba(46,204,113,0.12);
+  --surface: #1C1C20; --nav-bg: rgba(17,17,20,0.92);
+}
+
+html { scroll-behavior: smooth; }
+body { font-family: 'Outfit', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; font-size: 15px; overflow-x: hidden; }
+
+/* ── NAV ── */
+nav:not(.kn-nav) {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  padding: 0 5vw; height: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--nav-bg); backdrop-filter: blur(14px);
+  border-bottom: 0.5px solid var(--border);
+}
+.nav-logo { display: flex; align-items: baseline; gap: 10px; text-decoration: none; }
+.nav-logo-jp { font-family: 'Noto Serif JP', serif; font-size: 22px; font-weight: 600; color: var(--red); }
+.nav-logo-sub { font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); background: var(--red-pale); color: var(--red); padding: 2px 8px; border-radius: 100px; }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.nav-back { font-size: 13px; font-weight: 500; color: var(--ink-mid); text-decoration: none; display: flex; align-items: center; gap: 6px; transition: color 0.2s; }
+.nav-back:hover { color: var(--red); }
+.theme-toggle { width: 36px; height: 36px; border: 0.5px solid var(--border-mid); border-radius: 50%; background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; transition: all 0.2s; border: none; }
+.theme-toggle:hover { transform: rotate(20deg); }
+
+/* ── TAB NAVIGATION ── */
+.tab-nav {
+  position: sticky; top: 64px; z-index: 100;
+  background: var(--white); border-bottom: 0.5px solid var(--border);
+  padding: 0 5vw; display: flex; gap: 0; overflow-x: auto;
+}
+.tab-btn {
+  flex-shrink: 0; padding: 16px 22px;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.03em;
+  color: var(--ink-soft); cursor: pointer; background: none; border: none;
+  border-bottom: 2px solid transparent; transition: all 0.2s;
+  display: flex; align-items: center; gap: 8px;
+}
+.tab-btn:hover { color: var(--ink); }
+.tab-btn.active { color: var(--red); border-bottom-color: var(--red); }
+.tab-icon { font-size: 16px; }
+
+/* ── PAGES ── */
+.page { display: none; padding: 3rem 5vw; max-width: 1200px;margin: 0 auto; }
+.page.active { display: block; }
+
+/* ── SECTION COMMON ── */
+.section-label { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 0.5rem; }
+.section-title { font-family: 'Noto Serif JP', serif; font-size: clamp(24px, 3vw, 38px); font-weight: 600; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 0.75rem; }
+.section-sub { font-size: 15px; font-weight: 300; color: var(--ink-mid); line-height: 1.9; }
+.page-header { margin-bottom: 2.5rem; }
+
+/* ═══════════════════════════════
+   DASHBOARD PAGE
+═══════════════════════════════ */
+.dash-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-bottom: 2rem; }
+.dash-stat {
+  background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 18px;
+  padding: 1.5rem; position: relative; overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.dash-stat:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+.dash-stat-icon { font-size: 28px; margin-bottom: 0.75rem; display: block; }
+.dash-stat-num { font-family: 'Noto Serif JP', serif; font-size: 36px; font-weight: 600; color: var(--ink); line-height: 1; margin-bottom: 4px; }
+.dash-stat-label { font-size: 12px; color: var(--ink-soft); font-weight: 500; }
+.dash-stat-change { font-size: 11px; font-weight: 600; margin-top: 8px; display: flex; align-items: center; gap: 4px; }
+.dash-stat-change.up { color: var(--green); }
+.dash-stat-change.neutral { color: var(--ink-soft); }
+.dash-stat::after { content: attr(data-jp); position: absolute; right: -8px; bottom: -16px; font-family: 'Noto Serif JP', serif; font-size: 72px; font-weight: 600; color: rgba(192,57,43,0.05); line-height: 1; pointer-events: none; }
+
+.dash-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1.25rem; }
+.dash-card { background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 18px; padding: 1.75rem; }
+.dash-card-title { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 1.25rem; display: flex; align-items: center; justify-content: space-between; }
+.dash-card-title span { font-size: 11px; font-weight: 500; text-transform: none; letter-spacing: 0; color: var(--red); cursor: pointer; }
+
+/* Calendar heatmap */
+.heatmap { display: grid; grid-template-columns: repeat(13, 1fr); gap: 3px; }
+.hmap-col { display: flex; flex-direction: column; gap: 3px; }
+.hmap-cell { aspect-ratio: 1; border-radius: 3px; background: var(--border); transition: transform 0.15s; cursor: pointer; position: relative; }
+.hmap-cell:hover { transform: scale(1.4); z-index: 1; }
+.hmap-cell[data-v="1"] { background: rgba(192,57,43,0.25); }
+.hmap-cell[data-v="2"] { background: rgba(192,57,43,0.45); }
+.hmap-cell[data-v="3"] { background: rgba(192,57,43,0.65); }
+.hmap-cell[data-v="4"] { background: var(--red); }
+.hmap-legend { display: flex; align-items: center; gap: 6px; margin-top: 8px; justify-content: flex-end; font-size: 10px; color: var(--ink-faint); }
+.hmap-swatch { width: 10px; height: 10px; border-radius: 2px; }
+
+/* Progress rings */
+.ring-row { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
+.ring-item { text-align: center; }
+.ring-svg { width: 70px; height: 70px; transform: rotate(-90deg); }
+.ring-bg { fill: none; stroke: var(--border-mid); stroke-width: 6; }
+.ring-fill { fill: none; stroke-width: 6; stroke-linecap: round; stroke-dasharray: 163; stroke-dashoffset: 163; transition: stroke-dashoffset 1.2s cubic-bezier(0.34,1.56,0.64,1); }
+.ring-fill.r { stroke: var(--red); }
+.ring-fill.g { stroke: var(--green); }
+.ring-fill.gold { stroke: var(--gold); }
+.ring-fill.b { stroke: #3498DB; }
+.ring-label { font-size: 11px; color: var(--ink-soft); margin-top: 4px; font-weight: 500; }
+.ring-pct { position: absolute; font-size: 12px; font-weight: 700; color: var(--ink); }
+
+.ring-wrap { position: relative; display: inline-flex; align-items: center; justify-content: center; }
+.ring-center { position: absolute; font-size: 13px; font-weight: 700; color: var(--ink); }
+
+/* Activity feed */
+.activity-list { display: flex; flex-direction: column; gap: 10px; }
+.activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 10px 0; border-bottom: 0.5px solid var(--border); }
+.activity-item:last-child { border: none; }
+.activity-icon { width: 32px; height: 32px; border-radius: 10px; background: var(--red-pale); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
+.activity-icon.g { background: var(--green-pale); }
+.activity-icon.gold { background: var(--gold-pale); }
+.activity-text { flex: 1; }
+.activity-main { font-size: 13px; font-weight: 500; color: var(--ink); }
+.activity-time { font-size: 11px; color: var(--ink-faint); margin-top: 2px; }
+.activity-pts { font-size: 12px; font-weight: 700; color: var(--gold); }
+
+/* Forecast chart */
+.bar-chart { display: flex; align-items: flex-end; gap: 6px; height: 100px; }
+.bar-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.bar { width: 100%; background: var(--red-pale); border-radius: 4px 4px 0 0; transition: height 1s ease, background 0.2s; cursor: pointer; min-height: 4px; }
+.bar:hover { background: var(--red); }
+.bar.today { background: var(--red); }
+.bar-day { font-size: 9px; color: var(--ink-faint); letter-spacing: 0.05em; text-transform: uppercase; }
+.bar-num { font-size: 10px; font-weight: 600; color: var(--ink-soft); }
+
+/* ═══════════════════════════════
+   SRS FLASHCARD PAGE
+═══════════════════════════════ */
+.srs-controls { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.srs-deck-select { display: flex; gap: 8px; flex-wrap: wrap; }
+.deck-btn { padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border-mid); background: transparent; color: var(--ink-soft); transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+.deck-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
+.deck-btn:hover:not(.active) { border-color: var(--red); color: var(--red); }
+.srs-queue { display: flex; gap: 12px; }
+.srs-q-item { text-align: center; }
+.srs-q-num { font-size: 18px; font-weight: 700; color: var(--ink); line-height: 1; }
+.srs-q-label { font-size: 10px; color: var(--ink-faint); text-transform: uppercase; letter-spacing: 0.08em; }
+.srs-q-num.new { color: #3498DB; }
+.srs-q-num.review { color: var(--red); }
+.srs-q-num.learn { color: var(--green); }
+
+.srs-arena { max-width: 560px; margin: 0 auto; }
+.srs-progress-bar { height: 4px; background: var(--border-mid); border-radius: 2px; overflow: hidden; margin-bottom: 2rem; }
+.srs-progress-fill { height: 100%; background: linear-gradient(90deg, var(--red), var(--gold)); border-radius: 2px; transition: width 0.5s ease; width: 0%; }
+
+.flashcard-scene { perspective: 1000px; width: 100%; aspect-ratio: 1.6; cursor: pointer; margin-bottom: 1.5rem; }
+.flashcard-inner { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; transition: transform 0.6s cubic-bezier(0.34,1.56,0.64,1); }
+.flashcard-scene.flipped .flashcard-inner { transform: rotateY(180deg); }
+.fc-face { position: absolute; inset: 0; border-radius: 24px; border: 0.5px solid var(--border-mid); backface-visibility: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 2rem; box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
+.fc-front { background: var(--white); }
+.fc-back { background: var(--ink); transform: rotateY(180deg); }
+.fc-word { font-family: 'Noto Serif JP', serif; font-size: clamp(52px, 10vw, 88px); font-weight: 600; color: var(--red); line-height: 1; }
+.fc-back .fc-word { color: var(--red-soft); }
+.fc-reading { font-size: 22px; font-weight: 400; color: var(--white); font-family: 'Noto Serif JP', serif; }
+.fc-meaning { font-size: 18px; font-weight: 500; color: rgba(255,255,255,0.75); }
+.fc-example { font-size: 14px; color: rgba(255,255,255,0.5); text-align: center; line-height: 1.7; max-width: 360px; }
+.fc-level-tag { position: absolute; top: 16px; right: 16px; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; background: var(--red-pale); color: var(--red); }
+.fc-back .fc-level-tag { background: rgba(255,255,255,0.1); color: rgba(255,255,255,0.5); }
+.fc-hint { font-size: 12px; color: var(--ink-faint); position: absolute; bottom: 18px; display: flex; align-items: center; gap: 5px; }
+.fc-back .fc-hint { color: rgba(255,255,255,0.3); }
+
+.srs-rating { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 2rem; }
+.rating-btn { padding: 14px 12px; border-radius: 14px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; transition: all 0.2s; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.rating-btn .r-label { font-size: 10px; font-weight: 500; opacity: 0.75; letter-spacing: 0.05em; }
+.rating-btn:hover { transform: translateY(-2px); }
+.rb-again { background: var(--red-pale); color: var(--red); }
+.rb-hard  { background: #FEF3CD; color: #B7791F; }
+.rb-good  { background: var(--green-pale); color: var(--green); }
+.rb-easy  { background: #EBF5FF; color: #2980B9; }
+.rb-again:hover { background: var(--red); color: var(--white); }
+.rb-hard:hover  { background: #B7791F; color: var(--white); }
+.rb-good:hover  { background: var(--green); color: var(--white); }
+.rb-easy:hover  { background: #2980B9; color: var(--white); }
+
+.srs-info-row { display: flex; justify-content: center; gap: 2rem; font-size: 12px; color: var(--ink-soft); }
+.srs-info-item { display: flex; align-items: center; gap: 5px; }
+.srs-info-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.srs-complete { text-align: center; padding: 4rem 2rem; display: none; }
+.srs-complete.show { display: block; }
+.srs-complete-jp { font-family: 'Noto Serif JP', serif; font-size: 80px; font-weight: 600; color: var(--red); line-height: 1; margin-bottom: 0.5rem; }
+.srs-complete-msg { font-size: 20px; font-weight: 600; color: var(--ink); margin-bottom: 0.5rem; }
+.srs-complete-sub { font-size: 14px; color: var(--ink-soft); margin-bottom: 2rem; }
+
+/* ═══════════════════════════════
+   AI CHATBOT PAGE
+═══════════════════════════════ */
+.chat-layout { display: grid; grid-template-columns: 280px 1fr; gap: 1.25rem; height: calc(100vh - 200px); min-height: 500px; }
+.chat-sidebar { background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 18px; padding: 1.25rem; display: flex; flex-direction: column; gap: 1rem; overflow: hidden; }
+.chat-sidebar-title { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); }
+.chat-topics { display: flex; flex-direction: column; gap: 6px; }
+.chat-topic { padding: 10px 14px; border-radius: 12px; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.18s; color: var(--ink-mid); display: flex; align-items: center; gap: 10px; }
+.chat-topic:hover { background: var(--red-pale); color: var(--red); }
+.chat-topic.active { background: var(--red); color: var(--white); }
+.chat-topic-icon { font-size: 18px; flex-shrink: 0; }
+.chat-tips { margin-top: auto; background: var(--cream); border-radius: 12px; padding: 12px; }
+.chat-tips-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-faint); margin-bottom: 8px; }
+.chat-tip { font-size: 12px; color: var(--ink-soft); line-height: 1.6; padding: 6px 0; border-bottom: 0.5px solid var(--border); cursor: pointer; transition: color 0.2s; }
+.chat-tip:last-child { border: none; }
+.chat-tip:hover { color: var(--red); }
+
+.chat-main { background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 18px; display: flex; flex-direction: column; overflow: hidden; }
+.chat-header { padding: 1.25rem 1.5rem; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; gap: 12px; }
+.chat-avatar { width: 40px; height: 40px; border-radius: 50%; background: linear-gradient(135deg, var(--red-pale), var(--gold-pale)); display: flex; align-items: center; justify-content: center; font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 600; color: var(--red); flex-shrink: 0; }
+.chat-header-info { flex: 1; }
+.chat-header-name { font-size: 15px; font-weight: 600; color: var(--ink); }
+.chat-header-status { font-size: 12px; color: var(--green); display: flex; align-items: center; gap: 5px; }
+.chat-header-status::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+.chat-mode-btns { display: flex; gap: 6px; }
+.chat-mode-btn { padding: 6px 12px; border-radius: 100px; font-size: 11px; font-weight: 600; cursor: pointer; border: 1px solid var(--border-mid); background: transparent; color: var(--ink-soft); transition: all 0.18s; }
+.chat-mode-btn.active { background: var(--red); color: var(--white); border-color: var(--red); }
+
+.chat-messages { flex: 1; overflow-y: auto; padding: 1.5rem; display: flex; flex-direction: column; gap: 1.25rem; scroll-behavior: smooth; }
+.chat-messages::-webkit-scrollbar { width: 4px; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--border-mid); border-radius: 2px; }
+
+.msg { display: flex; gap: 10px; align-items: flex-start; animation: msgIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both; }
+@keyframes msgIn { from { opacity: 0; transform: translateY(12px) scale(0.96); } to { opacity: 1; transform: none; } }
+.msg.user { flex-direction: row-reverse; }
+.msg-avatar { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; font-weight: 600; }
+.msg-avatar.ai { background: var(--red-pale); color: var(--red); font-family: 'Noto Serif JP', serif; }
+.msg-avatar.user { background: var(--ink); color: var(--white); }
+.msg-bubble { max-width: 72%; padding: 12px 16px; border-radius: 18px; font-size: 14px; line-height: 1.7; }
+.msg.ai .msg-bubble { background: var(--cream); color: var(--ink); border: 0.5px solid var(--border); border-radius: 4px 18px 18px 18px; }
+.msg.user .msg-bubble { background: var(--red); color: var(--white); border-radius: 18px 4px 18px 18px; }
+.msg-jp { font-family: 'Noto Serif JP', serif; font-size: 18px; color: var(--red); font-weight: 600; margin: 6px 0 2px; display: block; }
+.msg-romaji { font-size: 12px; color: var(--ink-soft); margin-bottom: 4px; }
+.msg-correction { background: #FFF3E0; border: 1px solid #FFB74D; border-radius: 10px; padding: 8px 12px; margin-top: 8px; font-size: 13px; color: #E65100; }
+.msg-correction-title { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+.msg-time { font-size: 10px; color: var(--ink-faint); margin-top: 4px; text-align: right; }
+.msg.user .msg-time { text-align: right; }
+
+.typing-indicator { display: flex; gap: 4px; align-items: center; padding: 12px 16px; background: var(--cream); border: 0.5px solid var(--border); border-radius: 4px 18px 18px 18px; width: fit-content; }
+.typing-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ink-soft); animation: typingBounce 1.4s infinite; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+
+.chat-input-area { padding: 1rem 1.5rem; border-top: 0.5px solid var(--border); display: flex; gap: 10px; align-items: flex-end; }
+.chat-input-wrap { flex: 1; position: relative; }
+.chat-input { width: 100%; padding: 12px 50px 12px 16px; background: var(--cream); border: 1.5px solid var(--border-mid); border-radius: 14px; font-size: 14px; color: var(--ink); font-family: 'Outfit', sans-serif; resize: none; min-height: 48px; max-height: 120px; outline: none; transition: border-color 0.2s; }
+.chat-input:focus { border-color: var(--red); }
+.chat-input::placeholder { color: var(--ink-faint); }
+.chat-send { width: 42px; height: 42px; border-radius: 12px; background: var(--red); color: var(--white); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.2s; flex-shrink: 0; }
+.chat-send:hover { background: var(--red-soft); transform: translateY(-1px); }
+.chat-send:disabled { background: var(--border-mid); cursor: not-allowed; transform: none; }
+.chat-quick { display: flex; gap: 6px; flex-wrap: wrap; padding: 0 1.5rem 0.75rem; }
+.quick-btn { padding: 6px 12px; border-radius: 100px; font-size: 12px; font-weight: 500; cursor: pointer; border: 1px solid var(--border-mid); background: transparent; color: var(--ink-soft); transition: all 0.18s; white-space: nowrap; }
+.quick-btn:hover { border-color: var(--red); color: var(--red); background: var(--red-pale); }
+
+/* ═══════════════════════════════
+   LEADERBOARD PAGE
+═══════════════════════════════ */
+.lb-header-card {
+  background: var(--ink); border-radius: 20px; padding: 2.5rem;
+  display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem;
+  align-items: center; margin-bottom: 2rem; position: relative; overflow: hidden;
+}
+.lb-header-card::before { content: '一位'; position: absolute; right: -20px; top: -30px; font-family: 'Noto Serif JP', serif; font-size: 160px; font-weight: 600; color: rgba(255,255,255,0.04); line-height: 1; pointer-events: none; }
+.lb-my-rank { text-align: center; }
+.lb-my-rank-num { font-family: 'Noto Serif JP', serif; font-size: 64px; font-weight: 600; color: var(--gold); line-height: 1; }
+.lb-my-rank-label { font-size: 13px; color: rgba(255,255,255,0.5); }
+.lb-my-stats { display: flex; flex-direction: column; gap: 10px; }
+.lb-my-stat { background: rgba(255,255,255,0.06); border-radius: 12px; padding: 10px 14px; display: flex; justify-content: space-between; align-items: center; }
+.lb-my-stat-label { font-size: 12px; color: rgba(255,255,255,0.5); }
+.lb-my-stat-val { font-size: 16px; font-weight: 700; color: var(--white); }
+.lb-top3 { display: flex; justify-content: center; gap: 1rem; align-items: flex-end; }
+
+.podium { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.podium-avatar { border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--white); font-size: 14px; position: relative; }
+.podium-avatar.p1 { width: 60px; height: 60px; background: linear-gradient(135deg, var(--gold), #F5A623); font-size: 18px; }
+.podium-avatar.p2 { width: 48px; height: 48px; background: linear-gradient(135deg, #95A5A6, #BDC3C7); }
+.podium-avatar.p3 { width: 44px; height: 44px; background: linear-gradient(135deg, #CD7F32, #A0522D); }
+.podium-crown { position: absolute; top: -16px; font-size: 20px; }
+.podium-name { font-size: 12px; font-weight: 600; color: var(--white); }
+.podium-pts { font-size: 11px; color: rgba(255,255,255,0.5); }
+.podium-base { border-radius: 8px 8px 0 0; width: 70px; text-align: center; display: flex; align-items: center; justify-content: center; }
+.podium-base.p1 { height: 54px; background: rgba(212,160,66,0.3); color: var(--gold); font-size: 22px; font-weight: 700; }
+.podium-base.p2 { height: 40px; background: rgba(149,165,166,0.3); color: #95A5A6; font-size: 18px; font-weight: 700; }
+.podium-base.p3 { height: 30px; background: rgba(205,127,50,0.3); color: #CD7F32; font-size: 16px; font-weight: 700; }
+
+.lb-filter { display: flex; gap: 8px; margin-bottom: 1.5rem; }
+.lb-filter-btn { padding: 8px 18px; border-radius: 100px; font-size: 12px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border-mid); background: transparent; color: var(--ink-soft); transition: all 0.2s; }
+.lb-filter-btn.active { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+.lb-table { background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 18px; overflow: hidden; }
+.lb-row { display: grid; grid-template-columns: 48px 1fr auto auto; align-items: center; gap: 1rem; padding: 14px 20px; border-bottom: 0.5px solid var(--border); transition: background 0.15s; }
+.lb-row:last-child { border: none; }
+.lb-row:hover { background: var(--cream); }
+.lb-row.me { background: var(--red-pale); }
+.lb-rank { font-size: 14px; font-weight: 700; color: var(--ink-soft); text-align: center; }
+.lb-rank.gold { color: var(--gold); font-size: 18px; }
+.lb-rank.silver { color: #95A5A6; font-size: 16px; }
+.lb-rank.bronze { color: #CD7F32; }
+.lb-user { display: flex; align-items: center; gap: 10px; }
+.lb-user-av { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; color: var(--white); flex-shrink: 0; }
+.lb-user-name { font-size: 14px; font-weight: 600; color: var(--ink); }
+.lb-user-level { font-size: 11px; color: var(--ink-soft); display: flex; align-items: center; gap: 4px; }
+.lb-streak { font-size: 13px; font-weight: 600; color: var(--ink-mid); display: flex; align-items: center; gap: 4px; }
+.lb-pts { font-family: 'Noto Serif JP', serif; font-size: 18px; font-weight: 600; color: var(--ink); }
+.lb-pts-label { font-size: 10px; color: var(--ink-faint); text-align: right; }
+.lb-change { font-size: 11px; font-weight: 600; }
+.lb-change.up { color: var(--green); }
+.lb-change.down { color: var(--red); }
+.lb-change.same { color: var(--ink-faint); }
+
+/* ═══════════════════════════════
+   GRAMMAR N1 PAGE
+═══════════════════════════════ */
+.grammar-layout { display: grid; grid-template-columns: 260px 1fr; gap: 1.25rem; }
+.grammar-sidebar { background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 18px; padding: 1.25rem; height: fit-content; position: sticky; top: 140px; }
+.grammar-search { width: 100%; padding: 10px 14px; background: var(--cream); border: 1px solid var(--border-mid); border-radius: 10px; font-size: 13px; color: var(--ink); outline: none; font-family: 'Outfit', sans-serif; margin-bottom: 1rem; transition: border-color 0.2s; }
+.grammar-search:focus { border-color: var(--red); }
+.grammar-cats { display: flex; flex-direction: column; gap: 2px; }
+.grammar-cat { padding: 8px 12px; border-radius: 10px; font-size: 13px; font-weight: 500; cursor: pointer; color: var(--ink-mid); transition: all 0.18s; display: flex; align-items: center; justify-content: space-between; }
+.grammar-cat:hover { background: var(--red-pale); color: var(--red); }
+.grammar-cat.active { background: var(--red); color: var(--white); }
+.grammar-cat-count { font-size: 11px; opacity: 0.7; background: rgba(0,0,0,0.08); padding: 2px 6px; border-radius: 100px; }
+.grammar-cat.active .grammar-cat-count { background: rgba(255,255,255,0.2); }
+
+.grammar-content { display: flex; flex-direction: column; gap: 1.25rem; }
+.grammar-card { background: var(--white); border: 0.5px solid var(--border-mid); border-radius: 18px; overflow: hidden; cursor: pointer; transition: box-shadow 0.2s, transform 0.2s; }
+.grammar-card:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.06); transform: translateY(-2px); }
+.grammar-card-header { padding: 1.5rem; display: flex; align-items: flex-start; gap: 1rem; }
+.grammar-pattern { font-family: 'Noto Serif JP', serif; font-size: 26px; font-weight: 600; color: var(--red); line-height: 1.2; flex: 1; }
+.grammar-level-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 4px 10px; border-radius: 100px; background: var(--red-pale); color: var(--red); flex-shrink: 0; }
+.grammar-meaning { font-size: 14px; font-weight: 500; color: var(--ink); padding: 0 1.5rem 0.75rem; }
+.grammar-meaning-id { font-size: 13px; color: var(--ink-soft); margin-top: 4px; }
+.grammar-body { padding: 0 1.5rem 1.5rem; display: none; border-top: 0.5px solid var(--border); margin-top: 0.75rem; padding-top: 1.25rem; }
+.grammar-card.open .grammar-body { display: block; }
+.grammar-section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 10px; }
+.grammar-example { background: var(--cream); border: 0.5px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
+.grammar-ex-jp { font-family: 'Noto Serif JP', serif; font-size: 17px; font-weight: 500; color: var(--ink); margin-bottom: 4px; line-height: 1.6; }
+.grammar-ex-jp .hl { color: var(--red); }
+.grammar-ex-id { font-size: 13px; color: var(--ink-soft); }
+.grammar-structure { background: var(--ink); border-radius: 12px; padding: 14px 16px; margin-bottom: 14px; font-family: 'Noto Serif JP', serif; font-size: 15px; color: rgba(255,255,255,0.7); line-height: 1.8; }
+.grammar-structure .s-var { color: var(--red-soft); font-weight: 600; }
+.grammar-notes { font-size: 13px; color: var(--ink-mid); line-height: 1.8; background: var(--gold-pale); border-radius: 10px; padding: 12px 14px; }
+.grammar-compare { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 1rem; }
+.grammar-compare-tag { font-size: 12px; color: var(--ink-soft); background: var(--cream); border: 0.5px solid var(--border-mid); border-radius: 100px; padding: 4px 12px; cursor: pointer; transition: all 0.18s; }
+.grammar-compare-tag:hover { border-color: var(--red); color: var(--red); }
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media (max-width: 900px) {
+  .dash-stats { grid-template-columns: 1fr 1fr; }
+  .dash-row { grid-template-columns: 1fr; }
+  .chat-layout { grid-template-columns: 1fr; height: auto; }
+  .chat-sidebar { display: none; }
+  .grammar-layout { grid-template-columns: 1fr; }
+  .grammar-sidebar { position: static; }
+  .lb-header-card { grid-template-columns: 1fr; gap: 1.5rem; }
+  .lb-top3 { display: none; }
+}
+@media (max-width: 600px) {
+  .dash-stats { grid-template-columns: 1fr 1fr; }
+  .srs-rating { grid-template-columns: repeat(2, 1fr); }
+  .lb-row { grid-template-columns: 36px 1fr auto; }
+  .lb-streak { display: none; }
+}
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+.reveal.visible { opacity: 1; transform: none; }
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+<!-- Google Analytics — replace G-XXXXXXXXXX with your Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REPLACE_WITH_YOUR_GA4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-REPLACE_WITH_YOUR_GA4');
+</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+<style>
+.nav-links-main{display:flex;gap:2px;list-style:none;margin:0;padding:0}
+.nav-links-main a{display:inline-flex;align-items:center;height:36px;padding:0 12px;border-radius:8px;color:var(--ink-soft);font-weight:600;font-size:14px;transition:all .15s;text-decoration:none}
+.nav-links-main a:hover,.nav-links-main a.active{background:var(--red-pale,#fef2f2);color:var(--red,#be3428)}
+@media(max-width:768px){.nav-links-main{display:none!important}.nav-links-main.open{display:flex!important;position:fixed;top:68px;left:0;right:0;background:var(--nav-bg,white);flex-direction:column;padding:.75rem;border-bottom:1px solid var(--border,#e0e0e0);box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:99;backdrop-filter:blur(14px)}.nav-links-main.open li{width:100%}.nav-links-main.open a{width:100%;height:44px;border-radius:8px}}
+.hamb-btn-sm{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border-mid,#e0e0e0);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.hamb-btn-sm span{display:block;width:16px;height:2px;background:var(--ink,#15161a);border-radius:1px}
+@media(max-width:768px){.hamb-btn-sm{display:flex!important}}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/nihongo-ai.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<button aria-label="Toggle theme" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999">🌙</button>
+<a href="#page-dashboard" class="skip-to-content">Langsung ke konten</a>
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">Kuis & Fitur Profesional</h1>
+
+<!-- NAV -->
+<div style="background:var(--nav-bg,white);border-bottom:1px solid var(--border,#e0e0e0);padding:.5rem clamp(16px,5vw,72px);display:flex;gap:1rem;flex-wrap:wrap;font-size:13px;font-weight:600">
+  <a href="../index.html" style="color:var(--ink-soft,#888);text-decoration:none">Beranda</a>
+  <a href="../Materi/Materi.html" style="color:var(--ink-soft,#888);text-decoration:none">Materi</a>
+  <a href="../Blog.html" style="color:var(--ink-soft,#888);text-decoration:none">Blog</a>
+  <a href="../Kelas-Online.html" style="color:var(--ink-soft,#888);text-decoration:none">Kelas Live</a>
+  <a href="../Akun.html" style="color:var(--ink-soft,#888);text-decoration:none">Akun</a>
+</div>
+
+<!-- TAB NAVIGATION -->
+<div class="tab-nav">
+  <button class="tab-btn active" onclick="showTab('dashboard')" id="tab-dashboard">
+    <span class="tab-icon">📊</span> Dashboard
+  </button>
+  <button class="tab-btn" onclick="showTab('srs')" id="tab-srs">
+    <span class="tab-icon">🃏</span> Flashcard SRS
+  </button>
+  <button class="tab-btn" onclick="showTab('chat')" id="tab-chat">
+    <span class="tab-icon">🤖</span> AI Tutor
+  </button>
+  <button class="tab-btn" onclick="showTab('leaderboard')" id="tab-leaderboard">
+    <span class="tab-icon">🏆</span> Leaderboard
+  </button>
+  <button class="tab-btn" onclick="showTab('grammar')" id="tab-grammar">
+    <span class="tab-icon">📖</span> Pola Tata Bahasa N3-N1
+  </button>
+  <button class="tab-btn" onclick="showTab('kuis')" id="tab-kuis">
+    <span class="tab-icon">🏅</span> Kuis Pro
+  </button>
+</div>
+
+<!-- ═══ DASHBOARD PAGE ═══ -->
+<div class="page active" id="page-dashboard" role="main">
+  <div class="page-header reveal">
+    <div class="section-label">Kemajuan Belajar</div>
+    <div class="section-title">Dasbor Saya</div>
+    <div class="section-sub">Pantau perkembangan belajarmu</div>
+  </div>
+
+  <div class="dash-stats reveal">
+    <div class="dash-stat" data-jp="学">
+      <span class="dash-stat-icon">🔥</span>
+      <div class="dash-stat-num" id="statStreak">14</div>
+      <div class="dash-stat-label">Hari Aktif</div>
+      <div class="dash-stat-change up">↑ Rekor terbaik!</div>
+    </div>
+    <div class="dash-stat" data-jp="語">
+      <span class="dash-stat-icon">📚</span>
+      <div class="dash-stat-num" id="statWords">847</div>
+      <div class="dash-stat-label">Kosakata Dipelajari</div>
+      <div class="dash-stat-change up">↑ +23 minggu ini</div>
+    </div>
+    <div class="dash-stat" data-jp="時">
+      <span class="dash-stat-icon">⏱</span>
+      <div class="dash-stat-num" id="statHours">126</div>
+      <div class="dash-stat-label">Total Jam Studi</div>
+      <div class="dash-stat-change up">↑ +4.2h minggu ini</div>
+    </div>
+    <div class="dash-stat" data-jp="点">
+      <span class="dash-stat-icon">⭐</span>
+      <div class="dash-stat-num" id="statXP">4280</div>
+      <div class="dash-stat-label">Total Poin XP</div>
+      <div class="dash-stat-change up">↑ Level 12</div>
+    </div>
+  </div>
+
+  <div class="dash-row reveal">
+    <div class="dash-card">
+      <div class="dash-card-title">Aktivitas Belajar — 13 Minggu <span>Lihat semua</span></div>
+      <div class="heatmap" id="heatmap"></div>
+      <div class="hmap-legend">
+        <span>Sedikit</span>
+        <div class="hmap-swatch" style="background:var(--border)"></div>
+        <div class="hmap-swatch" data-v="1" style="background:rgba(192,57,43,0.25)"></div>
+        <div class="hmap-swatch" data-v="2" style="background:rgba(192,57,43,0.45)"></div>
+        <div class="hmap-swatch" data-v="3" style="background:rgba(192,57,43,0.65)"></div>
+        <div class="hmap-swatch" data-v="4" style="background:var(--red)"></div>
+        <span>Banyak</span>
+      </div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-title">Penguasaan Materi</div>
+      <div class="ring-row" id="ringRow">
+        <div class="ring-item">
+          <div class="ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 60 60"><circle class="ring-bg" cx="30" cy="30" r="26"/><circle class="ring-fill r" id="ring1" cx="30" cy="30" r="26" style="--pct:87"/></svg>
+            <span class="ring-center">87%</span>
+          </div>
+          <div class="ring-label">Hiragana</div>
+        </div>
+        <div class="ring-item">
+          <div class="ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 60 60"><circle class="ring-bg" cx="30" cy="30" r="26"/><circle class="ring-fill g" id="ring2" cx="30" cy="30" r="26" style="--pct:73"/></svg>
+            <span class="ring-center">73%</span>
+          </div>
+          <div class="ring-label">Katakana</div>
+        </div>
+        <div class="ring-item">
+          <div class="ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 60 60"><circle class="ring-bg" cx="30" cy="30" r="26"/><circle class="ring-fill gold" id="ring3" cx="30" cy="30" r="26" style="--pct:54"/></svg>
+            <span class="ring-center">54%</span>
+          </div>
+          <div class="ring-label">Kanji N4</div>
+        </div>
+        <div class="ring-item">
+          <div class="ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 60 60"><circle class="ring-bg" cx="30" cy="30" r="26"/><circle class="ring-fill b" id="ring4" cx="30" cy="30" r="26" style="--pct:31"/></svg>
+            <span class="ring-center">31%</span>
+          </div>
+          <div class="ring-label">Kanji N3</div>
+        </div>
+        <div class="ring-item">
+          <div class="ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 60 60"><circle class="ring-bg" cx="30" cy="30" r="26"/><circle class="ring-fill r" id="ring5" cx="30" cy="30" r="26" style="--pct:18"/></svg>
+            <span class="ring-center">18%</span>
+          </div>
+          <div class="ring-label">Kanji N2</div>
+        </div>
+        <div class="ring-item">
+          <div class="ring-wrap">
+            <svg class="ring-svg" viewBox="0 0 60 60"><circle class="ring-bg" cx="30" cy="30" r="26"/><circle class="ring-fill g" id="ring6" cx="30" cy="30" r="26" style="--pct:7"/></svg>
+            <span class="ring-center">7%</span>
+          </div>
+          <div class="ring-label">Kanji N1</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="dash-row reveal">
+    <div class="dash-card">
+      <div class="dash-card-title">Kartu SRS per Hari (7 Hari ke Depan)</div>
+      <div class="bar-chart" id="barChart">
+        <!-- filled by JS -->
+      </div>
+    </div>
+    <div class="dash-card">
+      <div class="dash-card-title">Aktivitas Terbaru</div>
+      <div class="activity-list">
+        <div class="activity-item">
+          <div class="activity-icon">🃏</div>
+          <div class="activity-text">
+            <div class="activity-main">Sesi SRS — 25 kartu direview</div>
+            <div class="activity-time">2 jam lalu</div>
+          </div>
+          <div class="activity-pts">+50 XP</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon g">✅</div>
+          <div class="activity-text">
+            <div class="activity-main">Kuis Kanji — Skor 9/10</div>
+            <div class="activity-time">Kemarin, 19:30</div>
+          </div>
+          <div class="activity-pts">+90 XP</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon gold">🤖</div>
+          <div class="activity-text">
+            <div class="activity-main">Sesi AI Tutor — 15 menit</div>
+            <div class="activity-time">Kemarin, 21:00</div>
+          </div>
+          <div class="activity-pts">+30 XP</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon">📖</div>
+          <div class="activity-text">
+            <div class="activity-main">Mempelajari pola N1 〜に際して</div>
+            <div class="activity-time">2 hari lalu</div>
+          </div>
+          <div class="activity-pts">+20 XP</div>
+        </div>
+        <div class="activity-item">
+          <div class="activity-icon">🔥</div>
+          <div class="activity-text">
+            <div class="activity-main">Streak 14 hari tercapai!</div>
+            <div class="activity-time">Hari ini, 08:00</div>
+          </div>
+          <div class="activity-pts">+100 XP</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SRS FLASHCARD PAGE ═══ -->
+<div class="page" id="page-srs">
+  <div class="page-header reveal">
+    <div class="section-label">Sistem Pengulangan Terjadwal</div>
+    <div class="section-title">Flashcard SRS</div>
+    <div class="section-sub">Algoritma cerdas untuk memori jangka panjang — belajar lebih sedikit, ingat lebih lama</div>
+  </div>
+
+  <div class="srs-controls reveal">
+    <div class="srs-deck-select">
+      <button class="deck-btn active" onclick="setDeck(this,'n5')">🟢 N5 Kosakata</button>
+      <button class="deck-btn" onclick="setDeck(this,'n4')">🟡 N4 Kosakata</button>
+      <button class="deck-btn" onclick="setDeck(this,'n3')">🟠 N3 Kosakata</button>
+      <button class="deck-btn" onclick="setDeck(this,'n2')">🔴 N2 Kosakata</button>
+      <button class="deck-btn" onclick="setDeck(this,'n1')">⚫ N1 Kosakata</button>
+      <button class="deck-btn" onclick="setDeck(this,'grammar')">📝 Pola Tata Bahasa</button>
+    </div>
+    <div class="srs-queue">
+      <div class="srs-q-item">
+        <div class="srs-q-num new" id="qNew">12</div>
+        <div class="srs-q-label">Baru</div>
+      </div>
+      <div class="srs-q-item">
+        <div class="srs-q-num review" id="qReview">34</div>
+        <div class="srs-q-label">Review</div>
+      </div>
+      <div class="srs-q-item">
+        <div class="srs-q-num learn" id="qLearn">8</div>
+        <div class="srs-q-label">Belajar</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="srs-arena reveal">
+    <div class="srs-progress-bar"><div class="srs-progress-fill" id="srsProgressFill"></div></div>
+
+    <div id="srsMain">
+      <div class="flashcard-scene" id="flashcardScene" onclick="flipCard()">
+        <div class="flashcard-inner">
+          <div class="fc-face fc-front">
+            <span class="fc-level-tag" id="fcLevel">N5</span>
+            <div class="fc-word" id="fcWord">食べる</div>
+            <div style="font-size:12px;color:var(--ink-faint);display:flex;align-items:center;gap:6px;">
+              <span>👆</span><span class="fc-hint">Ketuk untuk lihat jawaban</span>
+            </div>
+          </div>
+          <div class="fc-face fc-back">
+            <span class="fc-level-tag" id="fcLevelB">N5 · Verba</span>
+            <div class="fc-word" id="fcWordB">食べる</div>
+            <div class="fc-reading" id="fcReading">たべる · taberu</div>
+            <div class="fc-meaning" id="fcMeaning">Makan (to eat)</div>
+            <div class="fc-example" id="fcExample">ご飯を食べる。<br><span style="font-size:12px;opacity:0.6">Makan nasi.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="srs-rating" id="srsRating" style="display:none">
+        <button class="rating-btn rb-again" onclick="rate('again')">
+          <span>Lupa</span><span class="r-label">Ulangi segera</span>
+        </button>
+        <button class="rating-btn rb-hard" onclick="rate('hard')">
+          <span>Sulit</span><span class="r-label">1 hari lagi</span>
+        </button>
+        <button class="rating-btn rb-good" onclick="rate('good')">
+          <span>Paham</span><span class="r-label">3 hari lagi</span>
+        </button>
+        <button class="rating-btn rb-easy" onclick="rate('easy')">
+          <span>Mudah</span><span class="r-label">7 hari lagi</span>
+        </button>
+      </div>
+
+      <div class="srs-info-row">
+        <div class="srs-info-item">
+          <div class="srs-info-dot" style="background:#3498DB"></div>
+          <span>Baru: <b id="srsNew">12</b></span>
+        </div>
+        <div class="srs-info-item">
+          <div class="srs-info-dot" style="background:var(--red)"></div>
+          <span>Review: <b id="srsDue">34</b></span>
+        </div>
+        <div class="srs-info-item">
+          <div class="srs-info-dot" style="background:var(--green)"></div>
+          <span>Benar hari ini: <b id="srsDone">0</b></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="srs-complete" id="srsComplete">
+      <div class="srs-complete-jp">完了</div>
+      <div class="srs-complete-msg">Sesi Selesai! おめでとう！</div>
+      <div class="srs-complete-sub">Anda telah mereview <b id="completedCount">0</b> kartu hari ini. Kerja bagus!</div>
+      <button class="rating-btn rb-good" style="padding:14px 32px;font-size:15px;display:inline-flex;" onclick="restartSRS()">Mulai Sesi Baru</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ AI CHATBOT PAGE ═══ -->
+<div class="page" id="page-chat">
+  <div class="page-header reveal">
+    <div class="section-label">Ditenagai Claude AI</div>
+    <div class="section-title">Tutor Bahasa Jepang AI</div>
+    <div class="section-sub">Praktik percakapan, tanya tata bahasa, dan koreksi otomatis — kapan saja</div>
+  </div>
+
+  <div class="chat-layout reveal">
+    <div class="chat-sidebar">
+      <div class="chat-sidebar-title">Topik Percakapan</div>
+      <div class="chat-topics">
+        <div class="chat-topic active" onclick="setTopic(this,'daily')">
+          <span class="chat-topic-icon">☀️</span> Percakapan Sehari-hari
+        </div>
+        <div class="chat-topic" onclick="setTopic(this,'business')">
+          <span class="chat-topic-icon">💼</span> Bahasa Bisnis
+        </div>
+        <div class="chat-topic" onclick="setTopic(this,'jlpt')">
+          <span class="chat-topic-icon">📝</span> Latihan JLPT
+        </div>
+        <div class="chat-topic" onclick="setTopic(this,'grammar')">
+          <span class="chat-topic-icon">📚</span> Tanya Tata Bahasa
+        </div>
+        <div class="chat-topic" onclick="setTopic(this,'travel')">
+          <span class="chat-topic-icon">✈️</span> Perjalanan ke Jepang
+        </div>
+        <div class="chat-topic" onclick="setTopic(this,'culture')">
+          <span class="chat-topic-icon">🎌</span> Budaya Jepang
+        </div>
+      </div>
+      <div class="chat-tips">
+        <div class="chat-tips-title">Tips Cepat</div>
+        <div class="chat-tip" onclick="quickSend('Koreksi kalimat saya ya')">💡 Minta koreksi kalimat</div>
+        <div class="chat-tip" onclick="quickSend('Jelaskan perbedaan は dan が')">💡 Tanya perbedaan partikel</div>
+        <div class="chat-tip" onclick="quickSend('Ajari saya keigo dasar')">💡 Belajar bahasa sopan</div>
+        <div class="chat-tip" onclick="quickSend('Apa ungkapan untuk minta maaf di Jepang?')">💡 Ungkapan populer</div>
+      </div>
+    </div>
+
+    <div class="chat-main">
+      <div class="chat-header">
+        <div class="chat-avatar">先</div>
+        <div class="chat-header-info">
+          <div class="chat-header-name">Sensei AI</div>
+          <div class="chat-header-status">Online — Siap membantu</div>
+        </div>
+        <div class="chat-mode-btns">
+          <button class="chat-mode-btn active" onclick="setMode(this,'normal')">Standar</button>
+          <button class="chat-mode-btn" onclick="setMode(this,'immersive')">Imersi 🇯🇵</button>
+          <button class="chat-mode-btn" onclick="setMode(this,'correction')">Koreksi ✏️</button>
+        </div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg ai">
+          <div class="msg-avatar ai">先</div>
+          <div>
+            <div class="msg-bubble">
+              こんにちは！私はあなたの日本語の先生です。<br>
+              <span style="font-size:12px;color:var(--ink-soft);">Halo! Saya guru bahasa Jepang Anda.</span>
+              <br><br>
+              Saya bisa membantu Anda dengan:
+              <br>• Percakapan sehari-hari dalam bahasa Jepang
+              <br>• Penjelasan tata bahasa dan partikel
+              <br>• Koreksi kalimat Anda
+              <br>• Latihan JLPT N5–N1
+              <br><br>
+              Mau mulai dari mana? 何を勉強したいですか？
+            </div>
+            <div class="msg-time">Sekarang</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chat-quick">
+        <button class="quick-btn" onclick="quickSend('Apa artinya よろしく？')">よろしく artinya?</button>
+        <button class="quick-btn" onclick="quickSend('Ajari saya menyapa dalam bahasa Jepang')">Cara menyapa 🙋</button>
+        <button class="quick-btn" onclick="quickSend('Saya ingin beli tiket. Bagaimana cara mengatakannya?')">Frasa belanja 🛍️</button>
+        <button class="quick-btn" onclick="quickSend('Apa perbedaan です dan ます？')">です vs ます</button>
+      </div>
+
+      <div class="chat-input-area">
+        <div class="chat-input-wrap">
+          <textarea class="chat-input" id="chatInput" placeholder="Ketik dalam bahasa Indonesia atau Jepang..." rows="1"
+            onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage()}"></textarea>
+        </div>
+        <button aria-label="Sendmessage" class="chat-send" id="chatSendBtn" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LEADERBOARD PAGE ═══ -->
+<div class="page" id="page-leaderboard">
+  <div class="page-header reveal">
+    <div class="section-label">Peringkat Mingguan</div>
+    <div class="section-title">Papan Peringkat</div>
+    <div class="section-sub">Bersaing dengan sesama pelajar dan raih posisi teratas!</div>
+  </div>
+
+  <div class="lb-header-card reveal">
+    <div class="lb-my-rank">
+      <div class="lb-my-rank-num">#7</div>
+      <div class="lb-my-rank-label" style="color:rgba(255,255,255,0.5)">Peringkat Anda Minggu Ini</div>
+      <div style="margin-top:8px;font-size:12px;color:var(--gold)">↑ Naik 3 peringkat</div>
+    </div>
+    <div class="lb-my-stats">
+      <div class="lb-my-stat">
+        <span class="lb-my-stat-label">XP Minggu Ini</span>
+        <span class="lb-my-stat-val">1,240 ✨</span>
+      </div>
+      <div class="lb-my-stat">
+        <span class="lb-my-stat-label">Rantai Belajar<span>
+        <span class="lb-my-stat-val">14 hari 🔥</span>
+      </div>
+      <div class="lb-my-stat">
+        <span class="lb-my-stat-label">Kartu SRS Review</span>
+        <span class="lb-my-stat-val">287 kartu</span>
+      </div>
+    </div>
+    <div class="lb-top3">
+      <div class="podium">
+        <div class="podium-avatar p2">AN</div>
+        <div class="podium-name">Ayu N.</div>
+        <div class="podium-pts">2,840 XP</div>
+        <div class="podium-base p2">2</div>
+      </div>
+      <div class="podium">
+        <div class="podium-avatar p1">RS<div class="podium-crown">👑</div></div>
+        <div class="podium-name">Riyan S.</div>
+        <div class="podium-pts">3,510 XP</div>
+        <div class="podium-base p1">1</div>
+      </div>
+      <div class="podium">
+        <div class="podium-avatar p3">BW</div>
+        <div class="podium-name">Budi W.</div>
+        <div class="podium-pts">2,620 XP</div>
+        <div class="podium-base p3">3</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lb-filter reveal">
+    <button class="lb-filter-btn active" onclick="setLbFilter(this)">Mingguan</button>
+    <button class="lb-filter-btn" onclick="setLbFilter(this)">Bulanan</button>
+    <button class="lb-filter-btn" onclick="setLbFilter(this)">Sepanjang Masa</button>
+    <button class="lb-filter-btn" onclick="setLbFilter(this)">Teman</button>
+  </div>
+
+  <div class="lb-table reveal" id="lbTable">
+    <!-- filled by JS -->
+  </div>
+</div>
+
+<!-- ═══ GRAMMAR N1 PAGE ═══ -->
+<div class="page" id="page-grammar">
+  <div class="page-header reveal">
+    <div class="section-label">Tata Bahasa N3-N1 — Referensi Lengkap</div>
+    <div class="section-title">Pola Tata Bahasa N3-N1</div>
+    <div class="section-sub">145 pola tata bahasa N3-N1 dengan contoh kontekstual. Klik kartu untuk penjelasan mendalam.</div>
+  </div>
+  <div class="grammar-layout reveal">
+    <div class="grammar-sidebar">
+      <input class="grammar-search" type="text" placeholder="🔍 Cari pola..." oninput="filterGrammar(this.value)" id="grammarSearch" aria-label="Cari grammar">
+      <div class="grammar-cats" id="grammarCats">
+        <div class="grammar-cat active" onclick="setGrammarCat(this,'all')">Semua Pola <span class="grammar-cat-count">232</span></div>
+        <div class="grammar-cat" onclick="setGrammarCat(this,'conditional')">Kondisional <span class="grammar-cat-count">28</span></div>
+        <div class="grammar-cat" onclick="setGrammarCat(this,'conjunction')">Konjungsi <span class="grammar-cat-count">42</span></div>
+        <div class="grammar-cat" onclick="setGrammarCat(this,'formal')">Formal/Keigo <span class="grammar-cat-count">35</span></div>
+        <div class="grammar-cat" onclick="setGrammarCat(this,'emphasis')">Penekanan <span class="grammar-cat-count">22</span></div>
+        <div class="grammar-cat" onclick="setGrammarCat(this,'time')">Waktu/Urutan <span class="grammar-cat-count">31</span></div>
+        <div class="grammar-cat" onclick="setGrammarCat(this,'cause')">Sebab-Akibat <span class="grammar-cat-count">29</span></div>
+        <div class="grammar-cat" onclick="setGrammarCat(this,'manner')">Cara/Metode <span class="grammar-cat-count">25</span></div>
+        <div class="grammar-cat" onclick="setGrammarCat(this,'limit')">Batasan <span class="grammar-cat-count">20</span></div>
+      </div>
+    </div>
+
+    <div class="grammar-content" id="grammarContent">
+      <!-- filled by JS -->
+    </div>
+  </div>
+</div>
+
+<script>
+// ── THEME ──
+function toggleTheme() {
+  const d = document.documentElement;
+  const isDark = d.getAttribute('data-theme') === 'dark';
+  d.setAttribute('data-theme', isDark ? '' : 'dark');
+  const btn = document.querySelector('.theme-toggle');
+  if (btn) btn.textContent = isDark ? '🌙' : '☀️';
+}
+
+// ── TABS ──
+function showTab(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  document.getElementById('tab-' + id).classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+  if (id === 'dashboard') initDashboard();
+  if (id === 'srs') initSRS();
+  if (id === 'leaderboard') initLeaderboard();
+  if (id === 'grammar') initGrammar();
+}
+
+// ── REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ═══════════ DASHBOARD ═══════════
+function initDashboard() {
+  buildHeatmap();
+  animateRings();
+  buildBarChart();
+}
+
+function buildHeatmap() {
+  const el = document.getElementById('heatmap');
+  if (el.children.length > 0) return;
+  for (let w = 0; w < 13; w++) {
+    const col = document.createElement('div');
+    col.className = 'hmap-col';
+    for (let d = 0; d < 7; d++) {
+      const cell = document.createElement('div');
+      cell.className = 'hmap-cell';
+      const r = Math.random();
+      const v = r > 0.35 ? (r > 0.6 ? (r > 0.8 ? (r > 0.92 ? 4 : 3) : 2) : 1) : 0;
+      if (v > 0) cell.setAttribute('data-v', v);
+      col.appendChild(cell);
+    }
+    el.appendChild(col);
+  }
+}
+
+function animateRings() {
+  const rings = [
+    {id:'ring1', pct:87}, {id:'ring2', pct:73}, {id:'ring3', pct:54},
+    {id:'ring4', pct:31}, {id:'ring5', pct:18}, {id:'ring6', pct:7}
+  ];
+  rings.forEach(({id, pct}) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const offset = 163 - (163 * pct / 100);
+    setTimeout(() => { el.style.strokeDashoffset = offset; }, 300);
+  });
+}
+
+function buildBarChart() {
+  const bc = document.getElementById('barChart');
+  if (bc.children.length > 0) return;
+  const days = ['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
+  const vals = [45, 62, 30, 88, 55, 40, 72];
+  const max = Math.max(...vals);
+  days.forEach((d, i) => {
+    const wrap = document.createElement('div');
+    wrap.className = 'bar-wrap';
+    const bar = document.createElement('div');
+    bar.className = 'bar' + (i === 4 ? ' today' : '');
+    const h = Math.round((vals[i] / max) * 85);
+    bar.style.height = '8px';
+    bar.title = vals[i] + ' kartu';
+    const num = document.createElement('div');
+    num.className = 'bar-num';
+    num.textContent = vals[i];
+    const day = document.createElement('div');
+    day.className = 'bar-day';
+    day.textContent = d;
+    wrap.appendChild(num);
+    wrap.appendChild(bar);
+    wrap.appendChild(day);
+    bc.appendChild(wrap);
+    setTimeout(() => { bar.style.height = h + 'px'; }, 400 + i * 60);
+  });
+}
+
+initDashboard();
+
+// ═══════════ SRS ═══════════
+const srsDecks = {
+  n5: [
+    { word:'食べる', level:'N5', type:'Verba', reading:'たべる · taberu', meaning:'Makan', example:'ご飯を食べる。\nMakan nasi.' },
+    { word:'飲む', level:'N5', type:'Verba', reading:'のむ · nomu', meaning:'Minum', example:'水を飲む。\nMinum air.' },
+    { word:'行く', level:'N5', type:'Verba', reading:'いく · iku', meaning:'Pergi', example:'学校に行く。\nPergi ke sekolah.' },
+    { word:'見る', level:'N5', type:'Verba', reading:'みる · miru', meaning:'Melihat', example:'映画を見る。\nMenonton film.' },
+    { word:'来る', level:'N5', type:'Verba', reading:'くる · kuru', meaning:'Datang', example:'友達が来る。\nTeman datang.' },
+    { word:'帰る', level:'N5', type:'Verba', reading:'かえる · kaeru', meaning:'Pulang', example:'家に帰る。\nPulang ke rumah.' },
+    { word:'話す', level:'N5', type:'Verba', reading:'はなす · hanasu', meaning:'Berbicara', example:'日本語を話す。\nBerbicara bahasa Jepang.' },
+    { word:'書く', level:'N5', type:'Verba', reading:'かく · kaku', meaning:'Menulis', example:'手紙を書く。\nMenulis surat.' },
+    { word:'読む', level:'N5', type:'Verba', reading:'よむ · yomu', meaning:'Membaca', example:'本を読む。\nMembaca buku.' },
+    { word:'買う', level:'N5', type:'Verba', reading:'かう · kau', meaning:'Membeli', example:'服を買う。\nMembeli baju.' },
+    { word:'大きい', level:'N5', type:'い-Adj', reading:'おおきい · ookii', meaning:'Besar', example:'大きい犬がいる。\nAda anjing besar.' },
+    { word:'小さい', level:'N5', type:'い-Adj', reading:'ちいさい · chiisai', meaning:'Kecil', example:'小さいねこ。\nKucing kecil.' },
+    { word:'新しい', level:'N5', type:'い-Adj', reading:'あたらしい · atarashii', meaning:'Baru', example:'新しい本を買った。\nMembeli buku baru.' },
+    { word:'古い', level:'N5', type:'い-Adj', reading:'ふるい · furui', meaning:'Lama/Kuno', example:'古い建物。\nBangunan kuno.' },
+    { word:'高い', level:'N5', type:'い-Adj', reading:'たかい · takai', meaning:'Mahal/Tinggi', example:'このかばんは高い。\nTas ini mahal.' },
+    { word:'安い', level:'N5', type:'い-Adj', reading:'やすい · yasui', meaning:'Murah', example:'このお店は安い。\nToko ini murah.' },
+    { word:'楽しい', level:'N5', type:'い-Adj', reading:'たのしい · tanoshii', meaning:'Menyenangkan', example:'旅行は楽しい。\nPerjalanan menyenangkan.' },
+    { word:'難しい', level:'N5', type:'い-Adj', reading:'むずかしい · muzukashii', meaning:'Sulit', example:'漢字は難しい。\nKanji sulit.' },
+    { word:'空港', level:'N5', type:'Nomina', reading:'くうこう · kuukou', meaning:'Bandara', example:'空港へ行きます。\nPergi ke bandara.' },
+    { word:'電車', level:'N5', type:'Nomina', reading:'でんしゃ · densha', meaning:'Kereta listrik', example:'電車で行きます。\nPergi naik kereta.' },
+    { word:'病院', level:'N5', type:'Nomina', reading:'びょういん · byouin', meaning:'Rumah sakit', example:'病院に行きます。\nPergi ke rumah sakit.' },
+    { word:'郵便局', level:'N5', type:'Nomina', reading:'ゆうびんきょく · yuubinkyoku', meaning:'Kantor pos', example:'郵便局はどこですか。\nKantor pos ada di mana?' },
+    { word:'図書館', level:'N5', type:'Nomina', reading:'としょかん · toshokan', meaning:'Perpustakaan', example:'図書館で勉強します。\nBelajar di perpustakaan.' },
+
+    { word:'聞く', level:'N5', type:'Verba', reading:'きく · kiku', meaning:'Mendengar/Bertanya', example:'音楽を聞きます。\nMendengarkan musik.' },
+    { word:'結局', level:'N3', type:'副詞', reading:'けっきょく · kekkyoku', meaning:'Akhirnya / Pada akhirnya', example:'結局どうなったの？\nAkhirnya jadi bagaimana?' },
+    { word:'急に', level:'N3', type:'副詞', reading:'きゅうに · kyuu ni', meaning:'Tiba-tiba / Mendadak', example:'急に雨が降ってきた。\nTiba-tiba hujan turun.' },
+    { word:'もちろん', level:'N4', type:'副詞', reading:'もちろん · mochiron', meaning:'Tentu saja / Sudah pasti', example:'もちろん行きます。\nTentu saja saya pergi.' },
+    { word:'なるべく', level:'N3', type:'副詞', reading:'なるべく · narubeku', meaning:'Sedapat mungkin / Kalau bisa', example:'なるべく早く来てください。\nSedapat mungkin datang cepat.' },
+    { word:'びっくり', level:'N4', type:'表現', reading:'びっくり · bikkuri', meaning:'Terkejut / Kaget', example:'びっくりした！\nSaya kaget!' },
+    { word:'ぜひ', level:'N4', type:'副詞', reading:'ぜひ · zehi', meaning:'Mohon / Tolong sekali / Pasti', example:'ぜひ来てください。\nMohon datang.' },
+  ],
+  n4: [
+    { word:'経験', level:'N4', type:'Nomina', reading:'けいけん · keiken', meaning:'Pengalaman', example:'海外経験がある。\nAda pengalaman luar negeri.' },
+    { word:'正直', level:'N4', type:'な-Adj/Nomina', reading:'しょうじき · shoujiki', meaning:'Jujur', example:'正直に話してください。\nTolong berbicara jujur.' },
+    { word:'失敗', level:'N4', type:'Nomina/Verba', reading:'しっぱい · shippai', meaning:'Gagal/Kegagalan', example:'失敗から学ぶ。\nBelajar dari kegagalan.' },
+    { word:'集中', level:'N4', type:'Nomina/Verba', reading:'しゅうちゅう · shuuchuu', meaning:'Konsentrasi', example:'勉強に集中する。\nKonsentrasi belajar.' },
+    { word:'自信', level:'N4', type:'Nomina', reading:'じしん · jishin', meaning:'Kepercayaan diri', example:'自信を持ってください。\nPercayalah pada diri sendiri.' },
+    { word:'準備', level:'N4', type:'Nomina', reading:'じゅんび · junbi', meaning:'Persiapan', example:'準備ができた。\nPersiapan sudah siap.' },
+    { word:'連絡', level:'N4', type:'Nomina/Verba', reading:'れんらく · renraku', meaning:'Kabar/Menghubungi', example:'連絡してください。\nTolong hubungi.' },
+    { word:'説明', level:'N4', type:'Nomina/Verba', reading:'せつめい · setsumei', meaning:'Penjelasan', example:'もう一度説明してください。\nTolong jelaskan sekali lagi.' },
+    { word:'覚える', level:'N4', type:'Verba', reading:'おぼえる · oboeru', meaning:'Mengingat/Menghafal', example:'新しい単語を覚える。\nMenghafal kosakata baru.' },
+    { word:'忘れる', level:'N4', type:'Verba', reading:'わすれる · wasureru', meaning:'Melupakan', example:'宿題を忘れた。\nLupa PR.' },
+    { word:'始める', level:'N4', type:'Verba', reading:'はじめる · hajimeru', meaning:'Memulai', example:'勉強を始める。\nMulai belajar.' },
+    { word:'続ける', level:'N4', type:'Verba', reading:'つづける · tsuzukeru', meaning:'Melanjutkan', example:'毎日続ける。\nTerus setiap hari.' },
+    { word:'決める', level:'N4', type:'Verba', reading:'きめる · kimeru', meaning:'Memutuskan', example:'場所を決める。\nMemutuskan tempat.' },
+    { word:'心配', level:'N4', type:'Nomina/な-Adj', reading:'しんぱい · shinpai', meaning:'Khawatir', example:'心配しないで。\nJangan khawatir.' },
+    { word:'便利', level:'N4', type:'な-Adj', reading:'べんり · benri', meaning:'Praktis/Berguna', example:'スマホは便利だ。\nSmartphone itu praktis.' },
+    { word:'丁寧', level:'N4', type:'な-Adj', reading:'ていねい · teinei', meaning:'Sopan/Teliti', example:'丁寧に話す。\nBerbicara dengan sopan.' },
+
+    { word:'正直', level:'N4', type:'な-Adj/Nomina', reading:'しょうじき · shoujiki', meaning:'Jujur / Kejujuran', example:'正直に話してください。\nTolong berbicara jujur.' },
+    { word:'自由', level:'N4', type:'な-Adj/Nomina', reading:'じゆう · jiyuu', meaning:'Bebas / Kebebasan', example:'自由に使ってください。\nSilakan gunakan dengan bebas.' },
+    { word:'必要', level:'N4', type:'な-Adj/Nomina', reading:'ひつよう · hitsuyou', meaning:'Perlu / Kebutuhan', example:'練習が必要です。\nLatihan itu perlu.' },
+    { word:'連絡', level:'N4', type:'Nomina/Verba', reading:'れんらく · renraku', meaning:'Kontak / Menghubungi', example:'後で連絡します。\nAkan menghubungi nanti.' },
+    { word:'説明', level:'N4', type:'Nomina/Verba', reading:'せつめい · setsumei', meaning:'Penjelasan', example:'詳しく説明する。\nMenjelaskan secara rinci.' },
+    { word:'結局', level:'N3', type:'副詞', reading:'けっきょく · kekkyoku', meaning:'Akhirnya / Pada akhirnya', example:'結局、どうなった？\nAkhirnya jadi bagimana?' },
+    { word:'もちろん', level:'N4', type:'副詞', reading:'もちろん · mochiron', meaning:'Tentu saja / Sudah pasti', example:'もちろん行きます。\nTentu saja saya pergi.' },
+    { word:'なるべく', level:'N3', type:'副詞', reading:'なるべく · narubeku', meaning:'Sedapat mungkin / Kalau bisa', example:'なるべく早く来てください。\nSedapat mungkin datang cepat.' },
+    { word:'ぜひ', level:'N4', type:'副詞', reading:'ぜひ · zehi', meaning:'Mohon / Tolong sekali', example:'ぜひ来てください。\nMohon datang.' },
+
+    { word:'決まる', level:'N4', type:'語彙', reading:'きまる', meaning:'Sudah ditetapkan/ditentukan', example:'日程が決まった。' },
+    { word:'集まる', level:'N4', type:'語彙', reading:'あつまる', meaning:'Berkumpul', example:'みんなが集まった。' },
+    { word:'比べる', level:'N4', type:'語彙', reading:'くらべる', meaning:'Membandingkan', example:'2つを比べる。' },
+    { word:'続ける', level:'N4', type:'語彙', reading:'つづける', meaning:'Melanjutkan/meneruskan', example:'勉強を続ける。' },
+    { word:'増える', level:'N4', type:'語彙', reading:'ふえる', meaning:'Bertambah/meningkat', example:'人口が増えた。' },  ],
+  n3: [
+    { word:'影響', level:'N3', type:'Nomina', reading:'えいきょう · eikyou', meaning:'Pengaruh', example:'気候変動の影響。\nPengaruh perubahan iklim.' },
+    { word:'机', level:'N3', type:'Nomina', reading:'つくえ · tsukue', meaning:'Meja', example:'机の上に本がある。\nAda buku di atas meja.' },
+    { word:'悩む', level:'N3', type:'Verba', reading:'なやむ · nayamu', meaning:'Bingung/Galau', example:'仕事について悩んでいます。\nSedang galau soal pekerjaan.' },
+    { word:'改善', level:'N3', type:'Nomina/Verba', reading:'かいぜん · kaizen', meaning:'Perbaikan', example:'状況を改善する。\nMemperbaiki situasi.' },
+    { word:'認める', level:'N3', type:'Verba', reading:'みとめる · mitomeru', meaning:'Mengakui/Menerima', example:'ミスを認めた。\nMengakui kesalahan.' },
+    { word:'状況', level:'N3', type:'Nomina', reading:'じょうきょう · joukyou', meaning:'Situasi/Kondisi', example:'現在の状況。\nSituasi saat ini.' },
+    { word:'目的', level:'N3', type:'Nomina', reading:'もくてき · mokuteki', meaning:'Tujuan', example:'目的を持って学ぶ。\nBelajar dengan tujuan.' },
+    { word:'方法', level:'N3', type:'Nomina', reading:'ほうほう · houhou', meaning:'Cara/Metode', example:'効率的な方法。\nCara yang efisien.' },
+    { word:'必要', level:'N3', type:'な-Adj/Nomina', reading:'ひつよう · hitsuyou', meaning:'Perlu/Diperlukan', example:'練習が必要だ。\nLatihan diperlukan.' },
+    { word:'可能', level:'N3', type:'な-Adj/Nomina', reading:'かのう · kanou', meaning:'Mungkin/Bisa', example:'それは可能です。\nItu mungkin.' },
+    { word:'判断', level:'N3', type:'Nomina/Verba', reading:'はんだん · handan', meaning:'Penilaian/Keputusan', example:'自分で判断する。\nMenilai sendiri.' },
+    { word:'比較', level:'N3', type:'Nomina/Verba', reading:'ひかく · hikaku', meaning:'Perbandingan', example:'二つを比較する。\nMembandingkan keduanya.' },
+    { word:'達成', level:'N3', type:'Nomina/Verba', reading:'たっせい · tassei', meaning:'Pencapaian', example:'目標を達成する。\nMencapai target.' },
+    { word:'発展', level:'N3', type:'Nomina/Verba', reading:'はってん · hatten', meaning:'Perkembangan', example:'技術の発展。\nPerkembangan teknologi.' },
+
+    { word:'確認', level:'N3', type:'Nomina/Verba', reading:'かくにん · kakunin', meaning:'Konfirmasi / Memastikan', example:'内容を確認します。\nMemastikan isinya.' },
+    { word:'課題', level:'N3', type:'Nomina', reading:'かだい · kadai', meaning:'Tugas / Tantangan', example:'課題を解決する。\nMenyelesaikan tantangan.' },
+    { word:'注目', level:'N3', type:'Nomina/Verba', reading:'ちゅうもく · chuumoku', meaning:'Perhatian / Memperhatikan', example:'世界が注目している。\nDunia memperhatikan.' },
+    { word:'見直す', level:'N3', type:'Verba', reading:'みなおす · minaosu', meaning:'Meninjau ulang', example:'計画を見直す。\nMeninjau ulang rencana.' },
+    { word:'取り組む', level:'N3', type:'Verba', reading:'とりくむ · torikumu', meaning:'Menangani / Menghadapi', example:'問題に取り組む。\nMenangani masalah.' },
+    { word:'背景', level:'N3', type:'Nomina', reading:'はいけい · haikei', meaning:'Latar belakang', example:'背景を理解する。\nMemahami latar belakang.' },
+    { word:'むしろ', level:'N3', type:'副詞', reading:'むしろ · mushiro', meaning:'Justru / Malah / Lebih baik', example:'むしろそのほうがいい。\nJustru itu lebih baik.' },
+    { word:'さらに', level:'N3', type:'副詞', reading:'さらに · sara ni', meaning:'Lebih lagi / Bahkan', example:'さらに努力が必要だ。\nPerlu usaha yang lebih lagi.' },
+    { word:'一方', level:'N3', type:'接続', reading:'いっぽう · ippou', meaning:'Di sisi lain / Sementara itu', example:'一方、問題もある。\nDi sisi lain, ada masalah juga.' },
+    { word:'ところが', level:'N3', type:'接続', reading:'ところが · tokoroga', meaning:'Namun / Ternyata (kontras kuat)', example:'頑張った。ところが、失敗した。\nSudah berusaha. Namun ternyata gagal.' },    { word:'自然', level:'N3', type:'語彙', reading:'しぜん', meaning:'Alam/Natural', example:'自然が好き。' },
+    { word:'政治', level:'N3', type:'語彙', reading:'せいじ', meaning:'Politik', example:'政治に興味がある。' },
+    { word:'経済', level:'N3', type:'語彙', reading:'けいざい', meaning:'Ekonomi', example:'経済が成長する。' },
+    { word:'文化', level:'N3', type:'語彙', reading:'ぶんか', meaning:'Budaya', example:'日本の文化を学ぶ。' },
+    { word:'科学', level:'N3', type:'語彙', reading:'かがく', meaning:'Ilmu pengetahuan', example:'科学が発展する。' },
+    { word:'技術', level:'N3', type:'語彙', reading:'ぎじゅつ', meaning:'Teknologi/Keterampilan', example:'技術を磨く。' }
+  ],
+  n2: [
+    { word:'概念', level:'N2', type:'Nomina', reading:'がいねん · gainen', meaning:'Konsep/Ide Abstrak', example:'難しい概念を理解する。\nMemahami konsep sulit.' },
+    { word:'促進', level:'N2', type:'Nomina/Verba', reading:'そくしん · sokushin', meaning:'Promosi/Mendorong', example:'経済発展を促進する。\nMendorong pertumbuhan ekonomi.' },
+    { word:'維持', level:'N2', type:'Nomina/Verba', reading:'いじ · iji', meaning:'Pemeliharaan/Menjaga', example:'現状を維持する。\nMenjaga status quo.' },
+    { word:'傾向', level:'N2', type:'Nomina', reading:'けいこう · keikou', meaning:'Kecenderungan/Tren', example:'最近の傾向。\nTren terkini.' },
+    { word:'批判', level:'N2', type:'Nomina/Verba', reading:'ひはん · hihan', meaning:'Kritik', example:'建設的な批判。\nKritik yang konstruktif.' },
+    { word:'根拠', level:'N2', type:'Nomina', reading:'こんきょ · konkyo', meaning:'Dasar/Bukti', example:'根拠を示す。\nMenunjukkan bukti.' },
+    { word:'懸念', level:'N2', type:'Nomina/Verba', reading:'けねん · kenen', meaning:'Kekhawatiran', example:'環境問題への懸念。\nKekhawatiran terhadap masalah lingkungan.' },
+    { word:'配慮', level:'N2', type:'Nomina/Verba', reading:'はいりょ · hairyo', meaning:'Pertimbangan/Kepedulian', example:'相手への配慮。\nKepedulian terhadap orang lain.' },
+
+    { word:'一方', level:'N2', type:'Konj/Nomina', reading:'いっぽう · ippou', meaning:'Di sisi lain/Sementara', example:'便利な一方でリスクもある。\nDi satu sisi berguna, tapi ada risikonya.' },
+    { word:'整備', level:'N2', type:'Nomina/Verba', reading:'せいび · seibi', meaning:'Persiapan/Pemeliharaan', example:'制度の整備が必要だ。\nDiperlukan persiapan sistem.' },
+
+    { word:'適切', level:'N2', type:'な-Adj', reading:'てきせつ · tekisetsu', meaning:'Tepat / Sesuai', example:'適切な対応をする。\nMemberi respons yang tepat.' },
+    { word:'解決', level:'N2', type:'Nomina/Verba', reading:'かいけつ · kaiketsu', meaning:'Penyelesaian / Memecahkan', example:'問題を解決する。\nMemecahkan masalah.' },
+    { word:'対応', level:'N2', type:'Nomina/Verba', reading:'たいおう · taiou', meaning:'Respons / Menangani', example:'迅速に対応する。\nMerespons dengan cepat.' },
+    { word:'連携', level:'N2', type:'Nomina/Verba', reading:'れんけい · renkei', meaning:'Koordinasi / Bekerja sama', example:'部門と連携する。\nBerkoordinasi dengan departemen.' },
+    { word:'効率', level:'N2', type:'Nomina', reading:'こうりつ · kouritsu', meaning:'Efisiensi', example:'効率を上げる。\nMeningkatkan efisiensi.' },
+    { word:'提案', level:'N2', type:'Nomina/Verba', reading:'ていあん · teian', meaning:'Proposal / Mengusulkan', example:'新しい提案をする。\nMembuat proposal baru.' },
+    { word:'仮説', level:'N2', type:'Nomina', reading:'かせつ · kasetsu', meaning:'Hipotesis', example:'仮説を立てる。\nMembuat hipotesis.' },
+    { word:'貢献', level:'N2', type:'Nomina/Verba', reading:'こうけん · kouken', meaning:'Kontribusi', example:'社会に貢献する。\nBerkontribusi pada masyarakat.' },
+    { word:'矛盾', level:'N2', type:'Nomina/Verba', reading:'むじゅん · mujun', meaning:'Kontradiksi', example:'矛盾している。\nSaling bertentangan.' },
+    { word:'概念', level:'N2', type:'Nomina', reading:'がいねん · gainen', meaning:'Konsep', example:'概念を理解する。\nMemahami konsep.' },
+    { word:'懸念', level:'N2', type:'名詞', reading:'けねん · kenen', meaning:'Kekhawatiran / Keprihatinan', example:'環境への懸念が高まる。\nKekhawatiran tentang lingkungan meningkat.' },
+    { word:'顕著', level:'N2', type:'形容動詞', reading:'けんちょ · kencho', meaning:'Mencolok / Sangat jelas / Signifikan', example:'顕著な改善が見られる。\nPerbaikan yang signifikan terlihat.' },
+    { word:'斬新', level:'N2', type:'形容動詞', reading:'ざんしん · zanshin', meaning:'Sangat baru / Inovatif / Orisinal', example:'斬新なアイデアを提案した。\nMengusulkan ide yang sangat inovatif.' },
+    { word:'真摯', level:'N2', type:'形容動詞', reading:'しんし · shinshi', meaning:'Tulus / Serius dan jujur', example:'真摯に向き合う。\nMenghadapi dengan tulus dan serius.' },    { word:'状況', level:'N2', type:'語彙', reading:'じょうきょう', meaning:'Situasi/Keadaan', example:'状況を把握する。' },
+    { word:'影響', level:'N2', type:'語彙', reading:'えいきょう', meaning:'Pengaruh/Dampak', example:'環境に影響を与える。' },
+    { word:'提案', level:'N2', type:'語彙', reading:'ていあん', meaning:'Usulan/Proposal', example:'新しい提案をする。' },
+    { word:'確認', level:'N2', type:'語彙', reading:'かくにん', meaning:'Konfirmasi/Pengecekan', example:'内容を確認する。' },
+    { word:'対応', level:'N2', type:'語彙', reading:'たいおう', meaning:'Respons/Penanganan', example:'問題に対応する。' },
+    { word:'評価', level:'N2', type:'語彙', reading:'ひょうか', meaning:'Evaluasi/Penilaian', example:'仕事を評価する。' }
+  ],
+  n1: [
+    { word:'妥当', level:'N1', type:'な-Adj/Nomina', reading:'だとう · datou', meaning:'Wajar/Layak', example:'妥当な判断。\nPenilaian yang wajar.' },
+    { word:'脆弱', level:'N1', type:'な-Adj', reading:'ぜいじゃく · zeijaku', meaning:'Rapuh/Rentan', example:'脆弱なシステム。\nSistem yang rentan.' },
+    { word:'顕著', level:'N1', type:'な-Adj', reading:'けんちょ · kencho', meaning:'Menonjol/Jelas', example:'顕著な差がある。\nAda perbedaan yang jelas.' },
+    { word:'錯覚', level:'N1', type:'Nomina', reading:'さっかく · sakkaku', meaning:'Ilusi/Kesalahpahaman', example:'視覚的な錯覚。\nIlusi visual.' },
+    { word:'是非', level:'N1', type:'Adv/Nomina', reading:'ぜひ · zehi', meaning:'Pasti/Pro-kontra', example:'ぜひ来てください。\nPasti datang ya.' },
+    { word:'曖昧', level:'N1', type:'な-Adj', reading:'あいまい · aimai', meaning:'Ambigu/Tidak Jelas', example:'曖昧な表現。\nEkspresi yang ambigu.' },
+    { word:'柔軟', level:'N1', type:'な-Adj', reading:'じゅうなん · juunan', meaning:'Fleksibel/Lentur', example:'柔軟な対応。\nRespons yang fleksibel.' },
+    { word:'抑制', level:'N1', type:'Nomina/Verba', reading:'よくせい · yokusei', meaning:'Pengendalian/Menekan', example:'感情を抑制する。\nMengendalikan emosi.' },
+
+    { word:'卓越', level:'N1', type:'Nomina/Verba', reading:'たくえつ · takuetsu', meaning:'Luar biasa / Unggul', example:'卓越した才能を持つ。\nMemiliki bakat yang luar biasa.' },
+    { word:'曖昧', level:'N1', type:'な-Adj', reading:'あいまい · aimai', meaning:'Ambigu / Tidak jelas', example:'曖昧な表現を避ける。\nMenghindari ekspresi yang ambigu.' },
+    { word:'縮小', level:'N1', type:'Nomina/Verba', reading:'しゅくしょう · shukushou', meaning:'Pengurangan / Penyusutan', example:'規模を縮小する。\nMengurangi skala.' },
+    { word:'逆境', level:'N1', type:'Nomina', reading:'ぎゃっきょう · gyakkyou', meaning:'Kondisi buruk / Kemalangan', example:'逆境に負けない。\nTidak menyerah pada kemalangan.' },
+    { word:'俯瞰', level:'N1', type:'Nomina/Verba', reading:'ふかん · fukan', meaning:'Pandangan dari atas / Tinjauan menyeluruh', example:'全体を俯瞰する。\nMeninjau keseluruhan.' },
+    { word:'煩雑', level:'N1', type:'な-Adj', reading:'はんざつ · hanzatsu', meaning:'Rumit / Berantakan', example:'煩雑な手続きを簡素化する。\nMenyederhanakan prosedur yang rumit.' },
+    { word:'転換', level:'N1', type:'Nomina/Verba', reading:'てんかん · tenkan', meaning:'Perubahan arah / Konversi', example:'政策を転換する。\nMengubah arah kebijakan.' },
+    { word:'斬新', level:'N1', type:'な-Adj', reading:'ざんしん · zanshin', meaning:'Sangat baru / Inovatif', example:'斬新なアイデアを提案する。\nMengusulkan ide yang sangat inovatif.' },
+    { word:'陥る', level:'N1', type:'Verba', reading:'おちいる · ochiiru', meaning:'Jatuh ke dalam / Terperangkap', example:'罠に陥る。\nTerperangkap dalam jebakan.' },
+    { word:'打開', level:'N1', type:'Nomina/Verba', reading:'だかい · dakai', meaning:'Terobosan / Memecah kebuntuan', example:'状況を打開する。\nMemecah kebuntuan situasi.' },
+    { word:'鑑みる', level:'N1', type:'Verba', reading:'かんがみる · kangamiru', meaning:'Mengingat / Mempertimbangkan', example:'状況に鑑みて判断する。\nMenilai dengan mempertimbangkan situasi.' },
+    { word:'普遍', level:'N1', type:'な-Adj/Nomina', reading:'ふへん · fuhen', meaning:'Universal / Menyeluruh', example:'普遍的な価値観を持つ。\nMemiliki nilai universal.' },
+    { word:'俯瞰', level:'N1', type:'名詞・動詞', reading:'ふかん · fukan', meaning:'Tinjauan dari atas / Pandangan menyeluruh', example:'問題を俯瞰して考える。\nMemikirkan masalah dari sudut pandang yang luas.' },
+    { word:'醸成', level:'N1', type:'動詞', reading:'じょうせい · jousei', meaning:'Menciptakan perlahan / Menumbuhkan (suasana)', example:'信頼関係を醸成する。\nMenumbuhkan hubungan saling percaya.' },
+    { word:'矛盾', level:'N2', type:'名詞', reading:'むじゅん · mujun', meaning:'Kontradiksi / Inkonsisten', example:'発言に矛盾がある。\nAda kontradiksi dalam pernyataannya.' },
+    { word:'紆余曲折', level:'N1', type:'名詞', reading:'うよきょくせつ · uyo kyokusetsu', meaning:'Berliku-liku / Penuh rintangan', example:'紆余曲折を経てついに完成した。\nAkhirnya selesai setelah melewati banyak rintangan.' },    { word:'概念', level:'N1', type:'語彙', reading:'がいねん', meaning:'Konsep/Gagasan', example:'抽象的な概念。' },
+    { word:'矛盾', level:'N1', type:'語彙', reading:'むじゅん', meaning:'Kontradiksi/Paradoks', example:'矛盾した発言。' },
+    { word:'本質', level:'N1', type:'語彙', reading:'ほんしつ', meaning:'Esensi/Inti sari', example:'問題の本質を掴む。' },
+    { word:'曖昧', level:'N1', type:'語彙', reading:'あいまい', meaning:'Ambigu/Tidak jelas', example:'曖昧な表現を避ける。' },
+    { word:'逆説', level:'N1', type:'語彙', reading:'ぎゃくせつ', meaning:'Paradoks/Ironi', example:'逆説的な真実。' },
+    { word:'妥協', level:'N1', type:'語彙', reading:'だきょう', meaning:'Kompromi', example:'妥協せずに戦う。' }
+  ],
+  grammar: [
+    { word:'〜ので', level:'N5', type:'Pola Grammar', reading:'〜ので · node', meaning:'Karena ~ (sopan/objektif)', example:'雨なので、傘を持ちます。\nKarena hujan, bawa payung.' },
+    { word:'〜のに', level:'N4', type:'Pola Grammar', reading:'〜の に · noni', meaning:'Walaupun/Padahal ~ (kontras)', example:'頑張ったのに合格できなかった。\nPadahal sudah berusaha, tidak lulus.' },
+    { word:'〜ながら', level:'N4', type:'Pola Grammar', reading:'〜ながら · nagara', meaning:'Sambil ~ / sementara ~', example:'音楽を聞きながら勉強する。\nBelajar sambil mendengar musik.' },
+    { word:'〜ようになる', level:'N3', type:'Pola Grammar', reading:'〜よ う に な る · you ni naru', meaning:'Menjadi bisa/terbiasa (perubahan)', example:'日本語が話せるようになった。\nJadi bisa berbicara bahasa Jepang.' },
+    { word:'〜にもかかわらず', level:'N3', type:'Pola Grammar', reading:'〜に も か か わ ら ず · ni mo kakawarazu', meaning:'Walaupun ~ (formal)', example:'雨にもかかわらず来てくれた。\nWalaupun hujan, tetap datang.' },
+    { word:'〜ざるを得ない', level:'N2', type:'Pola Grammar', reading:'〜ざるをえない · zaruwoenai', meaning:'Terpaksa ~ / tidak bisa tidak ~', example:'行かざるを得ない状況だ。\nSituasi memaksa untuk pergi.' },
+    { word:'〜に基づいて', level:'N2', type:'Pola Grammar', reading:'〜にもとづいて · ni motozuite', meaning:'Berdasarkan ~', example:'データに基づいて判断する。\nMenilai berdasarkan data.' },
+    { word:'〜に伴って', level:'N2', type:'Pola Grammar', reading:'〜にともなって · ni tomonatte', meaning:'Seiring dengan ~', example:'高齢化に伴って問題が増えた。\nSeiring penuaan, masalah bertambah.' },
+    { word:'〜どころか', level:'N2', type:'Pola Grammar', reading:'〜どころか · dokoroka', meaning:'Jangankan ~ / bahkan ~', example:'歩くどころか立てない。\nJangankan berjalan, berdiri pun tidak bisa.' },
+    { word:'〜ならでは', level:'N1', type:'Pola Grammar', reading:'〜ならでは · naradewa', meaning:'Khas ~ / hanya ~ yang bisa', example:'京都ならではの雰囲気がある。\nAda nuansa khas Kyoto.' },
+    { word:'〜にほかならない', level:'N1', type:'Pola Grammar', reading:'〜にほかならない · ni hokanarانai', meaning:'Tidak lain adalah ~', example:'これは努力の結果にほかならない。\nIni tidak lain adalah hasil kerja keras.' },
+    { word:'〜とはいえ', level:'N1', type:'Pola Grammar', reading:'〜とはいえ · tohaie', meaning:'Walaupun demikian ~', example:'失敗したとはいえ良い経験になった。\nWalaupun gagal, jadi pengalaman baik.' },
+
+    { word:'〜ものの', level:'N2', type:'Penghubung', reading:'ものの · monono', meaning:'Walaupun ~ (kenyataan berlawanan)', example:'頑張ったものの、失敗した。\nWalaupun berusaha, gagal juga.' },
+    { word:'〜一方だ', level:'N2', type:'Tren', reading:'いっぽうだ · ippou da', meaning:'Semakin ~ / terus menerus ~ (tren)', example:'物価が上がる一方だ。\nHarga terus naik tanpa henti.' },
+    { word:'〜すら', level:'N1', type:'Penekanan', reading:'すら · sura', meaning:'Bahkan ~ pun (lebih kuat dari さえ)', example:'子供すら知っている。\nBahkan anak-anak pun tahu.' },
+    { word:'〜かたわら', level:'N1', type:'Paralel', reading:'かたわら · katawara', meaning:'Sambil juga ~ / di samping ~ juga', example:'仕事のかたわら勉強している。\nSambil bekerja, juga belajar.' },
+    { word:'〜ずくめ', level:'N1', type:'Keseluruhan', reading:'ずくめ · zukume', meaning:'Penuh dengan ~ / serba ~', example:'今日はいいことずくめだ。\nHari ini serba menyenangkan.' },
+    { word:'〜をおいて', level:'N1', type:'Eksklusif', reading:'をおいて · wo oite', meaning:'Selain ~ tidak ada / hanya ~ yang bisa', example:'彼をおいてできる人はいない。\nTidak ada yang bisa selain dia.' },
+    { word:'〜にわたって', level:'N2', type:'Jangkauan', reading:'にわたって · ni watatte', meaning:'Sepanjang ~ / mencakup ~ (rentang luas)', example:'3日間にわたって交渉した。\nBernegosiasi selama 3 hari penuh.' },
+    { word:'〜かねない', level:'N2', type:'Risiko', reading:'かねない · kanenai', meaning:'Bisa jadi ~ (risiko negatif)', example:'このままでは失敗しかねない。\nKalau begini terus, bisa jadi gagal.' },
+
+    { word:'〜にもかかわらず', level:'N1', type:'接続', reading:'にもかかわらず', meaning:'Walaupun ~ (kontras kuat, formal)', example:'努力したにもかかわらず失敗した。\nWalaupun sudah berusaha, tetap gagal.' },
+    { word:'〜てやまない', level:'N1', type:'表現', reading:'てやまない', meaning:'Tidak pernah berhenti ~ (perasaan tulus)', example:'成功を願ってやまない。\nSelalu berdoa agar sukses.' },
+    { word:'〜あっての', level:'N1', type:'表現', reading:'あっての', meaning:'Berkat ~/hanya bisa ada karena ~', example:'皆さんあっての会社です。\nPerusahaan ini ada berkat semua orang.' },
+    { word:'〜ないまでも', level:'N1', type:'表現', reading:'ないまでも', meaning:'Sekalipun tidak sampai ~', example:'毎日でないまでも週3回は練習したい。\nSekalipun tidak setiap hari, ingin latihan 3x seminggu.' },
+    { word:'〜のみならず', level:'N1', type:'接続', reading:'のみならず', meaning:'Tidak hanya ~ tapi juga ~ (formal)', example:'国内のみならず海外でも活躍する。\nAktif tidak hanya di dalam negeri, tapi juga luar negeri.' },,
+    { word:'に対して', level:'N3', type:'Pola Grammar', reading:'にたいして', meaning:'Terhadap/kepada ~', example:'問題に対して解決する。' },
+    { word:'によって', level:'N3', type:'Pola Grammar', reading:'によって', meaning:'Oleh ~/tergantung ~', example:'場合によって違う。' },
+    { word:'ことになる', level:'N3', type:'Pola Grammar', reading:'ことになる', meaning:'Diputuskan/menjadi ~', example:'転勤することになった。' },
+    { word:'ばかりか', level:'N3', type:'Pola Grammar', reading:'ばかりか', meaning:'Tidak hanya ~/bahkan', example:'英語ばかりか、中国語も話せる。' },
+    { word:'にほかならない', level:'N1', type:'Pola Grammar', reading:'にほかならない', meaning:'Tidak lain adalah ~', example:'これは努力の結果にほかならない。' }
+  ],
+};
+let srsCards = [];
+let srsIndex = 0;
+let srsCorrect = 0;
+let currentDeck = 'n5';
+
+function initSRS() {
+  srsCards = [...srsDecks[currentDeck]];
+  srsIndex = 0;
+  srsCorrect = 0;
+  loadSRSCard();
+  document.getElementById('srsComplete').classList.remove('show');
+  document.getElementById('srsMain').style.display = '';
+}
+
+function setDeck(btn, deck) {
+  document.querySelectorAll('.deck-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentDeck = deck;
+  initSRS();
+  const counts = {n5:[12,34,8], n4:[8,21,5], n3:[15,18,3], n2:[6,12,2], n1:[4,8,1]};
+  const c = counts[deck] || [5,10,2];
+  document.getElementById('qNew').textContent = c[0];
+  document.getElementById('qReview').textContent = c[1];
+  document.getElementById('qLearn').textContent = c[2];
+  document.getElementById('srsNew').textContent = c[0];
+  document.getElementById('srsDue').textContent = c[1];
+}
+
+function loadSRSCard() {
+  const total = srsCards.length;
+  if (srsIndex >= total) {
+    document.getElementById('srsMain').style.display = 'none';
+    document.getElementById('srsComplete').classList.add('show');
+    document.getElementById('completedCount').textContent = srsCorrect;
+    return;
+  }
+  const card = srsCards[srsIndex];
+  document.getElementById('fcWord').textContent = card.word;
+  document.getElementById('fcLevel').textContent = card.level;
+  document.getElementById('fcWordB').textContent = card.word;
+  document.getElementById('fcLevelB').textContent = card.level + ' · ' + card.type;
+  document.getElementById('fcReading').textContent = card.reading;
+  document.getElementById('fcMeaning').textContent = card.meaning;
+  const ex = card.example.split('\n');
+  document.getElementById('fcExample').innerHTML = ex[0] + '<br><span style="font-size:12px;opacity:0.6">' + (ex[1] || '') + '</span>';
+  document.getElementById('flashcardScene').classList.remove('flipped');
+  document.getElementById('srsRating').style.display = 'none';
+  const pct = (srsIndex / total) * 100;
+  document.getElementById('srsProgressFill').style.width = pct + '%';
+}
+
+function flipCard() {
+  const scene = document.getElementById('flashcardScene');
+  scene.classList.toggle('flipped');
+  if (scene.classList.contains('flipped')) {
+    document.getElementById('srsRating').style.display = 'grid';
+  }
+}
+
+function rate(rating) {
+  if (rating === 'good' || rating === 'easy') srsCorrect++;
+  document.getElementById('srsDone').textContent = srsCorrect;
+  srsIndex++;
+  loadSRSCard();
+}
+
+function restartSRS() {
+  document.getElementById('srsComplete').classList.remove('show');
+  document.getElementById('srsMain').style.display = '';
+  initSRS();
+}
+
+// ═══════════ CHAT ═══════════
+let chatMode = 'normal';
+let chatTopic = 'daily';
+let isTyping = false;
+
+const SYSTEM_PROMPTS = {
+  daily: 'Kamu adalah tutor bahasa Jepang yang ramah bernama Sensei AI. Bantu pengguna belajar bahasa Jepang untuk percakapan sehari-hari. Jawab dalam bahasa Indonesia yang jelas. Sertakan kalimat Jepang yang relevan dengan romaji dan terjemahannya. Jaga respon tetap ringkas dan fokus pada pembelajaran.',
+  business: 'Kamu adalah tutor bahasa Jepang bisnis. Bantu pengguna mempelajari keigo (bahasa sopan) dan frasa bisnis Jepang. Berikan contoh dalam konteks profesional.',
+  jlpt: 'Kamu adalah tutor JLPT. Bantu pengguna mempersiapkan ujian JLPT. Jelaskan tata bahasa, kosakata, dan strategi ujian dengan jelas.',
+  grammar: 'Kamu adalah pakar tata bahasa Jepang. Jelaskan aturan tata bahasa dengan contoh yang jelas dan mudah dimengerti.',
+  travel: 'Kamu adalah panduan perjalanan Jepang. Ajarkan frasa dan ungkapan yang berguna untuk perjalanan ke Jepang.',
+  culture: 'Kamu adalah pakar budaya Jepang. Jelaskan budaya, tradisi, dan etiket Jepang dengan cara yang menarik.'
+};
+
+function setTopic(el, topic) {
+  document.querySelectorAll('.chat-topic').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  chatTopic = topic;
+}
+
+function setMode(el, mode) {
+  document.querySelectorAll('.chat-mode-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  chatMode = mode;
+}
+
+function quickSend(msg) {
+  document.getElementById('chatInput').value = msg;
+  sendMessage();
+}
+
+// Perlindungan XSS: pesan pengguna dan respons AI keduanya genuinely bisa
+// mengandung karakter HTML berbahaya. Untuk pesan user, escape dilakukan di
+// sini langsung (isi selalu teks polos). Untuk pesan AI, escape dilakukan di
+// titik pemanggilan (sendMessage) SEBELUM '\n' diubah jadi '<br>', supaya
+// tag <br> hasil formatting tidak ikut ter-escape.
+function escapeHtml(s){
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+
+function addMsg(content, isUser) {
+  const container = document.getElementById('chatMessages');
+  const msg = document.createElement('div');
+  msg.className = 'msg ' + (isUser ? 'user' : 'ai');
+  const now = new Date().toLocaleTimeString('id-ID', {hour:'2-digit', minute:'2-digit'});
+  const contentSafe = isUser ? escapeHtml(content) : content;
+  msg.innerHTML = `
+    <div class="msg-avatar ${isUser ? 'user' : 'ai'}">${isUser ? '你' : '先'}</div>
+    <div>
+      <div class="msg-bubble">${contentSafe}</div>
+      <div class="msg-time">${now}</div>
+    </div>`;
+  container.appendChild(msg);
+  container.scrollTop = container.scrollHeight;
+}
+
+function showTyping() {
+  const container = document.getElementById('chatMessages');
+  const el = document.createElement('div');
+  el.className = 'msg ai';
+  el.id = 'typingIndicator';
+  el.innerHTML = `<div class="msg-avatar ai">先</div><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+  container.appendChild(el);
+  container.scrollTop = container.scrollHeight;
+}
+
+function hideTyping() {
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg || isTyping) return;
+  input.value = '';
+  addMsg(msg, true);
+  isTyping = true;
+  document.getElementById('chatSendBtn').disabled = true;
+  showTyping();
+
+  const systemPrompt = SYSTEM_PROMPTS[chatTopic] || SYSTEM_PROMPTS.daily;
+  const modeExtra = chatMode === 'immersive'
+    ? ' Balas HANYA dalam bahasa Jepang, dengan terjemahan kecil di bawah.'
+    : chatMode === 'correction'
+    ? ' Jika user menulis dalam bahasa Jepang, koreksi kesalahan mereka dulu, lalu jawab pertanyaannya.'
+    : '';
+
+  try {
+    const aiMode = typeof chatMode !== 'undefined' && chatMode === 'grammar' ? 'grammar'
+      : typeof chatMode !== 'undefined' && chatMode === 'jlpt' ? 'jlpt'
+      : 'conversation';
+    const res = await NihongoAI.chat({
+      messages: [
+        { role: 'system', content: systemPrompt + (typeof modeExtra !== 'undefined' ? modeExtra : '') },
+        { role: 'user', content: msg },
+      ],
+      mode: aiMode,
+      level: localStorage.getItem('nihongoLevel') || 'N5',
+      sessionId: 'quiz_chat',
+    });
+    hideTyping();
+    const reply = escapeHtml(res.text || 'Maaf, terjadi kesalahan. Coba lagi.').replace(/\n/g, '<br>');
+    addMsg(reply, false);
+  } catch {
+    hideTyping();
+    addMsg('Maaf, koneksi bermasalah. Coba lagi ya! ごめんなさい', false);
+  }
+  isTyping = false;
+  document.getElementById('chatSendBtn').disabled = false;
+}
+
+// ═══════════ LEADERBOARD ═══════════
+const lbData = [
+  { rank:1, name:'Riyan Setiawan', initials:'RS', pts:3510, streak:21, level:'N3', change:'same', color:'#E8534A' },
+  { rank:2, name:'Ayu Ningrum', initials:'AN', pts:2840, streak:14, level:'N4', change:'up', color:'#9B59B6' },
+  { rank:3, name:'Budi Wicaksono', initials:'BW', pts:2620, streak:9, level:'N4', change:'down', color:'#27AE60' },
+  { rank:4, name:'Citra Dewi', initials:'CD', pts:2310, streak:7, level:'N5', change:'up', color:'#E67E22' },
+  { rank:5, name:'Dimas Prayoga', initials:'DP', pts:2080, streak:12, level:'N3', change:'up', color:'#3498DB' },
+  { rank:6, name:'Eka Rahmawati', initials:'ER', pts:1950, streak:5, level:'N4', change:'down', color:'#1ABC9C' },
+  { rank:7, name:'Kamu', initials:'KM', pts:1240, streak:14, level:'N5', change:'up', color:'#C0392B', me: true },
+  { rank:8, name:'Fahri Maulana', initials:'FM', pts:980, streak:3, level:'N5', change:'down', color:'#8E44AD' },
+  { rank:9, name:'Gita Puspita', initials:'GP', pts:760, streak:6, level:'N5', change:'same', color:'#2ECC71' },
+  { rank:10, name:'Hendra Susanto', initials:'HS', pts:520, streak:2, level:'N5', change:'up', color:'#F39C12' },
+];
+
+// Track player points
+function addPlayerPts(n) {
+  const cur = parseInt(localStorage.getItem('nihongoTotalPts') || '0');
+  localStorage.setItem('nihongoTotalPts', cur + n);
+}
+function setPlayerLevel(lv) {
+  localStorage.setItem('nihongoLevel', lv);
+}
+function getPlayerPts() {
+  return parseInt(localStorage.getItem('nihongoTotalPts') || '0');
+}
+
+function initLeaderboard() {
+  const table = document.getElementById('lbTable');
+  
+  // Get player's real data from localStorage
+  const playerName = localStorage.getItem('nihongoPlayerName') || 'Kamu';
+  const playerStreak = parseInt(localStorage.getItem('nihongoStreak') || '0');
+  const playerPts = parseInt(localStorage.getItem('nihongoTotalPts') || '0');
+  const playerLevel = localStorage.getItem('nihongoLevel') || 'N5';
+  
+  // Build combined data with player
+  let combinedData = [...lbData];
+  
+  // Insert player entry
+  const playerEntry = {
+    rank: 0, name: playerName, initials: playerName.slice(0,2).toUpperCase(),
+    pts: playerPts, streak: playerStreak, level: playerLevel, change: 'same', color:'#E8534A', me: true
+  };
+  
+  // Find player's position
+  combinedData.push(playerEntry);
+  combinedData.sort((a,b) => b.pts - a.pts);
+  combinedData.forEach((u,i) => u.rank = i+1);
+  
+  // Show top 10 + player if not in top 10
+  const playerRank = combinedData.findIndex(u => u.me);
+  let displayData = combinedData.slice(0, 10);
+  if (playerRank >= 10) {
+    displayData.push(combinedData[playerRank]);
+  }
+  
+  if (table.children.length > 0) table.innerHTML = '';
+  
+  const rankIcons = {1:'🥇', 2:'🥈', 3:'🥉'};
+  displayData.forEach(u => {
+    const row = document.createElement('div');
+    row.className = 'lb-row' + (u.me ? ' me' : '');
+    const rankClass = u.rank === 1 ? 'gold' : u.rank === 2 ? 'silver' : u.rank === 3 ? 'bronze' : '';
+    const changeIcon = u.change === 'up' ? '↑' : u.change === 'down' ? '↓' : '—';
+    const changeClass = u.change === 'up' ? 'up' : u.change === 'down' ? 'down' : 'same';
+    row.innerHTML = `
+      <div class<div class="lb-rank ${rankClass}">${rankIcons[u.rank] || u.rank}</div>
+      <div class="lb-user">
+        <div class="lb-user-av" style="background:${u.color}">${u.initials}</div>
+        <div>
+          <div class="lb-user-name">${u.name}${u.me ? ' 👤' : ''}</div>
+          <div class="lb-user-level">Level ${u.level} <span class="lb-change ${changeClass}">${changeIcon}</span></div>
+        </div>
+      </div>
+      <div class="lb-streak">🔥 ${u.streak}</div>
+      <div>
+        <div class="lb-pts">${u.pts.toLocaleString()}</div>
+        <div class="lb-pts-label">XP minggu ini</div>
+      </div>`;
+    table.appendChild(row);
+  });
+}
+
+function setLbFilter(btn) {
+  document.querySelectorAll('.lb-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ═══════════ GRAMMAR N1 ═══════════
+const grammarData = [
+  // N3 patterns
+  { pattern: '〜ようになる', cat: 'change', meaning: 'Menjadi bisa / jadi terbiasa (perubahan gradual)', meaning_id: 'Menyatakan perubahan kemampuan atau kebiasaan yang terjadi secara bertahap.', structure: 'Verbdic + <span class="s-var">ようになる</span>', examples: [{ jp: '日本語が<span class="hl">話せるようになりました</span>。', id: 'Sudah bisa berbicara bahasa Jepang.' }, { jp: '毎朝早く<span class="hl">起きるようになった</span>。', id: 'Jadi terbiasa bangun pagi.' }] },
+  { pattern: '〜ために', cat: 'purpose', meaning: 'Untuk tujuan ~ (tujuan sadar)', meaning_id: 'Menyatakan tujuan dari suatu aksi. Berbeda dari ように yang lebih gradual/tidak langsung.', structure: 'Verbdic + <span class="s-var">ために</span> / Noun + の + <span class="s-var">ために</span>', examples: [{ jp: '合格する<span class="hl">ために</span>毎日練習します。', id: 'Latihan setiap hari untuk lulus.' }, { jp: '健康<span class="hl">のために</span>走ります。', id: 'Berlari demi kesehatan.' }] },
+  { pattern: '〜に対して', cat: 'relation', meaning: 'Terhadap ~ / kepada ~', meaning_id: 'Menyatakan objek yang menjadi target perhatian, respons, atau aksi.', structure: 'Noun + <span class="s-var">に対して</span>', examples: [{ jp: '質問<span class="hl">に対して</span>丁寧に答えた。', id: 'Menjawab pertanyaan dengan sopan.' }, { jp: '彼の意見<span class="hl">に対して</span>反対します。', id: 'Menentang pendapatnya.' }] },
+  { pattern: '〜ことになる', cat: 'result', meaning: 'Menjadi keputusan/situasi dari luar diri', meaning_id: 'Situasi atau keputusan yang datang dari luar diri sendiri. Berbeda dari ことにする (keputusan sendiri).', structure: 'Verbdic + <span class="s-var">ことになる</span>', examples: [{ jp: '来年、日本へ行く<span class="hl">ことになりました</span>。', id: 'Akhirnya jadi pergi ke Jepang tahun depan.' }, { jp: '会議は月曜日<span class="hl">ということになった</span>。', id: 'Rapat diputuskan jadi hari Senin.' }] },
+  { pattern: '〜ものだ', cat: 'nature', meaning: 'Memang begitulah ~ / selayaknya ~', meaning_id: 'Menyatakan sifat umum sesuatu atau bagaimana seharusnya berdasarkan norma/kebiasaan.', structure: 'Plain + <span class="s-var">ものだ</span>', examples: [{ jp: '人間はいつか死ぬ<span class="hl">ものだ</span>。', id: 'Manusia memang pada akhirnya mati.' }, { jp: '目上の人を敬う<span class="hl">ものです</span>。', id: 'Selayaknya menghormati orang yang lebih tua.' }] },
+  // N2 patterns
+  { pattern: '〜に基づいて', cat: 'basis', meaning: 'Berdasarkan ~', meaning_id: 'Menyatakan dasar atau sumber dari suatu tindakan/penilaian. Formal.', structure: 'Noun + <span class="s-var">に基づいて</span>', examples: [{ jp: 'データ<span class="hl">に基づいて</span>判断する。', id: 'Menilai berdasarkan data.' }, { jp: '経験<span class="hl">に基づいた</span>アドバイス。', id: 'Saran berdasarkan pengalaman.' }] },
+  { pattern: '〜に伴って', cat: 'accompaniment', meaning: 'Seiring dengan ~ / bersamaan dengan ~', meaning_id: 'Menyatakan dua hal yang terjadi bersamaan atau sebanding. Formal.', structure: 'Verbdic/Noun + <span class="s-var">に伴って</span>', examples: [{ jp: '高齢化<span class="hl">に伴って</span>医療費も増えた。', id: 'Seiring penuaan, biaya medis pun meningkat.' }, { jp: '成長<span class="hl">に伴い</span>責任も増える。', id: 'Seiring pertumbuhan, tanggung jawab bertambah.' }] },
+  { pattern: '〜ざるを得ない', cat: 'compulsion', meaning: 'Tidak bisa tidak / terpaksa ~', meaning_id: 'Menyatakan keterpaksaan karena situasi. Lebih kuat dari なければならない.', structure: 'Verbない + <span class="s-var">ざるを得ない</span> (する→せざるを得ない)', examples: [{ jp: '病気で休ま<span class="hl">ざるを得ない</span>。', id: 'Karena sakit, terpaksa tidak masuk.' }, { jp: '認め<span class="hl">ざるを得ない</span>事実だ。', id: 'Ini fakta yang tidak bisa tidak diakui.' }] },
+  { pattern: '〜どころか', cat: 'contrast', meaning: 'Jangankan ~ / bahkan sebaliknya ~', meaning_id: 'Menyatakan sesuatu yang jauh dari ekspektasi, bahkan berlawanan. Lebih ekstrem dari だけでなく.', structure: 'Noun/Plain + <span class="s-var">どころか</span>', examples: [{ jp: '歩く<span class="hl">どころか</span>立てません。', id: 'Jangankan berjalan, berdiri pun tidak bisa.' }, { jp: '褒められる<span class="hl">どころか</span>怒られた。', id: 'Bukannya dipuji, malah dimarahi.' }] },
+  { pattern: '〜からこそ', cat: 'reason', meaning: 'Justru karena ~ (penekanan alasan)', meaning_id: 'Menekankan bahwa KARENA alasan itulah sesuatu terjadi. Nuansa positif atau penting.', structure: 'Plain + <span class="s-var">からこそ</span>', examples: [{ jp: '苦しい<span class="hl">からこそ</span>成長できる。', id: 'Justru karena sulit, bisa berkembang.' }, { jp: '好きだ<span class="hl">からこそ</span>厳しく言う。', id: 'Justru karena sayang, berbicara tegas.' }] },
+  { pattern: '〜次第', cat: 'timing', meaning: 'Segera setelah ~ / tergantung ~', meaning_id: 'Verbます stem + 次第 = segera setelah melakukan. Noun + 次第 = tergantung pada ~.', structure: 'Verbます stem + <span class="s-var">次第</span> / Noun + <span class="s-var">次第</span>', examples: [{ jp: '到着し<span class="hl">次第</span>ご連絡します。', id: 'Segera setelah tiba, akan saya hubungi.' }, { jp: 'あなた<span class="hl">次第</span>です。', id: 'Tergantung pada Anda.' }] },
+  { pattern: '〜をめぐって', cat: 'topic', meaning: 'Seputar ~ / mengenai ~', meaning_id: 'Menyatakan topik yang menjadi fokus diskusi, perdebatan, atau sengketa.', structure: 'Noun + <span class="s-var">をめぐって</span>', examples: [{ jp: 'この問題<span class="hl">をめぐって</span>議論した。', id: 'Berdebat seputar masalah ini.' }, { jp: '予算<span class="hl">をめぐる</span>対立が続く。', id: 'Perselisihan seputar anggaran terus berlanjut.' }] },
+  { pattern: '〜に関わらず', cat: 'disregard', meaning: 'Terlepas dari ~ / tanpa memandang ~', meaning_id: 'Menyatakan sesuatu berlaku terlepas dari kondisi yang disebutkan.', structure: 'Noun + <span class="s-var">に関わらず</span>', examples: [{ jp: '経験の有無<span class="hl">に関わらず</span>応募できます。', id: 'Bisa mendaftar terlepas dari ada tidaknya pengalaman.' }, { jp: '天気<span class="hl">に関わらず</span>練習します。', id: 'Berlatih terlepas dari cuaca.' }] },
+  { pattern: '〜つつある', cat: 'progress', meaning: 'Sedang dalam proses ~ (perubahan bertahap)', meaning_id: 'Menyatakan sesuatu sedang berubah atau berkembang secara bertahap. Formal.', structure: 'Verbます stem + <span class="s-var">つつある</span>', examples: [{ jp: '状況は改善され<span class="hl">つつあります</span>。', id: 'Situasi sedang dalam proses perbaikan.' }, { jp: '人口が減少し<span class="hl">つつある</span>。', id: 'Populasi sedang berangsur berkurang.' }] },
+  { pattern: '〜のみならず', cat: 'addition', meaning: 'Tidak hanya ~ (tetapi juga) — formal', meaning_id: 'Versi formal dari だけでなく. Sering dalam teks akademis/bisnis.', structure: 'Noun/Plain + <span class="s-var">のみならず</span>', examples: [{ jp: '費用<span class="hl">のみならず</span>時間も節約できます。', id: 'Tidak hanya biaya, waktu pun bisa dihemat.' }, { jp: '日本語<span class="hl">のみならず</span>文化も学んだ。', id: 'Mempelajari tidak hanya bahasa Jepang tapi juga budayanya.' }] },
+  // N1 patterns (existing 8 + new)
+  { pattern: '〜に際して', cat: 'time', meaning: 'Pada saat / ketika (dalam kesempatan penting)', meaning_id: 'Digunakan untuk peristiwa penting atau formal. Lebih resmi dari 〜とき.', structure: 'Verbdic + <span class="s-var">に際して</span> / Noun + <span class="s-var">に際して</span>', examples: [{ jp: '入学<span class="hl">に際して</span>、注意事項を説明します。', id: 'Pada saat masuk sekolah, kami menjelaskan hal-hal penting.' }, { jp: '契約<span class="hl">に際して</span>、内容を確認してください。', id: 'Saat membuat kontrak, periksa isinya.' }] },
+  { pattern: '〜を余儀なくされる', cat: 'compulsion', meaning: 'Terpaksa / dipaksa oleh situasi', meaning_id: 'Dipaksa oleh situasi eksternal. Nuansa: tidak ada pilihan. Formal/tulisan.', structure: 'Noun/Verbこと + <span class="s-var">を余儀なくされる</span>', examples: [{ jp: '地震で避難<span class="hl">を余儀なくされた</span>。', id: 'Gempa bumi memaksa mereka mengungsi.' }, { jp: '経済的な理由で退職<span class="hl">を余儀なくされた</span>。', id: 'Karena alasan ekonomi, terpaksa mengundurkan diri.' }] },
+  { pattern: '〜いかんによっては', cat: 'condition', meaning: 'Tergantung pada ~ / bergantung bagaimana ~', meaning_id: 'Menyatakan bahwa hasil bergantung pada kondisi tertentu. Sangat formal.', structure: 'Noun + <span class="s-var">いかんによっては</span>', examples: [{ jp: '成績<span class="hl">いかんによっては</span>奨学金を打ち切ることもある。', id: 'Tergantung nilai, beasiswa bisa dicabut.' }] },
+  { pattern: '〜にもまして', cat: 'degree', meaning: 'Lebih dari ~ sebelumnya / melampaui ~', meaning_id: 'Menekankan bahwa sesuatu melebihi hal yang disebutkan. Sering: 何にもまして = melebihi apapun.', structure: 'Noun + <span class="s-var">にもまして</span>', examples: [{ jp: '何<span class="hl">にもまして</span>健康が大切です。', id: 'Kesehatan lebih penting dari apapun.' }] },
+  { pattern: '〜ならいざ知らず', cat: 'contrast', meaning: 'Mungkin kalau ~, tapi ~', meaning_id: 'Mengakui pengecualian lalu menyatakan kontras. Nuansa: hal yang disebutkan mungkin bisa dimaklumi, tapi ini tidak.', structure: 'Noun / Plain + <span class="s-var">ならいざ知らず</span>', examples: [{ jp: '子供<span class="hl">ならいざ知らず</span>、大人がそんなことをするのはおかしい。', id: 'Mungkin kalau anak-anak, tapi tidak wajar orang dewasa melakukan hal itu.' }] },
+  { pattern: '〜をもってしても', cat: 'limitation', meaning: 'Bahkan dengan ~ pun (tidak bisa)', meaning_id: 'Menyatakan bahwa bahkan dengan kemampuan/sarana terbaik sekalipun tidak bisa dilakukan.', structure: 'Noun + <span class="s-var">をもってしても</span>', examples: [{ jp: '現代技術<span class="hl">をもってしても</span>解決できない。', id: 'Bahkan dengan teknologi modern pun tidak bisa diselesaikan.' }] },
+  { pattern: '〜に即して', cat: 'accordance', meaning: 'Sesuai dengan ~ / sejalan dengan ~', meaning_id: 'Bergerak/bertindak sesuai dengan sesuatu (fakta, situasi, aturan).', structure: 'Noun + <span class="s-var">に即して</span>', examples: [{ jp: '現実<span class="hl">に即した</span>提案をする。', id: 'Memberikan proposal yang sesuai realita.' }] },
+  { pattern: '〜にほかならない', cat: 'identity', meaning: 'Tidak lain adalah ~ / persis merupakan ~', meaning_id: 'Menegaskan dengan kuat bahwa sesuatu "tidak lain adalah" hal yang disebutkan. Formal/tulisan.', structure: 'Noun/Plain + <span class="s-var">にほかならない</span>', examples: [{ jp: 'この成功は皆の努力<span class="hl">にほかならない</span>。', id: 'Keberhasilan ini tidak lain adalah kerja keras semua orang.' }, { jp: 'それは嘘<span class="hl">にほかならない</span>。', id: 'Itu tidak lain adalah kebohongan.' }] },
+  { pattern: '〜とはいえ', cat: 'concession', meaning: 'Walaupun demikian / meskipun dikatakan ~', meaning_id: 'Mengakui suatu fakta lalu menyatakan kontras atau pengecualian. Lebih formal dari けれど.', structure: 'Plain/Noun + <span class="s-var">とはいえ</span>', examples: [{ jp: '失敗した<span class="hl">とはいえ</span>、経験になりました。', id: 'Walaupun gagal, menjadi pengalaman berharga.' }, { jp: '春だ<span class="hl">とはいえ</span>まだ寒い日もある。', id: 'Meskipun sudah musim semi, masih ada hari yang dingin.' }] },
+  { pattern: '〜ならでは', cat: 'uniqueness', meaning: 'Khas ~ / hanya ~ yang bisa', meaning_id: 'Menyatakan sesuatu yang unik atau eksklusif hanya dimiliki oleh yang disebutkan.', structure: 'Noun + <span class="s-var">ならでは</span> + の + Noun / <span class="s-var">ならでは</span>', examples: [{ jp: '京都<span class="hl">ならでは</span>の雰囲気がある。', id: 'Ada suasana yang khas Kyoto.' }, { jp: '職人<span class="hl">ならでは</span>の技術だ。', id: 'Ini adalah keahlian khas pengrajin.' }] },
+  { pattern: '〜を皮切りに', cat: 'start', meaning: 'Dimulai dari ~ (sebagai awal)', meaning_id: 'Menyatakan sesuatu yang menjadi awal dari serangkaian kejadian lainnya.', structure: 'Noun + <span class="s-var">を皮切りに</span>', examples: [{ jp: '東京<span class="hl">を皮切りに</span>全国ツアーを始める。', id: 'Memulai tur nasional dengan Tokyo sebagai awal.' }] },
+  { pattern: '〜と相まって', cat: 'combination', meaning: 'Dikombinasikan dengan ~ / bersama dengan ~', meaning_id: 'Dua hal bergabung menghasilkan efek yang lebih kuat atau sesuatu yang baru.', structure: 'Noun + <span class="s-var">と相まって</span>', examples: [{ jp: '才能と努力<span class="hl">が相まって</span>成功した。', id: 'Bakat dan usaha bergabung sehingga berhasil.' }] },
+  { pattern: '〜をもって', cat: 'means', meaning: 'Dengan ~ / per tanggal ~ (menggunakan)', meaning_id: 'Menyatakan cara/alat yang dipakai, atau menunjukkan batas waktu resmi.', structure: 'Noun + <span class="s-var">をもって</span>', examples: [{ jp: '本日<span class="hl">をもって</span>退職いたします。', id: 'Dengan hari ini, saya mengundurkan diri.' }, { jp: '実力<span class="hl">をもって</span>証明する。', id: 'Membuktikan dengan kemampuan nyata.' }] },
+
+  // Additional N3 patterns
+  { pattern: '〜てしまう', cat: 'completion', meaning: 'Terlanjur/selesai penuh/menyesal', meaning_id: 'Menyatakan aksi yang selesai penuh (kadang dengan nuansa menyesal). Kasual: 〜ちゃう/〜じゃう.', structure: 'Verbて + <span class="s-var">しまう</span>', examples: [{ jp: '財布を忘れて<span class="hl">しまった</span>。', id: 'Terlanjur lupa dompet (dan menyesal).' }, { jp: 'もう食べて<span class="hl">しまいました</span>。', id: 'Sudah habis dimakan.' }] },
+  { pattern: '〜てある', cat: 'state', meaning: 'Sudah dibuat ~ (persiapan/keadaan hasil)', meaning_id: 'Menyatakan keadaan hasil dari aksi yang sengaja dilakukan seseorang. Transitif + てある.', structure: 'Verbて(transitive) + <span class="s-var">ある</span>', examples: [{ jp: '窓が開け<span class="hl">てある</span>。', id: 'Jendelanya dibiarkan terbuka (seseorang membukanya).' }, { jp: '会議室を予約し<span class="hl">てあります</span>。', id: 'Ruang rapat sudah dipesan (persiapan).' }] },
+  { pattern: '〜ておく', cat: 'preparation', meaning: 'Melakukan terlebih dahulu (persiapan)', meaning_id: 'Melakukan sesuatu sebelumnya sebagai persiapan atau membiarkan tetap dalam suatu keadaan.', structure: 'Verbて + <span class="s-var">おく</span>', examples: [{ jp: '明日のために準備し<span class="hl">ておきます</span>。', id: 'Mempersiapkan untuk besok terlebih dahulu.' }, { jp: 'この問題は後で考え<span class="hl">ておきます</span>。', id: 'Akan saya pikirkan belakangan.' }] },
+  { pattern: '〜てほしい', cat: 'desire', meaning: 'Ingin agar orang lain melakukan ~', meaning_id: 'Menyatakan keinginan agar orang lain melakukan sesuatu untuk kita. Lebih langsung dari 〜てもらいたい.', structure: 'Verbて + <span class="s-var">ほしい</span>', examples: [{ jp: 'もっと練習し<span class="hl">てほしい</span>。', id: 'Ingin agar dia berlatih lebih.' }, { jp: '正直に話し<span class="hl">てほしい</span>です。', id: 'Ingin agar berbicara jujur.' }] },
+  { pattern: '〜という', cat: 'quotation', meaning: 'Yang bernama ~/yang disebut ~', meaning_id: 'Menjelaskan nama atau konten dari sesuatu. Digunakan untuk mengutip, memberi nama, atau menjelaskan isi.', structure: 'Noun/Plain + <span class="s-var">という</span> + Noun', examples: [{ jp: '「富士山」<span class="hl">という</span>山が有名です。', id: 'Gunung bernama Fuji itu terkenal.' }, { jp: '合格した<span class="hl">という</span>知らせを聞いた。', id: 'Mendengar kabar bahwa (dia) lulus.' }] },
+  // Additional N2 patterns
+  { pattern: '〜に反して', cat: 'contrast', meaning: 'Berlawanan dengan ~ / bertentangan dengan ~', meaning_id: 'Sesuatu terjadi berlawanan dari harapan, ekspektasi, atau aturan yang disebutkan.', structure: 'Noun + <span class="s-var">に反して</span>', examples: [{ jp: '予想<span class="hl">に反して</span>試験が難しかった。', id: 'Berlawanan dari perkiraan, ujiannya sulit.' }, { jp: '規則<span class="hl">に反する</span>行動をした。', id: 'Melakukan tindakan yang bertentangan dengan aturan.' }] },
+  { pattern: '〜をはじめとして', cat: 'example', meaning: 'Mulai dari ~ dan seterusnya', meaning_id: 'Menyebut satu contoh representatif lalu menyiratkan ada banyak hal serupa lainnya.', structure: 'Noun + <span class="s-var">をはじめとして</span>', examples: [{ jp: '東京<span class="hl">をはじめとして</span>、日本の都市は近代的だ。', id: 'Mulai dari Tokyo, kota-kota di Jepang itu modern.' }] },
+  { pattern: '〜にとって', cat: 'perspective', meaning: 'Bagi ~ / dari sudut pandang ~', meaning_id: 'Menyatakan perspektif atau kepentingan dari sudut pandang orang/kelompok tertentu.', structure: 'Noun + <span class="s-var">にとって</span>', examples: [{ jp: '私<span class="hl">にとって</span>、日本語は大切な言語です。', id: 'Bagi saya, bahasa Jepang adalah bahasa yang penting.' }, { jp: '子供<span class="hl">にとって</span>遊びは学習だ。', id: 'Bagi anak-anak, bermain adalah belajar.' }] },
+  { pattern: '〜というより', cat: 'correction', meaning: 'Lebih tepat ~ / daripada ~ lebih ~', meaning_id: 'Mengoreksi atau mempresisi sebuah pernyataan dengan alternatif yang lebih tepat.', structure: 'Noun/Plain + <span class="s-var">というより</span>', examples: [{ jp: '彼は怒っている<span class="hl">というより</span>悲しんでいる。', id: 'Lebih tepat dia sedang bersedih, bukan marah.' }, { jp: '怖い<span class="hl">というより</span>心配です。', id: 'Lebih tepatnya khawatir, bukan takut.' }] },
+  // Additional N1 patterns
+  { pattern: '〜いかんに関わらず', cat: 'disregard', meaning: 'Terlepas dari bagaimana ~', meaning_id: 'Sesuatu berlaku tanpa memandang kondisi atau keadaan yang disebutkan. Versi lebih formal.', structure: 'Noun + <span class="s-var">いかんに関わらず</span>', examples: [{ jp: '結果のいかんに関わらず、最善を尽くす。', id: 'Terlepas dari hasilnya, berusaha semaksimal mungkin.' }] },
+  { pattern: '〜に先立って', cat: 'precedence', meaning: 'Sebelum ~ / mendahului ~', meaning_id: 'Menyatakan sesuatu dilakukan sebelum kejadian penting lainnya. Lebih formal dari 〜の前に.', structure: 'Noun/Verbdic + <span class="s-var">に先立って</span>', examples: [{ jp: '開会<span class="hl">に先立って</span>、会長が挨拶した。', id: 'Sebelum pembukaan, ketua memberikan sambutan.' }] },
+  { pattern: '〜をよそに', cat: 'disregard', meaning: 'Tidak peduli ~ / mengabaikan ~', meaning_id: 'Melakukan sesuatu tanpa mempedulikan kekhawatiran, harapan, atau situasi yang disebutkan.', structure: 'Noun + <span class="s-var">をよそに</span>', examples: [{ jp: '周りの心配<span class="hl">をよそに</span>、彼は旅を続けた。', id: 'Tidak peduli kekhawatiran orang sekitar, dia melanjutkan perjalanan.' }] },
+
+  // N3 basic patterns (cleaner coverage)
+  { pattern: '〜てしまう', cat: 'completion', meaning: 'Terlanjur ~ / selesai penuh', meaning_id: 'Aksi selesai penuh (kadang dengan nuansa penyesalan). Kasual: 〜ちゃう/〜じゃう.', structure: 'Verbて + <span class="s-var">しまう</span>', examples: [{ jp: '財布を忘れて<span class="hl">しまった</span>。', id: 'Terlanjur lupa dompet.' }, { jp: 'もう食べて<span class="hl">しまいました</span>。', id: 'Sudah habis dimakan.' }] },
+  { pattern: '〜てある', cat: 'state', meaning: 'Sudah dibuat ~ (persiapan/keadaan hasil)', meaning_id: 'Keadaan hasil dari aksi yang sengaja dilakukan. Transitif + てある.', structure: 'Verbて(transitive) + <span class="s-var">ある</span>', examples: [{ jp: '窓が開け<span class="hl">てある</span>。', id: 'Jendelanya dibiarkan terbuka.' }] },
+  { pattern: '〜ておく', cat: 'preparation', meaning: 'Melakukan terlebih dahulu (persiapan)', meaning_id: 'Melakukan sesuatu sebelumnya sebagai persiapan atau membiarkan tetap dalam suatu keadaan.', structure: 'Verbて + <span class="s-var">おく</span>', examples: [{ jp: '明日のために準備し<span class="hl">ておきます</span>。', id: 'Mempersiapkan untuk besok terlebih dahulu.' }] },
+  { pattern: '〜てほしい', cat: 'desire', meaning: 'Ingin agar orang lain melakukan ~', meaning_id: 'Menyatakan keinginan agar orang lain melakukan sesuatu. Lebih langsung dari 〜てもらいたい.', structure: 'Verbて + <span class="s-var">ほしい</span>', examples: [{ jp: 'もっと練習し<span class="hl">てほしい</span>。', id: 'Ingin agar dia berlatih lebih.' }] },
+  { pattern: '〜という', cat: 'quotation', meaning: 'Yang bernama ~/yang disebut ~', meaning_id: 'Menjelaskan nama atau konten dari sesuatu. Digunakan untuk mengutip, memberi nama, atau menjelaskan isi.', structure: 'Plain + <span class="s-var">という</span> + Noun', examples: [{ jp: '「富士山」<span class="hl">という</span>山が有名です。', id: 'Gunung bernama Fuji itu terkenal.' }] },
+  // N2 extended
+  { pattern: '〜に反して', cat: 'contrast', meaning: 'Berlawanan dengan ~', meaning_id: 'Sesuatu terjadi berlawanan dari harapan atau aturan yang disebutkan.', structure: 'Noun + <span class="s-var">に反して</span>', examples: [{ jp: '予想<span class="hl">に反して</span>試験が難しかった。', id: 'Berlawanan dari perkiraan, ujian ternyata sulit.' }] },
+  { pattern: '〜をはじめとして', cat: 'example', meaning: 'Mulai dari ~, dan seterusnya', meaning_id: 'Menyebut satu contoh representatif lalu menyiratkan ada banyak lainnya.', structure: 'Noun + <span class="s-var">をはじめとして</span>', examples: [{ jp: '東京<span class="hl">をはじめとして</span>各都市で開催。', id: 'Diadakan di berbagai kota mulai dari Tokyo.' }] },
+  { pattern: '〜にとって', cat: 'perspective', meaning: 'Bagi ~ / dari sudut pandang ~', meaning_id: 'Menyatakan perspektif atau kepentingan dari sudut pandang orang/kelompok.', structure: 'Noun + <span class="s-var">にとって</span>', examples: [{ jp: '私<span class="hl">にとって</span>、日本語は大切な言語です。', id: 'Bagi saya, bahasa Jepang adalah bahasa penting.' }] },
+  { pattern: '〜というより', cat: 'correction', meaning: 'Lebih tepat ~ / daripada ~ lebih ~', meaning_id: 'Mengoreksi atau mempresisi pernyataan dengan alternatif yang lebih tepat.', structure: 'Plain/Noun + <span class="s-var">というより</span>', examples: [{ jp: '彼は怒っている<span class="hl">というより</span>悲しんでいる。', id: 'Lebih tepat dia sedang bersedih, bukan marah.' }] },
+  { pattern: '〜とともに', cat: 'accompaniment', meaning: 'Bersamaan dengan ~/seiring ~', meaning_id: 'Dua hal terjadi bersamaan, atau satu hal berkembang seiring yang lain.', structure: 'Noun/Verbdic + <span class="s-var">とともに</span>', examples: [{ jp: '時代<span class="hl">とともに</span>変化する。', id: 'Berubah seiring zaman.' }] },
+  { pattern: '〜として', cat: 'role', meaning: 'Sebagai ~/dalam kapasitas sebagai ~', meaning_id: 'Menyatakan peran, status, atau fungsi dari sesuatu/seseorang.', structure: 'Noun + <span class="s-var">として</span>', examples: [{ jp: '専門家<span class="hl">として</span>意見を述べた。', id: 'Menyatakan pendapat sebagai ahli.' }] },
+  { pattern: '〜によると', cat: 'source', meaning: 'Menurut ~/berdasarkan ~', meaning_id: 'Menyebut sumber informasi. Sering dengan 〜そうだ atau 〜らしい di akhir.', structure: 'Noun + <span class="s-var">によると</span>', examples: [{ jp: '天気予報<span class="hl">によると</span>、明日は雨らしい。', id: 'Menurut prakiraan cuaca, besok tampaknya hujan.' }] },
+  { pattern: '〜にしたがって', cat: 'accordance', meaning: 'Sesuai dengan~/mengikuti ~', meaning_id: 'Bertindak sesuai dengan instruksi, aturan, atau perubahan yang berlangsung.', structure: 'Verbdic/Noun + <span class="s-var">にしたがって</span>', examples: [{ jp: '指示<span class="hl">にしたがって</span>行動した。', id: 'Bertindak sesuai instruksi.' }] },
+  // N1 extended
+  { pattern: '〜に先立って', cat: 'precedence', meaning: 'Sebelum ~ / mendahului ~', meaning_id: 'Sesuatu dilakukan sebelum kejadian penting lainnya. Lebih formal dari 〜の前に.', structure: 'Noun/Verbdic + <span class="s-var">に先立って</span>', examples: [{ jp: '開会<span class="hl">に先立って</span>挨拶した。', id: 'Memberi sambutan sebelum pembukaan acara.' }] },
+  { pattern: '〜をよそに', cat: 'disregard', meaning: 'Tidak peduli ~ / mengabaikan ~', meaning_id: 'Melakukan sesuatu tanpa mempedulikan kekhawatiran atau harapan yang disebutkan.', structure: 'Noun + <span class="s-var">をよそに</span>', examples: [{ jp: '周りの心配<span class="hl">をよそに</span>旅を続けた。', id: 'Tidak peduli kekhawatiran sekitar, melanjutkan perjalanan.' }] },
+  { pattern: '〜ともなく', cat: 'unconscious', meaning: 'Tanpa disadari/bermaksud ~', meaning_id: 'Melakukan sesuatu tanpa niat atau kesadaran penuh.', structure: 'Verbdic + <span class="s-var">ともなく</span>', examples: [{ jp: '見るともなく窓の外を見た。', id: 'Tanpa bermaksud, memandang keluar jendela.' }] },
+  { pattern: '〜まじき', cat: 'prohibition', meaning: 'Tidak seharusnya ~ (bagi ~)', meaning_id: 'Sesuatu yang tidak seharusnya dilakukan oleh seseorang dalam posisinya. Formal/tertulis.', structure: 'Verbdic + <span class="s-var">まじき</span> + Noun', examples: [{ jp: '教師にある<span class="hl">まじき</span>行為だ。', id: 'Perbuatan yang tidak seharusnya dilakukan seorang guru.' }] },
+  { pattern: '〜に足る', cat: 'worthiness', meaning: 'Layak untuk ~/cukup untuk ~', meaning_id: 'Menyatakan bahwa sesuatu memiliki nilai/kualitas yang cukup untuk.', structure: 'Verbdic + <span class="s-var">に足る</span>', examples: [{ jp: '尊敬<span class="hl">に足る</span>人物だ。', id: 'Ia adalah orang yang layak untuk dihormati.' }] },
+  { pattern: '〜ないものでもない', cat: 'possibility', meaning: 'Bisa dikatakan bukan tidak ~ (nuansa ragu)', meaning_id: 'Menyatakan kemungkinan yang tidak sepenuhnya ditolak. Nuansa: "bisa saja, tapi tidak pasti".', structure: 'Verbない + <span class="s-var">ものでもない</span>', examples: [{ jp: '行けない<span class="hl">ものでもない</span>。', id: 'Bukan tidak bisa pergi (tapi agak ragu).' }] },
+  { pattern: '〜ごとく/ごとき', cat: 'comparison', meaning: 'Seperti ~/bagaikan ~', meaning_id: 'Perbandingan formal dalam teks sastra atau tertulis. Lebih formal dari 〜のように.', structure: 'Noun + の/Verbdic + <span class="s-var">ごとく/ごとき</span>', examples: [{ jp: '嵐の<span class="hl">ごとく</span>現れた。', id: 'Muncul bagaikan badai.' }] },
+
+  // N3 Pola Tambahan
+  { pattern: '〜てならない', cat: 'emotion', level: 'n3', meaning: 'Tidak tahan untuk tidak ~ / sangat ~', meaning_id: 'Mengungkapkan perasaan yang sangat kuat dan tak tertahankan.', structure: 'Verbて/い-Adjくて + <span class="s-var">ならない</span>', examples: [{ jp: '合格が嬉しく<span class="hl">てならない</span>。', id: 'Saya sangat senang karena lulus.' }, { jp: '心配で<span class="hl">ならない</span>。', id: 'Sangat khawatir.' }] },
+  { pattern: '〜に違いない', cat: 'certainty', level: 'n3', meaning: 'Pasti ~ / tidak diragukan lagi ~', meaning_id: 'Menyatakan keyakinan kuat pembicara. Lebih kuat dari 〜と思います.', structure: 'Plain + <span class="s-var">に違いない</span>', examples: [{ jp: '彼は知っている<span class="hl">に違いない</span>。', id: 'Dia pasti tahu.' }] },
+  { pattern: '〜わけではない', cat: 'negation', level: 'n3', meaning: 'Bukan berarti ~ / tidak berarti ~', meaning_id: 'Menyanggah/membatasi suatu kesimpulan yang mungkin ditarik orang lain.', structure: 'Plain + <span class="s-var">わけではない</span>', examples: [{ jp: '嫌いな<span class="hl">わけではない</span>が、苦手だ。', id: 'Bukan berarti saya benci, tapi tidak mahir.' }] },
+  { pattern: '〜ことはない', cat: 'negation', level: 'n3', meaning: 'Tidak perlu ~ / tidak ada alasan ~', meaning_id: 'Menyatakan sesuatu tidak diperlukan atau tidak ada urgensi.', structure: 'Verbdic + <span class="s-var">ことはない</span>', examples: [{ jp: 'そんなに心配する<span class="hl">ことはない</span>。', id: 'Tidak perlu khawatir sebanyak itu.' }] },
+  { pattern: '〜に決まっている', cat: 'certainty', level: 'n3', meaning: 'Sudah pasti ~ / tentu saja ~', meaning_id: 'Lebih kuat dari に違いない. Menyatakan sesuatu yang "sudah jelas" dari kacamata pembicara.', structure: 'Plain + <span class="s-var">に決まっている</span>', examples: [{ jp: 'そんな話、嘘<span class="hl">に決まっている</span>。', id: 'Cerita seperti itu pasti bohong.' }] },
+  // N2 Pola Tambahan
+  { pattern: '〜ものの', cat: 'contrast', level: 'n2', meaning: 'Walaupun ~ / meskipun ~ (tapi nyatanya...)', meaning_id: 'Kontras antara apa yang diharapkan dan kenyataan. Lebih formal dari けれど.', structure: 'Plain + <span class="s-var">ものの</span>', examples: [{ jp: '頑張った<span class="hl">ものの</span>、結果が出なかった。', id: 'Walaupun sudah berusaha, hasilnya tidak keluar.' }] },
+  { pattern: '〜一方だ', cat: 'trend', level: 'n2', meaning: 'Semakin ~ / terus-menerus ~ (tren satu arah)', meaning_id: 'Menyatakan tren yang hanya bergerak satu arah (biasanya memburuk atau meningkat terus).', structure: 'Verbdic + <span class="s-var">一方だ</span>', examples: [{ jp: '物価が上がる<span class="hl">一方だ</span>。', id: 'Harga terus-menerus naik.' }] },
+  { pattern: '〜とたん', cat: 'timing', level: 'n2', meaning: 'Tepat setelah ~ langsung ~ (tidak terduga)', meaning_id: 'Sesuatu yang tidak direncanakan terjadi tepat setelah aksi selesai.', structure: 'Verbた + <span class="s-var">とたん（に）</span>', examples: [{ jp: '外に出た<span class="hl">とたん</span>、雨が降り出した。', id: 'Tepat setelah keluar, langsung hujan.' }] },
+  { pattern: '〜にしては', cat: 'comparison', level: 'n2', meaning: 'Untuk ukuran ~/mengingat bahwa ~', meaning_id: 'Menunjukkan sesuatu tidak sesuai standar yang diharapkan dari kondisi yang disebutkan.', structure: 'Noun/Plain + <span class="s-var">にしては</span>', examples: [{ jp: '初めての発表<span class="hl">にしては</span>、上手だった。', id: 'Untuk presentasi pertama, cukup bagus.' }] },
+  { pattern: '〜ことなく', cat: 'negation', level: 'n2', meaning: 'Tanpa ~/tidak pernah ~', meaning_id: 'Melakukan sesuatu tanpa melakukan hal lain sama sekali. Lebih formal dari ないで.', structure: 'Verbdic + <span class="s-var">ことなく</span>', examples: [{ jp: '諦める<span class="hl">ことなく</span>続けた。', id: 'Melanjutkan tanpa menyerah.' }] },
+  // N1 Pola Tambahan
+  { pattern: '〜すら', cat: 'emphasis', level: 'n1', meaning: 'Bahkan ~ pun (lebih ekstrem dari でも)', meaning_id: 'Menekankan bahwa bahkan hal yang "paling mendasar" pun memenuhi kondisi. Lebih ekstrem dari さえ.', structure: 'Noun + <span class="s-var">すら</span>', examples: [{ jp: '子供<span class="hl">すら</span>知っている。', id: 'Bahkan anak-anak pun tahu.' }] },
+  { pattern: '〜そばから', cat: 'repetition', level: 'n1', meaning: 'Setiap kali ~ langsung ~ (tidak bertahan)', meaning_id: 'Menunjukkan pola frustrasi: setiap kali selesai melakukan A, B langsung terjadi dan membatalkannya.', structure: 'Verbdic/た + <span class="s-var">そばから</span>', examples: [{ jp: '覚えた<span class="hl">そばから</span>忘れてしまう。', id: 'Setiap kali hafal, langsung terlupakan.' }] },
+  { pattern: '〜ずくめ', cat: 'state', level: 'n1', meaning: 'Penuh dengan ~/serba ~', meaning_id: 'Seluruhnya atau hampir seluruhnya dipenuhi/didominasi oleh hal yang disebutkan.', structure: 'Noun + <span class="s-var">ずくめ</span>', examples: [{ jp: '今日はいいこと<span class="hl">ずくめ</span>だ。', id: 'Hari ini serba menyenangkan.' }] },
+  { pattern: '〜かたわら', cat: 'parallel', level: 'n1', meaning: 'Sambil juga ~/di samping ~ juga ~', meaning_id: 'Dua kegiatan dilakukan bersamaan sebagai peran/aktivitas paralel. Berbeda dari ながら (ながら = aksi bersamaan, かたわら = peran/pekerjaan paralel).', structure: 'Noun/Verbdic + <span class="s-var">かたわら</span>', examples: [{ jp: '仕事の<span class="hl">かたわら</span>、勉強を続けている。', id: 'Sambil bekerja, juga terus belajar.' }] },
+  { pattern: '〜ならまだしも', cat: 'concession', level: 'n1', meaning: 'Kalau ~ masih bisa dimaklumi, tapi ~', meaning_id: 'Menyatakan bahwa kondisi "yang lebih ringan" masih bisa ditoleransi, tetapi kondisi aktual sudah melewati batas.', structure: 'Noun/Plain + <span class="s-var">ならまだしも</span>', examples: [{ jp: '一度なら<span class="hl">まだしも</span>、三度も同じ失敗をした。', id: 'Kalau satu kali masih dimaklumi, tapi sampai tiga kali.' }] },
+
+  // N3 additional
+  { pattern: '〜てならない', cat: 'emotion', level: 'n3', meaning: 'Tidak tahan ~ / sangat ~', meaning_id: 'Mengungkapkan perasaan yang sangat kuat tak tertahankan. Berbeda dari てたまらない (lebih ke keinginan fisik).', structure: 'い-Adjくて / Verbて + <span class="s-var">ならない</span>', examples: [{ jp: '心配で<span class="hl">ならない</span>。', id: 'Sangat khawatir (tak tertahankan).' }, { jp: 'あの映画が見たく<span class="hl">てならない</span>。', id: 'Sangat ingin menonton film itu.' }] },
+  { pattern: '〜に決まっている', cat: 'certainty', level: 'n3', meaning: 'Sudah pasti ~ / tentu saja ~', meaning_id: 'Keyakinan sangat kuat pembicara. Lebih kuat dari に違いない.', structure: 'Plain + <span class="s-var">に決まっている</span>', examples: [{ jp: 'そんな話、嘘<span class="hl">に決まっている</span>。', id: 'Cerita seperti itu pasti bohong.' }] },
+  { pattern: '〜わけにはいかない', cat: 'obligation', level: 'n3', meaning: 'Tidak bisa ~ (ada hambatan moral/sosial)', meaning_id: 'Tidak bisa melakukan karena tanggung jawab, etika, atau konteks sosial. Berbeda dari できない (kemampuan).', structure: 'Verbdic + <span class="s-var">わけにはいかない</span>', examples: [{ jp: '病気でも休む<span class="hl">わけにはいかない</span>。', id: 'Sekalipun sakit, tidak bisa tidak masuk.' }] },
+  // N2 additional
+  { pattern: '〜かねない', cat: 'risk', level: 'n2', meaning: 'Bisa jadi ~, ada risiko ~ (tidak diinginkan)', meaning_id: 'Menyatakan ada kemungkinan hasil buruk/tidak diinginkan yang nyata.', structure: 'Verbます stem + <span class="s-var">かねない</span>', examples: [{ jp: 'このままでは失敗し<span class="hl">かねない</span>。', id: 'Kalau begini terus, bisa jadi gagal.' }] },
+  { pattern: '〜次第', cat: 'condition', level: 'n2', meaning: 'Segera setelah ~/tergantung pada ~', meaning_id: '2 penggunaan: (1) segera setelah X, lakukan Y. (2) tergantung pada X.', structure: 'Verbます stem + <span class="s-var">次第</span> / Noun + <span class="s-var">次第だ</span>', examples: [{ jp: '準備でき<span class="hl">次第</span>、出発します。', id: 'Segera setelah siap, berangkat.' }, { jp: 'これからの努力<span class="hl">次第</span>だ。', id: 'Tergantung usaha ke depan.' }] },
+  { pattern: '〜にわたって', cat: 'extent', level: 'n2', meaning: 'Sepanjang ~/mencakup ~ (wilayah/waktu luas)', meaning_id: 'Menyatakan sesuatu berlangsung/mencakup rentang waktu atau area yang luas.', structure: 'Noun + <span class="s-var">にわたって/にわたる</span>', examples: [{ jp: '3日間<span class="hl">にわたって</span>交渉した。', id: 'Bernegosiasi selama 3 hari penuh.' }] },
+  { pattern: '〜をはじめとして', cat: 'example', level: 'n2', meaning: 'Dimulai dari ~/dengan ~ sebagai contoh utama', meaning_id: 'Menyebutkan satu contoh paling representatif dari kelompok yang lebih besar.', structure: 'Noun + <span class="s-var">をはじめとして/をはじめ</span>', examples: [{ jp: '東京<span class="hl">をはじめ</span>、全国で販売する。', id: 'Dijual di seluruh negeri, dimulai dari Tokyo.' }] },
+  { pattern: '〜とともに', cat: 'simultaneous', level: 'n2', meaning: 'Bersama dengan ~/seiring dengan ~', meaning_id: 'Menyatakan dua hal terjadi bersamaan atau satu hal terjadi seiring yang lain.', structure: 'Noun / Verbdic + <span class="s-var">とともに</span>', examples: [{ jp: '時代<span class="hl">とともに</span>変わる。', id: 'Berubah seiring zaman.' }] },
+  // N1 additional
+  { pattern: '〜にもかかわらず', cat: 'contrast', level: 'n1', meaning: 'Walaupun ~/meskipun ~ (formal)', meaning_id: 'Lebih formal dari のに. Mengekspresikan kontras kuat antara kondisi dan kenyataan.', structure: 'Plain/Noun + <span class="s-var">にもかかわらず</span>', examples: [{ jp: '雨<span class="hl">にもかかわらず</span>来てくれた。', id: 'Walaupun hujan, dia datang juga.' }] },
+  { pattern: '〜のみならず', cat: 'addition', level: 'n1', meaning: 'Tidak hanya ~/bukan saja ~ (formal)', meaning_id: 'Versi formal dari だけでなく. Sering di teks tertulis, akademis, pidato.', structure: 'Plain + <span class="s-var">のみならず</span>', examples: [{ jp: '国内<span class="hl">のみならず</span>海外でも評価された。', id: 'Dihargai tidak hanya di dalam negeri, tapi juga di luar negeri.' }] },
+  { pattern: '〜いかん', cat: 'condition', level: 'n1', meaning: 'Tergantung pada ~/bergantung pada ~', meaning_id: 'Sangat formal, sering di dokumen resmi dan bahasa tertulis. いかん = いかんによって.', structure: 'Noun + <span class="s-var">いかんによって/いかんでは</span>', examples: [{ jp: '結果<span class="hl">いかんによっては</span>、辞任する。', id: 'Tergantung hasilnya, mungkin mengundurkan diri.' }] },
+  { pattern: '〜をおいて', cat: 'uniqueness', level: 'n1', meaning: 'Selain ~ tidak ada / hanya ~ yang bisa', meaning_id: 'Menegaskan bahwa tidak ada alternatif lain selain yang disebutkan. Nuansa sangat kuat.', structure: 'Noun + <span class="s-var">をおいて（〜ない）</span>', examples: [{ jp: 'この仕事、君<span class="hl">をおいて</span>できる人はいない。', id: 'Untuk pekerjaan ini, tidak ada yang bisa selain kamu.' }] },
+  { pattern: '〜ともなく', cat: 'unconscious', level: 'n1', meaning: 'Tanpa tujuan tertentu ~/secara tidak sengaja ~', meaning_id: 'Aksi dilakukan tanpa kesadaran penuh atau tujuan yang jelas.', structure: 'Verb + <span class="s-var">ともなく/ともなしに</span>', examples: [{ jp: 'テレビを見る<span class="hl">ともなく</span>見ていた。', id: 'Menonton TV tanpa benar-benar menontonnya.' }] },
+  { pattern: '〜に足る', cat: 'worthiness', level: 'n1', meaning: 'Layak untuk ~/cukup untuk ~', meaning_id: 'Menyatakan sesuatu memenuhi standar atau kriteria tertentu. Formal.', structure: 'Verbdic + <span class="s-var">に足る</span>', examples: [{ jp: '信頼する<span class="hl">に足る</span>人物だ。', id: 'Ia adalah orang yang layak dipercaya.' }] },
+  { pattern: '〜ないまでも', cat: 'concession', level: 'n1', meaning: 'Sekalipun tidak ~/bahkan jika tidak sepenuhnya ~', meaning_id: 'Mengakui tidak bisa mencapai kondisi ideal, tapi minta setidaknya kondisi yang lebih rendah.', structure: 'Verbない + <span class="s-var">までも</span>', examples: [{ jp: '毎日でない<span class="hl">までも</span>、週3回は練習してほしい。', id: 'Sekalipun tidak setiap hari, tolong latihan 3x seminggu.' }] },
+
+  // N3 Lanjutan
+  { pattern: '〜てならない', cat: 'emotion', level: 'n3', meaning: 'Sangat ~ (tak tertahankan)', meaning_id: 'Berbeda dari たまらない (lebih ke fisik). てならない = emosi kuat yang tak bisa ditahan.', structure: 'い-Adjくて/Verbて + <span class="s-var">ならない</span>', examples: [{ jp: '合格できて嬉しく<span class="hl">てならない</span>。', id: 'Sangat senang bisa lulus.' }] },
+  { pattern: '〜に決まっている', cat: 'certainty', level: 'n3', meaning: 'Sudah pasti ~ / tentu saja ~', meaning_id: 'Keyakinan kuat pembicara. Lebih kuat dan emosional dari に違いない.', structure: 'Plain + <span class="s-var">に決まっている</span>', examples: [{ jp: 'そんな話、嘘<span class="hl">に決まっている</span>。', id: 'Cerita seperti itu pasti bohong.' }] },
+  { pattern: '〜わけにはいかない', cat: 'obligation', level: 'n3', meaning: 'Tidak bisa ~ (hambatan moral/sosial)', meaning_id: 'Tidak bisa dilakukan bukan karena kemampuan, tapi karena norma sosial, tanggung jawab, atau etika.', structure: 'Verbdic + <span class="s-var">わけにはいかない</span>', examples: [{ jp: '病気でも休む<span class="hl">わけにはいかない</span>。', id: 'Sekalipun sakit, tidak bisa tidak masuk.' }] },
+  { pattern: '〜だけでなく', cat: 'addition', level: 'n3', meaning: 'Tidak hanya ~ tapi juga ~', meaning_id: 'Menyatakan bahwa suatu pernyataan berlaku tidak hanya untuk X tetapi juga Y. Sering diikuti も atau まで.', structure: 'Noun/Plain + <span class="s-var">だけでなく</span>（…も）', examples: [{ jp: '勉強<span class="hl">だけでなく</span>運動も大切だ。', id: 'Bukan hanya belajar, olahraga juga penting.' }] },
+  { pattern: '〜たとたん', cat: 'timing', level: 'n2', meaning: 'Tepat setelah ~ langsung ~ (tidak terduga)', meaning_id: 'Menyatakan sesuatu yang tidak direncanakan terjadi tepat setelah suatu aksi selesai. Nuansa terkejut.', structure: 'Verbた + <span class="s-var">とたん（に）</span>', examples: [{ jp: '外に出た<span class="hl">とたん</span>、雨が降り出した。', id: 'Tepat setelah keluar, langsung hujan.' }] },
+  // N2 Lanjutan
+  { pattern: '〜かねる', cat: 'difficulty', level: 'n2', meaning: 'Sulit untuk ~/tidak bisa dengan mudah ~', meaning_id: 'Berbeda dari できない. かねる menyatakan keengganan/kesulitan karena alasan sosial atau moral, bukan ketidakmampuan.', structure: 'Verbます stem + <span class="s-var">かねる</span>', examples: [{ jp: 'ご要望にはお応えし<span class="hl">かねます</span>。', id: 'Sulit untuk memenuhi permintaan Anda.' }] },
+  { pattern: '〜ものの', cat: 'contrast', level: 'n2', meaning: 'Walaupun ~ (tapi kenyataannya berlawanan)', meaning_id: 'Mengekspresikan kontras dengan nuansa kekecewaan atau ketidaksesuaian harapan. Lebih formal dari けれど.', structure: 'Verbた/Plain + <span class="s-var">ものの</span>', examples: [{ jp: '頑張った<span class="hl">ものの</span>、失敗した。', id: 'Walaupun berusaha, gagal juga.' }] },
+  { pattern: '〜一方だ', cat: 'trend', level: 'n2', meaning: 'Semakin ~ / terus-menerus ~ (tren satu arah)', meaning_id: 'Menyatakan tren yang hanya bergerak satu arah tanpa berbalik — bisa negatif atau positif.', structure: 'Verbdic + <span class="s-var">一方だ</span>', examples: [{ jp: '技術が進歩する<span class="hl">一方だ</span>。', id: 'Teknologi terus berkembang.' }] },
+  { pattern: '〜に応じて', cat: 'condition', level: 'n2', meaning: 'Sesuai dengan ~/tergantung pada ~', meaning_id: 'Menyatakan bahwa X berubah/disesuaikan mengikuti kondisi Y yang berubah.', structure: 'Noun + <span class="s-var">に応じて/に応じた</span>', examples: [{ jp: 'レベル<span class="hl">に応じて</span>教える。', id: 'Mengajar sesuai levelnya.' }] },
+  { pattern: '〜を通じて', cat: 'means', level: 'n2', meaning: 'Melalui ~/lewat ~', meaning_id: 'Menyatakan media/jalan yang digunakan. を通じて = melalui (keseluruhan periode/media). を通して = lebih konkret.', structure: 'Noun + <span class="s-var">を通じて/を通して</span>', examples: [{ jp: '経験<span class="hl">を通じて</span>学ぶ。', id: 'Belajar melalui pengalaman.' }] },
+  // N1 Lanjutan
+  { pattern: '〜にもかかわらず', cat: 'contrast', level: 'n1', meaning: 'Walaupun ~/meskipun ~ (formal)', meaning_id: 'Lebih formal dari のに. Sering di teks tertulis. Kontras kuat antara kondisi dan kenyataan.', structure: 'Plain/Noun + <span class="s-var">にもかかわらず</span>', examples: [{ jp: '困難<span class="hl">にもかかわらず</span>諦めなかった。', id: 'Walaupun sulit, tidak menyerah.' }] },
+  { pattern: '〜のみならず', cat: 'addition', level: 'n1', meaning: 'Tidak hanya ~/bukan saja ~ (formal)', meaning_id: 'Versi formal dari だけでなく. Sering di teks akademis, pidato, laporan resmi.', structure: 'Plain/Noun + <span class="s-var">のみならず</span>', examples: [{ jp: '国内<span class="hl">のみならず</span>海外でも評価された。', id: 'Dihargai tidak hanya di dalam negeri, tapi juga luar negeri.' }] },
+  { pattern: '〜てやまない', cat: 'emotion', level: 'n1', meaning: 'Tidak pernah berhenti ~ / selalu ~ dengan tulus', meaning_id: 'Mengekspresikan perasaan yang tidak pernah berhenti — biasanya emosi positif yang tulus dan mendalam.', structure: 'Verbて + <span class="s-var">やまない</span>', examples: [{ jp: '成功を願って<span class="hl">やまない</span>。', id: 'Selalu berdoa dari lubuk hati agar sukses.' }] },
+  { pattern: '〜あっての', cat: 'dependency', level: 'n1', meaning: 'Berkat ~/karena ada ~ baru bisa ~', meaning_id: 'Menyatakan bahwa X hanya bisa eksis karena Y. Tanpa Y, X tidak bisa ada. Nuansa rasa syukur.', structure: 'Noun + <span class="s-var">あっての</span> + Noun', examples: [{ jp: 'お客様<span class="hl">あっての</span>商売だ。', id: 'Bisnis ini ada berkat para pelanggan.' }] },
+  { pattern: '〜もさることながら', cat: 'addition', level: 'n1', meaning: 'Bukan hanya ~ tapi ~ juga (bahkan lebih)', meaning_id: 'Menyatakan bahwa tidak hanya X (yang sudah bagus), tapi Y juga. Nuansa: Y bahkan sama pentingnya atau lebih dari X.', structure: 'Noun + <span class="s-var">もさることながら</span>', examples: [{ jp: '味<span class="hl">もさることながら</span>、雰囲気も最高だ。', id: 'Bukan hanya rasanya, suasananya pun luar biasa.' }] },
+  { pattern: '〜ともなると', cat: 'level', level: 'n1', meaning: 'Kalau sudah menjadi ~/apabila mencapai ~', meaning_id: 'Menyatakan bahwa ketika seseorang/sesuatu mencapai level tertentu, kondisi tertentu berlaku.', structure: 'Noun + <span class="s-var">ともなると/ともなれば</span>', examples: [{ jp: 'N1<span class="hl">ともなると</span>問題が難しい。', id: 'Kalau sudah N1, soalnya sangat sulit.' }] },
+  { pattern: '〜に先立って', cat: 'timing', level: 'n1', meaning: 'Sebelum ~/mendahului ~ (formal)', meaning_id: 'Melakukan sesuatu mendahului/sebagai persiapan dari acara utama. Formal, sering di upacara/dokumen.', structure: 'Noun/Verbdic + <span class="s-var">に先立って</span>', examples: [{ jp: '開会式<span class="hl">に先立って</span>挨拶する。', id: 'Menyampaikan sambutan sebelum upacara pembukaan.' }] },
+  { pattern: '〜ないまでも', cat: 'concession', level: 'n1', meaning: 'Sekalipun tidak ~/bahkan jika tidak sampai ~', meaning_id: 'Mengakui tidak bisa mencapai kondisi ideal (X), tapi meminta setidaknya kondisi yang lebih rendah (Y).', structure: 'Verbない + <span class="s-var">までも</span>', examples: [{ jp: '毎日でない<span class="hl">までも</span>、週3回は練習してほしい。', id: 'Sekalipun tidak setiap hari, tolong latihan 3x seminggu.' }] },
+  { pattern: '〜に足る', cat: 'worthiness', level: 'n1', meaning: 'Layak untuk ~/cukup untuk ~', meaning_id: 'Menyatakan bahwa sesuatu/seseorang memenuhi kriteria atau standar untuk melakukan/menjadi X. Formal.', structure: 'Verbdic + <span class="s-var">に足る</span>', examples: [{ jp: '信頼する<span class="hl">に足る</span>人物だ。', id: 'Ia adalah orang yang layak dipercaya.' }] },
+  { pattern: '〜ともなく', cat: 'unconscious', level: 'n1', meaning: 'Tanpa tujuan ~/secara tidak sengaja ~', meaning_id: 'Melakukan aksi tanpa kesadaran penuh atau tanpa tujuan yang jelas. Setengah sadar.', structure: 'Verb + <span class="s-var">ともなく/ともなしに</span>', examples: [{ jp: 'テレビを見る<span class="hl">ともなく</span>見ていた。', id: 'Menonton TV tanpa benar-benar menontonnya.' }] },
+
+  // N3 Penting
+  { pattern: '〜てしまう', cat: 'completion', level: 'n3', meaning: 'Selesai tuntas ~ / Menyesal melakukan ~', meaning_id: 'Dua makna: (1) menyelesaikan sesuatu tuntas, (2) melakukan sesuatu yang disesali/tidak disengaja.', structure: 'Verbて + <span class="s-var">しまう/しまった</span>', examples: [{ jp: '財布を忘れて<span class="hl">しまった</span>！', id: 'Aduh, dompetnya ketinggalan!' }, { jp: '宿題を全部やって<span class="hl">しまった</span>。', id: 'Semua PR sudah selesai dikerjakan.' }] },
+  { pattern: '〜てみる', cat: 'attempt', level: 'n3', meaning: 'Mencoba ~/coba-coba ~', meaning_id: 'Melakukan sesuatu untuk dicoba — tanpa kepastian hasilnya. Berbeda dari ようとする (berusaha dengan sungguh-sungguh).', structure: 'Verbて + <span class="s-var">みる</span>', examples: [{ jp: '新しいレストランで食べて<span class="hl">みた</span>。', id: 'Saya mencoba makan di restoran baru.' }] },
+  { pattern: '〜ておく', cat: 'preparation', level: 'n3', meaning: 'Melakukan ~ terlebih dahulu (persiapan untuk nanti)', meaning_id: 'Melakukan aksi sebagai persiapan atau untuk menjaga keadaan. Konteks: sebelum sesuatu terjadi.', structure: 'Verbて + <span class="s-var">おく</span>', examples: [{ jp: '会議の前に資料を準備して<span class="hl">おく</span>。', id: 'Menyiapkan dokumen dulu sebelum rapat.' }] },
+  // N2 Penting
+  { pattern: '〜に過ぎない', cat: 'limitation', level: 'n2', meaning: 'Tidak lebih dari ~/hanya sekadar ~', meaning_id: 'Menyatakan bahwa sesuatu hanya sekecil itu, tidak lebih. Sering berkesan merendahkan.', structure: 'Noun/Plain + <span class="s-var">に過ぎない</span>', examples: [{ jp: 'それは偶然<span class="hl">に過ぎない</span>。', id: 'Itu tidak lebih dari kebetulan.' }] },
+  { pattern: '〜おかげで', cat: 'cause', level: 'n2', meaning: 'Berkat ~/karena (pengaruh positif) ~', meaning_id: 'Nuansa POSITIF — berterima kasih. Berlawanan dengan せいで (nuansa negatif). Menunjukkan rasa syukur.', structure: 'Plain/Noun + の + <span class="s-var">おかげで</span>', examples: [{ jp: '先生の<span class="hl">おかげで</span>合格できた。', id: 'Berkat sensei saya bisa lulus.' }] },
+  { pattern: '〜せいで', cat: 'cause', level: 'n2', meaning: 'Gara-gara ~/karena (pengaruh negatif) ~', meaning_id: 'Nuansa NEGATIF — menyalahkan/mengangkat alasan. Berlawanan dengan おかげで. Menunjukkan ketidaksenangan.', structure: 'Plain/Noun + の + <span class="s-var">せいで</span>', examples: [{ jp: '雨の<span class="hl">せいで</span>遅刻した。', id: 'Gara-gara hujan saya terlambat.' }] },
+  { pattern: '〜にとって', cat: 'perspective', level: 'n2', meaning: 'Bagi ~/dari sudut pandang ~', meaning_id: 'Menyatakan perspektif, manfaat, atau beban bagi seseorang/sesuatu. Berbeda から (sumber) dan にとって (perspektif).', structure: 'Noun + <span class="s-var">にとって</span>', examples: [{ jp: '彼<span class="hl">にとって</span>、これは大きな挑戦だ。', id: 'Bagi dia, ini adalah tantangan besar.' }] },
+  { pattern: '〜というより', cat: 'correction', level: 'n2', meaning: 'Lebih tepat dikatakan ~ / bukan ~ melainkan ~', meaning_id: 'Memperbaiki atau mengkoreksi suatu deskripsi dengan yang lebih akurat. Lebih halus dari 違う.', structure: 'Plain + <span class="s-var">というより</span>', examples: [{ jp: '難しい<span class="hl">というより</span>複雑だ。', id: 'Lebih tepat disebut rumit daripada sulit.' }] },
+  // N1 Penting
+  { pattern: '〜なりに', cat: 'manner', level: 'n1', meaning: 'Sesuai kemampuannya ~/dengan caranya sendiri ~', meaning_id: 'Menyatakan seseorang melakukan sesuai level/kemampuannya, tidak harus sempurna. Mengakui keterbatasan dengan positif.', structure: 'Noun/Plain + <span class="s-var">なりに/なりの</span>', examples: [{ jp: '子供<span class="hl">なりに</span>一生懸命考えた。', id: 'Sesuai kemampuan anak, dia berpikir keras.' }] },
+  { pattern: '〜ひいては', cat: 'extension', level: 'n1', meaning: 'Bahkan lebih jauh ~ / pada akhirnya sampai ~', meaning_id: 'Memperluas konsekuensi atau dampak — menghubungkan dari yang kecil ke yang lebih besar.', structure: '…そして + <span class="s-var">ひいては</span> + (dampak lebih besar)', examples: [{ jp: '個人、<span class="hl">ひいては</span>社会全体に影響する。', id: 'Mempengaruhi individu, bahkan lebih jauh masyarakat keseluruhan.' }] },
+,
+  { pattern: '〜に限り', cat: 'limitation', level: 'n2', meaning: 'Khusus ~/hanya pada ~', meaning_id: 'Menyatakan pembatasan khusus. Hanya berlaku pada kondisi/orang tertentu saja.', structure: 'Noun + <span class="s-var">に限り/に限って</span>', examples: [{ jp: '本日<span class="hl">に限り</span>半額です。', id: 'Khusus hari ini, setengah harga.' }] },
+  { pattern: '〜抜きに(は)', cat: 'exclusion', level: 'n2', meaning: 'Tanpa ~/mengecualikan ~', meaning_id: 'Melakukan sesuatu tanpa X. Sering dipakai: 冗談抜きに(tanpa bercanda), 彼抜きでは(tanpa dia).', structure: 'Noun + <span class="s-var">抜きに(は)/抜きで</span>', examples: [{ jp: '冗談<span class="hl">抜きに</span>話そう。', id: 'Mari berbicara tanpa bercanda.' }] },
+  { pattern: '〜に限らず', cat: 'scope', level: 'n2', meaning: 'Tidak hanya ~/tidak terbatas pada ~', meaning_id: 'Memperluas cakupan. X + に限らず = tidak hanya X, tapi juga Y.', structure: 'Noun + <span class="s-var">に限らず</span>', examples: [{ jp: '学生<span class="hl">に限らず</span>誰でも参加できる。', id: 'Siapa pun bisa ikut, tidak hanya mahasiswa.' }] },
+  { pattern: '〜からして', cat: 'basis', level: 'n2', meaning: 'Bahkan dilihat dari ~ saja', meaning_id: 'Bahkan contoh paling dasar/sederhana (X) sudah menunjukkan kondisi itu. Penekanan.', structure: 'Noun + <span class="s-var">からして</span>', examples: [{ jp: '見た目<span class="hl">からして</span>怪しい。', id: 'Bahkan dari penampilan saja sudah mencurigakan.' }] },
+,
+  { pattern: '〜ものの', cat: 'contrast', level: 'n2', meaning: 'Walaupun ~/meski ~ (kontras)', meaning_id: 'Kontras kuat: X terjadi/ada, tapi hasilnya tidak sesuai harapan. Mirip けれど tapi lebih formal/tulisan.', structure: 'Plain/Nounである + <span class="s-var">ものの</span>', examples: [{ jp: '頑張った<span class="hl">ものの</span>、結果は良くなかった。', id: 'Walaupun sudah berusaha, hasilnya tidak bagus.' }] },
+  { pattern: '〜にわたって', cat: 'scope', level: 'n2', meaning: 'Sepanjang ~/meliputi ~ (jangkauan luas)', meaning_id: 'Menunjukkan rentang waktu/ruang yang luas. Menekankan luasnya cakupan. Formal/tulisan.', structure: 'Noun + <span class="s-var">にわたって/にわたる</span>', examples: [{ jp: '3日間<span class="hl">にわたって</span>話し合いが続いた。', id: 'Diskusi berlangsung selama 3 hari penuh.' }] },
+  { pattern: '〜に反して', cat: 'contrast', level: 'n2', meaning: 'Berlawanan dengan ~/bertentangan dengan ~', meaning_id: 'Hasilnya bertentangan dengan harapan/aturan/ekspektasi. Kontras formal.', structure: 'Noun + <span class="s-var">に反して/に反する</span>', examples: [{ jp: '予想<span class="hl">に反して</span>合格した。', id: 'Berlawanan dengan perkiraan, berhasil lulus.' }] },
+  { pattern: '〜てやまない', cat: 'feeling', level: 'n1', meaning: 'Tidak pernah berhenti ~ (perasaan mendalam)', meaning_id: 'Perasaan yang tidak pernah berhenti — selalu ada. Biasanya positif: 願う, 愛する, 望む.', structure: 'Verbて + <span class="s-var">やまない</span>', examples: [{ jp: 'ご成功を願って<span class="hl">やまない</span>。', id: 'Senantiasa mendoakan kesuksesan Anda.' }] },
+  { pattern: '〜あっての', cat: 'dependency', level: 'n1', meaning: 'Berkat ~/hanya bisa ada karena ~', meaning_id: 'X hanya bisa ada karena Y. Tanpa Y, X tidak ada. Menunjukkan ketergantungan esensial.', structure: 'Noun + <span class="s-var">あっての</span> + Noun', examples: [{ jp: 'お客様<span class="hl">あっての</span>ビジネスです。', id: 'Bisnis ini ada berkat para pelanggan.' }] },
+  { pattern: '〜ともなると', cat: 'transition', level: 'n1', meaning: 'Kalau sudah menjadi ~/ketika sampai ~', meaning_id: 'Menyatakan bahwa ketika seseorang mencapai status/level X, konsekuensinya berbeda. Ada nuansa "tentu saja".', structure: 'Noun + <span class="s-var">ともなると/ともなれば</span>', examples: [{ jp: '社長<span class="hl">ともなると</span>、責任も重い。', id: 'Kalau sudah menjadi direktur, tanggung jawabnya pun berat.' }] },
+,
+  { pattern: '〜を皮切りに', cat: 'sequence', level: 'n1', meaning: 'Dimulai dari ~ (langkah pertama)', meaning_id: 'Menyatakan bahwa X adalah awal dari serangkaian hal yang berlanjut. Ada nuansa "dan seterusnya setelah itu".', structure: 'Noun + <span class="s-var">を皮切りに/を皮切りとして</span>', examples: [{ jp: '東京<span class="hl">を皮切りに</span>、全国ツアーが始まった。', id: 'Tur nasional dimulai dari Tokyo.' }] },
+  { pattern: '〜かたわら', cat: 'parallel', level: 'n1', meaning: 'Di samping ~/sambil juga ~', meaning_id: 'Melakukan dua hal secara paralel — keduanya dilakukan. Biasanya untuk aktivitas yang berkelanjutan.', structure: 'Noun の / Verbdic + <span class="s-var">かたわら</span>', examples: [{ jp: '仕事の<span class="hl">かたわら</span>、小説を書いている。', id: 'Di samping bekerja, juga menulis novel.' }] },
+  { pattern: '〜に先立って', cat: 'time', level: 'n1', meaning: 'Sebelum ~/sebagai persiapan sebelum ~', meaning_id: 'Melakukan sesuatu sebelum X sebagai persiapan/pendahuluan. Formal. Berbeda dari 前に (lebih kuat nuansa persiapan).', structure: 'Noun / Verbdic + <span class="s-var">に先立って/に先立ち</span>', examples: [{ jp: '式典<span class="hl">に先立って</span>、練習が行われた。', id: 'Sebelum upacara, dilakukan latihan.' }] },
+  { pattern: '〜ならいざ知らず', cat: 'contrast', level: 'n1', meaning: 'Kalau ~ mungkin lain cerita, tapi ~', meaning_id: 'Menyatakan bahwa X mungkin bisa ditoleransi, tapi Y tidak. Menekankan ketidakwajaran Y.', structure: 'Noun / Plain + <span class="s-var">ならいざ知らず</span>', examples: [{ jp: '素人<span class="hl">ならいざ知らず</span>、プロがそんなミスをするとは。', id: 'Kalau amatir mungkin lain cerita, tapi seorang profesional melakukan kesalahan seperti itu.' }] },
+  { pattern: '〜てはじめて', cat: 'realization', level: 'n3', meaning: 'Baru setelah ~ baru bisa/tahu ~', meaning_id: 'Pengalaman/kondisi X menjadi syarat untuk memahami/mencapai Y. Nuansa "sebelumnya tidak tahu".', structure: 'Verbて + <span class="s-var">はじめて</span>', examples: [{ jp: '親になっ<span class="hl">てはじめて</span>親の気持ちが分かる。', id: 'Baru setelah menjadi orang tua, baru mengerti perasaan orang tua.' }] },
+,
+  { pattern: '〜に限らず', cat: 'scope', level: 'n2', meaning: 'Tidak hanya ~/tidak terbatas pada ~', meaning_id: 'Memperluas cakupan dari X. "Bukan hanya X, tapi juga Y (dan lainnya)". Hampir sinonim dengan だけでなく tapi lebih formal.', structure: 'Noun + <span class="s-var">に限らず</span>', examples: [{ jp: '子供<span class="hl">に限らず</span>、大人も楽しめる。', id: 'Tidak hanya anak-anak, orang dewasa pun bisa menikmati.' }] },
+  { pattern: '〜をはじめとして', cat: 'example', level: 'n2', meaning: 'Dimulai dari ~/dengan ~ sebagai contoh utama', meaning_id: 'Menyebutkan X sebagai contoh representatif dari kelompok yang lebih besar. Lebih formal dari など.', structure: 'Noun + <span class="s-var">をはじめとして/をはじめ</span>', examples: [{ jp: '田中さん<span class="hl">をはじめとして</span>、多くの人が参加した。', id: 'Mulai dari Tanaka-san, banyak orang ikut berpartisipasi.' }] },
+  { pattern: '〜に応じて', cat: 'proportion', level: 'n2', meaning: 'Sesuai dengan ~/bergantung pada ~', meaning_id: 'Sesuatu berubah/disesuaikan berdasarkan X. Ada nuansa fleksibel/adaptif. Berbeda dari によって (kausal).', structure: 'Noun + <span class="s-var">に応じて/に応じた</span>', examples: [{ jp: '能力<span class="hl">に応じて</span>仕事を割り当てる。', id: 'Membagi pekerjaan sesuai dengan kemampuan.' }] },
+  { pattern: '〜のみならず', cat: 'addition', level: 'n1', meaning: 'Tidak hanya ~/bukan saja ~', meaning_id: 'Sinonim formal dari だけでなく. Digunakan dalam tulisan/ucapan formal. Ada penekanan pada perluasan cakupan.', structure: 'Noun/Plain + <span class="s-var">のみならず</span>', examples: [{ jp: '国内<span class="hl">のみならず</span>、海外でも評判になった。', id: 'Tidak hanya di dalam negeri, juga terkenal di luar negeri.' }] },
+  { pattern: '〜ゆえに', cat: 'reason', level: 'n1', meaning: 'Oleh karena itu ~/karena ~', meaning_id: 'Ekspresi kausalitas yang sangat formal/tulisan. Lebih kuat dan literary dari だから atau のために. Sering di esai/tulisan ilmiah.', structure: 'Noun の/Plain + <span class="s-var">ゆえに/ゆえの</span>', examples: [{ jp: '経験不足<span class="hl">ゆえに</span>、失敗した。', id: 'Karena kurang pengalaman, mengalami kegagalan.' }] },
+,
+  { pattern: '〜をもって', cat: 'means', level: 'n1', meaning: 'Dengan ~/mulai dari ~', meaning_id: '(1) Cara/alat: dengan menggunakan ~. (2) Waktu: mulai dari/pada ~. Formal/tulisan.', structure: 'Noun + <span class="s-var">をもって/をもちまして</span>', examples: [{ jp: '本日<span class="hl">をもって</span>閉店いたします。', id: 'Mulai hari ini kami tutup (toko).' }] },
+  { pattern: '〜にほかならない', cat: 'certainty', level: 'n1', meaning: 'Tidak lain adalah ~/tidak lain kecuali ~', meaning_id: 'Menyatakan bahwa X adalah SATU-SATUNYA penyebab/identitas. Penekanan kuat. Formal.', structure: 'Plain/Noun + <span class="s-var">にほかならない</span>', examples: [{ jp: '成功は努力の結果<span class="hl">にほかならない</span>。', id: 'Kesuksesan tidak lain adalah hasil kerja keras.' }] },
+  { pattern: '〜べからず', cat: 'prohibition', level: 'n1', meaning: 'Dilarang ~/jangan ~ (larangan tegas)', meaning_id: 'Larangan sangat tegas dan formal. Sering pada papan peringatan atau aturan tertulis. Verbdic + べからず.', structure: 'Verbdic + <span class="s-var">べからず</span>', examples: [{ jp: '芝生に入る<span class="hl">べからず</span>。', id: 'Dilarang masuk ke rumput.' }] },
+  { pattern: '〜かねない', cat: 'risk', level: 'n2', meaning: 'Bisa jadi ~/tidak mustahil ~ (risiko negatif)', meaning_id: 'Menyatakan kemungkinan hasil NEGATIF yang tidak bisa diabaikan. Nuansa peringatan/kekhawatiran.', structure: 'Verbます-stem + <span class="s-var">かねない</span>', examples: [{ jp: 'このままでは失敗し<span class="hl">かねない</span>。', id: 'Kalau terus begini, tidak mustahil gagal.' }] },
+  { pattern: '〜ずにはいられない', cat: 'compulsion', level: 'n1', meaning: 'Tidak bisa tidak ~/tidak tahan untuk tidak ~', meaning_id: 'Dorongan yang tidak bisa ditahan — harus melakukan. する→せずにはいられない. Penting!', structure: 'Verbない-stem + <span class="s-var">ずにはいられない</span>', examples: [{ jp: '見ると笑わ<span class="hl">ずにはいられない</span>。', id: 'Setiap melihatnya, tidak bisa tidak tertawa.' }] },
+];
+
+let currentGrammarCat = 'all';
+let grammarInited = false;
+
+function initGrammar() {
+  if (grammarInited) return;
+  grammarInited = true;
+  renderGrammar(grammarData);
+}
+
+function renderGrammar(data) {
+  const container = document.getElementById('grammarContent');
+  container.innerHTML = '';
+  data.forEach((g, i) => {
+    const card = document.createElement('div');
+    card.className = 'grammar-card';
+    card.setAttribute('data-cat', g.cat);
+    card.setAttribute('data-level', (g.level || 'N3').toLowerCase());
+    card.innerHTML = `
+      <div class="grammar-card-header" onclick="toggleGrammar(this.parentNode)">
+        <div class="grammar-pattern">${g.pattern}</div>
+        <div class="grammar-level-badge">${g.level}</div>
+      </div>
+      <div class="grammar-meaning">${g.meaning}<div class="grammar-meaning-id">${g.meaning_id}</div></div>
+      <div class="grammar-body">
+        <div class="grammar-structure">${g.structure}</div>
+        <div class="grammar-section-title">Contoh Kalimat</div>
+        ${g.examples.map(ex => `<div class="grammar-example"><div class="grammar-ex-jp">${ex.jp}</div><div class="grammar-ex-id">${ex.id}</div></div>`).join('')}
+        <div class="grammar-notes">${g.note}</div>
+        ${g.compare ? `<div class="grammar-section-title" style="margin-top:1rem">Bandingkan dengan</div><div class="grammar-compare">${g.compare.map(c => `<span class="grammar-compare-tag">${c}</span>`).join('')}</div>` : ''}
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function toggleGrammar(card) {
+  card.classList.toggle('open');
+}
+
+function setGrammarCat(el, cat) {
+  document.querySelectorAll('.grammar-cat').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  currentGrammarCat = cat;
+  filterGrammar(document.getElementById('grammarSearch').value);
+}
+
+function filterGrammar(query) {
+  const q = query.toLowerCase();
+  const filtered = grammarData.filter(g => {
+    const matchCat = currentGrammarCat === 'all' || g.cat === currentGrammarCat;
+    const matchQ = !q || g.pattern.includes(q) || g.meaning.toLowerCase().includes(q) || g.meaning_id.toLowerCase().includes(q);
+    return matchCat && matchQ;
+  });
+  renderGrammar(filtered);
+}
+
+// init on load
+initDashboard();
+setTimeout(() => {
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+}, 100);
+</script>
+<script src="../assets/translator.min.js" defer></script>
+<script src="../assets/pro-app.min.js" defer></script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.65);padding:2rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:18px;font-weight:700;margin-bottom:.35rem">Nihonggo Pro Academy</div>
+      <div style="font-size:12px">Platform belajar bahasa Jepang N5–N1</div>
+    </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;font-size:13px">
+      <a href="../index.html" style="color:rgba(255,255,255,.55);text-decoration:none">Beranda</a>
+      <a href="../Materi/Materi.html" style="color:rgba(255,255,255,.55);text-decoration:none">Materi</a>
+      <a href="../Blog.html" style="color:rgba(255,255,255,.55);text-decoration:none">Blog</a>
+      <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.55);text-decoration:none">Kelas Live</a>
+      <a href="../FAQ.html" style="color:rgba(255,255,255,.55);text-decoration:none">FAQ</a>
+      <a href="../Privacy.html" style="color:rgba(255,255,255,.55);text-decoration:none">Privasi</a>
+      <a href="../Akun.html" style="color:rgba(255,255,255,.55);text-decoration:none">Akun</a>
+      <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.55);text-decoration:none">Grammar Checker</a>
+      <a href="../Sertifikat.html" style="color:rgba(255,255,255,.55);text-decoration:none">Sertifikat</a>
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,.3)">© 2025 NihonggoPro · nihonggopro.id</div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<script>
+(function(){
+  var btn=document.getElementById('hambSmall');
+  if(!btn)return;
+  btn.addEventListener('click',function(){
+    var nl=document.querySelector('.nav-links-main');
+    if(!nl)return;
+    var open=nl.classList.toggle('open');
+    btn.setAttribute('aria-expanded',open);
+  });
+  document.addEventListener('click',function(e){
+    if(!e.target.closest('nav')){
+      var nl=document.querySelector('.nav-links-main');
+      if(nl)nl.classList.remove('open');
+    }
+  });
+})();
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+
+<!-- ═══ KUIS PRO PAGE ═══ -->
+<div class="page" id="page-kuis">
+  <div class="page-header reveal">
+    <div class="section-label">Latihan Soal Interaktif</div>
+    <div class="section-title">Kuis Pro</div>
+    <div class="section-sub">Soal JLPT N5–N1: kosakata, grammar, kanji, dan kaigo. Dapatkan XP setiap menjawab!</div>
+  </div>
+
+  <!-- KUIS CONTROLS -->
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px;align-items:center">
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <button class="kq-filter active" data-lv="all" onclick="filterKuis(this,'all')">Semua</button>
+      <button class="kq-filter" data-lv="N5" onclick="filterKuis(this,'N5')">N5</button>
+      <button class="kq-filter" data-lv="N4" onclick="filterKuis(this,'N4')">N4</button>
+      <button class="kq-filter" data-lv="N3" onclick="filterKuis(this,'N3')">N3</button>
+      <button class="kq-filter" data-lv="kaigo" onclick="filterKuis(this,'kaigo')">介護 Kaigo</button>
+    </div>
+    <div style="display:flex;gap:6px;margin-left:auto">
+      <button class="kq-filter" data-cat="vocab" onclick="filterKuisCat(this,'vocab')">語彙</button>
+      <button class="kq-filter" data-cat="grammar" onclick="filterKuisCat(this,'grammar')">文法</button>
+      <button class="kq-filter" data-cat="kanji" onclick="filterKuisCat(this,'kanji')">漢字</button>
+    </div>
+  </div>
+
+  <!-- SCORE BAR -->
+  <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+    <div class="kq-stat"><span class="kq-stat-n" id="kqScore">0</span><span class="kq-stat-l">XP Sesi Ini</span></div>
+    <div class="kq-stat"><span class="kq-stat-n" id="kqCorrect">0</span><span class="kq-stat-l">Benar</span></div>
+    <div class="kq-stat"><span class="kq-stat-n" id="kqWrong">0</span><span class="kq-stat-l">Salah</span></div>
+    <div class="kq-stat"><span class="kq-stat-n" id="kqStreak">0</span><span class="kq-stat-l">Streak 🔥</span></div>
+    <button onclick="resetKuis()" style="margin-left:auto;padding:8px 16px;border-radius:8px;border:1px solid rgba(107,79,58,.18);background:none;cursor:pointer;font-size:12px;font-weight:600;color:#6B4F3A">↺ Reset</button>
+  </div>
+
+  <!-- SOAL CARD -->
+  <div id="kqCard" class="kq-card">
+    <div class="kq-badge" id="kqBadge">N5 · Kosakata</div>
+    <div class="kq-no" id="kqNo">Soal 1 dari 50</div>
+    <div class="kq-question" id="kqQuestion"></div>
+    <div class="kq-sub" id="kqSub"></div>
+    <div class="kq-choices" id="kqChoices"></div>
+    <div class="kq-feedback" id="kqFeedback"></div>
+    <div class="kq-nav" id="kqNav" style="display:none">
+      <button class="kq-next" onclick="nextKuis()">Soal Berikutnya →</button>
+    </div>
+  </div>
+
+  <!-- PROGRESS -->
+  <div style="margin-top:16px">
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:#A0A0A0;margin-bottom:6px">
+      <span id="kqProgress">0 / 0 soal selesai</span>
+      <span id="kqAccuracy">Akurasi: —</span>
+    </div>
+    <div style="height:6px;background:rgba(107,79,58,.08);border-radius:3px;overflow:hidden">
+      <div id="kqBar" style="height:100%;background:#6B4F3A;border-radius:3px;width:0%;transition:width 300ms"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+/* ── KUIS PRO STYLES ── */
+.kq-filter {
+  padding:7px 14px;border-radius:18px;border:1.5px solid rgba(107,79,58,.18);
+  background:none;font-family:inherit;font-size:12px;font-weight:600;
+  cursor:pointer;transition:all 130ms;color:var(--ink-soft,#6E6E6E);
+}
+.kq-filter:hover,.kq-filter.active {
+  background:var(--red,#A63A3A);color:#FEF;border-color:var(--red,#A63A3A);
+}
+[data-theme="dark"] .kq-filter { border-color:rgba(200,155,60,.20);color:#9A9890; }
+[data-theme="dark"] .kq-filter.active { background:#C89B3C;color:#1A1209;border-color:#C89B3C; }
+
+.kq-stat {
+  background:var(--white,#FEFCF8);border:1px solid rgba(107,79,58,.10);
+  border-radius:10px;padding:10px 16px;text-align:center;min-width:72px;
+}
+[data-theme="dark"] .kq-stat { background:#1A1A1A;border-color:rgba(200,155,60,.10); }
+.kq-stat-n { font-size:22px;font-weight:700;color:var(--red,#A63A3A);display:block; }
+[data-theme="dark"] .kq-stat-n { color:#C89B3C; }
+.kq-stat-l { font-size:10px;color:#A0A0A0;text-transform:uppercase;letter-spacing:.06em; }
+
+.kq-card {
+  background:var(--white,#FEFCF8);border:1px solid rgba(107,79,58,.10);
+  border-radius:16px;padding:28px;max-width:640px;
+}
+[data-theme="dark"] .kq-card { background:#1A1A1A;border-color:rgba(200,155,60,.10); }
+.kq-badge {
+  display:inline-block;padding:4px 10px;border-radius:12px;
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(166,58,58,.08);color:var(--red,#A63A3A);margin-bottom:10px;
+}
+[data-theme="dark"] .kq-badge { background:rgba(200,155,60,.10);color:#C89B3C; }
+.kq-no { font-size:12px;color:#A0A0A0;margin-bottom:14px; }
+.kq-question {
+  font-size:22px;font-weight:700;color:var(--ink,#2D2D2D);margin-bottom:8px;
+  font-family:'Noto Serif JP','DM Sans',serif;line-height:1.4;
+}
+[data-theme="dark"] .kq-question { color:#E8E5DF; }
+.kq-sub { font-size:14px;color:#6E6E6E;margin-bottom:20px; }
+.kq-choices { display:grid;grid-template-columns:1fr 1fr;gap:10px; }
+@media(max-width:480px){ .kq-choices { grid-template-columns:1fr; } }
+.kq-choice {
+  padding:13px 16px;border-radius:10px;
+  border:1.5px solid rgba(107,79,58,.14);
+  background:var(--white,#FEFCF8);
+  font-family:inherit;font-size:14px;font-weight:600;
+  cursor:pointer;transition:all 130ms;color:var(--ink,#2D2D2D);
+  text-align:left;line-height:1.4;
+}
+[data-theme="dark"] .kq-choice { background:#242424;border-color:rgba(200,155,60,.12);color:#E8E5DF; }
+.kq-choice:hover:not(:disabled) { border-color:#6B4F3A;background:rgba(107,79,58,.05); }
+.kq-choice.correct { background:#EAF2E8!important;border-color:#5B7C5B!important;color:#5B7C5B!important; }
+.kq-choice.wrong { background:#FAEAEA!important;border-color:#A63A3A!important;color:#A63A3A!important; }
+.kq-feedback {
+  margin-top:14px;padding:12px 16px;border-radius:10px;
+  font-size:14px;line-height:1.6;display:none;
+}
+.kq-feedback.show { display:block; }
+.kq-feedback.correct { background:#EAF2E8;border-left:4px solid #5B7C5B;color:#3A6A3A; }
+.kq-feedback.wrong { background:#FAEAEA;border-left:4px solid #A63A3A;color:#7A2A2A; }
+[data-theme="dark"] .kq-feedback.correct { background:rgba(91,124,91,.15);color:#8FBF8F; }
+[data-theme="dark"] .kq-feedback.wrong { background:rgba(166,58,58,.15);color:#E07070; }
+.kq-nav { margin-top:16px;text-align:right; }
+.kq-next {
+  padding:10px 22px;border-radius:9px;background:#6B4F3A;color:#FEF;
+  border:none;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:background 130ms;
+}
+.kq-next:hover { background:#553C2B; }
+[data-theme="dark"] .kq-next { background:#C89B3C;color:#1A1209; }
+</style>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   KUIS PRO — 50 Soal JLPT N5–N1 + Kaigo
+   ════════════════════════════════════════════════════════ */
+const KUIS_DATA = [
+  /* ── N5 KOSAKATA ── */
+  {lv:'N5',cat:'vocab',q:'何の意味ですか？「ありがとう」',sub:'Apa arti kata berikut?',
+   choices:['Permisi','Maaf','Terima kasih','Selamat tinggal'],ans:2,
+   exp:'「ありがとう」= Terima kasih. Bentuk kasual dari ありがとうございます.'},
+  {lv:'N5',cat:'vocab',q:'「__」に入る言葉は？\n今日は（\u3000）がいいです。',sub:'Pilih kata yang tepat: "Hari ini ___ bagus."',
+   choices:['天気 (cuaca)','病気 (sakit)','気持ち (perasaan)','電気 (listrik)'],ans:0,
+   exp:'天気 (てんき) = cuaca. 今日は天気がいい = Cuaca hari ini bagus.'},
+  {lv:'N5',cat:'vocab',q:'「学校」の読み方は？',sub:'Bagaimana cara membaca kanji ini?',
+   choices:['がっこう','がくこう','がっこ','かくこう'],ans:0,
+   exp:'学校 (がっこう) = sekolah. 学 (gaku/gak) + 校 (kou)'},
+  {lv:'N5',cat:'kanji',q:'「山」の英語訳は？',sub:'Apa arti kanji ini dalam Bahasa Indonesia?',
+   choices:['Laut','Gunung','Sungai','Hutan'],ans:1,
+   exp:'山 (やま/サン) = gunung. Contoh: 富士山 (Fujisan) = Gunung Fuji.'},
+  {lv:'N5',cat:'grammar',q:'「私は学生___」空欄に何を入れますか？',sub:'Lengkapi kalimat dengan partikel yang benar.',
+   choices:['が','を','は','に'],ans:2,  // は karena setelah penanda topik
+   // Actually 'は' di sini sebagai penanda topik sudah ada, jadi jawaban = です tapi ini pilihan struktur
+   exp:'私は学生です。Pola: [Topik] は [Nomina] です. "Saya adalah pelajar."'},
+  {lv:'N5',cat:'vocab',q:'「食べる」はどういう意味ですか？',sub:'',
+   choices:['Minum','Tidur','Makan','Pergi'],ans:2,
+   exp:'食べる (たべる) = makan. Contoh: ご飯を食べる = makan nasi.'},
+  {lv:'N5',cat:'grammar',q:'「今日、図書館＿＿行きます」',sub:'Partikel yang benar adalah?',
+   choices:['で','に','を','が'],ans:1,
+   exp:'に digunakan untuk tujuan pergerakan (destination). 図書館に行く = pergi ke perpustakaan.'},
+  {lv:'N5',cat:'kanji',q:'「日本語」の読み方は？',sub:'',
+   choices:['にほんご','にほんこ','にっぽんご','にっぽんこ'],ans:0,
+   exp:'日本語 (にほんご) = bahasa Jepang. 日本 (にほん) + 語 (ご).'},
+  {lv:'N5',cat:'vocab',q:'「かわいい」の意味は？',sub:'',
+   choices:['Cantik/tampan (dewasa)','Lucu/imut','Menakutkan','Membosankan'],ans:1,
+   exp:'かわいい = lucu, imut, menggemaskan. Sering dipakai untuk anak kecil, hewan, benda kecil.'},
+  {lv:'N5',cat:'grammar',q:'「これ＿＿何ですか？」',sub:'Partikel yang tepat untuk kalimat tanya:',
+   choices:['を','に','は','で'],ans:2,
+   exp:'これは何ですか = Ini apa? Pola: [Nomina] は 何ですか untuk menanyakan identitas benda.'},
+
+  /* ── N4 KOSAKATA ── */
+  {lv:'N4',cat:'vocab',q:'「残念」の意味は？',sub:'',
+   choices:['Menyenangkan','Sayang sekali/Kecewa','Luar biasa','Bersemangat'],ans:1,
+   exp:'残念 (ざんねん) = sayang sekali, mengecewakan. 残念ですね = Sayang sekali, ya.'},
+  {lv:'N4',cat:'grammar',q:'「雨が降って___、試合が中止になった」',sub:'',
+   choices:['から','ので','けど','のに'],ans:1,
+   exp:'〜ので = karena (sebab alami/objektif). 雨が降ったので試合が中止 = Karena hujan, pertandingan dibatalkan.'},
+  {lv:'N4',cat:'kanji',q:'「運動」の読み方は？',sub:'',
+   choices:['うんどう','いどう','うごき','れんどう'],ans:0,
+   exp:'運動 (うんどう) = olahraga, gerak. 毎日運動する = berolahraga setiap hari.'},
+  {lv:'N4',cat:'vocab',q:'「丁寧」の意味は？',sub:'',
+   choices:['Kasar','Sopan/cermat','Lambat','Keras'],ans:1,
+   exp:'丁寧 (ていねい) = sopan, teliti, hati-hati. 丁寧な言葉 = kata-kata yang sopan.'},
+  {lv:'N4',cat:'grammar',q:'「彼女は歌___が上手です」',sub:'',
+   choices:['を','い','う','こと'],ans:3,
+   exp:'〜こと + が上手 = pandai dalam hal... 歌うことが上手 = pandai bernyanyi. Nomina formal dari verba.'},
+  {lv:'N4',cat:'vocab',q:'「連絡する」の意味は？',sub:'',
+   choices:['Bertemu','Menghubungi/Memberi kabar','Mencari','Menunggu'],ans:1,
+   exp:'連絡 (れんらく) = kontak, kabar. 後で連絡します = Saya akan menghubungi nanti.'},
+  {lv:'N4',cat:'grammar',q:'「この仕事は難しい＿＿、やってみます」',sub:'',
+   choices:['ので','から','けど','のに'],ans:2,
+   exp:'〜けど = meskipun, tapi (kontras lembut). Meski sulit, saya akan mencobanya.'},
+  {lv:'N4',cat:'kanji',q:'「特別」の意味は？',sub:'',
+   choices:['Biasa','Spesial/Khusus','Umum','Biasa saja'],ans:1,
+   exp:'特別 (とくべつ) = spesial, khusus. 特別なプレゼント = hadiah istimewa.'},
+  {lv:'N4',cat:'vocab',q:'「経験」の意味は？',sub:'',
+   choices:['Rencana','Pengalaman','Kebiasaan','Kemampuan'],ans:1,
+   exp:'経験 (けいけん) = pengalaman. 経験を積む = menumpuk pengalaman.'},
+  {lv:'N4',cat:'grammar',q:'「もっと練習___ば、上手になれる」',sub:'',
+   choices:['し','せ','す','さ'],ans:1,
+   exp:'〜すれば = jika melakukan. もっと練習すれば上手になれる = Jika lebih banyak latihan, kamu bisa jadi lebih baik.'},
+
+  /* ── N3 GRAMMAR ── */
+  {lv:'N3',cat:'grammar',q:'「彼は来る＿＿来ない＿＿、わからない」',sub:'',
+   choices:['か・か','や・や','に・に','も・も'],ans:0,
+   exp:'〜か〜か = apakah ... atau .... 来るか来ないかわからない = tidak tahu apakah akan datang atau tidak.'},
+  {lv:'N3',cat:'grammar',q:'「失礼___、少しよろしいですか」',sub:'Isian tepat untuk ungkapan permintaan formal:',
+   choices:['ですが','ながら','ですから','ですし'],ans:0,
+   exp:'失礼ですが = Mohon maaf mengganggu (pembuka percakapan formal). Sangat umum di lingkungan kerja Jepang.'},
+  {lv:'N3',cat:'vocab',q:'「妥協する」の意味は？',sub:'',
+   choices:['Memaksakan','Berkompromi/Mengalah','Berkompetisi','Mendukung'],ans:1,
+   exp:'妥協 (だきょう) = kompromi, mengalah sebagian. 妥協点を探す = mencari titik kompromi.'},
+  {lv:'N3',cat:'grammar',q:'「どんなに努力___も、結果が出ないこともある」',sub:'',
+   choices:['し','して','する','した'],ans:2,
+   exp:'どんなに〜しても = tidak peduli seberapa banyak kamu melakukan 〜. Pola konsesi.'},
+  {lv:'N3',cat:'kanji',q:'「複雑」の意味は？',sub:'',
+   choices:['Sederhana','Rumit/Kompleks','Penting','Biasa'],ans:1,
+   exp:'複雑 (ふくざつ) = rumit, kompleks. この問題は複雑だ = Masalah ini rumit.'},
+  {lv:'N3',cat:'grammar',q:'「会議中、携帯を使わないよう___」',sub:'Perintah halus/imbauan dalam rapat:',
+   choices:['にしてください','としてください','としましょう','にしましょう'],ans:0,
+   exp:'〜ないようにしてください = tolong usahakan jangan 〜. Imbauan sopan.'},
+
+  /* ── N2/N1 GRAMMAR ── */
+  {lv:'N2',cat:'grammar',q:'「いかに努力___とも、才能には勝てない」',sub:'',
+   choices:['した','しよう','して','する'],ans:1,
+   exp:'いかに〜しようとも = tidak peduli seberapa keras kamu 〜. Pola konsesi formal/sastra.'},
+  {lv:'N2',cat:'vocab',q:'「懸念」の意味は？',sub:'',
+   choices:['Harapan','Kekhawatiran/Keprihatinan','Kepercayaan','Kebanggaan'],ans:1,
+   exp:'懸念 (けねん) = kekhawatiran, keprihatinan. 安全への懸念 = kekhawatiran tentang keselamatan.'},
+  {lv:'N1',cat:'grammar',q:'「ご要望___、早急に対応いたします」',sub:'Isian formulir/surat resmi:',
+   choices:['に際して','に基づき','について','に対して'],ans:1,
+   exp:'〜に基づき = berdasarkan 〜. ご要望に基づき対応する = Merespons berdasarkan permintaan Anda.'},
+  {lv:'N1',cat:'vocab',q:'「忸怩たる思い」の意味は？',sub:'',
+   choices:['Rasa bangga','Rasa malu/Rasa bersalah mendalam','Rasa puas','Rasa ingin tahu'],ans:1,
+   exp:'忸怩 (じくじ) = rasa malu mendalam, rasa bersalah. Ungkapan formal yang sering di pidato/tulisan.'},
+
+  /* ── KAIGO SPECIALIST ── */
+  {lv:'kaigo',cat:'vocab',q:'「申し送り」の意味は？（介護）',sub:'Istilah penting dalam lingkungan kaigo:',
+   choices:['Instruksi dari dokter','Serah terima informasi antar shift','Laporan medis resmi','Prosedur darurat'],ans:1,
+   exp:'申し送り (もうしおくり) = serah terima informasi antar shift. Krusial di kaigo untuk kesinambungan perawatan.'},
+  {lv:'kaigo',cat:'vocab',q:'「見守り」とは何ですか？',sub:'',
+   choices:['Pemeriksaan fisik','Pengawasan dari jarak aman','Bantuan berjalan','Pemberian obat'],ans:1,
+   exp:'見守り (みまもり) = pengawasan/penjagaan tanpa intervensi langsung. Menghormati kemandirian residen.'},
+  {lv:'kaigo',cat:'vocab',q:'「利用者」の意味は？（介護施設）',sub:'',
+   choices:['Perawat','Residen/Pengguna layanan kaigo','Dokter','Keluarga residen'],ans:1,
+   exp:'利用者 (りようしゃ) = pengguna layanan, residen. Istilah resmi untuk orang yang menerima layanan kaigo.'},
+  {lv:'kaigo',cat:'grammar',q:'「お体の具合はいかがですか？」の意味は？',sub:'Ungkapan kaigo kepada residen:',
+   choices:['Apakah makanannya enak?','Bagaimana kondisi badan Anda?','Apakah Anda mau minum obat?','Apakah Anda butuh bantuan?'],ans:1,
+   exp:'お体の具合はいかがですか = Bagaimana kondisi badan Anda? Pertanyaan standar saat memulai perawatan.'},
+  {lv:'kaigo',cat:'vocab',q:'「排泄介助」とは？',sub:'',
+   choices:['Bantuan mandi','Bantuan makan','Bantuan buang air','Bantuan berjalan'],ans:2,
+   exp:'排泄介助 (はいせつかいじょ) = bantuan buang air (BAK/BAB). Salah satu tugas inti kaigo.'},
+  {lv:'kaigo',cat:'vocab',q:'「尊厳」の意味は？（介護の文脈で）',sub:'',
+   choices:['Rutinitas','Martabat/Kehormatan diri','Keselamatan','Kemandirian'],ans:1,
+   exp:'尊厳 (そんげん) = martabat, kehormatan diri. 尊厳を守る = menjaga martabat residen. Nilai inti kaigo.'},
+  {lv:'kaigo',cat:'vocab',q:'「福祉士」とは何ですか？',sub:'',
+   choices:['Dokter spesialis','Pekerja sosial berlisensi','Perawat medis','Administrator rumah sakit'],ans:1,
+   exp:'福祉士 (ふくしし) = pekerja sosial berlisensi. 介護福祉士 = certified care worker (国家資格).'},
+  {lv:'kaigo',cat:'grammar',q:'「手伝いましょうか」の使い方は？',sub:'Kapan ungkapan ini digunakan?',
+   choices:['Saat meminta tolong pada rekan','Saat menawarkan bantuan kepada residen','Saat melapor ke atasan','Saat menerima tugas'],ans:1,
+   exp:'〜ましょうか = Bolehkah saya 〜? / Maukah saya 〜? Tawaran bantuan yang sopan kepada residen atau rekan.'},
+  {lv:'kaigo',cat:'vocab',q:'「入浴介助」の読み方と意味は？',sub:'',
+   choices:['にゅうよくかいじょ — bantuan mandi','にゅうすいかいじょ — bantuan berenang','にゅうしょくかいじょ — bantuan makan','にゅうきかいじょ — bantuan berpakaian'],ans:0,
+   exp:'入浴介助 (にゅうよくかいじょ) = bantuan mandi. Prosedur yang memerlukan teknik khusus untuk menjaga keselamatan dan martabat residen.'},
+  {lv:'kaigo',cat:'vocab',q:'「ヒヤリハット」とは何ですか？',sub:'Istilah manajemen keselamatan kaigo:',
+   choices:['Kecelakaan serius yang terjadi','Insiden nyaris celaka yang dilaporkan','Prosedur penanganan darurat','Laporan medis bulanan'],ans:1,
+   exp:'ヒヤリハット = near-miss incident (insiden nyaris celaka). Dilaporkan untuk mencegah kecelakaan serupa. Konsep Heinrich\'s Triangle dalam kaigo.'},
+
+  /* ── N5 TAMBAHAN ── */
+  {lv:'N5',cat:'grammar',q:'「毎朝、コーヒー＿＿飲みます」',sub:'',
+   choices:['が','を','は','に'],ans:1,
+   exp:'を digunakan untuk objek langsung verba transitif. コーヒーを飲む = minum kopi.'},
+  {lv:'N5',cat:'vocab',q:'「大丈夫」の意味は？',sub:'',
+   choices:['Berbahaya','Aman/Tidak apa-apa','Sulit','Menarik'],ans:1,
+   exp:'大丈夫 (だいじょうぶ) = tidak apa-apa, aman, OK. 大丈夫ですか = Apa kamu baik-baik saja?'},
+  {lv:'N5',cat:'kanji',q:'「水曜日」は何曜日ですか？',sub:'',
+   choices:['Senin','Selasa','Rabu','Kamis'],ans:2,
+   exp:'水曜日 (すいようび) = hari Rabu. 水 = air. Urutan: 月火水木金土日.'},
+  {lv:'N4',cat:'grammar',q:'「部屋を掃除___ところです」',sub:'"Saya baru saja selesai membersihkan kamar"',
+   choices:['する','した','して','します'],ans:1,
+   exp:'〜たところです = baru saja selesai melakukan 〜. Menunjukkan sesuatu yang baru terjadi.'},
+  {lv:'N3',cat:'vocab',q:'「気が利く」の意味は？',sub:'',
+   choices:['Ceroboh','Peka/Berperasaan halus','Sombong','Pemalu'],ans:1,
+   exp:'気が利く (きがきく) = peka terhadap kebutuhan orang lain, thoughtful. 彼女は気が利く = Dia peka/perhatian.'},
+  {lv:'N2',cat:'grammar',q:'「ゴミ問題___、市民全員が取り組むべきだ」',sub:'',
+   choices:['について','に対して','に関して','に基づいて'],ans:2,
+   exp:'〜に関して = mengenai, berhubungan dengan (formal). Berbeda dari について (netral) dan に対して (terhadap/respons).'},
+  {lv:'kaigo',cat:'vocab',q:'「拒否」の対応で正しいのは？',sub:'Residen menolak perawatan. Apa yang tepat dilakukan?',
+   choices:['Memaksakan karena demi kebaikan residen','Menghormati penolakan dan melaporkan ke tim','Mengabaikan penolakan','Langsung memanggil keluarga'],ans:1,
+   exp:'尊厳を守る観点から、拒否は尊重される。Penolakan residen harus dihormati (prinsip otonomi). Dokumentasikan dan diskusikan dengan tim.'},
+  {lv:'N4',cat:'vocab',q:'「遠慮する」の意味は？',sub:'',
+   choices:['Bersemangat','Menahan diri/Sungkan','Memaksa','Bersabar'],ans:1,
+   exp:'遠慮 (えんりょ) = menahan diri karena sungkan, tidak mau merepotkan. 遠慮しないで = jangan sungkan.'},
+];
+
+/* ── STATE ── */
+let kqData = [...KUIS_DATA];
+let kqIndex = 0;
+let kqCorrectCount = 0;
+let kqWrongCount = 0;
+let kqStreakCount = 0;
+let kqXP = 0;
+let kqAnswered = false;
+let kqFilterLv = 'all';
+let kqFilterCat = 'all';
+
+function getFilteredData() {
+  return KUIS_DATA.filter(q => {
+    const lvOk = kqFilterLv === 'all' || q.lv === kqFilterLv;
+    const catOk = kqFilterCat === 'all' || q.cat === kqFilterCat;
+    return lvOk && catOk;
+  });
+}
+
+function filterKuis(btn, lv) {
+  document.querySelectorAll('.kq-filter[data-lv]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  kqFilterLv = lv;
+  kqData = getFilteredData().sort(() => Math.random() - 0.5);
+  kqIndex = 0;
+  renderSoal();
+}
+
+function filterKuisCat(btn, cat) {
+  document.querySelectorAll('.kq-filter[data-cat]').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  kqFilterCat = cat;
+  kqData = getFilteredData().sort(() => Math.random() - 0.5);
+  kqIndex = 0;
+  renderSoal();
+}
+
+function renderSoal() {
+  if (!kqData.length) {
+    document.getElementById('kqQuestion').textContent = 'Tidak ada soal untuk filter ini.';
+    document.getElementById('kqChoices').innerHTML = '';
+    document.getElementById('kqSub').textContent = '';
+    return;
+  }
+
+  kqAnswered = false;
+  const q = kqData[kqIndex % kqData.length];
+
+  // Badge
+  const badge = document.getElementById('kqBadge');
+  badge.textContent = `${q.lv} · ${q.cat === 'vocab' ? '語彙' : q.cat === 'grammar' ? '文法' : q.cat === 'kanji' ? '漢字' : '介護'}`;
+
+  // Number
+  document.getElementById('kqNo').textContent = `Soal ${kqIndex + 1} dari ${kqData.length}`;
+
+  // Question
+  document.getElementById('kqQuestion').innerHTML = q.q.replace(/\n/g,'<br>');
+  document.getElementById('kqSub').textContent = q.sub || '';
+
+  // Choices
+  const container = document.getElementById('kqChoices');
+  container.innerHTML = '';
+  q.choices.forEach((ch, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'kq-choice';
+    btn.textContent = ch;
+    btn.setAttribute('data-idx', i);
+    btn.addEventListener('click', () => answerKuis(i, q));
+    container.appendChild(btn);
+  });
+
+  // Reset feedback & nav
+  const fb = document.getElementById('kqFeedback');
+  fb.className = 'kq-feedback';
+  fb.textContent = '';
+  document.getElementById('kqNav').style.display = 'none';
+
+  // Progress
+  updateKuisProgress();
+}
+
+function answerKuis(idx, q) {
+  if (kqAnswered) return;
+  kqAnswered = true;
+
+  const choices = document.querySelectorAll('.kq-choice');
+  choices.forEach(b => b.disabled = true);
+
+  const isCorrect = idx === q.ans;
+  choices[idx].classList.add(isCorrect ? 'correct' : 'wrong');
+  choices[q.ans].classList.add('correct');
+
+  // Feedback
+  const fb = document.getElementById('kqFeedback');
+  fb.className = `kq-feedback show ${isCorrect ? 'correct' : 'wrong'}`;
+  fb.innerHTML = `<strong>${isCorrect ? '✅ Benar!' : '❌ Salah.'}</strong><br>${q.exp}`;
+
+  // Score
+  if (isCorrect) {
+    kqCorrectCount++;
+    kqStreakCount++;
+    const xpGain = q.lv === 'N1' ? 15 : q.lv === 'N2' ? 12 : q.lv === 'N3' ? 10 : q.lv === 'kaigo' ? 12 : q.lv === 'N4' ? 8 : 5;
+    const streakBonus = kqStreakCount >= 5 ? xpGain : 0;
+    kqXP += xpGain + streakBonus;
+  } else {
+    kqWrongCount++;
+    kqStreakCount = 0;
+  }
+
+  document.getElementById('kqScore').textContent = kqXP;
+  document.getElementById('kqCorrect').textContent = kqCorrectCount;
+  document.getElementById('kqWrong').textContent = kqWrongCount;
+  document.getElementById('kqStreak').textContent = kqStreakCount;
+
+  document.getElementById('kqNav').style.display = 'block';
+  updateKuisProgress();
+
+  // Save XP to localStorage
+  try {
+    const totalXP = parseInt(localStorage.getItem('nihongoTotalPts') || '0') + (isCorrect ? 5 : 0);
+    localStorage.setItem('nihongoTotalPts', totalXP);
+    try{ if(window.NPXP && isCorrect) NPXP.award('game', 5); }catch(e){}
+    // Pastikan nama pemain tersimpan (default) agar leaderboard tidak kosong
+    if (!localStorage.getItem('nihongoPlayerName')) {
+      localStorage.setItem('nihongoPlayerName', 'Kamu');
+    }
+    // Update streak harian: tambah jika hari berbeda dari terakhir main
+    var _today = new Date().toISOString().slice(0,10);
+    var _last = localStorage.getItem('nihongoLastPlay');
+    if (_last !== _today) {
+      var _s = parseInt(localStorage.getItem('nihongoStreak') || '0');
+      if (_last) {
+        var _diff = Math.round((new Date(_today) - new Date(_last)) / 86400000);
+        _s = _diff === 1 ? _s + 1 : 1;
+      } else { _s = 1; }
+      localStorage.setItem('nihongoStreak', _s);
+      localStorage.setItem('nihongoLastPlay', _today);
+    }
+  } catch(e) {}
+}
+
+function nextKuis() {
+  kqIndex++;
+  if (kqIndex >= kqData.length) {
+    kqIndex = 0;
+    kqData = getFilteredData().sort(() => Math.random() - 0.5);
+  }
+  renderSoal();
+}
+
+function resetKuis() {
+  kqCorrectCount = kqWrongCount = kqStreakCount = kqXP = kqIndex = 0;
+  document.getElementById('kqScore').textContent = '0';
+  document.getElementById('kqCorrect').textContent = '0';
+  document.getElementById('kqWrong').textContent = '0';
+  document.getElementById('kqStreak').textContent = '0';
+  kqData = getFilteredData().sort(() => Math.random() - 0.5);
+  renderSoal();
+}
+
+function updateKuisProgress() {
+  const total = kqData.length;
+  const done = kqCorrectCount + kqWrongCount;
+  const pct = total ? Math.round(done / total * 100) : 0;
+  const acc = done ? Math.round(kqCorrectCount / done * 100) : 0;
+  document.getElementById('kqProgress').textContent = `${done} / ${total} soal dijawab`;
+  document.getElementById('kqAccuracy').textContent = done ? `Akurasi: ${acc}%` : 'Akurasi: —';
+  document.getElementById('kqBar').style.width = pct + '%';
+}
+
+// Init kuis saat tab dibuka
+document.addEventListener('DOMContentLoaded', function() {
+  kqData = [...KUIS_DATA].sort(() => Math.random() - 0.5);
+  renderSoal();
+});
+
+// Hook ke showTab untuk init kuis saat pertama dibuka
+const _origShowTab = typeof showTab === 'function' ? showTab : null;
+function patchShowTabKuis() {
+  const origFn = window.showTab;
+  if (!origFn) return;
+  window.showTab = function(id) {
+    origFn(id);
+    if (id === 'kuis' && kqIndex === 0 && !kqAnswered) {
+      kqData = [...KUIS_DATA].sort(() => Math.random() - 0.5);
+      renderSoal();
+    }
+  };
+}
+window.addEventListener('load', patchShowTabKuis);
+</script>
+
+</body>
+</html>

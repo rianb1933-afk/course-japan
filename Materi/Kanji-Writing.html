@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Latihan Tulis Kanji — Stroke Order & Writing Practice | NihonggoPro</title>
+<meta name="description" content="Latihan menulis kanji dengan panduan stroke order, penilaian otomatis, dan sistem SRS. Kuasai 2.000+ kanji N5-N1 dengan metode yang terbukti efektif.">
+<meta property="og:title" content="Latihan Tulis Kanji — NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kanji-Writing.html">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Latihan Menulis Kanji NihonggoPro", "description": "Latihan menulis kanji Jepang dengan penilaian stroke order", "url": "https://nihonggopro.id/Materi/Kanji-Writing.html", "provider": {"@type": "Organization", "name": "NihonggoPro"}, "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:2px;list-style:none}
+
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+
+.hero{padding:clamp(36px,5vw,52px) clamp(16px,5vw,72px) 32px;background:var(--ink);color:#fff}
+.hero-inner{max-width:1100px;margin:0 auto}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,40px);line-height:1.1;margin-bottom:.5rem}
+.hero p{color:rgba(255,255,255,.62);font-size:14px}
+
+.main{max-width:1100px;margin:2rem auto;padding:0 clamp(16px,5vw,72px) 4rem;flex:1;display:grid;grid-template-columns:1fr 360px;gap:1.5rem;align-items:start}
+@media(max-width:900px){.main{grid-template-columns:1fr}}
+
+/* Writing panel */
+.write-panel{background:var(--white);border-radius:16px;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);overflow:hidden}
+.write-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.write-head h2{font-family:"Noto Serif JP",serif;font-size:20px}
+.level-filter{display:flex;gap:.3rem}
+.lv-chip{height:28px;padding:0 10px;border-radius:6px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);font-size:11px;font-weight:800;cursor:pointer;transition:all .15s}
+.lv-chip.on{background:var(--red-pale);border-color:var(--red);color:var(--red)}
+
+/* Kanji display */
+.kanji-display{padding:2rem;text-align:center;border-bottom:1px solid var(--border)}
+.target-kanji{font-family:"Noto Serif JP",serif;font-size:100px;font-weight:700;color:var(--ink);line-height:1;margin-bottom:.5rem;cursor:pointer;transition:opacity .2s;user-select:none}
+.target-kanji.hidden{opacity:.1}
+.kanji-info{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:.875rem}
+.kanji-info-item{text-align:center}
+.info-label{font-size:10px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.2rem}
+.info-value{font-size:14px;font-weight:600;color:var(--ink)}
+.show-hint-btn{height:32px;padding:0 14px;border-radius:7px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.show-hint-btn:hover{border-color:var(--red);color:var(--red)}
+
+/* Canvas area */
+.canvas-area{padding:1.5rem;border-bottom:1px solid var(--border)}
+.canvas-wrap{position:relative;display:inline-block;border-radius:12px;overflow:hidden;border:2px solid var(--border-mid);cursor:crosshair;margin-bottom:.875rem;display:block}
+#writeCanvas{display:block;background:white;touch-action:none}
+.canvas-grid{position:absolute;inset:0;pointer-events:none}
+.canvas-tools{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.875rem}
+.tool-btn{height:38px;padding:0 14px;border-radius:9px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.35rem}
+.tool-btn:hover{border-color:var(--red);color:var(--red)}
+.tool-btn.active{background:var(--red);border-color:var(--red);color:#fff}
+.color-picker{display:flex;gap:.3rem;align-items:center}
+.color-dot{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:transform .15s}
+.color-dot.active{border-color:var(--ink);transform:scale(1.2)}
+.brush-size{display:flex;gap:.3rem;align-items:center}
+.size-dot{border-radius:50%;background:var(--ink);cursor:pointer;transition:transform .15s;flex-shrink:0}
+.size-dot.active{background:var(--red)}
+
+/* Score */
+.score-area{padding:1.25rem 1.5rem;text-align:center}
+.score-display{display:none;flex-direction:column;align-items:center;gap:.75rem;padding:1rem;background:var(--cream);border-radius:12px;margin-bottom:.875rem}
+.score-circle{width:80px;height:80px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;border:4px solid}
+.score-msg{font-size:14px;font-weight:700}
+.score-detail{font-size:12px;color:var(--ink-soft);line-height:1.65}
+.action-btns{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+.act-btn{height:44px;padding:0 20px;border-radius:10px;border:none;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:all .2s}
+.act-btn.primary{background:var(--red);color:#fff}
+.act-btn.primary:hover{background:#a02d23;transform:translateY(-1px)}
+.act-btn.ghost{background:var(--white);border:1.5px solid var(--border-mid);color:var(--ink-mid)}
+.act-btn.ghost:hover{border-color:var(--red);color:var(--red)}
+
+/* Sidebar */
+.sidebar{display:flex;flex-direction:column;gap:1rem}
+.side-card{background:var(--white);border-radius:14px;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);overflow:hidden}
+.side-head{padding:.875rem 1.25rem;border-bottom:1px solid var(--border);font-size:13px;font-weight:800;color:var(--ink);display:flex;align-items:center;gap:.4rem}
+.side-body{padding:1rem 1.25rem}
+.kanji-queue{display:grid;grid-template-columns:repeat(5,1fr);gap:.4rem}
+.kanji-q-item{aspect-ratio:1;border-radius:8px;border:1.5px solid var(--border-mid);display:flex;align-items:center;justify-content:center;font-family:"Noto Serif JP",serif;font-size:20px;cursor:pointer;transition:all .15s;background:var(--white)}
+.kanji-q-item:hover{border-color:var(--red);background:var(--red-pale)}
+.kanji-q-item.current{border-color:var(--red);background:var(--red);color:#fff}
+.kanji-q-item.done{border-color:var(--green);background:var(--green-pale);color:var(--green)}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:.625rem}
+.stat-mini{background:var(--cream);border-radius:8px;padding:.625rem .75rem}
+.stat-mini strong{font-size:22px;font-family:"Noto Serif JP",serif;display:block;line-height:1.1}
+.stat-mini span{font-size:11px;color:var(--ink-soft)}
+.tip-list{display:flex;flex-direction:column;gap:.5rem}
+.tip-item{font-size:12px;color:var(--ink-mid);padding:.4rem .5rem;background:var(--cream);border-radius:7px;line-height:1.55}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:400;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
+.toast{background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:8px;font-size:13px;font-weight:600;opacity:0;transform:translateY(8px);transition:all .3s}
+.toast.show{opacity:1;transform:translateY(0)}
+
+*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+@media(max-width:600px){#writeCanvas{width:100%!important;height:auto!important}.hero{padding:2rem 16px}}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Latihan menulis kanji dengan panduan stroke order, penilaian otomatis, dan sistem SRS. Kuasai 2.000+ kanji N5-N1 dengan metode yang terbukti efektif.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kanji-Writing.html">
+<meta name="twitter:title" content="Latihan Tulis Kanji — Stroke Order & Writing Practice">
+<meta name="twitter:description" content="Latihan menulis kanji dengan panduan stroke order, penilaian otomatis, dan sistem SRS. Kuasai 2.000+ kanji N5-N1 dengan metode yang terbukti efektif.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker">✍️ Writing Practice</div>
+    <h1>Latihan Menulis Kanji</h1>
+    <p>Tulis kanji di kanvas, dapatkan penilaian AI, dan pelajari stroke order yang benar. Setara WaniKani.</p>
+  </div>
+</section>
+
+<div class="main">
+  <!-- WRITING PANEL -->
+  <div class="write-panel">
+    <div class="write-head">
+      <h2 id="currentKanjiTitle">✍️ Tulis Kanji</h2>
+      <div class="level-filter">
+        <button class="lv-chip on" data-lv="N5" onclick="setLevel(this)">N5</button>
+        <button class="lv-chip" data-lv="N4" onclick="setLevel(this)">N4</button>
+        <button class="lv-chip" data-lv="N3" onclick="setLevel(this)">N3</button>
+      </div>
+    </div>
+    
+    <!-- Target Kanji Display -->
+    <div class="kanji-display">
+      <div class="target-kanji" id="targetKanji" onclick="toggleHint()" title="Klik untuk sembunyikan/tampilkan">日</div>
+      <div class="kanji-info">
+        <div class="kanji-info-item">
+          <div class="info-label">On'yomi</div>
+          <div class="info-value" id="kanjiOn">にち・じつ</div>
+        </div>
+        <div class="kanji-info-item">
+          <div class="info-label">Kun'yomi</div>
+          <div class="info-value" id="kanjiKun">ひ・か</div>
+        </div>
+        <div class="kanji-info-item">
+          <div class="info-label">Arti</div>
+          <div class="info-value" id="kanjiMean">matahari · hari</div>
+        </div>
+        <div class="kanji-info-item">
+          <div class="info-label">Strokes</div>
+          <div class="info-value" id="kanjiStrokes">4</div>
+        </div>
+      </div>
+      <button class="show-hint-btn" onclick="showStrokeHint()">📖 Lihat Stroke Order</button>
+    </div>
+    
+    <!-- Canvas -->
+    <div class="canvas-area">
+      <div class="canvas-wrap" id="canvasWrap">
+        <canvas id="writeCanvas" width="360" height="360"></canvas>
+        <svg class="canvas-grid" id="canvasGrid" viewBox="0 0 360 360" xmlns="http://www.w3.org/2000/svg">
+          <!-- Grid lines -->
+          <line x1="180" y1="0" x2="180" y2="360" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4"/>
+          <line x1="0" y1="180" x2="360" y2="180" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4"/>
+          <line x1="90" y1="0" x2="90" y2="360" stroke="#f0f0f0" stroke-width="0.5" stroke-dasharray="2"/>
+          <line x1="270" y1="0" x2="270" y2="360" stroke="#f0f0f0" stroke-width="0.5" stroke-dasharray="2"/>
+          <line x1="0" y1="90" x2="360" y2="90" stroke="#f0f0f0" stroke-width="0.5" stroke-dasharray="2"/>
+          <line x1="0" y1="270" x2="360" y2="270" stroke="#f0f0f0" stroke-width="0.5" stroke-dasharray="2"/>
+          <!-- Ghost kanji -->
+          <text id="ghostKanji" x="180" y="290" text-anchor="middle" font-family="Noto Serif JP, serif" font-size="280" fill="rgba(0,0,0,0.04)" font-weight="bold">日</text>
+        </svg>
+      </div>
+      
+      <div class="canvas-tools">
+        <button class="tool-btn active" id="btnPen" onclick="setTool('pen',this)">✏️ Pen</button>
+        <button class="tool-btn" id="btnEraser" onclick="setTool('eraser',this)">🧹 Hapus</button>
+        <button class="tool-btn" onclick="clearCanvas()">🗑️ Bersihkan</button>
+        <button class="tool-btn" onclick="undoLast()">↩️ Undo</button>
+      </div>
+      
+      <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:.875rem">
+        <div class="color-picker">
+          <span style="font-size:12px;font-weight:600;color:var(--ink-soft);margin-right:.25rem">Warna:</span>
+          <div class="color-dot active" style="background:#15161a" data-color="#15161a" onclick="setColor(this)"></div>
+          <div class="color-dot" style="background:var(--red,#be3428)" data-color="#6B4F3A" onclick="setColor(this)"></div>
+          <div class="color-dot" style="background:var(--blue,#2f6fed)" data-color="var(--blue,#2f6fed)" onclick="setColor(this)"></div>
+        </div>
+        <div class="brush-size" style="margin-left:.5rem">
+          <span style="font-size:12px;font-weight:600;color:var(--ink-soft);margin-right:.25rem">Tebal:</span>
+          <div class="size-dot" style="width:8px;height:8px" data-size="3" onclick="setSize(this)"></div>
+          <div class="size-dot active" style="width:12px;height:12px" data-size="6" onclick="setSize(this)"></div>
+          <div class="size-dot" style="width:16px;height:16px" data-size="10" onclick="setSize(this)"></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Score & Actions -->
+    <div class="score-area">
+      <div class="score-display" id="scoreDisplay">
+        <div class="score-circle" id="scoreCircle" style="color:var(--green);border-color:var(--green)">A</div>
+        <div class="score-msg" id="scoreMsg">Latihan Selesai!</div>
+        <div class="score-detail" id="scoreDetail">Bagus! Perhatikan urutan stroke untuk hasil yang lebih baik.</div>
+      </div>
+      <div class="action-btns">
+        <button class="act-btn ghost" onclick="clearCanvas()">↩️ Ulangi</button>
+        <button class="act-btn primary" onclick="evaluateWriting()">✅ Nilai Tulisan</button>
+        <button class="act-btn ghost" onclick="nextKanji()">⏭ Berikutnya</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <!-- Queue -->
+    <div class="side-card">
+      <div class="side-head">📋 Antrian Kanji</div>
+      <div class="side-body">
+        <div class="kanji-queue" id="kanjiQueue"></div>
+        <div style="margin-top:.625rem;font-size:12px;color:var(--ink-soft)">Klik kanji untuk berlatih</div>
+      </div>
+    </div>
+    <!-- Stats -->
+    <div class="side-card">
+      <div class="side-head">📊 Statistik Sesi</div>
+      <div class="side-body">
+        <div class="stats-grid">
+          <div class="stat-mini"><strong id="statPracticed">0</strong><span>Kanji Dilatih</span></div>
+          <div class="stat-mini"><strong id="statCorrect">0</strong><span>Benar</span></div>
+          <div class="stat-mini"><strong id="statXPEarned">0</strong><span>XP Diperoleh</span></div>
+          <div class="stat-mini"><strong id="statAccuracy">0%</strong><span>Akurasi</span></div>
+        </div>
+      </div>
+    </div>
+    <!-- Tips -->
+    <div class="side-card">
+      <div class="side-head">💡 Tips Penulisan</div>
+      <div class="side-body">
+        <div class="tip-list">
+          <div class="tip-item">🖊️ <strong>Stroke umum:</strong> atas→bawah, kiri→kanan. Horizontal sebelum vertikal.</div>
+          <div class="tip-item">📐 <strong>Proporsi:</strong> Perhatikan ukuran relatif komponen kanji. Komponen kiri biasanya lebih sempit.</div>
+          <div class="tip-item">🔲 <strong>Kotak (口):</strong> Tiga stroke: kiri, atas+kanan, bawah. Jangan tutup sampai selesai sisi kiri.</div>
+          <div class="tip-item">👁️ <strong>Ghost kanji:</strong> Bayangan tipis sebagai panduan. Klik "sembunyikan" untuk tantangan lebih.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.6);padding:1.75rem clamp(16px,5vw,72px)"><div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between"><div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:18px;font-weight:700">Nihonggo Pro Academy</div><div style="display:flex;gap:1rem;flex-wrap:wrap;font-size:13px"><a href="../index.html" style="color:rgba(255,255,255,.5);text-decoration:none">Beranda</a><a href="Materi.html" style="color:rgba(255,255,255,.5);text-decoration:none">Materi</a><a href="../Blog.html" style="color:rgba(255,255,255,.5);text-decoration:none">Blog</a><a href="../FAQ.html" style="color:rgba(255,255,255,.5);text-decoration:none">FAQ</a></div><div style="font-size:11px;color:rgba(255,255,255,.25)">© 2025 NihonggoPro</div></div></footer>
+
+<script>
+// ── THEME ──
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+function toast(m,d=3000){const w=document.getElementById('toastWrap');const el=document.createElement('div');el.className='toast';el.textContent=m;w.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),350);},d);}
+
+// ── KANJI DATA ──────────────────────────────────────────────────────
+const KANJI_DB = {
+  N5: [
+    {k:'日',on:'にち・じつ',kun:'ひ・か',mean:'matahari · hari',strokes:4,mnemonic:'Jendela (口) dengan garis horizontal matahari'},
+    {k:'月',on:'げつ・がつ',kun:'つき',mean:'bulan',strokes:4,mnemonic:'Bulan sabit dengan dua garis isi'},
+    {k:'火',on:'か',kun:'ひ',mean:'api',strokes:4,mnemonic:'Person (人) di atas api'},
+    {k:'水',on:'すい',kun:'みず',mean:'air',strokes:4,mnemonic:'Aliran air memercik ke kiri dan kanan'},
+    {k:'木',on:'もく',kun:'き',mean:'pohon',strokes:4,mnemonic:'Pohon dengan batang (|), cabang (一), dan akar (ハ)'},
+    {k:'金',on:'きん',kun:'かね',mean:'emas · uang',strokes:8,mnemonic:'Tanah yang menyimpan emas di dalamnya'},
+    {k:'土',on:'ど',kun:'つち',mean:'tanah',strokes:3,mnemonic:'Tanah yang ditimbun (+) di atas garis dasar'},
+    {k:'山',on:'さん',kun:'やま',mean:'gunung',strokes:3,mnemonic:'Tiga puncak gunung'},
+    {k:'川',on:'せん',kun:'かわ',mean:'sungai',strokes:3,mnemonic:'Tiga aliran air yang mengalir ke bawah'},
+    {k:'人',on:'じん・にん',kun:'ひと',mean:'orang',strokes:2,mnemonic:'Orang berdiri bertopang dagu'},
+    {k:'大',on:'だい',kun:'おお',mean:'besar',strokes:3,mnemonic:'Orang membentangkan tangannya'},
+    {k:'小',on:'しょう',kun:'ちい',mean:'kecil',strokes:3,mnemonic:'Sesuatu yang kecil di tengah'},
+    {k:'口',on:'こう',kun:'くち',mean:'mulut',strokes:3,mnemonic:'Kotak persegi = mulut terbuka'},
+    {k:'目',on:'もく',kun:'め',mean:'mata',strokes:5,mnemonic:'Mata dengan pupil di tengah'},
+    {k:'手',on:'しゅ',kun:'て',mean:'tangan',strokes:4,mnemonic:'Tangan dengan jari-jari'},
+    {k:'上',on:'じょう',kun:'うえ',mean:'atas',strokes:3,mnemonic:'Garis di atas titik tengah'},
+    {k:'下',on:'か',kun:'した',mean:'bawah',strokes:3,mnemonic:'Garis di bawah titik tengah'},
+    {k:'中',on:'ちゅう',kun:'なか',mean:'tengah',strokes:4,mnemonic:'Garis vertikal menembus kotak di tengah'},
+    {k:'本',on:'ほん',kun:'もと',mean:'buku · asal',strokes:5,mnemonic:'Pohon (木) dengan garis di akar = asal/dasar'},
+    {k:'学',on:'がく',kun:'まな',mean:'belajar',strokes:8,mnemonic:'Anak (子) di bawah atap sekolah'},
+  ],
+  N4: [
+    {k:'会',on:'かい',kun:'あ',mean:'bertemu · pertemuan',strokes:6,mnemonic:'Manusia berkumpul di bawah satu atap'},
+    {k:'社',on:'しゃ',kun:'やしろ',mean:'perusahaan · kuil',strokes:7,mnemonic:'Tanah (土) + roh (示) = tempat ibadah'},
+    {k:'長',on:'ちょう',kun:'なが',mean:'panjang · kepala',strokes:8,mnemonic:'Rambut panjang orang tua'},
+    {k:'先',on:'せん',kun:'さき',mean:'sebelumnya · maju',strokes:6,mnemonic:'Orang berjalan di depan (先頭)'},
+    {k:'生',on:'せい',kun:'い',mean:'hidup · lahir',strokes:5,mnemonic:'Tanaman tumbuh dari tanah'},
+    {k:'電',on:'でん',kun:'',mean:'listrik',strokes:13,mnemonic:'Hujan (雨) yang menghasilkan petir'},
+    {k:'話',on:'わ',kun:'はな',mean:'berbicara · cerita',strokes:13,mnemonic:'Mulut (口) + lidah (舌) = bicara'},
+    {k:'語',on:'ご',kun:'かた',mean:'bahasa · bercerita',strokes:14,mnemonic:'Kata-kata yang dikumpulkan bersama'},
+  ],
+  N3: [
+    {k:'意',on:'い',kun:'',mean:'maksud · makna',strokes:13,mnemonic:'Suara (音) dari hati (心)'},
+    {k:'味',on:'み',kun:'あじ',mean:'rasa · makna',strokes:8,mnemonic:'Mulut (口) + belum (未) = cicipi'},
+    {k:'受',on:'じゅ',kun:'う',mean:'menerima',strokes:8,mnemonic:'Tangan atas memberi, tangan bawah menerima'},
+    {k:'感',on:'かん',kun:'',mean:'perasaan · rasa',strokes:13,mnemonic:'Hati (心) yang disentuh (咸)'},
+  ],
+};
+
+// ── STATE ────────────────────────────────────────────────────────────
+let currentLevel = 'N5';
+let currentDeck = [...KANJI_DB.N5];
+let currentIndex = 0;
+let hintVisible = true;
+let currentTool = 'pen';
+let currentColor = '#15161a';
+let brushSize = 6;
+let isDrawing = false;
+let lastX = 0, lastY = 0;
+let strokes = [];
+let currentStroke = [];
+let sessionStats = {practiced:0, correct:0, xpEarned:0};
+
+const canvas = document.getElementById('writeCanvas');
+const ctx = canvas.getContext('2d');
+
+function getCanvasPos(e){
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const src = e.touches ? e.touches[0] : e;
+  return [(src.clientX - rect.left) * scaleX, (src.clientY - rect.top) * scaleY];
+}
+
+// ── DRAWING ──────────────────────────────────────────────────────────
+canvas.addEventListener('mousedown', e => { isDrawing=true; const [x,y]=getCanvasPos(e); lastX=x; lastY=y; currentStroke=[[x,y]]; });
+canvas.addEventListener('mousemove', e => { if(!isDrawing) return; draw(e); });
+canvas.addEventListener('mouseup',   () => { isDrawing=false; if(currentStroke.length>1) strokes.push([...currentStroke]); currentStroke=[]; });
+canvas.addEventListener('mouseleave',() => { isDrawing=false; });
+canvas.addEventListener('touchstart', e => { e.preventDefault(); isDrawing=true; const [x,y]=getCanvasPos(e); lastX=x; lastY=y; currentStroke=[[x,y]]; }, {passive:false});
+canvas.addEventListener('touchmove',  e => { e.preventDefault(); if(isDrawing) draw(e); }, {passive:false});
+canvas.addEventListener('touchend',   e => { isDrawing=false; if(currentStroke.length>1) strokes.push([...currentStroke]); currentStroke=[]; });
+
+function draw(e){
+  const [x,y] = getCanvasPos(e);
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+  ctx.lineTo(x, y);
+  ctx.strokeStyle = currentTool==='eraser' ? (document.documentElement.getAttribute('data-theme')==='dark'?'#1a1a1a':'white') : currentColor;
+  ctx.lineWidth = currentTool==='eraser' ? brushSize*3 : brushSize;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+  currentStroke.push([x,y]);
+  lastX=x; lastY=y;
+}
+
+function clearCanvas(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  strokes = [];
+  document.getElementById('scoreDisplay').style.display = 'none';
+}
+
+function undoLast(){
+  strokes.pop();
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  strokes.forEach(stroke=>{
+    ctx.beginPath();
+    ctx.moveTo(stroke[0][0],stroke[0][1]);
+    stroke.forEach(([x,y])=>{ctx.lineTo(x,y);});
+    ctx.strokeStyle=currentColor; ctx.lineWidth=brushSize; ctx.lineCap='round'; ctx.lineJoin='round';
+    ctx.stroke();
+  });
+}
+
+// ── TOOLS ────────────────────────────────────────────────────────────
+function setTool(tool, btn){
+  currentTool=tool;
+  document.querySelectorAll('.tool-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+}
+function setColor(el){
+  currentColor=el.dataset.color;
+  document.querySelectorAll('.color-dot').forEach(d=>d.classList.remove('active'));
+  el.classList.add('active');
+  if(currentTool==='eraser') setTool('pen', document.getElementById('btnPen'));
+}
+function setSize(el){
+  brushSize=+el.dataset.size;
+  document.querySelectorAll('.size-dot').forEach(d=>d.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ── KANJI NAVIGATION ─────────────────────────────────────────────────
+function setLevel(btn){
+  currentLevel=btn.dataset.lv;
+  document.querySelectorAll('.lv-chip').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  currentDeck=[...(KANJI_DB[currentLevel]||KANJI_DB.N5)];
+  currentIndex=0;
+  loadKanji(0);
+  renderQueue();
+}
+
+function loadKanji(idx){
+  const k=currentDeck[idx];
+  if(!k) return;
+  clearCanvas();
+  document.getElementById('targetKanji').textContent=k.k;
+  document.getElementById('kanjiOn').textContent=k.on||'—';
+  document.getElementById('kanjiKun').textContent=k.kun||'—';
+  document.getElementById('kanjiMean').textContent=k.mean;
+  document.getElementById('kanjiStrokes').textContent=k.strokes+' stroke';
+  document.getElementById('ghostKanji').textContent=k.k;
+  document.getElementById('currentKanjiTitle').textContent='✍️ Tulis: '+k.k;
+  document.getElementById('scoreDisplay').style.display='none';
+  hintVisible=true;
+  document.getElementById('targetKanji').style.opacity='1';
+  renderQueue();
+}
+
+function nextKanji(){
+  const q=document.querySelectorAll('.kanji-q-item');
+  if(q[currentIndex]) q[currentIndex].classList.add('done');
+  currentIndex=(currentIndex+1)%currentDeck.length;
+  loadKanji(currentIndex);
+}
+
+function toggleHint(){
+  hintVisible=!hintVisible;
+  document.getElementById('targetKanji').style.opacity=hintVisible?'1':'0.08';
+}
+
+function showStrokeHint(){
+  const k=currentDeck[currentIndex];
+  if(k.mnemonic) toast('💡 '+k.mnemonic, 4000);
+}
+
+function renderQueue(){
+  const grid=document.getElementById('kanjiQueue');
+  grid.innerHTML=currentDeck.slice(0,20).map((k,i)=>`
+    <div class="kanji-q-item ${i===currentIndex?'current':''}" onclick="currentIndex=${i};loadKanji(${i})">${k.k}</div>
+  `).join('');
+}
+
+// ── EVALUATION ───────────────────────────────────────────────────────
+function evaluateWriting(){
+  if(strokes.length===0){
+    toast('⚠️ Tulis kanji dulu!');
+    return;
+  }
+  
+  const k=currentDeck[currentIndex];
+  const expectedStrokes=k.strokes;
+  const actualStrokes=strokes.length;
+  
+  // Score based on: stroke count similarity + coverage + smoothness
+  const strokeCountScore = Math.max(0, 1 - Math.abs(actualStrokes-expectedStrokes)/Math.max(expectedStrokes,1));
+  
+  // Coverage: check if drawing covers canvas reasonably
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  let filledPixels = 0;
+  for(let i=3; i<imageData.data.length; i+=4){
+    if(imageData.data[i] > 50) filledPixels++;
+  }
+  const coverageRatio = filledPixels / (canvas.width * canvas.height);
+  const coverageScore = Math.min(1, coverageRatio * 80); // target ~1.25% coverage
+  
+  // Smoothness: average stroke length
+  const avgStrokeLen = strokes.reduce((sum,s)=>sum+s.length,0)/Math.max(strokes.length,1);
+  const smoothScore = Math.min(1, avgStrokeLen / 15);
+  
+  const totalScore = Math.round((strokeCountScore*0.4 + coverageScore*0.35 + smoothScore*0.25) * 100);
+  
+  let grade, color, msg;
+  if(totalScore>=85){grade='S';color='#22c55e';msg='Sempurna! Stroke count dan proporsi sangat bagus.';}
+  else if(totalScore>=70){grade='A';color='var(--blue,#2f6fed)';msg='Bagus! Sedikit penyesuaian pada ketebalan dan proporsi.';}
+  else if(totalScore>=55){grade='B';color='#b9892f';msg='Cukup. Perhatikan jumlah stroke yang benar.';}
+  else if(totalScore>=40){grade='C';color='#f97316';msg='Terus berlatih. Perhatikan urutan dan arah stroke.';}
+  else{grade='D';color='var(--red,#be3428)';msg='Perlu banyak latihan. Ikuti panduan stroke order dengan cermat.';}
+  
+  const scoreEl = document.getElementById('scoreDisplay');
+  const circleEl = document.getElementById('scoreCircle');
+  const msgEl = document.getElementById('scoreMsg');
+  const detailEl = document.getElementById('scoreDetail');
+  
+  circleEl.textContent = grade;
+  circleEl.style.color = color;
+  circleEl.style.borderColor = color;
+  msgEl.textContent = `${k.k} — Skor ${totalScore}%`;
+  detailEl.textContent = msg + ` Jumlah stroke: ${actualStrokes} (target: ${expectedStrokes})`;
+  scoreEl.style.display = 'flex';
+  
+  // Update stats
+  sessionStats.practiced++;
+  if(totalScore>=70){sessionStats.correct++; sessionStats.xpEarned+=20;}
+  else{sessionStats.xpEarned+=5;}
+  
+  document.getElementById('statPracticed').textContent=sessionStats.practiced;
+  document.getElementById('statCorrect').textContent=sessionStats.correct;
+  document.getElementById('statXPEarned').textContent=sessionStats.xpEarned;
+  const acc=Math.round(sessionStats.correct/sessionStats.practiced*100);
+  document.getElementById('statAccuracy').textContent=acc+'%';
+  
+  // Award XP
+  if(window.NihonggoProgress){
+    NihonggoProgress.addXP(totalScore>=70?20:5);
+    NihonggoProgress.logActivity('kanji','Tulis Kanji: '+k.k, totalScore);
+  }
+  toast(totalScore>=70?`✅ ${grade}! +${totalScore>=70?20:5} XP`:`📚 Terus latihan! Grade ${grade}`);
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────
+loadKanji(0);
+renderQueue();
+
+// Keyboard shortcuts
+document.addEventListener('keydown', e=>{
+  if(e.key==='ArrowRight') nextKanji();
+  if(e.key==='Delete'||e.key==='Backspace'&&e.shiftKey) clearCanvas();
+  if(e.key==='z'&&e.ctrlKey) undoLast();
+});
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

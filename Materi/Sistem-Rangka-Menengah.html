@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#292524">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>骨格系（中級）Rangka Menengah — Fisiologi Remodeling Tulang &amp; Klasifikasi Patah untuk Calon Perawat | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Rangka Menengah — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Rangka-Menengah.html","description":"Pembelajaran tingkat menengah sistem rangka dalam bahasa Jepang — fisiologi remodeling tulang, klasifikasi jenis patah tulang, farmakologi osteoporosis, dan terminologi rumah sakit untuk calon perawat dan pelajar bahasa Jepang tingkat lanjut.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Materi tingkat menengah sistem rangka — fisiologi remodeling tulang, klasifikasi patah tulang, farmakologi osteoporosis, dan terminologi rumah sakit dalam bahasa Jepang.">
+<meta property="og:title" content="骨格系（中級）Rangka Menengah — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Fisiologi remodeling tulang mendalam, klasifikasi patah tulang, dan farmakologi osteoporosis dalam bahasa Jepang untuk calon perawat.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Rangka-Menengah.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#f5f5f4,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#292524;border-color:#292524;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#292524;background:#f5f5f4;border:1px solid #d6d3d1;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#292524;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#292524}
+.organ-tab.active{color:#292524;border-bottom-color:#292524}
+.organ-tab:focus-visible{outline:2px solid #292524;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #f5f5f4;color:#0c0a09}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#292524}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#f5f5f4;border-color:#d6d3d1}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#f5f5f4;color:#292524;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #292524;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#292524}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.case-sim{background:var(--white,#fff);border:2px solid #d6d3d1;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#f5f5f4;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#292524;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Rangka.html">① 基礎 Dasar</a>
+      <a href="Sistem-Rangka-Menengah.html" class="current">② 中級 Menengah</a>
+      <a href="Sistem-Rangka-Lanjutan.html">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🦴 Level Menengah — Remodeling Tulang &amp; Klasifikasi Patah</span>
+    <h1><span class="jp-big">骨格系（中級）</span>Rangka Menengah</h1>
+    <p class="lead">Fisiologi remodeling tulang mendalam, klasifikasi jenis patah tulang, farmakologi osteoporosis, dan konsep dasar penilaian kepadatan tulang — untuk calon perawat dan pelajar bahasa Jepang tingkat lanjut.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi rangka menengah">
+  <button class="organ-tab active" data-tab="remodeling" role="tab" aria-selected="true">骨リモデリング Remodeling Tulang</button>
+  <button class="organ-tab" data-tab="klasifikasi" role="tab" aria-selected="false">骨折分類 Klasifikasi Patah Tulang</button>
+  <button class="organ-tab" data-tab="penilaian" role="tab" aria-selected="false">評価 Penilaian Kepadatan Tulang</button>
+  <button class="organ-tab" data-tab="farmakologi" role="tab" aria-selected="false">薬理 Farmakologi Osteoporosis</button>
+  <button class="organ-tab" data-tab="risiko" role="tab" aria-selected="false">転倒予防 Prinsip Pencegahan Jatuh</button>
+  <button class="organ-tab" data-tab="karte" role="tab" aria-selected="false">カルテ用語 Istilah Rumah Sakit</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <!-- ═══════════ 骨リモデリング REMODELING TULANG ═══════════ -->
+  <div class="organ-panel active" id="panel-remodeling">
+    <h2>骨リモデリング — Fisiologi Remodeling Tulang Mendetail</h2>
+    <p>Materi Dasar memperkenalkan osteoklas dan osteoblas sebagai sel pemecah dan pembentuk tulang. Di level ini, kita bahas SIKLUS lengkap keduanya bekerja — dasar memahami kenapa keseimbangan yang terganggu menyebabkan osteoporosis.</p>
+
+    <h3>Siklus remodeling tulang</h3>
+    <p>Tulang bukan struktur statis — sepanjang hidup, jaringan tulang terus MENGALAMI PENGGANTIAN lewat siklus berkelanjutan:</p>
+    <ul>
+      <li><strong>破骨細胞 (はこつさいぼう) — Osteoklas</strong>: memecah/menyerap jaringan tulang lama, "membersihkan ruang" untuk pembentukan baru</li>
+      <li><strong>骨芽細胞 (こつがさいぼう) — Osteoblas</strong>: membentuk jaringan tulang baru mengisi ruang yang sudah dibersihkan</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa ini penting dipahami:</strong> pada usia muda, kecepatan PEMBENTUKAN (osteoblas) sebanding atau melebihi kecepatan PENYERAPAN (osteoklas) — tulang tetap kuat/bertambah padat. Osteoporosis terjadi saat keseimbangan ini BERGESER: penyerapan MELEBIHI pembentukan, terutama dipercepat oleh penurunan estrogen pasca-menopause (estrogen normalnya membantu "mengerem" aktivitas osteoklas).</p>
+    </div>
+
+    <h3>Puncak massa tulang (骨量のピーク)</h3>
+    <p style="margin-bottom:0">Massa tulang mencapai PUNCAK di usia dewasa muda (sekitar akhir 20-an hingga awal 30-an), lalu perlahan menurun seiring usia — semakin tinggi puncak massa tulang yang dicapai di usia muda, semakin besar "cadangan" sebelum mencapai level berisiko osteoporosis di usia lanjut. Konsep ini menjelaskan kenapa nutrisi dan aktivitas fisik di usia muda punya dampak jangka panjang pada kesehatan tulang lansia nanti.</p>
+  </div>
+
+  <!-- ═══════════ 骨折分類 KLASIFIKASI PATAH TULANG ═══════════ -->
+  <div class="organ-panel" id="panel-klasifikasi">
+    <h2>骨折分類 — Klasifikasi Jenis Patah Tulang</h2>
+    <p>Level Dasar memperkenalkan beberapa jenis patah tulang spesifik pada lansia. Di sini kita bahas klasifikasi umum yang membantu memahami tingkat keparahan dan penanganan.</p>
+
+    <h3>Berdasarkan kondisi kulit di atas area patah</h3>
+    <ul>
+      <li><strong>閉鎖骨折 (へいさこっせつ) — Patah tertutup</strong>: kulit di atas area patah TETAP UTUH, tulang tidak menonjol keluar</li>
+      <li><strong>開放骨折 (かいほうこっせつ) — Patah terbuka</strong>: kulit di atas area patah ROBEK, tulang bisa terlihat/menonjol keluar — risiko infeksi jauh lebih tinggi karena area terpapar langsung ke lingkungan luar, dianggap kondisi darurat yang lebih mendesak</li>
+    </ul>
+
+    <h3>Konsep patah tulang akibat trauma minimal (脆弱性骨折)</h3>
+    <p style="margin-bottom:0">Patah tulang yang terjadi dari trauma yang SEHARUSNYA tidak cukup untuk mematahkan tulang normal (misalnya jatuh dari posisi berdiri, bukan jatuh dari ketinggian) — jenis patah ini adalah TANDA KUAT adanya osteoporosis mendasar, bahkan bisa jadi diagnosis pertama yang mengungkap kondisi osteoporosis yang sebelumnya tidak diketahui.</p>
+  </div>
+
+  <!-- ═══════════ 評価 PENILAIAN KEPADATAN TULANG ═══════════ -->
+  <div class="organ-panel" id="panel-penilaian">
+    <h2>評価 — Konsep Dasar Penilaian Kepadatan Tulang</h2>
+    <h3>DXA scan (骨密度測定)</h3>
+    <p>Pemeriksaan pencitraan khusus yang mengukur kepadatan mineral tulang — cara paling umum mendiagnosis osteoporosis SEBELUM terjadi patah tulang, bukan hanya setelahnya. Hasilnya sering dibandingkan dengan nilai referensi standar untuk menentukan apakah kepadatan tulang seseorang tergolong normal, rendah (osteopenia), atau osteoporosis.</p>
+
+    <h3>Konsep osteopenia sebagai tahap peringatan</h3>
+    <p style="margin-bottom:0">Osteopenia (骨減少症) adalah kondisi kepadatan tulang LEBIH RENDAH dari normal tapi BELUM mencapai kriteria osteoporosis penuh — mirip konsep pradiabetes yang dibahas di materi Endokrin, ini periode penting untuk intervensi (nutrisi, aktivitas fisik, evaluasi faktor risiko) yang bisa mencegah/menunda perkembangan menjadi osteoporosis.</p>
+  </div>
+
+  <!-- ═══════════ 薬理 FARMAKOLOGI OSTEOPOROSIS ═══════════ -->
+  <div class="organ-panel" id="panel-farmakologi">
+    <h2>薬理 — Farmakologi Osteoporosis Dasar</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">ビスホスホネート製剤 (びすほすほねーとせいざい) — Bisfosfonat</h3>
+      <p style="margin-bottom:0">Obat lini pertama umum untuk osteoporosis, bekerja MENGHAMBAT aktivitas osteoklas (memperlambat penyerapan tulang) — sering diminum dengan instruksi KHUSUS (posisi tegak, jarak waktu tertentu dari makanan) untuk penyerapan optimal dan mengurangi risiko iritasi esofagus.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">カルシウム・ビタミンD補充 — Suplementasi Kalsium dan Vitamin D</h3>
+      <p style="margin-bottom:0">Bahan dasar penting pembentukan tulang — vitamin D krusial untuk penyerapan kalsium dari usus, sehingga kekurangan vitamin D bisa membuat suplementasi kalsium saja kurang efektif meski asupannya cukup.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">選択的エストロゲン受容体調節薬 (SERM)</h3>
+      <p style="margin-bottom:0">Obat yang bekerja meniru sebagian efek estrogen pada tulang tanpa efek estrogen penuh di jaringan lain — pilihan pada beberapa kondisi tertentu, dengan pertimbangan risiko-manfaat yang perlu dievaluasi tenaga medis.</p>
+    </div>
+
+    <h3>Prinsip penting: konsistensi jadwal obat osteoporosis</h3>
+    <p style="margin-bottom:0">Sama seperti obat kronis lain, efektivitas terapi osteoporosis sangat bergantung pada KEPATUHAN jangka panjang — manfaatnya tidak terasa langsung (berbeda dari obat pereda nyeri), sehingga edukasi tentang pentingnya konsistensi meski "tidak merasakan apa-apa" menjadi peran penting caregiver.</p>
+  </div>
+
+  <!-- ═══════════ 転倒予防 PRINSIP PENCEGAHAN JATUH ═══════════ -->
+  <div class="organ-panel" id="panel-risiko">
+    <h2>転倒予防 — Prinsip Pencegahan Jatuh Lebih Mendalam</h2>
+    <h3>Faktor risiko jatuh multifaktorial</h3>
+    <p>Risiko jatuh pada lansia jarang berasal dari SATU penyebab tunggal — biasanya kombinasi faktor: kelemahan otot (materi Otot), gangguan keseimbangan/saraf (materi Saraf), efek samping obat (mengantuk/pusing), gangguan penglihatan, dan faktor lingkungan (dibahas di level Dasar). Pendekatan pencegahan jatuh yang efektif mempertimbangkan SEMUA faktor ini bersamaan, bukan hanya satu aspek.</p>
+
+    <h3>Skrining risiko jatuh — konsep umum</h3>
+    <p style="margin-bottom:0">Tenaga medis sering menggunakan kombinasi riwayat jatuh sebelumnya, tes keseimbangan/kekuatan sederhana, dan tinjauan obat untuk menilai tingkat risiko jatuh seseorang — hasil skrining ini mengarahkan intervensi yang lebih tepat sasaran dibanding pendekatan umum yang sama untuk semua orang.</p>
+  </div>
+
+  <!-- ═══════════ カルテ用語 ISTILAH RUMAH SAKIT ═══════════ -->
+  <div class="organ-panel" id="panel-karte">
+    <h2>カルテ用語 — Terminologi Pencatatan Medis</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">破骨細胞</td><td>はこつさいぼう</td><td>Osteoklas</td><td>Osteoclast</td></tr>
+        <tr><td class="jp">骨芽細胞</td><td>こつがさいぼう</td><td>Osteoblas</td><td>Osteoblast</td></tr>
+        <tr><td class="jp">骨量のピーク</td><td>こつりょうのぴーく</td><td>Puncak massa tulang</td><td>Peak bone mass</td></tr>
+        <tr><td class="jp">閉鎖骨折</td><td>へいさこっせつ</td><td>Patah tulang tertutup</td><td>Closed fracture</td></tr>
+        <tr><td class="jp">開放骨折</td><td>かいほうこっせつ</td><td>Patah tulang terbuka</td><td>Open fracture</td></tr>
+        <tr><td class="jp">脆弱性骨折</td><td>ぜいじゃくせいこっせつ</td><td>Patah tulang trauma minimal</td><td>Fragility fracture</td></tr>
+        <tr><td class="jp">骨密度測定</td><td>こつみつどそくてい</td><td>Pengukuran kepadatan tulang (DXA)</td><td>Bone density measurement</td></tr>
+        <tr><td class="jp">骨減少症</td><td>こつげんしょうしょう</td><td>Osteopenia</td><td>Osteopenia</td></tr>
+        <tr><td class="jp">ビスホスホネート製剤</td><td>びすほすほねーとせいざい</td><td>Bisfosfonat</td><td>Bisphosphonate</td></tr>
+        <tr><td class="jp">選択的エストロゲン受容体調節薬</td><td>せんたくてきえすとろげんじゅようたいちょうせつやく</td><td>SERM</td><td>Selective estrogen receptor modulator</td></tr>
+        <tr><td class="jp">服薬遵守</td><td>ふくやくじゅんしゅ</td><td>Kepatuhan minum obat</td><td>Medication adherence</td></tr>
+        <tr><td class="jp">転倒リスク評価</td><td>てんとうりすくひょうか</td><td>Skrining risiko jatuh</td><td>Fall risk screening</td></tr>
+        <tr><td class="jp">多因子性</td><td>たいんしせい</td><td>Multifaktorial</td><td>Multifactorial</td></tr>
+        <tr><td class="jp">バランス訓練</td><td>ばらんすくんれん</td><td>Latihan keseimbangan</td><td>Balance training</td></tr>
+        <tr><td class="jp">起立性低血圧</td><td>きりつせいていけつあつ</td><td>Hipotensi ortostatik</td><td>Orthostatic hypotension</td></tr>
+        <tr><td class="jp">視力低下</td><td>しりょくていか</td><td>Penurunan penglihatan</td><td>Vision decline</td></tr>
+        <tr><td class="jp">整形外科</td><td>せいけいげか</td><td>Bedah ortopedi</td><td>Orthopedic surgery</td></tr>
+        <tr><td class="jp">術後リハビリ</td><td>じゅつごりはびり</td><td>Rehabilitasi pasca-operasi</td><td>Post-surgical rehabilitation</td></tr>
+        <tr><td class="jp">骨癒合</td><td>こつゆごう</td><td>Penyatuan tulang (penyembuhan)</td><td>Bone union/healing</td></tr>
+        <tr><td class="jp">偽関節</td><td>ぎかんせつ</td><td>Non-union (kegagalan penyatuan)</td><td>Non-union</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis tingkat rumah sakit</h3>
+    <div class="clinical-sentence">
+      <div class="jp">骨密度測定の結果、骨減少症と診断されました。</div>
+      <div class="id">Berdasarkan hasil pengukuran kepadatan tulang, didiagnosis osteopenia.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">脆弱性骨折があり、骨粗鬆症の精査を行います。</div>
+      <div class="id">Ada patah tulang trauma minimal, akan dilakukan pemeriksaan lanjutan osteoporosis.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">転倒リスクは多因子性であり、総合的な評価が必要です。</div>
+      <div class="id">Risiko jatuh bersifat multifaktorial, perlu evaluasi menyeluruh.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis Tingkat Menengah</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia wanita mengalami patah pergelangan tangan hanya dari terjatuh saat berdiri di rumah (bukan jatuh dari ketinggian atau kecelakaan). Ia dan keluarganya menganggap ini "sial saja, kebetulan jatuh dengan posisi buruk" dan tidak berpikir perlu evaluasi lebih lanjut setelah tulang sembuh.
+      </div>
+      <div class="case-question">
+        <label>1. Patah tulang dari jatuh saat berdiri (trauma minimal) pada lansia paling penting dipahami sebagai:</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Tanda kuat kemungkinan osteoporosis mendasar, bukan sekadar "sial" biasa</option>
+          <option value="wrong">Kejadian acak yang tidak ada makna klinis lebih lanjut</option>
+          <option value="wrong">Selalu terjadi pada tulang yang sepenuhnya sehat</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Menganggap kejadian ini "sial saja" tanpa evaluasi osteoporosis lebih lanjut berisiko karena:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Osteoporosis yang tidak terdiagnosis meningkatkan risiko patah tulang lebih serius (seperti patah femur) di masa depan</option>
+          <option value="wrong">Tidak ada risiko tambahan setelah tulang sembuh</option>
+          <option value="wrong">Patah tulang trauma minimal tidak pernah berulang</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan yang PALING tepat setelah kejadian ini:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Mendorong evaluasi osteoporosis (seperti pengukuran kepadatan tulang) meski tulang sudah dalam proses penyembuhan</option>
+          <option value="wrong">Menganggap masalah selesai setelah tulang sembuh</option>
+          <option value="wrong">Tidak perlu tindakan lanjutan apapun</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var MINI_Q = [
+    { q: 'Osteoporosis terjadi saat keseimbangan remodeling tulang bergeser dengan?', opts: ['Penyerapan (osteoklas) melebihi pembentukan (osteoblas)', 'Pembentukan selalu melebihi penyerapan', 'Kedua proses berhenti sama sekali'], a: 0 },
+    { q: 'Estrogen berperan dalam kesehatan tulang dengan cara?', opts: ['Membantu mengerem aktivitas osteoklas', 'Mempercepat aktivitas osteoklas', 'Tidak ada kaitan dengan remodeling tulang'], a: 0 },
+    { q: 'Patah tulang terbuka berbeda dari tertutup karena?', opts: ['Kulit di atas area patah robek, tulang bisa terlihat', 'Selalu lebih ringan dari patah tertutup', 'Tidak ada perbedaan risiko infeksi'], a: 0 },
+    { q: 'Patah tulang akibat trauma minimal (fragility fracture) adalah tanda kuat adanya?', opts: ['Osteoporosis mendasar', 'Tulang yang sepenuhnya sehat', 'Kecelakaan berat'], a: 0 },
+    { q: 'Osteopenia adalah kondisi kepadatan tulang yang?', opts: ['Lebih rendah dari normal tapi belum mencapai kriteria osteoporosis penuh', 'Sudah pasti osteoporosis berat', 'Sama sekali tidak ada penurunan'], a: 0 },
+    { q: 'Kenapa kekurangan vitamin D bisa membuat suplementasi kalsium kurang efektif?', opts: ['Vitamin D krusial untuk penyerapan kalsium dari usus', 'Vitamin D dan kalsium tidak ada kaitan', 'Kalsium selalu terserap sempurna tanpa vitamin D'], a: 0 },
+    { q: 'Risiko jatuh pada lansia umumnya bersifat?', opts: ['Multifaktorial, kombinasi beberapa penyebab sekaligus', 'Selalu dari satu penyebab tunggal', 'Tidak bisa dinilai/diskrining'], a: 0 },
+    { q: 'Kenapa kepatuhan jangka panjang penting untuk obat osteoporosis meski "tidak merasakan apa-apa"?', opts: ["Manfaatnya tidak terasa langsung seperti obat pereda nyeri, tapi tetap penting mencegah patah tulang", "Obat osteoporosis selalu memberi efek langsung terasa", "Kepatuhan tidak memengaruhi hasil terapi"], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Patah tulang dari trauma MINIMAL seperti jatuh saat berdiri (bukan dari ketinggian/kecelakaan) adalah pola klasik FRAGILITY FRACTURE -- tanda kuat adanya osteoporosis mendasar, BUKAN sekadar "sial" biasa. Mengabaikan ini berisiko membiarkan osteoporosis tidak terdiagnosis dan tidak diobati, meningkatkan risiko patah tulang lebih serius di masa depan (seperti patah femur). Tindakan tepat: mendorong evaluasi osteoporosis (pengukuran kepadatan tulang) meski tulang pergelangan tangan sudah sembuh -- penyembuhan tulang tidak berarti penyebab mendasarnya sudah tertangani.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: patah tulang dari trauma yang seharusnya ringan (jatuh saat berdiri) pada lansia BUKAN kebetulan biasa -- ini tanda penting yang mengarah ke kemungkinan osteoporosis mendasar yang perlu dievaluasi lebih lanjut.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SRS Flashcard — Spaced Repetition Vocab Kanji Grammar Kaigo | NihonggoPro</title>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "SRS Flashcard Nihonggo Pro Academy", "url": "https://nihonggopro.id/SRS-Flashcard.html", "description": "Sistem flashcard spaced repetition untuk belajar kosakata dan kanji bahasa Jepang.", "applicationCategory": "EducationalApplication", "operatingSystem": "Web Browser", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"}}</script>
+<meta property="og:title" content="SRS Flashcard — Spaced Repetition System | Nihonggo Pro Academy">
+<meta property="og:description" content="Hafal kosakata dan kanji Jepang efisien dengan algoritma SM-2. Review tepat waktu, ingat lebih lama.">
+<meta property="og:url" content="https://nihonggopro.id/SRS-Flashcard.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SRS Flashcard — Spaced Repetition System | Nihonggo Pro Academy">
+<meta name="twitter:description" content="Hafal kosakata dan kanji Jepang efisien dengan algoritma SM-2. Review tepat waktu, ingat lebih lama.">
+<meta name="description" content="Flashcard SRS algoritma SM-2: Again, Hard, Good, Easy. Kuasai vocab, kanji, grammar, dan kosakata kaigo dengan metode paling efektif.">
+<link rel="canonical" href="https://nihonggopro.id/SRS-Flashcard.html">
+
+<link rel="stylesheet" href="assets/design-system.css">
+<style>
+body { min-height: 100vh; }
+.srs-nav { height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(16px,4vw,40px); background: var(--nav-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(16px); }
+.srs-brand { font-family: var(--font-jp); font-size: 19px; font-weight: 700; color: var(--primary); text-decoration: none; }
+.srs-main { display: none; }
+
+/* FILTER */
+.filter-row { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.filter-btn { padding: 6px 14px; border-radius: 20px; border: 1.5px solid var(--border-mid); background: var(--white); font-family: var(--font-sans); font-size: 12px; font-weight: 700; cursor: pointer; color: var(--ink-mid); transition: all var(--t-fast); }
+.filter-btn:hover, .filter-btn.active { background: var(--primary-pale); border-color: rgba(190,52,40,.3); color: var(--primary); }
+
+/* STATS BAR */
+.stats-bar { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+.stat-pill { flex: 1; min-width: 70px; background: var(--white); border-radius: var(--r-md); padding: 10px 12px; border: 1px solid var(--border); text-align: center; }
+.sp-val { font-family: var(--font-jp); font-size: 22px; font-weight: 700; line-height: 1; }
+.sp-lbl { font-size: 10px; color: var(--ink-soft); font-weight: 700; margin-top: 3px; text-transform: uppercase; letter-spacing: .03em; }
+
+/* CARD WRAP */
+.card-area { perspective: 1200px; margin-bottom: 14px; height: 270px; }
+.flip-card { width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .45s cubic-bezier(.4,0,.2,1); cursor: pointer; border-radius: var(--r-xl); position: relative; }
+.flip-card.flipped { transform: rotateY(180deg); }
+.fc-side {
+  position: absolute; inset: 0; border-radius: var(--r-xl);
+  padding: 28px; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  box-shadow: var(--shadow-md);
+}
+.fc-front { background: var(--white); border: 1px solid var(--border-mid); }
+.fc-back  { background: var(--ink); color: white; transform: rotateY(180deg); }
+.fc-badge { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; margin-bottom: 12px; }
+.fc-front .fc-badge { color: var(--ink-soft); }
+.fc-back  .fc-badge { color: rgba(255,255,255,.4); }
+.fc-jp      { font-family: var(--font-jp); font-size: 54px; font-weight: 700; line-height: 1; margin-bottom: 6px; }
+.fc-reading { font-family: var(--font-jp); font-size: 20px; color: var(--ink-soft); }
+.fc-back .fc-reading { color: rgba(255,255,255,.5); margin-bottom: 8px; }
+.fc-meaning { font-size: 22px; font-weight: 700; color: white; text-align: center; margin-bottom: 10px; }
+.fc-example { font-size: 13px; color: rgba(255,255,255,.6); text-align: center; line-height: 1.7; max-width: 90%; }
+.fc-hint { font-size: 12px; color: var(--ink-faint); margin-top: 12px; font-style: italic; }
+.fc-dots { display: flex; gap: 4px; justify-content: center; position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); }
+.fc-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--border); transition: background .3s; }
+.fc-dot.done { background: var(--green); }
+.fc-dot.cur  { background: var(--primary); }
+
+/* FLIP HINT */
+.flip-hint { text-align: center; font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; }
+
+/* ANSWER BUTTONS */
+.ans-area { display: none; }
+.ans-area.show { display: block; }
+.srs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 10px; }
+.srs-btn {
+  height: 64px; border-radius: var(--r-md); border: 2px solid var(--border);
+  background: var(--white); font-family: var(--font-sans); cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; transition: all var(--t-med) var(--ease-out);
+}
+.srs-btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.srs-btn.again { border-color: rgba(239,68,68,.4);  background: rgba(239,68,68,.04);  }
+.srs-btn.hard  { border-color: rgba(249,115,22,.4); background: rgba(249,115,22,.04); }
+.srs-btn.good  { border-color: rgba(37,99,235,.4);  background: rgba(37,99,235,.04);  }
+.srs-btn.easy  { border-color: rgba(34,197,94,.4);  background: rgba(34,197,94,.04);  }
+.srs-btn.again:hover { background: rgba(239,68,68,.1); }
+.srs-btn.hard:hover  { background: rgba(249,115,22,.1); }
+.srs-btn.good:hover  { background: rgba(37,99,235,.1); }
+.srs-btn.easy:hover  { background: rgba(34,197,94,.1); }
+.srs-lbl { font-size: 13px; font-weight: 800; }
+.srs-ivl { font-size: 10px; color: var(--ink-soft); }
+.srs-btn.again .srs-lbl { color: #ef4444; }
+.srs-btn.hard .srs-lbl  { color: #f97316; }
+.srs-btn.good .srs-lbl  { color: #2563eb; }
+.srs-btn.easy .srs-lbl  { color: #22c55e; }
+.kb-hint { text-align: center; font-size: 11px; color: var(--ink-faint); }
+.kb-hint kbd { background: var(--raised); border: 1px solid var(--border-mid); border-radius: 3px; padding: 1px 5px; font-size: 11px; }
+
+/* COMPLETE */
+.complete-wrap { background: var(--white); border-radius: var(--r-xl); padding: 40px 24px; text-align: center; border: 1px solid var(--border); box-shadow: var(--shadow-md); }
+.complete-icon { font-size: 60px; margin-bottom: 16px; }
+.complete-title { font-family: var(--font-jp); font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+.complete-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 20px 0; }
+.cg-item { background: var(--cream); border-radius: var(--r-md); padding: 12px; border: 1px solid var(--border); }
+.cg-val { font-family: var(--font-jp); font-size: 26px; font-weight: 700; }
+.cg-lbl { font-size: 10px; color: var(--ink-soft); text-transform: uppercase; }
+
+/* ── AUDIO BUTTON ── */
+.card-audio-btn {
+  background: none; border: 1.5px solid var(--border, rgba(107,79,58,.15));
+  border-radius: 8px; padding: 6px 12px; cursor: pointer;
+  font-size: 13px; color: var(--primary, #6B4F3A);
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: all 130ms; margin-top: 8px;
+}
+.card-audio-btn:hover { background: var(--primary-pale, #F5EDE0); }
+.card-audio-btn.speaking { background: var(--primary-pale, #F5EDE0); border-color: var(--primary, #6B4F3A); }
+[data-theme="dark"] .card-audio-btn { border-color: rgba(200,155,60,.20); color: #C89B3C; }
+[data-theme="dark"] .card-audio-btn:hover { background: rgba(200,155,60,.08); }
+
+@media (max-width: 380px) {
+  .srs-grid { gap: 5px; }
+  .srs-btn { height: 58px; }
+  .srs-lbl { font-size: 11px; }
+  .srs-ivl { font-size: 9px; }
+  .kb-hint { font-size: 11px; }
+}
+
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">SRS Flashcard — Spaced Repetition</h1>
+
+<nav class="srs-nav">
+  <a class="srs-brand" href="index.html">Nihonggo Pro Academy · SRS</a>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="Dashboard/Dashboard.html" class="btn btn-sm btn-outline hide-mobile" style="text-decoration:none">📊 Dashboard</a>
+    <a href="JLPT-CBT.html" class="btn btn-sm btn-outline hide-mobile" style="text-decoration:none">🎯 CBT</a>
+    <button aria-label="Tombol" class="icon-btn" data-theme-toggle>🌙</button>
+  </div>
+</nav>
+
+<div class="srs-main">
+  <h2 style="font-family:var(--font-jp);font-size:22px;font-weight:700;margin-bottom:16px">🃏 SRS Flashcard</h2>
+
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="setFilter('all',this)">📚 Semua</button>
+    <button class="filter-btn" onclick="setFilter('jlpt',this)">🎯 JLPT</button>
+    <button class="filter-btn" onclick="setFilter('kaigo',this)">🏥 Kaigo</button>
+    <button class="filter-btn" onclick="setFilter('kanji',this)">🈶 Kanji</button>
+    <button class="filter-btn" onclick="setFilter('grammar',this)">📝 Grammar</button>
+    <button class="filter-btn" onclick="setFilter('due',this)">⏰ Due Today</button>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-pill"><div class="sp-val" id="stDue">0</div><div class="sp-lbl">Due</div></div>
+    <div class="stat-pill"><div class="sp-val" id="stNew">0</div><div class="sp-lbl">Baru</div></div>
+    <div class="stat-pill"><div class="sp-val" id="stLearned">0</div><div class="sp-lbl">Learned</div></div>
+    <div class="stat-pill"><div class="sp-val" id="stRetention">—</div><div class="sp-lbl">Retention</div></div>
+    <div class="stat-pill"><div class="sp-val" id="stStreak">0</div><div class="sp-lbl">Streak 🔥</div></div>
+  </div>
+
+  <div id="mainArea">
+    <div class="card-area">
+      <div class="flip-card" id="flipCard" onclick="flipCard()">
+        <div class="fc-side fc-front">
+          <div class="fc-badge" id="cardBadge">VOCAB · N3</div>
+          <div class="fc-jp" id="cardJP">尊厳</div>
+          <div class="fc-reading" id="cardReading">そんげん</div>
+          <div class="fc-hint">← Klik atau tekan Spasi →</div>
+          <div class="fc-dots" id="cardDots"></div>
+        </div>
+        <div class="fc-side fc-back">
+          <div class="fc-badge">✨ ARTI</div>
+          <div class="fc-meaning" id="cardMeaning">martabat / dignity</div>
+          <div class="fc-reading" id="cardJPBack" style="font-family:var(--font-jp);font-size:18px;margin-bottom:10px"></div>
+          <div class="fc-example" id="cardExample"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-hint" id="flipHint">👆 Klik kartu atau tekan <b>Spasi</b> untuk membalik</div>
+
+    <div class="ans-area" id="ansArea">
+      <div class="srs-grid">
+        <button class="srs-btn again" onclick="rate(0)"><div class="srs-lbl">Again</div><div class="srs-ivl" id="ivl0">&lt;1m</div></button>
+        <button class="srs-btn hard"  onclick="rate(1)"><div class="srs-lbl">Hard</div><div class="srs-ivl" id="ivl1">6m</div></button>
+        <button class="srs-btn good"  onclick="rate(2)"><div class="srs-lbl">Good</div><div class="srs-ivl" id="ivl2">10m</div></button>
+        <button class="srs-btn easy"  onclick="rate(3)"><div class="srs-lbl">Easy</div><div class="srs-ivl" id="ivl3">4d</div></button>
+      </div>
+      <div class="kb-hint"><kbd>1</kbd> Again &nbsp;<kbd>2</kbd> Hard &nbsp;<kbd>3</kbd> Good &nbsp;<kbd>4</kbd> Easy &nbsp;|&nbsp; <kbd>Space</kbd> Flip</div>
+    </div>
+  </div>
+
+  <div id="completeArea" style="display:none">
+    <div class="complete-wrap">
+      <div class="complete-icon">🎉</div>
+      <div class="complete-title">Sesi Selesai!</div>
+      <p style="font-size:14px;color:var(--ink-soft);margin-bottom:4px">Semua kartu sudah direview. Bagus!</p>
+      <div class="complete-grid">
+        <div class="cg-item"><div class="cg-val" id="cAgain">0</div><div class="cg-lbl">Again</div></div>
+        <div class="cg-item"><div class="cg-val" id="cGood">0</div><div class="cg-lbl">Good+</div></div>
+        <div class="cg-item"><div class="cg-val" id="cXP">0</div><div class="cg-lbl">XP</div></div>
+      </div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-outline" onclick="restart()">↺ Ulangi</button>
+        <a href="Dashboard/Dashboard.html" class="btn btn-primary" style="text-decoration:none">📊 Dashboard</a>
+        <a href="JLPT-CBT.html" class="btn btn-ghost" style="text-decoration:none;border:1px solid var(--border-mid)">🎯 Coba CBT</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/np-xp.js" defer></script>
+<script src="assets/platform.min.js" defer></script>
+<script>
+// Catatan: State/SRS/Toast diisi di dalam DOMContentLoaded di bawah, karena
+// platform.min.js dimuat dengan `defer` sehingga window.NP belum tentu ada
+// saat script inline ini pertama dieksekusi.
+let State, SRS, Toast;
+
+// ── CARD DATA ────────────────────────────────────────────────────────
+const CARDS = [
+  // Kaigo vocab
+  {id:'kv01',type:'VOCAB',jp:'尊厳',reading:'そんげん',meaning:'martabat / dignity',example:'利用者の尊厳を守ります。\n(Menjaga martabat residen.)',cat:'kaigo',jlpt:'N2'},
+  {id:'kv02',type:'VOCAB',jp:'見守り',reading:'みまもり',meaning:'pemantauan / pengawasan',example:'転倒しないように見守ります。\n(Memantau agar tidak jatuh.)',cat:'kaigo',jlpt:'N3'},
+  {id:'kv03',type:'VOCAB',jp:'申し送り',reading:'もうしおくり',meaning:'serah terima shift',example:'夜勤者へ申し送りします。\n(Serah terima ke shift malam.)',cat:'kaigo',jlpt:'N3'},
+  {id:'kv04',type:'VOCAB',jp:'食事介助',reading:'しょくじかいじょ',meaning:'bantuan makan',example:'姿勢を確認して食事介助します。\n(Cek posisi, lalu bantu makan.)',cat:'kaigo',jlpt:'N3'},
+  {id:'kv05',type:'VOCAB',jp:'移乗介助',reading:'いじょうかいじょ',meaning:'bantuan transfer/pindah',example:'車いすへ移乗介助します。\n(Bantu pindah ke kursi roda.)',cat:'kaigo',jlpt:'N3'},
+  {id:'kv06',type:'VOCAB',jp:'褥瘡',reading:'じょくそう',meaning:'luka tekan / bedsore',example:'褥瘡予防に体位変換が必要です。\n(Perlu ubah posisi untuk cegah bedsore.)',cat:'kaigo',jlpt:'N2'},
+  {id:'kv07',type:'VOCAB',jp:'誤嚥',reading:'ごえん',meaning:'aspirasi / tersedak',example:'誤嚥に注意して介助します。\n(Waspada aspirasi saat membantu.)',cat:'kaigo',jlpt:'N2'},
+  {id:'kv08',type:'VOCAB',jp:'認知症',reading:'にんちしょう',meaning:'demensia',example:'認知症の利用者に寄り添います。\n(Mendampingi residen dengan demensia.)',cat:'kaigo',jlpt:'N3'},
+  {id:'kv09',type:'VOCAB',jp:'排泄介助',reading:'はいせつかいじょ',meaning:'bantuan BAB/BAK',example:'プライバシーに配慮します。\n(Perhatikan privasi.)',cat:'kaigo',jlpt:'N3'},
+  {id:'kv10',type:'VOCAB',jp:'拘縮',reading:'こうしゅく',meaning:'kontraktur / kekakuan sendi',example:'拘縮予防の運動を行います。\n(Lakukan latihan untuk cegah kontraktur.)',cat:'kaigo',jlpt:'N2'},
+  // JLPT N5
+  {id:'jv01',type:'VOCAB',jp:'食べる',reading:'たべる',meaning:'makan',example:'ご飯を食べます。\n(Makan nasi.)',cat:'jlpt',jlpt:'N5'},
+  {id:'jv02',type:'VOCAB',jp:'飲む',reading:'のむ',meaning:'minum',example:'水を飲みます。\n(Minum air.)',cat:'jlpt',jlpt:'N5'},
+  {id:'jv03',type:'VOCAB',jp:'大きい',reading:'おおきい',meaning:'besar',example:'大きい犬がいます。\n(Ada anjing besar.)',cat:'jlpt',jlpt:'N5'},
+  {id:'jv04',type:'VOCAB',jp:'会社',reading:'かいしゃ',meaning:'perusahaan / kantor',example:'毎日会社に行きます。\n(Setiap hari pergi ke kantor.)',cat:'jlpt',jlpt:'N5'},
+  {id:'jv05',type:'VOCAB',jp:'電話',reading:'でんわ',meaning:'telepon',example:'電話をかけます。\n(Menelepon.)',cat:'jlpt',jlpt:'N5'},
+  // Grammar
+  {id:'gg01',type:'GRAMMAR',jp:'〜てください',reading:'',meaning:'tolong lakukan〜',example:'ゆっくり立ってください。\n(Tolong berdiri perlahan.)',cat:'grammar',jlpt:'N5'},
+  {id:'gg02',type:'GRAMMAR',jp:'〜ないでください',reading:'',meaning:'tolong jangan〜',example:'無理をしないでください。\n(Tolong jangan memaksakan diri.)',cat:'grammar',jlpt:'N5'},
+  {id:'gg03',type:'GRAMMAR',jp:'〜てもいいですか',reading:'',meaning:'bolehkah saya〜?',example:'確認してもいいですか。\n(Bolehkah saya mengecek?)',cat:'grammar',jlpt:'N5'},
+  {id:'gg04',type:'GRAMMAR',jp:'〜ことができる',reading:'',meaning:'bisa / mampu melakukan〜',example:'一人で歩くことができます。\n(Bisa berjalan sendiri.)',cat:'grammar',jlpt:'N4'},
+  {id:'gg05',type:'GRAMMAR',jp:'〜ようにしています',reading:'',meaning:'berusaha untuk selalu〜',example:'毎日確認するようにしています。\n(Berusaha mengecek setiap hari.)',cat:'grammar',jlpt:'N3'},
+  // Kanji
+  {id:'kk01',type:'KANJI',jp:'介',reading:'カイ / ─',meaning:'assist, care (介護・介助)',example:'介護の仕事をします。\n(Bekerja di bidang kaigo.)',cat:'kanji',jlpt:'N3'},
+  {id:'kk02',type:'KANJI',jp:'護',reading:'ゴ / まもる',meaning:'protect (介護・保護)',example:'利用者を保護します。\n(Melindungi residen.)',cat:'kanji',jlpt:'N3'},
+  {id:'kk03',type:'KANJI',jp:'認',reading:'ニン / みとめる',meaning:'recognize (認知症・確認)',example:'本人の意思を確認します。\n(Mengkonfirmasi keinginan residen.)',cat:'kanji',jlpt:'N3'},
+  {id:'kk04',type:'KANJI',jp:'尊',reading:'ソン / たっとぶ',meaning:'revere, dignity (尊厳・尊重)',example:'尊厳を大切にします。\n(Menghargai martabat.)',cat:'kanji',jlpt:'N2'},
+  {id:'kk05',type:'KANJI',jp:'排',reading:'ハイ / ─',meaning:'discharge (排泄・排除)',example:'排泄の状態を記録します。\n(Mencatat kondisi BAB/BAK.)',cat:'kanji',jlpt:'N2'},
+];
+
+// ── STATE ────────────────────────────────────────────────────────────
+let deck = [], curIdx = 0, flipped = false, curFilter = 'all';
+let sessAgain = 0, sessGood = 0, sessXP = 0;
+
+function buildDeck(f) {
+  curFilter = f;
+  const stored = SRS.loadCards ? SRS.loadCards() : JSON.parse(localStorage.getItem('np-srs-v2')||'{}');
+  let cards = [...CARDS];
+  const now = Date.now();
+  if (f === 'due')    cards = cards.filter(c => { const s = stored[c.id]; return !s || s.nextReview <= now; });
+  else if (f === 'jlpt')    cards = cards.filter(c => c.cat === 'jlpt');
+  else if (f === 'kaigo')   cards = cards.filter(c => c.cat === 'kaigo');
+  else if (f === 'kanji')   cards = cards.filter(c => c.type === 'KANJI');
+  else if (f === 'grammar') cards = cards.filter(c => c.type === 'GRAMMAR');
+  deck = cards.sort(() => Math.random() - .5);
+  curIdx = 0; flipped = false; sessAgain = 0; sessGood = 0; sessXP = 0;
+  updateStats();
+  if (!deck.length) { showComplete(); }
+  else { document.getElementById('mainArea').style.display = 'block'; document.getElementById('completeArea').style.display = 'none'; renderCard(); }
+}
+
+function setFilter(f, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  buildDeck(f);
+}
+
+function updateStats() {
+  const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+  const now = Date.now();
+  const ids = CARDS.map(c => c.id);
+  document.getElementById('stDue').textContent     = ids.filter(id => { const s = stored[id]; return !s || s.nextReview <= now; }).length;
+  document.getElementById('stNew').textContent     = ids.filter(id => !stored[id] || !stored[id].reps).length;
+  document.getElementById('stLearned').textContent = ids.filter(id => stored[id] && stored[id].reps > 0).length;
+  const rated = ids.filter(id => stored[id] && stored[id].lastRating !== null);
+  const good  = rated.filter(id => stored[id].lastRating >= 2).length;
+  document.getElementById('stRetention').textContent = rated.length ? Math.round(good/rated.length*100) + '%' : '—';
+  document.getElementById('stStreak').textContent = State.getUser().streak || 0;
+}
+
+function renderCard() {
+  if (curIdx >= deck.length) { showComplete(); return; }
+  const c = deck[curIdx];
+  flipped = false;
+  document.getElementById('flipCard').classList.remove('flipped');
+  document.getElementById('ansArea').classList.remove('show');
+  document.getElementById('flipHint').style.display = 'block';
+  document.getElementById('cardBadge').textContent = `${c.type}${c.jlpt ? ' · ' + c.jlpt : ''}`;
+  document.getElementById('cardJP').textContent = c.jp;
+  document.getElementById('cardReading').textContent = c.reading || '　';
+  document.getElementById('cardJPBack').textContent  = c.jp + (c.reading ? ` (${c.reading})` : '');
+  document.getElementById('cardMeaning').textContent = c.meaning;
+  document.getElementById('cardExample').innerHTML   = c.example ? c.example.replace('\n','<br>') : '';
+  // Progress dots
+  const dots = document.getElementById('cardDots');
+  const show = deck.slice(0, Math.min(deck.length, 12));
+  dots.innerHTML = show.map((_,i) => `<div class="fc-dot ${i<curIdx?'done':i===curIdx?'cur':''}"></div>`).join('');
+  // Interval previews
+  const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+  const card = stored[c.id] || { ef: 2.5, interval: 0, reps: 0 };
+  [0,1,2,3].forEach(r => {
+    document.getElementById('ivl'+r).textContent = getIvl(card, r);
+  });
+}
+
+function getIvl(c, r) {
+  let m;
+  if (r===0) m=1;
+  else if (r===1) m=c.reps===0?6:Math.round((c.interval||1)*1.2);
+  else if (r===2) m=c.reps===0?10:c.reps===1?1440:Math.round((c.interval||10)*(c.ef||2.5));
+  else m=c.reps===0?5760:Math.round((c.interval||10)*(c.ef||2.5)*1.3);
+  m = Math.max(1, m);
+  if (m<60) return m+'m'; if (m<1440) return Math.round(m/60)+'h'; return Math.round(m/1440)+'d';
+}
+
+function flipCard() {
+  if (flipped) return;
+  flipped = true;
+  document.getElementById('flipCard').classList.add('flipped');
+  document.getElementById('ansArea').classList.add('show');
+  document.getElementById('flipHint').style.display = 'none';
+}
+
+function rate(r) {
+  const c = deck[curIdx];
+  // SM-2
+  const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+  const card = stored[c.id] || { ef: 2.5, interval: 0, reps: 0 };
+  let ef = Math.max(1.3, card.ef || 2.5), interval;
+  if (r===0) { interval=1; ef=Math.max(1.3,ef-.2); card.reps=0; }
+  else if (r===1) { interval=card.reps===0?6:Math.round((card.interval||1)*1.2); ef=Math.max(1.3,ef-.15); }
+  else if (r===2) { interval=card.reps===0?10:card.reps===1?1440:Math.round((card.interval||10)*ef); }
+  else { interval=card.reps===0?5760:Math.round((card.interval||10)*ef*1.3); ef=Math.min(3,ef+.1); }
+  card.interval=Math.max(1,interval); card.ef=ef;
+  card.reps=r===0?0:(card.reps||0)+1;
+  card.nextReview=Date.now()+card.interval*60*1000;
+  card.lastRating=r; card.lastReviewed=Date.now();
+  stored[c.id]=card;
+  localStorage.setItem('np-srs-v2', JSON.stringify(stored));
+  if (r===0) sessAgain++; else sessGood++;
+  const xp=[0,5,10,15][r]; sessXP+=xp;
+  if (xp>0) State.addXP(xp, ['','Hard','Good ✓','Easy ✓'][r]);
+  try{ if(window.NPXP){ NPXP.recordVocab('srs',1); if(xp>0) NPXP.award('srs',xp); } }catch(e){}
+  curIdx++; flipped=false; renderCard(); updateStats();
+}
+
+function showComplete() {
+  document.getElementById('mainArea').style.display = 'none';
+  document.getElementById('completeArea').style.display = 'block';
+  document.getElementById('cAgain').textContent = sessAgain;
+  document.getElementById('cGood').textContent  = sessGood;
+  document.getElementById('cXP').textContent    = sessXP;
+}
+
+function restart() { buildDeck(curFilter); }
+
+// Keyboard
+document.addEventListener('keydown', e => {
+  if (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+  if (e.key===' '||e.key==='Enter') { e.preventDefault(); if (!flipped) flipCard(); }
+  if (e.key==='1'&&flipped) rate(0);
+  if (e.key==='2'&&flipped) rate(1);
+  if (e.key==='3'&&flipped) rate(2);
+  if (e.key==='4'&&flipped) rate(3);
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  State = NP.State; SRS = NP.SRS; Toast = NP.Toast;
+  buildDeck('all');
+  NP.Nav.init('');
+});
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kanji-N5.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kanji N5–N1</a>
+          <a href="/Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar</a>
+          <a href="/Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kosakata</a>
+          <a href="/Materi/Fondasi-Bahasa-Jepang.html" style="color:rgba(255,255,255,.6);text-decoration:none">Fondasi Jepang</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Tools</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/JLPT-CBT.html" style="color:rgba(255,255,255,.6);text-decoration:none">CBT Simulator</a>
+          <a href="/SRS-Flashcard.html" style="color:rgba(255,255,255,.6);text-decoration:none">SRS Flashcard</a>
+          <a href="/Grammar-Checker.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar Checker</a>
+          <a href="/AI-Tutor-Pro.html" style="color:rgba(255,255,255,.6);text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Kaigo</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Materi/Kaigo.html#kg-h-ujian" style="color:rgba(255,255,255,.6);text-decoration:none">Persiapan Ujian</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+/* ── SRS AUDIO TTS ── */
+(function() {
+  var synth = window.speechSynthesis;
+  var jaVoice = null;
+
+  function loadVoices() {
+    var voices = synth ? synth.getVoices() : [];
+    jaVoice = voices.find(function(v) { return v.lang.startsWith('ja'); }) || null;
+  }
+
+  if (synth) {
+    loadVoices();
+    synth.onvoiceschanged = loadVoices;
+  }
+
+  window.speakCard = function(text, btn) {
+    if (!synth || !text) return;
+    synth.cancel();
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ja-JP';
+    u.rate = 0.85;
+    u.pitch = 1;
+    if (jaVoice) u.voice = jaVoice;
+
+    if (btn) {
+      btn.classList.add('speaking');
+      u.onend = function() { btn.classList.remove('speaking'); };
+      u.onerror = function() { btn.classList.remove('speaking'); };
+    }
+    synth.speak(u);
+  };
+
+  // Auto-inject audio btn ke setiap card yang tampil
+  var origShowCard = window.showCard;
+  if (typeof origShowCard === 'function') {
+    window.showCard = function() {
+      origShowCard.apply(this, arguments);
+      injectAudioBtn();
+    };
+  }
+
+  // Shortcut: tekan 'P' untuk play audio
+  document.addEventListener('keydown', function(e) {
+    if (e.key.toLowerCase() === 'p') {
+      var frontEl = document.querySelector('.card-front-jp, .card-jp, .fc-kanji, [data-speak]');
+      if (frontEl) speakCard(frontEl.textContent.trim());
+    }
+  });
+
+  function injectAudioBtn() {
+    var targets = document.querySelectorAll('.card-front-jp, .card-jp, .srs-front');
+    targets.forEach(function(el) {
+      if (el.parentElement.querySelector('.card-audio-btn')) return;
+      var text = el.textContent.trim();
+      if (!text) return;
+      var btn = document.createElement('button');
+      btn.className = 'card-audio-btn';
+      btn.innerHTML = '🔊 Dengarkan';
+      btn.onclick = function(e) { e.stopPropagation(); speakCard(text, btn); };
+      el.parentElement.insertBefore(btn, el.nextSibling);
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(injectAudioBtn, 500);
+  });
+})();
+</script>
+
+<script>
+// ── FSRS ALGORITHM (Free Spaced Repetition Scheduler) ──────────────────────
+// Based on FSRS-4.5 by Jarrett Ye (open source)
+const FSRS = {
+  // Default parameters
+  w: [0.4, 0.6, 2.4, 5.8, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14, 0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61],
+  DECAY: -0.5,
+  FACTOR: 0.9 ** (1 / -0.5) - 1,
+
+  // Stability after first review
+  initStability(rating) {
+    // rating: 1=Again, 2=Hard, 3=Good, 4=Easy
+    return Math.max(this.w[rating - 1], 0.1);
+  },
+
+  // Initial difficulty
+  initDifficulty(rating) {
+    return Math.min(Math.max(this.w[4] - this.w[5] * (rating - 3), 1), 10);
+  },
+
+  // Retrievability (probability of recall)
+  forgettingCurve(elapsed, stability) {
+    return (1 + this.FACTOR * elapsed / stability) ** this.DECAY;
+  },
+
+  // Next interval based on desired retention
+  nextInterval(stability, desiredRetention = 0.9) {
+    const interval = stability / this.FACTOR * (desiredRetention ** (1 / this.DECAY) - 1);
+    return Math.max(Math.round(interval), 1);
+  },
+
+  // Next stability after review
+  nextStability(difficulty, stability, retrievability, rating) {
+    if (rating === 1) { // Again
+      return this.w[11] * (11 - difficulty) ** (-this.w[12]) * ((Math.E ** (this.w[13] * (1 - retrievability))) - 1);
+    }
+    const hardPenalty = rating === 2 ? this.w[15] : 1;
+    const easyBonus   = rating === 4 ? this.w[16] : 1;
+    return stability * (Math.E ** (this.w[8]) * (11 - difficulty) * stability ** (-this.w[9]) *
+      (Math.E ** (this.w[10] * (1 - retrievability)) - 1) * hardPenalty * easyBonus + 1);
+  },
+
+  // Next difficulty after review
+  nextDifficulty(difficulty, rating) {
+    const delta = this.w[6] * (rating - 3);
+    // Mean reversion
+    return Math.min(Math.max(difficulty - delta + this.w[7] * (this.w[4] - difficulty), 1), 10);
+  },
+
+  // Schedule a card
+  schedule(card, rating, now = Date.now()) {
+    const todayMs = now;
+    let { stability, difficulty, reps, lapses, state } = card;
+
+    if (state === 'new') {
+      stability  = this.initStability(rating);
+      difficulty = this.initDifficulty(rating);
+      state = rating === 1 ? 'learning' : 'review';
+    } else {
+      const elapsed = (todayMs - card.lastReview) / 86400000; // days
+      const R = this.forgettingCurve(elapsed, stability);
+      stability  = this.nextStability(difficulty, stability, R, rating);
+      difficulty = this.nextDifficulty(difficulty, rating);
+      if (rating === 1) { lapses++; state = 'relearning'; }
+      else { state = 'review'; }
+    }
+
+    reps++;
+    const interval = rating === 1 ? 0 :
+                     state === 'learning' ? 1 :
+                     this.nextInterval(stability);
+
+    const dueDate = new Date(todayMs + interval * 86400000);
+
+    return {
+      ...card,
+      stability: parseFloat(stability.toFixed(4)),
+      difficulty: parseFloat(difficulty.toFixed(4)),
+      reps, lapses, state,
+      lastReview: todayMs,
+      interval,
+      due: dueDate.toDateString(),
+      retrievability: parseFloat(this.forgettingCurve(0, stability).toFixed(4)),
+    };
+  },
+};
+
+// ── SRS STORE ───────────────────────────────────────────────────────────────
+const SRSStore = {
+  KEY: 'np-srs-v3',
+  _cards: null,
+  _history: null,
+
+  load() {
+    try {
+      const raw = localStorage.getItem(this.KEY);
+      const parsed = raw ? JSON.parse(raw) : {};
+      this._cards   = parsed.cards   || {};
+      this._history = parsed.history || {};
+    } catch(e) { this._cards={}; this._history={}; }
+    return this;
+  },
+
+  save() {
+    try { localStorage.setItem(this.KEY, JSON.stringify({cards:this._cards, history:this._history})); } catch(e){}
+  },
+
+  getCard(id) {
+    return this._cards[id] || {
+      id, stability:0, difficulty:5, reps:0, lapses:0,
+      state:'new', lastReview:0, interval:0,
+      due: new Date().toDateString(), retrievability:0,
+    };
+  },
+
+  saveCard(card) {
+    this._cards[card.id] = card;
+    // Log history
+    const today = new Date().toDateString();
+    if (!this._history[today]) this._history[today] = {reviewed:0, new:0, lapses:0};
+    this._history[today].reviewed++;
+    if (card.state === 'new') this._history[today].new++;
+    if (card.lapses > (this._cards[card.id]?.lapses||0)) this._history[today].lapses++;
+    this.save();
+  },
+
+  getDueCards(deck) {
+    const today = new Date().toDateString();
+    return deck.filter(card => {
+      const saved = this._cards[card.id];
+      if (!saved || saved.state === 'new') return true;
+      return saved.due === today || new Date(saved.due) <= new Date();
+    });
+  },
+
+  getStats() {
+    const all = Object.values(this._cards);
+    return {
+      total:   all.length,
+      new:     all.filter(c=>c.state==='new').length,
+      learning:all.filter(c=>c.state==='learning'||c.state==='relearning').length,
+      review:  all.filter(c=>c.state==='review').length,
+      mature:  all.filter(c=>c.interval>=21).length,
+    };
+  },
+};
+
+// ── SRS UI ───────────────────────────────────────────────────────────────────
+let _srsQueue   = [];
+let _srsIdx     = 0;
+let _srsFlipped = false;
+let _srsSession = { reviewed:0, again:0, hard:0, good:0, easy:0 };
+
+function initFSRS() {
+  SRSStore.load();
+  renderSRSStats();
+  renderSRSHeatmap();
+  renderSRSQueue();
+}
+
+function renderSRSStats() {
+  const stats = SRSStore.getStats();
+  const el = document.getElementById('fsrsStats');
+  if (!el) return;
+  el.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
+      <div style="background:#eff6ff;border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:20px;font-weight:800;color:#2563eb">${stats.new||0}</div>
+        <div style="font-size:10px;color:#64748b">Baru</div>
+      </div>
+      <div style="background:#fff7ed;border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:20px;font-weight:800;color:#ea580c">${stats.learning||0}</div>
+        <div style="font-size:10px;color:#64748b">Learning</div>
+      </div>
+      <div style="background:#f0fdf4;border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:20px;font-weight:800;color:#16a34a">${stats.review||0}</div>
+        <div style="font-size:10px;color:#64748b">Review</div>
+      </div>
+      <div style="background:#fdf4ff;border-radius:10px;padding:10px;text-align:center">
+        <div style="font-size:20px;font-weight:800;color:#7c3aed">${stats.mature||0}</div>
+        <div style="font-size:10px;color:#64748b">Mature</div>
+      </div>
+    </div>`;
+}
+
+function renderSRSHeatmap() {
+  const el = document.getElementById('srsHeatmap');
+  if (!el) return;
+  const hist = SRSStore._history || {};
+  const cells = [];
+  for (let i=363; i>=0; i--) {
+    const dt = new Date(); dt.setDate(dt.getDate()-i);
+    const key = dt.toDateString();
+    const n = hist[key]?.reviewed||0;
+    const cls = n===0?'hm-0':n<5?'hm-1':n<15?'hm-2':n<30?'hm-3':'hm-4';
+    cells.push(`<div class="srs-hm-cell ${cls}" title="${dt.toLocaleDateString('id-ID')}: ${n} kartu"></div>`);
+  }
+  el.innerHTML = `
+    <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">📅 Kalender Review</div>
+    <div style="display:grid;grid-template-columns:repeat(52,1fr);gap:2px">${cells.join('')}</div>
+    <div style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:10px;color:#94a3b8">
+      <span>Kurang</span>
+      <div style="width:10px;height:10px;background:#bbf7d0;border-radius:2px"></div>
+      <div style="width:10px;height:10px;background:#4ade80;border-radius:2px"></div>
+      <div style="width:10px;height:10px;background:#16a34a;border-radius:2px"></div>
+      <div style="width:10px;height:10px;background:#14532d;border-radius:2px"></div>
+      <span>Banyak</span>
+    </div>`;
+}
+
+function renderSRSQueue() {
+  // Get due cards from current deck
+  const deckEl = document.getElementById('vocabLvSel') || document.querySelector('select[id*="filter"]');
+  const level = deckEl?.value || 'N5';
+
+  // Use existing vocabDB or fallback
+  const deck = (window.vocabDB && window.vocabDB[level]) ? window.vocabDB[level] :
+    [{id:'k1',jp:'介護',rom:'kaigo',id2:'perawatan'},
+     {id:'k2',jp:'利用者',rom:'riyōsha',id2:'pengguna layanan'},
+     {id:'k3',jp:'尊厳',rom:'songen',id2:'martabat'},
+     {id:'k4',jp:'嚥下',rom:'enge',id2:'menelan'},
+     {id:'k5',jp:'褥瘡',rom:'jokusō',id2:'luka tekan'}];
+
+  const cardObjs = deck.map((v,i) => ({...v, id: v.id||`${level}_${i}`}));
+  _srsQueue = SRSStore.getDueCards(cardObjs);
+  _srsIdx = 0;
+  _srsFlipped = false;
+  _srsSession = {reviewed:0,again:0,hard:0,good:0,easy:0};
+
+  showFSRSCard();
+}
+
+function showFSRSCard() {
+  const el = document.getElementById('fsrsCard');
+  if (!el) return;
+
+  if (_srsIdx >= _srsQueue.length) {
+    // Session complete
+    el.innerHTML = `
+      <div style="text-align:center;padding:40px 20px">
+        <div style="font-size:48px;margin-bottom:16px">🎉</div>
+        <div style="font-size:20px;font-weight:800;margin-bottom:8px">Sesi Selesai!</div>
+        <div style="font-size:13px;color:#64748b;margin-bottom:20px">
+          ${_srsSession.reviewed} kartu direview · ${_srsSession.easy} mudah · ${_srsSession.again} terlewat
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px">
+          <div style="background:#fee2e2;border-radius:8px;padding:8px;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#dc2626">${_srsSession.again}</div>
+            <div style="font-size:10px;color:#94a3b8">Again</div>
+          </div>
+          <div style="background:#fff7ed;border-radius:8px;padding:8px;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#ea580c">${_srsSession.hard}</div>
+            <div style="font-size:10px;color:#94a3b8">Hard</div>
+          </div>
+          <div style="background:#f0fdf4;border-radius:8px;padding:8px;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#16a34a">${_srsSession.good}</div>
+            <div style="font-size:10px;color:#94a3b8">Good</div>
+          </div>
+          <div style="background:#eff6ff;border-radius:8px;padding:8px;text-align:center">
+            <div style="font-size:18px;font-weight:800;color:#2563eb">${_srsSession.easy}</div>
+            <div style="font-size:10px;color:#94a3b8">Easy</div>
+          </div>
+        </div>
+        <button onclick="renderSRSQueue()" style="padding:10px 24px;background:#2563eb;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700">🔄 Review Lagi</button>
+      </div>`;
+    renderSRSStats();
+    renderSRSHeatmap();
+    return;
+  }
+
+  const card = _srsQueue[_srsIdx];
+  const saved = SRSStore.getCard(card.id);
+  const isNew = saved.reps === 0;
+  const stability = saved.stability || 0;
+  const R = stability > 0 ? Math.round(FSRS.forgettingCurve(0, stability) * 100) : '—';
+
+  el.innerHTML = `
+    <div style="text-align:center">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-bottom:16px">
+        <span>${_srsIdx+1}/${_srsQueue.length} kartu</span>
+        <span style="background:${isNew?'#eff6ff':'#f0fdf4'};color:${isNew?'#2563eb':'#16a34a'};padding:2px 8px;border-radius:20px;font-weight:700">${isNew?'🆕 Baru':'🔄 Review'}</span>
+        <span>R: ${R}%</span>
+      </div>
+
+      <div style="background:linear-gradient(135deg,#1e293b,#334155);border-radius:16px;padding:32px 24px;margin-bottom:16px;cursor:pointer;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:.2s" onclick="flipFSRS()">
+        <div style="font-size:52px;font-family:'Noto Serif JP',serif;color:#fff;margin-bottom:8px">${card.jp||card.front||'?'}</div>
+        ${_srsFlipped ? `
+          <div style="border-top:1px solid rgba(255,255,255,.2);padding-top:12px;margin-top:4px;width:100%">
+            <div style="font-size:16px;color:#94a3b8;font-style:italic;margin-bottom:4px">${card.rom||card.reading||''}</div>
+            <div style="font-size:18px;font-weight:700;color:#38bdf8">${card.id2||card.id||card.meaning||''}</div>
+            ${card.example ? `<div style="font-size:12px;color:#64748b;margin-top:8px;font-style:italic">${card.example}</div>` : ''}
+          </div>
+          <button onclick="event.stopPropagation();if(typeof speak==='function')speak('${(card.jp||'').replace(/'/g,'`')}')"
+            style="margin-top:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 14px;border-radius:20px;cursor:pointer;font-size:12px">🔊 Dengar</button>
+        ` : `<div style="font-size:13px;color:#64748b;margin-top:8px">Klik untuk balik kartu</div>`}
+      </div>
+
+      ${_srsFlipped ? `
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+          <button onclick="rateFSRS(1)" style="padding:10px;border-radius:10px;border:2px solid #dc2626;background:#fee2e2;color:#dc2626;cursor:pointer;font-weight:800;font-size:12px">
+            ❌ Again<br><span style="font-size:10px;font-weight:400">&lt;1 hari</span>
+          </button>
+          <button onclick="rateFSRS(2)" style="padding:10px;border-radius:10px;border:2px solid #ea580c;background:#fff7ed;color:#ea580c;cursor:pointer;font-weight:800;font-size:12px">
+            😓 Hard<br><span style="font-size:10px;font-weight:400">${Math.max(1,Math.round((saved.interval||1)*0.5))} hari</span>
+          </button>
+          <button onclick="rateFSRS(3)" style="padding:10px;border-radius:10px;border:2px solid #16a34a;background:#f0fdf4;color:#16a34a;cursor:pointer;font-weight:800;font-size:12px">
+            😊 Good<br><span style="font-size:10px;font-weight:400">${Math.max(1,saved.interval||1)} hari</span>
+          </button>
+          <button onclick="rateFSRS(4)" style="padding:10px;border-radius:10px;border:2px solid #2563eb;background:#eff6ff;color:#2563eb;cursor:pointer;font-weight:800;font-size:12px">
+            😄 Easy<br><span style="font-size:10px;font-weight:400">${Math.max(1,Math.round((saved.interval||1)*2))} hari</span>
+          </button>
+        </div>
+      ` : `
+        <button onclick="flipFSRS()" style="width:100%;padding:12px;background:#2563eb;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700">
+          👀 Tampilkan Jawaban
+        </button>
+      `}
+    </div>`;
+}
+
+function flipFSRS() {
+  _srsFlipped = true;
+  showFSRSCard();
+  // Auto TTS
+  const card = _srsQueue[_srsIdx];
+  if (card && typeof speak === 'function') setTimeout(() => speak(card.jp||card.front||''), 300);
+}
+
+function rateFSRS(rating) {
+  const card = _srsQueue[_srsIdx];
+  const saved = SRSStore.getCard(card.id);
+  const updated = FSRS.schedule(saved, rating);
+  SRSStore.saveCard(updated);
+  try{ if(window.NPXP){ NPXP.recordVocab('srs',1); var _x=[0,5,10,15][rating-1]||5; NPXP.award('srs',_x); } }catch(e){}
+
+  _srsSession.reviewed++;
+  ['again','hard','good','easy'][rating-1] && _srsSession[['again','hard','good','easy'][rating-1]]++;
+
+  // XP
+  if (typeof LiveXP !== 'undefined') LiveXP.add(rating >= 3 ? 5 : 2, '(flashcard)');
+
+  // GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Ketiga, Fase J):
+  // dikonfirmasi via pengujian genuine bahwa `renderSRSStats()` GENUINELY
+  // hanya dipanggil di `initFSRS()` (awal sesi) dan saat antrean kosong
+  // (akhir sesi) -- TIDAK PERNAH dipanggil di sini, di tengah sesi
+  // penilaian kartu. Dibuktikan konkret: setelah menilai 1 kartu, UI
+  // genuinely TETAP menampilkan "0 Baru/0 Learning/0 Review/0 Mature"
+  // meski data sesungguhnya (`SRSStore.getStats()`) genuinely sudah
+  // berubah menjadi `review:1`. Pengguna genuinely tidak melihat
+  // progress mereka bertambah secara real-time selama sesi berlangsung.
+  renderSRSStats();
+
+  _srsIdx++;
+  _srsFlipped = false;
+  showFSRSCard();
+}
+
+// CSS for heatmap cells
+const srsStyle = document.createElement('style');
+srsStyle.textContent = `.srs-hm-cell{aspect-ratio:1;border-radius:2px;cursor:pointer;transition:.1s}
+.srs-hm-cell:hover{transform:scale(1.3)}
+.hm-0{background:#f1f5f9}.hm-1{background:#bbf7d0}.hm-2{background:#4ade80}.hm-3{background:#16a34a}.hm-4{background:#14532d}`;
+document.head.appendChild(srsStyle);
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Inject FSRS UI
+  const main = document.querySelector('main, .container, #flashcardWrap, body');
+  if (main && !document.getElementById('fsrsStats')) {
+    const fsrsUI = document.createElement('div');
+    fsrsUI.id = 'fsrsWrap';
+    fsrsUI.style.cssText = 'max-width:480px;margin:0 auto;padding:16px';
+    fsrsUI.innerHTML = `
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">📊 Statistik FSRS</div>
+        <div id="fsrsStats"></div>
+      </div>
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;margin-bottom:16px">
+        <div id="srsHeatmap"></div>
+      </div>
+      <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px">
+        <div style="font-size:13px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px">🃏 Kartu Review (FSRS)</div>
+        <div id="fsrsCard"></div>
+      </div>`;
+    main.insertBefore(fsrsUI, main.firstChild);
+  }
+  initFSRS();
+});
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

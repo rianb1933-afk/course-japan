@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sonkeigo &amp; Kenjougo (Bahasa Hormat) — Nihonggo Pro Academy</title>
+<meta name="description" content="Sonkeigo (bahasa hormat meninggikan lawan) dan Kenjougo (merendahkan diri) dalam bahasa Jepang. Tabel kata kerja khusus, cara membentuk, dan kesalahan umum. JLPT N3-N2.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Grammar-Sonkeigo-Kenjougo.html">
+<meta property="og:title" content="Sonkeigo &amp; Kenjougo (Bahasa Hormat) — Nihonggo Pro Academy">
+<meta property="og:description" content="Sonkeigo (bahasa hormat meninggikan lawan) dan Kenjougo (merendahkan diri) dalam bahasa Jepang. Tabel kata kerja khusus, cara membentuk, dan kesalahan umum. JLPT N3-N2.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Grammar-Sonkeigo-Kenjougo.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.brand{display:flex;align-items:baseline;gap:10px}.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:22px}.brand span{font-size:12px;color:var(--ink-soft);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap}
+.hero{background:#17181d;color:#fff;padding:58px 5vw 38px;position:relative;overflow:hidden}.hero:before{content:"助詞";position:absolute;right:4vw;bottom:-72px;font-family:"Noto Serif JP",serif;font-size:220px;color:rgba(255,255,255,.045);line-height:1}
+.inner{width:min(1120px,100%);margin:0 auto;position:relative}.kicker{display:inline-flex;padding:5px 11px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(32px,5vw,58px);line-height:1.12;margin-bottom:12px}.lead{max-width:780px;color:rgba(255,255,255,.7);font-size:16px}
+.section{padding:38px 5vw}.section-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:18px}.label{font-size:11px;font-weight:900;color:var(--red);letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}h2{font-family:"Noto Serif JP",serif;font-size:clamp(24px,3vw,34px);line-height:1.2}.sub{max-width:650px;color:var(--ink-soft);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow-sm)}.card h3{font-size:16px;margin-bottom:8px}.card p,.card li{font-size:13px;color:var(--ink-mid)}.card ul{padding-left:18px;display:grid;gap:6px}.jp{font-family:"Noto Serif JP",serif}
+.table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-sm)}.table th,.table td{padding:12px;border-bottom:1px solid var(--border);font-size:13px;text-align:left;vertical-align:top}.table th{background:var(--cream);color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.table tr:last-child td{border-bottom:0}
+.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.16);border-radius:8px;padding:14px;color:var(--ink-mid);font-size:13px;margin-top:14px}.tag{display:inline-flex;align-items:center;min-height:26px;padding:0 8px;border-radius:8px;background:var(--red-pale);color:var(--red);font-weight:900;margin:2px}
+@media(max-width:900px){.section-head{display:block}.grid{grid-template-columns:1fr}.table{display:block;overflow-x:auto}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Sonkeigo & Kenjougo (Bahasa Hormat) — Nihonggo Pro Academy", "description": "Sonkeigo (bahasa hormat meninggikan lawan) dan Kenjougo (merendahkan diri) dalam bahasa Jepang. Tabel kata kerja khusus, cara membentuk, dan kesalahan umum. JLPT N3-N2.", "url": "https://nihonggopro.id/Materi/Grammar-Sonkeigo-Kenjougo.html", "provider": {"@type": "Organization", "name": "NihonggoPro", "url": "https://nihonggopro.id"}, "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Sonkeigo &amp; Kenjougo (Bahasa Hormat) — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://nihonggopro.id/"}, {"@type": "ListItem", "position": 2, "name": "Materi", "item": "https://nihonggopro.id/Materi/Materi.html"}, {"@type": "ListItem", "position": 3, "name": "Sonkeigo & Kenjougo (Bahasa Hormat) — Nihonggo Pro Academy", "item": "https://nihonggopro.id/Materi/Grammar-Sonkeigo-Kenjougo.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  .nav-links{display:none!important}
+  
+  
+  
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="Sonkeigo (bahasa hormat meninggikan lawan) dan Kenjougo (merendahkan diri) dalam bahasa Jepang. Tabel kata kerja khusus, cara membentuk, dan kesalahan umum. JLPT N3-N2.">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<main id="main-content">
+  <section class="hero">
+    <div class="inner">
+      <div class="kicker">Keigo · JLPT N3-N2</div>
+      <h1>Sonkeigo &amp; Kenjougo<br>尊敬語・謙譲語</h1>
+      <p class="lead">Keigo punya dua arah: <b>meninggikan lawan bicara</b> (sonkeigo) dan <b>merendahkan diri sendiri</b> (kenjougo). Salah arah = salah makna. Materi ini membedah keduanya dengan tabel kata kerja khusus yang wajib dihafal.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Konsep</div><h2>🧭 Dua arah hormat</h2></div><p class="sub">Ini kunci memahami keigo — arahnya berbeda.</p></div>
+      <div class="grid">
+        <article class="card"><h3>尊敬語 (Sonkeigo)</h3>
+          <p><b>Meninggikan lawan bicara</b> atau orang yang dihormati (atasan, pelanggan, tamu).</p>
+          <p>Dipakai untuk <b>tindakan ORANG LAIN</b>.</p>
+          <ul>
+            <li><span class="jp">社長がいらっしゃいます。</span><br>Direktur datang. (meninggikan direktur)</li>
+          </ul>
+        </article>
+        <article class="card"><h3>謙譲語 (Kenjougo)</h3>
+          <p><b>Merendahkan diri sendiri</b> untuk menunjukkan hormat.</p>
+          <p>Dipakai untuk <b>tindakan DIRI SENDIRI</b>.</p>
+          <ul>
+            <li><span class="jp">私が参ります。</span><br>Saya datang. (merendahkan diri)</li>
+          </ul>
+          <p style="font-size:.9rem;margin-top:.5rem">⚠️ Salah arah fatal: memakai sonkeigo untuk diri sendiri = menyombongkan diri.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Kata Kerja Khusus</div><h2>📋 Tabel wajib hafal</h2></div><p class="sub">Kata kerja umum punya bentuk keigo khusus yang tidak beraturan.</p></div>
+      <table class="table">
+        <thead><tr><th>Biasa</th><th>Sonkeigo (orang lain)</th><th>Kenjougo (diri sendiri)</th><th>Audio</th></tr></thead>
+        <tbody>
+          <tr><td class="jp">行く・来る</td><td>いらっしゃる</td><td>参る / 伺う</td><td><button class="listen-btn" onclick="speak('行く・来る')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">いる</td><td>いらっしゃる</td><td>おる</td><td><button class="listen-btn" onclick="speak('いる')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">食べる・飲む</td><td>召し上がる</td><td>いただく</td><td><button class="listen-btn" onclick="speak('食べる・飲む')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">言う</td><td>おっしゃる</td><td>申す / 申し上げる</td><td><button class="listen-btn" onclick="speak('言う')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">見る</td><td>ご覧になる</td><td>拝見する</td><td><button class="listen-btn" onclick="speak('見る')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">する</td><td>なさる</td><td>いたす</td><td><button class="listen-btn" onclick="speak('する')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">知る</td><td>ご存じです</td><td>存じる / 存じ上げる</td><td><button class="listen-btn" onclick="speak('知る')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">もらう</td><td>—</td><td>いただく</td><td><button class="listen-btn" onclick="speak('もらう')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">あげる</td><td>—</td><td>差し上げる</td><td><button class="listen-btn" onclick="speak('あげる')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:.8rem;font-size:.9rem;color:var(--ink3,#666)">💡 いただく muncul dua kali: untuk 食べる/飲む (makan/minum) dan もらう (menerima). Konteks yang menentukan.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Pola Umum</div><h2>🔧 Cara membentuk (untuk kata kerja lain)</h2></div><p class="sub">Bila tidak ada bentuk khusus, pakai pola ini.</p></div>
+      <table class="table">
+        <thead><tr><th>Jenis</th><th>Pola</th><th>Contoh</th><th>Audio</th></tr></thead>
+        <tbody>
+          <tr><td class="jp">お+ます形+になる</td><td>Sonkeigo</td><td>お書きになる (menulis — orang lain)</td><td><button class="listen-btn" onclick="speak('お+ます形+になる')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">お+ます形+する</td><td>Kenjougo</td><td>お持ちします (membawa — diri sendiri)</td><td><button class="listen-btn" onclick="speak('お+ます形+する')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">ご+kata benda+になる</td><td>Sonkeigo (kata Sino)</td><td>ご利用になる (menggunakan)</td><td><button class="listen-btn" onclick="speak('ご+kata benda+になる')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">ご+kata benda+する</td><td>Kenjougo (kata Sino)</td><td>ご案内します (memandu)</td><td><button class="listen-btn" onclick="speak('ご+kata benda+する')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:.8rem;font-size:.9rem;color:var(--ink3,#666)">💡 Bentuk pasif (～れる/られる) juga bisa jadi sonkeigo ringan: 書かれる = menulis (hormat).</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Praktik</div><h2>💼 Contoh di tempat kerja</h2></div><p class="sub">Situasi nyata, termasuk konteks Kaigo.</p></div>
+      <table class="table">
+        <thead><tr><th>Jepang</th><th>Bacaan</th><th>Arti</th><th>Audio</th></tr></thead>
+        <tbody>
+          <tr><td class="jp">社長はいらっしゃいますか。</td><td>shachou wa irasshaimasu ka</td><td>Apakah direktur ada?</td><td><button class="listen-btn" onclick="speak('社長はいらっしゃいますか。')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">少々お待ちください。</td><td>shoushou omachi kudasai</td><td>Mohon tunggu sebentar.</td><td><button class="listen-btn" onclick="speak('少々お待ちください。')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">お名前を伺ってもよろしいですか。</td><td>onamae o ukagatte mo yoroshii desu ka</td><td>Boleh saya tanya nama Anda?</td><td><button class="listen-btn" onclick="speak('お名前を伺ってもよろしいですか。')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">こちらをご覧ください。</td><td>kochira o goran kudasai</td><td>Silakan lihat yang ini.</td><td><button class="listen-btn" onclick="speak('こちらをご覧ください。')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">お食事を召し上がりましたか。</td><td>oshokuji o meshiagarimashita ka</td><td>Apakah Anda sudah makan?</td><td><button class="listen-btn" onclick="speak('お食事を召し上がりましたか。')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:.8rem;font-size:.9rem;color:var(--ink3,#666)">💡 Untuk Kaigo: 召し上がる & いらっしゃる sangat sering dipakai saat melayani lansia/pasien.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Latihan</div><h2>🎯 Kuis Sonkeigo & Kenjougo</h2></div><p class="sub">Uji pemahamanmu. Jawab semua soal untuk menyelesaikan materi.</p></div>
+      <div id="quizBox" class="card"></div>
+      <div id="qs" style="text-align:center;margin-top:1rem;font-weight:700">Skor: <span id="okc">0</span>/<span id="totc">0</span></div>
+    </div>
+  </section>
+</main>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      
+  </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function speak(t){
+  if(!('speechSynthesis' in window)){alert('Browser tidak mendukung audio');return;}
+  var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+</script>
+
+<script>
+var Q=[{"q": "Sonkeigo dipakai untuk tindakan siapa?", "opts": ["Diri sendiri", "Orang lain (yang dihormati)", "Keduanya", "Benda"], "a": 1, "e": "尊敬語 (sonkeigo) dipakai untuk tindakan ORANG LAIN, khususnya atasan atau pelanggan, dengan cara meninggikan mereka. Menggunakan sonkeigo untuk tindakan diri sendiri adalah kesalahan yang terdengar sombong."}, {"q": "Kenjougo dipakai untuk tindakan siapa?", "opts": ["Diri sendiri", "Orang lain", "Atasan", "Pelanggan"], "a": 0, "e": "謙譲語 (kenjougo) dipakai untuk tindakan DIRI SENDIRI dengan cara merendahkan diri, sehingga secara tidak langsung meninggikan lawan bicara. Ini adalah pasangan dari sonkeigo dalam sistem keigo bahasa Jepang."}, {"q": "Sonkeigo dari 食べる adalah?", "opts": ["いただく", "召し上がる", "食べられる", "お食べする"], "a": 1, "e": "召し上がる (meshiagaru) adalah sonkeigo untuk makan dan minum. Contoh: どうぞ召し上がってください (silakan dinikmati). Bentuk ini sering dipakai di restoran atau saat menjamu tamu."}, {"q": "Kenjougo dari 行く adalah?", "opts": ["いらっしゃる", "参る", "行かれる", "お行きになる"], "a": 1, "e": "参る (mairu) atau 伺う (ukagau) adalah kenjougo untuk pergi. 伺う terdengar lebih sopan dan sering dipakai saat akan mengunjungi tempat atasan atau klien."}, {"q": "\"社長がいらっしゃいます\" — いらっしゃる di sini adalah?", "opts": ["Kenjougo", "Sonkeigo", "Bahasa biasa", "Bahasa kasar"], "a": 1, "e": "いらっしゃる adalah sonkeigo yang meninggikan direktur (orang lain). Kata ini serbaguna karena bisa berarti いる (ada)、行く (pergi)、maupun 来る (datang) tergantung konteksnya."}, {"q": "Kesalahan FATAL dalam keigo adalah?", "opts": ["Terlalu sopan", "Memakai sonkeigo untuk diri sendiri", "Memakai kenjougo untuk diri sendiri", "Memakai bentuk ます"], "a": 1, "e": "Menggunakan sonkeigo untuk tindakan diri sendiri, karena itu berarti meninggikan diri sendiri dan terdengar sangat sombong. Contoh salah: 私が召し上がります — seharusnya 私がいただきます."}, {"q": "Sonkeigo dari 言う adalah?", "opts": ["申す", "おっしゃる", "言われる", "お言いする"], "a": 1, "e": "おっしゃる (ossharu) adalah sonkeigo untuk berbicara atau berkata. Contoh: 先生がおっしゃいました (Bapak/Ibu guru berkata). Kenjougo-nya adalah 申す atau 申し上げる."}, {"q": "Pola \"お + ます形 + する\" adalah?", "opts": ["Sonkeigo", "Kenjougo", "Bahasa biasa", "Bentuk pasif"], "a": 1, "e": "Pola お＋ます形＋する adalah kenjougo yang merendahkan diri, misalnya お持ちします (saya yang membawakan). Sedangkan pola sonkeigo-nya adalah お＋ます形＋になる, misalnya お持ちになる."}, {"q": "Kenjougo dari 見る adalah?", "opts": ["ご覧になる", "拝見する", "見られる", "お見になる"], "a": 1, "e": "拝見する (haiken suru) adalah kenjougo untuk melihat. Contoh: 資料を拝見しました (saya sudah melihat dokumennya). Sonkeigo untuk melihat adalah ご覧になる."}, {"q": "\"お食事を召し上がりましたか\" ditujukan kepada?", "opts": ["Diri sendiri", "Orang yang dihormati (pasien/tamu)", "Teman akrab", "Anak kecil"], "a": 1, "e": "Kalimat ini ditujukan kepada orang lain yang dihormati, karena 召し上がる adalah sonkeigo. Jika ingin membicarakan diri sendiri, seharusnya digunakan kenjougo: いただきました."}];
+
+var ok=0,tot=0,qi=0,answered=false;
+function renderQ(){
+  if(qi>=Q.length){document.getElementById('quizBox').innerHTML='<div style="text-align:center;padding:1rem"><h3>Selesai! 🎉</h3><p>Skor akhir: '+ok+'/'+Q.length+'</p><button class="listen-btn" onclick="restartQ()" style="margin-top:.5rem">Ulangi</button></div>';return;}
+  var q=Q[qi];answered=false;
+  var html='<div style="font-weight:700;margin-bottom:.8rem">'+(qi+1)+'. '+q.q+'</div>';
+  q.opts.forEach(function(o,i){html+='<button class="quiz-opt listen-btn" style="display:block;width:100%;text-align:left;margin:.35rem 0;background:var(--surface,#f5f5f5);color:var(--ink,#222)" onclick="ans('+i+')">'+o+'</button>';});
+  html+='<div id="qexp" style="margin-top:.6rem;font-size:.9rem"></div>';
+  document.getElementById('quizBox').innerHTML=html;
+}
+function ans(i){
+  if(answered)return;answered=true;tot++;
+  var q=Q[qi];var correct=i===q.a;if(correct)ok++;
+  document.getElementById('okc').textContent=ok;
+  document.getElementById('totc').textContent=tot;
+  var btns=document.querySelectorAll('.quiz-opt');
+  btns[q.a].style.background='#dcfce7';
+  if(!correct)btns[i].style.background='#fee2e2';
+  document.getElementById('qexp').innerHTML=(correct?'✅ Benar! ':'❌ ')+q.e+'<br><button class="listen-btn" onclick="nextQ()" style="margin-top:.5rem">Lanjut →</button>';
+}
+function nextQ(){qi++;renderQ();}
+function restartQ(){qi=0;ok=0;tot=0;document.getElementById('okc').textContent=0;document.getElementById('totc').textContent=0;renderQ();}
+renderQ();
+</script>
+
+
+<script>
+function speak(t){
+  if(!('speechSynthesis' in window)){alert('Browser tidak mendukung audio');return;}
+  var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+</script>
+
+<script>
+var Q=[
+  {"q":"Bagaimana membentuk ～ている dari 食べる?","opts":["食べるている","食べている","食べteいる","食べます"],"a":1,"e":"食べる → bentuk て: 食べて → + いる = 食べている."},
+  {"q":"'結婚しています' artinya?","opts":["Sedang menikah (upacara)","Sudah menikah (statusnya)","Akan menikah","Tidak menikah"],"a":1,"e":"結婚する = kata kerja sesaat. + ている = keadaan hasil: sudah/berstatus menikah."},
+  {"q":"'今、ご飯を食べています' termasuk makna...","opts":["Keadaan hasil","Aksi sedang berlangsung","Kebiasaan","Perintah"],"a":1,"e":"今 (sekarang) + kata kerja durasi = aksi sedang berlangsung."},
+  {"q":"'東京に住んでいます' artinya?","opts":["Sedang pindah ke Tokyo","Tinggal (menetap) di Tokyo","Pernah ke Tokyo","Akan ke Tokyo"],"a":1,"e":"住む + ている = keadaan menetap/tinggal, bukan 'sedang tinggal sebentar'."},
+  {"q":"'毎朝、ジョギングをしています' termasuk makna...","opts":["Sedang berlangsung sekarang","Keadaan hasil","Kebiasaan/rutinitas","Larangan"],"a":2,"e":"毎朝 (setiap pagi) menandakan kebiasaan/rutinitas."},
+  {"q":"'窓が開いています' artinya?","opts":["Jendela sedang membuka sendiri","Jendela dalam keadaan terbuka","Seseorang sedang membuka jendela","Jendela akan dibuka"],"a":1,"e":"開く = sesaat. + ている = keadaan: jendela (sudah) terbuka."},
+  {"q":"Bentuk kasual/sehari-hari dari 食べている adalah?","opts":["食べてる","食べた","食べます","食べません"],"a":0,"e":"Dalam percakapan, い sering dihilangkan: 食べている → 食べてる."},
+  {"q":"'知っています' artinya?","opts":["Sedang berusaha tahu","Tahu (sudah tahu)","Tidak tahu","Ingin tahu"],"a":1,"e":"知る = sesaat. 知っています = (sudah) tahu. Negatifnya: 知りません."},
+  {"q":"Kata kerja mana yang + ている menghasilkan 'sedang berlangsung'?","opts":["結婚する","知る","読む","死ぬ"],"a":2,"e":"読む (membaca) punya durasi → 読んでいる = sedang membaca. Yang lain kata kerja sesaat."},
+  {"q":"Bentuk sopan dari ～ている adalah?","opts":["～ています","～てる","～てある","～ておく"],"a":0,"e":"～ています adalah bentuk sopan (masu-form) dari ～ている."}
+];
+var ok=0,tot=0,qi=0,answered=false;
+function renderQ(){
+  if(qi>=Q.length){document.getElementById('quizBox').innerHTML='<div style="text-align:center;padding:1rem"><h3>Selesai! 🎉</h3><p>Skor akhir: '+ok+'/'+Q.length+'</p><button class="listen-btn" onclick="restartQ()" style="margin-top:.5rem">Ulangi</button></div>';return;}
+  var q=Q[qi];answered=false;
+  var html='<div style="font-weight:700;margin-bottom:.8rem">'+(qi+1)+'. '+q.q+'</div>';
+  q.opts.forEach(function(o,i){html+='<button class="quiz-opt listen-btn" style="display:block;width:100%;text-align:left;margin:.35rem 0;background:var(--surface,#f5f5f5);color:var(--ink,#222)" onclick="ans('+i+')">'+o+'</button>';});
+  html+='<div id="qexp" style="margin-top:.6rem;font-size:.9rem"></div>';
+  document.getElementById('quizBox').innerHTML=html;
+}
+function ans(i){
+  if(answered)return;answered=true;tot++;
+  var q=Q[qi];var correct=i===q.a;if(correct)ok++;
+  document.getElementById('okc').textContent=ok;
+  document.getElementById('totc').textContent=tot;
+  var btns=document.querySelectorAll('.quiz-opt');
+  btns[q.a].style.background='#dcfce7';
+  if(!correct)btns[i].style.background='#fee2e2';
+  document.getElementById('qexp').innerHTML=(correct?'✅ Benar! ':'❌ ')+q.e+'<br><button class="listen-btn" onclick="nextQ()" style="margin-top:.5rem">Lanjut →</button>';
+}
+function nextQ(){qi++;renderQ();}
+function restartQ(){qi=0;ok=0;tot=0;document.getElementById('okc').textContent=0;document.getElementById('totc').textContent=0;renderQ();}
+renderQ();
+</script>
+
+<script src="../assets/pro-app.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+
+</body>
+</html>

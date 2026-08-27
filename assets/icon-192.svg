@@ -1,0 +1,226 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#1a0a2e"/>
+      <stop offset="100%" style="stop-color:#0a0015"/>
+    </radialGradient>
+    <radialGradient id="sunGrad" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" style="stop-color:#ff4444"/>
+      <stop offset="100%" style="stop-color:#cc0000"/>
+    </radialGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffd700"/>
+      <stop offset="50%" style="stop-color:#ffb300"/>
+      <stop offset="100%" style="stop-color:#ff8c00"/>
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#c8860a"/>
+      <stop offset="100%" style="stop-color:#8b5e08"/>
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.5)"/>
+    </filter>
+    <clipPath id="circleClip">
+      <circle cx="100" cy="100" r="94"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="100" cy="100" r="98" fill="url(#bgGrad)"/>
+  
+  <!-- Gold outer ring -->
+  <circle cx="100" cy="100" r="96" fill="none" stroke="url(#goldGrad)" stroke-width="3"/>
+  <circle cx="100" cy="100" r="92" fill="none" stroke="#cc0000" stroke-width="1.5"/>
+
+  <!-- Fuji mountain silhouette -->
+  <g clip-path="url(#circleClip)">
+    <polygon points="100,55 130,95 70,95" fill="#2a2a4a" opacity="0.8"/>
+    <polygon points="95,60 105,60 110,70 90,70" fill="white" opacity="0.9"/>
+    <!-- Mountain body -->
+    <polygon points="100,58 140,98 60,98" fill="#1e1e3e" opacity="0.7"/>
+  </g>
+
+  <!-- Rising Sun -->
+  <circle cx="100" cy="72" r="22" fill="url(#sunGrad)" opacity="0.9" filter="url(#glow)"/>
+
+  <!-- Sakura petals scattered -->
+  <g opacity="0.85">
+    <!-- petal 1 -->
+    <g transform="translate(45,52) rotate(-20)">
+      <ellipse cx="0" cy="-4" rx="3" ry="5" fill="#ffb7c5"/>
+      <ellipse cx="4" cy="0" rx="3" ry="5" fill="#ff9eb5" transform="rotate(72)"/>
+      <ellipse cx="2" cy="4" rx="3" ry="5" fill="#ffb7c5" transform="rotate(144)"/>
+      <ellipse cx="-2" cy="4" rx="3" ry="5" fill="#ff9eb5" transform="rotate(216)"/>
+      <ellipse cx="-4" cy="0" rx="3" ry="5" fill="#ffb7c5" transform="rotate(288)"/>
+      <circle cx="0" cy="0" r="2" fill="#ffe0ea"/>
+    </g>
+    <!-- petal 2 -->
+    <g transform="translate(155,48) rotate(15)">
+      <ellipse cx="0" cy="-3.5" rx="2.5" ry="4" fill="#ffb7c5"/>
+      <ellipse cx="3.5" cy="0" rx="2.5" ry="4" fill="#ff9eb5" transform="rotate(72)"/>
+      <ellipse cx="2" cy="3.5" rx="2.5" ry="4" fill="#ffb7c5" transform="rotate(144)"/>
+      <ellipse cx="-2" cy="3.5" rx="2.5" ry="4" fill="#ff9eb5" transform="rotate(216)"/>
+      <ellipse cx="-3.5" cy="0" rx="2.5" ry="4" fill="#ffb7c5" transform="rotate(288)"/>
+      <circle cx="0" cy="0" r="1.5" fill="#ffe0ea"/>
+    </g>
+    <!-- petal 3 small flying -->
+    <g transform="translate(38,80) rotate(30)">
+      <ellipse cx="0" cy="-2.5" rx="2" ry="3.5" fill="#ffb7c5"/>
+      <ellipse cx="2.5" cy="0" rx="2" ry="3.5" fill="#ff9eb5" transform="rotate(72)"/>
+      <ellipse cx="1.5" cy="2.5" rx="2" ry="3.5" fill="#ffb7c5" transform="rotate(144)"/>
+      <ellipse cx="-1.5" cy="2.5" rx="2" ry="3.5" fill="#ff9eb5" transform="rotate(216)"/>
+      <ellipse cx="-2.5" cy="0" rx="2" ry="3.5" fill="#ffb7c5" transform="rotate(288)"/>
+    </g>
+    <!-- petal 4 -->
+    <g transform="translate(160,75) rotate(-10)">
+      <ellipse cx="0" cy="-2.5" rx="2" ry="3.5" fill="#ffb7c5"/>
+      <ellipse cx="2.5" cy="0" rx="2" ry="3.5" fill="#ff9eb5" transform="rotate(72)"/>
+      <ellipse cx="1.5" cy="2.5" rx="2" ry="3.5" fill="#ffb7c5" transform="rotate(144)"/>
+      <ellipse cx="-1.5" cy="2.5" rx="2" ry="3.5" fill="#ff9eb5" transform="rotate(216)"/>
+      <ellipse cx="-2.5" cy="0" rx="2" ry="3.5" fill="#ffb7c5" transform="rotate(288)"/>
+    </g>
+    <!-- petal 5 -->
+    <g transform="translate(130,115) rotate(25)">
+      <ellipse cx="0" cy="-2" rx="1.8" ry="3" fill="#ffb7c5"/>
+      <ellipse cx="2" cy="0" rx="1.8" ry="3" fill="#ff9eb5" transform="rotate(72)"/>
+      <ellipse cx="1.2" cy="2" rx="1.8" ry="3" fill="#ffb7c5" transform="rotate(144)"/>
+      <ellipse cx="-1.2" cy="2" rx="1.8" ry="3" fill="#ff9eb5" transform="rotate(216)"/>
+      <ellipse cx="-2" cy="0" rx="1.8" ry="3" fill="#ffb7c5" transform="rotate(288)"/>
+    </g>
+  </g>
+
+  <!-- CAT BODY -->
+  <!-- Cat head -->
+  <ellipse cx="100" cy="90" rx="28" ry="26" fill="url(#bodyGrad)" filter="url(#shadow)"/>
+  
+  <!-- Cat ears -->
+  <polygon points="76,70 70,52 86,66" fill="#c8860a"/>
+  <polygon points="124,70 130,52 114,66" fill="#c8860a"/>
+  <!-- Inner ears -->
+  <polygon points="77,68 73,57 84,66" fill="#ff9eb5"/>
+  <polygon points="123,68 127,57 116,66" fill="#ff9eb5"/>
+
+  <!-- Hachimaki (headband) -->
+  <rect x="74" y="79" width="52" height="9" rx="4" fill="white" filter="url(#shadow)"/>
+  <!-- Red circle on hachimaki -->
+  <circle cx="118" cy="83.5" r="3.5" fill="#cc0000"/>
+  <!-- Text on hachimaki -->
+  <text x="90" y="87" font-family="sans-serif" font-size="6.5" font-weight="bold" fill="#111" text-anchor="middle">がんばる</text>
+
+  <!-- Cat face -->
+  <!-- Eyes -->
+  <ellipse cx="90" cy="93" rx="7" ry="7.5" fill="#1a0a00"/>
+  <ellipse cx="110" cy="93" rx="7" ry="7.5" fill="#1a0a00"/>
+  <!-- Eye shine -->
+  <ellipse cx="92" cy="91" rx="2.5" ry="2" fill="white"/>
+  <ellipse cx="112" cy="91" rx="2.5" ry="2" fill="white"/>
+  <circle cx="94" cy="92.5" r="1" fill="white"/>
+  <circle cx="114" cy="92.5" r="1" fill="white"/>
+  <!-- Amber iris -->
+  <ellipse cx="90" cy="93" rx="4.5" ry="5" fill="#c8860a" opacity="0.6"/>
+  <ellipse cx="110" cy="93" rx="4.5" ry="5" fill="#c8860a" opacity="0.6"/>
+
+  <!-- Glasses -->
+  <circle cx="90" cy="93" r="8" fill="none" stroke="#c8a000" stroke-width="1.8"/>
+  <circle cx="110" cy="93" r="8" fill="none" stroke="#c8a000" stroke-width="1.8"/>
+  <!-- Bridge -->
+  <line x1="98" y1="93" x2="102" y2="93" stroke="#c8a000" stroke-width="1.8"/>
+  <!-- Arms -->
+  <line x1="82" y1="93" x2="78" y2="91" stroke="#c8a000" stroke-width="1.5"/>
+  <line x1="118" y1="93" x2="122" y2="91" stroke="#c8a000" stroke-width="1.5"/>
+
+  <!-- Nose -->
+  <ellipse cx="100" cy="100" rx="2.5" ry="2" fill="#ff9eb5"/>
+  <!-- Mouth -->
+  <path d="M97,102 Q100,106 103,102" fill="none" stroke="#8b5e08" stroke-width="1.5"/>
+  <!-- Cheek blush -->
+  <ellipse cx="85" cy="100" rx="5" ry="3" fill="#ffb7c5" opacity="0.5"/>
+  <ellipse cx="115" cy="100" rx="5" ry="3" fill="#ffb7c5" opacity="0.5"/>
+  <!-- Whiskers -->
+  <line x1="72" y1="98" x2="85" y2="100" stroke="#f5e6d0" stroke-width="0.8" opacity="0.8"/>
+  <line x1="72" y1="101" x2="85" y2="101" stroke="#f5e6d0" stroke-width="0.8" opacity="0.8"/>
+  <line x1="115" y1="100" x2="128" y2="98" stroke="#f5e6d0" stroke-width="0.8" opacity="0.8"/>
+  <line x1="115" y1="101" x2="128" y2="101" stroke="#f5e6d0" stroke-width="0.8" opacity="0.8"/>
+
+  <!-- Sailor collar -->
+  <polygon points="85,110 100,120 115,110 112,116 100,124 88,116" fill="#1a237e"/>
+  <polygon points="88,111 100,120 112,111 110,115 100,122 90,115" fill="#283593"/>
+  <!-- Red neckerchief -->
+  <polygon points="93,114 100,122 107,114 100,130" fill="#cc0000"/>
+  <!-- White collar lines -->
+  <line x1="86" y1="111" x2="100" y2="121" stroke="white" stroke-width="1" opacity="0.7"/>
+  <line x1="114" y1="111" x2="100" y2="121" stroke="white" stroke-width="1" opacity="0.7"/>
+
+  <!-- Left arm holding pencil -->
+  <ellipse cx="76" cy="112" rx="8" ry="6" fill="url(#bodyGrad)" transform="rotate(-20,76,112)"/>
+  <!-- Paw -->
+  <ellipse cx="68" cy="118" rx="7" ry="6" fill="#f5e6d0"/>
+  <circle cx="65" cy="116" r="2" fill="#f5e6d0"/>
+  <circle cx="68" cy="114" r="2" fill="#f5e6d0"/>
+  <circle cx="71" cy="116" r="2" fill="#f5e6d0"/>
+
+  <!-- Pencil -->
+  <rect x="60" y="108" width="5" height="22" rx="1" fill="#ff9eb5" transform="rotate(-30,62,119)"/>
+  <polygon points="60,128 65,128 62.5,134" fill="#ffd700" transform="rotate(-30,62,119)"/>
+  <rect x="60" y="108" width="5" height="4" rx="1" fill="#ff6b9d" transform="rotate(-30,62,119)"/>
+
+  <!-- Right arm waving -->
+  <ellipse cx="124" cy="108" rx="8" ry="6" fill="url(#bodyGrad)" transform="rotate(25,124,108)"/>
+  <!-- Raised paw -->
+  <ellipse cx="134" cy="102" rx="8" ry="7" fill="#f5e6d0" transform="rotate(10,134,102)"/>
+  <circle cx="130" cy="98" r="2.2" fill="#ffb7c5"/>
+  <circle cx="134" cy="96" r="2.2" fill="#ffb7c5"/>
+  <circle cx="138" cy="98" r="2.2" fill="#ffb7c5"/>
+
+  <!-- Book -->
+  <rect x="68" y="122" width="64" height="12" rx="3" fill="#f5e6c8" filter="url(#shadow)"/>
+  <rect x="68" y="122" width="32" height="12" rx="3" fill="#e8d5a0"/>
+  <rect x="100" y="122" width="32" height="12" rx="3" fill="#f0dcaa"/>
+  <!-- Book spine -->
+  <rect x="98" y="121" width="4" height="14" rx="2" fill="#c8a050"/>
+
+  <!-- BRAND TEXT AREA -->
+  <!-- Background banner -->
+  <rect x="10" y="140" width="180" height="52" rx="8" fill="rgba(0,0,0,0.6)"/>
+  
+  <!-- NIHONGGO text -->
+  <text x="100" y="158" 
+    font-family="'Arial Black', 'Impact', sans-serif" 
+    font-size="22" font-weight="900" 
+    fill="white" text-anchor="middle"
+    letter-spacing="1"
+    filter="url(#shadow)">NIHONGGO</text>
+  
+  <!-- PRO text with red color -->
+  <text x="100" y="170" 
+    font-family="'Arial Black', 'Impact', sans-serif" 
+    font-size="14" font-weight="900" 
+    fill="#ff3333" text-anchor="middle"
+    letter-spacing="3">★ PRO ★</text>
+
+  <!-- Sakura decorators around PRO -->
+  <text x="62" y="170" font-size="8" fill="#ffb7c5">✿</text>
+  <text x="132" y="170" font-size="8" fill="#ffb7c5">✿</text>
+
+  <!-- ACADEMY banner -->
+  <rect x="30" y="172" width="140" height="14" rx="3" fill="url(#goldGrad)" opacity="0.9"/>
+  <text x="100" y="182" 
+    font-family="'Arial Black', 'Impact', sans-serif" 
+    font-size="9" font-weight="900" 
+    fill="#1a0a00" text-anchor="middle"
+    letter-spacing="3">★ ACADEMY ★</text>
+
+  <!-- Japanese subtitle -->
+  <text x="100" y="196" 
+    font-family="'Noto Sans JP', sans-serif" 
+    font-size="6.5" 
+    fill="#ffd700" text-anchor="middle"
+    letter-spacing="1">日本語プロアカデミーアカデミー</text>
+
+  <!-- Inner border decoration -->
+  <circle cx="100" cy="100" r="91" fill="none" stroke="url(#goldGrad)" stroke-width="0.8" opacity="0.5" stroke-dasharray="4,3"/>
+</svg>

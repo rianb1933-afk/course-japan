@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["更衣介助", "koi kaijo", "bantuan ganti pakaian"], ["脱健着患", "dakken-chakkan", "prinsip melepas sisi sehat"], ["食事介助", "shokuji kaijo", "bantuan makan"], ["体位変換", "tai-i henkan", "ubah posisi"], ["移乗", "iijo", "transfer"], ["口腔ケア", "kuchiku kea", "perawatan mulut"], ["排泄介助", "haisetsu kaijo", "bantuan toilet"], ["ボディメカニクス", "bodi mekkanikusu", "body mechanics"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#2e7d32">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>手順書 — Prosedur Perawatan Standar — 介護福祉士 | Nihonggo Pro Academy</title>
+<meta name="description" content="Prosedur perawatan kaigo 介護手順. Panduan SOP standar Jepang untuk memandikan, mobilisasi, makan, dan prosedur perawatan sehari-hari di fasilitas kaigo.">>
+<meta property="og:title" content="Kosakata Klinis & Medis 介護 — NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Prosedur.html">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "手順書 — Prosedur Perawatan Standar — 介護福祉士", "description": "Prosedur perawatan kaigo 介護手順. Panduan SOP standar Jepang untuk memandikan, mobilisasi, makan, dan prosedur perawatan sehari-hari di fasilitas kaigo.", "url": "https://nihonggopro.id/Materi/Kaigo-Prosedur.html", "provider": {"@type": "Organization", "name": "NihonggoPro"}, "educationalLevel": "N4", "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://nihonggopro.id/"}, {"@type": "ListItem", "position": 2, "name": "Materi", "item": "https://nihonggopro.id/Materi/Materi.html"}, {"@type": "ListItem", "position": 3, "name": "介護福祉士", "item": "https://nihonggopro.id/Materi/Kaigo-Fukushishi-Overview.html"}, {"@type": "ListItem", "position": 4, "name": "手順書 — Prosedur Perawatan Standar — 介護福祉士", "item": "https://nihonggopro.id/Materi/Kaigo-Prosedur.html"}]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:2px;list-style:none}
+
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+.hamb{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border-mid);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.hamb span{display:block;width:16px;height:2px;background:var(--ink);border-radius:1px}
+@media(max-width:768px){.nav-links{display:none!important}.hamb{display:flex!important}}
+.hero{padding:clamp(40px,6vw,64px) clamp(16px,5vw,72px) 40px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"手順";position:absolute;right:-10px;bottom:-30px;font-family:"Noto Serif JP",serif;font-size:160px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:1.1;margin-bottom:.625rem}
+.hero-desc{color:rgba(255,255,255,.62);font-size:14px;line-height:1.85;max-width:640px;margin-bottom:1.25rem}
+.breadcrumb{padding:.5rem clamp(16px,5vw,72px);background:var(--white);border-bottom:1px solid var(--border);font-size:12px;color:var(--ink-soft)}
+.breadcrumb a{color:var(--ink-soft);text-decoration:none}.breadcrumb a:hover{color:var(--red)}.breadcrumb span{margin:0 .35rem}
+/* Module 
+.mod-link{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:7px;font-size:12px;font-weight:700;color:var(--ink-mid);text-decoration:none;transition:all .15s;margin-right:.3rem}
+.mod-link:hover,.mod-link.active{background:var(--red-pale);color:var(--red)}
+/* Layout */
+.page-layout{display:grid;grid-template-columns:220px 1fr;flex:1}
+@media(max-width:860px){.page-layout{grid-template-columns:1fr}.toc-panel{display:none}}
+.toc-panel{position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;border-right:1px solid var(--border);background:var(--white);padding:1.25rem}
+.toc-title{font-size:10px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.toc-a{display:block;padding:.3rem .5rem;border-radius:6px;font-size:12px;color:var(--ink-mid);text-decoration:none;transition:all .15s;border-left:2px solid transparent;margin-bottom:.1rem}
+.toc-a:hover,.toc-a.on{background:var(--red-pale);color:var(--red);border-left-color:var(--red);font-weight:700}
+.toc-a.sub{padding-left:1rem;font-size:11px}
+.content{padding:2rem clamp(16px,4vw,48px) 5rem;min-width:0;max-width:900px}
+/* Sections */
+.sec{margin-bottom:3rem;scroll-margin-top:88px}
+.sec-num{font-size:10px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
+.sec h2{font-family:"Noto Serif JP",serif;font-size:clamp(20px,3vw,28px);margin-bottom:.5rem}
+.sec-desc{color:var(--ink-mid);font-size:14px;line-height:1.85;margin-bottom:1.25rem}
+.sec h3{font-family:"Noto Serif JP",serif;font-size:18px;margin:1.75rem 0 .875rem;display:flex;align-items:center;gap:.5rem}
+.sec h3::before{content:'';display:block;width:4px;height:18px;background:var(--red);border-radius:2px;flex-shrink:0}
+.sec h4{font-size:14px;font-weight:800;margin:1.25rem 0 .5rem}
+/* Info boxes */
+.box{border-radius:10px;padding:.875rem 1.125rem;margin-bottom:1rem;border:.5px solid;font-size:13px;line-height:1.75}
+.box.tip{background:var(--blue-pale);border-color:rgba(47,111,237,.2);color:var(--ink-mid)}
+.box.warn{background:var(--gold-pale,rgba(185,137,47,.08));border-color:rgba(185,137,47,.2)}
+.box.red{background:var(--red-pale);border-color:rgba(190,52,40,.15)}
+.box.green{background:var(--green-pale);border-color:rgba(33,135,93,.2)}
+.box-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.box.tip .box-title{color:var(--blue)}.box.warn .box-title{color:var(--gold)}.box.red .box-title{color:var(--red)}.box.green .box-title{color:var(--green)}
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;margin-bottom:1.5rem}
+.vc{background:var(--white);border-radius:12px;padding:1.125rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);transition:all .2s}
+.vc:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.07);border-color:var(--red)}
+.vc-jp{font-family:"Noto Serif JP",serif;font-size:20px;font-weight:700;margin-bottom:.15rem}
+.vc-rom{font-size:11px;color:var(--ink-soft);font-style:italic;margin-bottom:.3rem}
+.vc-id{font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem}
+.vc-ex{font-size:12px;color:var(--ink-mid);border-top:.5px solid var(--border);padding-top:.4rem;margin-top:.4rem;line-height:1.6}
+.vc-ex-jp{font-family:"Noto Serif JP",serif;font-weight:600;color:var(--ink)}
+.lv-badge{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:800;margin-bottom:.4rem}
+/* Table */
+.tbl{width:100%;border-collapse:collapse;margin-bottom:1.5rem;background:var(--white);border-radius:12px;overflow:hidden;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
+.tbl th{background:var(--ink);color:#fff;padding:.625rem 1rem;font-size:12px;font-weight:700;text-align:left}
+.tbl td{padding:.625rem 1rem;font-size:13px;border-bottom:.5px solid var(--border);line-height:1.6;vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.td-jp{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:600}
+/* Procedure steps */
+.steps{display:flex;flex-direction:column;gap:.625rem;margin-bottom:1.5rem}
+.step{display:flex;gap:.875rem;align-items:flex-start;padding:.875rem 1rem;background:var(--white);border-radius:10px;border:.5px solid var(--border-mid)}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-title{font-size:14px;font-weight:700;margin-bottom:.2rem}
+.step-jp{font-family:"Noto Serif JP",serif;font-size:14px;color:var(--ink);margin-bottom:.15rem}
+.step-id{font-size:12px;color:var(--ink-soft)}
+.step-note{font-size:11px;color:var(--gold);font-weight:600;margin-top:.2rem}
+/* Dialog */
+.dialog{background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.25rem}
+.dialog-title{font-size:13px;font-weight:800;margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem}
+.d-turn{display:flex;gap:.625rem;align-items:flex-start;margin-bottom:.5rem}
+.d-role{min-width:48px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;text-align:center;flex-shrink:0}
+.d-text .jp{font-family:"Noto Serif JP",serif;font-size:13px;font-weight:600;margin-bottom:.1rem}
+.d-text .id{font-size:11px;color:var(--ink-soft)}
+/* Quiz */
+.quiz-wrap{background:var(--ink);color:#fff;border-radius:14px;padding:1.5rem;margin-top:2rem}
+.q-title{font-size:13px;font-weight:800;color:rgba(255,255,255,.7);margin-bottom:1rem}
+.q-text{font-family:"Noto Serif JP",serif;font-size:17px;margin-bottom:1rem;line-height:1.65}
+.q-opts{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.875rem}
+.q-opt{padding:.75rem 1rem;border-radius:8px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;font-family:Outfit,sans-serif;font-size:13px;font-weight:600;text-align:left;transition:all .15s}
+.q-opt:hover{border-color:rgba(255,255,255,.4)}
+.q-opt.ok{border-color:#22c55e;background:rgba(34,197,94,.2)}
+.q-opt.ng{border-color:#ef4444;background:rgba(239,68,68,.2)}
+.q-fb{font-size:12px;color:rgba(255,255,255,.65);padding:.625rem;background:rgba(255,255,255,.06);border-radius:7px;display:none;line-height:1.65}
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:.875rem}
+.q-btn{height:34px;padding:0 14px;border-radius:8px;border:none;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+.q-btn.nxt{background:var(--red);color:#fff}
+.q-btn.rst{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+/* btt */
+#bttBtn{position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
+*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/kaigo-progress.js" defer></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Prosedur perawatan kaigo 介護手順. Panduan SOP standar Jepang untuk memandikan, mobilisasi, makan, dan prosedur perawatan sehari-hari di fasilitas kaigo.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Prosedur.html">
+<meta name="twitter:title" content="手順書 — Prosedur Perawatan Standar — 介護福祉士">
+<meta name="twitter:description" content="Prosedur perawatan kaigo 介護手順. Panduan SOP standar Jepang untuk memandikan, mobilisasi, makan, dan prosedur perawatan sehari-hari di fasilitas kaigo.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<div class="breadcrumb">
+  <a href="../index.html">Beranda</a><span>›</span>
+  <a href="Materi.html">Materi</a><span>›</span>
+  <a href="Kaigo-Fukushishi-Overview.html">介護福祉士</a><span>›</span>
+  <strong>手順書 — Prosedur Perawatan Standar</strong>
+</div>
+<div class="module-nav">
+  <a href="Kaigo-Fukushishi-Overview.html" class="mod-link">🏠 Overview</a>
+  <a href="Kaigo-Bahasa.html" class="mod-link">🗣️ Bahasa Dasar</a>
+  <a href="Kaigo-Kosakata-Klinik.html" class="mod-link">💊 Kosakata Klinik</a>
+  <a href="Kaigo-Prosedur.html" class="mod-link active">📋 Prosedur</a>
+  <a href="Kaigo-Penyakit.html" class="mod-link ">🏥 Penyakit Lansia</a>
+  <a href="Kaigo-Hukum.html" class="mod-link ">⚖️ Hukum & Etika</a>
+  <a href="Kaigo-Komunikasi.html" class="mod-link ">💬 Komunikasi</a>
+  <a href="Kaigo-Nihongo-N4.html" class="mod-link ">📝 Bahasa Jepang N4</a>
+  <a href="Kaigo-Rekod.html" class="mod-link ">📄 Penulisan Rekod</a>
+  <a href="Kaigo-Ujian-Nasional.html" class="mod-link ">🎯 Ujian Nasional</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker">📋 Prosedur Kaigo · N4</div>
+    <h1>手順書 — Prosedur Perawatan Standar</h1>
+    <p class="hero-desc">Langkah-langkah prosedur standar kaigo: mandi, makan, toilet, mobilisasi, perawatan mulut, dan pencegahan dekubitus — lengkap dengan kosakata dan quiz interaktif.</p>
+  </div>
+</section>
+
+<div style="display:flex;flex:1">
+<nav class="toc-panel" aria-label="Daftar isi" id="tocPanel">
+  <div class="toc-title">📋 Daftar Isi</div>
+  <a href="#intro-prosedur" class="toc-a">Pengantar & Prinsip</a>
+  <a href="#mandi" class="toc-a">1. Bantuan Mandi (入浴介助)</a>
+  <a href="#makan" class="toc-a">2. Bantuan Makan (食事介助)</a>
+  <a href="#toilet" class="toc-a">3. Bantuan Toilet (排泄介助)</a>
+  <a href="#vocab-toilet" class="toc-a sub">　Kosakata Toilet</a>
+  <a href="#mobilisasi" class="toc-a">4. Mobilisasi & Transfer (移乗)</a>
+  <a href="#vocab-gerak" class="toc-a sub">　Kosakata Gerakan</a>
+  <a href="#oral-care" class="toc-a">5. Perawatan Mulut (口腔ケア)</a>
+  <a href="#dekubitus" class="toc-a">6. Pencegahan Dekubitus</a>
+  <a href="#staging-dekubitus" class="toc-a sub">　Staging Dekubitus</a>
+  <a href="#quiz-prosedur" class="toc-a">Quiz Prosedur</a>
+</nav>
+<div class="content" id="mainContent" role="main">
+
+<div class="sec" id="intro-prosedur">
+  <div class="sec-num">Pengantar</div>
+  <h2>Prosedur Perawatan Standar (手順書)</h2>
+  <p class="sec-desc">Setiap tindakan kaigo memiliki 手順書 (prosedur standar) yang harus diikuti. Memahami langkah-langkah ini dalam bahasa Jepang sangat penting untuk keselamatan residen dan kelulusan ujian nasional.</p>
+  <div class="box tip">
+    <div class="box-title">💡 Prinsip Dasar Semua Prosedur</div>
+    ① 利用者への説明と同意（インフォームドコンセント）→ ② 環境整備 → ③ 手洗い・感染予防 → ④ 手順に沿った実施 → ⑤ 観察・記録 → ⑥ 報告<br>
+    <em>① Penjelasan & persetujuan residen → ② Persiapan lingkungan → ③ Cuci tangan/pencegahan infeksi → ④ Pelaksanaan sesuai prosedur → ⑤ Observasi & dokumentasi → ⑥ Pelaporan</em>
+  </div>
+</div>
+
+<!-- PROSEDUR 1: MANDI -->
+<div class="sec" id="mandi">
+  <div class="sec-num">Prosedur 1</div>
+  <h2>入浴介助 — Bantuan Mandi</h2>
+  <p class="sec-desc">Mandi (入浴) adalah kegiatan penting untuk kebersihan, sirkulasi darah, dan kesejahteraan residen. Ada tiga jenis: 一般浴 (mandi biasa), 機械浴 (mandi mekanik untuk yang tidak bisa duduk), 清拭 (lap basah untuk yang tidak bisa mandi).</p>
+  <div class="steps" id="steps-mandi">
+    <div class="step"><div class="step-num">1</div><div class="step-body">
+      <div class="step-title">Konfirmasi kondisi & izin</div>
+      <div class="step-jp">「今日はお風呂の日ですが、体調はいかがですか？」</div>
+      <div class="step-id">"Hari ini jadwal mandi, bagaimana kondisi Anda?"</div>
+      <div class="step-note">⚠️ Cek tanda vital, luka, ruam, kontraindikasi</div>
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">
+      <div class="step-title">Persiapan lingkungan & alat</div>
+      <div class="step-jp">浴室・脱衣所の温度確認（22〜24℃）、湯温確認（40〜42℃）</div>
+      <div class="step-id">Konfirmasi suhu ruang ganti (22–24°C), suhu air (40–42°C)</div>
+      <div class="step-note">⚠️ Cegah hiportermia dan luka bakar</div>
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">
+      <div class="step-title">Antar residen ke kamar mandi</div>
+      <div class="step-jp">「一緒に浴室まで行きましょう。」滑り止めマットの確認。</div>
+      <div class="step-id">"Mari kita pergi ke kamar mandi bersama." Pastikan keset anti-slip terpasang.</div>
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body">
+      <div class="step-title">Bantu melepas pakaian & masuk ke bak</div>
+      <div class="step-jp">プライバシーに配慮し、できる動作は自分でしていただく（残存機能の活用）</div>
+      <div class="step-id">Perhatikan privasi, biarkan residen melakukan yang masih bisa mandiri (gunakan sisa kemampuan)</div>
+    </div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body">
+      <div class="step-title">Cuci tubuh dengan urutan yang benar</div>
+      <div class="step-jp">顔→頭→体（上から下）→陰部→足。石鹸は十分に流す。</div>
+      <div class="step-id">Wajah → kepala → tubuh (atas ke bawah) → area genital → kaki. Bilas sabun sampai bersih.</div>
+      <div class="step-note">✅ Perhatikan lipatan kulit, area tekanan</div>
+    </div></div>
+    <div class="step"><div class="step-num">6</div><div class="step-body">
+      <div class="step-title">Keringkan & periksa kulit</div>
+      <div class="step-jp">水分をしっかり拭き取り、皮膚の状態を観察する。褥瘡の好発部位を確認。</div>
+      <div class="step-id">Keringkan sampai benar-benar kering, perhatikan kondisi kulit. Periksa area rawan dekubitus.</div>
+    </div></div>
+    <div class="step"><div class="step-num">7</div><div class="step-body">
+      <div class="step-title">Bantu berpakaian & catat</div>
+      <div class="step-jp">「お疲れ様でした。気分はいかがですか？」記録に残す。</div>
+      <div class="step-id">"Sudah selesai. Bagaimana perasaan Anda?" Catat dalam rekod.</div>
+    </div></div>
+  </div>
+</div>
+
+<!-- PROSEDUR 2: MAKAN -->
+<div class="sec" id="makan">
+  <div class="sec-num">Prosedur 2</div>
+  <h2>食事介助 — Bantuan Makan</h2>
+  <p class="sec-desc">食事介助 mencakup persiapan, posisi, kecepatan, dan pemantauan aspirasi. Ini adalah prosedur dengan risiko tertinggi karena kesalahan dapat menyebabkan 誤嚥性肺炎.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body">
+      <div class="step-title">Posisikan dengan benar</div>
+      <div class="step-jp">座位が取れる場合は90度座位。ベッド上は30〜45度ファウラー位。首を少し前傾させる。</div>
+      <div class="step-id">Jika bisa duduk, posisi 90°. Di tempat tidur, posisi Fowler 30–45°. Kepala sedikit menunduk ke depan.</div>
+      <div class="step-note">⚠️ Jangan menyuap dalam posisi terlentang!</div>
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">
+      <div class="step-title">Konfirmasi konsistensi makanan</div>
+      <div class="step-jp">食形態を確認する：普通食・刻み食・ミキサー食・とろみ食</div>
+      <div class="step-id">Konfirmasi bentuk makanan: biasa / cincang / blender / makanan kental</div>
+      <div class="step-note">✅ Baca care plan untuk instruksi khusus</div>
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">
+      <div class="step-title">Suap dengan kecepatan yang tepat</div>
+      <div class="step-jp">一口量は小さく、飲み込みを確認してから次の一口を入れる。</div>
+      <div class="step-id">Porsi per suap kecil, pastikan sudah tertelan sebelum suap berikutnya.</div>
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body">
+      <div class="step-title">Pantau tanda aspirasi</div>
+      <div class="step-jp">むせ・咳・喘鳴・顔色の変化を観察。「むせていませんか？」</div>
+      <div class="step-id">Perhatikan batuk, tersedak, suara mengi, perubahan wajah. "Apakah Anda tersedak?"</div>
+      <div class="step-note">🔴 Jika tersedak: hentikan, dudukkan tegak, lapor segera</div>
+    </div></div>
+    <div class="step"><div class="step-num">5</div><div class="step-body">
+      <div class="step-title">Kebersihan mulut setelah makan</div>
+      <div class="step-jp">食後の口腔ケアを行う。食後30分は座位を保つ（逆流防止）。</div>
+      <div class="step-id">Lakukan perawatan mulut setelah makan. Pertahankan posisi duduk 30 menit (mencegah refluks).</div>
+    </div></div>
+  </div>
+</div>
+
+<!-- PROSEDUR 3: TOILET -->
+<div class="sec" id="toilet">
+  <div class="sec-num">Prosedur 3</div>
+  <h2>排泄介助 — Bantuan Toilet</h2>
+  <p class="sec-desc">排泄 (buang air) adalah kebutuhan dasar yang sangat memengaruhi martabat residen. 自立支援 (mendukung kemandirian) adalah prinsip utama.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body">
+      <div class="step-title">Perhatikan tanda-tanda kebutuhan</div>
+      <div class="step-jp">「トイレに行きたいですか？」尿意・便意のサインを観察する。</div>
+      <div class="step-id">"Apakah Anda ingin ke kamar kecil?" Perhatikan tanda keinginan buang air.</div>
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">
+      <div class="step-title">Antar atau siapkan alat bantu</div>
+      <div class="step-jp">トイレ誘導、ポータブルトイレ、おむつ交換 — 状態に応じて選択</div>
+      <div class="step-id">Antar ke toilet / toilet portabel / ganti pempers — pilih sesuai kondisi</div>
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">
+      <div class="step-title">Jaga privasi & martabat</div>
+      <div class="step-jp">カーテンを閉め、できる限りプライバシーを確保する。</div>
+      <div class="step-id">Tutup tirai, jaga privasi semaksimal mungkin.</div>
+      <div class="step-note">✅ Prinsip: 残存機能 — biarkan melakukan sendiri sebisanya</div>
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body">
+      <div class="step-title">Observasi output</div>
+      <div class="step-jp">排泄物の色・量・状態を確認し記録する（血尿・血便・便秘など）</div>
+      <div class="step-id">Periksa warna, jumlah, dan kondisi hasil buang air — catat (darah dalam urin/feses, konstipasi, dll.)</div>
+    </div></div>
+  </div>
+
+  <h3 id="vocab-toilet">Kosakata Toilet & Ekskresi</h3>
+  <table class="tbl">
+    <thead><tr><th>Kosakata</th><th>Romaji</th><th>Arti</th></tr></thead>
+    <tbody>
+      <tr><td class="td-jp">排泄（はいせつ）</td><td>haisetsu</td><td>Ekskresi / buang air</td></tr>
+      <tr><td class="td-jp">尿意（にょうい）</td><td>nyōi</td><td>Keinginan BAK</td></tr>
+      <tr><td class="td-jp">便意（べんい）</td><td>ben-i</td><td>Keinginan BAB</td></tr>
+      <tr><td class="td-jp">失禁（しっきん）</td><td>shikkin</td><td>Inkontinensia</td></tr>
+      <tr><td class="td-jp">便秘（べんぴ）</td><td>benpi</td><td>Konstipasi</td></tr>
+      <tr><td class="td-jp">下痢（げり）</td><td>geri</td><td>Diare</td></tr>
+      <tr><td class="td-jp">血尿（けつにょう）</td><td>ketsunyō</td><td>Hematuria (darah dalam urin)</td></tr>
+      <tr><td class="td-jp">血便（けつべん）</td><td>ketsuben</td><td>Darah dalam feses</td></tr>
+      <tr><td class="td-jp">おむつ</td><td>omutsu</td><td>Popok dewasa / pempers</td></tr>
+      <tr><td class="td-jp">尿取りパッド</td><td>nyōtori paddo</td><td>Pad penyerap urin</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PROSEDUR 4: MOBILISASI -->
+<div class="sec" id="mobilisasi">
+  <div class="sec-num">Prosedur 4</div>
+  <h2>移動・移乗介助 — Mobilisasi & Transfer</h2>
+  <p class="sec-desc">Memindahkan residen dengan aman antara tempat tidur, kursi roda, dan toilet. Teknik yang salah dapat menyebabkan jatuh atau cedera punggung pada perawat.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body">
+      <div class="step-title">Siapkan lingkungan</div>
+      <div class="step-jp">ベッドの高さ調節、車椅子のブレーキ確認、フットレストを上げる</div>
+      <div class="step-id">Atur ketinggian tempat tidur, pastikan rem kursi roda terkunci, naikkan footrest</div>
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">
+      <div class="step-title">Posisi duduk di tepi tempat tidur</div>
+      <div class="step-jp">「端坐位」にする。体幹の安定を確認してから次の動作へ。</div>
+      <div class="step-id">Duduk di tepi (端坐位). Pastikan tubuh stabil sebelum melanjutkan.</div>
+      <div class="step-note">⚠️ Cek pusing / hipotensi ortostatik</div>
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">
+      <div class="step-title">Transfer ke kursi roda</div>
+      <div class="step-jp">麻痺がある場合は健側（麻痺のない側）に車椅子を置く。</div>
+      <div class="step-id">Jika ada paralisis, letakkan kursi roda di sisi yang sehat.</div>
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body">
+      <div class="step-title">Teknik berpindah (pivot transfer)</div>
+      <div class="step-jp">「では一緒に立ちましょう。1・2・3」で立位を促す。腰に負担をかけない介助法。</div>
+      <div class="step-id">"Yuk berdiri bersama. 1・2・3" — bantu berdiri. Gunakan teknik yang tidak membebani pinggang perawat.</div>
+    </div></div>
+  </div>
+  <h3 id="vocab-gerak">Kosakata Gerakan & Posisi</h3>
+  <table class="tbl">
+    <thead><tr><th>Kosakata</th><th>Romaji</th><th>Arti</th></tr></thead>
+    <tbody>
+      <tr><td class="td-jp">端坐位（たんざい）</td><td>tanzai</td><td>Posisi duduk di tepi tempat tidur</td></tr>
+      <tr><td class="td-jp">側臥位（そくがい）</td><td>sokugai</td><td>Posisi berbaring miring</td></tr>
+      <tr><td class="td-jp">仰臥位（ぎょうがい）</td><td>gyōgai</td><td>Posisi terlentang</td></tr>
+      <tr><td class="td-jp">ファウラー位</td><td>Fauā-i</td><td>Posisi Fowler (semi-duduk)</td></tr>
+      <tr><td class="td-jp">体位変換（たいいへんかん）</td><td>taii henkan</td><td>Perubahan posisi tubuh</td></tr>
+      <tr><td class="td-jp">移乗（いじょう）</td><td>ijō</td><td>Transfer / berpindah (tempat tidur ↔ kursi roda)</td></tr>
+      <tr><td class="td-jp">歩行介助（ほこうかいじょ）</td><td>hokō kaijo</td><td>Bantuan berjalan</td></tr>
+      <tr><td class="td-jp">麻痺側（まひがわ）</td><td>mahi-gawa</td><td>Sisi yang lumpuh</td></tr>
+      <tr><td class="td-jp">健側（けんそく）</td><td>kensoku</td><td>Sisi yang sehat / tidak lumpuh</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- PROSEDUR 5: PERAWATAN MULUT -->
+<div class="sec" id="oral-care">
+  <div class="sec-num">Prosedur 5</div>
+  <h2>口腔ケア — Perawatan Mulut</h2>
+  <p class="sec-desc">口腔ケア bukan hanya kebersihan gigi, tapi kunci pencegahan 誤嚥性肺炎 dan 認知症の進行抑制 (perlambatan demensia). Sangat penting dilakukan setiap hari.</p>
+  <div class="steps">
+    <div class="step"><div class="step-num">1</div><div class="step-body">
+      <div class="step-title">Posisi duduk atau semi-duduk</div>
+      <div class="step-jp">誤嚥防止のため座位または30度以上の体位をとる</div>
+      <div class="step-id">Untuk mencegah aspirasi, posisi duduk atau elevasi ≥30°</div>
+    </div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-body">
+      <div class="step-title">Sikat gigi / gigi palsu</div>
+      <div class="step-jp">歯ブラシで歯・歯茎・舌を磨く。入れ歯は外してから洗浄。</div>
+      <div class="step-id">Sikat gigi, gusi, dan lidah. Gigi palsu dilepas dan dicuci.</div>
+    </div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-body">
+      <div class="step-title">Berkumur atau lap bersih</div>
+      <div class="step-jp">うがいできる場合はうがいを。できない場合はスポンジブラシで拭く。</div>
+      <div class="step-id">Jika bisa, minta berkumur. Jika tidak, lap dengan sikat spons.</div>
+    </div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-body">
+      <div class="step-title">Observasi kondisi mulut</div>
+      <div class="step-jp">口腔内の炎症・出血・乾燥・口臭を確認し記録する</div>
+      <div class="step-id">Amati peradangan, perdarahan, kekeringan, bau mulut — catat</div>
+    </div></div>
+  </div>
+</div>
+
+<!-- PROSEDUR 6: PENCEGAHAN DEKUBITUS -->
+<div class="sec" id="dekubitus">
+  <div class="sec-num">Prosedur 6</div>
+  <h2>褥瘡予防 — Pencegahan Dekubitus</h2>
+  <table class="tbl">
+    <thead><tr><th>Faktor Risiko</th><th>Pencegahan</th><th>Frekuensi</th></tr></thead>
+    <tbody>
+      <tr><td>Tekanan berkelanjutan (圧力)</td><td>体位変換 (ubah posisi)</td><td>Setiap 2 jam</td></tr>
+      <tr><td>Gesekan (ずれ・摩擦)</td><td>Teknik transfer yang benar</td><td>Setiap transfer</td></tr>
+      <tr><td>Kelembapan berlebih (湿潤)</td><td>Ganti pempers tepat waktu, bersihkan segera</td><td>Segera setelah BAK/BAB</td></tr>
+      <tr><td>Malnutrisi (低栄養)</td><td>Pantau asupan makan & protein</td><td>Setiap makan</td></tr>
+      <tr><td>Kulit kering (皮膚乾燥)</td><td>Moisturizer setelah mandi</td><td>Setelah mandi</td></tr>
+    </tbody>
+  </table>
+  <h3 id="staging-dekubitus">Staging Dekubitus (NPUAP)</h3>
+  <table class="tbl">
+    <thead><tr><th>Stadium</th><th>Deskripsi Jepang</th><th>Deskripsi Indonesia</th></tr></thead>
+    <tbody>
+      <tr><td>Stage I</td><td class="td-jp">消えない発赤（圧迫で白くならない）</td><td>Kemerahan yang tidak memudar saat ditekan</td></tr>
+      <tr><td>Stage II</td><td class="td-jp">水疱・びらんを伴う浅い潰瘍</td><td>Lepuhan / erosi / ulserasi dangkal</td></tr>
+      <tr><td>Stage III</td><td class="td-jp">皮下組織に達する深い潰瘍</td><td>Ulserasi dalam sampai jaringan subkutan</td></tr>
+      <tr><td>Stage IV</td><td class="td-jp">骨・腱・筋肉が見える壊死</td><td>Nekrosis sampai tulang / tendon / otot</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- QUIZ -->
+<div class="sec" id="quiz-prosedur">
+  <div class="sec-num">Quiz</div>
+  <h2>Quiz Prosedur Perawatan</h2>
+  <!-- dlg-injected -->
+<h2 style="font-size:1.2rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">💬 Dialog Prosedur</h2>
+<div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px"><div style="font-size:.95rem;font-weight:700;color:#37474f;margin-bottom:12px">🍚 Dialog 1 — 食事介助の声かけ</div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:2px">介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">田中さん、お食事の時間ですよ。今日は親子丼です。お好きですか？<button aria-label="Ucapkan: 田中さん、お食事の時間ですよ。今日は親子丼です。お好きですか…" onclick="speak('田中さん、お食事の時間ですよ。今日は親子丼です。お好きですか？')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Bu Tanaka, waktunya makan. Hari ini oyakodon. Suka?</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:2px">田中さん</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">卵は好きですが、最近噛みにくくて。<button aria-label="Ucapkan: 卵は好きですが、最近噛みにくくて。" onclick="speak('卵は好きですが、最近噛みにくくて。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Suka telur, tapi belakangan susah mengunyah.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:2px">介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">柔らかくなっていますよ。スプーンで小さくしましょうか。ゆっくり召し上がってください。<button aria-label="Ucapkan: 柔らかくなっていますよ。スプーンで小さくしましょうか。ゆっく…" onclick="speak('柔らかくなっていますよ。スプーンで小さくしましょうか。ゆっくり召し上がってください。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Sudah lembut kok. Saya kecilkan dengan sendok ya. Makan pelan-pelan.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px"><div style="font-size:.95rem;font-weight:700;color:#37474f;margin-bottom:12px">👕 Dialog 2 — 更衣介助</div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:2px">介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">鈴木さん、お着替えのお手伝いをしますね。まず左手から袖を通しましょう。<button aria-label="Ucapkan: 鈴木さん、お着替えのお手伝いをしますね。まず左手から袖を通し…" onclick="speak('鈴木さん、お着替えのお手伝いをしますね。まず左手から袖を通しましょう。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Bu Suzuki, saya bantu ganti pakaian ya. Pertama masukkan tangan kiri ke lengan baju.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:2px">鈴木さん</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">右手は自分でできますよ。<button aria-label="Ucapkan: 右手は自分でできますよ。" onclick="speak('右手は自分でできますよ。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Tangan kanan bisa sendiri.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:2px">介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">では右手はご自分でお願いします。素晴らしい、できましたね！<button aria-label="Ucapkan: では右手はご自分でお願いします。素晴らしい、できましたね！" onclick="speak('では右手はご自分でお願いします。素晴らしい、できましたね！')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Kalau begitu tangan kanan sendiri ya. Luar biasa, berhasil!</div></div></div></div>
+
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#37474f;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #eceff1">💬 介護手順の実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#37474f;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #eceff1">🛁 Dialog 1 — 入浴介助の声かけ</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">田中さん、お風呂のご準備ができました。体温は36.5度、血圧は安定しています。入浴できる状態ですね。<button aria-label="Ucapkan: 田中さん、お風呂のご準備ができました。体温は36.5度、血圧…" onclick="speak('田中さん、お風呂のご準備ができました。体温は36.5度、血圧は安定しています。入浴できる状態ですね。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Bu Tanaka, persiapan mandi sudah siap. Suhu 36.5°C, tekanan darah stabil. Kondisinya bisa mandi ya.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">ありがとうございます。今日は膝が少し痛いんです。<button aria-label="Ucapkan: ありがとうございます。今日は膝が少し痛いんです。" onclick="speak('ありがとうございます。今日は膝が少し痛いんです。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Terima kasih. Hari ini lutut agak sakit.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">そうですか。では浴槽への出入りを特に気をつけてサポートしますね。シャワーチェアを使いましょうか。<button aria-label="Ucapkan: そうですか。では浴槽への出入りを特に気をつけてサポートします…" onclick="speak('そうですか。では浴槽への出入りを特に気をつけてサポートしますね。シャワーチェアを使いましょうか。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Begitu. Saya akan lebih hati-hati bantu masuk-keluar bak mandi ya. Mau pakai kursi shower?</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#37474f;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #eceff1">🍚 Dialog 2 — 食事介助の実践</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">山田さん、今日の昼ごはんですよ。柔らかいお魚と野菜の煮物です。一口ずつゆっくりどうぞ。<button aria-label="Ucapkan: 山田さん、今日の昼ごはんですよ。柔らかいお魚と野菜の煮物です…" onclick="speak('山田さん、今日の昼ごはんですよ。柔らかいお魚と野菜の煮物です。一口ずつゆっくりどうぞ。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Pak Yamada, ini makan siang. Ada ikan lembut dan sayur rebus. Pelan-pelan satu suap ya.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">山田さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">ありがとう。おいしそうですね。<button aria-label="Ucapkan: ありがとう。おいしそうですね。" onclick="speak('ありがとう。おいしそうですね。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Terima kasih. Kelihatan enak.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">（数口食べた後）よく飲み込めていますね。お味はいかがですか？<button aria-label="Ucapkan: （数口食べた後）よく飲み込めていますね。お味はいかがですか？" onclick="speak('（数口食べた後）よく飲み込めていますね。お味はいかがですか？')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">(Setelah beberapa suap) Menelannya bagus ya. Bagaimana rasanya?</div></div></div></div></div>
+<div class="quiz-wrap" id="quizWrap">
+    <div class="q-title">🎯 Soal <span id="qNum">1</span>/<span id="qTot"></span></div>
+    <div class="q-text" id="qText"></div>
+    <div class="q-opts" id="qOpts"></div>
+    <div class="q-fb" id="qFb"></div>
+    <div class="q-nav">
+      <button class="q-btn rst" onclick="rstQ()">↺ Ulangi</button>
+      <div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="qSc">0</span></div>
+      <button class="q-btn nxt" onclick="nxtQ()" id="qNxt" style="display:none">Berikutnya →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+const QUIZ_PROS = [
+  {q:'Suhu air yang aman untuk mandi lansia adalah?', opts:['35–37°C','38–39°C','40–42°C','43–45°C'], ans:2, exp:'Suhu air mandi yang aman untuk lansia adalah 40–42°C. Terlalu panas meningkatkan risiko히포텐시 dan luka bakar.'},
+  {q:'Posisi makan yang paling aman untuk mencegah aspirasi adalah?', opts:['Posisi terlentang penuh','Posisi Fowler 30–45° atau duduk 90°','Berbaring miring kiri','Kepala lebih rendah dari kaki'], ans:1, exp:'Posisi duduk 90° atau Fowler 30–45° dengan kepala sedikit menunduk adalah paling aman untuk mencegah aspirasi.'},
+  {q:'Seberapa sering idealnya melakukan 体位変換 untuk mencegah dekubitus?', opts:['Setiap 30 menit','Setiap 1 jam','Setiap 2 jam','Setiap 4 jam'], ans:2, exp:'体位変換 (ubah posisi) dilakukan setiap 2 jam untuk mencegah tekanan berkepanjangan pada satu area.'},
+  {q:'Saat memindahkan residen dengan hemiplegi ke kursi roda, kursi roda ditempatkan di?', opts:['Sisi yang lumpuh (麻痺側)','Sisi yang sehat (健側)','Di depan tempat tidur','Di belakang tempat tidur'], ans:1, exp:'Kursi roda ditempatkan di sisi yang sehat (健側) agar residen dapat menggunakan sisi yang kuat untuk berpindah.'},
+  {q:'Berapa lama residen sebaiknya duduk setelah makan untuk mencegah refluks?', opts:['5 menit','15 menit','30 menit','1 jam'], ans:2, exp:'Setelah makan, pertahankan posisi duduk minimal 30 menit untuk mencegah refluks dan aspirasi.'},
+  {q:'Perawatan mulut (口腔ケア) dilakukan untuk mencegah?', opts:['Hanya bau mulut','Hanya gigi berlubang','誤嚥性肺炎 dan infeksi mulut','Hanya gigi palsu kotor'], ans:2, exp:'口腔ケア penting untuk mencegah 誤嚥性肺炎 (pneumonia aspirasi) dan infeksi mulut. Mulut yang kotor mengandung bakteri yang bisa terhirup ke paru-paru.'},
+  {q:'Stadium dekubitus mana yang menunjukkan kemerahan yang tidak memudar saat ditekan?', opts:['Stage I','Stage II','Stage III','Stage IV'], ans:0, exp:'Stage I: 消えない発赤 — kemerahan yang tidak memudar saat ditekan (blanching test negatif). Ini adalah tahap paling awal yang masih bisa dicegah progresifnya.'},
+  {q:'"端坐位（たんざい）" artinya?', opts:['Berbaring terlentang','Duduk di tepi tempat tidur','Posisi semi-rekumben','Berbaring tengkurap'], ans:1, exp:'端坐位 adalah posisi duduk dengan kaki menjuntai di tepi tempat tidur. Ini adalah posisi awal sebelum transfer ke kursi roda.'},
+];
+</script>
+
+</div>
+</div>
+<button id="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">↑</button>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.6);padding:1.5rem clamp(16px,5vw,72px)"><div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between"><div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:18px;font-weight:700">Nihonggo Pro Academy</div><div style="display:flex;gap:1rem;font-size:13px"><a href="../index.html" style="color:rgba(255,255,255,.5);text-decoration:none">Beranda</a><a href="Materi.html" style="color:rgba(255,255,255,.5);text-decoration:none">Materi</a><a href="Kaigo-Fukushishi-Overview.html" style="color:rgba(255,255,255,.5);text-decoration:none">介護福祉士</a><a href="../FAQ.html" style="color:rgba(255,255,255,.5);text-decoration:none">FAQ</a></div><div style="font-size:11px;color:rgba(255,255,255,.25)">© 2025 NihonggoPro</div></div></footer>
+
+<script>
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+const btt=document.getElementById('bttBtn');window.addEventListener('scroll',()=>btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});
+// Auto-build TOC
+(()=>{
+  const headings=document.querySelectorAll('#mainContent h2[id],#mainContent h3[id]');
+  const tl=document.getElementById('tocPanel');
+  if(!tl)return;
+  headings.forEach(h=>{
+    const a=document.createElement('a');
+    a.href='#'+h.id;a.className='toc-a'+(h.tagName==='H3'?' sub':'');
+    a.textContent=h.textContent.replace(/^[▪●■]\s*/,'');
+    tl.appendChild(a);
+  });
+  // Active state
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const a=tl.querySelector('a[href="#'+e.target.id+'"]');
+      if(a)a.classList.toggle('on',e.isIntersecting);
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  headings.forEach(h=>obs.observe(h));
+})();
+// Quiz engine
+let qIdx=0,qScore=0,qAnswered=false;
+function initQuiz(data){
+  window._qData=[...data].sort(()=>Math.random()-.5);
+  qIdx=0;qScore=0;renderQ();
+}
+function renderQ(){
+  const d=window._qData;if(!d||!d[qIdx])return;
+  const q=d[qIdx];
+  document.getElementById('qNum').textContent=qIdx+1;
+  document.getElementById('qTot').textContent=d.length;
+  document.getElementById('qText').textContent=q.q;
+  document.getElementById('qOpts').innerHTML=q.opts.map((o,i)=>`<button class="q-opt" onclick="ansQ(${i},this)">${String.fromCharCode(65+i)}. ${o}</button>`).join('');
+  document.getElementById('qFb').style.display='none';
+  document.getElementById('qNxt').style.display='none';
+  qAnswered=false;
+}
+function ansQ(idx,btn){
+  if(qAnswered)return;qAnswered=true;
+  const q=window._qData[qIdx];
+  document.querySelectorAll('.q-opt')[q.ans].classList.add('ok');
+  if(idx!==q.ans)btn.classList.add('ng');else qScore++;
+  document.getElementById('qSc').textContent=qScore;
+  document.getElementById('qFb').textContent=q.exp;
+  document.getElementById('qFb').style.display='block';
+  document.getElementById('qNxt').style.display='block';
+}
+function nxtQ(){
+  qIdx++;
+  const d=window._qData;
+  if(qIdx>=d.length){
+    const pct=Math.round(qScore/d.length*100);
+    document.getElementById('quizWrap').innerHTML=`<div style="text-align:center;padding:1.5rem"><div style="font-size:40px;margin-bottom:.5rem">${pct>=80?'🏆':pct>=60?'📚':'🔄'}</div><div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:.3rem">Skor: ${qScore}/${d.length} (${pct}%)</div><div style="color:rgba(255,255,255,.6);margin-bottom:1rem">${pct>=80?'Siap ujian nasional!':pct>=60?'Terus berlatih!':'Review materi dan ulangi.'}</div><button class="q-btn nxt" onclick="rstQ()" style="margin:0 auto">↺ Ulangi</button></div>`;
+    return;
+  }
+  renderQ();
+}
+function rstQ(){qIdx=0;qScore=0;document.getElementById('quizWrap').innerHTML=`<div class="q-title">🎯 Soal <span id="qNum">1</span>/<span id="qTot"></span></div><div class="q-text" id="qText"></div><div class="q-opts" id="qOpts"></div><div class="q-fb" id="qFb"></div><div class="q-nav"><button class="q-btn rst" onclick="rstQ()">↺ Ulangi</button><div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="qSc">0</span></div><button class="q-btn nxt" onclick="nxtQ()" id="qNxt" style="display:none">Berikutnya →</button></div>`;initQuiz(window._qData);}
+// Dipindah dari script pertama (v181): initQuiz butuh function initQuiz()
+// yang didefinisikan DI SINI (script kedua) -- memanggilnya dari script
+// pertama menyebabkan ReferenceError karena hoisting tak lintas <script>.
+initQuiz(QUIZ_PROS);
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+
+<section style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.1rem;font-weight:700;color:#1565c0;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz</h2>
+<div id="qkZ"></div>
+<div style="display:flex;gap:10px;margin-top:10px">
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:#1565c0;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
+</section>
+<script>
+var QKZ=[{"q": "「全介助」と「一部介助」の違いは？", "opts": ["同じ", "全介助=全てスタッフが行う、一部介助=できる部分は本人に任せる", "全介助の方が良い", "一部介助は楽"], "a": 1, "e": "全介助は動作の全てを介助者が行うのに対し、一部介助は本人ができる部分は本人に任せ、必要な部分だけを支援するという違いがある。残存機能を活かす観点から、一部介助を基本とする姿勢が重視される。"}, {"q": "「声かけ」の目的は？", "opts": ["形式的な挨拶", "本人に何をするか伝え同意を得ること・安心感の提供", "記録のため", "早く終わらせるため"], "a": 1, "e": "動作の前に何を行うかを伝え、利用者の安心感と協力を得ることが声かけの目的。無言での介助は驚きや不安を与えるため、丁寧な声かけが安全な介助の基本となる。"}, {"q": "食事介助で「誤嚥を防ぐ」最重要な姿勢は？", "opts": ["寝たまま", "90度座位(または30度以上のベッドアップ)", "横向き", "うつぶせ"], "a": 1, "e": "座位で顎を軽く引いた姿勢が誤嚥を防ぐ最重要なポイントとなる。この姿勢は気道を狭め、食物が気管に入りにくくする効果があり、食事介助の基本として重視される。"}, {"q": "入浴介助前のチェックリストに含まれないのは？", "opts": ["バイタルサイン確認", "利用者の好みの音楽", "体調確認", "皮膚観察"], "a": 1, "e": "体温・血圧などの体調確認、皮膚状態の確認が入浴前チェックリストに含まれる。これらと無関係な項目（天気や職員の予定等）は、入浴介助の安全確認には含まれない。"}, {"q": "「2人介助」が必要な場面は？", "opts": ["全てのケア", "重い利用者の移乗や一人では安全確保が難しい場合", "軽い作業", "記録時"], "a": 1, "e": "全介助が必要な重度の利用者の移乗や、体格差が大きい場合などが2人介助を要する場面。一人での無理な介助は、利用者・介助者双方に怪我のリスクを高めてしまう。"}, {"q": "更衣介助「脱健着患（だっけんちゃっかん）」の意味は？", "opts": ["健側から脱いで患側から着る", "患側から脱いで健側から着る", "健側だけで着替える", "何でも患側から行う"], "a": 0, "e": "脱健着患: 脱ぐ時は健側(良い方)から先に脱ぐ。着る時は患側(悪い方)から先に着る。患側の動きが制限されているためこの順序が最も安全。試験頻出の原則。"}, {"q": "食事介助で誤嚥予防のための正しい姿勢は？", "opts": ["完全な仰臥位", "頭部をやや前傾させた座位(30-90°)", "頭を後ろに傾けた姿勢", "完全な側臥位"], "a": 1, "e": "座位で顎を引いた姿勢が誤嚥予防のための正しい姿勢。仰向けや顎を上げた姿勢では、食物が気管に流れ込みやすくなり、誤嚥のリスクが著しく高まってしまう。"}, {"q": "「感染予防の標準予防策（スタンダードプリコーション）」の基本原則は？", "opts": ["感染者だけに適用する", "すべての利用者の血液・体液・分泌物・排泄物は感染の可能性があるとみなして対応する", "医師のみが実施する", "手袋だけで十分"], "a": 1, "e": "標準予防策：「感染症の有無にかかわらず、すべての利用者に適用」が大原則。血液・体液・汗以外の分泌物・排泄物・粘膜・傷のある皮膚に接する時は手袋着用。処置後の手洗い・手指衛生を必ず実施。"}, {"q": "体位変換の標準的な手順で最初に行うことはどれか。", "opts": ["本人への説明と同意確認", "いきなり体を動かす", "記録から始める", "家族に確認"], "a": 0, "e": "本人への説明と同意確認が最初に行うべき手順。いきなり体を動かすのではなく、これから行うことを伝えることで、利用者の協力を得ながら安全に進めることができる。"}, {"q": "清潔ケアの手順で「清潔野」を意識する理由はどれか。", "opts": ["感染を防ぐため清潔な範囲を明確にするため", "見た目のためだけ", "時間短縮のためだけ", "不要な配慮"], "a": 0, "e": "感染を防ぐため、清潔な範囲を明確にする理由から重視される。清潔野を意識せずにケアを行うと、汚染された部分から清潔な部分へ細菌を広げてしまう危険がある。"}, {"q": "服薬介助の標準手順で確認すべき「5R」に含まれないものはどれか。", "opts": ["正しい色", "正しい人", "正しい薬", "正しい量"], "a": 0, "e": "5Rは正しい利用者・薬・量・時間・方法から構成され、色はこれに含まれない。これら5つの正しさを確認することで、誤薬事故を効果的に防ぐことができる。"}, {"q": "排泄介助の手順で最初に確認することはどれか。", "opts": ["尿意・便意の有無", "記録から確認", "家族の意向", "職員の都合"], "a": 0, "e": "尿意・便意の有無を最初に確認することが手順の基本となる。この確認を怠ると、適切なタイミングでの排泄介助ができず、失禁や不快感につながってしまう可能性がある。"}, {"q": "入浴介助の手順における「洗身順序」の基本はどれか。", "opts": ["末梢から中枢へ、清潔な部分から不潔な部分へ", "順不同でよい", "陰部から始める", "顔は洗わない"], "a": 0, "e": "末梢から中枢へ、清潔な部分から不潔な部分へという順序が基本となる。この順序を守ることで、効率的かつ衛生的に全身を洗うことができ、感染予防にもつながる。"}, {"q": "食事介助の標準手順で確認すべき最初のことはどれか。", "opts": ["覚醒状態と姿勢の確認", "味付けの確認", "食器の確認", "時間のみ確認"], "a": 0, "e": "覚醒状態と姿勢の確認が最初に行うべきこと。これらを確認せずに食事を進めると、誤嚥のリスクが高まるため、安全な食事介助の第一歩として欠かせない。"}, {"q": "更衣介助の標準手順「脱健着患」の意味はどれか。", "opts": ["脱ぐ時は健側から、着る時は患側から", "逆の順序", "両側同時", "順序は関係ない"], "a": 0, "e": "脱ぐときは健側から、着るときは患側から行うという意味。この順序により、動きにくい患側への負担を最小限に抑えながらスムーズに更衣を進めることができる。"}, {"q": "移乗介助の標準手順で必ず確認する安全事項はどれか。", "opts": ["車椅子のブレーキとフットレスト", "天気", "時間のみ", "職員の人数のみ"], "a": 0, "e": "車椅子のブレーキとフットレストの確認が必ず行うべき安全事項。これらを怠ると、移乗中に車椅子が動いたり足が引っかかったりする重大な事故につながる危険がある。"}, {"q": "口腔ケアの標準手順で誤嚥を防ぐ体位はどれか。", "opts": ["座位または顔を横に向けた体位", "仰向け", "うつ伏せ", "立位で急ぐ"], "a": 0, "e": "座位、または顔を横に向けた体位が誤嚥を防ぐ基本。仰向けの姿勢では水分や汚れが喉に流れ込みやすいため、この体位への配慮が安全なケアの鍵となる。"}, {"q": "標準的な介護手順を「マニュアル化」する意義はどれか。", "opts": ["ケアの質を均一化し新人教育にも活用できる", "個性をなくすだけ", "融通が利かなくなるだけ", "不要な作業"], "a": 0, "e": "ケアの質を均一化し、新人教育にも活用できることが意義となる。個人の経験や勘に頼らず、一定水準の質を保った支援を組織全体で実現するために重要な取り組みである。"}, {"q": "手順書を定期的に見直す理由はどれか。", "opts": ["最新の知見や状況に合わせて更新するため", "一度作れば十分だから", "見直しは不要だから", "形式のためだけ"], "a": 0, "e": "最新の知見や状況に合わせて更新するためとされる。医療・介護の知見は常に更新されるため、手順書もそれに合わせて見直し続けることがケアの質の維持につながる。"}, {"q": "標準的な介護手順における「振り返り」の意義はどれか。", "opts": ["実施した手順を評価し改善につなげる", "無意味な作業", "記録のためだけ", "評価は不要"], "a": 0, "e": "実施した手順を評価し、改善につなげることが振り返りの意義。単なる作業の繰り返しではなく、継続的な質の向上を目指す姿勢が専門職として求められる。"}],qiZ=0,okZ=0,totZ=0;
+function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
+var oo=document.createElement('div');oo.style.display='grid';oo.style.gap='7px';
+q.opts.forEach(function(o,i){var b=document.createElement('button');
+b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
+b.textContent=o;b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
+var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
+var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:10px;font-size:.92rem';
+qq.textContent=(qiZ%QKZ.length+1)+'. '+q.q;
+var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none';
+bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function ansZ(btn,c,a,e){var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
+bs[a].dataset.d='1';totZ++;
+bs[a].style.background='#e8f5e9';bs[a].style.borderColor='#43a047';bs[a].style.color='#1b5e20';
+if(c!==a){btn.style.background='#fce4ec';btn.style.borderColor='#e91e63';btn.style.color='#880e4f';}
+else okZ++;
+var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();} function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
+rndZ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

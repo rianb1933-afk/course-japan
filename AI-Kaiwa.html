@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<script src="assets/dark-mode-toggle.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Kaiwa — Latihan Percakapan Bahasa Jepang | NihonggoPro</title>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "AI Kaiwa — Latihan Percakapan", "url": "https://nihonggopro.id/AI-Kaiwa.html", "description": "6 skenario percakapan AI: santai, restoran, kaigo, belanja, interview, travel.", "applicationCategory": "EducationalApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"}}</script>
+<meta name="description" content="Latihan percakapan bahasa Jepang dengan AI. Pilih skenario, bicara bebas, dapatkan koreksi instan. Cocok untuk persiapan JLPT, kaigo, dan kehidupan sehari-hari.">
+<link rel="canonical" href="https://nihonggopro.id/AI-Kaiwa.html">
+<meta property="og:title" content="AI Kaiwa — Latihan Percakapan Jepang">
+<meta property="og:image" content="assets/og-preview.svg">
+<meta property="og:description" content="Latihan percakapan bahasa Jepang dengan AI interaktif. Skenario restoran, kantor, kaigo, dan lainnya.">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<style>
+:root {
+  --kn-bg: #F8F3E9;
+  --kn-brown: #6B4F3A;
+  --kn-brown-pale: #F5EDE0;
+  --kn-gold: #C89B3C;
+  --kn-surface: #FEFCF8;
+  --kn-border: rgba(107,79,58,.12);
+  --kn-text: #2D2D2D;
+  --kn-muted: #6E6E6E;
+  --kn-red: #A63A3A;
+  --kn-green: #5B7C5B;
+  --kn-shadow: 0 4px 20px rgba(107,79,58,.10);
+  --kn-radius: 14px;
+}
+[data-theme="dark"] {
+  --kn-bg: #111;
+  --kn-surface: #1A1A1A;
+  --kn-border: rgba(200,155,60,.12);
+  --kn-text: #E8E5DF;
+  --kn-muted: #9A9890;
+  --kn-gold: #C89B3C;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: var(--kn-bg);
+  color: var(--kn-text);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── PAGE LAYOUT ── */
+.kaiwa-page {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 20px 20px 0;
+  min-height: calc(100dvh - 64px);
+}
+
+/* ── SIDEBAR ── */
+.kaiwa-sidebar {
+  padding-right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.sidebar-block {
+  background: var(--kn-surface);
+  border: 1px solid var(--kn-border);
+  border-radius: var(--kn-radius);
+  padding: 16px;
+}
+.sidebar-block h3 {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .10em;
+  text-transform: uppercase;
+  color: var(--kn-muted);
+  margin-bottom: 10px;
+}
+.scenario-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+.scenario-btn {
+  background: var(--kn-brown-pale, #F5EDE0);
+  border: 1.5px solid transparent;
+  border-radius: 9px;
+  padding: 10px 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 150ms;
+  font-family: inherit;
+}
+[data-theme="dark"] .scenario-btn { background: rgba(200,155,60,.07); }
+.scenario-btn:hover { border-color: var(--kn-brown); }
+.scenario-btn.active { border-color: var(--kn-brown); background: rgba(107,79,58,.10); }
+.scenario-btn .sc-icon { font-size: 20px; display: block; margin-bottom: 4px; }
+.scenario-btn .sc-name { font-size: 11px; font-weight: 600; color: var(--kn-text); line-height: 1.3; }
+.scenario-btn .sc-jp { font-size: 10px; color: var(--kn-muted); font-family: 'Noto Serif JP', serif; }
+
+.level-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.level-chip {
+  padding: 5px 12px; border-radius: 20px;
+  border: 1.5px solid var(--kn-border);
+  font-size: 12px; font-weight: 600;
+  cursor: pointer; transition: all 130ms;
+  background: none; font-family: inherit;
+  color: var(--kn-text);
+}
+.level-chip.active { background: var(--kn-brown); color: #FEF; border-color: var(--kn-brown); }
+
+.vocab-list { display: flex; flex-direction: column; gap: 4px; max-height: 180px; overflow-y: auto; }
+.vocab-item {
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 12px; padding: 5px 6px; border-radius: 6px;
+}
+.vocab-item:hover { background: rgba(107,79,58,.05); }
+.vocab-jp { font-family: 'Noto Serif JP', serif; font-weight: 600; color: var(--kn-brown); }
+.vocab-id { color: var(--kn-muted); font-size: 11px; }
+[data-theme="dark"] .vocab-jp { color: var(--kn-gold); }
+
+/* ── CHAT AREA ── */
+.kaiwa-chat {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--kn-radius) var(--kn-radius) 0 0;
+  border: 1px solid var(--kn-border);
+  border-bottom: none;
+  background: var(--kn-surface);
+  overflow: hidden;
+}
+.chat-topbar {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--kn-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.chat-avatar {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--kn-brown), var(--kn-gold));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px;
+  flex-shrink: 0;
+}
+.chat-info h2 { font-size: 15px; font-weight: 700; color: var(--kn-text); }
+.chat-info p { font-size: 12px; color: var(--kn-muted); margin-top: 1px; }
+.chat-status {
+  margin-left: auto;
+  display: flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--kn-green);
+  font-weight: 600;
+}
+.chat-status::before {
+  content: '';
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--kn-green);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+.chat-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+  max-height: calc(100dvh - 280px);
+}
+.msg-row {
+  display: flex;
+  gap: 10px;
+  max-width: 78%;
+}
+.msg-row.user { align-self: flex-end; flex-direction: row-reverse; }
+.msg-bubble {
+  padding: 11px 15px;
+  border-radius: 14px;
+  font-size: 14px;
+  line-height: 1.65;
+  word-break: break-word;
+}
+.msg-row.ai .msg-bubble {
+  background: var(--kn-brown-pale, #F5EDE0);
+  border-bottom-left-radius: 4px;
+  color: var(--kn-text);
+}
+[data-theme="dark"] .msg-row.ai .msg-bubble { background: rgba(200,155,60,.09); }
+.msg-row.user .msg-bubble {
+  background: var(--kn-brown);
+  color: #FEF;
+  border-bottom-right-radius: 4px;
+}
+.msg-mini { width: 32px; height: 32px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 15px; }
+.msg-mini.ai { background: linear-gradient(135deg, var(--kn-brown), var(--kn-gold)); }
+.msg-mini.user { background: rgba(107,79,58,.15); }
+.correction-tag {
+  margin-top: 6px; padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(90,150,90,.10);
+  border-left: 3px solid var(--kn-green);
+  font-size: 12px; color: var(--kn-green);
+}
+.vocab-tag {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 8px; margin: 2px;
+  border-radius: 5px;
+  background: rgba(200,155,60,.12);
+  border: 1px solid rgba(200,155,60,.25);
+  font-size: 11px; color: var(--kn-brown); cursor: default;
+}
+[data-theme="dark"] .vocab-tag { color: var(--kn-gold); }
+.typing-dots {
+  display: flex; gap: 4px; padding: 12px 16px;
+  align-items: center;
+}
+.typing-dots span {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--kn-brown);
+  animation: bounce 1.2s ease-in-out infinite;
+}
+.typing-dots span:nth-child(2) { animation-delay:.15s; }
+.typing-dots span:nth-child(3) { animation-delay:.3s; }
+@keyframes bounce { 0%,60%,100%{transform:translateY(0)} 30%{transform:translateY(-7px)} }
+
+.chat-input-area {
+  padding: 14px 16px;
+  border-top: 1px solid var(--kn-border);
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+.chat-input {
+  flex: 1;
+  resize: none;
+  border: 1.5px solid var(--kn-border);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: inherit;
+  font-size: 14px;
+  background: var(--kn-bg);
+  color: var(--kn-text);
+  outline: none;
+  min-height: 44px;
+  max-height: 120px;
+  transition: border-color 150ms;
+}
+.chat-input:focus { border-color: var(--kn-brown); }
+.chat-input::placeholder { color: var(--kn-muted); }
+.send-btn {
+  width: 44px; height: 44px; border-radius: 11px;
+  background: var(--kn-brown); border: none;
+  color: #FEF; font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background 130ms; flex-shrink: 0;
+}
+.send-btn:hover { background: #553C2B; }
+.send-btn:disabled { opacity: .5; cursor: not-allowed; }
+[data-theme="dark"] .send-btn { background: var(--kn-gold); color: #1A1209; }
+.hint-row {
+  padding: 8px 16px 0;
+  display: flex; gap: 6px; flex-wrap: wrap;
+}
+.hint-chip {
+  padding: 4px 10px; border-radius: 16px;
+  border: 1px solid var(--kn-border);
+  font-size: 11px; cursor: pointer;
+  background: none; font-family: inherit;
+  color: var(--kn-muted); transition: all 120ms;
+}
+.hint-chip:hover { border-color: var(--kn-brown); color: var(--kn-brown); }
+
+/* ── FOOTER PAGE ── */
+.kaiwa-page-footer {
+  text-align: center;
+  padding: 12px;
+  font-size: 11px;
+  color: var(--kn-muted);
+  border-top: 1px solid var(--kn-border);
+  margin-top: 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .kaiwa-page { grid-template-columns: 1fr; padding: 12px 12px 0; }
+  .kaiwa-sidebar { padding-right: 0; }
+  .scenario-grid { grid-template-columns: repeat(3, 1fr); }
+  .chat-messages { max-height: 50dvh; }
+  .msg-row { max-width: 90%; }
+}
+@media (max-width: 480px) {
+  .scenario-grid { grid-template-columns: repeat(2, 1fr); }
+}
+</style>
+<script src="assets/nihongo-ai.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/AI-Kaiwa.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI Kaiwa — Latihan Percakapan Bahasa Jepang">
+<meta name="twitter:description" content="Latihan percakapan bahasa Jepang dengan AI. Pilih skenario, bicara bebas, dapatkan koreksi instan. Cocok untuk persiapan JLPT, kaigo, dan kehidupan sehari-hari.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">Latihan Percakapan Bahasa Jepang dengan AI</h1>
+
+<main class="kaiwa-page">
+
+  <!-- SIDEBAR -->
+  <aside class="kaiwa-sidebar">
+
+    <div class="sidebar-block">
+      <h3>🗺️ Skenario</h3>
+      <div class="scenario-grid" id="scenarioGrid">
+        <button class="scenario-btn active" data-scenario="casual" onclick="setScenario(this,'casual','Percakapan Santai','☕')">
+          <span class="sc-icon">☕</span>
+          <span class="sc-name">Santai</span>
+          <span class="sc-jp">日常会話</span>
+        </button>
+        <button class="scenario-btn" data-scenario="restaurant" onclick="setScenario(this,'restaurant','Di Restoran','🍜')">
+          <span class="sc-icon">🍜</span>
+          <span class="sc-name">Restoran</span>
+          <span class="sc-jp">レストラン</span>
+        </button>
+        <button class="scenario-btn" data-scenario="hospital" onclick="setScenario(this,'hospital','Kaigo / Rumah Sakit','🏥')">
+          <span class="sc-icon">🏥</span>
+          <span class="sc-name">Kaigo</span>
+          <span class="sc-jp">介護</span>
+        </button>
+        <button class="scenario-btn" data-scenario="shopping" onclick="setScenario(this,'shopping','Belanja','🛒')">
+          <span class="sc-icon">🛒</span>
+          <span class="sc-name">Belanja</span>
+          <span class="sc-jp">買い物</span>
+        </button>
+        <button class="scenario-btn" data-scenario="interview" onclick="setScenario(this,'interview','Wawancara Kerja','💼')">
+          <span class="sc-icon">💼</span>
+          <span class="sc-name">Interview</span>
+          <span class="sc-jp">面接</span>
+        </button>
+        <button class="scenario-btn" data-scenario="travel" onclick="setScenario(this,'travel','Perjalanan','🚆')">
+          <span class="sc-icon">🚆</span>
+          <span class="sc-name">Travel</span>
+          <span class="sc-jp">旅行</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="sidebar-block">
+      <h3>📊 Level</h3>
+      <div class="level-row" id="levelRow">
+        <button class="level-chip active" onclick="setLevel(this,'N5')">N5</button>
+        <button class="level-chip" onclick="setLevel(this,'N4')">N4</button>
+        <button class="level-chip" onclick="setLevel(this,'N3')">N3</button>
+        <button class="level-chip" onclick="setLevel(this,'N2')">N2</button>
+        <button class="level-chip" onclick="setLevel(this,'N1')">N1</button>
+      </div>
+    </div>
+
+    <div class="sidebar-block" style="flex:1; overflow:hidden; display:flex; flex-direction:column;">
+      <h3>📖 Kosakata Dipelajari</h3>
+      <div class="vocab-list" id="vocabList">
+        <div style="font-size:12px; color:var(--kn-muted); text-align:center; padding:20px 0;">
+          Kosakata baru akan muncul<br>saat kamu chat dengan AI
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- CHAT -->
+  <section class="kaiwa-chat">
+    <div class="chat-topbar">
+      <div class="chat-avatar">🤖</div>
+      <div class="chat-info">
+        <h2>Tanaka Sensei</h2>
+        <p id="chatScenarioLabel">Percakapan Santai · Level N5</p>
+      </div>
+      <div class="chat-status">Online</div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages"></div>
+
+    <div class="hint-row" id="hintRow"></div>
+
+    <div class="chat-input-area">
+      <textarea class="chat-input" id="chatInput" rows="1"
+        placeholder="Ketik dalam bahasa Jepang atau Indonesia…"
+        aria-label="Pesan percakapan"></textarea>
+      <button class="send-btn" id="sendBtn" onclick="sendMessage()" aria-label="Kirim">
+        ➤
+      </button>
+    </div>
+  </section>
+
+</main>
+
+<footer class="kaiwa-page-footer">
+  AI Kaiwa menggunakan endpoint <code>/api/ai-chat</code> — API key aman di server, tidak di browser.
+</footer>
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+/* ── STATE ── */
+let currentScenario = 'casual';
+let currentScenarioName = 'Percakapan Santai';
+let currentLevel = 'N5';
+let chatHistory = [];
+let vocabLearned = [];
+let isTyping = false;
+
+const SCENARIOS = {
+  casual:    { sys: 'Kamu adalah teman berbicara bahasa Jepang yang ramah. Percakapan santai, sesuai level user.', hints: ['こんにちは！', 'お元気ですか？', '今日はいい天気ですね', 'どこに住んでいますか？'] },
+  restaurant:{ sys: 'Kamu adalah pelayan restoran Jepang. Sambut tamu, catat pesanan, bantu pilih menu.', hints: ['いらっしゃいませ', 'メニューをください', 'これをください', 'お会計をお願いします'] },
+  hospital:  { sys: 'Kamu adalah staff kaigo (介護) Jepang. Gunakan bahasa kaigo yang sopan dan profesional.', hints: ['体の具合はいかがですか', 'お手伝いしましょうか', 'お薬の時間です', 'ゆっくり休んでください'] },
+  shopping:  { sys: 'Kamu adalah staff toko di Jepang. Bantu pelanggan mencari barang, harga, dan checkout.', hints: ['いらっしゃいませ', 'これはいくらですか', '試着できますか', 'カードで払えますか'] },
+  interview: { sys: 'Kamu adalah pewawancara perusahaan Jepang yang profesional. Tanya satu pertanyaan per giliran, beri feedback setelah jawaban.', hints: ['よろしくお願いします', '自己紹介をお願いします', '志望動機は何ですか', '御社について教えてください'] },
+  travel:    { sys: 'Kamu adalah warga Jepang yang membantu turis. Bantu navigasi, rekomendasi tempat, info transportasi.', hints: ['すみません、道を教えてください', '駅はどこですか', '電車の乗り方を教えてください', 'おすすめはありますか'] },
+};
+
+/* ── HELPERS ── */
+// Perlindungan XSS: pesan 'user' sudah di-escape manual di titik pemanggilan
+// (baris addMsg('user', text.replace(...))); tambahan di sini melindungi
+// correction dan vocabs, yang genuinely berasal dari parsing respons AI
+// mentah dan sebelumnya tidak di-escape sama sekali.
+function escapeHtml(s){
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+
+function addMsg(role, html, correction, vocabs) {
+  const msgs = document.getElementById('chatMessages');
+  const row = document.createElement('div');
+  row.className = `msg-row ${role}`;
+  const avatar = role === 'ai' ? '🤖' : '👤';
+  let extra = '';
+  if (correction) extra += `<div class="correction-tag">✏️ コレクション: ${escapeHtml(correction)}</div>`;
+  if (vocabs && vocabs.length) {
+    extra += '<div style="margin-top:6px">' + vocabs.map(v => `<span class="vocab-tag">${escapeHtml(v.jp)} = ${escapeHtml(v.id)}</span>`).join('') + '</div>';
+    vocabs.forEach(v => addVocab(v));
+  }
+  row.innerHTML = `
+    <div class="msg-mini ${role}">${avatar}</div>
+    <div>
+      <div class="msg-bubble">${html}</div>
+      ${extra}
+    </div>`;
+  msgs.appendChild(row);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping() {
+  const msgs = document.getElementById('chatMessages');
+  const el = document.createElement('div');
+  el.className = 'msg-row ai';
+  el.id = 'typingIndicator';
+  el.innerHTML = `<div class="msg-mini ai">🤖</div><div class="msg-bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  msgs.appendChild(el);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+function hideTyping() { document.getElementById('typingIndicator')?.remove(); }
+
+function addVocab(v) {
+  if (vocabLearned.find(x => x.jp === v.jp)) return;
+  vocabLearned.push(v);
+  const list = document.getElementById('vocabList');
+  if (list.querySelector('div[style]')) list.innerHTML = '';
+  const item = document.createElement('div');
+  item.className = 'vocab-item';
+  item.innerHTML = `<span class="vocab-jp">${v.jp}</span><span class="vocab-id">${v.id}</span>`;
+  list.prepend(item);
+  try { localStorage.setItem('kaiwa_vocab', JSON.stringify(vocabLearned.slice(-50))); } catch {}
+}
+
+function updateHints(hints) {
+  const row = document.getElementById('hintRow');
+  row.innerHTML = hints.map(h =>
+    `<button class="hint-chip" onclick="useHint('${h.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">💬 ${h}</button>`
+  ).join('');
+}
+
+function useHint(text) {
+  document.getElementById('chatInput').value = text;
+  document.getElementById('chatInput').focus();
+}
+
+/* ── SCENARIO / LEVEL ── */
+function setScenario(btn, id, name, icon) {
+  document.querySelectorAll('.scenario-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentScenario = id;
+  currentScenarioName = name;
+  updateLabel();
+  updateHints(SCENARIOS[id].hints);
+  chatHistory = [];
+  document.getElementById('chatMessages').innerHTML = '';
+  addMsg('ai', `こんにちは！${icon} <strong>${name}</strong> skenario siap. Level <strong>${currentLevel}</strong>.<br>Ayo mulai percakapan! 🎌`, null, null);
+}
+
+function setLevel(btn, lv) {
+  document.querySelectorAll('.level-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentLevel = lv;
+  updateLabel();
+  try { localStorage.setItem('np_jlpt_level', lv); } catch {}
+}
+
+function updateLabel() {
+  document.getElementById('chatScenarioLabel').textContent = `${currentScenarioName} · Level ${currentLevel}`;
+}
+
+/* ── SEND ── */
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text || isTyping) return;
+
+  input.value = '';
+  input.style.height = '';
+  isTyping = true;
+  document.getElementById('sendBtn').disabled = true;
+
+  addMsg('user', text.replace(/</g,'&lt;').replace(/>/g,'&gt;'), null, null);
+  chatHistory.push({ role: 'user', content: text });
+  showTyping();
+
+  try {
+    const sys = SCENARIOS[currentScenario]?.sys || SCENARIOS.casual.sys;
+    const resp = await fetch((window.EDUMA_ENV && window.EDUMA_ENV.AI_API_ENDPOINT) || '/api/ai-chat', {
+      method: 'POST',
+      headers: (function(){ var h={'Content-Type':'application/json'}; try{var a=JSON.parse(localStorage.getItem('np-auth-v1')||'null'); if(a&&a.access_token)h['Authorization']='Bearer '+a.access_token;}catch(e){} return h; })(),
+      body: JSON.stringify({
+        messages: chatHistory.slice(-12),
+        mode: 'kaiwa',
+        level: currentLevel,
+        scenario: currentScenarioName,
+        systemOverride: `${sys}\nLevel user: ${currentLevel}. Koreksi kesalahan grammar dalam [コレクション:...]. Kosakata baru dalam [VOCAB:語=arti]. Respons 2-3 kalimat, akhiri dengan pertanyaan.`,
+      })
+    });
+    const data = await resp.json();
+    hideTyping();
+
+    const raw = data.text || 'Maaf, terjadi kesalahan. Coba lagi ya!';
+    const corrMatch = raw.match(/\[コレクション:\s*(.+?)\]/);
+    const correction = corrMatch ? corrMatch[1] : null;
+    const vocabMatches = [...raw.matchAll(/\[VOCAB:\s*(.+?)=(.+?)\]/g)];
+    const vocabs = vocabMatches.map(m => ({ jp: m[1].trim(), id: m[2].trim() }));
+    const clean = raw.replace(/\[コレクション:.+?\]/g,'').replace(/\[VOCAB:.+?\]/g,'').trim();
+
+    addMsg('ai', escapeHtml(clean).replace(/\n/g,'<br>').replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>'), correction, vocabs);
+    chatHistory.push({ role: 'assistant', content: raw });
+
+    // Update hints dari konteks
+    const contextHints = SCENARIOS[currentScenario].hints;
+    updateHints(contextHints.slice(0,3));
+
+  } catch(e) {
+    hideTyping();
+    const offline = [
+      '申し訳ありません。Koneksi AI bermasalah.',
+      '接続できません。Coba cek internet kamu.',
+      'サーバーエラー。Coba lagi dalam beberapa saat ya!'
+    ];
+    addMsg('ai', offline[Math.floor(Math.random()*offline.length)], null, null);
+  }
+
+  isTyping = false;
+  document.getElementById('sendBtn').disabled = false;
+  input.focus();
+}
+
+/* ── INIT ── */
+document.addEventListener('DOMContentLoaded', () => {
+  // Restore level
+  const savedLevel = localStorage.getItem('np_jlpt_level') || 'N5';
+  currentLevel = savedLevel;
+  document.querySelectorAll('.level-chip').forEach(b => {
+    b.classList.toggle('active', b.textContent === savedLevel);
+  });
+  updateLabel();
+
+  // Restore vocab
+  try {
+    const saved = JSON.parse(localStorage.getItem('kaiwa_vocab') || '[]');
+    saved.forEach(v => addVocab(v));
+  } catch {}
+
+  // Set default hints
+  updateHints(SCENARIOS.casual.hints);
+
+  // Welcome message
+  addMsg('ai', `こんにちは！👋 Saya <strong>Tanaka Sensei</strong>, partner percakapan bahasa Jepang kamu.<br><br>
+    Pilih <strong>skenario</strong> dan <strong>level</strong> di kiri, lalu mulai bicara bebas.<br>
+    Saya akan koreksi kesalahan dan ajari kosakata baru secara otomatis. 🌸`, null, null);
+
+  // Input auto-resize
+  const inp = document.getElementById('chatInput');
+  inp.addEventListener('input', () => {
+    inp.style.height = '';
+    inp.style.height = Math.min(inp.scrollHeight, 120) + 'px';
+  });
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+  });
+});
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

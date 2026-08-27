@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#431407">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>筋肉系（上級）Otot Lanjutan — Rhabdomiolisis &amp; Miopati Kritis untuk Calon Perawat | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Otot Lanjutan — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Otot-Lanjutan.html","description":"Pembelajaran tingkat lanjutan sistem otot dalam bahasa Jepang — rhabdomiolisis, miopati kritis ICU, farmakologi mendalam, prosedur diagnostik, dan terminologi orto-ICU untuk calon perawat dan tenaga medis.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Materi tingkat lanjutan sistem otot — rhabdomiolisis, miopati kritis, farmakologi mendalam, dan prosedur diagnostik dalam bahasa Jepang untuk calon perawat dan tenaga medis.">
+<meta property="og:title" content="筋肉系（上級）Otot Lanjutan — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Rhabdomiolisis, miopati kritis, farmakologi mendalam, dan prosedur diagnostik dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Otot-Lanjutan.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#fff7ed,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#431407;border-color:#431407;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#431407;background:#fff7ed;border:1px solid #fed7aa;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#431407;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#431407}
+.organ-tab.active{color:#431407;border-bottom-color:#431407}
+.organ-tab:focus-visible{outline:2px solid #431407;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #fff7ed;color:#180501}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#431407}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#fff7ed;border-color:#fed7aa}
+.info-card.scope{background:#f8fafc;border-color:#cbd5e1}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#fff7ed;color:#431407;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #431407;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#431407}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.case-sim{background:var(--white,#fff);border:2px solid #fed7aa;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#fff7ed;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#431407;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Otot.html">① 基礎 Dasar</a>
+      <a href="Sistem-Otot-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Otot-Lanjutan.html" class="current">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">💪 Level Lanjutan — Rhabdomiolisis &amp; Miopati Kritis</span>
+    <h1><span class="jp-big">筋肉系（上級）</span>Otot Lanjutan</h1>
+    <p class="lead">Rhabdomiolisis, miopati kritis ICU, farmakologi mendalam, dan prosedur diagnostik otot — untuk calon perawat, tenaga medis, dan pelajar bahasa Jepang tingkat teknis tertinggi.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi otot lanjutan">
+  <button class="organ-tab active" data-tab="rhabdo" role="tab" aria-selected="true">横紋筋融解症 Rhabdomiolisis</button>
+  <button class="organ-tab" data-tab="miopati" role="tab" aria-selected="false">重症筋症 Miopati Kritis</button>
+  <button class="organ-tab" data-tab="farmakologi" role="tab" aria-selected="false">薬理詳細 Farmakologi</button>
+  <button class="organ-tab" data-tab="elektrolit" role="tab" aria-selected="false">電解質と筋機能 Elektrolit &amp; Fungsi Otot</button>
+  <button class="organ-tab" data-tab="prosedur" role="tab" aria-selected="false">検査 Prosedur Diagnostik</button>
+  <button class="organ-tab" data-tab="icu" role="tab" aria-selected="false">ICU用語 Istilah Orto-ICU</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <div class="info-card scope">
+    <strong>Tentang materi tingkat lanjutan ini:</strong>
+    <p style="margin:6px 0 0">Konten ini menjelaskan KONSEP dan MEKANISME untuk tujuan edukasi bahasa dan pemahaman klinis dasar — BUKAN pengganti pendidikan keperawatan formal, protokol rumah sakit, atau panduan dosis obat. Angka/dosis spesifik sengaja tidak dicantumkan karena bervariasi menurut kondisi pasien dan kebijakan institusi; selalu ikuti pelatihan resmi dan protokol fasilitas.</p>
+  </div>
+
+  <!-- ═══════════ 横紋筋融解症 RHABDOMIOLISIS ═══════════ -->
+  <div class="organ-panel active" id="panel-rhabdo">
+    <h2>横紋筋融解症 — Rhabdomiolisis</h2>
+    <p>Rhabdomiolisis adalah kondisi serius di mana sel otot rusak parah dan "bocor" isinya ke aliran darah — komplikasi yang bisa berasal dari trauma berat, imobilisasi lama dengan tekanan pada otot (termasuk pada lansia yang jatuh dan tergeletak lama), aktivitas fisik ekstrem, atau efek obat tertentu.</p>
+
+    <h3>Mekanisme dan bahaya utama</h3>
+    <p>Sel otot yang rusak melepas mioglobin (protein otot) dalam jumlah besar ke darah — mioglobin ini bisa MENYUMBAT dan MERUSAK ginjal saat disaring, berpotensi menyebabkan gagal ginjal akut (dibahas di materi Urinaria). Selain itu, kerusakan sel otot juga melepas kalium dalam jumlah besar, berisiko hiperkalemia berbahaya (dibahas di materi Urinaria Lanjutan) yang bisa memicu gangguan irama jantung.</p>
+
+    <h3>Relevansi Kaigo: lansia yang jatuh dan tergeletak lama</h3>
+    <div class="info-card danger">
+      <p style="margin-bottom:0"><strong>Skenario penting:</strong> lansia yang jatuh dan tidak ditemukan/tidak bisa bangun dalam waktu LAMA (berjam-jam) berisiko rhabdomiolisis akibat tekanan berkepanjangan pada otot yang tertindih berat badan sendiri — ini salah satu alasan penting kenapa sistem panggilan darurat/pengecekan berkala pada lansia yang tinggal sendiri sangat bermakna, dan kenapa riwayat "berapa lama tergeletak" penting ditanyakan saat evaluasi pasca-jatuh.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 重症筋症 MIOPATI KRITIS ═══════════ -->
+  <div class="organ-panel" id="panel-miopati">
+    <h2>重症筋症 — Miopati dan Neuropati Kondisi Kritis</h2>
+    <p>Pasien yang dirawat lama di ICU (terutama dengan ventilasi mekanis dan sedasi berkepanjangan) berisiko mengalami kelemahan otot signifikan yang berkembang SELAMA perawatan kritis itu sendiri — dikenal sebagai ICU-acquired weakness, mencakup gangguan pada otot (miopati) dan/atau saraf (neuropati).</p>
+
+    <h3>Faktor risiko yang berkontribusi</h3>
+    <ul>
+      <li>Imobilisasi berkepanjangan (kaitan dengan sindrom disuse yang dibahas di level Dasar, tapi jauh lebih cepat dan berat pada kondisi kritis)</li>
+      <li>Peradangan sistemik berat (sepsis, dibahas di beberapa materi Lanjutan lain)</li>
+      <li>Penggunaan obat tertentu (termasuk beberapa kortikosteroid dan obat pelumpuh otot) dalam jangka waktu tertentu</li>
+      <li>Gangguan gula darah yang tidak terkontrol selama perawatan kritis</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa ini penting dipahami:</strong> ICU-acquired weakness menjelaskan kenapa mobilisasi dini (bahkan pada pasien kritis, sesuai kondisi dan arahan tim medis) menjadi fokus penting dalam perawatan intensif modern — bukan sekadar prinsip umum, tapi strategi aktif mencegah komplikasi yang bisa memperpanjang pemulihan secara signifikan.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 薬理詳細 FARMAKOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-farmakologi">
+    <h2>薬理詳細 — Farmakologi Mendalam</h2>
+    <h3>Obat pelumpuh otot (筋弛緩薬 tingkat lanjut)</h3>
+    <p>Berbeda dari relaksan otot ringan yang dibahas di level Menengah, obat pelumpuh otot (neuromuscular blocking agents) yang dipakai dalam prosedur tertentu (seperti sebelum intubasi) bekerja memblokir sinyal di persimpangan neuromuskular secara TOTAL sementara — pasien yang menerima obat ini SEPENUHNYA butuh dukungan pernapasan karena otot pernapasan juga terpengaruh.</p>
+
+    <h3>Statin dan risiko miopati</h3>
+    <p style="margin-bottom:0">Obat penurun kolesterol golongan statin (dibahas di materi Kardiovaskular) punya efek samping yang relatif jarang tapi penting diwaspadai: nyeri/kelemahan otot, yang pada kasus jarang bisa berkembang jadi rhabdomiolisis. Prinsip penting: nyeri otot baru yang muncul setelah memulai/menaikkan dosis statin perlu dilaporkan, bukan diabaikan sebagai "pegal biasa".</p>
+
+    <h3>Interaksi obat yang meningkatkan risiko miopati</h3>
+    <p style="margin-bottom:0">Beberapa kombinasi obat (termasuk beberapa antibiotik dengan statin) bisa meningkatkan risiko efek samping otot — prinsip penting saat meninjau riwayat obat pasien lansia dengan polifarmasi yang kompleks.</p>
+  </div>
+
+  <!-- ═══════════ 電解質と筋機能 ELEKTROLIT & FUNGSI OTOT ═══════════ -->
+  <div class="organ-panel" id="panel-elektrolit">
+    <h2>電解質と筋機能 — Elektrolit dan Fungsi Otot</h2>
+    <h3>Kalium dan fungsi otot/jantung</h3>
+    <p>Kalium (dibahas detail di materi Urinaria Lanjutan) krusial untuk fungsi listrik sel otot, TERMASUK otot jantung — baik kadar TERLALU TINGGI (hiperkalemia, bisa dari rhabdomiolisis atau gangguan ginjal) maupun TERLALU RENDAH (hipokalemia) bisa mengganggu fungsi otot dan irama jantung secara serius.</p>
+
+    <h3>Kalsium dan magnesium</h3>
+    <p style="margin-bottom:0">Selain berperan langsung dalam kontraksi otot (dibahas di level Menengah), gangguan kadar kalsium dan magnesium bisa menyebabkan berbagai manifestasi otot — dari kram/kedutan (kadar rendah) hingga kelemahan (kadar sangat tinggi atau rendah ekstrem) — menjelaskan kenapa evaluasi elektrolit adalah bagian penting menyelidiki keluhan otot yang tidak jelas penyebabnya.</p>
+  </div>
+
+  <!-- ═══════════ 検査 PROSEDUR DIAGNOSTIK ═══════════ -->
+  <div class="organ-panel" id="panel-prosedur">
+    <h2>検査 — Prosedur Diagnostik Otot</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">筋電図検査 (きんでんずけんさ) — Elektromiografi (EMG)</h3>
+      <p style="margin-bottom:0">Mengukur aktivitas listrik otot lewat elektroda — membantu membedakan apakah kelemahan berasal dari OTOT itu sendiri (miopati) atau dari SARAF yang mempersarafinya (neuropati), pembeda penting yang memengaruhi arah penanganan.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">筋生検 (きんせいけん) — Biopsi Otot</h3>
+      <p style="margin-bottom:0">Pengambilan sampel kecil jaringan otot untuk pemeriksaan mikroskopis — membantu diagnosis kondisi otot tertentu yang tidak jelas dari pemeriksaan lain, meski tidak selalu diperlukan untuk kebanyakan kasus kelemahan otot umum.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">クレアチンキナーゼ (CK) — Kreatin Kinase</h3>
+      <p style="margin-bottom:0">Enzim yang dilepas saat sel otot rusak — kadarnya dalam darah yang MENINGKAT SIGNIFIKAN adalah penanda kunci rhabdomiolisis dan berbagai kondisi kerusakan otot lain, dipantau untuk menilai tingkat keparahan dan respons terhadap terapi.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ ICU用語 ISTILAH ORTO-ICU ═══════════ -->
+  <div class="organ-panel" id="panel-icu">
+    <h2>ICU用語 — Terminologi Orto-ICU</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">横紋筋融解症</td><td>おうもんきんゆうかいしょう</td><td>Rhabdomiolisis</td><td>Rhabdomyolysis</td></tr>
+        <tr><td class="jp">ミオグロビン</td><td>みおぐろびん</td><td>Mioglobin</td><td>Myoglobin</td></tr>
+        <tr><td class="jp">クレアチンキナーゼ</td><td>くれあちんきなーぜ</td><td>Kreatin kinase (CK)</td><td>Creatine kinase</td></tr>
+        <tr><td class="jp">ICU関連筋力低下</td><td>あいしーゆーかんれんきんりょくていか</td><td>ICU-acquired weakness</td><td>ICU-acquired weakness</td></tr>
+        <tr><td class="jp">重症筋症</td><td>じゅうしょうきんしょう</td><td>Miopati kritis</td><td>Critical illness myopathy</td></tr>
+        <tr><td class="jp">重症神経障害</td><td>じゅうしょうしんけいしょうがい</td><td>Neuropati kritis</td><td>Critical illness neuropathy</td></tr>
+        <tr><td class="jp">神経筋遮断薬</td><td>しんけいきんしゃだんやく</td><td>Obat pelumpuh otot</td><td>Neuromuscular blocking agent</td></tr>
+        <tr><td class="jp">スタチン誘発性筋症</td><td>すたちんゆうはつせいきんしょう</td><td>Miopati akibat statin</td><td>Statin-induced myopathy</td></tr>
+        <tr><td class="jp">筋電図検査</td><td>きんでんずけんさ</td><td>Elektromiografi (EMG)</td><td>Electromyography</td></tr>
+        <tr><td class="jp">筋生検</td><td>きんせいけん</td><td>Biopsi otot</td><td>Muscle biopsy</td></tr>
+        <tr><td class="jp">早期離床</td><td>そうきりしょう</td><td>Mobilisasi dini (ICU)</td><td>Early mobilization</td></tr>
+        <tr><td class="jp">長期臥床</td><td>ちょうきがしょう</td><td>Tirah baring jangka panjang</td><td>Prolonged bed rest</td></tr>
+        <tr><td class="jp">圧迫性筋障害</td><td>あっぱくせいきんしょうがい</td><td>Kerusakan otot akibat tekanan</td><td>Compression-induced muscle injury</td></tr>
+        <tr><td class="jp">急性腎障害合併</td><td>きゅうせいじんしょうがいがっぺい</td><td>Komplikasi gagal ginjal akut</td><td>Complicated by acute kidney injury</td></tr>
+        <tr><td class="jp">不整脈リスク</td><td>ふせいみゃくりすく</td><td>Risiko aritmia</td><td>Arrhythmia risk</td></tr>
+        <tr><td class="jp">筋壊死</td><td>きんえし</td><td>Nekrosis otot</td><td>Muscle necrosis</td></tr>
+        <tr><td class="jp">コンパートメント症候群</td><td>こんぱーとめんとしょうこうぐん</td><td>Sindrom kompartemen</td><td>Compartment syndrome</td></tr>
+        <tr><td class="jp">全身性炎症反応</td><td>ぜんしんせいえんしょうはんのう</td><td>Respons inflamasi sistemik</td><td>Systemic inflammatory response</td></tr>
+        <tr><td class="jp">敗血症関連筋力低下</td><td>はいけつしょうかんれんきんりょくていか</td><td>Kelemahan otot terkait sepsis</td><td>Sepsis-associated weakness</td></tr>
+        <tr><td class="jp">リハビリテーション介入</td><td>りはびりてーしょんかいにゅう</td><td>Intervensi rehabilitasi</td><td>Rehabilitation intervention</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis tingkat ICU</h3>
+    <div class="clinical-sentence">
+      <div class="jp">クレアチンキナーゼの著明な上昇があり、横紋筋融解症が疑われます。</div>
+      <div class="id">Ada peningkatan CK yang signifikan, dicurigai rhabdomiolisis.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">長期臥床によりICU関連筋力低下のリスクが高まります。</div>
+      <div class="id">Tirah baring jangka panjang meningkatkan risiko ICU-acquired weakness.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">早期離床とリハビリテーション介入を検討しています。</div>
+      <div class="id">Mobilisasi dini dan intervensi rehabilitasi sedang dipertimbangkan.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis Tingkat Lanjutan</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia yang tinggal sendiri ditemukan tergeletak di lantai kamar mandi, mengaku sudah tidak bisa bangun selama kurang lebih 10 jam sejak terjatuh semalam. Ia tampak lemah tapi masih sadar penuh dan bisa bicara normal. Keluarga yang menemukannya berencana langsung membantunya berdiri dan berjalan ke kamar tanpa evaluasi lebih lanjut karena "yang penting sudah bisa ditemukan dan terlihat sadar".
+      </div>
+      <div class="case-question">
+        <label>1. Riwayat tergeletak selama sekitar 10 jam pada lansia ini paling relevan meningkatkan kekhawatiran akan risiko:</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Rhabdomiolisis akibat tekanan berkepanjangan pada otot yang tertindih</option>
+          <option value="wrong">Tidak ada risiko tambahan selama pasien masih sadar</option>
+          <option value="wrong">Risiko yang hanya relevan untuk orang muda yang aktif berolahraga</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Fakta bahwa pasien "masih sadar penuh dan bisa bicara normal" berarti:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">TIDAK menyingkirkan kemungkinan rhabdomiolisis -- kesadaran normal tidak berarti otot/ginjal aman dari kerusakan akibat tekanan lama</option>
+          <option value="wrong">Memastikan tidak ada risiko kesehatan serius apapun</option>
+          <option value="wrong">Menghilangkan kebutuhan evaluasi medis sama sekali</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan yang PALING tepat sebagai caregiver/keluarga dalam situasi ini:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Langsung membantunya berjalan normal tanpa evaluasi lebih lanjut</option>
+          <option value="correct">Mencari evaluasi medis, menjelaskan durasi tergeletak sekitar 10 jam sebagai informasi penting</option>
+          <option value="wrong">Menganggap situasi selesai karena pasien sudah ditemukan dan terlihat baik-baik saja</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var MINI_Q = [
+    { q: 'Pada rhabdomiolisis, sel otot yang rusak melepas protein apa yang bisa membahayakan ginjal?', opts: ['Mioglobin', 'Insulin', 'Kolagen'], a: 0 },
+    { q: 'Selain risiko ginjal, rhabdomiolisis juga melepas elektrolit dalam jumlah besar yang berisiko?', opts: ['Hiperkalemia', 'Hipoglikemia', 'Hiponatremia'], a: 0 },
+    { q: 'Lansia yang jatuh dan tergeletak lama berisiko rhabdomiolisis akibat?', opts: ['Tekanan berkepanjangan pada otot yang tertindih', 'Selalu aman selama masih sadar', 'Tidak ada kaitan dengan durasi tergeletak'], a: 0 },
+    { q: 'ICU-acquired weakness berkembang terutama akibat?', opts: ['Imobilisasi berkepanjangan dan peradangan sistemik selama perawatan kritis', 'Selalu ada sejak sebelum masuk ICU', 'Tidak ada kaitan dengan lama perawatan'], a: 0 },
+    { q: 'EMG (elektromiografi) membantu membedakan kelemahan yang berasal dari?', opts: ['Otot (miopati) vs saraf (neuropati)', 'Jantung vs paru-paru', 'Ginjal vs hati'], a: 0 },
+    { q: 'Nyeri otot baru setelah memulai/menaikkan dosis statin sebaiknya disikapi dengan?', opts: ['Dilaporkan, bukan diabaikan sebagai "pegal biasa"', 'Selalu diabaikan karena tidak pernah berbahaya', 'Menghentikan obat sendiri tanpa berkonsultasi'], a: 0 },
+    { q: 'Kreatin kinase (CK) yang meningkat signifikan dalam darah adalah penanda kunci untuk?', opts: ['Rhabdomiolisis dan kerusakan otot', 'Fungsi ginjal normal', 'Kadar gula darah'], a: 0 },
+    { q: 'Kesadaran yang normal pada pasien pasca-tergeletak lama berarti?', opts: ['Tidak menyingkirkan kemungkinan rhabdomiolisis pada otot/ginjal', 'Memastikan tidak ada risiko kesehatan apapun', 'Menghilangkan kebutuhan evaluasi medis'], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Tergeletak selama sekitar 10 jam adalah faktor risiko PENTING untuk RHABDOMIOLISIS akibat tekanan berkepanjangan pada otot yang tertindih berat badan sendiri -- kondisi ini bisa menyebabkan kerusakan ginjal dan gangguan elektrolit serius. Kesadaran yang normal TIDAK menyingkirkan risiko ini, karena rhabdomiolisis adalah proses pada tingkat sel otot/ginjal yang tidak selalu langsung memengaruhi kesadaran. Tindakan tepat: mencari evaluasi medis dan menyampaikan durasi tergeletak sebagai informasi krusial, BUKAN langsung beraktivitas normal tanpa evaluasi.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: durasi tergeletak yang lama (bukan sekadar "pasien sudah ditemukan dan sadar") adalah informasi krusial yang mengarah ke risiko rhabdomiolisis -- kesadaran normal tidak menjamin tidak ada kerusakan otot/ginjal yang sedang berlangsung.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/dark-mode-toggle.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<script src="assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>解剖学 Anatomi Dasar Tubuh Manusia — Bahasa Jepang untuk Kaigo | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Anatomi Dasar Tubuh Manusia — Nihonggo Pro Academy","url":"https://nihonggopro.id/Anatomi-Dasar.html","description":"Pembelajaran istilah anatomi tubuh manusia dalam bahasa Jepang — bagian tubuh luar, rangka, organ dalam, dan otot dasar — untuk persiapan kerja Kaigo dan bahasa kesehatan.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Pelajari istilah anatomi tubuh manusia dalam bahasa Jepang — 頭・骨格・内臓・筋肉 — dengan diagram interaktif, panel detail, audio pengucapan, dan kuis, khusus untuk persiapan kerja Kaigo dan bahasa kesehatan.">
+<meta property="og:title" content="解剖学 Anatomi Dasar Tubuh Manusia — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Diagram tubuh interaktif + istilah anatomi bahasa Jepang untuk Kaigo dan bahasa kesehatan.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="解剖学 Anatomi Dasar Tubuh Manusia — Nihonggo Pro Academy">
+<meta name="twitter:description" content="Diagram tubuh interaktif + istilah anatomi bahasa Jepang untuk Kaigo dan bahasa kesehatan.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="canonical" href="https://nihonggopro.id/Anatomi-Dasar.html">
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/anatomy/anatomy-viewer.css">
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="ana-hero">
+  <div class="ana-hero-inner">
+    <span class="ana-kicker">🫀 解剖学 Kaigo Foundation</span>
+    <h1><span class="jp">解剖学の基礎</span>Anatomi Dasar Tubuh Manusia</h1>
+    <p class="lead">Istilah anatomi bahasa Jepang yang wajib dikuasai pekerja Kaigo — bagian tubuh luar, rangka, organ dalam, otot, hingga nama penyakit. Fondasi untuk memahami keluhan pengguna layanan, prosedur medis, dan soal ujian nasional 介護福祉士.</p>
+    <div class="ana-hero-stats">
+      <div class="ana-hero-stat"><b>133</b><span>Istilah anatomi</span></div>
+      <div class="ana-hero-stat"><b>9</b><span>Sistem tubuh</span></div>
+      <div class="ana-hero-stat"><b>34</b><span>Soal latihan</span></div>
+    </div>
+    <div class="mode-switcher" id="modeSwitcher" role="group" aria-label="Mode belajar">
+      <button class="mode-btn active" data-mode="belajar" type="button">📖 Mode Belajar</button>
+      <button class="mode-btn" data-mode="eksplorasi" type="button">🔍 Mode Eksplorasi</button>
+      <button class="mode-btn" data-mode="kuisvisual" type="button">🎯 Kuis Visual</button>
+    </div>
+    <div class="ana-progress-bar" aria-hidden="true"><div class="ana-progress-fill" id="anaProgressFill" style="width:0%"></div></div>
+    <p id="anaProgressLabel" style="font-size:12px;color:rgba(255,255,255,.6);margin-top:.4rem">0 / 123 bagian dipelajari (0%)</p>
+  </div>
+</section>
+
+<section class="diagram-section">
+  <div class="diagram-grid">
+    <div class="diagram-stage">
+      <div class="viewmode-tabs" role="tablist" aria-label="Mode tampilan">
+        <button class="vm-tab active" type="button" id="vmTab2D" aria-selected="true">2D</button>
+        <button class="vm-tab" type="button" id="vmTab3D" aria-selected="false">3D</button>
+      </div>
+      <div class="viewer-toolbar" role="toolbar" aria-label="Kontrol tampilan diagram">
+        <button class="vt-btn" id="vtZoomIn" type="button" aria-label="Perbesar">➕</button>
+        <button class="vt-btn" id="vtZoomOut" type="button" aria-label="Perkecil">➖</button>
+        <button class="vt-btn" id="vtReset" type="button" aria-label="Atur ulang tampilan">↺</button>
+        <button class="vt-btn" id="vtFullscreen" type="button" aria-label="Layar penuh" aria-pressed="false">⛶</button>
+      </div>
+
+      <div id="model3dContainer" style="display:none">
+        <div class="model3d-fallback">
+          🧊 Model 3D belum tersedia. Gunakan mode anatomi 2D.<br>
+          <span style="font-size:12px">(Menunggu aset <code>assets/anatomy/models/human-body.glb</code> — lihat catatan pengembangan di kode sumber)</span>
+        </div>
+      </div>
+
+      <div class="diagram-viewport" id="diagramViewport">
+        <div id="diagramStage" style="position:relative">
+          <svg id="bodySvg" viewBox="0 0 200 420" xmlns="http://www.w3.org/2000/svg">
+            <!-- Siluet tubuh sederhana, netral, bergaya klinis.
+                 CATATAN PENGEMBANGAN (Tahap 2): ini adalah placeholder SVG stylized,
+                 BUKAN ilustrasi anatomi fotorealistik. Set lengkap 9 tampilan
+                 (depan/belakang/rangka/otot/organ/saraf/sirkulasi/pernapasan/pencernaan)
+                 sesuai spesifikasi memerlukan aset visual profesional yang berada di
+                 luar cakupan pekerjaan kode murni. Ganti file ini dengan gambar SVG/WebP
+                 final di assets/anatomy/images/ bila sudah tersedia -- struktur data
+                 (imageHotspot di anatomy-data.js) sudah disiapkan untuk migrasi tanpa
+                 mengubah skema. -->
+            <ellipse class="body-part" data-id="atama" cx="100" cy="35" rx="26" ry="30" fill="#E8CBAF"/>
+            <rect class="body-part" data-id="kubi" x="90" y="60" width="20" height="16" fill="#E8CBAF"/>
+            <path class="body-part" data-id="mune" d="M60 76 Q100 66 140 76 L145 190 Q100 205 55 190 Z" fill="#F3DFC8"/>
+            <rect class="body-part" data-id="ude-hidari" x="34" y="82" width="20" height="115" rx="10" fill="#E8CBAF"/>
+            <rect class="body-part" data-id="ude-migi" x="146" y="82" width="20" height="115" rx="10" fill="#E8CBAF"/>
+            <circle class="body-part" data-id="te-hidari" cx="44" cy="205" r="12" fill="#E0BFA0"/>
+            <circle class="body-part" data-id="te-migi" cx="156" cy="205" r="12" fill="#E0BFA0"/>
+            <path class="body-part" data-id="onaka" d="M58 188 Q100 200 142 188 L138 250 Q100 262 62 250 Z" fill="#F3DFC8"/>
+            <rect class="body-part" data-id="momo-hidari" x="62" y="252" width="30" height="100" rx="12" fill="#E8CBAF"/>
+            <rect class="body-part" data-id="momo-migi" x="108" y="252" width="30" height="100" rx="12" fill="#E8CBAF"/>
+            <rect class="body-part" data-id="ashi-hidari" x="65" y="352" width="24" height="55" rx="8" fill="#E0BFA0"/>
+            <rect class="body-part" data-id="ashi-migi" x="111" y="352" width="24" height="55" rx="8" fill="#E0BFA0"/>
+            <ellipse class="body-part" data-id="ashikubi-hidari" cx="77" cy="410" rx="16" ry="7" fill="#D9AD87"/>
+            <ellipse class="body-part" data-id="ashikubi-migi" cx="123" cy="410" rx="16" ry="7" fill="#D9AD87"/>
+            <g id="organLayer" opacity="0" style="transition:opacity .3s">
+              <ellipse class="body-part" data-id="shinzou" cx="92" cy="115" rx="14" ry="16" fill="#A63A3A"/>
+              <ellipse class="body-part" data-id="hai-hidari" cx="72" cy="112" rx="12" ry="24" fill="#C89B8B"/>
+              <ellipse class="body-part" data-id="hai-migi" cx="120" cy="112" rx="12" ry="24" fill="#C89B8B"/>
+              <path class="body-part" data-id="i" d="M108 155 Q128 158 124 175 Q112 182 100 172 Z" fill="#C77B4A"/>
+              <path class="body-part" data-id="kanzou" d="M70 148 Q100 140 118 150 L114 168 Q88 174 70 165 Z" fill="#7A3B2E"/>
+              <path class="body-part" data-id="chou" d="M65 195 Q100 188 135 195 Q130 235 100 238 Q70 235 65 195 Z" fill="#D9A066"/>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <p class="diagram-caption">Klik/tap bagian tubuh, hotspot ✨, atau daftar istilah di kanan. Scroll/pinch untuk zoom, seret untuk geser.</p>
+    </div>
+
+    <div>
+      <div class="system-tabs" id="sysTabs" role="tablist" aria-label="Sistem tubuh">
+        <button class="sys-tab active" data-sys="luar" role="tab" aria-selected="true">外部 Bagian Luar</button>
+        <button class="sys-tab" data-sys="indera" role="tab" aria-selected="false">👁️ Panca Indera</button>
+        <button class="sys-tab" data-sys="rangka" role="tab" aria-selected="false">骨格 Rangka</button>
+        <button class="sys-tab" data-sys="organ" role="tab" aria-selected="false">内臓 Organ Dalam</button>
+        <button class="sys-tab" data-sys="sirkulasi" role="tab" aria-selected="false">🩸 Sirkulasi &amp; Saraf</button>
+        <button class="sys-tab" data-sys="otot" role="tab" aria-selected="false">筋肉 Otot &amp; Kulit</button>
+        <button class="sys-tab" data-sys="gerakan" role="tab" aria-selected="false">🦴 Sendi &amp; Gerakan</button>
+        <button class="sys-tab" data-sys="byoumei" role="tab" aria-selected="false">📋 Nama Penyakit</button>
+        <button class="sys-tab" data-sys="menekiei" role="tab" aria-selected="false">🛡️ Sistem Imun</button>
+      </div>
+      <div class="term-list" id="termList"></div>
+    </div>
+  </div>
+</section>
+
+<section class="quiz-section">
+  <h2>🎯 Uji Pemahaman</h2>
+  <p style="color:var(--ink-soft,#6e6e6e);font-size:14px;margin-bottom:1.2rem">34 soal — pembahasan langsung muncul setelah menjawab.</p>
+  <div class="q-panel" id="qPanel">
+    <div class="q-progress" id="qProgress">Soal 1 / 34</div>
+    <div class="q-text" id="qText"></div>
+    <div class="q-choices" id="qChoices"></div>
+    <div class="q-expl" id="qExpl"></div>
+    <div class="q-nav">
+      <span></span>
+      <button class="q-btn" id="qNextBtn" disabled>Berikutnya →</button>
+    </div>
+  </div>
+  <div id="quizResult">
+    <div class="big" id="quizScoreVal">0%</div>
+    <p id="quizScoreMsg" style="margin:.5rem 0 1.2rem"></p>
+    <button class="q-btn" id="quizRetryBtn">Ulangi Kuis</button>
+  </div>
+</section>
+
+<section style="max-width:900px;margin:40px auto;padding:0 20px">
+  <h2 style="font-family:'Noto Serif JP',serif;font-size:20px;margin-bottom:16px;text-align:center">📚 Pendalaman per Sistem Organ</h2>
+  <p style="text-align:center;color:var(--ink-mid,#666);margin-bottom:20px;font-size:14px">Setelah menguasai istilah dasar di atas, pelajari tiap sistem organ secara mendalam: anatomi, cara kerja, perubahan penuaan, penyakit, hingga perawatan Kaigo.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+    <a href="Materi/Sistem-Kardiovaskular.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='var(--red,#be3428)'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">🫀</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">循環器系 Sistem Kardiovaskular</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Jantung, sirkulasi darah, penyakit jantung lansia, dan perawatan Kaigo — 11 bagian lengkap.</div>
+    </a>
+    <a href="Materi/Sistem-Pernapasan.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='#1565c0'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">🫁</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">呼吸器系 Sistem Pernapasan</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Paru-paru, animasi napas interaktif, pneumonia aspirasi, dan perawatan Kaigo — 11 bagian lengkap.</div>
+    </a>
+    <a href="Materi/Sistem-Pencernaan.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='#1a7a3c'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">🍽️</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">消化器系 Sistem Pencernaan</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Proses menelan, animasi peristaltik interaktif, sembelit &amp; disfagia lansia, perawatan Kaigo — 11 bagian lengkap.</div>
+    </a>
+    <a href="Materi/Sistem-Saraf.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='#6d28d9'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">🧠</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">神経系 Sistem Saraf</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Otak, animasi impuls saraf interaktif, stroke (FAST) &amp; demensia, perawatan Kaigo — 11 bagian lengkap.</div>
+    </a>
+    <a href="Materi/Sistem-Urinaria.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='#b45309'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">💧</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">泌尿器系 Sistem Urinaria</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Ginjal, animasi filtrasi interaktif, inkontinensia &amp; ISK lansia, perawatan Kaigo — 11 bagian lengkap.</div>
+    </a>
+    <a href="Materi/Sistem-Endokrin.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='#0e7490'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">⚗️</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">内分泌系 Sistem Endokrin</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Pankreas &amp; tiroid, animasi hormon interaktif, diabetes &amp; hipoglikemia, perawatan Kaigo — 11 bagian lengkap.</div>
+    </a>
+    <a href="Materi/Sistem-Otot.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='#9a3412'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">💪</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">筋肉系 Sistem Otot</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Kontraksi otot, animasi aktin-miosin interaktif, sarkopenia &amp; sindrom disuse, perawatan Kaigo — 11 bagian lengkap.</div>
+    </a>
+    <a href="Materi/Sistem-Rangka.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='#44403c'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">🦴</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">骨格系 Sistem Rangka</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Remodeling tulang, animasi osteoklas-osteoblas interaktif, osteoporosis &amp; patah femur, perawatan Kaigo — 11 bagian lengkap.</div>
+    </a>
+    <a href="Materi/Sistem-Limfatik-Imun.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='#4d7c0f'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">🛡️</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">リンパ系・免疫系 Sistem Limfatik &amp; Imun</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Respons imun, animasi sel darah putih interaktif, imunosenesensi &amp; infeksi lansia, perawatan Kaigo — 11 bagian lengkap.</div>
+    </a>
+    <a href="Materi/Sistem-Kulit-Indra.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='#be185d'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">🖐️</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">皮膚・感覚器系 Kulit &amp; Indra</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Luka tekan, animasi pembentukan decubitus interaktif, gangguan sensorik lansia, perawatan Kaigo — 11 bagian lengkap.</div>
+    </a>
+    <a href="Materi/Sistem-Reproduksi.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='#7e22ce'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
+      <div style="font-size:28px;margin-bottom:8px">🌸</div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">生殖器系 Sistem Reproduksi</div>
+      <div style="font-size:13px;color:var(--ink-mid,#666)">Perubahan hormonal terkait usia, animasi interaktif, BPH &amp; menopause, perawatan Kaigo bermartabat — 11 bagian lengkap.</div>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer style="background:#2A2018;color:rgba(255,255,255,.85);padding:3rem 5vw 1.5rem;margin-top:2rem">
+  <div style="max-width:1080px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:2rem;margin-bottom:2rem">
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Anatomi-Dasar.html" style="color:rgba(255,255,255,.6);text-decoration:none">Anatomi Dasar</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Ujian.html" style="color:rgba(255,255,255,.6);text-decoration:none">Ujian &amp; Latihan Soal</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+
+<!-- Refactor Tahap 1: data & logic dipisah ke assets/anatomy/ (sebelumnya inline) -->
+<script src="assets/anatomy/anatomy-data.js"></script>
+<script src="assets/anatomy/anatomy-viewer.js"></script>
+<script src="assets/anatomy/anatomy-quiz.js"></script>
+
+<script>
+// Tahap 5.3 (Kuis Visual): sambungkan klik hotspot/SVG ke pengecekan jawaban saat mode aktif,
+// dan Tahap 7 (2D/3D tab): lazy-load model-viewer HANYA saat tab 3D dipilih.
+(function () {
+  'use strict';
+
+  document.getElementById('vmTab3D').addEventListener('click', function () {
+    document.getElementById('vmTab3D').classList.add('active');
+    document.getElementById('vmTab3D').setAttribute('aria-selected', 'true');
+    document.getElementById('vmTab2D').classList.remove('active');
+    document.getElementById('vmTab2D').setAttribute('aria-selected', 'false');
+    document.getElementById('diagramViewport').style.display = 'none';
+    document.getElementById('model3dContainer').style.display = 'block';
+    // Lazy-load model-viewer HANYA saat tab 3D benar-benar dipilih (Tahap 7/8).
+    // Model GLB (assets/anatomy/models/human-body.glb) belum tersedia -- fallback
+    // di atas ditampilkan apa adanya, TIDAK memuat library model-viewer secara
+    // percuma karena tidak ada model untuk dirender.
+  });
+  document.getElementById('vmTab2D').addEventListener('click', function () {
+    document.getElementById('vmTab2D').classList.add('active');
+    document.getElementById('vmTab2D').setAttribute('aria-selected', 'true');
+    document.getElementById('vmTab3D').classList.remove('active');
+    document.getElementById('vmTab3D').setAttribute('aria-selected', 'false');
+    document.getElementById('diagramViewport').style.display = '';
+    document.getElementById('model3dContainer').style.display = 'none';
+  });
+
+  // Kuis Visual: klik body-part / hotspot memicu pengecekan jawaban saat mode aktif
+  document.addEventListener('click', function (e) {
+    if (!window.NPAnatomyViewer || window.NPAnatomyViewer.state.mode !== 'kuisvisual') return;
+    var part = e.target.closest('.body-part') || e.target.closest('.hotspot-btn');
+    if (!part) return;
+    var bodyId = part.dataset.id || part.dataset.bodyId;
+    if (bodyId && window.NPAnatomyQuiz) window.NPAnatomyQuiz.checkVisualAnswer(bodyId);
+  }, true);
+
+  document.getElementById('modeSwitcher').addEventListener('click', function (e) {
+    var btn = e.target.closest('[data-mode="kuisvisual"]');
+    if (btn && window.NPAnatomyQuiz) window.NPAnatomyQuiz.startVisualQuiz();
+  });
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

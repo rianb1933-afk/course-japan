@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Kaigo Medis Lanjutan 医療連携応用 | Nihonggo Pro Academy</title>
+<meta name="description" content="Kaigo Medis Lanjutan 医療連携応用 — Nihonggo Pro Academy">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Medis-Advanced.html">
+<meta property="og:title" content="Kaigo Medis Lanjutan 医療連携応用 — Nihonggo Pro Academy">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["バイタルサイン", "baitaru sain", "tanda vital"], ["血圧", "ketsuatsu", "tekanan darah"], ["体温", "taion", "suhu tubuh"], ["脈拍", "myakuhaku", "denyut nadi"], ["呼吸数", "kokyusuu", "frekuensi napas"], ["SpO₂", "SpO2", "saturasi oksigen"], ["意識レベル", "ishiki reberu", "tingkat kesadaran"], ["浮腫", "fushu", "edema"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#1565c0">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;padding:44px 20px 28px;text-align:center}
+.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
+.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:10px}
+.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
+.sec h3{color:#1565c0;margin:0 0 10px;font-size:1rem}
+.st{font-size:1.1rem;font-weight:700;color:#1565c0;margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
+.tbl th{padding:7px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05)}
+.tbl td{padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)}
+.tbl tr:hover td{background:rgba(0,0,0,.02)}
+.tip{background:#f0faf0;border-left:3px solid #43a047;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
+.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
+.card.open .det{display:block}
+.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.82rem;color:#666;line-height:1.7}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.qbox{background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:16px 0}
+.qq{font-weight:600;margin-bottom:10px;font-size:.92rem}
+.qopts{display:grid;gap:7px}
+.qopt{background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
+.qopt:hover{background:rgba(0,0,0,.04)}
+.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Kaigo Medis Lanjutan 医療連携応用 | Nihonggo Pro Academy", "description": "Kaigo Medis Lanjutan 医療連携応用 — Nihonggo Pro Academy", "url": "https://nihonggopro.id/Materi/Kaigo-Medis-Advanced.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Kaigo Medis Lanjutan 医療連携応用 — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Medis-Advanced.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kaigo Medis Lanjutan 医療連携応用">
+<meta name="twitter:description" content="Kaigo Medis Lanjutan 医療連携応用 — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">🏥 介護·医療</span><h1>Kaigo Medis Lanjutan 医療連携応用</h1></div>
+<div class="wrap" style="padding-top:20px">
+<div class="tip">💡 Pengetahuan medis lanjutan membantu petugas kaigo mendeteksi perubahan lebih awal dan berkomunikasi efektif dengan tim medis!</div>
+<div class="sec"><h3>💊 Obat-obatan Umum di Fasilitas Kaigo</h3>
+<table class="tbl">
+<tr><th>Jenis Obat</th><th>Bahasa Jepang</th><th>Fungsi</th><th>Perlu Diawasi</th></tr>
+<tr><td>Antihipertensi</td><td>降圧剤(こうあつざい)</td><td>Menurunkan tekanan darah</td><td>Hipotensi postural; pusing saat bangun</td></tr>
+<tr><td>Antikoagulan</td><td>抗凝固剤(こうぎょうこざい)</td><td>Mencegah pembekuan darah</td><td>Perdarahan; memar mudah</td></tr>
+<tr><td>Diuretik</td><td>利尿剤(りにょうざい)</td><td>Meningkatkan urin; kurangi edema</td><td>Dehidrasi; hipokalemia</td></tr>
+<tr><td>Insulin</td><td>インスリン</td><td>Kontrol gula darah (diabetes)</td><td>Hipoglikemia; keringat dingin</td></tr>
+<tr><td>Laksatif</td><td>下剤(げざい)</td><td>Mengatasi konstipasi</td><td>Diare; dehidrasi</td></tr>
+<tr><td>Antipsikotik</td><td>抗精神病薬(こうせいしんびょうやく)</td><td>BPSD pada demensia</td><td>Sedasi; jatuh; ekstra piramidal</td></tr>
+</table></div>
+<div class="sec"><h3>🩺 Tanda-Tanda Darurat yang Harus Segera Dilaporkan</h3>
+<div class="g2">
+<div class="card" onclick="this.classList.toggle('open')"><b>🧠 Stroke (脳卒中)</b><div class="det">FAST: Face(顔の歪み) + Arm(片腕の脱力) + Speech(言語障害) + Time(時間=すぐ119). 突然の症状が特徴. 即119番。</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><b>❤️ Serangan Jantung (心筋梗塞)</b><div class="det">胸の圧迫感・痛み・左腕への放散痛・冷汗・呼吸困難. 「押しつぶされる感じ」が特徴. 即119番。</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><b>🩸 Hipoglikemia (低血糖)</b><div class="det">めまい・発汗・震え・意識混濁. インスリン使用者に多い. 意識があれば砂糖水を. 意識なしは119番。</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><b>🫁 呼吸困難 (Dispnea)</b><div class="det">SpO2<90%, 呼吸数>25回/分, チアノーゼ. 起坐呼吸(すわって息が楽)も重要サイン. 即看護師・119番。</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><b>🌡️ 感染症の悪化</b><div class="det">38.5℃以上の発熱+意識変容・興奮=敗血症の可能性. 高齢者は熱が出ないこともある. CRP・白血球に注目。</div></div>
+<div class="card" onclick="this.classList.toggle('open')"><b>🦴 転倒後の骨折疑い</b><div class="det">歩行不可・強い痛み・変形・大腿骨頸部骨折が最多. 無理に動かさない. 搬送まで保温・安静。</div></div>
+</div></div>
+<div class="sec"><h3>📊 よく使う医療略語</h3>
+<table class="tbl">
+<tr><th>略語</th><th>意味</th><th>正常値目安</th></tr>
+<tr><td>BP</td><td>血圧(Blood Pressure)</td><td>120/80 mmHg</td></tr>
+<tr><td>BT</td><td>体温(Body Temperature)</td><td>36.0-37.0°C</td></tr>
+<tr><td>PR/P</td><td>脈拍(Pulse Rate)</td><td>60-100回/分</td></tr>
+<tr><td>RR/R</td><td>呼吸数(Respiratory Rate)</td><td>12-20回/分</td></tr>
+<tr><td>SpO2</td><td>酸素飽和度</td><td>95%以上</td></tr>
+<tr><td>ADL</td><td>Activities of Daily Living</td><td>日常生活動作</td></tr>
+<tr><td>BPSD</td><td>行動・心理症状(認知症)</td><td>—</td></tr>
+<tr><td>QOL</td><td>Quality of Life</td><td>生活の質</td></tr>
+</table></div>
+
+<div style="max-width:900px;margin:0 auto;padding:0 20px">
+<div style="background:#fff;border:1px solid rgba(21,101,192,.08);border-radius:12px;padding:16px;margin:12px 0">
+<h3 style="color:#1565c0;margin:0 0 10px;font-size:1rem">🩺 よく使う医療用語の会話フレーズ</h3>
+<table style="width:100%;border-collapse:collapse;font-size:.84rem">
+<tr style="background:rgba(0,0,0,.05)"><th style="padding:7px 10px;text-align:left">場面</th><th style="padding:7px 10px;text-align:left">フレーズ</th></tr>
+<tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">痛みを聞く</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">どこが痛いですか？1〜10で言うとどのくらいですか？</td></tr>
+<tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">バイタル測定</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">血圧を測りますね。腕を出していただけますか？</td></tr>
+<tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">看護師への引き継ぎ</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">〇〇様、BPが150/90で高めです。午前中から食欲がありません。</td></tr>
+<tr><td style="padding:7px 10px">緊急対応</td><td style="padding:7px 10px">急変しました！今すぐ来てください！SpO2が85%まで下がっています！</td></tr>
+</table></div></div>
+<h2 style="font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<div class="pg-vocab" id="pg"></div>
+
+
+<!-- enriched-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:#37474f;margin:0 0 12px;font-size:1rem;font-weight:700">💊 高齢者の薬物療法と介護</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#37474f">テーマ</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#37474f">内容</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#37474f">介護士の役割</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ポリファーマシー</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">5〜6種類以上の多剤服用。副作用・相互作用リスク↑。</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">服用数の変化・副作用症状の観察・報告</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">服薬アドヒアランス</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">処方通りに薬を飲むこと。認知症・副作用で低下しやすい。</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">服薬支援・飲み忘れ確認・拒薬への対応</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">主な副作用と観察</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">眠気・立ちくらみ(降圧薬)・便秘(鉄剤)・出血(抗凝固薬)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ADLへの影響観察・バイタル変化・転倒リスク</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">服薬記録</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">いつ・どの薬・誰に・どれだけ飲ませたか</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">5R原則での確認(右人・右薬・右量・右時・右ルート)</td></tr></table></div></div>
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#37474f;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #eceff1">💬 医療的ケア — 上級実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#37474f;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #eceff1">🩺 Dialog 1 — 気管支喘息の対応</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">（呼吸が苦しそう）ゼーゼーして苦しい…<button aria-label="Ucapkan: （呼吸が苦しそう）ゼーゼーして苦しい…" onclick="speak('（呼吸が苦しそう）ゼーゼーして苦しい…')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">(Napas terlihat sulit) Mengi-mengi, sesak...</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">大丈夫ですか。座位にしますね。（ナースコール）看護師さん、田中様が喘鳴と呼吸困難を訴えています。SpO₂を測ります。<button aria-label="Ucapkan: 大丈夫ですか。座位にしますね。（ナースコール）看護師さん、田…" onclick="speak('大丈夫ですか。座位にしますね。（ナースコール）看護師さん、田中様が喘鳴と呼吸困難を訴えています。SpO₂を測ります。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Baik-baik saja? Saya dudukkan. (Bel perawat) Suster, Bu Tanaka mengeluh mengi dan sesak napas. Saya ukur SpO2.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#37474f;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #eceff1">💊 Dialog 2 — 服薬管理の確認</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">田中様、今日の服薬確認をさせてください。朝の薬は3種類ですね。お水と一緒にどうぞ。<button aria-label="Ucapkan: 田中様、今日の服薬確認をさせてください。朝の薬は3種類ですね…" onclick="speak('田中様、今日の服薬確認をさせてください。朝の薬は3種類ですね。お水と一緒にどうぞ。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Bu Tanaka, izin konfirmasi obat hari ini. Obat pagi ada 3 jenis ya. Bersama air ya.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">これ、前と種類が違う気がするんですが。<button aria-label="Ucapkan: これ、前と種類が違う気がするんですが。" onclick="speak('これ、前と種類が違う気がするんですが。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Ini sepertinya berbeda jenisnya dari sebelumnya.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#eceff1;color:#37474f;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">確認します。先生が変更されたかもしれませんね。看護師に確認してからにしましょう。<button aria-label="Ucapkan: 確認します。先生が変更されたかもしれませんね。看護師に確認し…" onclick="speak('確認します。先生が変更されたかもしれませんね。看護師に確認してからにしましょう。')" style="border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Saya cek. Mungkin dokter sudah mengubah. Konfirmasi ke perawat dulu ya.</div></div></div></div></div>
+<h2 class="st">🧠 Quiz</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:10px;margin-top:10px">
+<button onclick="nQ()" style="flex:1;padding:11px;background:#1565c0;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
+</div><section style="padding:16px;max-width:860px;margin:20px auto">
+<h2 style="font-size:1rem;color:#b71c1c;border-bottom:3px solid #b71c1c;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 医療的ケア（詳細）</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('医療的ケア')" title="クリックで発音">🔊 医療的ケア</div>
+  <div style="font-size:.8rem;color:#777">iryō-teki kea</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">tindakan medis perawatan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('喀痰吸引')" title="クリックで発音">🔊 喀痰吸引</div>
+  <div style="font-size:.8rem;color:#777">kakutan kyūin</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">suction / penghisapan dahak</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('経管栄養')" title="クリックで発音">🔊 経管栄養</div>
+  <div style="font-size:.8rem;color:#777">keikan eiyō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">nutrisi enteral</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('胃瘻')" title="クリックで発音">🔊 胃瘻</div>
+  <div style="font-size:.8rem;color:#777">irō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">gastrostomi / PEG</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('気管カニューレ')" title="クリックで発音">🔊 気管カニューレ</div>
+  <div style="font-size:.8rem;color:#777">kikan kanyūre</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kanula trakeostomi</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('在宅酸素')" title="クリックで発音">🔊 在宅酸素</div>
+  <div style="font-size:.8rem;color:#777">zaitaku sanso</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">oksigen di rumah</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('人工呼吸器')" title="クリックで発音">🔊 人工呼吸器</div>
+  <div style="font-size:.8rem;color:#777">jinkō kokyūki</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">ventilator mekanik</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('喀痰吸引等研修')" title="クリックで発音">🔊 喀痰吸引等研修</div>
+  <div style="font-size:.8rem;color:#777">kakutan kyūin-tō kenshū</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">pelatihan suction & tube feeding</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('指示書')" title="クリックで発音">🔊 指示書</div>
+  <div style="font-size:.8rem;color:#777">shijisho</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">lembar instruksi dokter</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('看護師の指導')" title="クリックで発音">🔊 看護師の指導</div>
+  <div style="font-size:.8rem;color:#777">kangoshi no shidō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">bimbingan perawat</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('リスク管理')" title="クリックで発音">🔊 リスク管理</div>
+  <div style="font-size:.8rem;color:#777">risuku kanri</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">manajemen risiko</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('緊急時対応')" title="クリックで発音">🔊 緊急時対応</div>
+  <div style="font-size:.8rem;color:#777">kinkyū-ji taiō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">respons darurat</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('モニタリング')" title="クリックで発音">🔊 モニタリング</div>
+  <div style="font-size:.8rem;color:#777">monitaringu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">pemantauan / monitoring</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('記録と報告')" title="クリックで発音">🔊 記録と報告</div>
+  <div style="font-size:.8rem;color:#777">kiroku to hōkoku</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">pencatatan dan pelaporan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #b71c1c">
+  <div style="font-size:1.05rem;font-weight:700;color:#b71c1c" onclick="speak('多職種連携')" title="クリックで発音">🔊 多職種連携</div>
+  <div style="font-size:.8rem;color:#777">ta-shokushu renkkei</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kolaborasi multidisiplin</div>
+</div>
+</div></section></main>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+var Q=[{"q": "「FAST」はどんな疾患のサインか？", "opts": ["心筋梗塞", "脳卒中(stroke)の早期認識", "骨折", "低血糖"], "a": 1, "e": "FAST=脳卒中のサイン. F=Face(顔の歪み), A=Arm(片腕脱力), S=Speech(言語障害), T=Time(すぐ119). 突然の発症が特徴。"}, {"q": "降圧剤を飲んでいる利用者で特に注意すべき副作用は？", "opts": ["高血圧", "起立性低血圧(立ち上がり時の急激な血圧低下)", "発熱", "呼吸困難"], "a": 1, "e": "降圧剤=obat darah tinggi. 副作用: 起立性低血圧(体位性低血圧)=tekanan darah turun saat berdiri→めまい・転倒リスク。"}, {"q": "低血糖の症状として正しいのは？", "opts": ["体温上昇", "冷汗・震え・めまい・意識混濁", "血圧上昇", "発熱"], "a": 1, "e": "低血糖(ていけっとう)=hypoglycemia. 症状: 冷汗・震え・めまい・意識混濁. インスリン使用者に多い. 意識あり→砂糖. なし→119。"}, {"q": "SpO2が90%未満の時の対応は？", "opts": ["様子を見る", "即座に看護師に報告・必要なら119番", "水を飲ませる", "運動させる"], "a": 1, "e": "SpO2が90%未満になった場合は、直ちに看護師等の医療職へ報告することが必要な対応。低酸素状態を示す危険なサインであり、速やかな報告と対応が求められる。"}, {"q": "医療略語「ADL」とは何の略か？", "opts": ["Advanced Daily Living", "Activities of Daily Living=日常生活動作", "Annual Daily Log", "Assisted Daily Life"], "a": 1, "e": "ADLはActivities of Daily Living（日常生活動作）の略。食事・排泄・入浴・移動など、日常生活を送る上で欠かせない基本的な動作全般を指す介護・医療の基本用語である。"}, {"q": "高齢者の脱水症状として注意すべきサインはどれか。", "opts": ["皮膚の張りの低下・口渇・尿量減少", "発疹", "食欲増進", "多汗のみ"], "a": 0, "e": "皮膚の張りの低下、口渇、尿量の減少が脱水症状として注意すべきサイン。高齢者は口渇感が鈍いため自覚しにくく、これらの兆候の観察が特に重要になる。"}, {"q": "高齢者の褥瘡(じょくそう)発生の主な要因はどれか。", "opts": ["同一体位による持続的な圧迫", "運動のしすぎ", "水分過多", "栄養過多"], "a": 0, "e": "同一体位による持続的な圧迫が褥瘡発生の主な要因。長時間同じ姿勢を続けることで血流が阻害され、皮膚や組織の損傷につながるため、定期的な体位変換が予防に欠かせない。"}, {"q": "糖尿病の利用者に低血糖症状が出たときの対応はどれか。", "opts": ["速やかに糖分を摂取させ看護師に報告", "運動させる", "水だけ飲ませる", "放置する"], "a": 0, "e": "速やかに糖分を摂取させ、看護師へ報告することが適切な対応。放置すると意識障害に進行する危険があるため、早期の対応と医療職への連携が重要になる。"}, {"q": "心不全のある利用者の観察点はどれか。", "opts": ["浮腫・呼吸困難・体重増加", "食欲増進のみ", "発疹", "視力"], "a": 0, "e": "浮腫・呼吸困難・体重増加が心不全のある利用者の重要な観察点。これらの変化は心不全の悪化を示すサインであり、早期に気づき報告することが求められる。"}, {"q": "褥瘡予防のための体位変換の目安はどれか。", "opts": ["2時間ごと程度", "24時間ごと", "1週間ごと", "不要"], "a": 0, "e": "2時間ごと程度が体位変換の目安となる。この頻度で体位を変えることで、特定部位への圧迫を分散し、褥瘡発生のリスクを効果的に低減することができる。"}, {"q": "高齢者の骨折で特に注意すべき部位はどれか。", "opts": ["大腿骨頸部", "指先", "耳", "肩の一部のみ"], "a": 0, "e": "大腿骨頸部が高齢者の骨折で特に注意すべき部位。この部位の骨折は寝たきりのリスクが高く、その後の生活に大きな影響を及ぼすため、転倒予防が極めて重要になる。"}, {"q": "COPD(慢性閉塞性肺疾患)の利用者への配慮はどれか。", "opts": ["呼吸しやすい姿勢と禁煙環境の維持", "運動禁止", "水分制限", "高カロリー食のみ"], "a": 0, "e": "呼吸しやすい姿勢の確保と、禁煙環境の維持がCOPD利用者への基本的な配慮。呼吸機能が低下しているため、日常生活の中でこれらの配慮を続けることが重要になる。"}, {"q": "認知症合併の糖尿病患者への服薬支援で注意すべきことはどれか。", "opts": ["飲み忘れ・過剰摂取を防ぐ見守り", "本人任せにする", "無関心でよい", "薬を隠す"], "a": 0, "e": "飲み忘れや過剰摂取を防ぐための見守りが重要となる。認知症により服薬管理が困難になりやすいため、介護職による丁寧な確認と継続的な支援が欠かせない。"}, {"q": "高齢者の肺炎リスクを高める要因はどれか。", "opts": ["誤嚥と免疫力低下", "運動過多", "水分過多", "若さ"], "a": 0, "e": "誤嚥と免疫力の低下が高齢者の肺炎リスクを高める主な要因。これらの要因が重なることで誤嚥性肺炎を発症しやすくなるため、口腔ケアや姿勢への配慮が予防につながる。"}, {"q": "抗凝固薬を服用している利用者への配慮はどれか。", "opts": ["出血傾向に注意し転倒を防ぐ", "運動を強制", "水分制限", "無関係"], "a": 0, "e": "出血傾向に注意し、転倒を防ぐことが抗凝固薬服用者への配慮。薬の作用により出血が止まりにくくなっているため、日常生活の中での怪我や転倒を特に警戒する必要がある。"}, {"q": "高齢者の甲状腺機能低下症でみられやすい症状はどれか。", "opts": ["倦怠感・便秘・体重増加", "多汗・体重減少", "興奮", "高熱"], "a": 0, "e": "倦怠感・便秘・体重増加が甲状腺機能低下症で見られやすい症状。これらの変化は加齢による自然な衰えと見過ごされがちであるため、注意深い観察が求められる。"}, {"q": "慢性腎臓病の利用者の食事で注意すべきことはどれか。", "opts": ["塩分・タンパク質の調整", "高塩分食推奨", "水分無制限", "カロリー制限のみ"], "a": 0, "e": "塩分とタンパク質の摂取調整が慢性腎臓病の食事管理で重要な注意点。腎臓への負担を軽減するため、医師や管理栄養士の指示に基づいた食事内容の調整が必要になる。"}, {"q": "高齢者の多剤併用(ポリファーマシー)が問題となる理由はどれか。", "opts": ["副作用や相互作用のリスクが高まるため", "効果が増すだけ", "問題ない", "費用のためだけ"], "a": 0, "e": "副作用や薬同士の相互作用のリスクが高まることが多剤併用の問題点。多くの薬を同時に服用することで、予期せぬ体調変化が生じやすくなるため、定期的な薬の見直しが重要になる。"}, {"q": "高齢者の起立性低血圧への対応はどれか。", "opts": ["ゆっくり体位を変え急な起立を避ける", "急に立たせる", "放置する", "水分制限"], "a": 0, "e": "ゆっくりと体位を変え、急な起立を避けることが起立性低血圧への対応。急に立ち上がるとめまいや転倒のリスクが高まるため、段階的な動作を心がける必要がある。"}, {"q": "高齢者の便秘が重篤な合併症につながる例はどれか。", "opts": ["腸閉塞のリスク", "無関係", "体重増加のみ", "食欲増進"], "a": 0, "e": "腸閉塞のリスクが、重度の便秘が引き起こしうる合併症の例。単なる不快感にとどまらず、重篤な状態に進行する可能性があるため、早期の対応と予防が重要になる。"}],qi=0,ok=0,tot=0;
+function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById("qc");if(!c)return;var oo=document.createElement("div");oo.className="qopts";q.opts.forEach(function(o,i){var b=document.createElement("button");b.className="qopt";b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement("div");bx.className="qbox";var qq=document.createElement("div");qq.className="qq";qq.textContent=(qi%Q.length+1)+". "+q.q;var ex=document.createElement("div");ex.className="qexp";ex.id="qe";bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML="";c.appendChild(bx);var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
+function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
+function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
+if(typeof xi==="function")xi();rnd();
+</script><section style="max-width:900px;margin:0 auto;padding:0 20px 0">
+<div style="background:#fff;border:1px solid rgba(21,101,192,.1);border-radius:12px;padding:18px;margin:12px 0">
+<h3 style="color:#1565c0;margin:0 0 12px;font-size:1rem">🚨 緊急時対応フローチャート</h3>
+<table style="width:100%;border-collapse:collapse;font-size:.84rem">
+<tr style="background:rgba(0,0,0,.05)"><th style="padding:7px 10px;text-align:left">状況</th><th style="padding:7px 10px;text-align:left">119番</th><th style="padding:7px 10px;text-align:left">介護士の対応</th></tr>
+<tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">意識消失・呼吸停止</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06);color:#c62828;font-weight:700">即119番</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">CPR開始(許可があれば)+AED</td></tr>
+<tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">脳卒中疑い(FAST)</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06);color:#c62828;font-weight:700">即119番</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">安静・発症時刻記録</td></tr>
+<tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">SpO2 &lt;90%</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">看護師→必要時119</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">即看護師報告・側臥位</td></tr>
+<tr><td style="padding:7px 10px">転倒・骨折疑い</td><td style="padding:7px 10px">看護師→必要時119</td><td style="padding:7px 10px">無理に動かさない・安静・保温</td></tr>
+</table></div></section>
+
+<section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
+<h2 style="font-size:1.1rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
+<div id="qkZ"></div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:#1565c0;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">🔄 Reset</button>
+</div>
+<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</section>
+<script>
+var QKZ=[{"q": "「FAST」で脳卒中を疑うサインは？", "opts": ["熱が出た", "Face(顔の歪み)+Arm(片腕の脱力)+Speech(言語障害)+Time(すぐ119)", "頭痛のみ", "血圧が高い"], "a": 1, "e": "FAST=脳卒中早期認識ツール。突然の顔の歪み・片腕の脱力・言語障害のどれか一つでも→即119番。時間=脳細胞。「Time is brain」。"}, {"q": "「低血糖」の症状で正しいのは？", "opts": ["高熱", "冷汗・震え・動悸・めまい・意識混濁", "血圧上昇", "咳"], "a": 1, "e": "低血糖症状: 初期=冷汗・震え・動悸・空腹感。進行=めまい・集中力低下・意識混濁。インスリン使用者に多い。意識あれば砂糖水・ブドウ糖。意識なしは絶対に口から与えず119番。"}, {"q": "「起立性低血圧」の予防として正しいのは？", "opts": ["すぐ立たせる", "ベッドから起き上がる時はゆっくり段階的に(臥位→座位→立位)", "降圧剤を増やす", "水分制限"], "a": 1, "e": "起立性低血圧予防: 臥位(3分)→ゆっくり座位(3分)→立位の順で段階的に。急に立つと血圧が下がりめまい・転倒の原因になる。降圧剤・脱水・長期臥床で起きやすい。"}, {"q": "SpO2が89%の利用者に最初にすることは？", "opts": ["様子を見る", "即座に看護師に報告し指示を待つ", "水を飲ませる", "運動させる"], "a": 1, "e": "SpO2 89%=危険な低酸素状態。正常95%以上。90%未満は緊急性が高い。即報告。看護師指示下で酸素投与が必要になる場合が多い。介護職は処置せず報告が第一。"}, {"q": "「誤嚥性肺炎」の「誤嚥」を防ぐ食事姿勢は？", "opts": ["仰向け", "可能なら90度座位・ベッドなら30度以上のギャッジアップ+頸部前屈", "横向き", "うつ伏せ"], "a": 1, "e": "誤嚥防止体位: 90度座位が最良。ベッドでは最低30度(できれば45-60度)以上のギャッジアップ。頸部を軽く前屈(顎引き)。食後も30分は同姿勢を維持。"}, {"q": "「褥瘡」のステージI(発赤のみ)で適切な対応は？", "opts": ["しばらく様子を見る", "即看護師に報告+体位変換で圧迫除去+皮膚保護", "直接マッサージする", "テープを貼る"], "a": 1, "e": "褥瘡Stage I(発赤・皮膚は保たれている): 即看護師報告→体位変換で圧迫除去→保湿・皮膚保護材使用。この段階で適切に対処すれば悪化を防げる。Stage IIに進むと治癒に時間がかかる。"}],qiZ=0,okZ=0,totZ=0;
+function rndZ(){
+  if(!QKZ.length)return;
+  var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
+  var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';
+  q.opts.forEach(function(o,i){
+    var b=document.createElement('button');
+    b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
+    b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;
+    b.onmouseover=function(){if(!this.dataset.d)this.style.background='rgba(0,0,0,.04)';};
+    b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
+    b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
+  var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
+  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:#1565c0;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
+  qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
+  var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
+  var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';
+  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
+  c.innerHTML='';c.appendChild(bx);
+  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function ansZ(btn,c,a,e){
+  var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
+  bs[a].dataset.d='1';totZ++;
+  bs[a].style.cssText='background:#e8f5e9;border:2px solid #43a047;color:#1b5e20;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
+  if(c!==a)btn.style.cssText='background:#fce4ec;border:2px solid #e91e63;color:#880e4f;border-radius:8px;padding:10px 14px;width:100%;text-align:left;font-size:.88rem;font-family:inherit';
+  else okZ++;
+  var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 Pembahasan: '+e;ex.style.display='block';}
+  var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();}
+function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
+rndZ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

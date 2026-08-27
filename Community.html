@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Komunitas Belajar — Nihonggo Pro Academy</title>
+<meta name="description" content="Komunitas belajar bahasa Jepang NihonggoPro. Diskusi, tanya jawab, dan saling dukung sesama pelajar JLPT dan Kaigo.">
+<link rel="canonical" href="https://nihonggopro.id/Community.html">
+<meta property="og:title" content="Komunitas — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Bergabung dengan komunitas pelajar bahasa Jepang Indonesia.">
+<meta property="og:url" content="https://nihonggopro.id/Community.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Komunitas Nihonggo Pro Academy","url":"https://nihonggopro.id/Community.html","description":"Forum diskusi pelajar bahasa Jepang Indonesia."}</script>
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8F3E9);color:var(--charcoal,#2D2D2D);min-height:100dvh;display:flex;flex-direction:column}
+.page{max-width:920px;margin:0 auto;padding:32px 20px 80px;flex:1;width:100%}
+.hero{text-align:center;margin-bottom:32px}
+.kicker{display:inline-block;padding:4px 14px;border-radius:20px;background:rgba(107,79,58,.08);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6B4F3A;margin-bottom:14px}
+[data-theme="dark"] .kicker{background:rgba(200,155,60,.10);color:#C89B3C}
+.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(26px,5vw,38px);font-weight:700;color:#6B4F3A;margin-bottom:10px}
+[data-theme="dark"] .hero h1{color:#C89B3C}
+.hero p{font-size:15px;color:#6E6E6E;max-width:560px;margin:0 auto}
+.layout{display:grid;grid-template-columns:1fr 260px;gap:20px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}}
+/* COMPOSER */
+.composer{background:#FEFCF8;border:1px solid rgba(107,79,58,.12);border-radius:14px;padding:18px;margin-bottom:18px}
+[data-theme="dark"] .composer{background:#1A1A1A;border-color:rgba(200,155,60,.12)}
+.composer textarea{width:100%;border:1.5px solid rgba(107,79,58,.14);border-radius:10px;padding:12px 14px;font-family:inherit;font-size:14px;resize:vertical;min-height:70px;background:var(--kyoto-cream,#F8F3E9);color:#2D2D2D;outline:none;margin-bottom:10px}
+[data-theme="dark"] .composer textarea{background:#111;color:#E8E5DF;border-color:rgba(200,155,60,.15)}
+.composer-row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.tag-select{display:flex;gap:6px;flex-wrap:wrap}
+.tag-opt{padding:5px 12px;border-radius:14px;border:1.5px solid rgba(107,79,58,.15);background:none;font-size:11px;font-weight:600;cursor:pointer;color:#6B4F3A;transition:all 120ms}
+.tag-opt.active{background:#6B4F3A;color:#FEF;border-color:#6B4F3A}
+[data-theme="dark"] .tag-opt{color:#C89B3C;border-color:rgba(200,155,60,.18)}
+[data-theme="dark"] .tag-opt.active{background:#C89B3C;color:#1A1209}
+.post-btn{padding:9px 22px;border-radius:9px;background:#6B4F3A;color:#FEF;border:none;font-family:inherit;font-size:13px;font-weight:700;cursor:pointer}
+.post-btn:hover{background:#553C2B}
+[data-theme="dark"] .post-btn{background:#C89B3C;color:#1A1209}
+/* FILTER */
+.filter-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.f-chip{padding:6px 14px;border-radius:16px;border:1.5px solid rgba(107,79,58,.15);background:none;font-size:12px;font-weight:600;cursor:pointer;color:#6B4F3A;transition:all 120ms}
+.f-chip.active,.f-chip:hover{background:#6B4F3A;color:#FEF;border-color:#6B4F3A}
+[data-theme="dark"] .f-chip{color:#C89B3C;border-color:rgba(200,155,60,.18)}
+[data-theme="dark"] .f-chip.active{background:#C89B3C;color:#1A1209}
+/* POST CARD */
+.post-card{background:#FEFCF8;border:1px solid rgba(107,79,58,.10);border-radius:14px;padding:18px;margin-bottom:12px}
+[data-theme="dark"] .post-card{background:#1A1A1A;border-color:rgba(200,155,60,.10)}
+.post-head{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.p-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6B4F3A,#C89B3C);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#FEF;flex-shrink:0}
+.p-name{font-size:13px;font-weight:700;color:#2D2D2D}
+[data-theme="dark"] .p-name{color:#E8E5DF}
+.p-time{font-size:11px;color:#A0A0A0}
+.p-tag{margin-left:auto;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;background:rgba(107,79,58,.08);color:#6B4F3A;text-transform:uppercase;letter-spacing:.05em}
+[data-theme="dark"] .p-tag{background:rgba(200,155,60,.10);color:#C89B3C}
+.p-body{font-size:14px;line-height:1.7;color:#3D3D3D;margin-bottom:12px;white-space:pre-wrap}
+[data-theme="dark"] .p-body{color:#D0CFC9}
+.p-actions{display:flex;gap:16px;font-size:13px;color:#6E6E6E}
+.p-action{display:flex;align-items:center;gap:5px;cursor:pointer;background:none;border:none;font-family:inherit;color:#6E6E6E;padding:0;transition:color 120ms}
+.p-action:hover{color:#6B4F3A}
+.p-action.liked{color:#A63A3A;font-weight:600}
+/* SIDEBAR */
+.side-card{background:#FEFCF8;border:1px solid rgba(107,79,58,.10);border-radius:14px;padding:16px;margin-bottom:14px}
+[data-theme="dark"] .side-card{background:#1A1A1A;border-color:rgba(200,155,60,.10)}
+.side-title{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#A0A0A0;margin-bottom:10px}
+.guideline-item{display:flex;gap:8px;font-size:12px;color:#6E6E6E;margin-bottom:8px;line-height:1.5}
+.member-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px}
+.member-dot{width:6px;height:6px;border-radius:50%;background:#5B7C5B;flex-shrink:0}
+.notice-box{background:rgba(107,79,58,.05);border-radius:10px;padding:12px;font-size:12px;color:#6E6E6E;line-height:1.6;margin-bottom:14px}
+[data-theme="dark"] .notice-box{background:rgba(200,155,60,.06)}
+</style>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Komunitas Belajar — Nihonggo Pro Academy">
+<meta name="twitter:description" content="Komunitas belajar bahasa Jepang NihonggoPro. Diskusi, tanya jawab, dan saling dukung sesama pelajar JLPT dan Kaigo.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<div class="page">
+  <div class="hero">
+    <div class="kicker">💬 Komunitas</div>
+    <h1>Diskusi & Saling Dukung</h1>
+    <p>Tanya, jawab, dan berbagi progress dengan sesama pelajar bahasa Jepang Indonesia.</p>
+  </div>
+
+  <div class="notice-box" style="max-width:600px;margin:0 auto 20px;text-align:center">
+    💡 Komunitas ini berjalan secara lokal di browser kamu (mode demo). Postingan dari penyimpanan browser — diskusi penuh hadir setelah integrasi server.
+  </div>
+
+  <div class="layout">
+    <div>
+      <!-- COMPOSER -->
+      <div class="composer">
+        <textarea id="postInput" placeholder="Bagikan progress, tanya sesuatu, atau diskusikan grammar yang membingungkan..."></textarea>
+        <div class="composer-row">
+          <div class="tag-select" id="tagSelect">
+            <button class="tag-opt active" data-tag="Diskusi" onclick="selectTag(this)">💬 Diskusi</button>
+            <button class="tag-opt" data-tag="Tanya" onclick="selectTag(this)">❓ Tanya</button>
+            <button class="tag-opt" data-tag="JLPT" onclick="selectTag(this)">🏆 JLPT</button>
+            <button class="tag-opt" data-tag="Kaigo" onclick="selectTag(this)">🏥 Kaigo</button>
+            <button class="tag-opt" data-tag="Progress" onclick="selectTag(this)">📈 Progress</button>
+          </div>
+          <button class="post-btn" onclick="submitPost()">Posting</button>
+        </div>
+      </div>
+
+      <!-- FILTER -->
+      <div class="filter-row" id="filterRow">
+        <button class="f-chip active" data-f="all" onclick="setFilter(this,'all')">Semua</button>
+        <button class="f-chip" data-f="Diskusi" onclick="setFilter(this,'Diskusi')">💬 Diskusi</button>
+        <button class="f-chip" data-f="Tanya" onclick="setFilter(this,'Tanya')">❓ Tanya</button>
+        <button class="f-chip" data-f="JLPT" onclick="setFilter(this,'JLPT')">🏆 JLPT</button>
+        <button class="f-chip" data-f="Kaigo" onclick="setFilter(this,'Kaigo')">🏥 Kaigo</button>
+        <button class="f-chip" data-f="Progress" onclick="setFilter(this,'Progress')">📈 Progress</button>
+      </div>
+
+      <!-- POSTS -->
+      <div id="postList"></div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside>
+      <div class="side-card">
+        <div class="side-title">Pedoman Komunitas</div>
+        <div class="guideline-item">🤝 Saling menghormati dan mendukung</div>
+        <div class="guideline-item">🚫 Tidak ada spam atau promosi</div>
+        <div class="guideline-item">✅ Bahasa Indonesia / Jepang yang sopan</div>
+        <div class="guideline-item">💡 Bantu jawab pertanyaan jika bisa</div>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Topik Populer</div>
+        <div class="guideline-item">📌 Partikel は vs が</div>
+        <div class="guideline-item">📌 Strategi lulus N3</div>
+        <div class="guideline-item">📌 Pengalaman ujian kaigo 国家試験</div>
+        <div class="guideline-item">📌 Rekomendasi anime untuk listening</div>
+      </div>
+      <div class="side-card">
+        <div class="side-title">Tautan Cepat</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <a href="FAQ.html" style="font-size:13px;color:#6B4F3A;text-decoration:none;font-weight:600">💡 Lihat FAQ</a>
+          <a href="Kontak.html" style="font-size:13px;color:#6B4F3A;text-decoration:none;font-weight:600">📬 Hubungi Tim</a>
+          <a href="QUIZ/nihongo-pro.html" style="font-size:13px;color:#6B4F3A;text-decoration:none;font-weight:600">❓ Kuis Pro</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer style="background:#15161a;color:rgba(255,255,255,.65);padding:1.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem">
+    <span style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro</span>
+    <div style="display:flex;gap:1rem;font-size:12px">
+      <a href="index.html" style="color:rgba(255,255,255,.4);text-decoration:none">Beranda</a>
+      <a href="FAQ.html" style="color:rgba(255,255,255,.4);text-decoration:none">FAQ</a>
+      <a href="Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+const SEED_POSTS = [
+  {name:'Rina A.', tag:'JLPT', body:'Akhirnya lulus N4! 🎉 Tips dari aku: jangan skip latihan choukai (listening), itu yang paling sering bikin nilai turun.', time:'2 jam lalu', likes:24, initials:'RA'},
+  {name:'Budi S.', tag:'Tanya', body:'Ada yang bisa jelasin perbedaan「のに」dan「けど」? Aku masih sering ketuker kapan pakai yang mana 😅', time:'5 jam lalu', likes:8, initials:'BS'},
+  {name:'Sari W.', tag:'Kaigo', body:'Buat yang lagi siapin ujian 介護福祉士, materi Kaigo-Ujian-Nasional di sini bener-bener membantu. Sudah coba latihan soal kemarin, lumayan related sama yang keluar di ujian beta.', time:'1 hari lalu', likes:31, initials:'SW'},
+  {name:'Dimas P.', tag:'Progress', body:'Hari ke-45 streak! 🔥 Target aku 100 hari sebelum coba JLPT N3 Desember nanti. Semangat semua yang lagi belajar bareng~', time:'1 hari lalu', likes:19, initials:'DP'},
+  {name:'Fira N.', tag:'Diskusi', body:'Menurut kalian lebih efektif belajar kanji per radikal atau per kosakata? Aku coba dua metode dan rasanya radikal lebih nempel di otak.', time:'2 hari lalu', likes:14, initials:'FN'},
+];
+
+let posts = [];
+let currentFilter = 'all';
+let currentTag = 'Diskusi';
+
+function loadPosts(){
+  const saved = JSON.parse(localStorage.getItem('np_community_posts')||'null');
+  posts = saved || SEED_POSTS.map((p,i)=>({...p, id:i, liked:false}));
+  if(!saved) localStorage.setItem('np_community_posts', JSON.stringify(posts));
+}
+function savePosts(){ localStorage.setItem('np_community_posts', JSON.stringify(posts)); }
+
+function selectTag(btn){
+  document.querySelectorAll('#tagSelect .tag-opt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentTag = btn.dataset.tag;
+}
+
+function setFilter(btn, f){
+  document.querySelectorAll('#filterRow .f-chip').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  currentFilter = f;
+  render();
+}
+
+function submitPost(){
+  const text = document.getElementById('postInput').value.trim();
+  if(!text){ return; }
+  const profileName = (JSON.parse(localStorage.getItem('np-state-v3')||'{}').user||{}).name || 'Kamu';
+  const initials = profileName.split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase() || 'KM';
+  posts.unshift({
+    id: Date.now(), name: profileName, tag: currentTag, body: text,
+    time: 'Baru saja', likes: 0, initials, liked:false, isMine:true,
+  });
+  savePosts();
+  document.getElementById('postInput').value = '';
+  render();
+}
+
+function toggleLike(id){
+  const p = posts.find(x=>x.id===id);
+  if(!p) return;
+  p.liked = !p.liked;
+  p.likes += p.liked ? 1 : -1;
+  savePosts();
+  render();
+}
+
+function deletePost(id){
+  if(!confirm('Hapus postingan ini?')) return;
+  posts = posts.filter(p=>p.id!==id);
+  savePosts();
+  render();
+}
+
+function render(){
+  const filtered = currentFilter==='all' ? posts : posts.filter(p=>p.tag===currentFilter);
+  const list = document.getElementById('postList');
+  if(!filtered.length){
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:#A0A0A0">Belum ada postingan untuk kategori ini.</div>';
+    return;
+  }
+  list.innerHTML = filtered.map(p => `
+    <div class="post-card">
+      <div class="post-head">
+        <div class="p-avatar">${p.initials}</div>
+        <div>
+          <div class="p-name">${p.name}</div>
+          <div class="p-time">${p.time}</div>
+        </div>
+        <span class="p-tag">${p.tag}</span>
+      </div>
+      <div class="p-body">${p.body.replace(/</g,'&lt;')}</div>
+      <div class="p-actions">
+        <button class="p-action ${p.liked?'liked':''}" onclick="toggleLike(${p.id})">${p.liked?'❤️':'🤍'} ${p.likes}</button>
+        <button class="p-action">💬 Balas</button>
+        ${p.isMine ? `<button class="p-action" onclick="deletePost(${p.id})">🗑️ Hapus</button>` : ''}
+      </div>
+    </div>`).join('');
+}
+
+document.addEventListener('DOMContentLoaded', () => { loadPosts(); render(); });
+</script>
+
+<script>
+// ── COMMUNITY UPGRADE ────────────────────────────────────────────────────────
+const COMMUNITY_DATA = {
+  forumPosts: [
+    {id:1,author:'Siti R.',avatar:'👩',title:'Tips lulus N4 dalam 4 bulan — sharing pengalaman',category:'Tips',replies:24,likes:89,time:'2 jam lalu',pinned:true},
+    {id:2,author:'Budi S.',avatar:'👨',title:'Cara hafal 褥瘡 dan istilah medis susah?',category:'Vocab',replies:18,likes:45,time:'5 jam lalu',pinned:false},
+    {id:3,author:'Putri D.',avatar:'👩',title:'Review: Kelas Live dengan Sensei Tanaka — worth it!',category:'Review',replies:31,likes:102,time:'1 hari lalu',pinned:false},
+    {id:4,author:'Ahmad F.',avatar:'👨',title:'[Q&A] Perbedaan 介護士 vs 介護福祉士?',category:'Q&A',replies:15,likes:67,time:'2 hari lalu',pinned:false},
+    {id:5,author:'Rini W.',avatar:'👩',title:'Study partner dicari! — target N3, mulai Agustus',category:'Study Partner',replies:8,likes:23,time:'3 hari lalu',pinned:false},
+  ],
+  tutors: [
+    {id:1,name:'Tanaka Yuki',avatar:'👩‍🏫',rating:4.9,reviews:234,spec:'Kaigo N4-N3, OSCE prep',price:'Rp 250.000/jam',lang:'🇯🇵 Native',badge:'Top Tutor',available:true},
+    {id:2,name:'Sato Hiroshi',avatar:'👨‍🏫',rating:4.8,reviews:189,spec:'JLPT N2-N1, Business JP',price:'Rp 300.000/jam',lang:'🇯🇵 Native',badge:'Specialist',available:true},
+    {id:3,name:'Kim Ji-yeon',avatar:'👩‍🏫',rating:4.7,reviews:156,spec:'Kaigo Fukushishi exam prep',price:'Rp 200.000/jam',lang:'🇰🇷 Bilingual',badge:'',available:false},
+    {id:4,name:'Nadia K.',avatar:'👩‍🏫',rating:4.6,reviews:98,spec:'N5-N4 untuk pemula',price:'Rp 150.000/jam',lang:'🇮🇩 Indonesia',badge:'Affordable',available:true},
+  ],
+  studyPartners: [
+    {id:1,user:'Ahmad R.',level:'N4',goal:'Kerja di Osaka',study:'Pagi 6-7am + malam',active:true},
+    {id:2,user:'Dewi S.',level:'N4',goal:'Kaigo Fukushishi',study:'Akhir pekan',active:true},
+    {id:3,user:'Reza M.',level:'N3',goal:'N2 target',study:'Flexible',active:false},
+  ],
+};
+
+function initCommunity() {
+  renderCommunityTabs();
+}
+
+// GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Ketiga, Fase L):
+// dikonfirmasi via investigasi bahwa data partner (p.user) dan tutor
+// (t.name) genuinely disisipkan LANGSUNG ke string onclick melalui
+// template literal -- pola bug IDENTIK yang sudah ditemukan dan
+// diperbaiki di Certificate-Pro.html (Website v18) dan Grammar-Checker.html
+// (Website v22). Data saat ini genuinely statis dan aman (tanpa apostrof),
+// namun strukturnya rapuh -- begitu data menjadi dinamis dari pengguna
+// sungguhan (nama seperti "O'Brien" genuinely umum), bug yang sama akan
+// langsung muncul. esc() ditambahkan untuk mengamankan teks yang
+// ditampilkan; interaksi tombol dipindah ke data-* + addEventListener
+// (event delegation) untuk menghindari sepenuhnya penyisipan data ke
+// string kode JavaScript.
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+// GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase O):
+// dikonfirmasi via investigasi genuinely fungsi esc() ini SEBELUMNYA
+// dideklarasikan DUA KALI secara tidak sengaja (keduanya identik) saat
+// perbaikan Website v33 -- duplikasi dihapus, definisi pertama
+// (di atas renderCommunityTabs()) dipertahankan sebagai satu-satunya.
+function renderCommunityTabs() {
+  const container = document.getElementById('communityContainer');
+  if (!container) {
+    // Create main community UI
+    const main = document.querySelector('main, .container, .wrap, body');
+    if (!main) return;
+    const div = document.createElement('div');
+    div.id = 'communityContainer';
+    div.style.cssText = 'max-width:900px;margin:0 auto;padding:20px';
+    div.innerHTML = `
+      <div style="margin-bottom:20px">
+        <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">👥 Komunitas NihonggoPro</h2>
+        <p style="font-size:13px;color:#64748b">Diskusi, cari partner belajar, dan temukan tutor terbaik</p>
+      </div>
+      <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+        <button class="comm-tab active" onclick="showCommTab('forum')" id="ct-forum" style="padding:8px 16px;border-radius:8px;border:1.5px solid #2563eb;background:#eff6ff;color:#2563eb;cursor:pointer;font-size:13px;font-weight:700">💬 Forum</button>
+        <button class="comm-tab" onclick="showCommTab('qa')" id="ct-qa" style="padding:8px 16px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700">❓ Q&A</button>
+        <button class="comm-tab" onclick="showCommTab('partner')" id="ct-partner" style="padding:8px 16px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700">🤝 Study Partner</button>
+        <button class="comm-tab" onclick="showCommTab('tutor')" id="ct-tutor" style="padding:8px 16px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700">👩‍🏫 Tutor Marketplace</button>
+      </div>
+      <div id="commContent"></div>`;
+    main.insertBefore(div, main.firstChild);
+  }
+  showCommTab('forum');
+}
+
+function showCommTab(tab) {
+  document.querySelectorAll('.comm-tab').forEach(b=>{
+    b.style.borderColor='#e2e8f0';b.style.background='#fff';b.style.color='inherit';
+  });
+  const active = document.getElementById('ct-'+tab);
+  if (active) { active.style.borderColor='#2563eb';active.style.background='#eff6ff';active.style.color='#2563eb'; }
+
+  const content = document.getElementById('commContent');
+  if (!content) return;
+
+  if (tab==='forum') {
+    content.innerHTML = `
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          ${['Semua','Tips','Vocab','Q&A','Review','Study Partner'].map(cat=>
+            `<button onclick="filterForum('${cat}')" style="padding:4px 10px;border-radius:20px;border:1px solid #e2e8f0;background:#fff;font-size:11px;cursor:pointer">${cat}</button>`
+          ).join('')}
+        </div>
+        <button onclick="newPost()" style="padding:7px 14px;border:none;background:#2563eb;color:#fff;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700">✍️ Buat Post</button>
+      </div>
+      ${COMMUNITY_DATA.forumPosts.map(p=>`
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:.15s" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='#e2e8f0'">
+          ${p.pinned?'<div style="font-size:10px;font-weight:700;color:#2563eb;margin-bottom:6px">📌 PINNED</div>':''}
+          <div style="display:flex;align-items:flex-start;gap:10px">
+            <div style="font-size:24px">${p.avatar}</div>
+            <div style="flex:1">
+              <div style="font-size:14px;font-weight:700;margin-bottom:4px">${p.title}</div>
+              <div style="display:flex;gap:10px;font-size:11px;color:#64748b;flex-wrap:wrap">
+                <span>${p.author}</span>
+                <span style="background:#eff6ff;color:#2563eb;padding:1px 8px;border-radius:99px;font-weight:700">${p.category}</span>
+                <span>💬 ${p.replies}</span>
+                <span>❤️ ${p.likes}</span>
+                <span>${p.time}</span>
+              </div>
+            </div>
+          </div>
+        </div>`).join('')}
+      <div style="text-align:center;padding:20px">
+        <button onclick="loadMorePosts()" style="padding:8px 24px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;cursor:pointer;font-size:13px">Muat lebih banyak</button>
+      </div>`;
+  }
+
+  else if (tab==='qa') {
+    content.innerHTML = `
+      <div style="background:linear-gradient(135deg,#1e3a5f,#1e1b4b);color:#fff;border-radius:14px;padding:20px;margin-bottom:16px">
+        <div style="font-size:16px;font-weight:700;margin-bottom:8px">❓ Tanya AI Sensei Langsung</div>
+        <div style="display:flex;gap:8px">
+          <input id="qaInput" placeholder="Tanya tentang Kaigo atau bahasa Jepang..." 
+            style="flex:1;padding:10px 14px;border-radius:8px;border:none;font-size:13px;background:rgba(255,255,255,.15);color:#fff;outline:none"
+            onkeydown="if(event.key==='Enter')submitQA()">
+          <button onclick="submitQA()" style="padding:10px 18px;border:none;background:#2563eb;color:#fff;border-radius:8px;cursor:pointer;font-weight:700">Tanya</button>
+        </div>
+        <div id="qaResult" style="margin-top:12px;font-size:13px;line-height:1.7;min-height:20px"></div>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:#64748b;margin-bottom:10px">Pertanyaan Populer</div>
+      ${['Apa perbedaan 介護 vs 看護?','Bagaimana cara menjawab OSCE speaking?','Berapa lama untuk lulus N4?','Apa itu 褥瘡 dan bagaimana mencegahnya?','Apakah N4 cukup untuk kerja di Jepang?'].map(q=>
+        `<div onclick="document.getElementById('qaInput').value='${q}';submitQA()" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;font-size:13px;font-weight:600">❓ ${q}</div>`
+      ).join('')}`;
+  }
+
+  else if (tab==='partner') {
+    content.innerHTML = `
+      <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:12px;padding:16px;margin-bottom:16px">
+        <div style="font-size:13px;font-weight:700;color:#16a34a;margin-bottom:8px">🤝 Cari Study Partner</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+          <select style="padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
+            <option>Level saya: N4</option><option>N5</option><option>N3</option><option>N2</option>
+          </select>
+          <select style="padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
+            <option>Waktu: Flexible</option><option>Pagi</option><option>Siang</option><option>Malam</option>
+          </select>
+        </div>
+        <button onclick="findPartner()" style="width:100%;padding:8px;border:none;background:#16a34a;color:#fff;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700">🔍 Temukan Partner</button>
+      </div>
+      ${COMMUNITY_DATA.studyPartners.map(p=>`
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
+          <div style="font-size:28px">👤</div>
+          <div style="flex:1">
+            <div style="font-size:14px;font-weight:700">${esc(p.user)}</div>
+            <div style="font-size:11px;color:#64748b">Level ${esc(p.level)} · Goal: ${esc(p.goal)} · ${esc(p.study)}</div>
+          </div>
+          <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
+            <div style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:${p.active?'#dcfce7':'#f1f5f9'};color:${p.active?'#16a34a':'#94a3b8'}">${p.active?'● Aktif':'Offline'}</div>
+            <button class="connect-partner-btn" data-user="${esc(p.user)}" style="padding:4px 12px;border:1px solid #2563eb;border-radius:6px;background:#eff6ff;color:#2563eb;cursor:pointer;font-size:11px;font-weight:700">Hubungi</button>
+          </div>
+        </div>`).join('')}`;
+    content.querySelectorAll('.connect-partner-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ connectPartner(btn.dataset.user); });
+    });
+  }
+
+  else if (tab==='tutor') {
+    content.innerHTML = `
+      <div style="font-size:13px;color:#64748b;margin-bottom:14px">Tutor profesional terverifikasi — sesi 1-on-1 via video call</div>
+      ${COMMUNITY_DATA.tutors.map(t=>`
+        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px;margin-bottom:12px">
+          <div style="display:flex;gap:12px;align-items:flex-start">
+            <div style="font-size:36px">${esc(t.avatar)}</div>
+            <div style="flex:1">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+                <div style="font-size:15px;font-weight:800">${esc(t.name)}</div>
+                <div style="font-size:10px">${esc(t.lang)}</div>
+                ${t.badge?`<div style="font-size:10px;font-weight:700;background:#fef3c7;color:#d97706;padding:2px 8px;border-radius:99px">${esc(t.badge)}</div>`:''}
+              </div>
+              <div style="font-size:12px;color:#64748b;margin-bottom:6px">${esc(t.spec)}</div>
+              <div style="display:flex;gap:12px;font-size:12px;flex-wrap:wrap">
+                <span>⭐ ${esc(t.rating)} (${esc(t.reviews)} ulasan)</span>
+                <span style="font-weight:700;color:#059669">${esc(t.price)}</span>
+                <span style="color:${t.available?'#16a34a':'#94a3b8'};font-weight:700">${t.available?'● Tersedia':'Penuh'}</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button class="book-tutor-btn" data-name="${esc(t.name)}" ${!t.available?'disabled':''} style="padding:7px 16px;border:none;background:${t.available?'#2563eb':'#e2e8f0'};color:${t.available?'#fff':'#94a3b8'};border-radius:8px;cursor:${t.available?'pointer':'not-allowed'};font-size:12px;font-weight:700">Booking</button>
+              <button style="padding:7px 16px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;cursor:pointer;font-size:12px">Profil</button>
+            </div>
+          </div>
+        </div>`).join('')}
+      <div style="text-align:center;padding:16px;background:#f8f9fb;border-radius:12px;margin-top:8px">
+        <div style="font-size:13px;font-weight:700;margin-bottom:6px">Ingin menjadi Tutor NihonggoPro?</div>
+        <div style="font-size:12px;color:#64748b;margin-bottom:10px">Berbagi pengalaman dan penghasilan tambahan Rp 150-500rb/jam</div>
+        <button onclick="applyTutor()" style="padding:8px 20px;border:none;background:#059669;color:#fff;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700">Daftar sebagai Tutor</button>
+      </div>`;
+    content.querySelectorAll('.book-tutor-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){ bookTutor(btn.dataset.name); });
+    });
+  }
+}
+
+async function submitQA() {
+  const inp = document.getElementById('qaInput');
+  const q = inp?.value?.trim();
+  if (!q) return;
+  const res = document.getElementById('qaResult');
+  if (res) res.textContent = '⏳ AI Sensei sedang menjawab...';
+
+  try {
+    const ep = window.EDUMA_ENV?.AI_API_ENDPOINT||'/api/ai-chat';
+    const r = await fetch(ep,{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:400,
+        system:'Kamu adalah AI Sensei untuk komunitas belajar Kaigo NihonggoPro. Jawab singkat dalam Bahasa Indonesia, sertakan contoh Jepang jika relevan.',
+        messages:[{role:'user',content:q}]})});
+    const data = await r.json();
+    // GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase O):
+    // dikonfirmasi via pengujian bahwa respons AI (`data.content`)
+    // genuinely disisipkan LANGSUNG ke innerHTML tanpa escaping --
+    // dibuktikan konkret payload berformat tag gambar dengan atribut
+    // onerror genuinely TEREKSEKUSI (dialog alert terpicu). Pola bug
+    // IDENTIK dengan yang ditemukan dan diperbaiki di Analytics.html
+    // (Website v34) -- genuinely terlewat saat audit Community.html
+    // sebelumnya (Website v33) karena fitur ini berada di tab Q&A yang
+    // tidak aktif secara default. Diperbaiki dengan esc() (sudah
+    // tersedia di halaman ini) sebelum replace baris baru ke <br>.
+    if (res) res.innerHTML = esc(data.content?.[0]?.text||'Maaf, tidak dapat menjawab.').replace(/\n/g,'<br>');
+  } catch(e) {
+    if (res) res.textContent = '⚠️ Gagal terhubung ke AI.';
+  }
+}
+
+function filterForum(cat) { /* Filter posts by category */ }
+function newPost() { alert('Fitur membuat post akan segera hadir! 🚀'); }
+function loadMorePosts() { alert('Memuat post lebih banyak...'); }
+function findPartner() { alert('Mencari study partner yang cocok dengan profil Anda...'); }
+function connectPartner(name) { alert(`Mengirim permintaan ke ${name}...`); }
+function bookTutor(name) { window.location.href='Jadwal.html'; }
+function applyTutor() { alert('Form pendaftaran tutor akan segera hadir!'); }
+
+document.addEventListener('DOMContentLoaded', initCommunity);
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

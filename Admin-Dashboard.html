@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/pro-style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard — Nihonggo Pro Academy</title>
+  <meta name="description" content="Dashboard admin NihonggoPro Academy untuk mengelola pengguna, konten, dan statistik platform.">
+<meta data-seo="nihongo-static" name="description" content="Dashboard admin NihonggoPro: kelola pengguna, konten, statistik belajar, dan sertifikat platform.">
+<link data-seo="nihongo-static" rel="canonical" href="https://nihonggopro.id/Admin-Dashboard.html">
+<meta data-seo="nihongo-static" property="og:title" content="Admin Dashboard — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" property="og:description" content="Dashboard Admin">
+<meta data-seo="nihongo-static" property="og:type" content="website">
+<meta data-seo="nihongo-static" property="og:url" content="https://nihonggopro.id/Admin-Dashboard.html">
+<meta data-seo="nihongo-static" property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta data-seo="nihongo-static" name="twitter:card" content="summary_large_image">
+<meta data-seo="nihongo-static" name="twitter:title" content="Admin Dashboard — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" name="twitter:description" content="Dashboard Admin">
+<meta data-seo="nihongo-static" name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script data-seo="nihongo-static" type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Dashboard Admin","description":"Dashboard Admin","url":"https://nihonggopro.id/Admin-Dashboard.html","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["Japanese language","JLPT","Kanji","Grammar","Vocabulary"]}</script>
+
+<link rel="stylesheet" href="assets/translator.css">
+
+    <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}button{font-family:'Outfit',sans-serif;cursor:pointer}
+
+.nav-logo{display:flex;align-items:baseline;gap:10px}.nav-logo-jp{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--red)}.nav-logo-id{font-size:12px;font-weight:500;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}.nav-links a{font-size:13px;color:var(--ink-mid)}.nav-links a:hover{color:var(--red)}.btn-sm{background:var(--red);color:#fff;border:none;padding:8px 18px;border-radius:8px;font-size:13px;font-weight:800}
+.page{padding-top:68px}.hero{padding:3.5rem 5vw;background:#17181d;color:#fff}.inner{max-width:1180px;margin:0 auto}.badge{display:inline-flex;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;margin-bottom:1rem}h1{font-family:'Noto Serif JP',serif;font-size:clamp(30px,4vw,48px);line-height:1.15;margin-bottom:.5rem}.hero p{color:rgba(255,255,255,.65);max-width:720px}
+.wrap{max-width:1180px;margin:0 auto;padding:2rem 5vw}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1rem}.stat{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.2rem;box-shadow:var(--shadow-sm)}.stat strong{font-family:'Noto Serif JP',serif;font-size:34px;display:block;line-height:1;color:var(--ink)}.stat span{font-size:11px;color:var(--ink-soft);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem}.panel{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.25rem;box-shadow:var(--shadow-sm)}.panel h2{font-size:18px;margin-bottom:.8rem}.table{width:100%;border-collapse:collapse}.table th,.table td{padding:10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px}.table th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft)}.status{display:inline-flex;border-radius:8px;padding:3px 8px;font-size:11px;font-weight:800}.ok{background:var(--green-pale);color:var(--green)}.warn{background:var(--gold-pale);color:var(--gold)}.actions{display:grid;gap:8px}.action{display:flex;align-items:center;justify-content:space-between;gap:1rem;border:1px solid var(--border);border-radius:8px;padding:12px;background:var(--cream)}.action b{font-size:14px}.action span{font-size:12px;color:var(--ink-soft)}.action a,.action button{border:none;background:var(--red);color:#fff;border-radius:8px;padding:8px 10px;font-size:12px;font-weight:800}
+.log{display:grid;gap:8px}.log-item{border-left:3px solid var(--red);padding:.65rem .8rem;background:var(--cream);border-radius:0 8px 8px 0}.log-item b{display:block;font-size:13px}.log-item span{font-size:12px;color:var(--ink-soft)}.cms-form{display:grid;gap:8px}.cms-form input,.cms-form textarea{width:100%;border:1px solid var(--border-mid);border-radius:8px;background:var(--cream);color:var(--ink);padding:10px;font:inherit;font-size:13px}.cms-form textarea{min-height:100px;resize:vertical}.cms-list{display:grid;gap:8px;margin-top:10px}.cms-item{border:1px solid var(--border);border-radius:8px;background:var(--cream);padding:10px}.cms-item b{display:block;font-size:13px}.cms-item span{display:block;font-size:12px;color:var(--ink-soft)}
+@media(max-width:900px){.stats,.grid{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="assets/neko-theme.css?v=3">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  
+
+  
+}
+
+</style>
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<main class="page">
+  <section class="hero"><div class="inner"><span class="badge">Admin Console</span><h1>Dashboard Admin</h1><p>Kelola konten belajar, akses lengkap gratis, latihan soal, dan status modul Nihonggo Pro Academy.</p></div></section>
+  <section class="wrap">
+    <div class="stats"><div class="stat"><strong>5</strong><span>JLPT Levels</span></div><div class="stat"><strong>1,066</strong><span>Local Flashcards</span></div><div class="stat"><strong>175</strong><span>Practice Questions</span></div><div class="stat"><strong>65</strong><span>Grammar Cards</span></div></div>
+    <div class="grid">
+      <div class="panel"><h2>Status Modul</h2><table class="table"><thead><tr><th>Modul</th><th>Status</th><th>Aksi</th></tr></thead><tbody><tr><td>Roadmap JLPT</td><td><span class="status ok">Live</span></td><td><a href="Materi/JLPT-Lengkap.html">Buka</a></td></tr><tr><td>Kanji N5-N1</td><td><span class="status ok">Live</span></td><td><a href="Materi/Kanji-N5.html">Buka</a></td></tr><tr><td>Flashcard</td><td><span class="status ok">Live</span></td><td><a href="Materi/Flashcard-Kanji.html">Buka</a></td></tr><tr><td>Latihan JLPT</td><td><span class="status ok">Live</span></td><td><a href="Materi/Latihan-JLPT.html">Buka</a></td></tr><tr><td>Semua Akses Gratis</td><td><span class="status ok">Aktif</span></td><td><span>—</span></td></tr></tbody></table></div>
+      <div class="panel"><h2>Quick Actions</h2><div class="actions"><div class="action"><div><b>Tambah Soal</b><span>Kelola bank soal JLPT.</span></div><button onclick="alert('Fitur ini bisa diaktifkan dari Admin Dashboard.')">Kelola</button></div><div class="action"><div><b>Export Data</b><span>Unduh deck dan analytics.</span></div><button onclick="alert('Export data tersedia.')">Ekspor</button></div><div class="action"><div><b>Broadcast</b><span>Kirim pengumuman user.</span></div><button onclick="alert('Broadcast tersedia.')">Broadcast</button></div></div></div>
+    </div>
+    <div class="grid" style="margin-top:1rem"><div class="panel"><h2>CMS Blog (v184)</h2><div class="cms-form"><input id="cmsTitle" placeholder="Judul artikel" aria-label="Judul artikel blog"><textarea id="cmsBody" placeholder="Isi artikel (HTML terbatas: p, h2, h3, ul, ol, li, strong, em, a, div, br)" rows="6"></textarea><input id="cmsTags" placeholder="Tag (pisah koma, mis: JLPT N4, Grammar)" aria-label="Tag artikel"><button class="btn-sm" onclick="publishBlogPost()">Terbitkan Artikel</button><p id="cmsMsg" style="font-size:12px;margin-top:6px"></p></div><div class="cms-list" id="cmsList"><p style="color:var(--ink-mid);font-size:13px">Memuat artikel...</p></div></div><div class="panel"><h2>Platform Fitur</h2><div class="actions"><div class="action"><div><b>Advanced Platform</b><span>AI, PWA, checkout opsional, CMS, accessibility, collaboration.</span></div><a href="Platform-Features.html">Buka</a></div><div class="action"><div><b>Donasi Opsional</b><span>Lihat dukungan demo terakhir.</span></div><button onclick="showLastOrder()">Cek</button></div></div><p id="orderInfo" style="margin-top:10px;color:var(--ink-mid);font-size:13px"></p></div></div>
+    <div class="grid" style="margin-top:1rem"><div class="panel"><h2>CMS Soal JLPT (v185)</h2><div class="cms-form">
+      <input id="jqQuestion" placeholder="Pertanyaan (mis: 「食べる」の意味は？)" aria-label="Teks pertanyaan">
+      <input id="jqOpt0" placeholder="Pilihan A" aria-label="Pilihan A">
+      <input id="jqOpt1" placeholder="Pilihan B" aria-label="Pilihan B">
+      <input id="jqOpt2" placeholder="Pilihan C" aria-label="Pilihan C">
+      <input id="jqOpt3" placeholder="Pilihan D" aria-label="Pilihan D">
+      <select id="jqCorrect" aria-label="Pilihan yang benar"><option value="0">Jawaban benar: A</option><option value="1">Jawaban benar: B</option><option value="2">Jawaban benar: C</option><option value="3">Jawaban benar: D</option></select>
+      <select id="jqCategory" aria-label="Kategori soal"><option value="vocabulary">Vocabulary</option><option value="grammar">Grammar</option><option value="kanji">Kanji</option><option value="reading">Reading</option><option value="listening">Listening</option><option value="conversation">Conversation</option></select>
+      <select id="jqLevel" aria-label="Level JLPT"><option value="N5">N5</option><option value="N4">N4</option><option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option></select>
+      <textarea id="jqExplanation" placeholder="Penjelasan (min. 20 karakter, standar proyek: pembahasan mengajar bukan cuma 'karena benar')" rows="3"></textarea>
+      <button class="btn-sm" onclick="publishJlptQuestion()">Terbitkan Soal</button>
+      <p id="jqMsg" style="font-size:12px;margin-top:6px"></p>
+    </div><div class="cms-list" id="jqList"><p style="color:var(--ink-mid);font-size:13px">Memuat soal...</p></div></div></div>
+    <div class="grid" style="margin-top:1rem"><div class="panel"><h2>Aktivitas Terbaru</h2><div class="log"><div class="log-item"><b>Platform features ditambahkan</b><span>AI API, PWA, checkout opsional, CMS, accessibility, collaboration, advanced search.</span></div><div class="log-item"><b>Akses gratis aktif</b><span>Semua modul utama terbuka tanpa gate pembayaran.</span></div><div class="log-item"><b>Latihan JLPT aktif</b><span>N5-N1 dengan 175 soal lokal.</span></div><div class="log-item"><b>Flashcard diperbarui</b><span>Mode level N5-N1 dan All Local.</span></div></div></div><div class="panel"><h2>Sesi Admin</h2><p id="sessionInfo" style="color:var(--ink-mid);font-size:13px"></p><!-- GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Kedua, Fase E): dikonfirmasi via investigasi bahwa fungsi logout() genuinely sudah ada dan genuinely benar (menghapus sesi dari kedua storage, redirect ke Admin-Login.html), namun GENUINELY TIDAK ADA tombol/elemen HTML manapun yang memanggilnya -- admin genuinely tidak punya cara logout dari UI selain menghapus data browser secara manual. --><button onclick="logout()" style="margin-top:.75rem;padding:8px 16px;border-radius:8px;border:1px solid rgba(190,52,40,.3);background:none;color:var(--red,#be3428);font-size:13px;font-weight:700;cursor:pointer">Keluar</button></div></div>
+  </section>
+</main>
+<script src="assets/translator.min.js" defer></script>
+<script src="assets/pro-app.min.js" defer></script>
+<script>
+function safeJson(raw, fallback) {
+  try { return JSON.parse(raw || JSON.stringify(fallback)); }
+  catch (error) { return fallback; }
+}
+function esc(value) {
+  return String(value || '').replace(/[&<>"']/g, (ch) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+}
+const session = safeJson(localStorage.getItem('nihongoAdminSession') || sessionStorage.getItem('nihongoAdminSession'), null);
+const isLocalEnv = location.protocol === 'file:' || ['localhost','127.0.0.1'].includes(location.hostname);
+function clearAndRedirect() {
+  localStorage.removeItem('nihongoAdminSession');
+  sessionStorage.removeItem('nihongoAdminSession');
+  location.href = 'Admin-Login.html';
+}
+if (!session || !session.token) clearAndRedirect();
+// Block demo tokens from accessing dashboard in production
+if (!isLocalEnv && session.token && session.token.startsWith('local-demo-')) {
+  alert('Sesi demo tidak valid di production. Silakan login ulang.');
+  clearAndRedirect();
+}
+document.getElementById('sessionInfo').textContent = session ? `Login sebagai ${session.email} pada ${new Date(session.loginAt).toLocaleString()}.` : '';
+function logout(){localStorage.removeItem('nihongoAdminSession');sessionStorage.removeItem('nihongoAdminSession');location.href='Admin-Login.html'}
+// v184: CMS Blog nyata -- tersambung ke netlify/functions/blog-cms.js,
+// menggantikan versi lama yang cuma localStorage (per-browser, tidak
+// pernah genuinely "CMS"). Token admin dari session (v179 admin-login.js)
+// dipakai sebagai Authorization Bearer.
+async function renderCms(){
+  const listEl = document.getElementById('cmsList');
+  try{
+    const res = await fetch('/api/blog-cms');
+    if(!res.ok){ listEl.innerHTML = '<div class="cms-item"><b>Gagal memuat</b><span>Server CMS belum dikonfigurasi atau error.</span></div>'; return; }
+    const data = await res.json();
+    const rows = data.posts || [];
+    listEl.innerHTML = rows.length ? rows.map((row)=>`<div class="cms-item"><b>${esc(row.title)}</b><span>${esc((row.tags||[]).join(', '))} · <a href="Blog.html#${esc(row.slug)}" target="_blank" rel="noopener">Lihat</a> · <button onclick="deleteBlogPost('${esc(row.slug)}')" style="background:none;border:none;color:var(--red,#be3428);cursor:pointer;font-size:12px;text-decoration:underline">Hapus</button></span></div>`).join('') : '<div class="cms-item"><b>Belum ada artikel CMS</b><span>Tulis artikel pertama di form di atas.</span></div>';
+  }catch(e){
+    listEl.innerHTML = '<div class="cms-item"><b>Gagal memuat</b><span>Periksa koneksi internet.</span></div>';
+  }
+}
+async function publishBlogPost(){
+  const titleInput = document.getElementById('cmsTitle');
+  const bodyInput = document.getElementById('cmsBody');
+  const tagsInput = document.getElementById('cmsTags');
+  const msgEl = document.getElementById('cmsMsg');
+  const title = titleInput.value.trim();
+  const body_html = bodyInput.value.trim();
+  const tags = tagsInput.value.split(',').map(t=>t.trim()).filter(Boolean);
+  if(!title || !body_html){ msgEl.textContent = '⚠️ Judul dan isi wajib diisi.'; msgEl.style.color = 'var(--red,#be3428)'; return; }
+  if(!session || !session.token){ msgEl.textContent = '⚠️ Sesi admin tidak valid, silakan login ulang.'; msgEl.style.color = 'var(--red,#be3428)'; return; }
+  msgEl.textContent = '⏳ Menerbitkan...'; msgEl.style.color = 'var(--ink-mid)';
+  try{
+    const res = await fetch('/api/blog-cms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.token },
+      body: JSON.stringify({ title, body_html, tags }),
+    });
+    const data = await res.json();
+    if(!res.ok){ msgEl.textContent = '❌ ' + (data.error || 'Gagal menerbitkan artikel.'); msgEl.style.color = 'var(--red,#be3428)'; return; }
+    msgEl.textContent = '✅ Artikel diterbitkan! Slug: ' + data.post.slug;
+    msgEl.style.color = '#2e7d32';
+    titleInput.value = ''; bodyInput.value = ''; tagsInput.value = '';
+    renderCms();
+  }catch(e){
+    msgEl.textContent = '❌ Gagal terhubung ke server.'; msgEl.style.color = 'var(--red,#be3428)';
+  }
+}
+async function deleteBlogPost(slug){
+  if(!confirm('Hapus artikel "'+slug+'"? Tindakan ini tidak bisa dibatalkan.')) return;
+  if(!session || !session.token){ alert('Sesi admin tidak valid.'); return; }
+  try{
+    const res = await fetch('/api/blog-cms?slug='+encodeURIComponent(slug), {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + session.token },
+    });
+    if(res.ok){ window.proToast?.('Artikel dihapus.'); renderCms(); }
+    else { alert('Gagal menghapus artikel.'); }
+  }catch(e){ alert('Gagal terhubung ke server.'); }
+}
+function showLastOrder(){
+  const order = safeJson(localStorage.getItem('nihongoLastOrder'), null);
+  document.getElementById('orderInfo').textContent = order ? `Dukungan ${order.id} - ${order.gateway} - Rp${order.amount.toLocaleString('id-ID')} - ${order.status}` : 'Belum ada dukungan demo.';
+}
+
+// v185: CMS Soal JLPT -- pola sama persis dengan CMS Blog (v184), tersambung
+// ke netlify/functions/jlpt-cms.js. Soal LAMA (2.707 soal existing di 150
+// halaman Materi/*.html) TIDAK disentuh -- ini hanya untuk soal BARU.
+async function renderJlptQuestions(){
+  const listEl = document.getElementById('jqList');
+  try{
+    const res = await fetch('/api/jlpt-cms');
+    if(!res.ok){ listEl.innerHTML = '<div class="cms-item"><b>Gagal memuat</b><span>Server CMS belum dikonfigurasi atau error.</span></div>'; return; }
+    const data = await res.json();
+    const rows = (data.questions || []).filter(q => q.source_module === 'cms');
+    listEl.innerHTML = rows.length ? rows.map((row)=>`<div class="cms-item"><b>${esc(row.question)}</b><span>${esc(row.category)} · ${esc(row.jlpt_level||'—')} · <button onclick="deleteJlptQuestion('${esc(row.id)}')" style="background:none;border:none;color:var(--red,#be3428);cursor:pointer;font-size:12px;text-decoration:underline">Hapus</button></span></div>`).join('') : '<div class="cms-item"><b>Belum ada soal CMS</b><span>Tulis soal pertama di form di atas.</span></div>';
+  }catch(e){
+    listEl.innerHTML = '<div class="cms-item"><b>Gagal memuat</b><span>Periksa koneksi internet.</span></div>';
+  }
+}
+async function publishJlptQuestion(){
+  const msgEl = document.getElementById('jqMsg');
+  const question = document.getElementById('jqQuestion').value.trim();
+  const choices = [0,1,2,3].map(i => document.getElementById('jqOpt'+i).value.trim());
+  const correct_index = parseInt(document.getElementById('jqCorrect').value, 10);
+  const category = document.getElementById('jqCategory').value;
+  const jlpt_level = document.getElementById('jqLevel').value;
+  const explanation = document.getElementById('jqExplanation').value.trim();
+
+  if(!question || choices.some(c=>!c) || !explanation){ msgEl.textContent = '⚠️ Semua field wajib diisi (pertanyaan, 4 pilihan, penjelasan).'; msgEl.style.color = 'var(--red,#be3428)'; return; }
+  if(!session || !session.token){ msgEl.textContent = '⚠️ Sesi admin tidak valid, silakan login ulang.'; msgEl.style.color = 'var(--red,#be3428)'; return; }
+  msgEl.textContent = '⏳ Menerbitkan...'; msgEl.style.color = 'var(--ink-mid)';
+  try{
+    const res = await fetch('/api/jlpt-cms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + session.token },
+      body: JSON.stringify({ question, choices, correct_index, category, jlpt_level, explanation }),
+    });
+    const data = await res.json();
+    if(!res.ok){ msgEl.textContent = '❌ ' + (data.error || 'Gagal menerbitkan soal.'); msgEl.style.color = 'var(--red,#be3428)'; return; }
+    msgEl.textContent = '✅ Soal diterbitkan!';
+    msgEl.style.color = '#2e7d32';
+    document.getElementById('jqQuestion').value = '';
+    [0,1,2,3].forEach(i => document.getElementById('jqOpt'+i).value = '');
+    document.getElementById('jqExplanation').value = '';
+    renderJlptQuestions();
+  }catch(e){
+    msgEl.textContent = '❌ Gagal terhubung ke server.'; msgEl.style.color = 'var(--red,#be3428)';
+  }
+}
+async function deleteJlptQuestion(id){
+  if(!confirm('Hapus soal ini? Tindakan ini tidak bisa dibatalkan.')) return;
+  if(!session || !session.token){ alert('Sesi admin tidak valid.'); return; }
+  try{
+    const res = await fetch('/api/jlpt-cms?id='+encodeURIComponent(id), {
+      method: 'DELETE',
+      headers: { 'Authorization': 'Bearer ' + session.token },
+    });
+    if(res.ok){ window.proToast?.('Soal dihapus.'); renderJlptQuestions(); }
+    else { alert('Gagal menghapus soal.'); }
+  }catch(e){ alert('Gagal terhubung ke server.'); }
+}
+
+renderCms();
+renderJlptQuestions();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kanji-N5.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kanji N5–N1</a>
+          <a href="/Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar</a>
+          <a href="/Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kosakata</a>
+          <a href="/Materi/Fondasi-Bahasa-Jepang.html" style="color:rgba(255,255,255,.6);text-decoration:none">Fondasi Jepang</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Tools</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/JLPT-CBT.html" style="color:rgba(255,255,255,.6);text-decoration:none">CBT Simulator</a>
+          <a href="/SRS-Flashcard.html" style="color:rgba(255,255,255,.6);text-decoration:none">SRS Flashcard</a>
+          <a href="/Grammar-Checker.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar Checker</a>
+          <a href="/AI-Tutor-Pro.html" style="color:rgba(255,255,255,.6);text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Kaigo</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Materi/Kaigo.html#kg-h-ujian" style="color:rgba(255,255,255,.6);text-decoration:none">Persiapan Ujian</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

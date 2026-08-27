@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#9f1239">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>循環器系（中級）Kardiovaskular Menengah — Fisiologi &amp; EKG Dasar untuk Calon Perawat | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Kardiovaskular Menengah — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Kardiovaskular-Menengah.html","description":"Pembelajaran tingkat menengah sistem kardiovaskular dalam bahasa Jepang — siklus jantung, mekanisme Frank-Starling, interpretasi EKG dasar, farmakologi kardiovaskular, dan terminologi rumah sakit untuk calon perawat dan pelajar bahasa Jepang tingkat lanjut.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Materi tingkat menengah sistem kardiovaskular — siklus jantung, Frank-Starling, EKG dasar, farmakologi, dan terminologi rumah sakit dalam bahasa Jepang.">
+<meta property="og:title" content="循環器系（中級）Kardiovaskular Menengah — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Fisiologi mendalam, EKG dasar, dan farmakologi kardiovaskular dalam bahasa Jepang untuk calon perawat.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Kardiovaskular-Menengah.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#fff1f2,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#9f1239;border-color:#9f1239;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#9f1239;background:#fff1f2;border:1px solid #fecdd3;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#9f1239;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#9f1239}
+.organ-tab.active{color:#9f1239;border-bottom-color:#9f1239}
+.organ-tab:focus-visible{outline:2px solid #9f1239;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #fff1f2;color:#1a0208}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#9f1239}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#fff1f2;border-color:#fecdd3}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#fff1f2;color:#9f1239;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #9f1239;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.ekg-wrap{max-width:480px;margin:16px auto;padding:16px;background:var(--white,#fff);border-radius:14px;border:1px solid var(--border-light,#eee)}
+@keyframes ekgSweep{0%{stroke-dashoffset:1000}100%{stroke-dashoffset:0}}
+.ekg-trace{stroke-dasharray:1000;animation:ekgSweep 2.4s linear infinite}
+@media (prefers-reduced-motion:reduce){.ekg-trace{animation:none;stroke-dashoffset:0}}
+.ekg-label{font-size:11px;fill:var(--ink-mid,#666)}
+.ekg-controls{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.ekg-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:700}
+.ekg-btn.active{background:#fff1f2;border-color:#9f1239;color:#9f1239}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#9f1239}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.case-sim{background:var(--white,#fff);border:2px solid #fecdd3;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#fff1f2;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#9f1239;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Kardiovaskular.html">① 基礎 Dasar</a>
+      <a href="Sistem-Kardiovaskular-Menengah.html" class="current">② 中級 Menengah</a>
+      <a href="Sistem-Kardiovaskular-Lanjutan.html">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🫀 Level Menengah — Fisiologi &amp; EKG Dasar</span>
+    <h1><span class="jp-big">循環器系（中級）</span>Kardiovaskular Menengah</h1>
+    <p class="lead">Siklus jantung, mekanisme Frank-Starling, interpretasi EKG dasar, farmakologi kardiovaskular, dan terminologi rumah sakit — untuk calon perawat dan pelajar bahasa Jepang tingkat lanjut.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi kardiovaskular menengah">
+  <button class="organ-tab active" data-tab="siklus" role="tab" aria-selected="true">心周期 Siklus Jantung</button>
+  <button class="organ-tab" data-tab="regulasi" role="tab" aria-selected="false">調節機構 Regulasi</button>
+  <button class="organ-tab" data-tab="ekg" role="tab" aria-selected="false">心電図 EKG Dasar</button>
+  <button class="organ-tab" data-tab="farmakologi" role="tab" aria-selected="false">薬理 Farmakologi</button>
+  <button class="organ-tab" data-tab="patofisiologi" role="tab" aria-selected="false">病態生理 Patofisiologi</button>
+  <button class="organ-tab" data-tab="karte" role="tab" aria-selected="false">カルテ用語 Istilah Rumah Sakit</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <!-- ═══════════ 心周期 SIKLUS JANTUNG ═══════════ -->
+  <div class="organ-panel active" id="panel-siklus">
+    <h2>心周期 — Siklus Jantung Mendetail</h2>
+    <p>Materi Dasar menjelaskan jantung sebagai pompa dua sirkuit. Di level ini, kita bahas <strong>siklus jantung (心周期, しんしゅうき)</strong> — urutan tekanan dan volume yang tepat dalam satu detak, dasar untuk memahami bunyi jantung dan EKG.</p>
+
+    <h3>Sistem konduksi listrik jantung (刺激伝導系, しげきでんどうけい)</h3>
+    <p>Sebelum membahas siklus mekanis, penting memahami bagaimana sinyal listrik yang memicunya berjalan — ini juga fondasi memahami EKG di tab berikutnya.</p>
+    <ul>
+      <li><strong>洞房結節 (どうぼうけっせつ) — Nodus SA (Sinoatrial)</strong>: "pacemaker alami" jantung di atrium kanan, menghasilkan impuls listrik spontan ~60-100x/menit yang memicu setiap detak normal</li>
+      <li><strong>房室結節 (ぼうしつけっせつ) — Nodus AV (Atrioventrikular)</strong>: menerima sinyal dari atrium, MENUNDA sebentar (memberi waktu atrium selesai kontraksi sebelum ventrikel mulai) sebelum meneruskan ke ventrikel</li>
+      <li><strong>ヒス束 — Berkas His</strong>: jalur konduksi cepat dari nodus AV menuju kedua ventrikel, bercabang jadi cabang kanan dan kiri</li>
+      <li><strong>プルキンエ線維 — Serat Purkinje</strong>: jaringan akhir yang menyebarkan sinyal ke seluruh otot ventrikel hampir bersamaan, memastikan kontraksi ventrikel terkoordinasi</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa urutan ini penting:</strong> jeda di nodus AV BUKAN cacat desain — ini memastikan atrium selesai "mendorong" darah ke ventrikel sebelum ventrikel berkontraksi, memaksimalkan pengisian. Kerusakan jeda ini (blok AV) dibahas lebih dalam di tab Aritmia halaman Lanjutan.</p>
+    </div>
+
+    <h3>Fase sistol dan diastol</h3>
+    <ul>
+      <li><strong>Diastol (拡張期, かくちょうき)</strong>: ventrikel relaksasi dan terisi darah — dibagi jadi pengisian cepat awal, pengisian lambat (diastasis), dan kontraksi atrium ("atrial kick", menyumbang ~20% pengisian ventrikel)</li>
+      <li><strong>Sistol (収縮期, しゅうしゅくき)</strong>: dibagi jadi kontraksi isovolumetrik (tekanan naik, katup masih tertutup) dan ejeksi (katup aorta/pulmonal terbuka, darah dipompa keluar)</li>
+    </ul>
+
+    <h3>Diagram Wiggers — menghubungkan listrik, tekanan, dan bunyi</h3>
+    <p>Diagram Wiggers (ウィガース図) adalah cara klasik memvisualisasikan HUBUNGAN antara EKG, tekanan ventrikel/atrium/aorta, volume ventrikel, dan bunyi jantung dalam satu siklus — alat bantu utama memahami kenapa S1/S2 muncul tepat di titik tertentu:</p>
+    <ul>
+      <li>Gelombang P (listrik) → kontraksi atrium (mekanis) → sedikit lonjakan tekanan atrium</li>
+      <li>Kompleks QRS (listrik) → kontraksi ventrikel dimulai → tekanan ventrikel naik cepat → katup mitral/trikuspid menutup → <strong>S1</strong></li>
+      <li>Tekanan ventrikel melebihi tekanan aorta/pulmonal → katup semilunar terbuka → fase ejeksi</li>
+      <li>Gelombang T (listrik) → ventrikel mulai relaksasi → tekanan ventrikel turun di bawah aorta/pulmonal → katup semilunar menutup → <strong>S2</strong></li>
+    </ul>
+
+    <h3>Bunyi jantung (心音, しんおん)</h3>
+    <ul>
+      <li><strong>S1</strong>: penutupan katup mitral dan trikuspid — menandai awal sistol</li>
+      <li><strong>S2</strong>: penutupan katup aorta dan pulmonal — menandai awal diastol</li>
+      <li><strong>S3</strong> (kadang normal pada anak/dewasa muda, tapi patologis pada lansia): sering menandakan gagal jantung/kelebihan volume</li>
+      <li><strong>S4</strong>: sering menandakan ventrikel kaku (mis. hipertensi kronis)</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Relevansi klinis:</strong> S3 baru pada lansia adalah tanda peringatan gagal jantung yang sering terlewat dalam pemeriksaan sepintas — auskultasi yang cermat penting saat menilai sesak napas baru.</p>
+    </div>
+
+    <h3>Curah jantung (心拍出量, しんはくしゅつりょう)</h3>
+    <p>Curah jantung = Denyut jantung (心拍数) × Volume sekuncup (1回拍出量). Ini angka paling penting dalam fisiologi kardiovaskular klinis — perubahan salah satu faktor bisa dikompensasi tubuh, tapi ada batasnya.</p>
+    <div class="info-card">
+      <h3 style="margin-top:0">Indeks jantung (心係数, しんけいすう)</h3>
+      <p style="margin-bottom:0">Curah jantung dibagi luas permukaan tubuh — dipakai secara klinis karena curah jantung "normal" untuk orang bertubuh besar berbeda dari orang bertubuh kecil. Angka ini memungkinkan perbandingan antar-pasien yang lebih adil.</p>
+    </div>
+
+    <h3>Variabilitas denyut jantung (心拍変動, しんぱくへんどう)</h3>
+    <p>Jantung sehat TIDAK berdetak dengan interval yang benar-benar identik — ada variasi kecil antar-detak yang dipengaruhi napas (denyut sedikit lebih cepat saat menarik napas, melambat saat menghembuskan, disebut aritmia sinus respiratorik) dan keseimbangan saraf otonom. Variabilitas yang RENDAH secara paradoks bisa menjadi tanda gangguan regulasi otonom (mis. pada neuropati diabetik lanjut atau kondisi kritis) — jantung yang "terlalu teratur" bukan selalu tanda sehat.</p>
+
+    <h3>Sirkuit jantung kanan vs kiri — perbedaan tekanan kerja</h3>
+    <p>Meski atrium dan ventrikel kanan-kiri berdetak BERSAMAAN (disinkronkan sistem konduksi yang sama), keduanya bekerja pada rentang tekanan yang sangat berbeda:</p>
+    <ul>
+      <li><strong>Jantung kanan</strong>: memompa ke sirkulasi paru yang bertekanan RENDAH (resistensi pembuluh paru jauh lebih kecil) — dinding ventrikel kanan karenanya lebih tipis</li>
+      <li><strong>Jantung kiri</strong>: memompa ke sirkulasi sistemik bertekanan TINGGI (melawan resistensi seluruh tubuh) — dinding ventrikel kiri jauh lebih tebal dan kuat</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Relevansi klinis:</strong> perbedaan ini menjelaskan kenapa gagal jantung kiri dan kanan menunjukkan gejala BERBEDA — gagal jantung kiri menyebabkan kongesti PARU (karena darah "macet" sebelum masuk sirkulasi paru dari kiri), sedangkan gagal jantung kanan menyebabkan kongesti SISTEMIK seperti edema tungkai dan pembesaran hati (karena darah "macet" sebelum masuk jantung kanan).</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 調節機構 REGULASI ═══════════ -->
+  <div class="organ-panel" id="panel-regulasi">
+    <h2>調節機構 — Regulasi Curah Jantung</h2>
+    <h3>Mekanisme Frank-Starling</h3>
+    <p><strong>Hukum Frank-Starling (フランク・スターリングの法則)</strong>: semakin banyak darah mengisi ventrikel sebelum kontraksi (preload/前負荷 meningkat), semakin kuat kontraksi berikutnya — hingga titik tertentu. Ini penjelasan mengapa jantung bisa menyesuaikan curah jantung terhadap perubahan volume darah yang kembali, tanpa perlu sinyal saraf.</p>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Analogi sederhana:</strong> seperti karet gelang — semakin diregangkan (sampai batas tertentu), semakin kuat "pegas balik"-nya. Otot jantung yang teregang lebih (preload tinggi) berkontraksi lebih kuat.</p>
+    </div>
+
+    <h3>Preload, afterload, kontraktilitas</h3>
+    <ul>
+      <li><strong>Preload (前負荷)</strong>: regangan otot jantung sebelum kontraksi, ditentukan volume darah yang kembali ke jantung (venous return)</li>
+      <li><strong>Afterload (後負荷)</strong>: tekanan/resistensi yang harus dilawan ventrikel saat memompa keluar — meningkat pada hipertensi</li>
+      <li><strong>Kontraktilitas (収縮力)</strong>: kekuatan kontraksi intrinsik otot jantung, dipengaruhi hormon dan obat (independen dari preload/afterload)</li>
+    </ul>
+
+    <h3>Regulasi saraf otonom</h3>
+    <p>Sistem saraf simpatis meningkatkan denyut jantung dan kontraktilitas (lewat reseptor β1-adrenergik); parasimpatis (saraf vagus) menurunkan denyut jantung lewat reseptor muskarinik di nodus SA. Baroreseptor di arteri karotis dan aorta mendeteksi tekanan darah dan mengatur keseimbangan ini secara refleks.</p>
+
+    <h3>Regulasi hormonal jangka panjang</h3>
+    <ul>
+      <li><strong>レニン・アンジオテンシン・アルドステロン系 (RAAS)</strong>: saat tekanan darah/aliran darah ginjal turun, ginjal melepas renin → mengaktifkan angiotensin II (vasokonstriktor kuat) → memicu pelepasan aldosteron → ginjal menahan natrium dan air → volume darah naik. Sistem ini KUAT tapi LAMBAT (jam-hari), berbeda dari respons saraf yang cepat (detik)</li>
+      <li><strong>心房性ナトリウム利尿ペプチド (ANP)</strong>: dilepas atrium saat teregang berlebihan (volume darah tinggi) — efeknya BERLAWANAN dengan RAAS: mendorong ginjal membuang natrium dan air, serta melebarkan pembuluh darah. Ini mekanisme "rem" alami tubuh terhadap kelebihan volume</li>
+      <li><strong>バソプレシン (ADH/Vasopresin)</strong>: dilepas kelenjar pituitari saat osmolaritas darah naik atau volume darah turun — menahan air di ginjal dan menyebabkan vasokonstriksi ringan</li>
+    </ul>
+    <div class="info-card warn">
+      <h3 style="margin-top:0">Relevansi klinis: kenapa ini penting untuk gagal jantung</h3>
+      <p style="margin-bottom:0">Pada gagal jantung, tubuh "salah membaca" curah jantung yang rendah sebagai tanda kekurangan volume, sehingga RAAS AKTIF BERLEBIHAN meski volume darah sebenarnya sudah berlebih — inilah kenapa banyak obat gagal jantung justru bekerja dengan MEMBLOKIR RAAS (dibahas lebih lanjut di halaman Lanjutan).</p>
+    </div>
+
+    <h3>Mekanisme refleks baroreseptor secara detail</h3>
+    <p>Baroreseptor (圧受容器, あつじゅようき) di sinus karotis dan arkus aorta adalah sensor regangan yang mendeteksi tekanan darah SECARA LANGSUNG dan REAL-TIME, memberi respons dalam hitungan detik — jauh lebih cepat dari mekanisme hormonal (RAAS, jam-hari):</p>
+    <ul>
+      <li><strong>Tekanan darah naik</strong> → baroreseptor teregang lebih → sinyal ke batang otak meningkat → parasimpatis diaktifkan, simpatis ditekan → denyut jantung dan resistensi pembuluh turun → tekanan darah kembali turun</li>
+      <li><strong>Tekanan darah turun</strong> → baroreseptor teregang lebih sedikit → sinyal ke batang otak menurun → simpatis diaktifkan, parasimpatis ditekan → denyut jantung naik dan pembuluh menyempit → tekanan darah kembali naik</li>
+    </ul>
+    <div class="info-card">
+      <p style="margin-bottom:0"><strong>Contoh sehari-hari:</strong> saat berdiri tiba-tiba dari posisi berbaring, darah sempat "tertinggal" di tungkai karena gravitasi, tekanan darah otak sesaat turun — baroreseptor mendeteksi ini dan memicu respons cepat (naikkan denyut jantung, konstriksi pembuluh) untuk mencegah pusing. Kegagalan refleks ini (sering terjadi pada lansia) menyebabkan hipotensi ortostatik.</p>
+    </div>
+
+    <h3>Pengaruh penuaan terhadap regulasi kardiovaskular</h3>
+    <p>Beberapa perubahan terkait usia yang relevan untuk perawatan lansia:</p>
+    <ul>
+      <li><strong>Sensitivitas baroreseptor menurun</strong>: respons refleks terhadap perubahan posisi melambat, meningkatkan risiko hipotensi ortostatik dan jatuh</li>
+      <li><strong>Kekakuan arteri meningkat (aterosklerosis + hilangnya elastisitas)</strong>: tekanan sistolik cenderung naik lebih tinggi dibanding diastolik seiring usia (tekanan nadi/pulse pressure melebar)</li>
+      <li><strong>Respons terhadap stimulasi β-adrenergik menurun</strong>: jantung lansia kurang responsif terhadap peningkatan kebutuhan mendadak (mis. olahraga, stres akut) dibanding jantung yang lebih muda</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 心電図 EKG DASAR ═══════════ -->
+  <div class="organ-panel" id="panel-ekg">
+    <h2>心電図 — Interpretasi EKG Dasar</h2>
+    <p>Elektrokardiogram (心電図, しんでんず/EKG) merekam aktivitas listrik jantung. Memahami gelombang dasarnya membantu mengenali pola detak yang tidak normal.</p>
+
+    <h3>📈 Animasi gelombang EKG — interaktif</h3>
+    <div class="ekg-wrap">
+      <svg width="100%" viewBox="0 0 480 160" role="img" aria-label="Animasi gelombang EKG normal menunjukkan gelombang P, kompleks QRS, dan gelombang T">
+        <line x1="10" y1="80" x2="470" y2="80" stroke="var(--border-light,#eee)" stroke-width="1"/>
+        <path class="ekg-trace" d="M10 80 L50 80 C56 80 58 65 64 65 C70 65 72 80 78 80 L95 80 L100 82 L106 30 L112 120 L118 75 L125 80 L160 80 C168 80 170 55 178 55 C186 55 188 80 196 80 L470 80" fill="none" stroke="#9f1239" stroke-width="2.2" stroke-linecap="round"/>
+        <text class="ekg-label" x="64" y="55" text-anchor="middle">P</text>
+        <text class="ekg-label" x="112" y="140" text-anchor="middle">QRS</text>
+        <text class="ekg-label" x="178" y="45" text-anchor="middle">T</text>
+      </svg>
+      <div class="ekg-controls">
+        <button type="button" id="ekgToggleBtn" class="ekg-btn active">⏸ Jeda animasi</button>
+      </div>
+    </div>
+
+    <h3>Komponen gelombang</h3>
+    <ul>
+      <li><strong>Gelombang P (P波)</strong>: depolarisasi atrium — kontraksi atrium terjadi tepat setelahnya</li>
+      <li><strong>Kompleks QRS (QRS波)</strong>: depolarisasi ventrikel — ventrikel berkontraksi (sistol dimulai)</li>
+      <li><strong>Gelombang T (T波)</strong>: repolarisasi ventrikel — pemulihan listrik sebelum siklus berikut</li>
+      <li><strong>Interval PR</strong>: waktu dari awal P ke awal QRS — memanjang pada blok AV</li>
+      <li><strong>Interval QT</strong>: waktu dari awal QRS sampai akhir gelombang T — merepresentasikan total waktu depolarisasi+repolarisasi ventrikel; QT yang memanjang meningkatkan risiko aritmia ventrikel berbahaya (Torsades de Pointes)</li>
+      <li><strong>Segmen ST</strong>: garis datar antara akhir QRS dan awal T — elevasi/depresi segmen ini adalah tanda kunci sindrom koroner akut</li>
+    </ul>
+
+    <h3>Cara sederhana menghitung denyut jantung dari EKG</h3>
+    <p>Pada kertas EKG standar, metode cepat menghitung denyut jantung (untuk ritme teratur): hitung jumlah kotak besar antar-QRS, lalu bagi 300 dengan jumlah kotak itu (1 kotak = 60/menit, 2 kotak = 150/menit, 3 kotak = 100/menit, dst). Untuk ritme TIDAK teratur (seperti fibrilasi atrium), metode ini tidak akurat — perlu menghitung jumlah QRS dalam periode waktu tertentu lalu dikonversi ke permenit.</p>
+
+    <h3>Konsep 12-lead EKG (standar rumah sakit)</h3>
+    <p>EKG klinis standar memakai <strong>12 sadapan (12誘導, じゅうにゆうどう)</strong> — bukan hanya satu garis seperti animasi di atas — untuk "melihat" aktivitas listrik jantung dari berbagai sudut pandang: 6 sadapan ekstremitas (melihat bidang frontal) dan 6 sadapan dada/prekordial (melihat bidang horizontal). Kombinasi ini memungkinkan lokalisasi area jantung yang bermasalah — misalnya, elevasi ST di sadapan tertentu menunjukkan lokasi infark yang lebih spesifik (dibahas lebih lanjut di halaman Lanjutan).</p>
+
+    <h3>Hipertrofi ventrikel kiri pada EKG</h3>
+    <p>Hipertrofi ventrikel kiri (左室肥大, さしつひだい) — penebalan otot ventrikel kiri akibat kerja berlebih jangka panjang (mis. hipertensi kronis tidak terkontrol) — menghasilkan kompleks QRS dengan AMPLITUDO lebih besar dari normal pada EKG, karena massa otot yang lebih besar menghasilkan sinyal listrik lebih kuat. Ini contoh bagaimana EKG bisa memberi petunjuk perubahan STRUKTURAL jantung, bukan hanya masalah irama.</p>
+
+    <h3>Pengaruh elektrolit terhadap gelombang EKG</h3>
+    <p>Kadar elektrolit darah yang tidak normal bisa mengubah bentuk gelombang EKG secara khas — pengetahuan ini penting karena gangguan elektrolit sering terjadi pada lansia (efek obat diuretik, asupan makan berkurang, fungsi ginjal menurun):</p>
+    <ul>
+      <li><strong>Kalium tinggi (高カリウム血症)</strong>: gelombang T menjadi tinggi dan runcing ("tented T wave"); kadar sangat tinggi bisa memperlebar QRS dan mengancam henti jantung</li>
+      <li><strong>Kalium rendah (低カリウム血症)</strong>: gelombang T mendatar, muncul gelombang U tambahan, meningkatkan risiko aritmia ventrikel</li>
+      <li><strong>Kalsium tinggi</strong>: interval QT memendek</li>
+      <li><strong>Kalsium rendah</strong>: interval QT memanjang (meningkatkan risiko Torsades de Pointes, dibahas di halaman Lanjutan)</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Relevansi Kaigo:</strong> pengguna yang mengonsumsi diuretik perlu dipantau tanda gangguan elektrolit (lemas berlebihan, kram otot, jantung berdebar tidak teratur) — perubahan ini bisa muncul sebelum gejala berat dan kadang tercermin di EKG sebelum tampak jelas secara klinis.</p>
+    </div>
+
+    <div class="info-card warn">
+      <h3 style="margin-top:0">⚠️ Pola yang perlu dikenali (bukan untuk mendiagnosis sendiri)</h3>
+      <ul style="margin-bottom:0">
+        <li><strong>Fibrilasi atrium (心房細動)</strong>: gelombang P tidak ada/tidak beraturan, ritme ireguler total — umum pada lansia, meningkatkan risiko stroke</li>
+        <li><strong>Takikardia (頻脈)</strong>: denyut jantung >100/menit saat istirahat</li>
+        <li><strong>Bradikardia (徐脈)</strong>: denyut jantung &lt;60/menit saat istirahat</li>
+        <li><strong>Elevasi segmen ST (ST上昇)</strong>: tanda kunci infark miokard akut sedang berlangsung — kondisi darurat waktu-kritis</li>
+      </ul>
+    </div>
+    <p style="font-size:12.5px;color:var(--ink-soft,#999)">Catatan: interpretasi EKG klinis sesungguhnya jauh lebih kompleks dan harus dilakukan oleh tenaga medis terlatih — bagian ini hanya pengenalan konsep dasar.</p>
+  </div>
+
+  <!-- ═══════════ 薬理 FARMAKOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-farmakologi">
+    <h2>薬理 — Farmakologi Kardiovaskular Dasar</h2>
+    <p>Pemahaman dasar golongan obat kardiovaskular umum membantu caregiver dan calon perawat memahami instruksi perawatan dan efek samping yang perlu diawasi.</p>
+
+    <div class="info-card">
+      <h3 style="margin-top:0">β遮断薬 (べーたしゃだんやく) — Beta-blocker</h3>
+      <p style="margin-bottom:0">Menghambat reseptor β1-adrenergik, menurunkan denyut jantung dan tekanan darah. Contoh efek samping yang perlu diawasi: bradikardia berlebih, kelelahan. JANGAN dihentikan mendadak (bisa memicu rebound takikardia).</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">ACE阻害薬 (えーしーいーそがいやく) — ACE Inhibitor</h3>
+      <p style="margin-bottom:0">Menghambat pembentukan angiotensin II, menurunkan tekanan darah dan afterload. Efek samping khas: batuk kering persisten, perlu dipantau fungsi ginjal dan kalium darah.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">カルシウム拮抗薬 (かるしうむきっこうやく) — Calcium Channel Blocker (CCB)</h3>
+      <p style="margin-bottom:0">Menghambat masuknya kalsium ke sel otot polos pembuluh darah dan jantung, menyebabkan vasodilatasi (menurunkan tekanan darah) dan/atau memperlambat konduksi nodus AV tergantung jenisnya. Efek samping umum: bengkak kaki (edema perifer), sembelit.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">利尿薬 (りにょうやく) — Diuretik</h3>
+      <p style="margin-bottom:0">Meningkatkan pengeluaran cairan lewat urine, sering dipakai pada gagal jantung dengan edema. Penting memantau tanda dehidrasi dan ketidakseimbangan elektrolit (terutama kalium).</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">抗凝固薬 (こうぎょうこやく) — Antikoagulan</h3>
+      <p style="margin-bottom:0">Mengurangi pembekuan darah (mis. pada fibrilasi atrium untuk cegah stroke). Risiko utama: perdarahan — WASPADAI memar tidak wajar, gusi berdarah, feses hitam, dan segera laporkan jika ada jatuh/benturan kepala.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">抗血小板薬 (こうけっしょうばんやく) — Antiplatelet</h3>
+      <p style="margin-bottom:0">Mencegah trombosit saling menempel dan membentuk gumpalan — dipakai luas pasca infark miokard/pemasangan stent untuk cegah sumbatan ulang. BERBEDA mekanisme dari antikoagulan (menargetkan trombosit, bukan faktor pembekuan), tapi risiko perdarahan tetap perlu diwaspadai serupa.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">スタチン (statin) — Obat Penurun Kolesterol</h3>
+      <p style="margin-bottom:0">Menghambat enzim pembentukan kolesterol di hati, menurunkan risiko aterosklerosis (penumpukan plak di pembuluh darah) jangka panjang. Efek samping yang perlu dipantau: nyeri/lemah otot — laporkan jika muncul nyeri otot tidak wajar.</p>
+    </div>
+
+    <h3>Poin edukasi pasien yang penting disampaikan</h3>
+    <ul>
+      <li>Jangan pernah menghentikan obat jantung sendiri tanpa berkonsultasi, meski merasa "sudah sehat"</li>
+      <li>Laporkan segera jika lupa minum obat dalam jumlah banyak (dosis ganda TIDAK boleh diminum sekaligus untuk mengganti yang terlewat, kecuali diarahkan tenaga medis)</li>
+      <li>Perhatikan interaksi dengan obat bebas (mis. obat pereda nyeri NSAID bisa mengurangi efektivitas beberapa obat tekanan darah dan meningkatkan risiko ginjal saat dikombinasi diuretik/ACE inhibitor)</li>
+    </ul>
+
+    <h3>Farmakokinetik obat kardiovaskular pada lansia</h3>
+    <p>Tubuh lansia memproses obat secara BERBEDA dari dewasa muda, membuat mereka lebih rentan terhadap efek samping meski dosis "standar":</p>
+    <ul>
+      <li><strong>Fungsi ginjal menurun seiring usia</strong>: banyak obat kardiovaskular (termasuk beberapa antikoagulan dan digoxin) dieliminasi lewat ginjal — penurunan fungsi ginjal berarti obat bertahan lebih lama di tubuh, meningkatkan risiko akumulasi dan efek samping</li>
+      <li><strong>Massa otot dan cairan tubuh berkurang</strong>: mengubah distribusi obat dalam tubuh, membuat kadar obat dalam darah bisa lebih tinggi dari yang diperkirakan untuk dosis yang sama</li>
+      <li><strong>Metabolisme hati melambat</strong>: memperlambat pemecahan sejumlah obat, memperpanjang efeknya</li>
+    </ul>
+
+    <h3>Polifarmasi (多剤併用, たざいへいよう)</h3>
+    <p>Lansia dengan penyakit kardiovaskular sering mengonsumsi BANYAK obat sekaligus (obat jantung + obat diabetes + obat lain) — situasi yang disebut polifarmasi, meningkatkan risiko interaksi obat dan kebingungan jadwal minum obat. Caregiver berperan penting membantu ORGANISASI obat (kotak obat harian, jadwal jelas) dan MENGENALI tanda efek samping yang mungkin tumpang tindih antar obat, sambil tetap melibatkan tenaga medis untuk peninjauan berkala daftar obat.</p>
+  </div>
+
+  <!-- ═══════════ 病態生理 PATOFISIOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-patofisiologi">
+    <h2>病態生理 — Patofisiologi Mendalam</h2>
+
+    <h3>Aterosklerosis (動脈硬化, どうみゃくこうか) — akar banyak penyakit kardiovaskular</h3>
+    <p>Proses bertahap penumpukan plak (kolesterol, sel radang, jaringan fibrosa) di dinding arteri, dimulai sejak usia muda dan berkembang selama puluhan tahun:</p>
+    <ul>
+      <li><strong>Cedera endotel awal</strong>: lapisan dalam pembuluh darah rusak akibat faktor risiko (hipertensi, merokok, gula darah tinggi, kolesterol tinggi)</li>
+      <li><strong>Penumpukan lemak (fatty streak)</strong>: kolesterol LDL menumpuk di dinding arteri yang rusak, ditelan sel imun (makrofag) membentuk "sel busa"</li>
+      <li><strong>Pembentukan plak fibrosa</strong>: jaringan ikat menutupi timbunan lemak, plak makin membesar dan menyempitkan pembuluh darah</li>
+      <li><strong>Ruptur plak</strong>: plak yang tidak stabil bisa pecah, memicu pembentukan gumpalan darah (trombus) yang menyumbat pembuluh SECARA MENDADAK — ini mekanisme paling umum di balik infark miokard akut, bukan penyempitan bertahap semata</li>
+    </ul>
+
+    <h3>Klasifikasi hipertensi</h3>
+    <p>Hipertensi (高血圧, こうけつあつ) diklasifikasikan berdasarkan penyebabnya:</p>
+    <ul>
+      <li><strong>本態性高血圧 — Hipertensi primer/esensial</strong>: penyebab tidak diketahui secara spesifik, tapi dipengaruhi kombinasi genetik, usia, pola makan (natrium tinggi), berat badan, dan aktivitas fisik — mencakup ~90-95% kasus hipertensi</li>
+      <li><strong>二次性高血圧 — Hipertensi sekunder</strong>: disebabkan kondisi medis spesifik yang bisa diidentifikasi (penyakit ginjal, gangguan hormon adrenal, penyempitan arteri ginjal) — penting dicurigai jika hipertensi muncul mendadak berat atau di usia muda</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa klasifikasi ini penting:</strong> hipertensi sekunder bisa DISEMBUHKAN jika penyebab dasarnya diatasi (mis. operasi penyempitan arteri ginjal), berbeda dari hipertensi primer yang umumnya dikelola jangka panjang dengan obat dan gaya hidup.</p>
+    </div>
+
+    <h3>Gagal jantung (心不全) — mekanisme kompensasi</h3>
+    <p>Saat jantung gagal memompa efektif, tubuh mengaktifkan mekanisme kompensasi yang awalnya membantu tapi lama-lama memperburuk kondisi:</p>
+    <ul>
+      <li><strong>Aktivasi sistem renin-angiotensin-aldosteron (RAAS)</strong>: menahan natrium dan air untuk menaikkan volume darah — tapi memperberat kerja jantung dan menyebabkan edema</li>
+      <li><strong>Aktivasi simpatis kronis</strong>: awalnya menaikkan denyut/kontraktilitas, tapi paparan lama merusak reseptor jantung</li>
+      <li><strong>Remodeling ventrikel</strong>: jantung membesar/menebal untuk kompensasi, tapi struktur yang berubah ini justru kurang efisien</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa ini penting:</strong> banyak obat gagal jantung (beta-blocker, ACE inhibitor) justru bekerja dengan MEMBLOKIR mekanisme kompensasi ini — tampak berlawanan intuisi, tapi terbukti memperbaiki hasil jangka panjang.</p>
+    </div>
+
+    <h3>Sindrom koroner akut (急性冠症候群)</h3>
+    <p>Spektrum dari angina tidak stabil hingga infark miokard (serangan jantung) — dibedakan berdasarkan derajat sumbatan arteri koroner dan kerusakan otot jantung yang terjadi, dikonfirmasi lewat EKG dan biomarker darah (troponin).</p>
+
+    <h3>Dislipidemia (脂質異常症, ししついじょうしょう)</h3>
+    <p>Ketidakseimbangan kadar lemak darah yang mempercepat aterosklerosis:</p>
+    <ul>
+      <li><strong>LDL (悪玉コレステロール, "kolesterol jahat")</strong>: kadar tinggi mempercepat penumpukan plak di dinding arteri</li>
+      <li><strong>HDL (善玉コレステロール, "kolesterol baik")</strong>: membantu mengangkut kelebihan kolesterol KEMBALI ke hati untuk diproses — kadar tinggi justru bersifat protektif</li>
+      <li><strong>Trigliserida</strong>: kadar tinggi juga berkaitan dengan risiko kardiovaskular, sering meningkat bersamaan dengan gula darah tinggi/obesitas</li>
+    </ul>
+
+    <h3>Penyakit arteri perifer (末梢動脈疾患, まっしょうどうみゃくしっかん)</h3>
+    <p>Aterosklerosis TIDAK hanya menyerang arteri koroner — bisa terjadi di pembuluh darah tungkai, menyebabkan penyempitan yang mengurangi aliran darah ke kaki. Gejala khas: nyeri betis saat berjalan yang membaik dengan istirahat (klaudikasio intermiten, 間欠性跛行), luka di kaki yang sulit sembuh, dan pada kasus berat, kulit kaki dingin/pucat dengan nadi kaki yang lemah/tidak teraba.</p>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Relevansi Kaigo:</strong> pengguna dengan penyakit arteri perifer butuh perhatian ekstra pada perawatan kaki — luka kecil bisa berkembang jadi masalah serius karena aliran darah yang buruk memperlambat penyembuhan. Ini sering tumpang tindih dengan perawatan kaki diabetes.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ カルテ用語 ISTILAH RUMAH SAKIT ═══════════ -->
+  <div class="organ-panel" id="panel-karte">
+    <h2>カルテ用語 — Terminologi Pencatatan Medis</h2>
+    <p>Istilah yang sering muncul dalam catatan medis (カルテ) dan komunikasi antar tenaga kesehatan di Jepang.</p>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">心拍出量</td><td>しんはくしゅつりょう</td><td>Curah jantung</td><td>Cardiac output</td></tr>
+        <tr><td class="jp">前負荷</td><td>ぜんふか</td><td>Preload</td><td>Preload</td></tr>
+        <tr><td class="jp">後負荷</td><td>こうふか</td><td>Afterload</td><td>Afterload</td></tr>
+        <tr><td class="jp">心電図</td><td>しんでんず</td><td>EKG</td><td>ECG/EKG</td></tr>
+        <tr><td class="jp">心房細動</td><td>しんぼうさいどう</td><td>Fibrilasi atrium</td><td>Atrial fibrillation</td></tr>
+        <tr><td class="jp">頻脈</td><td>ひんみゃく</td><td>Takikardia</td><td>Tachycardia</td></tr>
+        <tr><td class="jp">徐脈</td><td>じょみゃく</td><td>Bradikardia</td><td>Bradycardia</td></tr>
+        <tr><td class="jp">心不全</td><td>しんふぜん</td><td>Gagal jantung</td><td>Heart failure</td></tr>
+        <tr><td class="jp">急性冠症候群</td><td>きゅうせいかんしょうこうぐん</td><td>Sindrom koroner akut</td><td>Acute coronary syndrome</td></tr>
+        <tr><td class="jp">抗凝固薬</td><td>こうぎょうこやく</td><td>Antikoagulan</td><td>Anticoagulant</td></tr>
+        <tr><td class="jp">刺激伝導系</td><td>しげきでんどうけい</td><td>Sistem konduksi listrik</td><td>Conduction system</td></tr>
+        <tr><td class="jp">洞房結節</td><td>どうぼうけっせつ</td><td>Nodus SA</td><td>SA node</td></tr>
+        <tr><td class="jp">房室結節</td><td>ぼうしつけっせつ</td><td>Nodus AV</td><td>AV node</td></tr>
+        <tr><td class="jp">動脈硬化</td><td>どうみゃくこうか</td><td>Aterosklerosis</td><td>Atherosclerosis</td></tr>
+        <tr><td class="jp">高血圧</td><td>こうけつあつ</td><td>Hipertensi</td><td>Hypertension</td></tr>
+        <tr><td class="jp">カルシウム拮抗薬</td><td>かるしうむきっこうやく</td><td>Calcium channel blocker</td><td>Calcium channel blocker</td></tr>
+        <tr><td class="jp">抗血小板薬</td><td>こうけっしょうばんやく</td><td>Antiplatelet</td><td>Antiplatelet</td></tr>
+        <tr><td class="jp">ST上昇</td><td>えすてぃーじょうしょう</td><td>Elevasi segmen ST</td><td>ST elevation</td></tr>
+        <tr><td class="jp">心係数</td><td>しんけいすう</td><td>Indeks jantung</td><td>Cardiac index</td></tr>
+        <tr><td class="jp">心音</td><td>しんおん</td><td>Bunyi jantung</td><td>Heart sound</td></tr>
+        <tr><td class="jp">圧受容器</td><td>あつじゅようき</td><td>Baroreseptor</td><td>Baroreceptor</td></tr>
+        <tr><td class="jp">左室肥大</td><td>さしつひだい</td><td>Hipertrofi ventrikel kiri</td><td>Left ventricular hypertrophy</td></tr>
+        <tr><td class="jp">高カリウム血症</td><td>こうかりうむけっしょう</td><td>Hiperkalemia</td><td>Hyperkalemia</td></tr>
+        <tr><td class="jp">低カリウム血症</td><td>ていかりうむけっしょう</td><td>Hipokalemia</td><td>Hypokalemia</td></tr>
+        <tr><td class="jp">多剤併用</td><td>たざいへいよう</td><td>Polifarmasi</td><td>Polypharmacy</td></tr>
+        <tr><td class="jp">脂質異常症</td><td>ししついじょうしょう</td><td>Dislipidemia</td><td>Dyslipidemia</td></tr>
+        <tr><td class="jp">末梢動脈疾患</td><td>まっしょうどうみゃくしっかん</td><td>Penyakit arteri perifer</td><td>Peripheral artery disease</td></tr>
+        <tr><td class="jp">間欠性跛行</td><td>かんけつせいはこう</td><td>Klaudikasio intermiten</td><td>Intermittent claudication</td></tr>
+        <tr><td class="jp">心拍変動</td><td>しんぱくへんどう</td><td>Variabilitas denyut jantung</td><td>Heart rate variability</td></tr>
+        <tr><td class="jp">起立性低血圧</td><td>きりつせいていけつあつ</td><td>Hipotensi ortostatik</td><td>Orthostatic hypotension</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis tingkat rumah sakit</h3>
+    <div class="clinical-sentence">
+      <div class="jp">心電図でST上昇を認めます。</div>
+      <div class="id">Ditemukan elevasi ST pada EKG.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">前負荷軽減のため利尿薬を投与します。</div>
+      <div class="id">Diuretik diberikan untuk mengurangi preload.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">抗凝固薬内服中のため出血傾向に注意してください。</div>
+      <div class="id">Karena sedang mengonsumsi antikoagulan, waspadai kecenderungan perdarahan.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">動脈硬化の進行により血管が狭くなっています。</div>
+      <div class="id">Pembuluh darah menyempit akibat perkembangan aterosklerosis.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">心係数が低下しており、循環動態が不安定です。</div>
+      <div class="id">Indeks jantung menurun, hemodinamik tidak stabil.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis Tingkat Menengah</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia dengan riwayat fibrilasi atrium sedang mengonsumsi antikoagulan. Ia terjatuh di kamar mandi dan mengeluh nyeri kepala ringan, tapi tampak sadar penuh dan bisa berjalan normal setelahnya.
+      </div>
+      <div class="case-question">
+        <label>1. Kombinasi kondisi ini (antikoagulan + jatuh + benturan kepala) paling penting diwaspadai karena risiko:</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Patah tulang saja</option>
+          <option value="correct">Perdarahan intrakranial yang bisa tidak muncul gejala segera</option>
+          <option value="wrong">Serangan jantung</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Fakta bahwa ia "sadar penuh dan bisa berjalan normal" berarti:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Pasti tidak ada cedera serius, tidak perlu evaluasi</option>
+          <option value="correct">Tetap perlu evaluasi medis — perdarahan pada pengguna antikoagulan bisa berkembang lambat</option>
+          <option value="wrong">Cukup dipantau di rumah tanpa laporan</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan yang PALING tepat:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Menunggu sampai muncul gejala baru sebelum melapor</option>
+          <option value="correct">Segera laporkan kejadian jatuh + riwayat antikoagulan ke tenaga medis untuk evaluasi</option>
+          <option value="wrong">Menghentikan antikoagulan sendiri untuk mencegah perdarahan</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var ekgBtn = document.getElementById('ekgToggleBtn');
+  if (ekgBtn) {
+    ekgBtn.addEventListener('click', function () {
+      var trace = document.querySelector('.ekg-trace');
+      var paused = ekgBtn.dataset.paused === 'true';
+      if (!paused) {
+        trace.style.animationPlayState = 'paused';
+        ekgBtn.textContent = '▶ Lanjutkan animasi';
+        ekgBtn.dataset.paused = 'true';
+      } else {
+        trace.style.animationPlayState = 'running';
+        ekgBtn.textContent = '⏸ Jeda animasi';
+        ekgBtn.dataset.paused = 'false';
+      }
+    });
+  }
+
+  var MINI_Q = [
+    { q: 'Hukum Frank-Starling menjelaskan hubungan antara apa?', opts: ['Preload dan kekuatan kontraksi', 'Denyut jantung dan usia', 'Tekanan darah dan berat badan'], a: 0 },
+    { q: 'Pada EKG, kompleks QRS merepresentasikan apa?', opts: ['Depolarisasi atrium', 'Depolarisasi ventrikel', 'Repolarisasi ventrikel'], a: 1 },
+    { q: 'Efek samping khas ACE inhibitor yang perlu diwaspadai adalah?', opts: ['Batuk kering persisten', 'Rambut rontok', 'Nafsu makan meningkat'], a: 0 },
+    { q: '"Pacemaker alami" jantung yang menghasilkan impuls listrik spontan adalah?', opts: ['Nodus AV', 'Nodus SA', 'Berkas His'], a: 1 },
+    { q: 'Kenapa ada jeda sinyal listrik di nodus AV sebelum diteruskan ke ventrikel?', opts: ['Tidak ada alasan khusus', 'Memberi waktu atrium selesai kontraksi dulu', 'Untuk memperlambat jantung secara umum'], a: 1 },
+    { q: 'Hormon yang dilepas atrium saat teregang berlebihan dan efeknya BERLAWANAN dengan RAAS adalah?', opts: ['ANP', 'Aldosteron', 'Angiotensin II'], a: 0 },
+    { q: 'Elevasi segmen ST pada EKG adalah tanda kunci dari kondisi apa?', opts: ['Dehidrasi ringan', 'Infark miokard akut sedang berlangsung', 'Kadar kalium rendah'], a: 1 },
+    { q: 'Hipertensi yang disebabkan kondisi medis spesifik yang bisa diidentifikasi dan berpotensi disembuhkan disebut?', opts: ['Hipertensi primer', 'Hipertensi sekunder', 'Hipertensi ringan'], a: 1 },
+    { q: 'Kenapa dinding ventrikel kiri jauh lebih tebal dari ventrikel kanan?', opts: ['Ventrikel kiri melawan tekanan sistemik yang jauh lebih tinggi', 'Ventrikel kiri memompa lebih sedikit darah', 'Tidak ada alasan fisiologis khusus'], a: 0 },
+    { q: 'Baroreseptor mendeteksi perubahan tekanan darah lewat mekanisme apa?', opts: ['Sensor kimia darah', 'Sensor regangan pembuluh darah', 'Sensor suhu tubuh'], a: 1 },
+    { q: 'Gelombang T yang tinggi dan runcing ("tented") pada EKG mengindikasikan kemungkinan?', opts: ['Kalium tinggi (hiperkalemia)', 'Kalium rendah (hipokalemia)', 'Dehidrasi ringan'], a: 0 },
+    { q: 'Nyeri betis saat berjalan yang membaik dengan istirahat adalah gejala khas dari?', opts: ['Gagal jantung kanan', 'Penyakit arteri perifer (klaudikasio intermiten)', 'Fibrilasi atrium'], a: 1 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Pengguna antikoagulan yang mengalami benturan kepala WAJIB dievaluasi medis meski tampak baik-baik saja — perdarahan intrakranial pada pasien antikoagulan bisa berkembang PERLAHAN tanpa gejala segera, berbeda dari populasi umum. "Tampak baik" bukan jaminan aman, dan antikoagulan TIDAK BOLEH dihentikan sendiri tanpa arahan medis.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: kombinasi antikoagulan + benturan kepala adalah kombinasi berisiko tinggi TERLEPAS dari tampilan awal pasien — perdarahan intrakranial pada pengguna antikoagulan punya karakteristik perkembangan yang berbeda (lebih lambat, bisa tertunda) dibanding populasi umum.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

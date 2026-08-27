@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<script src="assets/dark-mode-toggle.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<script src="assets/platform.min.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+<link rel="stylesheet" href="assets/pro-style.css">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>AI Conversation Practice & Personal Sensei — Nihonggo Pro Academy</title>
+<meta name="description" content="Latihan percakapan bahasa Jepang dengan AI sensei yang mengingat progress dan kesalahanmu. Dapatkan koreksi grammar, saran personal, dan latihan percakapan interaktif.">
+<meta property="og:title" content="AI Conversation Practice — NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/AI-Sensei.html">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI Sensei NihonggoPro","url":"https://nihonggopro.id/AI-Sensei.html","description":"AI conversation practice untuk belajar bahasa Jepang","applicationCategory":"EducationApplication"}</script>
+
+<link rel="stylesheet" href="assets/legacy-bundle.min.css">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:2px;list-style:none}
+
+.nav-right{display:flex;gap:8px;align-items:center}
+
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+
+/* Layout */
+.app-layout{display:grid;grid-template-columns:260px 1fr 280px;height:calc(100vh - 68px);overflow:hidden}
+@media(max-width:1100px){.app-layout{grid-template-columns:0 1fr 0}}
+
+/* Sidebar left — Sensei info */
+.sensei-panel{background:var(--white);border-right:1px solid var(--border);overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:1rem}
+.sensei-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--red),#9333ea);display:flex;align-items:center;justify-content:center;font-size:30px;margin:0 auto .5rem}
+.sensei-name{text-align:center;font-family:"Noto Serif JP",serif;font-size:16px;font-weight:700;margin-bottom:.15rem}
+.sensei-sub{text-align:center;font-size:11px;color:var(--ink-soft)}
+.sensei-section{background:var(--cream);border-radius:10px;padding:.75rem}
+.sensei-section-title{font-size:11px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem}
+.scenario-list{display:flex;flex-direction:column;gap:.35rem}
+.scenario-btn{height:34px;padding:0 10px;border-radius:7px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-size:12px;font-weight:600;cursor:pointer;text-align:left;transition:all .15s}
+.scenario-btn:hover,.scenario-btn.active{border-color:var(--red);background:var(--red-pale);color:var(--red)}
+
+/* Chat area */
+.chat-area{display:flex;flex-direction:column;height:100%;overflow:hidden;background:var(--cream)}
+.chat-header{background:var(--white);border-bottom:1px solid var(--border);padding:.875rem 1.25rem;display:flex;align-items:center;gap:.75rem;flex-shrink:0}
+.chat-header-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--red),#9333ea);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.chat-header-info h3{font-size:15px;font-weight:700;margin-bottom:1px}
+.chat-header-info p{font-size:12px;color:var(--ink-soft)}
+.online-dot{width:8px;height:8px;border-radius:50%;background:#22c55e;margin-left:auto;flex-shrink:0}
+.chat-level{font-size:11px;font-weight:800;padding:2px 8px;border-radius:5px;background:var(--red-pale);color:var(--red);margin-left:.5rem}
+
+.messages{flex:1;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:.875rem;scroll-behavior:smooth}
+.msg{max-width:75%;display:flex;flex-direction:column;gap:.25rem}
+.msg.ai{align-self:flex-start}
+.msg.user{align-self:flex-end}
+.msg-bubble{padding:.75rem 1rem;border-radius:14px;font-size:14px;line-height:1.65;position:relative}
+.msg.ai .msg-bubble{background:var(--white);border:.5px solid var(--border-mid);border-bottom-left-radius:4px;box-shadow:var(--shadow-sm)}
+.msg.user .msg-bubble{background:var(--red);color:#fff;border-bottom-right-radius:4px}
+.msg-jp{font-family:"Noto Serif JP",serif;font-size:16px;font-weight:600;margin-bottom:.2rem}
+.msg-rom{font-size:12px;color:var(--ink-soft);margin-bottom:.2rem}
+.msg.user .msg-rom{color:rgba(255,255,255,.7)}
+.msg-id{font-size:13px}
+.msg.user .msg-id{color:rgba(255,255,255,.9)}
+.msg-time{font-size:10px;color:var(--ink-faint);align-self:flex-end}
+.msg.user .msg-time{color:rgba(255,255,255,.5)}
+.correction-badge{display:inline-flex;align-items:center;gap:.3rem;margin-top:.4rem;padding:.3rem .625rem;border-radius:6px;background:#fef2f2;border:.5px solid rgba(190,52,40,.15);font-size:11px;font-weight:700;color:var(--red)}
+.typing-indicator{align-self:flex-start}
+.typing-indicator .msg-bubble{display:flex;gap:4px;align-items:center;padding:.75rem 1rem}
+.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--ink-soft);animation:typing .8s infinite}
+.typing-dot:nth-child(2){animation-delay:.1s}
+.typing-dot:nth-child(3){animation-delay:.2s}
+@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-6px)}}
+
+.chat-input-area{background:var(--white);border-top:1px solid var(--border);padding:.875rem 1.25rem;flex-shrink:0}
+.quick-replies{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.625rem}
+.quick-btn{height:28px;padding:0 10px;border-radius:6px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-size:11px;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif;transition:all .15s}
+.quick-btn:hover{border-color:var(--red);color:var(--red)}
+.input-row{display:flex;gap:.5rem}
+.chat-input{flex:1;padding:.625rem 1rem;border-radius:10px;border:1.5px solid var(--border-mid);font-family:"Noto Serif JP",serif;font-size:15px;color:var(--ink);background:var(--cream);outline:none;transition:border-color .15s;resize:none;min-height:44px;max-height:120px}
+.chat-input:focus{border-color:var(--red)}
+.send-btn{width:44px;height:44px;border-radius:10px;border:none;background:var(--red);color:#fff;font-size:18px;cursor:pointer;transition:all .2s;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.send-btn:hover{background:#a02d23;transform:scale(1.05)}
+.send-btn:disabled{opacity:.5;cursor:not-allowed}
+.mic-btn{width:44px;height:44px;border-radius:10px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-size:18px;cursor:pointer;transition:all .2s;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.mic-btn.recording{background:var(--red);color:#fff;border-color:var(--red);animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(190,52,40,.4)}50%{box-shadow:0 0 0 8px rgba(190,52,40,0)}}
+
+/* Right panel — memory */
+.memory-panel{background:var(--white);border-left:1px solid var(--border);overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:1rem}
+.mem-section-title{font-size:11px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem}
+.memory-item{padding:.5rem .625rem;background:var(--cream);border-radius:7px;font-size:12px;margin-bottom:.3rem;border-left:2px solid var(--red)}
+.vocab-learned-item{padding:.375rem .5rem;background:var(--green-pale);border-radius:6px;font-size:12px;border-left:2px solid var(--green);margin-bottom:.25rem}
+.vocab-learned-item .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.corrections-list{display:flex;flex-direction:column;gap:.3rem}
+.correction-item{padding:.4rem .625rem;background:#fef2f2;border-radius:7px;font-size:11px;border-left:2px solid var(--red)}
+
+@media(max-width:768px){.nav-links{display:none}.sensei-panel,.memory-panel{display:none}.app-layout{grid-template-columns:1fr}}
+*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<script src="assets/nihongo-ai.js" defer></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Latihan percakapan bahasa Jepang dengan AI sensei yang mengingat progress dan kesalahanmu. Dapatkan koreksi grammar, saran personal, dan latihan percakapan interaktif.">
+<meta property="og:url" content="https://nihonggopro.id/AI-Sensei.html">
+<meta name="twitter:title" content="AI Conversation Practice & Personal Sensei — Nihonggo Pro Academy">
+<meta name="twitter:description" content="Latihan percakapan bahasa Jepang dengan AI sensei yang mengingat progress dan kesalahanmu. Dapatkan koreksi grammar, saran personal, dan latihan percakapan interaktif.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">AI Sensei — Latihan Percakapan & Tutor Pribadi</h1>
+<div class="app-layout">
+  <!-- LEFT: Sensei info + scenario picker -->
+  <div class="sensei-panel">
+    <div>
+      <div class="sensei-avatar">🤖</div>
+      <div class="sensei-name">Tanaka Sensei</div>
+      <div class="sensei-sub">AI Bahasa Jepang Personalmu</div>
+    </div>
+    <div class="sensei-section">
+      <div class="sensei-section-title">🎭 Pilih Skenario</div>
+      <div class="scenario-list" id="scenarioList"></div>
+    </div>
+    <div class="sensei-section">
+      <div class="sensei-section-title">🎚 Level</div>
+      <div style="display:flex;gap:.3rem;flex-wrap:wrap">
+        <button class="scenario-btn active" data-lv="N5" onclick="setConvoLevel(this)">N5 Pemula</button>
+        <button class="scenario-btn" data-lv="N4" onclick="setConvoLevel(this)">N4 Dasar</button>
+        <button class="scenario-btn" data-lv="N3" onclick="setConvoLevel(this)">N3 Menengah</button>
+      </div>
+    </div>
+    <div class="sensei-section">
+      <div class="sensei-section-title">⚙️ Mode</div>
+      <div style="display:flex;gap:.3rem;flex-direction:column">
+        <button class="scenario-btn active" id="modeFree" onclick="setMode('free')">💬 Percakapan Bebas</button>
+        <button class="scenario-btn" id="modeGuided" onclick="setMode('guided')">📖 Latihan Terpandu</button>
+        <button class="scenario-btn" id="modeShadow" onclick="setMode('shadow')">🎧 Shadowing</button>
+      </div>
+      <div style="margin-top:1rem;padding:.8rem;background:rgba(107,79,58,.06);border-radius:10px;font-size:12.5px;line-height:1.5">
+        <span style="font-weight:700">🧰 Butuh alat lain?</span> Study Planner, Weakness Detection, Speaking/Writing Coach, dan lainnya ada di
+        <a href="/AI-Tutor-Pro.html" style="color:#A63A3A;font-weight:700">AI Tutor Pro →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CENTER: Chat -->
+  <div class="chat-area">
+    <div class="chat-header">
+      <div class="chat-header-avatar">🤖</div>
+      <div class="chat-header-info">
+        <h3>Tanaka Sensei <span class="chat-level" id="chatLevel">N5</span></h3>
+        <p id="chatScenario">Percakapan Bebas — Bahasa Jepang</p>
+      </div>
+      <div class="online-dot" title="Online"></div>
+    </div>
+    
+    <div class="messages" id="messages"></div>
+    
+    <div class="chat-input-area">
+      <div class="quick-replies" id="quickReplies"></div>
+      <div class="input-row">
+        <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Rekam suara" aria-label="Rekam suara">🎤</button>
+        <textarea class="chat-input" id="chatInput" placeholder="Ketik dalam bahasa Jepang atau Indonesia…" rows="1"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"
+          oninput="autoResize(this)"></textarea>
+        <button class="send-btn" onclick="sendMessage()" id="sendBtn" aria-label="Kirim pesan">➤</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: Memory panel -->
+  <div class="memory-panel">
+    <div>
+      <div class="mem-section-title">🧠 Ingatan Sensei</div>
+      <div id="memoryList">
+        <div style="font-size:12px;color:var(--ink-faint)">Sensei akan mengingat progressmu seiring percakapan berlangsung.</div>
+      </div>
+    </div>
+    <div>
+      <div class="mem-section-title">📚 Vocab Dipelajari</div>
+      <div id="vocabLearned"></div>
+    </div>
+    <div>
+      <div class="mem-section-title">🔴 Koreksi Hari Ini</div>
+      <div class="corrections-list" id="correctionsList">
+        <div style="font-size:12px;color:var(--ink-faint)">Koreksi grammar akan muncul di sini.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── THEME ──
+// GENUINELY DIPERBAIKI (Fase EE, Verifikasi Visual): tombol toggleTheme() legacy dihapus (duplikat dengan navbar resmi kyoto-navbar.js). IIFE inisialisasi tema dipertahankan (mencegah flash-of-wrong-theme sebelum navbar defer selesai load), disesuaikan tanpa referensi elemen yang dihapus.
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+
+// ── STATE ──────────────────────────────────────────────────────────
+const MEMORY_KEY = 'np-sensei-memory';
+let chatHistory = [];
+let currentLevel = 'N5';
+let currentMode = 'free';
+let currentScenario = 'restaurant';
+let isRecording = false;
+let recognition = null;
+let sessionVocab = [];
+let sessionCorrections = [];
+let isLoading = false;
+
+// ── USER CONTEXT ─────────────────────────────────────────────────
+function getUserContext(){
+  const sess = JSON.parse(localStorage.getItem('np-session')||'null');
+  if(!sess) return {name:'Pelajar',level:'N5',days:0,grammar:0,vocab:0,streak:0};
+  const users = JSON.parse(localStorage.getItem('np-users')||'{}');
+  const prog = JSON.parse(localStorage.getItem('np-progress-'+sess.uid)||'{}');
+  const user = users[sess.uid] || {};
+  return {
+    name: user.name||'Pelajar',
+    level: user.level||'N5',
+    days: prog.days||0,
+    grammar: prog.grammarLearned||0,
+    vocab: prog.vocabLearned||0,
+    streak: prog.streak||0,
+    quizDone: prog.quizDone||0,
+  };
+}
+
+function getSenseiMemory(){
+  return JSON.parse(localStorage.getItem(MEMORY_KEY)||'{"corrections":[],"vocabIntro":[],"topics":[],"weakPoints":[]}');
+}
+function saveSenseiMemory(mem){
+  localStorage.setItem(MEMORY_KEY, JSON.stringify(mem));
+}
+
+// ── SCENARIOS ─────────────────────────────────────────────────────
+const SCENARIOS = {
+  restaurant: {icon:'🍜',name:'Di Restoran',desc:'Pesan makanan dalam bahasa Jepang'},
+  station:    {icon:'🚃',name:'Di Stasiun', desc:'Tanya arah dan beli tiket'},
+  school:     {icon:'📚',name:'Di Sekolah', desc:'Percakapan dengan teman sekelas'},
+  shopping:   {icon:'🛒',name:'Belanja',    desc:'Di supermarket atau toko'},
+  intro:      {icon:'👋',name:'Perkenalan', desc:'Kenalan dengan orang baru'},
+  weather:    {icon:'🌤',name:'Cuaca',      desc:'Obrolan ringan tentang cuaca'},
+  doctor:     {icon:'🏥',name:'Di Dokter',  desc:'Jelaskan gejala penyakit'},
+  work:       {icon:'💼',name:'Di Kantor',  desc:'Percakapan bisnis formal'},
+};
+
+function renderScenarios(){
+  const list = document.getElementById('scenarioList');
+  list.innerHTML = Object.entries(SCENARIOS).map(([id,s])=>
+    `<button class="scenario-btn ${id===currentScenario?'active':''}" onclick="setScenario('${id}',this)">${s.icon} ${s.name}</button>`
+  ).join('');
+}
+
+function setScenario(id, btn){
+  currentScenario=id;
+  document.querySelectorAll('#scenarioList .scenario-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('chatScenario').textContent = SCENARIOS[id].name + ' — ' + currentLevel;
+  clearChat();
+  sendSystemGreeting();
+}
+
+function setConvoLevel(btn){
+  currentLevel=btn.dataset.lv;
+  document.querySelectorAll('[data-lv]').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('chatLevel').textContent=currentLevel;
+  clearChat();
+  sendSystemGreeting();
+}
+
+function setMode(mode){
+  currentMode=mode;
+  ['free','guided','shadow'].forEach(m=>document.getElementById('mode'+m.charAt(0).toUpperCase()+m.slice(1))?.classList.remove('active'));
+  document.getElementById('mode'+mode.charAt(0).toUpperCase()+mode.slice(1))?.classList.add('active');
+  clearChat();
+  sendSystemGreeting();
+}
+
+// ── CHAT ──────────────────────────────────────────────────────────
+// Perlindungan XSS: pesan pengguna (diketik langsung) dan respons AI
+// (dari backend /api/ai-chat) sama-sama genuinely bisa mengandung karakter
+// HTML berbahaya -- keduanya di-escape sebelum masuk innerHTML. Tag markdown
+// (jp/id split) dibentuk SETELAH escape, bukan sebelum, supaya tag hasil
+// escape tidak ikut ter-decode balik.
+function escapeHtml(s){
+  return String(s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
+}
+
+function clearChat(){
+  chatHistory=[];
+  document.getElementById('messages').innerHTML='';
+}
+
+function addMessage(role, content, correction=null){
+  const msgs = document.getElementById('messages');
+  const isAI = role==='assistant';
+  const time = new Date().toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  
+  const div = document.createElement('div');
+  div.className = 'msg ' + (isAI?'ai':'user');
+  
+  // Parse japanese content
+  const jpMatch = content.match(/^【(.+?)】\n?(.*)/s);
+  let jp='', rom='', id_text=content;
+  if(jpMatch){jp=jpMatch[1]; id_text=jpMatch[2]||'';}
+  const jpSafe = escapeHtml(jp);
+  const idTextSafe = escapeHtml(id_text);
+  const contentSafe = escapeHtml(content);
+  const correctionSafe = correction ? escapeHtml(correction) : null;
+  
+  div.innerHTML = `<div class="msg-bubble" role="alert" aria-live="polite">
+    ${jpSafe ? `<div class="msg-jp" role="alert" aria-live="polite">${jpSafe}</div>` : ''}
+    ${jpSafe && idTextSafe ? `<div class="msg-id" role="alert" aria-live="polite">${idTextSafe}</div>` : `<div>${contentSafe}</div>`}
+    ${correctionSafe ? `<div class="correction-badge">📝 Koreksi: ${correctionSafe}</div>` : ''}
+  </div>
+  <div class="msg-time" role="alert" aria-live="polite">${time}</div>`;
+  
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+  
+  if(correction){
+    sessionCorrections.push(correction);
+    renderCorrections();
+    const mem=getSenseiMemory();
+    mem.corrections.push({text:correction,time:new Date().toISOString()});
+    saveSenseiMemory(mem);
+  }
+}
+
+function addTypingIndicator(){
+  const msgs = document.getElementById('messages');
+  const div = document.createElement('div');
+  div.className='msg ai typing-indicator';
+  div.id='typingIndicator';
+  div.innerHTML=`<div class="msg-bubble" role="alert" aria-live="polite"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop=msgs.scrollHeight;
+}
+function removeTypingIndicator(){
+  document.getElementById('typingIndicator')?.remove();
+}
+
+async function sendMessage(){
+  if(isLoading) return;
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if(!text) return;
+  
+  input.value='';
+  autoResize(input);
+  addMessage('user', text);
+  chatHistory.push({role:'user',content:text});
+  
+  document.getElementById('sendBtn').disabled=true;
+  isLoading=true;
+  addTypingIndicator();
+  
+  const ctx = getUserContext();
+  const mem = getSenseiMemory();
+  const scenario = SCENARIOS[currentScenario];
+  const modeInstr = currentMode==='guided' ? 'Pandu percakapan step-by-step, berikan kata kunci yang dibutuhkan.' :
+                    currentMode==='shadow'  ? 'Berikan kalimat untuk di-shadow. Ulangi kalimat sebelumnya dengan variasi.' :
+                    'Percakapan bebas natural.';
+
+  const systemPrompt = `Kamu adalah Tanaka Sensei, guru bahasa Jepang AI yang sangat berpengalaman dan ramah. 
+
+PROFIL MURID:
+- Nama: ${ctx.name}
+- Level target: ${ctx.level} (percakapan disesuaikan level ${currentLevel})
+- Hari belajar: ${ctx.days} hari
+- Grammar dipelajari: ${ctx.grammar} pola
+- Streak: ${ctx.streak} hari
+
+SKENARIO: ${scenario.icon} ${scenario.name} — ${scenario.desc}
+MODE: ${modeInstr}
+
+INGATAN SENSEI:
+- Koreksi sebelumnya: ${mem.corrections.slice(-3).map(c=>c.text).join(', ')||'belum ada'}
+- Topik sudah dibahas: ${mem.topics.slice(-5).join(', ')||'belum ada'}
+
+INSTRUKSI:
+1. Jika user menulis dalam bahasa Jepang, cek grammarnya. Jika ada kesalahan, berikan koreksi singkat di akhir [KOREKSI: ...].
+2. Respon dengan format: 【Kalimat Jepang】Arti Indonesia / penjelasan
+3. Untuk level N5: gunakan kalimat sederhana dengan ます/です form
+4. Untuk N4: tambahkan て-form, conditional sederhana
+5. Untuk N3: boleh gunakan grammar menengah
+6. Selipkan 1-2 kosakata baru yang relevan dengan skenario
+7. Pertahankan alur percakapan yang natural dan menyenangkan
+8. Jangan terlalu panjang — maksimal 3-4 kalimat per respon
+9. Akhiri dengan pertanyaan atau prompt untuk mendorong user berbicara lebih
+
+VOCAB BARU (tandai dengan [VOCAB: kata=arti]):`;
+
+  try {
+    const aiRes = await NihongoAI.chat({
+      messages: [
+        { role: 'system', content: systemPrompt },
+        ...chatHistory.slice(-10),
+      ],
+      mode: 'conversation',
+      level: currentLevel || 'N5',
+      scenario: currentScenario || '',
+      sessionId: 'sensei_chat',
+    });
+    const reply = aiRes.text || 'Maaf, terjadi kesalahan. Coba lagi.';
+    
+    // Extract correction
+    const corrMatch = reply.match(/\[KOREKSI:\s*(.+?)\]/);
+    const correction = corrMatch ? corrMatch[1] : null;
+    const cleanReply = reply.replace(/\[KOREKSI:.+?\]/,'').replace(/\[VOCAB:.+?\]/g,'').trim();
+    
+    // Extract vocab
+    const vocabMatches = [...reply.matchAll(/\[VOCAB:\s*(.+?)=(.+?)\]/g)];
+    vocabMatches.forEach(([,jp,id])=>{
+      sessionVocab.push({jp,id});
+      if(window.NihonggoProgress) NihonggoProgress.incrementVocab(1);
+    });
+    renderVocabLearned();
+    
+    removeTypingIndicator();
+    addMessage('assistant', cleanReply, correction);
+    chatHistory.push({role:'assistant',content:reply});
+    
+    // Update memory
+    const mem2 = getSenseiMemory();
+    if(!mem2.topics.includes(currentScenario)) mem2.topics.push(currentScenario);
+    saveSenseiMemory(mem2);
+    updateMemoryPanel(ctx, mem2);
+    
+    // XP
+    if(window.NihonggoProgress){
+      NihonggoProgress.addXP(10);
+      NihonggoProgress.logActivity('conversation','AI Sensei: '+scenario.name);
+    }
+    
+    // Update quick replies
+    generateQuickReplies();
+    
+  } catch(e) {
+    removeTypingIndicator();
+    addMessage('assistant', '【すみません。】Terjadi kesalahan koneksi. Coba lagi dalam beberapa detik.');
+  }
+  
+  document.getElementById('sendBtn').disabled=false;
+  isLoading=false;
+}
+
+// ── SYSTEM GREETING ───────────────────────────────────────────────
+async function sendSystemGreeting(){
+  const ctx = getUserContext();
+  const scenario = SCENARIOS[currentScenario];
+  const isReturning = ctx.days > 1;
+  
+  const greet = isReturning ?
+    `【${ctx.name}さん、おかえりなさい！】${ctx.name}, selamat datang kembali! Kamu sudah belajar ${ctx.days} hari. Hari ini kita latihan percakapan ${scenario.name}. ${scenario.desc}. Siap?` :
+    `【${ctx.name}さん、はじめまして！】Senang bertemu dengan ${ctx.name}! Saya Tanaka Sensei, guru AI bahasa Jepang kamu. Hari ini kita latihan skenario: ${scenario.name}. ${scenario.desc}. ゆっくり一緒に練習しましょう！`;
+  
+  addMessage('assistant', greet);
+  chatHistory.push({role:'assistant',content:greet});
+  generateQuickReplies();
+}
+
+function generateQuickReplies(){
+  const replies = {
+    restaurant: ['はい、お願いします。','これは何ですか？','英語のメニューはありますか？','おいしいです！'],
+    station:    ['すみません、〜はどこですか？','〜まで、いくらですか？','ありがとうございます。','わかりました。'],
+    intro:      ['はじめまして。','私は〜です。','よろしくお願いします。','どこから来ましたか？'],
+    shopping:   ['これをください。','いくらですか？','ちょっと高いです。','見せてください。'],
+    default:    ['もう一度言ってください。','わかりません。','日本語で教えてください。','ありがとうございます！'],
+  };
+  const qr = document.getElementById('quickReplies');
+  const list = replies[currentScenario] || replies.default;
+  qr.innerHTML = list.map(r=>
+    `<button class="quick-btn" onclick="sendQuickReply('${r.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">
+      ${r}
+    </button>`
+  ).join('');
+}
+
+function sendQuickReply(text){
+  document.getElementById('chatInput').value = text;
+  sendMessage();
+}
+
+// ── MEMORY & CORRECTIONS ──────────────────────────────────────────
+function updateMemoryPanel(ctx, mem){
+  const el = document.getElementById('memoryList');
+  el.innerHTML = [
+    `🎯 Level: ${ctx.level}`,
+    `📅 Belajar: ${ctx.days} hari`,
+    `🔥 Streak: ${ctx.streak} hari`,
+    `🔤 Grammar: ${ctx.grammar} pola`,
+    `📚 Vocab: ${ctx.vocab} kata`,
+  ].map(m=>`<div class="memory-item">${m}</div>`).join('');
+}
+
+function renderVocabLearned(){
+  const el = document.getElementById('vocabLearned');
+  if(!sessionVocab.length){el.innerHTML='<div style="font-size:12px;color:var(--ink-faint)">Vocab baru akan muncul di sini.</div>';return;}
+  el.innerHTML=sessionVocab.slice(-6).map(v=>
+    `<div class="vocab-learned-item"><span class="jp">${v.jp}</span> — <span>${v.id}</span></div>`
+  ).join('');
+}
+
+function renderCorrections(){
+  const el = document.getElementById('correctionsList');
+  if(!sessionCorrections.length){el.innerHTML='<div style="font-size:12px;color:var(--ink-faint)">Koreksi grammar akan muncul di sini.</div>';return;}
+  el.innerHTML=sessionCorrections.slice(-5).map(c=>
+    `<div class="correction-item">📝 ${c}</div>`
+  ).join('');
+}
+
+// ── VOICE INPUT ───────────────────────────────────────────────────
+function toggleMic(){
+  if(!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window)){
+    alert('Browser tidak mendukung speech recognition. Gunakan Chrome.');
+    return;
+  }
+  if(isRecording){recognition?.stop();return;}
+  
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  recognition = new SR();
+  recognition.lang='ja-JP';
+  recognition.continuous=false;
+  recognition.interimResults=false;
+  
+  recognition.onstart=()=>{isRecording=true;document.getElementById('micBtn').classList.add('recording');document.getElementById('micBtn').textContent='⏹';};
+  recognition.onend=()=>{isRecording=false;document.getElementById('micBtn').classList.remove('recording');document.getElementById('micBtn').textContent='🎤';};
+  recognition.onresult=e=>{
+    const text=e.results[0][0].transcript;
+    document.getElementById('chatInput').value=text;
+    setTimeout(sendMessage,300);
+  };
+  recognition.onerror=e=>{isRecording=false;document.getElementById('micBtn').classList.remove('recording');document.getElementById('micBtn').textContent='🎤';};
+  recognition.start();
+}
+
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+
+// ── INIT ──────────────────────────────────────────────────────────
+renderScenarios();
+const ctx = getUserContext();
+const mem = getSenseiMemory();
+updateMemoryPanel(ctx, mem);
+renderVocabLearned();
+renderCorrections();
+sendSystemGreeting();
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kanji-N5.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kanji N5–N1</a>
+          <a href="/Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar</a>
+          <a href="/Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kosakata</a>
+          <a href="/Materi/Fondasi-Bahasa-Jepang.html" style="color:rgba(255,255,255,.6);text-decoration:none">Fondasi Jepang</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Tools</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/JLPT-CBT.html" style="color:rgba(255,255,255,.6);text-decoration:none">CBT Simulator</a>
+          <a href="/SRS-Flashcard.html" style="color:rgba(255,255,255,.6);text-decoration:none">SRS Flashcard</a>
+          <a href="/Grammar-Checker.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar Checker</a>
+          <a href="/AI-Tutor-Pro.html" style="color:rgba(255,255,255,.6);text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Kaigo</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Materi/Kaigo.html#kg-h-ujian" style="color:rgba(255,255,255,.6);text-decoration:none">Persiapan Ujian</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

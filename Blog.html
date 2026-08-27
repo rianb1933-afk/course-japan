@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+<link rel="stylesheet" href="assets/pro-style.css">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Blog Belajar Bahasa Jepang — Tips JLPT, Grammar, Kanji | NihonggoPro</title>
+<meta name="description" content="Artikel tips belajar bahasa Jepang: cara lulus JLPT N5, perbedaan は vs が, kanji wajib N4, keigo bisnis, dan strategi belajar efektif dari nol.">
+<meta property="og:title" content="Blog Bahasa Jepang — NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Artikel tips belajar bahasa Jepang N5-N1, strategi JLPT, dan panduan grammar lengkap.">
+<meta property="og:url" content="https://nihonggopro.id/Blog.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Blog.html">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Blog","name":"Blog NihonggoPro","url":"https://nihonggopro.id/Blog.html","description":"Artikel tips belajar bahasa Jepang N5-N1","publisher":{"@type":"Organization","name":"NihonggoPro","url":"https://nihonggopro.id"},"blogPost":[{"@type":"BlogPosting","headline":"Cara Lulus JLPT N5 dalam 3 Bulan","url":"https://nihonggopro.id/Blog.html#jlpt-n5","datePublished":"2025-01-15"},{"@type":"BlogPosting","headline":"Kapan Pakai は dan Kapan Pakai が","url":"https://nihonggopro.id/Blog.html#wa-ga","datePublished":"2025-01-22"},{"@type":"BlogPosting","headline":"50 Kanji Wajib JLPT N4","url":"https://nihonggopro.id/Blog.html#kanji-n4","datePublished":"2025-02-01"},{"@type":"BlogPosting","headline":"Keigo untuk Dunia Kerja Jepang","url":"https://nihonggopro.id/Blog.html#keigo-bisnis","datePublished":"2025-02-10"},{"@type":"BlogPosting","headline":"7 Teknik Meningkatkan Listening JLPT N3","url":"https://nihonggopro.id/Blog.html#listening-tips","datePublished":"2025-02-20"},{"@type":"BlogPosting","headline":"10 Cara Tetap Motivasi Belajar Jepang","url":"https://nihonggopro.id/Blog.html#motivasi-jepang","datePublished":"2025-03-01"},{"@type":"BlogPosting","headline":"100 Kosakata N3 Paling Sering Muncul","url":"https://nihonggopro.id/Blog.html#kosakata-n3","datePublished":"2025-03-15"},{"@type":"BlogPosting","headline":"JLPT vs Kanken","url":"https://nihonggopro.id/Blog.html#jlpt-vs-kanken","datePublished":"2025-04-01"},{"@type":"BlogPosting","headline":"Teknik Menghafal 100 Kanji dalam 30 Hari","url":"https://nihonggopro.id/Blog.html#belajar-kanji-cepat","datePublished":"2025-04-15"},{"@type":"BlogPosting","headline":"Panduan Lengkap 15 Partikel Bahasa Jepang","url":"https://nihonggopro.id/Blog.html#partikel-guide","datePublished":"2025-05-01"},{"@type":"BlogPosting","headline":"Belajar Bahasa Jepang dari Anime","url":"https://nihonggopro.id/Blog.html#anime-belajar","datePublished":"2025-05-15"},{"@type":"BlogPosting","headline":"Strategi Lulus JLPT N2 dalam 6 Bulan","url":"https://nihonggopro.id/Blog.html#jlpt-n2-strategi","datePublished":"2025-06-01"}]}</script>
+
+<link rel="stylesheet" href="assets/legacy-bundle.min.css">
+
+    <style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+
+
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+.hero{padding:clamp(44px,7vw,72px) clamp(16px,5vw,72px) 44px;background:var(--ink);color:#fff}
+.hero-inner{max-width:1100px;margin:0 auto}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(28px,5vw,50px);line-height:1.1;margin-bottom:.75rem}
+.hero p{color:rgba(255,255,255,.62);font-size:15px;line-height:1.85}
+.main{max-width:1100px;margin:3rem auto;padding:0 clamp(16px,5vw,72px) 5rem}
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem;margin-bottom:3rem}
+.blog-card{background:var(--white);border-radius:16px;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);overflow:hidden;transition:all .2s;cursor:pointer;text-decoration:none;color:var(--ink);display:block}
+.blog-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.1);border-color:var(--red)}
+.blog-thumb{height:160px;background:var(--ink);display:flex;align-items:center;justify-content:center;font-family:"Noto Serif JP",serif;font-size:56px;color:rgba(255,255,255,.15);position:relative;overflow:hidden}
+.blog-thumb-text{position:absolute;font-size:72px;color:rgba(255,255,255,.08);bottom:-10px;right:-5px;font-weight:700}
+.blog-thumb-title{position:relative;z-index:1;font-family:"Noto Serif JP",serif;font-size:clamp(28px,4vw,42px);color:rgba(255,255,255,.9);font-weight:700;text-align:center;padding:0 1rem}
+.blog-body{padding:1.25rem 1.5rem}
+.blog-tags{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.625rem}
+.blog-tag{display:inline-block;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:800;background:var(--red-pale);color:var(--red)}
+.blog-tag.blue{background:var(--blue-pale);color:var(--blue)}
+.blog-tag.green{background:var(--green-pale);color:var(--green)}
+.blog-h{font-family:"Noto Serif JP",serif;font-size:18px;font-weight:700;margin-bottom:.5rem;line-height:1.35}
+.blog-meta{display:flex;align-items:center;gap:.5rem;font-size:12px;color:var(--ink-soft);margin-bottom:.625rem}
+.blog-excerpt{font-size:13px;color:var(--ink-mid);line-height:1.7}
+.blog-cta{display:inline-flex;align-items:center;gap:.3rem;margin-top:.875rem;font-size:13px;font-weight:700;color:var(--red)}
+
+/* Article styles */
+.article-wrap{max-width:720px;margin:0 auto}
+.article{background:var(--white);border-radius:16px;padding:2.5rem clamp(1.5rem,4vw,3rem);border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.5rem}
+.article-header{border-bottom:1px solid var(--border);padding-bottom:1.25rem;margin-bottom:1.75rem}
+.article-tags{display:flex;gap:.35rem;flex-wrap:wrap;margin-bottom:.75rem}
+.article h2{font-family:"Noto Serif JP",serif;font-size:clamp(22px,4vw,32px);line-height:1.2;margin-bottom:.5rem}
+.article-meta{font-size:13px;color:var(--ink-soft);display:flex;gap:1rem;flex-wrap:wrap}
+.article p{font-size:15px;color:var(--ink-mid);line-height:1.85;margin-bottom:1rem}
+.article h3{font-family:"Noto Serif JP",serif;font-size:20px;margin:1.75rem 0 .75rem;color:var(--ink)}
+.article ul,.article ol{padding-left:1.25rem;margin-bottom:1rem}
+.article li{font-size:15px;color:var(--ink-mid);line-height:1.8;margin-bottom:.25rem}
+.article .note{background:var(--blue-pale);border-left:3px solid var(--blue);padding:.875rem 1rem;border-radius:0 8px 8px 0;font-size:14px;color:var(--ink-mid);margin-bottom:1rem;line-height:1.65}
+.article .example{background:var(--cream);border-radius:10px;padding:1rem 1.25rem;margin-bottom:1rem;border:.5px solid var(--border)}
+.ex-jp{font-family:"Noto Serif JP",serif;font-size:20px;font-weight:600;color:var(--ink);margin-bottom:.25rem}
+.ex-rom{font-size:13px;color:var(--ink-soft);margin-bottom:.2rem}
+.ex-id{font-size:13px;color:var(--ink-mid);font-weight:600}
+.article a{color:var(--red);font-weight:600;text-decoration:none}
+.article a:hover{text-decoration:underline}
+.article .cta-box{background:var(--red-pale);border:.5px solid rgba(190,52,40,.15);border-radius:12px;padding:1.25rem 1.5rem;text-align:center;margin-top:1.5rem}
+.article .cta-box h4{font-size:16px;font-weight:800;margin-bottom:.4rem}
+.article .cta-box p{font-size:13px;margin-bottom:.75rem;color:var(--ink-mid)}
+.cta-btn{display:inline-flex;height:40px;padding:0 18px;border-radius:9px;background:var(--red);color:#fff;font-weight:700;font-size:14px;text-decoration:none;align-items:center}
+
+.back-btn{display:inline-flex;align-items:center;gap:.4rem;height:36px;padding:0 14px;border-radius:8px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-size:13px;font-weight:700;text-decoration:none;margin-bottom:1.5rem;transition:all .15s}
+.back-btn:hover{border-color:var(--red);color:var(--red)}
+
+@media(max-width:768px){.blog-grid{grid-template-columns:1fr}}
+
+/* ── BLOG SEARCH ── */
+.blog-search-wrap {
+  max-width: 560px; margin: 0 auto 32px;
+  position: relative;
+}
+.blog-search-input {
+  width: 100%; padding: 14px 50px 14px 18px;
+  border: 1.5px solid var(--border, rgba(107,79,58,.15));
+  border-radius: 12px; background: var(--white, #FEFCF8);
+  font-family: inherit; font-size: 15px;
+  color: var(--ink, #2D2D2D); outline: none;
+  transition: border-color 150ms;
+}
+.blog-search-input:focus { border-color: var(--primary, #6B4F3A); }
+.blog-search-icon {
+  position: absolute; right: 16px; top: 50%;
+  transform: translateY(-50%); color: var(--ink-faint, #A0A0A0);
+  pointer-events: none; font-size: 18px;
+}
+.blog-no-result {
+  text-align: center; padding: 40px; color: var(--ink-faint, #A0A0A0);
+  display: none;
+}
+
+</style>
+
+<style>
+@media(max-width:768px){
+  
+
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:title" content="Blog Belajar Bahasa Jepang — Tips JLPT, Grammar, Kanji">
+<meta name="twitter:description" content="Artikel tips belajar bahasa Jepang: cara lulus JLPT N5, perbedaan は vs が, kanji wajib N4, keigo bisnis, dan strategi belajar efektif dari nol.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
+<section id="main-content" class="hero" role="main">
+  <div class="hero-inner">
+    <div class="kicker">📝 Blog & Artikel</div>
+    <h1>Tips Belajar Bahasa<br>Jepang dari Praktisi</h1>
+    <p>Panduan mendalam, strategi JLPT, dan penjelasan grammar yang membingungkan — dalam bahasa Indonesia yang mudah dipahami.</p>
+  </div>
+</section>
+
+<div class="main" id="blogList">
+  <div class="blog-grid">
+    <a class="blog-card" href="Blog.html#art-jlpt-n5" onclick="showArticle('jlpt-n5');return false">
+      <div class="blog-thumb" style="background:#1a2744">
+        <div class="blog-thumb-text">N5</div>
+        <div class="blog-thumb-title">合格</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">JLPT N5</span><span class="blog-tag blue">Strategi</span></div>
+        <div class="blog-h">Cara Lulus JLPT N5 dalam 3 Bulan (Panduan Lengkap 2025)</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 15 Jan 2025 &nbsp;·&nbsp; ⏱ 8 mnt baca</div>
+        <div class="blog-excerpt">Roadmap belajar N5 dari nol: hiragana week 1, grammar dasar week 2-4, latihan soal week 5-8. Dengan 1-2 jam/hari, target 3 bulan sangat realistis.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-wa-ga" onclick="showArticle('wa-ga');return false">
+      <div class="blog-thumb" style="background:#1a2e24">
+        <div class="blog-thumb-text">は/が</div>
+        <div class="blog-thumb-title">助詞</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">Grammar</span><span class="blog-tag green">N5</span></div>
+        <div class="blog-h">Kapan Pakai は dan Kapan Pakai が? Penjelasan Paling Jelas</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 22 Jan 2025 &nbsp;·&nbsp; ⏱ 6 mnt baca</div>
+        <div class="blog-excerpt">Kebingungan paling umum pelajar N5. Artikel ini menjelaskan dengan 20+ contoh nyata: は untuk topik yang sudah diketahui, が untuk subjek baru atau penekanan.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-kanji-n4" onclick="showArticle('kanji-n4');return false">
+      <div class="blog-thumb" style="background:#2a2010">
+        <div class="blog-thumb-text">漢字</div>
+        <div class="blog-thumb-title">N4必須</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">Kanji</span><span class="blog-tag blue">N4</span></div>
+        <div class="blog-h">50 Kanji Wajib JLPT N4 yang Sering Muncul di Ujian</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 1 Feb 2025 &nbsp;·&nbsp; ⏱ 10 mnt baca</div>
+        <div class="blog-excerpt">Analisis soal JLPT N4 5 tahun terakhir menunjukkan 50 kanji ini muncul paling sering. Pelajari maknanya + cara membaca On dan Kun dengan contoh kata nyata.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-keigo-bisnis" onclick="showArticle('keigo-bisnis');return false">
+      <div class="blog-thumb" style="background:#1e1235">
+        <div class="blog-thumb-text">敬語</div>
+        <div class="blog-thumb-title">丁寧語</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">Keigo</span><span class="blog-tag blue">N3-N2</span></div>
+        <div class="blog-h">Keigo untuk Dunia Kerja Jepang: Panduan Praktis dari Nol</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 10 Feb 2025 &nbsp;·&nbsp; ⏱ 12 mnt baca</div>
+        <div class="blog-excerpt">Keigo bukan sekadar bahasa sopan — ini syarat utama bekerja di perusahaan Jepang. Panduan ini mencakup 尊敬語, 謙譲語, 丁寧語 dengan contoh percakapan nyata.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-listening-tips" onclick="showArticle('listening-tips');return false">
+      <div class="blog-thumb" style="background:#1a2e24">
+        <div class="blog-thumb-text">聴解</div>
+        <div class="blog-thumb-title">N3対策</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">Listening</span><span class="blog-tag green">N3</span></div>
+        <div class="blog-h">7 Teknik Efektif Meningkatkan Kemampuan Listening JLPT N3</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 20 Feb 2025 &nbsp;·&nbsp; ⏱ 7 mnt baca</div>
+        <div class="blog-excerpt">Listening N3 bukan soal kecepatan bicara — soal vocabulary dan pola kalimat. 7 teknik ini sudah terbukti meningkatkan skor listening dalam 4 minggu.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-motivasi-jepang" onclick="showArticle('motivasi-jepang');return false">
+      <div class="blog-thumb" style="background:#2a1212">
+        <div class="blog-thumb-text">続</div>
+        <div class="blog-thumb-title">モチベ</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">Tips</span><span class="blog-tag blue">Semua Level</span></div>
+        <div class="blog-h">10 Cara Tetap Motivasi Belajar Bahasa Jepang Saat Ingin Menyerah</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 1 Mar 2025 &nbsp;·&nbsp; ⏱ 5 mnt baca</div>
+        <div class="blog-excerpt">Semua pelajar bahasa pernah di titik mau nyerah. Artikel ini berisi 10 cara konkret yang sudah dipakai ribuan pelajar untuk melewati plateau dan tetap konsisten.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-kosakata-n3" onclick="showArticle('kosakata-n3');return false">
+      <div class="blog-thumb" style="background:#1a2e24">
+        <div class="blog-thumb-text">語彙</div>
+        <div class="blog-thumb-title">N3必須語彙</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">Kosakata</span><span class="blog-tag green">N3</span></div>
+        <div class="blog-h">100 Kosakata N3 Paling Sering Muncul di JLPT</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 15 Mar 2025 &nbsp;·&nbsp; ⏱ 9 mnt baca</div>
+        <div class="blog-excerpt">Analisis 10 tahun soal JLPT N3 menghasilkan daftar 100 kosakata yang paling sering muncul. Pelajari ini terlebih dahulu sebelum mencoba menghafal semua 3.750 kata.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-jlpt-vs-kanken" onclick="showArticle('jlpt-vs-kanken');return false">
+      <div class="blog-thumb" style="background:#2a1212">
+        <div class="blog-thumb-text">比較</div>
+        <div class="blog-thumb-title">JLPT vs 漢検</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">Info</span><span class="blog-tag blue">Semua Level</span></div>
+        <div class="blog-h">JLPT vs Kanken: Mana yang Lebih Berguna untuk Karir?</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 1 Apr 2025 &nbsp;·&nbsp; ⏱ 6 mnt baca</div>
+        <div class="blog-excerpt">JLPT (Japanese Language Proficiency Test) vs Kanken (漢字検定) — dua sertifikasi Jepang yang berbeda tujuan. Artikel ini membantu kamu memilih yang tepat sesuai target karir.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-belajar-kanji-cepat" onclick="showArticle('belajar-kanji-cepat');return false">
+      <div class="blog-thumb" style="background:#1e1235">
+        <div class="blog-thumb-text">漢字</div>
+        <div class="blog-thumb-title">速習漢字</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">Kanji</span><span class="blog-tag blue">N4-N3</span></div>
+        <div class="blog-h">Teknik Menghafal 100 Kanji dalam 30 Hari</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 15 Apr 2025 &nbsp;·&nbsp; ⏱ 8 mnt baca</div>
+        <div class="blog-excerpt">Metode mnemonic + SRS + radikalisasi kanji terbukti 3x lebih efektif dari hafalan biasa. Panduan 30 hari ini cocok untuk N4-N3 yang sedang bergulat dengan ratusan kanji baru.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-partikel-guide" onclick="showArticle('partikel-guide');return false">
+      <div class="blog-thumb" style="background:#1a2744">
+        <div class="blog-thumb-text">助詞</div>
+        <div class="blog-thumb-title">完全ガイド</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">Grammar</span><span class="blog-tag green">N5-N4</span></div>
+        <div class="blog-h">Panduan Lengkap 15 Partikel Bahasa Jepang dengan Contoh</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 1 Mei 2025 &nbsp;·&nbsp; ⏱ 11 mnt baca</div>
+        <div class="blog-excerpt">は, が, を, に, で, へ, と, も, の, から, まで, より, ので, けど, ながら — 15 partikel paling penting dengan aturan, contoh, dan kesalahan umum pelajar Indonesia.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-anime-belajar" onclick="showArticle('anime-belajar');return false">
+      <div class="blog-thumb" style="background:#2a2010">
+        <div class="blog-thumb-text">アニメ</div>
+        <div class="blog-thumb-title">学習法</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">Tips</span><span class="blog-tag blue">Semua Level</span></div>
+        <div class="blog-h">Belajar Bahasa Jepang dari Anime: Cara Efektif dan Jebakan yang Harus Dihindari</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 15 Mei 2025 &nbsp;·&nbsp; ⏱ 7 mnt baca</div>
+        <div class="blog-excerpt">Anime bisa jadi sumber belajar yang luar biasa — tapi juga bisa mengajarkan bahasa yang terlalu kasual atau tidak natural. Panduan ini membedakan keduanya.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+    <a class="blog-card" href="Blog.html#art-jlpt-n2-strategi" onclick="showArticle('jlpt-n2-strategi');return false">
+      <div class="blog-thumb" style="background:#2a1212">
+        <div class="blog-thumb-text">N2</div>
+        <div class="blog-thumb-title">合格戦略</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-tags"><span class="blog-tag">JLPT N2</span><span class="blog-tag blue">Strategi</span></div>
+        <div class="blog-h">Strategi Lulus JLPT N2 dalam 6 Bulan — Panduan Intensif</div>
+        <div class="blog-meta">✍️ Tim NihonggoPro &nbsp;·&nbsp; 📅 1 Jun 2025 &nbsp;·&nbsp; ⏱ 12 mnt baca</div>
+        <div class="blog-excerpt">N2 adalah level yang paling banyak dicari perusahaan Jepang. Roadmap 6 bulan ini dirancang untuk lulusan N3 yang ingin lompat ke N2 dengan persiapan terstruktur.</div>
+        <div class="blog-cta">Baca selengkapnya →</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+<!-- Article sections (hidden, shown via JS) -->
+<div class="main" id="articleView" style="display:none">
+  <a class="back-btn" href="Blog.html" onclick="showList();return false">← Kembali ke Blog</a>
+  <div class="article-wrap">
+
+    <!-- Article: JLPT N5 -->
+    <article class="article" id="art-jlpt-n5">
+      <div class="article-header">
+        <div class="article-tags">
+          <span class="blog-tag">JLPT N5</span>
+          <span class="blog-tag blue">Strategi</span>
+          <span class="blog-tag green">Roadmap</span>
+        </div>
+        <h2>Cara Lulus JLPT N5 dalam 3 Bulan (Panduan Lengkap 2025)</h2>
+        <div class="article-meta">
+          <span>✍️ Tim NihonggoPro</span>
+          <span>📅 15 Januari 2025</span>
+          <span>⏱ 8 menit baca</span>
+        </div>
+      </div>
+      <p>JLPT N5 adalah level paling dasar, tapi bukan berarti mudah. Dengan pendekatan yang tepat, target <strong>3 bulan dengan 1-2 jam/hari</strong> sangat realistis. Artikel ini memberikan roadmap mingguan yang sudah terbukti.</p>
+      <h3>Mengapa banyak gagal di N5?</h3>
+      <p>Kesalahan terbesar: mencoba hafal semua sekaligus. Otak tidak bekerja seperti itu. Metode terbaik adalah <strong>spaced repetition</strong> — belajar sedikit tapi konsisten setiap hari, dengan review bertahap.</p>
+      <h3>Roadmap 12 Minggu</h3>
+      <ul>
+        <li><strong>Minggu 1–2:</strong> Kuasai hiragana (46 karakter) dan katakana (46 karakter). Target: bisa baca tanpa romaji. Gunakan halaman <a href="Materi/Kana-Hiragana-Katakana.html">Kana NihonggoPro</a>.</li>
+        <li><strong>Minggu 3–4:</strong> Grammar dasar — partikel は・が・を・に・で, pola です/ます, て-form. Target: 100 kalimat aktif.</li>
+        <li><strong>Minggu 5–6:</strong> 500 kosakata N5 pertama + 50 kanji paling sering. Gunakan flashcard SRS.</li>
+        <li><strong>Minggu 7–8:</strong> Grammar lanjut N5 — ない-form, た-form, kondisi sederhana (〜たら/〜から).</li>
+        <li><strong>Minggu 9–10:</strong> Reading pendek N5 + listening dasar. Mulai latihan soal resmi.</li>
+        <li><strong>Minggu 11–12:</strong> Mock test full + review titik lemah. Target 80% skor latihan.</li>
+      </ul>
+      <div class="note">💡 <strong>Tips kunci:</strong> Belajar grammar 20 menit + kosakata 15 menit + review 10 menit = 45 menit/hari sudah cukup. Konsistensi lebih penting dari durasi.</div>
+      <h3>Sumber belajar gratis</h3>
+      <ul>
+        <li><a href="Materi/JLPT-Lengkap.html#levels">Materi N5 NihonggoPro</a> — grammar, kosakata, kanji, roadmap</li>
+        <li><a href="Materi/Grammar-Lengkap.html">Grammar Lengkap</a> — 1.038 pola grammar N5-N1</li>
+        <li><a href="Materi/Latihan-JLPT.html">Latihan Soal JLPT</a> — bank soal dengan penjelasan</li>
+        <li>NHK Web Easy — berita dalam bahasa Jepang sederhana</li>
+      </ul>
+      <div class="cta-box">
+        <h4>Siap mulai belajar N5?</h4>
+        <p>Semua materi N5 sudah tersedia gratis di NihonggoPro — grammar, kosakata, kanji, dan latihan soal.</p>
+        <a href="Materi/JLPT-Lengkap.html#levels" class="cta-btn">Mulai Belajar N5 →</a>
+      </div>
+    </article>
+
+    <!-- Article: は vs が -->
+    <article class="article" id="art-wa-ga" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">Grammar</span><span class="blog-tag green">N5</span></div>
+        <h2>Kapan Pakai は dan Kapan Pakai が? Penjelasan Paling Jelas</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 22 Januari 2025</span><span>⏱ 6 menit baca</span></div>
+      </div>
+      <p>Partikel は (wa) dan が (ga) adalah dua partikel yang paling sering membingungkan pelajar bahasa Jepang. Keduanya bisa menandai subjek kalimat, tapi fungsinya berbeda secara fundamental.</p>
+      <h3>は — Penanda Topik (Topic Marker)</h3>
+      <p>は dipakai untuk menandai <strong>topik</strong> yang sudah diketahui atau diperkenalkan dalam konteks. Pembicara berkata "tentang X, inilah yang berlaku".</p>
+      <div class="example">
+        <div class="ex-jp">私<strong>は</strong>学生です。</div>
+        <div class="ex-rom">Watashi <strong>wa</strong> gakusei desu.</div>
+        <div class="ex-id">Saya (yang kita bicarakan) adalah pelajar.</div>
+      </div>
+      <h3>が — Penanda Subjek (Subject Marker)</h3>
+      <p>が dipakai untuk <strong>subjek yang baru diperkenalkan</strong>, penekanan khusus, atau untuk menjawab pertanyaan "siapa/apa".</p>
+      <div class="example">
+        <div class="ex-jp">だれ<strong>が</strong>来ましたか？田中さん<strong>が</strong>来ました。</div>
+        <div class="ex-rom">Dare <strong>ga</strong> kimashita ka? Tanaka-san <strong>ga</strong> kimashita.</div>
+        <div class="ex-id">Siapa yang datang? Tanaka-san yang datang.</div>
+      </div>
+      <h3>Aturan Praktis</h3>
+      <ul>
+        <li>Kalimat perkenalan diri → <strong>は</strong>: 私は田中です。</li>
+        <li>Menjawab "siapa/apa" → <strong>が</strong>: 田中さんが先生です。</li>
+        <li>Kata sifat perasaan (好き/嫌い/ほしい) → objeknya pakai <strong>が</strong>: 猫が好きです。</li>
+        <li>Kalimat kondisi/sebab → <strong>が</strong> di anak kalimat: 雨が降ったら…</li>
+      </ul>
+      <div class="note">💡 Cara mudah: は = "tentang X, …" | が = "X-lah yang…"</div>
+      <div class="cta-box">
+        <h4>Latihan lebih banyak pola grammar?</h4>
+        <p>Grammar Lengkap NihonggoPro berisi 1.038 pola grammar N5-N1 dengan contoh.</p>
+        <a href="Materi/Grammar-Lengkap.html" class="cta-btn">Buka Grammar Lengkap →</a>
+      </div>
+    </article>
+
+    <!-- Placeholder articles -->
+    <article class="article" id="art-kanji-n4" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">Kanji</span><span class="blog-tag blue">N4</span></div>
+        <h2>50 Kanji Wajib JLPT N4 yang Sering Muncul di Ujian</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 1 Februari 2025</span><span>⏱ 10 menit baca</span></div>
+      </div>
+      <p>Berdasarkan analisis soal JLPT N4 resmi dari 2018–2024, berikut 50 kanji yang paling sering muncul beserta cara membaca dan contoh katanya.</p>
+      <h3>Grup 1: Kanji Tempat & Aktivitas</h3>
+      <div class="example"><div class="ex-jp">駅 (えき) — stasiun | 店 (みせ) — toko | 病院 (びょういん) — rumah sakit</div><div class="ex-id">Contoh: 駅の前に新しい店があります。</div></div>
+      <h3>Grup 2: Kanji Waktu & Kejadian</h3>
+      <div class="example"><div class="ex-jp">始める (はじめる) — memulai | 終わる (おわる) — selesai | 続く (つづく) — berlanjut</div><div class="ex-id">Contoh: 授業が始まりました。</div></div>
+      <p>Untuk daftar lengkap 300 kanji N4 beserta latihan flashcard, buka halaman <a href="Materi/Kanji-N4.html">Kanji N4 NihonggoPro</a>.</p>
+      <div class="cta-box"><h4>Latihan flashcard kanji N4?</h4><p>Flashcard SRS dengan 166 kanji N4 + uji diri interaktif.</p><a href="Materi/Flashcard-Kanji-N4.html" class="cta-btn">Buka Flashcard N4 →</a></div>
+    </article>
+
+    <article class="article" id="art-keigo-bisnis" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">Keigo</span><span class="blog-tag blue">N3-N2</span></div>
+        <h2>Keigo untuk Dunia Kerja Jepang: Panduan Praktis dari Nol</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 10 Februari 2025</span><span>⏱ 12 menit baca</span></div>
+      </div>
+      <p>Keigo (敬語) adalah sistem bahasa hormat Jepang yang wajib dikuasai untuk bekerja di lingkungan Jepang. Ada tiga jenis utama: 尊敬語 (sonkeigo), 謙譲語 (kenjougo), dan 丁寧語 (teineigo).</p>
+      <h3>Tabel Keigo Paling Penting</h3>
+      <div class="example">
+        <div class="ex-jp">いる → いらっしゃる (尊) / おる (謙)</div>
+        <div class="ex-rom">ada → berada (hormat untuk atasan) / berada (merendah diri)</div>
+        <div class="ex-jp">言う → おっしゃる (尊) / 申す (謙)</div>
+        <div class="ex-id">berkata → berfirman (untuk atasan) / berkata (merendah)</div>
+      </div>
+      <p>Panduan keigo lengkap tersedia di <a href="Materi/Keigo-Bisnis.html">halaman Keigo NihonggoPro</a> dengan 50+ contoh percakapan bisnis nyata.</p>
+      <div class="cta-box"><h4>Kuasai Keigo Bisnis</h4><p>50+ contoh percakapan bisnis formal dengan audio dan penjelasan nuansa.</p><a href="Materi/Keigo-Bisnis.html" class="cta-btn">Buka Halaman Keigo →</a></div>
+    </article>
+
+    <article class="article" id="art-listening-tips" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">Listening</span><span class="blog-tag green">N3</span></div>
+        <h2>7 Teknik Efektif Meningkatkan Kemampuan Listening JLPT N3</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 20 Februari 2025</span><span>⏱ 7 menit baca</span></div>
+      </div>
+      <p>Listening adalah seksi yang paling sering menggagalkan peserta JLPT N3. Masalahnya bukan kecepatan bicara — melainkan penguasaan vocabulary dan pola kalimat lisan.</p>
+      <h3>7 Teknik yang Terbukti</h3>
+      <ol>
+        <li><strong>Shadowing harian 10 menit</strong> — dengar audio, langsung tirukan dengan suara keras. Melatih otak menangkap pola bunyi.</li>
+        <li><strong>Dengar tanpa subtitle dulu</strong> — baru cek jawaban setelah selesai. Jangan tergantung teks.</li>
+        <li><strong>Fokus kata kunci</strong> — di listening JLPT, kata kunci biasanya diulang. Latih menangkap kata benda dan kata kerja utama.</li>
+        <li><strong>Prediksi konteks</strong> — baca pertanyaan dulu sebelum audio diputar. Ini legal dan sangat membantu.</li>
+        <li><strong>Dengar NHK Web Easy setiap hari</strong> — berita dalam bahasa Jepang sederhana, ada teks dan audio.</li>
+        <li><strong>Latihan soal listening N3 asli</strong> — gunakan soal resmi JLPT dari <a href="Materi/Latihan-JLPT.html">Latihan JLPT NihonggoPro</a>.</li>
+        <li><strong>Rekam dan putar ulang dirimu sendiri</strong> — membaca teks Jepang dengan suara keras melatih fonetik sekaligus listening.</li>
+      </ol>
+      <div class="cta-box"><h4>Latihan Listening & Speaking</h4><p>Speech API untuk latihan pengucapan + 10 kalimat latihan dengan penilaian otomatis.</p><a href="Materi/Listening-Speaking.html" class="cta-btn">Coba Listening Practice →</a></div>
+    </article>
+
+    <article class="article" id="art-motivasi-jepang" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">Tips</span><span class="blog-tag blue">Semua Level</span></div>
+        <h2>10 Cara Tetap Motivasi Belajar Bahasa Jepang Saat Ingin Menyerah</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 1 Maret 2025</span><span>⏱ 5 menit baca</span></div>
+      </div>
+      <p>Semua pelajar bahasa pernah di titik ingin menyerah. Itu normal. Yang membedakan yang berhasil dan tidak bukan bakat — tapi strategi melewati plateau.</p>
+      <h3>10 Cara Konkret</h3>
+      <ol>
+        <li><strong>Ingat alasan awalmu</strong> — tulis di sticky note dan tempel di tempat belajar.</li>
+        <li><strong>Turunkan target sementara</strong> — dari 1 jam menjadi 15 menit. Konsistensi lebih penting dari durasi.</li>
+        <li><strong>Ganti metode belajar</strong> — jika bosan grammar, coba anime, lagu, atau game Jepang.</li>
+        <li><strong>Cari komunitas</strong> — bergabung grup Discord atau Telegram pelajar bahasa Jepang.</li>
+        <li><strong>Ukur kemajuanmu</strong> — bandingkan dengan dirimu 3 bulan lalu, bukan dengan penutur asli.</li>
+        <li><strong>Jadwalkan "hari bebas"</strong> — izinkan dirimu istirahat 1 hari/minggu tanpa rasa bersalah.</li>
+        <li><strong>Coba kelas live</strong> — interaksi langsung dengan guru membangkitkan motivasi yang hilang.</li>
+        <li><strong>Tonton konten yang kamu suka dalam bahasa Jepang</strong> — gamifikasi belajar dengan hobi.</li>
+        <li><strong>Set micro-milestone</strong> — "hafal 50 kanji minggu ini" lebih terasa daripada "lulus N3 tahun depan".</li>
+        <li><strong>Bayangkan output nyata</strong> — nonton anime tanpa subtitle, kerja di Jepang, pergi tanpa guide. Visualisasi tujuan memperbarui motivasi.</li>
+      </ol>
+      <div class="cta-box"><h4>Belajar bersama di Kelas Live</h4><p>Interaksi langsung dengan pengajar dan sesama pelajar untuk memperbarui semangat.</p><a href="Kelas-Online.html" class="cta-btn">Coba Kelas Live →</a></div>
+    </article>
+
+    <article class="article" id="art-kosakata-n3" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">Kosakata</span><span class="blog-tag green">N3</span></div>
+        <h2>100 Kosakata N3 Paling Sering Muncul di JLPT</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 15 Maret 2025</span><span>⏱ 9 menit baca</span></div>
+      </div>
+      <p>JLPT N3 memiliki 3.750 kosakata target, tapi tidak semua muncul sama seringnya. Analisis soal resmi 10 tahun terakhir menunjukkan 100 kata ini muncul dalam 70%+ soal vocabulary N3.</p>
+      <h3>Top 20 Kosakata N3 Wajib</h3>
+      <div class="example">
+        <div class="ex-jp">関係(かんけい) — hubungan | 経験(けいけん) — pengalaman | 可能(かのう) — mungkin/bisa</div>
+        <div class="ex-jp">理由(りゆう) — alasan | 結果(けっか) — hasil | 状況(じょうきょう) — situasi</div>
+        <div class="ex-jp">意見(いけん) — pendapat | 努力(どりょく) — usaha | 問題(もんだい) — masalah/soal</div>
+        <div class="ex-jp">影響(えいきょう) — pengaruh | 環境(かんきょう) — lingkungan | 社会(しゃかい) — masyarakat</div>
+        <div class="ex-id">Ini adalah kata-kata abstrak yang sering muncul dalam teks membaca dan listening N3.</div>
+      </div>
+      <h3>Strategi Hafal Efektif</h3>
+      <ul>
+        <li>Pelajari kata per <strong>tema</strong>, bukan urutan abjad — kata bertema mudah diingat bersama.</li>
+        <li>Buat kalimat sendiri dengan setiap kata baru — otak lebih mudah menyimpan konteks.</li>
+        <li>Review dengan interval: hari ke-1, 3, 7, 14, 30 (SRS principle).</li>
+        <li>Gunakan <a href="Materi/Vocabulary-Lengkap.html?level=N3">Vocabulary N3 NihonggoPro</a> untuk flashcard interaktif.</li>
+      </ul>
+      <div class="cta-box"><h4>Latihan Vocabulary N3</h4><p>10.000+ kosakata N5-N1 dengan arti Indonesia, filter level, dan bookmark.</p><a href="Materi/Vocabulary-Lengkap.html?level=N3" class="cta-btn">Buka Vocabulary N3 →</a></div>
+    </article>
+
+    <article class="article" id="art-jlpt-vs-kanken" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">Info</span><span class="blog-tag blue">Semua Level</span></div>
+        <h2>JLPT vs Kanken: Mana yang Lebih Berguna untuk Karir?</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 1 April 2025</span><span>⏱ 6 menit baca</span></div>
+      </div>
+      <p>Keduanya adalah sertifikasi bahasa Jepang bergengsi, tapi fokusnya berbeda. Memilih yang tepat bisa memaksimalkan nilai sertifikasi untuk tujuan karirmu.</p>
+      <h3>JLPT (日本語能力試験)</h3>
+      <ul>
+        <li><strong>Fokus:</strong> Kemampuan bahasa Jepang secara keseluruhan — grammar, kosakata, reading, listening.</li>
+        <li><strong>Target:</strong> Non-penutur asli Jepang. Diakui internasional.</li>
+        <li><strong>Berguna untuk:</strong> Bekerja di perusahaan Jepang, kuliah di Jepang, visa bekerja, profesi yang butuh bahasa Jepang.</li>
+        <li><strong>Level:</strong> N5 (pemula) hingga N1 (mahir). N2 adalah standar minimum kebanyakan perusahaan Jepang.</li>
+      </ul>
+      <h3>Kanken (漢字検定)</h3>
+      <ul>
+        <li><strong>Fokus:</strong> Kanji saja — penulisan, bacaan, penggunaan. Tidak ada tes grammar atau listening.</li>
+        <li><strong>Target:</strong> Awalnya untuk penutur asli Jepang. Orang asing bisa ikut tapi jarang diakui HR.</li>
+        <li><strong>Berguna untuk:</strong> Akademisi Jepang, penerjemah sastra, penulis dalam bahasa Jepang.</li>
+      </ul>
+      <div class="note">💡 <strong>Rekomendasi:</strong> Untuk karir dan kerja, pilih JLPT. Untuk akademisi atau penerjemahan sastra, tambahkan Kanken setelah JLPT N2+.</div>
+      <div class="cta-box"><h4>Persiapan JLPT N5-N1</h4><p>Materi lengkap, latihan soal, dan mock test untuk semua level JLPT.</p><a href="Materi/JLPT-Lengkap.html" class="cta-btn">Mulai Persiapan JLPT →</a></div>
+    </article>
+
+    <article class="article" id="art-belajar-kanji-cepat" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">Kanji</span><span class="blog-tag blue">N4-N3</span></div>
+        <h2>Teknik Menghafal 100 Kanji dalam 30 Hari</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 15 April 2025</span><span>⏱ 8 menit baca</span></div>
+      </div>
+      <p>Menghafal ratusan kanji bisa terasa mustahil, tapi dengan teknik yang tepat, 100 kanji dalam 30 hari sangat realistis — bahkan dengan waktu belajar hanya 20 menit per hari.</p>
+      <h3>Metode Radikalisasi</h3>
+      <p>Setiap kanji terdiri dari <strong>radikal</strong> — komponen pembentuk. Dengan mengenal 214 radikal dasar, kamu bisa menebak arti kanji baru bahkan yang belum pernah dilihat sebelumnya.</p>
+      <div class="example">
+        <div class="ex-jp">木(pohon) + 木 = 森(もり) — hutan (banyak pohon)</div>
+        <div class="ex-jp">日(matahari) + 月(bulan) = 明(あかるい/あきらか) — terang/jelas</div>
+        <div class="ex-id">Radikal membuat kanji "masuk akal" dan jauh lebih mudah diingat.</div>
+      </div>
+      <h3>Jadwal 30 Hari</h3>
+      <ul>
+        <li><strong>Hari 1-10:</strong> 10 kanji/hari × 10 menit = 100 kanji pertama. Fokus pada makna dan cara baca On.</li>
+        <li><strong>Hari 11-20:</strong> Review 100 kanji + mulai 50 kanji baru. Tambahkan cara baca Kun dan contoh kata.</li>
+        <li><strong>Hari 21-30:</strong> Review semua 150 kanji + tulis kalimat menggunakan tiap kanji.</li>
+      </ul>
+      <div class="note">🎯 Kunci: <strong>Review setiap hari</strong> lebih penting dari menambah kanji baru. Gunakan SRS flashcard untuk efisiensi maksimal.</div>
+      <div class="cta-box"><h4>Flashcard Kanji dengan SRS</h4><p>Sistem flashcard otomatis yang memilih kanji yang perlu direview hari ini.</p><a href="Materi/Flashcard-Kanji.html" class="cta-btn">Mulai Flashcard Kanji →</a></div>
+    </article>
+    <article class="article" id="art-partikel-guide" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">Grammar</span><span class="blog-tag green">N5-N4</span></div>
+        <h2>Panduan Lengkap 15 Partikel Bahasa Jepang dengan Contoh</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 1 Mei 2025</span><span>⏱ 11 menit baca</span></div>
+      </div>
+      <p>Partikel adalah tulang punggung bahasa Jepang. Tanpa menguasai partikel, kalimatmu akan selalu terasa aneh bagi penutur asli Jepang, meskipun kosakata dan grammar lainnya sudah benar.</p>
+      <h3>Partikel Topik dan Subjek</h3>
+      <div class="example">
+        <div class="ex-jp">は (wa) — Penanda Topik: 私<strong>は</strong>学生です。</div>
+        <div class="ex-id">Saya (yang kita bicarakan) adalah pelajar. は menandai hal yang sedang dibicarakan.</div>
+        <div class="ex-jp">が (ga) — Penanda Subjek: 猫<strong>が</strong>いる。だれ<strong>が</strong>来た？</div>
+        <div class="ex-id">Ada kucing. Siapa yang datang? が menekankan subjek atau menjawab pertanyaan "siapa/apa".</div>
+      </div>
+      <h3>Partikel Objek dan Arah</h3>
+      <div class="example">
+        <div class="ex-jp">を (wo) — Objek Langsung: 本<strong>を</strong>読む。コーヒー<strong>を</strong>飲む。</div>
+        <div class="ex-jp">に (ni) — Tujuan/Waktu/Penerima: 学校<strong>に</strong>行く。7時<strong>に</strong>起きる。先生<strong>に</strong>あげる。</div>
+        <div class="ex-jp">で (de) — Tempat Aktivitas/Alat: 公園<strong>で</strong>遊ぶ。バス<strong>で</strong>来た。</div>
+        <div class="ex-jp">へ (e) — Arah: 東京<strong>へ</strong>行きます。（≈ に, tapi lebih menekankan perjalanan）</div>
+      </div>
+      <h3>Partikel Hubungan</h3>
+      <div class="example">
+        <div class="ex-jp">と (to) — Bersama/Dan: 友達<strong>と</strong>行く。猫<strong>と</strong>犬が好き。</div>
+        <div class="ex-jp">も (mo) — Juga/Pun: 私<strong>も</strong>行く。何<strong>も</strong>ない。（negatif = sama sekali tidak）</div>
+        <div class="ex-jp">の (no) — Kepemilikan/Modifikasi: 私<strong>の</strong>本。日本語<strong>の</strong>先生。（nominalizer: 行く<strong>の</strong>が好き）</div>
+      </div>
+      <h3>Partikel Waktu dan Batas</h3>
+      <div class="example">
+        <div class="ex-jp">から (kara) — Dari/Karena: 東京<strong>から</strong>来た。忙しい<strong>から</strong>行けない。</div>
+        <div class="ex-jp">まで (made) — Sampai: 5時<strong>まで</strong>働く。東京<strong>まで</strong>行く。</div>
+        <div class="ex-jp">より (yori) — Dibandingkan: 電車の方がバス<strong>より</strong>速い。昨日<strong>より</strong>寒い。</div>
+      </div>
+      <h3>Partikel Kalimat Majemuk</h3>
+      <div class="example">
+        <div class="ex-jp">ので (node) — Karena (formal): 雨が降った<strong>ので</strong>、試合は中止です。</div>
+        <div class="ex-jp">けど/けれど (kedo) — Tapi/Walaupun: 行きたい<strong>けど</strong>、時間がない。（kasual）</div>
+        <div class="ex-jp">ながら (nagara) — Sambil: 音楽を聴き<strong>ながら</strong>勉強する。</div>
+      </div>
+      <div class="note">💡 Tip: Partikel に vs で sering tertukar. Ingat: に = di mana sesuatu berada (本が棚に）atau tujuan (駅に行く). で = di mana aktivitas terjadi (公園で遊ぶ）atau alat (バスで来た）.</div>
+      <div class="cta-box"><h4>Latihan Partikel Interaktif</h4><p>1.038 pola grammar dengan filter partikel dan contoh kalimat lengkap.</p><a href="Materi/Grammar-Lengkap.html" class="cta-btn">Buka Grammar Lengkap →</a></div>
+    </article>
+
+    <article class="article" id="art-anime-belajar" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">Tips</span><span class="blog-tag blue">Semua Level</span></div>
+        <h2>Belajar Bahasa Jepang dari Anime: Cara Efektif dan Jebakan yang Harus Dihindari</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 15 Mei 2025</span><span>⏱ 7 menit baca</span></div>
+      </div>
+      <p>Belajar bahasa Jepang dari anime sangat mungkin — ribuan pelajar membuktikannya. Tapi ada cara yang efektif dan ada cara yang justru mengajarkan kebiasaan buruk yang susah dibenahi kemudian.</p>
+      <h3>Yang Baik dari Anime</h3>
+      <ul>
+        <li><strong>Motivasi tinggi</strong> — menonton sesuatu yang kamu sukai membuat belajar tidak terasa seperti bekerja.</li>
+        <li><strong>Eksposur audio alami</strong> — mendengar kecepatan, intonasi, dan ritme bahasa Jepang nyata.</li>
+        <li><strong>Kosakata kontekstual</strong> — kata yang kamu dengar dalam konteks jauh lebih mudah diingat daripada hafalan biasa.</li>
+        <li><strong>Beragam dialek dan register</strong> — anime mencakup berbagai gaya bicara dari formal hingga sangat kasual.</li>
+      </ul>
+      <h3>Jebakan yang Harus Dihindari</h3>
+      <ul>
+        <li><strong>Bahasa anime ≠ bahasa sehari-hari</strong> — "ore", "omae", "kisama" sangat kasar di kehidupan nyata. Karakter anime bicara berlebihan untuk drama.</li>
+        <li><strong>Menghindari keigo</strong> — hampir tidak ada anime yang mengajarkan bahasa formal kantor. Tanpa keigo, kamu tidak bisa kerja di perusahaan Jepang.</li>
+        <li><strong>Mengandalkan subtitle terlalu lama</strong> — subtitle menghambat kemampuan listening asli. Setelah N4, coba tanpa subtitle.</li>
+      </ul>
+      <h3>Metode Anime yang Efektif</h3>
+      <ul>
+        <li>Tonton episode dengan subtitle Jepang (bukan Indonesia) — baca sambil dengar.</li>
+        <li>Pause ketika ada kalimat baru, catat, lalu cari artinya.</li>
+        <li>Tonton ulang tanpa subtitle setelah satu kali dengan subtitle.</li>
+        <li>Anime rekomendasi untuk belajar: Shirokuma Cafe (N5-N4), Chi's Sweet Home (N4-N3), Barakamon (N3-N2).</li>
+      </ul>
+      <div class="cta-box"><h4>Latihan Listening Interaktif</h4><p>Speech recognition untuk latihan pengucapan + contoh kalimat natural.</p><a href="Materi/Listening-Speaking.html" class="cta-btn">Latihan Listening →</a></div>
+    </article>
+
+    <article class="article" id="art-jlpt-n2-strategi" style="display:none">
+      <div class="article-header">
+        <div class="article-tags"><span class="blog-tag">JLPT N2</span><span class="blog-tag blue">Strategi</span></div>
+        <h2>Strategi Lulus JLPT N2 dalam 6 Bulan — Panduan Intensif</h2>
+        <div class="article-meta"><span>✍️ Tim NihonggoPro</span><span>📅 1 Juni 2025</span><span>⏱ 12 menit baca</span></div>
+      </div>
+      <p>JLPT N2 adalah level yang paling dicari oleh perusahaan Jepang dan institusi pendidikan. Dengan N2, kamu bisa membaca surat kabar, menonton berita, dan berkomunikasi dalam konteks profesional.</p>
+      <h3>Prasyarat Sebelum Mulai N2</h3>
+      <ul>
+        <li>Sudah lulus atau setara N3 (memahami 300+ kanji, 3750+ kata, grammar N3 dasar)</li>
+        <li>Bisa membaca teks N3 tanpa kamus terus-menerus</li>
+        <li>Listening N3 sudah bisa 60%+ akurasi</li>
+      </ul>
+      <h3>Roadmap 6 Bulan</h3>
+      <ul>
+        <li><strong>Bulan 1-2: Grammar N2</strong> — Fokus pola 〜にもかかわらず, 〜ざるを得ない, 〜に反して, 〜に基づいて, dll. Target: hafal 90 pola grammar N2.</li>
+        <li><strong>Bulan 3: Kanji + Vocabulary</strong> — 1.000 kanji N2 + 6.000 kosakata target. SRS 20 kata baru per hari.</li>
+        <li><strong>Bulan 4: Reading</strong> — Latihan baca teks 1.000 karakter, artikel NHK Web Easy, kolom opini koran.</li>
+        <li><strong>Bulan 5: Listening</strong> — Dengar podcast Jepang (NHK Radio, 聴くだけ), latihan soal listening N2 resmi.</li>
+        <li><strong>Bulan 6: Mock test + Review</strong> — Mock test N2 full 1x per minggu, identifikasi kelemahan, perkuat.</li>
+      </ul>
+      <div class="note">💡 N2 membutuhkan sekitar 600-800 jam studi total dari nol (atau ~300 jam tambahan dari N3). Dengan 2-3 jam per hari, 6 bulan sangat realistis.</div>
+      <div class="cta-box"><h4>Materi N2 Lengkap</h4><p>Grammar 30+ pola N2, vocab 6.000+, dan latihan soal N2 dengan penjelasan.</p><a href="Materi/JLPT-Lengkap.html#levels" class="cta-btn">Mulai Persiapan N2 →</a></div>
+    </article>
+  </div>
+</div>
+
+<script>
+// GENUINELY DIPERBAIKI (Fase EE, Verifikasi Visual): tombol toggleTheme() legacy dihapus (duplikat dengan navbar resmi kyoto-navbar.js). IIFE inisialisasi tema dipertahankan (mencegah flash-of-wrong-theme sebelum navbar defer selesai load), disesuaikan tanpa referensi elemen yang dihapus.
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+
+function showArticle(slug){
+  document.getElementById('blogList').style.display='none';
+  document.getElementById('articleView').style.display='block';
+  document.querySelectorAll('.article').forEach(a=>a.style.display='none');
+  const art=document.getElementById('art-'+slug);
+  if(art){
+    art.style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+    history.pushState({},'','#'+slug);
+    return;
+  }
+  // v184: artikel tidak ditemukan di 12 artikel statis -- coba muat dari
+  // CMS (blog_posts di Supabase, ditulis lewat panel admin). Additive:
+  // artikel lama TIDAK dimigrasikan, ini HANYA untuk artikel baru.
+  loadCmsArticle(slug);
+  window.scrollTo({top:0,behavior:'smooth'});
+  history.pushState({},'','#'+slug);
+}
+
+async function loadCmsArticle(slug){
+  const wrap = document.querySelector('.article-wrap');
+  if(!wrap) return;
+  let dynEl = document.getElementById('art-cms-dynamic');
+  if(!dynEl){
+    dynEl = document.createElement('article');
+    dynEl.className = 'article';
+    dynEl.id = 'art-cms-dynamic';
+    wrap.appendChild(dynEl);
+  }
+  document.querySelectorAll('.article').forEach(a=>a.style.display='none');
+  dynEl.style.display='block';
+  dynEl.innerHTML = '<p>Memuat artikel…</p>';
+  try{
+    const ep = window.EDUMA_ENV?.AI_API_ENDPOINT ? '/api/blog-cms' : '/api/blog-cms';
+    const res = await fetch(ep+'?slug='+encodeURIComponent(slug));
+    if(!res.ok){
+      dynEl.innerHTML = '<div class="article-header"><h2>Artikel tidak ditemukan</h2></div><p>Artikel yang Anda cari tidak tersedia. <a href="Blog.html" onclick="showList();return false">Kembali ke daftar blog</a>.</p>';
+      return;
+    }
+    const data = await res.json();
+    const post = data.posts?.[0];
+    if(!post){
+      dynEl.innerHTML = '<div class="article-header"><h2>Artikel tidak ditemukan</h2></div><p><a href="Blog.html" onclick="showList();return false">Kembali ke daftar blog</a>.</p>';
+      return;
+    }
+    const tagsHtml = (post.tags||[]).map(t=>`<span class="blog-tag">${escHtml(t)}</span>`).join('');
+    const dateStr = post.created_at ? new Date(post.created_at).toLocaleDateString('id-ID',{year:'numeric',month:'long',day:'numeric'}) : '';
+    dynEl.innerHTML = `
+      <div class="article-header">
+        <div class="article-tags">${tagsHtml}</div>
+        <h2>${escHtml(post.title)}</h2>
+        <div class="article-meta">
+          <span>✍️ ${escHtml(post.author||'Tim NihonggoPro')}</span>
+          <span>📅 ${dateStr}</span>
+          <span>⏱ ${post.read_minutes||5} menit baca</span>
+        </div>
+      </div>
+      ${post.body_html}
+    `;
+  }catch(e){
+    dynEl.innerHTML = '<div class="article-header"><h2>Gagal memuat artikel</h2></div><p>Terjadi kesalahan koneksi. <a href="Blog.html" onclick="showList();return false">Kembali ke daftar blog</a>.</p>';
+  }
+}
+function escHtml(s){
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+function showList(){
+  document.getElementById('blogList').style.display='block';
+  document.getElementById('articleView').style.display='none';
+  window.scrollTo({top:0,behavior:'smooth'});
+  history.pushState({},'','Blog.html');
+}
+// Handle direct URL hash
+if(location.hash){showArticle(location.hash.slice(1).replace(/^art-/,''));}
+</script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;margin-bottom:.75rem;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.3rem">
+          <a href="Materi/JLPT-Lengkap.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">JLPT N5–N1</a>
+<a href="Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">Grammar</a>
+<a href="Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">Kosakata</a>
+<a href="Materi/Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">Kana</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Alat</div>
+        <div style="display:flex;flex-direction:column;gap:.3rem">
+          <a href="Grammar-Checker.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">Grammar Checker</a>
+<a href="Kelas-Online.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">Kelas Live</a>
+<a href="Sertifikat.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">Sertifikat</a>
+<a href="AI-Tutor-Pro.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.3rem">
+          <a href="About.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">Tentang</a>
+<a href="Blog.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">Blog</a>
+<a href="FAQ.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">FAQ</a>
+<a href="Premium.html" style="color:rgba(255,255,255,.55);font-size:13px;text-decoration:none">Premium</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:11px;color:rgba(255,255,255,.3)">© 2025 NihonggoPro · nihonggopro.id</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Privasi</a>
+        <a href="FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">FAQ</a>
+        <a href="Sitemap.html" style="color:rgba(255,255,255,.35);text-decoration:none">Peta Situs</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<button id="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" title="Kembali ke atas">↑</button>
+<script>const _btt2=document.getElementById('bttBtn');if(_btt2)window.addEventListener('scroll',()=>_btt2.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+/* ── BLOG SEARCH LOGIC ── */
+(function() {
+  document.addEventListener('DOMContentLoaded', function() {
+    // Buat search box
+    var heroSection = document.querySelector('.blog-hero, .hero, .page-hero, h1');
+    if (!heroSection) return;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'blog-search-wrap';
+    wrap.innerHTML = '<input class="blog-search-input" id="blogSearch" type="search" placeholder="🔍  Cari artikel, kanji, grammar, kaigo…" aria-label="Cari artikel blog"><span class="blog-search-icon">🔍</span>';
+
+    // BUG (v181): heroSection.closest('section, div, main') bisa mencocokkan
+    // heroSection ITU SENDIRI (closest() menyertakan elemen awal jika cocok
+    // selector) -- lalu insertBefore(wrap, heroSection.nextSibling) mencoba
+    // menyisipkan relatif ke sibling dari diri sendiri DI DALAM diri sendiri,
+    // menyebabkan "node before which... is not a child of this node".
+    // Diperbaiki: heroSection.nextSibling selalu relatif ke PARENT LANGSUNG
+    // heroSection, jadi parent yang benar HARUS heroSection.parentElement,
+    // bukan hasil closest() yang bisa melompat ke ancestor manapun.
+    var parent = heroSection.parentElement || document.body;
+    parent.insertBefore(wrap, heroSection.nextSibling);
+
+    var searchInput = document.getElementById('blogSearch');
+    if (!searchInput) return;
+
+    var noResult = document.createElement('div');
+    noResult.className = 'blog-no-result';
+    noResult.innerHTML = '📭 Artikel tidak ditemukan untuk "<strong id="noResultQuery"></strong>"<br><small>Coba kata kunci lain</small>';
+    parent.appendChild(noResult);
+
+    var articleCards = document.querySelectorAll('article, .blog-card, .article-card, .post-card, [class*="blog"][class*="card"]');
+
+    searchInput.addEventListener('input', function() {
+      var q = this.value.toLowerCase().trim();
+      var count = 0;
+
+      articleCards.forEach(function(card) {
+        var text = card.textContent.toLowerCase();
+        var show = !q || text.includes(q);
+        card.style.display = show ? '' : 'none';
+        if (show) count++;
+      });
+
+      // Highlight match
+      if (q) {
+        articleCards.forEach(function(card) {
+          if (card.style.display !== 'none') {
+            // Subtle highlight di title
+            var title = card.querySelector('h2, h3, .card-title, .post-title');
+            if (title) {
+              var orig = title.dataset.orig || title.textContent;
+              title.dataset.orig = orig;
+              // GENUINELY DIPERBAIKI (Fase Audit Website Putaran Ketiga,
+              // Fase L): dikonfirmasi via investigasi mendalam bahwa
+              // mekanisme ini SAAT INI tidak eksploitabel oleh pengguna
+              // murni -- judul artikel genuinely selalu teks bersih
+              // tanpa karakter HTML, sehingga `$1` (match dari `orig`)
+              // genuinely tidak pernah mengandung tag berbahaya apapun
+              // yang bisa diketik pengguna di kotak pencarian. NAMUN
+              // struktur kode genuinely rapuh: `orig` (yang genuinely
+              // bisa berubah sumbernya di masa depan) disisipkan mentah
+              // ke innerHTML tanpa escaping -- risiko struktural yang
+              // genuinely mudah ditutup sebagai defense-in-depth,
+              // sebelum genuinely menjadi celah nyata jika sumber data
+              // judul berubah. `escHtml()` (sudah tersedia di halaman
+              // ini untuk render artikel CMS) diterapkan pada `orig`
+              // SEBELUM membangun highlight.
+              var escapedOrig = escHtml(orig);
+              var hl = escapedOrig.replace(new RegExp('(' + escHtml(q).replace(/[.*+?^${}()|[\]\\]/g, '\$&') + ')', 'gi'),
+                '<mark style="background:#FBF4E3;color:#6B4F3A;border-radius:2px">$1</mark>');
+              title.innerHTML = hl;
+            }
+          }
+        });
+      } else {
+        // Restore
+        articleCards.forEach(function(card) {
+          var title = card.querySelector('h2, h3, .card-title');
+          // GENUINELY DIPERBAIKI: konsisten dengan defense-in-depth pada
+          // mekanisme highlight di atas -- `textContent` dipakai alih-alih
+          // `innerHTML` mengingat `orig` genuinely selalu teks murni yang
+          // tidak butuh HTML rendering apapun untuk kasus restore ini.
+          if (title && title.dataset.orig) title.textContent = title.dataset.orig;
+        });
+      }
+
+      noResult.style.display = q && count === 0 ? 'block' : 'none';
+      var nrQ = document.getElementById('noResultQuery');
+      if (nrQ) nrQ.textContent = q;
+    });
+  });
+})();
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

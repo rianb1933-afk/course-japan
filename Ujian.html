@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<script src="assets/dark-mode-toggle.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/np-xp.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pusat Ujian — Nihonggo Pro Academy</title>
+<meta name="description" content="Pusat Ujian Nihonggo Pro Academy: tryout & latihan soal Kaigo dan JLPT dengan timer, pembahasan, dan analisis hasil. Persiapan ujian 介護福祉士 dan JLPT.">
+<meta data-seo="nihongo-static" rel="canonical" href="https://nihonggopro.id/Ujian.html">
+<meta data-seo="nihongo-static" property="og:title" content="Pusat Ujian — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" property="og:description" content="Tryout & latihan soal Kaigo dan JLPT dengan timer dan analisis hasil.">
+<meta data-seo="nihongo-static" property="og:type" content="website">
+<meta data-seo="nihongo-static" property="og:url" content="https://nihonggopro.id/Ujian.html">
+<meta data-seo="nihongo-static" property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta data-seo="nihongo-static" name="twitter:card" content="summary_large_image">
+<script data-seo="nihongo-static" type="application/ld+json">{"@context":"https://schema.org","@type":"Quiz","name":"Pusat Ujian Nihonggo Pro","description":"Tryout Kaigo dan JLPT","url":"https://nihonggopro.id/Ujian.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"}}</script>
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--cream,#F8F3E9);color:var(--ink,#2d2d2d);line-height:1.7}
+a{text-decoration:none;color:inherit}
+.skip-link{position:absolute;left:-999px}.skip-link:focus{left:8px;top:8px;background:#A63A3A;color:#fff;padding:10px 16px;border-radius:8px;z-index:100}
+.hero{padding:2.5rem 5vw 1.5rem;background:#17181d;color:#fff}
+.hero .in{max-width:1080px;margin:0 auto}
+.eyebrow{display:inline-block;background:rgba(232,83,74,.18);color:#f0a;color:#E8534A;font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:5px 12px;border-radius:8px;margin-bottom:1rem}
+.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,42px);margin-bottom:.4rem}
+.hero p{color:rgba(255,255,255,.7);max-width:640px}
+.wrap{max-width:1080px;margin:0 auto;padding:1.5rem 5vw 4rem}
+.panel{background:var(--surface,#fff);border:.5px solid var(--border-mid,rgba(107,79,58,.15));border-radius:14px;padding:1.4rem;box-shadow:0 4px 16px rgba(107,79,58,.08);margin-bottom:1.2rem}
+.panel h2{font-size:19px;margin-bottom:.3rem}
+.panel .sub{font-size:13px;color:var(--ink-soft,#6e6e6e);margin-bottom:1rem}
+.row{display:flex;gap:.6rem;flex-wrap:wrap}
+.opt-btn{border:1.5px solid var(--border-mid,rgba(107,79,58,.2));background:var(--cream,#F8F3E9);border-radius:10px;padding:10px 16px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.opt-btn.sel,.opt-btn:hover{background:#A63A3A;color:#fff;border-color:#A63A3A}
+select,input[type=number]{border:1.5px solid var(--border-mid,rgba(107,79,58,.2));border-radius:10px;padding:10px 14px;font:inherit;font-size:14px;background:var(--cream,#F8F3E9);color:inherit}
+.btn-start{margin-top:1.2rem;border:none;background:linear-gradient(135deg,#5B7C5B,#6B4F3A);color:#fff;border-radius:12px;padding:14px 28px;font-size:16px;font-weight:800;cursor:pointer;box-shadow:0 4px 16px rgba(91,124,91,.3)}
+.btn-start:hover{transform:translateY(-2px)}
+.btn-start:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+.loading-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:currentColor;margin:0 2px;animation:npDotPulse 1.2s infinite ease-in-out}
+.loading-dot:nth-child(2){animation-delay:.15s}.loading-dot:nth-child(3){animation-delay:.3s}
+@keyframes npDotPulse{0%,80%,100%{opacity:.25;transform:scale(.8)}40%{opacity:1;transform:scale(1)}}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.2rem}
+.stat-box{background:var(--surface,#fff);border:.5px solid var(--border-mid,rgba(107,79,58,.15));border-radius:12px;padding:1rem;text-align:center}
+.stat-box strong{font-family:'Noto Serif JP',serif;font-size:28px;display:block;color:#A63A3A}
+.stat-box span{font-size:11px;color:var(--ink-soft,#6e6e6e);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+/* Quiz */
+#quiz{display:none}
+.q-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.q-progress{font-size:13px;color:var(--ink-soft,#6e6e6e);font-weight:700}
+.timer{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:800;color:#A63A3A;font-variant-numeric:tabular-nums}
+.q-bar{height:6px;background:var(--border-light,rgba(107,79,58,.08));border-radius:999px;overflow:hidden;margin-bottom:1.2rem}
+.q-bar>i{display:block;height:100%;background:linear-gradient(90deg,#5B7C5B,#7A9E7A);transition:width .3s}
+.q-text{font-size:18px;font-weight:600;margin-bottom:1.2rem;line-height:1.6;overflow-wrap:break-word;word-break:break-word}
+.choices{display:grid;gap:.7rem}
+.choice{border:1.5px solid var(--border-mid,rgba(107,79,58,.2));background:var(--surface,#fff);color:var(--ink,#2d2d2d);border-radius:12px;padding:14px 18px;font:inherit;font-size:15px;text-align:left;cursor:pointer;transition:all .15s;display:flex;gap:12px;align-items:flex-start;overflow-wrap:break-word;word-break:break-word;min-width:0}
+.choice span:last-child{min-width:0;overflow-wrap:break-word;word-break:break-word}
+.choice:hover{border-color:#5B7C5B;background:var(--green-pale,#eef3ee)}
+.choice.correct{border-color:#5B7C5B;background:#e6f0e6}
+.choice.wrong{border-color:#A63A3A;background:#f7e6e6}
+.choice .k{font-weight:800;color:#6B4F3A;flex:none}
+.expl{margin-top:1rem;padding:1rem;background:var(--gold-pale,#FBF4E3);border-radius:10px;font-size:14px;line-height:1.6;display:none}
+.expl.show{display:block}
+.q-nav{display:flex;justify-content:space-between;margin-top:1.4rem;gap:1rem}
+.q-nav button{border:none;border-radius:10px;padding:12px 24px;font:inherit;font-size:15px;font-weight:700;cursor:pointer}
+.btn-next{background:#A63A3A;color:#fff}.btn-skip{background:var(--border-light,#eee);color:var(--ink,#2d2d2d)}
+/* Result */
+#result{display:none;text-align:center}
+.score-ring{width:160px;height:160px;margin:1rem auto;border-radius:50%;display:grid;place-items:center;position:relative}
+.score-ring>span{font-family:'Noto Serif JP',serif;font-size:44px;font-weight:900}
+.result-detail{text-align:left;margin-top:1.5rem}
+.rev-item{border:.5px solid var(--border-mid,rgba(107,79,58,.15));border-radius:10px;padding:1rem;margin-bottom:.8rem}
+.rev-item .qq{font-weight:600;margin-bottom:.5rem}
+.rev-item.ok{border-left:4px solid #5B7C5B}.rev-item.no{border-left:4px solid #A63A3A}
+.badge{display:inline-block;font-size:11px;font-weight:800;padding:3px 10px;border-radius:8px}
+.badge.ok{background:#e6f0e6;color:#5B7C5B}.badge.no{background:#f7e6e6;color:#A63A3A}
+@media(max-width:640px){
+  .stat-row{grid-template-columns:1fr}
+  .hero{padding:1.8rem 5vw 1.2rem}
+  .hero h1{font-size:24px}
+  .wrap{padding:1.2rem 4vw 5rem}
+  .row{gap:.5rem}
+  .opt-btn{padding:9px 12px;font-size:13px;flex:1 1 auto;text-align:center}
+  #setup .row > div{flex:1 1 45%;min-width:0}
+  select,input[type=number]{width:100%}
+  .q-text{font-size:16px}
+  .choice{padding:12px 14px;font-size:14px}
+  .q-head{font-size:13px}
+  .timer{font-size:17px}
+  .score-ring{width:130px;height:130px}
+  .score-ring>span{font-size:36px}
+}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Lewati ke konten utama</a>
+<header class="hero">
+  <div class="in">
+    <span class="eyebrow">試験センター · Pusat Ujian</span>
+    <h1>Pusat Ujian</h1>
+    <p>Uji kesiapan Anda dengan tryout dan latihan soal 介護福祉士 dan JLPT. Timer, pembahasan lengkap, dan analisis hasil untuk belajar lebih terarah.</p>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  <!-- SETUP -->
+  <section id="setup">
+    <div class="stat-row">
+      <div class="stat-box"><strong id="totalQ">—</strong><span>Soal tersedia</span></div>
+      <div class="stat-box"><strong id="totalCat">—</strong><span>Kategori</span></div>
+      <div class="stat-box"><strong id="bestScore">—</strong><span>Skor terbaik</span></div>
+    </div>
+
+    <div class="panel">
+      <h2>Mulai Ujian</h2>
+      <p class="sub">Pilih mode, materi, dan jumlah soal. Soal diambil acak dari bank 1000+ soal.</p>
+
+      <div style="margin-bottom:1rem">
+        <label style="font-size:13px;font-weight:700;display:block;margin-bottom:.5rem">Bank Soal</label>
+        <div class="row" id="bankRow">
+          <button class="opt-btn sel" data-bank="kaigo">🏥 Kaigo (介護福祉士)</button>
+          <button class="opt-btn" data-bank="jlpt">🎌 JLPT (Bahasa Umum)</button>
+        </div>
+      </div>
+
+      <div style="margin-bottom:1rem">
+        <label style="font-size:13px;font-weight:700;display:block;margin-bottom:.5rem">Mode</label>
+        <div class="row" id="modeRow">
+          <button class="opt-btn sel" data-mode="tryout">🎯 Tryout (dengan timer)</button>
+          <button class="opt-btn" data-mode="latihan">📚 Latihan (santai + pembahasan langsung)</button>
+          <button class="opt-btn" data-mode="ujianpenuh">🎓 Ujian Penuh (125 soal, format resmi)</button>
+        </div>
+      </div>
+
+      <div id="ujianPenuhInfo" style="display:none;margin-bottom:1rem;padding:1rem;background:var(--gold-pale,#FBF4E3);border-radius:10px;font-size:13px;line-height:1.7">
+        <strong>📋 Simulasi format ujian nasional 介護福祉士 sesungguhnya:</strong><br>
+        125 soal, terbagi <strong>Sesi Pagi (63 soal)</strong> dari domain Manusia &amp; Masyarakat, Tubuh &amp; Pikiran, Perawatan Medis — lalu <strong>Sesi Siang (62 soal)</strong> dari domain Perawatan (termasuk 26 soal Teknik Dukungan Hidup) dan 12 soal Kasus (総合問題).<br>
+        Waktu total 220 menit (110+110, sesuai durasi resmi). Standar lulus: skor total ≥60%.<br>
+        <span style="color:var(--ink-soft,#6e6e6e)">Catatan: proporsi antar-domain besar sudah sesuai data resmi terverifikasi; pembagian halus per-mata-pelajaran di dalam tiap domain mengikuti distribusi bank soal yang tersedia.</span>
+      </div>
+      <div id="regularSelectors">
+      <div style="margin-bottom:1rem">
+        <label style="font-size:13px;font-weight:700;display:block;margin-bottom:.5rem">Materi</label>
+        <select id="catSel"><option value="all">Semua kategori</option></select>
+      </div>
+
+      <div class="row" style="align-items:flex-end">
+        <div>
+          <label style="font-size:13px;font-weight:700;display:block;margin-bottom:.5rem">Jumlah soal</label>
+          <select id="countSel">
+            <option value="10">10 soal</option>
+            <option value="20" selected>20 soal</option>
+            <option value="30">30 soal</option>
+            <option value="50">50 soal</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:13px;font-weight:700;display:block;margin-bottom:.5rem">Tingkat</label>
+          <select id="diffSel">
+            <option value="all">Semua tingkat</option>
+            <option value="easy">Mudah</option>
+            <option value="medium">Sedang</option>
+            <option value="hard">Sulit</option>
+          </select>
+        </div>
+      </div>
+      </div>
+
+      <button class="btn-start" id="startBtn" disabled><span class="loading-dot"></span><span class="loading-dot"></span><span class="loading-dot"></span> Memuat bank soal…</button>
+    </div>
+
+    <div class="panel" id="historyPanel" style="display:none">
+      <h2>📈 Riwayat Ujian</h2>
+      <p class="sub">Perkembangan skor Anda dari waktu ke waktu (tersimpan di perangkat ini).</p>
+      <div id="historyChart" style="height:140px;display:flex;align-items:flex-end;gap:4px;padding:1rem 0;overflow-x:auto"></div>
+      <div id="historyList" style="margin-top:1rem"></div>
+    </div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" class="panel">
+    <div class="q-head">
+      <span class="q-progress" id="qProgress">Soal 1 / 20</span>
+      <span class="timer" id="timer">--:--</span>
+    </div>
+    <div class="q-bar"><i id="qBar" style="width:0%"></i></div>
+    <div class="q-text" id="qText"></div>
+    <div class="choices" id="qChoices"></div>
+    <div class="expl" id="qExpl"></div>
+    <div class="q-nav">
+      <button class="btn-skip" id="skipBtn">Lewati</button>
+      <button class="btn-next" id="nextBtn">Berikutnya →</button>
+    </div>
+  </section>
+
+  <!-- RESULT -->
+  <section id="result">
+    <div class="panel">
+      <h2>Hasil Ujian</h2>
+      <div class="score-ring" id="scoreRing"><span id="scoreVal">0%</span></div>
+      <p id="scoreMsg" style="font-size:15px;color:var(--ink-soft,#6e6e6e)"></p>
+      <div class="stat-row" style="margin-top:1.5rem">
+        <div class="stat-box"><strong id="rCorrect">0</strong><span>Benar</span></div>
+        <div class="stat-box"><strong id="rWrong">0</strong><span>Salah</span></div>
+        <div class="stat-box"><strong id="rTime">0:00</strong><span>Waktu</span></div>
+      </div>
+      <button class="btn-start" id="retryBtn">Ujian Lagi</button>
+      <button class="btn-start" id="certBtn" style="display:none;background:linear-gradient(135deg,#C89B3C,#A63A3A);margin-left:.5rem">🏆 Cetak Sertifikat</button>
+      <div class="result-detail" id="review"></div>
+    </div>
+  </section>
+</main>
+
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+(function(){
+  'use strict';
+  var BANK=[], BANKS={kaigo:[],jlpt:[]}, quiz=[], idx=0, answers=[], mode='tryout', bank='kaigo', tId=null, tLeft=0, startedAt=0, lastResult=null;
+  var $=function(id){return document.getElementById(id);};
+  function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c];});}
+
+  // Muat kedua bank soal
+  function loadBank(name,file){
+    return fetch(file).then(function(r){return r.json();}).then(function(d){BANKS[name]=d;}).catch(function(){BANKS[name]=[];});
+  }
+  Promise.all([
+    loadBank('kaigo','seed/kaigo_questions.json'),
+    loadBank('jlpt','seed/jlpt_questions.json')
+  ]).then(function(){
+    switchBank('kaigo');
+    renderHistory();
+    var sb=$('startBtn');
+    sb.disabled=false;
+    sb.textContent = mode==='ujianpenuh' ? 'Mulai Ujian Penuh (125 soal) →' : 'Mulai Ujian →';
+    if(!BANKS.kaigo.length && !BANKS.jlpt.length){
+      sb.disabled=true;
+      sb.textContent='Bank soal tidak tersedia';
+      $('setup').insertAdjacentHTML('afterbegin',
+        '<div class="error-state" style="max-width:none;margin-bottom:1.2rem">'+
+        '<div class="error-state-icon">⚠️</div>'+
+        '<h3>Bank soal belum termuat</h3>'+
+        '<p>Pastikan folder <code>seed/</code> sudah ter-deploy ke server. Coba muat ulang halaman.</p>'+
+        '<button class="btn btn-primary" onclick="location.reload()">Muat Ulang</button>'+
+        '</div>');
+    }
+  });
+
+  function switchBank(name){
+    bank=name; BANK=BANKS[name]||[];
+    $('totalQ').textContent=BANK.length.toLocaleString();
+    var cats={};BANK.forEach(function(q){cats[q.category]=(cats[q.category]||0)+1;});
+    $('totalCat').textContent=Object.keys(cats).length;
+    var sel=$('catSel');sel.innerHTML='<option value="all">Semua kategori</option>';
+    Object.keys(cats).sort().forEach(function(c){
+      var o=document.createElement('option');o.value=c;o.textContent=labelCat(c)+' ('+cats[c]+')';sel.appendChild(o);
+    });
+    try{var best=localStorage.getItem('np-ujian-best-'+name);$('bestScore').textContent=best?best+'%':'—';}catch(e){$('bestScore').textContent='—';}
+  }
+
+  function labelCat(c){
+    var m={vocabulary:'Kosakata',grammar:'Tata Bahasa',conversation:'Percakapan',expression:'Ungkapan',reading:'Membaca',listening:'Menyimak',general:'Umum',dementia:'Demensia',emergency:'Darurat',interview:'Wawancara',wheelchair:'Kursi Roda',transfer:'Transfer',meals:'Makan',bath:'Mandi',toilet:'Toilet',rehabilitation:'Rehabilitasi',infection_control:'Infeksi',vital_signs:'Tanda Vital',medication:'Obat',care_plan:'Rencana Perawatan',communication:'Komunikasi',ethics:'Etika',disaster:'Bencana',workplace:'Budaya Kerja',walking:'Jalan',ujian:'Ujian Nasional',kesehatan:'Kesehatan',praktik:'Praktik',dasar:'Dasar',dokumen:'Dokumentasi'};
+    return m[c]||c;
+  }
+
+  $('bankRow').addEventListener('click',function(e){
+    var b=e.target.closest('.opt-btn');if(!b)return;
+    $('bankRow').querySelectorAll('.opt-btn').forEach(function(x){x.classList.remove('sel');});
+    b.classList.add('sel');switchBank(b.dataset.bank);
+  });
+
+  // Mode selection
+  $('modeRow').addEventListener('click',function(e){
+    var b=e.target.closest('.opt-btn');if(!b)return;
+    $('modeRow').querySelectorAll('.opt-btn').forEach(function(x){x.classList.remove('sel');});
+    b.classList.add('sel');mode=b.dataset.mode;
+    var isPenuh = mode==='ujianpenuh';
+    $('ujianPenuhInfo').style.display = isPenuh?'block':'none';
+    $('regularSelectors').style.display = isPenuh?'none':'block';
+    if(!$('startBtn').disabled){
+      $('startBtn').textContent = isPenuh ? 'Mulai Ujian Penuh (125 soal) →' : 'Mulai Ujian →';
+    }
+  });
+
+  function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+
+  // Pemetaan kategori/modul bank Kaigo ke domain resmi ujian nasional
+  // 介護福祉士国家試験 (total 125 soal: Sesi Pagi 63 + Sesi Siang 62).
+  // Proporsi besar (63/62, dan 12 soal khusus 総合問題) terverifikasi dari
+  // sumber resmi; pembagian halus di dalam tiap domain mengikuti kategori
+  // yang tersedia di bank soal.
+  function buildUjianPenuh(){
+    var pagiCats = ['ethics','communication','kesehatan','dementia','medication','vital_signs'];
+    var pagiModules = ['Kaigo-Ujian-Hattatsu-Roka.html','Kaigo-Ujian-Kokoro-Karada.html','Kaigo-Ujian-Shakai.html','Kaigo-Ujian-Shogai.html','Kaigo-Ujian-Iryo-Care.html'];
+    var siangCats = ['praktik','walking','wheelchair','transfer','care_plan','dokumen','workplace','interview','dasar'];
+
+    var sogoPool = BANKS.kaigo.filter(function(q){return q.category==='ujian' && /Sogo-Mondai/i.test(q.source_module||'');});
+    var pagiPool = BANKS.kaigo.filter(function(q){
+      return pagiCats.indexOf(q.category)>-1 || pagiModules.indexOf(q.source_module)>-1;
+    });
+    var siangPool = BANKS.kaigo.filter(function(q){
+      return siangCats.indexOf(q.category)>-1;
+    });
+
+    var pagi = shuffle(pagiPool.slice()).slice(0,63);
+    var sogo = shuffle(sogoPool.slice()).slice(0,12);
+    var siangSisa = shuffle(siangPool.slice()).slice(0,50);
+    var siang = siangSisa.concat(sogo);
+
+    return {pagi:pagi, siang:siang, total:pagi.concat(siang)};
+  }
+
+  $('startBtn').addEventListener('click',function(){
+    if(!BANK.length){alert('Bank soal belum termuat.');return;}
+    if(mode==='ujianpenuh'){
+      if(bank!=='kaigo'){alert('Ujian Penuh format resmi hanya tersedia untuk bank Kaigo.');return;}
+      var built = buildUjianPenuh();
+      if(built.total.length<100){alert('Bank soal belum cukup untuk simulasi penuh. Coba lagi nanti.');return;}
+      quiz = built.total;
+      window._ujianPenuhSesiPagiCount = built.pagi.length;
+      idx=0;answers=[];startedAt=Date.now();
+      $('setup').style.display='none';$('result').style.display='none';$('quiz').style.display='block';
+      tLeft = 220*60; startTimer();
+      render();
+      return;
+    }
+    var cat=$('catSel').value, diff=$('diffSel').value, count=parseInt($('countSel').value);
+    var pool=BANK.filter(function(q){
+      return (cat==='all'||q.category===cat)&&(diff==='all'||q.difficulty===diff);
+    });
+    if(pool.length<3){alert('Soal untuk pilihan ini terlalu sedikit. Coba kategori/tingkat lain.');return;}
+    quiz=shuffle(pool.slice()).slice(0,Math.min(count,pool.length));
+    idx=0;answers=[];startedAt=Date.now();
+    $('setup').style.display='none';$('result').style.display='none';$('quiz').style.display='block';
+    if(mode==='tryout'){tLeft=quiz.length*60;startTimer();}else{$('timer').textContent='Latihan';}
+    render();
+  });
+
+  function startTimer(){
+    clearInterval(tId);
+    tId=setInterval(function(){
+      tLeft--;
+      var m=Math.floor(tLeft/60),s=tLeft%60;
+      $('timer').textContent=m+':'+(s<10?'0':'')+s;
+      if(tLeft<=0){clearInterval(tId);finish();}
+    },1000);
+  }
+
+  function render(){
+    var q=quiz[idx];
+    var sesiLabel='';
+    if(mode==='ujianpenuh' && window._ujianPenuhSesiPagiCount){
+      sesiLabel = (idx < window._ujianPenuhSesiPagiCount) ? ' — 🌅 Sesi Pagi' : ' — ☀️ Sesi Siang';
+    }
+    $('qProgress').textContent='Soal '+(idx+1)+' / '+quiz.length+sesiLabel;
+    $('qBar').style.width=((idx)/quiz.length*100)+'%';
+    $('qText').textContent=q.question;
+    $('qExpl').classList.remove('show');
+    var ch=$('qChoices');ch.innerHTML='';
+    var letters=['A','B','C','D'];
+    q.choices.forEach(function(opt,i){
+      var b=document.createElement('button');
+      b.className='choice';b.innerHTML='<span class="k">'+letters[i]+'</span><span>'+esc(opt)+'</span>';
+      b.addEventListener('click',function(){pick(i);});
+      ch.appendChild(b);
+    });
+    $('nextBtn').textContent=(idx===quiz.length-1)?'Selesai ✓':'Berikutnya →';
+  }
+
+  function pick(i){
+    var q=quiz[idx];
+    if(answers[idx]!=null && mode==='latihan')return;
+    answers[idx]=i;
+    var btns=$('qChoices').querySelectorAll('.choice');
+    if(mode==='latihan'){
+      btns.forEach(function(b,j){
+        if(j===q.correct_index)b.classList.add('correct');
+        else if(j===i)b.classList.add('wrong');
+      });
+      $('qExpl').innerHTML='<b>Pembahasan:</b> '+esc(q.explanation);
+      $('qExpl').classList.add('show');
+    }else{
+      btns.forEach(function(b){b.style.borderColor='';b.classList.remove('sel');});
+      btns[i].classList.add('sel');btns[i].style.borderColor='#A63A3A';
+    }
+  }
+
+  $('nextBtn').addEventListener('click',function(){
+    if(answers[idx]==null && mode==='tryout'){/* boleh kosong */}
+    if(idx===quiz.length-1){finish();}else{idx++;render();}
+  });
+  $('skipBtn').addEventListener('click',function(){
+    if(idx===quiz.length-1){finish();}else{idx++;render();}
+  });
+
+  function finish(){
+    clearInterval(tId);
+    var correct=0;
+    quiz.forEach(function(q,i){if(answers[i]===q.correct_index)correct++;});
+    var pct=Math.round(correct/quiz.length*100);
+    var secs=Math.round((Date.now()-startedAt)/1000);
+    $('quiz').style.display='none';$('result').style.display='block';
+    $('scoreVal').textContent=pct+'%';
+    $('rCorrect').textContent=correct;
+    $('rWrong').textContent=quiz.length-correct;
+    $('rTime').textContent=Math.floor(secs/60)+':'+((secs%60)<10?'0':'')+(secs%60);
+    var ring=$('scoreRing'),col=pct>=80?'#5B7C5B':pct>=60?'#C89B3C':'#A63A3A';
+    ring.style.background='conic-gradient('+col+' '+(pct*3.6)+'deg,var(--border-light,#eee) 0)';
+    ring.innerHTML='<div style="position:absolute;width:130px;height:130px;background:var(--surface,#fff);border-radius:50%"></div><span id="scoreVal" style="position:relative;color:'+col+'">'+pct+'%</span>';
+    $('scoreMsg').textContent=pct>=80?'Luar biasa! Anda siap menghadapi ujian.':pct>=60?'Bagus! Terus berlatih untuk hasil lebih baik.':'Teruslah berlatih — tinjau pembahasan di bawah.';
+    // Breakdown per sesi khusus mode Ujian Penuh (standar lulus resmi: total >=60%)
+    var oldBreakdown = document.getElementById('ujianPenuhBreakdown');
+    if(oldBreakdown) oldBreakdown.remove();
+    if(mode==='ujianpenuh' && window._ujianPenuhSesiPagiCount){
+      var nPagi=window._ujianPenuhSesiPagiCount;
+      var correctPagi=0, correctSiang=0;
+      quiz.forEach(function(q,i){
+        if(answers[i]===q.correct_index){ if(i<nPagi) correctPagi++; else correctSiang++; }
+      });
+      var pctPagi=Math.round(correctPagi/nPagi*100);
+      var pctSiang=Math.round(correctSiang/(quiz.length-nPagi)*100);
+      var lulus = pct>=60;
+      var breakdownHtml = '<div id="ujianPenuhBreakdown" style="margin-top:1rem;padding:1rem;background:var(--gold-pale,#FBF4E3);border-radius:10px;font-size:14px;text-align:left">'+
+        '<strong>📋 Rincian Ujian Penuh (format resmi)</strong><br>'+
+        '🌅 Sesi Pagi: '+correctPagi+'/'+nPagi+' ('+pctPagi+'%)<br>'+
+        '☀️ Sesi Siang (termasuk 総合問題): '+correctSiang+'/'+(quiz.length-nPagi)+' ('+pctSiang+'%)<br>'+
+        '<strong style="color:'+(lulus?'#5B7C5B':'#A63A3A')+'">'+(lulus?'✅ LULUS':'❌ BELUM LULUS')+'</strong> (standar kelulusan resmi: skor total ≥60%)'+
+        '</div>';
+      $('scoreMsg').insertAdjacentHTML('afterend', breakdownHtml);
+    }
+    try{var best=parseInt(localStorage.getItem('np-ujian-best-'+bank)||'0');if(pct>best)localStorage.setItem('np-ujian-best-'+bank,pct);}catch(e){}
+    try{if(window.NPXp&&window.NPXp.add)window.NPXp.add(correct*2);}catch(e){}
+    // Simpan riwayat
+    lastResult={bank:bank,total:quiz.length,correct:correct,pct:pct,secs:secs,at:Date.now(),cat:$('catSel').value};
+    try{
+      var hist=JSON.parse(localStorage.getItem('np-ujian-history')||'[]');
+      hist.push(lastResult);
+      if(hist.length>50)hist=hist.slice(-50);
+      localStorage.setItem('np-ujian-history',JSON.stringify(hist));
+    }catch(e){}
+    // Sinkron ke server (lintas perangkat) — hanya jika user login.
+    // Best-effort: guest/belum login tetap punya riwayat lokal seperti biasa.
+    try{
+      if(window.SupabaseClient && window.SupabaseClient.Auth && window.SupabaseClient.DB){
+        var _authUser = typeof window.SupabaseClient.Auth.user === 'function' ? window.SupabaseClient.Auth.user() : null;
+        if(_authUser && _authUser.id){
+          window.SupabaseClient.DB.saveExamHistory(_authUser.id, lastResult);
+        }
+      }
+    }catch(e){}
+    // Sertifikat untuk skor tinggi (>=80%)
+    $('certBtn').style.display=pct>=80?'inline-block':'none';
+    // Review
+    var rev=$('review');rev.innerHTML='<h3 style="margin:1.5rem 0 1rem">Tinjauan Jawaban</h3>';
+    quiz.forEach(function(q,i){
+      var ok=answers[i]===q.correct_index;
+      var el=document.createElement('div');el.className='rev-item '+(ok?'ok':'no');
+      var yourAns=answers[i]!=null?q.choices[answers[i]]:'(kosong)';
+      el.innerHTML='<div class="qq">'+(i+1)+'. '+esc(q.question)+' <span class="badge '+(ok?'ok':'no')+'">'+(ok?'Benar':'Salah')+'</span></div>'+
+        '<div style="font-size:13px;color:#6e6e6e">Jawaban Anda: '+esc(yourAns)+'</div>'+
+        (ok?'':'<div style="font-size:13px;color:#5B7C5B">Jawaban benar: '+esc(q.choices[q.correct_index])+'</div>')+
+        '<div style="font-size:13px;margin-top:.5rem;padding:.6rem;background:var(--gold-pale,#FBF4E3);border-radius:8px">'+esc(q.explanation)+'</div>';
+      rev.appendChild(el);
+    });
+  }
+
+  $('retryBtn').addEventListener('click',function(){
+    $('result').style.display='none';$('setup').style.display='block';
+    try{var best=localStorage.getItem('np-ujian-best-'+bank);$('bestScore').textContent=best?best+'%':'—';}catch(e){}
+    renderHistory();
+    window.scrollTo(0,0);
+  });
+
+  // ── Riwayat ujian + grafik ──
+  function renderHistory(){
+    var hist=[];
+    try{hist=JSON.parse(localStorage.getItem('np-ujian-history')||'[]');}catch(e){}
+    if(!hist.length){$('historyPanel').style.display='none';return;}
+    $('historyPanel').style.display='block';
+    var recent=hist.slice(-15);
+    var chart=$('historyChart');chart.innerHTML='';
+    recent.forEach(function(h){
+      var bar=document.createElement('div');
+      var col=h.pct>=80?'#5B7C5B':h.pct>=60?'#C89B3C':'#A63A3A';
+      bar.style.cssText='flex:1;min-width:16px;height:'+Math.max(h.pct,4)+'%;background:'+col+';border-radius:4px 4px 0 0;position:relative';
+      bar.title=h.pct+'% ('+(h.bank==='kaigo'?'Kaigo':'JLPT')+')';
+      chart.appendChild(bar);
+    });
+    var list=$('historyList');list.innerHTML='';
+    hist.slice(-5).reverse().forEach(function(h){
+      var d=new Date(h.at);
+      var el=document.createElement('div');
+      el.style.cssText='display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid rgba(107,79,58,.08);font-size:13px';
+      el.innerHTML='<span>'+(h.bank==='kaigo'?'🏥 Kaigo':'🎌 JLPT')+' · '+h.correct+'/'+h.total+'</span>'+
+        '<span style="font-weight:700;color:'+(h.pct>=80?'#5B7C5B':h.pct>=60?'#C89B3C':'#A63A3A')+'">'+h.pct+'%</span>'+
+        '<span style="color:#6e6e6e">'+d.toLocaleDateString('id-ID')+'</span>';
+      list.appendChild(el);
+    });
+  }
+
+  // ── Sertifikat hasil ujian ──
+  $('certBtn').addEventListener('click',function(){
+    if(!lastResult)return;
+    var nama=prompt('Masukkan nama untuk sertifikat:','');
+    if(!nama)return;
+    var certId='UJIAN-'+Date.now().toString(36).toUpperCase();
+    var bankName=lastResult.bank==='kaigo'?'介護福祉士 (Kaigo)':'JLPT (Bahasa Jepang)';
+    // Simpan record ke Supabase agar bisa diverifikasi lewat Verify.html.
+    // Best-effort: kalau Supabase belum dikonfigurasi, gagal diam-diam —
+    // sertifikat tetap tercetak, hanya verifikasi online yang tak tersedia.
+    try{
+      if(window.SupabaseClient && window.SupabaseClient.DB){
+        window.SupabaseClient.DB.saveExamCertificate({
+          certId:certId, name:nama, examType:lastResult.bank,
+          scorePct:lastResult.pct, correct:lastResult.correct, total:lastResult.total
+        });
+      }
+    }catch(e){}
+    var w=window.open('','_blank');
+    if(!w){alert('Izinkan popup untuk mencetak sertifikat.');return;}
+    var html='<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Sertifikat Ujian</title>'+
+      '<style>body{font-family:Georgia,serif;margin:0;padding:40px;background:#F8F3E9;display:flex;justify-content:center}'+
+      '.cert{background:#fff;width:800px;padding:60px;border:3px double #C89B3C;text-align:center;box-shadow:0 8px 40px rgba(0,0,0,.1)}'+
+      '.jp{font-size:20px;color:#A63A3A;letter-spacing:.3em;margin-bottom:8px}'+
+      'h1{font-size:34px;color:#6B4F3A;margin:10px 0 4px}'+
+      '.sub{color:#8a8175;font-size:14px;margin-bottom:30px}'+
+      '.name{font-size:30px;color:#2d2d2d;border-bottom:2px solid #C89B3C;display:inline-block;padding:0 30px 8px;margin:20px 0}'+
+      '.score{font-size:48px;color:#5B7C5B;font-weight:bold;margin:20px 0}'+
+      '.detail{color:#6e6e6e;font-size:14px;line-height:1.8}'+
+      '.foot{display:flex;justify-content:space-between;margin-top:40px;align-items:flex-end}'+
+      '.id{font-size:11px;color:#aaa}#qr{margin:0 auto}'+
+      '@media print{body{background:#fff;padding:0}.cert{box-shadow:none}}</style>'+
+      '<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"><\/script></head><body><div class="cert">'+
+      '<div class="jp">試験修了証</div><h1>Sertifikat Ujian</h1>'+
+      '<div class="sub">Nihonggo Pro Academy</div>'+
+      '<div>Diberikan kepada</div><div class="name">'+esc(nama)+'</div>'+
+      '<div class="detail">telah menyelesaikan ujian <b>'+bankName+'</b><br>dengan hasil</div>'+
+      '<div class="score">'+lastResult.pct+'%</div>'+
+      '<div class="detail">'+lastResult.correct+' dari '+lastResult.total+' soal benar</div>'+
+      '<div class="foot"><div style="text-align:left"><div class="id">ID: '+certId+'</div>'+
+      '<div class="id">'+new Date().toLocaleDateString("id-ID",{year:"numeric",month:"long",day:"numeric"})+'</div></div>'+
+      '<div id="qr"></div></div>'+
+      '<div style="margin-top:20px"><button onclick="window.print()" style="padding:10px 24px;background:#A63A3A;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:14px">Cetak / Simpan PDF</button></div>'+
+      '</div><script>try{new QRCode(document.getElementById("qr"),{text:"https://nihonggopro.id/Verify.html?id='+certId+'",width:90,height:90,colorDark:"#6B4F3A"});}catch(e){}<\/script></body></html>';
+    w.document.write(html);w.document.close();
+  });
+})();
+</script>
+<button id="npDarkToggle" aria-label="Ganti mode gelap/terang" title="Mode gelap/terang" class="np-dark-toggle-btn" style="position:fixed;bottom:20px;left:20px;z-index:900;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--border-mid,rgba(107,79,58,.18));background:var(--surface,#fff);color:var(--ink,#2d2d2d);font-size:20px;cursor:pointer;box-shadow:var(--shadow-md,0 8px 28px rgba(0,0,0,.1));transition:transform .2s"
+  onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'"
+  onclick="window.NPDark && window.NPDark.toggle(); this.textContent = (window.NPDark.isDarkActive()?'☀️':'🌙');">🌙</button>
+<script>
+(function(){
+  var b=document.getElementById('npDarkToggle');
+  if(!b) return;
+  function sync(){ b.textContent = (window.NPDark && window.NPDark.isDarkActive()) ? '☀️' : '🌙'; }
+  document.addEventListener('np-dark-change', sync);
+  document.addEventListener('DOMContentLoaded', sync);
+  sync();
+})();
+</script>
+</body>
+</html>

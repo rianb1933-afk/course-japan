@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>介護 Kaigo Simulator — Simulasi Perawatan Lansia | NihonggoPro</title>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Kaigo Simulator Nihonggo Pro Academy", "url": "https://nihonggopro.id/Kaigo-Simulator.html", "description": "Simulasi skenario nyata kerja kaigo 介護 dalam bahasa Jepang dengan feedback instan.", "applicationCategory": "EducationalApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"}}</script>
+<meta name="description" content="Simulator kaigo interaktif: 入浴介助、食事介助、移乗介助、認知症対応 — skenario nyata dengan feedback profesional untuk persiapan 介護福祉士.">
+<meta property="og:title" content="介護 Kaigo Simulator — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="canonical" href="https://nihonggopro.id/Kaigo-Simulator.html">
+
+<link rel="stylesheet" href="assets/design-system.css">
+<style>
+/* ══════════════════════════════════════
+   介護 KAIGO SIMULATOR — KYOTO CARE CLINIC
+   ══════════════════════════════════════ */
+
+/* Scenario cards */
+.scenario-card:hover, .scene-card:hover {
+  border-color: #6B4F3A !important;
+  background: #F5EDE0 !important;
+  transform: translateY(-2px);
+}
+[data-theme="dark"] .scenario-card:hover {
+  border-color: #C89B3C !important;
+  background: rgba(200,155,60,.08) !important;
+}
+
+/* Active scenario */
+.scenario-card.active, .scene-card.active {
+  border-color: #5B7C5B !important;
+  background: #EAF2E8 !important;
+}
+
+/* Kaigo difficulty badges */
+.diff-easy   { background: rgba(91,124,91,.14) !important; color: #3D6E3D !important; }
+.diff-medium { background: rgba(200,155,60,.14) !important; color: #8B6A1C !important; }
+.diff-hard   { background: rgba(166,58,58,.14) !important;  color: #A63A3A !important; }
+
+/* Dialog options */
+.dialog-opt:hover { border-color: #6B4F3A !important; background: #F5EDE0 !important; }
+.dialog-opt.selected { border-color: #6B4F3A !important; background: #F5EDE0 !important; }
+.dialog-opt.correct  { border-color: #5B7C5B !important; background: #EAF2E8 !important; }
+.dialog-opt.wrong    { border-color: #A63A3A !important; background: #FAEAEA !important; }
+
+/* Progress */
+.kaigo-progress, .scenario-progress { background: linear-gradient(90deg, #5B7C5B, #6B4F3A) !important; }
+
+/* Feedback panel */
+.feedback-panel { border-left: 3px solid #5B7C5B !important; background: #EAF2E8 !important; }
+[data-theme="dark"] .feedback-panel { border-left-color: #C89B3C !important; background: rgba(200,155,60,.08) !important; }
+
+/* Next / confirm buttons */
+.kaigo-btn-primary, .scene-next-btn {
+  background: #5B7C5B !important;
+  border-color: #5B7C5B !important;
+  color: white !important;
+}
+.kaigo-btn-primary:hover { background: #4A6A4A !important; }
+
+/* Score ring */
+.kaigo-score { color: #5B7C5B !important; border-color: #5B7C5B !important; }
+
+/* Header */
+.kaigo-header { background: linear-gradient(160deg, #1A2A1A, #2D2D2D) !important; border-bottom: 1px solid rgba(91,124,91,.2) !important; }
+body { min-height: 100vh; }
+.sim-nav { height: 62px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(16px,4vw,48px); background: var(--nav-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(16px); }
+.sim-brand { font-family: var(--font-jp); font-size: 19px; font-weight: 700; color: var(--primary); text-decoration: none; }
+.sim-main  { max-width: 900px; margin: 0 auto; padding: 28px clamp(12px,4vw,32px) 80px; }
+
+/* HOME */
+.home-hero { text-align: center; padding: 32px 0 24px; }
+.home-hero h1 { font-family: var(--font-jp); font-size: clamp(24px,5vw,38px); margin-bottom: 8px; }
+.home-hero p  { font-size: 15px; color: var(--ink-soft); max-width: 520px; margin: 0 auto; }
+.scenario-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(260px,1fr)); gap: 14px; margin-top: 28px; }
+.sc-card {
+  background: var(--white); border-radius: var(--r-xl); border: 1px solid var(--border);
+  padding: 20px; cursor: pointer; transition: all var(--t-med) var(--ease-out);
+  box-shadow: var(--shadow-xs); text-align: left;
+  /* v185: sc-card sekarang <button> (aksesibilitas Fase 12) -- reset default
+     browser button supaya tampilan visual identik dengan versi <div> lama. */
+  font-family: inherit; font-size: inherit; color: inherit; width: 100%;
+  display: block; -webkit-appearance: none; appearance: none;
+}
+.sc-card:focus-visible { outline: 3px solid var(--primary); outline-offset: 2px; }
+.sc-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--primary); }
+.sc-card.premium-lock { opacity: .65; cursor: default; }
+.sc-card.premium-lock:hover { transform: none; box-shadow: var(--shadow-xs); border-color: var(--border); }
+.sc-icon { font-size: 36px; margin-bottom: 10px; display: block; }
+.sc-title { font-family: var(--font-jp); font-size: 16px; font-weight: 700; margin-bottom: 5px; }
+.sc-desc  { font-size: 12px; color: var(--ink-soft); line-height: 1.6; margin-bottom: 10px; }
+.sc-tags  { display: flex; gap: 5px; flex-wrap: wrap; }
+.sc-tag   { font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 4px; }
+.tag-green { background: var(--green-pale); color: var(--green); }
+.tag-red   { background: var(--primary-pale); color: var(--primary); }
+.tag-gold  { background: var(--gold-pale); color: var(--gold); }
+.tag-blue  { background: var(--blue-pale); color: var(--blue); }
+.lock-badge { float: right; font-size: 18px; opacity: .6; }
+
+/* SIMULATOR */
+.sim-header {
+  background: var(--ink); color: white; border-radius: var(--r-xl); padding: 24px 28px;
+  margin-bottom: 20px; position: relative; overflow: hidden;
+}
+.sim-header::before { content:''; position:absolute; right:-40px; top:-40px; width:200px; height:200px; border-radius:50%; background:radial-gradient(circle, rgba(190,52,40,.3), transparent 70%); }
+.sim-header h2 { font-family: var(--font-jp); font-size: clamp(18px,3vw,24px); margin-bottom: 5px; position: relative; }
+.sim-header p  { font-size: 13px; color: rgba(255,255,255,.55); position: relative; }
+.sim-progress { height: 4px; background: rgba(255,255,255,.15); border-radius: 99px; overflow: hidden; margin-top: 14px; position: relative; }
+.sim-prog-fill { height: 100%; background: var(--primary); border-radius: 99px; transition: width .5s var(--ease-out); }
+
+/* SCENARIO BOX */
+.scene-box {
+  background: var(--white); border-radius: var(--r-xl); border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm); overflow: hidden; margin-bottom: 14px;
+}
+.scene-context {
+  padding: 20px 24px; background: linear-gradient(135deg, var(--cream), white);
+  border-bottom: 1px solid var(--border);
+}
+.scene-label { font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); margin-bottom: 6px; }
+.scene-text  { font-family: var(--font-jp); font-size: 17px; line-height: 1.85; color: var(--ink); }
+.scene-note  { margin-top: 10px; padding: 10px 12px; background: rgba(37,99,235,.07); border-radius: var(--r-sm); border-left: 3px solid var(--blue); font-size: 12px; color: var(--ink-mid); line-height: 1.65; }
+
+/* CHOICES */
+.choices { padding: 20px 24px; display: flex; flex-direction: column; gap: 10px; }
+.choice-btn {
+  display: flex; align-items: flex-start; gap: 14px;
+  padding: 14px 16px; border-radius: var(--r-lg); border: 2px solid var(--border);
+  background: var(--white); cursor: pointer; text-align: left;
+  transition: all var(--t-med) var(--ease-out); font-family: var(--font-sans);
+}
+.choice-btn:hover:not(.result-shown) { border-color: var(--primary); background: var(--primary-pale); transform: translateX(3px); }
+.choice-btn.correct { border-color: var(--green); background: var(--green-pale); }
+.choice-btn.incorrect { border-color: var(--primary); background: var(--primary-pale); }
+.choice-btn.neutral { opacity: .55; }
+.choice-key { width: 28px; height: 28px; border-radius: 50%; background: var(--cream); border: 2px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; flex-shrink: 0; font-family: var(--font-jp); transition: all var(--t-fast); }
+.choice-text { font-size: 14px; font-family: var(--font-jp); line-height: 1.6; }
+.choice-id   { font-size: 11px; color: var(--ink-soft); margin-top: 3px; line-height: 1.5; }
+
+/* FEEDBACK */
+.feedback-box {
+  margin: 0 24px 20px; padding: 14px 16px; border-radius: var(--r-lg);
+  border-left: 4px solid; font-size: 13px; line-height: 1.75; display: none;
+}
+.feedback-box.show { display: block; }
+.feedback-box.good { background: var(--green-pale); border-color: var(--green); }
+.feedback-box.bad  { background: var(--primary-pale); border-color: var(--primary); }
+.fb-title { font-size: 14px; font-weight: 800; margin-bottom: 6px; }
+.fb-detail { margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(0,0,0,.07); }
+.fb-vocab  { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.fb-word { padding: 2px 8px; border-radius: 4px; background: rgba(26,138,90,.1); border: 1px solid rgba(26,138,90,.2); font-family: var(--font-jp); font-size: 12px; }
+.fb-word .reading { font-size: 9px; color: var(--ink-soft); display: block; }
+
+/* NEXT BUTTON */
+.next-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px 20px; }
+.step-count { font-size: 12px; color: var(--ink-soft); font-weight: 600; }
+
+/* RESULT */
+.result-wrap { background: var(--white); border-radius: var(--r-xl); border: 1px solid var(--border); box-shadow: var(--shadow-md); padding: 36px; text-align: center; }
+.result-score { font-family: var(--font-jp); font-size: 64px; font-weight: 700; color: var(--primary); line-height: 1; margin-bottom: 8px; }
+.result-label { font-size: 15px; color: var(--ink-soft); margin-bottom: 20px; }
+.result-breakdown { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin: 20px 0; }
+.rb-item { background: var(--cream); border-radius: var(--r-md); padding: 12px; border: 1px solid var(--border); }
+.rb-val { font-family: var(--font-jp); font-size: 22px; font-weight: 700; }
+.rb-lbl { font-size: 10px; color: var(--ink-soft); text-transform: uppercase; }
+.error-list { text-align: left; margin: 16px 0; }
+.err-item { padding: 10px 14px; border-radius: var(--r-md); background: var(--primary-pale); border-left: 3px solid var(--primary); margin-bottom: 8px; font-size: 13px; line-height: 1.6; }
+.err-item .err-jp { font-family: var(--font-jp); font-weight: 700; margin-bottom: 3px; }
+
+/* SCREEN */
+.screen { display: none; }
+.screen.active { display: block; }
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Simulator kaigo interaktif: 入浴介助、食事介助、移乗介助、認知症対応 — skenario nyata dengan feedback profesional untuk persiapan 介護福祉士.">
+<meta property="og:url" content="https://nihonggopro.id/Kaigo-Simulator.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="介護 Kaigo Simulator — Simulasi Perawatan Lansia">
+<meta name="twitter:description" content="Simulator kaigo interaktif: 入浴介助、食事介助、移乗介助、認知症対応 — skenario nyata dengan feedback profesional untuk persiapan 介護福祉士.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+
+<nav class="sim-nav">
+  <a class="sim-brand" href="index.html">Nihonggo Pro Academy · 介護 Simulator</a>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="Dashboard/Dashboard.html" class="btn btn-sm btn-outline hide-mobile" style="text-decoration:none">📊 Dashboard</a>
+    <a href="Materi/Kaigo-Fukushishi-Overview.html" class="btn btn-sm btn-outline hide-mobile" style="text-decoration:none">📚 Materi</a>
+    <button aria-label="Tombol" class="icon-btn" data-theme-toggle>🌙</button>
+  </div>
+</nav>
+
+<div class="sim-main">
+
+  <!-- HOME -->
+  <div class="screen active" id="scrHome">
+    <div class="home-hero">
+      <h1>🏥 Kaigo Simulator</h1>
+      <p>Latihan skenario perawatan nyata: pilih tindakan terbaik dan dapatkan feedback profesional + penjelasan bahasa Jepang kaigo.</p>
+    </div>
+    <div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:14px;margin-top:8px">Pilih Skenario</div>
+    <div class="scenario-grid" id="scenarioGrid"></div>
+  </div>
+
+  <!-- SIMULATOR -->
+  <div class="screen" id="scrSim">
+    <div class="sim-header" id="simHeader">
+      <h2 id="simTitle">入浴介助</h2>
+      <p id="simSubtitle">Skenario perawatan mandi</p>
+      <div class="sim-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progres skenario"><div class="sim-prog-fill" id="simProgFill" style="width:0%"></div></div>
+    </div>
+
+    <div class="scene-box" id="sceneBox">
+      <div class="scene-context">
+        <div class="scene-label">📋 Situasi</div>
+        <div class="scene-text" id="sceneText"></div>
+        <div class="scene-note" id="sceneNote" style="display:none"></div>
+      </div>
+      <div class="choices" id="choices"></div>
+      <div class="feedback-box" id="feedbackBox" role="status" aria-live="polite">
+        <div class="fb-title" id="fbTitle"></div>
+        <div id="fbText"></div>
+        <div class="fb-detail" id="fbDetail" style="display:none">
+          <div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;margin-bottom:6px">Kosakata Kaigo</div>
+          <div class="fb-vocab" id="fbVocab"></div>
+        </div>
+      </div>
+      <div class="next-row">
+        <span class="step-count" id="stepCount">Langkah 1 dari 4</span>
+        <button class="btn btn-primary btn-sm" id="nextBtn" onclick="nextStep()" style="display:none">Langkah Berikutnya →</button>
+      </div>
+    </div>
+
+    <button class="btn btn-ghost btn-sm" onclick="goHome()" style="margin-top:4px">← Pilih Skenario Lain</button>
+  </div>
+
+  <!-- RESULT -->
+  <div class="screen" id="scrResult">
+    <div class="result-wrap">
+      <div class="result-score" id="rScore">0/0</div>
+      <div class="result-label" id="rLabel">Hasil Simulasi</div>
+      <div class="result-breakdown">
+        <div class="rb-item"><div class="rb-val" id="rCorrect" style="color:var(--green)">0</div><div class="rb-lbl">Benar</div></div>
+        <div class="rb-item"><div class="rb-val" id="rWrong" style="color:var(--primary)">0</div><div class="rb-lbl">Salah</div></div>
+        <div class="rb-item"><div class="rb-val" id="rXP" style="color:var(--gold)">0</div><div class="rb-lbl">XP</div></div>
+      </div>
+      <div id="errorList" class="error-list" role="alert" aria-live="polite"></div>
+      <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px">
+        <button class="btn btn-outline" onclick="goHome()">← Pilih Skenario Lain</button>
+        <button class="btn btn-primary" onclick="retryScenario()">↺ Ulangi Skenario</button>
+        <a href="Dashboard/Dashboard.html" class="btn btn-ghost" style="text-decoration:none;border:1px solid var(--border-mid)">📊 Dashboard</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="assets/platform.min.js" defer></script>
+<script>
+'use strict';
+// ═══════════════════════════════════════════════════════════════════════
+// v185 PERBAIKAN TOTAL: root cause perbaikan v172/v177/v178 SEBELUMNYA
+// tidak cukup -- ketiganya hanya menangani NP.Nav.init() (baris paling
+// akhir file). TIGA pemanggilan NP.State.* lain (getUser di renderHome,
+// addXP di answerStep, updateUser+getUser di showResult) MASIH diakses
+// langsung tanpa guard -- persis fungsi INTI simulator (render beranda,
+// beri XP, tampilkan hasil). Kalau platform.min.js gagal load sama sekali
+// (404/network error/file rusak -- bukan cuma soal timing defer), window.NP
+// tidak akan pernah ada dan KETIGA fungsi ini akan throw exception,
+// menghentikan simulator total -- inilah kemungkinan sebab user masih
+// melaporkan simulator "tidak bisa dipakai" meski sudah "diperbaiki".
+//
+// ARSITEKTUR BARU (2 layer, sesuai spesifikasi):
+//   Layer 1 (Core Simulator): render skenario, jawab pertanyaan, skor,
+//     hasil akhir -- SEMUA harus jalan tanpa window.NP sama sekali.
+//   Layer 2 (Platform Integration, opsional): XP, progress, navigasi --
+//     HANYA dipanggil lewat adapter KaigoPlatform di bawah, tidak pernah
+//     langsung NP.State.xxx() tersebar di kode Layer 1.
+// ═══════════════════════════════════════════════════════════════════════
+
+const KaigoPlatform = {
+  isAvailable() {
+    return Boolean(window.NP && window.NP.State);
+  },
+  getUser() {
+    try {
+      return this.isAvailable() && typeof window.NP.State.getUser === 'function'
+        ? (window.NP.State.getUser() || {})
+        : {};
+    } catch (error) {
+      console.warn('[Kaigo Simulator] Gagal membaca data user:', error);
+      return {};
+    }
+  },
+  addXP(amount, reason) {
+    try {
+      if (this.isAvailable() && typeof window.NP.State.addXP === 'function') {
+        window.NP.State.addXP(amount, reason);
+      }
+    } catch (error) {
+      console.warn('[Kaigo Simulator] Gagal menambah XP:', error);
+    }
+  },
+  updateUser(data) {
+    try {
+      if (this.isAvailable() && typeof window.NP.State.updateUser === 'function') {
+        window.NP.State.updateUser(data);
+      }
+    } catch (error) {
+      console.warn('[Kaigo Simulator] Gagal update progress:', error);
+    }
+  },
+  initNavigation() {
+    try {
+      if (window.NP && window.NP.Nav && typeof window.NP.Nav.init === 'function') {
+        window.NP.Nav.init('');
+      }
+    } catch (error) {
+      console.warn('[Kaigo Simulator] Inisialisasi navigasi gagal:', error);
+    }
+  },
+};
+
+// ── SCENARIO DATABASE ─────────────────────────────────────────────────
+const SCENARIOS = [
+  {
+    id: 'bathing',
+    title: '入浴介助',
+    subtitle: 'Bantuan mandi — Keselamatan & Kenyamanan',
+    icon: '🛁',
+    tags: [{ t:'Dasar', c:'tag-green' }, { t:'Keselamatan', c:'tag-red' }],
+    free: true,
+    steps: [
+      {
+        text: '利用者のAさん（82歳、要介護2）は入浴の時間です。浴室に向かう前に、あなたはどうしますか？',
+        note: '💡 入浴前には必ず体調確認が必要です。バイタルチェックと転倒予防が重要。',
+        choices: [
+          { jp:'すぐに浴室へ連れて行く', id:'Langsung bawa ke kamar mandi tanpa cek kondisi', ok:false },
+          { jp:'バイタルサインを測定し、体調を確認してから入浴準備をする', id:'Cek tanda vital dan kondisi dulu, baru persiapan mandi', ok:true },
+          { jp:'利用者に一人で浴室へ行くよう伝える', id:'Minta residen pergi sendiri ke kamar mandi', ok:false },
+        ],
+        feedback: {
+          good: '✅ 正解です！入浴前のバイタル確認は必須です。',
+          goodDetail: 'Sebelum mandi, selalu periksa: tekanan darah, suhu tubuh, kondisi umum, dan tanyakan apakah ada keluhan. Ini mencegah kejadian darurat di kamar mandi.',
+          bad:  '❌ 安全確認が不十分です。',
+          badDetail: 'Masuk ke kamar mandi tanpa cek kondisi sangat berbahaya. Residen lansia rentan terhadap tekanan darah rendah, pusing, dan jatuh saat mandi.',
+          vocab: [{jp:'バイタルサイン', r:'baitaru sain', id:'tanda vital'}, {jp:'体調確認', r:'たいちょうかくにん', id:'konfirmasi kondisi'}],
+        },
+      },
+      {
+        text: 'Aさんの血圧は低め（90/60）でした。入浴についてどう対応しますか？',
+        note: '💡 血圧90/60mmHgは低血圧です。入浴はさらに血圧を下げる可能性があります。',
+        choices: [
+          { jp:'血圧が低いが、予定通り入浴を実施する', id:'Tekanan darah rendah tapi tetap lakukan mandi sesuai jadwal', ok:false },
+          { jp:'看護師に報告し、入浴の可否を確認する', id:'Lapor ke perawat dan konfirmasi apakah boleh mandi', ok:true },
+          { jp:'何も言わずに清拭（せっしき）に変更する', id:'Ganti ke lap basah tanpa memberitahu siapapun', ok:false },
+        ],
+        feedback: {
+          good: '✅ 正解！低血圧の場合は必ず看護師に報告します。',
+          goodDetail: 'Tekanan darah rendah adalah kontraindikasi relatif untuk mandi air panas. Keputusan mengganti ke 清拭 (lap basah) harus melalui perawat atau dokter, bukan keputusan sendiri.',
+          bad:  '❌ 医療的判断は介護職員単独ではできません。',
+          badDetail: 'Mengubah metode perawatan (dari 入浴 ke 清拭) harus berdasarkan instruksi perawat atau dokter. Keputusan mandiri bisa berbahaya dan melanggar prosedur.',
+          vocab: [{jp:'低血圧', r:'ていけつあつ', id:'tekanan darah rendah'}, {jp:'清拭', r:'せっしき', id:'lap tubuh'}, {jp:'看護師', r:'かんごし', id:'perawat'}],
+        },
+      },
+      {
+        text: '看護師の許可を得て入浴介助を行います。浴室の準備として最初にすることは？',
+        choices: [
+          { jp:'Aさんをすぐに浴室に連れて行く', id:'Langsung bawa Aさん ke kamar mandi', ok:false },
+          { jp:'脱衣室と浴室の温度・湯温を確認する（室温22-24℃、湯温40-42℃）', id:'Periksa suhu ruang ganti (22-24°C) dan suhu air (40-42°C) dulu', ok:true },
+          { jp:'浴槽にお湯を入れるだけでよい', id:'Cukup isi bak mandi dengan air', ok:false },
+        ],
+        feedback: {
+          good: '✅ 環境整備が正解です！',
+          goodDetail: 'Suhu kamar ganti ideal 22-24°C, suhu air 40-42°C. Perbedaan suhu yang ekstrem menyebabkan 熱中症 (heat stroke) atau 低体温 (hipotermia). Siapkan juga バスタオル、着替え、手すり確認.',
+          bad:  '❌ 環境整備なしの入浴は危険です。',
+          badDetail: 'Tanpa persiapan lingkungan yang proper, residen berisiko jatuh (転倒), kepanasan (熱中症), atau kedinginan (低体温).',
+          vocab: [{jp:'脱衣室', r:'だついしつ', id:'ruang ganti'}, {jp:'室温', r:'しつおん', id:'suhu ruangan'}, {jp:'湯温', r:'ゆおん', id:'suhu air'}],
+        },
+      },
+      {
+        text: '入浴中、Aさんが「気持ちが悪い（mual）」と訴えました。どうしますか？',
+        choices: [
+          { jp:'大丈夫です、もう少し続けましょうと励ます', id:'Semangati untuk melanjutkan mandi', ok:false },
+          { jp:'すぐに入浴を中止し、安全な場所に移動して看護師を呼ぶ', id:'Hentikan mandi segera, pindahkan ke tempat aman, panggil perawat', ok:true },
+          { jp:'しばらく様子を見る', id:'Tunggu dan observasi dulu', ok:false },
+        ],
+        feedback: {
+          good: '✅ 完璧な対応です！',
+          goodDetail: 'Keluhan 気持ちが悪い (mual) di kamar mandi bisa menandakan: tekanan darah turun, heat stroke, atau kondisi medis lain. Tindakan benar: 1) Hentikan segera, 2) Dudukkan/baringkan di tempat aman, 3) Panggil 看護師, 4) Catat gejala.',
+          bad:  '❌ 症状の見落としは危険です。',
+          badDetail: 'Mengabaikan atau menunda respons terhadap keluhan mual di kamar mandi bisa berakibat fatal. Selalu prioritaskan keselamatan residen di atas segalanya.',
+          vocab: [{jp:'気持ちが悪い', r:'きもちがわるい', id:'mual/tidak enak badan'}, {jp:'入浴中止', r:'にゅうよくちゅうし', id:'hentikan mandi'}, {jp:'緊急対応', r:'きんきゅうたいおう', id:'penanganan darurat'}],
+        },
+      },
+    ],
+  },
+  {
+    id: 'dementia',
+    title: '認知症対応',
+    subtitle: 'Penanganan demensia — Komunikasi & Keselamatan',
+    icon: '🧠',
+    tags: [{ t:'Menengah', c:'tag-gold' }, { t:'Demensia', c:'tag-blue' }],
+    free: true,
+    steps: [
+      {
+        text: '認知症（アルツハイマー型）のBさんが夕方になると「家に帰ります」と繰り返し訴えています（帰宅願望）。どう対応しますか？',
+        note: '💡 帰宅願望は認知症の症状の一つ。否定や無理な引き留めはBPSD（行動・心理症状）を悪化させます。',
+        choices: [
+          { jp:'「ここはあなたの家ではありません」と事実を伝える', id:'Katakan "ini bukan rumah Anda" dengan tegas', ok:false },
+          { jp:'「そうですか、心配ですね」と気持ちを受け止め、安心できる話題や活動に誘う', id:'Terima perasaannya, alihkan ke topik atau aktivitas yang menenangkan', ok:true },
+          { jp:'部屋に閉じ込めて外に出られないようにする', id:'Kurung di kamar agar tidak bisa keluar', ok:false },
+        ],
+        feedback: {
+          good: '✅ バリデーション（受容）の対応が正解です！',
+          goodDetail: 'Teknik バリデーション: terima perasaan residen, jangan koreksi persepsi mereka. Contoh respons: 「家が恋しいですね。どんなお家でしたか？」(Kangen rumah ya? Rumahnya seperti apa?) — ini mengalihkan perhatian sambil menghargai perasaan.',
+          bad:  '❌ 否定や身体拘束はBPSDを悪化させます。',
+          badDetail: 'Menolak atau mengurung residen demensia melanggar 身体拘束禁止 (larangan pembatasan fisik) dan akan memperburuk BPSD (Behavioral and Psychological Symptoms of Dementia).',
+          vocab: [{jp:'帰宅願望', r:'きたくがんぼう', id:'keinginan pulang ke rumah'}, {jp:'バリデーション', r:'barideeshon', id:'validasi/penerimaan perasaan'}, {jp:'BPSD', r:'B-P-S-D', id:'gejala psikologis demensia'}],
+        },
+      },
+      {
+        text: 'Bさんが食事中に「この料理に毒が入っている（ada racun）」と言って食べることを拒否しています。',
+        choices: [
+          { jp:'「毒なんてありません」と強く否定し、食べるよう説得する', id:'Tolak tegas "tidak ada racun" dan paksa makan', ok:false },
+          { jp:'Bさんの前で料理を少し食べてみせ、「大丈夫ですよ」と安心させてみる', id:'Coba makan sedikit di depan Bさん untuk tunjukkan aman, lalu tenangkan', ok:true },
+          { jp:'食事をそのまま下げ、記録だけして終わりにする', id:'Langsung angkat piring dan hanya catat tanpa solusi', ok:false },
+        ],
+        feedback: {
+          good: '✅ 創造的な対応です！',
+          goodDetail: '妄想への対応は否定でも肯定でもなく、創造的なアプローチが有効。「一緒に食べましょう」とスタッフが食べてみせることで安心感を与えられます。または食事の形態を変えたり、信頼できる人から声かけてもらうことも効果的。',
+          bad:  '❌ 妄想に正面から向き合うと症状が悪化します。',
+          badDetail: 'Demensia dengan 被害妄想 (paranoid delusion) tidak bisa diatasi dengan argumen logis. Menolak tegas atau memaksakan akan memperburuk agitasi dan kecemasan.',
+          vocab: [{jp:'被害妄想', r:'ひがいもうそう', id:'paranoid delusion'}, {jp:'食事拒否', r:'しょくじきょひ', id:'penolakan makan'}, {jp:'摂食障害', r:'せっしょくしょうがい', id:'gangguan makan'}],
+        },
+      },
+      {
+        text: '夜間、Bさんが徘徊（はいかい）しています。廊下で迷子になっているBさんを発見しました。',
+        choices: [
+          { jp:'大きい声で「ダメです！部屋に戻ってください！」と叱る', id:'Tegur keras "tidak boleh! kembali ke kamar!"', ok:false },
+          { jp:'穏やかに声をかけ、「Bさん、一緒に戻りましょうか」と安心させながら誘導する', id:'Sapa dengan tenang "Bさん, mari kita kembali bersama" dan pandu dengan lembut', ok:true },
+          { jp:'Bさんが疲れるまで徘徊させておく', id:'Biarkan sampai kelelahan sendiri', ok:false },
+        ],
+        feedback: {
+          good: '✅ 穏やかな誘導が正解です！',
+          goodDetail: '徘徊対応の基本: 1) 安全確認, 2) 穏やかな声かけ, 3) 否定せず受容, 4) 安心できる環境へ誘導. "どこへ行くんですか？" より "一緒に行きましょうか" の方が効果的。センサーや見守りシステムの活用も重要。',
+          bad:  '❌ 叱責や放置は転倒リスクと不安を高めます。',
+          badDetail: 'Memarahi residen demensia saat 徘徊 akan meningkatkan ketakutan dan agitasi. Membiarkan 徘徊 tanpa pengawasan meningkatkan risiko 転倒 (jatuh) dan hilang.',
+          vocab: [{jp:'徘徊', r:'はいかい', id:'berkeliaran (gejala demensia)'}, {jp:'声かけ', r:'こえかけ', id:'menyapa/komunikasi verbal'}, {jp:'誘導', r:'ゆうどう', id:'mengarahkan/membimbing'}],
+        },
+      },
+      {
+        text: 'BさんのBPSD（帰宅願望・徘徊・食事拒否）について、チームにどう共有しますか？',
+        choices: [
+          { jp:'自分だけで対応し、記録も書かずに終わりにする', id:'Tangani sendiri, tidak dicatat, tidak dilaporkan', ok:false },
+          { jp:'詳細な観察記録を書き、申し送りでチーム全員に共有し、カンファレンスを提案する', id:'Tulis catatan observasi detail, sampaikan saat serah terima, usulkan rapat tim', ok:true },
+          { jp:'家族にだけ電話で報告する', id:'Hanya lapor ke keluarga lewat telepon', ok:false },
+        ],
+        feedback: {
+          good: '✅ チームケアの理想的な対応です！',
+          goodDetail: 'BPSD対応はチームアプローチが必須: 1) 詳細記録 (いつ・どこで・何が・どのくらい), 2) 申し送り (shift handover), 3) カンファレンス (case conference), 4) ケアプランの見直し. 一人で抱え込まないことが重要。',
+          bad:  '❌ 情報共有なしではチームケアができません。',
+          badDetail: 'BPSD memerlukan respons tim yang konsisten. Tanpa pencatatan dan komunikasi, setiap staf memberikan respons berbeda yang bisa membingungkan residen.',
+          vocab: [{jp:'申し送り', r:'もうしおくり', id:'serah terima informasi'}, {jp:'カンファレンス', r:'kanfarensu', id:'rapat tim perawatan'}, {jp:'ケアプラン', r:'kea puran', id:'rencana perawatan'}],
+        },
+      },
+    ],
+  },
+  {
+    id: 'transfer',
+    title: '移乗介助',
+    subtitle: 'Bantuan pindah — Teknik & Keselamatan',
+    icon: '🦽',
+    tags: [{ t:'Dasar', c:'tag-green' }, { t:'Teknik Tubuh', c:'tag-blue' }],
+    free: true,
+    steps: [
+      {
+        text: '片麻痺（かたまひ）のある利用者Cさんをベッドから車いすへ移乗します。車いすをどこに置くべきですか？',
+        note: '💡 Cさんの右半身に麻痺があります。健側（左）と麻痺側（右）の区別が重要です。',
+        choices: [
+          { jp:'麻痺側（右）にベッドと平行に置く', id:'Letakkan di sisi yang lumpuh (kanan) sejajar tempat tidur', ok:false },
+          { jp:'健側（左）に30〜45度の角度で置く', id:'Letakkan di sisi yang sehat (kiri) dengan sudut 30-45 derajat', ok:true },
+          { jp:'ベッドの足元に置く', id:'Letakkan di ujung kaki tempat tidur', ok:false },
+        ],
+        feedback: {
+          good: '✅ 正解！健側への移乗が原則です。',
+          goodDetail: '健側（左）に30-45度の角度で車いすを置く理由: 利用者が健側の腕・脚の力を使って移乗できるから。ブレーキをかけ、フットレストを上げることも忘れずに。',
+          bad:  '❌ 麻痺側への移乗は転倒リスクが高まります。',
+          badDetail: '麻痺側は力が入らないため、その側へ移乗しようとすると体重を支えられず転倒の危険があります。必ず健側を活用。',
+          vocab: [{jp:'片麻痺', r:'かたまひ', id:'hemiplegia/kelumpuhan separuh badan'}, {jp:'健側', r:'けんそく', id:'sisi yang sehat'}, {jp:'麻痺側', r:'まひがわ', id:'sisi yang lumpuh'}],
+        },
+      },
+      {
+        text: '車いすの準備ができました。移乗介助を始める前に必ず確認することは何ですか？',
+        choices: [
+          { jp:'そのまますぐに立ち上がるよう指示する', id:'Langsung minta residen berdiri', ok:false },
+          { jp:'車いすのブレーキ確認、フットレストを上げる、利用者に移乗を説明・同意を得る', id:'Cek rem kursi roda, naikkan footrest, jelaskan prosedur dan minta persetujuan residen', ok:true },
+          { jp:'ブレーキだけかければよい', id:'Cukup pasang rem saja', ok:false },
+        ],
+        feedback: {
+          good: '✅ インフォームドコンセントと環境整備、完璧です！',
+          goodDetail: '移乗前チェックリスト: ✅ ブレーキ確認 ✅ フットレスト上げる ✅ 手すり確認 ✅ 利用者への説明 ✅ 同意確認 ✅ 履き物確認. これを毎回行うことが事故ゼロへの道。',
+          bad:  '❌ 準備不足は転倒事故の原因になります。',
+          badDetail: 'ブレーキなし・フットレスト降りたままでの移乗は重大な転倒事故につながります。また同意なしの介助は利用者の権利侵害です。',
+          vocab: [{jp:'ブレーキ', r:'bureeki', id:'rem'}, {jp:'フットレスト', r:'futtoresuto', id:'pijakan kaki'}, {jp:'インフォームドコンセント', r:'intoomudu konsentu', id:'persetujuan berdasarkan informasi'}],
+        },
+      },
+      {
+        text: '移乗中、Cさんが「怖い（takut）」と言い始めました。どうしますか？',
+        choices: [
+          { jp:'「大丈夫です」と言いながら急いで移乗を終わらせる', id:'Katakan "tidak apa-apa" sambil buru-buru selesaikan transfer', ok:false },
+          { jp:'一度動作を止め、「どこが怖いですか？」と確認し、安心できるまでゆっくり進む', id:'Hentikan gerakan, tanya "di mana yang terasa menakutkan?", lanjut perlahan setelah residen tenang', ok:true },
+          { jp:'痛みかもしれないが移乗を続ける', id:'Mungkin sakit tapi lanjutkan saja', ok:false },
+        ],
+        feedback: {
+          good: '✅ 利用者中心のケアが正解です！',
+          goodDetail: '恐怖・不安・痛みの訴えは必ず立ち止まって確認するサインです。「ゆっくりやります」「一緒にやりましょう」などの声かけで安心感を与え、利用者のペースに合わせることが介護の基本。',
+          bad:  '❌ 利用者の訴えを無視した介助は事故と虐待につながります。',
+          badDetail: '恐怖感を無視して強引に移乗を続けると: 転倒、骨折、心理的トラウマのリスクがあります。利用者の「怖い」は重要な安全信号です。',
+          vocab: [{jp:'安心', r:'あんしん', id:'ketenangan/rasa aman'}, {jp:'声かけ', r:'こえかけ', id:'komunikasi verbal'}, {jp:'利用者中心', r:'りようしゃちゅうしん', id:'person-centered care'}],
+        },
+      },
+    ],
+  },
+  {
+    id: 'feeding',
+    title: '食事介助',
+    subtitle: 'Bantuan makan — Pencegahan Aspirasi',
+    icon: '🍜',
+    tags: [{ t:'Penting', c:'tag-red' }, { t:'Keselamatan', c:'tag-red' }],
+    free: false,
+    steps: [
+      {
+        text: 'Dさん（75歳、嚥下障害あり）の食事介助を開始します。最初に確認することは？',
+        note: '💡 嚥下障害 = gangguan menelan. Risiko 誤嚥 (aspirasi) sangat tinggi.',
+        choices: [
+          { jp:'ベッドを平らにして食事を始める', id:'Ratakan tempat tidur lalu mulai makan', ok:false },
+          { jp:'座位または30〜60度のファウラー位をとり、首を少し前傾させる', id:'Posisikan duduk atau Fowler 30-60°, kepala sedikit menunduk ke depan', ok:true },
+          { jp:'横向きに寝かせたまま食べさせる', id:'Beri makan dalam posisi miring', ok:false },
+        ],
+        feedback: {
+          good: '✅ 食事前の体位確認が正解です！',
+          goodDetail: '嚥下障害がある方の食事体位: 座位（90度）または ファウラー位（30-60度）が基本。首を少し前屈させると咽頭が閉じやすく誤嚥を防げます。臥位での食事は誤嚥性肺炎の原因になります。',
+          bad:  '❌ 不適切な体位は誤嚥性肺炎のリスクを高めます。',
+          badDetail: '平らな体位や横向きでの食事は、食べ物が気道に入る誤嚥（ごえん）を引き起こし、誤嚥性肺炎の原因になります。',
+          vocab: [{jp:'嚥下障害', r:'えんげしょうがい', id:'gangguan menelan'}, {jp:'ファウラー位', r:'faurawii', id:'posisi fowler/semi-duduk'}, {jp:'誤嚥', r:'ごえん', id:'aspirasi/tersedak'}],
+        },
+      },
+      {
+        text: '食事中、Dさんが数回むせました（tersedak）。どうしますか？',
+        choices: [
+          { jp:'少し水を飲んでもらってから食事を続ける', id:'Minta minum air sedikit lalu lanjutkan makan', ok:false },
+          { jp:'食事を中断し、前傾姿勢で背中をポンポンと叩き、症状が落ち着いてから看護師に報告する', id:'Hentikan makan, posisi condong ke depan, tepuk punggung, laporkan ke perawat setelah stabil', ok:true },
+          { jp:'むせは普通のことなので、そのまま食事を続ける', id:'Tersedak itu biasa, lanjutkan saja', ok:false },
+        ],
+        feedback: {
+          good: '✅ 完璧な対応です！',
+          goodDetail: 'むせへの対応: 1) 即座に食事中止 2) 前傾姿勢（前かがみ）にする 3) 背中を軽くポンポン叩く 4) 回復を確認 5) 看護師に報告 6) 詳細を記録。水を飲ませると誤嚥物を押し込む危険があります。',
+          bad:  '❌ むせは誤嚥のサインです。絶対に続けてはいけません。',
+          badDetail: 'むせは食物が気道に入りかけているサインです。無視して続けると誤嚥性肺炎（重症化すると死亡リスク）につながります。',
+          vocab: [{jp:'むせる', r:'むせる', id:'tersedak'}, {jp:'前傾姿勢', r:'ぜんけいしせい', id:'posisi condong ke depan'}, {jp:'誤嚥性肺炎', r:'ごえんせいはいえん', id:'pneumonia aspirasi'}],
+        },
+      },
+    ],
+  },
+  {
+    id: 'night',
+    title: '夜勤対応',
+    subtitle: 'Shift malam — Kewaspadaan & Keselamatan',
+    icon: '🌙',
+    tags: [{ t:'Lanjutan', c:'tag-gold' }, { t:'Malam', c:'tag-blue' }],
+    free: false,
+    steps: [
+      {
+        text: '夜勤中（午前2時）、ナースコールが鳴りました。Eさん（90歳）が「トイレに行きたい」と言っています。',
+        choices: [
+          { jp:'夜中なので「おむつに排泄してください」と言う', id:'Karena tengah malam, suruh BAK di pampers saja', ok:false },
+          { jp:'すぐにEさんの部屋へ行き、安全にトイレへ誘導する', id:'Segera ke kamar Eさん dan antar ke toilet dengan aman', ok:true },
+          { jp:'他のスタッフが対応するだろうと思い、様子を見る', id:'Tunggu, mungkin staf lain yang handle', ok:false },
+        ],
+        feedback: {
+          good: '✅ 即座の対応と尊厳の尊重が正解です！',
+          goodDetail: '夜間トイレ対応の原則: 1) 即座に対応（転落転倒防止）2) トイレへの誘導を優先（自尊心・尊厳）3) おむつへの誘導は最終手段 4) 転倒予防のため必ず付き添い. 夜中でも尊厳のあるケアが重要。',
+          bad:  '❌ 夜中でも尊厳あるケアが基本です。',
+          badDetail: 'おむつへの誘導は羞恥心を傷つけ、廃用症候群（はいようしょうこうぐん）を促進します。また一人での移動は転落・転倒の危険があります。',
+          vocab: [{jp:'ナースコール', r:'naasu kooru', id:'bel panggil perawat'}, {jp:'尊厳', r:'そんげん', id:'martabat/dignity'}, {jp:'廃用症候群', r:'はいようしょうこうぐん', id:'disuse syndrome'}],
+        },
+      },
+      {
+        text: 'トイレ介助後、Eさんが部屋に戻る途中でよろけました。転倒はしていませんが、「足が痛い（kaki sakit）」と言っています。',
+        choices: [
+          { jp:'「大丈夫ですよ」と言ってそのまま部屋に戻る', id:'Katakan "tidak apa-apa" dan kembali ke kamar saja', ok:false },
+          { jp:'すぐに安全な場所に座らせ、足の状態を確認し、看護師に報告する', id:'Segera dudukkan di tempat aman, periksa kondisi kaki, laporkan ke perawat', ok:true },
+          { jp:'朝になってから報告する', id:'Lapor ke perawat pagi hari saja', ok:false },
+        ],
+        feedback: {
+          good: '✅ 夜間でも即報告が正解です！',
+          goodDetail: 'よろけ後の「足が痛い」は骨折（特に大腿骨頸部骨折）の可能性があります。夜間でも: 1) 安全な場所へ誘導 2) 視診・状態確認 3) 即座に当直看護師へ報告 4) 詳細記録. 朝まで待つのは絶対NG。',
+          bad:  '❌ 骨折の見落としは重大な二次事故につながります。',
+          badDetail: '高齢者のよろけ・転倒後の痛みは骨折の可能性があります。夜間でも即報告が必要。放置すると内出血・ショック・廃用症候群のリスクがあります。',
+          vocab: [{jp:'大腿骨頸部骨折', r:'だいたいこつけいぶこっせつ', id:'fraktur leher femur'}, {jp:'即報告', r:'そくほうこく', id:'laporan segera'}, {jp:'当直看護師', r:'とうちょくかんごし', id:'perawat jaga malam'}],
+        },
+      },
+    ],
+  },
+  {
+    id: 'medication',
+    title: '服薬確認',
+    subtitle: 'Pengawasan obat — Prosedur & Keselamatan',
+    icon: '💊',
+    tags: [{ t:'Medis', c:'tag-red' }, { t:'Keselamatan', c:'tag-red' }],
+    free: false,
+    steps: [
+      {
+        text: 'Fさんの薬（3錠）を準備しました。しかし薬袋に4錠入っていたはずで、1錠足りないことに気づきました。',
+        choices: [
+          { jp:'3錠だけ渡して、残りは後で探す', id:'Kasih 3 tablet dulu, sisanya dicari nanti', ok:false },
+          { jp:'すぐに服薬を中止し、薬袋と投薬記録を確認し、看護師に報告する', id:'Hentikan pemberian obat, cek kantong obat dan rekam medis, lapor ke perawat', ok:true },
+          { jp:'別の利用者の薬から1錠取って補充する', id:'Ambil 1 tablet dari obat residen lain untuk dilengkapi', ok:false },
+        ],
+        feedback: {
+          good: '✅ 服薬エラーの正しい対応です！',
+          goodDetail: '投薬での5Rights（ゴライツ）: Right Patient（正しい人）Right Drug（正しい薬）Right Dose（正しい量）Right Route（正しい方法）Right Time（正しい時間）。数が合わない場合は必ず中止・確認・報告。',
+          bad:  '❌ 不確かな投薬は重大な医療事故です。',
+          badDetail: '薬の誤投与（誤薬）は最も危険な介護事故の一つ。薬は必ず正確な量・正しい人に投与する必要があります。',
+          vocab: [{jp:'投薬', r:'とうやく', id:'pemberian obat'}, {jp:'服薬確認', r:'ふくやくかくにん', id:'konfirmasi konsumsi obat'}, {jp:'誤薬', r:'ごやく', id:'kesalahan obat'}],
+        },
+      },
+    ],
+  },
+];
+
+// ── RENDER HOME ───────────────────────────────────────────────────────
+function renderHome() {
+  const u = KaigoPlatform.getUser();
+  const isPremium = u.isPremium || false;
+  document.getElementById('scenarioGrid').innerHTML = SCENARIOS.map(sc => {
+    const locked = !sc.free && !isPremium;
+    const action = locked ? "window.location.href='Pricing-Pro.html'" : `startScenario('${sc.id}')`;
+    const ariaLabel = locked
+      ? `${sc.title} — konten premium, klik untuk lihat harga`
+      : `${sc.title} — ${sc.subtitle}, ${sc.steps.length} langkah`;
+    return `
+    <button type="button" class="sc-card ${locked ? 'premium-lock' : ''}"
+      onclick="${action}" aria-label="${ariaLabel}">
+      ${locked ? '<span class="lock-badge" aria-hidden="true">🔒</span>' : ''}
+      <span class="sc-icon" aria-hidden="true">${sc.icon || '🏥'}</span>
+      <div class="sc-title">${sc.title}</div>
+      <div class="sc-desc">${sc.subtitle}</div>
+      <div class="sc-tags">
+        ${sc.tags.map(t => `<span class="sc-tag ${t.c}">${t.t}</span>`).join('')}
+        <span class="sc-tag tag-green">${sc.steps.length} langkah</span>
+        ${locked ? '<span class="sc-tag tag-gold">Premium</span>' : ''}
+      </div>
+    </button>
+  `;
+  }).join('');
+}
+
+// ── SIMULATOR ─────────────────────────────────────────────────────────
+let curScenario = null, curStep = 0, score = 0;
+let stepAnswers = []; // {correct, scTitle}
+// v185: mencegah double-answer (klik cepat berturut-turut, double-click,
+// atau aktivasi keyboard ganda bisa menambah skor/XP 2x sebelum
+// btn.onclick=null sempat diterapkan ke SEMUA tombol di DOM). Direset di
+// renderStep() setiap kali soal baru ditampilkan.
+let answerLocked = false;
+
+function startScenario(id) {
+  curScenario = SCENARIOS.find(s => s.id === id);
+  if (!curScenario) return;
+  curStep = 0; score = 0; stepAnswers = [];
+  document.getElementById('simTitle').textContent = curScenario.title;
+  document.getElementById('simSubtitle').textContent = curScenario.subtitle;
+  renderStep();
+  show('Sim');
+}
+
+function renderStep() {
+  const s = curScenario.steps[curStep];
+  if (!s) { showResult(); return; }
+  answerLocked = false; // reset lock -- soal baru boleh dijawab lagi
+  const pct = Math.round(curStep / curScenario.steps.length * 100);
+  const progFill = document.getElementById('simProgFill');
+  progFill.style.width = pct + '%';
+  progFill.parentElement?.setAttribute('aria-valuenow', String(pct));
+  document.getElementById('stepCount').textContent = `Langkah ${curStep+1} dari ${curScenario.steps.length}`;
+  document.getElementById('sceneText').textContent = s.text;
+  const noteEl = document.getElementById('sceneNote');
+  if (s.note) { noteEl.textContent = s.note; noteEl.style.display = 'block'; }
+  else noteEl.style.display = 'none';
+  document.getElementById('choices').innerHTML = s.choices.map((c, i) => `
+    <button class="choice-btn" onclick="answerStep(${i})" id="ch${i}">
+      <span class="choice-key">${String.fromCharCode(65+i)}</span>
+      <div>
+        <div class="choice-text">${c.jp}</div>
+        <div class="choice-id">${c.id}</div>
+      </div>
+    </button>`
+  ).join('');
+  const fb = document.getElementById('feedbackBox');
+  fb.classList.remove('show', 'good', 'bad');
+  document.getElementById('nextBtn').style.display = 'none';
+}
+
+function answerStep(choiceIdx) {
+  if (answerLocked) return; // sudah dijawab -- cegah klik/keyboard ganda menambah skor/XP 2x
+  answerLocked = true;
+  const s = curScenario.steps[curStep];
+  const chosen = s.choices[choiceIdx];
+  const correct = chosen.ok;
+  if (correct) score++;
+  stepAnswers.push({ correct, stepText: s.text.slice(0, 60) + '...' });
+
+  // Highlight choices
+  s.choices.forEach((c, i) => {
+    const btn = document.getElementById('ch' + i);
+    if (!btn) return;
+    if (c.ok)          { btn.classList.add('correct'); btn.querySelector('.choice-key').textContent = '✅'; }
+    else if (i === choiceIdx && !c.ok) { btn.classList.add('incorrect'); btn.querySelector('.choice-key').textContent = '❌'; }
+    else { btn.classList.add('neutral'); }
+    btn.onclick = null;
+  });
+
+  // Show feedback
+  const fb = document.getElementById('feedbackBox');
+  const isGood = correct;
+  fb.className = 'feedback-box show ' + (isGood ? 'good' : 'bad');
+  document.getElementById('fbTitle').textContent = isGood ? s.feedback.good : s.feedback.bad;
+  document.getElementById('fbText').textContent = isGood ? s.feedback.goodDetail : s.feedback.badDetail;
+
+  // Vocab
+  const vd = document.getElementById('fbDetail');
+  const vv = document.getElementById('fbVocab');
+  if (s.feedback.vocab?.length) {
+    vv.innerHTML = s.feedback.vocab.map(v =>
+      `<div class="fb-word"><span>${v.jp}</span><span class="reading">${v.r} = ${v.id}</span></div>`
+    ).join('');
+    vd.style.display = 'block';
+  } else { vd.style.display = 'none'; }
+
+  // XP (Layer 2 opsional -- kegagalan di sini TIDAK BOLEH menghentikan alur inti)
+  if (correct) KaigoPlatform.addXP(20, 'Jawaban Benar Kaigo');
+  document.getElementById('nextBtn').style.display = 'flex';
+}
+
+function nextStep() {
+  curStep++;
+  if (curStep >= curScenario.steps.length) { showResult(); }
+  else { renderStep(); }
+}
+
+function showResult() {
+  const total = curScenario.steps.length;
+  const pct = Math.round(score / total * 100);
+  const xpTotal = score * 20;
+  document.getElementById('rScore').textContent = score + '/' + total;
+  const lbl = pct === 100 ? '🏆 Sempurna!' : pct >= 70 ? '🌟 Bagus!' : pct >= 50 ? '📚 Terus Berlatih' : '🔄 Perlu Review';
+  document.getElementById('rLabel').textContent = lbl + ` — ${curScenario.title}`;
+  document.getElementById('rCorrect').textContent = score;
+  document.getElementById('rWrong').textContent = total - score;
+  document.getElementById('rXP').textContent = xpTotal;
+  // Error list
+  const errors = stepAnswers.filter(a => !a.correct);
+  const el = document.getElementById('errorList');
+  if (errors.length) {
+    el.innerHTML = '<div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;margin-bottom:10px">Yang Perlu Diulang</div>' +
+      errors.map(e => `<div class="err-item"><div class="err-jp">❌ Salah menjawab:</div>${e.stepText}</div>`).join('');
+  } else { el.innerHTML = '<div style="color:var(--green);font-weight:800;font-size:14px;text-align:center;padding:10px">🎉 Semua jawaban benar!</div>'; }
+  // Update progress (Layer 2 opsional -- kegagalan di sini TIDAK BOLEH
+  // menghentikan tampilnya hasil akhir, yang sudah selesai dirender di atas)
+  const currentProgress = KaigoPlatform.getUser().kaigoProgress || 0;
+  KaigoPlatform.updateUser({ kaigoProgress: Math.min(100, currentProgress + Math.round(pct * 0.1)) });
+  show('Result');
+}
+
+function retryScenario() { if (curScenario) startScenario(curScenario.id); }
+function goHome() { show('Home'); }
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById('scr' + id).classList.add('active');
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// v185 FASE 3: INISIALISASI ROBUST
+// Tidak cukup DOMContentLoaded saja: jika dokumen sudah 'complete'/
+// 'interactive' saat script ini dieksekusi (jarang tapi mungkin, mis. skrip
+// disisipkan dinamis), event DOMContentLoaded tidak akan pernah fire lagi
+// dan simulator tidak pernah ter-render. initKaigoSimulator() dijaga hanya
+// jalan SEKALI (guard kaigoInitialized) meski dipanggil dari 2 jalur.
+// ═══════════════════════════════════════════════════════════════════════
+let kaigoInitialized = false;
+
+function initKaigoSimulator() {
+  if (kaigoInitialized) return;
+  kaigoInitialized = true;
+
+  try {
+    renderHome();
+  } catch (error) {
+    console.error('[Kaigo Simulator] renderHome() gagal total:', error);
+    showSimulatorError(error);
+    return; // jangan lanjut ke Layer 2 kalau Layer 1 saja sudah gagal
+  }
+
+  // Layer 2 (opsional): navigasi platform. Kegagalan di sini TIDAK
+  // pernah memicu error boundary -- simulator inti sudah berhasil tampil.
+  KaigoPlatform.initNavigation();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initKaigoSimulator, { once: true });
+} else {
+  // Dokumen sudah selesai parsing sebelum script ini sempat pasang listener
+  initKaigoSimulator();
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// v185 FASE 7: ERROR BOUNDARY
+// Panel error yang HANYA tampil kalau Layer 1 (core simulator) gagal --
+// bukan kalau Layer 2 (XP/progress/navigasi) gagal, karena itu sudah
+// ditangani try/catch di KaigoPlatform tanpa mengganggu UI.
+// ═══════════════════════════════════════════════════════════════════════
+function showSimulatorError(error) {
+  const errorCode = 'KAIGO-' + Date.now().toString(36).toUpperCase();
+  console.error('[Kaigo Simulator] Error boundary aktif. Kode referensi:', errorCode, error);
+
+  const main = document.querySelector('.container') || document.body;
+  const panel = document.createElement('div');
+  panel.id = 'kaigoErrorBoundary';
+  panel.style.cssText = 'max-width:480px;margin:60px auto;padding:32px 24px;background:var(--white,#fff);border-radius:16px;border:1px solid rgba(0,0,0,.08);box-shadow:0 4px 24px rgba(0,0,0,.08);text-align:center;font-family:Outfit,sans-serif';
+  panel.innerHTML = `
+    <div style="font-size:40px;margin-bottom:12px">⚠️</div>
+    <h2 style="font-size:18px;font-weight:800;margin-bottom:10px;color:var(--ink,#222)">Kaigo Simulator mengalami masalah saat memuat</h2>
+    <p style="font-size:14px;color:var(--ink-mid,#666);line-height:1.6;margin-bottom:20px">
+      Silakan muat ulang halaman. Jika masalah berlanjut, hapus cache situs
+      atau gunakan tombol Reset Simulator di bawah.
+    </p>
+    <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:16px">
+      <button id="kaigoErrReload" style="padding:10px 20px;border-radius:10px;border:none;background:var(--red,#be3428);color:#fff;font-weight:700;cursor:pointer;font-family:Outfit,sans-serif">🔄 Muat Ulang</button>
+      <button id="kaigoErrReset" style="padding:10px 20px;border-radius:10px;border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);color:var(--ink,#222);font-weight:700;cursor:pointer;font-family:Outfit,sans-serif">🧹 Reset Simulator</button>
+    </div>
+    <p style="font-size:11px;color:var(--ink-soft,#999)">Kode referensi: ${errorCode}</p>
+  `;
+  main.innerHTML = '';
+  main.appendChild(panel);
+
+  document.getElementById('kaigoErrReload')?.addEventListener('click', () => location.reload());
+  document.getElementById('kaigoErrReset')?.addEventListener('click', () => {
+    // Hanya hapus state terkait Kaigo -- TIDAK menyentuh data user/progress
+    // fitur lain (sesuai spesifikasi: "clear only Kaigo-related local state")
+    try {
+      Object.keys(localStorage).forEach(k => { if (/kaigo/i.test(k)) localStorage.removeItem(k); });
+    } catch (e) { console.warn('[Kaigo Simulator] Gagal membersihkan localStorage:', e); }
+    location.reload();
+  });
+}
+
+// Handler global TERBATAS: hanya menangkap error yang genuinely berasal
+// dari konteks simulator ini (skrip halaman ini), TIDAK mengambil alih UI
+// untuk error pihak ketiga tak terkait (extension browser, script analytics
+// eksternal, dll) yang tidak semestinya merusak pengalaman Kaigo Simulator.
+window.addEventListener('error', function (e) {
+  if (kaigoInitialized && document.getElementById('kaigoErrorBoundary')) return; // sudah ditangani
+  const src = e.filename || '';
+  if (src.includes('Kaigo-Simulator') || (!src && e.error)) {
+    console.error('[Kaigo Simulator] Uncaught error:', e.error || e.message);
+  }
+});
+window.addEventListener('unhandledrejection', function (e) {
+  console.warn('[Kaigo Simulator] Unhandled promise rejection (tidak menghentikan simulator):', e.reason);
+});
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kanji-N5.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kanji N5–N1</a>
+          <a href="/Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar</a>
+          <a href="/Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kosakata</a>
+          <a href="/Materi/Fondasi-Bahasa-Jepang.html" style="color:rgba(255,255,255,.6);text-decoration:none">Fondasi Jepang</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Tools</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/JLPT-CBT.html" style="color:rgba(255,255,255,.6);text-decoration:none">CBT Simulator</a>
+          <a href="/SRS-Flashcard.html" style="color:rgba(255,255,255,.6);text-decoration:none">SRS Flashcard</a>
+          <a href="/Grammar-Checker.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar Checker</a>
+          <a href="/AI-Tutor-Pro.html" style="color:rgba(255,255,255,.6);text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Kaigo</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Materi/Kaigo.html#kg-h-ujian" style="color:rgba(255,255,255,.6);text-decoration:none">Persiapan Ujian</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

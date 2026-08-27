@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JLPT Mock Test N1 模擬試験 | Nihonggo Pro Academy</title>
+<meta name="description" content="JLPT Mock Test N1 模擬試験 — 25 soal campuran, timer 50 menit, skor otomatis.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/JLPT-Mock-N1.html">
+<meta property="og:title" content="JLPT Mock Test N1 模擬試験 — Nihonggo Pro Academy">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{max-width:820px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,#1a0a2e,#3d1b69);color:#fff;padding:44px 20px 28px;text-align:center}
+.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 6px;font-family:"Noto Serif JP",serif}
+.bdg{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:10px}
+.sbox{background:#fff;border-radius:14px;padding:28px;text-align:center;margin:24px 0;border:1px solid rgba(0,0,0,.08);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.ig{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.iv{font-size:1.4rem;font-weight:700;color:#333;font-family:"Noto Serif JP",serif}
+.il{font-size:.72rem;color:#888;margin-top:2px}
+.ii{background:#f5f5f5;border-radius:10px;padding:12px;text-align:center}
+.sbtn{background:linear-gradient(135deg,#1a0a2e,#3d1b69);color:#fff;border:none;border-radius:10px;padding:13px 40px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:12px;transition:all .2s;font-family:inherit}
+.sbtn:hover{opacity:.9;transform:translateY(-1px)}
+.ch{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:10px;padding:10px 16px;margin-bottom:12px;border:1px solid rgba(0,0,0,.08)}
+.ct{font-weight:700;font-size:.92rem}
+.ctm{font-size:1.2rem;font-weight:700;font-family:"Noto Serif JP",serif}
+.ctm.warn{color:#e53935;animation:blink .8s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.cp{font-size:.8rem;color:#888}
+.qn{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:12px}
+@media(max-width:480px){.qn{grid-template-columns:repeat(5,1fr)}}
+.qd{width:100%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:.7rem;cursor:pointer;font-weight:600;background:#fff;transition:all .2s}
+.qd.cur{background:linear-gradient(135deg,#1a0a2e,#3d1b69);border-color:linear-gradient(135deg,#1a0a2e,#3d1b69);color:#fff}
+.qd.ans{background:#e8f5e9;border-color:#43a047;color:#2e7d32}
+.qd.flg{background:#fff3e0;border-color:#fb8c00;color:#e65100}
+.qbx{background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,.08);margin-bottom:12px}
+.qm{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:6px}
+.qnum{font-size:.78rem;font-weight:700;background:#f0f0f0;padding:3px 10px;border-radius:20px}
+.qcat{font-size:.7rem;background:#e8eaf6;color:#3d1b69;padding:3px 10px;border-radius:20px;font-weight:600}
+.qfbtn{font-size:.72rem;border:1px solid #fb8c00;color:#fb8c00;background:none;border-radius:20px;padding:3px 10px;cursor:pointer}
+.qfbtn.on{background:#fb8c00;color:#fff}
+.qtxt{font-size:.95rem;font-weight:600;margin-bottom:16px;line-height:1.65}
+.qopts{display:grid;gap:8px}
+.qopt{background:#fafafa;border:2px solid rgba(0,0,0,.1);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
+.qopt:hover{border-color:linear-gradient(135deg,#1a0a2e,#3d1b69);background:#f0f4ff}
+.qopt.sel{border-color:linear-gradient(135deg,#1a0a2e,#3d1b69);background:#f0f4ff;font-weight:600}
+.qopt.cor{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
+.qopt.wrg{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.nav{display:flex;gap:8px;flex-wrap:wrap}
+.nb{padding:10px 18px;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;font-family:inherit}
+.np{background:#f5f5f5;color:#333;border:1px solid #ddd}
+.nn{background:linear-gradient(135deg,#1a0a2e,#3d1b69);color:#fff;flex:1}
+.ns{background:#2e7d32;color:#fff;flex:1}
+.rb{background:#fff;border-radius:14px;padding:28px;text-align:center;margin:24px 0;border:1px solid rgba(0,0,0,.08)}
+.sr{width:120px;height:120px;border-radius:50%;margin:0 auto 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:5px solid linear-gradient(135deg,#1a0a2e,#3d1b69);background:#f5f5f5}
+.sn{font-size:2rem;font-weight:700;font-family:"Noto Serif JP",serif;line-height:1}
+.sl{font-size:.68rem;color:#888}
+.gb{display:inline-block;font-size:.82rem;font-weight:700;padding:5px 18px;border-radius:100px;margin:10px 0}
+.gs{background:#fff3e0;color:#e65100}
+.ga{background:#e8f5e9;color:#2e7d32}
+.gb2{background:#e3f2fd;color:#1565c0}
+.gc{background:#fce4ec;color:#c62828}
+.rst{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.ri{background:#f5f5f5;border-radius:8px;padding:10px;text-align:center}
+.rn{font-size:1.3rem;font-weight:700;font-family:"Noto Serif JP",serif}
+.rl{font-size:.7rem;color:#888}
+.rh{font-size:1.05rem;font-weight:700;margin:20px 0 10px;padding-bottom:6px;border-bottom:2px solid #eee;font-family:"Noto Serif JP",serif}
+.ai{background:#fff;border-radius:8px;padding:12px;margin-bottom:8px;border-left:4px solid #ccc}
+.ai.ok{border-left-color:#43a047}
+.ai.ng{border-left-color:#e91e63}
+.aq{font-size:.85rem;font-weight:600;margin-bottom:4px;line-height:1.5}
+.ae{font-size:.78rem;color:#555;line-height:1.6;background:#f9f9f9;border-radius:6px;padding:6px 8px;margin-top:5px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "JLPT Mock Test N1 模擬試験 | Nihonggo Pro Academy", "description": "JLPT Mock Test N1 模擬試験 — 25 soal campuran, timer 50 menit, skor otomatis.", "url": "https://nihonggopro.id/Materi/JLPT-Mock-N1.html", "educationalLevel": "Advanced", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="JLPT Mock Test N1 模擬試験 — 25 soal campuran, timer 50 menit, skor otomatis.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/JLPT-Mock-N1.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JLPT Mock Test N1 模擬試験">
+<meta name="twitter:description" content="JLPT Mock Test N1 模擬試験 — 25 soal campuran, timer 50 menit, skor otomatis.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">📝 JLPT N1</span><h1>JLPT Mock Test N1 模擬試験</h1>
+<p style="font-size:.85rem;opacity:.85;margin-top:6px">25 soal campuran · 50 menit · Soal diacak</p></div>
+<div class="wrap" style="padding-top:20px">
+<div id="sv">
+  <div class="sbox">
+    <h2 style="color:#333;margin-bottom:8px;font-family:'Noto Serif JP',serif">Mock Test N1</h2>
+    <p style="color:#666;font-size:.88rem">Simulasi ujian JLPT N1 — Grammar, Kosakata, dan Reading</p>
+    <div class="ig">
+      <div class="ii"><div class="iv">25</div><div class="il">Soal</div></div>
+      <div class="ii"><div class="iv">50</div><div class="il">Menit</div></div>
+      <div class="ii"><div class="iv">60%</div><div class="il">Lulus</div></div>
+    </div>
+    <button class="sbtn" onclick="startTest()">Mulai Mock Test N1</button>
+  </div>
+</div>
+<div id="tv" style="display:none">
+  <div class="ch">
+    <div><div class="ct">Mock Test N1</div><div class="cp" id="cprog">1/25</div></div>
+    <div class="ctm" id="ctimer">00:00</div>
+  </div>
+  <div class="qn" id="qnav"></div>
+  <div class="qbx" id="qbx"></div>
+  <div class="nav">
+    <button aria-label="Goq" class="nb np" onclick="goQ(-1)">←</button>
+    <button class="nb nn" id="bnn" onclick="goQ(1)">Berikutnya →</button>
+    <button class="nb ns" id="bns" style="display:none" onclick="submitTest()">✅ Selesai</button>
+  </div>
+</div>
+<div id="rv" style="display:none">
+  <div class="rb">
+    <h2 style="color:#333;margin-bottom:14px;font-family:'Noto Serif JP',serif">Hasil Mock Test N1</h2>
+    <div class="sr"><div class="sn" id="rsn">0</div><div class="sl">dari 25</div></div>
+    <div class="gb" id="rgb"></div>
+    <div style="font-weight:700;margin:6px 0" id="rmsg"></div>
+    <div style="font-size:.88rem;color:#666" id="rpct"></div>
+    <div class="rst">
+      <div class="ri"><div class="rn" id="rok" style="color:#2e7d32">0</div><div class="rl">Benar</div></div>
+      <div class="ri"><div class="rn" id="rng" style="color:#c62828">0</div><div class="rl">Salah</div></div>
+      <div class="ri"><div class="rn" id="rsk" style="color:#888">0</div><div class="rl">Lewat</div></div>
+    </div>
+    <div style="margin-top:14px">
+      <button onclick="restartTest()" style="background:linear-gradient(135deg,#1a0a2e,#3d1b69);color:#fff;border:none;border-radius:8px;padding:10px 28px;cursor:pointer;font-size:.9rem;font-weight:700;margin:4px;font-family:inherit">Ulangi</button>
+      <button onclick="showRev()" style="background:#f5f5f5;border:1px solid #ddd;border-radius:8px;padding:10px 20px;cursor:pointer;font-size:.88rem;font-weight:600;margin:4px;font-family:inherit">Pembahasan</button>
+    </div>
+  </div>
+  <div id="revs" style="display:none">
+    <div class="rh">📝 Pembahasan Lengkap</div>
+    <div id="ral"></div>
+  </div>
+</div>
+</div></main>
+<script>
+var QD=[{"cat": "文法", "q": "その事件は社会全体に（　）影響を与えた。", "opts": ["甚大な", "重大な", "大きな", "深刻な"], "a": 0, "e": "甚大(じんだい)=sangat besar; masif(影響・被害に使う正式語). 甚大な影響=dampak yang sangat besar. N1頻出。重大=serius, 深刻=serius&mendalam."}, {"cat": "語彙", "q": "彼の論文は既存の理論に（　）を投じるものだった。", "opts": ["一石", "一矢", "一撃", "一言"], "a": 0, "e": "一石を投じる=melempar batu ke kolam(慣用句)=membuat gebrakan; memulai diskusi penting. 学界に一石を投じる=membuat gebrakan di dunia akademik。"}, {"cat": "文法", "q": "現代社会の問題は、経済格差（　）にとどまらない。", "opts": ["のみ", "だけ", "ばかり", "しか"], "a": 0, "e": "〜のみにとどまらない=tidak hanya terbatas pada ~. 経済格差のみにとどまらない=tidak hanya soal kesenjangan ekonomi. フォーマルな文章語。"}, {"cat": "語彙", "q": "その計画は（　）的な観点から見直す必要がある。", "opts": ["俯瞰", "鳥瞰", "概観", "全観"], "a": 0, "e": "俯瞰的(ふかんてき)=dari sudut pandang bird's eye; melihat gambaran besar. 俯瞰的な視点=perspektif menyeluruh dari atas. N1頻出。"}, {"cat": "文法", "q": "研究の結果（　）、新たな課題が明らかになった。", "opts": ["いかんによらず", "如何を問わず", "を踏まえ", "に至り"], "a": 2, "e": "を踏まえ=berdasarkan ~; mengacu pada. 研究の結果を踏まえ=berdasarkan hasil penelitian. フォーマルな論文・報告書表現。"}, {"cat": "語彙", "q": "彼女の発言には（　）が感じられた。", "opts": ["矜持", "自負", "自尊", "誇示"], "a": 0, "e": "矜持(きょうじ)=kebanggaan profesional; harga diri berdasarkan kemampuan. プロとしての矜持=kebanggaan sebagai profesional. N1重要語彙。"}, {"cat": "文法", "q": "長年の努力が実を結び、（　）に至った。", "opts": ["成功", "成就", "達成", "実現"], "a": 1, "e": "成就(じょうじゅ)=terwujudnya (impian/harapan). 夢が成就する=impian terwujud. 〜に至った=sampai pada ~. 達成=pencapaian target. 成就=lebih poetic/emotional。"}, {"cat": "語彙", "q": "その法案は多くの（　）を呼んでいる。", "opts": ["物議", "物言", "物事", "物音"], "a": 0, "e": "物議(ぶつぎ)を醸す=menimbulkan kontroversi; menjadi bahan perdebatan. 物議を呼ぶ法案=rancangan undang-undang yang kontroversial. N1慣用句。"}, {"cat": "文法", "q": "彼は年齢（　）にして優れた業績を残した。", "opts": ["のわりに", "にして", "ともなると", "にあって"], "a": 1, "e": "〜にして=dalam kondisi ~; pada posisi ~. 年齢にして=untuk usianya. 若さにして名声を得た=pada usianya yang muda telah meraih ketenaran。"}, {"cat": "語彙", "q": "彼女は困難な状況に（　）することなく前進した。", "opts": ["屈", "服", "従", "負"], "a": 0, "e": "屈する(くっする)=menyerah; tunduk pada tekanan. 困難に屈しない=tidak menyerah pada kesulitan. 服従=taat, 従う=ikut。"}, {"cat": "文法", "q": "この問題は、個人の努力（　）解決できるものではない。", "opts": ["のみで", "だけに", "だけで", "のみに"], "a": 0, "e": "〜のみで=hanya dengan ~(フォーマル). 個人の努力のみでは解決できない=tidak bisa diselesaikan hanya dengan usaha individu. のみ=だけ のフォーマル版。"}, {"cat": "語彙", "q": "計画を実行に（　）した結果、大成功を収めた。", "opts": ["移", "転", "変", "替"], "a": 0, "e": "実行に移す(うつす)=mengeksekusi; mewujudkan rencana. 計画を実行に移す=mengeksekusi rencana. 「移す」で行動への移行を示す。"}, {"cat": "文法", "q": "彼女の才能は（　）余りある。", "opts": ["称え", "称えて", "称える", "称えられる"], "a": 0, "e": "〜て余りある=lebih dari cukup untuk ~; sangat layak. 称えて余りある才能=bakat yang sangat layak dipuji. 古典的な誇張表現。"}, {"cat": "語彙", "q": "両国間の関係が（　）しつつある。", "opts": ["悪化", "劣化", "退化", "変化"], "a": 0, "e": "悪化(あっか)する=memburuk; deteriorate. 関係が悪化する=hubungan memburuk. 劣化=degradasi kualitas物質, 退化=degenerasi biologis。"}, {"cat": "文法", "q": "経験を（　）にして、さらなる高みを目指す。", "opts": ["糧", "基", "礎", "源"], "a": 0, "e": "糧(かて)にする=menjadikan sebagai pelajaran/bahan. 経験を糧にする=menjadikan pengalaman sebagai pelajaran untuk maju。"}, {"cat": "語彙", "q": "彼の研究は学会に（　）を与えた。", "opts": ["示唆", "暗示", "指示", "指摘"], "a": 0, "e": "示唆(しさ)=implikasi; petunjuk tersirat. 研究が示唆する=penelitian mengimplikasikan/menyiratkan. 学術的文章でよく使う。"}, {"cat": "文法", "q": "彼女は（　）にもかかわらず、立場を曲げなかった。", "opts": ["批判", "批判され", "批判する", "批判した"], "a": 1, "e": "〜にもかかわらず=meskipun ~. 批判されにもかかわらず=meskipun dikritik. 受け身形+にもかかわらず=meski menjadi objek ~。"}, {"cat": "語彙", "q": "この（　）な状況を打開しなければならない。", "opts": ["閉塞", "閉鎖", "閉幕", "閉口"], "a": 0, "e": "閉塞(へいそく)=kebuntuan; situasi terjebak tanpa jalan keluar. 閉塞感=rasa terjebak. 閉塞的な状況を打開する=memecah kebuntuan。"}, {"cat": "文法", "q": "長年の夢が（　）叶えられた。", "opts": ["ついに", "とうとう", "やっと", "いよいよ"], "a": 0, "e": "ついに=akhirnya (setelah perjuangan panjang). とうとう=akhirnya(sering negatif). やっと=akhirnya(lega). いよいよ=sudah saatnya(klimaks). ニュアンスの差が重要。"}, {"cat": "語彙", "q": "（　）の結果、委員会は解散を決定した。", "opts": ["審議", "審査", "審判", "審問"], "a": 0, "e": "審議(しんぎ)=deliberasi; pembahasan resmi(委員会・議会等). 審議の結果=sebagai hasil deliberasi. 審査=seleksi/penilaian, 審判=wasit/hakim。"}, {"cat": "文法", "q": "その政策は多くの（　）をはらんでいる。", "opts": ["問題", "課題", "矛盾", "疑問"], "a": 2, "e": "矛盾(むじゅん)をはらむ=mengandung kontradiksi. 政策が矛盾をはらむ=kebijakan yang mengandung kontradiksi. はらむ=mengandung(内在させる)。"}, {"cat": "語彙", "q": "彼女の演説は（　）を博した。", "opts": ["喝采", "拍手", "賛同", "支持"], "a": 0, "e": "喝采(かっさい)を博する=menuai pujian; mendapat tepuk tangan meriah. 喝采を博す演説=pidato yang menuai pujian. 博する=mendapatkan secara luas。"}, {"cat": "文法", "q": "努力（　）の結果を手に入れることができた。", "opts": ["の賜物", "の結晶", "のたまもの", "の末"], "a": 2, "e": "〜の賜物(たまもの)=buah dari ~; karunia ~. 努力の賜物=buah dari kerja keras. 結晶=kristalisasi(やや詩的), たまもの=sama(平仮名表記)。"}, {"cat": "語彙", "q": "その法律は（　）の余地がある。", "opts": ["解釈", "説明", "理解", "定義"], "a": 0, "e": "解釈(かいしゃく)の余地がある=ada ruang untuk interpretasi; bisa ditafsirkan berbeda. 法律の解釈=interpretasi hukum. 解釈の余地=ambiguity。"}, {"cat": "読解", "q": "「同工異曲」の意味は？", "opts": ["同じ方法で全く異なる結果", "手法は同じだが内容に違いがある・似たり寄ったり", "全く違う方法", "まったく同じ"], "a": 1, "e": "同工異曲(どうこういきょく)=teknik sama tapi konten berbeda; atau sebaliknya, tampak berbeda tapi pada dasarnya sama. 似たり寄ったりのニュアンスも。四字熟語。"}];
+var qs=[],ans2={},cur=0,flg={},tLeft=3000,tInt=null;
+function shuffle(a){var b=a.slice();for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;}return b;}
+function startTest(){testMockSubmitted=false;qs=shuffle(QD);ans2={};flg={};cur=0;tLeft=3000;
+  document.getElementById('sv').style.display='none';
+  document.getElementById('tv').style.display='block';
+  document.getElementById('rv').style.display='none';
+  renderNav();showQ(0);
+  tInt=setInterval(function(){tLeft--;var m=Math.floor(tLeft/60),s=tLeft%60;
+    var el=document.getElementById('ctimer');
+    if(el){el.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;el.className='ctm'+(tLeft<=60?' warn':'');}
+    if(tLeft<=0){clearInterval(tInt);submitTest();}},1000);}
+function renderNav(){var nav=document.getElementById('qnav');if(!nav)return;nav.innerHTML='';
+  qs.forEach(function(q,i){var d=document.createElement('div');d.className='qd'+(i===cur?' cur':flg[i]?' flg':ans2[i]!==undefined?' ans':'');
+    d.textContent=i+1;d.onclick=(function(x){return function(){cur=x;showQ(x);}})(i);nav.appendChild(d);});}
+function showQ(i){var q=qs[i];if(!q)return;
+  var p=document.getElementById('cprog');if(p)p.textContent=(i+1)+'/25';
+  var bx=document.getElementById('qbx');if(!bx)return;
+  var fl=flg[i];
+  bx.innerHTML='<div class="qm"><span class="qnum">Q'+(i+1)+'</span><span class="qcat">'+q.cat+'</span>'
+    +'<button aria-label="Tombol" class="qfbtn'+(fl?' on':'')+'" id="fb">🚩</button></div>'
+    +'<div class="qtxt">'+q.q+'</div><div class="qopts" id="qop"></div>';
+  document.getElementById('fb').onclick=function(){flg[i]=!flg[i];showQ(i);};
+  var op=document.getElementById('qop');
+  q.opts.forEach(function(o,j){var b=document.createElement('button');b.className='qopt'+(ans2[i]===j?' sel':'');
+    b.textContent=(j+1)+'. '+o;b.onclick=(function(qi,ai){return function(){selA(qi,ai);};})(i,j);op.appendChild(b);});
+  var bn=document.getElementById('bnn'),bs=document.getElementById('bns');
+  if(bn)bn.style.display=i<24?'block':'none';
+  if(bs)bs.style.display=i===24?'block':'none';
+  renderNav();}
+function selA(qi,ai){ans2[qi]=ai;var op=document.getElementById('qop');
+  if(op)op.querySelectorAll('.qopt').forEach(function(b,j){b.className='qopt'+(j===ai?' sel':'');});
+  renderNav();}
+function goQ(d){cur=Math.max(0,Math.min(24,cur+d));showQ(cur);}
+// GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Keempat, Fase R):
+// guard flag untuk mencegah submitTest() genuinely dieksekusi dua kali,
+// mengikuti pola yang sudah terbukti di JLPT-CBT.html (Website v25) dan
+// JLPT-Mock-N4/N5.html (sesi ini). Dua jalur pemanggilan identik (tombol
+// manual + timer otomatis) genuinely ada tanpa perlindungan sebelumnya.
+var testMockSubmitted = false;
+function submitTest(){if(testMockSubmitted)return;testMockSubmitted=true;clearInterval(tInt);var ok=0,ng=0,sk=0;
+  qs.forEach(function(q,i){if(ans2[i]===undefined)sk++;else if(ans2[i]===q.a)ok++;else ng++;});
+  var pct=Math.round(ok/25*100);
+  document.getElementById('tv').style.display='none';document.getElementById('rv').style.display='block';
+  document.getElementById('rsn').textContent=ok;document.getElementById('rok').textContent=ok;
+  document.getElementById('rng').textContent=ng;document.getElementById('rsk').textContent=sk;
+  document.getElementById('rpct').textContent=pct+'% ('+ok+'/25 benar)';
+  var g,gc,msg;
+  if(pct>=90){g='S — Luar Biasa!';gc='gs';msg='🏆 Siap ujian JLPT sungguhan!';}
+  else if(pct>=75){g='A — Sangat Baik';gc='ga';msg='🎉 Hampir sempurna!';}
+  else if(pct>=60){g='B — Lulus';gc='gb2';msg='✅ Lulus! Terus semangat!';}
+  else{g='C — Belajar Lagi';gc='gc';msg='📚 Pelajari materi lagi!';}
+  var rgb=document.getElementById('rgb');if(rgb){rgb.textContent=g;rgb.className='gb '+gc;}
+  var rm=document.getElementById('rmsg');if(rm){rm.textContent=msg;rm.style.color=pct>=60?'#2e7d32':'#c62828';}}
+function showRev(){var s=document.getElementById('revs');if(!s)return;
+  s.style.display=s.style.display==='none'?'block':'none';if(s.style.display==='none')return;
+  var ral=document.getElementById('ral');if(!ral)return;ral.innerHTML='';
+  qs.forEach(function(q,i){var ua=ans2[i],isOk=ua===q.a,isSkip=ua===undefined;
+    var d=document.createElement('div');d.className='ai '+(isSkip?'':isOk?'ok':'ng');
+    d.innerHTML='<div class="aq">Q'+(i+1)+'. ['+q.cat+'] '+q.q+'</div>'
+      +'<div style="font-size:.78rem;color:#2e7d32;margin-bottom:2px">✅ '+q.opts[q.a]+'</div>'
+      +(!isSkip&&!isOk?'<div style="font-size:.78rem;color:#c62828;margin-bottom:2px">❌ '+q.opts[ua]+'</div>':'')
+      +(isSkip?'<div style="font-size:.78rem;color:#888">⏭️ Tidak dijawab</div>':'')
+      +'<div class="ae">💡 '+q.e+'</div>';
+    ral.appendChild(d);});}
+function restartTest(){document.getElementById('rv').style.display='none';
+  var rs=document.getElementById('revs');if(rs)rs.style.display='none';startTest();}
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

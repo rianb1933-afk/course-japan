@@ -1,0 +1,88 @@
+.translator-launch{
+  position:fixed;
+  right:18px;
+  bottom:166px;
+  z-index:9200;
+  border:1px solid var(--border-mid);
+  background:var(--white);
+  color:var(--ink);
+  border-radius:999px;
+  padding:10px 14px;
+  font-size:12px;
+  font-weight:900;
+  box-shadow:var(--shadow-md);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+}
+.translator-launch span{font-family:'Noto Serif JP',serif;color:var(--red);font-size:18px;line-height:1}
+.translator-launch:hover{border-color:var(--red);background:var(--red-pale);color:var(--red)}
+.translator-panel{
+  position:fixed;
+  right:18px;
+  bottom:220px;
+  z-index:9300;
+  width:min(820px,calc(100vw - 28px));
+  max-height:calc(100vh - 120px);
+  display:none;
+  background:var(--white);
+  color:var(--ink);
+  border:1px solid var(--border-mid);
+  border-radius:8px;
+  box-shadow:var(--shadow-lg);
+  overflow:hidden;
+}
+.translator-panel.open{display:block}
+.translator-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);background:var(--white)}
+.translator-title{display:flex;align-items:baseline;gap:9px;font-weight:900}
+.translator-title strong{font-family:'Noto Serif JP',serif;color:var(--red);font-size:24px;line-height:1}
+.translator-close{border:1px solid var(--border-mid);background:var(--cream);color:var(--ink);border-radius:8px;width:34px;height:34px;font-size:20px;line-height:1;cursor:pointer}
+.translator-body{padding:14px;display:grid;gap:12px;max-height:calc(100vh - 190px);overflow:auto}
+.translator-toolbar{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center}
+.translator-select,.translator-input,.translator-api-input{
+  border:1px solid var(--border-mid);
+  background:var(--white);
+  color:var(--ink);
+  border-radius:8px;
+  padding:10px 12px;
+  font:inherit;
+}
+.translator-input{width:100%;min-height:128px;resize:vertical;line-height:1.7}
+.translator-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.translator-box{border:1px solid var(--border);background:var(--cream);border-radius:8px;padding:12px;min-height:128px}
+.translator-output{font-size:16px;font-weight:800;color:var(--ink);white-space:pre-wrap}
+.translator-muted{color:var(--ink-soft);font-size:12px}
+.translator-actions{display:flex;gap:8px;flex-wrap:wrap}
+.translator-actions button{
+  border:1px solid var(--border-mid);
+  background:var(--white);
+  color:var(--ink-soft);
+  border-radius:8px;
+  padding:9px 11px;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+}
+.translator-actions button.primary{background:var(--red);border-color:var(--red);color:#fff}
+.translator-actions button:hover:not(.primary){border-color:var(--red);color:var(--red);background:var(--red-pale)}
+.translator-tabs{display:flex;gap:6px;flex-wrap:wrap}
+.translator-chip{border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);border-radius:8px;padding:7px 9px;font-size:11px;font-weight:900;cursor:pointer}
+.translator-chip:hover{border-color:var(--red);color:var(--red);background:var(--red-pale)}
+.translator-section{display:grid;gap:8px}
+.translator-section h4{font-size:13px;color:var(--ink);margin:0}
+.translator-token-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+.translator-token{border:1px solid var(--border);background:var(--white);border-radius:8px;padding:9px}
+.translator-token b{font-family:'Noto Serif JP',serif;color:var(--red);font-size:18px}
+.translator-token span{display:block;color:var(--ink-mid);font-size:12px;line-height:1.45;margin-top:2px}
+.translator-history{display:grid;gap:6px;max-height:160px;overflow:auto}
+.translator-history button{text-align:left;border:1px solid var(--border);background:var(--white);border-radius:8px;padding:8px;color:var(--ink-mid);font-size:12px;cursor:pointer}
+.translator-api{display:none;gap:8px;grid-template-columns:1fr 140px}
+.translator-api.open{display:grid}
+.translator-badge{display:inline-flex;border-radius:8px;background:var(--blue-pale);color:var(--blue);padding:2px 7px;font-size:10px;font-weight:900;margin-left:4px}
+@media(max-width:760px){
+  .translator-panel{right:10px;bottom:92px;width:calc(100vw - 20px);max-height:calc(100vh - 104px)}
+  .translator-launch{right:12px;bottom:88px}
+  .translator-grid,.translator-toolbar,.translator-api{grid-template-columns:1fr}
+  .translator-body{max-height:calc(100vh - 170px)}
+}

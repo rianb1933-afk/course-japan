@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JLPT CBT Simulator N3 | Nihonggo Pro Academy</title>
+<meta name="description" content="Simulasi ujian JLPT N3 mode komputer — 30 soal grammar, vocabulary, dan reading dengan timer dan skor otomatis.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/JLPT-CBT-N3.html">
+<meta property="og:title" content="JLPT CBT Simulator N3 — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/JLPT-CBT-N3.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js" defer></script>
+<script src="../assets/supabase-client.js" defer></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+.wrap{max-width:800px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,#bf360c,#d84315);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.start-box{background:var(--white);border-radius:16px;padding:32px;text-align:center;margin:24px 0;border:2px solid var(--border-light)}
+.start-box h2{color:#bf360c;margin:0 0 12px}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}
+.info-item{background:#fff3e0;border-radius:10px;padding:12px;text-align:center}
+.info-val{font-size:1.4rem;font-weight:700;color:#bf360c}
+.info-lbl{font-size:.78rem;color:var(--ink-mid)}
+.start-btn{background:#bf360c;color:#fff;border:none;border-radius:12px;padding:14px 40px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:12px;transition:all .2s}
+.start-btn:hover{background:#d84315;transform:translateY(-1px)}
+.cbt-header{display:flex;justify-content:space-between;align-items:center;background:var(--white);border-radius:12px;padding:12px 18px;margin-bottom:16px;border:1px solid var(--border-light)}
+.cbt-timer{font-size:1.2rem;font-weight:700;color:#bf360c}
+.cbt-prog{font-size:.85rem;color:var(--ink-mid)}
+.q-box{background:var(--white);border-radius:14px;padding:24px;border:1px solid var(--border-light);margin-bottom:16px}
+.q-num{font-size:.78rem;font-weight:700;color:#bf360c;margin-bottom:8px}
+.q-cat{display:inline-block;font-size:.72rem;background:#fbe9e7;color:#bf360c;padding:2px 8px;border-radius:10px;margin-bottom:10px}
+.q-text{font-size:1rem;font-weight:600;color:var(--ink);margin-bottom:16px;line-height:1.6}
+.q-opts{display:grid;gap:10px}
+.q-opt{background:var(--cream);border:2px solid var(--border-light);border-radius:10px;padding:12px 16px;cursor:pointer;font-size:.9rem;transition:all .2s;text-align:left}
+.q-opt:hover{border-color:#bf360c;background:#fff3e0}
+.q-opt.selected{border-color:#bf360c;background:#fff3e0;font-weight:600}
+.q-opt.correct{border-color:#4caf50;background:#e8f5e9;color:#1b5e20}
+.q-opt.wrong{border-color:#e91e63;background:#fce4ec;color:#880e4f}
+.nav-btns{display:flex;gap:10px;justify-content:space-between}
+.nav-btn{padding:10px 20px;border:none;border-radius:10px;cursor:pointer;font-size:.9rem;font-weight:600;transition:all .2s}
+.btn-prev{background:var(--cream);border:1px solid var(--border-mid);color:var(--ink)}
+.btn-next{background:#bf360c;color:#fff}
+.btn-submit{background:#2e7d32;color:#fff}
+.q-nav{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-bottom:16px}
+.qn-dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--border-light);display:flex;align-items:center;justify-content:center;font-size:.75rem;cursor:pointer;font-weight:600;transition:all .2s}
+.qn-dot.current{border-color:#bf360c;background:#bf360c;color:#fff}
+.qn-dot.answered{background:#e0f2f1;border-color:#00695c;color:#00695c}
+.result-box{background:var(--white);border-radius:16px;padding:32px;text-align:center;margin:24px 0;border:2px solid var(--border-light)}
+.score-circle{width:120px;height:120px;border-radius:50%;border:6px solid #bf360c;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 16px}
+.score-num{font-size:2rem;font-weight:700;color:#bf360c}
+.score-lbl{font-size:.72rem;color:var(--ink-mid)}
+.ans-list{text-align:left;margin-top:20px}
+.ans-item{background:var(--cream);border-radius:8px;padding:10px 14px;margin-bottom:8px;font-size:.85rem}
+.ans-item.ok{border-left:3px solid #4caf50}
+.ans-item.ng{border-left:3px solid #e91e63}
+.exp-text{font-size:.8rem;color:var(--ink-mid);margin-top:4px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Quiz", "name": "JLPT CBT Simulator N3 | Nihonggo Pro Academy", "description": "Simulasi ujian JLPT N3 mode komputer — 30 soal grammar, vocabulary, dan reading dengan timer dan skor otomatis.", "url": "https://nihonggopro.id/Materi/JLPT-CBT-N3.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}}</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<script src="../assets/np-xp.js" defer></script>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Simulasi ujian JLPT N3 mode komputer — 30 soal grammar, vocabulary, dan reading dengan timer dan skor otomatis.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JLPT CBT Simulator N3">
+<meta name="twitter:description" content="Simulasi ujian JLPT N3 mode komputer — 30 soal grammar, vocabulary, dan reading dengan timer dan skor otomatis.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">📝 JLPT N3</span><h1>JLPT CBT Simulator N3<br>模擬試験 — Simulasi Ujian N3</h1></div>
+<div class="wrap" style="padding-top:24px">
+<div id="startView">
+  <div class="start-box">
+    <h2>🎯 JLPT N3 模擬試験</h2>
+    <p style="color:var(--ink-mid);font-size:.9rem">Simulasi ujian JLPT N3 — Grammar, Vocabulary &amp; Reading</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-val">30</div><div class="info-lbl">Soal</div></div>
+      <div class="info-item"><div class="info-val">40</div><div class="info-lbl">Menit</div></div>
+      <div class="info-item"><div class="info-val">60%</div><div class="info-lbl">Lulus</div></div>
+    </div>
+    <button class="start-btn" onclick="startCBT()">▶ Mulai Ujian</button>
+  </div>
+</div>
+<div id="cbtView" style="display:none">
+  <div class="cbt-header">
+    <div><b>JLPT N3 模擬試験</b></div>
+    <div class="cbt-timer" id="timer">40:00</div>
+    <div class="cbt-prog" id="prog">1/30</div>
+  </div>
+  <div class="q-nav" id="qNav"></div>
+  <div class="q-box" id="qBox"></div>
+  <div class="nav-btns">
+    <button class="nav-btn btn-prev" onclick="goQ(-1)">← Sebelumnya</button>
+    <button class="nav-btn btn-next" id="btnNext" onclick="goQ(1)">Berikutnya →</button>
+    <button class="nav-btn btn-submit" id="btnSubmit" style="display:none" onclick="submitCBT()">✅ Selesai &amp; Nilai</button>
+  </div>
+</div>
+<div id="resultView" style="display:none">
+  <div class="result-box">
+    <h2>📊 Hasil Ujian</h2>
+    <div class="score-circle"><div class="score-num" id="scoreNum">0</div><div class="score-lbl">dari 30</div></div>
+    <p id="scoreMsg" style="font-size:1rem;font-weight:600"></p>
+    <p id="scorePct" style="color:var(--ink-mid);font-size:.9rem"></p>
+    <button onclick="restartCBT()" style="margin-top:12px;background:#bf360c;color:#fff;border:none;border-radius:10px;padding:12px 28px;cursor:pointer;font-size:.9rem">🔄 Ulang Ujian</button>
+  </div>
+  <h3 style="color:#bf360c;margin:20px 0 10px">📝 Pembahasan</h3>
+  <div class="ans-list" id="ansList"></div>
+</div>
+</div></main>
+<script>
+var QS=[
+  {n:1,cat:'文法',q:'彼女がそこにいる（　）知らなかった。',opts:['ことを','ことが','ことは','ことも'],a:0,e:'ことを知る=tahu bahwa ~. 彼女がいることを知らなかった=tidak tahu bahwa dia ada di sana. を+知る/わかる。'},
+  {n:2,cat:'文法',q:'もっと早く起きれば、電車に（　）のに。',opts:['乗れた','乗った','乗る','乗れる'],a:0,e:'〜ばよかったのに系: 仮定過去. 乗れた=bisa naik(過去の可能). ればよかった=seandainya dulu ~ saja.'},
+  {n:3,cat:'文法',q:'この問題は難しすぎて、解ける（　）がない。',opts:['わけ','こと','はず','もの'],a:0,e:'わけがない=tidak mungkin ~. 解けるわけがない=tidak mungkin bisa memecahkan. ことがない≠わけがない.'},
+  {n:4,cat:'語彙',q:'彼の説明は（　）で、誰でも理解できた。',opts:['明確','複雑','難解','曖昧'],a:0,e:'明確(めいかく)=jelas; tegas. 明確な説明=penjelasan yang jelas. 複雑=kompleks, 難解=sulit, 曖昧=ambigu(反意).'},
+  {n:5,cat:'文法',q:'先生に（　）、もっと熱心に勉強すればよかった。',opts:['言われる前に','言われた通り','言われてから','言われるまで'],a:1,e:'言われた通り=sesuai yang dikatakan. 先生に言われた通りにすればよかった=seandainya mengikuti apa yang dikatakan guru.'},
+  {n:6,cat:'語彙',q:'長い議論の（　）、ようやく合意に達した。',opts:['末に','ために','ことに','せいで'],a:0,e:'〜末に(すえに)=setelah panjang ~ akhirnya. 議論の末に合意=setelah panjang diskusi, akhirnya sepakat. 長いプロセスの後の結果。'},
+  {n:7,cat:'文法',q:'試験に合格した（　）、もっと喜べばいいのに。',opts:['なら','のに','ために','だから'],a:1,e:'のに=padahal ~; meskipun ~ (失望・不満). 合格したのに喜ばない=padahal sudah lulus tapi tidak gembira. 期待と逆の結果。'},
+  {n:8,cat:'語彙',q:'彼女は（　）のある人で、どんな困難も乗り越えてきた。',opts:['根気','遠慮','遠慮','退屈'],a:0,e:'根気(こんき)=ketekunan; ketabahan. 根気のある人=orang yang tekun. どんな困難も=apapun kesulitannya.'},
+  {n:9,cat:'文法',q:'この計画は実行するに（　）。',opts:['値する','足りない','あたる','すぎる'],a:0,e:'〜に値する(ねうちする)=layak ~; bernilai untuk ~. 実行するに値する計画=rencana yang layak dijalankan. N1でもよく出る。'},
+  {n:10,cat:'語彙',q:'彼は自分の意見を（　）述べた。',opts:['はっきり','ぼんやり','うろうろ','ぐずぐず'],a:0,e:'はっきり=dengan jelas; tegas. はっきり述べる=menyatakan dengan jelas. ぼんやり=samar, うろうろ=mondar-mandir, ぐずぐず=berlambat-lambat.'},
+  {n:11,cat:'文法',q:'子供の頃、よく川で魚を（　）したものだ。',opts:['釣り','釣れ','釣り','釣った'],a:0,e:'〜したものだ=dulu sering ~(懐かしい回想). 子供の頃よく〜したものだ=dulu waktu kecil sering ~. 過去の習慣の表現。'},
+  {n:12,cat:'語彙',q:'この映画は子供から大人まで（　）楽しめる。',opts:['幅広く','細かく','重く','深く'],a:0,e:'幅広く(はばひろく)=dengan jangkauan luas; secara luas. 幅広い年齢層が楽しめる=dapat dinikmati berbagai kalangan usia.'},
+  {n:13,cat:'文法',q:'旅行に行く（　）、予約を忘れずに。',opts:['に際して','にしては','にとって','に反して'],a:0,e:'に際して=pada saat ~; dalam rangka ~. 旅行に際して=pada saat bepergian. フォーマルな表現。'},
+  {n:14,cat:'語彙',q:'長年の努力が（　）して、ついに夢を実現した。',opts:['実を結んで','芽を出して','花を開いて','根を張って'],a:0,e:'実を結ぶ(みをむすぶ)=berbuah hasil; membuahkan hasil. 努力が実を結んだ=usaha membuahkan hasil. 慣用句。'},
+  {n:15,cat:'文法',q:'彼のことが心配な（　）、電話してみた。',opts:['あまり','ために','ほどに','だけに'],a:0,e:'〜あまり=karena terlalu ~. 心配なあまり電話した=karena terlalu khawatir, menelepon. 強い感情が行動の原因になる表現。'},
+  {n:16,cat:'読解',q:'「一石二鳥」の意味は？',opts:['一つの行動で二つの利益を得る','石を二つ鳥に投げる','一つの石で二羽の鳥を捕まえた','二つのことを同時にする'],a:0,e:'一石二鳥=satu tembakan dua burung; sekali jalan dua masalah selesai. 一つの行為で二つの良い結果を得ること。'},
+  {n:17,cat:'文法',q:'その店は人気があり、いつも行列が（　）いる。',opts:['できて','でき','でき','できた'],a:0,e:'行列ができている=ada antrian panjang. できている=sudah terbentuk dan berlanjut. 自動詞できる+ている=状態の継続。'},
+  {n:18,cat:'語彙',q:'このプロジェクトは多くの（　）が必要だ。',opts:['費用','材料','道具','機械'],a:0,e:'文脈によるが「費用(ひよう)」が最も自然. プロジェクトには費用(コスト/お金)が必要. 材料・道具・機械も状況次第。'},
+  {n:19,cat:'文法',q:'雨が降り（　）なので、傘を持っていった方がいい。',opts:['そう','らしい','ようだ','はずだ'],a:0,e:'〜そう(様態)=kelihatan ~(見た目から). 雨が降りそう=kelihatan akan hujan(空を見て). らしい=katanya, はずだ=seharusnya.'},
+  {n:20,cat:'語彙',q:'彼女は失敗しても（　）あきらめず、何度も挑戦した。',opts:['決して','必ず','もちろん','きっと'],a:0,e:'決して〜ない=tidak pernah ~ sama sekali. 決してあきらめない=tidak pernah menyerah sama sekali. 强い否定。'},
+  {n:21,cat:'文法',q:'（　）を言うと、その映画はあまり面白くなかった。',opts:['本当のこと','嘘のこと','冗談のこと','残念なこと'],a:0,e:'本当のことを言うと=sejujurnya; terus terang. 正直に言うと・実を言うと も似た表現。'},
+  {n:22,cat:'語彙',q:'この薬は副作用が（　）ので安心です。',opts:['少ない','多い','強い','重い'],a:0,e:'副作用が少ない=efek samping sedikit. 安心(あんしん)=tenang/lega. 反対: 副作用が多い・強い=efek samping banyak/kuat.'},
+  {n:23,cat:'文法',q:'彼は親に（　）、毎日遅くまで働いた。',opts:['心配させないように','心配させるように','心配されるように','心配させたまま'],a:0,e:'心配させないように=agar tidak membuat khawatir. 〜させないように+行動=berusaha agar tidak ~. 使役形の否定目的。'},
+  {n:24,cat:'語彙',q:'この問題について（　）してください。',opts:['検討','見当','現当','検当'],a:0,e:'検討する(けんとうする)=mempertimbangkan; mengkaji. よく検討してください=tolong pertimbangkan dengan baik. 重要なビジネス語。'},
+  {n:25,cat:'文法',q:'学生時代に（　）、もっと勉強しておけばよかった。',opts:['戻れる','戻れるなら','戻ったら','戻っても'],a:1,e:'〜なら(仮定)=seandainya ~. 学生時代に戻れるなら=seandainya bisa kembali ke masa mahasiswa. 実現できない仮定。'},
+  {n:26,cat:'語彙',q:'この計画には（　）な準備が必要だ。',opts:['十分','不十分','少し','若干'],a:0,e:'十分な(じゅうぶんな)=cukup; memadai. 十分な準備=persiapan yang memadai. 不十分=tidak cukup(反意). 若干=sedikit。'},
+  {n:27,cat:'文法',q:'彼女は努力家である（　）、才能もある。',opts:['上に','場合に','反面','くせに'],a:0,e:'〜上に(うえに)=selain itu juga; di atas itu. 努力家である上に才能もある=selain pekerja keras, juga berbakat. 累加表現。'},
+  {n:28,cat:'読解',q:'「骨を折る」の意味は？',opts:['骨が折れる','一生懸命努力する','怪我をする','仕事を断る'],a:1,e:'骨を折る=bekerja keras; bersusah payah. 慣用句. 彼のために骨を折った=bersusah payah demi dia. ×実際に骨折するわけではない。'},
+  {n:29,cat:'文法',q:'試験が近づく（　）、緊張してきた。',opts:['につれて','について','に反して','に加えて'],a:0,e:'〜につれて=seiring dengan ~. 試験が近づくにつれて=seiring ujian semakin dekat. 変化の比例を示す。'},
+  {n:30,cat:'語彙',q:'彼の行動は常識に（　）するものだった。',opts:['反','反対','逆','背'],a:3,e:'常識に背く(そむく)=melanggar akal sehat; bertentangan dengan kepatutan. 反する・背くは似た意味。「常識に背く行動」。'},
+];
+var answers={},cur=0,timerInt=null,timeLeft=2400;
+function startCBT(){
+  cbtSubmitted = false; // genuinely reset guard untuk ujian baru
+  document.getElementById('startView').style.display='none';
+  document.getElementById('cbtView').style.display='block';
+  renderNav();showQ(0);
+  timerInt=setInterval(function(){
+    timeLeft--;
+    var m=Math.floor(timeLeft/60),s=timeLeft%60;
+    document.getElementById('timer').textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
+    if(timeLeft<=0){clearInterval(timerInt);submitCBT();}
+  },1000);
+}
+function renderNav(){
+  var nav=document.getElementById('qNav');nav.innerHTML='';
+  QS.forEach(function(q,i){
+    var d=document.createElement('div');d.className='qn-dot'+(i===cur?' current':(answers[i]!==undefined?' answered':''));
+    d.textContent=i+1;d.onclick=function(){cur=i;showQ(i);};
+    nav.appendChild(d);
+  });
+}
+function showQ(i){
+  var q=QS[i];
+  document.getElementById('qBox').innerHTML='<div class="q-num">問 '+(i+1)+' / 30</div><span class="q-cat">'+q.cat+'</span><div class="q-text">'+q.q+'</div><div class="q-opts" id="opts"></div>';
+  var oo=document.getElementById('opts');
+  q.opts.forEach(function(o,j){
+    var b=document.createElement('button');b.className='q-opt'+(answers[i]===j?' selected':'');
+    b.textContent=(j+1)+'. '+o;
+    b.onclick=function(){selectAns(i,j);};
+    oo.appendChild(b);
+  });
+  document.getElementById('prog').textContent=(i+1)+'/30';
+  document.getElementById('btnNext').style.display=i<29?'block':'none';
+  document.getElementById('btnSubmit').style.display=i===29?'block':'none';
+  renderNav();
+}
+function selectAns(qi,ai){
+  answers[qi]=ai;
+  document.querySelectorAll('.q-opt').forEach(function(b,j){
+    b.classList.toggle('selected',j===ai);
+  });
+  renderNav();
+}
+function goQ(d){cur=Math.max(0,Math.min(29,cur+d));showQ(cur);}
+// GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Keempat, Fase R):
+// guard flag untuk mencegah submitCBT() genuinely dieksekusi dua kali,
+// mengikuti pola yang sudah terbukti di JLPT-CBT.html (Website v25).
+// Dikonfirmasi via pengujian bahwa 3x panggilan submitCBT() genuinely
+// menghasilkan 3x panggilan NPXP.recordQuiz() -- XP/progress genuinely
+// terduplikasi. Risiko nyata mengingat ada DUA jalur pemanggilan: timer
+// otomatis saat waktu habis DAN tombol "Selesai & Nilai" manual.
+var cbtSubmitted = false;
+function submitCBT(){
+  if(cbtSubmitted) return;
+  cbtSubmitted = true;
+  clearInterval(timerInt);
+  var ok=0;
+  QS.forEach(function(q,i){if(answers[i]===q.a)ok++;}); 
+  document.getElementById('cbtView').style.display='none';
+  document.getElementById('resultView').style.display='block';
+  document.getElementById('scoreNum').textContent=ok;
+  var pct=Math.round(ok/30*100);
+  try{ if(window.NPXP) NPXP.recordQuiz('jlpt', ok, QS.length||30); }catch(e){}
+  document.getElementById('scorePct').textContent=pct+'% ('+ok+'/30 soal benar)';
+  document.getElementById('scoreMsg').textContent=pct>=60?'🎉 LULUS! Skor di atas passing grade 60%':'❌ Belum lulus. Terus berlatih ya!';
+  document.getElementById('scoreMsg').style.color=pct>=60?'#2e7d32':'#c62828';
+  var list=document.getElementById('ansList');list.innerHTML='';
+  QS.forEach(function(q,i){
+    var ok2=answers[i]===q.a;
+    var d=document.createElement('div');d.className='ans-item '+(ok2?'ok':'ng');
+    d.innerHTML='<b>Q'+(i+1)+'. '+q.q+'</b><br>'
+      +(ok2?'✅ Benar: ':'❌ Salah: ')+'<b>'+q.opts[q.a]+'</b>'+(answers[i]!==undefined&&!ok2?' (Jawaban Anda: '+q.opts[answers[i]]+')':'')
+      +'<div class="exp-text">💡 '+q.e+'</div>';
+    list.appendChild(d);
+  });
+}
+function restartCBT(){
+  answers={};cur=0;timeLeft=2400;
+  document.getElementById('resultView').style.display='none';
+  document.getElementById('startView').style.display='block';
+}
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

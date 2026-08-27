@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#1565c0">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>呼吸器系 Sistem Pernapasan — Paru-paru Bahasa Jepang untuk Kaigo | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Pernapasan — Paru-paru — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Pernapasan.html","description":"Pembelajaran mendalam sistem pernapasan dan paru-paru dalam bahasa Jepang — anatomi, fisiologi pernapasan, perubahan penuaan, penyakit paru lansia, observasi, dan perawatan Kaigo.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Pelajari sistem pernapasan dan paru-paru secara mendalam dalam bahasa Jepang — anatomi, cara kerja pernapasan, perubahan akibat penuaan, penyakit paru lansia, observasi, dan perawatan Kaigo.">
+<meta property="og:title" content="呼吸器系 Sistem Pernapasan — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Anatomi, fisiologi, dan perawatan Kaigo sistem pernapasan dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Pernapasan.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#eff6ff,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#1565c0;border-color:#1565c0;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#1565c0;background:#eff6ff;border:1px solid #bfdbfe;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#1565c0;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#1565c0}
+.organ-tab.active{color:#1565c0;border-bottom-color:#1565c0}
+.organ-tab:focus-visible{outline:2px solid #1565c0;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #eff6ff;color:#0a1a2e}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#1565c0}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#f0fdf4;border-color:#bbf7d0}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#eff6ff;color:#1565c0;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #1565c0;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.breath-wrap{max-width:340px;margin:16px auto;padding:16px;background:var(--white,#fff);border-radius:14px;border:1px solid var(--border-light,#eee)}
+@keyframes breathIn{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+@keyframes breathInR{0%,100%{transform:scale(1)}50%{transform:scale(1.08)}}
+@keyframes diaphragmMove{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+@keyframes gasDotO2{0%{opacity:0;transform:translateY(0)}30%{opacity:1}100%{opacity:0;transform:translateY(-30px)}}
+@keyframes gasDotCO2{0%{opacity:0;transform:translateY(-20px)}40%{opacity:1}100%{opacity:0;transform:translateY(10px)}}
+.br-lung-l{transform-origin:340px 180px;animation:breathIn 4s ease-in-out infinite}
+.br-lung-r{transform-origin:150px 180px;animation:breathInR 4s ease-in-out infinite}
+.br-diaphragm{animation:diaphragmMove 4s ease-in-out infinite}
+.br-o2{animation:gasDotO2 4s ease-in-out infinite}
+.br-co2{animation:gasDotCO2 4s ease-in-out infinite .3s}
+@media (prefers-reduced-motion:reduce){.br-lung-l,.br-lung-r,.br-diaphragm,.br-o2,.br-co2{animation:none}}
+.br-th{font-size:13px;font-weight:800;fill:var(--ink,#222)}
+.br-ts{font-size:11px;fill:var(--ink-mid,#666)}
+.breath-legend{display:flex;gap:16px;justify-content:center;margin-top:8px;font-size:12px;color:var(--ink-mid,#666);flex-wrap:wrap}
+.breath-legend span{display:inline-flex;align-items:center;gap:5px}
+.breath-swatch{display:inline-block;width:12px;height:12px;border-radius:50%}
+.breath-controls{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.breath-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:700}
+.breath-btn.active{background:#eff6ff;border-color:#1565c0;color:#1565c0}
+
+.case-sim{background:var(--white,#fff);border:2px solid #bfdbfe;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#eff6ff;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#1565c0;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#1565c0}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.model3d-wrap{max-width:560px;margin:16px auto;padding:16px;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px}
+.model3d-canvas-wrap{position:relative;width:100%;height:360px;border-radius:10px;overflow:hidden;background:#f5f7fb;touch-action:none}
+.model3d-loading,.model3d-error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink-mid,#666);text-align:center;padding:20px}
+.model3d-error{color:#1565c0}
+.model3d-info-panel{margin-top:10px;padding:10px 12px;background:#f8f9fb;border-radius:10px;font-size:13px}
+.model3d-info-panel strong{display:block;margin-bottom:2px;font-size:14px}
+.model3d-detail-text{color:var(--ink-mid,#666)}
+.model3d-controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.model3d-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:8px 14px;font-size:12.5px;cursor:pointer;font-weight:700}
+.model3d-btn.active{background:#fef2f2;border-color:#dc2626;color:#dc2626}
+.model3d-disclaimer{margin:10px 0 0;font-size:11px;color:var(--ink-soft,#999);line-height:1.5}
+model-viewer{width:100%;height:360px;border-radius:10px}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Pernapasan.html" class="current">① 基礎 Dasar</a>
+      <a href="Sistem-Pernapasan-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Pernapasan-Lanjutan.html">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🫁 Level 2-4 — Sistem Pernapasan</span>
+    <h1><span class="jp-big">呼吸器系・肺</span>Sistem Pernapasan — Paru-paru</h1>
+    <p class="lead">Anatomi, fisiologi pernapasan, perubahan penuaan, penyakit paru lansia, hingga perawatan Kaigo — dengan animasi inhalasi-ekshalasi interaktif.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi paru-paru">
+  <button class="organ-tab active" data-tab="ringkasan" role="tab" aria-selected="true">概要 Ringkasan</button>
+  <button class="organ-tab" data-tab="anatomi" role="tab" aria-selected="false">解剖 Anatomi</button>
+  <button class="organ-tab" data-tab="fisiologi" role="tab" aria-selected="false">生理 Fisiologi</button>
+  <button class="organ-tab" data-tab="penuaan" role="tab" aria-selected="false">加齢変化 Penuaan</button>
+  <button class="organ-tab" data-tab="penyakit" role="tab" aria-selected="false">疾患 Penyakit</button>
+  <button class="organ-tab" data-tab="gejala" role="tab" aria-selected="false">症状 Gejala</button>
+  <button class="organ-tab" data-tab="observasi" role="tab" aria-selected="false">観察 Observasi</button>
+  <button class="organ-tab" data-tab="perawatan" role="tab" aria-selected="false">介護 Perawatan</button>
+  <button class="organ-tab" data-tab="kosakata" role="tab" aria-selected="false">用語 Kosakata</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <!-- ═══════════ 概要 RINGKASAN ═══════════ -->
+  <div class="organ-panel active" id="panel-ringkasan">
+    <h2>概要 — Ringkasan Sistem Pernapasan</h2>
+    <p>Sistem pernapasan (呼吸器系, こきゅうきけい) terdiri dari saluran napas (hidung, faring, trakea, bronkus) dan <strong>paru-paru (肺, はい)</strong> sebagai organ utama pertukaran gas — mengambil oksigen (O₂) dari udara dan membuang karbon dioksida (CO₂) dari darah.</p>
+    <div class="info-card">
+      <h3 style="margin-top:0">Kenapa penting untuk Kaigo?</h3>
+      <p style="margin-bottom:0">Pneumonia (radang paru) adalah salah satu penyebab kematian tersering pada lansia Jepang, seringkali dipicu oleh aspirasi (tersedak makanan/cairan masuk saluran napas). Caregiver yang memahami tanda gangguan napas dan teknik pencegahan aspirasi berperan langsung dalam keselamatan pengguna layanan.</p>
+    </div>
+    <h3>Fungsi utama</h3>
+    <ul>
+      <li>Pertukaran gas: mengambil O₂, membuang CO₂</li>
+      <li>Menyaring, menghangatkan, dan melembapkan udara yang dihirup</li>
+      <li>Membantu mengatur keseimbangan asam-basa darah</li>
+      <li>Berperan dalam produksi suara (melalui pita suara)</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 解剖 ANATOMI ═══════════ -->
+  <div class="organ-panel" id="panel-anatomi">
+    <h2>解剖 — Anatomi Paru-paru</h2>
+    <p>Paru-paru terletak di rongga dada (胸腔, きょうくう), dilindungi oleh tulang rusuk. Paru-paru kanan punya <strong>3 lobus</strong>, paru-paru kiri punya <strong>2 lobus</strong> (memberi ruang untuk jantung).</p>
+    <h3>Saluran napas</h3>
+    <ul>
+      <li><strong>Trakea (気管, きかん)</strong> — batang tenggorok, saluran udara utama menuju paru-paru</li>
+      <li><strong>Bronkus (気管支, きかんし)</strong> — percabangan trakea menuju masing-masing paru-paru</li>
+      <li><strong>Bronkiolus</strong> — percabangan lebih kecil di dalam paru-paru</li>
+      <li><strong>Alveolus (肺胞, はいほう)</strong> — kantung udara terkecil, tempat pertukaran gas terjadi (jutaan buah per paru-paru)</li>
+    </ul>
+    <h3>Diafragma (横隔膜, おうかくまく)</h3>
+    <p>Otot besar berbentuk kubah di bawah paru-paru, pemisah rongga dada dan rongga perut. Diafragma adalah otot pernapasan UTAMA — bergerak turun saat menarik napas (memperbesar rongga dada) dan naik saat membuang napas.</p>
+
+    <h3>🧊 Model 3D interaktif — paru-paru</h3>
+    <div class="model3d-wrap">
+      <div id="lungs3dContainer" class="model3d-canvas-wrap">
+        <div id="lungs3dLoading" class="model3d-loading">Memuat model 3D…</div>
+        <div id="lungs3dError" class="model3d-error" style="display:none">Model 3D gagal dimuat. Coba muat ulang halaman.</div>
+      </div>
+      <div class="model3d-info-panel">
+        <strong id="lungs3dName">Klik bagian paru-paru untuk detail</strong>
+        <div id="lungs3dDetail" class="model3d-detail-text">Putar dengan drag/geser, perbesar dengan scroll/pinch.</div>
+        <div id="lungs3dKaigo" class="model3d-detail-text" style="margin-top:6px;font-style:italic"></div>
+      </div>
+      <div class="model3d-controls">
+        <button type="button" id="lungs3dResetBtn" class="model3d-btn">↺ Reset kamera</button>
+        <button type="button" id="lungs3dAspirationBtn" class="model3d-btn">🚨 Simulasi Aspirasi</button>
+      </div>
+      <div id="lungs3dSimText" class="info-card danger" style="display:none;margin-top:10px">
+        <strong>Saat dicurigai aspirasi:</strong>
+        <ol style="margin:6px 0 0;padding-left:20px;font-size:13px">
+          <li>Hentikan makan/minum</li>
+          <li>Pertahankan posisi aman dan nilai napas</li>
+          <li>Segera lapor perawat sesuai prosedur fasilitas</li>
+          <li>Jangan memberi oral bila kesadaran menurun</li>
+        </ol>
+      </div>
+      <p class="model3d-disclaimer">Model edukatif bergaya sederhana untuk pembelajaran istilah anatomi — bukan untuk diagnosis, operasi, atau pengukuran klinis.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 生理 FISIOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-fisiologi">
+    <h2>生理 — Cara Kerja Pernapasan</h2>
+    <p>Pernapasan melibatkan <strong>mekanika (gerakan otot)</strong> dan <strong>pertukaran gas (tingkat sel)</strong> yang bekerja bersamaan:</p>
+
+    <h3>🫁 Inhalasi &amp; Ekshalasi — animasi interaktif</h3>
+    <div class="breath-wrap">
+      <svg width="100%" viewBox="0 0 400 420" role="img" aria-label="Animasi inhalasi dan ekshalasi: paru-paru mengembang saat menarik napas, diafragma turun, oksigen masuk dan karbon dioksida keluar">
+        <path d="M100 340 Q200 380 300 340 L300 360 Q200 400 100 360 Z" fill="#B4B2A9" opacity=".5" class="br-diaphragm"/>
+        <ellipse class="br-lung-r" cx="150" cy="180" rx="55" ry="110" fill="#85B7EB" opacity=".55"/>
+        <ellipse class="br-lung-l" cx="340" cy="180" rx="50" ry="105" fill="#85B7EB" opacity=".55"/>
+        <line x1="245" y1="80" x2="245" y2="150" stroke="var(--ink-mid,#888)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="245" y1="150" x2="180" y2="200" stroke="var(--ink-mid,#888)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="245" y1="150" x2="310" y2="200" stroke="var(--ink-mid,#888)" stroke-width="3" stroke-linecap="round"/>
+        <text class="br-th" x="245" y="65" text-anchor="middle">1</text>
+        <text class="br-ts" x="245" y="45" text-anchor="middle">Trakea &amp; bronkus</text>
+        <text class="br-th" x="150" y="185" text-anchor="middle">2</text>
+        <text class="br-ts" x="150" y="205" text-anchor="middle" fill="#fff">Paru-paru</text>
+        <text class="br-th" x="200" y="355" text-anchor="middle">3</text>
+        <text class="br-ts" x="200" y="372" text-anchor="middle">Diafragma</text>
+        <circle class="br-o2" cx="150" cy="160" r="4" fill="#639922"/>
+        <circle class="br-o2" cx="340" cy="160" r="4" fill="#639922" style="animation-delay:.4s"/>
+        <circle class="br-co2" cx="160" cy="140" r="4" fill="#888780"/>
+        <circle class="br-co2" cx="330" cy="140" r="4" fill="#888780" style="animation-delay:.7s"/>
+      </svg>
+      <div class="breath-legend">
+        <span><i class="breath-swatch" style="background:#639922"></i>O₂ masuk (alveolus → darah)</span>
+        <span><i class="breath-swatch" style="background:#888780"></i>CO₂ keluar (darah → alveolus)</span>
+      </div>
+      <div class="breath-controls">
+        <button class="breath-btn active" id="breathToggle" onclick="toggleBreathAnim()">⏸ Jeda animasi</button>
+      </div>
+    </div>
+
+    <h3>Mekanika pernapasan</h3>
+    <ul>
+      <li><strong>吸気 (きゅうき) — Inhalasi</strong>: diafragma berkontraksi &amp; turun, rongga dada membesar, tekanan udara paru-paru menurun, udara masuk</li>
+      <li><strong>呼気 (こき) — Ekshalasi</strong>: diafragma relaksasi &amp; naik, rongga dada mengecil, udara terdorong keluar</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Pertukaran gas di alveolus:</strong> oksigen dari udara yang dihirup berpindah ke darah (kapiler di sekitar alveolus), sementara karbon dioksida dari darah berpindah ke alveolus untuk dihembuskan keluar. Proses ini terjadi lewat difusi — perbedaan konsentrasi gas antara udara dan darah.</p>
+    </div>
+    <p>Frekuensi napas normal orang dewasa istirahat: sekitar <strong>12–20 kali/menit</strong>.</p>
+  </div>
+
+  <!-- ═══════════ 加齢変化 PERUBAHAN PENUAAN ═══════════ -->
+  <div class="organ-panel" id="panel-penuaan">
+    <h2>加齢に伴う変化 — Perubahan Paru-paru Akibat Penuaan</h2>
+    <p>Penuaan menyebabkan beberapa perubahan struktural dan fungsional pada sistem pernapasan:</p>
+    <ul>
+      <li><strong>Elastisitas paru-paru menurun</strong> — paru-paru lebih sulit mengembang dan mengempis sepenuhnya</li>
+      <li><strong>Kekuatan otot pernapasan menurun</strong> — termasuk diafragma dan otot dada</li>
+      <li><strong>Refleks batuk melemah</strong> — kemampuan mengeluarkan benda asing/dahak berkurang</li>
+      <li><strong>Dahak lebih sulit dikeluarkan</strong> — meningkatkan risiko penumpukan di saluran napas</li>
+      <li><strong>Risiko aspirasi dan pneumonia meningkat</strong> — kombinasi refleks menelan yang melemah dan refleks batuk yang berkurang</li>
+    </ul>
+    <div class="info-card warn">
+      <h3 style="margin-top:0">⚠️ Relevansi Kaigo</h3>
+      <p style="margin-bottom:0">Perubahan ini menjelaskan kenapa pneumonia aspirasi (誤嚥性肺炎, ごえんせいはいえん) sangat umum dan berbahaya pada lansia — teknik makan yang aman dan perawatan mulut menjadi sangat penting untuk pencegahan.</p>
+    </div>
+
+    <h3>Dampak praktis pada aktivitas sehari-hari</h3>
+    <p>Perubahan di atas jarang terasa dramatis saat istirahat, tapi lebih terasa saat tubuh butuh lebih banyak oksigen:</p>
+    <ul>
+      <li>Mudah sesak napas saat aktivitas yang dulunya ringan (naik tangga, berjalan cepat) — bukan berarti sakit, tapi CADANGAN kapasitas paru yang lebih sedikit</li>
+      <li>Pemulihan napas setelah aktivitas berat butuh waktu lebih lama dibanding usia muda</li>
+      <li>Lebih rentan terhadap kondisi yang menambah beban napas (infeksi ringan yang pada usia muda tidak terlalu terasa, bisa terasa lebih berat pada lansia)</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa penting dipahami:</strong> caregiver perlu membedakan sesak napas yang WAJAR akibat aktivitas (membaik dengan istirahat singkat) dari sesak yang PATOLOGIS (tidak membaik dengan istirahat, muncul mendadak, atau disertai gejala lain seperti nyeri dada) — pembedaan ini menentukan apakah perlu segera melapor atau cukup istirahat.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 疾患 PENYAKIT ═══════════ -->
+  <div class="organ-panel" id="panel-penyakit">
+    <h2>疾患 — Penyakit Paru-paru Umum pada Lansia</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">肺炎 (はいえん) — Pneumonia (Radang Paru)</h3>
+      <p>Infeksi pada jaringan paru-paru, seringkali disebabkan bakteri. Pada lansia, sering dipicu oleh aspirasi makanan/cairan/air liur ke saluran napas.</p>
+      <p style="margin-bottom:0"><strong>Ciri khas pneumonia pada lansia:</strong> gejala klasik (demam tinggi, batuk berdahak jelas) sering TIDAK muncul jelas — bisa hanya berupa kebingungan mendadak, nafsu makan menurun, atau kelemahan umum tanpa demam signifikan. Ini membuat pneumonia pada lansia sering terlambat dikenali dibanding populasi lebih muda.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">誤嚥性肺炎 (ごえんせいはいえん) — Pneumonia Aspirasi</h3>
+      <p>Jenis pneumonia akibat makanan, cairan, atau air liur yang salah masuk ke saluran napas (bukan ke esofagus). Sangat umum pada lansia dengan gangguan menelan (disfagia).</p>
+      <p style="margin-bottom:0">Perlu diwaspadai bahwa aspirasi bisa terjadi SECARA DIAM-DIAM (silent aspiration) — tanpa batuk/tersedak yang terlihat jelas, terutama pada lansia dengan gangguan saraf/kesadaran menurun. Ini kenapa pemantauan tidak bisa hanya mengandalkan "apakah pasien tersedak", tapi juga perubahan suara napas atau kondisi umum setelah makan.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">COPD／慢性閉塞性肺疾患 (まんせいへいそくせいはいしっかん)</h3>
+      <p>Penyakit paru obstruktif kronis — saluran napas menyempit permanen, sering akibat merokok jangka panjang. Menyebabkan sesak napas kronis.</p>
+      <p style="margin-bottom:0">COPD adalah kondisi PROGRESIF dengan periode stabil yang bisa terganggu <strong>eksaserbasi akut (急性増悪, きゅうせいぞうあく)</strong> — perburukan mendadak (sering dipicu infeksi) yang butuh penanganan segera. Mengenali tanda eksaserbasi (sesak memburuk drastis, perubahan warna/jumlah dahak, kelelahan berlebih) penting bagi caregiver pasien COPD.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">気管支炎 (きかんしえん) — Bronkitis</h3>
+      <p style="margin-bottom:0">Peradangan pada bronkus, menyebabkan batuk berdahak. <strong>Bronkitis akut</strong> umumnya disebabkan infeksi virus dan membaik dalam beberapa minggu; <strong>bronkitis kronis</strong> (bagian dari spektrum COPD) ditandai batuk berdahak yang berlangsung minimal 3 bulan dalam setahun, berturut-turut selama 2 tahun — perbedaan durasi dan penyebab ini penting karena tata laksananya berbeda.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 症状 GEJALA ═══════════ -->
+  <div class="organ-panel" id="panel-gejala">
+    <h2>症状 — Gejala yang Perlu Diwaspadai</h2>
+    <ul>
+      <li><strong>咳 (せき)</strong> — Batuk, terutama jika berdahak atau berlangsung lama</li>
+      <li><strong>痰 (たん)</strong> — Dahak, perhatikan warna (kuning/hijau bisa tanda infeksi)</li>
+      <li><strong>息切れ (いきぎれ)</strong> — Sesak napas, saat aktivitas atau bahkan istirahat</li>
+      <li><strong>むせ込み</strong> — Tersedak saat makan/minum (tanda risiko aspirasi)</li>
+      <li><strong>発熱 (はつねつ)</strong> — Demam, sering menyertai infeksi paru</li>
+      <li><strong>チアノーゼ</strong> — Bibir/ujung jari kebiruan (kekurangan oksigen berat)</li>
+      <li><strong>呼吸音の異常</strong> — Suara napas abnormal (mengi, ronki) — dikenali tenaga medis via stetoskop</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">🚨 Kapan ini darurat?</h3>
+      <p style="margin-bottom:0">Sesak napas berat mendadak, bibir/wajah kebiruan, atau tersedak dengan sulit bernapas sama sekali — segera hubungi layanan darurat (救急車を呼ぶ). Tersedak yang menyumbat total jalan napas adalah kondisi mengancam nyawa dalam hitungan menit.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 観察 OBSERVASI ═══════════ -->
+  <div class="organ-panel" id="panel-observasi">
+    <h2>観察 — Poin Observasi Caregiver</h2>
+    <p>Observasi harian yang bisa dilakukan caregiver (bukan diagnosis, tapi deteksi dini untuk dilaporkan):</p>
+
+    <h3>Parameter yang bisa diukur/dihitung</h3>
+    <ul>
+      <li><strong>呼吸数 (こきゅうすう)</strong> — Frekuensi napas: hitung selama 1 menit penuh, jangan cuma 15 detik dikali 4 (napas tidak selalu teratur pada lansia, penghitungan singkat bisa menyesatkan). Napas yang jelas lebih cepat atau lebih lambat dari biasanya pasien itu sendiri patut dicatat</li>
+      <li><strong>SpO₂ (パルスオキシメーター)</strong> — Saturasi oksigen, jika alat tersedia dan sudah dilatih menggunakannya. Penurunan MENDADAK atau TREN menurun lebih penting dicatat dibanding satu angka tunggal, karena nilai dasar bisa berbeda tiap individu (terutama pasien COPD lama)</li>
+    </ul>
+
+    <h3>Observasi visual dan perilaku</h3>
+    <ul>
+      <li><strong>顔色・唇の色</strong> — Warna wajah dan bibir: pucat atau kebiruan (sianosis) adalah tanda kekurangan oksigen yang cukup berat, perlu dilaporkan segera</li>
+      <li><strong>咳・痰の様子</strong> — Pola batuk dan karakter dahak. Perubahan WARNA dahak (jernih→kuning/hijau) atau JUMLAH yang tiba-tiba bertambah banyak sering menandakan infeksi baru atau perburukan</li>
+      <li><strong>食事中の様子</strong> — Perilaku saat makan: tersedak, suara "basah" setelah menelan. Ingat bahwa aspirasi bisa terjadi DIAM-DIAM tanpa tersedak terlihat — perhatikan juga perubahan suara napas atau kelelahan tak wajar setelah makan meski tidak ada tersedak jelas</li>
+      <li><strong>意識レベル</strong> — Tingkat kesadaran: mengantuk tak wajar bisa tanda kekurangan oksigen, terutama jika muncul MENDADAK dan disertai perubahan pola napas</li>
+    </ul>
+
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Prinsip pencatatan:</strong> bandingkan selalu dengan kondisi BIASA pasien itu sendiri (baseline individual), bukan angka "normal" secara umum — pasien COPD lama mungkin normal di SpO₂ yang dianggap rendah untuk orang sehat, sehingga PERUBAHAN dari kondisi biasanya lebih bermakna daripada angka mutlak.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 介護 PERAWATAN ═══════════ -->
+  <div class="organ-panel" id="panel-perawatan">
+    <h2>介護 — Tindakan Perawatan Kaigo</h2>
+    <h3>Pencegahan aspirasi (誤嚥予防)</h3>
+    <ul>
+      <li>Posisi duduk tegak (bukan berbaring) saat makan/minum</li>
+      <li>Suapan kecil, beri waktu menelan sepenuhnya sebelum suapan berikutnya</li>
+      <li>Perhatikan tekstur makanan sesuai kemampuan menelan (dianjurkan tenaga medis/ahli gizi)</li>
+      <li>Jaga kebersihan mulut (口腔ケア) — mengurangi bakteri yang berisiko masuk ke paru-paru</li>
+    </ul>
+    <h3>Posisi &amp; pernapasan</h3>
+    <ul>
+      <li>Posisi setengah duduk membantu pernapasan lebih mudah bagi yang sesak</li>
+      <li>Dorong latihan batuk efektif dan napas dalam sesuai anjuran tenaga medis (mencegah penumpukan dahak)</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">📞 Kapan harus melapor ke perawat/dokter?</h3>
+      <ul style="margin-bottom:0">
+        <li>Sesak napas baru atau memburuk</li>
+        <li>Perubahan warna/jumlah dahak, terutama jika berwarna kuning-hijau atau berdarah</li>
+        <li>Demam disertai batuk</li>
+        <li>Tersedak berulang saat makan, atau suara "basah" setelah menelan</li>
+        <li>Bibir/wajah kebiruan, kesadaran menurun → SEGERA / panggil darurat jika berat</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════ 用語 KOSAKATA ═══════════ -->
+  <div class="organ-panel" id="panel-kosakata">
+    <h2>用語 — Kosakata Jepang Sistem Pernapasan</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">肺</td><td>はい</td><td>Paru-paru</td><td>Lung</td></tr>
+        <tr><td class="jp">気管</td><td>きかん</td><td>Trakea</td><td>Trachea</td></tr>
+        <tr><td class="jp">呼吸</td><td>こきゅう</td><td>Pernapasan</td><td>Breathing</td></tr>
+        <tr><td class="jp">咳</td><td>せき</td><td>Batuk</td><td>Cough</td></tr>
+        <tr><td class="jp">痰</td><td>たん</td><td>Dahak</td><td>Sputum</td></tr>
+        <tr><td class="jp">息切れ</td><td>いきぎれ</td><td>Sesak napas</td><td>Shortness of breath</td></tr>
+        <tr><td class="jp">誤嚥</td><td>ごえん</td><td>Aspirasi (salah telan)</td><td>Aspiration</td></tr>
+        <tr><td class="jp">肺炎</td><td>はいえん</td><td>Radang paru</td><td>Pneumonia</td></tr>
+        <tr><td class="jp">酸素</td><td>さんそ</td><td>Oksigen</td><td>Oxygen</td></tr>
+        <tr><td class="jp">むせる</td><td>むせる</td><td>Tersedak</td><td>To choke</td></tr>
+        <tr><td class="jp">誤嚥性肺炎</td><td>ごえんせいはいえん</td><td>Pneumonia aspirasi</td><td>Aspiration pneumonia</td></tr>
+        <tr><td class="jp">慢性閉塞性肺疾患</td><td>まんせいへいそくせいはいしっかん</td><td>COPD</td><td>Chronic obstructive pulmonary disease</td></tr>
+        <tr><td class="jp">急性増悪</td><td>きゅうせいぞうあく</td><td>Eksaserbasi akut</td><td>Acute exacerbation</td></tr>
+        <tr><td class="jp">気管支炎</td><td>きかんしえん</td><td>Bronkitis</td><td>Bronchitis</td></tr>
+        <tr><td class="jp">チアノーゼ</td><td>ちあのーぜ</td><td>Sianosis (kebiruan)</td><td>Cyanosis</td></tr>
+        <tr><td class="jp">呼吸数</td><td>こきゅうすう</td><td>Frekuensi napas</td><td>Respiratory rate</td></tr>
+        <tr><td class="jp">飽和度</td><td>ほうわど</td><td>Saturasi (oksigen)</td><td>Saturation</td></tr>
+        <tr><td class="jp">無症状誤嚥</td><td>むしょうじょうごえん</td><td>Aspirasi diam-diam</td><td>Silent aspiration</td></tr>
+        <tr><td class="jp">喘鳴</td><td>ぜんめい</td><td>Mengi/napas berbunyi</td><td>Wheezing</td></tr>
+        <tr><td class="jp">口腔ケア</td><td>こうくうけあ</td><td>Perawatan mulut</td><td>Oral care</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis</h3>
+    <div class="clinical-sentence">
+      <div class="jp">呼吸が浅くなっています。</div>
+      <div class="id">Pernapasannya menjadi dangkal.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">食事中にむせ込みが見られました。</div>
+      <div class="id">Terlihat tersedak ketika makan.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">痰の色が黄色くなってきました。</div>
+      <div class="id">Warna dahak mulai menguning.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia dengan riwayat kesulitan menelan (disfagia) tampak sering "tersedak" ringan saat makan bubur selama beberapa hari terakhir. Sore ini, ia mengalami demam 38.2°C dan batuk berdahak berwarna kekuningan. Napasnya juga tampak lebih cepat dari biasanya.
+      </div>
+      <div class="case-question">
+        <label>1. Sistem tubuh mana yang kemungkinan besar bermasalah?</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Sistem urinaria</option>
+          <option value="correct">Sistem pernapasan</option>
+          <option value="wrong">Sistem muskuloskeletal</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Kombinasi gejala ini (riwayat tersedak + demam + batuk berdahak kuning) paling mengarah ke:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Infeksi saluran kemih</option>
+          <option value="correct">Pneumonia aspirasi (誤嚥性肺炎)</option>
+          <option value="wrong">Osteoporosis</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan caregiver yang PALING tepat sekarang:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Menunggu beberapa hari lagi untuk memastikan</option>
+          <option value="correct">Melaporkan perubahan ini ke perawat/dokter segera</option>
+          <option value="wrong">Memberi makan lebih banyak agar cepat pulih</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+// v203: Model 3D paru-paru -- diintegrasikan dari file yang disediakan
+// pengguna (lung_3d_kaigo_package.zip, dibuat via trimesh Python).
+// SEMUA perbaikan yang ditemukan lewat debugging sebelumnya diterapkan
+// LANGSUNG sejak kode ini pertama ditulis:
+//   1. Import map untuk 'three'/'three/addons/' (pelajaran v191)
+//   2. ResizeObserver untuk kanvas 0x0 akibat tab display:none (pelajaran v191)
+//   3. Normalisasi underscore->spasi pada nama node GLTFLoader (pelajaran v202,
+//      dikonfirmasi via GitHub issue resmi Three.js mrdoob/three.js#17832 --
+//      PropertyBinding.sanitizeNodeName() mengubah SEMUA spasi jadi underscore)
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+(async function () {
+  const container = document.getElementById('lungs3dContainer');
+  const loadingEl = document.getElementById('lungs3dLoading');
+  const errorEl = document.getElementById('lungs3dError');
+  const nameEl = document.getElementById('lungs3dName');
+  const detailEl = document.getElementById('lungs3dDetail');
+  const kaigoEl = document.getElementById('lungs3dKaigo');
+  if (!container) return;
+
+  function showError(msg) {
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (errorEl) { errorEl.style.display = 'flex'; errorEl.textContent = msg; }
+    console.warn('[Lungs 3D Viewer]', msg);
+  }
+
+  if (!window.WebGLRenderingContext) {
+    showError('Browser Anda tidak mendukung WebGL -- model 3D tidak dapat ditampilkan. Fitur lain di halaman ini tetap berfungsi normal.');
+    return;
+  }
+
+  let metadata = {};
+  try {
+    const res = await fetch('../assets/models/lungs/lung-data.json');
+    metadata = await res.json();
+  } catch (err) {
+    console.warn('[Lungs 3D Viewer] Metadata gagal dimuat, label akan pakai nama mesh mentah:', err);
+  }
+
+  try {
+    const FALLBACK_W = 560, FALLBACK_H = 360;
+    let width = container.clientWidth || FALLBACK_W;
+    let height = container.clientHeight || FALLBACK_H;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
+    const defaultCamPos = { x: 4.2, y: 3.2, z: 4.8 };
+    camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, 0, .15);
+    controls.minDistance = 3;
+    controls.maxDistance = 9;
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(function (entries) {
+        for (const entry of entries) {
+          const w = entry.contentRect.width, h = entry.contentRect.height;
+          if (w > 0 && h > 0 && (w !== width || h !== height)) {
+            width = w; height = h;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+          }
+        }
+      });
+      resizeObserver.observe(container);
+    }
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x668097, 2.5));
+    const key = new THREE.DirectionalLight(0xffffff, 2.5); key.position.set(5, 6, 7); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xbfe3ff, 1.3); rim.position.set(-4, 2, -5); scene.add(rim);
+
+    let lungs = null, aspirationMode = false, selected = null;
+    const selectable = [];
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+
+    new GLTFLoader().load(
+      '../assets/models/lungs/lung_educational.glb',
+      function (gltf) {
+        lungs = gltf.scene;
+        gltf.scene.traverse(function (o) {
+          if (o.isMesh) {
+            o.material = o.material.clone();
+            o.material.roughness = .54; o.material.metalness = 0;
+            o.material.transparent = true; o.material.opacity = .94;
+            o.userData.baseColor = o.material.color.clone();
+            selectable.push(o);
+          }
+        });
+        scene.add(lungs);
+        if (loadingEl) loadingEl.style.display = 'none';
+      },
+      undefined,
+      function (err) {
+        showError('Model 3D gagal dimuat. Coba muat ulang halaman -- fitur lain tetap berfungsi normal.');
+      }
+    );
+
+    // Normalisasi underscore->spasi (pelajaran v202) sebelum lookup metadata
+    function labelFor(rawName) {
+      const name = (rawName || '').replace(/_/g, ' ');
+      const m = metadata[name];
+      if (!m) return { title: name || 'Bagian tidak dikenal', detail: 'Metadata tidak tersedia untuk bagian ini.', kaigo: '' };
+      return { title: name + '（' + m.jp + '） ' + m.en, detail: m.function, kaigo: '介護ポイント: ' + m.kaigo };
+    }
+
+    renderer.domElement.addEventListener('pointerdown', function (e) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const hit = raycaster.intersectObjects(selectable, false)[0];
+      if (!hit) return;
+      if (selected) selected.scale.setScalar(1);
+      selected = hit.object;
+      selected.scale.setScalar(1.06);
+      const name = selected.name || (selected.parent && selected.parent.name) || 'unknown';
+      const label = labelFor(name);
+      if (nameEl) nameEl.textContent = label.title;
+      if (detailEl) detailEl.textContent = label.detail;
+      if (kaigoEl) kaigoEl.textContent = label.kaigo;
+    });
+
+    const resetBtn = document.getElementById('lungs3dResetBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+        controls.target.set(0, 0, .15);
+        controls.update();
+      });
+    }
+
+    // Simulasi aspirasi: menyorot lobus bawah kanan + bronkus terkait --
+    // menghubungkan visual 3D dengan protokol pneumonia aspirasi yang sudah
+    // dijelaskan di tab 疾患/介護 halaman ini. Nama asli dari GLTFLoader
+    // pakai underscore (lihat catatan bug di labelFor di atas).
+    const aspirationBtn = document.getElementById('lungs3dAspirationBtn');
+    const simText = document.getElementById('lungs3dSimText');
+    if (aspirationBtn) {
+      aspirationBtn.addEventListener('click', function () {
+        aspirationMode = !aspirationMode;
+        aspirationBtn.classList.toggle('active', aspirationMode);
+        aspirationBtn.textContent = aspirationMode ? '✅ Matikan Simulasi' : '🚨 Simulasi Aspirasi';
+        if (simText) simText.style.display = aspirationMode ? 'block' : 'none';
+        selectable.forEach(function (o) {
+          const n = o.name || '';
+          if (aspirationMode && (n.includes('Paru_Kanan_Lobus_Bawah') || n.includes('Bronkus_Kanan_Bawah'))) {
+            o.material.color.set(0x8f1111);
+            o.material.emissive.set(0x4b0000);
+            o.material.opacity = 1;
+          } else {
+            o.material.color.copy(o.userData.baseColor);
+            o.material.emissive.set(0x000000);
+            o.material.opacity = .94;
+          }
+        });
+        if (aspirationMode && kaigoEl) {
+          kaigoEl.textContent = 'Area merah menunjukkan lokasi yang sering terkena pneumonia aspirasi (lobus bawah kanan) -- karena anatomi bronkus kanan lebih lurus dan lebar, makanan/cairan lebih mudah masuk ke sana.';
+          if (nameEl) nameEl.textContent = 'Simulasi: Area rentan pneumonia aspirasi';
+        }
+      });
+    }
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  } catch (err) {
+    showError('Terjadi kesalahan saat menyiapkan viewer 3D -- fitur lain tetap berfungsi normal.');
+  }
+})();
+</script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  window.toggleBreathAnim = function () {
+    var svg = document.querySelector('.breath-wrap svg');
+    var btn = document.getElementById('breathToggle');
+    var paused = svg.style.animationPlayState === 'paused' || btn.dataset.paused === 'true';
+    var elements = svg.querySelectorAll('.br-lung-l, .br-lung-r, .br-diaphragm, .br-o2, .br-co2');
+    if (!paused) {
+      elements.forEach(function (el) { el.style.animationPlayState = 'paused'; });
+      btn.textContent = '▶ Lanjutkan animasi';
+      btn.dataset.paused = 'true';
+    } else {
+      elements.forEach(function (el) { el.style.animationPlayState = 'running'; });
+      btn.textContent = '⏸ Jeda animasi';
+      btn.dataset.paused = 'false';
+    }
+  };
+
+  var MINI_Q = [
+    { q: 'Otot UTAMA yang menggerakkan pernapasan adalah?', opts: ['Otot bisep', 'Diafragma', 'Otot betis'], a: 1 },
+    { q: 'Tempat pertukaran gas O₂/CO₂ terjadi di paru-paru adalah?', opts: ['Trakea', 'Bronkus', 'Alveolus'], a: 2 },
+    { q: '「誤嚥」(ごえん) berarti apa dalam konteks Kaigo?', opts: ['Batuk biasa', 'Aspirasi (salah telan)', 'Sesak napas kronis'], a: 1 },
+    { q: 'Pada lansia, pneumonia sering TIDAK menunjukkan gejala klasik (demam tinggi, batuk jelas) — malah bisa muncul sebagai?', opts: ['Kebingungan mendadak dan nafsu makan menurun', 'Selalu tanpa gejala sama sekali', 'Hanya nyeri sendi'], a: 0 },
+    { q: 'Aspirasi yang terjadi TANPA batuk/tersedak terlihat jelas disebut?', opts: ['Aspirasi biasa', 'Aspirasi diam-diam (silent aspiration)', 'Aspirasi ringan'], a: 1 },
+    { q: 'Perburukan mendadak pada pasien COPD yang butuh penanganan segera disebut?', opts: ['Eksaserbasi akut', 'Remisi', 'Stabilisasi'], a: 0 },
+    { q: 'Bibir/ujung jari yang tampak kebiruan menandakan kondisi apa?', opts: ['Dehidrasi ringan', 'Sianosis (kekurangan oksigen berat)', 'Anemia ringan'], a: 1 },
+    { q: 'Prinsip observasi SpO₂ yang tepat adalah membandingkan dengan?', opts: ['Angka normal orang sehat secara umum', 'Kondisi biasa/baseline individu pasien itu sendiri', 'Angka SpO₂ orang lain di fasilitas'], a: 1 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Riwayat tersedak berulang (disfagia) + demam + dahak kuning adalah tanda klasik <strong>pneumonia aspirasi (誤嚥性肺炎)</strong> — makanan/cairan yang salah masuk ke paru-paru memicu infeksi. Ini WAJIB dilaporkan segera, bukan ditunggu atau justru ditambah porsi makannya.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: perhatikan bahwa riwayat tersedak (disfagia) adalah kunci penghubung ke sistem pernapasan, dan tindakan yang aman adalah SEGERA melapor, bukan menunggu atau memberi makan lebih banyak saat sedang berisiko tersedak.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

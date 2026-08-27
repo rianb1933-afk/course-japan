@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+
+</script>
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Full Kanji N4 — Nihonggo Pro Academy</title>
+  <meta name="description" content="Daftar kanji JLPT N4 lengkap dengan furigana dan contoh kosakata. Kuasai 300 kanji N4 dengan panduan belajar terstruktur.">
+<meta data-seo="nihongo-static" name="description" content="Belajar kanji JLPT N4: grid interaktif dengan on&#39;yomi, kun&#39;yomi, dan contoh kata untuk level dasar-menengah bahasa Jepang.'yomi, kun'yomi, dan contoh kata untuk level dasar-menengah.">
+<link data-seo="nihongo-static" rel="canonical" href="https://nihonggopro.id/Materi/Kanji-N4.html">
+<meta data-seo="nihongo-static" property="og:title" content="Full Kanji N4 — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" property="og:description" content="Kanji N4 Lengkap 漢字ステップアップ">
+<meta data-seo="nihongo-static" property="og:type" content="website">
+<meta data-seo="nihongo-static" property="og:url" content="https://nihonggopro.id/Materi/Kanji-N4.html">
+<meta data-seo="nihongo-static" property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta data-seo="nihongo-static" name="twitter:card" content="summary_large_image">
+<meta data-seo="nihongo-static" name="twitter:title" content="Full Kanji N4 — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" name="twitter:description" content="Kanji N4 Lengkap 漢字ステップアップ">
+<meta data-seo="nihongo-static" name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script data-seo="nihongo-static" type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Kanji N4 Lengkap 漢字ステップアップ","description":"Kanji N4 Lengkap 漢字ステップアップ","url":"https://nihonggopro.id/Materi/Kanji-N4.html","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["Japanese language","JLPT","Kanji","Tata Bahasa","Kosakata"]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/translator.css">
+<link rel="stylesheet" href="../assets/kanji-writing.css">
+
+    <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.nav-logo{display:flex;align-items:baseline;gap:10px}.nav-logo-jp{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--red)}.nav-logo-id{font-size:12px;font-weight:500;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+.nav-links a.active,.nav-links a:hover{color:var(--red)}
+.theme-toggle{width:36px;height:36px;border:.5px solid var(--border-mid);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center}.btn-sm{background:var(--red);color:#fff;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700}
+.hero{display:block!important;min-height:auto!important;padding:5rem 5vw 3rem!important;background:#17181d;color:#fff;position:relative;overflow:hidden}.hero::before{content:'四級';position:absolute;right:-40px;bottom:-80px;font-family:'Noto Serif JP',serif;font-size:280px;color:rgba(255,255,255,.045);line-height:1}
+.hero-inner{max-width:1160px;margin:0 auto;position:relative;z-index:1}.kicker{display:inline-flex;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(34px,5vw,62px);line-height:1.1;margin-bottom:1rem}.hero p{max-width:780px;color:rgba(255,255,255,.68);font-size:16px;line-height:1.9}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:2rem}.hero-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:1rem}.hero-stat strong{font-family:'Noto Serif JP',serif;font-size:30px;display:block;line-height:1}.hero-stat span{font-size:12px;color:rgba(255,255,255,.58)}
+.toolbar{position:sticky;top:68px;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:1rem 5vw}.toolbar-inner{max-width:1160px;margin:0 auto;display:flex;gap:10px;align-items:center;justify-content:space-between}.search{flex:1;min-width:180px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink);border-radius:8px;padding:11px 13px;font-family:'Outfit',sans-serif}.filter{display:flex;gap:7px;flex-wrap:wrap}.filter button{border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);border-radius:8px;padding:9px 12px;font-weight:800;font-size:12px}.filter button.active{background:var(--red);color:#fff;border-color:var(--red)}
+.wrap{max-width:1160px;margin:0 auto;padding:2.5rem 5vw}.section-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;margin-bottom:1.25rem}.section-label{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:.4rem}.section-title{font-family:'Noto Serif JP',serif;font-size:clamp(24px,3vw,36px);line-height:1.2}.section-sub{color:var(--ink-soft);font-size:14px;max-width:620px}
+.kanji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem}.kanji-card{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1rem;box-shadow:var(--shadow-sm);display:grid;grid-template-columns:72px 1fr;gap:1rem;min-height:172px}.char{font-family:'Noto Serif JP',serif;font-size:58px;color:var(--red);line-height:1;text-align:center}.meta{display:flex;gap:5px;flex-wrap:wrap;margin:.3rem 0}.tag{font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px;background:var(--red-pale);color:var(--red)}.meaning{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:.35rem}.reading{font-size:12px;color:var(--ink-mid);line-height:1.55}.reading b{color:var(--ink);font-weight:800}.example{grid-column:1/-1;background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:.7rem;font-size:13px;color:var(--ink-mid)}.example .jp{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--ink);font-weight:600}
+.study{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.study-card{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.25rem;box-shadow:var(--shadow-sm)}.study-card h3{font-size:16px;margin-bottom:.5rem}.study-card ul{padding-left:1.1rem;color:var(--ink-mid);font-size:13px;display:grid;gap:.35rem}.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.18);border-radius:8px;padding:1rem;color:var(--ink-mid);font-size:13px;margin-top:1rem}
+@media(max-width:900px){.hero-stats,.study{grid-template-columns:1fr 1fr}.toolbar-inner,.section-head{display:block}.filter{margin-top:.75rem}.search{width:100%}}
+@media(max-width:560px){.hero-stats,.study{grid-template-columns:1fr}.kanji-card{grid-template-columns:62px 1fr}.char{font-size:48px}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Full Kanji N4 — Nihonggo Pro Academy","item":"https://nihonggopro.id/Materi/Kanji-N4.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+.jp-word{cursor:pointer;border-bottom:1px dotted var(--red,#be3428);transition:background .15s;border-radius:2px}
+.jp-word:hover{background:rgba(190,52,40,.08)}
+#dictPopup{position:fixed;z-index:500;background:white;border:1px solid rgba(0,0,0,.12);border-radius:12px;padding:.875rem 1rem;box-shadow:0 8px 32px rgba(0,0,0,.18);max-width:280px;display:none;pointer-events:none}
+#dictPopup.show{display:block}
+.dict-kana{font-family:"Noto Serif JP",serif;font-size:28px;font-weight:700;color:#15161a;line-height:1}
+.dict-rom{font-size:13px;color:#888;margin-top:2px}
+.dict-divider{height:1px;background:#f0f0f0;margin:.5rem 0}
+.dict-mean{font-size:14px;color:#333;line-height:1.6}
+.dict-tags{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.4rem}
+.dict-tag{font-size:10px;padding:1px 7px;border-radius:4px;background:#fef2f2;color:var(--red,#be3428);font-weight:700}
+</style>
+
+<style>
+.kanji-stroke-wrap{display:inline-flex;flex-direction:column;align-items:center;gap:.35rem;cursor:pointer}
+.kanji-stroke-wrap:hover .stroke-hint{opacity:1}
+.stroke-svg{width:80px;height:80px;border:1.5px solid var(--border,#e0e0e0);border-radius:8px;background:#fdfcf8}
+.stroke-hint{opacity:0;font-size:10px;color:var(--ink-soft,#888);transition:opacity .2s;text-align:center;max-width:80px;line-height:1.4}
+.stroke-anim-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:400;align-items:center;justify-content:center;padding:1rem}
+.stroke-anim-modal.open{display:flex}
+.stroke-anim-card{background:white;border-radius:16px;padding:2rem;max-width:360px;width:100%;text-align:center;position:relative}
+.stroke-anim-char{font-family:"Noto Serif JP",serif;font-size:96px;color:#15161a;line-height:1;margin-bottom:.5rem}
+.stroke-anim-svg{width:200px;height:200px;border:2px solid #e0e0e0;border-radius:12px;background:#fdfcf8;margin:0 auto .75rem}
+.stroke-number{display:inline-flex;width:24px;height:24px;border-radius:50%;background:var(--red,#be3428);color:#fff;font-size:11px;font-weight:700;align-items:center;justify-content:center;margin:0 2px}
+.stroke-progress{display:flex;gap:.3rem;justify-content:center;flex-wrap:wrap;margin-bottom:.75rem}
+.stroke-controls{display:flex;gap:.5rem;justify-content:center}
+.stroke-btn{height:36px;padding:0 14px;border-radius:8px;border:1.5px solid #e0e0e0;background:white;cursor:pointer;font-family:sans-serif;font-size:13px;font-weight:600;transition:all .15s}
+.stroke-btn:hover{border-color:var(--red,#be3428);color:var(--red,#be3428)}
+.stroke-btn.primary{background:var(--red,#be3428);border-color:var(--red,#be3428);color:white}
+.stroke-close{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;border:none;background:#f5f5f5;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+</style>
+
+<style>
+@media(max-width:768px){
+  
+
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker">Daftar Kanji N4 Lengkap</div>
+    <h1>Kanji N4 Lengkap<br>漢字ステップアップ</h1>
+    <p>Daftar belajar 167 kanji N4 umum, lengkap dengan onyomi, kunyomi, arti, dan contoh vocabulary inti. Beberapa resource menghitung jumlah N4 berbeda; halaman ini memakai daftar 167 kanji dari JLPT Global dan menampilkan N4 sebagai kanji tambahan setelah fondasi N5.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>167</strong><span>kanji N4 umum</span></div>
+      <div class="hero-stat"><strong>250+</strong><span>total target N5+N4</span></div>
+      <div class="hero-stat"><strong>読解</strong><span>membaca teks N4</span></div>
+      <div class="hero-stat"><strong>N4</strong><span>level N4 praktis</span></div>
+    </div>
+  </div>
+
+<div style="margin-top:1.5rem"><button onclick="startKanjiQuizN4()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer">🎯 Mulai Kuis Kanji N4</button>
+<div id="kqArea4" style="display:none;margin-top:1rem"></div></div></section>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <input class="search" id="search" placeholder="Cari kanji, arti, reading, contoh..." aria-label="Cari">
+    <div class="filter" id="filters">
+      <button class="active" data-cat="all">Semua</button>
+      <button data-cat="people">Orang</button>
+      <button data-cat="place">Tempat</button>
+      <button data-cat="time">Waktu</button>
+      <button data-cat="action">Aksi</button>
+      <button data-cat="nature">Alam</button>
+      <button data-cat="abstract">Abstrak</button>
+    </div>
+  </div>
+</div>
+
+<main id="main-content" class="wrap">
+  <div class="section-head">
+    <div><div class="section-label">Tabel Kanji</div><h2 class="section-title">Daftar Kanji N4</h2></div>
+    <p class="section-sub">Gunakan search untuk mencari kanji atau reading. Filter kategori dibuat otomatis dari arti dan contoh kata supaya belajar lebih terstruktur.</p>
+  </div>
+  <div class="kanji-grid" id="kanjiGrid"></div>
+  <div class="note" id="countNote"></div>
+
+<div style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.2rem;font-weight:700;color:#4527a0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz — 理解チェック</h2>
+<div id="qc2"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+<button onclick="nQ2()" style="flex:1;padding:12px;background:#4527a0;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit">Soal Berikutnya →</button>
+<button onclick="rQ2()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ccc;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qs2" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</div>
+<script>
+var Q2=[{"q": "「電話」の読み方は？", "opts": ["でんわ", "てんわ", "でんか", "でんは"], "a": 0, "e": "電話=でんわ(denwa)。電(でん)=electricity、話(わ)=話。日本語学習者がまず覚える必須漢字の一つ。"}, {"q": "「来週」の読み方は？", "opts": ["こんしゅう", "らいしゅう", "せんしゅう", "まいしゅう"], "a": 1, "e": "来週=らいしゅう(raishuu)=next week。今週=こんしゅう(this week)、先週=せんしゅう(last week)、毎週=まいしゅう(every week)。時の表現セットで覚える。"}, {"q": "「友達」の正しい読み方は？", "opts": ["ともたつ", "ともだち", "ゆうたつ", "ゆうだち"], "a": 1, "e": "友達=ともだち(tomodachi)=friend。友(とも)は友人・友好の字。達(たち)は複数を示す接尾辞。清音「とも」+濁音「だち」の音変化に注意。"}, {"q": "「音楽」の読み方は？", "opts": ["おとがく", "おんがく", "ねがく", "いんがく"], "a": 1, "e": "音楽=おんがく(ongaku)=music。音(おん)=sound、楽(がく)=enjoyment/music。音楽家=musician、音楽会=concert。"}, {"q": "「自転車」の意味は？", "opts": ["電車", "自動車", "自転車(bicycle)", "バス"], "a": 2, "e": "自転車=じてんしゃ(jitensha)=bicycle。自(じ)=self、転(てん)=turn/rotate、車(しゃ)=vehicle。自分で漕いで回転する車=自転車。"}];var qi2=0,ok2=0,tot2=0;
+function rnd2(){if(!Q2.length)return;var q=Q2[qi2%Q2.length],c=document.getElementById('qc2');if(!c)return;var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';q.opts.forEach(function(o,i){var b=document.createElement('button');b.style.cssText='background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;width:100%;text-align:left;font-family:inherit';b.textContent=o;b.onclick=function(){ans2(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0';var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px';qq.textContent=(qi2%Q2.length+1)+'. '+q.q;var ex=document.createElement('div');ex.id='qe2';ex.style.cssText='margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.85rem;color:#666;display:none';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs2');if(s)s.textContent='Skor: '+ok2+'/'+tot2;}
+function ans2(b,c,a,e){var bs=document.querySelectorAll('#qc2 button');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot2++;bs[a].style.cssText='background:#e8f5e9;border:1px solid #4caf50;border-radius:8px;padding:10px 14px;cursor:default;font-size:.9rem;width:100%;text-align:left;font-family:inherit;color:#1b5e20';if(c!==a)b.style.cssText='background:#fce4ec;border:1px solid #e91e63;border-radius:8px;padding:10px 14px;cursor:default;font-size:.9rem;width:100%;text-align:left;font-family:inherit;color:#880e4f';else ok2++;var ex=document.getElementById('qe2');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}var s=document.getElementById('qs2');if(s)s.textContent='Skor: '+ok2+'/'+tot2;}
+function nQ2(){qi2=(qi2+1)%Q2.length;rnd2();} function rQ2(){qi2=0;ok2=0;tot2=0;rnd2();}
+rnd2();
+</script></main>
+
+<section class="wrap">
+  <div class="section-head"><div><div class="section-label">Metode Belajar</div><h2 class="section-title">Cara Menguasai Kanji N4</h2></div></div>
+  <div class="study">
+    <div class="study-card"><h3>1. Review N5 Dulu</h3><ul><li>Pastikan 100+ kanji N5 terbaca otomatis.</li><li>Campur deck N5 dan N4 agar tidak lupa fondasi.</li><li>Latih compound words seperti 学校, 会社, 電車.</li></ul></div>
+    <div class="study-card"><h3>2. Belajar Per Kata</h3><ul><li>Jangan hafal semua reading secara terpisah.</li><li>Mulai dari contoh vocabulary yang sering muncul.</li><li>Buat kartu: kanji → kata → kalimat pendek.</li></ul></div>
+    <div class="study-card"><h3>3. Target N4</h3><ul><li>Baca pengumuman, email pendek, dan instruksi.</li><li>Latih grammar N4 bersama kanji baru.</li><li>Simulasi reading 20 menit setiap minggu.</li></ul></div>
+  </div>
+</section>
+
+<script>
+const catLabel = {
+  'number':'Angka','time':'Waktu','people':'Orang','place':'Tempat',
+  'verb':'Aksi','nature':'Alam','action':'Aksi','feeling':'Perasaan',
+  'business':'Bisnis','abstract':'Abstrak','body':'Tubuh','other':'Lainnya'
+};
+const rawKanji = `会|カイ|あ.う|pertemuan; bertemu|会社|かいしゃ|perusahaan
+同|ドウ|おな.じ|sama, setara|同じ|おなじ|sama
+事|ジ|こと|urusan, hal, fakta|仕事|しごと|pekerjaan
+自|ジ, シ|みずか.ら|diri sendiri|自分|じぶん|diri sendiri
+社|シャ|やしろ|perusahaan, kuil|会社|かいしゃ|perusahaan
+発|ハツ, ホツ|-|berangkat, mulai|出発|しゅっぱつ|keberangkatan
+者|シャ|もの|orang, seseorang|医者|いしゃ|dokter
+地|チ, ジ|-|tanah, bumi|地下鉄|ちかてつ|kereta bawah tanah
+業|ギョウ|わざ|usaha, pekerjaan|授業|じゅぎょう|pelajaran di kelas
+方|ホウ|かた|arah, orang, cara|方法|ほうほう|metode
+新|シン|あたら.しい|baru|新聞|しんぶん|koran
+場|ジョウ|ば|tempat, lokasi|場所|ばしょ|tempat
+員|イン|-|anggota, karyawan|会社員|かいしゃいん|karyawan perusahaan
+立|リツ|た.つ|berdiri|立つ|たつ|berdiri
+開|カイ|ひら.く|membuka, memulai|開く|ひらく|membuka
+手|シュ|て|tangan|手紙|てがみ|surat
+力|リョク, リキ|ちから|kekuatan, tenaga|努力|どりょく|usaha, kerja keras
+問|モン|と.う|pertanyaan, masalah|問題|もんだい|masalah, soal
+代|ダイ|か.わる|generasi, mengganti|時代|じだい|era, zaman
+明|メイ|あか.るい|terang, jelas|説明|せつめい|penjelasan
+動|ドウ|うご.く|bergerak|運動|うんどう|olahraga
+話|ワ|はな.す|berbicara, cerita|電話|でんわ|telepon
+文|ブン|ふみ|tulisan, kalimat|文化|ぶんか|kebudayaan
+道|ドウ|みち|jalan|道路|どうろ|jalan raya
+目|モク|め|mata, tujuan|目的|もくてき|tujuan
+何|カ|なに|apa, berapa|何故|なぜ|mengapa
+前|ゼン|まえ|depan, sebelum|以前|いぜん|sebelumnya, dulu
+後|ゴ|あと|belakang, setelah|最後|さいご|terakhir
+間|カン|あいだ|antara, jarak|時間|じかん|waktu, jam
+正|セイ|ただ.しい|benar, tepat|正しい|ただしい|benar
+家|カ|いえ|rumah, keluarga|家族|かぞく|keluarga
+外|ガイ|そと|luar, asing|外国|がいこく|negara asing
+少|ショウ|すく.ない|sedikit|少し|すこし|sedikit
+多|タ|おお.い|banyak|多く|おおく|banyak
+下|カ|した|bawah, turun|地下|ちか|bawah tanah
+上|ジョウ|うえ|atas, naik|上手|じょうず|mahir
+中|チュウ|なか|tengah, dalam|中学校|ちゅうがっこう|SMP
+大|ダイ|おお.きい|besar|大学|だいがく|universitas
+小|ショウ|ちい.さい|kecil|小学校|しょうがっこう|SD
+時|ジ|とき|waktu, jam|時間|じかん|waktu
+分|フン|わ.かる|menit, mengerti|自分|じぶん|diri sendiri
+思|シ|おも.う|berpikir, merasa|思想|しそう|pemikiran
+気|キ|き|semangat, udara, perasaan|元気|げんき|sehat, bersemangat
+声|セイ|こえ|suara, kata|声優|せいゆう|pengisi suara
+帰|キ|かえ.る|pulang|帰国|きこく|pulang ke negara asal
+起|キ|お.きる|bangun, terjadi|起きる|おきる|bangun
+送|ソウ|おく.る|mengirim, mengantarkan|送る|おくる|mengirim
+受|ジュ|う.ける|menerima|受ける|うける|menerima
+使|シ|つか.う|menggunakan|使う|つかう|menggunakan
+始|シ|はじ.める|memulai|始まる|はじまる|dimulai
+終|シュウ|お.わる|berakhir, selesai|終わる|おわる|berakhir
+働|ドウ|はたら.く|bekerja|働く|はたらく|bekerja
+住|ジュウ|す.む|tinggal, menetap|住む|すむ|tinggal
+遊|ユウ|あそ.ぶ|bermain|遊ぶ|あそぶ|bermain
+待|タイ|ま.つ|menunggu|待つ|まつ|menunggu
+乗|ジョウ|の.る|menaiki, naik|乗る|のる|naik
+降|コウ|お.りる|turun, hujan|降りる|おりる|turun
+飲|イン|の.む|minum|飲む|のむ|minum
+食|ショク|た.べる|makan|食べる|たべる|makan
+読|ドク|よ.む|membaca|読む|よむ|membaca
+書|ショ|か.く|menulis|書く|かく|menulis
+聞|ブン|き.く|mendengar, bertanya|聞く|きく|mendengar
+見|ケン|み.る|melihat|見る|みる|melihat
+来|ライ|く.る|datang|来る|くる|datang
+行|コウ|い.く|pergi|行く|いく|pergi
+買|バイ|か.う|membeli|買う|かう|membeli
+売|バイ|う.る|menjual|売る|うる|menjual
+教|キョウ|おし.える|mengajar, mengajarkan|教える|おしえる|mengajar
+知|チ|し.る|tahu, mengetahui|知る|しる|mengetahui
+持|ジ|も.つ|memegang, memiliki|持つ|もつ|memegang
+会|カイ|あ.う|bertemu, rapat|会う|あう|bertemu
+話|ワ|はな.す|berbicara|話す|はなす|berbicara
+切|セツ|き.る|memotong, penting|切る|きる|memotong
+貸|タイ|か.す|meminjamkan|貸す|かす|meminjamkan
+借|シャク|か.りる|meminjam|借りる|かりる|meminjam
+引|イン|ひ.く|menarik, mengutip|引く|ひく|menarik
+押|オウ|お.す|mendorong|押す|おす|mendorong
+走|ソウ|はし.る|berlari|走る|はしる|berlari
+泳|エイ|およ.ぐ|berenang|泳ぐ|およぐ|berenang
+歩|ホ|ある.く|berjalan|歩く|あるく|berjalan
+立|リツ|た.つ|berdiri, mendirikan|立つ|たつ|berdiri
+座|ザ|すわ.る|duduk|座る|すわる|duduk
+寝|シン|ね.る|tidur|寝る|ねる|tidur
+起|キ|お.きる|bangun tidur, terjadi|起きる|おきる|bangun
+会|カイ|あ.う|bertemu|会議|かいぎ|rapat
+族|ゾク|-|kelompok, suku|家族|かぞく|keluarga
+医|イ|-|kedokteran, dokter|医者|いしゃ|dokter
+院|イン|-|gedung, lembaga|病院|びょういん|rumah sakit
+銀|ギン|-|perak, bank|銀行|ぎんこう|bank
+駅|エキ|-|stasiun|駅前|えきまえ|depan stasiun
+空|クウ|そら|langit, kosong|空港|くうこう|bandara
+海|カイ|うみ|laut, samudra|海外|かいがい|luar negeri
+山|サン|やま|gunung|富士山|ふじさん|Gunung Fuji
+川|セン|かわ|sungai|川沿い|かわぞい|sepanjang sungai
+田|デン|た|sawah, ladang|田舎|いなか|pedesaan
+町|チョウ|まち|kota kecil, kawasan|町中|まちなか|pusat kota
+村|ソン|むら|desa, kampung|農村|のうそん|desa pertanian
+国|コク|くに|negara|外国|がいこく|negara asing
+都|ト|みやこ|ibu kota, metropolitan|東京都|とうきょうと|Prefektur Tokyo
+市|シ|いち|kota, pasar|市内|しない|dalam kota
+県|ケン|-|prefektur|神奈川県|かながわけん|Prefektur Kanagawa
+語|ゴ|かた.る|bahasa, kata|日本語|にほんご|bahasa Jepang
+学|ガク|まな.ぶ|belajar, ilmu|大学|だいがく|universitas
+校|コウ|-|sekolah|学校|がっこう|sekolah
+年|ネン|とし|tahun|去年|きょねん|tahun lalu
+月|ゲツ|つき|bulan|来月|らいげつ|bulan depan
+週|シュウ|-|minggu|毎週|まいしゅう|setiap minggu
+夜|ヤ|よる|malam|夜中|よなか|tengah malam
+朝|チョウ|あさ|pagi|毎朝|まいあさ|setiap pagi
+昼|チュウ|ひる|siang|昼食|ちゅうしょく|makan siang
+今|コン|いま|sekarang|今日|きょう|hari ini
+每|マイ|-|setiap|每日|まいにち|setiap hari
+先|セン|さき|sebelumnya, ujung|先生|せんせい|guru
+近|キン|ちか.い|dekat|近所|きんじょ|lingkungan sekitar
+遠|エン|とお.い|jauh|遠い|とおい|jauh
+高|コウ|たか.い|tinggi, mahal|高校|こうこう|SMA
+低|テイ|ひく.い|rendah, murah|低い|ひくい|rendah
+長|チョウ|なが.い|panjang, lama|長い|ながい|panjang
+短|タン|みじか.い|pendek, singkat|短い|みじかい|pendek
+早|ソウ|はや.い|cepat, awal|早く|はやく|cepat-cepat
+遅|チ|おそ.い|lambat, terlambat|遅い|おそい|lambat
+強|キョウ|つよ.い|kuat|強い|つよい|kuat
+弱|ジャク|よわ.い|lemah|弱い|よわい|lemah
+難|ナン|むずか.しい|sulit|難しい|むずかしい|sulit
+易|イ|やさ.しい|mudah|易しい|やさしい|mudah
+重|ジュウ|おも.い|berat, penting|重要|じゅうよう|penting
+軽|ケイ|かる.い|ringan|軽い|かるい|ringan
+暑|ショ|あつ.い|panas (cuaca)|暑い|あつい|panas
+寒|カン|さむ.い|dingin|寒い|さむい|dingin
+暖|ダン|あたた.かい|hangat|暖かい|あたたかい|hangat
+涼|リョウ|すず.しい|sejuk|涼しい|すずしい|sejuk
+悲|ヒ|かな.しい|sedih|悲しい|かなしい|sedih
+楽|ラク|たの.しい|menyenangkan, mudah|楽しい|たのしい|menyenangkan
+忙|ボウ|いそが.しい|sibuk|忙しい|いそがしい|sibuk
+暇|カ|ひま|waktu senggang|暇な|ひまな|memiliki waktu luang
+
+起|キ|お.きる|bangun; terjadi|起きる|おきる|bangun tidur
+走|ソウ|はし.る|berlari|走る|はしる|berlari
+泳|エイ|およ.ぐ|berenang|泳ぐ|およぐ|berenang
+歌|カ|うた.う|bernyanyi|歌う|うたう|bernyanyi
+踊|ヨウ|おど.る|menari|踊る|おどる|menari
+笑|ショウ|わら.う|tertawa|笑う|わらう|tertawa
+泣|キュウ|な.く|menangis|泣く|なく|menangis
+怒|ド|おこ.る|marah|怒る|おこる|marah
+困|コン|こま.る|bingung|困る|こまる|merasa bingung
+急|キュウ|いそ.ぐ|terburu-buru|急ぐ|いそぐ|terburu-buru
+続|ゾク|つづ.く|berlanjut|続く|つづく|berlanjut
+変|ヘン|か.わる|berubah|変わる|かわる|berubah
+決|ケツ|き.める|memutuskan|決める|きめる|memutuskan
+選|セン|えら.ぶ|memilih|選ぶ|えらぶ|memilih
+払|フツ|はら.う|membayar|払う|はらう|membayar
+貸|タイ|か.す|meminjamkan|貸す|かす|meminjamkan
+返|ヘン|かえ.す|mengembalikan|返す|かえす|mengembalikan
+送|ソウ|おく.る|mengirim|送る|おくる|mengirim
+受|ジュ|う.ける|menerima|受ける|うける|menerima
+集|シュウ|あつ.める|mengumpulkan|集める|あつめる|mengumpulkan
+調|チョウ|しら.べる|memeriksa|調べる|しらべる|memeriksa
+直|チョク|なお.す|memperbaiki|直す|なおす|memperbaiki
+引|イン|ひ.く|menarik|引く|ひく|menarik
+押|オウ|お.す|mendorong|押す|おす|mendorong
+遊|ユウ|あそ.ぶ|bermain|遊ぶ|あそぶ|bermain
+疲|ヒ|つか.れる|kelelahan|疲れる|つかれる|merasa lelah
+服|フク|-|pakaian|洋服|ようふく|pakaian barat
+帽|ボウ|-|topi|帽子|ぼうし|topi
+袋|タイ|ふくろ|kantong|ゴミ袋|ごみぶくろ|kantong sampah
+机|キ|つくえ|meja belajar|机の上|つくえのうえ|di atas meja
+棚|ホウ|たな|rak|本棚|ほんだな|rak buku
+鍵|ケン|かぎ|kunci|鍵をかける|かぎをかける|mengunci
+窓|ソウ|まど|jendela|窓口|まどぐち|loket
+壁|ヘキ|かべ|dinding|壁|かべ|dinding
+階|カイ|-|lantai dan tingkat|三階|さんかい|lantai 3
+橋|キョウ|はし|jembatan|橋を渡る|はしをわたる|menyeberangi jembatan
+池|チ|いけ|kolam|池|いけ|kolam
+森|シン|もり|hutan|森の中|もりのなか|di dalam hutan
+葉|ヨウ|は|daun|葉っぱ|はっぱ|daun
+草|ソウ|くさ|rumput|草原|くさはら|padang rumput
+雲|ウン|くも|awan|雨雲|あまぐも|awan hujan
+星|セイ|ほし|bintang|星空|ほしぞら|langit berbintang
+光|コウ|ひかり|cahaya|光る|ひかる|bersinar
+音|オン|おと|suara|音楽|おんがく|musik
+声|セイ|こえ|suara manusia|大声|おおごえ|suara keras
+色|ショク|いろ|warna|赤色|あかいろ|warna merah
+形|ケイ|かたち|bentuk|三角形|さんかっけい|segitiga
+様|ヨウ|さま|kondisi dan cara|様子|ようす|keadaan
+場|ジョウ|ば|tempat|場所|ばしょ|tempat
+角|カク|かど|sudut|角を曲がる|かどをまがる|belok di pojok
+花|カ|はな|bunga|花見|はなみ|melihat bunga sakura
+空|クウ|そら|langit|青空|あおぞら|langit biru
+坂|ハン|さか|tanjakan|坂道|さかみち|jalan menanjak
+関|カン|せき|hubungan|関係|かんけい|hubungan
+番|バン|-|nomor urut|番号|ばんごう|nomor
+号|ゴウ|-|nomor dan sinyal|信号|しんごう|lampu merah
+世|セ|よ|dunia dan generasi|世界|せかい|dunia
+由|ユ|よし|alasan|理由|りゆう|alasan`;
+
+const kanjiN4 = rawKanji.trim().split('\n').map((line, index) => {
+  const [kanji, on, kun, meaning, word, reading, example] = line.split('|');
+  return { index: index + 1, kanji, on, kun, meaning, word, reading, example, category: categorize(meaning, word, example) };
+});
+
+function categorize(meaning, word, example) {
+  const text = `${meaning} ${word} ${example}`.toLowerCase();
+  if (/morning|night|evening|week|spring|summer|autumn|winter|early|time|past|weekday|year/.test(text)) return 'time';
+  if (/sea|sky|wind|flower|red|blue|black|fish|bird|dog|cow|meat|water|earth|field|nature|empty/.test(text)) return 'nature';
+  if (/person|employee|member|parent|brother|sister|doctor|family|company|teacher|i, private|oneself/.test(text)) return 'orang';
+  if (/place|station|town|room|shop|hall|building|park|hospital|school|library|road|map|ground|kitchen|airport|institution/.test(text)) return 'place';
+  if (/meet|stand|open|move|say|make|use|hold|think|teach|consider|sell|know|gather|separate|die|begin|carry|end|live|hurry|stop|send|cut|turn|wake|arrive|wait|try|sing|buy|walk|run|learn|travel|borrow|drink|lend|write|read/.test(text)) return 'action';
+  return 'abstract';
+}
+
+const grid = document.getElementById('kanjiGrid');
+const search = document.getElementById('search');
+const countNote = document.getElementById('countNote');
+let activeCat = 'all';
+
+function render(){
+  const q = search.value.trim().toLowerCase();
+  const rows = kanjiN4.filter(k => {
+    const catOk = activeCat === 'all' || k.category === activeCat;
+    const text = `${k.kanji} ${k.on} ${k.kun} ${k.meaning} ${k.word} ${k.reading} ${k.example}`.toLowerCase();
+    return catOk && text.includes(q);
+  });
+  grid.innerHTML = rows.map(k => `
+    <article class="kanji-card">
+      <div class="char">${k.kanji}</div>
+      <div>
+        <div class="meta"><span class="tag">N4</span><span class="tag">${catLabel[k.category] || k.category}</span><span class="tag">#${String(k.index).padStart(3,'0')}</span></div>
+        <div class="meaning">${k.meaning}</div>
+        <div class="reading"><b>On:</b> ${k.on || '-'}</div>
+        <div class="reading"><b>Kun:</b> ${k.kun || '-'}</div>
+      </div>
+      <div class="example"><span class="jp">${k.word}</span> ・ ${k.reading}<br>${k.example}</div>
+    </article>
+  `).join('');
+  countNote.textContent = `Menampilkan ${rows.length} dari ${kanjiN4.length} kanji N4.`;
+}
+
+document.getElementById('filters').addEventListener('click', e => {
+  if(e.target.tagName !== 'BUTTON') return;
+  document.querySelectorAll('#filters button').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  activeCat = e.target.dataset.cat;
+  render();
+});
+search.addEventListener('input', render);
+render();
+</script>
+<script src="../assets/kanji-writing.js?v=2" defer></script>
+<script src="../assets/translator.min.js" defer></script>
+
+<section class="section" id="kanjiQuizN4">
+  <div class="inner">
+    <div class="section-head"><div><div class="label">Kuis Kanji N4</div><h2>Tes Baca Kanji N4 — 漢字読みクイズ</h2></div>
+    <p class="sub">Pilih cara baca (reading) yang tepat untuk setiap kanji. 10 soal per sesi.</p></div>
+    <div id="kqBoxN4" style="max-width:520px"></div>
+  </div>
+</section>
+<script src="../assets/pro-app.min.js" defer></script>
+const kqPoolN4 = [
+  ['会','bertemu/rapat','カイ・あ.う','会議(かいぎ)=rapat, 会う(あう)=bertemu'],
+  ['時','waktu/jam','ジ・とき','時間(じかん)=waktu, 時々(ときどき)=kadang-kadang'],
+  ['気','perasaan/udara','キ・き','元気(げんき)=sehat, 天気(てんき)=cuaca'],
+  ['手','tangan','シュ・て','手紙(てがみ)=surat, 上手(じょうず)=mahir'],
+  ['方','cara/arah','ホウ・かた','方法(ほうほう)=metode, 方向(ほうこう)=arah'],
+  ['思','berpikir','シ・おも.う','思う(おもう)=berpikir, 思想(しそう)=pemikiran'],
+  ['使','menggunakan','シ・つか.う','使う(つかう)=menggunakan, 大使(たいし)=duta besar'],
+  ['始','memulai','シ・はじ.める','始める(はじめる)=mulai, 始まり(はじまり)=permulaan'],
+  ['終','berakhir','シュウ・お.わる','終わる(おわる)=berakhir, 最終(さいしゅう)=terakhir'],
+  ['待','menunggu','タイ・ま.つ','待つ(まつ)=menunggu, 期待(きたい)=harapan'],
+  ['知','mengetahui','チ・し.る','知る(しる)=tahu, 知識(ちしき)=pengetahuan'],
+  ['持','memegang','ジ・も.つ','持つ(もつ)=memegang, 気持ち(きもち)=perasaan'],
+  ['飲','minum','イン・の.む','飲む(のむ)=minum, 飲み物(のみもの)=minuman'],
+  ['食','makan','ショク・た.べる','食べる(たべる)=makan, 食事(しょくじ)=makan/makanan'],
+  ['来','datang','ライ・く.る','来る(くる)=datang, 来年(らいねん)=tahun depan'],
+  ['行','pergi','コウ・い.く','行く(いく)=pergi, 旅行(りょこう)=perjalanan'],
+  ['見','melihat','ケン・み.る','見る(みる)=melihat, 意見(いけん)=pendapat'],
+  ['聞','mendengar','ブン・き.く','聞く(きく)=mendengar, 新聞(しんぶん)=koran'],
+  ['読','membaca','ドク・よ.む','読む(よむ)=membaca, 読書(どくしょ)=membaca buku'],
+  ['書','menulis','ショ・か.く','書く(かく)=menulis, 辞書(じしょ)=kamus'],
+  ['帰','pulang','キ・かえ.る','帰る(かえる)=pulang, 帰国(きこく)=pulang ke tanah air'],
+  ['起','bangun/terjadi','キ・お.きる','起きる(おきる)=bangun, 起こる(おこる)=terjadi'],
+  ['働','bekerja','ドウ・はたら.く','働く(はたらく)=bekerja, 労働(ろうどう)=kerja'],
+  ['住','tinggal','ジュウ・す.む','住む(すむ)=tinggal, 住所(じゅうしょ)=alamat'],
+  ['作','membuat','サク・つく.る','作る(つくる)=membuat, 作品(さくひん)=karya'],
+  ['話','berbicara','ワ・はな.す','話す(はなす)=berbicara, 電話(でんわ)=telepon'],
+  ['教','mengajar','キョウ・おし.える','教える(おしえる)=mengajar, 教育(きょういく)=pendidikan'],
+  ['習','belajar/terbiasa','シュウ・なら.う','習う(ならう)=belajar dari orang, 練習(れんしゅう)=latihan'],
+  ['買','membeli','バイ・か.う','買う(かう)=membeli, 売買(ばいばい)=jual beli'],
+  ['送','mengirim','ソウ・おく.る','送る(おくる)=mengirim, 放送(ほうそう)=siaran'],
+,
+  ['図','ず/と/ズ/ト','gambar/peta/rencana','地図(peta),図書館(perpust.),図形(bentuk geometri)','gambar/peta = 地図'],
+  ['科','か/カ','mata pelajaran/ilmu','科学(ilmu),科目(mata pelajaran),理科(IPA)','ilmu/jurusan = 科学者'],
+  ['術','すべ/ジュツ','seni/teknik/keterampilan','技術(teknologi),手術(operasi),芸術(seni)','teknik = 技術+者'],
+  ['医','い/イ','dokter/pengobatan','医者(dokter),医療(pengobatan),医学(ilmu kedokteran)','dokter = 医者 = dokter'],
+  ['病','やむ/やまい/ビョウ','sakit/penyakit','病気(sakit),病院(RS),病人(orang sakit)','sakit = 病気になった']];
+let kqIdx4=0;
+function startKanjiQuizN4(){document.getElementById('kqArea4').style.display='block';kqIdx4=0;renderKQ4();}
+function renderKQ4(){
+  const pool=kqPoolN4;const item=pool[kqIdx4%pool.length];
+  const wrongs=pool.filter((_,i)=>i!==kqIdx4%pool.length).sort(()=>Math.random()-0.5).slice(0,3);
+  const opts=[item,...wrongs].sort(()=>Math.random()-0.5);
+  document.getElementById('kqArea4').innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;max-width:480px">
+    <div style="font-size:11px;color:var(--ink-soft);margin-bottom:.5rem">Soal ${(kqIdx4%pool.length)+1}/${pool.length}</div>
+    <div style="font-family:'Noto Serif JP',serif;font-size:52px;text-align:center;padding:.75rem;color:var(--ink)">${item[0]}</div>
+    <div style="font-size:12px;color:var(--ink-soft);text-align:center;margin-bottom:.75rem">Apa arti kanji ini?</div>
+    <div style="display:grid;gap:.4rem">${opts.map(o=>`<button onclick="checkKQ4(this,'${o[1].replace(/\\/g,'\\\\').replace(/'/g,"\\'")}',${JSON.stringify(item[1])})" style="padding:9px 12px;border:.5px solid var(--border-mid);border-radius:7px;font-size:13px;background:var(--cream);cursor:pointer;text-align:left">${o[1]}</button>`).join('')}</div>
+    <div id="kqExp4" style="margin-top:.5rem;font-size:12px;display:none;background:var(--cream);padding:.6rem;border-radius:6px"></div>
+  </div>`;
+}
+function checkKQ4(btn,chosen,correct){
+  document.querySelectorAll('#kqArea4 button').forEach(b=>b.disabled=true);
+  if(chosen===correct)btn.style.background='#d5f5e3';
+  else{btn.style.background='#fadbd8';document.querySelectorAll('#kqArea4 button').forEach(b=>{if(b.textContent.trim()===correct)b.style.background='#d5f5e3';});}
+  const exp=document.getElementById('kqExp4');
+  exp.style.display='block';exp.textContent=`Cara baca: ${kqPoolN4[kqIdx4%kqPoolN4.length][2]}  |  Contoh: ${kqPoolN4[kqIdx4%kqPoolN4.length][3]}`;
+  setTimeout(()=>{kqIdx4++;renderKQ4();},1800);
+}
+</script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+
+<div id="dictPopup">
+  <div class="dict-kana" id="dp-kana"></div>
+  <div class="dict-rom" id="dp-rom"></div>
+  <div class="dict-divider"></div>
+  <div class="dict-mean" id="dp-mean"></div>
+  <div class="dict-tags" id="dp-tags"></div>
+</div>
+<script>
+(function(){
+  // Mini dictionary — common N5 words for demo, expandable
+  const dict = {
+    '日本語':  {rom:'nihongo',   mean:'Bahasa Jepang',     tags:['N5','kata benda']},
+    '勉強':    {rom:'benkyou',   mean:'belajar / studi',   tags:['N5','kata benda']},
+    '学校':    {rom:'gakkou',    mean:'sekolah',            tags:['N5','kata benda']},
+    '先生':    {rom:'sensei',    mean:'guru / dokter',      tags:['N5','kata benda']},
+    '学生':    {rom:'gakusei',   mean:'pelajar / mahasiswa',tags:['N5','kata benda']},
+    '食べる':  {rom:'taberu',    mean:'makan',              tags:['N5','kata kerja']},
+    '飲む':    {rom:'nomu',      mean:'minum',              tags:['N5','kata kerja']},
+    '行く':    {rom:'iku',       mean:'pergi',              tags:['N5','kata kerja']},
+    '来る':    {rom:'kuru',      mean:'datang',             tags:['N5','kata kerja']},
+    '見る':    {rom:'miru',      mean:'melihat / menonton', tags:['N5','kata kerja']},
+    '聞く':    {rom:'kiku',      mean:'mendengar / bertanya',tags:['N5','kata kerja']},
+    '読む':    {rom:'yomu',      mean:'membaca',            tags:['N5','kata kerja']},
+    '書く':    {rom:'kaku',      mean:'menulis',            tags:['N5','kata kerja']},
+    '話す':    {rom:'hanasu',    mean:'berbicara',           tags:['N5','kata kerja']},
+    '大きい':  {rom:'ookii',     mean:'besar',              tags:['N5','kata sifat-i']},
+    '小さい':  {rom:'chiisai',   mean:'kecil',              tags:['N5','kata sifat-i']},
+    '新しい':  {rom:'atarashii', mean:'baru',               tags:['N5','kata sifat-i']},
+    '古い':    {rom:'furui',     mean:'lama / tua',         tags:['N5','kata sifat-i']},
+    '好き':    {rom:'suki',      mean:'suka',               tags:['N5','kata sifat-na']},
+    '嫌い':    {rom:'kirai',     mean:'tidak suka / benci', tags:['N5','kata sifat-na']},
+    '今日':    {rom:'kyou',      mean:'hari ini',           tags:['N5','waktu']},
+    '明日':    {rom:'ashita',    mean:'besok',              tags:['N5','waktu']},
+    '昨日':    {rom:'kinou',     mean:'kemarin',            tags:['N5','waktu']},
+    '水':      {rom:'mizu',      mean:'air',                tags:['N5','kata benda']},
+    '本':      {rom:'hon',       mean:'buku',               tags:['N5','kata benda']},
+    '車':      {rom:'kuruma',    mean:'mobil',              tags:['N5','kata benda']},
+    '電車':    {rom:'densha',    mean:'kereta listrik',     tags:['N5','kata benda']},
+    '駅':      {rom:'eki',       mean:'stasiun',            tags:['N5','kata benda']},
+    '時間':    {rom:'jikan',     mean:'waktu / jam',        tags:['N5','kata benda']},
+    '友達':    {rom:'tomodachi', mean:'teman',              tags:['N5','kata benda']},
+    '家族':    {rom:'kazoku',    mean:'keluarga',           tags:['N5','kata benda']},
+    '仕事':    {rom:'shigoto',   mean:'pekerjaan',          tags:['N4','kata benda']},
+    '会社':    {rom:'kaisha',    mean:'perusahaan',         tags:['N4','kata benda']},
+    '電話':    {rom:'denwa',     mean:'telepon',            tags:['N4','kata benda']},
+    '問題':    {rom:'mondai',    mean:'masalah / soal',     tags:['N4','kata benda']},
+    '社会':    {rom:'shakai',    mean:'masyarakat',         tags:['N3','kata benda']},
+    '経済':    {rom:'keizai',    mean:'ekonomi',            tags:['N3','kata benda']},
+    '政治':    {rom:'seiji',     mean:'politik',            tags:['N3','kata benda']},
+    '環境':    {rom:'kankyou',   mean:'lingkungan',         tags:['N3','kata benda']},
+  };
+
+  const popup = document.getElementById('dictPopup');
+  if(!popup) return;
+
+  // Auto-wrap known words in JP text
+  function wrapWords(el){
+    if(!el || el.getAttribute('data-dict-done')) return;
+    el.setAttribute('data-dict-done','1');
+    const words = Object.keys(dict).sort((a,b)=>b.length-a.length);
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(node=>{
+      if(node.parentElement.classList.contains('jp-word')) return;
+      if(node.parentElement.tagName === 'SCRIPT') return;
+      let txt = node.textContent;
+      let changed = false;
+      words.forEach(w=>{
+        if(txt.includes(w)){
+          txt = txt.split(w).join(`<span class="jp-word" data-w="${w}">${w}</span>`);
+          changed = true;
+        }
+      });
+      if(changed){
+        const span = document.createElement('span');
+        span.innerHTML = txt;
+        node.parentElement.replaceChild(span, node);
+      }
+    });
+  }
+
+  // Wrap Japanese text elements
+  document.querySelectorAll('.jp, .pattern, .word, .example-jp, .vocab-jp, .kanji-char, [lang="ja"]').forEach(wrapWords);
+
+  // Show popup on hover/click
+  document.addEventListener('mouseover', e=>{
+    const el = e.target.closest('.jp-word');
+    if(!el) return;
+    const w = el.dataset.w;
+    const entry = dict[w];
+    if(!entry) return;
+    document.getElementById('dp-kana').textContent = w;
+    document.getElementById('dp-rom').textContent = entry.rom;
+    document.getElementById('dp-mean').textContent = entry.mean;
+    document.getElementById('dp-tags').innerHTML = entry.tags.map(t=>`<span class="dict-tag">${t}</span>`).join('');
+    const r = el.getBoundingClientRect();
+    popup.style.left = Math.min(r.left, window.innerWidth-290) + 'px';
+    popup.style.top  = (r.bottom + window.scrollY + 8) + 'px';
+    popup.classList.add('show');
+  });
+  document.addEventListener('mouseout', e=>{
+    if(!e.target.closest('.jp-word')) popup.classList.remove('show');
+  });
+})();
+</script>
+
+<div class="stroke-anim-modal" id="strokeModal" onclick="if(event.target===this)closeStroke()">
+  <div class="stroke-anim-card">
+    <button aria-label="Closestroke" class="stroke-close" onclick="closeStroke()">✕</button>
+    <div class="stroke-anim-char" id="strokeChar">一</div>
+    <div style="font-size:13px;color:#888;margin-bottom:.75rem" id="strokeRom">ichi / hito</div>
+    <svg class="stroke-anim-svg" id="strokeSvg" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <line x1="20" y1="100" x2="180" y2="100" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4"/>
+      <line x1="100" y1="20" x2="100" y2="180" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4"/>
+    </svg>
+    <div style="font-size:12px;color:#888;margin-bottom:.5rem" id="strokeInfo">Klik ▶ untuk animasi stroke order</div>
+    <div class="stroke-progress" id="strokeProgress"></div>
+    <div class="stroke-controls">
+      <button class="stroke-btn" onclick="prevStroke()">◀ Prev</button>
+      <button class="stroke-btn primary" onclick="animateStroke()" id="strokePlayBtn">▶ Play</button>
+      <button class="stroke-btn" onclick="nextStroke()">Next ▶</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const strokeData = {
+  '一': {strokes:[[[40,100],[160,100]]],                                    on:'いち',kun:'ひと',mean:'satu'},
+  '二': {strokes:[[[40,80],[160,80]],[[30,120],[170,120]]],                  on:'に',kun:'ふた',mean:'dua'},
+  '三': {strokes:[[[50,70],[150,70]],[[35,100],[165,100]],[[50,130],[150,130]]],on:'さん',kun:'み',mean:'tiga'},
+  '人': {strokes:[[[100,30],[70,160]],[[100,30],[140,160]]],                 on:'じん',kun:'ひと',mean:'orang'},
+  '日': {strokes:[[[60,30],[60,170]],[[60,30],[140,30],[140,170],[60,170]],[[60,100],[140,100]]],on:'にち',kun:'ひ',mean:'matahari/hari'},
+  '月': {strokes:[[[60,25],[60,175]],[[60,25],[140,50],[140,175],[60,175]],[[70,95],[130,95]],[[70,135],[130,135]]],on:'げつ',kun:'つき',mean:'bulan'},
+  '山': {strokes:[[[100,20],[100,180]],[[30,130],[100,80]],[[170,130],[100,80]]],on:'さん',kun:'やま',mean:'gunung'},
+  '川': {strokes:[[[60,20],[50,180]],[[100,10],[100,180]],[[150,20],[140,180]]],on:'せん',kun:'かわ',mean:'sungai'},
+  '木': {strokes:[[[100,10],[100,180]],[[20,80],[180,80]],[[60,180],[100,130]],[[140,180],[100,130]]],on:'もく',kun:'き',mean:'pohon'},
+  '火': {strokes:[[[100,10],[100,120]],[[40,160],[100,90]],[[70,180],[100,100]],[[130,180],[100,100]],[[160,160],[100,90]]],on:'か',kun:'ひ',mean:'api'},
+  '水': {strokes:[[[100,10],[100,130]],[[40,60],[100,100]],[[60,180],[100,130]],[[140,180],[100,130]],[[160,60],[100,100]]],on:'すい',kun:'みず',mean:'air'},
+  '大': {strokes:[[[100,20],[100,180]],[[20,90],[180,90]],[[30,180],[100,100]],[[170,180],[100,100]]],on:'だい',kun:'おお',mean:'besar'},
+  '小': {strokes:[[[100,20],[100,160]],[[40,80],[100,130]],[[160,80],[100,130]]],on:'しょう',kun:'ちい',mean:'kecil'},
+  '中': {strokes:[[[60,20],[60,180],[140,180],[140,20],[60,20]],[[100,10],[100,190]]],on:'ちゅう',kun:'なか',mean:'tengah'},
+  '上': {strokes:[[[100,10],[100,170]],[[30,170],[170,170]],[[60,90],[140,90]]],on:'じょう',kun:'うえ',mean:'atas'},
+  '下': {strokes:[[[100,10],[100,170]],[[30,90],[170,90]],[[60,170],[100,130]],[[140,170],[100,130]]],on:'か',kun:'した',mean:'bawah'},
+  '口': {strokes:[[[50,50],[50,160],[150,160],[150,50],[50,50]]],             on:'こう',kun:'くち',mean:'mulut'},
+  '手': {strokes:[[[40,70],[160,70]],[[40,100],[160,100]],[[40,130],[160,130]],[[100,40],[90,180]]],on:'しゅ',kun:'て',mean:'tangan'},
+  '目': {strokes:[[[50,30],[50,170],[150,170],[150,30],[50,30]],[[50,90],[150,90]],[[50,130],[150,130]]],on:'もく',kun:'め',mean:'mata'},
+};
+
+let currentStroke = '一';
+let strokeStep = 0;
+let strokeAnim = null;
+
+function openStroke(kanji){
+  currentStroke = kanji;
+  strokeStep = 0;
+  const data = strokeData[kanji] || {strokes:[[[40,100],[160,100]]],on:'—',kun:'—',mean:'kanji'};
+  document.getElementById('strokeChar').textContent = kanji;
+  document.getElementById('strokeRom').textContent = `On: ${data.on} | Kun: ${data.kun} — ${data.mean}`;
+  document.getElementById('strokeInfo').textContent = `${data.strokes.length} stroke${data.strokes.length>1?'s':''}`;
+  renderStrokeProgress(data.strokes.length);
+  drawStrokeStep(0);
+  document.getElementById('strokeModal').classList.add('open');
+}
+
+function renderStrokeProgress(total){
+  const prog = document.getElementById('strokeProgress');
+  prog.innerHTML = Array.from({length:total},(_,i)=>`<span class="stroke-number" id="sp-${i}" style="opacity:.3">${i+1}</span>`).join('');
+}
+
+function drawStrokeStep(upTo){
+  const svg = document.getElementById('strokeSvg');
+  const data = strokeData[currentStroke] || {strokes:[[[40,100],[160,100]]]};
+  svg.innerHTML = `<line x1="20" y1="100" x2="180" y2="100" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4"/>
+    <line x1="100" y1="20" x2="100" y2="180" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="4"/>`;
+  for(let i=0;i<=upTo && i<data.strokes.length;i++){
+    const pts = data.strokes[i];
+    const color = i===upTo?'var(--red,#be3428)':'#15161a';
+    const w = i===upTo?3:2;
+    for(let j=0;j<pts.length-1;j++){
+      const line = document.createElementNS('http://www.w3.org/2000/svg','line');
+      line.setAttribute('x1',pts[j][0]);line.setAttribute('y1',pts[j][1]);
+      line.setAttribute('x2',pts[j+1][0]);line.setAttribute('y2',pts[j+1][1]);
+      line.setAttribute('stroke',color);line.setAttribute('stroke-width',w);
+      line.setAttribute('stroke-linecap','round');
+      if(i===upTo){line.style.animation='drawLine 0.5s ease forwards';line.style.strokeDasharray='200';line.style.strokeDashoffset='200';}
+      svg.appendChild(line);
+    }
+    const num = document.getElementById('sp-'+i);
+    if(num) num.style.opacity = i<=upTo?'1':'0.3';
+  }
+}
+
+function animateStroke(){
+  const data = strokeData[currentStroke]||{strokes:[[]]};
+  strokeStep=0; clearInterval(strokeAnim);
+  document.getElementById('strokePlayBtn').textContent='⏸';
+  strokeAnim = setInterval(()=>{
+    drawStrokeStep(strokeStep);
+    strokeStep++;
+    if(strokeStep>=data.strokes.length){ clearInterval(strokeAnim); strokeStep=data.strokes.length-1; document.getElementById('strokePlayBtn').textContent='▶ Play'; }
+  },700);
+}
+function prevStroke(){ clearInterval(strokeAnim); strokeStep=Math.max(0,strokeStep-1); drawStrokeStep(strokeStep); }
+function nextStroke(){ const d=strokeData[currentStroke]||{strokes:[[]]}; clearInterval(strokeAnim); strokeStep=Math.min(d.strokes.length-1,strokeStep+1); drawStrokeStep(strokeStep); }
+function closeStroke(){ clearInterval(strokeAnim); document.getElementById('strokeModal').classList.remove('open'); }
+</script>
+
+<style>
+@keyframes drawLine{from{stroke-dashoffset:200}to{stroke-dashoffset:0}}
+</style>
+
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html>

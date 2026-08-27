@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+<link rel="stylesheet" href="assets/pro-style.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akses Lengkap Gratis — Nihonggo Pro Academy</title>
+  <meta name="description" content="Semua fitur utama Nihonggo Pro Academy tersedia gratis: materi JLPT N5 sampai N1, flashcard, latihan soal, dashboard progres, dan AI Tutor lokal.">
+  <link rel="canonical" href="https://nihonggopro.id/Premium.html">
+  <meta property="og:title" content="Akses Lengkap Gratis — Nihonggo Pro Academy">
+  <meta property="og:description" content="Belajar bahasa Jepang dari nol sampai N1 dengan materi, flashcard, latihan JLPT, dashboard, dan AI Tutor lokal tanpa paywall.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nihonggopro.id/Premium.html">
+  <meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+  <link rel="stylesheet" href="assets/legacy-bundle.min.css">
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{min-height:100vh;font-family:Outfit,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--cream);color:var(--ink)}
+    a{text-decoration:none;color:inherit}
+    .page{min-height:100vh;display:flex;flex-direction:column}
+    .topbar{height:68px;display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,5vw,72px);background:var(--nav-bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:5;backdrop-filter:blur(14px)}
+    .brand{display:flex;align-items:baseline;gap:10px}
+    .brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:22px}
+    .brand span{font-size:12px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+    .nav-actions{display:flex;gap:8px;align-items:center}
+    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:40px;padding:0 16px;border-radius:8px;font-weight:800;font-size:13px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid)}
+    .btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+    .hero{padding:clamp(48px,8vw,86px) 5vw 36px;background:var(--ink);color:#fff;overflow:hidden;position:relative}
+    .hero:before{content:"全";position:absolute;right:4vw;bottom:-88px;font-family:"Noto Serif JP",serif;font-size:260px;font-weight:700;color:rgba(255,255,255,.045);line-height:1}
+    .inner{width:min(1120px,100%);margin:0 auto;position:relative}
+    .eyebrow{display:inline-flex;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.1);color:#ffd7d2;font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:18px}
+    h1{font-family:"Noto Serif JP",serif;font-size:clamp(34px,6vw,68px);line-height:1.05;max-width:760px;margin-bottom:18px}
+    .lead{font-size:clamp(16px,2vw,19px);line-height:1.8;color:rgba(255,255,255,.68);max-width:720px;margin-bottom:28px}
+    .hero-actions{display:flex;gap:10px;flex-wrap:wrap}
+    .hero-actions .btn{background:#fff;color:#15161a;border-color:#fff}
+    .hero-actions .btn.secondary{background:transparent;color:#fff;border-color:rgba(255,255,255,.28)}
+    .section{padding:42px 5vw}
+    .section-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:18px}
+    .label{font-size:11px;font-weight:900;color:var(--red);letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+    h2{font-size:clamp(24px,3vw,34px);line-height:1.2}
+    .sub{max-width:620px;color:var(--ink-soft);font-size:14px;line-height:1.75}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow-sm)}
+    .card b{display:block;font-size:15px;margin-bottom:8px}
+    .card p{font-size:13px;line-height:1.7;color:var(--ink-soft)}
+    .icon{font-family:"Noto Serif JP",serif;font-size:32px;color:var(--red);line-height:1;margin-bottom:12px}
+    .path{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+    .step{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:16px;min-height:150px}
+    .step small{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:8px;background:var(--red-pale);color:var(--red);font-weight:900;margin-bottom:12px}
+    .step b{display:block;margin-bottom:7px}
+    .step span{display:block;font-size:12px;line-height:1.65;color:var(--ink-soft)}
+    .checklist{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .check{display:flex;gap:10px;align-items:flex-start;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;color:var(--ink-mid);font-size:13px;line-height:1.55}
+    .check:before{content:"✓";flex:0 0 24px;width:24px;height:24px;border-radius:8px;background:var(--green-pale);color:var(--green);font-weight:900;display:flex;align-items:center;justify-content:center}
+    .cta{margin-top:20px;padding:24px;background:var(--ink);color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+    .cta p{color:rgba(255,255,255,.68);line-height:1.7;margin-top:4px}
+    @media(max-width:860px){.topbar{align-items:flex-start;height:auto;padding-top:14px;padding-bottom:14px;gap:12px;flex-direction:column}.grid,.path,.checklist{grid-template-columns:1fr}.section-head,.cta{display:block}.nav-actions{flex-wrap:wrap}.cta .btn{margin-top:16px}}
+  </style>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Premium NihonggoPro","url":"https://nihonggopro.id/Premium.html","description":"Fitur premium platform belajar bahasa Jepang NihonggoPro","inLanguage":"id"}</script>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Akses Lengkap Gratis — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+<style>
+/* ── PREMIUM PAGE UTILITY ── */
+.txt-center{text-align:center}.txt-left{text-align:left}
+.fw-800{font-weight:800}.fw-700{font-weight:700}
+.mt-1{margin-top:.5rem}.mt-2{margin-top:1rem}.mt-3{margin-top:1.5rem}.mt-4{margin-top:2rem}
+.mb-1{margin-bottom:.5rem}.mb-2{margin-bottom:1rem}.mb-3{margin-bottom:1.5rem}
+.p-1{padding:.5rem}.p-2{padding:1rem}.p-3{padding:1.5rem}
+.br-md{border-radius:var(--border-radius-md,8px)}.br-lg{border-radius:var(--border-radius-lg,12px)}
+.flex{display:flex}.flex-col{flex-direction:column}.items-center{align-items:center}
+.gap-1{gap:.5rem}.gap-2{gap:1rem}.gap-3{gap:1.5rem}
+.w-full{width:100%}.max-w-900{max-width:900px;margin-left:auto;margin-right:auto}
+.card-white{background:var(--white);border-radius:14px;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);padding:1.5rem}
+.badge-gold{display:inline-block;padding:3px 10px;border-radius:5px;font-size:11px;font-weight:800;background:rgba(185,137,47,.12);color:var(--gold,#b9892f)}
+.badge-red{display:inline-block;padding:3px 10px;border-radius:5px;font-size:11px;font-weight:800;background:var(--red-pale,#fef2f2);color:var(--red,#be3428)}
+.text-muted{color:var(--ink-soft,#888);font-size:13px}
+.section-label{font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="Semua fitur utama Nihonggo Pro Academy tersedia gratis: materi JLPT N5 sampai N1, flashcard, latihan soal, dashboard progres, dan AI Tutor lokal.">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+  <div class="page">
+    <header class="topbar">
+      <a class="brand" href="index.html"><strong>Nihonggo Pro Academy</strong><span>Akses Penuh & Gratis</span></a>
+      <div class="nav-actions">
+        <a class="btn" href="Materi/Materi.html">Materi</a>
+        <a class="btn" href="QUIZ/nihongo-pro.html">Kuis</a>
+        <a class="btn primary" href="Dashboard/Dashboard.html">Mulai Belajar</a>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" style="background:linear-gradient(160deg,#1A1209,#2D2D2D,#1A1A1A);position:relative;overflow:hidden;padding:clamp(52px,8vw,96px) 5vw clamp(48px,6vw,72px)">
+        <div style="position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 60% 70% at 90% 40%,rgba(200,155,60,.10),transparent 55%),radial-gradient(ellipse 40% 60% at 5% 80%,rgba(107,79,58,.08),transparent 55%)"></div>
+        <div style="position:absolute;right:2%;bottom:-10%;font-family:'Noto Serif JP',serif;font-size:clamp(140px,22vw,300px);font-weight:900;color:rgba(255,255,255,.022);line-height:1;pointer-events:none;user-select:none;letter-spacing:-0.05em" aria-hidden="true">無料</div>
+        <div class="inner" style="position:relative;z-index:1">
+          <div class="eyebrow" style="background:rgba(200,155,60,.15);color:#E6C060;border:1px solid rgba(200,155,60,.25);letter-spacing:.16em;font-size:11px;font-weight:700;text-transform:uppercase;display:inline-flex;padding:6px 14px;border-radius:99px;margin-bottom:18px">京都学習プラットフォーム · Semua fitur utama gratis</div>
+          <h1>Semua fitur bisa diakses penuh tanpa biaya.</h1>
+          <p class="lead">Halaman ini menggantikan paket premium lama. Materi JLPT N5 sampai N1, flashcard, latihan soal, dashboard progres, dan AI Tutor lokal kini terbuka untuk semua pengguna.</p>
+          <div class="hero-actions">
+            <a class="btn" href="Dashboard/Dashboard.html">Buka Dashboard</a>
+            <a class="btn secondary" href="Materi/Rencana-Belajar-JLPT.html">Buat Rencana Belajar JLPT</a>
+            <a class="btn secondary" href="AI-Tutor-Pro.html">Gunakan AI Tutor</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="inner">
+          <div class="section-head">
+            <div><div class="label">Fitur yang Tersedia</div><h2>Materi, latihan, dan tools belajar</h2></div>
+            <p class="sub">Semua modul inti dapat dibuka langsung. Integrasi produksi seperti akun cloud, API AI berbayar, atau kelas live dapat ditambahkan sebagai layanan opsional tanpa mengunci akses belajar utama.</p>
+          </div>
+          <div class="grid">
+            <article class="card"><div class="icon">文</div><b>Grammar N5-N1</b><p>Pola tata bahasa, struktur, contoh kalimat, dan penjelasan ringkas untuk review cepat.</p></article>
+            <article class="card"><div class="icon">漢</div><b>Kanji Per Tingkat</b><p>Kanji N5, N4, N3, N2, dan N1 dengan reading, arti, contoh, serta flashcard khusus.</p></article>
+            <article class="card"><div class="icon">語</div><b>Kosakata Lengkap</b><p>Database vocabulary, pencarian cepat, filter level, flashcard, dan file CSV pendukung.</p></article>
+            <article class="card"><div class="icon">問</div><b>Latihan JLPT</b><p>Soal vocabulary, kanji, grammar, reading, listening, mixed mock, dan review kesalahan.</p></article>
+            <article class="card"><div class="icon">話</div><b>Menyimak &amp; Berbicara</b><p>Shadowing, dialog situasional, roleplay, rubric speaking, dan prompt latihan mandiri.</p></article>
+            <article class="card"><div class="icon">読</div><b>Membaca &amp; Menulis</b><p>Strategi membaca, latihan ringkasan, penulisan opini, jurnal, dan argumentasi bertahap.</p></article>
+            <article class="card"><div class="icon">計</div><b>Perencana JLPT</b><p>Rencana belajar adaptif berdasarkan level target, waktu harian, dan kelemahan utama.</p></article>
+            <article class="card"><div class="icon">AI</div><b>AI Tutor Lokal</b><p>Chat tutor dengan fallback lokal, prompt grammar, koreksi kalimat, dan saran latihan.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="inner">
+          <div class="section-head">
+            <div><div class="label">Jalur Belajar yang Disarankan</div><h2>Jalur yang disarankan</h2></div>
+            <p class="sub">Pakai urutan ini bila mulai dari nol. Pelajar yang sudah punya dasar bisa langsung masuk tes level atau roadmap JLPT.</p>
+          </div>
+          <div class="path">
+            <article class="step"><small>1</small><b>Kana</b><span>Hafalkan hiragana dan katakana, lalu baca kata sederhana tanpa romaji.</span></article>
+            <article class="step"><small>2</small><b>Fondasi N5</b><span>Pelajari partikel, bentuk sopan, angka, waktu, dan pola kalimat dasar.</span></article>
+            <article class="step"><small>3</small><b>Kanji & Vocab</b><span>Bangun deck harian: 10 kosakata, 5 kanji, dan 3 contoh kalimat.</span></article>
+            <article class="step"><small>4</small><b>Latihan Kemampuan</b><span>Latih reading, listening, speaking, writing, dan review kesalahan setiap minggu.</span></article>
+            <article class="step"><small>5</small><b>Mock JLPT</b><span>Gunakan latihan level target, analisis skor, lalu ulangi area terlemah.</span></article>
+          </div>
+
+          <div class="cta">
+            <div>
+              <h2>Mulai dari modul yang paling dekat dengan kebutuhanmu.</h2>
+              <p>Untuk pemula, buka dashboard. Untuk target ujian, buat rencana JLPT dan lanjut ke latihan level.</p>
+            </div>
+            <a class="btn primary" href="Dashboard/Dashboard.html">Mulai Sekarang</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="inner">
+          <div class="section-head">
+            <div><div class="label">Catatan Produksi</div><h2>Yang bisa ditambahkan nanti</h2></div>
+            <p class="sub">Bagian ini bukan kekurangan materi inti, tetapi daftar integrasi backend bila situs akan dipakai sebagai platform publik skala besar.</p>
+          </div>
+          <div class="checklist">
+            <div class="check">Simpan progres per akun dengan Firebase, Supabase, atau backend sendiri.</div>
+            <div class="check">Hubungkan AI Tutor ke endpoint server agar API key tidak pernah muncul di browser.</div>
+            <div class="check">Tambahkan CMS mentor untuk mengelola pengumuman, lesson baru, dan tugas siswa.</div>
+            <div class="check">Aktifkan kelas live, sertifikat, notifikasi, dan program corporate bila dibutuhkan.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  
+<section style="padding:3rem 5vw;max-width:1160px;margin:0 auto">
+  <div style="text-align:center;margin-bottom:2rem">
+    <div style="font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem">Tabel Fitur</div>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(22px,3vw,32px);color:var(--ink)">Semua Fitur — Gratis vs Opsional Premium</h2>
+    <p style="font-size:14px;color:var(--ink-soft);max-width:560px;margin:.75rem auto 0">Semua materi inti gratis. Fitur opsional seperti cloud sync, kelas live, dan AI berbayar dapat ditambahkan sebagai add-on.</p>
+  </div>
+  <div style="overflow-x:auto">
+    <table style="border-collapse:collapse;width:100%;font-size:13px;min-width:540px">
+      <thead>
+        <tr style="background:var(--red-pale)">
+          <th style="padding:12px 16px;text-align:left;border-bottom:2px solid var(--red);font-weight:700;color:var(--red)">Fitur</th>
+          <th style="padding:12px 16px;text-align:center;border-bottom:2px solid var(--red);font-weight:700;color:var(--red)">Gratis</th>
+          <th style="padding:12px 16px;text-align:center;border-bottom:2px solid var(--gold);font-weight:700;color:var(--gold)">Premium Add-on</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td colspan="3" style="padding:10px 16px;background:var(--cream);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)">MATERI & KONTEN</td></tr>
+        <tr style="border-bottom:.5px solid var(--border)"><td style="padding:11px 16px;color:var(--ink)">Materi JLPT N5–N1 lengkap (39 halaman)</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border);background:var(--cream)"><td style="padding:11px 16px">Grammar 165 pola N5–N1</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border)"><td style="padding:11px 16px">Kanji N5–N1 (2000+ kanji)</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border);background:var(--cream)"><td style="padding:11px 16px">Vocabulary 7.972 kata (N5–N1)</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border)"><td style="padding:11px 16px">Ungkapan Natural & Keigo</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border);background:var(--cream)"><td style="padding:11px 16px">Video Pembelajaran (19 video)</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        
+        <tr><td colspan="3" style="padding:10px 16px;background:var(--cream);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)">LATIHAN & QUIZ</td></tr>
+        <tr style="border-bottom:.5px solid var(--border)"><td style="padding:11px 16px">Latihan JLPT 552 soal</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border);background:var(--cream)"><td style="padding:11px 16px">Flashcard Kanji SRS (N5–N1)</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border)"><td style="padding:11px 16px">Quiz Grammar & Vocab SRS</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border);background:var(--cream)"><td style="padding:11px 16px">Tes Level JLPT otomatis</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border)"><td style="padding:11px 16px">Mock exam penuh (cloud progress)</td><td style="padding:11px 16px;text-align:center;color:var(--ink-soft)">Browser only</td><td style="padding:11px 16px;text-align:center;color:var(--gold);font-weight:700">Cloud sync</td></tr>
+        
+        <tr><td colspan="3" style="padding:10px 16px;background:var(--cream);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft)">AI & TOOLS</td></tr>
+        <tr style="border-bottom:.5px solid var(--border)"><td style="padding:11px 16px">AI Tutor mode offline (lokal)</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border);background:var(--cream)"><td style="padding:11px 16px">AI Tutor berbasis Claude API (real-time)</td><td style="padding:11px 16px;text-align:center;color:var(--ink-soft)">Konfigurasi sendiri</td><td style="padding:11px 16px;text-align:center;color:var(--gold);font-weight:700">Termasuk API quota</td></tr>
+        <tr style="border-bottom:.5px solid var(--border)"><td style="padding:11px 16px">Pembuat Kalimat interaktif</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">✓</td><td style="padding:11px 16px;text-align:center;color:var(--ink-faint)">—</td></tr>
+        <tr style="border-bottom:.5px solid var(--border);background:var(--cream)"><td style="padding:11px 16px">Dashboard progress & streak</td><td style="padding:11px 16px;text-align:center;color:#27ae60;font-weight:700">Browser</td><td style="padding:11px 16px;text-align:center;color:var(--gold);font-weight:700">Cloud + multi-device</td></tr>
+        <tr style="border-bottom:.5px solid var(--border)"><td style="padding:11px 16px">Kelas live dengan instruktur</td><td style="padding:11px 16px;text-align:center;color:var(--ink-soft)">—</td><td style="padding:11px 16px;text-align:center;color:var(--gold);font-weight:700">✓ Add-on</td></tr>
+        <tr><td style="padding:11px 16px;background:var(--cream)">Sertifikat penyelesaian</td><td style="padding:11px 16px;text-align:center;background:var(--cream);color:var(--ink-soft)">—</td><td style="padding:11px 16px;text-align:center;background:var(--cream);color:var(--gold);font-weight:700">✓ Add-on</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div style="margin-top:1.5rem;padding:1rem 1.25rem;background:var(--gold-pale);border-radius:12px;font-size:13px;color:var(--ink-mid)">
+    <strong style="color:var(--gold)">💡 Catatan:</strong> Progress tersimpan di browser secara lokal (localStorage). Untuk sinkronisasi antar perangkat, ekspor/impor data atau aktifkan cloud sync sebagai add-on.
+  </div>
+</section>
+
+<section style="padding:2rem 5vw;max-width:1160px;margin:0 auto">
+  <div style="text-align:center;margin-bottom:2rem">
+    <div style="font-size:11px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--red);margin-bottom:.5rem">Preview Konten</div>
+    <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(20px,3vw,28px);color:var(--ink)">Contoh Materi yang Tersedia</h2>
+    <p style="font-size:14px;color:var(--ink-soft);max-width:540px;margin:.5rem auto 0">Semua konten di bawah ini tersedia gratis. Klik untuk langsung mengaksesnya.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem">
+    
+    <a href="Materi/Grammar-Lengkap.html" style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;text-decoration:none">
+      <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.4rem">GRAMMAR N3</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:18px;color:var(--ink);margin-bottom:.4rem">〜にもかかわらず</div>
+      <div style="font-size:13px;color:var(--ink-soft)">Walaupun ~ / Meskipun ~ (formal)</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);margin-top:.5rem;border-top:.5px solid var(--border);padding-top:.5rem">雨にもかかわらず、試合は続きました。</div>
+    </a>
+    
+    <a href="Materi/Grammar-Lengkap.html" style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;text-decoration:none">
+      <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.4rem">GRAMMAR N2</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:18px;color:var(--ink);margin-bottom:.4rem">〜に基づいて</div>
+      <div style="font-size:13px;color:var(--ink-soft)">Berdasarkan ~ (formal)</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);margin-top:.5rem;border-top:.5px solid var(--border);padding-top:.5rem">データに基づいて判断します。</div>
+    </a>
+    
+    <a href="Materi/Grammar-Lengkap.html" style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;text-decoration:none">
+      <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.4rem">GRAMMAR N1</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:18px;color:var(--ink);margin-bottom:.4rem">〜ならでは</div>
+      <div style="font-size:13px;color:var(--ink-soft)">Khas ~ / Hanya ~ yang bisa</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);margin-top:.5rem;border-top:.5px solid var(--border);padding-top:.5rem">京都ならではの雰囲気がある。</div>
+    </a>
+    
+    <a href="Materi/Kanji-N5.html" style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;text-decoration:none">
+      <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.4rem">KANJI N5</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:36px;color:var(--ink);margin-bottom:.4rem">食</div>
+      <div style="font-size:13px;color:var(--ink-soft)">ショク/た — makan</div>
+      <div style="font-size:13px;color:var(--ink-mid);margin-top:.5rem;border-top:.5px solid var(--border);padding-top:.5rem">食堂 · 食事 · 食べます</div>
+    </a>
+    
+    <a href="Materi/Vocabulary-Lengkap.html" style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;text-decoration:none">
+      <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.4rem">VOCAB N3</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:20px;color:var(--ink);margin-bottom:.4rem">影響 (えいきょう)</div>
+      <div style="font-size:13px;color:var(--ink-soft)">Pengaruh / Dampak</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);margin-top:.5rem;border-top:.5px solid var(--border);padding-top:.5rem">環境への影響を考える。</div>
+    </a>
+    
+    <a href="Materi/Ungkapan-Natural.html" style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;text-decoration:none">
+      <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.4rem">UNGKAPAN NATURAL</div>
+      <div style="font-family:'Noto Serif JP',serif;font-size:18px;color:var(--ink);margin-bottom:.4rem">なるほど</div>
+      <div style="font-size:13px;color:var(--ink-soft)">Aizuchi — "Oh begitu / I see"</div>
+      <div style="font-size:13px;color:var(--ink-mid);margin-top:.5rem;border-top:.5px solid var(--border);padding-top:.5rem">Digunakan saat mendengarkan untuk menunjukkan kamu memahami.</div>
+    </a>
+
+  </div>
+</section>
+
+<section style="padding:2rem 5vw;max-width:1160px;margin:0 auto;border-top:.5px solid var(--border)">
+  <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(18px,2.5vw,24px);color:var(--ink);margin-bottom:1.5rem">🗺️ Jalur Belajar per Level — 学習ロードマップ</h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem">
+    
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;overflow:hidden">
+      <div style="background:var(--red-pale);padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;color:var(--red)">N5</span>
+        <span style="font-size:11px;color:var(--red);font-weight:700">初級 · Pemula</span>
+      </div>
+      <div style="padding:.75rem 1rem;font-size:13px;color:var(--ink-mid);display:grid;gap:.3rem">
+        <div>✓ <span style="font-family:'Noto Serif JP',serif">ひらがな・カタカナ</span></div>
+        <div>✓ Partikel <span style="font-family:'Noto Serif JP',serif">は・が・を・に・で</span></div>
+        <div>✓ <span style="font-family:'Noto Serif JP',serif">ます形・ない形・て形</span></div>
+        <div>✓ 100 kanji · 700 vocab</div>
+        <div style="font-size:11px;color:var(--ink-soft);margin-top:.3rem">⏱ 3-4 bulan intensif</div>
+      </div>
+    </div>
+    
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;overflow:hidden">
+      <div style="background:var(--cream);padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;color:var(--ink)">N4</span>
+        <span style="font-size:11px;color:var(--ink-soft);font-weight:700">基礎 · Dasar</span>
+      </div>
+      <div style="padding:.75rem 1rem;font-size:13px;color:var(--ink-mid);display:grid;gap:.3rem">
+        <div>✓ <span style="font-family:'Noto Serif JP',serif">〜たことがある, 〜ている</span></div>
+        <div>✓ <span style="font-family:'Noto Serif JP',serif">〜てもいい・〜てはいけない</span></div>
+        <div>✓ Keigo dasar & potential form</div>
+        <div>✓ 300 kanji · 1500 vocab</div>
+        <div style="font-size:11px;color:var(--ink-soft);margin-top:.3rem">⏱ 4-5 bulan intensif</div>
+      </div>
+    </div>
+    
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;overflow:hidden">
+      <div style="background:var(--cream);padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;color:var(--ink)">N3</span>
+        <span style="font-size:11px;color:var(--ink-soft);font-weight:700">中級 · Menengah</span>
+      </div>
+      <div style="padding:.75rem 1rem;font-size:13px;color:var(--ink-mid);display:grid;gap:.3rem">
+        <div>✓ <span style="font-family:'Noto Serif JP',serif">〜ようになる, 〜てしまう</span></div>
+        <div>✓ <span style="font-family:'Noto Serif JP',serif">〜にもかかわらず, 〜べき</span></div>
+        <div>✓ Keigo formal · NHK Web Easy</div>
+        <div>✓ 370 kanji · 3700 vocab</div>
+        <div style="font-size:11px;color:var(--ink-soft);margin-top:.3rem">⏱ 5-6 bulan intensif</div>
+      </div>
+    </div>
+    
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;overflow:hidden">
+      <div style="background:var(--cream);padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;color:var(--ink)">N2</span>
+        <span style="font-size:11px;color:var(--ink-soft);font-weight:700">上級 · Lanjutan</span>
+      </div>
+      <div style="padding:.75rem 1rem;font-size:13px;color:var(--ink-mid);display:grid;gap:.3rem">
+        <div>✓ <span style="font-family:'Noto Serif JP',serif">〜ざるを得ない, 〜に基づいて</span></div>
+        <div>✓ <span style="font-family:'Noto Serif JP',serif">〜に伴って, 〜をはじめとして</span></div>
+        <div>✓ Surat kabar · Bisnis formal</div>
+        <div>✓ 1000 kanji · 6000 vocab</div>
+        <div style="font-size:11px;color:var(--ink-soft);margin-top:.3rem">⏱ 8-12 bulan intensif</div>
+      </div>
+    </div>
+    
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;overflow:hidden">
+      <div style="background:var(--cream);padding:.75rem 1rem;display:flex;justify-content:space-between;align-items:center">
+        <span style="font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700;color:var(--ink)">N1</span>
+        <span style="font-size:11px;color:var(--ink-soft);font-weight:700">最上級 · Mahir</span>
+      </div>
+      <div style="padding:.75rem 1rem;font-size:13px;color:var(--ink-mid);display:grid;gap:.3rem">
+        <div>✓ <span style="font-family:'Noto Serif JP',serif">〜ならでは, 〜にほかならない</span></div>
+        <div>✓ <span style="font-family:'Noto Serif JP',serif">〜まじき, 〜に足る, 〜べく</span></div>
+        <div>✓ Novel · Nikkei · Akademik</div>
+        <div>✓ 2000 kanji · 10000 vocab</div>
+        <div style="font-size:11px;color:var(--ink-soft);margin-top:.3rem">⏱ 12+ bulan intensif</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section style="padding:2rem 5vw;max-width:1160px;margin:0 auto;border-top:.5px solid var(--border)">
+  <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(18px,2.5vw,24px);color:var(--ink);margin-bottom:.5rem">
+    📈 Berapa Lama untuk Lulus JLPT?
+  </h2>
+  <p style="font-size:13px;color:var(--ink-mid);margin-bottom:1.5rem">Estimasi waktu belajar intensif (1-2 jam/hari) dari nol hingga lulus.</p>
+  
+  <div style="display:grid;gap:.5rem;max-width:800px">
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;overflow:hidden">
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 120px;gap:0;font-size:12px;font-weight:700;color:var(--ink-soft);padding:.5rem 1rem;background:var(--cream)">
+        <span>Level</span><span>Durasi</span><span>Dari Level Sebelumnya</span><span>Kosakata/Kanji</span>
+      </div>
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 120px;gap:0;font-size:13px;padding:.7rem 1rem;border-top:.5px solid var(--border);align-items:center">
+        <span style="font-family:'Noto Serif JP',serif;font-weight:700;color:var(--red)">N5</span>
+        <span style="color:var(--ink-mid)">3–4 bulan</span>
+        <span style="color:var(--ink-soft)">Dari nol (pemula mutlak)</span>
+        <span style="color:var(--ink-mid)">700 / 100</span>
+      </div>
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 120px;gap:0;font-size:13px;padding:.7rem 1rem;border-top:.5px solid var(--border);align-items:center;background:var(--cream)">
+        <span style="font-family:'Noto Serif JP',serif;font-weight:700;color:var(--ink)">N4</span>
+        <span style="color:var(--ink-mid)">4–5 bulan</span>
+        <span style="color:var(--ink-soft)">Setelah N5</span>
+        <span style="color:var(--ink-mid)">1500 / 300</span>
+      </div>
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 120px;gap:0;font-size:13px;padding:.7rem 1rem;border-top:.5px solid var(--border);align-items:center">
+        <span style="font-family:'Noto Serif JP',serif;font-weight:700;color:var(--ink)">N3</span>
+        <span style="color:var(--ink-mid)">5–8 bulan</span>
+        <span style="color:var(--ink-soft)">Setelah N4</span>
+        <span style="color:var(--ink-mid)">3700 / 650</span>
+      </div>
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 120px;gap:0;font-size:13px;padding:.7rem 1rem;border-top:.5px solid var(--border);align-items:center;background:var(--cream)">
+        <span style="font-family:'Noto Serif JP',serif;font-weight:700;color:var(--ink)">N2</span>
+        <span style="color:var(--ink-mid)">10–14 bulan</span>
+        <span style="color:var(--ink-soft)">Setelah N3</span>
+        <span style="color:var(--ink-mid)">6000 / 1000</span>
+      </div>
+      <div style="display:grid;grid-template-columns:80px 1fr 1fr 120px;gap:0;font-size:13px;padding:.7rem 1rem;border-top:.5px solid var(--border);align-items:center">
+        <span style="font-family:'Noto Serif JP',serif;font-weight:700;color:var(--ink)">N1</span>
+        <span style="color:var(--ink-mid)">14–24 bulan</span>
+        <span style="color:var(--ink-soft)">Setelah N2</span>
+        <span style="color:var(--ink-mid)">10000 / 2000</span>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--ink-soft)">*Estimasi untuk pelajar mandiri intensif. Bisa lebih cepat dengan kelas formal atau immersion penuh.</p>
+  </div>
+</section>
+
+<section style="padding:2rem 5vw;max-width:1160px;margin:0 auto;border-top:.5px solid var(--border)">
+  <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(18px,2.5vw,22px);color:var(--ink);margin-bottom:1.25rem">
+    🎯 10 Strategi Belajar Bahasa Jepang Paling Efektif
+  </h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem">
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+      <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem">1. Flashcard SRS Setiap Hari</div>
+      <div style="font-size:12px;color:var(--ink-mid);line-height:1.7">Gunakan Anki atau SRS built-in. Bahkan 10 menit/hari membuat perbedaan besar dalam 6 bulan.</div>
+    </div>
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+      <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem">2. Shadowing 15 Menit/Hari</div>
+      <div style="font-size:12px;color:var(--ink-mid);line-height:1.7">Dengar dan tiru pembicara native. Meningkatkan pelafalan, intonasi, dan pemahaman listening sekaligus.</div>
+    </div>
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+      <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem">3. Baca Teks Level i+1</div>
+      <div style="font-size:12px;color:var(--ink-mid);line-height:1.7">Pilih materi yang 95% dipahami. 5% kata baru yang bisa ditebak dari konteks = zona belajar optimal.</div>
+    </div>
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+      <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem">4. Tulis Jurnal dalam Bahasa Jepang</div>
+      <div style="font-size:12px;color:var(--ink-mid);line-height:1.7">Mulai 2-3 kalimat/hari. Output aktif memaksa otak mengolah grammar dan kosakata secara mendalam.</div>
+    </div>
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+      <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem">5. Review Kesalahan Secara Berkala</div>
+      <div style="font-size:12px;color:var(--ink-mid);line-height:1.7">Catat dan tinjau ulang kesalahan setiap minggu. Kesalahan yang sama berulang = tanda perlu lebih banyak latihan di area itu.</div>
+    </div>
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+      <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem">6. Simulasi Ujian Bulanan</div>
+      <div style="font-size:12px;color:var(--ink-mid);line-height:1.7">Kerjakan soal JLPT dalam kondisi mirip ujian nyata (waktu, tanpa bantuan). Lacak progres tiap bulan.</div>
+    </div>
+  </div>
+</section>
+
+<script src="assets/pro-app.min.js" defer></script>
+
+<section style="padding:3rem clamp(16px,5vw,72px);background:var(--cream)">
+  <div style="max-width:900px;margin:0 auto">
+    <div style="text-align:center;margin-bottom:2.5rem">
+      <div style="font-size:11px;font-weight:800;color:var(--red);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.75rem">💰 Harga</div>
+      <h2 style="font-family:'Noto Serif JP',serif;font-size:clamp(26px,4vw,40px);margin-bottom:.5rem">Pilih Paket yang Tepat</h2>
+      <p style="color:var(--ink-soft);font-size:14px">Semua paket termasuk akses ke seluruh materi N5–N1. Tidak perlu kartu kredit untuk paket gratis.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem">
+      <!-- FREE -->
+      <div style="background:var(--white);border-radius:16px;padding:2rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)">
+        <div style="font-size:13px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem">Gratis</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:36px;font-weight:700;margin-bottom:.25rem">Rp 0</div>
+        <div style="font-size:13px;color:var(--ink-soft);margin-bottom:1.5rem">Selamanya gratis</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;font-size:13px">
+          <div>✅ Semua materi N5–N1</div>
+          <div>✅ Grammar 1.000+ pola</div>
+          <div>✅ Kosakata 10.000+</div>
+          <div>✅ Flashcard kanji</div>
+          <div>✅ AI Tutor (5 pesan/hari)</div>
+          <div>✅ Kuis & latihan soal</div>
+          <div style="color:var(--ink-faint)">✗ Kelas live prioritas</div>
+          <div style="color:var(--ink-faint)">✗ AI Grammar Checker tak terbatas</div>
+          <div style="color:var(--ink-faint)">✗ Sertifikat resmi</div>
+        </div>
+        <a href="Akun.html" style="display:block;width:100%;height:44px;border-radius:10px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-family:Outfit,sans-serif;font-size:14px;font-weight:700;text-decoration:none;display:flex;align-items:center;justify-content:center;transition:all .15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='';this.style.color=''">Daftar Gratis</a>
+      </div>
+      <!-- PRO -->
+      <div style="background:var(--ink);border-radius:16px;padding:2rem;position:relative;overflow:hidden;border:2px solid var(--red)">
+        <div style="position:absolute;top:12px;right:12px;background:var(--red);color:#fff;font-size:10px;font-weight:800;padding:3px 9px;border-radius:5px;letter-spacing:.06em">POPULER</div>
+        <div style="font-size:13px;font-weight:800;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem">Pro Bulanan</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:36px;font-weight:700;color:#fff;margin-bottom:.25rem">Rp 49.000</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:1.5rem">per bulan</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;font-size:13px;color:rgba(255,255,255,.8)">
+          <div>✅ Semua fitur Gratis</div>
+          <div>✅ AI Tutor tak terbatas</div>
+          <div>✅ AI Grammar Checker tak terbatas</div>
+          <div>✅ Kelas live prioritas</div>
+          <div>✅ Sertifikat resmi + verifikasi</div>
+          <div>✅ Progress tracking lanjut</div>
+          <div>✅ Download semua materi PDF</div>
+          <div>✅ Dukungan prioritas</div>
+        </div>
+        <a href="mailto:hello@nihonggopro.id?subject=Daftar Pro" style="display:flex;width:100%;height:44px;border-radius:10px;border:none;background:var(--red);color:#fff;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;text-decoration:none;align-items:center;justify-content:center;transition:background .15s" onmouseover="this.style.background='#a02d23'" onmouseout="this.style.background='var(--red)'">Mulai Pro →</a>
+      </div>
+      <!-- TAHUNAN -->
+      <div style="background:var(--white);border-radius:16px;padding:2rem;border:.5px solid var(--gold);box-shadow:var(--shadow-sm)">
+        <div style="font-size:13px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem">Pro Tahunan</div>
+        <div style="display:flex;align-items:baseline;gap:.5rem">
+          <div style="font-family:'Noto Serif JP',serif;font-size:36px;font-weight:700;margin-bottom:.25rem">Rp 399.000</div>
+        </div>
+        <div style="font-size:13px;color:var(--ink-soft);margin-bottom:.25rem">per tahun</div>
+        <div style="display:inline-block;background:rgba(185,137,47,.12);color:var(--gold);font-size:11px;font-weight:800;padding:2px 8px;border-radius:5px;margin-bottom:1.25rem">Hemat 32%</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem;font-size:13px">
+          <div>✅ Semua fitur Pro</div>
+          <div>✅ 1 bulan bonus gratis</div>
+          <div>✅ Akses seumur hidup ke materi</div>
+          <div>✅ Badge pelajar tahunan</div>
+        </div>
+        <a href="mailto:hello@nihonggopro.id?subject=Daftar Pro Tahunan" style="display:flex;width:100%;height:44px;border-radius:10px;border:1.5px solid var(--gold);background:var(--white);color:var(--gold);font-family:Outfit,sans-serif;font-size:14px;font-weight:800;text-decoration:none;align-items:center;justify-content:center;transition:all .15s" onmouseover="this.style.background='rgba(185,137,47,.1)'" onmouseout="this.style.background='var(--white)'">Hemat dengan Tahunan →</a>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:1.5rem;font-size:13px;color:var(--ink-soft)">
+      Pertanyaan tentang harga? <a href="mailto:hello@nihonggopro.id" style="color:var(--red);font-weight:700">Hubungi kami →</a>
+    </div>
+  </div>
+</section>
+
+<section style="padding:2.5rem clamp(16px,5vw,72px);background:var(--white);border-top:1px solid var(--border)">
+  <div style="max-width:900px;margin:0 auto;text-align:center">
+    <div style="font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem">💳 Metode Pembayaran</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.75rem;justify-content:center;align-items:center;margin-bottom:1.25rem">
+      <div style="padding:.5rem 1.25rem;border-radius:9px;border:1.5px solid var(--border-mid);background:var(--white);font-weight:800;font-size:13px;color:var(--ink-mid)">🏦 Transfer Bank</div>
+      <div style="padding:.5rem 1.25rem;border-radius:9px;border:1.5px solid var(--border-mid);background:var(--white);font-weight:800;font-size:13px;color:var(--ink-mid)">💚 GoPay</div>
+      <div style="padding:.5rem 1.25rem;border-radius:9px;border:1.5px solid var(--border-mid);background:var(--white);font-weight:800;font-size:13px;color:var(--ink-mid)">📱 QRIS</div>
+      <div style="padding:.5rem 1.25rem;border-radius:9px;border:1.5px solid var(--border-mid);background:var(--white);font-weight:800;font-size:13px;color:var(--ink-mid)">💜 OVO</div>
+      <div style="padding:.5rem 1.25rem;border-radius:9px;border:1.5px solid var(--border-mid);background:var(--white);font-weight:800;font-size:13px;color:var(--ink-mid)">🔵 Dana</div>
+      <div style="padding:.5rem 1.25rem;border-radius:9px;border:1.5px solid var(--border-mid);background:var(--white);font-weight:800;font-size:13px;color:var(--ink-mid)">💳 Kartu Kredit/Debit</div>
+    </div>
+    <!-- GENUINELY DIPERBAIKI (Fase Audit Website, Fase B): dikonfirmasi
+         via investigasi teks sebelumnya genuinely mengklaim checkout
+         otomatis via Midtrans dengan aktivasi <5 menit -- namun tombol
+         CTA paket berbayar genuinely mengarah ke "mailto:" (proses
+         manual via email), bukan integrasi Midtrans genuine (dikonfirmasi
+         "Midtrans" genuinely 0 hasil di seluruh JavaScript proyek).
+         Teks diperbaiki agar genuinely akurat dengan alur sesungguhnya
+         -- metode pembayaran tetap ditampilkan sebagai opsi yang genuinely
+         akan dikoordinasikan via email, bukan diproses otomatis saat itu
+         juga. -->
+    <p style="font-size:13px;color:var(--ink-soft);margin-bottom:.5rem">Metode pembayaran di atas tersedia — tim kami akan mengoordinasikan pembayaran setelah kamu menghubungi via email.</p>
+    <p style="font-size:12px;color:var(--ink-faint)">Setelah pembayaran dikonfirmasi, akses Premium diaktifkan manual oleh tim kami. Garansi uang kembali 7 hari jika tidak puas.</p>
+  </div>
+</section>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="Materi/JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Materi/Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Materi/Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Materi/Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="FAQ.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+</body>
+</html>

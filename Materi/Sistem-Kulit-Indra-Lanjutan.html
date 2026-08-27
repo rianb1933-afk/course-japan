@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#500724">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>皮膚・感覚器系（上級）Kulit &amp; Indra Lanjutan — Luka Kompleks &amp; Kegawatan Mata untuk Calon Perawat | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Kulit dan Indra Lanjutan — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Kulit-Indra-Lanjutan.html","description":"Pembelajaran tingkat lanjutan sistem kulit dan indra dalam bahasa Jepang — luka kompleks, debridement, kegawatan mata akut, farmakologi mendalam, dan terminologi wound care-ICU untuk calon perawat dan tenaga medis.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Materi tingkat lanjutan sistem kulit dan indra — luka kompleks, kegawatan mata akut, farmakologi mendalam, dan prosedur dalam bahasa Jepang untuk calon perawat dan tenaga medis.">
+<meta property="og:title" content="皮膚・感覚器系（上級）Kulit &amp; Indra Lanjutan — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Luka kompleks, kegawatan mata akut, farmakologi mendalam, dan prosedur dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Kulit-Indra-Lanjutan.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#fdf2f8,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#500724;border-color:#500724;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#500724;background:#fdf2f8;border:1px solid #fbcfe8;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#500724;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#500724}
+.organ-tab.active{color:#500724;border-bottom-color:#500724}
+.organ-tab:focus-visible{outline:2px solid #500724;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #fdf2f8;color:#22010c}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#500724}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#fdf2f8;border-color:#fbcfe8}
+.info-card.scope{background:#f8fafc;border-color:#cbd5e1}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#fdf2f8;color:#500724;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #500724;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#500724}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.case-sim{background:var(--white,#fff);border:2px solid #fbcfe8;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#fdf2f8;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#500724;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Kulit-Indra.html">① 基礎 Dasar</a>
+      <a href="Sistem-Kulit-Indra-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Kulit-Indra-Lanjutan.html" class="current">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🖐️ Level Lanjutan — Luka Kompleks &amp; Kegawatan Mata</span>
+    <h1><span class="jp-big">皮膚・感覚器系（上級）</span>Kulit &amp; Indra Lanjutan</h1>
+    <p class="lead">Luka kompleks, debridement, kegawatan mata akut, dan farmakologi mendalam — untuk calon perawat, tenaga medis, dan pelajar bahasa Jepang tingkat teknis tertinggi.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi kulit indra lanjutan">
+  <button class="organ-tab active" data-tab="lukakompleks" role="tab" aria-selected="true">複雑創傷 Luka Kompleks</button>
+  <button class="organ-tab" data-tab="matadarurat" role="tab" aria-selected="false">眼科救急 Kegawatan Mata</button>
+  <button class="organ-tab" data-tab="selulitis" role="tab" aria-selected="false">蜂窩織炎 Infeksi Kulit Berat</button>
+  <button class="organ-tab" data-tab="farmakologi" role="tab" aria-selected="false">薬理詳細 Farmakologi</button>
+  <button class="organ-tab" data-tab="prosedur" role="tab" aria-selected="false">処置 Prosedur &amp; Alat</button>
+  <button class="organ-tab" data-tab="icu" role="tab" aria-selected="false">用語 Istilah Wound Care-ICU</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <div class="info-card scope">
+    <strong>Tentang materi tingkat lanjutan ini:</strong>
+    <p style="margin:6px 0 0">Konten ini menjelaskan KONSEP dan MEKANISME untuk tujuan edukasi bahasa dan pemahaman klinis dasar — BUKAN pengganti pendidikan keperawatan formal, protokol rumah sakit, atau panduan dosis obat. Angka/dosis spesifik sengaja tidak dicantumkan karena bervariasi menurut kondisi pasien dan kebijakan institusi; selalu ikuti pelatihan resmi dan protokol fasilitas.</p>
+  </div>
+
+  <!-- ═══════════ 複雑創傷 LUKA KOMPLEKS ═══════════ -->
+  <div class="organ-panel active" id="panel-lukakompleks">
+    <h2>複雑創傷 — Prinsip Penanganan Luka Kompleks</h2>
+    <p>Luka tekan Stadium III-IV (dibahas di level Menengah) atau luka kronis lain yang tidak kunjung sembuh sering membutuhkan pendekatan lebih kompleks dibanding perawatan luka dasar.</p>
+
+    <h3>Debridement (デブリードマン)</h3>
+    <p>Pengangkatan jaringan MATI/rusak (nekrotik) dari luka — jaringan nekrotik menghambat penyembuhan dan meningkatkan risiko infeksi, sehingga pengangkatannya penting untuk menciptakan kondisi optimal bagi jaringan sehat tumbuh. Ada beberapa pendekatan (bedah, enzimatik, mekanis) dipilih sesuai kondisi luka spesifik.</p>
+
+    <h3>Terapi tekanan negatif (陰圧閉鎖療法)</h3>
+    <p style="margin-bottom:0">Dikenal juga sebagai "wound vac" — alat yang menerapkan tekanan negatif terkontrol pada luka, membantu menarik cairan berlebih, merangsang aliran darah ke area luka, dan mendorong pertumbuhan jaringan baru. Dipertimbangkan pada luka kompleks tertentu yang tidak merespons baik terhadap perawatan konvensional saja.</p>
+  </div>
+
+  <!-- ═══════════ 眼科救急 KEGAWATAN MATA ═══════════ -->
+  <div class="organ-panel" id="panel-matadarurat">
+    <h2>眼科救急 — Kegawatan Mata Akut</h2>
+    <p>Berbeda dari katarak/presbiopia (perubahan bertahap, dibahas di level Dasar/Menengah), beberapa kondisi mata butuh evaluasi SEGERA karena berpotensi menyebabkan kehilangan penglihatan permanen jika terlambat ditangani.</p>
+
+    <h3>Glaukoma akut sudut tertutup (急性緑内障発作)</h3>
+    <p>Peningkatan tekanan dalam bola mata secara MENDADAK — berbeda dari glaukoma kronis (perkembangan bertahap, sering tanpa gejala jelas hingga lanjut), bentuk akut ini menyebabkan nyeri mata hebat, penglihatan kabur mendadak, mual, dan mata tampak merah — kondisi DARURAT yang bisa menyebabkan kebutaan permanen dalam hitungan JAM jika tidak ditangani.</p>
+
+    <h3>Ablasi retina (網膜剥離)</h3>
+    <p style="margin-bottom:0">Lapisan retina terlepas dari posisi normalnya — gejala klasik meliputi kilatan cahaya mendadak, "tirai" gelap yang bergerak menutupi sebagian penglihatan, atau peningkatan MENDADAK jumlah bintik/benang mengambang di penglihatan. Kondisi darurat yang butuh evaluasi/tindakan cepat karena keterlambatan bisa menyebabkan kehilangan penglihatan permanen di area yang terkena.</p>
+    <div class="info-card danger">
+      <p style="margin-bottom:0"><strong>Prinsip penting:</strong> perubahan penglihatan MENDADAK dengan gejala apapun yang disebutkan di atas (nyeri hebat, kilatan cahaya, "tirai" gelap) TIDAK BOLEH ditunggu — ini kategori berbeda dari penurunan penglihatan bertahap terkait katarak/presbiopia yang dibahas sebelumnya, dan butuh evaluasi mata darurat SEGERA.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 蜂窩織炎 INFEKSI KULIT BERAT ═══════════ -->
+  <div class="organ-panel" id="panel-selulitis">
+    <h2>蜂窩織炎 — Selulitis dan Infeksi Kulit Berat</h2>
+    <p>Infeksi bakteri pada lapisan kulit lebih dalam (dermis dan jaringan subkutan, dibahas di level Menengah) — sering masuk lewat luka kecil, celah kulit kering/pecah-pecah, atau luka tekan yang terinfeksi.</p>
+
+    <h3>Tanda yang membedakan dari peradangan biasa</h3>
+    <ul>
+      <li>Kemerahan yang MELUAS dengan batas tidak jelas (berbeda dari kemerahan luka tekan biasa yang lebih terlokalisir)</li>
+      <li>Kulit terasa hangat/panas, bengkak, nyeri tekan</li>
+      <li>Bisa disertai demam dan gejala sistemik pada kasus lebih berat</li>
+    </ul>
+    <p style="margin-bottom:0">Pada lansia, selulitis yang tidak tertangani berisiko berkembang jadi infeksi sistemik lebih serius (kaitan dengan sepsis, dibahas di materi Limfatik-Imun Lanjutan) — inilah kenapa area kemerahan yang MELUAS atau disertai gejala sistemik butuh evaluasi segera, bukan hanya dianggap iritasi kulit biasa.</p>
+  </div>
+
+  <!-- ═══════════ 薬理詳細 FARMAKOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-farmakologi">
+    <h2>薬理詳細 — Farmakologi Mendalam</h2>
+    <h3>Antibiotik topikal vs sistemik pada luka terinfeksi</h3>
+    <p>Untuk infeksi luka RINGAN yang terlokalisir, antibiotik topikal (dioleskan langsung) kadang cukup — tapi untuk infeksi yang lebih dalam atau meluas (seperti selulitis), antibiotik SISTEMIK (oral/injeksi) diperlukan karena topikal tidak bisa menjangkau jaringan lebih dalam secara efektif.</p>
+
+    <h3>Obat penurun tekanan mata darurat pada glaukoma akut</h3>
+    <p style="margin-bottom:0">Pada glaukoma akut sudut tertutup, obat yang cepat menurunkan tekanan dalam bola mata adalah bagian penting penanganan awal SEBELUM/BERSAMAAN dengan evaluasi lebih lanjut oleh spesialis mata — waktu sangat krusial mengingat risiko kerusakan permanen dalam hitungan jam.</p>
+
+    <h3>Analgesia pada luka kompleks kronis</h3>
+    <p style="margin-bottom:0">Perawatan luka kompleks (terutama saat penggantian balutan/debridement) bisa cukup nyeri — manajemen nyeri yang adekuat sebelum prosedur penting bukan hanya untuk kenyamanan, tapi juga membantu pasien lebih kooperatif selama proses perawatan yang mungkin perlu diulang berkali-kali.</p>
+  </div>
+
+  <!-- ═══════════ 処置 PROSEDUR & ALAT ═══════════ -->
+  <div class="organ-panel" id="panel-prosedur">
+    <h2>処置 — Prosedur &amp; Alat Perawatan Luka Lanjutan</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">創傷培養検査 (そうしょうばいようけんさ) — Kultur Luka</h3>
+      <p style="margin-bottom:0">Pengambilan sampel dari luka untuk mengidentifikasi bakteri penyebab infeksi, membantu memilih antibiotik yang tepat sasaran — terutama penting pada luka yang tidak merespons pengobatan awal atau tanda infeksi yang memburuk.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">エアマットレス — Kasur Anti-Dekubitus</h3>
+      <p style="margin-bottom:0">Kasur khusus yang secara aktif mendistribusikan/mengubah titik tekanan (bukan sekadar empuk) — dipertimbangkan pada pasien risiko tinggi luka tekan sebagai tambahan (bukan pengganti) perubahan posisi manual rutin.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">眼圧測定 — Pengukuran Tekanan Mata</h3>
+      <p style="margin-bottom:0">Pemeriksaan penting pada kecurigaan glaukoma (baik akut maupun kronis) — mengukur tekanan dalam bola mata untuk konfirmasi diagnosis dan pemantauan respons terapi.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 用語 ISTILAH WOUND CARE-ICU ═══════════ -->
+  <div class="organ-panel" id="panel-icu">
+    <h2>用語 — Terminologi Wound Care &amp; Kegawatan Sensorik</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">デブリードマン</td><td>でぶりーどまん</td><td>Debridement</td><td>Debridement</td></tr>
+        <tr><td class="jp">壊死組織除去</td><td>えしそしきじょきょ</td><td>Pengangkatan jaringan nekrotik</td><td>Necrotic tissue removal</td></tr>
+        <tr><td class="jp">陰圧閉鎖療法</td><td>いんあつへいさりょうほう</td><td>Terapi tekanan negatif (wound vac)</td><td>Negative pressure wound therapy</td></tr>
+        <tr><td class="jp">急性緑内障発作</td><td>きゅうせいりょくないしょうほっさ</td><td>Glaukoma akut sudut tertutup</td><td>Acute angle-closure glaucoma</td></tr>
+        <tr><td class="jp">眼圧</td><td>がんあつ</td><td>Tekanan intraokular</td><td>Intraocular pressure</td></tr>
+        <tr><td class="jp">網膜剥離</td><td>もうまくはくり</td><td>Ablasi retina</td><td>Retinal detachment</td></tr>
+        <tr><td class="jp">光視症</td><td>こうししょう</td><td>Melihat kilatan cahaya</td><td>Photopsia</td></tr>
+        <tr><td class="jp">飛蚊症</td><td>ひぶんしょう</td><td>Floaters (bintik mengambang)</td><td>Floaters</td></tr>
+        <tr><td class="jp">蜂窩織炎</td><td>ほうかしきえん</td><td>Selulitis</td><td>Cellulitis</td></tr>
+        <tr><td class="jp">境界不明瞭な発赤</td><td>きょうかいふめいりょうなほっせき</td><td>Kemerahan dengan batas tidak jelas</td><td>Poorly demarcated erythema</td></tr>
+        <tr><td class="jp">全身性感染徴候</td><td>ぜんしんせいかんせんちょうこう</td><td>Tanda infeksi sistemik</td><td>Systemic infection signs</td></tr>
+        <tr><td class="jp">創傷培養検査</td><td>そうしょうばいようけんさ</td><td>Kultur luka</td><td>Wound culture</td></tr>
+        <tr><td class="jp">エアマットレス</td><td>えあまっとれす</td><td>Kasur anti-dekubitus</td><td>Alternating pressure mattress</td></tr>
+        <tr><td class="jp">局所抗菌薬</td><td>きょくしょこうきんやく</td><td>Antibiotik topikal</td><td>Topical antibiotic</td></tr>
+        <tr><td class="jp">全身性抗菌薬</td><td>ぜんしんせいこうきんやく</td><td>Antibiotik sistemik</td><td>Systemic antibiotic</td></tr>
+        <tr><td class="jp">緊急眼科受診</td><td>きんきゅうがんかじゅしん</td><td>Konsultasi mata darurat</td><td>Emergency ophthalmology consult</td></tr>
+        <tr><td class="jp">処置時鎮痛</td><td>しょちじちんつう</td><td>Analgesia prosedural</td><td>Procedural analgesia</td></tr>
+        <tr><td class="jp">創治癒遅延</td><td>そうちゆちえん</td><td>Penyembuhan luka tertunda</td><td>Delayed wound healing</td></tr>
+        <tr><td class="jp">慢性創傷</td><td>まんせいそうしょう</td><td>Luka kronis</td><td>Chronic wound</td></tr>
+        <tr><td class="jp">視覚機能温存</td><td>しかくきのうおんぞん</td><td>Pelestarian fungsi penglihatan</td><td>Vision preservation</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis tingkat lanjut</h3>
+    <div class="clinical-sentence">
+      <div class="jp">壊死組織除去後、陰圧閉鎖療法を開始します。</div>
+      <div class="id">Setelah pengangkatan jaringan nekrotik, terapi tekanan negatif akan dimulai.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">突然の光視症と視野欠損があり、網膜剥離が疑われます。</div>
+      <div class="id">Ada kilatan cahaya mendadak dan gangguan lapang pandang, dicurigai ablasi retina.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">境界不明瞭な発赤の拡大があり、蜂窩織炎が疑われます。</div>
+      <div class="id">Ada perluasan kemerahan dengan batas tidak jelas, dicurigai selulitis.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis Tingkat Lanjutan</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia tiba-tiba melihat kilatan cahaya di satu mata, diikuti "tirai" gelap yang perlahan menutupi sebagian penglihatan di sisi yang sama. Tidak ada nyeri sama sekali. Keluarga menganggap ini "hanya kelelahan mata" karena tidak nyeri dan berencana menunggu sampai besok untuk melihat apakah membaik.
+      </div>
+      <div class="case-question">
+        <label>1. Kombinasi kilatan cahaya mendadak + "tirai" gelap yang menutupi penglihatan paling mengarah ke kemungkinan:</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Ablasi retina, kondisi darurat mata yang butuh evaluasi segera</option>
+          <option value="wrong">Kelelahan mata biasa yang akan membaik dengan istirahat</option>
+          <option value="wrong">Tanda normal proses penuaan mata seperti presbiopia</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Fakta bahwa TIDAK ADA nyeri sama sekali pada kondisi ini berarti:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">TIDAK menyingkirkan kegawatan -- ablasi retina sering TIDAK disertai nyeri, tapi tetap kondisi darurat</option>
+          <option value="wrong">Memastikan kondisi ini pasti tidak berbahaya</option>
+          <option value="wrong">Nyeri selalu menyertai semua kondisi mata serius</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan yang PALING tepat dalam situasi ini:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Menunggu sampai besok untuk melihat apakah membaik</option>
+          <option value="correct">Segera mencari evaluasi mata darurat, tanpa menunda</option>
+          <option value="wrong">Mengistirahatkan mata di ruangan gelap sebagai penanganan utama</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var MINI_Q = [
+    { q: 'Debridement bertujuan untuk?', opts: ['Mengangkat jaringan mati/nekrotik dari luka', 'Menambah tekanan pada luka', 'Mengeringkan luka secara paksa'], a: 0 },
+    { q: 'Terapi tekanan negatif (wound vac) bekerja dengan cara?', opts: ['Menerapkan tekanan negatif terkontrol untuk menarik cairan dan merangsang penyembuhan', 'Menambah tekanan positif pada luka', 'Menghangatkan luka secara langsung'], a: 0 },
+    { q: 'Glaukoma akut sudut tertutup berbeda dari glaukoma kronis karena?', opts: ['Terjadi mendadak dengan gejala berat, bisa sebabkan kebutaan dalam hitungan jam', 'Selalu berkembang bertahap tanpa gejala', 'Tidak pernah menjadi kondisi darurat'], a: 0 },
+    { q: 'Gejala klasik ablasi retina meliputi?', opts: ['Kilatan cahaya mendadak dan "tirai" gelap menutupi penglihatan', 'Selalu disertai nyeri hebat', 'Hanya penurunan penglihatan bertahap seperti katarak'], a: 0 },
+    { q: 'Selulitis dibedakan dari peradangan luka tekan biasa oleh?', opts: ['Kemerahan yang meluas dengan batas tidak jelas', 'Selalu terlokalisir dengan batas jelas', 'Tidak pernah disertai demam'], a: 0 },
+    { q: 'Kenapa infeksi kulit yang lebih dalam/meluas butuh antibiotik sistemik, bukan hanya topikal?', opts: ['Antibiotik topikal tidak bisa menjangkau jaringan lebih dalam secara efektif', 'Topikal selalu lebih efektif untuk semua jenis infeksi', 'Tidak ada perbedaan efektivitas antara keduanya'], a: 0 },
+    { q: 'Kasur anti-dekubitus (air mattress) berfungsi sebagai?', opts: ['Tambahan, bukan pengganti, perubahan posisi manual rutin', 'Pengganti penuh untuk semua tindakan perubahan posisi', 'Tidak memiliki fungsi klinis yang jelas'], a: 0 },
+    { q: 'Ablasi retina sering TIDAK disertai nyeri -- fakta ini berarti?', opts: ['Tidak menyingkirkan kegawatan kondisi tersebut', 'Memastikan kondisi tersebut pasti tidak berbahaya', 'Nyeri selalu menyertai kondisi mata serius'], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Kombinasi kilatan cahaya mendadak DAN "tirai" gelap yang menutupi penglihatan adalah pola klasik ABLASI RETINA -- kondisi darurat mata yang butuh evaluasi segera. Ketiadaan nyeri TIDAK menyingkirkan kegawatan -- ablasi retina memang sering TIDAK disertai nyeri, berbeda dari intuisi umum "kalau tidak sakit berarti tidak serius". Menunggu sampai besok BERISIKO karena keterlambatan bisa menyebabkan kehilangan penglihatan PERMANEN di area yang terkena. Tindakan tepat: SEGERA mencari evaluasi mata darurat, tanpa menunda.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: kilatan cahaya mendadak diikuti "tirai" gelap menutupi penglihatan adalah tanda ablasi retina -- kondisi darurat meski TANPA nyeri, yang butuh evaluasi segera, bukan ditunggu.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

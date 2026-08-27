@@ -1,0 +1,282 @@
+
+# ══════════════════════════════════════════════════════════════════════════════
+# ENVIRONMENT VARIABLES — WAJIB diset di Netlify Dashboard
+# Site settings → Environment variables → Add variable
+# ══════════════════════════════════════════════════════════════════════════════
+#
+# [CRITICAL — Live Classroom]
+#
+#   PEERJS_HOST        = your-peerserver.domain.com
+#                        (kosong = public 0.peerjs.com, TIDAK untuk produksi)
+#                        Setup: https://github.com/peers/peerjs-server
+#
+#   TURN_URL           = turn:global.relay.metered.ca:80
+#   TURN_URL_TCP       = turn:global.relay.metered.ca:80?transport=tcp
+#   TURN_URL_TLS       = turns:global.relay.metered.ca:443?transport=tcp
+#   TURN_USERNAME      = (dari metered.ca atau TURN server sendiri)
+#   TURN_CREDENTIAL    = (password TURN server)
+#                        Free TURN: https://www.metered.ca/tools/openrelay/
+#                        2GB/bulan gratis. Untuk produksi pakai self-hosted.
+#
+# [AI / Claude]
+#   ANTHROPIC_API_KEY  = sk-ant-api03-...
+#                        Dari: https://console.anthropic.com/
+#
+# [Supabase Database]
+#   EDUMA_SUPABASE_URL      = https://xxxx.supabase.co
+#   EDUMA_SUPABASE_ANON_KEY = eyJ...
+#                             Dari: Supabase Dashboard → Settings → API
+#                             Jalankan supabase-schema.sql setelah setup!
+#
+#   [Server-side only — untuk serverless function ai-chat]
+#   SUPABASE_URL            = https://xxxx.supabase.co  (sama dgn di atas, tanpa prefix EDUMA_)
+#   SUPABASE_ANON_KEY       = eyJ...  (untuk validasi JWT premium user)
+#   SUPABASE_SERVICE_KEY    = eyJ...  (OPSIONAL — untuk rate-limit store server-side)
+#                             Dari: Supabase Dashboard → Settings → API → service_role key
+#                             ⚠️ RAHASIA — jangan pernah expose ke client!
+#
+# [Optional]
+#   EDUMA_GA_MEASUREMENT_ID = G-XXXXXXXXXX  (Google Analytics)
+#   EDUMA_EMAILJS_PUBLIC_KEY = (EmailJS untuk contact form)
+#   EDUMA_AI_API_ENDPOINT   = /api/ai-chat  (default, tidak perlu diubah)
+#
+# ══════════════════════════════════════════════════════════════════════════════
+# ═══════════════════════════════════════════════════════════
+# netlify.toml — NihongoPro / Eduma Kaigo
+# Deploy ke Netlify: drag-drop folder atau connect git repo
+# ═══════════════════════════════════════════════════════════
+
+[build]
+  publish = "."
+  command = "npm ci"
+  functions = "netlify/functions"
+
+# ── Environment Variables (WAJIB diisi di Netlify Dashboard) ──────────
+# Site settings → Environment variables → Add variable
+#
+# [build.environment]
+#   ANTHROPIC_API_KEY   = "sk-ant-..."        # dari console.anthropic.com
+#   OPENAI_API_KEY      = "sk-..."            # opsional, fallback AI
+#   GEMINI_API_KEY      = "AI..."             # opsional, fallback AI
+#   EDUMA_SUPABASE_URL      = "https://xxx.supabase.co"
+#   EDUMA_SUPABASE_ANON_KEY = "eyJ..."
+#   EDUMA_GA_MEASUREMENT_ID = "G-XXXXXXXXXX" # dari analytics.google.com
+
+# ── Security Headers ─────────────────────────────────────────────────
+# CSP v179: diperketat dari "default-src https:" (mengizinkan HAMPIR SEMUA
+# domain HTTPS) ke whitelist domain yang genuinely dipakai (diverifikasi
+# via grep terhadap seluruh 337 halaman + assets/*.js, bukan asumsi).
+#
+# unsafe-eval DIHAPUS -- diverifikasi 0 pemakaian eval()/new Function()/WASM
+# di seluruh kode (grep menyeluruh, bukan asumsi).
+#
+# unsafe-inline TETAP DIPERTAHANKAN untuk script-src & style-src --
+# 333/337 halaman punya inline <script>, 331/337 punya inline style="" atau
+# <style>. Solusi "benar" (hash-based CSP per-halaman, karena situs statis
+# multi-halaman ini tidak bisa pakai nonce yang butuh generate ulang tiap
+# request) butuh audit + hashing SHA-256 tiap file, lalu header CSP UNIK
+# per path (netlify.toml [[headers]] for="/*" tidak bisa expose hash
+# per-halaman). Ini migrasi arsitektur terpisah, sengaja TIDAK dipaksakan
+# sekarang -- lihat CHANGELOG v179 untuk detail kenapa.
+#
+# Domain wildcard (*.supabase.co, *.livekit.cloud, *.metered.ca) dipakai
+# karena URL sebenarnya adalah ENV VAR yang diisi Anda saat deploy
+# (EDUMA_SUPABASE_URL, LIVEKIT_URL, TURN_URL) -- tidak diketahui di build
+# time, sehingga tidak bisa di-hardcode ke domain persis.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options              = "SAMEORIGIN"
+    X-Content-Type-Options       = "nosniff"
+    X-XSS-Protection             = "1; mode=block"
+    Referrer-Policy              = "strict-origin-when-cross-origin"
+    Permissions-Policy           = "camera=(self), microphone=(self), geolocation=()"
+    Content-Security-Policy      = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://plausible.io https://app.midtrans.com https://app.sandbox.midtrans.com https://www.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: blob: https:; media-src 'self' blob: data: https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://api.anthropic.com https://api.openai.com https://generativelanguage.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://plausible.io https://app.midtrans.com https://app.sandbox.midtrans.com wss://*.livekit.cloud https://*.livekit.cloud wss://*.metered.ca stun: turn: turns: https://0.peerjs.com wss://0.peerjs.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com; frame-src 'self' https://app.midtrans.com https://app.sandbox.midtrans.com; worker-src 'self' blob:; base-uri 'self'; form-action 'self' https://app.midtrans.com;"
+    Cross-Origin-Opener-Policy   = "same-origin-allow-popups"
+    Cross-Origin-Embedder-Policy = "unsafe-none"
+
+# ── Kelas Online Live — override CSP: butuh media-src/connect-src lebih
+# permisif untuk WebRTC mesh (PeerJS) + kamera/mikrofon/screen-share.
+# Dipindah dari _headers ke sini supaya CSP hanya punya SATU sumber
+# kebenaran (sebelumnya terduplikasi di 2 file dengan nilai BERBEDA,
+# _headers-nya bahkan lebih longgar dari netlify.toml -- risiko salah satu
+# diedit tanpa yang lain, drift tak disadari).
+[[headers]]
+  for = "/Kelas-Online.html"
+  [headers.values]
+    Permissions-Policy      = "camera=(self), microphone=(self), display-capture=(self), fullscreen=(self)"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://plausible.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; media-src 'self' blob: data: mediastream: https://*.supabase.co; connect-src 'self' https://*.supabase.co wss://*.supabase.co https://www.googletagmanager.com https://plausible.io wss://*.livekit.cloud https://*.livekit.cloud wss://*.metered.ca https://*.metered.ca stun: turn: turns: https://0.peerjs.com wss://0.peerjs.com https://*.peerjs.com wss://*.peerjs.com; worker-src 'self' blob:; base-uri 'self'; form-action 'self';"
+
+# ── Cache: Service Worker ─────────────────────────────────────────────
+[[headers]]
+  for = "/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[headers]]
+  for = "/service-worker.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# ── Cache: Static Assets (CSS/JS — immutable karena punya hash/version) ─
+[[headers]]
+  for = "/assets/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*.min.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/assets/*.min.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# ── Cache: env.js (JANGAN cache — berisi konfigurasi dinamis) ─────────
+[[headers]]
+  for = "/assets/env.js"
+  [headers.values]
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+# ── Cache: CSV vocab ──────────────────────────────────────────────────
+[[headers]]
+  for = "/assets/vocab-all.csv"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# ── API: Serverless functions ─────────────────────────────────────────
+# PENTING: setiap file di netlify/functions/ butuh baris eksplisit di sini
+# (atau di _redirects) -- Netlify TIDAK otomatis mengekspos /api/<nama>,
+# hanya /.netlify/functions/<nama> secara default. create-payment,
+# payment-webhook, livekit-token, admin-login sebelumnya tidak terdaftar
+# di sini maupun _redirects -- akan 404 di production tanpa baris ini.
+[[redirects]]
+  from   = "/api/ai-chat"
+  to     = "/.netlify/functions/ai-chat"
+  status = 200
+
+[[redirects]]
+  from   = "/api/create-payment"
+  to     = "/.netlify/functions/create-payment"
+  status = 200
+
+[[redirects]]
+  from   = "/api/payment-webhook"
+  to     = "/.netlify/functions/payment-webhook"
+  status = 200
+
+[[redirects]]
+  from   = "/api/livekit-token"
+  to     = "/.netlify/functions/livekit-token"
+  status = 200
+
+[[redirects]]
+  from   = "/api/admin-login"
+  to     = "/.netlify/functions/admin-login"
+  status = 200
+
+[[redirects]]
+  from   = "/api/blog-cms"
+  to     = "/.netlify/functions/blog-cms"
+  status = 200
+
+[[redirects]]
+  from   = "/api/jlpt-cms"
+  to     = "/.netlify/functions/jlpt-cms"
+  status = 200
+
+# ── URL Shortcuts (SEO-friendly) ────────────────────────────────────
+[[redirects]]
+  from = "/dashboard"
+  to   = "/Dashboard/Dashboard.html"
+  status = 301
+
+[[redirects]]
+  from = "/ai-tutor"
+  to   = "/AI-Tutor-Pro.html"
+  status = 301
+
+[[redirects]]
+  from = "/cbt"
+  to   = "/JLPT-CBT.html"
+  status = 301
+
+[[redirects]]
+  from = "/srs"
+  to   = "/SRS-Flashcard.html"
+  status = 301
+
+[[redirects]]
+  from = "/kaigo"
+  to   = "/Kaigo-Simulator.html"
+  status = 301
+
+[[redirects]]
+  from = "/pricing"
+  to   = "/Pricing-Pro.html"
+  status = 301
+
+[[redirects]]
+  from = "/sertifikat"
+  to   = "/Certificate-Pro.html"
+  status = 301
+
+[[redirects]]
+  from = "/quiz"
+  to   = "/QUIZ/nihongo-pro.html"
+  status = 301
+
+[[redirects]]
+  from = "/grammar"
+  to   = "/Materi/Grammar-Lengkap.html"
+  status = 301
+
+[[redirects]]
+  from = "/kanji"
+  to   = "/Materi/Kanji-N5.html"
+  status = 301
+
+[[redirects]]
+  from = "/vocab"
+  to   = "/Materi/Vocabulary-Lengkap.html"
+  status = 301
+
+[[redirects]]
+  from = "/akun"
+  to   = "/Akun.html"
+  status = 301
+
+# ── Halaman usang -- digantikan fitur yang lebih baru ──────────────────
+# GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Kelima, Fase U):
+# Progress.html dikonfirmasi genuinely orphan (tidak ditautkan dari
+# manapun di seluruh proyek) dan genuinely halaman statis usang --
+# hanya kartu deskriptif tanpa logic data nyata (XP/streak/analitik),
+# digantikan sepenuhnya oleh Dashboard/Dashboard.html yang jauh lebih
+# fungsional. Redirect 301 (bukan hapus file) untuk mengamankan
+# bookmark/link eksternal yang mungkin masih mengarah ke URL lama.
+[[redirects]]
+  from   = "/Progress.html"
+  to     = "/Dashboard/Dashboard.html"
+  status = 301
+
+# GENUINELY DITAMBAHKAN (Fase BB, Audit Kebersihan Konten): Verify.html
+# dikonfirmasi genuinely orphan total (0 link masuk dari manapun di
+# seluruh proyek), digantikan Certificate-Verify.html yang genuinely
+# aktif dipakai sistem sertifikat (ditautkan dari Certificate-Pro.html
+# sebagai URL verifikasi resmi publik "nihonggopro.id/verify"). Judul
+# halaman genuinely identik ("Verifikasi Sertifikat — Nihonggo Pro
+# Academy") mengonfirmasi kedua halaman genuinely fungsi yang sama,
+# dengan Certificate-Verify.html genuinely lebih lengkap (214 vs 102
+# baris). Redirect 301 mengamankan bookmark/link eksternal lama.
+[[redirects]]
+  from   = "/Verify.html"
+  to     = "/Certificate-Verify.html"
+  status = 301
+
+# ── 404 Fallback ──────────────────────────────────────────────────────
+[[redirects]]
+  from   = "/*"
+  to     = "/404.html"
+  status = 404

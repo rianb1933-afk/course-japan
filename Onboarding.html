@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<script src="assets/dark-mode-toggle.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Selamat Datang di Nihonggo Pro Academy — Mulai Belajar Bahasa Jepang</title>
+<meta property="og:title" content="Mulai Belajar Bahasa Jepang — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Setup rencana belajar personal dalam 2 menit. Pilih tujuan, level, dan jadwal belajarmu.">
+<meta property="og:url" content="https://nihonggopro.id/Onboarding.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Onboarding Nihonggo Pro Academy", "url": "https://nihonggopro.id/Onboarding.html", "description": "Setup rencana belajar bahasa Jepang personal di NihonggoPro."}</script>
+<meta name="description" content="Mulai perjalanan belajar bahasa Jepang Anda. Tes level, pilih tujuan, dan dapatkan rencana belajar personal dari NihonggoPro.">
+<link rel="canonical" href="https://nihonggopro.id/Onboarding.html">
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:#F8F3E9;color:#2D2D2D;min-height:100dvh;display:flex;flex-direction:column}
+[data-theme="dark"] body{background:#0F0F0F;color:#E8E5DF}
+.ob-wrap{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 20px;min-height:calc(100dvh - 64px)}
+/* PROGRESS BAR */
+.ob-progress{width:100%;max-width:480px;margin-bottom:32px}
+.ob-prog-bar{height:4px;background:rgba(107,79,58,.12);border-radius:2px;overflow:hidden;margin-bottom:8px}
+.ob-prog-fill{height:100%;background:#6B4F3A;border-radius:2px;transition:width 400ms cubic-bezier(0.4,0,0.2,1)}
+[data-theme="dark"] .ob-prog-fill{background:#C89B3C}
+.ob-prog-label{font-size:12px;color:#A0A0A0;text-align:right}
+/* CARD */
+.ob-card{width:100%;max-width:480px;background:#FEFCF8;border:1px solid rgba(107,79,58,.12);border-radius:20px;padding:36px;box-shadow:0 8px 40px rgba(107,79,58,.10)}
+[data-theme="dark"] .ob-card{background:#1A1A1A;border-color:rgba(200,155,60,.12);box-shadow:0 8px 40px rgba(0,0,0,.4)}
+.ob-step{display:none;animation:fadeSlide 300ms ease both}
+.ob-step.active{display:block}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.ob-emoji{font-size:44px;margin-bottom:14px;display:block;text-align:center}
+.ob-title{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:700;color:#6B4F3A;text-align:center;margin-bottom:8px;line-height:1.3}
+[data-theme="dark"] .ob-title{color:#C89B3C}
+.ob-sub{font-size:14px;color:#6E6E6E;text-align:center;line-height:1.65;margin-bottom:24px}
+/* OPTIONS */
+.ob-options{display:flex;flex-direction:column;gap:10px;margin-bottom:24px}
+.ob-opt{display:flex;align-items:center;gap:14px;padding:14px 16px;border:1.5px solid rgba(107,79,58,.14);border-radius:12px;cursor:pointer;transition:all 140ms;background:none;width:100%;text-align:left;font-family:inherit}
+.ob-opt:hover{border-color:#6B4F3A;background:rgba(107,79,58,.04)}
+.ob-opt.selected{border-color:#6B4F3A;background:rgba(107,79,58,.07)}
+[data-theme="dark"] .ob-opt{border-color:rgba(200,155,60,.15)}
+[data-theme="dark"] .ob-opt:hover{border-color:#C89B3C;background:rgba(200,155,60,.06)}
+[data-theme="dark"] .ob-opt.selected{border-color:#C89B3C;background:rgba(200,155,60,.10)}
+.ob-opt-icon{font-size:22px;width:40px;height:40px;border-radius:10px;background:rgba(107,79,58,.07);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+[data-theme="dark"] .ob-opt-icon{background:rgba(200,155,60,.08)}
+.ob-opt-label{font-size:14px;font-weight:600;color:#2D2D2D;display:block;margin-bottom:2px}
+[data-theme="dark"] .ob-opt-label{color:#E8E5DF}
+.ob-opt-sub{font-size:12px;color:#6E6E6E}
+.ob-check{margin-left:auto;font-size:18px;opacity:0;transition:opacity 140ms;color:#6B4F3A}
+[data-theme="dark"] .ob-check{color:#C89B3C}
+.ob-opt.selected .ob-check{opacity:1}
+/* GRID OPTIONS */
+.ob-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px}
+.ob-grid-opt{display:flex;flex-direction:column;align-items:center;gap:8px;padding:18px 12px;border:1.5px solid rgba(107,79,58,.14);border-radius:12px;cursor:pointer;transition:all 140ms;background:none;font-family:inherit;text-align:center}
+.ob-grid-opt:hover{border-color:#6B4F3A;background:rgba(107,79,58,.04)}
+.ob-grid-opt.selected{border-color:#6B4F3A;background:rgba(107,79,58,.07)}
+[data-theme="dark"] .ob-grid-opt{border-color:rgba(200,155,60,.15)}
+[data-theme="dark"] .ob-grid-opt.selected{border-color:#C89B3C;background:rgba(200,155,60,.10)}
+.ob-grid-emoji{font-size:28px}
+.ob-grid-label{font-size:13px;font-weight:700;color:#2D2D2D}
+[data-theme="dark"] .ob-grid-label{color:#E8E5DF}
+.ob-grid-sub{font-size:11px;color:#6E6E6E}
+/* BUTTONS */
+.ob-btn-row{display:flex;gap:10px;margin-top:4px}
+.ob-btn{flex:1;padding:13px;border-radius:11px;border:none;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;transition:all 130ms}
+.ob-btn.primary{background:#6B4F3A;color:#FEF;box-shadow:0 2px 8px rgba(107,79,58,.20)}
+.ob-btn.primary:hover{background:#553C2B}
+.ob-btn.primary:disabled{opacity:.5;cursor:not-allowed}
+[data-theme="dark"] .ob-btn.primary{background:#C89B3C;color:#1A1209}
+.ob-btn.ghost{background:rgba(107,79,58,.07);color:#6B4F3A;border:1px solid rgba(107,79,58,.18)}
+.ob-btn.ghost:hover{background:rgba(107,79,58,.12)}
+[data-theme="dark"] .ob-btn.ghost{background:rgba(200,155,60,.07);color:#C89B3C;border-color:rgba(200,155,60,.20)}
+/* RESULT */
+.ob-result-card{background:rgba(107,79,58,.06);border-radius:12px;padding:20px;margin-bottom:20px}
+[data-theme="dark"] .ob-result-card{background:rgba(200,155,60,.06)}
+.ob-result-title{font-size:13px;font-weight:700;color:#6B4F3A;letter-spacing:.05em;text-transform:uppercase;margin-bottom:12px}
+[data-theme="dark"] .ob-result-title{color:#C89B3C}
+.ob-result-item{display:flex;gap:10px;font-size:14px;color:#4A4A4A;margin-bottom:8px;align-items:flex-start}
+[data-theme="dark"] .ob-result-item{color:#C8C5BF}
+.ob-result-dot{width:6px;height:6px;border-radius:50%;background:#6B4F3A;margin-top:7px;flex-shrink:0}
+[data-theme="dark"] .ob-result-dot{background:#C89B3C}
+.ob-skip{text-align:center;margin-top:16px;font-size:12px;color:#A0A0A0}
+.ob-skip a{color:#6B4F3A;text-decoration:none;font-weight:600}
+[data-theme="dark"] .ob-skip a{color:#C89B3C}
+</style>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Selamat Datang di Nihonggo Pro Academy — Mulai Belajar Bahasa Jepang">
+<meta name="twitter:description" content="Mulai perjalanan belajar bahasa Jepang Anda. Tes level, pilih tujuan, dan dapatkan rencana belajar personal dari NihonggoPro.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">Selamat Datang di Nihonggo Pro Academy</h1>
+
+<div class="ob-wrap">
+  <!-- PROGRESS -->
+  <div class="ob-progress">
+    <div class="ob-prog-bar"><div class="ob-prog-fill" id="obProgFill" style="width:20%"></div></div>
+    <div class="ob-prog-label" id="obProgLabel">Langkah 1 dari 5</div>
+  </div>
+
+  <!-- CARD -->
+  <div class="ob-card">
+
+    <!-- STEP 1: Selamat datang -->
+    <div class="ob-step active" id="step1">
+      <span class="ob-emoji">🌸</span>
+      <div class="ob-title">Selamat Datang di<br>Nihonggo Pro Academy!</div>
+      <div class="ob-sub">Kami akan membantu kamu membuat rencana belajar yang personal dalam 2 menit. Yuk mulai!</div>
+      <div class="ob-btn-row">
+        <button class="ob-btn primary" onclick="goStep(2)">Mulai Setup →</button>
+      </div>
+      <div class="ob-skip"><a href="/Dashboard/Dashboard.html">Lewati, langsung ke Dashboard</a></div>
+    </div>
+
+    <!-- STEP 2: Tujuan belajar -->
+    <div class="ob-step" id="step2">
+      <span class="ob-emoji">🎯</span>
+      <div class="ob-title">Apa tujuan utama<br>kamu belajar Jepang?</div>
+      <div class="ob-sub">Pilih yang paling sesuai — rencana belajarmu akan disesuaikan.</div>
+      <div class="ob-options" id="goalOptions">
+        <button class="ob-opt" data-val="jlpt" onclick="selectOpt(this,'goal')">
+          <span class="ob-opt-icon">🏆</span>
+          <span><span class="ob-opt-label">Lulus ujian JLPT</span><span class="ob-opt-sub">N5, N4, N3, N2, atau N1</span></span>
+          <span class="ob-check">✓</span>
+        </button>
+        <button class="ob-opt" data-val="kaigo" onclick="selectOpt(this,'goal')">
+          <span class="ob-opt-icon">🏥</span>
+          <span><span class="ob-opt-label">Kerja di bidang Kaigo 介護</span><span class="ob-opt-sub">Perawat, pengasuh lansia Jepang</span></span>
+          <span class="ob-check">✓</span>
+        </button>
+        <button class="ob-opt" data-val="conversation" onclick="selectOpt(this,'goal')">
+          <span class="ob-opt-icon">💬</span>
+          <span><span class="ob-opt-label">Percakapan sehari-hari</span><span class="ob-opt-sub">Ngobrol, travel, nonton anime</span></span>
+          <span class="ob-check">✓</span>
+        </button>
+        <button class="ob-opt" data-val="work" onclick="selectOpt(this,'goal')">
+          <span class="ob-opt-icon">💼</span>
+          <span><span class="ob-opt-label">Kebutuhan profesional/kerja</span><span class="ob-opt-sub">Bisnis, email, rapat</span></span>
+          <span class="ob-check">✓</span>
+        </button>
+      </div>
+      <div class="ob-btn-row">
+        <button class="ob-btn ghost" onclick="goStep(1)">← Kembali</button>
+        <button class="ob-btn primary" id="step2next" disabled onclick="goStep(3)">Lanjut →</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Level saat ini -->
+    <div class="ob-step" id="step3">
+      <span class="ob-emoji">📊</span>
+      <div class="ob-title">Seberapa jauh kamu<br>sudah belajar Jepang?</div>
+      <div class="ob-sub">Jujur aja — ini untuk menentukan titik mulai yang tepat.</div>
+      <div class="ob-grid" id="levelOptions">
+        <button class="ob-grid-opt" data-val="zero" onclick="selectGrid(this,'level')">
+          <span class="ob-grid-emoji">🐣</span>
+          <span class="ob-grid-label">Belum sama sekali</span>
+          <span class="ob-grid-sub">Baru mau mulai</span>
+        </button>
+        <button class="ob-grid-opt" data-val="N5" onclick="selectGrid(this,'level')">
+          <span class="ob-grid-emoji">🌱</span>
+          <span class="ob-grid-label">Sedikit dasar</span>
+          <span class="ob-grid-sub">Tahu hiragana/katakana</span>
+        </button>
+        <button class="ob-grid-opt" data-val="N4" onclick="selectGrid(this,'level')">
+          <span class="ob-grid-emoji">🌿</span>
+          <span class="ob-grid-label">Pemula N4–N3</span>
+          <span class="ob-grid-sub">Sudah paham dasar grammar</span>
+        </button>
+        <button class="ob-grid-opt" data-val="N2" onclick="selectGrid(this,'level')">
+          <span class="ob-grid-emoji">🌳</span>
+          <span class="ob-grid-label">Menengah N2–N1</span>
+          <span class="ob-grid-sub">Bisa baca artikel sederhana</span>
+        </button>
+      </div>
+      <div class="ob-btn-row">
+        <button class="ob-btn ghost" onclick="goStep(2)">← Kembali</button>
+        <button class="ob-btn primary" id="step3next" disabled onclick="goStep(4)">Lanjut →</button>
+      </div>
+    </div>
+
+    <!-- STEP 4: Waktu belajar -->
+    <div class="ob-step" id="step4">
+      <span class="ob-emoji">⏰</span>
+      <div class="ob-title">Berapa menit sehari<br>kamu bisa belajar?</div>
+      <div class="ob-sub">Konsistensi lebih penting dari durasi. 10 menit sehari lebih baik dari 2 jam seminggu sekali.</div>
+      <div class="ob-options" id="timeOptions">
+        <button class="ob-opt" data-val="10" onclick="selectOpt(this,'time')">
+          <span class="ob-opt-icon">⚡</span>
+          <span><span class="ob-opt-label">10–15 menit</span><span class="ob-opt-sub">Santai, cocok untuk pemula</span></span>
+          <span class="ob-check">✓</span>
+        </button>
+        <button class="ob-opt" data-val="30" onclick="selectOpt(this,'time')">
+          <span class="ob-opt-icon">🔥</span>
+          <span><span class="ob-opt-label">30 menit</span><span class="ob-opt-sub">Standar, progress stabil</span></span>
+          <span class="ob-check">✓</span>
+        </button>
+        <button class="ob-opt" data-val="60" onclick="selectOpt(this,'time')">
+          <span class="ob-opt-icon">💪</span>
+          <span><span class="ob-opt-label">1 jam atau lebih</span><span class="ob-opt-sub">Intensif, progress cepat</span></span>
+          <span class="ob-check">✓</span>
+        </button>
+      </div>
+      <div class="ob-btn-row">
+        <button class="ob-btn ghost" onclick="goStep(3)">← Kembali</button>
+        <button class="ob-btn primary" id="step4next" disabled onclick="goStep(5)">Lihat Rekomendasi →</button>
+      </div>
+    </div>
+
+    <!-- STEP 5: Hasil & rekomendasi -->
+    <div class="ob-step" id="step5">
+      <span class="ob-emoji">🎌</span>
+      <div class="ob-title">Rencana Belajarmu<br>Sudah Siap!</div>
+      <div class="ob-sub">Berdasarkan jawabanmu, berikut rekomendasi jalur belajar terbaik untukmu.</div>
+      <div class="ob-result-card">
+        <div class="ob-result-title">📚 Mulai Dari Sini</div>
+        <div id="ob-recommendations"></div>
+      </div>
+      <div class="ob-btn-row">
+        <button class="ob-btn primary" onclick="finishOnboarding()">Mulai Belajar Sekarang! 🚀</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script>
+var onboardData = { goal: null, level: null, time: null };
+var currentStep = 1;
+var totalSteps = 5;
+
+function goStep(n) {
+  document.getElementById('step' + currentStep).classList.remove('active');
+  currentStep = n;
+  document.getElementById('step' + n).classList.add('active');
+  var pct = Math.round((n / totalSteps) * 100);
+  document.getElementById('obProgFill').style.width = pct + '%';
+  document.getElementById('obProgLabel').textContent = 'Langkah ' + n + ' dari ' + totalSteps;
+  if (n === 5) buildRecommendations();
+}
+
+function selectOpt(el, key) {
+  el.closest('.ob-options, .ob-step').querySelectorAll('.ob-opt').forEach(function(b) { b.classList.remove('selected'); });
+  el.classList.add('selected');
+  onboardData[key] = el.dataset.val;
+  var nextBtn = document.getElementById('step' + currentStep + 'next');
+  if (nextBtn) nextBtn.disabled = false;
+}
+
+function selectGrid(el, key) {
+  el.closest('.ob-grid').querySelectorAll('.ob-grid-opt').forEach(function(b) { b.classList.remove('selected'); });
+  el.classList.add('selected');
+  onboardData[key] = el.dataset.val;
+  var nextBtn = document.getElementById('step' + currentStep + 'next');
+  if (nextBtn) nextBtn.disabled = false;
+}
+
+var RECOMMENDATIONS = {
+  jlpt: {
+    zero: [
+      { url: '/Materi/Fondasi-Bahasa-Jepang.html', text: 'Fondasi Bahasa Jepang (Hiragana, Katakana, Partikel Dasar)' },
+      { url: '/Materi/Kanji-N5.html', text: 'Kanji N5 — 80 kanji wajib' },
+      { url: '/SRS-Flashcard.html', text: 'SRS Flashcard — hafal kosakata N5' },
+      { url: '/Materi/Rencana-Belajar-JLPT.html', text: 'Rencana Belajar JLPT N5 (12 minggu)' },
+    ],
+    N5: [{ url: '/Materi/Kanji-N5.html', text: 'Review Kanji N5' }, { url: '/JLPT-CBT.html', text: 'Latihan soal CBT N5' }, { url: '/Materi/Grammar-Lengkap.html', text: 'Grammar N5 lengkap' }],
+    N4: [{ url: '/Materi/Kanji-N4.html', text: 'Kanji N4' }, { url: '/JLPT-CBT.html', text: 'CBT Simulator N4' }, { url: '/Materi/Strategi-Ujian-JLPT.html', text: 'Strategi lulus JLPT' }],
+    N2: [{ url: '/Materi/Kanji-N2.html', text: 'Kanji N2' }, { url: '/JLPT-CBT.html', text: 'CBT Simulator N2' }, { url: '/Materi/Kesalahan-Umum-JLPT.html', text: 'Kesalahan umum JLPT N2' }],
+  },
+  kaigo: {
+    zero: [{ url: '/Materi/Fondasi-Bahasa-Jepang.html', text: 'Fondasi Bahasa Jepang' }, { url: '/Materi/Kaigo-Bahasa.html', text: 'Bahasa Kaigo dasar' }, { url: '/Kaigo-Simulator.html', text: 'Kaigo Simulator — latihan skenario' }],
+    N5: [{ url: '/Materi/Kaigo-Bahasa.html', text: 'Bahasa Kaigo' }, { url: '/Materi/Kaigo-Prosedur.html', text: 'Prosedur kaigo' }, { url: '/Kaigo-Simulator.html', text: 'Simulasi skenario kaigo' }],
+    N4: [{ url: '/Materi/Kaigo-Fukushishi-Overview.html', text: 'Kaigo Fukushishi' }, { url: '/Materi/Kaigo-Ujian-Nasional.html', text: 'Persiapan Ujian Nasional' }, { url: '/AI-Kaiwa.html', text: 'Latihan percakapan AI kaigo' }],
+    N2: [{ url: '/Materi/Keigo-Fukushishi.html', text: 'Keigo Fukushishi lanjut' }, { url: '/Materi/Kaigo-Ujian-Nasional.html', text: 'Ujian Nasional 国家試験' }, { url: '/AI-Sensei.html', text: 'AI Sensei — role play kaigo' }],
+  },
+  conversation: {
+    zero: [{ url: '/Materi/Fondasi-Bahasa-Jepang.html', text: 'Fondasi: Hiragana & Katakana' }, { url: '/AI-Kaiwa.html', text: 'AI Kaiwa — percakapan santai' }, { url: '/Pronunciation.html', text: 'Pelafalan dasar Jepang' }],
+    N5: [{ url: '/AI-Kaiwa.html', text: 'AI Kaiwa — latihan percakapan' }, { url: '/Materi/Ungkapan-Natural.html', text: 'Ungkapan natural Jepang' }, { url: '/AI-Sensei.html', text: 'AI Sensei — tutor interaktif' }],
+    N4: [{ url: '/Materi/Ungkapan-Natural.html', text: 'Ungkapan natural' }, { url: '/AI-Kaiwa.html', text: 'Percakapan level N4' }, { url: '/Materi/Keigo-Bisnis.html', text: 'Keigo bisnis & formal' }],
+    N2: [{ url: '/AI-Sensei.html', text: 'Percakapan bebas dengan AI Sensei' }, { url: '/Materi/Keigo-Bisnis.html', text: 'Keigo profesional' }, { url: '/Grammar-Checker.html', text: 'Grammar Checker — koreksi tulisan' }],
+  },
+  work: {
+    zero: [{ url: '/Materi/Fondasi-Bahasa-Jepang.html', text: 'Fondasi Bahasa Jepang' }, { url: '/Materi/Keigo-Bisnis.html', text: 'Keigo bisnis' }, { url: '/AI-Kaiwa.html', text: 'Latihan percakapan bisnis' }],
+    N5: [{ url: '/Materi/Keigo-Bisnis.html', text: 'Keigo bisnis & formal' }, { url: '/Grammar-Checker.html', text: 'Grammar Checker email Jepang' }, { url: '/AI-Sensei.html', text: 'Simulasi interview' }],
+    N4: [{ url: '/Materi/Keigo-Bisnis.html', text: 'Keigo lanjut' }, { url: '/AI-Sensei.html', text: 'AI Sensei — mode interview' }, { url: '/Materi/Ungkapan-Natural.html', text: 'Ungkapan kantor natural' }],
+    N2: [{ url: '/AI-Sensei.html', text: 'Simulasi wawancara kerja' }, { url: '/Grammar-Checker.html', text: 'Koreksi surat resmi' }, { url: '/Materi/Keigo-Bisnis.html', text: 'Keigo N2 profesional' }],
+  },
+};
+
+function buildRecommendations() {
+  var goal = onboardData.goal || 'jlpt';
+  var level = onboardData.level || 'zero';
+  var time = parseInt(onboardData.time || '30');
+  var recs = (RECOMMENDATIONS[goal] && RECOMMENDATIONS[goal][level]) || RECOMMENDATIONS.jlpt.zero;
+  var container = document.getElementById('ob-recommendations');
+  container.innerHTML = recs.map(function(r) {
+    return '<div class="ob-result-item"><span class="ob-result-dot"></span><a href="' + r.url + '" style="color:inherit;text-decoration:none;font-size:14px">' + r.text + '</a></div>';
+  }).join('');
+
+  // Save ke localStorage
+  try {
+    localStorage.setItem('np_onboarding_done', '1');
+    localStorage.setItem('np_onboarding_goal', goal);
+    if (level !== 'zero') localStorage.setItem('np_jlpt_level', level);
+    localStorage.setItem('np_daily_target_min', time);
+  } catch(e) {}
+}
+
+function finishOnboarding() {
+  var goal = onboardData.goal || 'jlpt';
+  var levelMap = { jlpt: '/Materi/Rencana-Belajar-JLPT.html', kaigo: '/Kaigo-Simulator.html', conversation: '/AI-Kaiwa.html', work: '/AI-Sensei.html' };
+  window.location.href = levelMap[goal] || '/Dashboard/Dashboard.html';
+}
+
+// Cek apakah sudah pernah onboarding
+if (localStorage.getItem('np_onboarding_done') === '1') {
+  var banner = document.createElement('div');
+  banner.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#FEFCF8;border:1px solid rgba(107,79,58,.15);border-radius:12px;padding:10px 20px;font-size:13px;z-index:999;box-shadow:0 4px 20px rgba(107,79,58,.15)';
+  banner.innerHTML = 'Kamu sudah pernah setup! <a href="/Dashboard/Dashboard.html" style="color:#6B4F3A;font-weight:600">Ke Dashboard →</a>';
+  document.body.appendChild(banner);
+  setTimeout(function() { banner.remove(); }, 5000);
+}
+</script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+        <a href="/index.html" style="color:rgba(255,255,255,.4);text-decoration:none">Beranda</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teacher Dashboard — Nihonggo Pro Academy</title>
+<meta name="description" content="Dashboard guru NihonggoPro Academy: kelola kelas, pantau progres siswa, dan berikan tugas belajar bahasa Jepang.">
+<meta data-seo="nihongo-static" name="description" content="Dashboard guru NihonggoPro: kelola kelas, pantau progres siswa, beri tugas, dan lihat statistik belajar.">
+<link data-seo="nihongo-static" rel="canonical" href="https://nihonggopro.id/Teacher-Dashboard.html">
+<meta data-seo="nihongo-static" property="og:title" content="Teacher Dashboard — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" property="og:description" content="Dashboard Guru">
+<meta data-seo="nihongo-static" property="og:type" content="website">
+<meta data-seo="nihongo-static" property="og:url" content="https://nihonggopro.id/Teacher-Dashboard.html">
+<meta data-seo="nihongo-static" property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta data-seo="nihongo-static" name="twitter:card" content="summary_large_image">
+<meta data-seo="nihongo-static" name="twitter:title" content="Teacher Dashboard — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" name="twitter:description" content="Dashboard Guru">
+<meta data-seo="nihongo-static" name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script data-seo="nihongo-static" type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Dashboard Guru","description":"Dashboard Guru","url":"https://nihonggopro.id/Teacher-Dashboard.html","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["Japanese language","JLPT","Kanji","Grammar","Vocabulary"]}</script>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/pro-style.css">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}button{font-family:'Outfit',sans-serif;cursor:pointer}
+.skip-link{position:absolute;left:-999px;top:0;background:var(--red);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;z-index:100}
+.skip-link:focus{left:0}
+.page{padding-top:8px}
+.hero{padding:3rem 5vw;background:#17181d;color:#fff}
+.inner{max-width:1180px;margin:0 auto}
+.badge{display:inline-flex;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;margin-bottom:1rem}
+h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,44px);line-height:1.15;margin-bottom:.5rem}
+.hero p{color:rgba(255,255,255,.65);max-width:720px}
+.wrap{max-width:1180px;margin:0 auto;padding:2rem 5vw}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:1rem}
+.stat{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.2rem;box-shadow:var(--shadow-sm)}
+.stat strong{font-family:'Noto Serif JP',serif;font-size:34px;display:block;line-height:1;color:var(--ink)}
+.stat span{font-size:11px;color:var(--ink-soft);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:1rem}
+.panel{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.25rem;box-shadow:var(--shadow-sm);margin-bottom:1rem}
+.panel h2{font-size:18px;margin-bottom:.2rem}
+.panel .sub{font-size:12px;color:var(--ink-soft);margin-bottom:.9rem}
+.table{width:100%;border-collapse:collapse}
+.table th,.table td{padding:10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px}
+.table th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft)}
+.status{display:inline-flex;border-radius:8px;padding:3px 8px;font-size:11px;font-weight:800}
+.ok{background:var(--green-pale);color:var(--green)}
+.warn{background:var(--gold-pale);color:var(--gold)}
+.bad{background:var(--red-pale);color:var(--red)}
+.mini-bar{height:7px;background:var(--border-light);border-radius:999px;overflow:hidden;min-width:80px}
+.mini-bar>i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--matcha,#5B7C5B),var(--matcha-soft,#7A9E7A))}
+.form{display:grid;gap:8px}
+.form input,.form textarea,.form select{width:100%;border:1px solid var(--border-mid);border-radius:8px;background:var(--cream);color:var(--ink);padding:10px;font:inherit;font-size:13px}
+.form textarea{min-height:80px;resize:vertical}
+.form button,.btn-primary{border:none;background:var(--red);color:#fff;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:800}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;background:var(--gold-pale);color:#8B6A1C}
+.class-list{display:grid;gap:8px}
+.class-item{display:flex;align-items:center;justify-content:space-between;gap:1rem;border:1px solid var(--border);border-radius:8px;padding:12px;background:var(--cream);cursor:pointer;transition:background .2s}
+.class-item:hover,.class-item.active{background:var(--gold-pale)}
+.class-item b{font-size:14px;display:block}
+.class-item span{font-size:12px;color:var(--ink-soft)}
+.notice{background:var(--gold-pale);border:1px solid var(--gold-soft);border-radius:8px;padding:12px 14px;font-size:13px;color:#7a5a12;margin-bottom:1rem}
+@media(max-width:900px){.stats,.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Lewati ke konten utama</a>
+
+<div class="page">
+  <header class="hero">
+    <div class="inner">
+      <!-- GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Kelima,
+           Fase X): dikonfirmasi halaman ini genuinely TIDAK memiliki
+           navigasi keluar apapun (satu-satunya link genuinely skip-link
+           aksesibilitas yang mengarah ke dalam halaman itu sendiri).
+           Pengguna (guru) yang genuinely mendarat di sini genuinely
+           terjebak tanpa cara kembali ke platform. Ditambahkan link
+           kembali yang genuinely konsisten dengan gaya visual hero. -->
+      <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.85);text-decoration:none;font-size:13px;margin-bottom:12px" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.85)'">← Kembali ke Beranda</a><br>
+      <span class="badge">Dashboard Guru</span>
+      <h1>先生ダッシュボード</h1>
+      <p>Kelola kelas, pantau progres siswa, dan berikan tugas. Data di bawah adalah contoh demo; setelah login guru tersambung ke Supabase, data nyata siswa Anda akan tampil di sini.</p>
+    </div>
+  </header>
+
+  <main class="wrap" id="main">
+    <div class="notice" id="modeNotice">Mode demo — menampilkan data contoh. Aktifkan Supabase &amp; login sebagai guru untuk data nyata.</div>
+
+    <div class="stats">
+      <div class="stat"><strong id="statClasses">—</strong><span>Kelas</span></div>
+      <div class="stat"><strong id="statStudents">—</strong><span>Total Siswa</span></div>
+      <div class="stat"><strong id="statAssignments">—</strong><span>Tugas Aktif</span></div>
+      <div class="stat"><strong id="statAvg">—</strong><span>Rata-rata Progres</span></div>
+    </div>
+
+    <div class="grid">
+      <div>
+        <section class="panel">
+          <h2>Siswa di Kelas</h2>
+          <p class="sub" id="rosterClassName">Pilih kelas untuk melihat siswa</p>
+          <table class="table" aria-label="Daftar siswa dan progres">
+            <thead><tr><th>Siswa</th><th>Progres</th><th>Streak</th><th>Status</th></tr></thead>
+            <tbody id="rosterBody"></tbody>
+          </table>
+        </section>
+
+        <section class="panel">
+          <h2>Tugas Kelas</h2>
+          <p class="sub">Tugas yang diberikan ke kelas terpilih</p>
+          <table class="table" aria-label="Daftar tugas">
+            <thead><tr><th>Judul</th><th>Tenggat</th><th>Selesai</th></tr></thead>
+            <tbody id="assignBody"></tbody>
+          </table>
+        </section>
+      </div>
+
+      <div>
+        <section class="panel">
+          <h2>Kelas Anda</h2>
+          <p class="sub">Klik untuk memilih</p>
+          <div class="class-list" id="classList"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Buat Tugas Baru</h2>
+          <p class="sub">Untuk kelas yang sedang dipilih</p>
+          <form class="form" id="assignForm">
+            <input id="assignTitle" placeholder="Judul tugas, mis. Latihan Kanji N5" required>
+            <input id="assignUrl" placeholder="Link materi (opsional), mis. /Materi/Kanji-N5.html">
+            <input id="assignDue" type="date" aria-label="Tenggat">
+            <button type="submit">Tambah Tugas</button>
+          </form>
+        </section>
+
+        <section class="panel">
+          <h2>Kode Gabung</h2>
+          <p class="sub">Bagikan ke siswa untuk bergabung ke kelas</p>
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="chip" id="joinCode" style="font-size:16px;letter-spacing:.1em">——————</span>
+            <button class="btn-primary" type="button" id="copyCode">Salin</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+(function () {
+  'use strict';
+
+  // ── Lapisan data: coba Supabase, jatuh ke demo lokal ──
+  // Struktur data cocok dengan skema (classrooms, enrollments, assignments).
+  // Ketika SupabaseClient tersedia & guru login, tryReal() mengambil data nyata;
+  // jika tidak, memakai DEMO agar dashboard tetap fungsional & bisa dipratinjau.
+  var DEMO = {
+    classes: [
+      { id: 'c1', name: 'Kelas N5 Pagi', join_code: 'N5PAGI', students: [
+        { name: 'Andi Pratama', progress: 82, streak: 12, status: 'aktif' },
+        { name: 'Siti Rahayu', progress: 64, streak: 5, status: 'aktif' },
+        { name: 'Budi Santoso', progress: 41, streak: 0, status: 'perlu perhatian' },
+        { name: 'Dewi Lestari', progress: 90, streak: 21, status: 'aktif' }
+      ], assignments: [
+        { title: 'Latihan Kanji N5 Bab 1', due: '2026-07-25', done: 3, total: 4 },
+        { title: 'Kuis Tata Bahasa は/が', due: '2026-07-28', done: 2, total: 4 }
+      ] },
+      { id: 'c2', name: 'Kelas Kaigo Intensif', join_code: 'KAIGO1', students: [
+        { name: 'Rina Wati', progress: 76, streak: 8, status: 'aktif' },
+        { name: 'Joko Susilo', progress: 88, streak: 15, status: 'aktif' },
+        { name: 'Maya Sari', progress: 55, streak: 3, status: 'aktif' }
+      ], assignments: [
+        { title: 'Simulasi Ujian 認知症の理解', due: '2026-07-26', done: 2, total: 3 }
+      ] }
+    ]
+  };
+
+  var state = { data: DEMO, activeClass: null, isReal: false };
+
+  function byId(id) { return document.getElementById(id); }
+  function esc(v) {
+    return (window.NPSecurity && window.NPSecurity.escapeHtml)
+      ? window.NPSecurity.escapeHtml(v)
+      : String(v == null ? '' : v).replace(/[&<>"']/g, function (c) {
+          return { '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;' }[c];
+        });
+  }
+
+  function statusClass(s) {
+    if (s === 'aktif') return 'ok';
+    if (/perhatian|risiko/.test(s)) return 'bad';
+    return 'warn';
+  }
+
+  function renderStats() {
+    var cls = state.data.classes;
+    var students = cls.reduce(function (n, c) { return n + c.students.length; }, 0);
+    var assigns = cls.reduce(function (n, c) { return n + c.assignments.length; }, 0);
+    var allProg = cls.reduce(function (arr, c) {
+      return arr.concat(c.students.map(function (s) { return s.progress; }));
+    }, []);
+    var avg = allProg.length ? Math.round(allProg.reduce(function (a, b) { return a + b; }, 0) / allProg.length) : 0;
+    byId('statClasses').textContent = cls.length;
+    byId('statStudents').textContent = students;
+    byId('statAssignments').textContent = assigns;
+    byId('statAvg').textContent = avg + '%';
+  }
+
+  function renderClassList() {
+    var host = byId('classList');
+    host.innerHTML = '';
+    state.data.classes.forEach(function (c) {
+      var el = document.createElement('div');
+      el.className = 'class-item' + (state.activeClass === c.id ? ' active' : '');
+      el.innerHTML = '<div><b>' + esc(c.name) + '</b><span>' + c.students.length + ' siswa · ' + c.assignments.length + ' tugas</span></div><span class="chip">' + esc(c.join_code) + '</span>';
+      el.addEventListener('click', function () { selectClass(c.id); });
+      host.appendChild(el);
+    });
+  }
+
+  function currentClass() {
+    return state.data.classes.filter(function (c) { return c.id === state.activeClass; })[0] || null;
+  }
+
+  function renderRoster() {
+    var c = currentClass();
+    var body = byId('rosterBody');
+    body.innerHTML = '';
+    byId('rosterClassName').textContent = c ? c.name : 'Pilih kelas untuk melihat siswa';
+    byId('joinCode').textContent = c ? c.join_code : '——————';
+    if (!c) return;
+    c.students.forEach(function (s) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>' + esc(s.name) + '</td>'
+        + '<td><div style="display:flex;align-items:center;gap:8px"><div class="mini-bar"><i style="width:' + Math.round(s.progress) + '%"></i></div><span style="font-size:12px;font-weight:700">' + Math.round(s.progress) + '%</span></div></td>'
+        + '<td>' + (s.streak > 0 ? '🔥 ' + s.streak : '—') + '</td>'
+        + '<td><span class="status ' + statusClass(s.status) + '">' + esc(s.status) + '</span></td>';
+      body.appendChild(tr);
+    });
+  }
+
+  function renderAssignments() {
+    var c = currentClass();
+    var body = byId('assignBody');
+    body.innerHTML = '';
+    if (!c) return;
+    if (!c.assignments.length) {
+      body.innerHTML = '<tr><td colspan="3" style="color:var(--ink-soft)">Belum ada tugas. Buat tugas baru di panel kanan.</td></tr>';
+      return;
+    }
+    c.assignments.forEach(function (a) {
+      var tr = document.createElement('tr');
+      var pct = a.total ? Math.round(a.done / a.total * 100) : 0;
+      tr.innerHTML = '<td>' + esc(a.title) + '</td>'
+        + '<td>' + esc(a.due || '—') + '</td>'
+        + '<td>' + a.done + '/' + a.total + ' (' + pct + '%)</td>';
+      body.appendChild(tr);
+    });
+  }
+
+  function renderAll() {
+    renderStats();
+    renderClassList();
+    renderRoster();
+    renderAssignments();
+  }
+
+  function selectClass(id) {
+    state.activeClass = id;
+    renderClassList();
+    renderRoster();
+    renderAssignments();
+  }
+
+  // ── Buat tugas (demo: tambah ke state; nyata: insert ke Supabase) ──
+  byId('assignForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var c = currentClass();
+    if (!c) { alert('Pilih kelas dulu.'); return; }
+    var title = byId('assignTitle').value.trim();
+    if (!title) return;
+    var due = byId('assignDue').value || '';
+    c.assignments.push({ title: title, url: byId('assignUrl').value.trim(), due: due, done: 0, total: c.students.length });
+    byId('assignForm').reset();
+    renderAll();
+    selectClass(c.id);
+  });
+
+  byId('copyCode').addEventListener('click', function () {
+    var code = byId('joinCode').textContent;
+    if (code && code !== '——————' && navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function () {
+        byId('copyCode').textContent = 'Tersalin!';
+        setTimeout(function () { byId('copyCode').textContent = 'Salin'; }, 1500);
+      });
+    }
+  });
+
+  // ── Coba data nyata dari Supabase (bila tersedia & login guru) ──
+  function tryReal() {
+    try {
+      var SC = window.SupabaseClient;
+      if (!SC || !SC.Auth || typeof SC.Auth.getSession !== 'function') return; // tetap demo
+      SC.Auth.getSession().then(function (session) {
+        if (!session || !session.user) return; // belum login → demo
+        // Placeholder aman: bila DB helper tersedia, ambil kelas guru.
+        // Struktur hasil harus cocok dgn DEMO.classes agar render sama.
+        if (SC.DB && typeof SC.DB.getTeacherClasses === 'function') {
+          SC.DB.getTeacherClasses(session.user.id).then(function (classes) {
+            if (classes && classes.length) {
+              state.data = { classes: classes };
+              state.isReal = true;
+              byId('modeNotice').style.display = 'none';
+              state.activeClass = classes[0].id;
+              renderAll();
+            }
+          }).catch(function () { /* tetap demo */ });
+        }
+      }).catch(function () { /* tetap demo */ });
+    } catch (err) { /* tetap demo */ }
+  }
+
+  // Init
+  state.activeClass = state.data.classes[0].id;
+  renderAll();
+  tryReal();
+})();
+</script>
+</body>
+</html>

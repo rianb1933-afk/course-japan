@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Sertifikat Digital — QR Verification | Nihonggo Pro Academy</title>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "Sertifikat Digital Nihonggo Pro Academy", "url": "https://nihonggopro.id/Certificate-Pro.html", "description": "Generate sertifikat digital pencapaian belajar bahasa Jepang dengan QR verification."}</script>
+<meta property="og:title" content="Sertifikat Digital Belajar | Nihonggo Pro Academy">
+<meta property="og:description" content="Generate dan download sertifikat digital pencapaian belajar bahasa Jepang Anda dengan QR verification.">
+<meta property="og:url" content="https://nihonggopro.id/Certificate-Pro.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sertifikat Digital Belajar | Nihonggo Pro Academy">
+<meta name="twitter:description" content="Generate dan download sertifikat digital pencapaian belajar bahasa Jepang Anda dengan QR verification.">
+<meta name="description" content="Sertifikat belajar bahasa Jepang digital dengan Certificate ID unik, QR verification, download PNG, dan halaman verifikasi publik.">
+<link rel="canonical" href="https://nihonggopro.id/Certificate-Pro.html">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
+
+<link rel="stylesheet" href="assets/design-system.css">
+<style>
+body { min-height: 100vh; }
+.c-nav { height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(16px,4vw,48px); background: var(--nav-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(16px); }
+.c-brand { font-family: var(--font-jp); font-size: 20px; font-weight: 700; color: var(--primary); text-decoration: none; }
+.c-hero { background: var(--ink); color: white; padding: clamp(32px,5vw,56px) clamp(16px,5vw,72px); text-align: center; }
+.c-hero h1 { font-family: var(--font-jp); font-size: clamp(22px,4vw,36px); margin-bottom: 8px; }
+.c-hero p { font-size: 14px; color: rgba(255,255,255,.6); }
+.c-main { max-width: 1040px; margin: 32px auto; padding: 0 clamp(12px,4vw,40px) 80px; display: grid; grid-template-columns: 1fr 360px; gap: 24px; align-items: start; }
+@media(max-width:820px) { .c-main { grid-template-columns: 1fr; } }
+
+/* FORM */
+.form-card { background: var(--white); border-radius: var(--r-xl); padding: 24px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+.form-card h2 { font-family: var(--font-jp); font-size: 18px; font-weight: 700; margin-bottom: 18px; }
+.frow { margin-bottom: 14px; }
+.frow label { display: block; font-size: 11px; font-weight: 800; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; }
+.frow .input { height: 44px; }
+.lv-chips { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+.lv-chip { padding: 6px 14px; border-radius: var(--r-sm); border: 1.5px solid var(--border-mid); background: var(--white); font-size: 12px; font-weight: 800; cursor: pointer; transition: all var(--t-fast); }
+.lv-chip.active { background: var(--primary); border-color: var(--primary); color: white; }
+.cert-id-display { font-size: 13px; font-weight: 700; color: var(--primary); font-family: monospace; letter-spacing: .05em; margin: 6px 0 14px; }
+
+/* CANVAS PREVIEW */
+.preview-card { background: var(--white); border-radius: var(--r-xl); padding: 16px; border: 1px solid var(--border); box-shadow: var(--shadow-sm); }
+.preview-card h3 { font-family: var(--font-jp); font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+#certCanvas { display: block; width: 100%; border-radius: var(--r-md); border: 1px solid var(--border); }
+.qr-section { margin-top: 12px; padding: 12px; background: var(--cream); border-radius: var(--r-md); border: 1px solid var(--border); }
+.qr-label { font-size: 10px; font-weight: 800; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 4px; }
+.qr-id { font-family: monospace; font-size: 13px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+#qrWrap { display: flex; justify-content: center; margin: 8px 0; }
+#qrWrap canvas { border-radius: var(--r-sm); }
+.verify-link { font-size: 11px; color: var(--ink-soft); text-align: center; }
+.verify-link a { color: var(--primary); font-weight: 700; text-decoration: none; }
+.act-row { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+.act-row .btn { flex: 1; min-width: 130px; justify-content: center; }
+
+/* HISTORY */
+.hist-card { background: var(--white); border-radius: var(--r-lg); padding: 16px; border: 1px solid var(--border); margin-top: 20px; }
+.hist-card h3 { font-size: 13px; font-weight: 800; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .06em; margin-bottom: 12px; }
+.hist-item { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: var(--r-md); border: 1px solid var(--border); margin-bottom: 6px; cursor: pointer; transition: all var(--t-fast); }
+.hist-item:hover { border-color: var(--primary); background: var(--primary-pale); }
+.hist-id { font-size: 11px; color: var(--ink-soft); font-family: monospace; }
+</style>
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+
+<nav class="c-nav">
+  <a class="c-brand" href="index.html">Nihonggo Pro Academy</a>
+  <div style="display:flex;gap:8px;align-items:center">
+    <a href="Certificate-Verify.html" class="btn btn-sm btn-outline" style="text-decoration:none">🔍 Verify</a>
+    <a href="Dashboard/Dashboard.html" class="btn btn-sm btn-outline hide-mobile" style="text-decoration:none">📊 Dashboard</a>
+    <button aria-label="Tombol" class="icon-btn" data-theme-toggle>🌙</button>
+  </div>
+</nav>
+
+<div class="c-hero">
+  <h1>📜 Sertifikat Digital</h1>
+  <p>Certificate ID unik + QR verification — bukti prestasi belajar yang bisa dibagikan dan diverifikasi.</p>
+</div>
+
+<div class="c-main">
+  <!-- FORM -->
+  <div>
+    <div class="form-card">
+      <h2>Generate Sertifikat</h2>
+      <div class="frow">
+        <label>Nama Lengkap</label>
+        <input id="certName" type="text" class="input" placeholder="Nama Lengkap Anda" oninput="updatePreview()" aria-label="Nama pemegang sertifikat">
+      </div>
+      <div class="frow">
+        <label>Level / Course</label>
+        <div class="lv-chips">
+          <button class="lv-chip active" data-lv="N5" onclick="setLv(this)">N5</button>
+          <button class="lv-chip" data-lv="N4" onclick="setLv(this)">N4</button>
+          <button class="lv-chip" data-lv="N3" onclick="setLv(this)">N3</button>
+          <button class="lv-chip" data-lv="N2" onclick="setLv(this)">N2</button>
+          <button class="lv-chip" data-lv="N1" onclick="setLv(this)">N1</button>
+          <button class="lv-chip" data-lv="Kaigo" onclick="setLv(this)">介護</button>
+        </div>
+      </div>
+      <div class="frow">
+        <label>Tanggal Penyelesaian</label>
+        <input id="certDate" type="date" class="input" oninput="updatePreview()" aria-label="Tanggal sertifikat">
+      </div>
+      <div class="frow">
+        <label>Skor (opsional)</label>
+        <input id="certScore" type="number" min="0" max="100" class="input" placeholder="Contoh: 88" oninput="updatePreview()" aria-label="Skor ujian">
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px">Certificate ID</div>
+        <div class="cert-id-display" id="certIDDisplay">NP-N5-XXXXXX</div>
+      </div>
+      <div class="act-row">
+        <button class="btn btn-primary" onclick="generateCert()">✨ Generate</button>
+        <button class="btn btn-outline" onclick="downloadCert()">⬇ Download PNG</button>
+      </div>
+      <p style="font-size:11px;color:var(--ink-soft);margin-top:10px">
+        💡 QR verification aktif di paket <a href="Pricing-Pro.html" style="color:var(--primary);font-weight:700">Premium</a>.
+      </p>
+    </div>
+
+    <div class="hist-card">
+      <h3>Sertifikat Sebelumnya</h3>
+      <div id="histList"><p style="font-size:13px;color:var(--ink-soft)">Belum ada sertifikat.</p></div>
+    </div>
+  </div>
+
+  <!-- PREVIEW -->
+  <div class="preview-card">
+    <h3>Preview</h3>
+    <canvas id="certCanvas" width="600" height="420"></canvas>
+    <div class="qr-section">
+      <div class="qr-label">Certificate ID</div>
+      <div class="qr-id" id="qrID">NP-N5-XXXXXX</div>
+      <div id="qrWrap"></div>
+      <div class="verify-link">Verify: <a href="Certificate-Verify.html" target="_blank">nihonggopro.id/verify</a></div>
+    </div>
+  </div>
+</div>
+
+<script src="assets/platform.min.js" defer></script>
+<script>
+// Catatan: State/Toast diisi di dalam DOMContentLoaded di bawah, karena
+// platform.min.js dimuat dengan `defer` sehingga window.NP belum tentu ada
+// saat script inline ini pertama dieksekusi (lihat blok Init di bawah).
+let State, Toast;
+let certLevel = 'N5', certID = '';
+const LV_COLORS = { N5:'#1a8a5a', N4:'#2563eb', N3:'#c08a2e', N2:'var(--red,#be3428)', N1:'#7c3aed', Kaigo:'#0694a2' };
+
+// Init — dibungkus DOMContentLoaded agar NP (dari platform.min.js yang
+// dimuat dengan defer) sudah pasti tersedia sebelum diakses.
+document.addEventListener('DOMContentLoaded', function () {
+  State = NP.State; Toast = NP.Toast;
+  document.getElementById('certDate').value = new Date().toISOString().split('T')[0];
+  const u = State.getUser();
+  if (u.name) document.getElementById('certName').value = u.name;
+  genID(); updatePreview();
+});
+
+function setLv(btn) {
+  certLevel = btn.dataset.lv;
+  document.querySelectorAll('.lv-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  certID = ''; genID(); updatePreview();
+}
+
+function genID() {
+  if (!certID) {
+    certID = 'NP-' + certLevel + '-' + Date.now().toString(36).toUpperCase().slice(-6);
+    document.getElementById('certIDDisplay').textContent = certID;
+    document.getElementById('qrID').textContent = certID;
+  }
+}
+
+function drawCert() {
+  const canvas = document.getElementById('certCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = 600, H = 420;
+  const col = LV_COLORS[certLevel] || 'var(--red,#be3428)';
+  const name = document.getElementById('certName').value || 'Nama Peserta';
+  const dateVal = document.getElementById('certDate').value;
+  const score = document.getElementById('certScore').value;
+  const dateStr = dateVal ? new Date(dateVal).toLocaleDateString('id-ID',{year:'numeric',month:'long',day:'numeric'}) : '';
+  ctx.clearRect(0,0,W,H);
+
+  // BG
+  const g = ctx.createLinearGradient(0,0,W,H);
+  g.addColorStop(0,'#0d0f14'); g.addColorStop(1,'#1a0d1a');
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+
+  // Decorative glow
+  ctx.save();
+  ctx.globalAlpha = .15;
+  const glow = ctx.createRadialGradient(W*.8,H*.2,0,W*.8,H*.2,280);
+  glow.addColorStop(0, col); glow.addColorStop(1, 'transparent');
+  ctx.fillStyle = glow; ctx.fillRect(0,0,W,H);
+  ctx.restore();
+
+  // Border
+  ctx.strokeStyle = col; ctx.lineWidth = 2.5;
+  roundRect(ctx, 14, 14, W-28, H-28, 12); ctx.stroke();
+  ctx.strokeStyle = col + '44'; ctx.lineWidth = 1;
+  roundRect(ctx, 22, 22, W-44, H-44, 8); ctx.stroke();
+
+  // Corner gems
+  [[24,24],[W-24,24],[24,H-24],[W-24,H-24]].forEach(([x,y]) => {
+    ctx.fillStyle = col; ctx.beginPath(); ctx.arc(x,y,4,0,Math.PI*2); ctx.fill();
+  });
+
+  // Big watermark
+  ctx.save(); ctx.globalAlpha = .06;
+  ctx.font = 'bold 96px "Noto Serif JP", serif'; ctx.fillStyle = 'white';
+  ctx.textAlign = 'center'; ctx.fillText('証', W/2, H/2+30); ctx.restore();
+
+  // Header
+  ctx.fillStyle = col; ctx.font = 'bold 11px Outfit, sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText('Nihonggo Pro Academy · 日本語プロアカデミー · nihonggopro.id', W/2, 58);
+
+  ctx.fillStyle = 'rgba(255,255,255,.7)'; ctx.font = 'bold 10px Outfit';
+  ctx.letterSpacing = '5px';
+  ctx.fillText('CERTIFICATE OF COMPLETION', W/2, 88);
+  ctx.letterSpacing = '0';
+
+  // Name
+  ctx.fillStyle = '#ffffff'; ctx.font = 'bold 32px "Noto Serif JP", serif';
+  ctx.fillText(name, W/2, 158);
+
+  ctx.fillStyle = 'rgba(255,255,255,.55)'; ctx.font = '13px Outfit, sans-serif';
+  ctx.fillText('telah berhasil menyelesaikan program', W/2, 188);
+
+  // Level
+  ctx.fillStyle = col; ctx.font = 'bold 26px "Noto Serif JP", serif';
+  ctx.fillText('JLPT ' + certLevel + (certLevel === 'Kaigo' ? '' : ' Foundation'), W/2, 226);
+
+  if (score) {
+    ctx.fillStyle = 'rgba(255,255,255,.45)'; ctx.font = '12px Outfit';
+    ctx.fillText('Nilai: ' + score + '/100', W/2, 252);
+  }
+
+  if (dateStr) {
+    ctx.fillStyle = 'rgba(255,255,255,.4)'; ctx.font = '12px Outfit';
+    ctx.fillText(dateStr, W/2, 278);
+  }
+
+  // Separator
+  ctx.strokeStyle = col + '40'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(80,300); ctx.lineTo(W-80,300); ctx.stroke();
+
+  // ID
+  ctx.fillStyle = 'rgba(255,255,255,.3)'; ctx.font = '10px monospace';
+  ctx.fillText('Certificate ID: ' + certID, W/2, 326);
+  ctx.fillText('Verify: nihonggopro.id/verify?id=' + certID, W/2, 344);
+
+  // Signature line
+  ctx.strokeStyle = 'rgba(255,255,255,.15)'; ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(W/2-70,382); ctx.lineTo(W/2+70,382); ctx.stroke();
+  ctx.fillStyle = 'rgba(255,255,255,.25)'; ctx.font = '10px Outfit';
+  ctx.fillText('Nihonggo Pro Academy | nihonggopro.id', W/2, 398);
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath(); ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y);
+  ctx.arcTo(x+w,y,x+w,y+r,r); ctx.lineTo(x+w,y+h-r);
+  ctx.arcTo(x+w,y+h,x+w-r,y+h,r); ctx.lineTo(x+r,y+h);
+  ctx.arcTo(x,y+h,x,y+h-r,r); ctx.lineTo(x,y+r);
+  ctx.arcTo(x,y,x+r,y,r); ctx.closePath();
+}
+
+function updatePreview() {
+  genID(); drawCert();
+  // QR
+  const qrWrap = document.getElementById('qrWrap');
+  qrWrap.innerHTML = '';
+  if (window.QRCode) {
+    new QRCode(qrWrap, {
+      text: 'https://nihonggopro.id/Certificate-Verify.html?id=' + certID,
+      width: 80, height: 80, colorDark: '#000', colorLight: '#fff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+}
+
+function generateCert() {
+  const name = document.getElementById('certName').value;
+  if (!name.trim()) { Toast.show('⚠️ Masukkan nama terlebih dahulu', 'error'); return; }
+  genID(); drawCert();
+  // Save
+  const hist = JSON.parse(localStorage.getItem('cert-history') || '[]');
+  const existing = hist.find(h => h.id === certID);
+  if (!existing) {
+    hist.unshift({ id: certID, name, level: certLevel, date: document.getElementById('certDate').value, at: new Date().toISOString() });
+    localStorage.setItem('cert-history', JSON.stringify(hist.slice(0,10)));
+  }
+  const certs = State.getUser().certificates || [];
+  if (!certs.find(c => c.id === certID)) {
+    State.updateUser({ certificates: [{ id: certID, level: certLevel, name, at: new Date().toISOString() }, ...certs] });
+  }
+  State.addXP(50, 'Sertifikat Dibuat');
+  Toast.show('✅ Sertifikat berhasil! ID: ' + certID, 'success');
+  renderHist();
+}
+
+function downloadCert() {
+  if (!certID) { generateCert(); return; }
+  const link = document.createElement('a');
+  link.download = `Sertifikat-${certLevel}-${certID}.png`;
+  link.href = document.getElementById('certCanvas').toDataURL('image/png');
+  link.click();
+  Toast.show('⬇ Sertifikat diunduh!');
+}
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function(c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+function renderHist() {
+  const hist = JSON.parse(localStorage.getItem('cert-history') || '[]');
+  const el = document.getElementById('histList');
+  if (!hist.length) { el.innerHTML = '<p style="font-size:13px;color:var(--ink-soft)">Belum ada sertifikat.</p>'; return; }
+  // GENUINELY DIPERBAIKI (Fase Audit Website Putaran Ketiga, Fase I):
+  // dikonfirmasi via investigasi mendalam bahwa perbaikan pertama
+  // (encodeURIComponent pada string onclick) GENUINELY TIDAK MENYELESAIKAN
+  // masalah -- dibuktikan `encodeURIComponent("D'Angelo")` genuinely
+  // menghasilkan "D'Angelo" TANPA PERUBAHAN, karena kutip tunggal
+  // genuinely termasuk "unreserved character" dalam RFC 3986 yang
+  // TIDAK di-escape oleh encodeURIComponent. Diperbaiki secara MENYELURUH:
+  // (1) `esc()` untuk seluruh teks yang ditampilkan (mencegah XSS dari
+  // nama/level yang genuinely bisa mengandung tag HTML), dan (2) atribut
+  // `data-*` + `addEventListener` untuk interaksi klik -- pendekatan yang
+  // genuinely TIDAK PERNAH rentan masalah escaping apapun, karena data
+  // tersimpan sebagai atribut DOM (dibaca via `.dataset`), bukan
+  // disisipkan sebagai kode JavaScript yang harus di-escape dengan benar.
+  el.innerHTML = hist.map(h => `
+    <div class="hist-item" data-id="${esc(h.id)}" data-name="${esc(h.name)}" data-level="${esc(h.level)}" data-date="${esc(h.date||'')}">
+      <span class="badge badge-${esc(h.level.toLowerCase()==='kaigo'?'kaigo':h.level.toLowerCase())}">${esc(h.level)}</span>
+      <div><div style="font-size:13px;font-weight:700">${esc(h.name)}</div><div class="hist-id">${esc(h.id)}</div></div>
+      <div style="margin-left:auto;font-size:10px;color:var(--ink-soft)">${esc(new Date(h.at).toLocaleDateString('id-ID'))}</div>
+    </div>`
+  ).join('');
+  el.querySelectorAll('.hist-item').forEach(function(item){
+    item.addEventListener('click', function(){
+      loadCert(item.dataset.id, item.dataset.name, item.dataset.level, item.dataset.date);
+    });
+  });
+}
+
+function loadCert(id, name, level, date) {
+  // GENUINELY DIPERBAIKI (Fase Audit Website Putaran Ketiga, Fase I):
+  // riwayat perbaikan lengkap -- percobaan PERTAMA (encodeURIComponent
+  // pada string onclick) GENUINELY GAGAL karena kutip tunggal tidak
+  // di-escape oleh fungsi tersebut. Diperbaiki ULANG secara menyeluruh
+  // di `renderHist()` menggunakan atribut `data-*` + `addEventListener`,
+  // yang genuinely mengirim data BERSIH ke sini (tanpa encoding apapun)
+  // -- decodeURIComponent() genuinely tidak lagi diperlukan.
+  certID = id; certLevel = level;
+  document.getElementById('certName').value = name;
+  document.getElementById('certDate').value = date || '';
+  document.querySelectorAll('.lv-chip').forEach(b => b.classList.toggle('active', b.dataset.lv === level));
+  document.getElementById('certIDDisplay').textContent = id;
+  document.getElementById('qrID').textContent = id;
+  updatePreview();
+  Toast.show('📜 Dimuat: ' + id);
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  renderHist();
+  NP.Nav.init('');
+});
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kanji-N5.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kanji N5–N1</a>
+          <a href="/Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar</a>
+          <a href="/Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kosakata</a>
+          <a href="/Materi/Fondasi-Bahasa-Jepang.html" style="color:rgba(255,255,255,.6);text-decoration:none">Fondasi Jepang</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Tools</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/JLPT-CBT.html" style="color:rgba(255,255,255,.6);text-decoration:none">CBT Simulator</a>
+          <a href="/SRS-Flashcard.html" style="color:rgba(255,255,255,.6);text-decoration:none">SRS Flashcard</a>
+          <a href="/Grammar-Checker.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar Checker</a>
+          <a href="/AI-Tutor-Pro.html" style="color:rgba(255,255,255,.6);text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Kaigo</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Materi/Kaigo.html#kg-h-ujian" style="color:rgba(255,255,255,.6);text-decoration:none">Persiapan Ujian</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

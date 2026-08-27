@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#7b2d26">
+  <script src="assets/dark-mode-toggle.js"></script>
+  <title>Papan Tulis Digital — Nihonggo Pro Academy</title>
+  <meta name="description" content="Papan tulis digital untuk latihan kana, kanji, anatomi, dan mencatat materi. Mendukung mouse, sentuhan, dan Apple Pencil.">
+  <link rel="canonical" href="https://nihonggopro.id/Papan-Tulis.html">
+  <meta property="og:title" content="Papan Tulis Digital — Nihonggo Pro Academy">
+  <meta property="og:description" content="Menulis kana, kanji, dan catatan belajar dengan mouse, sentuhan, atau Apple Pencil.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://nihonggopro.id/Papan-Tulis.html">
+  <meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Papan Tulis Digital — Nihonggo Pro Academy">
+  <meta name="twitter:description" content="Papan tulis latihan bahasa Jepang dan Kaigo yang tersimpan otomatis.">
+  <meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Papan Tulis Digital Nihonggo Pro","applicationCategory":"EducationalApplication","operatingSystem":"Any","inLanguage":"id","url":"https://nihonggopro.id/Papan-Tulis.html"}</script>
+  <link rel="icon" type="image/svg+xml" href="assets/icon-192.svg">
+  <link rel="stylesheet" href="assets/whiteboard.css?v=219">
+</head>
+<body>
+  <header class="wb-header">
+    <a class="wb-back" href="Platform-App.html" aria-label="Kembali ke dashboard">←</a>
+    <div><h1>Papan Tulis Digital</h1><span>ホワイトボード · tersimpan otomatis</span></div>
+    <button id="fullscreenBtn" class="icon-btn" type="button" title="Layar penuh" aria-label="Layar penuh">⛶</button>
+  </header>
+
+  <main class="wb-app">
+    <aside class="toolbar" aria-label="Alat tulis">
+      <div class="tool-group" role="group" aria-label="Alat menggambar">
+        <button class="tool active" data-tool="select" title="Pilih dan pindahkan (V)" aria-label="Pilih">↖️<span>Pilih</span></button>
+        <button class="tool" data-tool="hand" title="Geser papan (Spasi)" aria-label="Geser papan">✋<span>Geser</span></button>
+        <button class="tool" data-tool="pen" title="Pena (P)" aria-label="Pena">✏️<span>Pena</span></button>
+        <button class="tool" data-tool="highlighter" title="Stabilo (H)" aria-label="Stabilo">🖍️<span>Stabilo</span></button>
+        <button class="tool" data-tool="eraser" title="Penghapus (E)" aria-label="Penghapus">⌫<span>Hapus</span></button>
+        <button class="tool" data-tool="line" title="Garis (L)" aria-label="Garis">╱<span>Garis</span></button>
+        <button class="tool" data-tool="rect" title="Kotak (R)" aria-label="Kotak">□<span>Kotak</span></button>
+        <button class="tool" data-tool="circle" title="Lingkaran (C)" aria-label="Lingkaran">○<span>Lingkaran</span></button>
+        <button class="tool" data-tool="text" title="Teks (T)" aria-label="Teks">T<span>Teks</span></button>
+      </div>
+      <div class="divider"></div>
+      <label class="control-label" for="colorInput">Warna</label>
+      <div class="colors" id="colors">
+        <button class="swatch active" data-color="#171717" style="--swatch:#171717" aria-label="Hitam"></button>
+        <button class="swatch" data-color="#b3261e" style="--swatch:#b3261e" aria-label="Merah"></button>
+        <button class="swatch" data-color="#2463d4" style="--swatch:#2463d4" aria-label="Biru"></button>
+        <button class="swatch" data-color="#198754" style="--swatch:#198754" aria-label="Hijau"></button>
+        <input id="colorInput" type="color" value="#171717" aria-label="Pilih warna lain">
+      </div>
+      <label class="control-label" for="sizeInput">Ketebalan <output id="sizeOutput">4</output></label>
+      <input id="sizeInput" class="range" type="range" min="1" max="36" value="4">
+      <div class="divider"></div>
+      <label class="control-label" for="paperSelect">Kertas</label>
+      <select id="paperSelect" class="select">
+        <option value="blank">Polos</option>
+        <option value="kanji">Kotak kanji</option>
+        <option value="lines">Bergaris</option>
+        <option value="dots">Titik</option>
+        <option value="genkou">Genkō yōshi</option>
+        <option value="cornell">Cornell Notes</option>
+        <option value="kaigo">Catatan Kaigo</option>
+      </select>
+      <label class="control-label" for="templateSelect">Template</label>
+      <select id="templateSelect" class="select">
+        <option value="">Pilih template…</option>
+        <option value="kana">Latihan kana</option>
+        <option value="kanji">Latihan kanji</option>
+        <option value="kaigo">Catatan Kaigo</option>
+        <option value="anatomy">Catatan anatomi</option>
+      </select>
+    </aside>
+
+    <section class="board-shell" aria-label="Area papan tulis">
+      <div class="top-actions">
+        <button id="undoBtn" type="button" disabled title="Undo (Ctrl/⌘+Z)">↶ <span>Undo</span></button>
+        <button id="redoBtn" type="button" disabled title="Redo (Ctrl/⌘+Shift+Z)">↷ <span>Redo</span></button>
+        <button id="duplicateBtn" type="button" disabled title="Duplikasi objek">⧉ <span>Duplikasi</span></button>
+        <button id="deleteBtn" type="button" disabled title="Hapus objek terpilih">⌫ <span>Objek</span></button>
+        <span class="action-spacer"></span>
+        <label class="action-file" title="Masukkan gambar">🖼️ <span>Gambar</span><input id="imageInput" type="file" accept="image/*"></label>
+        <button id="projectBtn" type="button" title="Unduh proyek yang dapat diedit">💾 <span>Proyek</span></button>
+        <label class="action-file" title="Buka proyek">📂 <span>Buka</span><input id="projectInput" type="file" accept="application/json,.npboard"></label>
+        <button id="saveBtn" type="button" title="Simpan PNG">⇩ <span>PNG</span></button>
+        <button id="pdfBtn" type="button" title="Cetak atau simpan PDF">📄 <span>PDF</span></button>
+        <button id="clearBtn" class="danger" type="button" title="Bersihkan papan">🗑️ <span>Hapus semua</span></button>
+      </div>
+      <div id="canvasWrap" class="canvas-wrap paper-blank">
+        <div id="stage" class="stage"><canvas id="board" aria-label="Papan gambar interaktif"></canvas></div>
+        <div id="textEditor" class="text-editor" contenteditable="true" role="textbox" aria-label="Masukkan teks" hidden></div>
+        <div id="emptyHint" class="empty-hint"><b>Mulai menulis di sini</b><span>Gunakan mouse, sentuhan, atau Apple Pencil</span></div>
+      </div>
+      <div class="pagebar"><button id="prevPage" aria-label="Halaman sebelumnya">‹</button><div id="pageTabs" class="page-tabs"></div><button id="addPage" class="add-page">＋ Halaman</button><button id="nextPage" aria-label="Halaman berikutnya">›</button></div>
+      <div class="statusbar"><span id="toolStatus">Pilih · 4 px</span><div class="zoom"><button id="zoomOut" aria-label="Perkecil">−</button><output id="zoomOutput">100%</output><button id="zoomIn" aria-label="Perbesar">＋</button><button id="zoomReset">Pas</button></div><span id="saveStatus">Siap</span></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/whiteboard.js?v=219" defer></script>
+  <script src="assets/np-skip-link.js" defer></script>
+</body>
+</html>

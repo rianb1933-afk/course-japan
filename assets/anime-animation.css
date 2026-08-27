@@ -1,0 +1,67 @@
+/* Nihonggo Pro Academy — Anime Classroom Animations (anime-animation.css)
+   Semua animasi memakai transform/opacity saja (60fps, tanpa repaint besar)
+   dan mati total pada prefers-reduced-motion. */
+
+/* Tirai bergoyang halus (siklus ~8 detik) */
+@keyframes an-curtain-sway {
+  0%, 100% { transform: skewX(0deg) translateX(0); }
+  50%      { transform: skewX(2.2deg) translateX(5px); }
+}
+#npAnimeBg .an-curtain.left  { animation: an-curtain-sway 8s ease-in-out infinite; }
+#npAnimeBg .an-curtain.right { animation: an-curtain-sway 9.5s ease-in-out infinite reverse; }
+
+/* Matahari bergerak sangat pelan */
+@keyframes an-sun-drift {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(26px, 14px); }
+}
+#npAnimeBg .an-sun { animation: an-sun-drift 240s linear infinite alternate; }
+
+/* Awan/gradien langit bernafas pelan */
+@keyframes an-sky-breathe {
+  from { opacity: 1; } to { opacity: .94; }
+}
+#npAnimeBg .an-sky { animation: an-sky-breathe 30s ease-in-out infinite alternate; }
+
+/* Kartu masuk: fade + slide (dipicu IntersectionObserver di background.js) */
+[data-np-theme="anime"] .an-reveal {
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .5s ease, transform .5s cubic-bezier(.16,1,.3,1);
+}
+[data-np-theme="anime"] .an-reveal.in { opacity: 1; transform: none; }
+
+/* Tulisan kapur muncul perlahan */
+@keyframes an-chalk-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+[data-np-theme="anime"] .hero h1,
+[data-np-theme="anime"] .hero p { animation: an-chalk-in .8s ease both; }
+[data-np-theme="anime"] .hero p { animation-delay: .25s; }
+
+/* Tombol: scale + shadow */
+[data-np-theme="anime"] .btn,
+[data-np-theme="anime"] button.btn-start {
+  transition: transform .15s ease, box-shadow .2s ease;
+}
+[data-np-theme="anime"] .btn:hover,
+[data-np-theme="anime"] button.btn-start:hover { transform: scale(1.03); box-shadow: 0 6px 18px rgba(60,40,20,.2); }
+[data-np-theme="anime"] .btn:active { transform: scale(.97); }
+
+/* Badge bounce kecil */
+@keyframes an-badge-bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
+[data-np-theme="anime"] .badge:hover,
+[data-np-theme="anime"] .kx-badge-earn:hover { animation: an-badge-bounce .5s ease; }
+
+/* Sensei melayang pelan */
+@keyframes an-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+#npSensei { animation: an-float 4s ease-in-out infinite; }
+
+/* ── Reduced motion: semua mati ── */
+@media (prefers-reduced-motion: reduce) {
+  #npAnimeBg .an-curtain, #npAnimeBg .an-sun, #npAnimeBg .an-sky,
+  #npSensei,
+  [data-np-theme="anime"] .hero h1, [data-np-theme="anime"] .hero p,
+  [data-np-theme="anime"] .badge, [data-np-theme="anime"] .kx-badge-earn {
+    animation: none !important;
+  }
+  [data-np-theme="anime"] .an-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  [data-np-theme="anime"] .btn, [data-np-theme="anime"] button.btn-start { transition: none; }
+}

@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+<link rel="stylesheet" href="assets/pro-style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Akun Murid — Nihonggo Pro Academy</title>
+<meta name="description" content="Buat akun belajar bahasa Jepang Anda di NihonggoPro. Lacak progress, simpan hasil kuis, dan pantau perjalanan belajar N5 hingga N1.">
+<meta property="og:title" content="Akun Murid — Nihonggo Pro Academy">
+<meta property="og:description" content="Sistem akun belajar bahasa Jepang lengkap dengan progress tracker, riwayat kuis, dan sertifikat.">
+<meta property="og:url" content="https://nihonggopro.id/Akun.html">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://nihonggopro.id/Akun.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Akun Murid NihonggoPro","url":"https://nihonggopro.id/Akun.html","description":"Sistem akun belajar bahasa Jepang dengan progress tracker"}</script>
+
+<link rel="stylesheet" href="assets/legacy-bundle.min.css">
+
+    <style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+
+.brand{display:flex;align-items:baseline;gap:8px}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+
+
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;cursor:pointer;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+
+/* Auth container */
+.auth-wrap{min-height:calc(100vh - 68px);display:flex;align-items:center;justify-content:center;padding:2rem clamp(16px,5vw,40px)}
+.auth-card{background:var(--white);border-radius:20px;padding:2.5rem;width:min(440px,100%);box-shadow:0 8px 32px rgba(0,0,0,.08);border:.5px solid var(--border-mid)}
+.auth-logo{text-align:center;margin-bottom:1.75rem}
+.auth-logo .jp{font-family:"Noto Serif JP",serif;font-size:36px;color:var(--red)}
+.auth-logo .sub{font-size:12px;color:var(--ink-soft);font-weight:600;margin-top:4px}
+.auth-tabs{display:flex;background:var(--cream);border-radius:10px;padding:4px;margin-bottom:1.75rem;gap:4px}
+.auth-tab{flex:1;height:38px;border-radius:7px;border:none;background:none;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer;color:var(--ink-soft);transition:all .2s}
+.auth-tab.active{background:var(--white);color:var(--red);box-shadow:0 1px 6px rgba(0,0,0,.1)}
+.form-row{display:flex;flex-direction:column;gap:.35rem;margin-bottom:1rem}
+.form-row label{font-size:11px;font-weight:800;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.06em}
+.form-row input{width:100%;padding:11px 14px;border-radius:9px;border:1.5px solid var(--border-mid);font-family:Outfit,sans-serif;font-size:14px;color:var(--ink);background:var(--cream);outline:none;transition:all .15s}
+.form-row input:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(190,52,40,.1)}
+.btn-submit{width:100%;height:50px;border-radius:12px;border:none;background:var(--red);color:#fff;font-family:Outfit,sans-serif;font-size:15px;font-weight:800;cursor:pointer;transition:all .2s;margin-top:.25rem}
+.btn-submit:hover{background:#a02d23;transform:translateY(-1px)}
+.btn-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.divider{display:flex;align-items:center;gap:.75rem;margin:1.25rem 0;color:var(--ink-faint);font-size:12px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--border)}
+.social-btn{width:100%;height:46px;border-radius:10px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink);font-family:Outfit,sans-serif;font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.5rem;transition:all .15s}
+.social-btn:hover{border-color:var(--red);color:var(--red)}
+.auth-footer{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:1.25rem}
+.auth-footer a{color:var(--red);font-weight:700;cursor:pointer;text-decoration:none}
+.msg{padding:.625rem .875rem;border-radius:8px;font-size:13px;font-weight:600;margin-bottom:1rem;display:none}
+.msg.error{background:#fef2f2;color:#ef4444;border:.5px solid #fca5a5;display:block}
+.msg.success{background:var(--green-pale);color:var(--green);border:.5px solid rgba(33,135,93,.2);display:block}
+
+/* Profile / Dashboard */
+.profile-wrap{max-width:900px;margin:2rem auto;padding:0 clamp(16px,5vw,40px) 5rem}
+.profile-header{background:var(--ink);color:#fff;border-radius:16px;padding:2rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.avatar{width:72px;height:72px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:"Noto Serif JP",serif;font-size:32px;font-weight:700;color:#fff;flex-shrink:0}
+.profile-info h2{font-family:"Noto Serif JP",serif;font-size:24px;margin-bottom:.25rem}
+.profile-info p{color:rgba(255,255,255,.6);font-size:14px}
+.profile-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.5rem}
+.badge{padding:4px 10px;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:.06em}
+.badge.red{background:rgba(232,83,74,.2);color:#ff8a80}
+.badge.gold{background:rgba(185,137,47,.2);color:#f0b429}
+.badge.blue{background:rgba(47,111,237,.2);color:#7aa9ff}
+.btn-logout{margin-left:auto;height:36px;padding:0 16px;border-radius:8px;border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.btn-logout:hover{background:rgba(255,255,255,.2)}
+
+/* Stats grid */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
+.stat-card strong{font-family:"Noto Serif JP",serif;font-size:32px;display:block;line-height:1.1;margin-bottom:.25rem}
+.stat-card span{font-size:12px;color:var(--ink-soft);font-weight:600}
+
+/* Level progress */
+.level-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-bottom:1.5rem}
+.level-card{background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
+.level-card h3{font-family:"Noto Serif JP",serif;font-size:18px;margin-bottom:.25rem;display:flex;align-items:center;gap:.4rem}
+.level-card p{font-size:12px;color:var(--ink-soft);margin-bottom:.875rem}
+.prog-bar{height:8px;border-radius:4px;background:var(--border);overflow:hidden;margin-bottom:.4rem}
+.prog-fill{height:100%;border-radius:4px;transition:width .6s ease}
+.prog-fill.n5{background:var(--blue)}
+.prog-fill.n4{background:var(--green)}
+.prog-fill.n3{background:var(--gold)}
+.prog-fill.n2{background:var(--red)}
+.prog-fill.n1{background:#9333ea}
+.prog-label{font-size:12px;color:var(--ink-soft);display:flex;justify-content:space-between}
+
+/* Study streak */
+.streak-card{background:var(--ink);color:#fff;border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
+.streak-flame{font-size:48px;line-height:1}
+.streak-info h3{font-family:"Noto Serif JP",serif;font-size:22px;margin-bottom:.2rem}
+.streak-info p{color:rgba(255,255,255,.6);font-size:13px}
+.streak-calendar{display:flex;gap:4px;flex-wrap:wrap;margin-left:auto}
+.streak-day{width:18px;height:18px;border-radius:3px;background:rgba(255,255,255,.1)}
+.streak-day.done{background:#22c55e}
+.streak-day.today{background:var(--red);box-shadow:0 0 6px rgba(190,52,40,.6)}
+
+/* Recent activity */
+.activity-card{background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.5rem}
+.activity-card h3{font-size:14px;font-weight:800;margin-bottom:.875rem;display:flex;align-items:center;gap:.4rem}
+.act-item{display:flex;align-items:center;gap:.75rem;padding:.5rem 0;border-bottom:.5px solid var(--border)}
+.act-item:last-child{border-bottom:none}
+.act-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.act-info{flex:1}
+.act-title{font-size:13px;font-weight:700}
+.act-time{font-size:11px;color:var(--ink-soft)}
+.act-score{font-size:13px;font-weight:800;color:var(--green)}
+
+/* Quick actions */
+.quick-actions{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.75rem;margin-bottom:1.5rem}
+.qa-btn{padding:1rem .75rem;border-radius:10px;border:1.5px solid var(--border-mid);background:var(--white);cursor:pointer;text-align:center;font-family:Outfit,sans-serif;transition:all .15s;text-decoration:none;display:block;color:var(--ink)}
+.qa-btn:hover{border-color:var(--red);background:var(--red-pale);transform:translateY(-2px)}
+.qa-btn span{font-size:24px;display:block;margin-bottom:.35rem}
+.qa-btn strong{font-size:12px;font-weight:800;display:block}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:400;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
+.toast{background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:8px;font-size:13px;font-weight:600;opacity:0;transform:translateY(8px);transition:all .3s}
+.toast.show{opacity:1;transform:translateY(0)}
+
+@media(max-width:600px){.profile-header{flex-direction:column}.btn-logout{margin-left:0}}
+
+/* ── AUTH LOADING STATES ── */
+.auth-btn { position: relative; overflow: hidden; transition: all 200ms; }
+.auth-btn:disabled { opacity: .65; cursor: not-allowed; pointer-events: none; }
+.auth-btn .btn-spinner {
+  display: none; width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.35);
+  border-top-color: #fff; border-radius: 50%;
+  animation: spin 600ms linear infinite;
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+}
+.auth-btn.loading .btn-spinner { display: block; }
+.auth-btn.loading .btn-text { opacity: 0; }
+@keyframes spin { to { transform: translateY(-50%) rotate(360deg); } }
+
+/* ── PASSWORD TOGGLE ── */
+.pw-wrap { position: relative; }
+.pw-toggle {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: none; border: none; cursor: pointer; color: var(--ink-soft, #6E6E6E);
+  font-size: 16px; padding: 4px; line-height: 1;
+}
+.pw-toggle:hover { color: var(--primary, #6B4F3A); }
+
+/* ── GOOGLE AUTH ── */
+.google-btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 12px 20px; border-radius: 10px;
+  border: 1.5px solid rgba(107,79,58,.20); background: #fff;
+  font-family: inherit; font-size: 14px; font-weight: 600;
+  color: #333; cursor: pointer; transition: all 150ms;
+  margin-bottom: 12px;
+}
+.google-btn:hover { border-color: #6B4F3A; background: #F8F3E9; }
+.google-btn svg { flex-shrink: 0; }
+
+/* ── DIVIDER ── */
+.auth-divider {
+  display: flex; align-items: center; gap: 12px; margin: 4px 0 12px;
+  font-size: 12px; color: var(--ink-faint, #A0A0A0);
+}
+.auth-divider::before, .auth-divider::after {
+  content: ''; flex: 1; height: 1px; background: var(--border, rgba(107,79,58,.10));
+}
+
+/* ── ERROR / SUCCESS MSG ── */
+.auth-msg {
+  padding: 10px 14px; border-radius: 8px; font-size: 13px;
+  margin-top: 10px; display: none;
+}
+.auth-msg.show { display: block; }
+.auth-msg.error { background: #FAEAEA; color: #A63A3A; border: 1px solid #FECACA; }
+.auth-msg.success { background: #EAF2E8; color: #5B7C5B; border: 1px solid #BBD6BB; }
+
+</style>
+
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Akun Murid — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  
+
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="Buat akun belajar bahasa Jepang Anda di NihonggoPro. Lacak progress, simpan hasil kuis, dan pantau perjalanan belajar N5 hingga N1.">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+<style>
+/* ═══════════ LAMP LOGIN OVERLAY (genuinely lapisan visual terpisah,
+   tidak menyentuh logic auth yang sudah ada) ═══════════ */
+#lampOverlay{position:fixed;inset:0;z-index:10000;background:#0a0b0f;display:flex;align-items:center;justify-content:center;transition:background-color .6s ease;overflow:hidden}
+#lampOverlay.lit{background:#1c1f24}
+#lampOverlay.hide{opacity:0;pointer-events:none;transition:opacity .5s ease .3s}
+.lamp-glow{position:absolute;top:38%;left:50%;transform:translate(-50%,-50%);width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(255,214,140,.35) 0%,rgba(255,180,90,.12) 35%,transparent 70%);opacity:0;transition:opacity .7s ease;pointer-events:none}
+#lampOverlay.lit .lamp-glow{opacity:1}
+.lamp-rig{position:relative;display:flex;flex-direction:column;align-items:center;cursor:pointer;z-index:2;user-select:none;-webkit-tap-highlight-color:transparent}
+.lamp-shade{width:150px;height:75px;border-radius:75px 75px 8px 8px;background:linear-gradient(180deg,#f3ede0,#d8cdb6);box-shadow:0 4px 18px rgba(0,0,0,.35);transition:box-shadow .5s ease,filter .5s ease;filter:brightness(.55)}
+#lampOverlay.lit .lamp-shade{filter:brightness(1.15);box-shadow:0 0 60px 20px rgba(255,205,120,.55),0 4px 18px rgba(0,0,0,.35)}
+.lamp-pole{width:14px;height:120px;background:linear-gradient(90deg,#8a8f98,#c4c9d0,#8a8f98);margin-top:-4px}
+.lamp-base{width:110px;height:16px;border-radius:8px;background:linear-gradient(90deg,#8a8f98,#c4c9d0,#8a8f98);box-shadow:0 6px 14px rgba(0,0,0,.4)}
+.lamp-string{width:2px;height:70px;background:rgba(0,0,0,.4);margin-top:6px;transform-origin:top center;transition:transform .15s ease}
+.lamp-rig:hover .lamp-string,.lamp-rig:active .lamp-string{transform:rotate(4deg)}
+.lamp-pull{width:14px;height:14px;border-radius:50%;background:#c9a86a;margin:0 auto;box-shadow:0 2px 6px rgba(0,0,0,.3)}
+.lamp-hint{margin-top:2.5rem;color:rgba(255,255,255,.5);font-family:Outfit,sans-serif;font-size:13px;font-weight:600;letter-spacing:.02em;text-align:center;transition:opacity .4s ease}
+#lampOverlay.lit .lamp-hint{opacity:0}
+#authSection.lamp-hidden{visibility:hidden;opacity:0}
+#authSection.lamp-reveal{visibility:visible;opacity:1;transition:opacity .5s ease}
+#authSection.lamp-reveal .form-row,#authSection.lamp-reveal .btn-submit,#authSection.lamp-reveal .auth-tabs,#authSection.lamp-reveal .auth-logo,#authSection.lamp-reveal .social-btn,#authSection.lamp-reveal .auth-footer,#authSection.lamp-reveal .auth-divider{opacity:0;transform:translateY(10px);animation:lampFieldIn .5s ease forwards}
+@media (prefers-reduced-motion: reduce){
+  #lampOverlay,#lampOverlay.hide,.lamp-glow,.lamp-shade,#authSection.lamp-reveal .form-row,#authSection.lamp-reveal .btn-submit,#authSection.lamp-reveal .auth-tabs,#authSection.lamp-reveal .auth-logo,#authSection.lamp-reveal .social-btn,#authSection.lamp-reveal .auth-footer,#authSection.lamp-reveal .auth-divider{transition:none!important;animation:none!important;opacity:1!important;transform:none!important}
+}
+@keyframes lampFieldIn{to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div id="lampOverlay" role="button" tabindex="0" aria-label="Tarik tali untuk menyalakan lampu dan masuk">
+  <div class="lamp-glow"></div>
+  <div class="lamp-rig" onclick="lampTurnOn()" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();lampTurnOn();}">
+    <div class="lamp-shade"></div>
+    <div class="lamp-pole"></div>
+    <div class="lamp-base"></div>
+    <div class="lamp-string"></div>
+    <div class="lamp-pull"></div>
+  </div>
+  <div class="lamp-hint">Tarik tali untuk masuk</div>
+</div>
+<a href="#authSection" class="skip-to-content">Langsung ke konten</a>
+
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">Akun Murid</h1>
+<!-- AUTH SECTION -->
+<div id="authSection" class="auth-wrap lamp-hidden">
+  <div class="auth-card">
+    <div class="auth-logo">
+      <div class="jp">Nihonggo Pro Academy</div>
+      <div class="sub">Platform Belajar Bahasa Jepang</div>
+    </div>
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchAuth('login')">Masuk</button>
+      <button class="auth-tab" tabindex="0" onclick="switchAuth('register')">Daftar</button>
+    </div>
+    <div id="authMsg" class="msg" role="alert" aria-live="polite"></div>
+
+    <!-- LOGIN FORM -->
+    <div id="loginForm">
+<button class="google-btn" onclick="loginWithGoogle()" type="button" id="googleLoginBtn">
+  <svg width="18" height="18" viewBox="0 0 18 18"><path fill="#4285F4" d="M16.51 8H8.98v3h4.3c-.18 1-.74 1.48-1.6 2.04v2.01h2.6a7.8 7.8 0 002.38-5.88c0-.57-.05-.66-.15-1.18z"/><path fill="#34A853" d="M8.98 17c2.16 0 3.97-.72 5.3-1.94l-2.6-2a4.8 4.8 0 01-7.18-2.54H1.83v2.07A8 8 0 008.98 17z"/><path fill="#FBBC05" d="M4.5 10.52a4.8 4.8 0 010-3.04V5.41H1.83a8 8 0 000 7.18l2.67-2.07z"/><path fill="#EA4335" d="M8.98 4.18c1.17 0 2.23.4 3.06 1.2l2.3-2.3A8 8 0 001.83 5.4L4.5 7.49a4.77 4.77 0 014.48-3.3z"/></svg>
+  Lanjutkan dengan Google
+</button>
+<div class="auth-divider">atau</div><form id="formLogin" onsubmit="doLogin();return false;" novalidate>
+      <div class="form-row"><label for="loginId">Email atau Username</label><input id="loginId" type="text" placeholder="email@contoh.com atau username" autocomplete="username"></div>
+      <div class="form-row"><label for="loginPass">Password</label><input id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()"></div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:.875rem"><a onclick="showForgot()" style="font-size:13px;color:var(--red);font-weight:600;cursor:pointer">Lupa password?</a></div>
+      <button type="button" class="btn-submit" role="button" onclick="doLogin()" id="btnLogin">Masuk</button>
+      <div class="divider">atau</div>
+      <button class="social-btn" onclick="loginGuest()">👤 Lanjutkan sebagai Tamu</button>
+      <div class="auth-footer">Belum punya akun? <a onclick="switchAuth('register')">Daftar gratis</a></div>
+    </form></div>
+
+    <!-- REGISTER FORM -->
+    <div id="registerForm" style="display:none"><form id="formRegister" onsubmit="doRegister();return false;" novalidate>
+      <div class="form-row"><label for="regName">Nama Lengkap</label><input id="regName" type="text" placeholder="Nama kamu" autocomplete="name"></div>
+      <div class="form-row"><label for="regUser">Username</label><input id="regUser" type="text" placeholder="3-20 karakter, huruf/angka" autocomplete="username" oninput="checkUsername()"><div id="userCheck" style="font-size:11px;margin-top:3px"></div></div>
+      <div class="form-row"><label for="regEmail">Email</label><input id="regEmail" type="email" placeholder="email@contoh.com" autocomplete="email"></div>
+      <div class="form-row"><label for="regPass">Password</label><input id="regPass" type="password" placeholder="Min. 6 karakter" autocomplete="new-password"><div id="passStrength" style="margin-top:4px"></div></div>
+      <div class="form-row"><label>Target Level</label>
+        <select id="regLevel" style="width:100%;padding:11px 14px;border-radius:9px;border:1.5px solid var(--border-mid);font-family:Outfit,sans-serif;font-size:14px;color:var(--ink);background:var(--cream);outline:none">
+          <option value="N5">N5 — Pemula</option>
+          <option value="N4">N4 — Dasar</option>
+          <option value="N3">N3 — Menengah</option>
+          <option value="N2">N2 — Atas</option>
+          <option value="N1">N1 — Mahir</option>
+        </select>
+      </div>
+      <button type="button" class="btn-submit" onclick="doRegister()" id="btnRegister">Buat Akun Gratis</button>
+      <div class="auth-footer">Sudah punya akun? <a onclick="switchAuth('login')">Masuk</a></div>
+      <div style="font-size:11px;color:var(--ink-faint);text-align:center;margin-top:.75rem">Data disimpan lokal di perangkatmu. Tidak dikirim ke server.</div>
+    </form></div>
+  </div>
+</div>
+
+<!-- PROFILE SECTION -->
+<div id="profileSection" style="display:none">
+  <div class="profile-wrap">
+    <!-- Header -->
+    <div class="profile-header">
+      <div class="avatar" id="profAvatar">A</div>
+      <div class="profile-info">
+        <h2 id="profName">—</h2>
+        <p id="profEmail">—</p>
+        <div class="profile-badges">
+          <span class="badge red" id="profLevel">N5</span>
+          <span class="badge gold" id="profStreak">🔥 0 hari streak</span>
+          <span class="badge blue" id="profJoined">Bergabung —</span>
+        </div>
+      </div>
+      <button class="btn-logout" onclick="doLogout()">Keluar →</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card"><strong id="statXP">0</strong><span>Total XP</span></div>
+      <div class="stat-card"><strong id="statDays">0</strong><span>Hari Belajar</span></div>
+      <div class="stat-card"><strong id="statQuiz">0</strong><span>Kuis Selesai</span></div>
+      <div class="stat-card"><strong id="statVocab">0</strong><span>Vocab Hafal</span></div>
+      <div class="stat-card"><strong id="statGrammar">0</strong><span>Grammar Dipelajari</span></div>
+      <div class="stat-card"><strong id="statAcc">0%</strong><span>Akurasi Rata-rata</span></div>
+    </div>
+
+    <!-- Streak Calendar -->
+    <div class="streak-card">
+      <div class="streak-flame">🔥</div>
+      <div class="streak-info">
+        <h3 id="streakNum">0 Hari Berturut</h3>
+        <p>Belajar setiap hari untuk menjaga streak!</p>
+        <p id="streakRecord" style="margin-top:4px;opacity:.6">Rekor terbaik: 0 hari</p>
+      </div>
+      <div class="streak-calendar" id="streakCal">    <div style="display:flex;gap:.5rem;margin-top:.5rem;flex-wrap:wrap">
+        <button onclick="shareProgress()" style="height:34px;padding:0 14px;border-radius:8px;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);color:#fff;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:.4rem" onmouseover="this.style.background='rgba(255,255,255,.2)'" onmouseout="this.style.background='rgba(255,255,255,.1)'">📤 Bagikan Progress</button>
+        <button onclick="shareToWhatsApp()" style="height:34px;padding:0 14px;border-radius:8px;border:none;background:#25D366;color:#fff;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:opacity .15s;display:flex;align-items:center;gap:.4rem" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">💬 WhatsApp</button>
+      </div>
+    </div>
+    </div>
+
+    <!-- Level Progress -->
+    <div style="font-size:14px;font-weight:800;margin-bottom:.75rem">📈 Progress per Level</div>
+    <div class="level-cards" id="levelCards"></div>
+
+    <!-- Quick Actions -->
+    <div style="background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.5rem">
+      <div style="font-size:12px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.75rem">⏱ Timer Belajar Hari Ini</div>
+      <div id="studyTimerWidget"></div>
+    </div>
+    <div style="font-size:14px;font-weight:800;margin-bottom:.75rem">⚡ Lanjut Belajar</div>
+    <div class="quick-actions">
+      <a href="Materi/JLPT-Lengkap.html" class="qa-btn"><span>📚</span><strong>Materi N5</strong></a>
+      <a href="Materi/Grammar-Lengkap.html" class="qa-btn"><span>🔤</span><strong>Grammar</strong></a>
+      <a href="Materi/Vocabulary-Lengkap.html" class="qa-btn"><span>🃏</span><strong>Vocabulary</strong></a>
+      <a href="Materi/Kana-Hiragana-Katakana.html" class="qa-btn"><span>あ</span><strong>Kana</strong></a>
+      <a href="Materi/Listening-Speaking.html" class="qa-btn"><span>🎧</span><strong>Listening</strong></a>
+      <a href="AI-Tutor-Pro.html" class="qa-btn"><span>🤖</span><strong>AI Tutor</strong></a>
+      <a href="Kelas-Online.html" class="qa-btn"><span>📡</span><strong>Kelas Live</strong></a>
+      <a href="Sertifikat.html" class="qa-btn"><span>🏆</span><strong>Sertifikat</strong></a>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="activity-card">
+      <h3>📋 Aktivitas Terakhir</h3>
+      <div id="activityList"><div style="text-align:center;color:var(--ink-faint);padding:1rem;font-size:13px">Mulai belajar untuk melihat aktivitasmu di sini.</div></div>
+    </div>
+
+    <!-- Edit Profile -->
+    <div class="activity-card" style="margin-bottom:0">
+      <h3>🔗 Referral — Ajak Teman</h3>
+      <div style="background:var(--cream);border-radius:10px;padding:1rem 1.25rem;border:.5px solid var(--border);margin-bottom:1.5rem">
+        <div style="font-size:13px;color:var(--ink-mid);margin-bottom:.5rem">Ajak teman belajar dan dapatkan <strong>100 XP bonus</strong> untuk setiap teman yang daftar!</div>
+        <div style="font-size:11px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.35rem">Kode Referralmu</div>
+        <div id="refCodeDisplay" style="font-size:20px;font-weight:800;letter-spacing:.15em;color:var(--red);background:var(--red-pale);padding:.5rem .875rem;border-radius:7px;display:inline-block;margin-bottom:.5rem">—</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-top:.25rem">
+          <button onclick="copyRefLink()" style="height:34px;padding:0 14px;border-radius:7px;border:none;background:var(--red);color:#fff;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer">📋 Salin Link Referral</button>
+          <button onclick="shareRefWhatsApp()" style="height:34px;padding:0 14px;border-radius:7px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer">💬 Bagikan ke WhatsApp</button>
+        </div>
+      </div>
+      <h3>⚙️ Pengaturan Akun</h3>
+      <div style="display:flex;flex-direction:column;gap:.75rem;margin-top:.25rem">
+        <div class="form-row" style="margin:0">
+          <label>Nama Tampilan</label>
+          <input id="editName" type="text" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border-mid);font-family:Outfit,sans-serif;font-size:14px;color:var(--ink);background:var(--cream);outline:none" aria-label="Edit nama tampilan">
+        </div>
+        <div class="form-row" style="margin:0">
+          <label>Target Level</label>
+          <select id="editLevel" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border-mid);font-family:Outfit,sans-serif;font-size:14px;color:var(--ink);background:var(--cream);outline:none">
+            <option value="N5">N5</option><option value="N4">N4</option><option value="N3">N3</option><option value="N2">N2</option><option value="N1">N1</option>
+          </select>
+        </div>
+        <div class="form-row" style="margin:0">
+          <label>Tujuan Belajar Harian</label>
+          <select id="editGoal" style="width:100%;padding:9px 12px;border-radius:8px;border:1.5px solid var(--border-mid);font-family:Outfit,sans-serif;font-size:14px;color:var(--ink);background:var(--cream);outline:none">
+            <option value="15">15 menit/hari</option>
+            <option value="30">30 menit/hari</option>
+            <option value="60">1 jam/hari</option>
+            <option value="120">2 jam/hari</option>
+          </select>
+        </div>
+        <button onclick="saveProfile()" style="height:44px;border-radius:9px;border:none;background:var(--red);color:#fff;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;transition:background .15s" onmouseover="this.style.background='#a02d23'" onmouseout="this.style.background='var(--red)'">💾 Simpan Perubahan</button>
+        <button onclick="exportData()" style="height:44px;border-radius:9px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer">📥 Ekspor Data Belajar (JSON)</button>
+        <button onclick="if(confirm('Hapus semua data akun?'))deleteAccount()" style="height:44px;border-radius:9px;border:1.5px solid #fca5a5;background:var(--white);color:#ef4444;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer">🗑️ Hapus Akun & Data</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<script>
+// ── THEME ──
+// GENUINELY DIPERBAIKI (Fase EE, Verifikasi Visual): tombol toggleTheme() legacy dihapus (duplikat dengan navbar resmi kyoto-navbar.js). IIFE inisialisasi tema dipertahankan (mencegah flash-of-wrong-theme sebelum navbar defer selesai load), disesuaikan tanpa referensi elemen yang dihapus.
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+
+function toast(m,d=3000){const w=document.getElementById('toastWrap');const el=document.createElement('div');el.className='toast';el.textContent=m;w.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),350);},d);}
+
+// ── STORAGE KEYS ──
+const USERS_KEY = 'np-users';
+const SESSION_KEY = 'np-session';
+const PROGRESS_KEY = 'np-progress';
+
+// ── USER DB (localStorage) ──
+function getUsers(){ return JSON.parse(localStorage.getItem(USERS_KEY)||'{}'); }
+function saveUsers(u){ localStorage.setItem(USERS_KEY, JSON.stringify(u)); }
+function getSession(){ return JSON.parse(localStorage.getItem(SESSION_KEY)||'null'); }
+function saveSession(s){ localStorage.setItem(SESSION_KEY, JSON.stringify(s)); }
+function getProgress(uid){ return JSON.parse(localStorage.getItem(PROGRESS_KEY+'-'+uid)||'{}'); }
+function saveProgress(uid,p){ localStorage.setItem(PROGRESS_KEY+'-'+uid, JSON.stringify(p)); }
+
+// Default progress structure
+function defaultProgress(level='N5'){
+  return {
+    level, xp:0, days:0, streak:0, streakRecord:0, quizDone:0, vocabLearned:0, grammarLearned:0,
+    totalCorrect:0, totalAnswers:0, studyDates:[], lastStudy:null, goal:30,
+    levelProgress:{N5:0,N4:0,N3:0,N2:0,N1:0},
+    activity:[],
+  };
+}
+
+// ── INIT ──
+(function init(){
+  const sess = getSession();
+  if(sess && sess.uid){
+    const users = getUsers();
+    if(users[sess.uid]){
+      // GENUINELY DITAMBAHKAN: pengguna yang sudah login genuinely tidak
+      // perlu menarik tali lampu -- overlay langsung disembunyikan agar
+      // tidak menutupi profileSection yang genuinely ditampilkan showProfile().
+      const overlay = document.getElementById('lampOverlay');
+      if (overlay) overlay.style.display = 'none';
+      showProfile(users[sess.uid]);
+      return;
+    }
+  }
+  document.getElementById('authSection').style.display='flex';
+  document.getElementById('profileSection').style.display='none';
+})();
+
+// ── LAMP LOGIN OVERLAY (genuinely lapisan visual, tidak menyentuh logic auth) ──
+function lampTurnOn(){
+  var overlay = document.getElementById('lampOverlay');
+  var authSection = document.getElementById('authSection');
+  if (!overlay || overlay.classList.contains('lit')) return;
+  overlay.classList.add('lit');
+
+  // Genuinely tampilkan authSection dan field-nya bertahap satu per satu
+  setTimeout(function(){
+    authSection.classList.remove('lamp-hidden');
+    authSection.classList.add('lamp-reveal');
+    var staggerEls = authSection.querySelectorAll('.form-row, .btn-submit, .auth-tabs, .auth-logo, .social-btn, .auth-footer, .auth-divider');
+    staggerEls.forEach(function(el, i){
+      el.style.animationDelay = (i * 90) + 'ms';
+    });
+  }, 350);
+
+  setTimeout(function(){
+    overlay.classList.add('hide');
+  }, 900);
+}
+
+// ── AUTH ──
+function switchAuth(tab){
+  document.getElementById('loginForm').style.display = tab==='login'?'block':'none';
+  document.getElementById('registerForm').style.display = tab==='register'?'block':'none';
+  document.querySelectorAll('.auth-tab').forEach((b,i)=>b.classList.toggle('active',(tab==='login'&&i===0)||(tab==='register'&&i===1)));
+  document.getElementById('authMsg').style.display='none';
+}
+
+function showMsg(txt,type='error'){
+  const el=document.getElementById('authMsg');el.textContent=txt;el.className='msg '+type;
+}
+
+function checkUsername(){
+  const v=document.getElementById('regUser').value.trim();
+  const el=document.getElementById('userCheck');
+  if(!v){el.textContent='';return;}
+  if(!/^[a-zA-Z0-9_]{3,20}$/.test(v)){el.textContent='⚠️ 3-20 karakter, huruf/angka/underscore';el.style.color='#ef4444';return;}
+  const users=getUsers();
+  const taken=Object.values(users).some(u=>u.username===v.toLowerCase());
+  el.textContent=taken?'✗ Username sudah dipakai':'✓ Username tersedia';
+  el.style.color=taken?'#ef4444':'var(--green)';
+}
+
+function passStrengthCheck(){
+  const p=document.getElementById('regPass').value;
+  const el=document.getElementById('passStrength');
+  if(!p){el.innerHTML='';return;}
+  let score=0;if(p.length>=6)score++;if(p.length>=8)score++;if(/[A-Z]/.test(p))score++;if(/[0-9]/.test(p))score++;if(/[^A-Za-z0-9]/.test(p))score++;
+  const labels=['','⚡ Lemah','⚡ Cukup','🔒 Bagus','🔒 Kuat','🛡️ Sangat Kuat'];
+  const colors=['','#ef4444','#f97316','var(--gold)','var(--green)','#7c3aed'];
+  el.innerHTML=`<div style="height:4px;border-radius:2px;background:var(--border);overflow:hidden;margin-bottom:3px"><div style="height:100%;width:${score*20}%;background:${colors[score]};transition:width .3s"></div></div><span style="font-size:11px;color:${colors[score]};font-weight:600">${labels[score]}</span>`;
+}
+document.addEventListener('input',e=>{if(e.target.id==='regPass')passStrengthCheck();});
+
+// Perlindungan password: SEBELUMNYA disimpan dengan btoa() (Base64), yang
+// genuinely BUKAN hash sama sekali -- siapapun bisa membalikkannya (atob())
+// dalam sepersekian detik untuk mendapatkan password asli. Diganti dengan
+// SHA-256 + salt ACAK PER-PENGGUNA (bukan salt statis global -- itu juga
+// lemah karena satu rainbow table bisa dipakai lintas semua akun). Salt
+// disimpan bersama hash (praktik standar, salt tidak perlu dirahasiakan,
+// hanya perlu unik per-pengguna) supaya verifikasi genuinely bisa dilakukan.
+async function hashPw(pw, salt) {
+  const msgBuffer = new TextEncoder().encode(pw + salt);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+function genSalt() {
+  const arr = new Uint8Array(16);
+  crypto.getRandomValues(arr);
+  return Array.from(arr).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function doRegister(){
+  const name=document.getElementById('regName').value.trim();
+  const username=document.getElementById('regUser').value.trim().toLowerCase();
+  const email=document.getElementById('regEmail').value.trim().toLowerCase();
+  const pass=document.getElementById('regPass').value;
+  const level=document.getElementById('regLevel').value;
+
+  if(!name||!username||!email||!pass){showMsg('Semua field wajib diisi.');return;}
+  if(!/^[a-zA-Z0-9_]{3,20}$/.test(username)){showMsg('Username tidak valid.');return;}
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){showMsg('Format email tidak valid.');return;}
+  if(pass.length<6){showMsg('Password minimal 6 karakter.');return;}
+
+  const users=getUsers();
+  const emailTaken=Object.values(users).some(u=>u.email===email);
+  const userTaken=Object.values(users).some(u=>u.username===username);
+  if(emailTaken){showMsg('Email sudah terdaftar.');return;}
+  if(userTaken){showMsg('Username sudah dipakai.');return;}
+
+  const uid='u'+Date.now();
+  const salt=genSalt();
+  const hashed=await hashPw(pass, salt);
+  const user={uid,name,username,email,passHash:hashed,passSalt:salt,level,joined:new Date().toISOString(),avatar:name.charAt(0).toUpperCase()};
+  users[uid]=user;saveUsers(users);
+
+  const prog=defaultProgress(level);prog.levelProgress[level]=5;
+  saveProgress(uid,prog);
+  saveSession({uid});
+
+  showMsg('✅ Akun berhasil dibuat!','success');
+  setTimeout(()=>showProfile(user),1000);
+  toast('🎉 Selamat datang, '+name+'!');
+}
+
+async function doLogin(){
+  const id=document.getElementById('loginId').value.trim().toLowerCase();
+  const pass=document.getElementById('loginPass').value;
+  if(!id||!pass){showMsg('Isi email/username dan password.');return;}
+
+  const users=getUsers();
+  const candidate=Object.values(users).find(u=>(u.email===id||u.username===id));
+  let user=null;
+  if(candidate){
+    if(candidate.passHash && candidate.passSalt){
+      // Akun genuinely sudah pakai skema hash baru
+      const hashed=await hashPw(pass, candidate.passSalt);
+      if(hashed===candidate.passHash) user=candidate;
+    } else if(candidate.pass){
+      // Migrasi transparan: akun lama masih pakai btoa() dari sebelum
+      // perbaikan ini. Verifikasi dengan skema lama SEKALI, lalu upgrade
+      // diam-diam ke hash baru supaya password lama tidak genuinely
+      // tersimpan sebagai Base64 selamanya.
+      if(candidate.pass===btoa(pass)){
+        const salt=genSalt();
+        const hashed=await hashPw(pass, salt);
+        candidate.passHash=hashed;
+        candidate.passSalt=salt;
+        delete candidate.pass;
+        saveUsers(users);
+        user=candidate;
+      }
+    }
+  }
+  if(!user){showMsg('Email/username atau password salah.');return;}
+
+  saveSession({uid:user.uid});
+  // Track study day
+  const prog=getProgress(user.uid);
+  const today=new Date().toDateString();
+  if(prog.lastStudy!==today){
+    prog.days=(prog.days||0)+1;
+    const yesterday=new Date(Date.now()-86400000).toDateString();
+    prog.streak=prog.lastStudy===yesterday?(prog.streak||0)+1:1;
+    prog.streakRecord=Math.max(prog.streak,prog.streakRecord||0);
+    prog.studyDates=[...(prog.studyDates||[]),today].slice(-90);
+    prog.lastStudy=today;
+    saveProgress(user.uid,prog);
+  }
+  showProfile(user);
+  toast('👋 Selamat datang kembali, '+user.name+'!');
+}
+
+function loginGuest(){
+  const uid='guest-'+Date.now();
+  const user={uid,name:'Tamu',username:'tamu',email:'',pass:'',level:'N5',joined:new Date().toISOString(),avatar:'👤',isGuest:true};
+  const users=getUsers();users[uid]=user;saveUsers(users);
+  saveSession({uid});
+  saveProgress(uid,defaultProgress('N5'));
+  showProfile(user);
+  toast('👤 Melanjutkan sebagai tamu. Data tidak tersimpan permanen.');
+}
+
+function doLogout(){
+  localStorage.removeItem(SESSION_KEY);
+  // GENUINELY ditambahkan: sebelumnya hanya menghapus SESSION_KEY
+  // ('np-session'), TIDAK menyentuh 'nihongopro.user.preferences' (hasil
+  // bridge migrasi v270/v273 ke Dashboard.html) -- dikonfirmasi audit
+  // menyebabkan "sesi hantu": setelah logout genuine di halaman ini,
+  // Dashboard.html GENUINELY MASIH menampilkan nama pengguna yang sudah
+  // logout, karena bridge preferences tidak pernah dibersihkan. Risiko
+  // privasi nyata di komputer bersama. Dihapus di sini agar logout genuine
+  // membersihkan seluruh jejak identitas, bukan hanya sesi lokal halaman ini.
+  localStorage.removeItem('nihongopro.user.preferences');
+  document.getElementById('profileSection').style.display='none';
+  document.getElementById('authSection').style.display='flex';
+  // GENUINELY DITAMBAHKAN (Fase Audit Website, plan lanjutan): dikonfirmasi
+  // via pengujian interaktif genuine bahwa `doLogout()` sebelumnya TIDAK
+  // mereset tab auth internal (Masuk vs Daftar) -- jika pengguna genuinely
+  // berada di tab "Daftar" sebelum logout (mis. baru saja registrasi),
+  // form Daftar genuinely TETAP ditampilkan setelah logout, BUKAN form
+  // Masuk. Dibuktikan konkret: `#loginForm` genuinely tetap `display:none`
+  // dari state sebelumnya, membuat field login secara visual tidak
+  // accessible meski `display` CSS-nya sendiri genuinely `block`.
+  // Diperbaiki dengan memanggil `switchAuth('login')`, memastikan
+  // pengguna genuinely SELALU melihat form Login setelah logout --
+  // perilaku yang genuinely lebih masuk akal secara UX.
+  switchAuth('login');
+  toast('✅ Berhasil keluar');
+}
+
+function showForgot(){toast('💡 Reset: hapus data browser atau hubungi admin@nihonggopro.id');}
+
+// ── PROFILE ──
+function showProfile(user){
+  document.getElementById('authSection').style.display='none';
+  document.getElementById('profileSection').style.display='block';
+
+  const prog=getProgress(user.uid);
+
+  // Header
+  document.getElementById('profAvatar').textContent=user.avatar||user.name.charAt(0).toUpperCase();
+  document.getElementById('profName').textContent=user.name+(user.isGuest?' (Tamu)':'');
+  document.getElementById('profEmail').textContent=user.email||'Akun Tamu';
+  document.getElementById('profLevel').textContent='Target: '+user.level;
+  document.getElementById('profStreak').textContent='🔥 '+(prog.streak||0)+' hari streak';
+  document.getElementById('profJoined').textContent='Bergabung '+new Date(user.joined).toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+
+  // Stats
+  document.getElementById('statXP').textContent=(prog.xp||0).toLocaleString('id-ID');
+  document.getElementById('statDays').textContent=prog.days||0;
+  document.getElementById('statQuiz').textContent=prog.quizDone||0;
+  document.getElementById('statVocab').textContent=prog.vocabLearned||0;
+  document.getElementById('statGrammar').textContent=prog.grammarLearned||0;
+  const acc=prog.totalAnswers>0?Math.round(prog.totalCorrect/prog.totalAnswers*100):0;
+  document.getElementById('statAcc').textContent=acc+'%';
+
+  // Streak
+  document.getElementById('streakNum').textContent=(prog.streak||0)+' Hari Berturut';
+  document.getElementById('streakRecord').textContent='Rekor terbaik: '+(prog.streakRecord||0)+' hari';
+  renderStreakCal(prog.studyDates||[]);
+
+  // Level progress
+  renderLevelCards(prog);
+
+  // Activity
+  renderActivity(prog.activity||[]);
+
+  // Edit form
+  document.getElementById('editName').value=user.name;
+  document.getElementById('editLevel').value=user.level;
+  document.getElementById('editGoal').value=prog.goal||30;
+
+  // Update progress from site activity
+  syncSiteProgress(user.uid, prog);
+}
+
+function renderStreakCal(dates){
+  const cal=document.getElementById('streakCal');
+  const days=[];
+  for(let i=29;i>=0;i--){
+    const d=new Date(Date.now()-i*86400000).toDateString();
+    days.push({d,done:dates.includes(d),today:i===0});
+  }
+  cal.innerHTML=days.map(d=>`<div class="streak-day ${d.done?'done':''} ${d.today?'today':''}" title="${d.d}"></div>`).join('');
+}
+
+function renderLevelCards(prog){
+  const levels=[
+    {id:'N5',name:'N5',color:'blue',target:800,gramTarget:60,desc:'Fondasi'},
+    {id:'N4',name:'N4',color:'green',target:1500,gramTarget:90,desc:'Dasar'},
+    {id:'N3',name:'N3',color:'gold',target:3750,gramTarget:140,desc:'Menengah'},
+    {id:'N2',name:'N2',color:'red',target:6000,gramTarget:180,desc:'Lanjut'},
+    {id:'N1',name:'N1',color:'purple',target:10000,gramTarget:192,desc:'Mahir'},
+  ];
+  const container=document.getElementById('levelCards');
+  container.innerHTML=levels.map(lv=>{
+    const pct=prog.levelProgress?.[lv.id]||0;
+    return `<div class="level-card">
+      <h3>${lv.name} <span style="font-size:12px;color:var(--ink-soft);font-weight:600">${lv.desc}</span></h3>
+      <p>Target: ${lv.target.toLocaleString()} vocab · ${lv.gramTarget} grammar</p>
+      <div class="prog-bar"><div class="prog-fill ${lv.id.toLowerCase()}" style="width:${pct}%"></div></div>
+      <div class="prog-label"><span>${pct}% selesai</span><span>${Math.round(lv.target*pct/100).toLocaleString()} vocab</span></div>
+    </div>`;
+  }).join('');
+}
+
+function renderActivity(acts){
+  const list=document.getElementById('activityList');
+  if(!acts.length){list.innerHTML='<div style="text-align:center;color:var(--ink-faint);padding:1rem;font-size:13px">Mulai belajar untuk melihat aktivitasmu.</div>';return;}
+  const icons={grammar:'🔤',vocab:'🃏',quiz:'🧩',kana:'あ',listening:'🎧',reading:'📖',kelas:'📡'};
+  list.innerHTML=acts.slice(-10).reverse().map(a=>`
+    <div class="act-item">
+      <div class="act-icon" style="background:var(--cream)">${icons[a.type]||'📚'}</div>
+      <div class="act-info"><div class="act-title">${a.title}</div><div class="act-time">${new Date(a.time).toLocaleString('id-ID',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'})}</div></div>
+      ${a.score!=null?`<div class="act-score">${a.score}%</div>`:''}
+    </div>`).join('');
+}
+
+function syncSiteProgress(uid, prog){
+  // Pull data from other localStorage keys the site uses
+  const siteProgress=JSON.parse(localStorage.getItem('nihongoLearningProgress')||'{}');
+  let changed=false;
+  if(siteProgress.grammarStudied>0){prog.grammarLearned=Math.max(prog.grammarLearned,siteProgress.grammarStudied||0);changed=true;}
+  if(siteProgress.vocabStudied>0){prog.vocabLearned=Math.max(prog.vocabLearned,siteProgress.vocabStudied||0);changed=true;}
+  // XP calculation
+  prog.xp=(prog.vocabLearned*5)+(prog.grammarLearned*10)+(prog.quizDone*20)+(prog.days*50);
+  if(changed)saveProgress(uid,prog);
+}
+
+function saveProfile(){
+  const sess=getSession();if(!sess)return;
+  const users=getUsers();const user=users[sess.uid];if(!user)return;
+  user.name=document.getElementById('editName').value.trim()||user.name;
+  user.level=document.getElementById('editLevel').value;
+  users[sess.uid]=user;saveUsers(users);
+  const prog=getProgress(sess.uid);
+  prog.goal=+document.getElementById('editGoal').value;
+  saveProgress(sess.uid,prog);
+  toast('✅ Profil disimpan');
+  showProfile(user);
+}
+
+function exportData(){
+  const sess=getSession();if(!sess)return;
+  const users=getUsers();const user=users[sess.uid];
+  const prog=getProgress(sess.uid);
+  const data={user:{name:user.name,username:user.username,email:user.email,level:user.level,joined:user.joined},progress:prog,exported:new Date().toISOString()};
+  const a=document.createElement('a');a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(data,null,2));a.download='nihonggopro-data-'+user.username+'.json';a.click();
+  toast('📥 Data diekspor');
+}
+
+function deleteAccount(){
+  const sess=getSession();if(!sess)return;
+  const users=getUsers();delete users[sess.uid];saveUsers(users);
+  localStorage.removeItem(PROGRESS_KEY+'-'+sess.uid);
+  localStorage.removeItem(SESSION_KEY);
+  document.getElementById('profileSection').style.display='none';
+  document.getElementById('authSection').style.display='flex';
+  toast('Akun dihapus');
+}
+
+// ── EXPOSE GLOBAL PROGRESS API ──
+// Other pages can call: NihonggoProgress.addXP(50), NihonggoProgress.logActivity(...)
+window.NihonggoProgress = {
+  getSession,
+  getProgress,
+  saveProgress,
+  addXP(amount){
+    const sess=getSession();if(!sess)return;
+    const prog=getProgress(sess.uid);prog.xp=(prog.xp||0)+amount;saveProgress(sess.uid,prog);
+  },
+  logActivity(type,title,score=null){
+    const sess=getSession();if(!sess)return;
+    const prog=getProgress(sess.uid);
+    prog.activity=[...(prog.activity||[]),{type,title,score,time:new Date().toISOString()}].slice(-50);
+    if(type==='quiz')prog.quizDone=(prog.quizDone||0)+1;
+    if(score!=null){prog.totalAnswers=(prog.totalAnswers||0)+1;if(score>=70)prog.totalCorrect=(prog.totalCorrect||0)+1;}
+    prog.xp=(prog.xp||0)+(type==='quiz'?20:type==='vocab'?5:10);
+    saveProgress(sess.uid,prog);
+  },
+  incrementVocab(n=1){
+    const sess=getSession();if(!sess)return;
+    const prog=getProgress(sess.uid);prog.vocabLearned=(prog.vocabLearned||0)+n;saveProgress(sess.uid,prog);
+  },
+  incrementGrammar(n=1){
+    const sess=getSession();if(!sess)return;
+    const prog=getProgress(sess.uid);prog.grammarLearned=(prog.grammarLearned||0)+n;saveProgress(sess.uid,prog);
+  },
+  setLevelProgress(level,pct){
+    const sess=getSession();if(!sess)return;
+    const prog=getProgress(sess.uid);prog.levelProgress=prog.levelProgress||{};prog.levelProgress[level]=Math.min(100,pct);saveProgress(sess.uid,prog);
+  }
+};
+</script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="Materi/JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Materi/Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Materi/Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Materi/Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+
+<script>
+(function initPushNotif(){
+  if(!('Notification' in window)) return;
+  const NOTIF_KEY = 'np-notif-setup';
+  const setup = localStorage.getItem(NOTIF_KEY);
+  if(setup === 'denied' || setup === 'dismissed') return;
+
+  // Only show prompt after user has been on site > 30 seconds
+  setTimeout(() => {
+    if(Notification.permission === 'granted'){
+      scheduleStudyReminder();
+      return;
+    }
+    if(Notification.permission !== 'denied' && !setup){
+      showNotifBanner();
+    }
+  }, 30000);
+
+  function showNotifBanner(){
+    const banner = document.createElement('div');
+    banner.id = 'notifBanner';
+    banner.style.cssText = 'position:fixed;bottom:5.5rem;right:1rem;background:white;border-radius:12px;padding:.875rem 1rem;box-shadow:0 4px 20px rgba(0,0,0,.15);border:.5px solid rgba(0,0,0,.08);z-index:200;max-width:280px;font-family:Outfit,sans-serif';
+    banner.innerHTML = `
+      <div style="font-size:13px;font-weight:700;color:#15161a;margin-bottom:.35rem">🔔 Pengingat Belajar Harian</div>
+      <div style="font-size:12px;color:#888;margin-bottom:.625rem;line-height:1.5">Izinkan notifikasi untuk diingatkan belajar bahasa Jepang setiap hari dan menjaga streak.</div>
+      <div style="display:flex;gap:.4rem">
+        <button onclick="window._npAllowNotif()" style="flex:1;height:32px;border-radius:7px;border:none;background:var(--red,#be3428);color:white;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer">Izinkan</button>
+        <button onclick="window._npDismissNotif()" style="height:32px;padding:0 10px;border-radius:7px;border:1px solid #e0e0e0;background:white;font-family:Outfit,sans-serif;font-size:12px;cursor:pointer;color:#888">Nanti</button>
+      </div>`;
+    document.body.appendChild(banner);
+  }
+
+  window._npAllowNotif = function(){
+    Notification.requestPermission().then(perm => {
+      localStorage.setItem(NOTIF_KEY, perm);
+      const b = document.getElementById('notifBanner');
+      if(b) b.remove();
+      if(perm === 'granted'){
+        new Notification('🎌 NihonggoPro', {
+          body: 'Notifikasi aktif! Kami akan mengingatkanmu belajar setiap hari.',
+          icon: '/assets/og-preview.svg',
+          badge: '/assets/og-preview.svg'
+        });
+        scheduleStudyReminder();
+      }
+    });
+  };
+
+  window._npDismissNotif = function(){
+    localStorage.setItem(NOTIF_KEY, 'dismissed');
+    const b = document.getElementById('notifBanner');
+    if(b) b.remove();
+  };
+
+  function scheduleStudyReminder(){
+    // Check if user already studied today
+    const today = new Date().toDateString();
+    const timerKey = 'np-study-timer-' + today;
+    const studied = +localStorage.getItem(timerKey) || 0;
+    if(studied >= 900) return; // Already studied 15+ mins today
+
+    // Schedule reminder for 8 PM if not studied
+    const now = new Date();
+    const target = new Date();
+    target.setHours(20, 0, 0, 0);
+    if(now > target) target.setDate(target.getDate() + 1);
+
+    const delay = target - now;
+    const reminderKey = 'np-reminder-' + today;
+    if(localStorage.getItem(reminderKey)) return;
+    localStorage.setItem(reminderKey, '1');
+
+    setTimeout(() => {
+      const studied2 = +localStorage.getItem('np-study-timer-' + new Date().toDateString()) || 0;
+      if(studied2 < 300 && Notification.permission === 'granted'){
+        new Notification('🔥 Jangan putus streakmu!', {
+          body: 'Kamu belum belajar hari ini. 10 menit saja sudah cukup untuk menjaga streak.',
+          icon: '/assets/og-preview.svg',
+          requireInteraction: true,
+          tag: 'daily-reminder'
+        });
+      }
+    }, Math.min(delay, 2147483647));
+  }
+})();
+</script>
+
+<script>
+(function initReferral(){
+  // Generate referral code from username
+  const sess = JSON.parse(localStorage.getItem('np-session') || 'null');
+  if(!sess) return;
+  const users = JSON.parse(localStorage.getItem('np-users') || '{}');
+  const user = users[sess.uid];
+  if(!user) return;
+
+  // Generate unique referral code
+  const refCode = 'NP' + (user.username || user.name.replace(/\s/g,'')).toUpperCase().slice(0,6);
+  user.referralCode = refCode;
+  users[sess.uid] = user;
+  localStorage.setItem('np-users', JSON.stringify(users));
+
+  // Check if current user came from referral
+  const urlRef = new URLSearchParams(location.search).get('ref');
+  if(urlRef && urlRef !== refCode){
+    const refData = JSON.parse(localStorage.getItem('np-referrals') || '{}');
+    if(!refData[refCode]){
+      refData[refCode] = {by: urlRef, date: new Date().toISOString()};
+      localStorage.setItem('np-referrals', JSON.stringify(refData));
+      // Award XP to referrer (found by code)
+      Object.values(users).forEach(u => {
+        if(u.referralCode === urlRef){
+          const prog = JSON.parse(localStorage.getItem('np-progress-'+u.uid) || '{}');
+          prog.xp = (prog.xp || 0) + 100;
+          localStorage.setItem('np-progress-'+u.uid, JSON.stringify(prog));
+        }
+      });
+    }
+  }
+
+  // Expose referral link generation
+  window.getReferralLink = function(){
+    return location.origin + '/index.html?ref=' + refCode;
+  };
+  window.getReferralCode = function(){ return refCode; };
+})();
+
+function copyRefLink(){
+  const link = window.getReferralLink ? window.getReferralLink() : location.href;
+  navigator.clipboard.writeText(link).then(()=>toast('✅ Link referral disalin!')).catch(()=>toast('Link: '+link));
+}
+function shareRefWhatsApp(){
+  const code = window.getReferralCode ? window.getReferralCode() : 'NP000';
+  const msg = 'Hei! Aku belajar bahasa Jepang di NihonggoPro — gratis dan lengkap N5-N1. Daftar pakai kode referralku ' + code + ' dan kita sama-sama dapat bonus XP! ' + (window.getReferralLink ? window.getReferralLink() : location.href);
+  window.open('https://wa.me/?text='+encodeURIComponent(msg),'_blank');
+}
+// Update referral code display after login
+const origShowProfile = window.showProfile;
+window.showProfile = function(user){
+  if(origShowProfile) origShowProfile(user);
+  setTimeout(()=>{
+    const el = document.getElementById('refCodeDisplay');
+    if(el && window.getReferralCode) el.textContent = getReferralCode();
+  }, 200);
+};
+</script>
+
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+/* ── AUTH UI ENHANCEMENTS ── */
+function setAuthLoading(btnId, isLoading, text) {
+  const btn = document.getElementById(btnId);
+  if (!btn) return;
+  btn.disabled = isLoading;
+  btn.classList.toggle('loading', isLoading);
+  const txtEl = btn.querySelector('.btn-text');
+  if (txtEl && text) txtEl.textContent = isLoading ? text : txtEl.dataset.orig || txtEl.textContent;
+}
+
+function showAuthMsg(el, type, msg) {
+  if (!el) return;
+  el.textContent = msg;
+  el.className = `auth-msg show ${type}`;
+  setTimeout(() => el.classList.remove('show'), 5000);
+}
+
+function togglePasswordVisibility(inputId, toggleEl) {
+  const inp = document.getElementById(inputId);
+  if (!inp) return;
+  // aria-label SEBELUMNYA statis "Tampilkan password" dan TIDAK PERNAH
+  // berubah meski status show/hide genuinely berubah -- pola bug yang sama
+  // ditemukan dan diperbaiki di index.html (togglePw()).
+  if (inp.type === 'password') {
+    inp.type = 'text';
+    toggleEl.textContent = '🙈';
+    toggleEl.setAttribute('aria-label', 'Sembunyikan password');
+  } else {
+    inp.type = 'password';
+    toggleEl.textContent = '👁';
+    toggleEl.setAttribute('aria-label', 'Tampilkan password');
+  }
+}
+
+async function loginWithGoogle() {
+  const sb = window.supabase || window._supabase;
+  if (!sb) {
+    showAuthMsg(document.getElementById('authMsg'), 'error',
+      'Koneksi Supabase belum dikonfigurasi. Isi SUPABASE_URL dan SUPABASE_ANON_KEY di environment.');
+    return;
+  }
+  try {
+    const { error } = await sb.auth.signInWithOAuth({
+      provider: 'google',
+      options: { redirectTo: window.location.origin + '/Dashboard/Dashboard.html' }
+    });
+    if (error) throw error;
+  } catch(e) {
+    showAuthMsg(document.getElementById('authMsg'), 'error', e.message || 'Google login gagal.');
+  }
+}
+
+// Enhance tombol login/register yang sudah ada dengan loading state
+document.addEventListener('DOMContentLoaded', function() {
+  // Wrap password inputs dengan toggle
+  document.querySelectorAll('input[type="password"]').forEach(function(inp) {
+    if (!inp.parentElement.classList.contains('pw-wrap')) {
+      const wrap = document.createElement('div');
+      wrap.className = 'pw-wrap';
+      inp.parentNode.insertBefore(wrap, inp);
+      wrap.appendChild(inp);
+      const toggle = document.createElement('button');
+      toggle.className = 'pw-toggle';
+      toggle.type = 'button';
+      toggle.textContent = '👁';
+      toggle.setAttribute('aria-label', 'Tampilkan password');
+      toggle.onclick = function() { togglePasswordVisibility(inp.id, toggle); };
+      wrap.appendChild(toggle);
+    }
+  });
+
+  // Wrap teks btn dengan span.btn-text
+  ['loginBtn','registerBtn','submitBtn'].forEach(function(id) {
+    const btn = document.getElementById(id);
+    if (btn && !btn.querySelector('.btn-text')) {
+      btn.innerHTML = `<span class="btn-text">${btn.textContent}</span><span class="btn-spinner"></span>`;
+      btn.dataset.orig = btn.textContent;
+    }
+  });
+});
+
+/* ── SHARE PROGRESS ── */
+function buildShareText(){
+  var level = (document.getElementById('profLevel')||{}).textContent || 'N5';
+  var xp = (document.getElementById('statXP')||{}).textContent || '0';
+  var streak = (document.getElementById('streakNum')||{}).textContent || '0 Hari Berturut';
+  var quiz = (document.getElementById('statQuiz')||{}).textContent || '0';
+  return '🎌 Progress belajar bahasa Jepang saya di Nihonggo Pro Academy!\n\n' +
+    '📊 Level: ' + level + '\n' +
+    '⭐ Total XP: ' + xp + '\n' +
+    '🔥 Streak: ' + streak + '\n' +
+    '✅ Kuis selesai: ' + quiz + '\n\n' +
+    'Yuk belajar bahasa Jepang bareng di nihonggopro.id 🌸';
+}
+
+async function shareProgress(){
+  var text = buildShareText();
+  if(navigator.share){
+    try{
+      await navigator.share({ title: 'Progress Nihonggo Pro Academy', text: text, url: 'https://nihonggopro.id' });
+      return;
+    }catch(e){ /* user cancelled atau tidak didukung, lanjut ke fallback */ }
+  }
+  try{
+    await navigator.clipboard.writeText(text + '\nhttps://nihonggopro.id');
+    alert('✅ Progress berhasil disalin ke clipboard! Tempel di mana saja untuk membagikannya.');
+  }catch(e){
+    alert(text);
+  }
+}
+
+function shareToWhatsApp(){
+  var text = buildShareText() + '\nhttps://nihonggopro.id';
+  window.open('https://wa.me/?text=' + encodeURIComponent(text), '_blank', 'noopener');
+}
+</script>
+</body>
+</html>

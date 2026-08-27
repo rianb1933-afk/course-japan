@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pembuat Kalimat Jepang — Nihonggo Pro Academy</title>
+<meta name="description" content="Fitur pembuat kalimat bahasa Jepang untuk melatih pola N5-N3, partikel, vocabulary, dan output aktif.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Pembuat-Kalimat.html">
+<meta property="og:title" content="Pembuat Kalimat Jepang — Nihonggo Pro Academy">
+<meta property="og:description" content="Susun kalimat Jepang dari pola N5-N3, lalu latih variasi dan output aktif.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Pembuat-Kalimat.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Pembuat Kalimat Jepang — Nihonggo Pro Academy">
+<meta name="twitter:description" content="Susun kalimat Jepang dari pola N5-N3 dan latih output aktif.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Pembuat Kalimat Jepang","description":"Fitur pembuat kalimat bahasa Jepang untuk melatih pola N5-N3, partikel, vocabulary, dan output aktif.","url":"https://nihonggopro.id/Materi/Pembuat-Kalimat.html","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["Japanese sentence patterns","Japanese particles","Japanese output practice"]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/translator.css">
+
+    <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.nav-logo{display:flex;align-items:baseline;gap:10px}.nav-logo-jp{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--red)}.nav-logo-id{font-size:12px;font-weight:500;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+.nav-links a:hover{color:var(--red)}
+.theme-toggle{width:36px;height:36px;border:.5px solid var(--border-mid);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center}.btn-sm{background:var(--red);color:#fff;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700}
+.hero{display:block!important;min-height:auto!important;padding:5rem 5vw 3rem!important;background:#17181d;color:#fff;position:relative;overflow:hidden}.hero::before{content:'文型';position:absolute;right:-42px;bottom:-82px;font-family:'Noto Serif JP',serif;font-size:280px;color:rgba(255,255,255,.045);line-height:1}
+.hero-inner{max-width:1160px;margin:0 auto;position:relative;z-index:1}.kicker{display:inline-flex;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(34px,5vw,62px);line-height:1.1;margin-bottom:1rem}.hero p{max-width:850px;color:rgba(255,255,255,.7);font-size:16px;line-height:1.9}
+.wrap{max-width:1160px;margin:0 auto;padding:2.5rem 5vw}.builder{display:grid;grid-template-columns:380px 1fr;gap:1rem}.panel{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.25rem;box-shadow:var(--shadow-sm)}.panel h2{font-family:'Noto Serif JP',serif;font-size:28px;margin-bottom:.35rem}.sub{color:var(--ink-soft);font-size:13px;margin-bottom:1rem}
+.field{display:grid;gap:.35rem;margin-bottom:.8rem}.field label{font-size:12px;font-weight:800;color:var(--ink-soft)}.field input,.field select{width:100%;border:1px solid var(--border-mid);background:var(--cream);color:var(--ink);border-radius:8px;padding:10px;font-family:'Outfit',sans-serif}
+.primary{width:100%;border:0;border-radius:8px;background:var(--red);color:#fff;padding:11px 14px;font-weight:900;font-family:'Outfit',sans-serif}.secondary{border:1px solid var(--border-mid);background:var(--white);color:var(--ink);border-radius:8px;padding:10px 12px;font-weight:900;font-family:'Outfit',sans-serif}
+.result{background:#17181d;color:#fff;border-radius:8px;padding:1.25rem;margin-bottom:1rem}.jp{font-family:'Noto Serif JP',serif;color:var(--red-soft);font-size:clamp(24px,4vw,42px);line-height:1.35}.reading{font-family:'Noto Serif JP',serif;color:rgba(255,255,255,.78);margin-top:.5rem}.meaning{color:rgba(255,255,255,.68);margin-top:.5rem}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}.card{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:1rem}.card strong{display:block;color:var(--red);margin-bottom:.35rem}.card span{font-size:13px;color:var(--ink-mid)}
+.history{display:grid;gap:.6rem;margin-top:1rem}.history-item{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:.8rem;font-size:13px}.history-item b{font-family:'Noto Serif JP',serif;color:var(--red);display:block}.actions{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1rem}.actions a,.actions button{display:inline-flex;justify-content:center;border-radius:8px;padding:10px 12px;font-weight:900;font-size:13px}.actions a{background:var(--red);color:#fff}.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.18);border-radius:8px;padding:1rem;color:var(--ink-mid);font-size:13px;margin-top:1rem}
+@media(max-width:900px){.builder,.grid{grid-template-columns:1fr}}@media(max-width:560px){.actions a,.actions button{width:100%}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Pembuat Kalimat Jepang — Nihonggo Pro Academy","item":"https://nihonggopro.id/Materi/Pembuat-Kalimat.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  
+
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker">Latihan Output</div>
+    <h1>Pembuat Kalimat Jepang<br>文型メーカー</h1>
+    <p>Pilih pola, isi kata, lalu buat kalimat Jepang siap latihan. Cocok untuk mengubah grammar dan vocabulary menjadi output aktif, dari N5 sampai N3.</p>
+  </div>
+</section>
+
+<main id="main-content" class="wrap">
+  <div class="builder">
+    <section class="panel">
+      <h2>Masukan Kalimat</h2>
+      <p class="sub">Isi bagian yang ingin dilatih. Contoh default sudah disediakan agar langsung bisa dicoba.</p>
+      <div class="field"><label for="pattern">Pola</label><select id="pattern" onchange="renderHelper()">
+        <option value="desu">N5: AはBです</option>
+        <option value="object">N5: AはBをVます</option>
+        <option value="place">N5: AはPlaceでBをVます</option>
+        <option value="tekara">N4: Vてから...</option>
+        <option value="tai">N5-N4: Vたいです</option>
+        <option value="opinion">N3: AについてBと思います</option>
+      </select></div>
+      <div class="field"><label for="subject">Subjek/Topik</label><input id="subject" value="私は"></div>
+      <div class="field"><label for="place">Tempat/Konteks</label><input id="place" value="図書館"></div>
+      <div class="field"><label for="object">Objek/Isi Kalimat</label><input id="object" value="日本語"></div>
+      <div class="field"><label for="verb">Predikat</label><input id="verb" value="勉強します"></div>
+      <div class="field"><label for="extra">Pelengkap / Opini</label><input id="extra" value="とても大切です"></div>
+      <button class="primary" type="button" onclick="buildSentence()">Buat Kalimat</button>
+      <div class="actions"><button class="secondary" type="button" onclick="randomExample()">Contoh Acak</button><button class="secondary" type="button" onclick="clearHistory()">Hapus Riwayat</button></div>
+    </section>
+
+    <section class="panel">
+      <h2>Hasil Kalimat</h2>
+      <div class="result">
+        <div class="jp" id="jpOutput">私は図書館で日本語を勉強します。</div>
+        <div class="reading" id="readingOutput">わたしは としょかんで にほんごを べんきょうします。</div>
+        <div class="meaning" id="meaningOutput">Saya belajar bahasa Jepang di perpustakaan.</div>
+      </div>
+      <div class="grid">
+        <div class="card"><strong>Pola</strong><span id="patternHint">AはPlaceでBをVます</span></div>
+        <div class="card"><strong>Partikel</strong><span id="particleHint">は menandai topik, で tempat aksi, を objek.</span></div>
+        <div class="card"><strong>Latihan</strong><span>Ganti subjek, objek, dan tempat sebanyak 5 kali.</span></div>
+      </div>
+      <div class="note">Tips: setelah membuat kalimat, baca keras-keras 3 kali, lalu minta AI Tutor mengoreksi naturalness dan partikel.</div>
+      <div class="history" id="history"></div>
+      <div class="actions"><a href="Grammar-Lengkap.html">Buka Grammar</a><a href="Vocabulary-Lengkap.html">Cari Kosakata</a><a href="Reading-Writing.html">Latihan Writing</a></div>
+    </section>
+  </div>
+</main>
+
+<script>
+const readings = {
+  '私は': 'わたしは', '図書館': 'としょかん', '日本語': 'にほんご',
+  '勉強します': 'べんきょうします', '映画': 'えいが', '見ます': 'みます',
+  '学校': 'がっこう', '本': 'ほん', '読みます': 'よみます',
+  '友達': 'ともだち', '話します': 'はなします', '仕事': 'しごと',
+  '音楽': 'おんがく', '聞きながら': 'ききながら', '毎日': 'まいにち',
+  '練習します': 'れんしゅうします', '合格する': 'ごうかくする',
+  '泳げる': 'およげる', '結婚して': 'けっこんして', '疲れた': 'つかれた',
+  '早く': 'はやく', '寝ます': 'ねます', '写真': 'しゃしん',
+  '撮って': 'とって', '座って': 'すわって', '雨': 'あめ',
+  '日本': 'にほん', '行きたい': 'いきたい', '食べて': 'たべて',
+};
+const examples = [
+  { pattern:'object', subject:'私は', place:'学校', object:'本', verb:'読みます', extra:'楽しいです' },
+  { pattern:'place', subject:'友達は', place:'駅', object:'映画', verb:'見ます', extra:'便利です' },
+  { pattern:'tekara', subject:'私は', place:'家', object:'ご飯', verb:'食べます', extra:'宿題をします' },
+  { pattern:'tai', subject:'私は', place:'日本', object:'友達', verb:'会います', extra:'来年' },
+  { pattern:'opinion', subject:'私は', place:'学校', object:'日本語の勉強', verb:'続けます', extra:'毎日少しずつ勉強することが大切です' }
+];
+function val(id) { return document.getElementById(id).value.trim(); }
+function readingFor(text) {
+  return text.split(/(?=[はをでに])|(?<=[はをでに])/).map(part => readings[part] || part).join(' ');
+}
+function buildByPattern() {
+  const pattern = val('pattern'), s = val('subject'), p = val('place'), o = val('object'), v = val('verb'), e = val('extra');
+  if (pattern === 'desu') return [`${s}${o}です。`, `${s.replace('は','')} adalah ${o}.`];
+  if (pattern === 'object') return [`${s}${o}を${v}。`, `${s.replace('は','')} melakukan ${v} pada ${o}.`];
+  if (pattern === 'place') return [`${s}${p}で${o}を${v}。`, `${s.replace('は','')} ${v} ${o} di ${p}.`];
+  if (pattern === 'tekara') return [`${s}${o}を${v.replace('ます','てから、')}${e}。`, `Setelah ${v} ${o}, ${e}.`];
+  if (pattern === 'tai') return [`${s}${p}で${o}に${v.replace('ます','たいです')}。`, `${s.replace('は','')} ingin ${v} dengan ${o} di ${p}.`];
+  return [`${s}${o}について${e}と思います。`, `${s.replace('は','')} berpikir bahwa tentang ${o}: ${e}.`];
+}
+function renderHelper() {
+  const hints = {
+    desu: ['A は B です', 'は menandai topik. です menutup kalimat sopan. Contoh: 私は学生です。'],
+    object: ['A は B を V ます', 'を menandai objek langsung kata kerja transitif. Contoh: 映画を見ます。'],
+    place: ['A は Place で B を V ます', 'で menandai tempat di mana aksi terjadi. Contoh: 図書館で本を読みます。'],
+    tekara: ['V-て形 + から...', 'てから = "setelah melakukan ~". Urutan waktu jelas. Contoh: 食べてから勉強します。'],
+    tai: ['V-ます stem + たいです', 'たいです = ingin melakukan ~. Contoh: 日本に行きたいです。'],
+    opinion: ['〜についてBと思います', 'について = tentang ~. と思います = saya pikir/berpendapat. Contoh: これについて難しいと思います。'],
+    teiru: ['V-て形 + います', 'ています: aksi sedang berlangsung ATAU keadaan hasil aksi. Contoh: 今、食べています。/ 結婚しています。'],
+    node: ['Plain form + のでB', 'ので = karena ~ (sopan/objektif). Lebih halus dari から. Contoh: 疲れたので、早く寝ます。'],
+    nagara: ['V1-ます stem + ながらV2', 'ながら = sambil melakukan V1, juga melakukan V2. Contoh: 音楽を聞きながら勉強します。'],
+    youni: ['V-dictionary + ようになる', 'ようになる = menjadi bisa / jadi terbiasa (perubahan gradual). Contoh: 泳げるようになりました。'],
+    tame: ['V-dic / Noun の + ために', 'ために = untuk tujuan ~. Contoh: 合格するために毎日練習します。'],
+    rashii: ['Plain + らしい', 'らしい = tampaknya ~ (berdasarkan info dari orang lain). Contoh: 明日は雨らしいです。'],
+    te_mo: ['V-て形 + もいいですか', 'てもいいですか = boleh saya melakukan ~? Contoh: ここに座ってもいいですか。'],
+    te_wa: ['V-て形 + はいけません', 'てはいけません = tidak boleh melakukan ~. Contoh: ここで写真を撮ってはいけません。'],
+  };
+  const [pattern, particle] = hints[val('pattern')];
+  document.getElementById('patternHint').textContent = pattern;
+  document.getElementById('particleHint').textContent = particle;
+}
+function buildSentence() {
+  const [jp, meaning] = buildByPattern();
+  document.getElementById('jpOutput').textContent = jp;
+  document.getElementById('readingOutput').textContent = readingFor(jp);
+  document.getElementById('meaningOutput').textContent = meaning;
+  const history = loadHistory();
+  history.unshift({ jp, meaning, at: new Date().toISOString() });
+  localStorage.setItem('nihongoSentenceHistory', JSON.stringify(history.slice(0, 10)));
+  renderHistory();
+}
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem('nihongoSentenceHistory') || '[]'); } catch (error) { return []; }
+}
+function renderHistory() {
+  const rows = loadHistory();
+  document.getElementById('history').innerHTML = rows.map(item => `<div class="history-item"><b>${item.jp}</b><span>${item.meaning}</span></div>`).join('');
+}
+function randomExample() {
+  const item = examples[Math.floor(Math.random() * examples.length)];
+  Object.entries(item).forEach(([key, value]) => document.getElementById(key).value = value);
+  renderHelper();
+  buildSentence();
+}
+function clearHistory() {
+  localStorage.removeItem('nihongoSentenceHistory');
+  renderHistory();
+  window.proToast?.('Riwayat kalimat dihapus.');
+}
+renderHelper();
+renderHistory();
+</script>
+<script src="../assets/translator.min.js" defer></script>
+<script src="../assets/pro-app.min.js" defer></script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html>

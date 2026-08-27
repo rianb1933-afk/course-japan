@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>循環器系 Sistem Kardiovaskular — Jantung Bahasa Jepang untuk Kaigo | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Kardiovaskular — Jantung — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Kardiovaskular.html","description":"Pembelajaran mendalam sistem kardiovaskular dan jantung dalam bahasa Jepang — anatomi, fisiologi, perubahan penuaan, penyakit, observasi, dan perawatan Kaigo.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Pelajari sistem kardiovaskular dan jantung secara mendalam dalam bahasa Jepang — anatomi, cara kerja jantung, perubahan akibat penuaan, penyakit jantung lansia, observasi, dan perawatan Kaigo.">
+<meta property="og:title" content="循環器系 Sistem Kardiovaskular — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Anatomi, fisiologi, dan perawatan Kaigo sistem kardiovaskular dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Kardiovaskular.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+/* ── Level 2/3/4 Organ Page: 11-tab structure prototype ── */
+.organ-hero{background:linear-gradient(135deg,#fef2f2,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:var(--red,#be3428);border-color:var(--red,#be3428);color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:var(--red,#be3428);background:#fef2f2;border:1px solid #fecaca;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:var(--red,#be3428);font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:var(--red,#be3428)}
+.organ-tab.active{color:var(--red,#be3428);border-bottom-color:var(--red,#be3428)}
+.organ-tab:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #fef2f2;color:#1a0a0a}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:var(--red,#be3428)}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#f0fdf4;border-color:#bbf7d0}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#fef2f2;color:var(--red,#be3428);font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid var(--red,#be3428);border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.flow-diagram{display:flex;flex-wrap:wrap;align-items:center;gap:6px;justify-content:center;padding:20px;background:var(--white,#fff);border-radius:14px;border:1px solid var(--border-light,#eee);margin:16px 0}
+
+@keyframes bfFlowRed{to{stroke-dashoffset:-24}}
+@keyframes bfFlowBlue{to{stroke-dashoffset:-24}}
+@keyframes bfPulse{0%,100%{r:5;opacity:1}50%{r:7;opacity:.7}}
+.body-flow-wrap{max-width:340px;margin:16px auto;padding:16px;background:var(--white,#fff);border-radius:14px;border:1px solid var(--border-light,#eee)}
+.bf-flow-red{stroke-dasharray:6 6;animation:bfFlowRed 1s linear infinite}
+.bf-flow-blue{stroke-dasharray:6 6;animation:bfFlowBlue 1s linear infinite}
+.bf-dot{animation:bfPulse 1.6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.bf-flow-red,.bf-flow-blue,.bf-dot{animation:none}}
+.bf-th{font-size:13px;font-weight:800;fill:var(--ink,#222)}
+.bf-ts{font-size:11px;fill:var(--ink-mid,#666)}
+.body-flow-legend{display:flex;gap:16px;justify-content:center;margin-top:8px;font-size:12px;color:var(--ink-mid,#666)}
+.body-flow-legend span{display:inline-flex;align-items:center;gap:5px}
+.bf-swatch{display:inline-block;width:14px;height:3px;border-radius:2px}
+.flow-step{background:#fef2f2;color:var(--red,#be3428);font-weight:700;font-size:12.5px;padding:8px 14px;border-radius:999px;white-space:nowrap}
+.flow-step.oxy{background:#fef2f2;color:var(--red,#be3428)}
+.flow-step.deoxy{background:#eff6ff;color:#1565c0}
+.flow-arrow{color:var(--ink-soft,#999);font-weight:700}
+
+.case-sim{background:var(--white,#fff);border:2px solid #fecaca;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#fef2f2;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select,.case-question input[type="text"]{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:var(--red,#be3428);color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:var(--red,#be3428)}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.model3d-wrap{max-width:560px;margin:16px auto;padding:16px;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px}
+.model3d-canvas-wrap{position:relative;width:100%;height:360px;border-radius:10px;overflow:hidden;background:#f5f7fb;touch-action:none}
+.model3d-loading,.model3d-error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink-mid,#666);text-align:center;padding:20px}
+.model3d-error{color:var(--red,#be3428)}
+.model3d-info-panel{margin-top:10px;padding:10px 12px;background:#f8f9fb;border-radius:10px;font-size:13px}
+.model3d-info-panel strong{display:block;margin-bottom:2px;font-size:14px}
+.model3d-detail-text{color:var(--ink-mid,#666)}
+.model3d-controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.model3d-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:8px 14px;font-size:12.5px;cursor:pointer;font-weight:700}
+.model3d-btn.active{background:#fef2f2;border-color:var(--red,#be3428);color:var(--red,#be3428)}
+.model3d-disclaimer{margin:10px 0 0;font-size:11px;color:var(--ink-soft,#999);line-height:1.5}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Kardiovaskular.html" class="current">① 基礎 Dasar</a>
+      <a href="Sistem-Kardiovaskular-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Kardiovaskular-Lanjutan.html">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🫀 Level 2-4 — Sistem Kardiovaskular</span>
+    <h1><span class="jp-big">循環器系・心臓</span>Sistem Kardiovaskular — Jantung</h1>
+    <p class="lead">Prototipe halaman organ 11-tab: dari anatomi dasar sampai perawatan Kaigo klinis. Struktur ini akan menjadi template untuk seluruh sistem organ lainnya.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi jantung">
+  <button class="organ-tab active" data-tab="ringkasan" role="tab" aria-selected="true">概要 Ringkasan</button>
+  <button class="organ-tab" data-tab="anatomi" role="tab" aria-selected="false">解剖 Anatomi</button>
+  <button class="organ-tab" data-tab="fisiologi" role="tab" aria-selected="false">生理 Fisiologi</button>
+  <button class="organ-tab" data-tab="penuaan" role="tab" aria-selected="false">加齢変化 Penuaan</button>
+  <button class="organ-tab" data-tab="penyakit" role="tab" aria-selected="false">疾患 Penyakit</button>
+  <button class="organ-tab" data-tab="gejala" role="tab" aria-selected="false">症状 Gejala</button>
+  <button class="organ-tab" data-tab="observasi" role="tab" aria-selected="false">観察 Observasi</button>
+  <button class="organ-tab" data-tab="perawatan" role="tab" aria-selected="false">介護 Perawatan</button>
+  <button class="organ-tab" data-tab="kosakata" role="tab" aria-selected="false">用語 Kosakata</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <!-- ═══════════ 概要 RINGKASAN ═══════════ -->
+  <div class="organ-panel active" id="panel-ringkasan">
+    <h2>概要 — Ringkasan Sistem Kardiovaskular</h2>
+    <p>Sistem kardiovaskular (循環器系, じゅんかんきけい) terdiri dari <strong>jantung (心臓, しんぞう)</strong> sebagai pompa, <strong>pembuluh darah</strong> (arteri, vena, kapiler) sebagai saluran, dan <strong>darah</strong> sebagai medium pengangkut oksigen, nutrisi, dan sisa metabolisme ke seluruh tubuh.</p>
+    <div class="info-card">
+      <h3 style="margin-top:0">Kenapa penting untuk Kaigo?</h3>
+      <p style="margin-bottom:0">Penyakit kardiovaskular adalah salah satu penyebab utama kematian dan kecacatan pada lansia di Jepang. Caregiver yang memahami tanda-tanda gangguan jantung (sesak napas, edema, nyeri dada, kelelahan tak wajar) dapat membantu deteksi dini dan pelaporan tepat waktu ke tenaga medis.</p>
+    </div>
+    <h3>Fungsi utama</h3>
+    <ul>
+      <li>Memompa darah ke seluruh tubuh (jantung sebagai pompa ganda)</li>
+      <li>Mengantarkan oksigen dan nutrisi ke jaringan</li>
+      <li>Mengangkut karbon dioksida dan sisa metabolisme untuk dibuang</li>
+      <li>Membantu mengatur suhu tubuh dan keseimbangan cairan</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 解剖 ANATOMI ═══════════ -->
+  <div class="organ-panel" id="panel-anatomi">
+    <h2>解剖 — Anatomi Jantung</h2>
+    <p>Jantung berukuran kira-kira sebesar kepalan tangan, terletak di rongga dada (胸腔, きょうくう), sedikit condong ke sisi kiri, di antara kedua paru-paru.</p>
+    <h3>Struktur ruang jantung</h3>
+    <ul>
+      <li><strong>Atrium kanan (右心房, うしんぼう)</strong> — menerima darah miskin oksigen dari seluruh tubuh</li>
+      <li><strong>Ventrikel kanan (右心室, うしんしつ)</strong> — memompa darah ke paru-paru</li>
+      <li><strong>Atrium kiri (左心房, さしんぼう)</strong> — menerima darah kaya oksigen dari paru-paru</li>
+      <li><strong>Ventrikel kiri (左心室, さしんしつ)</strong> — memompa darah kaya oksigen ke seluruh tubuh (dinding paling tebal, karena tekanan kerja paling besar)</li>
+    </ul>
+    <h3>Katup jantung (心臓弁, しんぞうべん)</h3>
+    <p>Empat katup memastikan darah mengalir satu arah: katup trikuspid dan pulmonal (sisi kanan), katup mitral dan aorta (sisi kiri). Kerusakan katup dapat menyebabkan bunyi jantung abnormal (murmur).</p>
+    <h3>Suplai darah jantung itu sendiri</h3>
+    <p>Jantung memompa darah untuk seluruh tubuh, tetapi otot jantung sendiri diberi nutrisi oleh <strong>arteri koroner (冠状動脈, かんじょうどうみゃく)</strong> — penyumbatan pembuluh ini menyebabkan serangan jantung (心筋梗塞).</p>
+
+    <h3>🧊 Model 3D interaktif — jantung &amp; sirkulasi</h3>
+    <div class="model3d-wrap">
+      <div id="heart3dContainer" class="model3d-canvas-wrap">
+        <div id="heart3dLoading" class="model3d-loading">Memuat model 3D…</div>
+        <div id="heart3dError" class="model3d-error" style="display:none">Model 3D gagal dimuat. Coba muat ulang halaman.</div>
+      </div>
+      <div class="model3d-info-panel">
+        <strong id="heart3dName">Klik bagian jantung untuk detail</strong>
+        <div id="heart3dDetail" class="model3d-detail-text">Putar dengan drag/geser, perbesar dengan scroll/pinch.</div>
+        <div id="heart3dKaigo" class="model3d-detail-text" style="margin-top:6px;font-style:italic"></div>
+      </div>
+      <div class="model3d-controls">
+        <button type="button" id="heart3dResetBtn" class="model3d-btn">↺ Reset kamera</button>
+        <button type="button" id="heart3dFlowBtn" class="model3d-btn">🩸 Alur Darah</button>
+        <button type="button" id="heart3dFailureBtn" class="model3d-btn">🚨 Simulasi Gagal Jantung</button>
+        <button type="button" id="heart3dEmergencyBtn" class="model3d-btn">🚨 Simulasi Syok/Sumbatan</button>
+      </div>
+      <p class="model3d-disclaimer">Model edukatif bergaya sederhana untuk pembelajaran istilah anatomi — bukan untuk diagnosis, operasi, atau pengukuran klinis.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 生理 FISIOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-fisiologi">
+    <h2>生理 — Cara Kerja Jantung (Sirkulasi Darah)</h2>
+    <p>Darah mengalir melalui <strong>dua sirkuit</strong> yang bekerja bersamaan setiap detak jantung:</p>
+
+    <h3>🔴 Sirkulasi Sistemik (seluruh tubuh) — mengantar oksigen</h3>
+    <div class="body-flow-wrap">
+      <svg width="100%" viewBox="0 0 400 460" role="img" aria-label="Animasi sirkulasi sistemik: darah kaya oksigen dari ventrikel kiri ke jaringan tubuh, kembali sebagai darah miskin oksigen ke atrium kanan">
+        <defs>
+          <marker id="ah-red-sys" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#D85A30" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+          <marker id="ah-blue-sys" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker>
+        </defs>
+        <path d="M200 30 C176 30 160 50 160 76 C160 98 172 108 172 128 L160 150 C140 170 128 210 128 260 L120 400 L132 400 L148 280 L160 280 L160 440 L180 440 L180 280 L220 280 L220 440 L240 440 L240 280 L252 280 L268 400 L280 400 L272 260 C272 210 260 170 240 150 L228 128 C228 108 240 98 240 76 C240 50 224 30 200 30 Z" fill="none" stroke="var(--ink-mid,#888)" stroke-width="1" opacity=".4"/>
+        <circle cx="205" cy="130" r="15" fill="#F09595" opacity=".5"/>
+        <circle class="bf-dot" cx="205" cy="130" r="5" fill="#A32D2D"/>
+        <text class="bf-th" x="228" y="126">1</text>
+        <text class="bf-ts" x="228" y="142">Ventrikel kiri</text>
+        <path class="bf-flow-red" d="M205 138 C205 200 200 320 195 395" fill="none" stroke="#D85A30" stroke-width="2.5" marker-end="url(#ah-red-sys)"/>
+        <circle cx="190" cy="400" r="13" fill="#F0997B" opacity=".5"/>
+        <circle class="bf-dot" cx="190" cy="400" r="5" fill="#993C1D" style="animation-delay:.3s"/>
+        <text class="bf-th" x="212" y="396">2</text>
+        <text class="bf-ts" x="212" y="412">Jaringan tubuh</text>
+        <path class="bf-flow-blue" d="M180 404 C160 360 155 230 165 140" fill="none" stroke="#378ADD" stroke-width="2.5" marker-end="url(#ah-blue-sys)"/>
+        <circle cx="172" cy="130" r="13" fill="#85B7EB" opacity=".5"/>
+        <circle class="bf-dot" cx="172" cy="130" r="5" fill="#185FA5" style="animation-delay:.6s"/>
+        <text class="bf-ts" x="88" y="126" text-anchor="end">3 Atrium kanan</text>
+        <line x1="158" y1="130" x2="94" y2="126" stroke="var(--ink-soft,#999)" stroke-width=".5" stroke-dasharray="2 2"/>
+      </svg>
+      <div class="body-flow-legend">
+        <span><i class="bf-swatch" style="background:#D85A30"></i>Kaya oksigen</span>
+        <span><i class="bf-swatch" style="background:#378ADD"></i>Miskin oksigen</span>
+      </div>
+    </div>
+
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Cara mengingat:</strong> darah <em>kaya oksigen</em> (merah terang) mengalir dari ventrikel kiri ➜ tubuh; darah <em>miskin oksigen</em> (merah gelap) kembali dari tubuh ➜ atrium kanan ➜ (lewat ventrikel kanan) ➜ paru-paru untuk diisi ulang oksigen ➜ kembali ke atrium kiri. Siklus berulang tanpa henti.</p>
+    </div>
+
+    <h3>Siklus jantung (拍動, はくどう)</h3>
+    <ul>
+      <li><strong>Sistol (収縮期, しゅうしゅくき)</strong> — jantung berkontraksi, memompa darah keluar</li>
+      <li><strong>Diastol (拡張期, かくちょうき)</strong> — jantung relaksasi, ruang terisi darah kembali</li>
+    </ul>
+    <p>Detak jantung normal orang dewasa istirahat: sekitar <strong>60–100 kali/menit</strong>. Ini diatur oleh sistem listrik alami jantung (nodus SA sebagai "pacu jantung alami").</p>
+  </div>
+
+  <!-- ═══════════ 加齢変化 PERUBAHAN PENUAAN ═══════════ -->
+  <div class="organ-panel" id="panel-penuaan">
+    <h2>加齢に伴う変化 — Perubahan Jantung Akibat Penuaan</h2>
+    <p>Penuaan menyebabkan beberapa perubahan struktural dan fungsional pada sistem kardiovaskular:</p>
+    <ul>
+      <li><strong>Dinding pembuluh darah mengeras</strong> (arteriosklerosis) — jantung bekerja lebih keras untuk memompa darah</li>
+      <li><strong>Elastisitas otot jantung menurun</strong> — kemampuan jantung merespons peningkatan aktivitas fisik (mis. olahraga) berkurang</li>
+      <li><strong>Sistem listrik jantung melambat</strong> — risiko gangguan irama jantung (aritmia) meningkat</li>
+      <li><strong>Katup jantung menebal/mengapur</strong> — berisiko menyebabkan kebocoran atau penyempitan katup</li>
+      <li><strong>Tekanan darah cenderung meningkat</strong> seiring usia akibat kekakuan pembuluh darah</li>
+    </ul>
+    <div class="info-card warn">
+      <h3 style="margin-top:0">⚠️ Relevansi Kaigo</h3>
+      <p style="margin-bottom:0">Perubahan ini membuat lansia lebih rentan kelelahan saat aktivitas, pusing saat berdiri tiba-tiba (hipotensi ortostatik), dan berisiko lebih tinggi mengalami gagal jantung atau gangguan irama jantung — semua ini penting diperhatikan saat membantu mobilisasi/transfer.</p>
+    </div>
+
+    <h3>Hipotensi ortostatik — kenapa terjadi dan cara membantu mencegahnya</h3>
+    <p>Saat berdiri dari posisi berbaring/duduk, tubuh normalnya menyesuaikan tekanan darah dengan cepat lewat refleks pembuluh darah — pada lansia, refleks ini melambat (terkait kekakuan pembuluh darah yang dibahas di atas), sehingga tekanan darah bisa turun sementara dan menyebabkan pusing atau bahkan pingsan sesaat setelah berdiri.</p>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Langkah praktis pencegahan yang bisa dibantu caregiver:</strong> mendorong perubahan posisi BERTAHAP (berbaring → duduk sejenak → baru berdiri, bukan langsung melompat berdiri), memastikan penerangan cukup untuk mengurangi risiko jatuh jika pusing terjadi, dan tetap berada di dekat penerima layanan selama beberapa detik pertama setelah berdiri — terutama penting setelah bangun tidur pagi hari saat risiko biasanya lebih tinggi.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 疾患 PENYAKIT ═══════════ -->
+  <div class="organ-panel" id="panel-penyakit">
+    <h2>疾患 — Penyakit Jantung Umum pada Lansia</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">高血圧 (こうけつあつ) — Hipertensi</h3>
+      <p style="margin-bottom:0">Tekanan darah tinggi kronis. Sering tanpa gejala jelas ("silent killer"), tapi jika dibiarkan meningkatkan risiko stroke, serangan jantung, dan gagal jantung. Inilah kenapa pemeriksaan tekanan darah RUTIN penting dilakukan meski penerima layanan merasa "baik-baik saja" — menunggu gejala muncul berarti kerusakan pembuluh darah mungkin sudah berlangsung lama.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">心不全 (しんふぜん) — Gagal Jantung</h3>
+      <p style="margin-bottom:0">Kondisi saat jantung tidak mampu memompa darah secara efektif. Menyebabkan penumpukan cairan di paru-paru dan tungkai (edema). PENTING dibedakan pola gejalanya: gagal jantung KIRI cenderung menyebabkan sesak napas (cairan menumpuk di paru), sementara gagal jantung KANAN lebih menonjolkan bengkak tungkai dan perut — pembeda praktis yang membantu caregiver mengenali arah masalah saat melapor ke tenaga medis.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">心筋梗塞 (しんきんこうそく) — Serangan Jantung (Infark Miokard)</h3>
+      <p style="margin-bottom:0">Penyumbatan arteri koroner yang menyebabkan bagian otot jantung mati karena kekurangan oksigen. Kondisi darurat medis. PENTING: gejala pada lansia (terutama wanita) sering TIDAK KLASIK — bukan nyeri dada hebat yang khas, melainkan kelelahan tidak biasa, sesak napas ringan, atau mual — pola tersamar yang membuat serangan jantung lebih mudah terlewat pada lansia dibanding usia muda.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">不整脈 (ふせいみゃく) — Aritmia (Gangguan Irama Jantung)</h3>
+      <p style="margin-bottom:0">Detak jantung tidak teratur — terlalu cepat, terlalu lambat, atau tidak beraturan. Beberapa jenis (seperti fibrilasi atrium) dapat meningkatkan risiko stroke secara signifikan karena darah yang tidak mengalir teratur di jantung berisiko membentuk gumpalan — koneksi penting yang menjelaskan kenapa aritmia tertentu memerlukan pengobatan pencegah pembekuan darah, bukan hanya mengatur ritme jantung itu sendiri.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 症状 GEJALA ═══════════ -->
+  <div class="organ-panel" id="panel-gejala">
+    <h2>症状 — Gejala yang Perlu Diwaspadai</h2>
+    <ul>
+      <li><strong>息切れ (いきぎれ)</strong> — Sesak napas, terutama saat beraktivitas atau berbaring</li>
+      <li><strong>浮腫 (ふしゅ)</strong> — Bengkak/edema, terutama di tungkai dan pergelangan kaki</li>
+      <li><strong>胸痛 (きょうつう)</strong> — Nyeri dada, bisa menjalar ke lengan/rahang</li>
+      <li><strong>動悸 (どうき)</strong> — Jantung berdebar-debar</li>
+      <li><strong>倦怠感 (けんたいかん)</strong> — Kelelahan yang tidak wajar</li>
+      <li><strong>めまい・失神 (しっしん)</strong> — Pusing atau pingsan mendadak</li>
+      <li><strong>チアノーゼ</strong> — Bibir/ujung jari kebiruan (tanda kekurangan oksigen dalam darah)</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">🚨 Kapan ini darurat?</h3>
+      <p style="margin-bottom:0">Nyeri dada mendadak + sesak napas berat + keringat dingin, ATAU kehilangan kesadaran mendadak — segera hubungi layanan darurat (救急車を呼ぶ). Jangan menunggu untuk "melihat apakah membaik".</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 観察 OBSERVASI ═══════════ -->
+  <div class="organ-panel" id="panel-observasi">
+    <h2>観察 — Poin Observasi Caregiver</h2>
+    <p>Observasi harian yang bisa dilakukan caregiver (bukan diagnosis, tapi deteksi dini untuk dilaporkan) — dikelompokkan menurut tanda akut (butuh perhatian segera) vs tanda bertahap (butuh pemantauan tren).</p>
+
+    <h3>Tanda yang butuh perhatian segera</h3>
+    <ul>
+      <li><strong>顔色 (かおいろ)</strong> — Warna wajah: pucat, kebiruan, atau kemerahan tidak wajar — perubahan MENDADAK lebih mengkhawatirkan dibanding warna yang sudah lama konsisten</li>
+      <li><strong>呼吸の様子</strong> — Pola napas: cepat, dangkal, atau tersengal saat berbaring — sesak yang MEMBURUK saat berbaring datar (dan membaik saat duduk tegak) adalah pola khas yang perlu dilaporkan segera, bisa mengarah ke penumpukan cairan di paru</li>
+      <li><strong>脈拍</strong> — Denyut nadi: sangat cepat, sangat lambat, atau tidak teratur (jika dilatih mengukur) — perubahan pola denyut yang BARU MUNCUL lebih bermakna dibanding pola yang sudah dikenal stabil sebelumnya</li>
+    </ul>
+
+    <h3>Tanda bertahap yang butuh pemantauan tren</h3>
+    <ul>
+      <li><strong>むくみ</strong> — Bengkak di tungkai/pergelangan kaki, terutama sore hari — catat apakah bengkak SIMETRIS (kedua kaki) atau hanya satu sisi, karena maknanya bisa berbeda</li>
+      <li><strong>活動量の変化</strong> — Perubahan tiba-tiba dalam toleransi aktivitas (tiba-tiba mudah lelah) — penurunan BERTAHAP selama berhari-hari/berminggu bisa jadi tanda gagal jantung yang memburuk, bukan sekadar "kurang bugar"</li>
+      <li><strong>体重の変化</strong> — Kenaikan berat badan mendadak (bisa tanda retensi cairan) — kenaikan signifikan dalam waktu SINGKAT (bukan bertahap dari makan lebih banyak) adalah sinyal penting retensi cairan yang perlu dilaporkan</li>
+    </ul>
+
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Prinsip pencatatan:</strong> mencatat TREN (perubahan dari kondisi biasanya) jauh lebih bermakna bagi tenaga medis dibanding angka tunggal sesaat — misalnya berat badan naik 2kg dalam 3 hari jauh lebih informatif daripada sekadar "berat badan hari ini sekian".</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 介護 PERAWATAN ═══════════ -->
+  <div class="organ-panel" id="panel-perawatan">
+    <h2>介護 — Tindakan Perawatan Kaigo</h2>
+    <h3>Posisi & mobilitas</h3>
+    <ul>
+      <li>Posisi setengah duduk (semi-Fowler) sering lebih nyaman untuk yang sesak napas</li>
+      <li>Hindari perubahan posisi mendadak (risiko pusing/hipotensi ortostatik)</li>
+      <li>Dorong aktivitas ringan sesuai anjuran tenaga medis — hindari inaktivitas total maupun aktivitas berlebihan</li>
+    </ul>
+    <h3>Nutrisi & cairan</h3>
+    <ul>
+      <li>Ikuti pembatasan garam/cairan SESUAI instruksi dokter/ahli gizi (bervariasi per kondisi individu)</li>
+      <li>Perhatikan tanda pembengkakan yang memburuk setelah makan asin</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">📞 Kapan harus melapor ke perawat/dokter?</h3>
+      <ul style="margin-bottom:0">
+        <li>Sesak napas baru atau memburuk, terutama saat berbaring</li>
+        <li>Bengkak tungkai bertambah dari biasanya</li>
+        <li>Kenaikan berat badan signifikan dalam beberapa hari</li>
+        <li>Nyeri dada, jantung berdebar tidak biasa, atau pusing berat → laporan SEGERA / panggil darurat jika berat</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════ 用語 KOSAKATA ═══════════ -->
+  <div class="organ-panel" id="panel-kosakata">
+    <h2>用語 — Kosakata Jepang Sistem Kardiovaskular</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">心臓</td><td>しんぞう</td><td>Jantung</td><td>Heart</td></tr>
+        <tr><td class="jp">血管</td><td>けっかん</td><td>Pembuluh darah</td><td>Blood vessel</td></tr>
+        <tr><td class="jp">動脈</td><td>どうみゃく</td><td>Arteri</td><td>Artery</td></tr>
+        <tr><td class="jp">静脈</td><td>じょうみゃく</td><td>Vena</td><td>Vein</td></tr>
+        <tr><td class="jp">脈拍</td><td>みゃくはく</td><td>Denyut nadi</td><td>Pulse</td></tr>
+        <tr><td class="jp">血圧</td><td>けつあつ</td><td>Tekanan darah</td><td>Blood pressure</td></tr>
+        <tr><td class="jp">高血圧</td><td>こうけつあつ</td><td>Hipertensi</td><td>Hypertension</td></tr>
+        <tr><td class="jp">心不全</td><td>しんふぜん</td><td>Gagal jantung</td><td>Heart failure</td></tr>
+        <tr><td class="jp">浮腫</td><td>ふしゅ</td><td>Edema (bengkak)</td><td>Edema</td></tr>
+        <tr><td class="jp">息切れ</td><td>いきぎれ</td><td>Sesak napas</td><td>Shortness of breath</td></tr>
+        <tr><td class="jp">心筋梗塞</td><td>しんきんこうそく</td><td>Serangan jantung</td><td>Heart attack</td></tr>
+        <tr><td class="jp">不整脈</td><td>ふせいみゃく</td><td>Aritmia</td><td>Arrhythmia</td></tr>
+        <tr><td class="jp">起立性低血圧</td><td>きりつせいていけつあつ</td><td>Hipotensi ortostatik</td><td>Orthostatic hypotension</td></tr>
+        <tr><td class="jp">顔色</td><td>かおいろ</td><td>Warna wajah</td><td>Facial color/complexion</td></tr>
+        <tr><td class="jp">体重増加</td><td>たいじゅうぞうか</td><td>Kenaikan berat badan</td><td>Weight gain</td></tr>
+        <tr><td class="jp">動脈硬化</td><td>どうみゃくこうか</td><td>Arteriosklerosis</td><td>Arteriosclerosis</td></tr>
+        <tr><td class="jp">心臓弁</td><td>しんぞうべん</td><td>Katup jantung</td><td>Heart valve</td></tr>
+        <tr><td class="jp">左心不全</td><td>さしんふぜん</td><td>Gagal jantung kiri</td><td>Left-sided heart failure</td></tr>
+        <tr><td class="jp">右心不全</td><td>うしんふぜん</td><td>Gagal jantung kanan</td><td>Right-sided heart failure</td></tr>
+        <tr><td class="jp">循環器系</td><td>じゅんかんきけい</td><td>Sistem kardiovaskular</td><td>Cardiovascular system</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis</h3>
+    <div class="clinical-sentence">
+      <div class="jp">両下肢に浮腫があります。</div>
+      <div class="id">Terdapat edema pada kedua tungkai.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">呼吸が浅くなっています。</div>
+      <div class="id">Pernapasannya menjadi dangkal.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">脈が速く、不規則です。</div>
+      <div class="id">Denyut nadinya cepat dan tidak teratur.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia yang biasanya bisa berjalan ke kamar mandi sendiri, sejak 3 hari terakhir tampak sering terengah-engah bahkan setelah berjalan singkat. Kaki kanan dan kiri tampak bengkak dibanding biasanya, terutama sore hari. Berat badan naik 2kg dalam seminggu tanpa perubahan pola makan.
+      </div>
+      <div class="case-question">
+        <label>1. Sistem tubuh mana yang kemungkinan besar bermasalah?</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Sistem pencernaan</option>
+          <option value="correct">Sistem kardiovaskular</option>
+          <option value="wrong">Sistem saraf</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Kombinasi gejala ini (sesak + edema + kenaikan BB mendadak) paling mengarah ke:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Infeksi saluran kemih</option>
+          <option value="correct">Gagal jantung (心不全)</option>
+          <option value="wrong">Osteoporosis</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan caregiver yang PALING tepat sekarang:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Menunggu beberapa hari lagi untuk memastikan</option>
+          <option value="correct">Melaporkan perubahan ini ke perawat/dokter segera</option>
+          <option value="wrong">Menyarankan olahraga berat untuk memperkuat jantung</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+// v212: Model 3D jantung DIPERBARUI dari file baru yang disediakan pengguna
+// (cardiovascular_3d_kaigo_package.zip) -- menggantikan model lama v191 yang
+// hanya punya 5 bagian dasar (23 klik-poin di viewer lama, tapi metadata
+// hanya 5 entri unik). Model baru: 18 entri metadata, 34 mesh, TIGA mode
+// independen (Alur Darah, Simulasi Gagal Jantung/edema, Simulasi Syok/
+// Sumbatan Koroner). Semua pelajaran integrasi model 3D sebelumnya (v191-v211)
+// diterapkan di sini: import map, ResizeObserver, normalisasi underscore,
+// labelFor "coba nama lengkap dulu baru fallback", verifikasi metadata
+// eksplisit sebelum kode (dikonfirmasi tidak ada key dengan angka sah).
+//
+// v232: Three.js (+OrbitControls, +GLTFLoader) DILAZY-LOAD -- sebelumnya
+// import statis di top-level file ini genuinely membuat browser mengunduh
+// seluruh library Three.js SAAT HALAMAN DIBUKA, meski elemen model 3D
+// genuinely berada di bawah 7 bagian konten lain (below-the-fold, dikonfirmasi
+// via pemeriksaan struktur HTML). Sekarang import baru genuinely terjadi saat
+// #heart3dContainer masuk viewport (IntersectionObserver, margin 200px supaya
+// mulai memuat sedikit SEBELUM pengguna genuinely sampai di situ, bukan
+// tepat saat elemen terlihat -- mengurangi jeda loading yang terlihat).
+async function initHeart3D() {
+  // Guard idempoten: fungsi ini genuinely bisa dipicu dari DUA jalur
+  // (IntersectionObserver di bawah, DAN klik tab "Anatomi" di script
+  // terpisah) -- mencegah inisialisasi ganda kalau kedua jalur genuinely
+  // sempat trigger untuk elemen yang sama.
+  if (window.__heart3dInitStarted) return;
+  window.__heart3dInitStarted = true;
+
+  const container = document.getElementById('heart3dContainer');
+  const loadingEl = document.getElementById('heart3dLoading');
+  const errorEl = document.getElementById('heart3dError');
+  const nameEl = document.getElementById('heart3dName');
+  const detailEl = document.getElementById('heart3dDetail');
+  const kaigoEl = document.getElementById('heart3dKaigo');
+  if (!container) return;
+
+  let THREE, OrbitControls, GLTFLoader;
+  try {
+    THREE = await import('three');
+    ({ OrbitControls } = await import('three/addons/controls/OrbitControls.js'));
+    ({ GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js'));
+  } catch (err) {
+    // Dynamic import genuinely bisa gagal (jaringan lambat/CDN diblokir) --
+    // sebelumnya dengan import statis, kegagalan ini akan menghentikan
+    // SELURUH module script (termasuk bagian halaman lain yang tidak
+    // terkait 3D). Sekarang genuinely terisolasi: gagal muat Three.js hanya
+    // menampilkan pesan error di area model 3D, fitur lain di halaman tetap
+    // berfungsi normal.
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (errorEl) { errorEl.style.display = 'flex'; errorEl.textContent = 'Model 3D gagal dimuat (masalah jaringan). Coba muat ulang halaman -- fitur lain tetap berfungsi normal.'; }
+    console.warn('[Heart 3D Viewer] Gagal memuat library Three.js:', err);
+    return;
+  }
+
+  function showError(msg) {
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (errorEl) { errorEl.style.display = 'flex'; errorEl.textContent = msg; }
+    console.warn('[Heart 3D Viewer]', msg);
+  }
+
+  if (!window.WebGLRenderingContext) {
+    showError('Browser Anda tidak mendukung WebGL -- model 3D tidak dapat ditampilkan. Fitur lain di halaman ini tetap berfungsi normal.');
+    return;
+  }
+
+  let metadata = {};
+  try {
+    const res = await fetch('../assets/models/heart/cardiovascular-data.json');
+    metadata = await res.json();
+  } catch (err) {
+    console.warn('[Heart 3D Viewer] Metadata gagal dimuat, label akan pakai nama mesh mentah:', err);
+  }
+
+  try {
+    const FALLBACK_W = 560, FALLBACK_H = 360;
+    let width = container.clientWidth || FALLBACK_W;
+    let height = container.clientHeight || FALLBACK_H;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    const defaultCamPos = { x: 5.0, y: 2.8, z: 7.6 };
+    camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, 0, .15);
+    controls.minDistance = 3.8;
+    controls.maxDistance = 13;
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(function (entries) {
+        for (const entry of entries) {
+          const w = entry.contentRect.width, h = entry.contentRect.height;
+          if (w > 0 && h > 0 && (w !== width || h !== height)) {
+            width = w; height = h;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+          }
+        }
+      });
+      resizeObserver.observe(container);
+    }
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x657487, 2.7));
+    const key = new THREE.DirectionalLight(0xffffff, 2.7); key.position.set(5, 7, 8); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xd8e6ff, 1.2); rim.position.set(-5, 2, -5); scene.add(rim);
+
+    let selected = null;
+    const selectable = [];
+    const flowMeshes = [];
+    const failureMeshes = [];
+    const emergencyMeshes = [];
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+
+    function cleanName(rawName) {
+      let n = (rawName || '').replace(/_/g, ' ');
+      n = n.replace(/ \d+$/, '');
+      return n;
+    }
+
+    new GLTFLoader().load(
+      '../assets/models/heart/cardiovascular_educational.glb',
+      function (gltf) {
+        gltf.scene.traverse(function (o) {
+          if (!o.isMesh) return;
+          o.material = o.material.clone();
+          o.material.roughness = 0.56; o.material.metalness = 0;
+          o.userData.baseEmissive = o.material.emissive.clone();
+          const n = cleanName(o.name);
+          if (n.startsWith('Aorta') || n.startsWith('Vena ') || n.startsWith('Arteri ')) {
+            flowMeshes.push(o);
+          }
+          if (n === 'Edema Tungkai') {
+            o.visible = false; // tersembunyi default -- muncul saat simulasi gagal jantung aktif
+            failureMeshes.push(o);
+          }
+          if (n === 'Peringatan Syok' || n === 'Sumbatan Arteri Koroner') {
+            o.visible = false; // tersembunyi default -- muncul saat simulasi darurat aktif
+            emergencyMeshes.push(o);
+          }
+          selectable.push(o);
+        });
+        scene.add(gltf.scene);
+        if (loadingEl) loadingEl.style.display = 'none';
+      },
+      undefined,
+      function (err) {
+        showError('Model 3D gagal dimuat. Coba muat ulang halaman -- fitur lain tetap berfungsi normal.');
+      }
+    );
+
+    function labelFor(rawName) {
+      const nameWithSuffix = (rawName || '').replace(/_/g, ' ');
+      const nameGrouped = nameWithSuffix.replace(/ \d+$/, '');
+      const m = metadata[nameWithSuffix] || metadata[nameGrouped];
+      const name = metadata[nameWithSuffix] ? nameWithSuffix : nameGrouped;
+      if (!m) return { title: name || 'Bagian tidak dikenal', detail: 'Metadata belum tersedia untuk bagian ini.', kaigo: '' };
+      return { title: name + '（' + m.jp + '） ' + m.en, detail: m.function, kaigo: '介護ポイント: ' + m.kaigo };
+    }
+
+    renderer.domElement.addEventListener('pointerdown', function (e) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const visibleSelectable = selectable.filter(function (o) { return o.visible; });
+      const hit = raycaster.intersectObjects(visibleSelectable, false)[0];
+      if (!hit) return;
+      selectPart(hit.object);
+    });
+
+    function selectPart(obj) {
+      if (selected) selected.scale.setScalar(1);
+      selected = obj;
+      obj.scale.setScalar(1.05);
+      const name = obj.name || (obj.parent && obj.parent.name) || 'unknown';
+      const label = labelFor(name);
+      if (nameEl) nameEl.textContent = label.title;
+      if (detailEl) detailEl.textContent = label.detail;
+      if (kaigoEl) kaigoEl.textContent = label.kaigo;
+    }
+
+    const resetBtn = document.getElementById('heart3dResetBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+        controls.target.set(0, 0, .15);
+        controls.update();
+      });
+    }
+
+    // Alur Darah: emissive lembut pada aorta, vena, dan arteri.
+    const flowBtn = document.getElementById('heart3dFlowBtn');
+    if (flowBtn) {
+      flowBtn.addEventListener('click', function () {
+        const on = !flowBtn.classList.contains('active');
+        flowBtn.classList.toggle('active', on);
+        flowMeshes.forEach(function (o) {
+          if (on) {
+            o.material.emissive.set(0x4a0d12);
+            o.material.emissiveIntensity = .55;
+          } else {
+            o.material.emissive.copy(o.userData.baseEmissive);
+            o.material.emissiveIntensity = 1;
+          }
+        });
+      });
+    }
+
+    // Simulasi Gagal Jantung: menampilkan edema tungkai -- independen.
+    const failureBtn = document.getElementById('heart3dFailureBtn');
+    if (failureBtn) {
+      failureBtn.addEventListener('click', function () {
+        const on = !failureBtn.classList.contains('active');
+        failureBtn.classList.toggle('active', on);
+        failureMeshes.forEach(function (o) { o.visible = on; });
+        if (on && failureMeshes[0]) selectPart(failureMeshes[0]);
+      });
+    }
+
+    // Simulasi Syok/Sumbatan Koroner: menampilkan 2 mesh sekaligus --
+    // independen, menghubungkan visual 3D dengan materi darurat
+    // kardiovaskular yang sudah dijelaskan di halaman ini.
+    const emergencyBtn = document.getElementById('heart3dEmergencyBtn');
+    if (emergencyBtn) {
+      emergencyBtn.addEventListener('click', function () {
+        const on = !emergencyBtn.classList.contains('active');
+        emergencyBtn.classList.toggle('active', on);
+        emergencyMeshes.forEach(function (o) { o.visible = on; });
+        if (on && emergencyMeshes[0]) selectPart(emergencyMeshes[0]);
+      });
+    }
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  } catch (err) {
+    showError('Terjadi kesalahan saat menyiapkan viewer 3D -- fitur lain tetap berfungsi normal.');
+  }
+}
+
+// Diekspos ke window supaya bisa dipanggil dari script tab-switching terpisah
+// (lihat 'use strict' IIFE di bawah, listener klik #organTabs) -- module
+// script punya scope terisolasi, tidak otomatis global seperti script biasa.
+window.initHeart3D = initHeart3D;
+
+// Pemicu lazy-load VIA SCROLL: berjaga-jaga jika struktur halaman berubah
+// di masa depan dan #heart3dContainer TIDAK LAGI berada di dalam tab yang
+// tersembunyi -- observer ini genuinely tidak akan pernah trigger selama
+// elemen berada di tab non-aktif (dimensi 0x0), tapi tetap dipasang sebagai
+// jalur cadangan yang aman (tidak berbahaya jika tidak pernah terpanggil).
+// Jalur UTAMA untuk kondisi struktur SAAT INI adalah listener klik tab
+// "Anatomi" (lihat window.initHeart3D di atas).
+const heart3dContainerEl = document.getElementById('heart3dContainer');
+if (heart3dContainerEl && 'IntersectionObserver' in window) {
+  const heart3dObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        heart3dObserver.unobserve(entry.target);
+        initHeart3D();
+      }
+    });
+  }, { rootMargin: '200px' });
+  heart3dObserver.observe(heart3dContainerEl);
+} else {
+  // Fallback: browser tanpa dukungan IntersectionObserver (genuinely sangat
+  // jarang) -- langsung inisialisasi seperti perilaku lama, lebih baik
+  // genuinely bekerja tanpa lazy-load daripada model 3D tidak muncul sama
+  // sekali.
+  initHeart3D();
+}
+</script>
+<script>
+'use strict';
+(function () {
+  // ── Tab switching (pola sama seperti sys-tab di Anatomi-Dasar.html) ──
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+    // Pemicu TAMBAHAN untuk lazy-load model 3D: #heart3dContainer berada di
+    // dalam tab panel "anatomi" yang genuinely display:none secara default.
+    // IntersectionObserver (dipasang di script module terpisah) TIDAK PERNAH
+    // trigger untuk elemen di tab tersembunyi -- elemen punya dimensi nol
+    // selama tab tidak aktif, sehingga tidak pernah dianggap "intersecting"
+    // viewport. Event klik tab ini genuinely satu-satunya titik yang tahu
+    // kapan tab Anatomi baru saja ditampilkan.
+    if (btn.dataset.tab === 'anatomi' && typeof window.initHeart3D === 'function') {
+      window.initHeart3D();
+    }
+  });
+
+  // ── Mini quiz (3 soal, mengikuti pola answerLocked dari Kaigo Simulator v185) ──
+  var MINI_Q = [
+    { q: 'Ruang jantung mana yang memompa darah ke SELURUH TUBUH (sirkulasi sistemik)?', opts: ['Atrium kanan', 'Ventrikel kanan', 'Ventrikel kiri'], a: 2 },
+    { q: 'Darah dari seluruh tubuh (miskin oksigen) pertama kali masuk ke ruang jantung mana?', opts: ['Atrium kanan', 'Atrium kiri', 'Ventrikel kiri'], a: 0 },
+    { q: '「浮腫」(ふしゅ) dalam konteks gagal jantung berarti apa?', opts: ['Nyeri dada', 'Bengkak/edema', 'Detak jantung cepat'], a: 1 },
+    { q: 'Gejala serangan jantung pada lansia (terutama wanita) sering TIDAK KLASIK, melainkan berupa?', opts: ['Selalu nyeri dada hebat yang jelas', 'Kelelahan tidak biasa, sesak ringan, atau mual', 'Tidak pernah menimbulkan gejala apapun'], a: 1 },
+    { q: 'Sesak napas yang MEMBURUK saat berbaring datar (membaik saat duduk tegak) adalah pola khas yang mengarah ke?', opts: ['Penumpukan cairan di paru terkait gagal jantung', 'Kondisi yang selalu tidak berbahaya', 'Efek samping obat pereda nyeri biasa'], a: 0 },
+    { q: 'Kenapa aritmia seperti fibrilasi atrium bisa meningkatkan risiko stroke?', opts: ['Darah yang tidak mengalir teratur di jantung berisiko membentuk gumpalan', 'Aritmia tidak ada kaitan dengan risiko stroke', 'Aritmia selalu menurunkan tekanan darah'], a: 0 },
+    { q: 'Hipotensi ortostatik terjadi karena refleks pembuluh darah yang melambat saat?', opts: ['Berdiri dari posisi berbaring/duduk', 'Tidur di malam hari', 'Makan besar'], a: 0 },
+    { q: 'Langkah praktis mencegah hipotensi ortostatik yang bisa dibantu caregiver adalah?', opts: ['Perubahan posisi bertahap: berbaring -> duduk sejenak -> baru berdiri', 'Langsung berdiri secepat mungkin dari posisi berbaring', 'Menghindari perubahan posisi sama sekali'], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  // ── Case simulator ──
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Kombinasi sesak napas + edema tungkai + kenaikan berat badan mendadak adalah tanda klasik <strong>gagal jantung (心不全)</strong> yang memburuk. Cairan menumpuk karena jantung tidak memompa secara efektif. Ini WAJIB dilaporkan segera — bukan kondisi yang "ditunggu saja".'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: perhatikan bahwa ketiga gejala (sesak, bengkak kaki, BB naik cepat) semuanya mengarah ke satu sistem tubuh yang sama, dan tindakan yang aman adalah SEGERA melapor, bukan menunggu atau memberi olahraga berat.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

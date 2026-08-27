@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#4d7c0f">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>リンパ系・免疫系 Sistem Limfatik &amp; Imun Bahasa Jepang untuk Kaigo | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Limfatik & Imun — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Limfatik-Imun.html","description":"Pembelajaran mendalam sistem limfatik dan imun dalam bahasa Jepang — anatomi kelenjar getah bening, respons imun terhadap infeksi, perubahan penuaan (imunosenesensi), infeksi dan alergi lansia, observasi, dan perawatan Kaigo.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Pelajari sistem limfatik dan imun secara mendalam dalam bahasa Jepang — anatomi kelenjar getah bening, respons imun, perubahan akibat penuaan, infeksi lansia, observasi, dan perawatan Kaigo.">
+<meta property="og:title" content="リンパ系・免疫系 Sistem Limfatik & Imun — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Anatomi, fisiologi, dan perawatan Kaigo sistem limfatik dan imun dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Limfatik-Imun.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#f7fee7,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#4d7c0f;border-color:#4d7c0f;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#4d7c0f;background:#f7fee7;border:1px solid #d9f99d;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#4d7c0f;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#4d7c0f}
+.organ-tab.active{color:#4d7c0f;border-bottom-color:#4d7c0f}
+.organ-tab:focus-visible{outline:2px solid #4d7c0f;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #f7fee7;color:#1a2e05}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#4d7c0f}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#f7fee7;border-color:#d9f99d}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#f7fee7;color:#4d7c0f;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #4d7c0f;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.immune-wrap{max-width:340px;margin:16px auto;padding:16px;background:var(--white,#fff);border-radius:14px;border:1px solid var(--border-light,#eee)}
+@keyframes pathogenApproach{0%{offset-distance:0%;opacity:1}60%{opacity:1}75%{opacity:0;transform:scale(.3)}100%{opacity:0}}
+@keyframes wbcChase{0%{offset-distance:10%}70%{offset-distance:70%}100%{offset-distance:70%}}
+@keyframes wbcPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.im-pathogen{offset-path:path('M40 100 C100 100 150 100 260 100');animation:pathogenApproach 3s ease-in-out infinite}
+.im-wbc{offset-path:path('M260 140 C200 140 150 120 90 105');animation:wbcChase 3s ease-in-out infinite,wbcPulse 1s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.im-pathogen,.im-wbc{animation:none}}
+.im-th{font-size:12px;font-weight:800;fill:var(--ink,#222)}
+.im-ts{font-size:10.5px;fill:var(--ink-mid,#666)}
+.immune-legend{display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:11.5px;color:var(--ink-mid,#666);flex-wrap:wrap}
+.immune-legend span{display:inline-flex;align-items:center;gap:5px}
+.immune-swatch{display:inline-block;width:12px;height:12px;border-radius:50%}
+.immune-controls{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.immune-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:700}
+.immune-btn.active{background:#f7fee7;border-color:#4d7c0f;color:#4d7c0f}
+
+.model3d-wrap{max-width:560px;margin:16px auto;padding:16px;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px}
+.model3d-canvas-wrap{position:relative;width:100%;height:360px;border-radius:10px;overflow:hidden;background:#f5f7fb;touch-action:none}
+.model3d-loading,.model3d-error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink-mid,#666);text-align:center;padding:20px}
+.model3d-error{color:#4d7c0f}
+.model3d-info-panel{margin-top:10px;padding:10px 12px;background:#f8f9fb;border-radius:10px;font-size:13px}
+.model3d-info-panel strong{display:block;margin-bottom:2px;font-size:14px}
+.model3d-detail-text{color:var(--ink-mid,#666)}
+.model3d-controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.model3d-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:8px 14px;font-size:12.5px;cursor:pointer;font-weight:700}
+.model3d-btn.active{background:#fef2f2;border-color:#dc2626;color:#dc2626}
+.model3d-disclaimer{margin:10px 0 0;font-size:11px;color:var(--ink-soft,#999);line-height:1.5}
+
+.case-sim{background:var(--white,#fff);border:2px solid #d9f99d;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#f7fee7;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#4d7c0f;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#4d7c0f}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Limfatik-Imun.html" class="current">① 基礎 Dasar</a>
+      <a href="Sistem-Limfatik-Imun-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Limfatik-Imun-Lanjutan.html">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🛡️ Level 2-4 — Sistem Limfatik &amp; Imun</span>
+    <h1><span class="jp-big">リンパ系・免疫系</span>Sistem Limfatik &amp; Imun</h1>
+    <p class="lead">Anatomi kelenjar getah bening, respons imun terhadap infeksi, perubahan penuaan, kerentanan infeksi lansia, hingga perawatan Kaigo — dengan animasi respons imun interaktif.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi limfatik dan imun">
+  <button class="organ-tab active" data-tab="ringkasan" role="tab" aria-selected="true">概要 Ringkasan</button>
+  <button class="organ-tab" data-tab="anatomi" role="tab" aria-selected="false">解剖 Anatomi</button>
+  <button class="organ-tab" data-tab="fisiologi" role="tab" aria-selected="false">生理 Fisiologi</button>
+  <button class="organ-tab" data-tab="penuaan" role="tab" aria-selected="false">加齢変化 Penuaan</button>
+  <button class="organ-tab" data-tab="penyakit" role="tab" aria-selected="false">疾患 Penyakit</button>
+  <button class="organ-tab" data-tab="gejala" role="tab" aria-selected="false">症状 Gejala</button>
+  <button class="organ-tab" data-tab="observasi" role="tab" aria-selected="false">観察 Observasi</button>
+  <button class="organ-tab" data-tab="perawatan" role="tab" aria-selected="false">介護 Perawatan</button>
+  <button class="organ-tab" data-tab="kosakata" role="tab" aria-selected="false">用語 Kosakata</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <!-- ═══════════ 概要 RINGKASAN ═══════════ -->
+  <div class="organ-panel active" id="panel-ringkasan">
+    <h2>概要 — Ringkasan Sistem Limfatik &amp; Imun</h2>
+    <p>Sistem limfatik (リンパ系) dan sistem imun (免疫系) bekerja bersama untuk melindungi tubuh dari infeksi — mengangkut cairan getah bening yang mengandung sel-sel imun ke seluruh tubuh dan menyaring zat asing lewat kelenjar getah bening (リンパ節).</p>
+    <div class="info-card">
+      <h3 style="margin-top:0">Kenapa penting untuk Kaigo?</h3>
+      <p style="margin-bottom:0">Daya tahan tubuh lansia menurun (imunosenesensi), membuat mereka lebih rentan infeksi dan pemulihannya lebih lambat. Caregiver berperan penting dalam pencegahan infeksi lewat kebersihan dan deteksi dini tanda infeksi.</p>
+    </div>
+    <h3>Fungsi utama</h3>
+    <ul>
+      <li>Melawan infeksi virus, bakteri, dan zat asing lainnya</li>
+      <li>Mengangkut kelebihan cairan jaringan kembali ke aliran darah</li>
+      <li>Menyaring zat asing dan sel abnormal lewat kelenjar getah bening</li>
+      <li>Menyerap lemak dari usus (lewat pembuluh limfa khusus)</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 解剖 ANATOMI ═══════════ -->
+  <div class="organ-panel" id="panel-anatomi">
+    <h2>解剖 — Anatomi Sistem Limfatik</h2>
+    <p>Sistem limfatik tersebar di seluruh tubuh lewat jaringan pembuluh dan kelenjar.</p>
+    <h3>Bagian utama</h3>
+    <ul>
+      <li><strong>リンパ節 (りんぱせつ) — Kelenjar Getah Bening</strong>: tersebar di leher, ketiak, selangkangan — menyaring cairan limfa dan menghasilkan sel imun</li>
+      <li><strong>胸腺 (きょうせん) — Kelenjar Timus</strong>: tempat pematangan sel T, mengecil seiring usia (involusi timus)</li>
+      <li><strong>脾臓 (ひぞう) — Limpa</strong>: menyaring darah, menghancurkan sel darah merah tua, menyimpan sel imun</li>
+      <li><strong>扁桃腺 (へんとうせん) — Amandel (Tonsil)</strong>: pertahanan pertama di tenggorokan terhadap kuman yang masuk lewat mulut/hidung</li>
+    </ul>
+
+    <h3>🧊 Model 3D interaktif — sistem limfatik &amp; imun</h3>
+    <div class="model3d-wrap">
+      <div id="lymph3dContainer" class="model3d-canvas-wrap">
+        <div id="lymph3dLoading" class="model3d-loading">Memuat model 3D…</div>
+        <div id="lymph3dError" class="model3d-error" style="display:none">Model 3D gagal dimuat. Coba muat ulang halaman.</div>
+      </div>
+      <div class="model3d-info-panel">
+        <strong id="lymph3dName">Klik bagian untuk detail</strong>
+        <div id="lymph3dDetail" class="model3d-detail-text">Putar dengan drag/geser, perbesar dengan scroll/pinch.</div>
+        <div id="lymph3dKaigo" class="model3d-detail-text" style="margin-top:6px;font-style:italic"></div>
+      </div>
+      <div class="model3d-controls">
+        <button type="button" id="lymph3dResetBtn" class="model3d-btn">↺ Reset kamera</button>
+        <button type="button" id="lymph3dFlowBtn" class="model3d-btn">💧 Alur Limfa</button>
+        <button type="button" id="lymph3dInfectionBtn" class="model3d-btn">🚨 Simulasi Infeksi Tanpa Demam</button>
+      </div>
+      <div id="lymph3dInfectionText" class="info-card danger" style="display:none;margin-top:10px">
+        Pada lansia, infeksi bisa terjadi TANPA demam tinggi. Waspadai penurunan nafsu makan, mengantuk, kebingungan mendadak (delirium), napas cepat, atau penurunan aktivitas — jangan menunggu demam tinggi baru melapor.
+      </div>
+      <p class="model3d-disclaimer">Model edukatif bergaya sederhana untuk pembelajaran istilah anatomi — bukan alat diagnosis atau pengganti pemeriksaan medis.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 生理 FISIOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-fisiologi">
+    <h2>生理 — Respons Imun Terhadap Infeksi</h2>
+    <p>Saat patogen (virus/bakteri) masuk ke tubuh, sistem imun merespons lewat beberapa lapisan pertahanan, dengan sel darah putih (白血球, はっけっきゅう) sebagai pasukan utama.</p>
+
+    <h3>🦠 Animasi respons imun — interaktif</h3>
+    <div class="immune-wrap">
+      <svg width="100%" viewBox="0 0 300 200" role="img" aria-label="Animasi respons imun: sel darah putih mendeteksi dan menghancurkan patogen yang masuk ke tubuh">
+        <circle class="im-pathogen" r="10" fill="#dc2626"/>
+        <circle class="im-wbc" r="14" fill="#4d7c0f" opacity=".8"/>
+        <text class="im-th" x="50" y="80" text-anchor="middle">1</text>
+        <text class="im-ts" x="50" y="65" text-anchor="middle">Patogen masuk</text>
+        <text class="im-th" x="250" y="165" text-anchor="middle">2</text>
+        <text class="im-ts" x="250" y="180" text-anchor="middle">Sel darah putih mendeteksi</text>
+        <text class="im-ts" x="150" y="30" text-anchor="middle">Sel darah putih mengejar &amp; menghancurkan patogen</text>
+      </svg>
+      <div class="immune-legend">
+        <span><i class="immune-swatch" style="background:#dc2626"></i>Patogen (virus/bakteri)</span>
+        <span><i class="immune-swatch" style="background:#4d7c0f"></i>Sel darah putih</span>
+      </div>
+      <div class="immune-controls">
+        <button type="button" id="immuneToggleBtn" class="immune-btn active">⏸ Jeda animasi</button>
+      </div>
+    </div>
+
+    <h3>Lapisan pertahanan tubuh</h3>
+    <ul>
+      <li><strong>Pertahanan fisik</strong>: kulit dan lendir mencegah patogen masuk sejak awal</li>
+      <li><strong>Imunitas bawaan (自然免疫)</strong>: respons cepat non-spesifik — sel darah putih menyerang apa pun yang dikenali sebagai asing</li>
+      <li><strong>Imunitas adaptif (獲得免疫)</strong>: respons lebih lambat tapi spesifik — tubuh "belajar" mengenali patogen tertentu dan membentuk antibodi (抗体)</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Ini prinsip vaksinasi:</strong> vaksin memperkenalkan bagian aman dari patogen ke tubuh, sehingga sistem imun adaptif "belajar" mengenalinya lebih dulu — kalau patogen asli datang nanti, tubuh sudah siap merespons lebih cepat.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 加齢変化 PERUBAHAN PENUAAN ═══════════ -->
+  <div class="organ-panel" id="panel-penuaan">
+    <h2>加齢に伴う変化 — Perubahan Imun Akibat Penuaan (免疫老化)</h2>
+    <ul>
+      <li><strong>Kelenjar timus mengecil (involusi)</strong> — produksi sel T baru berkurang drastis seiring usia</li>
+      <li><strong>Respons imun terhadap infeksi baru melambat</strong> — lansia butuh waktu lebih lama melawan infeksi</li>
+      <li><strong>Respons terhadap vaksin bisa lebih lemah</strong> — meski tetap penting dan dianjurkan</li>
+      <li><strong>Peradangan tingkat rendah kronis meningkat</strong> — terkait berbagai penyakit terkait usia</li>
+    </ul>
+    <div class="info-card warn">
+      <h3 style="margin-top:0">⚠️ Relevansi Kaigo</h3>
+      <p style="margin-bottom:0">Imunosenesensi (penurunan daya tahan tubuh terkait usia) menjelaskan kenapa lansia lebih rentan infeksi serius (seperti pneumonia) dan kenapa vaksinasi tahunan (influenza, pneumonia) tetap sangat dianjurkan meski responsnya tidak sekuat usia muda.</p>
+    </div>
+
+    <h3>Memahami "peradangan tingkat rendah kronis" (inflammaging)</h3>
+    <p>Berbeda dari peradangan AKUT (respons cepat dan jelas terhadap infeksi/cedera, biasanya mereda setelah penyebabnya teratasi), peradangan kronis tingkat rendah ini berlangsung TERUS-MENERUS dalam intensitas ringan seiring bertambahnya usia — bahkan tanpa infeksi/cedera aktif. Kondisi ini dikaitkan dengan berbagai penyakit terkait usia lain yang sudah dibahas di materi-materi sebelumnya (penyakit jantung, diabetes, penurunan fungsi kognitif) sebagai faktor yang saling berkontribusi.</p>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa ini penting dipahami:</strong> konsep ini menjelaskan kenapa sistem imun lansia bisa TAMPAK "terlalu aktif" (peradangan kronis) sekaligus "kurang efektif" (respons lambat terhadap infeksi baru) secara bersamaan — dua hal yang tampak kontradiktif tapi genuinely berasal dari perubahan regulasi sistem imun yang kompleks seiring usia, bukan sekadar "sistem imun lemah" secara sederhana.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 疾患 PENYAKIT ═══════════ -->
+  <div class="organ-panel" id="panel-penyakit">
+    <h2>疾患 — Kondisi Limfatik &amp; Imun Umum pada Lansia</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">感染症 (かんせんしょう) — Penyakit Infeksi</h3>
+      <p style="margin-bottom:0">Infeksi lebih sering dan lebih berat pada lansia akibat sistem imun yang melemah, bisa berkembang lebih cepat menjadi kondisi serius (sepsis, dibahas di beberapa materi Lanjutan lain). PENTING: tanda klasik infeksi (demam tinggi jelas) sering TIDAK muncul pada lansia — perubahan perilaku mendadak, kebingungan baru, atau kelemahan umum bisa jadi satu-satunya petunjuk awal, pola tersembunyi yang juga dibahas pada materi Urinaria dan Pernapasan.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">帯状疱疹 (たいじょうほうしん) — Herpes Zoster (Cacar Ular)</h3>
+      <p style="margin-bottom:0">Reaktivasi virus cacar air yang tersembunyi di tubuh, lebih sering muncul saat sistem imun melemah seiring usia, menyebabkan ruam nyeri biasanya di satu sisi tubuh mengikuti jalur saraf tertentu. Komplikasi yang perlu diwaspadai: nyeri saraf yang MENETAP bahkan SETELAH ruam sembuh (postherpetic neuralgia) — bisa berlangsung berbulan-bulan dan cukup mengganggu kualitas hidup, sehingga penanganan nyeri sejak fase awal ruam penting untuk mengurangi risiko komplikasi ini.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">リンパ浮腫 (りんぱふしゅ) — Limfedema</h3>
+      <p style="margin-bottom:0">Pembengkakan akibat penumpukan cairan limfa, sering terjadi setelah operasi pengangkatan kelenjar getah bening (misalnya pasca operasi kanker). Berkembang bertahap dari pembengkakan ringan hingga signifikan jika tidak ditangani — deteksi dan penanganan DINI (seperti kompresi dan latihan tertentu) jauh lebih efektif dibanding menunggu kondisi memburuk, karena limfedema lanjut cenderung lebih sulit dikelola.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">アレルギー — Alergi</h3>
+      <p style="margin-bottom:0">Reaksi berlebihan sistem imun terhadap zat yang sebenarnya tidak berbahaya, penting dicatat di profil setiap penerima layanan. PENTING dibedakan dari <strong>アナフィラキシー — anafilaksis</strong>, reaksi alergi BERAT yang mengancam nyawa (kesulitan bernapas, pembengkakan wajah/tenggorokan, penurunan tekanan darah drastis) — kondisi darurat yang butuh respons segera, berbeda jauh dari alergi ringan seperti gatal/ruam kecil.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 症状 GEJALA ═══════════ -->
+  <div class="organ-panel" id="panel-gejala">
+    <h2>症状 — Gejala yang Perlu Diwaspadai</h2>
+    <ul>
+      <li><strong>発熱 (はつねつ)</strong> — Demam, tanda umum infeksi (pada lansia bisa lebih ringan dari yang diperkirakan!)</li>
+      <li><strong>リンパ節の腫れ</strong> — Kelenjar getah bening bengkak (leher, ketiak) — tanda infeksi atau perlu evaluasi lebih lanjut</li>
+      <li><strong>倦怠感 (けんたいかん)</strong> — Kelelahan berlebihan, sering menyertai infeksi</li>
+      <li><strong>むくみ (浮腫)</strong> — Bengkak, bisa terkait limfedema</li>
+      <li><strong>治りにくい感染</strong> — Infeksi yang tidak kunjung sembuh atau sering berulang</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">🚨 Kapan ini darurat?</h3>
+      <p style="margin-bottom:0">Pada lansia, tanda infeksi berat bisa TIDAK KHAS — kebingungan mendadak, penurunan kesadaran, atau napas cepat TANPA demam tinggi bisa tetap jadi tanda infeksi serius (sepsis). Jangan hanya mengandalkan demam sebagai patokan tunggal — segera evaluasi menyeluruh jika ada perubahan kondisi mendadak.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 観察 OBSERVASI ═══════════ -->
+  <div class="organ-panel" id="panel-observasi">
+    <h2>観察 — Poin Observasi Caregiver</h2>
+    <p>Observasi rutin membantu deteksi cepat tanda infeksi tersembunyi (risiko akut) maupun perkembangan bertahap limfedema/penyembuhan luka (risiko jangka panjang).</p>
+
+    <h3>Observasi untuk deteksi cepat infeksi</h3>
+    <ul>
+      <li><strong>体温の変化</strong> — Perubahan suhu tubuh (ingat: bisa tidak setinggi biasanya pada lansia meski infeksi serius). Catat suhu DASAR normal pasien itu sendiri, karena kenaikan kecil dari baseline individu bisa lebih bermakna dibanding angka mutlak "demam"</li>
+      <li><strong>全身状態の急な変化</strong> — Perubahan kondisi umum mendadak (bisa jadi tanda infeksi meski tanpa demam jelas). Perubahan perilaku/kewaspadaan yang MENDADAK adalah petunjuk penting yang sering lebih dulu muncul dibanding demam pada lansia</li>
+    </ul>
+
+    <h3>Observasi bertahap (limfedema dan penyembuhan)</h3>
+    <ul>
+      <li><strong>リンパ節の腫れ</strong> — Pembengkakan kelenjar getah bening saat memandikan/merawat — perhatikan apakah muncul mendadak (mengarah ke infeksi aktif) atau menetap/membesar bertahap (perlu evaluasi lanjut)</li>
+      <li><strong>むくみの有無</strong> — Ada tidaknya bengkak, terutama di tungkai atau area pasca operasi. Pada pasien berisiko limfedema (riwayat operasi kelenjar getah bening), pembengkakan RINGAN yang baru muncul penting dicatat sejak dini — deteksi awal jauh lebih mudah ditangani dibanding menunggu kondisi memburuk</li>
+      <li><strong>傷の治癒状況</strong> — Kecepatan penyembuhan luka (lambat = tanda daya tahan tubuh lemah) — bandingkan dengan pola penyembuhan biasa pasien tersebut, bukan standar umum semata</li>
+    </ul>
+
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Prinsip pencatatan:</strong> pada lansia, "tidak ada demam" TIDAK BOLEH otomatis diartikan "tidak ada infeksi" — kombinasi perubahan perilaku mendadak, penurunan nafsu makan, atau kelemahan baru meski suhu tubuh normal tetap perlu diperhatikan dan dilaporkan.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 介護 PERAWATAN ═══════════ -->
+  <div class="organ-panel" id="panel-perawatan">
+    <h2>介護 — Tindakan Perawatan Kaigo</h2>
+    <h3>Pencegahan infeksi</h3>
+    <ul>
+      <li>Jaga kebersihan tangan sebelum dan sesudah kontak dengan penerima layanan</li>
+      <li>Dukung perawatan mulut rutin (mengurangi risiko infeksi yang bisa menyebar)</li>
+      <li>Dorong vaksinasi tahunan (influenza, pneumonia) sesuai anjuran tenaga medis</li>
+      <li>Jaga kebersihan luka dan ganti perban sesuai instruksi</li>
+    </ul>
+    <h3>Observasi ekstra waspada</h3>
+    <ul>
+      <li>Jangan hanya mengandalkan demam sebagai tanda tunggal infeksi pada lansia</li>
+      <li>Laporkan perubahan kondisi umum mendadak meski tidak ada demam tinggi</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">📞 Kapan harus melapor ke perawat/dokter?</h3>
+      <ul style="margin-bottom:0">
+        <li>Demam baru muncul, terutama disertai kebingungan atau kelemahan</li>
+        <li>Perubahan kondisi umum mendadak (lesu, tidak responsif) meski tanpa demam jelas</li>
+        <li>Kelenjar getah bening yang bengkak dan tidak kunjung mengempis</li>
+        <li>Luka yang tidak kunjung sembuh atau tanda infeksi (kemerahan, nanah, bau)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════ 用語 KOSAKATA ═══════════ -->
+  <div class="organ-panel" id="panel-kosakata">
+    <h2>用語 — Kosakata Jepang Sistem Limfatik &amp; Imun</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">リンパ節</td><td>りんぱせつ</td><td>Kelenjar getah bening</td><td>Lymph node</td></tr>
+        <tr><td class="jp">免疫</td><td>めんえき</td><td>Kekebalan tubuh</td><td>Immunity</td></tr>
+        <tr><td class="jp">感染症</td><td>かんせんしょう</td><td>Penyakit infeksi</td><td>Infectious disease</td></tr>
+        <tr><td class="jp">発熱</td><td>はつねつ</td><td>Demam</td><td>Fever</td></tr>
+        <tr><td class="jp">抗体</td><td>こうたい</td><td>Antibodi</td><td>Antibody</td></tr>
+        <tr><td class="jp">予防接種</td><td>よぼうせっしゅ</td><td>Vaksinasi</td><td>Vaccination</td></tr>
+        <tr><td class="jp">アレルギー</td><td>あれるぎー</td><td>Alergi</td><td>Allergy</td></tr>
+        <tr><td class="jp">白血球</td><td>はっけっきゅう</td><td>Sel darah putih</td><td>White blood cell</td></tr>
+        <tr><td class="jp">脾臓</td><td>ひぞう</td><td>Limpa</td><td>Spleen</td></tr>
+        <tr><td class="jp">免疫力低下</td><td>めんえきりょくていか</td><td>Penurunan daya tahan tubuh</td><td>Decreased immunity</td></tr>
+        <tr><td class="jp">帯状疱疹</td><td>たいじょうほうしん</td><td>Herpes zoster</td><td>Herpes zoster</td></tr>
+        <tr><td class="jp">リンパ浮腫</td><td>りんぱふしゅ</td><td>Limfedema</td><td>Lymphedema</td></tr>
+        <tr><td class="jp">アナフィラキシー</td><td>あなふぃらきしー</td><td>Anafilaksis</td><td>Anaphylaxis</td></tr>
+        <tr><td class="jp">胸腺</td><td>きょうせん</td><td>Kelenjar timus</td><td>Thymus gland</td></tr>
+        <tr><td class="jp">免疫老化</td><td>めんえきろうか</td><td>Imunosenesensi</td><td>Immunosenescence</td></tr>
+        <tr><td class="jp">慢性炎症</td><td>まんせいえんしょう</td><td>Peradangan kronis</td><td>Chronic inflammation</td></tr>
+        <tr><td class="jp">帯状疱疹後神経痛</td><td>たいじょうほうしんごしんけいつう</td><td>Nyeri saraf pasca-herpes zoster</td><td>Postherpetic neuralgia</td></tr>
+        <tr><td class="jp">傷の治癒</td><td>きずのちゆ</td><td>Penyembuhan luka</td><td>Wound healing</td></tr>
+        <tr><td class="jp">体温の基準値</td><td>たいおんのきじゅんち</td><td>Suhu tubuh dasar (baseline)</td><td>Baseline temperature</td></tr>
+        <tr><td class="jp">脾臓摘出</td><td>ひぞうてきしゅつ</td><td>Pengangkatan limpa</td><td>Splenectomy</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis</h3>
+    <div class="clinical-sentence">
+      <div class="jp">熱はありませんが、様子がいつもと違います。</div>
+      <div class="id">Tidak demam, tapi kondisinya berbeda dari biasanya.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">首のリンパ節が腫れています。</div>
+      <div class="id">Kelenjar getah bening di leher bengkak.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">傷がなかなか治りません。</div>
+      <div class="id">Lukanya tidak kunjung sembuh.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia yang biasanya aktif dan responsif tiba-tiba tampak sangat lesu, tidak nafsu makan, dan agak bingung sejak pagi ini. Suhu tubuhnya hanya 37.3°C — sedikit di atas normal, tapi tidak dianggap "demam tinggi" oleh keluarga yang mendampingi.
+      </div>
+      <div class="case-question">
+        <label>1. Perubahan kondisi ini mungkin terkait sistem tubuh mana?</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Sistem imun (kemungkinan infeksi)</option>
+          <option value="wrong">Sistem otot saja</option>
+          <option value="wrong">Sistem rangka saja</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Fakta bahwa suhu "hanya" 37.3°C berarti:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Pasti bukan infeksi karena tidak demam tinggi</option>
+          <option value="correct">Tetap perlu dicurigai infeksi — pada lansia, demam bisa tidak setinggi biasanya meski infeksi serius</option>
+          <option value="wrong">Tidak perlu dipantau lebih lanjut</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan caregiver yang PALING tepat sekarang:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Mengabaikan karena suhu "hampir normal"</option>
+          <option value="correct">Melaporkan perubahan kondisi umum ini ke perawat/dokter</option>
+          <option value="wrong">Menunggu sampai muncul demam tinggi baru melapor</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+// v210: Model 3D sistem limfatik & imun -- diintegrasikan dari file yang
+// disediakan pengguna (lymphatic_immune_3d_kaigo_package.zip). Semua
+// pelajaran dari integrasi sebelumnya diterapkan LANGSUNG sejak awal.
+//
+// VERIFIKASI SEBELUM MENULIS KODE (pelajaran dari bug v209): metadata
+// lymphatic-data.json DICEK secara eksplisit -- TIDAK ADA key yang
+// mengandung angka sebagai identitas sah (semua "Kanan"/"Kiri" adalah kata,
+// bukan angka). Segmen underscore ("Duktus Torasikus_1".."_4", "Pembuluh
+// Limfa Kanan_1"/"_2") murni pemecahan teknis SATU objek untuk bentuk
+// berliku, aman digabung ke 1 label. labelFor() tetap pakai pendekatan
+// "coba nama lengkap dulu, baru fallback ke nama tanpa suffix" dari v209
+// sebagai jaring pengaman, meski di sini seharusnya selalu cocok di
+// percobaan pertama karena tidak ada kasus angka-sah seperti Kulit v209.
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+(async function () {
+  const container = document.getElementById('lymph3dContainer');
+  const loadingEl = document.getElementById('lymph3dLoading');
+  const errorEl = document.getElementById('lymph3dError');
+  const nameEl = document.getElementById('lymph3dName');
+  const detailEl = document.getElementById('lymph3dDetail');
+  const kaigoEl = document.getElementById('lymph3dKaigo');
+  if (!container) return;
+
+  function showError(msg) {
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (errorEl) { errorEl.style.display = 'flex'; errorEl.textContent = msg; }
+    console.warn('[Lymphatic 3D Viewer]', msg);
+  }
+
+  if (!window.WebGLRenderingContext) {
+    showError('Browser Anda tidak mendukung WebGL -- model 3D tidak dapat ditampilkan. Fitur lain di halaman ini tetap berfungsi normal.');
+    return;
+  }
+
+  let metadata = {};
+  try {
+    const res = await fetch('../assets/models/lymphatic/lymphatic-data.json');
+    metadata = await res.json();
+  } catch (err) {
+    console.warn('[Lymphatic 3D Viewer] Metadata gagal dimuat, label akan pakai nama mesh mentah:', err);
+  }
+
+  try {
+    const FALLBACK_W = 560, FALLBACK_H = 360;
+    let width = container.clientWidth || FALLBACK_W;
+    let height = container.clientHeight || FALLBACK_H;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    const defaultCamPos = { x: 4.8, y: 2.8, z: 7.5 };
+    camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, 0, .2);
+    controls.minDistance = 3.8;
+    controls.maxDistance = 12;
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(function (entries) {
+        for (const entry of entries) {
+          const w = entry.contentRect.width, h = entry.contentRect.height;
+          if (w > 0 && h > 0 && (w !== width || h !== height)) {
+            width = w; height = h;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+          }
+        }
+      });
+      resizeObserver.observe(container);
+    }
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x657487, 2.7));
+    const key = new THREE.DirectionalLight(0xffffff, 2.7); key.position.set(5, 7, 8); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xd8e6ff, 1.2); rim.position.set(-5, 2, -5); scene.add(rim);
+
+    let flowMode = false, infectionMode = false, selected = null;
+    const selectable = [];
+    const scenarioMeshes = [];
+    const flowMeshes = [];
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+
+    function cleanName(rawName) {
+      let n = (rawName || '').replace(/_/g, ' ');
+      n = n.replace(/ \d+$/, '');
+      return n;
+    }
+
+    new GLTFLoader().load(
+      '../assets/models/lymphatic/lymphatic_immune_educational.glb',
+      function (gltf) {
+        gltf.scene.traverse(function (o) {
+          if (!o.isMesh) return;
+          o.material = o.material.clone();
+          o.material.roughness = 0.56; o.material.metalness = 0;
+          o.userData.baseEmissive = o.material.emissive.clone();
+          const n = cleanName(o.name);
+          if (n.startsWith('Infeksi ') || n.startsWith('Peringatan ')) {
+            o.visible = false; // tersembunyi default -- muncul saat simulasi infeksi aktif
+            scenarioMeshes.push(o);
+          }
+          if (n.startsWith('Duktus ') || n.startsWith('Pembuluh Limfa')) {
+            flowMeshes.push(o);
+          }
+          selectable.push(o);
+        });
+        scene.add(gltf.scene);
+        if (loadingEl) loadingEl.style.display = 'none';
+      },
+      undefined,
+      function (err) {
+        showError('Model 3D gagal dimuat. Coba muat ulang halaman -- fitur lain tetap berfungsi normal.');
+      }
+    );
+
+    // labelFor: coba nama lengkap (dengan suffix jika ada) dulu, baru
+    // fallback ke nama tergabung -- jaring pengaman dari pelajaran v209.
+    function labelFor(rawName) {
+      const nameWithSuffix = (rawName || '').replace(/_/g, ' ');
+      const nameGrouped = nameWithSuffix.replace(/ \d+$/, '');
+      const m = metadata[nameWithSuffix] || metadata[nameGrouped];
+      const name = metadata[nameWithSuffix] ? nameWithSuffix : nameGrouped;
+      if (!m) return { title: name || 'Bagian tidak dikenal', detail: 'Metadata belum tersedia untuk bagian ini.', kaigo: '' };
+      return { title: name + '（' + m.jp + '） ' + m.en, detail: m.function, kaigo: '介護ポイント: ' + m.kaigo };
+    }
+
+    renderer.domElement.addEventListener('pointerdown', function (e) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const visibleSelectable = selectable.filter(function (o) { return o.visible; });
+      const hit = raycaster.intersectObjects(visibleSelectable, false)[0];
+      if (!hit) return;
+      selectPart(hit.object);
+    });
+
+    function selectPart(obj) {
+      if (selected) selected.scale.setScalar(1);
+      selected = obj;
+      obj.scale.setScalar(1.05);
+      const name = obj.name || (obj.parent && obj.parent.name) || 'unknown';
+      const label = labelFor(name);
+      if (nameEl) nameEl.textContent = label.title;
+      if (detailEl) detailEl.textContent = label.detail;
+      if (kaigoEl) kaigoEl.textContent = label.kaigo;
+    }
+
+    const resetBtn = document.getElementById('lymph3dResetBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+        controls.target.set(0, 0, .2);
+        controls.update();
+      });
+    }
+
+    // Alur Limfa: emissive lembut pada duktus torasikus + semua pembuluh limfa.
+    const flowBtn = document.getElementById('lymph3dFlowBtn');
+    if (flowBtn) {
+      flowBtn.addEventListener('click', function () {
+        flowMode = !flowMode;
+        flowBtn.classList.toggle('active', flowMode);
+        flowMeshes.forEach(function (o) {
+          if (flowMode) {
+            o.material.emissive.set(0x164d2f);
+            o.material.emissiveIntensity = .65;
+          } else {
+            o.material.emissive.copy(o.userData.baseEmissive);
+            o.material.emissiveIntensity = 1;
+          }
+        });
+      });
+    }
+
+    // Simulasi Infeksi Tanpa Demam Tinggi: menampilkan 3 mesh (infeksi +
+    // 2 peringatan) SEKALIGUS -- bukan siklus seperti Kulit (v209), semua
+    // tampil bersamaan begitu diaktifkan. Menghubungkan visual 3D dengan
+    // materi infeksi-tanpa-demam yang sudah dijelaskan di tab 症例 halaman ini.
+    const infectionBtn = document.getElementById('lymph3dInfectionBtn');
+    const infectionTextEl = document.getElementById('lymph3dInfectionText');
+    if (infectionBtn) {
+      infectionBtn.addEventListener('click', function () {
+        infectionMode = !infectionMode;
+        infectionBtn.classList.toggle('active', infectionMode);
+        if (infectionTextEl) infectionTextEl.style.display = infectionMode ? 'block' : 'none';
+        scenarioMeshes.forEach(function (o) { o.visible = infectionMode; });
+        if (infectionMode && scenarioMeshes[0]) selectPart(scenarioMeshes[0]);
+      });
+    }
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  } catch (err) {
+    showError('Terjadi kesalahan saat menyiapkan viewer 3D -- fitur lain tetap berfungsi normal.');
+  }
+})();
+</script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var immuneBtn = document.getElementById('immuneToggleBtn');
+  if (immuneBtn) {
+    immuneBtn.addEventListener('click', function () {
+      var svg = document.querySelector('.immune-wrap svg');
+      var elements = svg.querySelectorAll('.im-pathogen, .im-wbc');
+      var paused = immuneBtn.dataset.paused === 'true';
+      if (!paused) {
+        elements.forEach(function (el) { el.style.animationPlayState = 'paused'; });
+        immuneBtn.textContent = '▶ Lanjutkan animasi';
+        immuneBtn.dataset.paused = 'true';
+      } else {
+        elements.forEach(function (el) { el.style.animationPlayState = 'running'; });
+        immuneBtn.textContent = '⏸ Jeda animasi';
+        immuneBtn.dataset.paused = 'false';
+      }
+    });
+  }
+
+  var MINI_Q = [
+    { q: 'Sel yang berperan sebagai pasukan utama melawan infeksi adalah?', opts: ['Sel darah merah', 'Sel darah putih', 'Trombosit'], a: 1 },
+    { q: 'Kelenjar yang mengecil signifikan seiring usia (involusi) dan penting untuk pematangan sel T adalah?', opts: ['Kelenjar timus', 'Kelenjar tiroid', 'Kelenjar adrenal'], a: 0 },
+    { q: 'Pada lansia, tanda infeksi serius BISA TIDAK berupa demam tinggi, melainkan?', opts: ['Selalu demam sangat tinggi', 'Kebingungan mendadak atau kelesuan', 'Tidak ada tanda sama sekali'], a: 1 },
+    { q: 'Komplikasi herpes zoster berupa nyeri saraf yang menetap bahkan SETELAH ruam sembuh disebut?', opts: ['Postherpetic neuralgia', 'Anafilaksis', 'Limfedema'], a: 0 },
+    { q: 'Perbedaan utama anafilaksis dari alergi ringan biasa adalah?', opts: ['Anafilaksis adalah reaksi berat yang mengancam nyawa, butuh respons segera', 'Keduanya memiliki tingkat keparahan yang sama', 'Anafilaksis selalu lebih ringan'], a: 0 },
+    { q: 'Deteksi dini limfedema penting karena?', opts: ['Penanganan dini jauh lebih efektif dibanding menunggu kondisi memburuk', 'Limfedema selalu sembuh sendiri tanpa penanganan', 'Tidak ada perbedaan hasil antara deteksi dini dan terlambat'], a: 0 },
+    { q: 'Peradangan tingkat rendah kronis (inflammaging) BERBEDA dari peradangan akut karena?', opts: ['Berlangsung terus-menerus dalam intensitas ringan, bahkan tanpa infeksi/cedera aktif', 'Selalu mereda cepat setelah penyebabnya teratasi', 'Hanya terjadi pada usia muda'], a: 0 },
+    { q: 'Kenapa mencatat suhu tubuh DASAR (baseline) individu penting, bukan hanya angka mutlak?', opts: ['Kenaikan kecil dari baseline individu bisa lebih bermakna dibanding angka "demam" standar', 'Baseline tidak pernah berbeda antar individu', 'Angka mutlak selalu lebih akurat dari baseline'], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Kelesuan mendadak + bingung + suhu SEDIKIT naik (bukan demam tinggi) adalah pola KLASIK infeksi pada lansia — sistem imun yang melemah (imunosenesensi) membuat respons demam tidak setinggi biasanya, meski infeksinya bisa tetap serius. JANGAN menunggu demam tinggi baru melapor — perubahan kondisi umum sudah cukup jadi alasan untuk melapor segera.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: perhatikan bahwa pada lansia, respons demam terhadap infeksi seringkali TIDAK setinggi orang muda — mengandalkan "harus demam tinggi dulu baru dicurigai infeksi" bisa menunda deteksi kondisi serius. Perubahan kondisi umum mendadak sudah cukup jadi alasan melapor.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

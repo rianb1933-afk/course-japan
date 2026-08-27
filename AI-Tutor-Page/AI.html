@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<!-- GSC verification injected by analytics-loader.js from env -->
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Tutor Jepang — Nihonggo Pro Academy</title>
+  <meta name="description" content="AI Tutor bahasa Jepang bertenaga Claude AI. Latihan percakapan, koreksi grammar, dan bimbingan belajar JLPT N5-N1 secara personal 24/7.">
+<meta data-seo="nihongo-static" name="description" content="Platform belajar bahasa Jepang untuk JLPT N5 sampai N1 dengan materi, flashcard, quiz, AI tutor, dan progress belajar.">
+<link data-seo="nihongo-static" rel="canonical" href="https://nihonggopro.id/AI-Tutor-Page/AI.html">
+<meta data-seo="nihongo-static" property="og:title" content="AI Tutor Jepang — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" property="og:description" content="Platform belajar bahasa Jepang untuk JLPT N5 sampai N1 dengan materi, flashcard, quiz, AI tutor, dan progress belajar.">
+<meta data-seo="nihongo-static" property="og:type" content="website">
+<meta data-seo="nihongo-static" property="og:url" content="https://nihonggopro.id/AI-Tutor-Page/AI.html">
+<meta data-seo="nihongo-static" property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta data-seo="nihongo-static" name="twitter:card" content="summary_large_image">
+<meta data-seo="nihongo-static" name="twitter:title" content="AI Tutor Jepang — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" name="twitter:description" content="Platform belajar bahasa Jepang untuk JLPT N5 sampai N1 dengan materi, flashcard, quiz, AI tutor, dan progress belajar.">
+<meta data-seo="nihongo-static" name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script data-seo="nihongo-static" type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"AI Tutor Jepang — Nihonggo Pro Academy","description":"Platform belajar bahasa Jepang untuk JLPT N5 sampai N1 dengan materi, flashcard, quiz, AI tutor, dan progress belajar.","url":"https://nihonggopro.id/AI-Tutor-Pro.html","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["Japanese language","JLPT","Kanji","Tata Bahasa","Kosakata"]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/translator.css">
+<button class="hamburger-btn" id="hambBtn" onclick="toggleNav()" aria-label="Menu" aria-expanded="false">
+  <span></span><span></span><span></span>
+</button>
+    <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#C0392B;--red-soft:#E8534A;--red-pale:#FDECEA;--ink:#0F0F12;--ink-mid:#3A3A42;--ink-soft:#7A7A86;--ink-faint:#BBBBC6;--cream:#FAF8F5;--white:#FFFFFF;--border:rgba(15,15,18,0.1);--border-mid:rgba(15,15,18,0.18);--gold:#D4A042;--gold-pale:#FBF0D8;--nav-bg:rgba(250,248,245,0.88)}
+[data-theme="dark"]{--red:#E8534A;--red-soft:#FF6B5B;--red-pale:rgba(232,83,74,0.15);--ink:#F0EEE9;--ink-mid:#B8B6B0;--ink-soft:#7A7A86;--ink-faint:#4A4A54;--cream:#111114;--white:#1C1C20;--border:rgba(255,255,255,0.07);--border-mid:rgba(255,255,255,0.12);--gold-pale:rgba(212,160,66,0.15);--nav-bg:rgba(17,17,20,0.9)}
+html,body{height:100%}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);font-size:15px;display:flex;flex-direction:column}
+a{text-decoration:none}button{cursor:pointer}
+nav:not(.kn-nav){position:fixed;top:0;left:0;right:0;z-index:100;padding:0 5vw;height:64px;display:flex;align-items:center;justify-content:space-between;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:.5px solid var(--border)}
+.nav-logo{display:flex;align-items:baseline;gap:10px}
+.nav-logo-jp{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--red)}
+.nav-logo-id{font-size:12px;font-weight:500;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+.nav-right{display:flex;align-items:center;gap:.75rem}
+.theme-toggle{width:36px;height:36px;border:.5px solid var(--border-mid);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:16px;cursor:pointer;transition:transform .2s}
+.theme-toggle:hover{transform:rotate(20deg)}
+.nav-links{display:flex;gap:1.5rem;list-style:none}
+.nav-links a{font-size:13px;color:var(--ink-mid);transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--red)}
+.btn-sm{background:var(--red);color:var(--white);padding:8px 16px;border-radius:100px;font-size:12px;font-weight:600;border:none;display:inline-block}
+
+/* LAYOUT */
+.ai-layout{display:flex;height:calc(100vh - 64px);margin-top:64px}
+
+/* SIDEBAR */
+.ai-sidebar{width:280px;background:var(--white);border-right:.5px solid var(--border);display:flex;flex-direction:column;flex-shrink:0}
+.as-header{padding:1.25rem 1.5rem;border-bottom:.5px solid var(--border)}
+.as-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:.25rem}
+.as-sub{font-size:12px;color:var(--ink-soft)}
+.as-new-btn{display:flex;align-items:center;gap:8px;margin:1rem 1.5rem;padding:10px 14px;background:var(--red);color:var(--white);border-radius:10px;font-size:13px;font-weight:600;border:none;width:calc(100% - 3rem);justify-content:center;cursor:pointer;transition:background .2s}
+.as-new-btn:hover{background:var(--red-soft)}
+.as-conversations{flex:1;overflow-y:auto;padding:.5rem}
+.conv-item{padding:.75rem 1rem;border-radius:10px;margin-bottom:2px;cursor:pointer;transition:background .2s}
+.conv-item:hover{background:var(--cream)}
+.conv-item.active{background:var(--red-pale)}
+.level-chip{display:inline-flex;align-items:center;justify-content:center;min-width:30px;height:18px;border-radius:100px;background:var(--gold-pale);color:var(--gold);font-size:10px;font-weight:700;margin-right:6px}
+.ci-title{font-size:13px;font-weight:500;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ci-meta{font-size:11px;color:var(--ink-faint);margin-top:2px}
+.conv-item.active .ci-title{color:var(--red)}
+.session-note{font-size:11px;line-height:1.5;color:var(--ink-soft);padding:.25rem 1rem .75rem}
+.as-prompts{padding:1rem 1.5rem;border-top:.5px solid var(--border)}
+.asp-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:.75rem}
+.prompt-chip{display:block;background:var(--cream);border:.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--ink-mid);margin-bottom:6px;cursor:pointer;transition:all .2s;width:100%;text-align:left}
+.prompt-chip:hover{border-color:var(--red);color:var(--red);background:var(--red-pale)}
+
+/* CHAT AREA */
+.chat-area{flex:1;display:flex;flex-direction:column;min-width:0}
+.chat-header{padding:1rem 1.5rem;border-bottom:.5px solid var(--border);background:var(--white);display:flex;align-items:center;justify-content:space-between}
+.ch-info{display:flex;align-items:center;gap:12px}
+.tutor-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--red-pale),var(--gold-pale));display:flex;align-items:center;justify-content:center;font-family:'Noto Serif JP',serif;font-size:18px;font-weight:600;color:var(--red);border:.5px solid var(--border-mid)}
+.tutor-name{font-size:14px;font-weight:600;color:var(--ink)}
+.tutor-status{font-size:12px;color:var(--ink-soft);display:flex;align-items:center;gap:5px}
+.status-dot{width:7px;height:7px;background:#27AE60;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.ch-badges{display:flex;gap:8px}
+.ch-badge{font-size:11px;font-weight:600;padding:3px 10px;border-radius:100px;background:var(--gold-pale);color:var(--gold)}
+.ch-badge.red{background:var(--red-pale);color:var(--red)}
+
+/* MESSAGES */
+.messages{flex:1;overflow-y:auto;padding:1.5rem;display:flex;flex-direction:column;gap:1.25rem}
+.msg{display:flex;gap:10px;align-items:flex-start;animation:msgIn .3s ease both}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.msg.user{flex-direction:row-reverse}
+.msg-avatar{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;flex-shrink:0;border:.5px solid var(--border-mid)}
+.msg-avatar.ai{background:var(--red-pale);color:var(--red);font-family:'Noto Serif JP',serif}
+.msg-avatar.user{background:var(--ink);color:var(--white)}
+.msg-bubble{max-width:68%;background:var(--white);border:.5px solid var(--border-mid);border-radius:16px;padding:12px 16px;font-size:14px;line-height:1.7;color:var(--ink)}
+.msg.user .msg-bubble{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.msg-bubble .jp-text{font-family:'Noto Serif JP',serif;font-size:18px;color:var(--red);display:block;margin-bottom:.25rem}
+.msg-time{font-size:11px;color:var(--ink-faint);margin-top:.25rem}
+.correction-box{background:var(--red-pale);border:.5px solid rgba(192,57,43,.2);border-radius:10px;padding:10px 12px;margin-top:.75rem;font-size:13px}
+.cb-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:.25rem}
+.cb-text{color:var(--ink-mid)}
+.session-card{margin-top:.75rem;border:.5px solid var(--border-mid);border-radius:12px;overflow:hidden;background:var(--cream)}
+.session-row{display:grid;grid-template-columns:82px 1fr;gap:10px;padding:10px 12px;border-bottom:.5px solid var(--border)}
+.session-row:last-child{border-bottom:none}
+.speaker{font-size:11px;font-weight:700;color:var(--red);text-transform:uppercase;letter-spacing:.04em}
+.line-ja{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--ink);line-height:1.6}
+.line-ro{font-size:12px;color:var(--ink-soft);font-style:italic}
+.line-id{font-size:13px;color:var(--ink-mid)}
+.focus-list{margin:.5rem 0 0 1rem;color:var(--ink-mid)}
+.focus-list li{margin:.2rem 0}
+.suggestion-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:.75rem}
+.sug-chip{background:var(--cream);border:.5px solid var(--border-mid);border-radius:100px;padding:5px 12px;font-size:12px;color:var(--ink-mid);cursor:pointer;transition:all .2s}
+.sug-chip:hover{border-color:var(--red);color:var(--red);background:var(--red-pale)}
+
+/* INPUT */
+.chat-input-area{padding:1rem 1.5rem;border-top:.5px solid var(--border);background:var(--white)}
+.input-mode-tabs{display:flex;gap:6px;margin-bottom:.75rem}
+.imt{padding:5px 14px;border-radius:100px;font-size:12px;font-weight:600;border:1.5px solid var(--border-mid);background:transparent;color:var(--ink-soft);cursor:pointer;transition:all .2s}
+.imt.active{background:var(--ink);color:var(--white);border-color:var(--ink)}
+.input-row{display:flex;gap:10px;align-items:flex-end}
+.chat-input{flex:1;background:var(--cream);border:1.5px solid var(--border-mid);border-radius:14px;padding:12px 16px;font-size:14px;font-family:'Outfit',sans-serif;color:var(--ink);resize:none;outline:none;transition:border-color .2s;max-height:120px;line-height:1.5}
+.chat-input:focus{border-color:var(--red)}
+.chat-input::placeholder{color:var(--ink-faint)}
+.send-btn{width:44px;height:44px;border-radius:12px;background:var(--red);color:var(--white);border:none;display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;transition:background .2s,transform .15s;flex-shrink:0}
+.send-btn:hover{background:var(--red-soft);transform:scale(1.05)}
+.input-hint{font-size:11px;color:var(--ink-faint);margin-top:.5rem;text-align:center}
+
+/* TYPING INDICATOR */
+.typing-indicator{display:none;align-items:center;gap:10px}
+.typing-indicator.show{display:flex}
+.typing-dots{display:flex;gap:4px}
+.typing-dots span{width:7px;height:7px;border-radius:50%;background:var(--ink-faint);animation:bounce .8s infinite}
+.typing-dots span:nth-child(2){animation-delay:.15s}
+.typing-dots span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
+@media(max-width:768px){
+  .ai-sidebar{display:none}
+  .chat-area{width:100%}
+}
+
+/* AI improvements */
+.copy-btn { background: none; border: none; cursor: pointer; font-size: 14px; padding: 2px 6px; border-radius: 4px; opacity: 0.6; transition: opacity 0.2s; }
+.copy-btn:hover { opacity: 1; background: var(--cream); }
+.ai-footer { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-top: 6px; border-top: 1px solid var(--border-light); justify-content: flex-end; }
+.source-badge { font-size: 10px; color: var(--ink-soft); background: var(--cream); padding: 2px 7px; border-radius: 10px; }
+.mode-bar { display: flex; gap: 6px; padding: 6px 12px; background: var(--cream); border-bottom: 1px solid var(--border-light); flex-wrap: wrap; align-items: center; }
+.mode-bar select { font-size: 12px; padding: 3px 8px; border: 1px solid var(--border-mid); border-radius: 6px; background: var(--white); color: var(--ink); cursor: pointer; }
+.mode-bar label { font-size: 11px; color: var(--ink-soft); }
+.history-badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; background: var(--accent-soft, #e8f4fd); color: var(--accent, #2196f3); }
+
+/* === Streaming & AI improvements === */
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.cursor-blink { animation: blink 0.8s infinite; font-size: 0.9em; }
+.streaming-msg .msg-bubble { border-left: 2px solid var(--red, #e74c3c); }
+
+/* Mode bar styling */
+.mode-bar {
+  display: flex; gap: 8px; padding: 8px 14px;
+  background: var(--cream, #faf9f7);
+  border-bottom: 1px solid var(--border-light, #e8e5e0);
+  flex-wrap: wrap; align-items: center;
+}
+.mode-bar select {
+  font-size: 12px; padding: 4px 8px;
+  border: 1px solid var(--border-mid, #d0ccc5);
+  border-radius: 7px;
+  background: var(--white, #fff); color: var(--ink, #333);
+  cursor: pointer; max-width: 160px;
+}
+.mode-bar label { font-size: 11px; color: var(--ink-soft, #888); white-space: nowrap; }
+.history-badge {
+  font-size: 10px; padding: 3px 8px;
+  border-radius: 10px; background: #e8f4fd; color: #1976d2;
+  white-space: nowrap;
+}
+
+/* Copy button & AI footer */
+.copy-btn {
+  background: none; border: none; cursor: pointer;
+  font-size: 13px; padding: 2px 6px;
+  border-radius: 5px; opacity: 0.5; transition: all 0.2s;
+}
+.copy-btn:hover { opacity: 1; background: var(--cream, #faf9f7); }
+.ai-footer {
+  display: flex; align-items: center; gap: 8px;
+  margin-top: 8px; padding-top: 6px;
+  border-top: 1px solid var(--border-light, #eee);
+  justify-content: flex-end;
+}
+.source-badge {
+  font-size: 10px; color: var(--ink-soft, #888);
+  background: var(--cream, #faf9f7); padding: 2px 8px;
+  border-radius: 10px;
+}
+
+/* Formatted AI text */
+.ai-text pre { background: var(--cream,#faf9f7); padding: 8px 12px; border-radius: 6px; font-size: 12px; overflow-x: auto; }
+.ai-text table { border-collapse: collapse; font-size: 12px; width: 100%; margin: 6px 0; }
+.ai-text th, .ai-text td { border: 1px solid var(--border-mid,#d0ccc5); padding: 4px 8px; }
+.ai-text th { background: var(--cream,#faf9f7); }
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+<!-- Google Analytics — replace G-XXXXXXXXXX with your Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-REPLACE_WITH_YOUR_GA4"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-REPLACE_WITH_YOUR_GA4');
+</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  .nav-links{display:none!important}
+  .nav-links.open{display:flex!important;position:fixed;top:68px;left:0;right:0;background:var(--nav-bg,white);flex-direction:column;padding:.75rem;border-bottom:1px solid var(--border,#e0e0e0);box-shadow:0 4px 12px rgba(0,0,0,.08);z-index:99;backdrop-filter:blur(14px)}
+  .nav-links.open li{width:100%}
+  .nav-links.open a{width:100%;height:44px;border-radius:8px}
+  .hamburger-btn{display:flex!important}
+}
+.hamburger-btn{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border-mid,#e0e0e0);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.hamburger-btn span{display:block;width:16px;height:2px;background:var(--ink,#15161a);border-radius:1px;transition:all .2s}
+.hamburger-btn.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger-btn.open span:nth-child(2){opacity:0}
+.hamburger-btn.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/nihongo-ai.js" defer></script>
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<button aria-label="Toggle theme" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999">🌙</button>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">AI Tutor Bahasa Jepang</h1>
+<div id="main-content" class="ai-layout" role="main">
+  <!-- SIDEBAR -->
+  <aside class="ai-sidebar">
+    <div class="as-header">
+      <div class="as-title">🤖 AI Tutor Jepang</div>
+      <div class="as-sub">Ditenagai Claude AI · Koreksi otomatis</div>
+    </div>
+    <button class="as-new-btn" onclick="newChat()">＋ Percakapan Baru</button>
+    <div class="as-conversations" id="conversationList">
+      <div class="session-note">Memuat sesi percakapan JLPT N5-N1...</div>
+    </div>
+    <div class="as-prompts">
+      <div class="asp-label">Contoh Pertanyaan</div>
+      <button class="prompt-chip" onclick="loadConversationSession('N5')">N5 · Percakapan harian dasar</button>
+      <button class="prompt-chip" onclick="loadConversationSession('N4')">N4 · Reservasi dan permintaan</button>
+      <button class="prompt-chip" onclick="loadConversationSession('N3')">N3 · Kantor dan konfirmasi</button>
+      <button class="prompt-chip" onclick="loadConversationSession('N2')">N2 · Rapat profesional</button>
+      <button class="prompt-chip" onclick="loadConversationSession('N1')">N1 · Diskusi formal</button>
+      <button class="prompt-chip" onclick="sendPrompt(this)">📝 Koreksi kalimat saya</button>
+      <button class="prompt-chip" onclick="sendPrompt(this)">🔤 Jelaskan grammar ～てから</button>
+    </div>
+  </aside>
+
+  <!-- CHAT AREA -->
+  <div class="chat-area">
+    <div class="chat-header">
+      <div class="ch-info">
+        <div class="tutor-avatar">先</div>
+        <div>
+          <div class="tutor-name">Sensei AI — 先生</div>
+          <div class="tutor-status"><span class="status-dot"></span>Online · Siap membantu</div>
+        </div>
+      </div>
+      <div class="ch-badges">
+        <div class="ch-badge">N3 Mode</div>
+        <div class="ch-badge red" id="aiQuotaBadge">AI Tutor Aktif</div>
+      </div>
+    
+    <div class="mode-bar">
+      <label style="font-size:11px;color:var(--ink-soft)">Mode:</label>
+      <select id="modeSelect">
+        <option value="umum">🌟 Umum</option>
+        <option value="grammar">📝 Tata Bahasa</option>
+        <option value="vocab">📖 Kosakata</option>
+        <option value="kanji">字 Kanji</option>
+        <option value="percakapan">💬 Percakapan</option>
+        <option value="koreksi">✏️ Koreksi</option>
+        <option value="jlpt">🎯 Tips JLPT</option>
+      </select>
+      <label style="font-size:11px;color:var(--ink-soft)">Level:</label>
+      <select id="levelSelect">
+        <option value="semua">Semua Level</option>
+        <option value="n5">N5</option>
+        <option value="n4">N4</option>
+        <option value="n3">N3</option>
+        <option value="n2">N2</option>
+        <option value="n1">N1</option>
+      </select>
+      <span id="historyBadge" class="history-badge" style="display:none">💬 <span id="historyCount">0</span> pesan</span>
+    </div></div>
+
+    <div class="messages" id="messages">
+      <!-- AI Welcome -->
+      <div class="msg">
+        <div class="msg-avatar ai">先</div>
+        <div>
+          <div class="msg-bubble">
+            <span class="jp-text">こんにちは！何を勉強しましょうか？</span>
+            Halo! Saya Sensei AI, tutor bahasa Jepang personal Anda. Saya akan membantu belajar, mengoreksi grammar, dan berlatih percakapan. Hari ini mau belajar apa?
+            <div class="suggestion-chips">
+              <span class="sug-chip" onclick="clickSug(this)">🍣 Percakapan restoran</span>
+              <span class="sug-chip" onclick="clickSug(this)">文法 Grammar て-form</span>
+              <span class="sug-chip" onclick="clickSug(this)">📖 Kosakata baru</span>
+              <span class="sug-chip" onclick="clickSug(this)">🎯 Simulasi JLPT N3</span>
+            </div>
+          </div>
+          <div class="msg-time">09:00</div>
+        </div>
+      </div>
+
+      <!-- User -->
+      <div class="msg user">
+        <div class="msg-avatar user">り</div>
+        <div>
+          <div class="msg-bubble">Saya mau latihan percakapan di restoran. Tolong ajarkan cara memesan makanan.</div>
+          <div class="msg-time" style="text-align:right">09:01</div>
+        </div>
+      </div>
+
+      <!-- AI Response with correction -->
+      <div class="msg">
+        <div class="msg-avatar ai">先</div>
+        <div>
+          <div class="msg-bubble">
+            <span class="jp-text">いいですね！レストランでの会話を練習しましょう！</span>
+            Bagus! Mari kita mulai. Pertama, saat masuk restoran, pelayan biasanya akan berkata:<br><br>
+            <strong>いらっしゃいませ！</strong><em> (Irasshaimase!)</em> — Selamat datang!<br>
+            <strong>何名様ですか？</strong><em> (Nanmei-sama desu ka?)</em> — Berapa orang?<br><br>
+            Coba jawab dengan: <strong>二人です。</strong><em> (Futari desu.)</em> — Dua orang.
+            <div class="suggestion-chips">
+              <span class="sug-chip" onclick="clickSug(this)">二人です！</span>
+              <span class="sug-chip" onclick="clickSug(this)">一人です (Kirimiri)</span>
+              <span class="sug-chip" onclick="clickSug(this)">三人です (3 orang)</span>
+            </div>
+          </div>
+          <div class="msg-time">09:01</div>
+        </div>
+      </div>
+
+      <!-- User with grammar mistake -->
+      <div class="msg user">
+        <div class="msg-avatar user">り</div>
+        <div>
+          <div class="msg-bubble">私は ラーメン を 食べたいです。あと、お水 を 持ってきてください。</div>
+          <div class="msg-time" style="text-align:right">09:03</div>
+        </div>
+      </div>
+
+      <!-- AI correction -->
+      <div class="msg">
+        <div class="msg-avatar ai">先</div>
+        <div>
+          <div class="msg-bubble">
+            <span class="jp-text">とても上手です！ほぼ完璧ですよ！</span>
+            Hampir sempurna! Sedikit koreksi dan saran:
+            <div class="correction-box">
+              <div class="cb-label">✓ Koreksi Grammar</div>
+              <div class="cb-text">
+                Kalimat Anda sudah benar! Hanya satu catatan kecil:<br>
+                • <strong>「私は」</strong> dalam konteks ini bisa dihilangkan karena sudah jelas Anda yang berbicara → lebih natural: <strong>「ラーメンをください。」</strong><br>
+                • <strong>「お水を持ってきてください」</strong> ✓ Sangat tepat dan sopan!
+              </div>
+            </div>
+            Versi yang lebih natural di restoran:<br>
+            <strong>すみません、ラーメンを一つください。</strong><br>
+            <em>Sumimasen, rāmen wo hitotsu kudasai.</em><br>
+            (Permisi, tolong satu ramen.)
+            <div class="suggestion-chips">
+              <span class="sug-chip" onclick="clickSug(this)">わかりました！続けましょう</span>
+              <span class="sug-chip" onclick="clickSug(this)">もっと例文を見せて</span>
+            </div>
+          </div>
+          <div class="msg-time">09:03</div>
+        </div>
+      </div>
+
+      <!-- Typing indicator -->
+      <div class="typing-indicator" id="typingIndicator">
+        <div class="msg-avatar ai">先</div>
+        <div class="msg-bubble" style="padding:14px 16px">
+          <div class="typing-dots"><span></span><span></span><span></span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- INPUT -->
+    <div class="chat-input-area">
+      <div class="input-mode-tabs">
+        <button class="imt active">💬 Indonesia</button>
+        <button class="imt" onclick="switchMode(this)">🇯🇵 日本語</button>
+        <button class="imt" onclick="switchMode(this)">📝 Koreksi</button>
+        <button class="imt" onclick="switchMode(this)">🎯 Quiz Mode</button>
+      </div>
+      <div class="input-row">
+        <textarea class="chat-input" id="chatInput" placeholder="Ketik pesan dalam bahasa Indonesia atau Jepang... (Enter untuk kirim)" rows="1" onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
+        <button aria-label="Sendmessage" class="send-btn" onclick="sendMessage()">➤</button>
+      </div>
+      <div class="input-hint">AI Tutor akan otomatis mengoreksi grammar dan memberikan feedback personal</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleTheme(){const d=document.documentElement;const isDark=d.getAttribute('data-theme')==='dark';d.setAttribute('data-theme',isDark?'':'dark');const btn=document.querySelector('.theme-toggle');if(btn)btn.textContent=isDark?'🌙':'☀️';localStorage.setItem('theme',isDark?'':'dark')}
+const t=localStorage.getItem('theme');if(t){document.documentElement.setAttribute('data-theme',t);if(t==='dark'){const btn=document.querySelector('.theme-toggle');if(btn)btn.textContent='☀️';}}
+
+function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px'}
+function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage()}}
+function clickSug(el){document.getElementById('chatInput').value=el.textContent;sendMessage()}
+function sendPrompt(el){document.getElementById('chatInput').value=el.textContent.slice(2);sendMessage()}
+function switchMode(el){document.querySelectorAll('.imt').forEach(b=>b.classList.remove('active'));el.classList.add('active')}
+
+const conversationSessions={
+  N5:{
+    title:'Percakapan Harian Dasar',
+    meta:'N5 · Perkenalan, arah, dan belanja sederhana',
+    jp:'N5の日常会話を練習しましょう。',
+    intro:'Sesi N5 berfokus pada kalimat pendek, partikel dasar, angka, waktu, dan respons sopan yang sering dipakai saat pertama kali tinggal atau berwisata di Jepang.',
+    dialogue:[
+      ['A','すみません、駅はどこですか。','Sumimasen, eki wa doko desu ka.','Permisi, stasiun ada di mana?'],
+      ['B','駅はあそこです。まっすぐ行ってください。','Eki wa asoko desu. Massugu itte kudasai.','Stasiun ada di sana. Silakan jalan lurus.'],
+      ['A','ありがとうございます。ここから何分ですか。','Arigatou gozaimasu. Koko kara nan-pun desu ka.','Terima kasih. Dari sini berapa menit?'],
+      ['B','五分ぐらいです。','Go-fun gurai desu.','Sekitar lima menit.'],
+      ['A','わかりました。ありがとうございます。','Wakarimashita. Arigatou gozaimasu.','Baik, saya mengerti. Terima kasih.']
+    ],
+    focus:['は untuk topik: 駅はどこですか','ここ/そこ/あそこ untuk lokasi','～てください untuk instruksi sopan','ぐらい untuk perkiraan jumlah atau waktu'],
+    practice:['コンビニはどこですか。','ここから何分ですか。','もう一度お願いします。']
+  },
+  N4:{
+    title:'Reservasi dan Permintaan Sopan',
+    meta:'N4 · Restoran, hotel, dan layanan publik',
+    jp:'予約と丁寧な依頼を練習しましょう。',
+    intro:'Sesi N4 melatih percakapan praktis dengan bentuk たい, てもいいですか, ていただけますか, serta konfirmasi waktu dan jumlah orang.',
+    dialogue:[
+      ['客','すみません、今夜七時に予約したいんですが。','Sumimasen, konya shichi-ji ni yoyaku shitai n desu ga.','Permisi, saya ingin reservasi untuk malam ini pukul tujuh.'],
+      ['店員','はい、何名様ですか。','Hai, nanmei-sama desu ka.','Baik, untuk berapa orang?'],
+      ['客','三人です。窓側の席をお願いできますか。','San-nin desu. Madogawa no seki o onegai dekimasu ka.','Tiga orang. Bisa minta meja di dekat jendela?'],
+      ['店員','確認します。窓側の席をご用意できます。','Kakunin shimasu. Madogawa no seki o go-youi dekimasu.','Saya cek dulu. Kami bisa menyiapkan meja dekat jendela.'],
+      ['客','ありがとうございます。名前はリヤンです。','Arigatou gozaimasu. Namae wa Riyan desu.','Terima kasih. Namanya Riyan.']
+    ],
+    focus:['～たいんですが untuk menyampaikan keinginan dengan halus','何名様 untuk menanyakan jumlah tamu secara sopan','お願いできますか untuk permintaan sopan','確認します untuk respons profesional saat mengecek informasi'],
+    practice:['予約したいんですが。','二人で、禁煙席をお願いします。','名前は＿＿です。']
+  },
+  N3:{
+    title:'Konfirmasi di Tempat Kerja',
+    meta:'N3 · Kantor, jadwal, dan tindak lanjut',
+    jp:'職場での確認会話を練習しましょう。',
+    intro:'Sesi N3 menekankan kemampuan menjelaskan kondisi, meminta konfirmasi, dan menyampaikan tindak lanjut dengan nada rapi dalam situasi kerja.',
+    dialogue:[
+      ['社員','お疲れさまです。明日の会議資料について確認してもよろしいでしょうか。','Otsukaresama desu. Ashita no kaigi shiryou ni tsuite kakunin shite mo yoroshii deshou ka.','Terima kasih atas kerja kerasnya. Bolehkah saya mengonfirmasi materi rapat besok?'],
+      ['上司','はい、どの点ですか。','Hai, dono ten desu ka.','Ya, bagian yang mana?'],
+      ['社員','参加者が増えたため、資料を二十部に増やしたほうがいいと思います。','Sankasha ga fueta tame, shiryou o nijuu-bu ni fuyashita hou ga ii to omoimasu.','Karena peserta bertambah, menurut saya sebaiknya materi ditambah menjadi 20 eksemplar.'],
+      ['上司','そうですね。念のため、データもメールで送ってください。','Sou desu ne. Nen no tame, deeta mo meeru de okutte kudasai.','Benar. Untuk berjaga-jaga, kirim juga datanya lewat email.'],
+      ['社員','承知しました。本日中に送ります。','Shouchi shimashita. Honjitsu-chuu ni okurimasu.','Baik, saya pahami. Akan saya kirim hari ini.']
+    ],
+    focus:['～について untuk topik pembahasan','～てもよろしいでしょうか untuk izin formal','～ため untuk alasan','念のため untuk berjaga-jaga','承知しました sebagai respons profesional'],
+    practice:['＿＿について確認してもよろしいでしょうか。','念のため、メールで送ります。','本日中に対応します。']
+  },
+  N2:{
+    title:'Rapat dan Negosiasi Profesional',
+    meta:'N2 · Usulan, risiko, dan keputusan bisnis',
+    jp:'会議での提案と調整を練習しましょう。',
+    intro:'Sesi N2 dirancang untuk percakapan formal semi-bisnis: menyampaikan usulan, menilai risiko, meminta pertimbangan, dan menyepakati langkah berikutnya.',
+    dialogue:[
+      ['担当者','新しい学習プランに関して、費用を抑えつつ内容を充実させる案をまとめました。','Atarashii gakushuu puran ni kanshite, hiyou o osaetsutsu naiyou o juujitsu saseru an o matomemashita.','Terkait rencana belajar baru, saya menyusun usulan untuk memperkaya isi sambil menekan biaya.'],
+      ['部長','具体的には、どの部分を改善する予定ですか。','Gutaiteki ni wa, dono bubun o kaizen suru yotei desu ka.','Secara konkret, bagian mana yang akan diperbaiki?'],
+      ['担当者','受講者のレベルに応じて、N5からN1まで会話練習を分けます。','Jukousha no reberu ni oujite, N5 kara N1 made kaiwa renshuu o wakemasu.','Sesuai level peserta, latihan percakapan akan dipisah dari N5 sampai N1.'],
+      ['部長','効果は期待できますが、運用の負担も検討する必要がありますね。','Kouka wa kitai dekimasu ga, unyou no futan mo kentou suru hitsuyou ga arimasu ne.','Efeknya bisa diharapkan, tetapi beban operasional juga perlu dipertimbangkan.'],
+      ['担当者','はい。まず一か月試験的に実施し、結果に基づいて調整します。','Hai. Mazu ikkagetsu shikenteki ni jisshi shi, kekka ni motozuite chousei shimasu.','Baik. Pertama kami jalankan uji coba satu bulan, lalu menyesuaikan berdasarkan hasil.']
+    ],
+    focus:['～に関して untuk topik formal','～つつ untuk dua tindakan yang berlangsung bersamaan','～に応じて untuk penyesuaian berdasarkan kondisi','～に基づいて untuk dasar keputusan','検討する untuk mempertimbangkan secara profesional'],
+    practice:['＿＿に関して、案をまとめました。','結果に基づいて調整します。','運用の負担も検討します。']
+  },
+  N1:{
+    title:'Diskusi Formal dan Isu Kompleks',
+    meta:'N1 · Argumentasi, kebijakan, dan nuansa akademik',
+    jp:'高度な意見交換を練習しましょう。',
+    intro:'Sesi N1 melatih diskusi bernuansa profesional-akademik: menyampaikan keberatan secara halus, menilai dasar argumen, dan menyimpulkan posisi dengan bahasa matang.',
+    dialogue:[
+      ['司会','本日の議題は、AI教材導入の是非についてです。まず、ご意見をお願いします。','Honjitsu no gidai wa, AI kyouzai dounyuu no zehi ni tsuite desu. Mazu, go-iken o onegai shimasu.','Agenda hari ini adalah pro dan kontra penerapan materi belajar AI. Pertama, mohon pendapat Anda.'],
+      ['専門家','利便性は否定できないものの、学習者の思考力を損なう懸念もあります。','Ribensei wa hitei dekinai mono no, gakushuusha no shikouryoku o sokonau kenen mo arimasu.','Meski kemudahan tidak bisa disangkal, ada kekhawatiran bahwa daya pikir pembelajar dapat melemah.'],
+      ['担当者','その点を踏まえ、解答を提示するだけでなく、根拠を説明させる設計にします。','Sono ten o fumae, kaitou o teiji suru dake de naku, konkyo o setsumei saseru sekkei ni shimasu.','Dengan mempertimbangkan poin itu, desainnya bukan hanya memberi jawaban, tetapi meminta penjelasan dasar alasannya.'],
+      ['専門家','それなら、導入を見送るまでもありません。ただし、効果の検証は欠かせません。','Sore nara, dounyuu o miokuru made mo arimasen. Tadashi, kouka no kenshou wa kakasemasen.','Kalau begitu, tidak perlu sampai menunda penerapan. Namun, verifikasi efektivitas tetap wajib.'],
+      ['司会','では、現場の実情に即して試験運用を行い、結果いかんで拡大を判断しましょう。','Dewa, genba no jijou ni sokushite shiken unyou o okonai, kekka ikan de kakudai o handan shimashou.','Baik, mari lakukan uji operasional sesuai kondisi lapangan, lalu menentukan perluasan bergantung pada hasil.']
+    ],
+    focus:['～ものの untuk kontras formal','～を踏まえ untuk berdasarkan pertimbangan','～までもありません untuk tidak perlu sampai melakukan sesuatu','～に即して untuk sesuai kondisi nyata','～いかんで untuk bergantung pada hasil'],
+    practice:['利便性は否定できないものの、＿＿。','その点を踏まえ、＿＿します。','結果いかんで判断しましょう。']
+  }
+};
+
+function renderConversationList(activeLevel='N5'){
+  const list=document.getElementById('conversationList');
+  if(!list)return;
+  list.innerHTML=Object.entries(conversationSessions).reverse().map(([level,item])=>`
+    <div class="conv-item ${level===activeLevel?'active':''}" onclick="loadConversationSession('${level}')">
+      <div class="ci-title"><span class="level-chip">${level}</span>${item.title}</div>
+      <div class="ci-meta">${item.meta}</div>
+    </div>
+  `).join('') + '<div class="session-note">Pilih level untuk membuka contoh dialog, fokus grammar, dan latihan respons.</div>';
+}
+
+function renderSessionHtml(session){
+  const rows=session.dialogue.map(([speaker,ja,ro,id])=>`
+    <div class="session-row">
+      <div class="speaker">${speaker}</div>
+      <div>
+        <div class="line-ja">${ja}</div>
+        <div class="line-ro">${ro}</div>
+        <div class="line-id">${id}</div>
+      </div>
+    </div>
+  `).join('');
+  const focus=session.focus.map(item=>`<li>${item}</li>`).join('');
+  return `${session.intro}<div class="session-card">${rows}</div><div class="correction-box"><div class="cb-label">Topik Fokus Bahasa</div><div class="cb-text"><ul class="focus-list">${focus}</ul></div></div>`;
+}
+
+function loadConversationSession(level){
+  const session=conversationSessions[level];
+  if(!session)return;
+  document.querySelectorAll('.conv-item').forEach(item=>item.classList.remove('active'));
+  document.querySelectorAll('.conv-item').forEach(item=>{if(item.textContent.includes(level))item.classList.add('active')});
+  document.querySelector('.ch-badge').textContent=`${level} Mode`;
+  addAIMessage(session.jp, renderSessionHtml(session), session.practice, true);
+}
+
+const aiReplies=[
+  {jp:'はい、わかりました！',text:'Baik! Mari kita lanjutkan latihan percakapan. Sekarang, bagaimana Anda akan meminta tagihan? Hint: <strong>お会計をお願いします。</strong>',chips:['お会計をお願いします','もう少し練習したい','別のトピックを試したい']},
+  {jp:'とても良いですね！',text:'Luar biasa! Grammar Anda sudah sangat baik. Satu frasa penting lagi: <strong>これはなんですか？</strong> (Kore wa nan desu ka?) — Ini apa?',chips:['ありがとうございます！','もっと難しくして','もう一度説明して']},
+  {jp:'少し間違いがありますね',text:'Ada sedikit koreksi:<br><br><strong>正しい:</strong> ～てもいいですか？<br><strong>意味:</strong> Bolehkah saya ～？<br><br>Gunakan pola ini saat meminta izin di restoran!',chips:['わかった！','例文をもっと見せて','練習したい']},
+  {jp:'頑張ってください！',text:'Anda sedang berkembang pesat! Vocabulary restoran yang wajib diketahui:<br>• <strong>注文</strong> (chūmon) — Pesanan<br>• <strong>メニュー</strong> (menyū) — Menu<br>• <strong>おすすめ</strong> (osusume) — Rekomendasi',chips:['もっと語彙を教えて','練習問題をして','別のシーンを試す']},
+];
+let replyIdx=0;
+const AI_HISTORY_KEY='nihongoAITutorHistory';
+const AI_USAGE_KEY='nihongoAIUsageDaily';
+const FREE_DAILY_LIMIT=10;
+
+function escapeHtml(text){
+  return String(text || '').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
+}
+function formatAIText(text) {
+  if (!text) return '';
+  let html = escapeHtml(text);
+  
+  // Headers ##
+  html = html.replace(/^### (.+)$/gm, '<h4 style="margin:8px 0 4px;font-size:14px;color:var(--ink)">$1</h4>');
+  html = html.replace(/^## (.+)$/gm, '<h3 style="margin:10px 0 5px;font-size:15px;color:var(--ink)">$1</h3>');
+  html = html.replace(/^# (.+)$/gm, '<h2 style="margin:12px 0 6px;font-size:16px;color:var(--ink)">$1</h2>');
+  
+  // Bold & italic
+  html = html.replace(/\*\*\*(.+?)\*\*\*/g, '<strong><em>$1</em></strong>');
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  
+  // Code inline & blocks
+  html = html.replace(/```([\s\S]*?)```/g, '<pre style="background:var(--cream,#faf9f7);padding:8px 12px;border-radius:6px;font-size:12px;overflow-x:auto;margin:6px 0">$1</pre>');
+  html = html.replace(/`([^`]+)`/g, '<code style="background:var(--cream,#faf9f7);padding:1px 5px;border-radius:3px;font-size:12px">$1</code>');
+  
+  // Tables | col | col |
+  const tableRegex = /(\|[^\n]+\|\n)((?:\|[-: ]+\|\n))((?:\|[^\n]+\|\n?)*)/g;
+  html = html.replace(tableRegex, (match, header, sep, rows) => {
+    const headerCells = header.split('|').filter(c=>c.trim()).map(c=>`<th style="background:var(--cream,#faf9f7);padding:5px 10px;border:1px solid var(--border-mid,#ccc)">${c.trim()}</th>`).join('');
+    const dataRows = rows.trim().split('\n').map(row => {
+      const cells = row.split('|').filter(c=>c.trim()).map(c=>`<td style="padding:4px 10px;border:1px solid var(--border-mid,#ccc)">${c.trim()}</td>`).join('');
+      return `<tr>${cells}</tr>`;
+    }).join('');
+    return `<table style="border-collapse:collapse;width:100%;margin:8px 0;font-size:12px"><thead><tr>${headerCells}</tr></thead><tbody>${dataRows}</tbody></table>`;
+  });
+  
+  // Lists
+  html = html.replace(/^(\d+)\. (.+)$/gm, '<li style="margin:3px 0;padding-left:4px">$2</li>');
+  html = html.replace(/^[-•*] (.+)$/gm, '<li style="margin:3px 0;list-style:disc;padding-left:4px">$1</li>');
+  
+  // Wrap consecutive <li> items
+  html = html.replace(/(<li[^>]*>[\s\S]*?<\/li>\n?)+/g, m => {
+    const isOrdered = m.includes('style="margin:3px 0;padding-left');
+    return isOrdered ? `<ol style="padding-left:20px;margin:6px 0">${m}</ol>` : `<ul style="padding-left:20px;margin:6px 0">${m}</ul>`;
+  });
+  
+  // Horizontal rule ---
+  html = html.replace(/^---+$/gm, '<hr style="border:none;border-top:1px solid var(--border-light,#eee);margin:10px 0">');
+  
+  // Japanese furigana pattern: 漢字(よみ) → display nicely
+  html = html.replace(/([一-龥ぁ-ん]+)\(([ぁ-んー]+)\)/g, '<ruby>$1<rt style="font-size:0.6em">$2</rt></ruby>');
+  
+  // Line breaks (double newline = paragraph)
+  html = html.replace(/\n\n/g, '</p><p style="margin:6px 0">');
+  html = html.replace(/\n/g, '<br>');
+  
+  return `<div class="ai-text"><p style="margin:0 0 6px">${html}</p></div>`;
+}
+
+function createStreamingBubble(){
+  const msgs = document.getElementById('messages');
+  const now = new Date().toLocaleTimeString('id',{hour:'2-digit',minute:'2-digit'});
+  const div = document.createElement('div');
+  div.className = 'msg streaming-msg';
+  div.innerHTML = `<div class="msg-avatar ai">先</div><div><div class="msg-bubble"><div class="stream-content"></div></div><div class="msg-time">${now}</div></div>`;
+  msgs.insertBefore(div, document.getElementById('typingIndicator'));
+  msgs.scrollTop = msgs.scrollHeight;
+  return div;
+}
+
+// Update konten streaming bubble
+function updateStreamingBubble(div, text){
+  const content = div.querySelector('.stream-content');
+  if(content) {
+    content.innerHTML = formatAIText(text) + '<span class="cursor-blink">▋</span>';
+    const msgs = document.getElementById('messages');
+    if(msgs) msgs.scrollTop = msgs.scrollHeight;
+  }
+}
+
+// Finalisasi bubble setelah streaming selesai
+function finalizeStreamingBubble(div, text){
+  const bubble = div.querySelector('.msg-bubble');
+  if(bubble) {
+    const copyBtn = `<button class="copy-btn" onclick="copyAIAnswer(this)" title="Salin jawaban">📋</button>`;
+    bubble.innerHTML = `${formatAIText(text)}<div class="ai-footer"><span class="source-badge">✓ Neko Sensei AI</span>${copyBtn}</div>`;
+    const msgs = document.getElementById('messages');
+    if(msgs) msgs.scrollTop = msgs.scrollHeight;
+  }
+}
+
+function copyAIAnswer(btn) {
+  const bubble = btn.closest('.msg-bubble');
+  const text = bubble ? bubble.innerText.replace(/\n+/g, '\n').trim() : '';
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✅';
+    setTimeout(() => { btn.textContent = '📋'; }, 2000);
+  });
+}
+
+// === CONVERSATION HISTORY (multi-turn) ===
+const conversationHistory = [];
+const MAX_HISTORY_TURNS = 10;
+
+function addToHistory(role, content) {
+  conversationHistory.push({ role, content });
+  while (conversationHistory.length > MAX_HISTORY_TURNS * 2) {
+    conversationHistory.shift();
+  }
+  updateHistoryBadge();
+}
+
+function clearHistory() {
+  conversationHistory.length = 0;
+  updateHistoryBadge();
+}
+
+// === SEND MESSAGE FULL-STACK ===
+async function fallbackTutor(text) {
+  const t = text.toLowerCase();
+  // ===== GRAMMAR N4/N3 PENTING =====
+  if(t.includes('～している keadaan') || t.includes('te iru stative')) return '**〜ている — 2 penggunaan utama:**\n\n**1. Progresif** (aksi sedang berlangsung):\n食べている = sedang makan\n走っている = sedang berlari\n\n**2. Stative** (kondisi hasil dari perubahan):\n結婚している = sudah menikah (dan masih)\n死んでいる = sudah mati\n知っている = tahu (= sudah tahu dan ingat)\n\n**Kunci**: Verb perubahan status (結婚する, 死ぬ, 着く) → ている = stative.';
+  if(t.includes('~ようになる vs ~ようにする') || t.includes('you ni naru vs suru')) return '**〜ようになる vs 〜ようにする:**\n\n- **〜ようになる** = menjadi bisa / mulai (perubahan alami)\n日本語が話せるようになった = jadi bisa bicara bahasa Jepang\n\n- **〜ようにする** = berusaha agar / sengaja melakukan\n毎日運動するようにしている = berusaha olahraga setiap hari\n\n**Nuansa**: なる = perubahan alami/hasil. する = usaha/niat sendiri.';
+  if(t.includes('ことにする vs ことになる') || t.includes('koto ni suru naru')) return '**〜ことにする vs 〜ことになる:**\n\n- **〜ことにする** = memutuskan sendiri (volisi)\n毎朝走ることにした = saya memutuskan lari tiap pagi\n\n- **〜ことになる** = diputuskan (dari luar)/menjadi keadaan\n転勤することになった = (ternyata) saya harus pindah tugas\n来年結婚することになりました = (ternyata/secara resmi) akan menikah tahun depan\n\nことになっている = sudah menjadi aturan/kebiasaan.';
+  if(t.includes('verba gerak') || t.includes('cara ungkap pergi jepang')) return '**Verba gerakan dasar + partikel yang benar:**\n\n| Verba | Partikel | Arti |\n|---|---|---|\n| 行く/来る/帰る | に/へ | pergi/datang/pulang KE ~ |\n| 歩く/走る/通る | を | berjalan/berlari MELALUI ~ |\n| 乗る | に | naik ~ |\n| 降りる | を/から | turun DARI ~ |\n| 出る | を | keluar DARI ~ |\n\n**Contoh**: 駅を出て、橋を渡って、公園に入る。';
+  if(t.includes('passive japanese') || t.includes('bentuk pasif jepang') || t.includes('受け身')) return '**受け身 (Passive) — Bentuk Pasif:**\n\n**Cara bentuk**:\n- う-verb: あ段+れる (書く→書かれる)\n- る-verb: +られる (食べる→食べられる)\n- する→される, くる→こられる\n\n**2 Makna**:\n1. **Passive biasa**: 窓が開けられた = jendela dibuka\n2. **Adversative passive** (korban): 財布を盗まれた = dompet dicuri (saya jadi korban)\n\nBentuk sopan: 〜れます/〜られます.';
+  
+  // ===== VOCAB KONTEKSTUAL =====
+  if(t.includes('cara ungkap waktu lampau') || t.includes('yesterday yesterday jepang')) return '**Ekspresi waktu lampau:**\n- 昨日(きのう) = kemarin\n- 先日(せんじつ) = beberapa hari lalu / hari itu (semi-formal)\n- 以前(いぜん) = dahulu/sebelumnya\n- 昔(むかし) = dulu/zaman dulu\n- 〜年前(ねんまえ) = ~ tahun lalu\n- かつて = dulu (literary)\n\n**Tingkatan**: かつて/以前 (formal) > 先日 (semi-formal) > 昨日 (neutral).';
+  if(t.includes('cara bilang sering jepang') || t.includes('frequency japanese')) return '**Ekspresi frekuensi:**\n- 毎〜(まい〜) = setiap ~: 毎日/毎朝/毎週/毎月/毎年\n- いつも = selalu/biasanya\n- よく = sering\n- たまに = kadang-kadang\n- たまたま = kebetulan\n- めったに〜ない = jarang ~\n- 全然〜ない = tidak pernah sama sekali\n\n頻度: いつも > よく > 時々 > たまに > めったに~ない > 全然~ない.';
+  if(t.includes('cara tanya pendapat') || t.includes('opinion japanese')) return '**Cara bertanya pendapat dalam bahasa Jepang:**\n\n**Kasual**:\n- どう思う？= Kamu pikir bagaimana?\n- 〜についてどう思う？= Kamu pikir apa tentang ~?\n\n**Sopan**:\n- ご意見をお聞かせいただけますか？= Boleh saya dengar pendapat Anda?\n- いかがでしょうか？= Bagaimana menurut Anda?\n- どのようにお考えですか？= Bagaimana Anda berpikir tentang ini?';
+  
+  // ===== JLPT SOAL TIPE =====
+  if(t.includes('soal grammar jlpt tipe') || t.includes('文法問題 jlpt')) return '**Tipe soal Grammar JLPT:**\n\n**1. 文の文法 (N5-N3)**: Pilih kata/partikel yang tepat untuk melengkapi kalimat\n\n**2. 文章の文法 (N2-N1)**: Susun kata-kata menjadi kalimat yang benar\n\n**3. 読解 berbasis grammar (N2-N1)**: Pilih ekspresi yang sesuai konteks paragraf\n\n**Tips**: Di soal susun kata → perhatikan POLA (struktur wajib datang di mana), bukan arti kata per kata.';
+  if(t.includes('jlpt n2 kanji') || t.includes('kanji n2 wajib')) return '**Kanji N2 yang sering muncul:**\n\n**Kelompok penting**:\n- Bisnis: 契約, 締結, 利益, 損失, 賃金, 給与\n- Akademik: 研究, 論文, 調査, 実験, 証明\n- Sosial: 環境, 問題, 解決, 影響, 改善\n- Abstrak: 概念, 原則, 方針, 観点, 判断\n\n**Strategi**: Pelajari kanji dalam KELOMPOK tematik + kata majemuk, bukan satu per satu.';
+  if(t.includes('jlpt n3 vocab list') || t.includes('kosakata n3 penting')) return '**Kosakata N3 yang penting:**\n\nKata sifat: 複雑(rumit), 単純(sederhana), 曖昧(ambigu), 明確(jelas), 適切(tepat)\n\nKata kerja: 取り組む(menangani), 活かす(memanfaatkan), 乗り越える(mengatasi), 磨く(mengasah), 目指す(mengincar)\n\nKata benda: 課題(tugas/tantangan), 成果(hasil/pencapaian), 努力(usaha), 意識(kesadaran), 機会(kesempatan)';
+  if(t.includes('n5 grammar list') || t.includes('tata bahasa n5')) return '**Tata bahasa N5 yang wajib dikuasai:**\n\n1. Kalimat dasar: は/が/を/に/で/と/から/まで\n2. Kata kerja: ます/ません/ました/ませんでした\n3. Konjugasi て-form: 〜てください/〜ています/〜てもいいですか\n4. Kata sifat: いadj & なadj (termasuk bentuk negatif)\n5. Ekspresi: 〜がほしい/〜たい/〜でしょう/〜ましょう\n6. Angka: 〜円/〜時/〜分/〜月/〜日/〜人\n7. Keterangan: 毎日/ときどき/よく/あまり〜ない';
+  if(t.includes('keigo full list') || t.includes('daftar keigo penting')) return '**Daftar kata keigo penting:**\n\n| Biasa | 尊敬語 (untuk orang lain) | 謙譲語 (untuk diri sendiri) |\n|---|---|---|\n| いる | いらっしゃる | おる |\n| 行く/来る | いらっしゃる | まいる |\n| 言う | おっしゃる | 申す |\n| する | なさる | いたす |\n| 食べる/飲む | 召し上がる | いただく |\n| もらう | — | いただく |\n| あげる | — | 差し上げる |\n| 見る | ご覧になる | 拝見する |\n| 知る | ご存知 | 存じる |';
+  if(t.includes('cara bilang tidak jepang') || t.includes('menolak sopan jepang')) return '**Cara menolak secara sopan dalam bahasa Jepang:**\n\n**Langsung (kasual)**:\n- ちょっと... (ちょっと無理) = agak... susah\n- 難しいです = sulit (halus)\n\n**Tidak langsung (sopan)**:\n- 〜は少し難しい状況でして... = situasinya agak sulit...\n- ご要望にお応えしかねます = mohon maaf tidak bisa memenuhi permintaan\n- 前向きに検討します = akan saya pertimbangkan (= mungkin tidak)\n\nBudaya Jepang: penolakan langsung dianggap kasar. Gunakan ちょっと/難しい.';
+  return 'Maaf, saya belum punya jawaban spesifik untuk pertanyaan ini di basis pengetahuan lokal. Coba tanyakan dengan kata kunci lain, atau gunakan AI online untuk jawaban lebih lengkap.';
+}
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  addMessage(text, 'user');
+  addToHistory('user', text);
+  trackAIUsage();
+  input.value = ''; input.style.height = 'auto';
+  showTyping();
+
+  // Mode dan level context
+  const selectedLevel = document.getElementById('levelSelect') ? document.getElementById('levelSelect').value : 'semua';
+  const selectedMode = document.getElementById('modeSelect') ? document.getElementById('modeSelect').value : 'umum';
+
+  const modeCtx = {
+    'grammar': 'Mode TATA BAHASA: jelaskan (1)pola, (2)makna & nuansa, (3)struktur penggunaan, (4)minimal 3 contoh kalimat + terjemahan, (5)bandingkan pola mirip jika relevan.',
+    'vocab': 'Mode KOSAKATA: format → 漢字(よみ) [Level JLPT] — Arti Indonesia. Contoh kalimat (JP + ID). Nuansa/konteks. Sinonim/antonim jika ada.',
+    'kanji': 'Mode KANJI: format → 漢字 — On\'yomi/Kun\'yomi — Arti — Contoh kata majemuk (2+) — Komponen/radikal — Tips mengingat.',
+    'percakapan': 'Mode PERCAKAPAN: simulasikan percakapan alami. Koreksi kesalahan dengan lembut. Berikan alternatif yang lebih natural.',
+    'jlpt': 'Mode TIPS JLPT: berikan strategi konkret, tipe soal yang sering muncul, dan contoh soal JLPT nyata.',
+    'koreksi': 'Mode KOREKSI: identifikasi kesalahan spesifik, jelaskan MENGAPA salah secara gramatikal, berikan versi yang benar beserta penjelasan.',
+    'umum': 'Jawab pertanyaan bahasa Jepang apapun secara komprehensif dan mudah dipahami.',
+  };
+  const modeStr = modeCtx[selectedMode] || modeCtx['umum'];
+  const levelStr = selectedLevel === 'semua' ? 'N5-N1' : 'JLPT ' + selectedLevel.toUpperCase();
+
+  const systemPrompt = `Kamu adalah Neko Sensei (猫先生), tutor bahasa Jepang profesional berpengalaman untuk pelajar Indonesia. Kamu SANGAT AHLI dalam JLPT N5-N1, tata bahasa Jepang, kosakata, kanji, keigo (bahasa hormat), aksen nada, dan budaya Jepang.
+
+PROFIL PELAJAR: Level ${levelStr} | Mode Aktif: ${selectedMode}
+
+═══ INSTRUKSI UTAMA ═══
+① Selalu jawab dalam Bahasa Indonesia yang jelas, akurat, dan mudah dipahami
+② Sertakan SEMUA contoh dalam kanji+hiragana dengan terjemahan Indonesia
+③ Gunakan format Markdown: heading (##), bold (**), tabel (|), daftar (-/1.)
+④ ${modeStr}
+⑤ Akhiri dengan: satu saran latihan ATAU pertanyaan lanjutan yang relevan
+⑥ Koreksi kesalahan dalam pertanyaan dengan lembut, lalu jawab dengan benar
+⑦ FOKUS EKSKLUSIF pada bahasa Jepang & budaya Jepang — arahkan topik lain ke JP
+
+═══ FORMAT PER MODE ═══
+**Tata Bahasa**: ## Pola → **Makna** → **Struktur** → **Contoh** (min 3) → *Nuansa/Catatan*
+**Kosakata**: 漢字(よみ) [N-level] | Arti | Contoh kalimat (JP→ID) | Tips mengingat
+**Kanji**: 字 | On読み/Kun読み | Arti | Kata majemuk (3+) | Komponen/mnemonik
+**Percakapan**: Dialog natural (JP+Romaji+ID) → Kosakata kunci → Tips budaya
+**Koreksi**: ❌ Kalimat salah | ✅ Kalimat benar | 📝 Penjelasan alasan
+**Tips JLPT**: Tipe soal → Strategi → Contoh soal → Cara menjawab
+
+═══ KUALITAS JAWABAN ═══
+- Berikan jawaban KOMPREHENSIF dan AKURAT (bukan jawaban singkat saja)
+- Jika ada beberapa interpretasi, jelaskan SEMUA kemungkinan
+- Bandingkan pola mirip jika membantu pemahaman
+- Sertakan NUANSA (formal/informal, situasi pakai, dll)`;
+
+  let answer = null;
+
+  try {
+    // Build messages dengan conversation history (multi-turn)
+    const historySlice = conversationHistory.slice(Math.max(0, conversationHistory.length - MAX_HISTORY_TURNS * 2 - 1));
+    const messagesWithHistory = [
+      ...historySlice.filter(m => m.role !== undefined).slice(0, -0 || undefined),
+      { role: 'user', content: text }
+    ];
+    // Pastikan messages berurutan user-assistant
+    const validMessages = [];
+    let lastRole = null;
+    for (const m of messagesWithHistory) {
+      if (m.role !== lastRole || m.role === 'user') {
+        validMessages.push(m);
+        lastRole = m.role;
+      }
+    }
+    if (validMessages.length === 0 || validMessages[validMessages.length-1].role !== 'user') {
+      validMessages.push({ role: 'user', content: text });
+    }
+
+    const streamDiv = typeof createStreamingBubble === 'function' ? createStreamingBubble() : null;
+    const aiRes = await NihongoAI.chat({
+      messages: [
+        { role: 'system', content: systemPrompt },
+        ...validMessages,
+      ],
+      mode: currentMode || 'conversation',
+      level: currentLevel || 'N5',
+      scenario: currentScenario || '',
+      sessionId: 'ai_tutor',
+    });
+    const aiText = aiRes.text || '';
+    if (aiText) {
+      if (streamDiv && typeof updateStreamingBubble === 'function') {
+        updateStreamingBubble(streamDiv, aiText);
+      } else { addToHistory('assistant', aiText); }
+      if (typeof finalizeStreamingBubble === 'function') finalizeStreamingBubble(streamDiv, aiText);
+      answer = { text: aiText, source: 'api' };
+    } else {
+      throw new Error('Empty response');
+    }
+  } catch (err) {
+    console.warn('AI API failed:', err.message, '→ using local fallback');
+    if (!answer) {
+      hideTyping();
+      const localText = await fallbackTutor(text);
+      const copyBtn = `<button class="copy-btn" onclick="copyAIAnswer(this)" title="Salin">📋</button>`;
+      const errNote = err.message.includes('401') ? 
+        '<div style="font-size:10px;color:#e74;margin-top:4px">💡 API key belum dikonfigurasi — menggunakan basis pengetahuan lokal</div>' : '';
+      addAIMessage('', `${formatAIText(localText)}<div class="ai-footer"><span class="source-badge">📚 Basis Pengetahuan Lokal</span>${copyBtn}</div>${errNote}`, []);
+    }
+  }
+}
+
+function addMessage(text,role,skipPersist=false){
+  const msgs=document.getElementById('messages');
+  const now=new Date().toLocaleTimeString('id',{hour:'2-digit',minute:'2-digit'});
+  const div=document.createElement('div');
+  div.className=`msg ${role}`;
+  if(role==='user'){
+    div.innerHTML=`<div class="msg-avatar user">り</div><div><div class="msg-bubble">${escapeHtml(text)}</div><div class="msg-time" style="text-align:right">${now}</div></div>`;
+  }
+  msgs.insertBefore(div,document.getElementById('typingIndicator'));
+  msgs.scrollTop=msgs.scrollHeight;
+  if(!skipPersist && role==='user') saveHistory({role, text, at:Date.now()});
+}
+
+function addAIMessage(jp,text,chips,save=false){
+  const msgs=document.getElementById('messages');
+  const now=new Date().toLocaleTimeString('id',{hour:'2-digit',minute:'2-digit'});
+  // jp dan chips genuinely tidak pernah melalui formatAIText()/escapeHtml() di
+  // titik lain, jadi di-escape di sini. Parameter text TIDAK di-escape ulang
+  // karena semua jalur normal (streaming bubble, local fallback, history
+  // restore) sudah memanggil formatAIText() yang meng-escape terlebih
+  // dahulu sebelum menambah tag markdown.
+  const jpSafe = escapeHtml(jp);
+  const chipsHtml=chips?`<div class="suggestion-chips">${chips.map(c=>`<span class="sug-chip" onclick="clickSug(this)">${escapeHtml(c)}</span>`).join('')}</div>`:'';
+  const div=document.createElement('div');
+  div.className='msg';
+  div.innerHTML=`<div class="msg-avatar ai">先</div><div><div class="msg-bubble"><span class="jp-text">${jpSafe}</span>${text}${chipsHtml}</div><div class="msg-time">${now}</div></div>`;
+  msgs.insertBefore(div,document.getElementById('typingIndicator'));
+  msgs.scrollTop=msgs.scrollHeight;
+  if(save) saveHistory({role:'assistant', jp, html:text, chips, at:Date.now()});
+}
+
+function showTyping(){document.getElementById('typingIndicator').classList.add('show');const m=document.getElementById('messages');m.scrollTop=m.scrollHeight}
+function hideTyping(){document.getElementById('typingIndicator').classList.remove('show')}
+function todayKey(){return new Date().toISOString().slice(0,10)}
+function getUsage(){try{return JSON.parse(localStorage.getItem(AI_USAGE_KEY)||'{}')}catch(e){return {}}}
+function canUseAI(){
+  return true; // Limit dihapus - semua pengguna bebas menggunakan
+}
+function trackAIUsage(){
+  const usage=getUsage();
+  usage[todayKey()]=Number(usage[todayKey()]||0)+1;
+  localStorage.setItem(AI_USAGE_KEY,JSON.stringify(usage));
+  updateQuotaBadge();
+}
+function updateQuotaBadge(){
+  const badge=document.getElementById('aiQuotaBadge');
+  if(!badge)return;
+  badge.textContent='AI Tutor aktif';
+}
+function saveHistory(item){
+  const list=JSON.parse(localStorage.getItem(AI_HISTORY_KEY)||'[]');
+  list.push(item);
+  localStorage.setItem(AI_HISTORY_KEY,JSON.stringify(list.slice(-80)));
+}
+function restoreHistory(){
+  const list=JSON.parse(localStorage.getItem(AI_HISTORY_KEY)||'[]');
+  if(!list.length)return;
+  document.querySelectorAll('#messages > .msg').forEach(el=>el.remove());
+  const typing=document.getElementById('typingIndicator');
+  list.forEach(item=>{
+    if(item.role==='user') addMessage(item.text,'user',true);
+    if(item.role==='assistant') addAIMessage(item.jp||'はい。', item.html||formatAIText(item.text||''), item.chips||[], false);
+  });
+  document.getElementById('messages').appendChild(typing);
+}
+function newChat(){
+  if(confirm('Mulai percakapan baru? Riwayat percakapan saat ini akan dibersihkan.')){
+    clearHistory();
+    localStorage.removeItem(AI_HISTORY_KEY);
+    const msgs = document.getElementById('messages');
+    if(msgs) msgs.innerHTML = `<div class="msg"><div class="msg-avatar ai">先</div><div><div class="msg-bubble"><span class="jp-text">こんにちは！</span><p>Halo! Saya <strong>Neko Sensei</strong> 🐱, tutor bahasa Jepang Anda. Percakapan baru dimulai. Pilih mode dan level di atas, lalu tanyakan apa saja!</p></div><div class="msg-time">Sekarang</div></div></div>`;
+    updateHistoryBadge();
+  }
+}
+
+function updateHistoryBadge(){
+  const badge = document.getElementById('historyBadge');
+  const countEl = document.getElementById('historyCount');
+  if(!badge) return;
+  const turns = Math.floor(conversationHistory.length / 2);
+  if(turns > 0){
+    badge.style.display='inline';
+    if(countEl) countEl.textContent = turns + ' tanya-jawab';
+  } else {
+    badge.style.display='none';
+  }
+}
+renderConversationList('N5');
+restoreHistory();
+updateHistoryBadge();
+updateQuotaBadge();
+</script>
+<script src="../assets/translator.min.js" defer></script>
+<script src="../assets/pro-app.min.js" defer></script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.65);padding:2rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:18px;font-weight:700;margin-bottom:.35rem">Nihonggo Pro Academy</div>
+      <div style="font-size:12px">Platform belajar bahasa Jepang N5–N1</div>
+    </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;font-size:13px">
+      <a href="../index.html" style="color:rgba(255,255,255,.55);text-decoration:none">Beranda</a>
+      <a href="../Materi/Materi.html" style="color:rgba(255,255,255,.55);text-decoration:none">Materi</a>
+      <a href="../Blog.html" style="color:rgba(255,255,255,.55);text-decoration:none">Blog</a>
+      <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.55);text-decoration:none">Kelas Live</a>
+      <a href="../FAQ.html" style="color:rgba(255,255,255,.55);text-decoration:none">FAQ</a>
+      <a href="../Privacy.html" style="color:rgba(255,255,255,.55);text-decoration:none">Privasi</a>
+      <a href="../Akun.html" style="color:rgba(255,255,255,.55);text-decoration:none">Akun</a>
+      <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.55);text-decoration:none">Grammar Checker</a>
+      <a href="../Sertifikat.html" style="color:rgba(255,255,255,.55);text-decoration:none">Sertifikat</a>
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,.3)">© 2025 NihonggoPro · nihonggopro.id</div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<script>
+function toggleNav(){
+  const nav=document.querySelector('.nav-links');
+  const btn=document.getElementById('hambBtn');
+  if(!nav||!btn)return;
+  const open=nav.classList.toggle('open');
+  btn.classList.toggle('open',open);
+  btn.setAttribute('aria-expanded',open);
+}
+document.addEventListener('click',e=>{
+  if(!e.target.closest('nav')){
+    const nav=document.querySelector('.nav-links');
+    const btn=document.getElementById('hambBtn');
+    if(nav)nav.classList.remove('open');
+    if(btn){btn.classList.remove('open');btn.setAttribute('aria-expanded',false);}
+  }
+});
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html  // === TAMBAHAN RESPONSE BERKUALITAS ===
+  // Grammar N2/N1 penting
+  if(t.includes('ものの') || t.includes('monono')) return '**〜ものの** (N2)\n\n**Makna**: Walaupun ~/meski ~ (kontras antara harapan dan kenyataan)\n\n**Struktur**: Plain form/Nounである + ものの\n\n**Contoh**:\n- 頑張った**ものの**、試験に落ちた。= Walaupun sudah berusaha keras, gagal ujian.\n- 薬を飲んだ**ものの**、熱が下がらない。= Walaupun sudah minum obat, demam tidak turun.\n\n**Nuansa**: Lebih formal dari けれど. Sering di tulisan. Nuansa "kontras yang disayangkan".';
+  if(t.includes('にわたって') || t.includes('ni watatte')) return '**〜にわたって** (N2)\n\n**Makna**: Sepanjang ~/meliputi ~ (jangkauan luas dalam waktu atau ruang)\n\n**Struktur**: Noun + にわたって/にわたる\n\n**Contoh**:\n- 3時間**にわたって**会議が続いた。= Rapat berlangsung selama 3 jam penuh.\n- 全国**にわたる**調査を実施した。= Melaksanakan survei yang meliputi seluruh negeri.\n\n**Nuansa**: Menekankan luasnya/lamanya cakupan. Formal, sering di laporan.';
+  if(t.includes('ずにはいられない') || t.includes('tidak tahan')) return '**〜ずにはいられない** (N1)\n\n**Makna**: Tidak bisa tidak ~/tidak tahan untuk tidak ~\n\n**Struktur**: Verbない-stem + ずにはいられない (する → せずにはいられない)\n\n**Contoh**:\n- 笑わ**ずにはいられない**。= Tidak bisa tidak tertawa.\n- 彼女の歌を聴くと感動せ**ずにはいられない**。= Kalau mendengar nyanyiannya, tidak bisa tidak terharu.\n\n**Tips**: Berbeda dari 〜てしまう (menyesal) — ずにはいられない menunjukkan dorongan yang tidak bisa ditahan.';
+  if(t.includes('てやまない') || t.includes('tidak berhenti')) return '**〜てやまない** (N1)\n\n**Makna**: Tidak pernah berhenti ~ / selalu ~ (perasaan mendalam yang tulus)\n\n**Struktur**: Verbて + やまない\n\n**Contoh**:\n- ご成功を願っ**てやまない**。= Senantiasa mendoakan kesuksesan Anda.\n- 彼女の才能を愛し**てやまない**。= Selalu mengagumi bakatnya.\n\n**Nuansa**: Biasanya positif (mengharapkan, mencintai, mengagumi). Formal. Sering di pidato/tulisan resmi.';
+  if(t.includes('ともなると') || t.includes('kalau sudah menjadi')) return '**〜ともなると** (N1)\n\n**Makna**: Kalau sudah menjadi ~/ketika sampai posisi ~\n\n**Struktur**: Noun + ともなると/ともなれば\n\n**Contoh**:\n- 社長**ともなると**、責任も重い。= Kalau sudah menjadi direktur, tanggung jawabnya pun berat.\n- 大人**ともなれば**、自分で判断できる。= Kalau sudah dewasa, bisa memutuskan sendiri.\n\n**Nuansa**: Implisit "tentu saja konsekuensinya berbeda". Ada nuansa wajar/tidak mengejutkan.';
+  // Kosakata N1
+  if(t.includes('醸成') || t.includes('jousei')) return '**醸成(じょうせい)する** [N1] — Menciptakan/menumbuhkan perlahan\n\n**Contoh**:\n- 信頼関係を**醸成**する。= Menumbuhkan hubungan saling percaya.\n- 雰囲気を**醸成**する。= Menciptakan suasana (tertentu).\n\n**Asal**: 醸=fermentasi, 成=terbentuk → seperti fermentasi yang butuh waktu → proses perlahan.\n**Level**: Sering muncul di soal N1 Reading section.';
+  if(t.includes('俯瞰') || t.includes('fukan')) return '**俯瞰(ふかん)** [N1] — Tinjauan dari atas / pandangan menyeluruh\n\n**Contoh**:\n- 問題を**俯瞰**して考える。= Memikirkan masalah dari sudut pandang yang luas.\n- **俯瞰**的な視点を持つ。= Memiliki perspektif menyeluruh.\n\n**Nuansa**: Lawan dari 微視的(detail). Dipakai untuk menggambarkan kemampuan melihat gambaran besar.';
+  if(t.includes('紆余曲折') || t.includes('uyo kyokusetsu')) return '**紆余曲折(うよきょくせつ)** [N1] — Berliku-liku / banyak rintangan dan perubahan\n\n**Contoh**:\n- **紆余曲折**を経てついに完成した。= Akhirnya selesai setelah melewati banyak rintangan.\n- **紆余曲折**の末、和解した。= Setelah berbagai lika-liku, akhirnya berdamai.\n\n**Asal kata**: 4 karakter = 紆余(meliku) + 曲折(berkelok). Ungkapan idiom.';
+  // Keigo lanjutan
+  if(t.includes('おっしゃる') || t.includes('ossyaru')) return '**おっしゃる** — Versi keigo dari 言う/話す\n\n**Jenis**: 尊敬語 (memuliakan aksi ORANG LAIN)\n\n**Konjugasi**: おっしゃる → おっしゃいます → おっしゃった → おっしゃって\n\n**Contoh**:\n- 先生が**おっしゃった**通りです。= Seperti yang sensei katakan.\n- 社長は何と**おっしゃいましたか**？= Direktur berkata apa?\n\n**Perhatian**: Jangan pakai untuk diri sendiri. Diri sendiri: 申す/申します.';
+  if(t.includes('伺う') || t.includes('ukagau') || t.includes('伺います')) return '**伺う(うかがう)** — Versi keigo dari 行く/来る/聞く/訪問する\n\n**Jenis**: 謙譲語 (merendahkan diri sendiri)\n\n**Contoh**:\n- 明日お宅に**伺います**。= Saya akan berkunjung ke rumah Anda besok (行く).\n- 少々お聞き**してよろしいでしょうか**？(formal) = Boleh saya bertanya sedikit?\n\n**Tips JLPT**: Soal sering minta pilih antara 伺う(謙譲) vs いらっしゃる(尊敬). Selalu cek SUBJEKNYA.';
+  // Strategi JLPT  
+  if(t.includes('strategi reading') || t.includes('strategi membaca jlpt')) return '**Strategi Reading JLPT**\n\n**1. Baca pertanyaan DULU** sebelum teks. Tahu apa yang dicari.\n**2. Skim struktur**: intro → argumen → kesimpulan\n**3. Scan kata kunci** dari pertanyaan\n**4. Hati-hati jebakan**: pilihan yang pakai kata dari teks tapi konteks beda\n**5. Alokasi waktu**: ~1.5 menit/soal\n**6. Jangan macet**: skip → tandai → kembali\n\n**Latihan terbaik**: Baca artikel NHK Web Easy (N3), lalu artikel NHK biasa (N2+).';
+  if(t.includes('strategi listening') || t.includes('strategi mendengar')) return '**Strategi Listening JLPT**\n\n**1. Baca opsi saat jeda** sebelum audio mulai\n**2. Fokus pada**: siapa? apa? kapan? di mana? bagaimana?\n**3. Catat angka/nama** penting\n**4. Waspadai jebakan**: opsi yang sebut kata dari audio tapi makna beda\n**5. Tebak jangan kosong**: pilih opsi yang paling masuk akal\n\n**Latihan**: NHK Podcast, JapanesePod101, shadowing drama Jepang.';
+  if(t.includes('shadowing') || t.includes('cara latihan berbicara')) return '**Teknik Shadowing** — Cara terbaik melatih aksen dan kelancaran berbicara\n\n**Langkah**:\n1. Pilih audio level N1-2 di atas kemampuanmu (sedikit menantang)\n2. Dengarkan sekali untuk memahami isi\n3. Putar ulang dan tirukan TEPAT BERSAMAAN — bukan setelah\n4. Perhatikan ritme, intonasi, dan panjang vokal\n5. Lakukan 10-15 menit per hari secara konsisten\n\n**Sumber**: Drama Jepang, NHK podcast, JLPT listening scripts.';
+  // Budaya Jepang
+  if(t.includes('budaya jepang') || t.includes('kebiasaan jepang')) return '**Kebiasaan Budaya Jepang yang Penting Diketahui**\n\n🎌 **Di restoran**: Ucapkan いただきます sebelum makan, ごちそうさま sesudah.\n🎌 **Di kantor**: Tiba lebih awal, pamit dengan お先に失礼します.\n🎌 **Memberi hadiah**: Bilang つまらないものですが... (meski berharga).\n🎌 **Melepas sepatu**: Selalu di genkan (入り口) saat masuk rumah.\n🎌 **Berbicara saat makan**: Umum, tapi hindari berbicara dengan mulut penuh.\n🎌 **Menolak ajakan**: Gunakan ちょっと... (tersirat penolakan halus).';
+  
+
+  // ===== TAMBAHAN TRIGGERS N5-N4 DASAR =====
+  if(t.includes('sumimasen') || t.includes('permisi jepang')) return '**すみません** — Memiliki 3 fungsi utama:\n1. **Permisi/Maaf** (saat mengganggu): すみません、少しいいですか？\n2. **Memanggil perhatian** di restoran/toko: すみません！ (memanggil pelayan)\n3. **Terima kasih** (nuansa merasa tidak enak/berhutang budi): すみません、助かりました。\n\nBerbeda dari ごめんなさい (minta maaf untuk kesalahan) dan ありがとう (terima kasih biasa).';
+  if(t.includes('ore wa') || t.includes('kata ganti aku') || t.includes('watashi boku ore')) return '**Kata ganti orang pertama:**\n- **私(わたし)**: netral, formal, dipakai semua gender\n- **私(わたくし)**: sangat formal (pidato, bisnis)\n- **僕(ぼく)**: laki-laki, kasual-sopan\n- **俺(おれ)**: laki-laki, sangat kasual (antara teman dekat)\n- **あたし**: perempuan, kasual\n\n**Tips**: Gunakan 私 di situasi formal. Hindari 俺 kecuali dengan teman dekat.';
+  if(t.includes('cara minta tolong') || t.includes('onegaishimasu') || t.includes('kudasai')) return '**Cara meminta sesuatu:**\n- **〜をください** = tolong berikan ~ (ke toko/orang)\n- **〜てください** = tolong lakukan ~\n- **〜ていただけますか** = bisakah Anda ~ (formal)\n- **〜をお願いします(おねがいします)** = mohon ~ (umum, formal)\n- **〜てもらえますか** = bisakah kamu ~ (sopan tapi akrab)\n\nTingkatan: ください → お願いします → ていただけますか (makin sopan).';
+  if(t.includes('wakarimashita vs wakarimasu') || t.includes('paham jepang')) return '**わかる (mengerti/paham):**\n- **わかります**: saya mengerti/bisa memahami (present)\n- **わかりました**: saya sudah mengerti (past, menyatakan pemahaman baru)\n- **わかりません**: saya tidak mengerti\n- **わかりかねます**: saya sulit memahami (keigo, sopan untuk "tidak mengerti")\n\n**Tips**: Saat guru/atasan memberi instruksi, jawab "はい、わかりました" bukan "はい、わかります".';
+  if(t.includes('doko desu ka') || t.includes('tanya lokasi jepang')) return '**Menanyakan lokasi:**\n- **〜はどこですか？** = di mana ~?\n- **〜はどこにありますか？** = ~ ada di mana? (benda)\n- **〜はどうやって行きますか？** = bagaimana caranya pergi ke ~?\n- **〜はここから遠いですか？** = apakah ~ jauh dari sini?\n\n**Menjawab**: 〜の近くです(dekat ~) / 〜の右/左です(kanan/kiri ~) / 〜から〜分です(~ menit dari ~).';
+  if(t.includes('jikan no hyougen') || t.includes('ekspresi waktu jepang') || t.includes('jam bahasa jepang')) return '**Ekspresi waktu penting:**\n- 今(いま) = sekarang\n- 今日(きょう) = hari ini\n- 明日(あした/あす) = besok\n- 昨日(きのう) = kemarin\n- 今週(こんしゅう)/来週(らいしゅう)/先週(せんしゅう) = minggu ini/depan/lalu\n- 今月(こんげつ)/来月(らいげつ)/先月(せんげつ) = bulan ini/depan/lalu\n- 今年(ことし)/来年(らいねん)/去年(きょねん) = tahun ini/depan/lalu';
+  if(t.includes('~て form manfaat') || t.includes('te form kegunaan')) return '**て-form: 7 kegunaan utama**\n1. **Sambungan**: 食べて寝た = makan lalu tidur\n2. **Permintaan**: 〜てください = tolong ~\n3. **Izin**: 〜てもいい = boleh ~\n4. **Larangan**: 〜てはいけない = tidak boleh ~\n5. **Persiapan**: 〜ておく = lakukan dulu\n6. **Percobaan**: 〜てみる = coba ~\n7. **Progresif**: 〜ている = sedang ~';
+  
+  // ===== N3 GRAMMAR =====
+  if(t.includes('rashii vs you da vs so da') || t.includes('perbedaan rashii')) return '**Tiga ekspresi "sepertinya/kelihatannya":**\n- **〜らしい**: info dari luar/kabar/kesan — 彼は病気らしい(katanya dia sakit)\n- **〜ようだ**: kesimpulan dari observasi langsung — 彼は疲れたようだ(kelihatannya dia lelah)\n- **〜そうだ** (from verb/adj): kesan visual langsung — 美味しそう(kelihatan enak/dari penampilan)\n\n**そうだ** (dari kalimat lengkap) = hearsay: 彼は来るそうだ(katanya dia akan datang).';
+  if(t.includes('nakereba naranai vs naku te wa') || t.includes('harus bahasa jepang')) return '**Cara mengungkapkan "harus":**\n- **〜なければならない** = harus ~ (kewajiban formal)\n- **〜なければいけない** = harus ~ (sedikit lebih soft)\n- **〜ないといけない** = harus ~ (lebih kasual)\n- **〜ないとだめ** = harus ~ (kasual)\n- **〜べきだ** = seharusnya ~ (rekomendasi moral)\n\nTingkatan formal: なければならない > なければいけない > ないといけない > ないとだめ.';
+  if(t.includes('dakara vs node vs kara') || t.includes('perbedaan karena jepang')) return '**Ekspresi alasan/sebab:**\n- **から**: alasan subjektif/langsung. 眠いから帰る。(Saya pulang karena mengantuk)\n- **ので**: alasan objektif/sopan. 風邪なので休みます。(Karena sakit, saya izin)\n- **のに**: kontras/mengejutkan. 頑張ったのに失敗した。(Padahal sudah berusaha, gagal)\n- **だから**: konsekuensi logis. だから言ったでしょう。(Makanya sudah kubilang)\n\nFormal: ので > から.';
+  
+  // ===== KANJI TIPS =====
+  if(t.includes('tips hafal kanji') || t.includes('cara mudah kanji')) return '**6 Cara Efektif Menghafal Kanji:**\n1. **Pelajari radikal dulu** — basis dari semua kanji\n2. **Buat cerita/mnemonik** — hubungkan komponen dengan cerita\n3. **Pelajari dalam KONTEKS** — kata majemuk lebih mudah dari kanji tunggal\n4. **Tulis berulang** dengan stroke order yang benar\n5. **SRS (Anki/flashcard)** — interval yang optimal\n6. **5-10 kanji per hari** secara konsisten (bukan 50 sekaligus!)\n\nTarget: N5=80, N4=300, N3=650, N2=1000, N1=2000 kanji.';
+  if(t.includes('on yomi kun yomi') || t.includes('cara baca kanji')) return '**On'yomi vs Kun'yomi:**\n- **音読み(おんよみ)**: bacaan dari bahasa Cina. Biasanya dalam 熟語(jukugo/kata majemuk). 日本語→にほんご\n- **訓読み(くんよみ)**: bacaan asli Jepang. Biasanya kanji sendiri atau dengan okurigana. 日→ひ, 食べる→たべる\n\n**Tips**: Kanji majemuk (2+ kanji) → cenderung On'yomi. Kanji dengan hiragana setelahnya → cenderung Kun'yomi.';
+  
+  // ===== VOCAB N2-N1 =====
+  if(t.includes('微妙') || t.includes('bimyou')) return '**微妙(びみょう)** [N2] — "Halus/Samar/Agak aneh/Kurang"\n\nKata ini sangat sering dipakai tapi punya makna kontekstual:\n- **本来**: nuansa halus, sulit diungkapkan dengan kata (微妙な違い=perbedaan halus)\n- **口語(kasual)**: "kurang bagus/agak aneh" (答えが微妙... = jawabannya agak...)\n\n**Contoh**: この映画、微妙だった。= Film ini, hmm kurang (tidak bagus tapi tidak mau langsung bilang jelek).';
+  if(t.includes('なるほど') || t.includes('sou desu ka') || t.includes('respons percakapan')) return '**Respons dalam percakapan Jepang:**\n- **そうですか** = oh begitu (netral, menerima info)\n- **そうですね** = ya memang (setuju)\n- **なるほど** = ohh begitu/I see (memahami sesuatu baru)\n- **へえ** = oh ya?! (terkejut/tertarik, kasual)\n- **確かに(たしかに)** = memang benar\n- **そういえば** = oh ya ngomong-ngomong\n- **ところで** = ngomong-ngomong (ganti topik)';
+  if(t.includes('あいうえお polite') || t.includes('aizuchi') || t.includes('相槌')) return '**相槌(あいづち) — Respons-respons percakapan:**\nPerlu sering memberikan tanda bahwa Anda mendengarkan:\n- **うんうん / ええ** = iya iya (kasual/formal)\n- **はいはい / そうそう** = ya ya / betul betul\n- **なるほどなるほど** = oh begitu begitu\n- **それで？** = lalu? (tanda ingin tahu kelanjutan)\n- **大変でしたね** = pasti susah ya (empati)\n\nDi Jepang, diam total saat lawan bicara bercerita dianggap tidak sopan.';
+  
+  // ===== KEIGO ADVANCED =====
+  if(t.includes('itadaku vs morau') || t.includes('perbedaan itadaku')) return '**いただく vs もらう:**\n- **もらう**: menerima dari orang setara/lebih rendah. 友達からプレゼントをもらった。\n- **いただく**: 謙譲語 — menerima dari orang LEBIH TINGGI. 先生からアドバイスをいただいた。\n- **〜ていただく**: meminta orang lebih tinggi melakukan sesuatu. ご確認いただけますか？\n- **〜てもらう**: meminta orang setara melakukan sesuatu. 確認してもらえる？\n\nKunci: siapa yang lebih tinggi secara sosial.';
+  if(t.includes('moshimoshi') || t.includes('telepon bahasa jepang')) return '**Telepon dalam bahasa Jepang:**\n\n**Menerima telepon**:\n- もしもし = halo (telepon)\n- はい、〇〇でございます = ya, ini [nama] (bisnis)\n\n**Menghubungi**:\n- 〇〇さんはいらっしゃいますか？ = apakah 〇〇 ada?\n- 〜についてお電話いたしました = menelepon berkaitan dengan ~\n\n**Menutup telepon**:\n- 失礼いたします = permisi (penutup formal)\n- よろしくお願いします + 失礼します = standar bisnis';
+  
+  // ===== TIPS BELAJAR =====
+  if(t.includes('berapa lama') || t.includes('waktu belajar n') || t.includes('lama belajar jlpt')) return '**Estimasi waktu belajar JLPT:**\n- **N5**: 150-200 jam (6-12 bulan belajar santai)\n- **N4**: 300-400 jam (1-2 tahun dari N5)\n- **N3**: 500-700 jam (1-2 tahun dari N4)\n- **N2**: 700-1000 jam (2-3 tahun dari N3)\n- **N1**: 1000-1500+ jam (2-4 tahun dari N2)\n\n**Faktor**: intensitas belajar, latarbelakang bahasa, metode belajar. Konsistensi > intensitas sesekali.';
+  if(t.includes('immersion') || t.includes('input comprehensible') || t.includes('belajar natural')) return '**Metode Immersion (Belajar Natural):**\n\n**Prinsip**: paparkan diri ke bahasa Jepang sebanyak mungkin\n1. **Konsumsi media**: anime, drama, manga dengan subtitle JP\n2. **Baca**: NHK Web Easy → artikel biasa → novel ringan\n3. **Dengar**: podcast, radio, YouTube JP\n4. **Output**: tulis jurnal harian JP, bicara dengan AI/partner\n\n**N+1 Input Theory**: pilih material yang 80-90% dimengerti. Terlalu mudah = bosan. Terlalu sulit = frustrasi.';
+  if(t.includes('notebook belajar') || t.includes('cara mencatat jepang')) return '**Tips Mencatat Kosakata Efektif:**\n\n1. **Bukan daftar kata saja** — tulis konteks kalimat\n2. **Tulis kanji + reading + arti + contoh** di satu kartu\n3. **Kelompokkan tematik** (kata kerja, kata sifat, tema situasi)\n4. **Review berkala** dengan SRS — jangan hanya baca ulang\n5. **Tulis dengan tangan** minimal sekali — bantu memori motorik\n\n**Format ideal**: 単語(たんご) [Level] — Arti | Contoh kalimat (JP→ID)';
+  
+
+  // ===== JLPT VOCAB N3 PENTING =====
+  if(t.includes('とても vs すごく') || t.includes('perbedaan totemo')) return '**とても vs すごく vs たいへん:**\n- **とても**: sangat ~ (umum, formal OK). とても嬉しい。\n- **すごく**: sangat ~ (kasual, percakapan). すごく楽しい！\n- **たいへん**: sangat ~ (formal/tulisan). たいへん重要です。\n- **非常に(ひじょうに)**: sangat ~ (sangat formal). 非常に困難です。\n\nTingkatan formal: 非常に > たいへん > とても > すごく.';
+  if(t.includes('〜てみて') || t.includes('cara saran coba jepang')) return '**Cara menyarankan orang lain mencoba:**\n- **〜てみてください**: tolong coba ~ (formal). この料理を食べてみてください。\n- **〜てみたら？**: coba ~ deh? (kasual, saran). 先生に聞いてみたら？\n- **〜てみるといい**: bagus kalau coba ~ (netral). 一度行ってみるといいよ。\n\nBedakan: 〜てみる (mencoba) vs ただ〜する (melakukan biasa).';
+  if(t.includes('どうぞ vs どうか') || t.includes('dozo douka')) return '**どうぞ vs どうか:**\n- **どうぞ**: silakan (memberi izin/mempersilakan). どうぞ入ってください。どうぞ(sit down)。\n- **どうか**: mohon (memohon sesuatu dengan sungguh). どうかよろしくお願いします。\n\n**どうぞ** = persilakan. **どうか** = mohon dari hati. Jangan tertukar!';
+  if(t.includes('〜でいい') || t.includes('de ii wa ii')) return '**〜でいい vs 〜がいい:**\n- **〜でいい**: ~ tidak apa-apa / ~ bisa diterima (sedikit nuansa terpaksa). コーヒーでいい = kopi saja cukup.\n- **〜がいい**: ~ yang bagus / ~ yang diinginkan (aktif). コーヒーがいい = saya ingin kopi.\n\n**Nuansa**: でいい = akzeptieren. がいい = aktif inginkan. 何でもいい = apa pun boleh.';
+  if(t.includes('naze vs doushite') || t.includes('なぜ vs どうして')) return '**なぜ vs どうして vs なんで (= mengapa):**\n- **なぜ**: mengapa (formal, tulisan, pertanyaan serius). なぜそうなった？\n- **どうして**: mengapa / bagaimana (semi-formal, percakapan biasa). どうして来なかったの？\n- **なんで**: kenapa (kasual/informal). なんでそんなこと言うの？\n\nFormal: なぜ > どうして > なんで.';
+  
+  // ===== KOSAKATA KHUSUS N2/N1 =====
+  if(t.includes('しかし vs でも vs だが') || t.includes('tapi bahasa jepang formal')) return '**Ekspresi "tapi/namun" dari kasual ke formal:**\n- **でも**: tapi (kasual). でも、行きたい。\n- **けれど/けど**: tapi/meskipun (semi-kasual). 頑張ったけど…\n- **しかし**: namun/tetapi (semi-formal). しかし、問題がある。\n- **だが**: namun (formal/tulisan). だが、困難を伴う。\n- **ところが**: namun (kontras kuat/mengejutkan). ところが、事実は違った。\n\nFormal: だが/ところが > しかし > けれど > でも.';
+  if(t.includes('おそらく vs たぶん vs きっと') || t.includes('mungkin jepang nuansa')) return '**Ekspresi "mungkin/pasti":**\n- **たぶん**: mungkin (~70%). たぶん雨が降る。\n- **おそらく**: mungkin (~80%, formal). おそらく正しいでしょう。\n- **きっと**: pasti/yakin (harapan kuat ~90%). きっとうまくいく！\n- **必ず(かならず)**: pasti/tanpa kecuali (100% atau janji). 必ず帰る。\n\n確率: 必ず > きっと > おそらく > たぶん.';
+  if(t.includes('読む vs 読める vs 読んでいる') || t.includes('aspect baca jepang')) return '**Yomu dalam berbagai aspek:**\n- 読む = membaca (habitual/akan)\n- 読んでいる = sedang membaca (progresif)\n- 読んである = sudah dibaca/ada yang membaca (stative)\n- 読んだ = sudah dibaca (lampau)\n- 読める = bisa membaca (potential)\n- 読まれる = dibaca/dipopulerkan (passive)\n- 読ませる = menyuruh membaca (causative)';
+  
+  // ===== BUDAYA & KONTEKS =====
+  if(t.includes('honne vs tatemae') || t.includes('本音 vs 建前')) return '**本音(ほんね) vs 建前(たてまえ):**\n- **本音**: perasaan/pikiran sebenarnya (private)\n- **建前**: penampilan publik / apa yang dikatakan secara resmi\n\nContoh: Dalam rapat bisnis, seseorang mungkin berkata "検討します(akan kami pertimbangkan)" (建前) tapi sebenarnya sudah menolak (本音). Memahami perbedaan ini sangat penting untuk komunikasi bisnis Jepang.';
+  if(t.includes('nemawashi') || t.includes('根回し') || t.includes('konsensus jepang')) return '**根回し(ねまわし) — Konsensus Diam-diam Jepang:**\n\nProses membangun dukungan SEBELUM pertemuan formal. Seperti "memutar akar pohon" agar siap dipindah.\n\n**Cara**: Bicarakan proposal secara informal satu per satu ke semua pihak → pastikan tidak ada penolakan keras → baru presentasi formal.\n\n**Mengapa penting**: Di Jepang, rapat formal (会議) biasanya MENGONFIRMASI keputusan, bukan membuat keputusan dari nol.';
+  if(t.includes('omoiyari') || t.includes('思いやり') || t.includes('empati jepang')) return '**思いやり(おもいやり) — Empati/Kepedulian dalam Budaya Jepang:**\n\nKemampuan memahami dan merasakan kebutuhan orang lain TANPA harus diminta. Salah satu nilai tertinggi dalam budaya Jepang.\n\n**Contoh**: \n- Menawarkan kursi di kereta tanpa diminta\n- Memperhatikan tanda kelelahan rekan kerja\n- Menyiapkan sesuatu yang "mungkin" dibutuhkan orang lain\n\n思いやりのある人 = orang yang penuh empati = sangat dihargai.';
+  
+  // ===== GRAMMAR N3/N4 PENTING =====
+  if(t.includes('〜たばかり') || t.includes('baru saja jepang')) return '**〜たばかり — Baru saja ~:**\n\n**Struktur**: Verbた + ばかり\n\n**Contoh**:\n- 食べたばかりです。= Baru saja selesai makan.\n- 日本に来たばかりです。= Baru saja tiba di Jepang.\n\n**Nuansa**: Waktu SANGAT dekat dengan sekarang. \n**Perhatian**: 3時間前にしたばかり (3 jam lalu) = JANGGAL. ばかり harus benar-benar baru.\n\n**Bedakan**: したばかり(baru saja) vs してから(setelah melakukan).';
+  if(t.includes('〜ように言う') || t.includes('menyuruh orang lain')) return '**Menyuruh/Meminta orang lain:**\n\n**Langsung**:\n- 〜てください = tolong ~ (meminta)\n- 〜てくれ = lakukan ~ (perintah kasual)\n\n**Tidak langsung (laporan)**:\n- 〜ように言う = memberitahu agar ~. 「先生は学生に早く来るように言った。」\n- 〜ように頼む = memohon agar ~. 来てくれるように頼んだ。\n\nNote: ように + 言う/頼む tidak langsung mengutip perkataan aslinya.';
+  if(t.includes('〜はずだった') || t.includes('seharusnya lampau')) return '**〜はずだった — Seharusnya ~ (tapi tidak terjadi):**\n\n**Struktur**: Verbdic/Past + はずだった\n\n**Nuansa**: Harapan/perhitungan yang tidak menjadi kenyataan (kekecewaan).\n\n**Contoh**:\n- 彼は来るはずだったが、来なかった。= Dia seharusnya datang, tapi tidak.\n- もっと簡単なはずだった。= Seharusnya lebih mudah dari ini.\n\n**Bedakan**: はずだ(seharusnya/masih diharapkan) vs はずだった(ternyata tidak terjadi).';
+  if(t.includes('〜わけではない') || t.includes('bukan berarti jepang')) return '**〜わけではない — Bukan berarti ~/Tidak selalu berarti ~:**\n\n**Nuansa**: Menolak asumsi/generalisasi. "Tidak sepenuhnya demikian."\n\n**Contoh**:\n- 嫌いなわけではない。= Bukan berarti saya tidak suka.\n- 全部知っているわけではない。= Bukan berarti saya tahu semuanya.\n\n**Bedakan**:\n- わけではない = menyangkal asumsi (partial)\n- わけにはいかない = tidak boleh karena alasan sosial\n- わけがない = tidak mungkin (mustahil)';
+  
+  // ===== TIPS JLPT PRAKTIS =====
+  if(t.includes('n3 n2 vocab tips') || t.includes('cara hafal vocab jlpt')) return '**5 Strategi Hafal Kosakata JLPT Efektif:**\n\n1. **Belajar kata dalam KELOMPOK tematik** — bukan random\n2. **Pelajari KOLOKASI** — kata apa yang sering berpasangan\n3. **Buat kalimat sendiri** — tidak cukup arti saja\n4. **Temukan dalam KONTEKS nyata** — baca artikel, tonton berita\n5. **Gunakan SRS (Anki)** — kartu flash dengan interval optimal\n\nTarget harian: 10-15 kata baru + review 30-50 kata lama = konsisten lebih baik dari maraton.';
+  if(t.includes('jlpt section score') || t.includes('nilai minimal jlpt') || t.includes('passing score')) return '**Passing Score JLPT:**\n\nJLPT punya DWIAGKAH: (1) Total score harus ≥ passing (2) SETIAP seksi harus ≥ batas minimum.\n\n| Level | Total | Min tiap seksi |\n|-------|-------|----------------|\n| N5 | 80/180 | ~19/60 |\n| N4 | 90/180 | ~19/60 |\n| N3 | 95/180 | ~19/60 |\n| N2 | 90/180 | ~19/60 |\n| N1 | 100/180 | ~19/60 |\n\nSeksi: 文字語彙, 読解, 聴解. Nilai rendah di satu seksi = gagal meski total tinggi!';
+  if(t.includes('読解 tips') || t.includes('cara baca soal') || t.includes('reading comprehension')) return '**Tips Section 読解 JLPT:**\n\n**Sebelum membaca teks:**\n1. Baca pertanyaan DULU (bukan pilihan jawabannya)\n2. Tandai kata kunci dari pertanyaan\n\n**Saat membaca:**\n3. Scan untuk kata kunci tersebut\n4. Baca paragraf yang relevan lebih dalam\n5. Jangan terjebak di kata yang tidak dimengerti\n\n**Memilih jawaban:**\n6. Eliminasi jawaban yang jelas salah\n7. Hati-hati pilihan yang parafrase dengan kata dari teks\n8. Pilih yang paling akurat secara MAKNA, bukan kata per kata';
+
+  // ===== GRAMMAR KONTEKSTUAL =====
+  if(t.includes('te form uses') || t.includes('て形 7つの使い方') || t.includes('semua fungsi te form')) return '**〜て Form: 7 Fungsi Utama**\n\n| # | Pola | Makna | Contoh |\n|---|---|---|---|\n| 1 | 〜て+V | urutan aksi | 食べて寝た |\n| 2 | 〜てください | minta tolong | 来てください |\n| 3 | 〜ている | progresif/stative | 食べている |\n| 4 | 〜てもいい | izin | 帰ってもいい？ |\n| 5 | 〜てはいけない | larangan | 触ってはいけない |\n| 6 | 〜ておく | persiapan | 調べておく |\n| 7 | 〜てみる | mencoba | 食べてみた |';
+  if(t.includes('nominalizer no koto') || t.includes('の vs こと nominalize')) return '**の vs こと (Nominalisasi):**\n\n- **の**: konkret/sensori, informalの感じがする系\n 例: 泳ぐのが好き = suka berenang\n 彼が来るのを見た = melihat dia datang\n\n- **こと**: abstrak/formal\n 例: 健康でいることが大切 = penting untuk sehat\n 日本語を話すことができる = bisa berbicara bahasa Jepang\n\n**Tips**: Setelah 見る・聞く・知る → pakai の. Setelah 大切・決める → こと.';
+  if(t.includes('wa ga topicalization') || t.includes('topik vs subjek jepang')) return '**は (topik) vs が (subjek) — Panduan Lengkap:**\n\n**は = topik marker:**\n- Menandai apa yang sedang dibahas\n- Kontras: 私は好きだけど、彼は嫌い\n- Dikenal sebelumnya: あの映画はよかった\n\n**が = subjek gramatikal:**\n- Subjek baru/tidak diketahui: 誰が来た？田中さんが来た\n- Verba kemampuan: 日本語が分かる / 運動ができる\n- Ekspresi preferensi: すしが好き\n\n**Aturan**: Pertanyaan baru → が. Topik diketahui → は.';
+  if(t.includes('relative clause japanese') || t.includes('klausa relatif jepang')) return '**Klausa Relatif (Relative Clause) dalam bahasa Jepang:**\n\nPola: [Klausa Modifikasi] + Nomina\n\n**Perbedaan dengan Indonesia/Inggris:**\n- Indonesia: Buku **yang saya beli** kemarin\n- Jepang: [昨日買った]本 (klausa MENDAHULUI nomina)\n\n**Contoh:**\n- [新宿に住んでいる]友達 = teman yang tinggal di Shinjuku\n- [先生が書いた]本 = buku yang ditulis guru\n- [難しい]問題 = masalah yang sulit';
+  if(t.includes('humble form verbs') || t.includes('謙譲語 kata kerja lengkap')) return '**Kata Kerja Humble (謙譲語) Penting:**\n\n| Biasa | Humble | Arti |\n|---|---|---|\n| 行く/来る | 参る(まいる) | pergi/datang |\n| する | いたす | melakukan |\n| 言う | 申す(もうす) | mengatakan |\n| 食べる/飲む | いただく | makan/minum |\n| もらう | いただく | menerima |\n| あげる | 差し上げる | memberi |\n| 見る | 拝見する(はいけん) | melihat/membaca |\n| 聞く | 伺う(うかがう) | bertanya/berkunjung |\n| 知る | 存じる(ぞんじる) | mengetahui |\n\n**Ingat**: Humble untuk DIRI SENDIRI, bukan orang lain!';
+  
+  // ===== KOSAKATA TINGKAT LANJUT =====
+  if(t.includes('kata abstrak n2') || t.includes('abstract vocabulary n2 n1')) return '**Kosakata Abstrak N2-N1 yang Penting:**\n\n概念(がいねん) = konsep\n原則(げんそく) = prinsip\n観点(かんてん) = sudut pandang\n課題(かだい) = tantangan/isu\n背景(はいけい) = latar belakang/konteks\n要因(よういん) = faktor\n傾向(けいこう) = kecenderungan/tren\n課題(かだい) = tugas/tantangan\n手段(しゅだん) = cara/metode\n影響(えいきょう) = dampak\n\n**Tips**: Kata-kata ini sering muncul di soal Reading N2-N1.';
+  if(t.includes('onomatopoeia japanese') || t.includes('擬音語 擬態語') || t.includes('onomatope jepang')) return '**擬音語・擬態語 (Onomatope Jepang) Penting:**\n\n**擬音語** (suara nyata):\n- ワンワン = gonggongan anjing\n- ニャーニャー = meong kucing\n- バタン = suara pintu bantam\n\n**擬態語** (deskripsi kondisi):\n- ニコニコ = senyum-senyum (gembira)\n- キラキラ = berkilau\n- ふわふわ = fluffy/mengembang\n- ぐっすり = tidur nyenyak\n- いらいら = jengkel/kesal\n- どきどき = jantung berdegup kencang (deg-degan)';
+  if(t.includes('keigo dalam email jepang') || t.includes('business email japanese')) return '**Struktur Email Bisnis Jepang:**\n\n**Pembuka:**\n- お世話になっております = biasanya untuk bisnis yang sudah berjalan\n- 初めてご連絡いたします = pertama kali menghubungi\n- ご無沙汰しております = sudah lama tidak menghubungi\n\n**Isi:**\n- 〜についてご連絡いたします = menghubungi tentang ~\n- ご確認いただけますでしょうか = bisakah dikonfirmasi?\n\n**Penutup:**\n- よろしくお願いいたします = standar\n- 引き続きよろしくお願いいたします = untuk kelanjutan kerjasama\n- ご多忙のところ恐れ入りますが = mohon maaf di tengah kesibukan Anda';
+  
+  // ===== TIPS JLPT LANJUTAN =====
+  if(t.includes('jlpt n1 tips') || t.includes('cara lulus n1') || t.includes('n1 strategy')) return '**Strategi Lulus JLPT N1:**\n\n**文字語彙 (Vocab/Kanji):**\n- Fokus: kata majemuk kanji jarang, nuansa kata sinonim\n- Latihan bedakan: 断る vs 拒絶する vs 辞退する\n\n**文法 (Grammar):**\n- Kuasai 40+ pola N1 wajib\n- Soal sering: pilih yang paling sesuai konteks formal\n\n**読解 (Reading):**\n- Baca editorial, esai, kolom opini bahasa Jepang\n- Kecepatan adalah kunci\n\n**聴解 (Listening):**\n- Dengarkan NHK, podcast berbicara cepat\n- Fokus pada ekspresi implisit dan ironi';
+  if(t.includes('kanji stroke order') || t.includes('urutan goresan kanji') || t.includes('aturan menulis kanji')) return '**Aturan Dasar Urutan Goresan (Stroke Order) Kanji:**\n\n1. **Atas ke bawah**: 三(1→2→3 dari atas)\n2. **Kiri ke kanan**: 川(kiri→tengah→kanan)\n3. **Horizontal sebelum vertikal**: 十(─ dulu, baru |)\n4. **Goresan miring kiri sebelum kanan**: 人(ノ dulu, baru \\)\n5. **Pusat sebelum sisi**: 小(tengah dulu)\n6. **Tutup kotak terakhir**: 口(tiga sisi dulu, baru tutup bawah)\n\nPentingnya: mempengaruhi keindahan tulisan dan kecepatan.';
+  if(t.includes('cara baca kanji compound') || t.includes('kata majemuk jepang')) return '**Cara Baca Kata Majemuk Kanji:**\n\n**Aturan umum:**\n- 2+ kanji digabung → biasanya **音読み** (on'yomi)\n  例: 食堂(しょくどう), 図書館(としょかん), 電車(でんしゃ)\n\n- 1 kanji + ひらがな → biasanya **訓読み** (kun'yomi)\n  例: 食べる(たべる), 読む(よむ), 新しい(あたらしい)\n\n**Pengecualian penting:**\n- 今日(きょう), 昨日(きのう), 大人(おとな) = bacaan khusus (熟字訓)\n- 手紙(てがみ) = surat (bukan くだり!)';
+  if(t.includes('cara belajar jepang sendiri') || t.includes('otodidak jepang') || t.includes('self study japanese')) return '**Roadmap Belajar Jepang Otodidak:**\n\n**Fase 1 (Dasar, 3-6 bulan):**\n→ Hafal hiragana+katakana (1-2 minggu)\n→ Grammar N5: Genki I atau Minna no Nihongo\n→ Kosakata 1000 kata pertama\n→ Kanji 80 (N5)\n\n**Fase 2 (N4-N3, 1-2 tahun):**\n→ Grammar N4-N3\n→ Kosakata 3000-4000\n→ Mulai konsumsi media Jepang\n\n**Fase 3 (N2-N1, 2-4 tahun):**\n→ Immersion intensif\n→ Baca artikel/novel\n→ Latihan soal JLPT rutin\n\n**Tools**: Anki (SRS), NHK Web Easy, Jisho, imiwa?';
+  if(t.includes('particle combination') || t.includes('partikel gabungan jepang')) return '**Partikel Gabungan yang Sering Muncul:**\n\n- **には**: topik dalam lokasi. 東京には〜がある\n- **では**: dalam konteks. 日本では〜が普通\n- **とは**: definisi. 「挫折」とは〜のことだ\n- **からは**: mulai dari (dengan penekanan). 今日からは頑張る\n- **までに**: batas waktu. 金曜日までに提出\n- **によって**: tergantung / oleh (passive). 場合によって / 彼女によって書かれた\n- **にとって**: dari perspektif ~. 私にとっては重要だ';
+  if(t.includes('suru verbs jepang') || t.includes('kata kerja suru') || t.includes('nomina + suru')) return '**Kata Kerja Suru (Nomina + する):**\n\nAnda bisa membuat kata kerja dari nomina dengan + する:\n\n勉強(する) = belajar\n運動(する) = berolahraga\n旅行(する) = berwisata\n結婚(する) = menikah\n説明(する) = menjelaskan\n確認(する) = mengkonfirmasi\n準備(する) = mempersiapkan\n\n**Keistimewaan**: する menjadi します(sopan), した(lampau), して(te-form), しない(negatif), できる(potential)\n\nContoh: 勉強しています = sedang belajar';
+
+  // ===== GRAMMAR N5/N4 DASAR YANG SERING DITANYA =====
+  if(t.includes('te ageru morau kureru') || t.includes('あげる もらう くれる te form')) return '**〜てあげる / 〜てもらう / 〜てくれる:**\n\n| Pola | Siapa melakukan | Untuk siapa |\n|---|---|---|\n| Verbて+あげる | Saya/lainnya | Untuk orang lain |\n| Verbて+もらう | Orang lain | Untuk saya |\n| Verbて+くれる | Orang lain | Untuk saya |\n\n例: 先生が説明してくれた = guru menjelaskan untuk saya\n私が友達を助けてあげた = saya membantu teman\n友達に荷物を運んでもらった = saya meminta teman membawakan barang';
+  if(t.includes('kata bantu bilangan') || t.includes('counter words') || t.includes('助数詞 全部')) return '**Kata Bantu Bilangan (助数詞) Penting:**\n\n| Bantu | Untuk | Contoh |\n|---|---|---|\n| 本(ほん) | Benda panjang | ペン3本 |\n| 枚(まい) | Lembaran tipis | 紙2枚 |\n| 台(だい) | Mesin/kendaraan | 車1台 |\n| 匹(ひき) | Hewan kecil | 猫3匹 |\n| 頭(とう) | Hewan besar | 牛1頭 |\n| 冊(さつ) | Buku | 本5冊 |\n| 杯(はい) | Minuman/semangkuk | コーヒー2杯 |\n| 人(にん) | Orang | 学生3人 |\n\n*Catatan*: 1人=ひとり, 2人=ふたり (tidak reguler!)';
+  if(t.includes('pola kalimat dasar jepang') || t.includes('basic sentence patterns')) return '**Pola Kalimat Dasar Bahasa Jepang:**\n\n1. **〜は〜です**: 私は学生です (S adalah N)\n2. **〜が〜あります/います**: 机の上に本があります (ada X di ~)\n3. **〜を〜ます**: 本を読みます (melakukan O)\n4. **〜に〜ます**: 東京に行きます (pergi ke ~)\n5. **〜で〜ます**: 図書館で勉強します (melakukan di ~)\n6. **〜がほしい**: 新しいカメラがほしい (ingin ~)\n7. **〜たい**: 日本に行きたい (ingin melakukan ~)\n8. **〜てください**: 窓を開けてください (tolong ~)';
+  if(t.includes('perbedaan は と ga') || t.includes('wa ga ga wa') || t.includes('は ga topik subjek bedakan')) return '**は vs が — Cara Mudah Membedakan:**\n\n**は (topik)**:\n- Apa yang sedang dibicarakan\n- Pendengar sudah tahu/informasi lama\n- Kontras: 私は行くけど、彼女は行かない\n\n**が (subjek/objek)**:\n- Aksi dilakukan oleh siapa\n- Informasi baru/belum diketahui\n- Ekspresi kemampuan/perasaan: 日本語が分かる, りんごが好き\n\n**Trik**: "Siapa?" → が. "Tentang siapa?" → は. Yang sudah disebut → は.';
+  if(t.includes('kudasai vs te morau') || t.includes('cara minta tolong sopan') || t.includes('ください vs もらえますか')) return '**Cara Minta Tolong — Tingkatan:**\n\n1. **Verbて+ください** → tolong lakukan ~ (sopan/langsung)\n   *手伝ってください*\n2. **Verbて+いただけますか** → bisakah Anda ~ (sangat sopan)\n   *手伝っていただけますか*\n3. **Verbて+もらえますか** → bisakah kamu ~ (sopan/akrab)\n   *手伝ってもらえますか*\n4. **Verbて+くれない？** → tolongin dong (kasual)\n   *手伝ってくれない？*\n\nFormal: いただけますでしょうか > ください > もらえますか > くれない?';
+  
+  // ===== VOCAB KONTEKSTUAL =====
+  if(t.includes('kata sifat yg pakai ga bukan wo') || t.includes('adjective ga particle')) return '**Kata Sifat yang Pakai が (bukan を):**\n\n- 好き(すき)が好き: 日本語が好き (suka)\n- 嫌い(きらい)が嫌い: 魚が嫌い (tidak suka)\n- 得意(とくい)が得意: 数学が得意 (pandai dalam)\n- 苦手(にがて)が苦手: 英語が苦手 (tidak pandai)\n- 上手(じょうず)が上手: 料理が上手 (mahir)\n- 分かる: 日本語が分かる (mengerti)\n- できる: 水泳ができる (bisa)\n\n**Ingat**: Kata-kata di atas TIDAK menggunakan を untuk objeknya!';
+  if(t.includes('kata penghubung jepang') || t.includes('conjunction japanese') || t.includes('つなぎ言葉')) return '**Kata Penghubung (Conjunction) Penting:**\n\n**Menambahkan**: そして(dan/lalu), また(juga/selain itu), さらに(lebih lagi)\n**Kontras**: しかし(namun), でも(tapi), 一方(sebaliknya)\n**Alasan**: だから(oleh karena itu), そのため(untuk itu), なぜなら(karena)\n**Waktu**: それから(setelah itu), その後(sesudah itu), まず(pertama)\n**Kesimpulan**: つまり(dengan kata lain), 要するに(singkatnya), 結局(akhirnya)';
+  if(t.includes('agereba ii') || t.includes('nakereba naranai vs nai to') || t.includes('obligation forms')) return '**Cara Mengungkapkan Kewajiban/Saran:**\n\n**Kewajiban (harus):**\n- 〜なければならない (formal)\n- 〜なければいけない (semi-formal)\n- 〜ないといけない (kasual)\n- 〜ないとだめ (kasual)\n\n**Saran/Sebaiknya:**\n- 〜た方がいい (lebih baik)\n- 〜べきだ (seharusnya/moral)\n\n**Boleh (tidak wajib):**\n- 〜てもいい (boleh)\n- 〜なくてもいい (tidak perlu)';
+  if(t.includes('weather jepang vocab') || t.includes('cuaca bahasa jepang')) return '**Kosakata Cuaca (天気) Jepang:**\n\n☀️ 晴れ(はれ) = cerah/terang\n🌤️ くもり = berawan\n🌧️ 雨(あめ) = hujan\n🌩️ 雷(かみなり) = petir\n❄️ 雪(ゆき) = salju\n🌪️ 台風(たいふう) = topan\n🌬️ 風(かぜ) = angin\n🌫️ 霧(きり) = kabut\n\n**Kalimat umum:**\n今日は晴れています = hari ini cerah\n雨が降りそうです = kelihatannya akan hujan\n台風が来ています = topan sedang datang';
+  if(t.includes('body parts japanese') || t.includes('tubuh bahasa jepang') || t.includes('体の部位')) return '**Bagian Tubuh (体の部位) dalam Bahasa Jepang:**\n\n顔(かお)=wajah, 目(め)=mata, 耳(みみ)=telinga, 鼻(はな)=hidung, 口(くち)=mulut, 首(くび)=leher\n手(て)=tangan, 指(ゆび)=jari, 腕(うで)=lengan, 肩(かた)=bahu, 胸(むね)=dada, お腹(なか)=perut\n足(あし)=kaki, ひざ=lutut, 背中(せなか)=punggung, 頭(あたま)=kepala, 髪(かみ)=rambut';
+  
+  // ===== BUDAYA & KONTEKS JEPANG =====
+  if(t.includes('meishi koukan') || t.includes('名刺交換 etika') || t.includes('kartu nama jepang')) return '**Etika Tukar Kartu Nama (名刺交換 meishi kōkan):**\n\n1. Siapkan kartu nama di dalam dompet atau holder khusus — tidak dari saku belakang\n2. Berikan dengan kedua tangan, sisi yang terbaca menghadap penerima\n3. Ucapkan: 〇〇と申します。よろしくお願いします。\n4. Terima dengan kedua tangan dan baca sebentar\n5. Jangan menulis di kartu nama orang lain\n6. Letakkan di meja (bukan masukkan langsung ke saku) selama pertemuan\n7. Di akhir pertemuan simpan dengan hati-hati';
+  if(t.includes('giri chokoleto') || t.includes('バレンタイン jepang') || t.includes('valentine japan')) return '**Hari Valentine di Jepang:**\n\n🍫 **14 Februari**: Wanita memberi coklat ke pria\n- **本命チョコ(honmei)**: Coklat untuk orang yang benar-benar dicintai\n- **義理チョコ(giri)**: Coklat "kewajiban" untuk rekan kerja/teman\n- **友チョコ**: Coklat antara teman\n\n🍭 **14 Maret (White Day)**: Pria membalas dengan hadiah\n\nTren terkini: 自チョコ(coklat untuk diri sendiri) makin populer!';
+  if(t.includes('gohan taberu') || t.includes('makan malam jepang') || t.includes('etika makan')) return '**Etika Makan di Jepang:**\n\n🎋 Sebelum makan: いただきます (terima kasih atas makanan ini)\n🎋 Sesudah makan: ごちそうさまでした (terima kasih, sungguh enak)\n🎋 Memegang mangkuk: angkat sedikit (tidak menaruh di meja sambil makan)\n🎋 Sumpit: tidak menancapkan ke nasi (simbol kematian)\n🎋 Tidak melempar makanan antar sumpit (ritual pemakaman)\n🎋 Slurping mie: OK! (malah menunjukkan apresiasi)\n🎋 Di restoran: panggil pelayan dengan すみません (bukan melambaikan tangan)';
+  if(t.includes('hanami') || t.includes('花見') || t.includes('cherry blossom jepang')) return '**花見(はなみ) — Tradisi Piknik Bunga Sakura:**\n\n🌸 Biasanya akhir Maret - awal April (tergantung wilayah)\n🌸 Berkumpul di taman dengan tikar untuk pesta makan dan minum di bawah pohon sakura\n🌸 Kata kunci: 満開(まんかい)=mekar penuh, 散る(ちる)=berguguran, 花見弁当=bento untuk hanami\n🌸 Ungkapan terkait: 花より団子(はなよりだんご)=lebih suka makanan daripada bunga (peribahasa: lebih suka hal praktis)\n🌸 Sakura sebagai simbol: keindahan yang singkat → filosofi もののあわれ';
+  
+  // ===== STRATEGI BELAJAR =====
+  if(t.includes('cara baca kanji tanpa hafal') || t.includes('mnemonik kanji') || t.includes('tips kanji cepat')) return '**Cara Hafal Kanji dengan Mnemonik:**\n\n**Metode bangunan cerita:**\n1. Identifikasi KOMPONEN kanji (radikal)\n2. Buat cerita yang menghubungkan komponen\n3. Visualisasikan dengan jelas\n\n**Contoh:**\n- 森(もり=hutan): tiga pohon (木×3) = hutan lebat\n- 明(あかるい=terang): matahari (日) + bulan (月) = sangat terang\n- 好(すき=suka): perempuan (女) + anak (子) = seorang ibu yang sayang anaknya\n\n**Rekomendasi**: Buku Remembering the Kanji (Heisig) atau RTK method';
+  if(t.includes('jlpt reading strategy') || t.includes('teknik baca cepat jlpt')) return '**Teknik Membaca Cepat untuk JLPT:**\n\n**Untuk teks pendek (短文)**:\n→ Baca seluruhnya → jawab (cepat)\n\n**Untuk teks sedang (中文)**:\n→ Baca pertanyaan DULU → scan teks untuk jawaban\n\n**Untuk teks panjang (長文)**:\n1. Baca paragraf pertama dan terakhir (tema & kesimpulan)\n2. Baca pertanyaan\n3. Cari bagian relevan\n\n**Jebakan umum**:\n- Opsi yang BENAR secara linguistik tapi salah secara konteks\n- Opsi yang pakai kata dari teks tapi makna berbeda';
+  if(t.includes('cara menghafal kata sifat jepang') || t.includes('adjective learning tips')) return '**Tips Menghafal Kata Sifat Jepang:**\n\n**Pelajari dalam PASANGAN BERLAWANAN:**\n大きい↔小さい, 高い↔低い/安い, 長い↔短い, 多い↔少ない, 速い↔遅い, 広い↔狭い\n\n**Kelompok tematik:**\n- Ukuran: 大きい, 小さい, 長い, 短い\n- Emosi: 嬉しい, 悲しい, 怖い, 楽しい\n- Fisik: 暑い, 寒い, 暖かい, 涼しい\n\n**Latihan**: Gambar objek dan tulis kata sifat yang relevan → visualisasi mempercepat hafalan';
+
+>

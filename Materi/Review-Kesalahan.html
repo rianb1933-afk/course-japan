@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Review Kesalahan — Nihonggo Pro Academy</title>
+<meta name="description" content="Pusat review jawaban salah JLPT: lihat kesalahan, analisis pola lemah, checklist remedial, dan rencana ulang latihan.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Review-Kesalahan.html">
+<meta property="og:title" content="Review Kesalahan — Nihonggo Pro Academy">
+<meta property="og:description" content="Analisis jawaban salah dan ubah kelemahan menjadi latihan remedial terarah.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Review-Kesalahan.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Review Kesalahan — Nihonggo Pro Academy">
+<meta name="twitter:description" content="Analisis jawaban salah dan latihan remedial JLPT.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Review Kesalahan JLPT","description":"Pusat review jawaban salah JLPT: lihat kesalahan, analisis pola lemah, checklist remedial, dan rencana ulang latihan.","url":"https://nihonggopro.id/Materi/Review-Kesalahan.html","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["JLPT review","Japanese mistake analysis","Remedial practice"]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/translator.css">
+
+    <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.nav-logo{display:flex;align-items:baseline;gap:10px}.nav-logo-jp{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--red)}.nav-logo-id{font-size:12px;font-weight:500;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+.nav-links a:hover{color:var(--red)}
+.theme-toggle{width:36px;height:36px;border:.5px solid var(--border-mid);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center}.btn-sm{background:var(--red);color:#fff;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700}
+.hero{display:block!important;min-height:auto!important;padding:5rem 5vw 3rem!important;background:#17181d;color:#fff;position:relative;overflow:hidden}.hero::before{content:'復習';position:absolute;right:-42px;bottom:-82px;font-family:'Noto Serif JP',serif;font-size:280px;color:rgba(255,255,255,.045);line-height:1}
+.hero-inner{max-width:1160px;margin:0 auto;position:relative;z-index:1}.kicker{display:inline-flex;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(34px,5vw,62px);line-height:1.1;margin-bottom:1rem}.hero p{max-width:850px;color:rgba(255,255,255,.7);font-size:16px;line-height:1.9}
+.wrap{max-width:1160px;margin:0 auto;padding:2.5rem 5vw}.layout{display:grid;grid-template-columns:1fr 340px;gap:1rem}.panel{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.25rem;box-shadow:var(--shadow-sm)}.panel h2{font-family:'Noto Serif JP',serif;font-size:28px;margin-bottom:.35rem}.sub{color:var(--ink-soft);font-size:13px;margin-bottom:1rem}
+.wrong-list{display:grid;gap:.75rem}.wrong-item{border:1px solid var(--border);background:var(--cream);border-radius:8px;padding:1rem}.wrong-item strong{display:block;color:var(--red);margin-bottom:.35rem}.wrong-item span{font-size:13px;color:var(--ink-mid)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1rem}.stat{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:.85rem}.stat b{display:block;font-size:24px;color:var(--red);line-height:1}.stat span{font-size:12px;color:var(--ink-soft);font-weight:800}
+.remedial{display:grid;gap:.65rem}.remedial label{display:flex;gap:.55rem;align-items:flex-start;background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:.75rem;font-size:13px;color:var(--ink-mid)}
+.actions{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1rem}.actions a,.actions button{border:0;border-radius:8px;background:var(--red);color:#fff;padding:10px 12px;font-weight:900;font-family:'Outfit',sans-serif}.actions .secondary{background:var(--white);color:var(--ink);border:1px solid var(--border-mid)}
+.empty{background:var(--blue-pale);border:1px solid rgba(47,111,237,.18);border-radius:8px;padding:1rem;color:var(--ink-mid);font-size:13px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}}@media(max-width:560px){.stats{grid-template-columns:1fr}.actions a,.actions button{width:100%;text-align:center}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Review Kesalahan — Nihonggo Pro Academy","item":"https://nihonggopro.id/Materi/Review-Kesalahan.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  
+
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker">Analisis Kelemahan</div>
+    <h1>Review Kesalahan<br>間違いを直す</h1>
+    <p>Kumpulkan jawaban salah dari latihan JLPT, lihat pola kelemahan, lalu ubah menjadi checklist remedial. Belajar jadi lebih tajam karena fokus pada hal yang benar-benar belum dikuasai.</p>
+  </div>
+</section>
+
+<main id="main-content" class="wrap">
+  <div class="layout">
+    <section class="panel">
+      <h2>Daftar Jawaban Salah</h2>
+      <p class="sub">Data diambil dari latihan JLPT yang disimpan di browser.</p>
+      <div id="wrongList" class="wrong-list"></div>
+      <div class="actions">
+        <a href="Latihan-JLPT.html">Ulangi Latihan</a>
+        <a class="secondary" href="Kesalahan-Umum-JLPT.html">Kesalahan Umum</a>
+        <button class="secondary" type="button" onclick="clearWrongs()">Hapus Data Salah</button>
+      </div>
+      <div style="margin-top:1rem;padding-top:1rem;border-top:.5px solid var(--border)">
+        <h3 style="font-size:14px;color:var(--ink);margin-bottom:.5rem">Tambah Catatan Kesalahan</h3>
+        <div style="display:flex;gap:.5rem;flex-wrap:wrap">
+          <input id="manualInput" type="text" placeholder="Contoh: 〜てしまう — terlupa kondisi menyesal" style="flex:1;min-width:200px;padding:9px 12px;border:.5px solid var(--border-mid);border-radius:8px;background:var(--cream);color:var(--ink);font-size:13px" aria-label="Catatan manual">
+          <select id="manualLevel" style="padding:9px 12px;border:.5px solid var(--border-mid);border-radius:8px;background:var(--cream);color:var(--ink);font-size:13px">
+            <option>N5</option><option>N4</option><option selected>N3</option><option>N2</option><option>N1</option>
+          </select>
+          <button onclick="addManualWrong()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 16px;font-size:13px;font-weight:700;cursor:pointer">+ Tambah</button>
+        </div>
+      </div>
+    </section>
+    <aside class="panel">
+      <h2>Analisis Kesalahan</h2>
+      <div class="stats">
+        <div class="stat"><b id="totalWrong">0</b><span>Total jawaban salah</span></div>
+        <div class="stat"><b id="todayFocus">-</b><span>Fokus hari ini</span></div>
+      </div>
+      <div class="remedial" id="remedial"></div>
+      <div class="actions">
+        <a href="Flashcard-Lengkap.html">Kartu Flash</a>
+        <a class="secondary" href="Rencana-Belajar-JLPT.html">Perencana</a>
+      </div>
+    </aside>
+  </div>
+
+<div style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.2rem;font-weight:700;color:#c62828;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz — 理解チェック</h2>
+<div id="qcx"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+<button onclick="nQx()" style="flex:1;padding:12px;background:#c62828;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit">Soal Berikutnya →</button>
+<button onclick="rQx()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ccc;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qsx" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</div>
+<script>
+var Qx=[{"q": "学習でよくある「わかった」と「できる」の違いは？", "opts": ["同じこと", "説明できても実際に使えるかは別。本当の習得は「使える」レベル", "できる方が簡単", "わかった方が上"], "a": 1, "e": "「わかった(理解)」≠「できる(運用)」。文法の説明が理解できても、瞬時に正しく使えるようになるには繰り返しアウトプット練習が必要。理解から習熟への橋渡しが学習の核心。"}, {"q": "「間違いを恐れる」ことがなぜ語学習得を妨げるのか？", "opts": ["間違いは悪いから", "間違いを恐れると発話・書く機会が減り、アウトプット量が下がって習熟が遅れるから", "間違いは覚えにくいから", "正確さが全てだから"], "a": 1, "e": "言語習得の研究では、アウトプット量(話す・書く機会)が習熟速度に直結する。間違いを恐れて黙ると学習機会が失われる。間違いは学びのデータ。積極的なアウトプットが上達の鍵。"}, {"q": "同じ間違いを繰り返さないための最も効果的な方法は？", "opts": ["間違えたことを忘れる", "間違いノートを作り、なぜ間違えたかの理由と正しい形を記録して定期的に復習する", "やり直しをしない", "先生に任せる"], "a": 1, "e": "間違いノート=自分の弱点データベース。①間違えた項目②なぜ間違えたか③正しい形を記録→定期的に復習。同じ間違いを繰り返すパターンを可視化して重点補強できる。"}, {"q": "「化石化（fossilization）」とは言語学習でどういう現象？", "opts": ["語学が速く上達すること", "誤った形が定着して修正されにくくなる現象", "文法が自動化されること", "語彙が増える現象"], "a": 1, "e": "化石化=間違いが長期間修正されないまま定着してしまう現象。例:「私は学校へ行きます」を「私は学校に行きます」に修正しないまま使い続けるなど。早期のフィードバックと意識的な修正練習で防げる。"}];var qix=0,okx=0,totx=0;
+function rndx(){if(!Qx.length)return;var q=Qx[qix%Qx.length],c=document.getElementById('qcx');if(!c)return;var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';q.opts.forEach(function(o,i){var b=document.createElement('button');b.style.cssText='background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;width:100%;text-align:left;font-family:inherit';b.textContent=o;b.onclick=function(){ansx(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0';var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px';qq.textContent=(qix%Qx.length+1)+'. '+q.q;var ex=document.createElement('div');ex.id='qex';ex.style.cssText='margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.85rem;color:#666;display:none';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qsx');if(s)s.textContent='Skor: '+okx+'/'+totx;}
+function ansx(b,c,a,e){var bs=document.querySelectorAll('#qcx button');if(bs[a].dataset.d)return;bs[a].dataset.d='1';totx++;bs[a].style.cssText='background:#e8f5e9;border:1px solid #4caf50;border-radius:8px;padding:10px 14px;cursor:default;font-size:.9rem;width:100%;text-align:left;font-family:inherit;color:#1b5e20';if(c!==a)b.style.cssText='background:#fce4ec;border:1px solid #e91e63;border-radius:8px;padding:10px 14px;cursor:default;font-size:.9rem;width:100%;text-align:left;font-family:inherit;color:#880e4f';else okx++;var ex=document.getElementById('qex');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}var s=document.getElementById('qsx');if(s)s.textContent='Skor: '+okx+'/'+totx;}
+function nQx(){qix=(qix+1)%Qx.length;rndx();} function rQx(){qix=0;okx=0;totx=0;rndx();}
+rndx();
+</script></main>
+
+<script>
+function loadWrongs() {
+  try { return JSON.parse(localStorage.getItem('nihongoWrongAnswers') || '[]'); } catch (error) { return []; }
+}
+function guessFocus(text) {
+  if (/漢字|読み|意味|「.+」/.test(text)) return 'vocabulary';
+  if (/文|正しい|grammar|べき|よう|たら|てから/.test(text)) return 'grammar';
+  if (/本文|記事|読/.test(text)) return 'reading';
+  if (/会話|Listening|Script/.test(text)) return 'listening';
+  return 'mixed';
+}
+function render() {
+  const wrongs = loadWrongs();
+  const counts = {};
+  wrongs.forEach(item => { const key = guessFocus(item); counts[key] = (counts[key] || 0) + 1; });
+  const focus = Object.entries(counts).sort((a,b) => b[1] - a[1])[0]?.[0] || '-';
+  document.getElementById('totalWrong').textContent = wrongs.length;
+  document.getElementById('todayFocus').textContent = focus;
+  document.getElementById('wrongList').innerHTML = wrongs.length ? wrongs.slice().reverse().map((item, index) => `<article class="wrong-item"><strong>#${wrongs.length - index}</strong><span>${item}</span></article>`).join('') : '<div class="empty">Belum ada jawaban salah. Kerjakan latihan JLPT dulu, lalu halaman ini akan terisi otomatis.</div>';
+  const tasks = {
+    vocabulary: ['Buat 10 flashcard dari kata yang salah.', 'Tulis reading dan arti tanpa melihat catatan.', 'Buat 3 kalimat memakai kata tersebut.'],
+    grammar: ['Buka pola grammar terkait.', 'Tulis rumus struktur dan 3 contoh.', 'Kerjakan ulang 10 soal grammar.'],
+    reading: ['Cari kalimat kunci di teks.', 'Tandai transisi seperti しかし dan つまり.', 'Ringkas teks dalam 3 kalimat.'],
+    listening: ['Baca script, lalu shadowing 3 kali.', 'Tulis dictation 3 kalimat.', 'Catat kata kunci waktu/tempat/maksud.'],
+    mixed: ['Kelompokkan kesalahan menjadi vocab, grammar, reading, listening.', 'Review 15 menit.', 'Ulangi mixed mock pendek.']
+  };
+  document.getElementById('remedial').innerHTML = (tasks[focus] || tasks.mixed).map(task => `<label><input type="checkbox" aria-label="Tandai sebagai sudah direview"> ${task}</label>`).join('');
+}
+function clearWrongs() {
+  localStorage.removeItem('nihongoWrongAnswers');
+  render();
+  window.proToast?.('Data jawaban salah dihapus.');
+}
+function addManualWrong() {
+  const input = document.getElementById('manualInput');
+  const levelSel = document.getElementById('manualLevel');
+  const text = input.value.trim();
+  if (!text) { window.proToast?.('Isi catatan kesalahan terlebih dahulu.'); return; }
+  const entry = `[${levelSel.value}] ${text}`;
+  const wrongs = loadWrongs();
+  wrongs.push(entry);
+  localStorage.setItem('nihongoWrongAnswers', JSON.stringify(wrongs.slice(-50)));
+  input.value = '';
+  render();
+  window.proToast?.('Catatan kesalahan ditambahkan.');
+}
+render();
+</script>
+<script src="../assets/translator.min.js" defer></script>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head">
+      <div><div class="label">Pola Kesalahan Umum</div><h2>Kesalahan yang Paling Sering Terjadi — よくある間違い</h2></div>
+      <p class="sub">10 pola kesalahan yang paling sering dilakukan pelajar Indonesia. Kenali dan hindari.</p>
+    </div>
+    <div style="display:grid;gap:.75rem">
+      
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.35rem">#1 PARTIKEL は vs が</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--red-dark,#c0392b);margin-bottom:.35rem">✗ 猫<b>は</b>かわいいです。（saat bercerita tentang seekor kucing spesifik）</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--ink);margin-bottom:.35rem">✓ あの猫<b>が</b>かわいいです。（fokus/penekanan: si kucing ITU yang lucu）</div>
+        <div style="font-size:12px;color:var(--ink-mid)">は = topik (apa yang sedang dibicarakan). が = subjek dengan fokus/penekanan.</div>
+      </div>
+      
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.35rem">#2 ADA BENDA vs ADA ORANG</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--red-dark,#c0392b);margin-bottom:.35rem">✗ 先生<b>があります</b>。</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--ink);margin-bottom:.35rem">✓ 先生<b>がいます</b>。（orang/hewan → います）</div>
+        <div style="font-size:12px;color:var(--ink-mid)">あります = benda mati/abstrak. います = makhluk hidup (orang, hewan).</div>
+      </div>
+      
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.35rem">#3 PENOLAKAN もう vs まだ</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--red-dark,#c0392b);margin-bottom:.35rem">Q: もう食べましたか？ ✗ A: はい、<b>まだ食べません</b>。</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--ink);margin-bottom:.35rem">✓ A: いいえ、<b>まだです</b>。/ A: はい、<b>もう食べました</b>。</div>
+        <div style="font-size:12px;color:var(--ink-mid)">Q: もう～か？ → Ya: もう～ました. Belum: まだです / いいえ、まだ～ていません.</div>
+      </div>
+      
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.35rem">#4 のに vs ので</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--red-dark,#c0392b);margin-bottom:.35rem">✗ 雨が降った<b>のに</b>、傘を持ってきた。（bukan kontras yang kecewa）</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--ink);margin-bottom:.35rem">✓ 雨が降った<b>ので</b>、傘を持ってきた。（karena hujan, bawa payung）</div>
+        <div style="font-size:12px;color:var(--ink-mid)">ので = karena (alasan logis). のに = walaupun/padahal (kontras yang mengecewakan).</div>
+      </div>
+      
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.35rem">#5 CAUSATIVE vs PASSIVE</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--red-dark,#c0392b);margin-bottom:.35rem">✗ 私は食べ<b>させられた</b>。（forced-passive, tapi menggunakannya salah konteks）</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--ink);margin-bottom:.35rem">✓ 母に野菜を食べ<b>させられた</b>。（dipaksa ibu makan sayur — benar!）</div>
+        <div style="font-size:12px;color:var(--ink-mid)">Causative-passive (〜させられる): dipaksa melakukan. Harus ada pelaku yang memaksa (に).</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head"><div><div class="label">Kesalahan N3-N2</div><h2>Pola Kesalahan Lanjutan — N3-N2</h2></div>
+    <p class="sub">Kesalahan yang paling sering di level menengah dan lanjutan.</p></div>
+    <div style="display:grid;gap:.75rem">
+      
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.35rem">#6 〜てしまった vs 〜てしまいました</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--red-dark,#c0392b);margin-bottom:.35rem">✗ 彼は泣いて<b>しまいました</b>。（in casual story）</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--ink);margin-bottom:.35rem">✓ 彼は泣いて<b>しまった</b>。（casual register matches）</div>
+        <div style="font-size:12px;color:var(--ink-mid)">てしまった = kasual. てしまいました = sopan. Register harus konsisten dalam satu teks/cerita.</div>
+      </div>
+      
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.35rem">#7 〜ので vs 〜から</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--red-dark,#c0392b);margin-bottom:.35rem">✗ 上司に「急いで！熱があるから早退します」</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--ink);margin-bottom:.35rem">✓ 上司に「熱がある<b>ので</b>、早退させていただきます」</div>
+        <div style="font-size:12px;color:var(--ink-mid)">から = alasan subjektif/langsung (kasual). ので = alasan objektif/sopan. Gunakan ので dengan atasan.</div>
+      </div>
+
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.35rem">#8 〜てもらう vs 〜てくれる</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--red-dark,#c0392b);margin-bottom:.35rem">✗ 友達は私を<b>手伝ってもらった</b>。</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--ink);margin-bottom:.35rem">✓ 友達は私を<b>手伝ってくれた</b>。（teman membantu saya)</div>
+        <div style="font-size:12px;color:var(--ink-mid)">てもらう = saya mendapat manfaat dari aksi orang lain. てくれる = orang lain memberi ke saya. Subjek berbeda!</div>
+      </div>
+      
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.35rem">#9 〜という vs 〜らしい vs 〜そうだ</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--red-dark,#c0392b);margin-bottom:.35rem">✗ 彼女は来る<b>そうだ</b>（padahal didengar dari orang lain）</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--ink);margin-bottom:.35rem">✓ 彼女は来る<b>らしい</b>（informasi dari luar, tidak langsung）</div>
+        <div style="font-size:12px;color:var(--ink-mid)">そうだ = dari penampilan/perkiraan sendiri. らしい = dari informasi/rumor. という = langsung dari sumber.</div>
+      </div>
+      
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red);margin-bottom:.35rem">#10 〜させていただく (penggunaan berlebihan)</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--red-dark,#c0392b);margin-bottom:.35rem">✗ ちょっと待って<b>させていただけますか</b>？</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;color:var(--ink);margin-bottom:.35rem">✓ 少々お待ち<b>いただけますか</b>？</div>
+        <div style="font-size:12px;color:var(--ink-mid)">させていただく = sangat formal, untuk izin resmi. Jangan overuse — kadang terkesan berlebihan atau meminta izin tidak perlu.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head"><div>
+      <div class="label">Kesalahan N2–N1</div>
+      <h2>Jebakan Grammar Tingkat Lanjut — N2-N1</h2>
+    </div></div>
+    <div style="display:grid;gap:.75rem">
+
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red)">#11 〜ものの vs 〜けれど — nuansa berbeda!</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:#c0392b;margin:.35rem 0">✗ 一生懸命勉強した<b>けれど</b>、合格しなかった。（benar tapi nuansa biasa）</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:var(--ink)">✓ 一生懸命勉強した<b>ものの</b>、合格しなかった。（nuansa kekecewaan lebih kuat）</div>
+        <div style="font-size:12px;color:var(--ink-mid);margin-top:.35rem">ものの = walaupun ~ (ada nada kekecewaan/mengejutkan). Lebih formal dan kuat dari けれど.</div>
+      </div>
+
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red)">#12 〜すら vs 〜さえ — mana yang lebih kuat?</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:#c0392b;margin:.35rem 0">✗ 子供<b>さえ</b>解けない問題だ。（benar, tapi nuansa lebih lemah）</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:var(--ink)">✓ 子供<b>すら</b>解けない問題だ。（penekanan lebih kuat — N1）</div>
+        <div style="font-size:12px;color:var(--ink-mid);margin-top:.35rem">すら lebih ekstrem dari さえ. Keduanya = "bahkan ~ pun". すら lebih formal dan lebih mengejutkan.</div>
+      </div>
+
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red)">#13 〜ならでは の kesalahan umum</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:#c0392b;margin:.35rem 0">✗ 京都<b>ならでは</b>の雰囲気は悲しい。（nuansa negatif SALAH dengan ならでは）</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:var(--ink)">✓ 京都<b>ならでは</b>の美しい雰囲気がある。（harus nuansa POSITIF/kagum）</div>
+        <div style="font-size:12px;color:var(--ink-mid);margin-top:.35rem">ならでは = hanya ~ yang bisa (eksklusivitas POSITIF). Jangan pakai untuk kritik atau sesuatu buruk!</div>
+      </div>
+
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red)">#14 〜を余儀なくされる vs 〜ざるを得ない</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:#c0392b;margin:.35rem 0">✗ 台風で帰宅せ<b>ざるを得なかった</b>。（agak biasa/kasual）</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:var(--ink)">✓ 台風により帰宅<b>を余儀なくされた</b>。（formal, berita/laporan）</div>
+        <div style="font-size:12px;color:var(--ink-mid);margin-top:.35rem">を余儀なくされる = lebih formal, sering di berita/dokumen resmi. ざるを得ない = lebih umum, percakapan & tulisan.</div>
+      </div>
+
+      <div style="background:var(--white);border-left:3px solid var(--red);border-radius:8px;padding:1rem">
+        <div style="font-size:11px;font-weight:800;color:var(--red)">#15 前向きに検討します ≠ "Ya"!</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:#c0392b;margin:.35rem 0">✗ 「前向きに検討します」= Pasti setuju!</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:14px;color:var(--ink)">✓ 「前向きに検討します」= Mungkin tidak, tapi disampaikan dengan sopan.</div>
+        <div style="font-size:12px;color:var(--ink-mid);margin-top:.35rem">Ini adalah penolakan halus khas Jepang. "Akan kami pertimbangkan dengan positif" sering artinya tidak ada niat melanjutkan. Perhatikan konteks budaya!</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="../assets/pro-app.min.js" defer></script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html>

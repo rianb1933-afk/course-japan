@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kata Sifat Dasar (形容詞) — Nihonggo Pro Academy</title>
+<meta name="description" content="Kata sifat bahasa Jepang: perbedaan i-adjective dan na-adjective, cara konjugasi negatif dan lampau, daftar kata sifat dasar. JLPT N5 dengan audio dan kuis.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kata-Sifat-Dasar.html">
+<meta property="og:title" content="Kata Sifat Dasar (形容詞) — Nihonggo Pro Academy">
+<meta property="og:description" content="Kata sifat bahasa Jepang: perbedaan i-adjective dan na-adjective, cara konjugasi negatif dan lampau, daftar kata sifat dasar. JLPT N5 dengan audio dan kuis.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kata-Sifat-Dasar.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.brand{display:flex;align-items:baseline;gap:10px}.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:22px}.brand span{font-size:12px;color:var(--ink-soft);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap}
+.hero{background:#17181d;color:#fff;padding:58px 5vw 38px;position:relative;overflow:hidden}.hero:before{content:"助詞";position:absolute;right:4vw;bottom:-72px;font-family:"Noto Serif JP",serif;font-size:220px;color:rgba(255,255,255,.045);line-height:1}
+.inner{width:min(1120px,100%);margin:0 auto;position:relative}.kicker{display:inline-flex;padding:5px 11px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(32px,5vw,58px);line-height:1.12;margin-bottom:12px}.lead{max-width:780px;color:rgba(255,255,255,.7);font-size:16px}
+.section{padding:38px 5vw}.section-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:18px}.label{font-size:11px;font-weight:900;color:var(--red);letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}h2{font-family:"Noto Serif JP",serif;font-size:clamp(24px,3vw,34px);line-height:1.2}.sub{max-width:650px;color:var(--ink-soft);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow-sm)}.card h3{font-size:16px;margin-bottom:8px}.card p,.card li{font-size:13px;color:var(--ink-mid)}.card ul{padding-left:18px;display:grid;gap:6px}.jp{font-family:"Noto Serif JP",serif}
+.table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-sm)}.table th,.table td{padding:12px;border-bottom:1px solid var(--border);font-size:13px;text-align:left;vertical-align:top}.table th{background:var(--cream);color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.table tr:last-child td{border-bottom:0}
+.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.16);border-radius:8px;padding:14px;color:var(--ink-mid);font-size:13px;margin-top:14px}.tag{display:inline-flex;align-items:center;min-height:26px;padding:0 8px;border-radius:8px;background:var(--red-pale);color:var(--red);font-weight:900;margin:2px}
+@media(max-width:900px){.section-head{display:block}.grid{grid-template-columns:1fr}.table{display:block;overflow-x:auto}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Kata Sifat Dasar (形容詞) — Nihonggo Pro Academy", "description": "Kata sifat bahasa Jepang: perbedaan i-adjective dan na-adjective, cara konjugasi negatif dan lampau, daftar kata sifat dasar. JLPT N5 dengan audio dan kuis.", "url": "https://nihonggopro.id/Materi/Kata-Sifat-Dasar.html", "provider": {"@type": "Organization", "name": "NihonggoPro", "url": "https://nihonggopro.id"}, "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Kata Sifat Dasar (形容詞) — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://nihonggopro.id/"}, {"@type": "ListItem", "position": 2, "name": "Materi", "item": "https://nihonggopro.id/Materi/Materi.html"}, {"@type": "ListItem", "position": 3, "name": "Kata Sifat Dasar (形容詞) — Nihonggo Pro Academy", "item": "https://nihonggopro.id/Materi/Kata-Sifat-Dasar.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  .nav-links{display:none!important}
+  
+  
+  
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="Kata sifat bahasa Jepang: perbedaan i-adjective dan na-adjective, cara konjugasi negatif dan lampau, daftar kata sifat dasar. JLPT N5 dengan audio dan kuis.">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<main id="main-content">
+  <section class="hero">
+    <div class="inner">
+      <div class="kicker">Fondasi Pemula · JLPT N5</div>
+      <h1>Kata Sifat Dasar<br>形容詞 (keiyoushi)</h1>
+      <p class="lead">Bahasa Jepang punya <b>dua jenis kata sifat</b> yang berkonjugasi berbeda: sifat-い dan sifat-な. Membedakan keduanya adalah fondasi wajib — salah jenis, salah konjugasi.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Dua Jenis</div><h2>⚖️ Sifat-い vs Sifat-な</h2></div><p class="sub">Perbedaan mendasar yang menentukan cara konjugasi.</p></div>
+      <div class="grid">
+        <article class="card"><h3>形容詞 (Sifat-い)</h3>
+          <p>Berakhiran <span class="jp">い</span> dan berkonjugasi sendiri.</p>
+          <ul>
+            <li><span class="jp">高い</span> (takai) — mahal/tinggi</li>
+            <li><span class="jp">安い</span> (yasui) — murah</li>
+            <li><span class="jp">大きい</span> (ookii) — besar</li>
+          </ul>
+          <p style="font-size:.9rem;margin-top:.5rem">Langsung menerangkan: <span class="jp">高い車</span> (mobil mahal)</p>
+        </article>
+        <article class="card"><h3>形容動詞 (Sifat-な)</h3>
+          <p>Butuh <span class="jp">な</span> saat menerangkan kata benda.</p>
+          <ul>
+            <li><span class="jp">静か</span> (shizuka) — sepi/tenang</li>
+            <li><span class="jp">便利</span> (benri) — praktis</li>
+            <li><span class="jp">有名</span> (yuumei) — terkenal</li>
+          </ul>
+          <p style="font-size:.9rem;margin-top:.5rem">Pakai な: <span class="jp">静かな部屋</span> (kamar tenang)</p>
+          <p style="font-size:.9rem">⚠️ Jebakan: 綺麗 (kirei) & 嫌い (kirai) berakhiran い tapi sifat-<b>な</b>!</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Konjugasi</div><h2>🔄 Cara berubah bentuk</h2></div><p class="sub">Ini alasan membedakan kedua jenis itu penting.</p></div>
+      <table class="table">
+        <thead><tr><th>Bentuk</th><th>Sifat-い (高い)</th><th>Sifat-な (静か)</th><th>Audio</th></tr></thead>
+        <tbody>
+          <tr><td class="jp">Positif</td><td>高いです</td><td>静かです</td><td><button class="listen-btn" onclick="speak('Positif')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">Negatif</td><td>高くないです</td><td>静かじゃないです</td><td><button class="listen-btn" onclick="speak('Negatif')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">Lampau</td><td>高かったです</td><td>静かでした</td><td><button class="listen-btn" onclick="speak('Lampau')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">Negatif lampau</td><td>高くなかったです</td><td>静かじゃなかったです</td><td><button class="listen-btn" onclick="speak('Negatif lampau')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">Menerangkan benda</td><td>高い車</td><td>静かな部屋</td><td><button class="listen-btn" onclick="speak('Menerangkan benda')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:.8rem;font-size:.9rem;color:var(--ink3,#666)">💡 Sifat-い: buang い → tambah くない / かった. Sifat-な: pakai じゃない / でした (seperti kata benda).</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Daftar</div><h2>📋 Kata sifat sering dipakai</h2></div><p class="sub">Pasangan lawan kata untuk memudahkan hafalan.</p></div>
+      <table class="table">
+        <thead><tr><th>Jepang</th><th>Bacaan</th><th>Arti</th><th>Audio</th></tr></thead>
+        <tbody>
+          <tr><td class="jp">大きい ⇄ 小さい</td><td>ookii ⇄ chiisai</td><td>Besar ⇄ Kecil</td><td><button class="listen-btn" onclick="speak('大きい ⇄ 小さい')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">高い ⇄ 安い</td><td>takai ⇄ yasui</td><td>Mahal ⇄ Murah</td><td><button class="listen-btn" onclick="speak('高い ⇄ 安い')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">新しい ⇄ 古い</td><td>atarashii ⇄ furui</td><td>Baru ⇄ Lama</td><td><button class="listen-btn" onclick="speak('新しい ⇄ 古い')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">暑い ⇄ 寒い</td><td>atsui ⇄ samui</td><td>Panas ⇄ Dingin</td><td><button class="listen-btn" onclick="speak('暑い ⇄ 寒い')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">難しい ⇄ 易しい</td><td>muzukashii ⇄ yasashii</td><td>Sulit ⇄ Mudah</td><td><button class="listen-btn" onclick="speak('難しい ⇄ 易しい')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">面白い ⇄ つまらない</td><td>omoshiroi ⇄ tsumaranai</td><td>Menarik ⇄ Membosankan</td><td><button class="listen-btn" onclick="speak('面白い ⇄ つまらない')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">忙しい</td><td>isogashii</td><td>Sibuk</td><td><button class="listen-btn" onclick="speak('忙しい')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">元気</td><td>genki</td><td>Sehat/bersemangat (sifat-な)</td><td><button class="listen-btn" onclick="speak('元気')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+          <tr><td class="jp">好き</td><td>suki</td><td>Suka (sifat-な)</td><td><button class="listen-btn" onclick="speak('好き')" aria-label="Dengar pengucapan">🔊</button></td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:.8rem;font-size:.9rem;color:var(--ink3,#666)">💡 好き (suka) & 嫌い (benci) adalah sifat-な, memakai partikel が: 音楽が好きです。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Latihan</div><h2>🎯 Kuis Kata Sifat</h2></div><p class="sub">Uji pemahamanmu. Jawab semua soal untuk menyelesaikan materi.</p></div>
+      <div id="quizBox" class="card"></div>
+      <div id="qs" style="text-align:center;margin-top:1rem;font-weight:700">Skor: <span id="okc">0</span>/<span id="totc">0</span></div>
+    </div>
+  </section>
+</main>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      
+  </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function speak(t){
+  if(!('speechSynthesis' in window)){alert('Browser tidak mendukung audio');return;}
+  var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+</script>
+
+<script>
+var Q=[{"q": "Manakah kata sifat-な?", "opts": ["高い", "静か", "大きい", "新しい"], "a": 1, "e": "静か (shizuka, tenang) adalah kata sifat-な. Ciri utamanya: tidak berakhiran -i secara alami dan memerlukan partikel な saat menerangkan kata benda langsung, misalnya 静かな部屋 (kamar yang tenang)."}, {"q": "Bentuk negatif dari 高い adalah?", "opts": ["高くないです", "高じゃないです", "高でした", "高くでした"], "a": 0, "e": "高くないです. Untuk kata sifat-i, buang akhiran い lalu tambahkan くない. Pola ini konsisten untuk hampir semua kata sifat-i kecuali いい yang memiliki bentuk khusus (よくない)."}, {"q": "Bentuk negatif dari 静か adalah?", "opts": ["静かくないです", "静かじゃないです", "静かないです", "静かでした"], "a": 1, "e": "静かじゃないです (atau 静かではないです). Untuk kata sifat-な, bentuk negatifnya memakai じゃない, mirip konjugasi kata benda, bukan mengubah akhiran seperti kata sifat-i."}, {"q": "Bagaimana 静か menerangkan 部屋 (kamar)?", "opts": ["静か部屋", "静かい部屋", "静かな部屋", "静かの部屋"], "a": 2, "e": "静かな部屋 (kamar yang tenang). Kata sifat-な memerlukan partikel な saat langsung menerangkan kata benda — berbeda dari kata sifat-i yang bisa langsung menempel tanpa partikel tambahan."}, {"q": "綺麗 (kirei) adalah kata sifat jenis?", "opts": ["Sifat-い", "Sifat-な", "Kata benda", "Kata kerja"], "a": 1, "e": "Ini jebakan umum! Meski 綺麗 berakhiran huruf い dalam romaji, sebenarnya ini adalah kata sifat-な (bukan -i). Contoh: 綺麗な花 (bunga yang cantik), bukan 綺麗い花."}, {"q": "Bentuk LAMPAU dari 高い adalah?", "opts": ["高いでした", "高かったです", "高でした", "高くでした"], "a": 1, "e": "高かったです. Untuk kata sifat-i, buang い lalu tambahkan かった untuk bentuk lampau. Pola: 高い → 高かった (dulu/tadinya mahal)."}, {"q": "Bentuk LAMPAU dari 便利 adalah?", "opts": ["便利かったです", "便利でした", "便利いでした", "便利くないです"], "a": 1, "e": "便利でした. Untuk kata sifat-な, bentuk lampaunya mirip kata benda: tambahkan でした setelah kata sifatnya. 便利 (praktis) → 便利でした (dulu praktis)."}, {"q": "好き (suka) memakai partikel?", "opts": ["を", "が", "に", "で"], "a": 1, "e": "好き adalah kata sifat-な yang unik karena memakai partikel が untuk objek yang disukai, bukan を. Contoh: 音楽が好きです (saya suka musik), bukan 音楽を好きです."}, {"q": "Lawan kata dari 大きい adalah?", "opts": ["小さい", "高い", "安い", "新しい"], "a": 0, "e": "小さい (kecil) adalah lawan dari 大きい (besar). Kedua kata sifat-i ini adalah pasangan dasar paling umum dalam deskripsi ukuran benda atau tempat."}, {"q": "\"高い車\" — 高い di sini menerangkan?", "opts": ["Butuh な", "Langsung menerangkan benda", "Butuh の", "Salah"], "a": 1, "e": "高い langsung menerangkan 車 (mobil) tanpa perlu partikel tambahan, karena ini adalah ciri kata sifat-i — bisa langsung menempel pada kata benda yang diterangkannya (berbeda dari kata sifat-な yang butuh な)."}];
+
+var ok=0,tot=0,qi=0,answered=false;
+function renderQ(){
+  if(qi>=Q.length){document.getElementById('quizBox').innerHTML='<div style="text-align:center;padding:1rem"><h3>Selesai! 🎉</h3><p>Skor akhir: '+ok+'/'+Q.length+'</p><button class="listen-btn" onclick="restartQ()" style="margin-top:.5rem">Ulangi</button></div>';return;}
+  var q=Q[qi];answered=false;
+  var html='<div style="font-weight:700;margin-bottom:.8rem">'+(qi+1)+'. '+q.q+'</div>';
+  q.opts.forEach(function(o,i){html+='<button class="quiz-opt listen-btn" style="display:block;width:100%;text-align:left;margin:.35rem 0;background:var(--surface,#f5f5f5);color:var(--ink,#222)" onclick="ans('+i+')">'+o+'</button>';});
+  html+='<div id="qexp" style="margin-top:.6rem;font-size:.9rem"></div>';
+  document.getElementById('quizBox').innerHTML=html;
+}
+function ans(i){
+  if(answered)return;answered=true;tot++;
+  var q=Q[qi];var correct=i===q.a;if(correct)ok++;
+  document.getElementById('okc').textContent=ok;
+  document.getElementById('totc').textContent=tot;
+  var btns=document.querySelectorAll('.quiz-opt');
+  btns[q.a].style.background='#dcfce7';
+  if(!correct)btns[i].style.background='#fee2e2';
+  document.getElementById('qexp').innerHTML=(correct?'✅ Benar! ':'❌ ')+q.e+'<br><button class="listen-btn" onclick="nextQ()" style="margin-top:.5rem">Lanjut →</button>';
+}
+function nextQ(){qi++;renderQ();}
+function restartQ(){qi=0;ok=0;tot=0;document.getElementById('okc').textContent=0;document.getElementById('totc').textContent=0;renderQ();}
+renderQ();
+</script>
+
+
+<script>
+function speak(t){
+  if(!('speechSynthesis' in window)){alert('Browser tidak mendukung audio');return;}
+  var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;
+  speechSynthesis.cancel();speechSynthesis.speak(u);
+}
+</script>
+
+<script>
+var Q=[
+  {"q":"Bagaimana membentuk ～ている dari 食べる?","opts":["食べるている","食べている","食べteいる","食べます"],"a":1,"e":"食べる → bentuk て: 食べて → + いる = 食べている."},
+  {"q":"'結婚しています' artinya?","opts":["Sedang menikah (upacara)","Sudah menikah (statusnya)","Akan menikah","Tidak menikah"],"a":1,"e":"結婚する = kata kerja sesaat. + ている = keadaan hasil: sudah/berstatus menikah."},
+  {"q":"'今、ご飯を食べています' termasuk makna...","opts":["Keadaan hasil","Aksi sedang berlangsung","Kebiasaan","Perintah"],"a":1,"e":"今 (sekarang) + kata kerja durasi = aksi sedang berlangsung."},
+  {"q":"'東京に住んでいます' artinya?","opts":["Sedang pindah ke Tokyo","Tinggal (menetap) di Tokyo","Pernah ke Tokyo","Akan ke Tokyo"],"a":1,"e":"住む + ている = keadaan menetap/tinggal, bukan 'sedang tinggal sebentar'."},
+  {"q":"'毎朝、ジョギングをしています' termasuk makna...","opts":["Sedang berlangsung sekarang","Keadaan hasil","Kebiasaan/rutinitas","Larangan"],"a":2,"e":"毎朝 (setiap pagi) menandakan kebiasaan/rutinitas."},
+  {"q":"'窓が開いています' artinya?","opts":["Jendela sedang membuka sendiri","Jendela dalam keadaan terbuka","Seseorang sedang membuka jendela","Jendela akan dibuka"],"a":1,"e":"開く = sesaat. + ている = keadaan: jendela (sudah) terbuka."},
+  {"q":"Bentuk kasual/sehari-hari dari 食べている adalah?","opts":["食べてる","食べた","食べます","食べません"],"a":0,"e":"Dalam percakapan, い sering dihilangkan: 食べている → 食べてる."},
+  {"q":"'知っています' artinya?","opts":["Sedang berusaha tahu","Tahu (sudah tahu)","Tidak tahu","Ingin tahu"],"a":1,"e":"知る = sesaat. 知っています = (sudah) tahu. Negatifnya: 知りません."},
+  {"q":"Kata kerja mana yang + ている menghasilkan 'sedang berlangsung'?","opts":["結婚する","知る","読む","死ぬ"],"a":2,"e":"読む (membaca) punya durasi → 読んでいる = sedang membaca. Yang lain kata kerja sesaat."},
+  {"q":"Bentuk sopan dari ～ている adalah?","opts":["～ています","～てる","～てある","～ておく"],"a":0,"e":"～ています adalah bentuk sopan (masu-form) dari ～ている."}
+];
+var ok=0,tot=0,qi=0,answered=false;
+function renderQ(){
+  if(qi>=Q.length){document.getElementById('quizBox').innerHTML='<div style="text-align:center;padding:1rem"><h3>Selesai! 🎉</h3><p>Skor akhir: '+ok+'/'+Q.length+'</p><button class="listen-btn" onclick="restartQ()" style="margin-top:.5rem">Ulangi</button></div>';return;}
+  var q=Q[qi];answered=false;
+  var html='<div style="font-weight:700;margin-bottom:.8rem">'+(qi+1)+'. '+q.q+'</div>';
+  q.opts.forEach(function(o,i){html+='<button class="quiz-opt listen-btn" style="display:block;width:100%;text-align:left;margin:.35rem 0;background:var(--surface,#f5f5f5);color:var(--ink,#222)" onclick="ans('+i+')">'+o+'</button>';});
+  html+='<div id="qexp" style="margin-top:.6rem;font-size:.9rem"></div>';
+  document.getElementById('quizBox').innerHTML=html;
+}
+function ans(i){
+  if(answered)return;answered=true;tot++;
+  var q=Q[qi];var correct=i===q.a;if(correct)ok++;
+  document.getElementById('okc').textContent=ok;
+  document.getElementById('totc').textContent=tot;
+  var btns=document.querySelectorAll('.quiz-opt');
+  btns[q.a].style.background='#dcfce7';
+  if(!correct)btns[i].style.background='#fee2e2';
+  document.getElementById('qexp').innerHTML=(correct?'✅ Benar! ':'❌ ')+q.e+'<br><button class="listen-btn" onclick="nextQ()" style="margin-top:.5rem">Lanjut →</button>';
+}
+function nextQ(){qi++;renderQ();}
+function restartQ(){qi=0;ok=0;tot=0;document.getElementById('okc').textContent=0;document.getElementById('totc').textContent=0;renderQ();}
+renderQ();
+</script>
+
+<script src="../assets/pro-app.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+
+</body>
+</html>

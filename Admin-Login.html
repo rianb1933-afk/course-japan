@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/pro-style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login — Nihonggo Pro Academy</title>
+  <meta name="description" content="Halaman login khusus admin untuk mengelola platform NihonggoPro Academy. Akses dibatasi hanya untuk staf berwenang.">>
+<meta data-seo="nihongo-static" name="description" content="Login panel admin NihonggoPro untuk mengelola platform belajar bahasa Jepang.">
+<link data-seo="nihongo-static" rel="canonical" href="https://nihonggopro.id/Admin-Login.html">
+<meta data-seo="nihongo-static" property="og:title" content="Admin Login — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" property="og:description" content="Masuk Admin">
+<meta data-seo="nihongo-static" property="og:type" content="website">
+<meta data-seo="nihongo-static" property="og:url" content="https://nihonggopro.id/Admin-Login.html">
+<meta data-seo="nihongo-static" property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta data-seo="nihongo-static" name="twitter:card" content="summary_large_image">
+<meta data-seo="nihongo-static" name="twitter:title" content="Admin Login — Nihonggo Pro Academy">
+<meta data-seo="nihongo-static" name="twitter:description" content="Masuk Admin">
+<meta data-seo="nihongo-static" name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script data-seo="nihongo-static" type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Masuk Admin","description":"Masuk Admin","url":"https://nihonggopro.id/Admin-Login.html","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["Japanese language","JLPT","Kanji","Grammar","Vocabulary"]}</script>
+
+<link rel="stylesheet" href="assets/translator.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{min-height:100vh;font-family:'Outfit',sans-serif;background:#17181d;color:#fff;display:grid;place-items:center;padding:24px;position:relative;overflow:hidden}
+body::before{content:'管理';position:absolute;right:-40px;bottom:-80px;font-family:'Noto Serif JP',serif;font-size:320px;color:rgba(255,255,255,.045);line-height:1}
+.login{position:relative;z-index:1;width:min(440px,100%);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:2rem;box-shadow:0 24px 80px rgba(0,0,0,.32);backdrop-filter:blur(16px)}
+.brand{display:flex;align-items:baseline;gap:10px;margin-bottom:2rem}.brand-jp{font-family:'Noto Serif JP',serif;font-size:28px;color:var(--red-soft);font-weight:600}.brand-id{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.5);font-weight:800}
+.badge{display:inline-flex;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;margin-bottom:1rem}
+h1{font-family:'Noto Serif JP',serif;font-size:34px;line-height:1.15;margin-bottom:.5rem}p{color:rgba(255,255,255,.62);font-size:14px;line-height:1.8;margin-bottom:1.5rem}
+label{display:block;font-size:12px;font-weight:800;color:rgba(255,255,255,.58);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+input{width:100%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:12px 14px;font-family:'Outfit',sans-serif;outline:none;margin-bottom:1rem}
+input:focus{border-color:var(--red-soft);background:rgba(255,255,255,.12)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:.2rem 0 1.2rem}.remember{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.62);font-size:13px}.remember input{width:auto;margin:0}.hint{font-size:12px;color:rgba(255,255,255,.45)}
+button{width:100%;border:none;border-radius:8px;background:var(--red);color:#fff;padding:13px;font-size:14px;font-weight:900;font-family:'Outfit',sans-serif;cursor:pointer}button:hover{background:var(--red-soft)}
+.error{display:none;border-radius:8px;background:rgba(232,83,74,.16);border:1px solid rgba(232,83,74,.28);color:#ffb7b0;padding:10px 12px;font-size:13px;margin-bottom:1rem}.error.show{display:block}
+.links{display:flex;justify-content:space-between;gap:1rem;margin-top:1.25rem}.links a{color:rgba(255,255,255,.6);font-size:13px;text-decoration:none}.links a:hover{color:#fff}
+.demo{margin-top:1rem;border-top:1px solid rgba(255,255,255,.1);padding-top:1rem;font-size:12px;color:rgba(255,255,255,.45)}
+code{color:#fff;background:rgba(255,255,255,.1);border-radius:6px;padding:2px 5px}
+</style>
+<link rel="stylesheet" href="assets/neko-theme.css?v=3">
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<main class="login">
+  <div class="brand"><span class="brand-jp">Nihonggo Pro Academy</span><span class="brand-id">Admin Console</span></div>
+  <span class="badge">Secure Area</span>
+  <h1>Masuk Admin</h1>
+  <p>Kelola materi JLPT, akses lengkap gratis, latihan soal, flashcard, dan progress user dari satu tempat.</p>
+  <div class="error" id="error" role="alert" aria-live="polite">Email atau password admin salah.</div>
+  <form id="form">
+    <label for="email">Email Admin</label>
+    <input id="email" type="email" autocomplete="username" placeholder="admin@nihonggopro.local" required>
+    <label for="password">Password</label>
+    <input id="password" type="password" autocomplete="current-password" placeholder="Masukkan password" required>
+    <div class="row"><label class="remember"><input id="remember" type="checkbox" checked aria-label="Ingat saya"> Ingat sesi</label><span class="hint">JWT backend auth</span></div>
+    <button type="submit">Masuk Dashboard</button>
+  </form>
+  <div class="links"><a href="index.html">Kembali ke Home</a><a href="Platform-Features.html">Fitur Platform</a></div>
+  <div class="demo">Production wajib set <code>window.NIHONGO_ADMIN_LOGIN_ENDPOINT</code>. Demo login hanya aktif di file/localhost.</div>
+</main>
+<script>
+const form = document.getElementById('form');
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const endpoint = window.NIHONGO_ADMIN_LOGIN_ENDPOINT || '';
+  const isLocalDemo = location.protocol === 'file:' || ['localhost','127.0.0.1'].includes(location.hostname);
+  try {
+    let session = null;
+    if (endpoint) {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+      const data = await response.json();
+      if (!response.ok || !data.token) throw new Error(data.error || 'Login admin gagal.');
+      session = { email, role: 'admin', token: data.token, loginAt: new Date().toISOString() };
+    } else if (isLocalDemo) {
+      // Demo mode: only on localhost, credentials from env or prompt
+      const demoEmail = window.NIHONGO_ADMIN_DEMO_EMAIL || 'admin@nihonggopro.local';
+      const demoPass  = window.NIHONGO_ADMIN_DEMO_PASS  || '';
+      if (!demoPass) throw new Error('Demo: Set window.NIHONGO_ADMIN_DEMO_PASS di console untuk login lokal.');
+      if (email !== demoEmail || password !== demoPass) throw new Error('Email atau password admin salah.');
+      session = { email, role: 'admin', token: 'local-demo-' + Date.now(), loginAt: new Date().toISOString() };
+    } else {
+      throw new Error('Endpoint admin belum dikonfigurasi. Set window.NIHONGO_ADMIN_LOGIN_ENDPOINT di env vars.');
+    }
+    const storage = document.getElementById('remember').checked ? localStorage : sessionStorage;
+    storage.setItem('nihongoAdminSession', JSON.stringify(session));
+    location.href = 'Admin-Dashboard.html';
+  } catch (error) {
+    document.getElementById('error').textContent = error.message;
+    document.getElementById('error').classList.add('show');
+  }
+});
+</script>
+<script src="assets/pro-app.min.js" defer></script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kanji-N5.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kanji N5–N1</a>
+          <a href="/Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar</a>
+          <a href="/Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kosakata</a>
+          <a href="/Materi/Fondasi-Bahasa-Jepang.html" style="color:rgba(255,255,255,.6);text-decoration:none">Fondasi Jepang</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Tools</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/JLPT-CBT.html" style="color:rgba(255,255,255,.6);text-decoration:none">CBT Simulator</a>
+          <a href="/SRS-Flashcard.html" style="color:rgba(255,255,255,.6);text-decoration:none">SRS Flashcard</a>
+          <a href="/Grammar-Checker.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar Checker</a>
+          <a href="/AI-Tutor-Pro.html" style="color:rgba(255,255,255,.6);text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Kaigo</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Materi/Kaigo.html#kg-h-ujian" style="color:rgba(255,255,255,.6);text-decoration:none">Persiapan Ujian</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Keigo & Bahasa Jepang Bisnis — Nihonggo Pro Academy</title>
+<meta name="description" content="Materi keigo dan bahasa Jepang bisnis: sonkeigo, kenjougo, teineigo, email, rapat, telepon, apology, dan interview kerja.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Keigo-Bisnis.html">
+<meta property="og:title" content="Keigo & Bahasa Jepang Bisnis — Nihonggo Pro Academy">
+<meta property="og:description" content="Sonkeigo, kenjougo, email bisnis, rapat, telepon, apology, dan interview kerja Jepang.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Keigo-Bisnis.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Keigo & Bahasa Jepang Bisnis — Nihonggo Pro Academy">
+<meta name="twitter:description" content="Sonkeigo, kenjougo, email bisnis, rapat, telepon, apology, dan interview kerja Jepang.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Keigo & Bahasa Jepang Bisnis","description":"Materi keigo dan bahasa Jepang bisnis: sonkeigo, kenjougo, teineigo, email, rapat, telepon, apology, dan interview kerja.","url":"https://nihonggopro.id/Materi/Keigo-Bisnis.html","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["Japanese keigo","Business Japanese","Japanese email","Japanese interview"]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/translator.css">
+
+    <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.nav-logo{display:flex;align-items:baseline;gap:10px}.nav-logo-jp{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--red)}.nav-logo-id{font-size:12px;font-weight:500;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+.nav-links a:hover{color:var(--red)}
+.theme-toggle{width:36px;height:36px;border:.5px solid var(--border-mid);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center}.btn-sm{background:var(--red);color:#fff;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700}
+.hero{display:block!important;min-height:auto!important;padding:5rem 5vw 3rem!important;background:#17181d;color:#fff;position:relative;overflow:hidden}.hero::before{content:'敬語';position:absolute;right:-42px;bottom:-82px;font-family:'Noto Serif JP',serif;font-size:280px;color:rgba(255,255,255,.045);line-height:1}
+.hero-inner{max-width:1160px;margin:0 auto;position:relative;z-index:1}.kicker{display:inline-flex;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(34px,5vw,62px);line-height:1.1;margin-bottom:1rem}.hero p{max-width:850px;color:rgba(255,255,255,.7);font-size:16px;line-height:1.9}
+.hero-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1.5rem}.hero-actions a{display:inline-flex;align-items:center;justify-content:center;border-radius:8px;padding:10px 14px;font-size:13px;font-weight:800;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:#fff}.hero-actions a.primary{background:var(--red);border-color:var(--red)}
+.wrap{max-width:1160px;margin:0 auto;padding:2.5rem 5vw}.section-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;margin-bottom:1.25rem}.section-label{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:.4rem}.section-title{font-family:'Noto Serif JP',serif;font-size:clamp(24px,3vw,36px);line-height:1.2}.section-sub{color:var(--ink-soft);font-size:14px;max-width:720px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.grid.two{grid-template-columns:repeat(2,1fr)}.card{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.25rem;box-shadow:var(--shadow-sm)}.card h3{font-size:16px;margin-bottom:.55rem;color:var(--ink)}.card p,.card li{font-size:13px;color:var(--ink-mid)}.card ul{padding-left:1.1rem;display:grid;gap:.35rem}
+.table{width:100%;border-collapse:collapse;background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-sm)}.table th,.table td{padding:.85rem;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}.table th{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);background:var(--cream)}.table td{font-size:13px;color:var(--ink-mid)}
+.jp{font-family:'Noto Serif JP',serif;color:var(--red);font-weight:700}.template{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1rem;box-shadow:var(--shadow-sm);font-size:13px;color:var(--ink-mid)}.template strong{display:block;color:var(--red);margin-bottom:.5rem}
+.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.18);border-radius:8px;padding:1rem;color:var(--ink-mid);font-size:13px;margin-top:1rem}
+@media(max-width:960px){.grid,.grid.two{grid-template-columns:1fr 1fr}.section-head{display:block}}@media(max-width:560px){.grid,.grid.two{grid-template-columns:1fr}.hero-actions a{width:100%}.table{display:block;overflow-x:auto}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Keigo & Bahasa Jepang Bisnis — Nihonggo Pro Academy","item":"https://nihonggopro.id/Materi/Keigo-Bisnis.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  
+
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<section id="main-content" class="hero" role="main">
+  <div class="hero-inner">
+    <div class="kicker">Profesional N3-N1</div>
+    <h1>Keigo & Bahasa Jepang Bisnis<br>敬語とビジネス日本語</h1>
+    <p>Modul ini mengisi kebutuhan level menengah-lanjutan: berbicara sopan, menulis email, rapat, telepon, meminta maaf, dan interview kerja dalam bahasa Jepang profesional.</p>
+    <div class="hero-actions">
+      <a class="primary" href="#keigo">Keigo Dasar</a>
+      <a href="#email">Surel Bisnis</a>
+      <a href="#meeting">Rapat Kantor</a>
+      <a href="#interview">Wawancara Kerja</a>
+    </div>
+  </div>
+</section>
+<div style="background:var(--blue-pale);border:.5px solid rgba(47,111,237,.2);border-radius:12px;padding:1.25rem 1.5rem;margin:2rem 0;display:flex;align-items:center;gap:1rem;flex-wrap:wrap">
+  <div>
+    <div style="font-size:14px;font-weight:800;color:var(--blue);margin-bottom:.25rem">📚 Materi Lanjutan</div>
+    <div style="font-size:13px;color:var(--ink-mid)">Pelajari juga <strong>Keigo Fukushishi (敬語副詞)</strong> — kata keterangan sopan lengkap dengan 150+ contoh kalimat bisnis dan quiz interaktif.</div>
+  </div>
+  <a href="Keigo-Fukushishi.html" style="height:40px;padding:0 18px;border-radius:9px;background:var(--blue);color:#fff;font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;white-space:nowrap;flex-shrink:0">Pelajari Fukushishi →</a>
+</div>
+
+<section class="wrap" id="keigo">
+  <div class="section-head">
+    <div><div class="section-label">Inti Keigo</div><h2 class="section-title">Tiga Tingkatan Keigo</h2></div>
+    <p class="section-sub">Keigo bukan sekadar membuat kata menjadi panjang. Yang penting adalah hubungan: siapa ditinggikan, siapa merendah, dan situasinya formal atau tidak.</p>
+  </div>
+  <div class="grid">
+    <article class="card"><h3>Sonkeigo</h3><p>Meninggikan lawan bicara atau orang luar yang dihormati.</p><ul><li><span class="jp">行く -> いらっしゃる</span></li><li><span class="jp">見る -> ご覧になる</span></li><li><span class="jp">言う -> おっしゃる</span></li></ul></article>
+    <article class="card"><h3>Kenjougo</h3><p>Merendahkan diri atau kelompok sendiri agar lawan bicara terasa dihormati.</p><ul><li><span class="jp">行く -> 伺う / 参る</span></li><li><span class="jp">見る -> 拝見する</span></li><li><span class="jp">言う -> 申す</span></li></ul></article>
+    <article class="card"><h3>Teineigo</h3><p>Bentuk sopan umum untuk percakapan kerja dan layanan.</p><ul><li><span class="jp">です / ます</span></li><li><span class="jp">ございます</span></li><li><span class="jp">いたします</span></li></ul></article>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="section-head">
+    <div><div class="section-label">Tabel Konversi</div><h2 class="section-title">Kata Kerja Bisnis yang Sering Dipakai</h2></div>
+    <p class="section-sub">Hafalkan pasangan ini dulu. Ini muncul di email, rapat, front office, dan interview.</p>
+  </div>
+  <table class="table">
+    <thead><tr><th>Biasa</th><th>Sonkeigo</th><th>Kenjougo</th><th>Contoh</th></tr></thead>
+    <tbody>
+      <tr><td>行く / 来る</td><td class="jp">いらっしゃる</td><td class="jp">伺う / 参る</td><td><span class="jp">明日、御社に伺います。</span></td></tr>
+      <tr><td>見る</td><td class="jp">ご覧になる</td><td class="jp">拝見する</td><td><span class="jp">資料を拝見しました。</span></td></tr>
+      <tr><td>言う</td><td class="jp">おっしゃる</td><td class="jp">申す</td><td><span class="jp">田中と申します。</span></td></tr>
+      <tr><td>聞く</td><td class="jp">お聞きになる</td><td class="jp">伺う</td><td><span class="jp">一点伺ってもよろしいでしょうか。</span></td></tr>
+      <tr><td>する</td><td class="jp">なさる</td><td class="jp">いたす</td><td><span class="jp">確認いたします。</span></td></tr>
+      <tr><td>知っている</td><td class="jp">ご存じ</td><td class="jp">存じている</td><td><span class="jp">存じております。</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="wrap" id="email">
+  <div class="section-head">
+    <div><div class="section-label">Surel Bisnis</div><h2 class="section-title">Template Email Jepang</h2></div>
+    <p class="section-sub">Email bisnis Jepang biasanya ringkas, sopan, dan jelas: subject, salam, konteks, permintaan, batas waktu, penutup.</p>
+  </div>
+  <div class="grid two">
+    <div class="template"><strong>Meminta Konfirmasi</strong><span class="jp">件名：資料確認のお願い<br><br>田中様<br>いつもお世話になっております。<br>添付資料をご確認いただけますでしょうか。<br>恐れ入りますが、金曜日までにご返信いただけますと幸いです。<br>何卒よろしくお願いいたします。</span></div>
+    <div class="template"><strong>Apology / Permintaan Maaf</strong><span class="jp">件名：納期遅延のお詫び<br><br>この度は納期が遅れてしまい、誠に申し訳ございません。<br>原因を確認し、再発防止に努めてまいります。<br>本日中に修正版をお送りいたします。</span></div>
+  </div>
+</section>
+
+<section class="wrap" id="meeting">
+  <div class="section-head">
+    <div><div class="section-label">Frasa Rapat</div><h2 class="section-title">Frasa Rapat dan Telepon</h2></div>
+    <p class="section-sub">Gunakan frasa lunak untuk meminta klarifikasi, menyampaikan opini, dan menutup keputusan.</p>
+  </div>
+  <div class="grid">
+    <article class="card"><h3>Membuka</h3><ul><li><span class="jp">本日はお時間をいただきありがとうございます。</span></li><li><span class="jp">それでは、始めさせていただきます。</span></li><li><span class="jp">本日の議題は三点ございます。</span></li></ul></article>
+    <article class="card"><h3>Opini & Klarifikasi</h3><ul><li><span class="jp">私の理解では、＿＿ということです。</span></li><li><span class="jp">一点確認させてください。</span></li><li><span class="jp">差し支えなければ、理由を伺えますか。</span></li></ul></article>
+    <article class="card"><h3>Telepon</h3><ul><li><span class="jp">お忙しいところ恐れ入ります。</span></li><li><span class="jp">担当者様はいらっしゃいますでしょうか。</span></li><li><span class="jp">折り返しお電話いただけますでしょうか。</span></li></ul></article>
+  </div>
+</section>
+
+<section class="wrap" id="interview">
+  <div class="section-head">
+    <div><div class="section-label">Wawancara Kerja</div><h2 class="section-title">Interview Kerja Jepang</h2></div>
+    <p class="section-sub">Latihan jawaban singkat, sopan, dan konkret. Hindari jawaban terlalu panjang tanpa struktur.</p>
+  </div>
+  <div class="grid two">
+    <article class="card"><h3>Pertanyaan Umum</h3><ul><li><span class="jp">自己紹介をお願いします。</span></li><li><span class="jp">志望動機を教えてください。</span></li><li><span class="jp">長所と短所は何ですか。</span></li><li><span class="jp">将来どのような仕事をしたいですか。</span></li></ul></article>
+    <article class="card"><h3>Struktur Jawaban</h3><ul><li>Kesimpulan: jawab langsung.</li><li>Alasan: beri 1-2 alasan.</li><li>Contoh: pengalaman nyata.</li><li>Kontribusi: hubungkan dengan perusahaan.</li></ul></article>
+  </div>
+  <div class="note">Latihan mingguan: tulis satu email request, satu apology, satu skrip telepon, dan rekam jawaban interview 90 detik. Minta AI Tutor mengoreksi tingkat sopan dan naturalnya.</div>
+</section>
+
+<section class="wrap" id="negosiasi">
+  <div class="section-head">
+    <div><div class="section-label">Negosiasi & Penolakan</div><h2 class="section-title">Cara Menolak & Bernegosiasi Sopan</h2></div>
+    <p class="section-sub">Menolak dalam bisnis Jepang harus halus — jarang sekali memakai langsung 断ります atau いいえ. Gunakan ungkapan tidak langsung.</p>
+  </div>
+  <div class="grid">
+    <article class="card"><h3>Menolak Undangan</h3><ul>
+      <li><span class="jp">あいにく、その日は先約がございまして。</span><br><small>Sayangnya, hari itu saya sudah ada janji sebelumnya.</small></li>
+      <li><span class="jp">誠に申し訳ないのですが、今週は難しい状況です。</span><br><small>Sungguh maaf, minggu ini situasinya sulit.</small></li>
+      <li><span class="jp">ご厚意はありがたいのですが、今回は遠慮させていただきます。</span><br><small>Saya menghargai kebaikan Anda, tetapi kali ini saya mohon dimaafkan.</small></li>
+    </ul></article>
+    <article class="card"><h3>Meminta Keringanan</h3><ul>
+      <li><span class="jp">差し支えなければ、納期を少し延ばしていただけますでしょうか。</span><br><small>Kalau tidak keberatan, bisakah tenggat diperpanjang sedikit?</small></li>
+      <li><span class="jp">ご検討のほど、よろしくお願い申し上げます。</span><br><small>Mohon kiranya dapat dipertimbangkan.</small></li>
+      <li><span class="jp">もし可能であれば、ご配慮いただければ幸いです。</span><br><small>Kalau memungkinkan, saya akan berterima kasih atas kebaikan Anda.</small></li>
+    </ul></article>
+    <article class="card"><h3>Merespons Permintaan Sulit</h3><ul>
+      <li><span class="jp">前向きに検討いたします。</span><br><small>Akan kami pertimbangkan secara positif.</small></li>
+      <li><span class="jp">社内で確認してから改めてご連絡いたします。</span><br><small>Setelah konfirmasi internal, akan saya hubungi kembali.</small></li>
+      <li><span class="jp">いただいたご要望は上の者と相談いたします。</span><br><small>Permintaan yang Anda sampaikan akan saya konsultasikan dengan atasan.</small></li>
+    </ul></article>
+  </div>
+</section>
+
+<section class="wrap" id="pitch">
+  <div class="section-head">
+    <div><div class="section-label">Presentasi & Pitch</div><h2 class="section-title">Template Pitch 90 Detik (Bahasa Jepang)</h2></div>
+    <p class="section-sub">Struktur PREP yang disesuaikan untuk pitch Jepang: sopan, ringkas, dan jelas memberikan manfaat.</p>
+  </div>
+  <div class="grid two">
+    <div class="template"><strong>Template Pitch Produk / Jasa</strong><span class="jp">本日はお時間をいただきありがとうございます。<br>私は〔会社名〕の〔名前〕と申します。<br><br>本日ご提案したいのは〔製品/サービス名〕です。<br>〔課題〕でお悩みの企業様に向け、〔解決策〕を提供しております。<br><br>実際に導入いただいたお客様からは、〔成果例〕というお声をいただいております。<br><br>詳しい資料もご用意しておりますので、ぜひご検討いただければ幸いです。</span></div>
+    <div class="template"><strong>Self-Introduction (面接・初対面)</strong><span class="jp">はじめまして。〔名前〕と申します。<br>〔出身・現在の所属〕です。<br><br>これまで〔経験・実績〕に携わってまいりました。<br>特に〔強み〕については自信を持っております。<br><br>貴社では〔やりたいこと〕に貢献できると考えております。<br>何卒よろしくお願いいたします。</span></div>
+  </div>
+</section>
+
+<section class="wrap" id="keigo-quiz">
+  <div class="section-head">
+    <div><div class="section-label">Kuis Keigo</div><h2 class="section-title">Uji Kemampuan Keigo — 敬語テスト</h2></div>
+    <p class="section-sub">12 soal campuran: pilih ungkapan keigo yang tepat, sonkeigo vs kenjougo, dan email bisnis. Penting untuk N2/N1 dan kerja di perusahaan Jepang.</p>
+  </div>
+  <div id="keigoQuizBox" style="max-width:580px"><div id="kqExp" style="display:none;margin-top:.75rem;padding:.625rem .875rem;border-radius:8px;font-size:13px;font-weight:600;line-height:1.5;background:var(--surface,#f9f9f9);border:1px solid var(--border-mid,#e0e0e0)"></div>
+</div>
+</section>
+
+<script>
+const keigoQs = [
+  // Sonkeigo vs Kenjougo
+  { q:'「先生が来る」を敬語にすると？', opts:['先生がまいります','先生がいらっしゃいます','先生がおいでになります×(不正確)','先生がうかがいます'], ans:1, exp:'「いらっしゃる」= 来る・いる・行く の尊敬語. まいる は謙譲語 (diri sendiri).' },
+  { q:'「私が行く」を謙譲語にすると？', opts:['私がいらっしゃいます','私がまいります','私がおいでになります','私がいきます（丁寧）'], ans:1, exp:'「まいる」= 行く・来る の謙譲語. Diri sendiri → turun, lawan bicara → naik.' },
+  { q:'「部長が言う」を尊敬語にすると？', opts:['部長がもうします','部長がおっしゃいます','部長がいたします','部長がはなします'], ans:1, exp:'「おっしゃる」= 言う の尊敬語. もうす dan いたす adalah謙譲語.' },
+  { q:'「私が食べる」を謙譲語にすると？', opts:['私がいただきます','私がめしあがります','私がたべます（丁寧）','私がくだされます'], ans:0, exp:'「いただく」= 食べる・飲む の謙譲語. 召し上がる は尊敬語.' },
+  { q:'客様が「食べる」を尊敬語にすると？', opts:['いただきます','めしあがります','たべられます','くわれます'], ans:1, exp:'「召し上がる (めしあがる)」= 食べる・飲む の尊敬語. Untuk tamu/atasan.' },
+  // Email bisnis
+  { q:'ビジネスメールの書き出しとして最も適切なのは？', opts:['こんにちは。田中です。','いつもお世話になっております。','お疲れ様です。早速ですが、','拝啓 貴社ますますご繁栄のことと…'], ans:1, exp:'「いつもお世話になっております」は最も一般的なビジネスメールの書き出し。' },
+  { q:'相手の提案を丁寧に断るときは？', opts:['断ります。','あいにく、今回は難しい状況です。','いいえ、できません。','それはちょっと…'], ans:1, exp:'「あいにく〜難しい状況です」は婉曲的な断り方で丁寧。直接的なNOは避ける。' },
+  { q:'何かを確認してほしいときのメール表現は？', opts:['確認してください。','ご確認のほど、よろしくお願いいたします。','確認をお願いします。','見てください。'], ans:1, exp:'「ご確認のほど」= 確認する の丁寧な依頼表現。「ほど」が柔らかさを出す。' },
+  { q:'電話で上司が不在のとき来客に言う表現は？', opts:['今いません。','ただいま席を外しております。','出かけています。','不在です。'], ans:1, exp:'「席を外しております」= 会社用語として「不在」を丁寧に表現。' },
+  // Keigo general
+  { q:'「知っていますか？」の丁寧な聞き方は？', opts:['わかりますか？','ご存知でしょうか。','知ってますか？','ご存じですか？（どちらでも正しい）'], ans:3, exp:'「ご存じですか」も「ご存知でしょうか」も正しい。状況によって使い分ける。' },
+  { q:'「よろしく」をビジネスで最も丁寧に言うと？', opts:['よろしく。','どうぞよろしく。','よろしくお願いします。','よろしくお願いいたします。'], ans:3, exp:'「よろしくお願いいたします」が最も丁寧。いたします = する の謙譲語。' },
+  { q:'「承知しました」と「了解しました」の違いは？', opts:['同じ意味で使える','了解は上から目線なので上司には承知を使う','承知は友達にも使える','どちらも間違い'], ans:1, exp:'「了解」は同等か目下への返事。上司・客様には「承知しました」か「かしこまりました」を使う。' },
+,
+  { q:'「部長、これをご確認ください」→ ご確認 は何語？', opts:['謙譲語','尊敬語','丁寧語','普通語'], ans:1, exp:'ご〜ください = 尊敬語 (memuliakan aksi lawan bicara). ご確認=konfirmasi, ご連絡=kabar.' },
+  { q:'「資料を拝見いたします」→ 拝見 は誰の動作？', opts:['相手の動作','自分の動作','第三者の動作','不明'], ans:1, exp:'拝見(はいけん) = 謙譲語 (kenjougo) dari 見る. Digunakan untuk aksi DIRI SENDIRI merendah.' },
+  { q:'「先生がおっしゃった」→ おっしゃる は何語？', opts:['謙譲語','尊敬語','丁寧語','普通語'], ans:1, exp:'おっしゃる = 尊敬語 (sonkeigo) dari 言う. Memuliakan aksi orang lain (guru/atasan).' },
+  { q:'「担当者が伺います」→ 伺う は何語？', opts:['尊敬語','謙譲語','丁寧語','普通語'], ans:1, exp:'伺う(うかがう) = 謙譲語 dari 行く・来る・聞く. Diri sendiri yang merendah pergi/bertanya.' },
+  { q:'「ご出席いただけますか」の正しい意味は？', opts:['あなたが出席しますか？','あなたに出席してもらえますか？(丁寧な依頼)','私が出席しますか？','彼が出席します'], ans:1, exp:'ご〜いただく = 謙譲 + 敬語. Meminta orang lain melakukan sesuatu dengan sangat sopan.' },
+  { q:'ビジネスメールの書き出しとして最も適切なのは？', opts:['こんにちは','いつもお世話になっております。','よろしくお願いします。','はじめまして。'], ans:1, exp:'いつもお世話になっております = "selalu terima kasih atas kerjasamanya". Standar email bisnis Jepang.' },
+  { q:'「〜についてご検討いただけますでしょうか」の丁寧さレベルは？', opts:['カジュアル','普通の敬語','高い敬語（二重敬語に近い）','命令形'], ans:2, exp:'いただけますでしょうか = ていただく + ます + でしょうか. Sangat formal, sering di email/dokumen resmi.' },
+  { q:'「ご不明の点はお気軽にお問い合わせください」の意味は？', opts:['質問するな','気軽に質問していい','すぐに返事する','質問は有料'], ans:1, exp:'お気軽に(きがるに) = dengan santai/tanpa ragu. お問い合わせ = pertanyaan/konfirmasi.' },
+  { q:'「〜させていただきます」を正しく使った例は？', opts:['休ませていただきます（自分の行動に許可を求める）','あなたを休ませていただきます','彼が休ませていただきます','みんな休ませていただきます'], ans:0, exp:'〜させていただく = melakukan (aksi diri sendiri) dengan izin pihak lain. Keigo tinggi.' },
+  { q:'「本日はご多忙のところ」はどんな時に使う？', opts:['相手が暇な時','相手が忙しい時の配慮を示す表現','クレームを言う時','急かす時'], ans:1, exp:'ご多忙のところ = "di tengah kesibukan Anda". Mengakui lawan bicara sibuk, menunjukkan kepedulian.' },
+,
+  { q:'「いただきます」と「ごちそうさまでした」はいつ使いますか？', opts:['食事の前と後','仕事の前と後','会議の前と後','授業の前と後'], ans:0, exp:'いただきます = ucapan sebelum makan (謙譲の意味). ごちそうさまでした = setelah makan. Kebiasaan budaya penting Jepang.' },
+  { q:'「承知しました」と「了解しました」の違いは？', opts:['まったく同じ','承知しました=より丁寧(目上OK)。了解しました=やや不丁寧(目上NG)','了解の方が丁寧','両方とも目上には使えない'], ans:1, exp:'承知(しょうち)しました = lebih formal dan sopan, OK untuk atasan. 了解(りょうかい)しました = agak kurang formal, hindari untuk atasan.' },
+  { q:'「おっしゃる通りです」はどんな場面で使う？', opts:['相手の意見に反論する時','相手の意見に同意する時(丁寧に)','質問する時','謝罪する時'], ans:1, exp:'おっしゃる通り = memang seperti yang Anda katakan / Anda benar. 同意の尊敬語表現。' },
+  { q:'会社への電話で担当者が不在の場合、最適な対応は？', opts:['後で電話します','○○は只今席を外しております。よろしければご伝言を承りますか？','忙しいです','折り返します'], ans:1, exp:'席を外す = tidak ada di meja. ご伝言を承る(うけたまわる) = menerima pesan. Standard response bisnis Jepang.' },
+  { q:'「〜させていただきたく存じます」はどのレベルの敬語？', opts:['カジュアル','標準の敬語','非常に高い敬語（二重敬語）','誤用'],  ans:2, exp:'させていただく + たく + 存じます = triple keigo. Sangat formal, sering di email/surat resmi.' },
+  { q:'「ご多忙の折、誠に恐れ入りますが」の意味として正しいのは？', opts:['忙しくしてください','お忙しいところ大変申し訳ないのですが','忙しいですか','もう少し待ってください'], ans:1, exp:'ご多忙の折 = di saat Anda sibuk. 恐れ入る = merasa bersalah/sangat maaf. Pembuka permintaan yang sangat sopan.' },
+  { q:'「先ほどのご質問についてですが」はどんな場面で使う？', opts:['最初の挨拶時','少し前にされた質問に答える時','全く関係ない話題を始める時','謝罪の時'], ans:1, exp:'先ほど(さきほど) = sebentar tadi/baru saja. 公式な場で前の質問や話題に戻る時の丁寧な接続表現。' },
+  { q:'社内メールで同僚に送る際の書き出しとして最も適切なのは？', opts:['やあ','お疲れ様です','いつもお世話になっております','おはようございます（夜でも）'], ans:1, exp:'社内メール = お疲れ様です. 社外メール = いつもお世話になっております. 時間帯に関係なく使える。' },
+,
+  { q:'「ご無沙汰しております」はどんな場面で使う？', opts:['毎日会う人への挨拶','久しぶりに連絡する時の丁寧な挨拶','初めて会う人への挨拶','別れる時の挨拶'], ans:1, exp:'ご無沙汰(ごぶさた)しております = mohon maaf sudah lama tidak menghubungi. ぶさた=tidak ada kabar. Penting untuk email bisnis setelah jeda komunikasi.' },
+  { q:'「お電話いただけますでしょうか」と「電話してください」の違いは？', opts:['同じ意味','いただけますでしょうか=二重敬語で非常に丁寧。してください=直接的','してください=より丁寧','どちらも同じ丁寧さ'], ans:1, exp:'いただけますでしょうか = double keigo, sangat sopan untuk meminta. してください = langsung meminta. Dalam bisnis formal: 〜いただけますでしょうか lebih baik.' },
+  { q:'取引先への初回訪問前日に確認のメールをするとき最適な件名は？', opts:['明日の件','明日伺います、よろしくお願いいたします','来ます','訪問します'], ans:1, exp:'件名(けんめい)に用件+挨拶を含めるのが基本。明日伺います = besok saya akan berkunjung (謙譲). よろしくお願いいたします = standar penutup bisnis.' },
+  { q:'「〜でよろしいでしょうか」はどんな時使う？', opts:['命令する時','丁寧に確認・同意を求める時','情報を伝える時','断る時'], ans:1, exp:'〜でよろしいでしょうか = apakah ~ tidak masalah? (konfirmasi sopan). 例: こちらの日程でよろしいでしょうか？= Apakah jadwal ini tidak masalah?' },
+  { q:'「拝見しました」は何の謙譲語？', opts:['読む・見るの謙譲語','書くの謙譲語','話すの謙譲語','聞くの謙譲語'], ans:0, exp:'拝見(はいけん)する = 見る/読む の謙譲語 (memuliakan dengan merendahkan diri). 資料を拝見しました。= Saya sudah melihat/membaca dokumennya (sopan untuk orang lain).' },
+];
+
+let kqIdx=0, kqScore=0, kqActive=[];
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+kqActive = shuffleArr([...keigoQs]).slice(0, 10);
+
+function renderKeigoQ() {
+  const box = document.getElementById('keigoQuizBox');
+  if (kqIdx >= kqActive.length) {
+    const pct = Math.round(kqScore/kqActive.length*100);
+    box.innerHTML = `<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.5rem;text-align:center">
+      <div style="font-size:40px;font-weight:800;color:${pct>=80?'var(--green,#27ae60)':pct>=60?'var(--gold)':'var(--red)'}">${kqScore}/${kqActive.length}
+  
+  
+  </div>
+      <div style="font-size:14px;color:var(--ink-soft);margin:.5rem 0">${pct>=80?'Keigo kamu sudah layak bisnis!':pct>=60?'Hampir, review bagian yang salah.':'Perlu latihan keigo lebih intensif.'}</div>
+      <button onclick="kqIdx=0;kqScore=0;kqActive=shuffleArr([...keigoQs]).slice(0,10);renderKeigoQ()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">Ulangi</button>
+    </div>`;
+    return;
+  }
+  const q = kqActive[kqIdx];
+  const opts = q.opts.map((o,i) => `<button onclick="checkKeigoQ(${i})" style="width:100%;text-align:left;background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:10px 14px;font-size:13px;font-family:'Noto Serif JP',serif;cursor:pointer;transition:all .15s">${o}</button>`).join('');
+  box.innerHTML = `<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--red);margin-bottom:.5rem">
+      <span>SOAL ${kqIdx+1}/${kqActive.length}</span><span>${kqScore} benar</span>
+    </div>
+    <h3 style="font-family:'Noto Serif JP',serif;font-size:16px;color:var(--ink);line-height:1.6;margin-bottom:1rem">${q.q}</h3>
+    <div style="display:grid;gap:.5rem" id="kqOpts">${opts}</div>
+    
+  </div>`;
+}
+function checkKeigoQ(i) {
+  const q = kqActive[kqIdx]; const correct = i===q.ans;
+  if(correct) kqScore++;
+  document.querySelectorAll('#kqOpts button').forEach((b,idx) => {
+    b.disabled = true;
+    if(idx===q.ans) b.style.background='var(--green-pale,#eafaf1)';
+    if(idx===i&&!correct) b.style.background='var(--red-pale)';
+  });
+  const exp = document.getElementById('kqExp');
+  exp.style.display='block'; exp.innerHTML=`${correct?'✓ Benar!':'✗ Salah.'} ${q.exp}`; exp.style.color=correct?'var(--red)':'var(--ink-mid)';
+  setTimeout(()=>{kqIdx++;renderKeigoQ();},1700);
+}
+renderKeigoQ();
+</script>
+<script src="../assets/translator.min.js" defer></script>
+<script src="../assets/pro-app.min.js" defer></script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html>

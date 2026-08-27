@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tes Level JLPT — Nihonggo Pro Academy</title>
+<meta name="description" content="Tes diagnostik JLPT N5-N1 untuk menemukan level awal, kekuatan, kelemahan, dan rekomendasi rencana belajar.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Tes-Level-JLPT.html">
+<meta property="og:title" content="Tes Level JLPT — Nihonggo Pro Academy">
+<meta property="og:description" content="Tes diagnostik JLPT untuk rekomendasi level, skill lemah, dan langkah belajar berikutnya.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Tes-Level-JLPT.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Tes Level JLPT — Nihonggo Pro Academy">
+<meta name="twitter:description" content="Tes diagnostik JLPT untuk rekomendasi level, skill lemah, dan langkah belajar berikutnya.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Tes Level JLPT","description":"Tes diagnostik JLPT N5-N1 untuk menemukan level awal, kekuatan, kelemahan, dan rekomendasi rencana belajar.","url":"https://nihonggopro.id/Materi/Tes-Level-JLPT.html","image":"https://nihonggopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihonggo Pro Academy"},"teaches":["JLPT placement test","Japanese diagnostics","Japanese learning plan"]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/translator.css">
+
+    <style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Outfit',sans-serif;background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.nav-logo{display:flex;align-items:baseline;gap:10px}.nav-logo-jp{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--red)}.nav-logo-id{font-size:12px;font-weight:500;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+.nav-links a:hover{color:var(--red)}
+.theme-toggle{width:36px;height:36px;border:.5px solid var(--border-mid);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center}.btn-sm{background:var(--red);color:#fff;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700}
+.hero{display:block!important;min-height:auto!important;padding:5rem 5vw 3rem!important;background:#17181d;color:#fff;position:relative;overflow:hidden}.hero::before{content:'診断';position:absolute;right:-42px;bottom:-82px;font-family:'Noto Serif JP',serif;font-size:280px;color:rgba(255,255,255,.045);line-height:1}
+.hero-inner{max-width:1160px;margin:0 auto;position:relative;z-index:1}.kicker{display:inline-flex;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(34px,5vw,62px);line-height:1.1;margin-bottom:1rem}.hero p{max-width:850px;color:rgba(255,255,255,.7);font-size:16px;line-height:1.9}
+.wrap{max-width:1160px;margin:0 auto;padding:2.5rem 5vw}.test-layout{display:grid;grid-template-columns:1fr 360px;gap:1rem}.panel{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.25rem;box-shadow:var(--shadow-sm)}.panel h2{font-family:'Noto Serif JP',serif;font-size:28px;margin-bottom:.35rem}.sub{color:var(--ink-soft);font-size:13px;margin-bottom:1rem}
+.question{border:1px solid var(--border);background:var(--cream);border-radius:8px;padding:1rem;margin-bottom:1rem}.q-meta{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.6rem}.tag{font-size:10px;font-weight:900;color:var(--red);background:var(--red-pale);border-radius:999px;padding:2px 8px}.q-text{font-size:16px;font-weight:800;margin-bottom:.75rem}.jp{font-family:'Noto Serif JP',serif;color:var(--red)}.choices{display:grid;gap:.5rem}.choices button{border:1px solid var(--border-mid);border-radius:8px;background:var(--white);color:var(--ink-mid);padding:.75rem;text-align:left;font-weight:800}.choices button.selected{border-color:var(--red);background:var(--red-pale);color:var(--red)}.choices button.correct{border-color:var(--green);background:var(--green-pale);color:var(--green)}.choices button.wrong{border-color:var(--red);background:var(--red-pale);color:var(--red)}
+.actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-top:1rem}.actions button,.actions a{border:0;border-radius:8px;background:var(--red);color:#fff;padding:10px 14px;font-weight:900;font-family:'Outfit',sans-serif}.actions .secondary{background:var(--white);color:var(--ink);border:1px solid var(--border-mid)}
+.stat{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:.85rem;margin-bottom:.75rem}.stat b{display:block;font-size:24px;color:var(--red);line-height:1}.stat span{font-size:12px;color:var(--ink-soft);font-weight:800}.skill-row{display:grid;grid-template-columns:90px 1fr 42px;gap:.5rem;align-items:center;margin:.6rem 0}.bar{height:8px;background:var(--border);border-radius:999px;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,var(--red),var(--gold));width:0}.result-box{background:var(--blue-pale);border:1px solid rgba(47,111,237,.18);border-radius:8px;padding:1rem;color:var(--ink-mid);font-size:13px;margin-top:1rem}
+@media(max-width:900px){.test-layout{grid-template-columns:1fr}}@media(max-width:560px){.actions button,.actions a{width:100%;text-align:center}.skill-row{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Tes Level JLPT — Nihonggo Pro Academy","item":"https://nihonggopro.id/Materi/Tes-Level-JLPT.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  
+
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker">Tes Penempatan Level</div>
+    <h1>Tes Level JLPT<br>実力診断</h1>
+    <p>Jawab 20 soal campuran vocabulary, kanji, grammar, reading, dan listening script. Hasilnya memberi rekomendasi level awal, skill kuat, skill lemah, dan langkah belajar berikutnya.</p>
+  </div>
+</section>
+
+<main id="main-content" class="wrap">
+  <div class="test-layout">
+    <section class="panel">
+      <h2>Soal Diagnostik</h2>
+      <p class="sub">Ini bukan soal resmi JLPT. Gunakan sebagai pemeriksaan cepat sebelum membuat rencana belajar.</p>
+      <div id="questionBox"></div>
+      <div class="actions">
+        <button type="button" onclick="submitTest()">Lihat Hasil Kamu</button>
+        <button type="button" class="secondary" onclick="resetTest()">Reset</button>
+      </div>
+    </section>
+    <aside class="panel">
+      <h2>Hasil</h2>
+      <div class="stat"><b id="scoreText">0/20</b><span>Skor sementara</span></div>
+      <div id="skillBars"></div>
+      <div class="result-box" id="resultBox">Jawab soal lalu klik “Lihat Hasil”.</div>
+      <div class="actions">
+        <a href="Rencana-Belajar-JLPT.html">Buat Perencana</a>
+        <a class="secondary" href="Latihan-JLPT.html">Latihan Soal</a>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<script>
+const questions = [
+  // N5 (8 questions)
+  ['N5','vocabulary','「水」の読み方は？',['みず','ひ','やま','ほん'],0,'水（みず）= air.'],
+  ['N5','grammar','正しい文はどれ？',['私は学生です。','私を学生です。','私で学生です。','私に学生です。'],0,'は = topik kalimat. AはBです = A adalah B.'],
+  ['N5','kanji','「山」の意味は？',['gunung','sungai','langit','uang'],0,'山（やま）= gunung.'],
+  ['N5','reading','私は毎朝七時に起きます。何時に起きますか。',['7時','8時','朝ご飯','毎日'],0,'七時に起きます = bangun jam tujuh.'],
+  ['N5','vocabulary','「食べます」の意味は？',['makan','minum','pergi','pulang'],0,'食べます = makan (bentuk sopan dari 食べる).'],
+  ['N5','grammar','「パン（　）食べます」— 正しい助詞は？',['が','は','を','で'],2,'を = partikel objek langsung kata kerja transitif.'],
+  ['N5','kanji','「日本語」の読み方は？',['にほんご','にっぽんご','にほんく','にほんじ'],0,'日本語（にほんご）= bahasa Jepang.'],
+  ['N5','listening','会話: A「りんごが好きですか」B「はい、大好きです」。Bは何が好きですか。',['オレンジ','りんご','バナナ','ぶどう'],1,'大好きです = sangat suka. りんごが大好きです.'],
+
+  // N4 (8 questions)
+  ['N4','grammar','「食べてから、勉強します」の意味は？',['setelah makan belajar','sebelum makan belajar','sedang makan','tidak makan'],0,'てから = setelah melakukan ~.'],
+  ['N4','vocabulary','「予定」の意味は？',['rencana','alasan','tempat','harga'],0,'予定（よてい）= rencana/jadwal.'],
+  ['N4','listening','A「駅までどう行きますか」B「まっすぐ行って、右です」。どこへ行きますか。',['駅','学校','店','病院'],0,'駅まで = menuju stasiun.'],
+  ['N4','kanji','「会社」の意味は？',['perusahaan','sekolah','keluarga','perpustakaan'],0,'会社（かいしゃ）= perusahaan.'],
+  ['N4','grammar','「日本に行った（　）ありますか」',['こと','もの','ため','から'],0,'〜たことがある = pernah melakukan.'],
+  ['N4','vocabulary','「急ぐ」の意味は？',['terburu-buru','istirahat','berjalan','menunggu'],0,'急ぐ（いそぐ）= terburu-buru/bergegas.'],
+  ['N4','reading','田中さんは毎日バスで学校へ行きます。田中さんはどうやって学校へ行きますか。',['バスで','電車で','歩いて','車で'],0,'バスで学校へ行きます = pergi ke sekolah naik bus.'],
+  ['N4','grammar','「宿題を忘れた（　）、先生に叱られました」',['ので','のに','けど','から'],0,'ので = karena (polite/objektif).'],
+
+  // N3 (8 questions)
+  ['N3','grammar','「日本語が話せるようになりました」の意味は？',['menjadi bisa bicara','sedang bicara','tidak bisa bicara','harus bicara'],0,'〜ようになる = menjadi bisa/terbiasa (perubahan gradual).'],
+  ['N3','vocabulary','「原因」の意味は？',['penyebab','hasil','contoh','tujuan'],0,'原因（げんいん）= penyebab/sebab.'],
+  ['N3','reading','この店は安い一方で、駅から遠い。正しいものは？',['murah tapi jauh dari stasiun','mahal dan dekat','murah dan dekat','tutup'],0,'安い = murah, 駅から遠い = jauh dari stasiun.'],
+  ['N3','grammar','「約束は守るべきです」の意味は？',['janji seharusnya ditepati','janji tidak perlu ditepati','janji sudah selesai','janji sangat sulit'],0,'〜べきだ = seharusnya (kewajiban moral).'],
+  ['N3','vocabulary','「悩む」の意味は？',['khawatir/kebingungan','gembira','marah','bosan'],0,'悩む（なやむ）= bingung/galau/dilanda masalah.'],
+  ['N3','grammar','「忙しいのに、来てくれてありがとう」のに は？',['karena sibuk','walaupun sibuk','setelah sibuk','sebelum sibuk'],1,'〜のに = walaupun/padahal (kontras yang mengandung penyesalan atau kejutan).'],
+  ['N3','reading','彼は病気にもかかわらず、試合に出た。正しいものは？',['walaupun sakit, tetap bertanding','karena sakit tidak bertanding','setelah sembuh bertanding','sakit dan tidak bertanding'],0,'にもかかわらず = meskipun/walaupun.'],
+  ['N3','vocabulary','「判断する」の意味は？',['menilai/memutuskan','menjelaskan','mengusulkan','mengakui'],0,'判断する（はんだんする）= menilai/memutuskan.'],
+
+  // N2 (8 questions)
+  ['N2','vocabulary','「承認」の意味は？',['persetujuan','penolakan','pengiriman','kerusakan'],0,'承認（しょうにん）= persetujuan/pengesahan.'],
+  ['N2','grammar','「状況に応じて変えます」の意味は？',['mengubah sesuai situasi','mengubah tanpa alasan','tidak berubah','situasinya sama'],0,'〜に応じて = sesuai dengan ~ / tergantung pada ~.'],
+  ['N2','reading','資料に基づいて判断する。何を使って判断しますか。',['資料','感情','予定','天気'],0,'に基づいて = berdasarkan ~.'],
+  ['N2','keigo','「見る」の謙譲語は？',['拝見する','ご覧になる','見るです','見られる'],0,'拝見する = 見る の謙譲語 (merendahkan diri sendiri).'],
+  ['N2','grammar','「経済が発展する（　）、環境問題も深刻になった」',['に伴って','ために','ので','けれど'],0,'〜に伴って = seiring dengan ~ (formal).'],
+  ['N2','vocabulary','「促進する」の意味は？',['mendorong/mempercepat','menghambat','menganalisis','mempertahankan'],0,'促進する（そくしんする）= mendorong/mempromosikan.'],
+  ['N2','reading','企業は利益のみならず、社会貢献も求められている。「のみならず」の意味は？',['tidak hanya','bukan sama sekali','meskipun','justru karena'],0,'のみならず = tidak hanya ~ (formal).'],
+  ['N2','grammar','「締め切りまでに提出せ（　）得ない」',['ざるを','なければ','ないで','なくて'],0,'〜ざるを得ない = tidak bisa tidak / terpaksa.'],
+
+  // N1 (8 questions)
+  ['N1','vocabulary','「懸念」の意味は？',['kekhawatiran','keuntungan','kebiasaan','perayaan'],0,'懸念（けねん）= kekhawatiran/kegundahan.'],
+  ['N1','grammar','「結果いかんで判断します」の意味は？',['menilai tergantung hasil','hasil sudah pasti','tidak melihat hasil','hasil tidak penting'],0,'いかんで = tergantung pada ~ (sangat formal).'],
+  ['N1','reading','筆者は経済的支援だけでは不十分だと述べている。筆者の考えは？',['dukungan ekonomi saja tidak cukup','uang selalu cukup','tidak perlu dukungan','ekonomi tidak dibahas'],0,'だけでは不十分 = hanya itu saja tidak cukup.'],
+  ['N1','keigo','「お忙しいところ恐れ入りますが」は主にどんな場面？',['permintaan sopan bisnis','percakapan kasual teman','perintah keras','slang informal'],0,'恐れ入りますが = maaf mengganggu (pembuka permintaan sangat sopan).'],
+  ['N1','grammar','「いくら謝った（　）、信頼は戻らない」',['ところで','からには','ものを','ながら'],0,'〜ところで = betapapun ~ hasilnya tidak berubah.'],
+  ['N1','vocabulary','「齟齬が生じる」の意味は？',['terjadi ketidaksesuaian','terjadi kemajuan','terjadi keberhasilan','terjadi penghentian'],0,'齟齬（そご）= ketidaksesuaian/gesekan antarpihak.'],
+  ['N1','grammar','「この伝統は京都（　）の文化だ」',['ならでは','にほか','をもって','とはいえ'],0,'〜ならでは = khas ~/hanya ~ yang bisa.'],
+  ['N1','reading','「妥当な判断」という表現が意味するものは？',['penilaian yang wajar/layak','penilaian yang tergesa','penilaian yang salah','penilaian yang berlebihan'],0,'妥当（だとう）= wajar/layak/reasonable.'],
+['N2','grammar','「〜にもかかわらず」の意味は？',['〜のために','〜にしたがって','〜であるにもかかわらず=walaupun〜','〜によると'],2,'にもかかわらず = walaupun / meskipun. 雨にもかかわらず来た。'],
+  ['N2','grammar','正しい文はどれですか？',['データに基づいて判断する。','データを基づいて判断する。','データで基づいて判断する。','データが基づいて判断する。'],0,'に基づいて = berdasarkan ~. Harus pakai に.'],
+  ['N2','vocabulary','「懸念」の意味は？',['期待','心配/懸念','感謝','喜び'],1,'懸念（けねん）= kekhawatiran / keprihatinan.'],
+  ['N2','vocabulary','「維持する」の意味は？',['memperbarui','mempertahankan/menjaga','menghancurkan','merencanakan'],1,'維持（いじ）する = mempertahankan / menjaga.'],
+  ['N1','grammar','「〜ならでは」の用法は？',['否定的な意味','〜に特有の/exclusive to〜','仮定条件','理由を示す'],1,'ならでは = khas ~. 京都ならではの雰囲気. Nuansa positif eksklusif.'],
+  ['N1','grammar','「〜にほかならない」の意味は？',['〜ではない','まさに〜である/nothing other than〜','〜のかわりに','〜にもかかわらず'],1,'にほかならない = tidak lain adalah ~. Penegasan kuat.'],
+  ['N1','vocabulary','「俯瞰する」の意味は？',['melihat detail','melihat dari atas/meninjau secara menyeluruh','merencanakan','mengkritik'],1,'俯瞰（ふかん）= melihat dari atas, tinjauan menyeluruh.'],
+  ['N1','vocabulary','「斬新」の読みと意味は？',['ざんしん=inovatif/sangat baru','しんぜん=baru saja','ざっしん=pembaruan','ざんさん=tersebar'],0,'斬新（ざんしん）= sangat baru / inovatif. 斬新なアイデア.'],
+  ['N2','〜にわたって の意味として正しいものは？',['一時的に','広い範囲・長い期間を通じて','ほんの少し','突然'],1,'〜にわたって = sepanjang / mencakup (rentang luas). 3日間にわたって = sepanjang 3 hari.'],
+  ['N2','「俯瞰する」の意味は？',['細かく見る','高い視点から全体を見渡す','一点を集中して見る','目を閉じる'],1,'俯瞰(ふかん) = melihat dari atas / tinjauan menyeluruh.'],
+  ['N2','「配慮」の意味として正しいものは？',['無視','気を配ること・心遣い','批判','軽視'],1,'配慮(はいりょ) = kepedulian yang hati-hati / mempertimbangkan perasaan orang.'],
+  ['N1','「〜ならでは」の正しい使い方は？',['東京ならではの問題がある。','東京がならではの問題がある。','東京をならではの問題がある。','東京にならではの問題がある。'],0,'〜ならでは = khas ~ / hanya ~ yang bisa. Noun + ならでは + の.'],
+  ['N1','「脆弱」の読み方は？',['きょうじゃく','ぜいじゃく','じゅうじゃく','けいじゃく'],1,'脆弱(ぜいじゃく) = rapuh/lemah. セキュリティの脆弱性 = kerentanan keamanan.'],
+  ['N1','「いかんにかかわらず」の意味は？',['〜に関係なく','〜のために','〜によって','〜なので'],0,'〜いかんにかかわらず = apapun ~, terlepas dari ~. Sangat formal.'],
+  ['N3','「〜にかけて」の意味として正しいものは？',['〜だから','3月から5月にかけて = 3月から5月の間','〜のために','〜のような'],1,'〜にかけて = dari ~ sampai ~ (rentang waktu/tempat yang bertahap).'],
+  ['N3','次の文の（　）に入る最も適切な助詞は？「彼（　）意見を聞いた。」',['が','に','で','を'],1,'〜に + 聞く = bertanya kepada ~. 彼に聞く = bertanya kepada dia.'],
+  ['N4','「そうですね」はどんな時に使いますか？',['否定する時','同意や共感を示す時','質問する時','断る時'],1,'そうですね = ya, betul ya / saya setuju. Ekspresi setuju/empati.'],
+  ['N4','「〜てみる」の意味として正しいものは？',['〜し終える','試しに〜する','〜し続ける','〜してしまう'],1,'〜てみる = mencoba melakukan ~. 食べてみる = mencoba makan.'],
+  ['N4','「〜ことにする」の意味は？',['自然にそうなる','自分で決める','誰かに言われる','まだ決まらない'],1,'〜ことにする = memutuskan untuk ~. 自分の意志で決める.'],
+  ['N5','「〜てください」はどんな文ですか？',['疑問文','依頼・指示文','否定文','感嘆文'],1,'〜てください = tolong ~ (permintaan/instruksi sopan).'],
+  ['N5','「〜ませんか」の意味は？',['〜しません','〜しましょうか (誘い)','〜できません','〜してはいけません'],1,'〜ませんか = mari ~ / mau ~ tidak? (ajakan sopan).'],
+  ['N5','「毎日」の読み方は？',['まいにち','まいじつ','まいひ','まいかい'],0,'毎日(まいにち) = setiap hari. 毎月(まいつき)=setiap bulan, 毎年(まいとし)=setiap tahun.'],
+  ['N5','「〜が好きです」の「が」はどんな役割？',['主語を示す','好き・嫌い・上手などの対象を示す','場所を示す','時間を示す'],1,'〜が好き/嫌い/できる = objek dari kata sifat kemampuan/kesukaan pakai が.'],
+  // N3 tambahan
+  ['N3','「なかなか〜ない」の意味として正しいものは？',['すぐに〜する','なかなか〜できない（なかなか思い通りにいかない）','いつも〜する','たまに〜する'],1,'なかなか〜ない = tidak mudah ~ / tidak juga ~. 例: 眠れない = tidak juga bisa tidur.'],
+  ['N3','「〜に気をつけて」の意味は？',['〜について考えないで','〜に注意して、気をつけて','〜を無視して','〜について話して'],1,'気をつける = berhati-hati. 〜に気をつけて = hati-hati dengan ~. 例: 健康に気をつけて。'],
+  ['N3','「〜ておく」の意味として正しいのは？',['〜してしまった','〜する予定がない','将来のために〜しておく（事前の準備）','〜したくない'],2,'〜ておく = melakukan ~ terlebih dahulu untuk nanti. 例: 準備しておく = mempersiapkan dulu.'],
+  ['N3','「〜てしまった」の2つの意味は？',['完了だけ','後悔だけ','①完了（全部〜した）②後悔（〜してしまった！）の2つ','未来の意志'],2,'〜てしまう = (1) selesai tuntas, atau (2) melakukan sesuatu yang disesali/tidak disengaja.'],
+  ['N3','「いくら〜ても」の意味は？',['〜すると','どれだけ〜しても（効果がない逆接）','〜しないと','もし〜なら'],1,'いくら〜ても = seberapa pun ~, tetap saja... 例: いくら練習しても上手くならない = seberapa pun berlatih tidak juga mahir.'],
+  // N4 tambahan
+  ['N4','「〜すぎる」の意味は？',['十分〜','〜が不足している','程度や量が過剰（〜しすぎ）','〜するべきだ'],2,'〜すぎる = terlalu ~ / berlebihan. 例: 食べすぎる = makan terlalu banyak. 難しすぎる = terlalu sulit.'],
+  ['N4','「〜てみてください」の意味は？',['〜するな','試しに〜してください','必ず〜してください','〜してはいけない'],1,'〜てみる = mencoba. 〜てみてください = silakan coba ~. 例: 食べてみてください = silakan coba makan.'],
+  ['N4','「〜はずだ」の意味は？',['〜しないだろう','〜するかもしれない','〜するに違いない（確信）','〜したい'],2,'〜はずだ = seharusnya / pasti ~. 根拠に基づく確信. 例: もう着いているはずだ = seharusnya sudah tiba.'],
+  ['N4','「〜でしょうか」の丁寧さは？',['カジュアル','〜かな？と同じ','〜ですか？より丁寧','命令形'],2,'〜でしょうか = versi lebih sopan dari ですか. 例: よろしいでしょうか = bolehkah? (lebih sopan dari よろしいですか)'],
+  // N5 tambahan
+  ['N5','「〜ましょう」は何のために使いますか？',['禁止する時','誘う・提案する時','質問する時','過去を話す時'],1,'〜ましょう = ayo ~ / mari ~. 例: 食べましょう = ayo makan. Volitional form untuk mengajak.'],
+  ['N5','「〜が欲しい」と「〜したい」の違いは？',['同じ意味','が欲しい=名詞を望む、したい=動詞の行動を望む','したい=名詞','が欲しい=動詞'],1,'〜が欲しい = menginginkan benda (noun). 例: りんごが欲しい. 〜したい = ingin melakukan (verb). 例: 食べたい.'],
+  ['N5','日本語の語順として正しいのは？',['Subject-Verb-Object','Subject-Object-Verb（SOV）','Verb-Subject-Object','Object-Subject-Verb'],1,'日本語はSOV語順. 例: 私は(S)りんごを(O)食べます(V). 英語はSVO (I eat apple).'],
+  ['N2','「〜に限らず」の正しい使い方は？',['学生に限らず誰でも参加できる。','学生は限らず誰でも参加できる。','学生が限らず誰でも参加できる。','学生に限らず誰も参加できない。'],0,'〜に限らず = tidak terbatas pada ~. Noun + に限らず + 誰でも/何でも. 例: 学生に限らず社会人も参加OK.'],
+  ['N2','「〜をめぐって」の意味は？',['〜について穏やかに話す','〜を中心に議論・対立が起こる','〜に向かって進む','〜のために働く'],1,'〜をめぐって = seputar ~ (ada perdebatan/konflik). 予算をめぐる争い=pertengkaran seputar anggaran.'],
+  ['N1','「〜ずにはいられない」の正しい使用例は？',['笑わずにはいられない。','笑うずにはいられない。','笑ったずにはいられない。','笑えずにはいられない。'],0,'Verbない-form (drop い) + ずにはいられない. 笑う→笑わ+ず = 笑わずにはいられない. 不可能に近い衝動表現。'],
+  ['N1','「〜に越したことはない」の意味は？',['〜するのは悪い','〜するのが一番よい/理想','〜しなくていい','〜するべきではない'],1,'〜に越したことはない = tidak ada yang lebih baik dari ~. 早いに越したことはない = lebih baik cepat.'],
+  ['N1','「〜たりとも〜ない」の意味として正しいものは？',['すべて〜する','たった一つの〜でさえも〜しない(強調)','時々〜する','〜したい'],1,'〜たりとも〜ない = bahkan satu ~ pun tidak. 一秒たりとも無駄にしない = bahkan satu detik pun tidak disia-siakan.'],
+  ['N5','「〜がほしい」の正しい使い方は？',['水がほしい。','水をほしい。','水はほしい。','水にほしい。'],0,'〜がほしい = menginginkan ~ (benda). が = partikel untuk keinginan terhadap benda. 例: 新しい本がほしい。'],
+  ['N5','「〜に〜があります」の文型で正しいのは？',['机に本があります。','机で本があります。','机を本があります。','机が本があります。'],0,'〜に〜があります = di ~ ada ~. に = lokasi keberadaan benda (ある/いる). 例: 机の上に本がある。'],
+  ['N4','「〜なくてもいいです」の意味は？',['〜しなければならない','〜しなくてよい（不要）','〜してはいけない','〜できない'],1,'〜なくてもいい = tidak perlu ~/tidak harus ~. Berlawanan dengan: 〜なければならない(harus).'],
+  ['N4','「〜によると」の意味として正しいのは？',['〜のせいで','〜の情報源によれば','〜に似て','〜と比べて'],1,'〜によると = menurut ~ (sumber informasi). 天気予報によると = menurut ramalan cuaca.'],
+  ['N3','「〜ことにする」と「〜ことになる」の違いは？',['同じ意味','ことにする=自分の意志決定。ことになる=外部の決定や結果','ことになる=命令','ことにする=否定的な意味'],1,'ことにする = saya memutuskan ~. ことになる = diputuskan / menjadi ~ (keadaan/aturan luar).'],
+  ['N3','「〜かどうか」の正しい使い方は？',['行くかどうか分からない。','行くかどうかは行く。','かどうか行く分からない。','行くかどうかします。'],0,'〜かどうか = apakah ~ atau tidak. Plain + かどうか + 分かる/聞く/決める.'],
+  ['N2','「〜とともに」の意味として正しいものは？',['〜に反して','〜と一緒に・〜と同時に','〜の結果として','〜にもかかわらず'],1,'〜とともに = bersama ~ / bersamaan dengan ~. 時代とともに変化する = berubah seiring zaman.'],
+  ['N2','「〜次第では」の意味は？',['すべての場合','条件によっては','決して〜ない','予想通り'],1,'〜次第では = tergantung pada ~ / bergantung kondisi ~. 結果次第では続けられる = bisa dilanjutkan tergantung hasilnya.'],
+  ['N1','「〜てやまない」を正しく使った例は？',['成功を願ってやまない。','成功をやまなく願う。','願ってやまない成功する。','成功してやまない。'],0,'Verbて + やまない = tidak pernah berhenti ~ (ekspresi perasaan mendalam, biasanya positif). 願ってやまない = senantiasa mendoakan.'],
+  ['N1','「〜に越したことはない」の正しい例文は？',['安全に越したことはない。','安全越したことはない。','安全はに越したことはない。','に越したこと安全はない。'],0,'Noun/Adj(dict) + に越したことはない = tidak ada yang lebih baik dari ~. 安全に越したことはない = keselamatan di atas segalanya.'],
+  ['N3','「〜ないといけない」と同じ意味はどれ？',['〜てもいい','〜なければならない','〜なくてもいい','〜してはいけない'],1,'〜ないといけない = harus ~ (kewajiban kasual). 意味: なければならない。カジュアル形式。行かないといけない = 行かなければならない。'],
+  ['N3','「〜てしまった」の後悔の意味を使った例は？',['財布を忘れてしまった。','本を読んでしまった。','仕事をしてしまった。','家に帰ってしまった。'],0,'忘れてしまった = aduh ketinggalan (menyesal/tidak sengaja). 他の選択肢は後悔のニュアンスが薄い。'],
+  ['N3','「〜ばかりか」の意味は？',['〜だけ','〜はもちろん、それだけでなく','〜以外','〜まで'],1,'〜ばかりか = tidak hanya ~, bahkan. Nominalか + より. 疲れたばかりかお腹も空いた = tidak hanya lelah, bahkan lapar.'],
+  ['N5','「あそこ（　）本屋があります。」',['は','に','が','で'],1,'あそこに本屋があります。に + ある = ada di ~. 場所に物がある/人がいる。これが基本構文。'],
+  ['N5','「毎日（　）朝ご飯を食べます。」',['は','を','で','が'],0,'毎日は朝ご飯を食べます。は = topik. または: 毎日朝ご飯を食べます (は省略OK)。毎朝 = setiap pagi。'],
+  ['N4','「〜てもらいました」の意味は？',['私が〜した','他の人が私のために〜してくれた','私が〜したいと思う','私が〜するべきだ'],1,'〜てもらった = orang lain melakukan sesuatu untuk saya (saya menerima). 先生に説明してもらった = guru menjelaskan untuk saya.'],
+  ['N4','「〜そうです」（様態）の正しい使い方は？',['あの映画はおもしろいそうです。','おいしそうなケーキですね。','彼は学生そうです。','雨が降るそうです。'],1,'様態のそう = kelihatannya ~ (dari penampilan). い形容詞→い抜き+そう. おいしそう=kelihatan enak. おいしいそうです(伝聞)と区別!'],
+  ['N3','「〜に対して」の意味として正しいのは？',['〜のために','〜に比べて','〜に向かって/〜について(対象・態度)','〜によって'],2,'に対して = terhadap ~ / kepada ~ (arah/target aksi atau sikap). 質問に対して答える = menjawab pertanyaan. 環境問題に対する取り組み。'],
+  ['N2','「〜に違いない」の意味は？',['〜かもしれない','必ず〜に間違いないという強い確信','〜のはずはない','〜というのは嘘だ'],1,'に違いない = pasti ~ (keyakinan kuat pembicara). 彼は知っているに違いない = dia pasti tahu. はずだ(seharusnya) との比較も重要。'],
+  ['N1','「〜のみならず」を使った正しい例は？',['彼のみならず、チーム全体が優秀だ。','彼がのみならず優秀だ。','彼のみならず優秀です。','のみならず彼は優秀だ。'],0,'のみならず = tidak hanya ~. Noun/Plain + のみならず. 彼のみならず = tidak hanya dia. Formal/tulisan. = だけでなく.'],
+];
+const answers = Array(questions.length).fill(null);
+// Fungsi helper GENUINELY diperlukan karena ditemukan 52 dari 106 soal
+// (index 49 ke atas) memiliki struktur array 5-elemen [level, pertanyaan,
+// opsi, jawaban, penjelasan] -- TANPA field kategori -- sementara 48 soal
+// awal genuinely 6-elemen [level, kategori, pertanyaan, opsi, jawaban,
+// penjelasan]. Kode lama mengasumsikan struktur 6-elemen secara kaku,
+// menyebabkan q[3].map() gagal (mengambil posisi jawaban/angka, bukan
+// array opsi) untuk seluruh 52 soal yang genuinely 5-elemen.
+function getQFields(q) {
+  if (q.length === 6) {
+    return { level: q[0], category: q[1], text: q[2], opts: q[3], answer: q[4], explain: q[5] };
+  }
+  // Struktur 5-elemen: kategori genuinely tidak ada, tampilkan level saja dua kali (aman untuk UI)
+  return { level: q[0], category: q[0], text: q[1], opts: q[2], answer: q[3], explain: q[4] };
+}
+function renderQuestions() {
+  document.getElementById('questionBox').innerHTML = questions.map((q, qi) => { const f = getQFields(q); return `<article class="question"><div class="q-meta"><span class="tag">${f.level}</span><span class="tag">${f.category}</span><span class="tag">#${qi + 1}</span></div><div class="q-text">${f.text}</div><div class="choices">${f.opts.map((choice, ci) => `<button type="button" class="${answers[qi] === ci ? 'selected' : ''}" onclick="choose(${qi},${ci})">${ci + 1}. ${choice}</button>`).join('')}</div></article>`; }).join('');
+}
+function choose(qi, ci) {
+  answers[qi] = ci;
+  renderQuestions();
+  updatePreview();
+}
+function scores() {
+  const skill = {};
+  let total = 0;
+  questions.forEach((q, i) => {
+    const f = getQFields(q);
+    const key = f.category;
+    skill[key] ||= { ok: 0, total: 0 };
+    skill[key].total++;
+    if (answers[i] === f.answer) { skill[key].ok++; total++; }
+  });
+  return { total, skill };
+}
+function recommendedLevel(total) {
+  if (total <= 4) return 'N5';
+  if (total <= 8) return 'N4';
+  if (total <= 12) return 'N3';
+  if (total <= 16) return 'N2';
+  return 'N1';
+}
+function updatePreview() {
+  const { total, skill } = scores();
+  document.getElementById('scoreText').textContent = `${total}/${questions.length}`;
+  document.getElementById('skillBars').innerHTML = Object.entries(skill).map(([name, data]) => {
+    const pct = Math.round(data.ok / data.total * 100);
+    return `<div class="skill-row"><span>${name}</span><div class="bar"><div class="fill" style="width:${pct}%"></div></div><b>${pct}%</b></div>`;
+  }).join('');
+}
+function submitTest() {
+  const { total, skill } = scores();
+  const level = recommendedLevel(total);
+  const weak = Object.entries(skill).sort((a, b) => (a[1].ok / a[1].total) - (b[1].ok / b[1].total)).slice(0, 2).map(([name]) => name);
+  document.getElementById('resultBox').innerHTML = `<b>Rekomendasi awal: ${level}</b><br>Skor kamu ${total}/${questions.length}. Fokus review berikutnya: ${weak.join(' dan ')}. Mulai dari Roadmap ${level}, lalu <a href="../Onboarding.html">buat rencana belajar personal</a> dengan fokus kelemahan ini.`;
+  document.querySelectorAll('.question').forEach((card, qi) => {
+    const correctAnswer = getQFields(questions[qi]).answer;
+    card.querySelectorAll('button').forEach((button, ci) => {
+      button.classList.toggle('correct', ci === correctAnswer);
+      button.classList.toggle('wrong', answers[qi] === ci && ci !== correctAnswer);
+    });
+  });
+  try {
+    localStorage.setItem('nihongoPlacement', JSON.stringify({ score: total, level, weak, date: new Date().toISOString() }));
+    window.proToast?.('Hasil tes level tersimpan.');
+  } catch (error) {}
+}
+function resetTest() {
+  answers.fill(null);
+  document.getElementById('resultBox').textContent = 'Jawab soal lalu klik “Lihat Hasil”.';
+  renderQuestions();
+  updatePreview();
+}
+renderQuestions();
+updatePreview();
+</script>
+<script src="../assets/translator.min.js" defer></script>
+<script src="../assets/pro-app.min.js" defer></script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html>

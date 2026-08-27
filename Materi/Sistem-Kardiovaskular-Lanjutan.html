@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#450a0a">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>循環器系（上級）Kardiovaskular Lanjutan — Hemodinamik &amp; Aritmia untuk Calon Perawat | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Kardiovaskular Lanjutan — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Kardiovaskular-Lanjutan.html","description":"Pembelajaran tingkat lanjutan sistem kardiovaskular dalam bahasa Jepang — hemodinamik, klasifikasi aritmia, farmakologi mendalam, manajemen syok kardiogenik, dan terminologi ICU/CCU untuk calon perawat dan tenaga medis.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Materi tingkat lanjutan sistem kardiovaskular — hemodinamik, aritmia kompleks, farmakologi mendalam, dan manajemen akut dalam bahasa Jepang untuk calon perawat dan tenaga medis.">
+<meta property="og:title" content="循環器系（上級）Kardiovaskular Lanjutan — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Hemodinamik, aritmia, farmakologi mendalam, dan manajemen akut kardiovaskular dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Kardiovaskular-Lanjutan.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#fef2f2,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#450a0a;border-color:#450a0a;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#450a0a;background:#fef2f2;border:1px solid #fecaca;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#450a0a;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#450a0a}
+.organ-tab.active{color:#450a0a;border-bottom-color:#450a0a}
+.organ-tab:focus-visible{outline:2px solid #450a0a;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #fef2f2;color:#1a0505}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#450a0a}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#fef2f2;border-color:#fecaca}
+.info-card.scope{background:#f8fafc;border-color:#cbd5e1}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#fef2f2;color:#450a0a;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #450a0a;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.hemo-wrap{max-width:480px;margin:16px auto;padding:16px;background:var(--white,#fff);border-radius:14px;border:1px solid var(--border-light,#eee)}
+.hemo-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.hemo-table th{background:#fef2f2;padding:6px 8px;text-align:left;font-size:11px}
+.hemo-table td{padding:6px 8px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#450a0a}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.case-sim{background:var(--white,#fff);border:2px solid #fecaca;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#fef2f2;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#450a0a;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Kardiovaskular.html">① 基礎 Dasar</a>
+      <a href="Sistem-Kardiovaskular-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Kardiovaskular-Lanjutan.html" class="current">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">🫀 Level Lanjutan — Hemodinamik &amp; Aritmia</span>
+    <h1><span class="jp-big">循環器系（上級）</span>Kardiovaskular Lanjutan</h1>
+    <p class="lead">Hemodinamik, klasifikasi aritmia, farmakologi mendalam, dan manajemen syok kardiogenik — untuk calon perawat, tenaga medis, dan pelajar bahasa Jepang tingkat teknis tertinggi.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi kardiovaskular lanjutan">
+  <button class="organ-tab active" data-tab="hemodinamik" role="tab" aria-selected="true">血行動態 Hemodinamik</button>
+  <button class="organ-tab" data-tab="aritmia" role="tab" aria-selected="false">不整脈 Aritmia</button>
+  <button class="organ-tab" data-tab="farmakologi" role="tab" aria-selected="false">薬理詳細 Farmakologi</button>
+  <button class="organ-tab" data-tab="syok" role="tab" aria-selected="false">ショック Syok Kardiogenik</button>
+  <button class="organ-tab" data-tab="prosedur" role="tab" aria-selected="false">処置 Prosedur &amp; Alat</button>
+  <button class="organ-tab" data-tab="icu" role="tab" aria-selected="false">ICU用語 Istilah ICU/CCU</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <div class="info-card scope">
+    <strong>Tentang materi tingkat lanjutan ini:</strong>
+    <p style="margin:6px 0 0">Konten ini menjelaskan KONSEP dan MEKANISME untuk tujuan edukasi bahasa dan pemahaman klinis dasar — BUKAN pengganti pendidikan keperawatan formal, protokol rumah sakit, atau panduan dosis obat. Angka/dosis spesifik sengaja tidak dicantumkan karena bervariasi menurut kondisi pasien dan kebijakan institusi; selalu ikuti pelatihan resmi dan protokol fasilitas.</p>
+  </div>
+
+  <!-- ═══════════ 血行動態 HEMODINAMIK ═══════════ -->
+  <div class="organ-panel active" id="panel-hemodinamik">
+    <h2>血行動態 — Prinsip Hemodinamik</h2>
+    <p>Hemodinamik (血行動態, けっこうどうたい) adalah studi tentang gaya dan aliran darah dalam sistem kardiovaskular — dasar untuk memahami monitoring invasif di ICU/CCU.</p>
+
+    <h3>Menghitung MAP (tekanan arteri rata-rata)</h3>
+    <p>MAP secara konsep BUKAN rata-rata sederhana sistol dan diastol — karena diastol berlangsung lebih lama dalam satu siklus jantung, rumus perkiraannya adalah:</p>
+    <div class="info-card">
+      <p style="margin-bottom:0;text-align:center;font-weight:700">MAP ≈ Tekanan Diastolik + ⅓ (Tekanan Sistolik − Tekanan Diastolik)</p>
+    </div>
+    <p>MAP dianggap parameter yang lebih relevan secara fisiologis dibanding tekanan sistolik/diastolik saja, karena inilah yang menentukan perfusi organ secara langsung.</p>
+
+    <h3>Monitoring hemodinamik invasif</h3>
+    <p>Parameter di atas didapat lewat alat monitoring invasif yang dipasang langsung ke pembuluh darah/jantung pasien kritis:</p>
+    <ul>
+      <li><strong>動脈ライン (Arterial line)</strong>: kateter di arteri (biasanya radialis) untuk pengukuran tekanan darah kontinu real-time dan pengambilan sampel darah arteri berulang tanpa tusukan berkali-kali</li>
+      <li><strong>中心静脈カテーテル (CVC/kateter vena sentral)</strong>: dipasang di vena besar (jugularis/subklavia) untuk mengukur CVP dan memberikan obat/cairan yang butuh akses vena besar</li>
+      <li><strong>肺動脈カテーテル (kateter Swan-Ganz)</strong>: kateter yang "mengapung" melalui jantung kanan hingga arteri pulmonal, memungkinkan pengukuran PCWP dan curah jantung langsung — jarang dipakai sekarang karena teknik non-invasif berkembang, tapi konsepnya tetap penting dipahami</li>
+    </ul>
+
+    <h3>Parameter hemodinamik utama</h3>
+    <div class="hemo-wrap">
+      <table class="hemo-table">
+        <thead><tr><th>Parameter</th><th>Istilah Jepang</th><th>Makna singkat</th></tr></thead>
+        <tbody>
+          <tr><td>MAP (tekanan arteri rata-rata)</td><td>平均動脈圧</td><td>Tekanan perfusi rata-rata ke organ</td></tr>
+          <tr><td>CVP (tekanan vena sentral)</td><td>中心静脈圧</td><td>Estimasi tekanan pengisian atrium kanan</td></tr>
+          <tr><td>SVR (resistensi vaskular sistemik)</td><td>体血管抵抗</td><td>Afterload yang dilawan ventrikel kiri</td></tr>
+          <tr><td>PCWP (tekanan baji kapiler paru)</td><td>肺動脈楔入圧</td><td>Estimasi tekanan pengisian ventrikel kiri</td></tr>
+          <tr><td>SvO2 (saturasi oksigen vena campuran)</td><td>混合静脈血酸素飽和度</td><td>Indikator keseimbangan suplai-kebutuhan oksigen jaringan</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Hubungan tekanan-volume ventrikel</h3>
+    <p>Kurva tekanan-volume ventrikel kiri menggambarkan satu siklus jantung penuh sebagai loop: pengisian diastolik (tekanan rendah, volume naik) → kontraksi isovolumetrik (tekanan naik cepat, volume tetap) → ejeksi (volume turun) → relaksasi isovolumetrik. Luas area loop merepresentasikan kerja jantung (stroke work).</p>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Aplikasi klinis:</strong> pada gagal jantung sistolik, loop bergeser ke kanan (volume akhir sistolik lebih besar, fraksi ejeksi turun); pada gagal jantung diastolik, kurva pengisian menjadi lebih curam (ventrikel kaku, sulit terisi meski tekanan tinggi).</p>
+    </div>
+
+    <h3>Fraksi ejeksi (駆出率, くしゅつりつ)</h3>
+    <p>Persentase volume darah yang dipompa keluar ventrikel kiri setiap kontraksi dibanding volume total sebelum kontraksi. Nilai rendah menandakan gagal jantung dengan fraksi ejeksi menurun (HFrEF); nilai normal dengan gejala gagal jantung tetap menandakan HFpEF (gagal jantung fraksi ejeksi terjaga, biasanya masalah pengisian/diastolik).</p>
+
+    <h3>Keseimbangan suplai-kebutuhan oksigen jaringan</h3>
+    <p>Tujuan akhir seluruh sistem kardiovaskular adalah memastikan pengiriman oksigen (DO2, 酸素供給量) mencukupi kebutuhan konsumsi oksigen jaringan (VO2, 酸素消費量). DO2 dipengaruhi TIGA faktor: curah jantung, kadar hemoglobin, dan saturasi oksigen darah — gangguan pada salah satu faktor ini bisa dikompensasi sebagian oleh faktor lain, tapi hanya sampai batas tertentu.</p>
+    <ul>
+      <li><strong>SvO2 rendah</strong>: menandakan jaringan mengekstraksi LEBIH BANYAK oksigen dari darah yang tersedia — sering terjadi saat DO2 tidak mencukupi kebutuhan (curah jantung rendah, anemia berat, atau hipoksemia)</li>
+      <li><strong>Laktat darah (乳酸, にゅうさん)</strong>: meningkat saat jaringan beralih ke metabolisme anaerob akibat kekurangan oksigen — kadar laktat yang tinggi dan TIDAK membaik dengan terapi adalah penanda prognostik penting pada syok dan kondisi kritis</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Aplikasi klinis:</strong> tren laktat (apakah membaik atau memburuk seiring waktu) sering lebih informatif dibanding satu angka tunggal — laktat yang turun menandakan terapi berhasil memperbaiki perfusi jaringan, sedangkan laktat yang terus naik meski tekanan darah "terlihat normal" adalah tanda peringatan penting.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 不整脈 ARITMIA ═══════════ -->
+  <div class="organ-panel" id="panel-aritmia">
+    <h2>不整脈 — Klasifikasi Aritmia</h2>
+    <p>Level Menengah memperkenalkan fibrilasi atrium, takikardia, dan bradikardia. Di sini kita bahas klasifikasi lebih sistematis berdasarkan asal dan mekanisme.</p>
+
+    <h3>Blok atrioventrikular (房室ブロック) — tiga derajat</h3>
+    <ul>
+      <li><strong>Derajat 1 (第1度)</strong>: konduksi melambat tapi SEMUA sinyal tetap sampai ke ventrikel (interval PR memanjang tapi konsisten) — sering tanpa gejala, dipantau saja</li>
+      <li><strong>Derajat 2 Tipe I (Wenckebach)</strong>: interval PR semakin memanjang bertahap sampai akhirnya satu sinyal gagal diteruskan (satu QRS "hilang"), lalu polanya berulang — umumnya jinak</li>
+      <li><strong>Derajat 2 Tipe II (Mobitz II)</strong>: sinyal tiba-tiba gagal diteruskan TANPA pemanjangan PR bertahap sebelumnya — lebih berisiko berkembang jadi blok total, sering butuh pacemaker</li>
+      <li><strong>Derajat 3 (blok total)</strong>: TIDAK ADA sinyal dari atrium yang sampai ke ventrikel — atrium dan ventrikel berdetak sepenuhnya independen (disosiasi AV), ventrikel mengandalkan "ritme pelarian" (escape rhythm) yang jauh lebih lambat</li>
+    </ul>
+
+    <h3>Aritmia berdasarkan asal (origin)</h3>
+    <ul>
+      <li><strong>Supraventrikular (上室性)</strong>: berasal dari atrium/nodus AV — contoh: fibrilasi atrium, flutter atrium, takikardia supraventrikular paroksismal (PSVT)</li>
+      <li><strong>Ventrikular (心室性)</strong>: berasal dari ventrikel — umumnya lebih berbahaya karena bisa mengganggu curah jantung drastis. Contoh: takikardia ventrikel (VT), fibrilasi ventrikel (VF, henti jantung)</li>
+    </ul>
+
+    <h3>Aritmia berdasarkan mekanisme</h3>
+    <ul>
+      <li><strong>Gangguan pembentukan impuls</strong>: otomatisitas abnormal (sel selain nodus SA "mengambil alih" ritme)</li>
+      <li><strong>Gangguan konduksi (reentry, リエントリー)</strong>: sinyal listrik "berputar" dalam loop akibat jalur konduksi yang tidak seragam — mekanisme paling umum di balik banyak takiaritmia</li>
+      <li><strong>Blok konduksi (伝導ブロック)</strong>: sinyal terhambat di suatu titik — blok AV derajat 1/2/3, dengan derajat 3 (blok total) paling serius karena atrium dan ventrikel berdetak independen</li>
+    </ul>
+
+    <h3>Prinsip evaluasi: stabil vs tidak stabil</h3>
+    <p>Dalam manajemen aritmia akut, pertanyaan pertama BUKAN "aritmia apa ini secara tepat", melainkan <strong>apakah pasien secara hemodinamik stabil atau tidak</strong> — ini menentukan urgensi tindakan:</p>
+    <ul>
+      <li><strong>Tanda ketidakstabilan</strong>: hipotensi, penurunan kesadaran, nyeri dada, tanda syok, gagal jantung akut — kondisi ini butuh tindakan SEGERA (mis. kardioversi), tidak menunggu identifikasi aritmia yang sempurna</li>
+      <li><strong>Pasien stabil</strong>: memberi waktu untuk evaluasi lebih rinci (EKG 12-lead, riwayat, elektrolit) sebelum menentukan terapi definitif</li>
+    </ul>
+
+    <div class="info-card danger">
+      <h3 style="margin-top:0">🚨 Aritmia yang mengancam nyawa (butuh respons segera)</h3>
+      <ul style="margin-bottom:0">
+        <li><strong>心室細動 (しんしつさいどう) — Fibrilasi ventrikel</strong>: tidak ada curah jantung efektif, penyebab utama henti jantung mendadak</li>
+        <li><strong>心室頻拍 (しんしつひんぱく) — Takikardia ventrikel</strong>: bisa stabil atau tidak stabil (tanpa nadi) tergantung kondisi hemodinamik pasien</li>
+        <li><strong>完全房室ブロック (かんぜんぼうしつぶろっく) — Blok AV total (derajat 3)</strong>: risiko bradikardia ekstrem/henti jantung</li>
+      </ul>
+    </div>
+
+    <h3>Torsades de Pointes — aritmia terkait QT memanjang</h3>
+    <p>Torsades de Pointes (トルサード・ド・ポワント) adalah bentuk takikardia ventrikel dengan pola EKG khas "berputar" di sekitar garis dasar — terjadi pada kondisi interval QT yang memanjang (bisa akibat obat tertentu, gangguan elektrolit seperti kalium/magnesium rendah, atau kelainan genetik bawaan). Kondisi ini penting dipahami karena BANYAK obat umum — termasuk beberapa antiaritmia kelas III dan bahkan beberapa antibiotik — bisa memperpanjang interval QT sebagai efek samping, sehingga pemantauan EKG sering diperlukan saat memulai obat-obat berisiko ini.</p>
+
+    <h3>Sindrom pre-eksitasi (Wolff-Parkinson-White)</h3>
+    <p>Pada sebagian kecil orang, terdapat jalur konduksi TAMBAHAN (bypass tract) antara atrium dan ventrikel selain jalur normal lewat nodus AV — menyebabkan sinyal listrik "mendahului" jalur normal (pre-eksitasi). Ini bisa memicu episode takikardia berulang, dan pada kasus tertentu meningkatkan risiko jika pasien juga mengalami fibrilasi atrium (sinyal bisa mengalir sangat cepat lewat jalur tambahan, berpotensi memicu fibrilasi ventrikel). Konsep ini penting sebagai contoh bahwa TIDAK semua aritmia berasal dari masalah otomatisitas atau blok — beberapa berasal dari kelainan struktur jalur konduksi sejak lahir.</p>
+  </div>
+
+  <!-- ═══════════ 薬理詳細 FARMAKOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-farmakologi">
+    <h2>薬理詳細 — Farmakologi Kardiovaskular Mendalam</h2>
+    <p>Level Menengah memperkenalkan golongan obat utama. Di sini kita bahas klasifikasi lebih rinci dan prinsip kerja yang mendasarinya.</p>
+
+    <h3>Klasifikasi Vaughan Williams untuk obat antiaritmia</h3>
+    <ul>
+      <li><strong>Kelas I (Na+ channel blocker)</strong>: memperlambat konduksi lewat penghambatan kanal natrium</li>
+      <li><strong>Kelas II (Beta-blocker)</strong>: menurunkan otomatisitas dan konduksi nodus AV lewat blokade simpatis</li>
+      <li><strong>Kelas III (K+ channel blocker)</strong>: memperpanjang periode refrakter lewat penghambatan kanal kalium (mis. amiodaron)</li>
+      <li><strong>Kelas IV (Ca2+ channel blocker non-dihidropiridin)</strong>: memperlambat konduksi nodus AV lewat penghambatan kanal kalsium</li>
+    </ul>
+
+    <h3>Obat vasoaktif (untuk syok/hemodinamik tidak stabil)</h3>
+    <ul>
+      <li><strong>Vasopresor (昇圧薬)</strong>: meningkatkan tekanan darah lewat vasokonstriksi (mis. norepinefrin) — dipakai saat MAP terlalu rendah untuk perfusi organ adekuat</li>
+      <li><strong>Inotropik positif (陽性変力薬)</strong>: meningkatkan kontraktilitas jantung (mis. dobutamin) — dipakai saat curah jantung rendah jadi masalah utama, bukan sekadar tekanan darah</li>
+      <li><strong>Inodilator</strong>: kombinasi efek inotropik DAN vasodilatasi ringan (mis. milrinon) — dipakai pada gagal jantung berat dengan resistensi vaskular tinggi, saat vasokonstriksi tambahan justru tidak diinginkan</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Prinsip penting:</strong> vasopresor dan inotropik mengatasi masalah hemodinamik yang BERBEDA — memberikan vasopresor pada pasien dengan curah jantung rendah tapi resistensi vaskular sudah tinggi bisa memperburuk perfusi organ, bukan memperbaikinya.</p>
+    </div>
+
+    <h3>Prinsip titrasi obat vasoaktif</h3>
+    <p>Obat vasoaktif umumnya diberikan lewat infus kontinu yang dosisnya disesuaikan (dititrasi) berdasarkan RESPONS hemodinamik pasien secara real-time (MAP target, curah jantung, tanda perfusi), bukan dosis tetap seperti obat oral biasa — inilah kenapa monitoring hemodinamik invasif (tab Hemodinamik) begitu penting saat obat-obat ini dipakai.</p>
+
+    <h3>Terapi reperfusi pada infark miokard</h3>
+    <ul>
+      <li><strong>血栓溶解療法 (けっせんようかいりょうほう) — Terapi trombolitik</strong>: obat yang melarutkan gumpalan darah yang menyumbat arteri koroner — dipakai jika PCI (kateterisasi) tidak tersedia dalam waktu yang direkomendasikan, dengan risiko utama perdarahan termasuk perdarahan intrakranial</li>
+      <li>Prinsip umum: "waktu adalah otot jantung" (time is muscle) — semakin cepat aliran darah koroner dipulihkan, semakin sedikit kerusakan otot jantung permanen</li>
+    </ul>
+
+    <h3>Interaksi obat penting</h3>
+    <p>Kombinasi beta-blocker dengan calcium channel blocker non-dihidropiridin (keduanya memperlambat nodus AV) berisiko tinggi menyebabkan bradikardia berat atau blok AV jika dikombinasikan tanpa pemantauan ketat — prinsip ini penting dipahami saat meninjau riwayat obat pasien.</p>
+
+    <h3>Antikoagulan oral generasi baru (DOAC)</h3>
+    <p>Direct Oral Anticoagulant (直接経口抗凝固薬, ちょくせつけいこうこうぎょうこやく) adalah golongan antikoagulan yang bekerja LANGSUNG menghambat faktor pembekuan spesifik (faktor Xa atau trombin), berbeda dari warfarin yang bekerja tidak langsung lewat penghambatan vitamin K. Keuntungan utama DOAC: tidak butuh pemantauan darah rutin seketat warfarin dan interaksi makanan lebih sedikit — tapi risiko perdarahan tetap ada, dan pada beberapa DOAC belum tentu tersedia obat penawar (antidot) semudah warfarin.</p>
+
+    <h3>Manajemen antikoagulan perioperatif</h3>
+    <p>Keputusan menghentikan sementara atau melanjutkan antikoagulan sebelum prosedur/operasi melibatkan PERTIMBANGAN GANDA yang saling bertentangan: risiko perdarahan berlebih jika dilanjutkan, VS risiko pembekuan darah (mis. stroke pada fibrilasi atrium) jika dihentikan. Keputusan ini SELALU dibuat tim medis berdasarkan jenis prosedur dan risiko individual pasien — bukan keputusan yang bisa diambil sepihak oleh pasien atau caregiver.</p>
+  </div>
+
+  <!-- ═══════════ ショック SYOK KARDIOGENIK ═══════════ -->
+  <div class="organ-panel" id="panel-syok">
+    <h2>ショック — Syok Kardiogenik</h2>
+    <p>Syok kardiogenik (心原性ショック, しんげんせいしょっく) terjadi saat jantung tidak mampu memompa cukup darah untuk memenuhi kebutuhan metabolik tubuh, meski volume darah cukup — berbeda dari syok hipovolemik (kekurangan volume) atau syok distributif (vasodilatasi berlebihan).</p>
+
+    <h3>Klasifikasi 4 jenis syok utama</h3>
+    <p>Memahami syok kardiogenik lebih jelas dengan membandingkannya terhadap 3 jenis syok lain — semua sama-sama berujung hipoperfusi organ, tapi MEKANISME dan TATA LAKSANA berbeda:</p>
+    <ul>
+      <li><strong>循環血液量減少性ショック — Syok hipovolemik</strong>: kekurangan volume darah/cairan (perdarahan, dehidrasi berat) — curah jantung rendah KARENA kurang volume, jantung sendiri sehat</li>
+      <li><strong>心原性ショック — Syok kardiogenik</strong>: pompa jantung sendiri yang gagal, meski volume cukup</li>
+      <li><strong>血液分布異常性ショック — Syok distributif</strong>: vasodilatasi masif menyebabkan volume darah "tersebar" tidak efektif (contoh: syok septik, syok anafilaktik, syok neurogenik)</li>
+      <li><strong>閉塞性ショック — Syok obstruktif</strong>: aliran darah tersumbat secara mekanis dari LUAR jantung/pembuluh (tamponade jantung, emboli paru masif, tension pneumothorax)</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa klasifikasi ini krusial:</strong> tata laksana awal berbeda drastis antar jenis — pemberian cairan agresif yang tepat untuk syok hipovolemik bisa MEMPERBURUK syok kardiogenik (risiko overload paru). Identifikasi jenis syok yang benar menentukan arah terapi yang tepat.</p>
+    </div>
+
+    <h3>Tahapan syok: kompensasi menuju dekompensasi</h3>
+    <ul>
+      <li><strong>Tahap kompensasi</strong>: tubuh masih mampu mempertahankan MAP lewat vasokonstriksi dan peningkatan denyut jantung — tekanan darah TAMPAK normal, tapi tanda halus hipoperfusi (takikardia ringan, kulit agak dingin) sudah mulai muncul. Fase ini paling mudah TERLEWAT karena tekanan darah belum turun</li>
+      <li><strong>Tahap dekompensasi</strong>: mekanisme kompensasi kewalahan, tekanan darah mulai turun jelas, tanda hipoperfusi organ makin nyata</li>
+      <li><strong>Tahap ireversibel</strong>: kerusakan organ sudah terlalu luas untuk pulih meski penyebab dasar diatasi</li>
+    </ul>
+    <div class="info-card warn">
+      <p style="margin-bottom:0"><strong>Relevansi klinis:</strong> mengenali tahap KOMPENSASI (sebelum tekanan darah jatuh) adalah keterampilan observasi paling berharga — menunggu hipotensi jelas berarti sudah kehilangan waktu berharga untuk intervensi dini.</p>
+    </div>
+
+    <h3>Penyebab umum syok kardiogenik</h3>
+    <ul>
+      <li>Infark miokard luas (kerusakan otot jantung signifikan)</li>
+      <li>Aritmia berat (takikardia/bradikardia ekstrem)</li>
+      <li>Disfungsi katup akut (mis. ruptur otot papilaris)</li>
+      <li>Tamponade jantung (cairan menekan jantung dari luar — meski secara klasifikasi ini juga tumpang tindih dengan syok obstruktif)</li>
+    </ul>
+
+    <h3>Tanda klinis kunci</h3>
+    <ul>
+      <li>Hipotensi persisten meski volume cairan adekuat</li>
+      <li>Tanda hipoperfusi organ: kulit dingin/lembap, produksi urine menurun, kesadaran menurun</li>
+      <li>Kongesti paru (akibat "backup" tekanan dari sisi kiri jantung yang gagal)</li>
+    </ul>
+    <div class="info-card danger">
+      <p style="margin-bottom:0"><strong>Prinsip manajemen umum</strong> (bukan protokol lengkap): identifikasi dan atasi penyebab dasar, dukungan hemodinamik (cairan HATI-HATI karena risiko overload, vasoaktif sesuai kebutuhan spesifik), dan pertimbangan dukungan mekanis (misalnya pompa balon intra-aorta) pada kasus berat sesuai keputusan tim medis.</p>
+    </div>
+
+    <h3>Menilai respons terhadap terapi</h3>
+    <p>Setelah intervensi dimulai, penilaian ULANG secara berkala menentukan apakah terapi berhasil atau perlu disesuaikan. Tanda perbaikan perfusi yang dipantau:</p>
+    <ul>
+      <li><strong>Perbaikan status mental</strong>: kesadaran membaik menandakan perfusi otak membaik</li>
+      <li><strong>Produksi urine membaik</strong>: menandakan perfusi ginjal membaik</li>
+      <li><strong>Kulit menghangat, warna membaik</strong>: menandakan perfusi perifer membaik</li>
+      <li><strong>Laktat menurun (tren, bukan angka tunggal)</strong>: menandakan metabolisme jaringan kembali ke jalur aerob</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Prinsip penting:</strong> MAP yang "normal" TIDAK otomatis berarti perfusi organ sudah adekuat — seorang pasien bisa punya MAP target tercapai tapi tanda hipoperfusi (laktat tinggi, urine sedikit) masih ada, menandakan terapi belum genuinely memperbaiki kondisi dasar meski satu angka terlihat baik.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 処置 PROSEDUR & ALAT ═══════════ -->
+  <div class="organ-panel" id="panel-prosedur">
+    <h2>処置 — Prosedur &amp; Alat Kardiovaskular</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">除細動 (じょさいどう) — Defibrilasi</h3>
+      <p style="margin-bottom:0">Pemberian kejut listrik untuk menghentikan aritmia mengancam nyawa (VF, VT tanpa nadi) dan memberi kesempatan nodus SA mengambil alih ritme normal.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">カルディオバージョン — Kardioversi</h3>
+      <p style="margin-bottom:0">Serupa defibrilasi tapi kejut listrik disinkronkan dengan gelombang R pada EKG pasien — dipakai untuk aritmia yang MASIH punya organisasi ritme (mis. fibrilasi atrium tidak stabil), berbeda dari defibrilasi yang dipakai untuk ritme kacau total tanpa perlu sinkronisasi.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">ペースメーカー — Pacemaker (Alat Pacu Jantung)</h3>
+      <p style="margin-bottom:0">Alat yang memberikan impuls listrik untuk menjaga denyut jantung tetap adekuat, dipakai pada bradikardia berat/blok AV total. Bisa sementara (eksternal) atau permanen (ditanam).</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">植込み型除細動器 (ICD) — Implantable Cardioverter-Defibrillator</h3>
+      <p style="margin-bottom:0">Alat yang ditanam permanen, mendeteksi aritmia ventrikel mengancam nyawa secara otomatis dan memberikan kejut listrik internal — dipasang pada pasien berisiko tinggi henti jantung mendadak (mis. riwayat VT/VF atau fraksi ejeksi sangat rendah).</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">心臓再同期療法 (CRT) — Terapi Resinkronisasi Jantung</h3>
+      <p style="margin-bottom:0">Jenis pacemaker khusus yang menstimulasi kedua ventrikel secara terkoordinasi pada pasien gagal jantung dengan gangguan konduksi tertentu — memperbaiki efisiensi pompa jantung yang sebelumnya berkontraksi tidak sinkron.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">経皮的冠動脈インターベンション (PCI) — Intervensi Koroner Perkutan</h3>
+      <p style="margin-bottom:0">Prosedur membuka sumbatan arteri koroner lewat kateter (sering disertai pemasangan stent), penanganan utama infark miokard akut.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">大動脈内バルーンパンピング (IABP) — Pompa Balon Intra-Aorta</h3>
+      <p style="margin-bottom:0">Alat bantu mekanis sementara yang mengembang-mengempis selaras siklus jantung untuk meningkatkan perfusi koroner dan menurunkan beban kerja jantung pada syok kardiogenik berat.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">心肺蘇生法 (CPR) — Resusitasi Jantung Paru</h3>
+      <p style="margin-bottom:0">Kombinasi kompresi dada dan bantuan napas untuk mempertahankan aliran darah minimal ke otak/organ vital saat henti jantung, sambil menunggu tindakan definitif (defibrilasi, ACLS). Efektivitas SANGAT bergantung pada kecepatan dimulai dan kualitas kompresi.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">冠動脈バイパス術 (CABG) — Operasi Bypass Arteri Koroner</h3>
+      <p style="margin-bottom:0">Operasi yang membuat jalur BARU bagi aliran darah menghindari segmen arteri koroner yang tersumbat, menggunakan pembuluh darah dari bagian tubuh lain (mis. vena tungkai atau arteri dada dalam). Dipertimbangkan pada penyumbatan multipel atau lokasi yang sulit dijangkau PCI biasa.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">心エコー検査 (Ekokardiografi)</h3>
+      <p style="margin-bottom:0">Pencitraan jantung memakai gelombang ultrasonik (non-invasif, tanpa radiasi) — memungkinkan penilaian fraksi ejeksi, fungsi katup, dan struktur jantung secara real-time. Bisa dilakukan lewat dinding dada (transtorakal) atau lewat esofagus untuk gambar lebih detail (transesofageal) pada kasus tertentu.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ ICU用語 ISTILAH ICU/CCU ═══════════ -->
+  <div class="organ-panel" id="panel-icu">
+    <h2>ICU用語 — Terminologi ICU/CCU</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">血行動態</td><td>けっこうどうたい</td><td>Hemodinamik</td><td>Hemodynamics</td></tr>
+        <tr><td class="jp">駆出率</td><td>くしゅつりつ</td><td>Fraksi ejeksi</td><td>Ejection fraction</td></tr>
+        <tr><td class="jp">心室細動</td><td>しんしつさいどう</td><td>Fibrilasi ventrikel</td><td>Ventricular fibrillation</td></tr>
+        <tr><td class="jp">心原性ショック</td><td>しんげんせいしょっく</td><td>Syok kardiogenik</td><td>Cardiogenic shock</td></tr>
+        <tr><td class="jp">除細動</td><td>じょさいどう</td><td>Defibrilasi</td><td>Defibrillation</td></tr>
+        <tr><td class="jp">昇圧薬</td><td>しょうあつやく</td><td>Vasopresor</td><td>Vasopressor</td></tr>
+        <tr><td class="jp">陽性変力薬</td><td>ようせいへんりょくやく</td><td>Inotropik positif</td><td>Positive inotrope</td></tr>
+        <tr><td class="jp">リエントリー</td><td>りえんとりー</td><td>Reentry (mekanisme aritmia)</td><td>Reentry</td></tr>
+        <tr><td class="jp">中心静脈圧</td><td>ちゅうしんじょうみゃくあつ</td><td>Tekanan vena sentral</td><td>Central venous pressure</td></tr>
+        <tr><td class="jp">体血管抵抗</td><td>たいけっかんていこう</td><td>Resistensi vaskular sistemik</td><td>Systemic vascular resistance</td></tr>
+        <tr><td class="jp">平均動脈圧</td><td>へいきんどうみゃくあつ</td><td>Tekanan arteri rata-rata (MAP)</td><td>Mean arterial pressure</td></tr>
+        <tr><td class="jp">房室ブロック</td><td>ぼうしつぶろっく</td><td>Blok atrioventrikular</td><td>AV block</td></tr>
+        <tr><td class="jp">血栓溶解療法</td><td>けっせんようかいりょうほう</td><td>Terapi trombolitik</td><td>Thrombolytic therapy</td></tr>
+        <tr><td class="jp">閉塞性ショック</td><td>へいそくせいしょっく</td><td>Syok obstruktif</td><td>Obstructive shock</td></tr>
+        <tr><td class="jp">血液分布異常性ショック</td><td>けつえきぶんぷいじょうせいしょっく</td><td>Syok distributif</td><td>Distributive shock</td></tr>
+        <tr><td class="jp">植込み型除細動器</td><td>うえこみがたじょさいどうき</td><td>ICD</td><td>Implantable cardioverter-defibrillator</td></tr>
+        <tr><td class="jp">心臓再同期療法</td><td>しんぞうさいどうきりょうほう</td><td>Terapi resinkronisasi jantung (CRT)</td><td>Cardiac resynchronization therapy</td></tr>
+        <tr><td class="jp">心肺蘇生法</td><td>しんぱいそせいほう</td><td>CPR</td><td>Cardiopulmonary resuscitation</td></tr>
+        <tr><td class="jp">陰性変力薬</td><td>いんせいへんりょくやく</td><td>Inotropik negatif</td><td>Negative inotrope</td></tr>
+        <tr><td class="jp">再灌流療法</td><td>さいかんりゅうりょうほう</td><td>Terapi reperfusi</td><td>Reperfusion therapy</td></tr>
+        <tr><td class="jp">酸素供給量</td><td>さんそきょうきゅうりょう</td><td>Pengiriman oksigen (DO2)</td><td>Oxygen delivery</td></tr>
+        <tr><td class="jp">乳酸</td><td>にゅうさん</td><td>Laktat</td><td>Lactate</td></tr>
+        <tr><td class="jp">トルサード・ド・ポワント</td><td>とるさーど・ど・ぽわんと</td><td>Torsades de Pointes</td><td>Torsades de Pointes</td></tr>
+        <tr><td class="jp">直接経口抗凝固薬</td><td>ちょくせつけいこうこうぎょうこやく</td><td>DOAC</td><td>Direct oral anticoagulant</td></tr>
+        <tr><td class="jp">冠動脈バイパス術</td><td>かんどうみゃくばいぱすじゅつ</td><td>Operasi bypass koroner (CABG)</td><td>Coronary artery bypass graft</td></tr>
+        <tr><td class="jp">心エコー検査</td><td>しんえこーけんさ</td><td>Ekokardiografi</td><td>Echocardiography</td></tr>
+        <tr><td class="jp">閉塞性ショック</td><td>へいそくせいしょっく</td><td>Syok obstruktif</td><td>Obstructive shock</td></tr>
+        <tr><td class="jp">経食道心エコー</td><td>けいしょくどうしんえこー</td><td>Ekokardiografi transesofageal</td><td>Transesophageal echocardiography</td></tr>
+        <tr><td class="jp">灌流</td><td>かんりゅう</td><td>Perfusi</td><td>Perfusion</td></tr>
+        <tr><td class="jp">冠攣縮</td><td>かんれんしゅく</td><td>Spasme arteri koroner</td><td>Coronary vasospasm</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis tingkat ICU</h3>
+    <div class="clinical-sentence">
+      <div class="jp">駆出率の低下を認め、心原性ショックが疑われます。</div>
+      <div class="id">Ditemukan penurunan fraksi ejeksi, dicurigai syok kardiogenik.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">昇圧薬の投与を開始し、血行動態をモニタリングします。</div>
+      <div class="id">Memulai pemberian vasopresor dan memantau hemodinamik.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">心室細動を確認し、直ちに除細動を実施しました。</div>
+      <div class="id">Fibrilasi ventrikel dikonfirmasi, defibrilasi segera dilakukan.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">房室ブロックのため、一時的ペースメーカーを挿入しました。</div>
+      <div class="id">Karena blok atrioventrikular, pacemaker sementara dipasang.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">代償期からの移行を示唆する所見が見られます。</div>
+      <div class="id">Ditemukan tanda yang mengindikasikan peralihan dari tahap kompensasi.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">乳酸値が低下しており、組織灌流の改善を示しています。</div>
+      <div class="id">Kadar laktat menurun, menunjukkan perbaikan perfusi jaringan.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">心エコー検査で駆出率の詳細を評価します。</div>
+      <div class="id">Detail fraksi ejeksi dievaluasi lewat pemeriksaan ekokardiografi.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis Tingkat Lanjutan</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Pasien pasca infark miokard luas menunjukkan tekanan darah rendah persisten meski cairan IV sudah diberikan sesuai instruksi. Kulit tampak dingin dan lembap, produksi urine menurun drastis dalam 2 jam terakhir, dan terdengar suara paru basah (crackles) di kedua sisi.
+      </div>
+      <div class="case-question">
+        <label>1. Kombinasi tanda ini (pasca infark + hipotensi + kulit dingin + oliguria + kongesti paru) paling mengarah ke:</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Syok hipovolemik murni</option>
+          <option value="correct">Syok kardiogenik</option>
+          <option value="wrong">Reaksi alergi</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Fakta bahwa hipotensi TETAP ADA meski cairan sudah diberikan mengindikasikan:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Masalah utamanya BUKAN kekurangan volume, tapi kegagalan pompa jantung</option>
+          <option value="wrong">Cairan yang diberikan kurang banyak, perlu ditambah terus</option>
+          <option value="wrong">Ini menandakan syok distributif</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Kongesti paru (crackles) pada kasus ini menjelaskan bahwa:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Pasien mengalami pneumonia biasa</option>
+          <option value="correct">Ventrikel kiri gagal memompa efektif, tekanan "backup" ke sirkulasi paru</option>
+          <option value="wrong">Cairan IV diberikan lewat jalur yang salah</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var MINI_Q = [
+    { q: 'Mekanisme aritmia yang paling umum menyebabkan takiaritmia adalah?', opts: ['Reentry (sinyal berputar dalam loop)', 'Kekurangan kalium saja', 'Dehidrasi ringan'], a: 0 },
+    { q: 'Fraksi ejeksi normal dengan gejala gagal jantung tetap ada menandakan?', opts: ['HFrEF (fraksi ejeksi menurun)', 'HFpEF (fraksi ejeksi terjaga, masalah diastolik)', 'Tidak ada gagal jantung'], a: 1 },
+    { q: 'Memberikan vasopresor pada pasien dengan curah jantung rendah TAPI resistensi vaskular sudah tinggi berisiko?', opts: ['Selalu memperbaiki kondisi', 'Memperburuk perfusi organ', 'Tidak ada efek sama sekali'], a: 1 },
+    { q: 'Blok AV derajat 2 Tipe II (Mobitz II) lebih berisiko dibanding Tipe I (Wenckebach) karena?', opts: ['Selalu tanpa gejala', 'Berisiko berkembang jadi blok total tanpa peringatan bertahap', 'Hanya terjadi pada anak-anak'], a: 1 },
+    { q: 'Pertanyaan PERTAMA dalam manajemen aritmia akut seharusnya?', opts: ['Jenis aritmia secara tepat', 'Apakah pasien stabil atau tidak secara hemodinamik', 'Usia pasien'], a: 1 },
+    { q: 'Syok yang disebabkan penyumbatan mekanis dari LUAR jantung/pembuluh (mis. tamponade jantung) disebut?', opts: ['Syok hipovolemik', 'Syok distributif', 'Syok obstruktif'], a: 2 },
+    { q: 'Kardioversi berbeda dari defibrilasi karena kardioversi?', opts: ['Tidak memakai listrik sama sekali', 'Disinkronkan dengan gelombang R pasien', 'Hanya dipakai pada anak-anak'], a: 1 },
+    { q: 'Tahap syok yang paling mudah TERLEWAT karena tekanan darah masih tampak normal adalah?', opts: ['Tahap ireversibel', 'Tahap dekompensasi', 'Tahap kompensasi'], a: 2 },
+    { q: 'Laktat darah yang TERUS NAIK meski MAP target sudah tercapai menandakan?', opts: ['Terapi sudah pasti berhasil', 'Perfusi jaringan mungkin belum genuinely membaik', 'Tidak ada makna klinis'], a: 1 },
+    { q: 'Torsades de Pointes berkaitan erat dengan kondisi interval apa pada EKG?', opts: ['Interval PR memendek', 'Interval QT memanjang', 'Interval QT memendek'], a: 1 },
+    { q: 'Keuntungan utama DOAC dibanding warfarin adalah?', opts: ['Tidak butuh pemantauan darah rutin seketat warfarin', 'Selalu lebih murah', 'Tidak memiliki risiko perdarahan sama sekali'], a: 0 },
+    { q: 'CABG (operasi bypass koroner) dipertimbangkan terutama pada kondisi?', opts: ['Penyumbatan tunggal ringan', 'Penyumbatan multipel atau lokasi sulit dijangkau PCI', 'Semua kasus infark miokard tanpa kecuali'], a: 1 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Kombinasi pasca infark miokard + hipotensi persisten meski cairan cukup + tanda hipoperfusi (kulit dingin, oliguria) + kongesti paru adalah gambaran klasik <strong>syok kardiogenik (心原性ショック)</strong> — jantung gagal memompa efektif meski volume darah cukup, menyebabkan tekanan "backup" ke sirkulasi paru DAN kegagalan perfusi organ sekaligus. Ini berbeda mendasar dari syok hipovolemik yang responsif terhadap cairan.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: perhatikan bahwa cairan SUDAH diberikan tapi hipotensi TETAP ADA -- ini pembeda kunci antara masalah volume (hipovolemik) vs masalah pompa jantung (kardiogenik). Kongesti paru menunjukkan sisi KIRI jantung yang bermasalah, menyebabkan tekanan tersalur balik ke paru-paru.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

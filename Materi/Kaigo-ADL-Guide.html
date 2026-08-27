@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Panduan ADL Lengkap 日常生活動作完全ガイド | Nihonggo Pro Academy</title>
+<meta name="description" content="Makan · Mandi · Toileting · Berpakaian · Berpindah — teknik & vocabulary — Nihonggo Pro Academy">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-ADL-Guide.html">
+<meta property="og:title" content="Panduan ADL Lengkap 日常生活動作完全ガイド — Nihonggo Pro Academy">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["ADL", "ADL", "aktivitas harian"], ["食事", "shokuji", "makan"], ["排泄", "haisetsu", "toilet"], ["入浴", "nyuyoku", "mandi"], ["更衣", "koi", "ganti pakaian"], ["移動", "ido", "berpindah"], ["起居", "kigo", "bangkit/berbaring"], ["整容", "seiyou", "merawat penampilan"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#1565c0">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+*{box-sizing:border-box}
+.wrap{max-width:920px;margin:0 auto;padding:0 20px}
+.hero{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 6px;font-family:"Noto Serif JP",serif;line-height:1.3}
+.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.78rem;margin-bottom:10px}
+.sub{font-size:.85rem;opacity:.85;margin-top:6px}
+.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:14px 0}
+.sec h2{font-size:1rem;font-weight:700;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{font-size:.92rem;font-weight:700;margin:14px 0 8px;color:#555}
+.st{font-size:1.1rem;font-weight:700;margin:24px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
+.tbl th{padding:8px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05);font-weight:600}
+.tbl td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.06);vertical-align:top;line-height:1.5}
+.tbl tr:hover td{background:rgba(0,0,0,.02)}
+.tip{background:#f0faf0;border-left:3px solid #43a047;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0;line-height:1.6}
+.warn{background:#fff3e0;border-left:3px solid #ff9800;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
+.err{background:#fce4ec;border-left:3px solid #e91e63;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
+.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:box-shadow .2s}
+.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.card .det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.82rem;color:#555;line-height:1.7}
+.card.open .det{display:block}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:600px){.g3{grid-template-columns:1fr}}
+.kv{background:#f5f5f5;border-radius:8px;padding:10px 12px;font-size:.84rem}
+.kv b{color:#333;display:block;margin-bottom:2px}
+.tag{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:10px;margin:2px}
+.dl-st{background:#e3f2fd;border-left:3px solid #1976d2;padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:8px;font-size:.86rem;line-height:1.6}
+.dl-pt{background:#f5f5f5;border-left:3px solid #9e9e9e;padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:8px;font-size:.86rem;line-height:1.6}
+.spk{font-size:.7rem;font-weight:700;margin-bottom:3px;color:#555}
+.iid{font-size:.76rem;color:#666;margin-top:2px;font-style:italic}
+.tts{border:none;background:#1565c0;color:#fff;padding:2px 7px;border-radius:5px;cursor:pointer;font-size:.7rem;margin-top:3px}
+.qbox{background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:12px 0}
+.qnum{font-size:.72rem;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px;background:linear-gradient(135deg,#1565c0,#1976d2)}
+.qq{font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5}
+.qopts{display:grid;gap:8px}
+.qopt{background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
+.qopt:hover{background:rgba(0,0,0,.04)}
+.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047}
+.qexp.show{display:block}
+.score-bar{background:#f5f5f5;border-radius:100px;height:8px;margin-top:8px;overflow:hidden}
+.score-fill{height:100%;border-radius:100px;background:linear-gradient(135deg,#1565c0,#1976d2);transition:width .4s}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Panduan ADL Lengkap 日常生活動作完全ガイド | Nihonggo Pro Academy", "description": "Makan · Mandi · Toileting · Berpakaian · Berpindah — teknik & vocabulary — Nihonggo Pro Academy", "url": "https://nihonggopro.id/Materi/Kaigo-ADL-Guide.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Makan · Mandi · Toileting · Berpakaian · Berpindah — teknik & vocabulary — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-ADL-Guide.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Panduan ADL Lengkap 日常生活動作完全ガイド">
+<meta name="twitter:description" content="Makan · Mandi · Toileting · Berpakaian · Berpindah — teknik & vocabulary — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero">
+  <span class="bdg">🏥 介護</span>
+  <h1>Panduan ADL Lengkap 日常生活動作完全ガイド</h1>
+  <p class="sub">Makan · Mandi · Toileting · Berpakaian · Berpindah — teknik & vocabulary</p>
+</div>
+<div class="wrap" style="padding:20px 20px 40px">
+
+<div class="tip">💡 ADL (Activities of Daily Living / 日常生活動作) adalah fondasi perawatan kaigo. Menguasai teknik & kosakata ADL = mampu memberikan perawatan yang aman, efektif, dan menghargai martabat residen.</div>
+
+<div class="sec">
+<h2 style="color:#1565c0">🍽️ 食事介助 (Shokuji Kaijo) — Bantuan Makan</h2>
+<div class="warn">⚠️ Prioritas utama: mencegah誤嚥(ごえん / aspirasi). Posisi + bentuk makanan + kecepatan = trio keselamatan</div>
+<table class="tbl">
+<tr><th>Langkah</th><th>Tindakan</th><th>Kosakata Jepang</th><th>Alasan</th></tr>
+<tr><td>①</td><td>Konfirmasi identitas & kondisi</td><td>お名前をお聞かせください / 体調はいかがですか</td><td>Keamanan & empati</td></tr>
+<tr><td>②</td><td>Posisikan 90° duduk tegak</td><td>背筋を伸ばして座りましょう</td><td>Gravitasi bantu menelan, cegah aspirasi</td></tr>
+<tr><td>③</td><td>Konfirmasi tekstur makanan</td><td>今日は〇〇のお食事です</td><td>Menyesuaikan嚥下レベル</td></tr>
+<tr><td>④</td><td>Tawarkan dari sisi depan bawah</td><td>はい、どうぞ / ゆっくりどうぞ</td><td>Menghindari顔を上げる(aspirasi)</td></tr>
+<tr><td>⑤</td><td>Tunggu sampai selesai menelan</td><td>よく噛んで飲み込んでください</td><td>Cegah tersedak</td></tr>
+<tr><td>⑥</td><td>Observasi & catat</td><td>摂取量を記録します</td><td>Pemantauan gizi</td></tr>
+</table>
+<h3>🚨 Tanda Bahaya saat Makan — 即報告</h3>
+<div class="g2">
+<div class="kv"><b>むせる(Tersedak)</b>食事中・食後にむせる → 誤嚥リスク → 即報告</div>
+<div class="kv"><b>湿性嗄声(Wet Voice)</b>食後に声がゴロゴロ → 気管に食物 → 即停止・報告</div>
+<div class="kv"><b>30分以上かかる</b>疲労 → 誤嚥リスク増 → 食形態見直し</div>
+<div class="kv"><b>2割以下の摂取</b>低栄養リスク → 栄養士・看護師へ</div>
+</div>
+</div>
+
+<div class="sec">
+<h2 style="color:#1565c0">🚿 入浴介助 (Nyuyoku Kaijo) — Bantuan Mandi</h2>
+<table class="tbl">
+<tr><th>Phase</th><th>Tindakan Wajib</th><th>Kosakata</th></tr>
+<tr><td>前チェック</td><td>BP・BT確認、体調確認、皮膚観察</td><td>バイタルを測りますね / 今日の具合はいかがですか</td></tr>
+<tr><td>環境準備</td><td>室温22-25°C、湯温40-41°C、すべり止めマット</td><td>お風呂の準備ができました</td></tr>
+<tr><td>洗体順序</td><td>顔→首→上半身→腕→下半身→陰部→背中</td><td>次は〇〇を洗いますね</td></tr>
+<tr><td>後ケア</td><td>素早く保温、皮膚観察、水分補給</td><td>お疲れさまでした。水分をどうぞ</td></tr>
+</table>
+<div class="tip">💡 入浴後は脱水リスクあり→必ず水分補給の声かけ。皮膚観察のチャンスでもある。</div>
+</div>
+
+<div class="sec">
+<h2 style="color:#1565c0">🚽 排泄介助 (Haisetsu Kaijo) — Bantuan Toileting</h2>
+<div class="g2">
+<div class="card"><b>🔑 基本原則 4つ</b>
+<div class="det">① プライバシー確保(カーテン・ドア閉める)<br>② 自立支援(できることは本人に)<br>③ 尊厳の保持(表情に出さない・素早く処理)<br>④ 観察と記録(色・量・性状・臭い)</div></div>
+<div class="card"><b>📝 観察ポイント</b>
+<div class="det">色: 血尿→赤・オレンジ, 黄疸→茶色<br>性状: ブリストル便形状スケール1-7<br>量: 乏尿(400mL/日以下)は要報告<br>臭い: 異常な臭いも記録対象</div></div>
+<div class="card"><b>🗣️ 声かけ例</b>
+<div class="det">「トイレに行きますか？」<br>「失礼します。終わりましたら呼んでください」<br>「よくできましたね」<br>「何かありましたらいつでも呼んでください」</div></div>
+<div class="card"><b>⚠️ 尿失禁への対応</b>
+<div class="det">叱らない・責めない。「大丈夫ですよ」と声かけ。定時排泄誘導で予防。排泄日誌で時間パターン把握→誘導タイミング最適化。</div></div>
+</div>
+</div>
+
+<div class="sec">
+<h2 style="color:#1565c0">👔 更衣介助 (Koi Kaijo) — Bantuan Berpakaian</h2>
+<div class="tip">💡 <b>脱健着患(だっけんちゃっかん)</b> = 脱ぐ時は<b>健側から</b>、着る時は<b>患側から</b></div>
+<table class="tbl">
+<tr><th>場面</th><th>順序</th><th>理由</th></tr>
+<tr><td>上衣を脱ぐ</td><td>健側の腕から脱ぐ</td><td>動く方が先に動かせる</td></tr>
+<tr><td>上衣を着る</td><td>患側の腕から袖を通す</td><td>動かしにくい側から先に</td></tr>
+<tr><td>ズボンを脱ぐ</td><td>健側から先に下げる</td><td>バランス保持のため</td></tr>
+<tr><td>ズボンを着る</td><td>患側の足から先に通す</td><td>動かしにくい側から</td></tr>
+</table>
+<div class="warn">⚠️ 更衣は整容(せいよう)のためだけでなく、皮膚観察・体温調節・気分・自尊心にも関わる重要なケア。</div>
+</div>
+
+<div class="sec">
+<h2 style="color:#1565c0">🔀 移乗・移動介助 (Ijo/Ido Kaijo)</h2>
+<table class="tbl">
+<tr><th>種類</th><th>方法</th><th>重要ポイント</th></tr>
+<tr><td>ベッド→車椅子移乗</td><td>30-45度の角度・健側に車椅子・ブレーキ必須</td><td>立ち上がりは「いち、に、さん」で息合わせ</td></tr>
+<tr><td>車椅子操作</td><td>段差:後輪から・下り坂:後ろ向き</td><td>急な停止・急旋回禁止</td></tr>
+<tr><td>歩行介助</td><td>患側の斜め後ろに位置・歩幅合わせる</td><td>転倒したら一緒にゆっくり床へ</td></tr>
+<tr><td>リフト移乗</td><td>スリング正確に装着・操作は2人で</td><td>腹部・腋窩(わきの下)への圧迫確認</td></tr>
+</table>
+</div>
+
+<div class="sec">
+<h2 style="color:#1565c0">📊 ADLアセスメントスケール比較</h2>
+<table class="tbl">
+<tr><th>スケール</th><th>評価項目</th><th>用途</th><th>特徴</th></tr>
+<tr><td>Barthel Index</td><td>10項目(食事・移動・更衣等)</td><td>身体的ADL評価</td><td>0-100点、国際的標準</td></tr>
+<tr><td>FIM (機能的自立度評価法)</td><td>18項目(ADL+認知)</td><td>リハビリ効果測定</td><td>1-7段階、より詳細</td></tr>
+<tr><td>要介護認定調査</td><td>74項目</td><td>介護保険認定</td><td>日本独自・コンピュータ判定</td></tr>
+<tr><td>老研式活動能力指標</td><td>13項目(IADL)</td><td>手段的ADL評価</td><td>電話・乗り物・買い物等</td></tr>
+</table>
+</div>
+
+<h2 style="font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#2e7d32;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e8f5e9">💬 ADL評価と自立支援</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#2e7d32;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9">📊 Dialog 1 — ADL評価の実施</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">山田さん、今日は日常生活動作の確認をしますね。まず椅子から立ち上がれますか？<button aria-label="Ucapkan: 山田さん、今日は日常生活動作の確認をしますね。まず椅子から立…" onclick="speak('山田さん、今日は日常生活動作の確認をしますね。まず椅子から立ち上がれますか？')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Pak Yamada, hari ini kita periksa aktivitas sehari-hari ya. Pertama, bisa berdiri dari kursi?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:1px;flex-shrink:0">山田さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">（ゆっくり立ち上がる）こうですか？<button aria-label="Ucapkan: （ゆっくり立ち上がる）こうですか？" onclick="speak('（ゆっくり立ち上がる）こうですか？')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">(Berdiri pelan-pelan) Begini?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">上手ですね。手すりなしで立てました。次は歩いてみましょう。<button aria-label="Ucapkan: 上手ですね。手すりなしで立てました。次は歩いてみましょう。" onclick="speak('上手ですね。手すりなしで立てました。次は歩いてみましょう。')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Bagus. Bisa berdiri tanpa pegangan. Selanjutnya coba jalan.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#2e7d32;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8f5e9">💪 Dialog 2 — 自立度向上を目指す声かけ</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">田中さん、最近ボタンを自分で留めてみましたか？<button aria-label="Ucapkan: 田中さん、最近ボタンを自分で留めてみましたか？" onclick="speak('田中さん、最近ボタンを自分で留めてみましたか？')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Bu Tanaka, belakangan sudah coba kancing sendiri?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">少し時間がかかるけど、できるようになってきました。<button aria-label="Ucapkan: 少し時間がかかるけど、できるようになってきました。" onclick="speak('少し時間がかかるけど、できるようになってきました。')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Agak lama, tapi sudah mulai bisa.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">すばらしいです！OTの先生も喜ばれると思います。続けて練習しましょうね。<button aria-label="Ucapkan: すばらしいです！OTの先生も喜ばれると思います。続けて練習し…" onclick="speak('すばらしいです！OTの先生も喜ばれると思います。続けて練習しましょうね。')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Luar biasa! Terapis OT pasti senang. Terus berlatih ya.</div></div></div></div></div>
+<div class="pg-vocab" id="pg"></div>
+<!-- dlg-injected -->
+<h2 style="font-size:1.2rem;font-weight:700;color:#2e7d32;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">💬 Dialog 🌿 ADL Guide</h2>
+<div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px"><div style="font-size:.95rem;font-weight:700;color:#2e7d32;margin-bottom:12px">🍽️ Dialog 1 — 食事ADL評価場面</div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:2px">介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">山田さん、今日は食事の様子を少し観察させていただきますね。<button aria-label="Ucapkan: 山田さん、今日は食事の様子を少し観察させていただきますね。" onclick="speak('山田さん、今日は食事の様子を少し観察させていただきますね。')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Pak Yamada, hari ini saya akan mengamati kondisi makan sebentar ya.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:2px">山田さん</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">いいですよ。どこか問題ありますか？<button aria-label="Ucapkan: いいですよ。どこか問題ありますか？" onclick="speak('いいですよ。どこか問題ありますか？')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Boleh. Ada masalah?</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:2px">介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">お箸の使い方が以前より難しくなっていないか確認したいんです。スプーンを使ってみますか？<button aria-label="Ucapkan: お箸の使い方が以前より難しくなっていないか確認したいんです。…" onclick="speak('お箸の使い方が以前より難しくなっていないか確認したいんです。スプーンを使ってみますか？')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Saya ingin memastikan penggunaan sumpit tidak lebih sulit dari sebelumnya. Mau coba pakai sendok?</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:2px">山田さん</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">そうですね、最近少し震えが出てきて。スプーンの方が楽です。<button aria-label="Ucapkan: そうですね、最近少し震えが出てきて。スプーンの方が楽です。" onclick="speak('そうですね、最近少し震えが出てきて。スプーンの方が楽です。')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Iya, belakangan sedikit gemetar. Sendok memang lebih mudah.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#e8f5e9;color:#2e7d32;margin-top:2px">介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">ありがとうございます。PTさんに相談して、食事のリハビリも取り入れましょう。<button aria-label="Ucapkan: ありがとうございます。PTさんに相談して、食事のリハビリも取…" onclick="speak('ありがとうございます。PTさんに相談して、食事のリハビリも取り入れましょう。')" style="border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Terima kasih. Saya konsultasikan ke PT untuk memasukkan rehabilitasi makan juga.</div></div></div></div>
+<h2 class="st" style="color:linear-gradient(135deg">🧠 Latihan Soal & Pembahasan</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<button onclick="nextQ()" style="flex:1;padding:12px;background:linear-gradient(135deg;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit">Soal Berikutnya →</button>
+<button aria-label="Ulangi kuis" onclick="resetQ()" style="padding:12px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">🔄</button>
+</div>
+<div style="margin-top:8px"><div class="score-bar"><div class="score-fill" id="sfill" style="width:0%"></div></div></div>
+<p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:6px">0 / 10 soal dijawab</p>
+</div><section style="padding:16px;max-width:860px;margin:20px auto">
+<h2 style="font-size:1rem;color:#1565c0;border-bottom:3px solid #1565c0;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — ADL・生活支援</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('日常生活動作')" title="クリックで発音">🔊 日常生活動作</div>
+  <div style="font-size:.8rem;color:#777">nichijō seikatsu dōsa</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">ADL / kegiatan hidup sehari-hari</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('食事介助')" title="クリックで発音">🔊 食事介助</div>
+  <div style="font-size:.8rem;color:#777">shokuji kaijo</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">bantuan makan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('入浴介助')" title="クリックで発音">🔊 入浴介助</div>
+  <div style="font-size:.8rem;color:#777">nyūyoku kaijo</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">bantuan mandi</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('排泄介助')" title="クリックで発音">🔊 排泄介助</div>
+  <div style="font-size:.8rem;color:#777">haisetsu kaijo</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">bantuan toilet</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('更衣介助')" title="クリックで発音">🔊 更衣介助</div>
+  <div style="font-size:.8rem;color:#777">kōi kaijo</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">bantuan ganti pakaian</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('移乗')" title="クリックで発音">🔊 移乗</div>
+  <div style="font-size:.8rem;color:#777">ijō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">transfer / pindah posisi</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('歩行')" title="クリックで発音">🔊 歩行</div>
+  <div style="font-size:.8rem;color:#777">hokō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">berjalan kaki</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('残存機能')" title="クリックで発音">🔊 残存機能</div>
+  <div style="font-size:.8rem;color:#777">zanzon kinō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">fungsi yang masih tersisa</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('自立支援')" title="クリックで発音">🔊 自立支援</div>
+  <div style="font-size:.8rem;color:#777">jiritsu shien</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">dukungan kemandirian</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('過介護')" title="クリックで発音">🔊 過介護</div>
+  <div style="font-size:.8rem;color:#777">ka-kaigo</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">bantu berlebihan / over-care</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('ポジショニング')" title="クリックで発音">🔊 ポジショニング</div>
+  <div style="font-size:.8rem;color:#777">pojishoningu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">positioning tubuh</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('福祉用具')" title="クリックで発音">🔊 福祉用具</div>
+  <div style="font-size:.8rem;color:#777">fukushi yōgu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">alat bantu perawatan</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('バリアフリー')" title="クリックで発音">🔊 バリアフリー</div>
+  <div style="font-size:.8rem;color:#777">baria furii</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">barrier-free / aksesibilitas</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('活動量')" title="クリックで発音">🔊 活動量</div>
+  <div style="font-size:.8rem;color:#777">katsudō ryō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">tingkat aktivitas</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1565c0">
+  <div style="font-size:1.05rem;font-weight:700;color:#1565c0" onclick="speak('生活の質')" title="クリックで発音">🔊 生活の質</div>
+  <div style="font-size:.8rem;color:#777">seikatsu no shitsu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kualitas hidup (QOL)</div>
+</div>
+</div></section></main>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+var QQ=[{"q": "食事介助で「90度座位」にする主な目的は？", "opts": ["見た目のため", "重力を利用して嚥下を助け、誤嚥のリスクを下げるため", "食事が見えるため", "決まりだから"], "a": 1, "e": "90度座位=90°seated position=最も誤嚥リスクが低い姿勢。重力が食物を食道に向かわせ、気管への流入を防ぐ。ベッドでは最低30度、できれば60-90度のギャッジアップ。"}, {"q": "「脱健着患(だっけんちゃっかん)」の意味は？", "opts": ["何でも健側から", "脱ぐ時は健側から、着る時は患側から", "患側から全て", "どちらでもよい"], "a": 1, "e": "脱健着患: 脱ぐ=健側(動く側)から先に脱がせる。着る=患側(麻痺側)から先に袖を通す。理由: 患側は動きが制限されるため着せる時は先に通す方が楽。"}, {"q": "排泄介助でプライバシー確保が最優先の理由は？", "opts": ["ルールだから", "排泄は最もプライベートな行為で、羞恥心と尊厳に直結するから", "時間節約", "家族のため"], "a": 1, "e": "排泄=最もプライベートな生理的行為。羞恥心への配慮=利用者の尊厳の保持。カーテン・ドアを閉める・必ず声をかける・素早く処理・表情に出さないことが基本。"}, {"q": "入浴後に「水分補給」の声かけが特に重要な理由は？", "opts": ["決まりだから", "入浴により発汗・皮膚からの水分蒸発で脱水リスクが高まるから", "お茶が好きだから", "食前だから"], "a": 1, "e": "入浴中は発汗により体内の水分が失われやすく、特に高齢者は口渇感が鈍いため自ら水分を求めにくい。入浴後の水分補給を怠ると脱水症状につながる危険があるため、声かけによって積極的な水分摂取を促すことが重要になる。"}, {"q": "「Barthel Index(バーセルインデックス)」の最高スコアは？", "opts": ["50点", "100点", "200点", "10点"], "a": 1, "e": "Barthel Index: 食事・移乗・整容・トイレ・入浴・歩行・階段・更衣・排便・排尿の10項目を評価。合計100点満点。0=全介助、100=完全自立。国際的に最も広く使われるADL評価指標。"}, {"q": "移乗介助でブレーキを必ずかける理由は？", "opts": ["見た目のため", "移乗中に車椅子が動くと利用者が転倒するため", "決まりだから", "重いから"], "a": 1, "e": "移乗中のブレーキ=最重要安全確認。車椅子が動くと利用者が支えを失い転倒・骨折の危険。両輪のブレーキを必ずかけ、移乗後に解除する。確認を忘れると重大事故につながる。"}, {"q": "「FIM(機能的自立度評価法)」がBarthel Indexより優れる点は？", "opts": ["点数が高い", "身体的ADLだけでなく認知・コミュニケーション機能も含む18項目評価", "使いやすい", "日本専用"], "a": 1, "e": "FIM(Functional Independence Measure): 運動13項目+認知5項目=18項目評価。各項目1-7段階(7=完全自立)。Barthel Indexは身体のみだが、FIMは認知・コミュニケーションも評価できる。"}, {"q": "食事中に「湿性嗄声(しっせいさせい)」が聞こえた時の最初の対応は？", "opts": ["食事を続ける", "即食事を停止し看護師に報告する", "水を飲ませる", "様子を見る"], "a": 1, "e": "湿性嗄声=wet voice=声がゴロゴロ・濡れた感じ=食物が気管に入っているサイン。誤嚥の証拠。食事を即停止→座位維持→看護師に即報告。口の中に残った食物も安全に除去。"}, {"q": "尿失禁の利用者への正しい対応は？", "opts": ["叱って注意する", "「大丈夫ですよ」と声かけし、尊厳を保ちながら速やかに清潔を確保する", "恥ずかしそうにする", "家族に話す"], "a": 1, "e": "尿失禁への対応: 叱らない・批判しない(尊厳の傷つき)。「大丈夫ですよ、一緒にきれいにしましょう」と受け止め、速やかに清潔ケア。定時排泄誘導で予防も可能。"}, {"q": "「老研式活動能力指標」が評価するのは？", "opts": ["身体的ADL", "電話・乗り物・買い物などの手段的ADL(IADL)", "認知機能のみ", "精神状態"], "a": 1, "e": "老研式=IADL(Instrumental ADL=手段的日常生活動作)評価。手段的ADL=電話を使う・乗り物を使う・買い物をする・食事の準備・薬の自己管理など。基本ADLより高度な生活技能。"}, {"q": "起き上がり動作の介助で重要な原則はどれか。", "opts": ["ボディメカニクスを活用し無理な力を使わない", "力任せに引き上げる", "急いで行う", "本人の力を無視する"], "a": 0, "e": "ボディメカニクスを活用し、介助者・利用者双方に無理な力をかけないことが重要な原則。力任せに引き上げると、介助者の腰痛や利用者の身体への負担につながるため、体の使い方を工夫した安全な介助が求められる。"}, {"q": "立ち上がり動作を支援する際の声かけはどれか。", "opts": ["「前に体を倒してから立ちましょう」", "「早く立って」", "無言", "「頑張れ」のみ"], "a": 0, "e": "「前に体を倒してから立ちましょう」という声かけは、立ち上がり動作の基本的な体の使い方を伝える適切な表現。前傾姿勢を作ることで重心が移動しやすくなり、少ない力でスムーズに立ち上がることができる。"}, {"q": "ADL評価で「自立」の判定基準はどれか。", "opts": ["介助なしで安全に動作を完了できる", "声かけがあれば可能", "一部介助が必要", "全介助が必要"], "a": 0, "e": "自立の判定基準は、介助なしで安全にその動作を完了できること。声かけが必要な場合や、一部でも介助が必要な場合は自立とは判定されないため、評価の際は実際の遂行状況を正確に見極める必要がある。"}, {"q": "更衣動作の自立度を評価する視点はどれか。", "opts": ["ボタンやファスナーの操作能力を含め評価する", "見た目のみで判断", "時間のみで判断", "評価不要"], "a": 0, "e": "ボタンやファスナーの操作など、細かい動作の能力まで含めて評価することが重要な視点。大まかな着脱ができても、細部の操作に困難がある場合は、その部分への支援を検討する必要がある。"}, {"q": "入浴動作のADL評価で確認する項目はどれか。", "opts": ["洗身・洗髪・浴槽の出入りの自立度", "浴室の広さ", "湯温のみ", "無関係"], "a": 0, "e": "洗身・洗髪・浴槽の出入りといった、入浴に関わる一連の動作の自立度を確認することがADL評価の項目となる。これらの動作それぞれについて、できる部分とできない部分を細かく評価することで、適切な支援計画につなげられる。"}, {"q": "排泄動作のADL評価に含まれる項目はどれか。", "opts": ["トイレ移動・衣服の上げ下ろし・後始末", "食事内容", "睡眠時間", "会話能力"], "a": 0, "e": "トイレへの移動、衣服の上げ下ろし、排泄後の後始末といった一連の動作が、排泄に関するADL評価に含まれる。これらを個別に評価することで、どの部分に支援が必要かを具体的に把握できる。"}, {"q": "歩行動作のADL評価で見るポイントはどれか。", "opts": ["歩行距離・安定性・補助具の使用状況", "会話の内容", "食欲", "視力のみ"], "a": 0, "e": "歩行距離・安定性・補助具の使用状況などが、歩行動作を評価する際の重要なポイントとなる。単に歩けるかどうかだけでなく、どの程度の距離を、どれだけ安定して歩けるかを総合的に見ることが求められる。"}, {"q": "整容(せいよう)動作に含まれるのはどれか。", "opts": ["洗面・整髪・歯磨きなど身だしなみ動作", "食事摂取", "移動動作", "排泄動作"], "a": 0, "e": "整容とは、洗面・整髪・歯磨きといった身だしなみに関わる動作を指す。これらはADLの中でも本人の自尊心やQOLに直結する動作であり、できる限り本人の力を活かした支援が重要となる。"}, {"q": "ADLの自立支援における「見守り」の位置づけはどれか。", "opts": ["安全確保しつつ本人の動作を尊重する中間的支援", "全介助と同じ", "無関係の関与", "放置と同じ"], "a": 0, "e": "見守りは、安全を確保しながら本人の動作を尊重する中間的な支援として位置づけられる。全介助でもなく完全な放置でもない、本人の力を最大限活かしながら安全にも配慮する、自立支援の重要な一形態である。"}, {"q": "ADL低下の早期発見が重要な理由はどれか。", "opts": ["早期介入で機能維持・改善の可能性が高まるため", "対応しても意味がないから", "記録のためだけ", "無関係"], "a": 0, "e": "ADL低下を早期に発見することで、早期の介入により機能の維持・改善につなげられる可能性が高まる。発見が遅れると、機能低下がさらに進行し、より多くの支援が必要な状態になってしまう危険がある。"}],qi=0,ok=0,tot=0;
+function rnd(){
+  if(!QQ.length)return;
+  var q=QQ[qi%QQ.length],c=document.getElementById('qc');if(!c)return;
+  var oo=document.createElement('div');oo.className='qopts';
+  q.opts.forEach(function(o,i){
+    var b=document.createElement('button');b.className='qopt';
+    b.textContent=String.fromCharCode(65+i)+'. '+o;
+    b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);
+  });
+  var bx=document.createElement('div');bx.className='qbox';
+  var qn=document.createElement('div');qn.className='qnum';qn.textContent='Soal '+(qi%QQ.length+1)+' / '+QQ.length;
+  var qq=document.createElement('div');qq.className='qq';qq.textContent=q.q;
+  var ex=document.createElement('div');ex.className='qexp';ex.id='qe';
+  bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);
+  c.innerHTML='';c.appendChild(bx);
+  updateScore();
+}
+function ans(b,c,a,e){
+  var bs=document.querySelectorAll('.qopt');
+  if(bs[a].dataset.d)return;
+  bs[a].dataset.d='1';tot++;
+  bs[a].classList.add('correct');
+  if(c!==a)b.classList.add('wrong');else ok++;
+  var ex=document.getElementById('qe');
+  if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}
+  updateScore();
+}
+function updateScore(){
+  var s=document.getElementById('qs');
+  var f=document.getElementById('sfill');
+  var pct=QQ.length>0?Math.round(tot/QQ.length*100):0;
+  if(s)s.textContent=ok+' benar dari '+tot+' dijawab ('+QQ.length+' soal total)';
+  if(f)f.style.width=pct+'%';
+}
+function nextQ(){qi=(qi+1)%QQ.length;rnd();}
+function resetQ(){qi=0;ok=0;tot=0;rnd();}
+document.querySelectorAll('.card').forEach(function(c){
+  c.addEventListener('click',function(){this.classList.toggle('open');});
+});
+rnd();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

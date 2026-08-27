@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checklist Kurikulum JLPT N5-N1 — Nihonggo Pro Academy</title>
+<meta name="description" content="Checklist kurikulum belajar bahasa Jepang JLPT N5 sampai N1: target kemampuan, materi wajib, latihan mingguan, dan indikator siap naik level.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kurikulum-Checklist.html">
+<meta property="og:title" content="Checklist Kurikulum JLPT N5-N1 — Nihonggo Pro Academy">
+<meta property="og:description" content="Panduan lengkap target belajar, materi wajib, latihan, dan indikator siap naik level untuk JLPT N5 sampai N1.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kurikulum-Checklist.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.brand{display:flex;align-items:baseline;gap:10px}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:22px}
+.brand span{font-size:12px;color:var(--ink-soft);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:8px;align-items:center}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:38px;padding:0 14px;border-radius:8px;background:var(--red);color:#fff;font-size:13px;font-weight:800}
+.hero{background:#17181d;color:#fff;padding:64px 5vw 42px;position:relative;overflow:hidden}
+.hero:before{content:"到達";position:absolute;right:4vw;bottom:-72px;font-family:"Noto Serif JP",serif;font-size:220px;color:rgba(255,255,255,.045);line-height:1}
+.inner{width:min(1120px,100%);margin:0 auto;position:relative}
+.kicker{display:inline-flex;padding:5px 11px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(32px,5vw,58px);line-height:1.12;margin-bottom:14px}
+.lead{max-width:760px;color:rgba(255,255,255,.7);font-size:16px}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.quick a{display:inline-flex;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.82);font-size:12px;font-weight:800}
+.section{padding:42px 5vw}
+.section-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:18px}
+.label{font-size:11px;font-weight:900;color:var(--red);letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}
+h2{font-family:"Noto Serif JP",serif;font-size:clamp(24px,3vw,36px);line-height:1.2}
+.sub{max-width:650px;color:var(--ink-soft);font-size:14px}
+.level-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.level-card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow-sm)}
+.level-card h3{font-family:"Noto Serif JP",serif;color:var(--red);font-size:28px;line-height:1;margin-bottom:8px}
+.level-card p{font-size:13px;color:var(--ink-soft);margin-bottom:12px}
+.level-card ul{padding-left:18px;display:grid;gap:6px}
+.level-card li{font-size:12px;color:var(--ink-mid)}
+.matrix{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.matrix th,.matrix td{padding:13px;border-bottom:1px solid var(--border);text-align:left;vertical-align:top;font-size:13px}
+.matrix th{background:var(--cream);color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.08em}
+.matrix tr:last-child td{border-bottom:0}
+.plan-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.plan{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:18px}
+.plan small{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:8px;background:var(--red-pale);color:var(--red);font-weight:900;margin-bottom:10px}
+.plan b{display:block;margin-bottom:6px}
+.plan span{display:block;color:var(--ink-soft);font-size:13px}
+.check-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.check{display:flex;gap:10px;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px;font-size:13px;color:var(--ink-mid)}
+.check:before{content:"✓";flex:0 0 24px;width:24px;height:24px;border-radius:8px;background:var(--green-pale);color:var(--green);font-weight:900;display:flex;align-items:center;justify-content:center}
+.cta{background:var(--ink);color:#fff;border-radius:8px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:18px}
+.cta p{color:rgba(255,255,255,.68);font-size:14px;margin-top:4px}
+@media(max-width:960px){.level-grid,.plan-grid{grid-template-columns:repeat(2,1fr)}.section-head,.cta{display:block}.cta .btn{margin-top:16px}}
+@media(max-width:640px){.nav-links{flex-wrap:wrap}.level-grid,.plan-grid,.check-grid{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Kurikulum & Checklist Belajar JLPT","url":"https://nihonggopro.id/Materi/Kurikulum-Checklist.html","description":"Kurikulum dan checklist belajar JLPT N5-N1","inLanguage":"id"}</script>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Checklist Kurikulum JLPT N5-N1 — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Checklist Kurikulum JLPT N5-N1 — Nihonggo Pro Academy","item":"https://nihonggopro.id/Materi/Kurikulum-Checklist.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  .nav-links{display:none!important}
+  
+  
+  
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="Checklist kurikulum belajar bahasa Jepang JLPT N5 sampai N1: target kemampuan, materi wajib, latihan mingguan, dan indikator siap naik level.">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<main id="main-content">
+  <section class="hero">
+    <div class="inner">
+      <div class="kicker">Kurikulum Lengkap</div>
+      <h1>Checklist Belajar JLPT<br>N5 sampai N1</h1>
+      <p class="lead">Gunakan halaman ini untuk menutup celah materi: apa yang harus dipelajari, dilatih, dan dibuktikan sebelum lanjut ke level berikutnya.</p>
+      <div class="quick">
+        <a href="#level">Target Per Level</a>
+        <a href="#matrix">Kompetensi Wajib</a>
+        <a href="#routine">Jadwal Mingguan</a>
+        <a href="#ready">Siap Naik Level</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="level">
+    <div class="inner">
+      <div class="section-head">
+        <div><div class="label">Target Per Level</div><h2>Apa yang Harus Dikuasai</h2></div>
+        <p class="sub">Setiap level punya fokus berbeda. Jangan hanya menghafal daftar kata; pastikan bisa memakai grammar, membaca teks, dan menjawab soal dalam batas waktu.</p>
+      </div>
+      <div class="level-grid">
+        <article class="level-card"><h3>N5</h3><p>Fondasi komunikasi harian.</p><ul><li>Hiragana dan katakana lancar</li><li>Partikel は, が, を, に, で, へ</li><li>Bentuk masu, desu, negatif, lampau</li><li>Kanji dasar angka, waktu, orang, tempat</li></ul></article>
+        <article class="level-card"><h3>N4</h3><p>Kalimat lebih panjang dan situasi praktis.</p><ul><li>Te-form, nai-form, dictionary form</li><li>Memberi alasan, izin, larangan, rencana</li><li>Reading pendek 250-500 karakter</li><li>Menyimak instruksi dan percakapan toko</li></ul></article>
+        <article class="level-card"><h3>N3</h3><p>Transisi ke bahasa Jepang natural.</p><ul><li>Nuansa sebab-akibat dan kontras</li><li>Ungkapan natural dan aizuchi</li><li>Artikel ringan, opini pendek, email sederhana</li><li>Shadowing dialog 60-90 detik</li></ul></article>
+        <article class="level-card"><h3>N2</h3><p>Bahasa akademik dan kerja.</p><ul><li>Tata Bahasa formal dan abstrak</li><li>Reading opini, berita, pengumuman</li><li>Keigo dasar, email, meeting</li><li>Ringkasan 200-300字</li></ul></article>
+        <article class="level-card"><h3>N1</h3><p>Analisis teks kompleks.</p><ul><li>Sinonim, idiom, kolokasi tingkat tinggi</li><li>Analisis argumen dan implikasi penulis</li><li>Nuansa formal, sastra ringan, editorial</li><li>Latihan timing ketat per section</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="matrix">
+    <div class="inner">
+      <div class="section-head">
+        <div><div class="label">Kompetensi Wajib</div><h2>Daftar Periksa Materi Inti</h2></div>
+        <p class="sub">Pakai tabel ini untuk mengecek apakah materi belajar sudah seimbang antara input, output, dan latihan ujian.</p>
+      </div>
+      <table class="matrix">
+        <thead><tr><th>Bidang</th><th>N5-N4</th><th>N3</th><th>N2-N1</th></tr></thead>
+        <tbody>
+          <tr><td>Tata Bahasa</td><td>Konjugasi dasar, partikel, pola permintaan, alasan, izin.</td><td>Kontras, tujuan, asumsi, perubahan keadaan, nuansa natural.</td><td>Formal written grammar, argumen, evaluasi, pembatasan, inferensi.</td></tr>
+          <tr><td>Kanji</td><td>Baca kanji umum dan compound dasar.</td><td>Kelompokkan kanji berdasarkan tema dan pasangan kata.</td><td>Bedakan sinonim kanji, jukugo formal, dan pilihan kata konteks.</td></tr>
+          <tr><td>Vocabulary</td><td>Kata benda, kerja, sifat untuk kehidupan harian.</td><td>Kolokasi, adverb, ekspresi opini, kata kerja majemuk.</td><td>Abstrak, akademik, bisnis, media, idiom, dan nuansa register.</td></tr>
+          <tr><td>Membaca</td><td>Pengumuman pendek, email sederhana, jadwal.</td><td>Artikel pendek, opini ringan, hubungan paragraf.</td><td>Editorial, esai, teks komparatif, maksud tersembunyi penulis.</td></tr>
+          <tr><td>Listening</td><td>Instruksi pelan, percakapan toko/sekolah.</td><td>Percakapan natural, pilihan tindakan, detail waktu/tempat.</td><td>Diskusi cepat, opini, perubahan keputusan, inferensi.</td></tr>
+          <tr><td>Kemampuan Output</td><td>Perkenalan, diary pendek, tanya jawab dasar.</td><td>Roleplay, ringkasan pendek, opini 5-8 kalimat.</td><td>Email formal, ringkasan artikel, presentasi, debat ringan.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="routine">
+    <div class="inner">
+      <div class="section-head">
+        <div><div class="label">Jadwal Mingguan</div><h2>Pola belajar yang seimbang</h2></div>
+        <p class="sub">Gunakan ritme ini agar tidak hanya menumpuk hafalan. Setiap minggu harus punya review, input, output, dan evaluasi.</p>
+      </div>
+      <div class="plan-grid">
+        <article class="plan"><small>1</small><b>Hari 1-2: Input</b><span>Pelajari grammar baru, 30-50 kosakata, dan 10-20 kanji sesuai level.</span></article>
+        <article class="plan"><small>2</small><b>Hari 3: Drill</b><span>Kerjakan soal pendek, ubah bentuk kata kerja, dan buat kalimat sendiri.</span></article>
+        <article class="plan"><small>3</small><b>Hari 4: Skill</b><span>Latih reading atau listening dengan timer. Catat kosakata yang muncul berulang.</span></article>
+        <article class="plan"><small>4</small><b>Hari 5: Output</b><span>Tulis ringkasan, roleplay, atau rekam speaking 60-120 detik.</span></article>
+        <article class="plan"><small>5</small><b>Hari 6: Mock Mini</b><span>Kerjakan mixed quiz dan tandai semua jawaban salah ke Review Kesalahan.</span></article>
+        <article class="plan"><small>6</small><b>Hari 7: Review</b><span>Ulang flashcard, rapikan catatan, dan pilih fokus minggu berikutnya.</span></article>
+        <article class="plan"><small>7</small><b>Bulanan</b><span>Ambil tes level atau mock exam untuk melihat apakah strategi belajar perlu diubah.</span></article>
+        <article class="plan"><small>8</small><b>Sebelum Ujian</b><span>Kurangi materi baru, perbanyak simulasi waktu, review salah, dan stamina membaca.</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ready">
+    <div class="inner">
+      <div class="section-head">
+        <div><div class="label">Siap ke Level Berikut</div><h2>Indikator kelulusan internal</h2></div>
+        <p class="sub">Naik level saat kemampuan sudah stabil, bukan hanya karena sudah membaca semua halaman.</p>
+      </div>
+      <div class="check-grid" id="checkGrid"></div>
+      <div id="progressBar" style="margin-top:.75rem;height:8px;background:var(--border);border-radius:100px;overflow:hidden">
+        <div id="progressFill" style="height:100%;background:linear-gradient(90deg,var(--red),var(--gold));border-radius:100px;width:0%;transition:width .5s"></div>
+      </div>
+      <p id="progressLabel" style="font-size:12px;color:var(--ink-soft);margin-top:.4rem">0 / 0 selesai</p>
+      <div class="cta" style="margin-top:20px">
+        <div>
+          <h2>Lanjutkan dari checklist ke latihan.</h2>
+          <p>Setelah tahu celahnya, buka planner JLPT, kerjakan latihan, lalu review kesalahan secara rutin.</p>
+        </div>
+        <a class="btn" href="Rencana-Belajar-JLPT.html">Buat Rencana</a>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="../assets/pro-app.min.js" defer></script>
+<script>
+// Kurikulum Checklist — interaktif dengan per-level item
+const allItems = {
+  N5: [
+    { text: 'Hiragana dan katakana semua lancar dibaca tanpa mengeja.', jp: 'ひらがな・カタカナ全46文字', note: 'Mulai dari あいうえお dan アイウエオ.' },
+    { text: 'Partikel は, が, を, に, で, へ, と, も bisa dipasang ke kalimat.', jp: '私は学生です / 本を読む / 学校に行く', note: 'は topik, が subjek, を objek, に tujuan.' },
+    { text: 'Bentuk masu, nai, te, ta, dictionary form bisa dibentuk.', jp: '食べます / 食べない / 食べて / 食べた', note: 'Semua dari 食べる (taberu = makan).' },
+    { text: '100 kanji N5 inti bisa dibaca dan dikenali konteksnya.', jp: '日本語・水・火・木・人・大小・上下', note: 'Kanji N5 = kanji paling dasar, sering muncul.' },
+    { text: 'Bisa memperkenalkan diri 30 detik dalam bahasa Jepang.', jp: 'はじめまして。私は〜と申します。', note: 'Latih dengan rekam suara sendiri.' },
+    { text: 'Skor latihan N5 minimal 70% konsisten dua minggu berturut.', jp: 'mock test N5 → 70%以上', note: 'Gunakan Latihan JLPT untuk tracking.' },
+  ],
+  N4: [
+    { text: 'Te-form, nai-form, dictionary form sudah otomatis.', jp: '食べて・食べない・食べる', note: 'Harus refleks tanpa berpikir lama.' },
+    { text: 'Pola 〜たことがある, 〜たりする, 〜ながら dikuasai.', jp: '日本に行ったことがある / 食べたり飲んだり', note: 'Pola pengalaman dan contoh perbuatan.' },
+    { text: 'Bisa beri alasan (〜から/ので), izin (〜ていい), larangan (〜てはいけない).', jp: '雨だから行かない / 入ってもいい？', note: 'Natural dalam percakapan harian.' },
+    { text: '300 kanji N4 inti bisa dibaca dan dipahami.', jp: '駅・場所・会社・事故・計画', note: 'Fokus kanji yang muncul di teks harian.' },
+    { text: 'Memahami teks singkat majalah/berita level N4.', jp: 'NHK Web Easy: やさしいニュース', note: 'Baca NHK Web Easy 5 menit per hari.' },
+    { text: 'Skor latihan N4 minimal 70% konsisten dua minggu berturut.', jp: 'mock test N4 → 70%以上', note: 'Gunakan timer 35 menit seperti ujian asli.' },
+  ],
+  N3: [
+    { text: 'Keigo dasar (〜ていただけますか, 〜でございます) bisa digunakan.', jp: '承知いたしました / よろしくお願いします', note: 'Penting untuk kerja dan situasi formal.' },
+    { text: 'Pola N3 utama: 〜ようになる, 〜てしまう, 〜ほど, 〜のに, 〜ために', jp: '日本語が話せるようになった / 忘れてしまった', note: 'Tiap pola kuasai bentuk positif dan negatif.' },
+    { text: '370 kanji N3 bisa dibaca dan dimengerti konteksnya.', jp: '影響・状況・必要・判断・可能', note: 'Kanji N3 banyak dipakai di teks berita.' },
+    { text: 'Memahami dialog percakapan alami di anime/film N3 level.', jp: 'Dengar tanpa subtitle 60% dipahami', note: 'Coba anime dengan dialog natural.' },
+    { text: 'Bisa menulis email pendek atau komentar dalam bahasa Jepang.', jp: 'ご連絡ありがとうございます。', note: 'Latih dengan menulis jurnal harian.' },
+    { text: 'Skor latihan N3 minimal 70% konsisten dua minggu berturut.', jp: 'mock test N3 → 70%以上', note: 'N3 paling kompetitif, butuh konsistensi.' },
+  ],
+  N2: [
+    { text: 'Pola N2 kunci: 〜に基づいて, 〜ざるを得ない, 〜どころか, 〜に伴って', jp: 'データに基づいて判断する / 行かざるを得ない', note: 'Pola ini dominan di section Grammar N2.' },
+    { text: '1000 kanji bisa dibaca, termasuk compound words umum.', jp: '維持・促進・懸念・整備・施設', note: 'Pelajari kanji dalam pasangan kompound.' },
+    { text: 'Memahami teks akademik dan artikel surat kabar singkat.', jp: '読解: 新聞記事・論説・説明文', note: 'Baca artikel NHK berita biasa, bukan Easy.' },
+    { text: 'Keigo tinggi untuk lingkungan kerja Jepang dikuasai.', jp: 'いただく/おる/申す/おっしゃる', note: 'Kenjougo vs Sonkeigo wajib dibedakan.' },
+    { text: 'Skor latihan N2 minimal 70% konsisten.', jp: 'mock test N2 → 70%以上', note: 'N2 buka banyak pintu karir di Jepang.' },
+  ],
+  N1: [
+    { text: 'Pola N1 kunci: 〜ならでは, 〜にほかならない, 〜まじき, 〜に足る', jp: '京都ならでは / これは誠意にほかならない', note: 'Pola N1 banyak di teks formal dan sastra.' },
+    { text: '2000+ kanji termasuk karakter rare dalam konteks teks asli.', jp: '謙遜・顕著・抑制・妥当・錯覚', note: 'Membaca novel ringan atau editorial koran.' },
+    { text: 'Memahami teks kompleks: opini, editorial, karya sastra.', jp: '論説文・評論文・文学作品', note: 'Baca Asahi Shimbun atau Nikkei selama 10 menit.' },
+    { text: 'Bisa berbicara dan menulis keigo bisnis level eksekutif.', jp: '大変お世話になっております。謹んでご報告申し上げます。', note: 'Untuk level manajer/bisnis tinggi.' },
+    { text: 'Skor latihan N1 minimal 70% konsisten.', jp: 'mock test N1 → 70%以上', note: 'N1 = puncak kemampuan bahasa Jepang formal.' },
+  ],
+};
+
+const STORE_KEY = 'kurikulumChecklist_v1';
+let checks = {};
+try { checks = JSON.parse(localStorage.getItem(STORE_KEY) || '{}'); } catch(e) { checks = {}; }
+
+let activeLevel = 'umum';
+
+function saveChecks() {
+  localStorage.setItem(STORE_KEY, JSON.stringify(checks));
+}
+
+function renderChecklist(level) {
+  activeLevel = level;
+  const items = allItems[level] || [];
+  const grid = document.getElementById('checkGrid');
+  grid.innerHTML = items.map((item, i) => {
+    const id = `${level}_${i}`;
+    const done = !!checks[id];
+    const text = typeof item === 'object' ? item.text : item;
+    const jp = typeof item === 'object' ? item.jp : '';
+    const note = typeof item === 'object' ? item.note : '';
+    return `<label class="check" style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;padding:.6rem .75rem;border-radius:8px;background:${done?'var(--green-pale)':'var(--white)'};border:1px solid ${done?'rgba(39,174,96,.3)':'var(--border-mid)'};transition:all .2s" onclick="toggleCheck('${id}')">
+      <input type="checkbox" ${done?'checked':''} aria-label="Item checklist" style="margin-top:2px;accent-color:var(--green,#27ae60);width:16px;height:16px">
+      <div style="flex:1">
+        <div style="font-size:13px;color:${done?'var(--ink-soft)':'var(--ink)'};${done?'text-decoration:line-through':''}">${text}</div>
+        ${jp?`<div style="font-family:'Noto Serif JP',serif;font-size:12px;color:var(--red);margin-top:3px">${jp}</div>`:''}
+        ${note?`<div style="font-size:11px;color:var(--ink-faint);margin-top:2px">💡 ${note}</div>`:''}
+      </div>
+    </label>`;
+  }).join('');
+}
+
+function toggleCheck(id, el) {
+  checks[id] = el.checked;
+  saveChecks();
+  // Re-render to update style
+  renderChecklist(activeLevel);
+}
+
+function updateProgress(level) {
+  const items = allItems[level] || [];
+  const done = items.filter((_, i) => !!checks[`${level}_${i}`]).length;
+  const pct = items.length ? Math.round(done / items.length * 100) : 0;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${done} / ${items.length} selesai (${pct}%)`;
+}
+
+function setLevelTab(level, btn) {
+  document.querySelectorAll('.level-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderChecklist(level);
+}
+
+// Build level tabs if not exist
+const tabTarget = document.getElementById('checkGrid');
+const tabHtml = `<div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:.75rem" id="checkTabs">
+  ${['N5','N4','N3','N2','N1','umum'].map(lv => `<button class="level-tab${lv==='umum'?' active':''}" onclick="setLevelTab('${lv}',this)" style="padding:6px 14px;border-radius:8px;border:.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-size:12px;font-weight:700;cursor:pointer">${lv==='umum'?'✓ Universal':lv}</button>`).join('')}
+  <button onclick="if(confirm('Reset semua checklist?')){checks={};saveChecks();renderChecklist(activeLevel)}" style="padding:6px 14px;border-radius:8px;border:.5px solid var(--border-mid);background:var(--white);color:var(--ink-faint);font-size:11px;cursor:pointer;margin-left:auto">Reset</button>
+</div>`;
+
+if (tabTarget) {
+  tabTarget.insertAdjacentHTML('beforebegin', tabHtml);
+}
+// Style active tab
+document.addEventListener('DOMContentLoaded', ()=>{}, false);
+document.querySelectorAll('.level-tab').forEach(b => {
+  b.addEventListener('click', function() {
+    document.querySelectorAll('.level-tab').forEach(x => {
+      x.style.background='var(--white)'; x.style.color='var(--ink-mid)'; x.style.borderColor='var(--border-mid)';
+    });
+    this.style.background='var(--red)'; this.style.color='#fff'; this.style.borderColor='transparent';
+  });
+});
+
+renderChecklist('umum');
+</script>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head"><div>
+      <div class="label">N2–N1 · Kompetensi</div>
+      <h2>Target Kompetensi N2 dan N1</h2>
+    </div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+      <div>
+        <div style="font-weight:700;font-size:13px;color:var(--red);margin-bottom:.75rem">✅ Target N2</div>
+        <div style="font-size:12px;color:var(--ink-mid);display:grid;gap:.4rem;line-height:1.7">
+          <div>☐ Memahami <span style="font-family:'Noto Serif JP',serif">〜ざるを得ない、〜にもかかわらず</span> dan 50+ pola N2</div>
+          <div>☐ Membaca artikel koran/majalah dengan kamus minimal</div>
+          <div>☐ Menguasai 1000 kanji N2</div>
+          <div>☐ Mengerti 75% anime/drama tanpa subtitle</div>
+          <div>☐ Menulis email bisnis formal (keigo)</div>
+          <div>☐ Listening berita NHK tingkat dasar</div>
+          <div>☐ 6000+ kosakata termasuk kata formal</div>
+          <div>☐ Menggunakan <span style="font-family:'Noto Serif JP',serif">謙譲語</span> dengan benar</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-weight:700;font-size:13px;color:var(--red);margin-bottom:.75rem">✅ Target N1</div>
+        <div style="font-size:12px;color:var(--ink-mid);display:grid;gap:.4rem;line-height:1.7">
+          <div>☐ Memahami <span style="font-family:'Noto Serif JP',serif">〜ならでは、〜にほかならない、〜まじき</span> dan 45+ pola N1</div>
+          <div>☐ Membaca editorial Nikkei/Asahi secara mandiri</div>
+          <div>☐ Menguasai semua 2000 Jōyō kanji</div>
+          <div>☐ Memahami ceramah/pidato formal Jepang</div>
+          <div>☐ Menulis teks argumentatif dalam bahasa Jepang</div>
+          <div>☐ 10000+ kosakata termasuk kata abstrak</div>
+          <div>☐ Diskusi nuansa budaya/sosial dalam bahasa Jepang</div>
+          <div>☐ Memahami kiasan dan implikasi dalam teks literatur</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html><html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Perawatan Diabetes Kaigo 糖尿病管理 | Nihonggo Pro Academy</title>
+<meta name="description" content="Perawatan diabetes di kaigo 介護. Panduan mengontrol gula darah, menangani hipoglikemia, perawatan kaki, dan manajemen diet untuk lansia diabetik.">>
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Diabetes-Care.html">
+<meta property="og:title" content="Perawatan Diabetes Kaigo 糖尿病管理 — Nihonggo Pro Academy">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["糖尿病", "tounyobyo", "diabetes"], ["低血糖", "teikettoukochi", "hipoglikemia"], ["高血糖", "koukettoukochi", "hiperglikemia"], ["血糖値", "kettouatchi", "kadar gula darah"], ["インスリン", "insurin", "insulin"], ["HbA1c", "HbA1c", "kontrol gula jangka panjang"], ["フットケア", "futto kea", "perawatan kaki"], ["冷汗", "hiyaase", "keringat dingin"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#e65100">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#e65100;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script><script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script><script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+*{box-sizing:border-box}.wrap{max-width:920px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,#e65100,#f57c00);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 6px;font-family:"Noto Serif JP",serif;line-height:1.3}
+.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.78rem;margin-bottom:10px}
+.sub{font-size:.85rem;opacity:.85;margin-top:6px}
+.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:14px 0}
+.sec h2{font-size:1rem;font-weight:700;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08);color:#e65100}
+.st{font-size:1.1rem;font-weight:700;margin:24px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08);color:#e65100}
+.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
+.tbl th{padding:8px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05);font-weight:600}
+.tbl td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.06);vertical-align:top;line-height:1.5}
+.tip{background:#f0faf0;border-left:3px solid #43a047;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0;line-height:1.6}
+.warn{background:#fff3e0;border-left:3px solid #ff9800;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
+.err{background:#fce4ec;border-left:3px solid #e91e63;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
+.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
+.card .det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.82rem;color:#555;line-height:1.7}
+.card.open .det{display:block}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+.kv{background:#f5f5f5;border-radius:8px;padding:10px 12px;font-size:.84rem}
+.kv b{display:block;margin-bottom:3px}
+.dl{padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:8px;font-size:.86rem;line-height:1.6}
+.dl-st{background:#e3f2fd;border-left:3px solid #1976d2}
+.dl-pt{background:#f5f5f5;border-left:3px solid #9e9e9e}
+.spk{font-size:.7rem;font-weight:700;margin-bottom:3px;color:#555}
+.iid{font-size:.76rem;color:#666;margin-top:2px}
+.tts{border:none;background:#e65100;color:#fff;padding:2px 7px;border-radius:5px;cursor:pointer;font-size:.7rem;margin-top:3px}
+.qbox{background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:12px 0}
+.qnum{font-size:.72rem;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px;background:#e65100}
+.qq{font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5}
+.qopts{display:grid;gap:8px}
+.qopt{background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
+.qopt:hover{background:rgba(0,0,0,.04)}
+.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Perawatan Diabetes Kaigo 糖尿病管理 | Nihonggo Pro Academy", "description": "Perawatan diabetes di kaigo 介護. Panduan mengontrol gula darah, menangani hipoglikemia, perawatan kaki, dan manajemen diet untuk lansia diabetik.", "url": "https://nihonggopro.id/Materi/Kaigo-Diabetes-Care.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Perawatan diabetes di kaigo 介護. Panduan mengontrol gula darah, menangani hipoglikemia, perawatan kaki, dan manajemen diet untuk lansia diabetik.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Diabetes-Care.html">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Perawatan Diabetes Kaigo 糖尿病管理">
+<meta name="twitter:description" content="Perawatan diabetes di kaigo 介護. Panduan mengontrol gula darah, menangani hipoglikemia, perawatan kaki, dan manajemen diet untuk lansia diabetik.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero"><span class="bdg">🏥 介護</span><h1>Perawatan Diabetes Kaigo 糖尿病管理</h1><p class="sub">血糖コントロール · 低血糖対応 · 足のケア · 食事管理 · 観察</p></div>
+<div class="wrap" style="padding-top:20px">
+
+<div class="tip">💡 糖尿病患者への介護で最も危険なのは「低血糖(低血糖症)」。早期発見・迅速対応が生死に関わる。症状を覚えることが最重要！</div>
+
+<div class="sec">
+<h2>🩸 血糖値の目安と意味</h2>
+<table class="tbl">
+<tr><th>状態</th><th>血糖値(空腹時)</th><th>症状・対応</th></tr>
+<tr><td>正常</td><td>70-110mg/dL</td><td>通常のケア</td></tr>
+<tr><td>低血糖</td><td>70mg/dL未満</td><td>冷汗・震え・意識混濁 → 即対応</td></tr>
+<tr><td>高血糖(軽度)</td><td>180-250mg/dL</td><td>口渇・多尿 → 看護師に報告</td></tr>
+<tr><td>高血糖(重度)</td><td>250mg/dL超</td><td>意識混濁・ケトアシドーシス → 119番</td></tr>
+<tr><td>空腹時正常</td><td>110mg/dL未満</td><td>HbA1c 5.6%未満が目標</td></tr>
+</table>
+</div>
+
+<div class="sec">
+<h2>⚡ 低血糖(ていけっとう)への対応</h2>
+<div class="err">🚨 低血糖は緊急! 気づいたらすぐ行動。意識がある間に対応しないと意識を失う。</div>
+<div class="g2">
+<div class="card"><b>低血糖の症状(早期)</b>
+<div class="det">冷汗・震え(手足)・動悸・空腹感・顔面蒼白・手足のしびれ・頭痛。「何かおかしい」と感じたら血糖測定(許可がある場合)または素早く看護師へ。</div></div>
+<div class="card"><b>低血糖の症状(進行期)</b>
+<div class="det">めまい・集中力低下・ぼんやりする・会話がおかしい・ふらつき・異常行動。この段階ですぐ対処しないと意識消失につながる。</div></div>
+<div class="card"><b>意識がある時の対応</b>
+<div class="det">① ブドウ糖10g(砂糖20gでも可)をすぐ摂取<br>② 15分後に再確認(まだ症状なら再度摂取)<br>③ 次の食事まで間がある場合は炭水化物も<br>④ 看護師・上司に必ず報告+記録</div></div>
+<div class="card"><b>意識がない時の対応</b>
+<div class="det">① 口から何も入れない(誤嚥危険)<br>② 即119番+看護師を呼ぶ<br>③ 回復体位で気道確保<br>④ バイタル確認・記録(発見時刻・症状)<br>⑤ グルカゴン(注射)は看護師が行う</div></div>
+</div>
+</div>
+
+<div class="sec">
+<h2>🦶 足のケア(フットケア)</h2>
+<div class="warn">⚠️ 糖尿病は末梢神経障害・血行障害で「足の感覚が鈍くなる」→ 小さな傷に気づかず→ 壊疽(えそ)→ 最悪切断。足のケアは命を守るケア!</div>
+<table class="tbl">
+<tr><th>ケア内容</th><th>頻度</th><th>チェックポイント</th></tr>
+<tr><td>足の洗浄</td><td>毎日</td><td>指の間まで丁寧に・ぬるめのお湯(40°C以下)</td></tr>
+<tr><td>乾燥防止</td><td>毎日</td><td>保湿クリーム(指の間は除く)・白癬予防</td></tr>
+<tr><td>爪のケア</td><td>月1-2回</td><td>深爪禁止・爪の角を切らない・看護師が行う</td></tr>
+<tr><td>靴の確認</td><td>毎日</td><td>石・異物がないか・靴ずれがないか</td></tr>
+<tr><td>足の観察</td><td>毎日</td><td>発赤・傷・水疱・変色→即看護師報告</td></tr>
+</table>
+</div>
+
+<div class="sec">
+<h2>🍽️ 食事管理の介護役割</h2>
+<table class="tbl">
+<tr><th>介護職の役割</th><th>禁止事項</th></tr>
+<tr><td>食事量・残食量の正確な観察と記録</td><td>自己判断での食事制限・変更</td></tr>
+<tr><td>食事時間を規則正しく守る</td><td>甘い間食を与える(無許可)</td></tr>
+<tr><td>低血糖予防のため食事スキップを防ぐ</td><td>栄養士・医師の指示なしに食形態変更</td></tr>
+<tr><td>異変(食欲極端な変化等)を報告</td><td>インスリンの調整・薬の変更</td></tr>
+</table>
+</div>
+
+<h2 style="font-size:1.2rem;font-weight:700;color:#e65100;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<div class="pg-vocab" id="pg"></div>
+
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#e65100;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #fff3e0">💬 糖尿病ケアの実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#e65100;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #fff3e0">💊 Dialog 1 — 低血糖への対応</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#fff3e0;color:#e65100;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">なんか頭がふらふらして…手が震えています。<button aria-label="Ucapkan: なんか頭がふらふらして…手が震えています。" onclick="speak('なんか頭がふらふらして…手が震えています。')" style="border:none;background:#e65100;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Kepala sedikit pusing... tangan gemetar.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#fff3e0;color:#e65100;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">低血糖かもしれません。今すぐブドウ糖を摂ってください。（ブドウ糖を渡す）飴でも大丈夫ですよ。5分後に確認しますね。（看護師に連絡）<button aria-label="Ucapkan: 低血糖かもしれません。今すぐブドウ糖を摂ってください。（ブド…" onclick="speak('低血糖かもしれません。今すぐブドウ糖を摂ってください。（ブドウ糖を渡す）飴でも大丈夫ですよ。5分後に確認しますね。（看護師に連絡）')" style="border:none;background:#e65100;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Mungkin hipoglikemia. Segera konsumsi glukosa. (Memberikan glukosa) Permen juga tidak apa-apa. 5 menit lagi saya periksa. (Hubungi perawat)</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#e65100;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #fff3e0">🍱 Dialog 2 — 食事管理の声かけ</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#fff3e0;color:#e65100;margin-top:1px;flex-shrink:0">田中さん</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">デザートのケーキが食べたいわ。<button aria-label="Ucapkan: デザートのケーキが食べたいわ。" onclick="speak('デザートのケーキが食べたいわ。')" style="border:none;background:#e65100;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Ingin makan kue dessert.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#fff3e0;color:#e65100;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">気持ちはよくわかります。ただ糖尿病がありますので、血糖値に影響があるものは慎重にいかないといけません。今日の昼食の糖質が少なかったので、少量だけ管理栄養士に相談してみましょうか。<button aria-label="Ucapkan: 気持ちはよくわかります。ただ糖尿病がありますので、血糖値に影…" onclick="speak('気持ちはよくわかります。ただ糖尿病がありますので、血糖値に影響があるものは慎重にいかないといけません。今日の昼食の糖質が少なかったので、少量だけ管理栄養士に相談してみまし')" style="border:none;background:#e65100;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Saya sangat mengerti. Tapi karena ada diabetes, perlu hati-hati dengan yang mempengaruhi gula darah. Karbohidrat makan siang tadi sedikit, mau konsultasikan ke ahli gizi boleh sedikit?</div></div></div></div></div>
+<h2 class="st">🧠 Latihan Soal & Pembahasan</h2>
+<div id="qc"></div>
+<div style="display:flex;gap:10px;margin-top:12px">
+<button onclick="nQ()" style="flex:1;padding:12px;background:#e65100;color:#fff;border:none;border-radius:8px;cursor:pointer;font-weight:600;font-family:inherit">Soal Berikutnya →</button>
+<button onclick="rQ()" style="padding:12px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">🔄 Reset</button>
+</div>
+<p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</div><section style="padding:16px;max-width:860px;margin:20px auto">
+<h2 style="font-size:1rem;color:#1b5e20;border-bottom:3px solid #1b5e20;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 糖尿病ケア</h2>
+<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('糖尿病')" title="クリックで発音">🔊 糖尿病</div>
+  <div style="font-size:.8rem;color:#777">tōnyōbyō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">diabetes mellitus</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('血糖値')" title="クリックで発音">🔊 血糖値</div>
+  <div style="font-size:.8rem;color:#777">kettō-chi</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">kadar gula darah</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('低血糖')" title="クリックで発音">🔊 低血糖</div>
+  <div style="font-size:.8rem;color:#777">tei-kettō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">hipoglikemia</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('高血糖')" title="クリックで発音">🔊 高血糖</div>
+  <div style="font-size:.8rem;color:#777">kō-kettō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">hiperglikemia</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('インスリン')" title="クリックで発音">🔊 インスリン</div>
+  <div style="font-size:.8rem;color:#777">insurin</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">insulin</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('HbA1c')" title="クリックで発音">🔊 HbA1c</div>
+  <div style="font-size:.8rem;color:#777">HbA1c</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">hemoglobin A1c</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('食事療法')" title="クリックで発音">🔊 食事療法</div>
+  <div style="font-size:.8rem;color:#777">shokuji ryōhō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">terapi diet</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('炭水化物')" title="クリックで発音">🔊 炭水化物</div>
+  <div style="font-size:.8rem;color:#777">tansuikabutsu</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">karbohidrat</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('足病変')" title="クリックで発音">🔊 足病変</div>
+  <div style="font-size:.8rem;color:#777">ashi byōhen</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">komplikasi kaki diabetik</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('糖尿病性神経障害')" title="クリックで発音">🔊 糖尿病性神経障害</div>
+  <div style="font-size:.8rem;color:#777">tōnyōbyō-sei shinkei shōgai</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">neuropati diabetik</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('糖尿病性腎症')" title="クリックで発音">🔊 糖尿病性腎症</div>
+  <div style="font-size:.8rem;color:#777">tōnyōbyō-sei jinsho</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">nefropati diabetik</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('糖尿病性網膜症')" title="クリックで発音">🔊 糖尿病性網膜症</div>
+  <div style="font-size:.8rem;color:#777">tōnyōbyō-sei mōmakushō</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">retinopati diabetik</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('フットケア')" title="クリックで発音">🔊 フットケア</div>
+  <div style="font-size:.8rem;color:#777">futto kea</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">perawatan kaki</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('血糖測定')" title="クリックで発音">🔊 血糖測定</div>
+  <div style="font-size:.8rem;color:#777">kettō sokutei</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">pengukuran gula darah</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #1b5e20">
+  <div style="font-size:1.05rem;font-weight:700;color:#1b5e20" onclick="speak('シックデイ')" title="クリックで発音">🔊 シックデイ</div>
+  <div style="font-size:.8rem;color:#777">shiku dei</div>
+  <div style="font-size:.85rem;color:#333;margin-top:3px">sick day rules</div>
+</div>
+</div></section></main>
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+var Q=[{"q": "低血糖の「早期症状」として正しいものは？", "opts": ["高熱", "冷汗・手足の震え・動悸・顔面蒼白", "血圧上昇", "むくみ"], "a": 1, "e": "低血糖の早期症状には、冷や汗・手の震え・動悸・空腹感などがある。これらは血糖値が急速に低下し始めたサインであり、早期に気づいて対応することで、意識障害等のより重篤な状態への進行を防ぐことができる。"}, {"q": "「意識がある低血糖」への最初の対応は？", "opts": ["119番", "ブドウ糖10g(砂糖20g)をすぐ摂取させる", "水を飲ませる", "様子を見る"], "a": 1, "e": "意識がある場合は、速やかにブドウ糖や糖分を含む飲食物を摂取させることが最初の対応。放置すると意識障害に進行する危険があるため、症状に気づいた時点で迅速に対応し、その後看護師等へ報告することが重要。"}, {"q": "「低血糖で意識がない」時に絶対してはいけないことは？", "opts": ["119番を呼ぶ", "口から糖分を与える(誤嚥の危険がある)", "回復体位", "バイタル確認"], "a": 1, "e": "意識がない状態で無理に飲食物を口に入れることは、誤嚥や窒息の危険があるため絶対に行ってはいけない。この場合は速やかに医療職・救急への連絡を優先し、専門的な処置（グルカゴン注射等）につなげる必要がある。"}, {"q": "糖尿病患者の「足の観察」で最も重要な理由は？", "opts": ["きれいにするため", "末梢神経障害で感覚が鈍くなり、小さな傷に気づかず壊疽(切断)に進む危険があるから", "ルールだから", "家族のため"], "a": 1, "e": "糖尿病では神経障害により足の感覚が鈍くなり、小さな傷や炎症に気づきにくくなる。気づかないまま悪化すると潰瘍や壊疽に至る危険があるため、日常的な足の観察は重篤な合併症を防ぐ上で極めて重要な役割を持つ。"}, {"q": "糖尿病患者の爪切りで正しいのは？", "opts": ["深爪にする", "爪の角を切らず、できるだけ看護師が行う", "介護職が自由に行う", "爪は切らない"], "a": 1, "e": "深爪や皮膚を傷つけないよう、まっすぐ切り角を丸くしすぎない（スクエアカット）方法が推奨される。神経障害により痛みを感じにくいため、小さな傷から感染や潰瘍に進行するリスクがあり、慎重な爪切りが求められる。"}, {"q": "食事の「残食量(残したもの)」を正確に記録する理由は？", "opts": ["形式的", "低血糖のリスク計算・栄養評価・インスリン量の判断に重要な情報になるから", "家族のため", "見た目のため"], "a": 1, "e": "残食量の記録は、実際の摂取カロリーや栄養状態を正確に把握し、血糖コントロールや栄養管理の判断材料とするために重要。曖昧な記録では、医療職が適切な治療方針を立てる際の情報が不正確になってしまう。"}, {"q": "糖尿病の利用者が「多尿（たにょう）・多飲（たいん）・体重減少」を訴えた場合に疑うのは？", "opts": ["低血糖", "高血糖（血糖コントロール不良）", "脱水のみ", "正常な状態"], "a": 1, "e": "多尿・多飲・体重減少は、血糖コントロールが悪化し高血糖状態が続いていることを示唆する典型的な症状。これらの変化に気づいたら速やかに看護師・医師へ報告し、血糖値の確認や治療方針の見直しにつなげる必要がある。"}, {"q": "糖尿病の利用者の「シックデイ（sick day）」での注意点は？", "opts": ["薬を自己判断で止める", "食事が摂れない時も血糖管理が必要。必ず医師・看護師に連絡し指示を仰ぐ", "水分を控える", "普通通り介護する"], "a": 1, "e": "発熱や体調不良の日（シックデイ）は、食事量が減っても自己判断でインスリンや内服薬を中止せず、水分補給を続けながら医療職に相談することが基本。体調不良時こそ血糖値が不安定になりやすく、慎重な対応が必要。"}, {"q": "糖尿病の「三大合併症」に含まれるのはどれか。", "opts": ["網膜症・腎症・神経障害", "骨折・肺炎・便秘", "認知症・うつ病・不眠", "高血圧のみ"], "a": 0, "e": "糖尿病の三大合併症は、網膜症・腎症・神経障害。これらは高血糖状態が長期間続くことで血管や神経が障害されて起こり、視力低下・腎機能低下・感覚障害などにつながるため、血糖コントロールと定期的な観察が重要となる。"}, {"q": "糖尿病の利用者のフットケアが重要な理由はどれか。", "opts": ["神経障害で傷に気づきにくく壊疽のリスクがあるため", "見た目のため", "無関係", "時間つぶしのため"], "a": 0, "e": "糖尿病による神経障害で足の感覚が鈍くなり、小さな傷や炎症に気づきにくくなるため、放置すると潰瘍や壊疽に進行する危険がある。日常的な足の観察とケアが、重篤な合併症を防ぐ上で欠かせない。"}, {"q": "インスリン注射の保管方法として正しいのはどれか。", "opts": ["未使用は冷蔵、使用中は常温可の指示に従う", "常に冷凍", "常温放置のみ", "日光に当てる"], "a": 0, "e": "未使用のインスリンは冷蔵保存し、使用中のものは製品の指示に従って常温保存が可能な場合もある。常温放置のみや冷凍保存は、薬剤の効果を損なう危険があるため、正しい保管方法を守ることが重要。"}, {"q": "食後高血糖を防ぐための食事の工夫はどれか。", "opts": ["野菜から先に食べる食べる順序の工夫", "炭水化物から先に食べる", "一気に食べる", "食事回数を減らす"], "a": 0, "e": "野菜から先に食べるなど、食べる順序を工夫することで、食後の血糖値上昇を緩やかにする効果が期待できる。炭水化物から先に食べたり、一気に食べたりする食べ方は、血糖値の急上昇を招きやすい。"}, {"q": "糖尿病患者の運動療法で注意すべきことはどれか。", "opts": ["低血糖に備え補食を用意する", "運動は禁止", "激しい運動を推奨", "水分制限"], "a": 0, "e": "運動前後は低血糖に備えて補食を用意しておくことが重要な注意点。運動を完全に禁止したり、逆に激しい運動を無条件に推奨したりするのではなく、状態に応じた適切な運動量を医療職と相談しながら進める必要がある。"}, {"q": "HbA1c(ヘモグロビンA1c)が示すものはどれか。", "opts": ["過去1-2ヶ月の平均血糖値", "その日の血糖値のみ", "血圧", "コレステロール値"], "a": 0, "e": "HbA1cは、過去1〜2ヶ月間の平均的な血糖値を反映する検査指標。その日の血糖値だけでなく、長期的な血糖コントロールの状態を把握できるため、糖尿病管理において重要な指標として使われる。"}, {"q": "糖尿病利用者の口腔ケアが重要な理由はどれか。", "opts": ["歯周病と血糖コントロールが相互に影響するため", "無関係", "見た目のためだけ", "時間つぶしのため"], "a": 0, "e": "糖尿病では歯周病にかかりやすく、また歯周病があると血糖コントロールが悪化しやすいという相互関係がある。そのため、口腔ケアは単なる清潔保持だけでなく、糖尿病管理の一環としても重要な意味を持つ。"}, {"q": "シックデイ(発熱等で体調不良の日)の糖尿病管理はどれか。", "opts": ["水分補給を続け医療職に相談する", "薬を自己判断で中止", "食事を完全に断つ", "普段通り無視してよい"], "a": 0, "e": "シックデイには、水分補給を続けながら、自己判断で薬を中止せず医療職に相談することが基本。体調不良時は血糖値が不安定になりやすいため、普段以上に慎重な観察と対応が求められる。"}, {"q": "糖尿病の利用者における「低血糖」の対応で優先すべきことはどれか。", "opts": ["速やかに糖分を補給し意識状態を観察する", "放置して様子を見る", "運動させる", "水のみ与える"], "a": 0, "e": "低血糖時は速やかな糖分補給と、意識状態の観察を優先することが基本対応。意識がない場合は無理に飲食物を与えず、速やかに医療職・救急への連絡を優先する必要がある。"}, {"q": "糖尿病利用者の血糖自己測定(SMBG)における介護職の役割はどれか。", "opts": ["測定の見守りと結果の記録・報告", "測定値の医学的判断", "薬の処方", "治療方針の決定"], "a": 0, "e": "介護職の役割は、測定の見守りと、結果の記録・報告にとどまる。測定値に基づく治療方針の判断や薬の調整は医療職の専門領域であり、介護職が自己判断で行うことはできない。"}, {"q": "糖尿病腎症が進行した場合の食事療法はどれか。", "opts": ["タンパク質・塩分の制限", "タンパク質を増やす", "無制限の食事", "水分を増やすだけ"], "a": 0, "e": "糖尿病腎症が進行した場合は、タンパク質や塩分の摂取制限が必要になることが多い。腎臓への負担を軽減するための食事管理であり、医師・管理栄養士の指示に基づいて調整される。"}, {"q": "糖尿病利用者の「靴選び」で注意すべきことはどれか。", "opts": ["圧迫や傷を作らない適切なサイズを選ぶ", "デザイン重視で選ぶ", "きつめを選ぶ", "素足を推奨"], "a": 0, "e": "圧迫や傷を作らない、足に合った適切なサイズの靴を選ぶことが重要な注意点。神経障害により痛みを感じにくいため、きつい靴による圧迫や傷に気づかないまま悪化させてしまうリスクがある。"}],qi=0,ok=0,tot=0;
+function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;
+var oo=document.createElement('div');oo.className='qopts';
+q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';
+b.textContent=String.fromCharCode(65+i)+'. '+o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});
+var bx=document.createElement('div');bx.className='qbox';
+var qn=document.createElement('div');qn.className='qnum';qn.textContent='Soal '+(qi%Q.length+1)+' / '+Q.length;
+var qq=document.createElement('div');qq.className='qq';qq.textContent=q.q;
+var ex=document.createElement('div');ex.className='qexp';ex.id='qe';
+bx.appendChild(qn);bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
+var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;
+bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;
+var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}
+var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
+function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
+document.querySelectorAll('.card').forEach(function(c){c.addEventListener('click',function(){this.classList.toggle('open');});});
+rnd();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

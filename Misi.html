@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+<link rel="stylesheet" href="assets/pro-style.css">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Misi Belajar Harian — Nihonggo Pro Academy</title>
+<meta name="description" content="Selesaikan misi harian, mingguan, dan bulanan belajar bahasa Jepang. Dapatkan XP, badge, dan hadiah eksklusif NihonggoPro.">
+<meta property="og:title" content="Misi Belajar — NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Misi.html">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Misi Belajar NihonggoPro","url":"https://nihonggopro.id/Misi.html"}</script>
+
+<link rel="stylesheet" href="assets/legacy-bundle.min.css">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:2px;list-style:none}
+
+.nav-right{display:flex;gap:8px;align-items:center}
+
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+
+.hero{padding:clamp(40px,6vw,64px) clamp(16px,5vw,72px) 36px;background:var(--ink);color:#fff}
+.hero-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1.5rem}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,42px);line-height:1.1;margin-bottom:.5rem}
+.hero-desc{color:rgba(255,255,255,.62);font-size:14px;line-height:1.75}
+.xp-badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:1rem 1.5rem;text-align:center;min-width:180px}
+.xp-num{font-family:"Noto Serif JP",serif;font-size:36px;font-weight:700;color:#fff}
+.xp-lbl{font-size:12px;color:rgba(255,255,255,.5);margin-top:2px}
+.xp-bar{height:6px;background:rgba(255,255,255,.1);border-radius:3px;margin-top:.5rem;overflow:hidden}
+.xp-fill{height:100%;background:var(--red);border-radius:3px;transition:width .6s ease}
+
+.main{max-width:1100px;margin:2.5rem auto;padding:0 clamp(16px,5vw,72px);flex:1}
+.tabs{display:flex;gap:.3rem;margin-bottom:1.5rem;background:var(--white);border-radius:10px;padding:4px;border:.5px solid var(--border-mid);width:fit-content}
+.tab-btn{height:36px;padding:0 18px;border-radius:7px;border:none;background:none;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer;color:var(--ink-soft);transition:all .2s}
+.tab-btn.active{background:var(--red);color:#fff}
+.mission-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.mission-card{background:var(--white);border-radius:14px;padding:1.25rem 1.5rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);transition:all .2s}
+.mission-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.mission-card.done{opacity:.65;pointer-events:none}
+.mission-head{display:flex;align-items:flex-start;gap:.75rem;margin-bottom:.875rem}
+.mission-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.mission-title{font-size:15px;font-weight:700;line-height:1.35;margin-bottom:.2rem}
+.mission-desc{font-size:12px;color:var(--ink-soft);line-height:1.55}
+.mission-prog{margin-bottom:.75rem}
+.prog-row{display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);margin-bottom:.3rem}
+.prog-bar{height:6px;border-radius:3px;background:var(--border);overflow:hidden}
+.prog-fill{height:100%;border-radius:3px;transition:width .6s ease}
+.mission-footer{display:flex;align-items:center;justify-content:space-between}
+.xp-reward{display:flex;align-items:center;gap:.3rem;font-size:13px;font-weight:700;color:var(--gold)}
+.claim-btn{height:34px;padding:0 14px;border-radius:8px;border:none;background:var(--red);color:#fff;font-family:Outfit,sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:all .2s}
+.claim-btn:hover{background:#a02d23;transform:scale(1.03)}
+.claim-btn:disabled{background:var(--green);cursor:not-allowed}
+.done-badge{display:inline-flex;align-items:center;gap:.3rem;font-size:12px;font-weight:700;color:var(--green)}
+
+/* Achievement section */
+.ach-section{margin-top:2.5rem;margin-bottom:3rem}
+.section-head{font-size:14px;font-weight:800;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.badge-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:.75rem}
+.badge-card{background:var(--white);border-radius:12px;padding:1rem;border:.5px solid var(--border-mid);text-align:center;transition:all .2s}
+.badge-card.locked{opacity:.4;filter:grayscale(1)}
+.badge-card:not(.locked):hover{transform:translateY(-2px);box-shadow:0 4px 14px rgba(0,0,0,.08)}
+.badge-icon{font-size:36px;margin-bottom:.35rem;display:block}
+.badge-name{font-size:11px;font-weight:800;color:var(--ink);margin-bottom:.2rem}
+.badge-desc{font-size:10px;color:var(--ink-soft);line-height:1.45}
+.badge-card.earned .badge-name{color:var(--gold)}
+
+/* Timer */
+.reset-timer{text-align:right;font-size:12px;color:var(--ink-soft);margin-bottom:.75rem}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:400;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
+.toast{background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:8px;font-size:13px;font-weight:600;opacity:0;transform:translateY(8px);transition:all .3s;pointer-events:none}
+.toast.show{opacity:1;transform:translateY(0)}
+
+@media(max-width:768px){.nav-links{display:none}.mission-grid{grid-template-columns:1fr}.badge-grid{grid-template-columns:repeat(auto-fill,minmax(100px,1fr))}}
+*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Selesaikan misi harian, mingguan, dan bulanan belajar bahasa Jepang. Dapatkan XP, badge, dan hadiah eksklusif NihonggoPro.">
+<meta property="og:url" content="https://nihonggopro.id/Misi.html">
+<meta name="twitter:title" content="Misi Belajar Harian — Nihonggo Pro Academy">
+<meta name="twitter:description" content="Selesaikan misi harian, mingguan, dan bulanan belajar bahasa Jepang. Dapatkan XP, badge, dan hadiah eksklusif NihonggoPro.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="kicker">🎯 Misi Belajar</div>
+      <h1>Tantangan Harian<br>Bahasa Jepang</h1>
+      <p class="hero-desc">Selesaikan misi, kumpulkan XP, dan naik level.<br>Reset setiap hari pukul 00:00 WIB.</p>
+    </div>
+    <div class="xp-badge">
+      <div class="xp-num" id="heroXP">0</div>
+      <div class="xp-lbl">Total XP</div>
+      <div class="xp-bar"><div class="xp-fill" id="heroXPBar" style="width:0%"></div></div>
+      <div style="font-size:11px;color:rgba(255,255,255,.4);margin-top:.3rem" id="heroLevel">Level 1</div>
+    </div>
+  </div>
+</section>
+
+<div class="main">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('daily',this)">📅 Harian</button>
+    <button class="tab-btn" onclick="switchTab('weekly',this)">📆 Mingguan</button>
+    <button class="tab-btn" onclick="switchTab('monthly',this)">🗓 Bulanan</button>
+  </div>
+  <div class="reset-timer" id="resetTimer">Reset dalam: —</div>
+  <div class="mission-grid" id="missionGrid"></div>
+
+  <!-- Achievement Badges -->
+  <div class="ach-section">
+    <div class="section-head">🏅 Achievement Badges</div>
+    <div class="badge-grid" id="badgeGrid"></div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.6);padding:1.75rem clamp(16px,5vw,72px)"><div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between"><div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:18px;font-weight:700">Nihonggo Pro Academy</div><div style="display:flex;gap:1rem;flex-wrap:wrap;font-size:13px"><a href="index.html" style="color:rgba(255,255,255,.5);text-decoration:none">Beranda</a><a href="Materi/Materi.html" style="color:rgba(255,255,255,.5);text-decoration:none">Materi</a><a href="Blog.html" style="color:rgba(255,255,255,.5);text-decoration:none">Blog</a><a href="FAQ.html" style="color:rgba(255,255,255,.5);text-decoration:none">FAQ</a><a href="Privacy.html" style="color:rgba(255,255,255,.5);text-decoration:none">Privasi</a></div><div style="font-size:11px;color:rgba(255,255,255,.25)">© 2025 NihonggoPro</div></div></footer>
+
+<script>
+// ── THEME ──────────────────────────────────────────────────────────
+// GENUINELY DIPERBAIKI (Fase EE, Verifikasi Visual): tombol toggleTheme() legacy dihapus (duplikat dengan navbar resmi kyoto-navbar.js). IIFE inisialisasi tema dipertahankan (mencegah flash-of-wrong-theme sebelum navbar defer selesai load), disesuaikan tanpa referensi elemen yang dihapus.
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+
+function toast(msg,dur=3000){const w=document.getElementById('toastWrap');const el=document.createElement('div');el.className='toast';el.textContent=msg;w.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),350);},dur);}
+
+// ── XP SYSTEM ─────────────────────────────────────────────────────
+const SESS_KEY = 'np-session';
+const getLevelInfo = xp => {
+  const levels = [0,100,250,500,900,1500,2500,4000,6000,10000,15000];
+  let lv = 1;
+  for(let i=1;i<levels.length;i++) if(xp>=levels[i]) lv=i+1;
+  const cur = levels[Math.min(lv-1,levels.length-1)];
+  const next = levels[Math.min(lv,levels.length-1)];
+  const pct = next>cur ? Math.round((xp-cur)/(next-cur)*100) : 100;
+  return {level:lv, pct, next, cur, label:`Level ${lv}`};
+};
+
+function getXP(){
+  const sess=JSON.parse(localStorage.getItem(SESS_KEY)||'null');
+  if(!sess) return 0;
+  const prog=JSON.parse(localStorage.getItem('np-progress-'+sess.uid)||'{}');
+  return prog.xp||0;
+}
+function addXP(amount){
+  const sess=JSON.parse(localStorage.getItem(SESS_KEY)||'null');
+  if(!sess) return;
+  const prog=JSON.parse(localStorage.getItem('np-progress-'+sess.uid)||'{}');
+  const oldLv = getLevelInfo(prog.xp||0).level;
+  prog.xp=(prog.xp||0)+amount;
+  localStorage.setItem('np-progress-'+sess.uid,JSON.stringify(prog));
+  const newLv = getLevelInfo(prog.xp).level;
+  if(newLv>oldLv) toast(`🎉 Level Up! Kamu sekarang Level ${newLv}!`,4000);
+  updateHeroXP();
+}
+function updateHeroXP(){
+  const xp = getXP();
+  const info = getLevelInfo(xp);
+  const el = document.getElementById('heroXP');
+  const bar = document.getElementById('heroXPBar');
+  const lbl = document.getElementById('heroLevel');
+  if(el) el.textContent = xp.toLocaleString('id-ID');
+  if(bar) bar.style.width = info.pct + '%';
+  if(lbl) lbl.textContent = info.label + ' · ' + info.pct + '% → Level ' + (info.level+1);
+}
+
+// ── MISSIONS DATA ──────────────────────────────────────────────────
+const today = new Date().toDateString();
+const weekNum = Math.floor(Date.now()/604800000);
+const monthKey = new Date().getFullYear()+'-'+(new Date().getMonth()+1);
+
+const MISSIONS = {
+  daily: [
+    {id:'d1', icon:'📖', bg:'#E6F1FB', title:'Baca 5 Grammar', desc:'Buka halaman Grammar Lengkap dan pelajari minimal 5 pola grammar baru.', xp:30, total:5, link:'Materi/Grammar-Lengkap.html', type:'grammar'},
+    {id:'d2', icon:'🃏', bg:'#EAF3DE', title:'10 Flashcard Kanji', desc:'Selesaikan 10 kartu flashcard kanji hari ini.', xp:25, total:10, link:'Materi/Flashcard-Kanji.html', type:'flashcard'},
+    {id:'d3', icon:'🎯', bg:'#fef2f2', title:'Kuis 10 Soal', desc:'Selesaikan minimal 10 soal latihan JLPT hari ini.', xp:35, total:10, link:'Materi/Latihan-JLPT.html', type:'quiz'},
+    {id:'d4', icon:'🎤', bg:'#FAEEDA', title:'Latihan Speaking', desc:'Rekam pengucapan 3 kalimat di halaman Listening & Speaking.', xp:40, total:3, link:'Materi/Listening-Speaking.html', type:'speaking'},
+    {id:'d5', icon:'📚', bg:'#f3e8ff', title:'Hafal 5 Vocabulary', desc:'Pelajari dan hafal 5 kosakata baru.', xp:20, total:5, link:'Materi/Vocabulary-Lengkap.html', type:'vocab'},
+    {id:'d6', icon:'⏱', bg:'#E6F1FB', title:'Belajar 15 Menit', desc:'Aktifkan study timer dan belajar selama 15 menit penuh.', xp:50, total:15, link:'Akun.html', type:'timer'},
+  ],
+  weekly: [
+    {id:'w1', icon:'🏆', bg:'#FAEEDA', title:'Selesaikan Mock Test N5', desc:'Kerjakan 1 set mock test JLPT N5 bertimer hingga selesai.', xp:150, total:1, link:'Materi/Latihan-JLPT.html', type:'mocktest'},
+    {id:'w2', icon:'📝', bg:'#EAF3DE', title:'Belajar 5 Hari Berturut', desc:'Pertahankan streak belajar selama 5 hari dalam minggu ini.', xp:200, total:5, link:'Akun.html', type:'streak'},
+    {id:'w3', icon:'🔤', bg:'#E6F1FB', title:'50 Grammar Minggu Ini', desc:'Pelajari total 50 pola grammar dalam 7 hari.', xp:175, total:50, link:'Materi/Grammar-Lengkap.html', type:'grammar'},
+    {id:'w4', icon:'🈴', bg:'#fef2f2', title:'100 Kanji Minggu Ini', desc:'Review atau pelajari 100 kanji via flashcard dalam 7 hari.', xp:250, total:100, link:'Materi/Flashcard-Kanji.html', type:'kanji'},
+    {id:'w5', icon:'🤖', bg:'#f3e8ff', title:'Cek Grammar 5x', desc:'Gunakan AI Grammar Checker minimal 5 kali minggu ini.', xp:120, total:5, link:'Grammar-Checker.html', type:'ai'},
+  ],
+  monthly: [
+    {id:'m1', icon:'🎌', bg:'#fef2f2', title:'Selesaikan Roadmap N5', desc:'Selesaikan seluruh materi roadmap JLPT N5 dalam bulan ini.', xp:500, total:100, link:'Materi/JLPT-Lengkap.html', type:'roadmap'},
+    {id:'m2', icon:'🔥', bg:'#FAEEDA', title:'30 Hari Streak', desc:'Pertahankan streak belajar selama 30 hari berturut-turut.', xp:1000, total:30, link:'Akun.html', type:'streak'},
+    {id:'m3', icon:'📜', bg:'#EAF3DE', title:'Dapatkan Sertifikat', desc:'Selesaikan level dan download sertifikat digital NihonggoPro.', xp:300, total:1, link:'Sertifikat.html', type:'cert'},
+    {id:'m4', icon:'💬', bg:'#E6F1FB', title:'Ikut 4 Kelas Live', desc:'Hadiri minimal 4 sesi kelas online dalam bulan ini.', xp:400, total:4, link:'Kelas-Online.html', type:'class'},
+  ],
+};
+
+const ACHIEVEMENTS = [
+  {id:'a1', icon:'🌱', name:'Pemula Jepang', desc:'Belajar pertama kali', req:'days>=1'},
+  {id:'a2', icon:'🔥', name:'Streak 7 Hari', desc:'Belajar 7 hari berturut', req:'streak>=7'},
+  {id:'a3', icon:'💫', name:'Streak 30 Hari', desc:'Belajar 30 hari berturut', req:'streak>=30'},
+  {id:'a4', icon:'📚', name:'Grammar Master', desc:'Pelajari 100 grammar', req:'grammarLearned>=100'},
+  {id:'a5', icon:'🈶', name:'Kanji Hunter', desc:'Hafal 50 kanji', req:'vocabLearned>=50'},
+  {id:'a6', icon:'🏆', name:'Quiz Champion', desc:'Selesaikan 10 kuis', req:'quizDone>=10'},
+  {id:'a7', icon:'🎤', name:'Pembicara Berani', desc:'Latihan speaking 5x', req:'speakingDone>=5'},
+  {id:'a8', icon:'🤖', name:'AI Explorer', desc:'Gunakan AI Checker 10x', req:'aiUsed>=10'},
+  {id:'a9', icon:'⭐', name:'Level 5', desc:'Capai XP Level 5', req:'level>=5'},
+  {id:'a10', icon:'💎', name:'Level 10', desc:'Capai XP Level 10', req:'level>=10'},
+  {id:'a11', icon:'🎌', name:'N5 Warrior', desc:'Selesaikan roadmap N5', req:'n5complete>=1'},
+  {id:'a12', icon:'🗾', name:'N4 Scholar', desc:'Selesaikan roadmap N4', req:'n4complete>=1'},
+];
+
+// ── STATE ──────────────────────────────────────────────────────────
+const MISSION_KEY = 'np-missions';
+function getMissionState(){return JSON.parse(localStorage.getItem(MISSION_KEY)||'{}');}
+function saveMissionState(s){localStorage.setItem(MISSION_KEY,JSON.stringify(s));}
+
+function getProgress(missionId, tab){
+  const state = getMissionState();
+  const key = tab==='daily' ? `${missionId}-${today}` : tab==='weekly' ? `${missionId}-w${weekNum}` : `${missionId}-m${monthKey}`;
+  return state[key] || {done:0, claimed:false};
+}
+
+function setProgress(missionId, tab, done, claimed){
+  const state = getMissionState();
+  const key = tab==='daily' ? `${missionId}-${today}` : tab==='weekly' ? `${missionId}-w${weekNum}` : `${missionId}-m${monthKey}`;
+  state[key] = {done, claimed};
+  saveMissionState(state);
+}
+
+let currentTab = 'daily';
+
+function switchTab(tab, btn){
+  currentTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderMissions(tab);
+}
+
+function renderMissions(tab){
+  const grid = document.getElementById('missionGrid');
+  const missions = MISSIONS[tab];
+  const prog = getProgressFromAccount();
+  
+  // Auto-update progress from account data
+  grid.innerHTML = missions.map(m => {
+    const state = getProgress(m.id, tab);
+    const current = Math.min(state.done, m.total);
+    const pct = Math.round(current/m.total*100);
+    const completed = current >= m.total;
+    const claimed = state.claimed;
+    
+    return `<div class="mission-card ${claimed?'done':''}">
+      <div class="mission-head">
+        <div class="mission-icon" style="background:${m.bg}">${m.icon}</div>
+        <div>
+          <div class="mission-title">${m.title}</div>
+          <div class="mission-desc">${m.desc}</div>
+        </div>
+      </div>
+      <div class="mission-prog">
+        <div class="prog-row"><span>${current}/${m.total}</span><span>${pct}%</span></div>
+        <div class="prog-bar"><div class="prog-fill" style="width:${pct}%;background:${completed?'var(--green)':'var(--red)'}"></div></div>
+      </div>
+      <div class="mission-footer">
+        <div class="xp-reward">⭐ +${m.xp} XP</div>
+        ${claimed ? '<div class="done-badge">✅ Selesai</div>' :
+          completed ? `<button class="claim-btn" onclick="claimMission('${m.id}','${tab}',${m.xp})">🎁 Klaim!</button>` :
+          `<a href="${m.link}" style="height:34px;padding:0 14px;border-radius:8px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-size:12px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s" onmouseover="this.style.borderColor='var(--red)';this.style.color='var(--red)'" onmouseout="this.style.borderColor='';this.style.color=''">Mulai →</a>`
+        }
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function claimMission(id, tab, xp){
+  const state = getProgress(id, tab);
+  if(state.claimed || state.done < MISSIONS[tab].find(m=>m.id===id).total) return;
+  setProgress(id, tab, state.done, true);
+  addXP(xp);
+  toast(`🎉 Misi selesai! +${xp} XP`);
+  renderMissions(tab);
+  renderBadges();
+}
+
+function getProgressFromAccount(){
+  const sess=JSON.parse(localStorage.getItem('np-session')||'null');
+  if(!sess) return {};
+  return JSON.parse(localStorage.getItem('np-progress-'+sess.uid)||'{}');
+}
+
+// Auto-sync mission progress dari aktivitas di halaman lain
+function syncMissionProgress(){
+  const prog = getProgressFromAccount();
+  // Data terpadu dari dashboard global (semua aktivitas belajar platform)
+  let dash = {}, srcXP = {};
+  try { dash = JSON.parse(localStorage.getItem('np-dash-v3')||'{}'); } catch(e){}
+  try { srcXP = JSON.parse(localStorage.getItem('np-xp-sources-v1')||'{}'); } catch(e){}
+  const dm = (dash.missions)||{};
+  const daysMissions = MISSIONS.daily;
+  daysMissions.forEach(m => {
+    const cur = getProgress(m.id, 'daily');
+    if(cur.claimed) return;
+    let autoProgress = 0;
+    // Ambil nilai terbesar antara sistem lama (prog) & dashboard terpadu (dm/dash)
+    if(m.type==='grammar')   autoProgress = Math.max(prog.grammarLearned||0, dm.quiz||0);
+    if(m.type==='vocab')     autoProgress = Math.max((prog.vocabLearned||0)/5, (dash.vocab||0)/5);
+    if(m.type==='quiz')      autoProgress = Math.max(prog.quizDone||0, dm.quiz||0);
+    if(m.type==='flashcard') autoProgress = Math.max(cur.done, dm.vocab||0);
+    if(m.type==='speaking')  autoProgress = Math.max(cur.done, (srcXP.speaking||0)>0?m.total:0);
+    if(m.type==='timer')     autoProgress = Math.max((+localStorage.getItem('np-study-timer-'+today)||0)/60, dm.minutes||0);
+    if(m.type==='streak')    autoProgress = Math.max(prog.streak||0, dash.streak||0);
+    autoProgress = Math.min(autoProgress, m.total);
+    if(autoProgress > cur.done) setProgress(m.id, 'daily', Math.floor(autoProgress), false);
+  });
+}
+
+// Demo: tambah progress manual
+window.addMissionProgress = function(type, amount=1){
+  const missions = MISSIONS[currentTab];
+  missions.forEach(m => {
+    if(m.type===type){
+      const cur = getProgress(m.id, currentTab);
+      if(!cur.claimed){
+        setProgress(m.id, currentTab, Math.min(cur.done+amount, m.total), false);
+      }
+    }
+  });
+  renderMissions(currentTab);
+};
+
+function renderBadges(){
+  const prog = getProgressFromAccount();
+  const xp = getXP();
+  const lvl = getLevelInfo(xp).level;
+  
+  const earned = new Set(JSON.parse(localStorage.getItem('np-badges')||'[]'));
+  
+  const grid = document.getElementById('badgeGrid');
+  grid.innerHTML = ACHIEVEMENTS.map(a => {
+    let isEarned = earned.has(a.id);
+    // Auto-check some
+    if(a.req==='days>=1' && (prog.days||0)>=1) isEarned=true;
+    if(a.req==='streak>=7' && (prog.streak||0)>=7) isEarned=true;
+    if(a.req==='streak>=30' && (prog.streak||0)>=30) isEarned=true;
+    if(a.req==='grammarLearned>=100' && (prog.grammarLearned||0)>=100) isEarned=true;
+    if(a.req==='quizDone>=10' && (prog.quizDone||0)>=10) isEarned=true;
+    if(a.req==='level>=5' && lvl>=5) isEarned=true;
+    if(a.req==='level>=10' && lvl>=10) isEarned=true;
+    
+    if(isEarned && !earned.has(a.id)){
+      const arr=[...earned,a.id];
+      localStorage.setItem('np-badges',JSON.stringify(arr));
+    }
+    
+    return `<div class="badge-card ${isEarned?'earned':'locked'}" title="${isEarned?'Diraih!':'Belum diraih'}">
+      <span class="badge-icon">${a.icon}</span>
+      <div class="badge-name">${a.name}</div>
+      <div class="badge-desc">${a.desc}</div>
+    </div>`;
+  }).join('');
+}
+
+// ── RESET TIMER ────────────────────────────────────────────────────
+function updateResetTimer(){
+  const el = document.getElementById('resetTimer');
+  if(!el) return;
+  const now = new Date();
+  const midnight = new Date(now);
+  midnight.setHours(24,0,0,0);
+  const diff = midnight - now;
+  const h = Math.floor(diff/3600000).toString().padStart(2,'0');
+  const m = Math.floor(diff%3600000/60000).toString().padStart(2,'0');
+  const s = Math.floor(diff%60000/1000).toString().padStart(2,'0');
+  el.textContent = `🔄 Misi harian reset dalam: ${h}:${m}:${s}`;
+}
+
+// ── INIT ───────────────────────────────────────────────────────────
+syncMissionProgress();
+updateHeroXP();
+renderMissions('daily');
+renderBadges();
+setInterval(updateResetTimer, 1000);
+updateResetTimer();
+
+// Expose global untuk halaman lain
+window.NihongoMissions = { addProgress: window.addMissionProgress };
+</script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

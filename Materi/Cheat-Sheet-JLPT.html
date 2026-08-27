@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+
+</script>
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cheat Sheet Partikel & Konjugasi JLPT — Nihonggo Pro Academy</title>
+<meta name="description" content="Ringkasan cepat partikel, konjugasi, pola grammar, dan strategi soal JLPT N5 sampai N1 untuk review harian.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Cheat-Sheet-JLPT.html">
+<meta property="og:title" content="Cheat Sheet Partikel & Konjugasi JLPT — Nihonggo Pro Academy">
+<meta property="og:description" content="Ringkasan cepat partikel, konjugasi, grammar, dan strategi soal JLPT untuk review harian.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Cheat-Sheet-JLPT.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.brand{display:flex;align-items:baseline;gap:10px}.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:22px}.brand span{font-size:12px;color:var(--ink-soft);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap}
+.hero{background:#17181d;color:#fff;padding:58px 5vw 38px;position:relative;overflow:hidden}.hero:before{content:"早見";position:absolute;right:4vw;bottom:-72px;font-family:"Noto Serif JP",serif;font-size:210px;color:rgba(255,255,255,.045);line-height:1}
+.inner{width:min(1120px,100%);margin:0 auto;position:relative}.kicker{display:inline-flex;padding:5px 11px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(32px,5vw,58px);line-height:1.12;margin-bottom:12px}.lead{max-width:760px;color:rgba(255,255,255,.7);font-size:16px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.tabs a{display:inline-flex;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.82);font-size:12px;font-weight:900}
+.section{padding:38px 5vw}.section-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:18px}.label{font-size:11px;font-weight:900;color:var(--red);letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}h2{font-family:"Noto Serif JP",serif;font-size:clamp(24px,3vw,34px);line-height:1.2}.sub{max-width:640px;color:var(--ink-soft);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow-sm)}.card h3{font-size:16px;margin-bottom:8px}.card p,.card li{font-size:13px;color:var(--ink-mid)}.card ul{padding-left:18px;display:grid;gap:6px}
+.jp{font-family:"Noto Serif JP",serif}.table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-sm)}.table th,.table td{padding:12px;border-bottom:1px solid var(--border);font-size:13px;text-align:left;vertical-align:top}.table th{background:var(--cream);color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.table tr:last-child td{border-bottom:0}
+.formula{display:inline-flex;padding:3px 7px;border-radius:7px;background:var(--red-pale);color:var(--red);font-weight:900}.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.16);border-radius:8px;padding:14px;color:var(--ink-mid);font-size:13px;margin-top:14px}
+@media(max-width:860px){.section-head{display:block}.grid{grid-template-columns:1fr}.table{display:block;overflow-x:auto}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Cheat Sheet JLPT N5-N1","url":"https://nihonggopro.id/Materi/Cheat-Sheet-JLPT.html","description":"Ringkasan cepat grammar dan kosakata JLPT N5-N1","inLanguage":"id"}</script>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Cheat Sheet Partikel & Konjugasi JLPT — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Cheat Sheet Partikel & Konjugasi JLPT — Nihonggo Pro Academy","item":"https://nihonggopro.id/Materi/Cheat-Sheet-JLPT.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  .nav-links{display:none!important}
+  
+  
+  
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="Ringkasan cepat partikel, konjugasi, pola grammar, dan strategi soal JLPT N5 sampai N1 untuk review harian.">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<main id="main-content">
+  <section class="hero">
+    <div class="inner">
+      <div class="kicker">Tinjau Cepat</div>
+      <h1>Partikel, Konjugasi,<br>dan Strategi JLPT</h1>
+      <p class="lead">Ringkasan yang bisa dibuka sebelum latihan soal. Fokusnya bukan mengganti materi lengkap, tetapi membantu mengingat fungsi pola paling penting.</p>
+      <div class="tabs">
+        <a href="#particles">Partikel</a>
+        <a href="#verbs">Konjugasi</a>
+        <a href="#patterns">Referensi Cepat</a>
+        <a href="#exam">Strategi Soal</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="particles">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Partikel</div><h2>Partikel yang paling sering tertukar</h2></div><p class="sub">Jika ragu, cek fungsi kalimatnya: topik, subjek baru, objek, lokasi aksi, tujuan, atau alat.</p></div>
+      <table class="table">
+        <thead><tr><th>Partikel</th><th>Fungsi</th><th>Contoh</th><th>Catatan</th></tr></thead>
+        <tbody>
+          <tr><td class="jp">は</td><td>Topik pembicaraan</td><td class="jp">私は学生です。</td><td>Menandai “tentang X”. Tidak selalu subjek gramatikal.</td></tr>
+          <tr><td class="jp">が</td><td>Subjek baru, penekanan, kemampuan</td><td class="jp">雨が降っています。</td><td>Sering muncul untuk info baru, keberadaan, dan suka/bisa.</td></tr>
+          <tr><td class="jp">を</td><td>Objek langsung</td><td class="jp">本を読みます。</td><td>Dipakai juga untuk melewati tempat: 公園を歩く.</td></tr>
+          <tr><td class="jp">に</td><td>Waktu spesifik, tujuan, penerima</td><td class="jp">七時に学校に行きます。</td><td>Untuk titik tujuan atau titik waktu.</td></tr>
+          <tr><td class="jp">で</td><td>Lokasi aksi, alat, cara</td><td class="jp">図書館で勉強します。</td><td>Tempat aktivitas terjadi, bukan keberadaan.</td></tr>
+          <tr><td class="jp">へ</td><td>Arah</td><td class="jp">日本へ行きます。</td><td>Lebih menekankan arah daripada titik tujuan.</td></tr>
+          <tr><td class="jp">と</td><td>Dan, bersama, kutipan</td><td class="jp">友だちと話します。</td><td>Untuk pasangan setara atau isi ucapan/pikiran.</td></tr>
+          <tr><td class="jp">から / まで</td><td>Dari / sampai</td><td class="jp">九時から五時まで。</td><td>Bisa untuk waktu, tempat, dan rentang.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="verbs">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Bentuk Kata Kerja</div><h2>Konjugasi dasar yang wajib otomatis</h2></div><p class="sub">Sebelum naik dari N5 ke N4, bentuk ini harus bisa dibuat tanpa berpikir lama.</p></div>
+      <div class="grid">
+        <article class="card"><h3>ます-form</h3><p><span class="formula">食べます / 飲みます</span></p><ul><li>Sopan sekarang/kebiasaan.</li><li>Negatif: 食べません.</li><li>Lampau: 食べました.</li></ul></article>
+        <article class="card"><h3>Bentuk Kamus</h3><p><span class="formula">食べる / 飲む</span></p><ul><li>Bentuk kamus, dipakai sebelum こと, つもり, でしょう.</li><li>Dasar untuk banyak grammar N4-N3.</li></ul></article>
+        <article class="card"><h3>て-form</h3><p><span class="formula">食べて / 飲んで</span></p><ul><li>Permintaan: 〜てください.</li><li>Progresif: 〜ています.</li><li>Sambungan aksi: 〜て、〜.</li></ul></article>
+        <article class="card"><h3>ない-form</h3><p><span class="formula">食べない / 飲まない</span></p><ul><li>Negatif plain.</li><li>Larangan: 〜ないでください.</li><li>Kewajiban: 〜なければならない.</li></ul></article>
+        <article class="card"><h3>た-form</h3><p><span class="formula">食べた / 飲んだ</span></p><ul><li>Lampau plain.</li><li>Pengalaman: 〜たことがある.</li><li>Setelah: 〜たあとで.</li></ul></article>
+        <article class="card"><h3>Bentuk Potensi</h3><p><span class="formula">食べられる / 飲める</span></p><ul><li>Kemampuan: bisa melakukan.</li><li>Objek sering memakai が.</li><li>日本語が話せます.</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="patterns">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Pola Grammar</div><h2>Pola cepat per level</h2></div><p class="sub">Gunakan ini sebagai daftar review sebelum membuka halaman grammar lengkap.</p></div>
+      <table class="table">
+        <thead><tr><th>Level</th><th>Pola Bunyi</th><th>Makna</th><th>Contoh</th></tr></thead>
+        <tbody>
+          <tr><td>N5</td><td class="jp">〜たい / 〜てください / 〜ませんか</td><td>ingin, permintaan, ajakan</td><td class="jp">日本へ行きたいです。</td></tr>
+          <tr><td>N4</td><td class="jp">〜ことがある / 〜ながら / 〜予定</td><td>pengalaman, sambil, rencana</td><td class="jp">日本へ行ったことがあります。</td></tr>
+          <tr><td>N3</td><td class="jp">〜ために / 〜ように / 〜ばかり</td><td>tujuan, agar, hanya/baru saja</td><td class="jp">合格するために勉強します。</td></tr>
+          <tr><td>N2</td><td class="jp">〜に基づいて / 〜に応じて / 〜ざるを得ない</td><td>berdasarkan, sesuai, terpaksa</td><td class="jp">状況に応じて対応します。</td></tr>
+          <tr><td>N1</td><td class="jp">〜をものともせず / 〜に至るまで / 〜までもない</td><td>tanpa gentar, hingga, tidak perlu</td><td class="jp">説明するまでもありません。</td></tr>
+        </tbody>
+      </table>
+      <div class="note">Aturan praktis: hafalkan pola bersama satu contoh kalimat pribadi. Pola tanpa konteks cepat hilang saat reading.</div>
+    </div>
+  </section>
+
+  <section class="section" id="exam">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Strategi Ujian</div><h2>Strategi menjawab soal</h2></div><p class="sub">Tujuannya mengurangi kesalahan karena panik, bukan hanya menambah hafalan.</p></div>
+      <div class="grid">
+        <article class="card"><h3>Vocabulary</h3><ul><li>Cari petunjuk register: formal, kasual, bisnis.</li><li>Eliminasi sinonim yang tidak cocok kolokasi.</li><li>Review kata salah dalam pasangan contoh.</li></ul></article>
+        <article class="card"><h3>Tata Bahasa</h3><ul><li>Lihat bentuk sebelum dan sesudah blank.</li><li>Tentukan fungsi: alasan, kontras, tujuan, asumsi.</li><li>Jangan hanya cocok arti Indonesia.</li></ul></article>
+        <article class="card"><h3>Reading</h3><ul><li>Baca pertanyaan dulu untuk tahu target.</li><li>Tandai konjungsi: しかし, つまり, 一方.</li><li>Jawaban benar biasanya parafrase, bukan salinan mentah.</li></ul></article>
+        <article class="card"><h3>Listening</h3><ul><li>Catat siapa, waktu, tempat, tindakan.</li><li>Waspadai koreksi keputusan di akhir percakapan.</li><li>Jika hilang satu detail, tetap ikuti alur berikutnya.</li></ul></article>
+        <article class="card"><h3>Time Management</h3><ul><li>Lewati soal yang macet lebih dari 60-90 detik.</li><li>Selesaikan yang mudah lebih dulu.</li><li>Sisakan waktu untuk cek partikel dan negasi.</li></ul></article>
+        <article class="card"><h3>Tinjau Jawaban Salah</h3><ul><li>Catat pola salah, bukan hanya nomor soal.</li><li>Buat satu contoh baru dari tiap kesalahan.</li><li>Ulangi setelah 1 hari, 3 hari, dan 7 hari.</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+<div style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz — 理解チェック</h2>
+<div id="qc2"></div>
+<div style="display:flex;gap:12px;margin-top:12px">
+<button onclick="nQ2()" style="flex:1;padding:12px;background:#1565c0;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit">Soal Berikutnya →</button>
+<button onclick="rQ2()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ccc;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qs2" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
+</div>
+<script>
+var Q2=[{"q": "JLPT N5で必要な漢字数はおよそ何文字？", "opts": ["100字", "50字", "150字", "200字"], "a": 0, "e": "JLPT N5の漢字数=約100字。N4=約300字、N3=約650字、N2=約1000字、N1=約2000字。各レベルで必要な漢字数は倍々に増える。"}, {"q": "JLPT N2の語彙数はおよそ何語？", "opts": ["1500語", "6000語", "500語", "10000語"], "a": 1, "e": "JLPT N2の語彙=約6000語。N5≈800語、N4≈1500語、N3≈3750語、N2≈6000語、N1≈10000語以上。語彙は各レベルで大幅に増加する。"}, {"q": "JLPT試験の構成として正しいのは？", "opts": ["言語知識+読解+聴解の3セクション", "筆記のみ", "会話試験のみ", "文法のみ"], "a": 0, "e": "JLPTの試験構成: 言語知識(文字・語彙・文法)+読解+聴解の3セクション。会話・スピーキングの試験はない(筆記のみ)。"}, {"q": "JLPTの合格基準として正しいのは？", "opts": ["全問正解", "総合得点+各セクション最低点の両方を満たす", "総合得点のみ", "どのセクションも50%以上"], "a": 1, "e": "JLPT合格基準: ①総合得点が合格点以上+②各セクション(言語知識・読解・聴解)それぞれで基準点(足切り)以上。どちらか片方だけでは不合格。"}, {"q": "JLPT N1の聴解問題の特徴は？", "opts": ["ゆっくり話す", "自然なスピードの日常会話・ニュース・講義などを聞く", "単語のみ聞く", "文章を読んで答える"], "a": 1, "e": "N1聴解=自然な話速の複雑な内容(ニュース・講義・議論)を聞き取る。N5/N4はゆっくり明確な発話だが、N2以上から速度・複雑さが増す。"}];var qi2=0,ok2=0,tot2=0;
+function rnd2(){if(!Q2.length)return;var q=Q2[qi2%Q2.length],c=document.getElementById('qc2');if(!c)return;var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';q.opts.forEach(function(o,i){var b=document.createElement('button');b.style.cssText='background:#fff;border:1px solid #ccc;border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;width:100%;text-align:left;font-family:inherit';b.textContent=o;b.onclick=function(){ans2(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0';var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px';qq.textContent=(qi2%Q2.length+1)+'. '+q.q;var ex=document.createElement('div');ex.id='qe2';ex.style.cssText='margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.85rem;color:#666;display:none';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs2');if(s)s.textContent='Skor: '+ok2+'/'+tot2;}
+function ans2(b,c,a,e){var bs=document.querySelectorAll('#qc2 button');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot2++;bs[a].style.cssText='background:#e8f5e9;border:1px solid #4caf50;border-radius:8px;padding:10px 14px;cursor:default;font-size:.9rem;width:100%;text-align:left;font-family:inherit;color:#1b5e20';if(c!==a)b.style.cssText='background:#fce4ec;border:1px solid #e91e63;border-radius:8px;padding:10px 14px;cursor:default;font-size:.9rem;width:100%;text-align:left;font-family:inherit;color:#880e4f';else ok2++;var ex=document.getElementById('qe2');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}var s=document.getElementById('qs2');if(s)s.textContent='Skor: '+ok2+'/'+tot2;}
+function nQ2(){qi2=(qi2+1)%Q2.length;rnd2();} function rQ2(){qi2=0;ok2=0;tot2=0;rnd2();}
+rnd2();
+</script></main>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head"><div><div class="label">Referensi Cepat N3</div><h2>Pola Grammar N3 yang Paling Sering Keluar</h2></div>
+    <p class="sub">Print halaman ini dan tempel di meja belajar. Pola-pola ini muncul di hampir setiap mock exam N3.</p></div>
+    <div class="grid">
+      <article class="card">
+        <h3>Makna & Nuansa</h3>
+        <ul>
+          <li><span class="jp">〜らしい</span> — Tampaknya (info dari luar); <span class="jp">〜ようだ</span> — Sepertinya (observasi langsung); <span class="jp">〜そうだ</span> — Kelihatannya (dari tampilan)</li>
+          <li><span class="jp">〜に違いない</span> — Pasti ~; <span class="jp">〜はずだ</span> — Seharusnya ~; <span class="jp">〜だろう</span> — Mungkin ~</li>
+          <li><span class="jp">〜ということだ</span> — Artinya ~; <span class="jp">〜わけだ</span> — Oleh karena itu; <span class="jp">〜わけではない</span> — Bukan berarti ~</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Tujuan & Sebab</h3>
+        <ul>
+          <li><span class="jp">〜ために</span> — Untuk (tujuan sadar); <span class="jp">〜ように</span> — Agar/supaya (harapan perubahan)</li>
+          <li><span class="jp">〜ので</span> — Karena (sopan/objektif); <span class="jp">〜から</span> — Karena (langsung/kasual)</li>
+          <li><span class="jp">〜おかげで</span> — Berkat ~; <span class="jp">〜せいで</span> — Gara-gara ~ (negatif)</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Kontras & Kondisi</h3>
+        <ul>
+          <li><span class="jp">〜ても</span> — Walaupun; <span class="jp">〜にもかかわらず</span> — Meskipun (formal); <span class="jp">〜ながらも</span> — Meskipun (sambil)</li>
+          <li><span class="jp">〜一方で</span> — Di sisi lain; <span class="jp">〜に対して</span> — Terhadap ~; <span class="jp">〜とともに</span> — Bersamaan dengan</li>
+          <li><span class="jp">〜さえ〜ば</span> — Asal saja; <span class="jp">〜限り</span> — Selama; <span class="jp">〜たびに</span> — Setiap kali</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Perubahan & Aksi</h3>
+        <ul>
+          <li><span class="jp">〜ようになる</span> — Jadi bisa/terbiasa; <span class="jp">〜ようにする</span> — Berusaha agar</li>
+          <li><span class="jp">〜てしまう</span> — Terlanjur/selesai penuh; <span class="jp">〜てみる</span> — Coba melakukan</li>
+          <li><span class="jp">〜てもらう/いただく</span> — Mendapat bantuan; <span class="jp">〜てあげる/さしあげる</span> — Memberi bantuan</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head"><div><div class="label">Referensi Cepat N2</div><h2>Pola Grammar N2 yang Wajib Diingat</h2></div>
+    <p class="sub">Pola N2 sering ada nuansa formal dan abstrak. Pelajari dalam contoh kalimat, bukan definisi saja.</p></div>
+    <div class="grid">
+      <article class="card">
+        <h3>Ekspresi Formal</h3>
+        <ul>
+          <li><span class="jp">〜に基づいて</span> — Berdasarkan ~</li>
+          <li><span class="jp">〜に伴って</span> — Seiring dengan ~</li>
+          <li><span class="jp">〜をはじめとして</span> — Mulai dari ~ dan seterusnya</li>
+          <li><span class="jp">〜に際して</span> — Pada saat ~</li>
+          <li><span class="jp">〜をめぐって</span> — Seputar / mengenai ~</li>
+          <li><span class="jp">〜につれて</span> — Seiring ~</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Keharusan & Larangan</h3>
+        <ul>
+          <li><span class="jp">〜ざるを得ない</span> — Tidak bisa tidak (terpaksa)</li>
+          <li><span class="jp">〜べきだ</span> — Seharusnya (moral)</li>
+          <li><span class="jp">〜べきではない</span> — Tidak seharusnya</li>
+          <li><span class="jp">〜かねない</span> — Bisa jadi ~ (negatif)</li>
+          <li><span class="jp">〜かねる</span> — Tidak bisa melakukan (dengan berat hati)</li>
+          <li><span class="jp">〜ずにはいられない</span> — Tidak bisa tidak melakukan</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Penekanan & Batas</h3>
+        <ul>
+          <li><span class="jp">〜さえ</span> — Bahkan ~</li>
+          <li><span class="jp">〜のみならず</span> — Tidak hanya ~ (formal)</li>
+          <li><span class="jp">〜どころか</span> — Jangankan ~, bahkan ~</li>
+          <li><span class="jp">〜からこそ</span> — Justru karena ~</li>
+          <li><span class="jp">〜ほど〜ない</span> — Tidak se~ itu</li>
+          <li><span class="jp">〜を中心に</span> — Berpusat pada ~</li>
+        </ul>
+      </article>
+      <article class="card">
+        <h3>Ekspresi Waktu</h3>
+        <ul>
+          <li><span class="jp">〜次第</span> — Segera setelah ~</li>
+          <li><span class="jp">〜てからというもの</span> — Sejak (perubahan besar)</li>
+          <li><span class="jp">〜つつある</span> — Sedang dalam proses ~</li>
+          <li><span class="jp">〜ところだった</span> — Hampir saja ~</li>
+          <li><span class="jp">〜を機に / を契機に</span> — Mengambil momentum ~</li>
+          <li><span class="jp">〜上で</span> — Setelah melakukan ~ / dalam hal ~</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head">
+      <div><div class="label">Tes Cepat</div><h2>Tes Cepat — 速習テスト</h2></div>
+      <p class="sub">10 soal cepat dari semua bagian cheat-sheet. Ideal untuk review 5 menit sebelum ujian.</p>
+    </div>
+    <div id="csTestBox" style="max-width:560px"></div>
+  </div>
+</section>
+
+<script>
+const csQs=[
+  // Partikel
+  {q:'公園（　）走ります。',opts:['で','に','を','が'],ans:0,exp:'で = tempat aktivitas (走る)'},
+  {q:'東京（　）行きます。',opts:['で','を','に','も'],ans:2,exp:'に = arah/tujuan (行く)'},
+  {q:'パン（　）食べます。',opts:['が','を','は','に'],ans:1,exp:'を = objek langsung'},
+  {q:'友達（　）映画を見ました。',opts:['に','を','と','が'],ans:2,exp:'と = bersama'},
+  // Konjugasi
+  {q:'読む の て-form は？',opts:['読んで','読いて','読て','読みて'],ans:0,exp:'む → んで'},
+  {q:'起きる の ない-form は？',opts:['起きない','起こない','起かない','起きいない'],ans:0,exp:'る-verb: buang る + ない'},
+  {q:'する の て-form は？',opts:['すて','して','するて','しいて'],ans:1,exp:'Irregular: する → して'},
+  // Grammar quick
+  {q:'毎日練習する（　）、上手になります。',opts:['ことで','ためで','のにで','からで'],ans:0,exp:'〜ことで = dengan melakukan ~'},
+  {q:'雨が降った（　）、試合が中止になった。',opts:['ので','のに','から','けど'],ans:0,exp:'〜ので = karena (sopan/objektif)'},
+  // Skor minimum JLPT
+  {q:'JLPT スコアで、各セクションの最低点は？',opts:['0点','5点','10点','19点'],ans:3,exp:'各セクション最低19点以上が必要。'}
+];
+
+let csIdx=0,csScore=0,csActive=[];
+function shuffleArr(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+csActive=shuffleArr([...csQs]).slice(0,10);
+
+function renderCSQ(){
+  const box=document.getElementById('csTestBox');
+  if(csIdx>=csActive.length){
+    box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.5rem;text-align:center">
+      <div style="font-size:36px;font-weight:800;color:${csScore>=8?'var(--green,#27ae60)':csScore>=6?'var(--gold)':'var(--red)'}">${csScore}/10</div>
+      <div style="font-size:13px;color:var(--ink-soft);margin:.5rem 0">${csScore>=8?'Siap ujian!':csScore>=6?'Hampir siap, review sedikit lagi':'Perlu review lebih intensif'}</div>
+      <button onclick="csIdx=0;csScore=0;csActive=shuffleArr([...csQs]).slice(0,10);renderCSQ()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">Ulangi</button>
+    </div>`;
+    return;
+  }
+  const q=csActive[csIdx];
+  const opts=q.opts.map((o,i)=>`<button onclick="checkCSQ(${i})" style="width:100%;text-align:left;background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;transition:all .15s">${o}</button>`).join('');
+  box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--red);margin-bottom:.5rem"><span>SOAL ${csIdx+1}/10</span><span>${csScore} benar</span></div>
+    <h3 style="font-family:'Noto Serif JP',serif;font-size:18px;color:var(--ink);margin-bottom:1rem">${q.q}</h3>
+    <div style="display:grid;gap:.5rem" id="csOpts">${opts}</div>
+    <div id="csExp" style="display:none;margin-top:.75rem;padding:.6rem .85rem;background:var(--cream);border-radius:8px;font-size:12px;color:var(--ink-mid)"></div>
+  </div>`;
+}
+function checkCSQ(i){
+  const q=csActive[csIdx];const correct=i===q.ans;
+  if(correct)csScore++;
+  document.querySelectorAll('#csOpts button').forEach((b,idx)=>{b.disabled=true;if(idx===q.ans)b.style.background='var(--green-pale,#eafaf1)';if(idx===i&&!correct)b.style.background='var(--red-pale)';});
+  const exp=document.getElementById('csExp');exp.style.display='block';exp.innerHTML=`${correct?'✓':'✗'} ${q.exp}`;exp.style.color=correct?'var(--red)':'var(--ink-mid)';
+  setTimeout(()=>{csIdx++;renderCSQ();},1500);
+}
+renderCSQ();
+</script>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head">
+      <div><div class="label">N1 · Mahir</div><h2>Pola Grammar N1 — Referensi Cepat</h2>
+  </div>
+      <p class="sub">Pola-pola N1 yang paling sering keluar di ujian. Kenali nuansa dan konteks pemakaiannya.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.75rem">
+      
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;font-weight:700;color:var(--red);margin-bottom:.35rem">〜ならでは</div>
+        <div style="font-size:12px;color:var(--ink-soft);margin-bottom:.35rem">Khas ~ / hanya ~ yang bisa memiliki</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);background:var(--cream);padding:.5rem;border-radius:6px">京都<b>ならでは</b>の雰囲気がある。<br><span style="font-size:11px">Ada nuansa khas Kyoto.</span></div>
+      </div>
+      
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;font-weight:700;color:var(--red);margin-bottom:.35rem">〜にほかならない</div>
+        <div style="font-size:12px;color:var(--ink-soft);margin-bottom:.35rem">Tidak lain adalah ~ / persis ~</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);background:var(--cream);padding:.5rem;border-radius:6px">これは努力<b>にほかならない</b>。<br><span style="font-size:11px">Ini tidak lain adalah kerja keras.</span></div>
+      </div>
+      
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;font-weight:700;color:var(--red);margin-bottom:.35rem">〜すら</div>
+        <div style="font-size:12px;color:var(--ink-soft);margin-bottom:.35rem">Bahkan ~ pun (lebih kuat dari さえ)</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);background:var(--cream);padding:.5rem;border-radius:6px">子供<b>すら</b>知っている。<br><span style="font-size:11px">Bahkan anak-anak pun tahu.</span></div>
+      </div>
+      
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;font-weight:700;color:var(--red);margin-bottom:.35rem">〜べく</div>
+        <div style="font-size:12px;color:var(--ink-soft);margin-bottom:.35rem">Dengan tujuan untuk ~ / agar ~</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);background:var(--cream);padding:.5rem;border-radius:6px">目標を達成す<b>べく</b>、努力する。<br><span style="font-size:11px">Berusaha untuk mencapai tujuan.</span></div>
+      </div>
+      
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;font-weight:700;color:var(--red);margin-bottom:.35rem">〜のみならず</div>
+        <div style="font-size:12px;color:var(--ink-soft);margin-bottom:.35rem">Tidak hanya ~ tapi juga ~ (formal)</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);background:var(--cream);padding:.5rem;border-radius:6px">国内<b>のみならず</b>海外でも有名だ。<br><span style="font-size:11px">Terkenal tidak hanya di dalam negeri, tapi juga luar negeri.</span></div>
+      </div>
+      
+      <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:10px;padding:1rem">
+        <div style="font-family:'Noto Serif JP',serif;font-size:15px;font-weight:700;color:var(--red);margin-bottom:.35rem">〜まじき</div>
+        <div style="font-size:12px;color:var(--ink-soft);margin-bottom:.35rem">Tidak seharusnya ~ (untuk seseorang di posisi itu)</div>
+        <div style="font-family:'Noto Serif JP',serif;font-size:13px;color:var(--ink-mid);background:var(--cream);padding:.5rem;border-radius:6px">教師にある<b>まじき</b>行為だ。<br><span style="font-size:11px">Perbuatan yang tidak seharusnya dilakukan seorang guru.</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script src="../assets/pro-app.min.js" defer></script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["人間の尊厳", "ningen no songen", "martabat manusia"], ["自立支援", "jiritsu shien", "dukungan kemandirian"], ["介護過程", "kaigo katei", "proses perawatan"], ["コミュニケーション", "komyunikeeshon", "komunikasi"], ["生活支援技術", "seikatsu shien gijutsu", "teknik dukungan kehidupan"], ["医療的ケア", "iryo-teki kea", "tindakan medis kaigo"], ["社会の理解", "shakai no rikai", "pemahaman masyarakat"], ["合格基準", "gokaku kijun", "standar kelulusan"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#2e7d32">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Latihan Soal Ujian Nasional 国家試験 — 介護福祉士 | Nihonggo Pro Academy</title>
+<meta name="description" content="Latihan soal ujian nasional 国家試験 介護福祉士: bank soal pilihan ganda, materi prioritas, dan strategi lulus ujian kaigo Jepang.">
+<meta property="og:title" content="Kosakata Klinis & Medis 介護 — NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Ujian-Nasional.html">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Latihan Soal Ujian Nasional 国家試験 — 介護福祉士", "description": "Latihan soal ujian nasional 国家試験 介護福祉士: bank soal pilihan ganda, materi prioritas, dan strategi lulus ujian kaigo Jepang.", "url": "https://nihonggopro.id/Materi/Kaigo-Ujian-Nasional.html", "provider": {"@type": "Organization", "name": "NihonggoPro"}, "educationalLevel": "N4", "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://nihonggopro.id/"}, {"@type": "ListItem", "position": 2, "name": "Materi", "item": "https://nihonggopro.id/Materi/Materi.html"}, {"@type": "ListItem", "position": 3, "name": "介護福祉士", "item": "https://nihonggopro.id/Materi/Kaigo-Fukushishi-Overview.html"}, {"@type": "ListItem", "position": 4, "name": "Latihan Soal Ujian Nasional 国家試験 — 介護福祉士", "item": "https://nihonggopro.id/Materi/Kaigo-Ujian-Nasional.html"}]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:2px;list-style:none}
+
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+.hamb{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border-mid);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.hamb span{display:block;width:16px;height:2px;background:var(--ink);border-radius:1px}
+@media(max-width:768px){.nav-links{display:none!important}.hamb{display:flex!important}}
+.hero{padding:clamp(40px,6vw,64px) clamp(16px,5vw,72px) 40px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"試験";position:absolute;right:-10px;bottom:-30px;font-family:"Noto Serif JP",serif;font-size:160px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:1.1;margin-bottom:.625rem}
+.hero-desc{color:rgba(255,255,255,.62);font-size:14px;line-height:1.85;max-width:640px;margin-bottom:1.25rem}
+.breadcrumb{padding:.5rem clamp(16px,5vw,72px);background:var(--white);border-bottom:1px solid var(--border);font-size:12px;color:var(--ink-soft)}
+.breadcrumb a{color:var(--ink-soft);text-decoration:none}.breadcrumb a:hover{color:var(--red)}.breadcrumb span{margin:0 .35rem}
+/* Module 
+.mod-link{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:7px;font-size:12px;font-weight:700;color:var(--ink-mid);text-decoration:none;transition:all .15s;margin-right:.3rem}
+.mod-link:hover,.mod-link.active{background:var(--red-pale);color:var(--red)}
+/* Layout */
+.page-layout{display:grid;grid-template-columns:220px 1fr;flex:1}
+@media(max-width:860px){.page-layout{grid-template-columns:1fr}.toc-panel{display:none}}
+.toc-panel{position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;border-right:1px solid var(--border);background:var(--white);padding:1.25rem}
+.toc-title{font-size:10px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.toc-a{display:block;padding:.3rem .5rem;border-radius:6px;font-size:12px;color:var(--ink-mid);text-decoration:none;transition:all .15s;border-left:2px solid transparent;margin-bottom:.1rem}
+.toc-a:hover,.toc-a.on{background:var(--red-pale);color:var(--red);border-left-color:var(--red);font-weight:700}
+.toc-a.sub{padding-left:1rem;font-size:11px}
+.content{padding:2rem clamp(16px,4vw,48px) 5rem;min-width:0;max-width:900px}
+/* Sections */
+.sec{margin-bottom:3rem;scroll-margin-top:88px}
+.sec-num{font-size:10px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
+.sec h2{font-family:"Noto Serif JP",serif;font-size:clamp(20px,3vw,28px);margin-bottom:.5rem}
+.sec-desc{color:var(--ink-mid);font-size:14px;line-height:1.85;margin-bottom:1.25rem}
+.sec h3{font-family:"Noto Serif JP",serif;font-size:18px;margin:1.75rem 0 .875rem;display:flex;align-items:center;gap:.5rem}
+.sec h3::before{content:'';display:block;width:4px;height:18px;background:var(--red);border-radius:2px;flex-shrink:0}
+.sec h4{font-size:14px;font-weight:800;margin:1.25rem 0 .5rem}
+/* Info boxes */
+.box{border-radius:10px;padding:.875rem 1.125rem;margin-bottom:1rem;border:.5px solid;font-size:13px;line-height:1.75}
+.box.tip{background:var(--blue-pale);border-color:rgba(47,111,237,.2);color:var(--ink-mid)}
+.box.warn{background:var(--gold-pale,rgba(185,137,47,.08));border-color:rgba(185,137,47,.2)}
+.box.red{background:var(--red-pale);border-color:rgba(190,52,40,.15)}
+.box.green{background:var(--green-pale);border-color:rgba(33,135,93,.2)}
+.box-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.box.tip .box-title{color:var(--blue)}.box.warn .box-title{color:var(--gold)}.box.red .box-title{color:var(--red)}.box.green .box-title{color:var(--green)}
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;margin-bottom:1.5rem}
+.vc{background:var(--white);border-radius:12px;padding:1.125rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);transition:all .2s}
+.vc:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.07);border-color:var(--red)}
+.vc-jp{font-family:"Noto Serif JP",serif;font-size:20px;font-weight:700;margin-bottom:.15rem}
+.vc-rom{font-size:11px;color:var(--ink-soft);font-style:italic;margin-bottom:.3rem}
+.vc-id{font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem}
+.vc-ex{font-size:12px;color:var(--ink-mid);border-top:.5px solid var(--border);padding-top:.4rem;margin-top:.4rem;line-height:1.6}
+.vc-ex-jp{font-family:"Noto Serif JP",serif;font-weight:600;color:var(--ink)}
+.lv-badge{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:800;margin-bottom:.4rem}
+/* Table */
+.tbl{width:100%;border-collapse:collapse;margin-bottom:1.5rem;background:var(--white);border-radius:12px;overflow:hidden;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
+.tbl th{background:var(--ink);color:#fff;padding:.625rem 1rem;font-size:12px;font-weight:700;text-align:left}
+.tbl td{padding:.625rem 1rem;font-size:13px;border-bottom:.5px solid var(--border);line-height:1.6;vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.td-jp{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:600}
+/* Procedure steps */
+.steps{display:flex;flex-direction:column;gap:.625rem;margin-bottom:1.5rem}
+.step{display:flex;gap:.875rem;align-items:flex-start;padding:.875rem 1rem;background:var(--white);border-radius:10px;border:.5px solid var(--border-mid)}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-title{font-size:14px;font-weight:700;margin-bottom:.2rem}
+.step-jp{font-family:"Noto Serif JP",serif;font-size:14px;color:var(--ink);margin-bottom:.15rem}
+.step-id{font-size:12px;color:var(--ink-soft)}
+.step-note{font-size:11px;color:var(--gold);font-weight:600;margin-top:.2rem}
+/* Dialog */
+.dialog{background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.25rem}
+.dialog-title{font-size:13px;font-weight:800;margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem}
+.d-turn{display:flex;gap:.625rem;align-items:flex-start;margin-bottom:.5rem}
+.d-role{min-width:48px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;text-align:center;flex-shrink:0}
+.d-text .jp{font-family:"Noto Serif JP",serif;font-size:13px;font-weight:600;margin-bottom:.1rem}
+.d-text .id{font-size:11px;color:var(--ink-soft)}
+/* Quiz */
+.quiz-wrap{background:var(--ink);color:#fff;border-radius:14px;padding:1.5rem;margin-top:2rem}
+.q-title{font-size:13px;font-weight:800;color:rgba(255,255,255,.7);margin-bottom:1rem}
+.q-text{font-family:"Noto Serif JP",serif;font-size:17px;margin-bottom:1rem;line-height:1.65}
+.q-opts{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.875rem}
+.q-opt{padding:.75rem 1rem;border-radius:8px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;font-family:Outfit,sans-serif;font-size:13px;font-weight:600;text-align:left;transition:all .15s}
+.q-opt:hover{border-color:rgba(255,255,255,.4)}
+.q-opt.ok{border-color:#22c55e;background:rgba(34,197,94,.2)}
+.q-opt.ng{border-color:#ef4444;background:rgba(239,68,68,.2)}
+.q-fb{font-size:12px;color:rgba(255,255,255,.65);padding:.625rem;background:rgba(255,255,255,.06);border-radius:7px;display:none;line-height:1.65}
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:.875rem}
+.q-btn{height:34px;padding:0 14px;border-radius:8px;border:none;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+.q-btn.nxt{background:var(--red);color:#fff}
+.q-btn.rst{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+/* btt */
+#bttBtn{position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
+*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/kaigo-progress.js" defer></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Latihan soal ujian nasional 国家試験 介護福祉士: bank soal pilihan ganda, materi prioritas, dan strategi lulus ujian kaigo Jepang.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Ujian-Nasional.html">
+<meta name="twitter:title" content="Latihan Soal Ujian Nasional 国家試験 — 介護福祉士">
+<meta name="twitter:description" content="Latihan soal ujian nasional 国家試験 介護福祉士: bank soal pilihan ganda, materi prioritas, dan strategi lulus ujian kaigo Jepang.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<div class="breadcrumb">
+  <a href="../index.html">Beranda</a><span>›</span>
+  <a href="Materi.html">Materi</a><span>›</span>
+  <a href="Kaigo-Fukushishi-Overview.html">介護福祉士</a><span>›</span>
+  <strong>Latihan Soal Ujian Nasional</strong>
+</div>
+<div class="module-nav">
+  <a href="Kaigo-Fukushishi-Overview.html" class="mod-link">🏠 Overview</a>
+  <a href="Kaigo-Bahasa.html" class="mod-link">🗣️ Bahasa Dasar</a>
+  <a href="Kaigo-Kosakata-Klinik.html" class="mod-link">💊 Kosakata Klinik</a>
+  <a href="Kaigo-Prosedur.html" class="mod-link">📋 Prosedur</a>
+  <a href="Kaigo-Penyakit.html" class="mod-link">🏥 Penyakit Lansia</a>
+  <a href="Kaigo-Hukum.html" class="mod-link">⚖️ Hukum & Etika</a>
+  <a href="Kaigo-Komunikasi.html" class="mod-link">💬 Komunikasi</a>
+  <a href="Kaigo-Nihongo-N4.html" class="mod-link">📝 Bahasa Jepang N4</a>
+  <a href="Kaigo-Rekod.html" class="mod-link">📄 Penulisan Rekod</a>
+  <a href="Kaigo-Ujian-Nasional.html" class="mod-link active">🎯 Ujian Nasional</a>
+</div>
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker">🎯 Bank Soal · Ujian Nasional</div>
+    <h1>Latihan Soal 国家試験</h1>
+    <p class="hero-desc">Bank soal ujian nasional 介護福祉士 berdasarkan 11 domain resmi — 30+ soal dengan penjelasan bahasa Indonesia. Cocok untuk persiapan ujian dan review materi.</p>
+  </div>
+</section>
+<div style="display:flex;flex:1">
+<nav class="toc-panel" aria-label="Daftar isi"><div class="toc-title">📋 Daftar Isi</div><div id="tocList"></div></nav>
+<div class="content" id="mainContent" role="main">
+
+<!-- OVERVIEW UJIAN -->
+<div class="sec" id="overview-ujian">
+  <div class="sec-num">Pengantar</div>
+  <h2>Struktur Ujian Nasional 介護福祉士</h2>
+  <p class="sec-desc">Ujian diadakan sekali setahun (Januari). Total 125 soal dari 11 domain. Passing score sekitar 70–75 soal benar (±57–60%). Tidak ada batasan mengulang.</p>
+  <table class="tbl">
+    <thead><tr><th>Domain</th><th>Bahasa Jepang</th><th>Soal</th><th>Prioritas</th></tr></thead>
+    <tbody>
+      <tr><td>1. Martabat & Kemandirian</td><td class="td-jp">人間の尊厳と自立</td><td>2</td><td>⭐⭐</td></tr>
+      <tr><td>2. Relasi & Komunikasi</td><td class="td-jp">人間関係とコミュニケーション</td><td>4</td><td>⭐⭐</td></tr>
+      <tr><td>3. Pemahaman Masyarakat</td><td class="td-jp">社会の理解</td><td>8</td><td>⭐⭐⭐</td></tr>
+      <tr><td>4. Dasar Kaigo</td><td class="td-jp">介護の基本</td><td>10</td><td>⭐⭐⭐</td></tr>
+      <tr><td>5. Teknik Komunikasi</td><td class="td-jp">コミュニケーション技術</td><td>8</td><td>⭐⭐⭐</td></tr>
+      <tr><td>6. Teknik Dukungan Kehidupan</td><td class="td-jp">生活支援技術</td><td>26</td><td>⭐⭐⭐⭐⭐ (terbanyak!)</td></tr>
+      <tr><td>7. Proses Kaigo</td><td class="td-jp">介護過程</td><td>8</td><td>⭐⭐⭐</td></tr>
+      <tr><td>8. Perkembangan & Penuaan</td><td class="td-jp">発達と老化の理解</td><td>8</td><td>⭐⭐⭐</td></tr>
+      <tr><td>9. Memahami Demensia</td><td class="td-jp">認知症の理解</td><td>10</td><td>⭐⭐⭐⭐</td></tr>
+      <tr><td>10. Memahami Disabilitas</td><td class="td-jp">障害の理解</td><td>10</td><td>⭐⭐⭐</td></tr>
+      <tr><td>11. Tubuh & Jiwa + Perawatan Medis</td><td class="td-jp">こころとからだのしくみ・医療的ケア</td><td>21</td><td>⭐⭐⭐⭐</td></tr>
+      <tr><td colspan="2"><strong>Total</strong></td><td><strong>125</strong></td><td></td></tr>
+    </tbody>
+  </table>
+  <div class="box tip">
+    <div class="box-title">💡 Strategi Belajar</div>
+    Prioritaskan domain dengan soal terbanyak: <strong>生活支援技術 (26)</strong> → <strong>こころとからだ (16)</strong> → <strong>認知症 (10)</strong> → <strong>介護の基本 (10)</strong>. Kuasai 4 domain ini = menguasai ~50% soal.
+  </div>
+</div>
+
+<!-- GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi elemen target #pg genuinely TIDAK PERNAH ADA di HTML
+     halaman ini, berbeda dari 31 halaman Kaigo lain yang genuinely
+     konsisten memilikinya -- meski CSS .pg-vocab dan data PH_VOCAB
+     (8 kosakata Ujian Nasional) genuinely sudah tersedia. Disisipkan
+     mengikuti pola heading yang sama dengan halaman lain, agar
+     JavaScript render yang genuinely sudah ada memiliki target valid. -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px">
+<h2 style="font-size:1.2rem;font-weight:700;color:#1a237e;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<div class="pg-vocab" id="pg"></div>
+</div>
+
+<!-- DOMAIN 1: DASAR KAIGO -->
+<div class="sec" id="soal-dasar">
+  <div class="sec-num">Bank Soal 1</div>
+  <h2>介護の基本 — Dasar-dasar Kaigo</h2>
+  
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#1a237e;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e8eaf6">💬 介護福祉士国家試験対策</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1a237e;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8eaf6">📚 Dialog 1 — 試験勉強の相談</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8eaf6;color:#1a237e;margin-top:1px;flex-shrink:0">学生</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">先生、国家試験まであと3ヶ月ですが、どう勉強すればいいですか？<button aria-label="Ucapkan: 先生、国家試験まであと3ヶ月ですが、どう勉強すればいいですか…" onclick="speak('先生、国家試験まであと3ヶ月ですが、どう勉強すればいいですか？')" style="border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Sensei, masih 3 bulan lagi ujian nasional, bagaimana cara belajarnya?</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8eaf6;color:#1a237e;margin-top:1px;flex-shrink:0">先生</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">まず過去問を解いて、自分の弱点領域を把握しましょう。頻出テーマは「認知症」「介護過程」「法律」「コミュニケーション技術」です。弱点を集中的に補強してください。<button aria-label="Ucapkan: まず過去問を解いて、自分の弱点領域を把握しましょう。頻出テー…" onclick="speak('まず過去問を解いて、自分の弱点領域を把握しましょう。頻出テーマは「認知症」「介護過程」「法律」「コミュニケーション技術」です。弱点を集中的に補強してください。')" style="border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Pertama kerjakan soal-soal sebelumnya untuk mengetahui kelemahan. Tema yang sering keluar: demensia, proses perawatan, hukum, teknik komunikasi. Perkuat secara intensif kelemahan Anda.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#1a237e;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e8eaf6">✏️ Dialog 2 — 問題演習の振り返り</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8eaf6;color:#1a237e;margin-top:1px;flex-shrink:0">学生</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">介護過程のアセスメントの問題がいつも苦手なんですが。<button aria-label="Ucapkan: 介護過程のアセスメントの問題がいつも苦手なんですが。" onclick="speak('介護過程のアセスメントの問題がいつも苦手なんですが。')" style="border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Soal asesmen proses perawatan selalu sulit bagi saya.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e8eaf6;color:#1a237e;margin-top:1px;flex-shrink:0">先生</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">ICFを軸に考えると整理しやすいですよ。心身機能・活動・参加・環境因子・個人因子の5要素で情報を整理して、生活課題を抽出する練習をしましょう。<button aria-label="Ucapkan: ICFを軸に考えると整理しやすいですよ。心身機能・活動・参加…" onclick="speak('ICFを軸に考えると整理しやすいですよ。心身機能・活動・参加・環境因子・個人因子の5要素で情報を整理して、生活課題を抽出する練習をしましょう。')" style="border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Lebih mudah jika berpusat pada ICF. Latihan mengorganisir informasi dengan 5 elemen: fungsi tubuh, aktivitas, partisipasi, faktor lingkungan, faktor personal, lalu identifikasi masalah kehidupan.</div></div></div></div></div>
+<div class="quiz-wrap" id="q1Wrap">
+    <div class="q-title">🎯 介護の基本 | Soal <span id="q1Num">1</span>/<span id="q1Tot"></span></div>
+    <div class="q-text" id="q1Text"></div>
+    <div class="q-opts" id="q1Opts"></div>
+    <div class="q-fb" id="q1Fb"></div>
+    <div class="q-nav">
+      <button class="q-btn rst" onclick="rst(1)">↺ Ulangi</button>
+      <div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="q1Sc">0</span></div>
+      <button class="q-btn nxt" onclick="nxt(1)" id="q1Nxt" style="display:none">Berikutnya →</button>
+    </div>
+  </div>
+</div>
+
+<!-- DOMAIN 2: DEMENSIA -->
+<div class="sec" id="soal-demensia">
+  <div class="sec-num">Bank Soal 2</div>
+  <h2>認知症の理解 — Memahami Demensia</h2>
+  <div class="quiz-wrap" id="q2Wrap">
+    <div class="q-title">🎯 認知症の理解 | Soal <span id="q2Num">1</span>/<span id="q2Tot"></span></div>
+    <div class="q-text" id="q2Text"></div>
+    <div class="q-opts" id="q2Opts"></div>
+    <div class="q-fb" id="q2Fb"></div>
+    <div class="q-nav">
+      <button class="q-btn rst" onclick="rst(2)">↺ Ulangi</button>
+      <div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="q2Sc">0</span></div>
+      <button class="q-btn nxt" onclick="nxt(2)" id="q2Nxt" style="display:none">Berikutnya →</button>
+    </div>
+  </div>
+</div>
+
+<!-- DOMAIN 3: HUKUM -->
+<div class="sec" id="soal-hukum">
+  <div class="sec-num">Bank Soal 3</div>
+  <h2>社会の理解 — Sistem & Hukum Kaigo</h2>
+  <div class="quiz-wrap" id="q3Wrap">
+    <div class="q-title">🎯 社会の理解 | Soal <span id="q3Num">1</span>/<span id="q3Tot"></span></div>
+    <div class="q-text" id="q3Text"></div>
+    <div class="q-opts" id="q3Opts"></div>
+    <div class="q-fb" id="q3Fb"></div>
+    <div class="q-nav">
+      <button class="q-btn rst" onclick="rst(3)">↺ Ulangi</button>
+      <div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="q3Sc">0</span></div>
+      <button class="q-btn nxt" onclick="nxt(3)" id="q3Nxt" style="display:none">Berikutnya →</button>
+    </div>
+  </div>
+</div>
+
+<!-- DOMAIN 4: PROSEDUR KEHIDUPAN -->
+<div class="sec" id="soal-prosedur">
+  <div class="sec-num">Bank Soal 4</div>
+  <h2>生活支援技術 — Teknik Dukungan Kehidupan</h2>
+  <div class="quiz-wrap" id="q4Wrap">
+    <div class="q-title">🎯 生活支援技術 | Soal <span id="q4Num">1</span>/<span id="q4Tot"></span></div>
+    <div class="q-text" id="q4Text"></div>
+    <div class="q-opts" id="q4Opts"></div>
+    <div class="q-fb" id="q4Fb"></div>
+    <div class="q-nav">
+      <button class="q-btn rst" onclick="rst(4)">↺ Ulangi</button>
+      <div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="q4Sc">0</span></div>
+      <button class="q-btn nxt" onclick="nxt(4)" id="q4Nxt" style="display:none">Berikutnya →</button>
+    </div>
+  </div>
+</div>
+
+<!-- TIPS -->
+<div class="sec" id="tips-ujian">
+  <div class="sec-num">Tips</div>
+  <h2>攻略法 — Strategi Lulus Ujian</h2>
+  <table class="tbl">
+    <thead><tr><th>Domain</th><th>Fokus Belajar</th><th>Halaman Referensi</th></tr></thead>
+    <tbody>
+      <tr><td>認知症の理解</td><td>4 jenis demensia, BPSD, pendekatan komunikasi</td><td><a href="Kaigo-Penyakit.html">Penyakit Lansia</a></td></tr>
+      <tr><td>社会の理解</td><td>介護保険法, level 要介護, jenis fasilitas</td><td><a href="Kaigo-Hukum.html">Hukum & Etika</a></td></tr>
+      <tr><td>生活支援技術</td><td>Prosedur mandi, makan, toilet, transfer, dekubitus</td><td><a href="Kaigo-Prosedur.html">Prosedur</a></td></tr>
+      <tr><td>医療的ケア</td><td>Syarat 吸引・経管栄養 oleh 介護福祉士</td><td><a href="Kaigo-Kosakata-Klinik.html">Kosakata Klinik</a></td></tr>
+      <tr><td>コミュニケーション技術</td><td>傾聴, バリデーション, 報連相</td><td><a href="Kaigo-Komunikasi.html">Komunikasi</a></td></tr>
+    </tbody>
+  </table>
+  <div class="box red">
+    <div class="box-title">🔴 Jebakan Soal yang Sering Muncul</div>
+    Perhatikan kata kunci: <strong>「誤っているもの」</strong>(yang SALAH) vs <strong>「正しいもの」</strong>(yang BENAR). Banyak peserta gagal karena tidak membaca soal dengan teliti. Selalu baca SEMUA pilihan sebelum menjawab.
+  </div>
+</div>
+
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+const BANKS = {
+  1: [
+    {q:'Prinsip 自立支援 dalam kaigo berarti?',
+     opts:['Lakukan semua perawatan untuk residen','Biarkan residen melakukan yang masih bisa sendiri','Fokus pada efisiensi waktu perawat','Prioritaskan perawatan medis'],
+     ans:1, exp:'自立支援 = mendukung kemandirian. Biarkan residen melakukan sendiri apa yang masih bisa, bantu hanya yang benar-benar perlu. Ini melindungi 残存機能.'},
+    {q:'Saat residen menolak perawatan (介護拒否), tindakan yang tepat?',
+     opts:['Paksa segera karena untuk kebaikannya','Biarkan tanpa follow-up','Hormati, tunggu momen tepat, coba pendekatan berbeda','Minta keluarga yang memaksa'],
+     ans:2, exp:'Residen memiliki 拒否の権利 (hak menolak). Kaigo yang baik menghormati ini dan mencari waktu atau cara lain yang lebih sesuai.'},
+    {q:'Mana yang BUKAN tugas 介護福祉士?',
+     opts:['Membantu mandi residen','Mencatat kondisi harian','Meresepkan dan mengganti dosis obat','Komunikasi dengan keluarga residen'],
+     ans:2, exp:'Meresepkan obat adalah kewenangan dokter. 介護福祉士 boleh membantu pemberian obat yang sudah disiapkan, tapi TIDAK boleh mengubah dosis atau menghentikan obat.'},
+    {q:'ヒヤリハット wajib dilaporkan karena?',
+     opts:['Hukum mewajibkannya','Untuk kompensasi staf','Analisis near miss mencegah insiden nyata di masa depan','Tanda kerja keras staf'],
+     ans:2, exp:'ヒヤリハット (near miss) report penting untuk belajar dari situasi berbahaya sebelum kecelakaan nyata terjadi. Sistem ini meningkatkan keselamatan seluruh residen.'},
+    {q:'Informed consent (インフォームドコンセント) dalam kaigo artinya?',
+     opts:['Hanya dokter yang perlu menjelaskan','Jelaskan dan dapat persetujuan residen sebelum setiap tindakan','Beritahu keluarga setelah tindakan','Tidak diperlukan untuk tindakan rutin'],
+     ans:1, exp:'Informed consent = 説明と同意. Sebelum SETIAP tindakan kaigo, jelaskan apa yang akan dilakukan dan dapatkan persetujuan residen. Ini adalah hak dasar residen.'},
+    {q:'守秘義務 berarti?',
+     opts:['Menjaga fasilitas tetap bersih','Tidak membocorkan informasi pribadi residen kepada pihak luar','Menjalankan tugas sesuai prosedur','Menjaga kerahasiaan anggaran'],
+     ans:1, exp:'守秘義務 = kewajiban kerahasiaan. Informasi pribadi residen tidak boleh dibocorkan kepada siapapun di luar tim perawatan, bahkan setelah berhenti bekerja.'},
+    {q:'Apa yang dimaksud 多職種連携?',
+     opts:['Bekerja sendiri tanpa bantuan','Kolaborasi berbagai profesi kesehatan','Menggantikan tugas profesi lain','Rapat rutin staf kaigo saja'],
+     ans:1, exp:'多職種連携 = kolaborasi multidisiplin antara 医師, 看護師, 理学療法士, 介護福祉士, ケアマネジャー, dll. Setiap profesi berkontribusi sesuai kompetensinya.'},
+    {q:'Prinsip 個別性 dalam kaigo berarti?',
+     opts:['Semua residen diperlakukan sama','Perawatan disesuaikan dengan kebutuhan unik setiap individu','Satu prosedur untuk semua kondisi','Efisiensi lebih penting dari penyesuaian'],
+     ans:1, exp:'個別性 (individualitas) = setiap residen memiliki kebutuhan, latar belakang, dan preferensi yang unik. Kaigo yang baik menyesuaikan pendekatan untuk setiap individu.'},
+  ,
+
+// Soal tambahan — Sesi baru
+{q:'「グループホーム」の特徴は？',
+ opts:['大規模な施設','少人数(5〜9名)で家庭的環境の認知症専門住居','病院の一部','特別養護老人ホームと同じ'],
+ ans:1, exp:'グループホーム=5-9 residen, lingkungan seperti rumah, khusus demensia. 認知症の方が少人数で生活。'},
+{q:'「介護予防」の目的は？',
+ opts:['要介護状態になった人を助ける','要介護状態の発生・悪化を防ぐこと','医療費を削減する','施設を増やす'],
+ ans:1, exp:'介護予防=pencegahan kebutuhan perawatan. 要介護状態になることを防ぐ・遅らせることが目的。'},
+{q:'「バイタルサイン」に含まれないのは？',
+ opts:['血圧','体温','脈拍','血液型'],
+ ans:3, exp:'バイタルサイン=血圧・体温・脈拍・呼吸数・SpO2. 血液型は変わらないのでバイタルではない。'},
+{q:'「服薬介助」で介護職員が行えないことは？',
+ opts:['水で薬を飲ませる','薬の管理','一包化された薬の手渡し','薬の量や種類の変更'],
+ ans:3, exp:'薬の量・種類の変更は医師・薬剤師の指示が必要。介護職員が独断で変更してはいけない。'},
+{q:'「ライフヒストリー」を介護に活かす目的は？',
+ opts:['医療記録の確認','個別ケアのために利用者の人生背景を理解する','家族の歴史を知る','保険の確認'],
+ ans:1, exp:'ライフヒストリー=riwayat hidup. 利用者の価値観・好み・人生背景を知り個別ケアに活かす。回想法にも使う。'},
+{q:'「エンパワメント」の介護における意味は？',
+ opts:['利用者を管理すること','利用者自身の力を引き出し自立を促すこと','家族に権限を与えること','医師に相談すること'],
+ ans:1, exp:'エンパワメント=pemberdayaan. 利用者が自分の力で生きていけるよう支援すること。自立支援の哲学的基盤。'},
+{q:'「デイサービス」の特徴は？',
+ opts:['24時間施設で生活','日中のみ通い、夜は自宅に帰るサービス','入院する施設','訪問系サービス'],
+ ans:1, exp:'デイサービス(通所介護)=layanan harian. 朝送迎で来て昼食・リハビリ・入浴などを受け、夕方帰宅。'},
+{q:'「訪問介護」で行えないこととは？',
+ opts:['食事介助','入浴介助','利用者本人以外の家族の家事','排泄介助'],
+ ans:2, exp:'訪問介護は利用者本人へのサービスが基本。家族の家事(洗濯・食事など)は原則介護保険の対象外。'},
+{q:'「エビデンスに基づくケア」の意味は？',
+ opts:['勘と経験だけでケアする','科学的根拠に基づいてケアを実践する','マニュアル通りにケアする','上司の指示通りにする'],
+ ans:1, exp:'エビデンスに基づくケア=evidence-based care. 科学的研究・根拠に基づいたケアの実践。感覚だけでなく根拠が重要。'},
+{q:'「社会的入院」の問題点は？',
+ opts:['医療費が高い','医療的必要性ではなく社会的理由(住む場所がない等)で長期入院すること','病院が遠い','家族が面会できない'],
+ ans:1, exp:'社会的入院=rawat inap karena alasan sosial bukan medis. 在宅復帰できる状態なのに帰る場所がないため入院継続する問題。'},
+{q:'介護保険制度の「保険者」は誰？',
+ opts:['国','都道府県','市町村(基礎自治体)','民間保険会社'],
+ ans:2, exp:'介護保険の保険者=市町村. 65歳以上の第1号被保険者を管理し、保険料を徴収・サービスを提供する主体。'},
+{q:'「要介護認定」の申請先は？',
+ opts:['病院','市町村(市区町村の介護保険窓口)','ハローワーク','社会福祉協議会'],
+ ans:1, exp:'要介護認定の申請=市町村. 主治医意見書+認定調査→介護認定審査会→要介護度が決定される。'},
+{q:'介護保険の「第2号被保険者」とは？',
+ opts:['65歳以上の人','40〜64歳の医療保険加入者','40歳未満の人','外国人'],
+ ans:1, exp:'第2号被保険者=40-64歳の医療保険加入者. 特定疾病(16種)が原因の場合のみ介護保険が適用される。'},
+
+],
+  2: [
+    {q:'Demensia jenis apa yang paling umum (60–70% kasus)?',
+     opts:['血管性認知症','レビー小体型','アルツハイマー型','前頭側頭型'],
+     ans:2, exp:'アルツハイマー型認知症 adalah paling umum (60–70%). Ditandai gangguan memori episodik yang progresif. Perjalanan penyakit berlangsung bertahun-tahun.'},
+    {q:'BPSD yang benar adalah?',
+     opts:['Blood Pressure System Disorder','Behavioral and Psychological Symptoms of Dementia','Basic Personal Safety Demands','Brain Pathology Symptom Description'],
+     ans:1, exp:'BPSD = Behavioral and Psychological Symptoms of Dementia (認知症の行動・心理症状). Meliputi 徘徊, 興奮, 幻覚, 妄想, 介護拒否, 不眠, dll.'},
+    {q:'Ciri khas 血管性認知症 dibanding Alzheimer?',
+     opts:['Halusinasi visual jelas','まだら認知症 (kemampuan naik turun tidak merata)','Perilaku berulang (常同行動)','Gangguan memori progresif merata'],
+     ans:1, exp:'血管性認知症 ditandai まだら認知症 — ada kemampuan yang masih baik dan ada yang sangat terganggu, tidak progresif merata. Sering terjadi setelah stroke.'},
+    {q:'Residen demensia menuduh staf mencuri barang (盗られた妄想). Respons terbaik?',
+     opts:['Katakan tegas "tidak ada yang mencuri"','Tunjukkan CCTV sebagai bukti','Tawarkan mencari bersama tanpa membantah atau mengonfirmasi','Lapor polisi'],
+     ans:2, exp:'"一緒に探しましょうか？" — alihkan dari keyakinan yang menyebabkan distres tanpa membantah (yang memperburuk) atau mengonfirmasi (yang salah). Fokus pada perasaan, bukan fakta.'},
+    {q:'Teknik バリデーション dikembangkan untuk?',
+     opts:['Konfirmasi diagnosis medis','Menerima realita/perasaan residen demensia tanpa mengoreksi','Tes kognitif MMSE','Validasi rekod medis'],
+     ans:1, exp:'バリデーション (Naomi Feil): terima dunia persepsi residen demensia, validasi perasaan mereka. Jangan koreksi fakta — ini memperburuk agitasi. Fokus pada emosi yang mendasari.'},
+    {q:'Residen demensia sering bertanya "sudah makan belum?" berulang kali. Cara terbaik?',
+     opts:['Tunjukkan piring bekas makan','Katakan "tadi sudah makan"','Jawab dengan sabar setiap kali seolah pertama kali','Abaikan karena berulang'],
+     ans:2, exp:'Pada demensia, memori jangka pendek hilang. Berulang bertanya bukan "nakal" tapi gejala. Jawab dengan sabar setiap kali — ini menghormati martabat dan mencegah agitasi.'},
+    {q:'レビー小体型認知症 ditandai oleh?',
+     opts:['Hanya gangguan memori','幻視 (halusinasi visual) dan gejala Parkinson','Hanya perubahan kepribadian','Gangguan bahasa menonjol'],
+     ans:1, exp:'レビー小体型 khas: 幻視 (halusinasi visual yang jelas dan mendetail), gejala motorik seperti Parkinson, fluktuasi kesadaran, dan 睡眠中の異常行動 (RBD).'},
+  ],
+  3: [
+    {q:'介護保険法 mulai berlaku tahun?',
+     opts:['1995年','1998年','2000年','2006年'],
+     ans:2, exp:'介護保険法は2000年（平成12年）4月1日施行。Sistem asuransi sosial yang memungkinkan lansia mendapat perawatan dengan membayar hanya 1–3% dari biaya.'},
+    {q:'第2号被保険者 (40–64 tahun) dapat manfaat 介護保険 jika?',
+     opts:['Berusia 40 tahun ke atas, tanpa syarat','Menderita 特定疾病 (16 penyakit khusus)','Tidak punya keluarga','Sudah tidak bekerja'],
+     ans:1, exp:'40–64 tahun (第2号) hanya dapat manfaat jika kondisinya disebabkan 特定疾病 (16 penyakit khusus seperti 初老期認知症, 脳血管疾患, dll.). Beda dengan 第1号 (65+) yang tanpa syarat penyakit.'},
+    {q:'特別養護老人ホーム (特養) menerima residen mulai level?',
+     opts:['要支援1以上','要介護1以上','要介護3以上','要介護5のみ'],
+     ans:2, exp:'特養は原則要介護3以上が対象。Fasilitas dengan tingkat perawatan tertinggi, yang menampung lansia yang tidak bisa hidup mandiri sama sekali.'},
+    {q:'グループホーム (Group Home) diperuntukkan untuk?',
+     opts:['Semua lansia','Lansia dengan demensia, skala kecil (9 orang/unit)','Lansia pasca operasi','Lansia kaya yang mampu bayar'],
+     ans:1, exp:'グループホーム (認知症対応型共同生活介護) khusus untuk residen demensia. Skala kecil (9 orang per unit) dengan kehidupan komunal yang mendukung kemandirian dalam suasana rumah.'},
+    {q:'Mana yang BOLEH dilakukan 介護福祉士 setelah ikut pelatihan?',
+     opts:['Memberikan injeksi IV','吸引 (penghisapan sekret)','Operasi kecil','Meresepkan obat'],
+     ans:1, exp:'Sejak 2012, 介護福祉士 boleh melakukan 吸引（口腔・鼻腔・気管カニューレ内部）dan 経管栄養 setelah menyelesaikan 研修 bersertifikat yang diakui pemerintah.'},
+    {q:'高齢者虐待防止法 mendefinisikan berapa jenis kekerasan?',
+     opts:['3 jenis','4 jenis','5 jenis','6 jenis'],
+     ans:2, exp:'5 jenis: ①身体的虐待 ②心理的虐待 ③性的虐待 ④経済的虐待 ⑤介護放棄（ネグレクト）. Semua harus dilaporkan jika diketahui atau dicurigai terjadi.'},
+  ],
+  4: [
+    {q:'Suhu air mandi yang aman untuk lansia?',
+     opts:['35–37°C','38–39°C','40–42°C','43–45°C'],
+     ans:2, exp:'40–42°C adalah suhu optimal. Terlalu panas (>43°C) berisiko 低温やけど dan penurunan tekanan darah. Terlalu dingin menyebabkan hipotermia.'},
+    {q:'Posisi makan paling aman untuk mencegah aspirasi?',
+     opts:['Terlentang penuh','Berbaring miring kiri','Duduk 90° atau Fowler 30–45° dengan kepala sedikit menunduk','Kepala lebih rendah dari kaki'],
+     ans:2, exp:'Posisi duduk 90° atau Fowler 30–45° dengan kepala forward-flexed adalah paling aman. Posisi terlentang sangat berbahaya — makanan bisa masuk ke saluran napas.'},
+    {q:'体位変換 untuk mencegah dekubitus dilakukan setiap?',
+     opts:['30 menit','1 jam','2 jam','4 jam'],
+     ans:2, exp:'Setiap 2 jam adalah standar internasional untuk mencegah 褥瘡. Area berisiko: 仙骨部, かかと, 肩甲骨, 後頭部. Gunakan 除圧マット jika tersedia.'},
+    {q:'Saat transfer residen hemiplegi ke kursi roda, kursi roda diletakkan di?',
+     opts:['Sisi yang lumpuh (麻痺側)','Sisi yang sehat (健側)','Di depan tempat tidur','Terserah mana yang nyaman'],
+     ans:1, exp:'Kursi roda di sisi 健側 (sehat) agar residen bisa menggunakan sisi kuat untuk membantu transfer. Ini adalah prinsip dasar 片麻痺患者の移乗.'},
+    {q:'Setelah makan, berapa lama posisi duduk dipertahankan untuk cegah refluks?',
+     opts:['5 menit','15 menit','30 menit','60 menit'],
+     ans:2, exp:'30 menit minimum setelah makan untuk mencegah 逆流（胃食道逆流）dan risiko 誤嚥性肺炎. Ini terutama penting untuk residen dengan 嚥下障害.'},
+    {q:'Stage I dekubitus ditandai oleh?',
+     opts:['Lepuhan dan erosi kulit','Kemerahan yang tidak hilang saat ditekan (消えない発赤)','Ulserasi dalam sampai otot','Nekrosis jaringan'],
+     ans:1, exp:'Stage I: 消えない発赤 (non-blanchable erythema). Kulit masih utuh tapi ada kemerahan yang tidak memudar saat ditekan. Ini adalah tahap paling awal — segera lakukan intervensi.'},
+    {q:'口腔ケア penting untuk mencegah?',
+     opts:['Hanya bau mulut','Hanya gigi berlubang','誤嚥性肺炎 dan infeksi mulut','Hanya masalah gigi palsu'],
+     ans:2, exp:'口腔ケア krusial untuk mencegah 誤嚥性肺炎 (pneumonia aspirasi) yang merupakan salah satu penyebab kematian tertinggi lansia di Jepang. Bakteri mulut bisa masuk ke paru saat aspirasi.'},
+    {q:'Tanda-tanda dehidrasi pada lansia yang perlu diperhatikan?',
+     opts:['Hanya rasa haus','Mulut kering, urin gelap, penurunan kesadaran, kulit kehilangan elastisitas','Hanya demam tinggi','Hanya kram otot'],
+     ans:1, exp:'Lansia sering tidak merasakan haus meski dehidrasi. Pantau: produksi urin, warna urin, turgor kulit, membran mukosa, dan tingkat kesadaran secara berkala.'},
+    {q:'Posisi aman untuk mencegah aspirasi saat makan adalah?',
+     opts:['Berbaring rata','Duduk tegak 90 derajat atau semi-Fowler 30-60 derajat','Posisi miring ke kiri','Kepala menengadah ke atas'],
+     ans:1, exp:'Posisi duduk tegak 90° optimal untuk mencegah aspirasi. Jika tidak bisa tegak, semi-Fowler 30-60° dengan kepala sedikit menunduk. Pertahankan posisi 30 menit setelah makan.'},
+    {q:'Infeksi saluran kemih (尿路感染) pada lansia sering ditandai?',
+     opts:['Selalu demam tinggi','Kebingungan mendadak, gelisah, atau perubahan perilaku tanpa sebab jelas','Hanya nyeri saat buang air kecil','Hanya darah dalam urin'],
+     ans:1, exp:'Pada lansia, UTI sering muncul atipis: kebingungan mendadak (acute confusion/delirium) tanpa demam tinggi. Perubahan status mental tiba-tiba harus selalu mempertimbangkan infeksi.'},
+    {q:'Cara mencegah jatuh (転倒防止) di fasilitas kaigo?',
+     opts:['Ikat residen di kursi','Penilaian risiko rutin, modifikasi lingkungan, alas kaki tepat, dan pendampingan','Larang residen berpindah tempat','Beri obat tidur agar tidak aktif'],
+     ans:1, exp:'Pencegahan jatuh komprehensif: Morse Fall Scale untuk penilaian risiko, lantai tidak licin, pencahayaan cukup, call bell mudah dijangkau, dan latihan keseimbangan rutin.'},  ],
+};
+
+// Generic quiz engine untuk 4 quiz sekaligus
+const state = {};
+function initQ(n) {
+  state[n] = {deck:[...BANKS[n]].sort(()=>Math.random()-.5), idx:0, sc:0, ans:false};
+  renderQ(n);
+}
+function renderQ(n) {
+  const {deck,idx} = state[n];
+  if(!deck[idx]) return;
+  const q = deck[idx];
+  document.getElementById('q'+n+'Num').textContent = idx+1;
+  document.getElementById('q'+n+'Tot').textContent = deck.length;
+  document.getElementById('q'+n+'Text').textContent = q.q;
+  document.getElementById('q'+n+'Opts').innerHTML = q.opts.map((o,i)=>
+    `<button class="q-opt" onclick="ansQ(${n},${i},this)">${String.fromCharCode(65+i)}. ${o}</button>`
+  ).join('');
+  document.getElementById('q'+n+'Fb').style.display='none';
+  document.getElementById('q'+n+'Nxt').style.display='none';
+  state[n].ans = false;
+}
+function ansQ(n, idx, btn) {
+  if(state[n].ans) return;
+  state[n].ans = true;
+  const q = state[n].deck[state[n].idx];
+  document.querySelectorAll('#q'+n+'Wrap .q-opt')[q.ans].classList.add('ok');
+  if(idx !== q.ans) btn.classList.add('ng'); else state[n].sc++;
+  document.getElementById('q'+n+'Sc').textContent = state[n].sc;
+  document.getElementById('q'+n+'Fb').textContent = q.exp;
+  document.getElementById('q'+n+'Fb').style.display = 'block';
+  document.getElementById('q'+n+'Nxt').style.display = 'block';
+}
+function nxt(n) {
+  state[n].idx++;
+  const {deck,idx,sc} = state[n];
+  if(idx >= deck.length) {
+    const pct = Math.round(sc/deck.length*100);
+    document.getElementById('q'+n+'Wrap').innerHTML =
+      `<div style="text-align:center;padding:1.5rem">
+        <div style="font-size:40px">${pct>=70?'🏆':pct>=50?'📚':'🔄'}</div>
+        <div style="font-size:20px;font-weight:800;color:#fff;margin:.5rem 0">Skor: ${sc}/${deck.length} (${pct}%)</div>
+        <div style="color:rgba(255,255,255,.6);margin-bottom:1rem">${pct>=70?'Siap ujian!':pct>=50?'Terus berlatih!':'Review materi dulu.'}</div>
+        <button class="q-btn nxt" onclick="rst(${n})" style="margin:0 auto">↺ Ulangi</button>
+      </div>`;
+    return;
+  }
+  renderQ(n);
+}
+function rst(n) {
+  state[n] = {deck:[...BANKS[n]].sort(()=>Math.random()-.5), idx:0, sc:0, ans:false};
+  document.getElementById('q'+n+'Wrap').innerHTML = `
+    <div class="q-title">🎯 Soal <span id="q${n}Num">1</span>/<span id="q${n}Tot"></span></div>
+    <div class="q-text" id="q${n}Text"></div>
+    <div class="q-opts" id="q${n}Opts"></div>
+    <div class="q-fb" id="q${n}Fb"></div>
+    <div class="q-nav">
+      <button class="q-btn rst" onclick="rst(${n})">↺ Ulangi</button>
+      <div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="q${n}Sc">0</span></div>
+      <button class="q-btn nxt" onclick="nxt(${n})" id="q${n}Nxt" style="display:none">Berikutnya →</button>
+    </div>`;
+  renderQ(n);
+}
+[1,2,3,4].forEach(initQ);
+</script>
+
+</div>
+</div>
+<button id="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">↑</button>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.6);padding:1.5rem clamp(16px,5vw,72px)"><div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between"><div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:18px;font-weight:700">Nihonggo Pro Academy</div><div style="display:flex;gap:1rem;font-size:13px"><a href="../index.html" style="color:rgba(255,255,255,.5);text-decoration:none">Beranda</a><a href="Materi.html" style="color:rgba(255,255,255,.5);text-decoration:none">Materi</a><a href="Kaigo-Fukushishi-Overview.html" style="color:rgba(255,255,255,.5);text-decoration:none">介護福祉士</a><a href="../FAQ.html" style="color:rgba(255,255,255,.5);text-decoration:none">FAQ</a></div><div style="font-size:11px;color:rgba(255,255,255,.25)">© 2025 NihonggoPro</div></div></footer>
+
+<script>
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+const btt=document.getElementById('bttBtn');window.addEventListener('scroll',()=>btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});
+// Auto-build TOC
+(()=>{
+  const headings=document.querySelectorAll('#mainContent h2[id],#mainContent h3[id]');
+  const tl=document.getElementById('tocList');
+  if(!tl)return;
+  headings.forEach(h=>{
+    const a=document.createElement('a');
+    a.href='#'+h.id;a.className='toc-a'+(h.tagName==='H3'?' sub':'');
+    a.textContent=h.textContent.replace(/^[▪●■]\s*/,'');
+    tl.appendChild(a);
+  });
+  // Active state
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const a=tl.querySelector('a[href="#'+e.target.id+'"]');
+      if(a)a.classList.toggle('on',e.isIntersecting);
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  headings.forEach(h=>obs.observe(h));
+})();
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+
+<section style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz</h2>
+<div id="qkZ"></div>
+<div style="display:flex;gap:10px;margin-top:10px">
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:#880e4f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
+</section>
+<script>
+var QKZ=[{"q": "介護福祉士試験で「尊厳の保持」の意味は？", "opts": ["外見を整える", "その人が人として持つ価値・権利を最大限尊重すること", "高価なケアをする", "医療優先"], "a": 1, "e": "一人の人間として尊重し、その人らしい生活を支えることが尊厳の保持の意味。介護保険法第1条にも掲げられる、介護実践の根幹をなす重要な理念とされている。"}, {"q": "「介護保険サービスの利用者負担割合」を決めるのは？", "opts": ["ケアマネジャー", "利用者の収入・所得による(1-3割)", "施設長", "医師"], "a": 1, "e": "利用者の所得状況に応じて、負担割合（1〜3割）が決定される仕組みとなっている。所得の高い方はより多くを負担する応能負担の考え方が取り入れられている。"}, {"q": "「認知症初期集中支援チーム」の目的は？", "opts": ["入院させる", "認知症の疑いがある人を早期発見・早期支援するために訪問する専門チーム", "薬を処方する", "施設に入れる"], "a": 1, "e": "認知症初期集中支援チーム=医療職+介護職で構成。認知症の疑いがある人の自宅に訪問し、早期診断・支援につなげる。2015年から全市区町村に設置義務化。"}, {"q": "「BPSD(行動・心理症状)」の非薬物的介入で最初に試みることは？", "opts": ["抗精神病薬", "環境整備・関わり方・活動の調整などの非薬物的アプローチ", "身体拘束", "入院"], "a": 1, "e": "BPSD対応の原則: まず非薬物的介入(環境・コミュニケーション・活動・ケア方法の改善)を試みる。薬物療法は副作用リスクがあるため最後の手段。"}, {"q": "介護職の「守秘義務」はいつまで続くか？", "opts": ["在職中のみ", "退職後も続く(生涯)", "3年間", "5年間"], "a": 1, "e": "退職後も生涯にわたって守秘義務は継続する。在職中に知り得た情報は、職を離れたからといって自由に話してよいものではなく、専門職としての永続的な責任となる。"}, {"q": "介護福祉士国家試験の出題領域「人間と社会」に含まれない科目は？", "opts": ["人間の尊厳と自立", "人間関係とコミュニケーション", "医療的ケア", "社会の理解"], "a": 2, "e": "「人間と社会」領域には人間の尊厳と自立、人間関係とコミュニケーション、社会の理解が含まれる。こころとからだのしくみや医療的ケアは、別の領域に区分されている。"}, {"q": "介護福祉士国家試験の合格基準は？", "opts": ["全問正解のみ", "総得点の60%以上かつ各領域で0点がないこと", "全科目50%以上", "年度によって変わり基準なし"], "a": 1, "e": "総得点の約60%以上を得点し、かつ全ての科目群で得点があることが合格基準とされる。一つでも0点の科目群があると、総得点が高くても不合格となる点に注意が必要である。"}, {"q": "介護福祉士国家試験の「出題基準（カリキュラム）」として正しいのは？", "opts": ["毎年大きく変わる", "人間と社会・介護・こころとからだのしくみ・医療的ケアの4領域、全125問が出題される", "問題数は50問", "筆記試験は不要"], "a": 1, "e": "介護福祉士国家試験：筆記試験（全125問）＋実技試験または介護技術講習修了で実技免除。出題領域：①人間と社会（人間の尊厳・社会理解・コミュニケーション）②介護（生活支援・介護過程）③こころとからだのしくみ④医療的ケア。合格ラインは総得点の60%以上かつ各領域で足切りなし。"}, {"q": "介護福祉士国家試験の合格基準はどれか。", "opts": ["総得点の60%程度以上かつ各科目群で得点があること", "100%正解が必要", "50%以上のみで合格", "科目群基準はない"], "a": 0, "e": "総得点の約60%程度以上に加え、全ての科目群で得点があることが必要とされる。苦手科目を作らず、全領域をバランスよく学習することが合格への鍵となる。"}, {"q": "国家試験の実技試験が免除される条件はどれか。", "opts": ["実務者研修修了等の要件を満たす場合", "誰でも免除", "免除制度はない", "経験年数のみで免除"], "a": 0, "e": "実務者研修を修了することなどにより、実技試験が免除される仕組みとなっている。要件を満たすことで筆記試験のみでの資格取得が可能になる制度として整備されている。"}, {"q": "国家試験の出題形式はどれか。", "opts": ["五肢択一のマークシート方式", "記述式のみ", "面接のみ", "口頭試問のみ"], "a": 0, "e": "五肢択一のマークシート方式が介護福祉士国家試験の出題形式となる。記述式や口頭試問ではなく、全問が選択肢から正答を選ぶ形式で統一されている点が特徴である。"}, {"q": "国家試験対策で「過去問演習」が有効な理由はどれか。", "opts": ["出題傾向を把握し弱点を補強できるため", "無意味だから", "範囲外だから", "効果がないから"], "a": 0, "e": "過去問演習(latihan soal lampau)で出題傾向把握・弱点補強(pola soal & perkuat kelemahan)ができる。"}, {"q": "試験当日の持ち物として重要なのはどれか。", "opts": ["受験票と本人確認書類", "参考書のみ", "不要", "友人の同伴のみ"], "a": 0, "e": "受験票と本人確認書類が試験当日に必ず必要となる持ち物。これらを忘れると受験できない可能性があるため、前日までに準備を確認しておくことが重要になる。"}, {"q": "国家試験不合格の場合の再受験制度はどれか。", "opts": ["翌年度以降、再度受験可能", "二度と受験できない", "即日再試験可能", "永久に資格取得不可"], "a": 0, "e": "翌年度以降、何度でも再受験が可能な制度となっている。一度の不合格で資格取得の道が閉ざされるわけではないため、諦めずに再挑戦することができる。"}, {"q": "外国人受験者への国家試験の配慮として実施されているものはどれか。", "opts": ["ルビ(読み仮名)付き問題用紙の提供", "母国語での受験", "試験免除", "無配慮"], "a": 0, "e": "全ての漢字にルビ（読み仮名）を付した問題用紙の提供などの配慮が実施されている。日本語能力による不利を軽減し、専門知識を公平に評価するための措置となっている。"}, {"q": "介護福祉士国家試験の受験手数料に関する一般的な説明はどれか。", "opts": ["受験の際に所定の手数料が必要", "無料で受験できる", "手数料は資格取得後に支払う", "手数料制度はない"], "a": 0, "e": "受験に際しては所定の受験手数料を納付する必要がある。金額や納付方法の詳細は、試験センターが毎年公表する受験の手引きで必ず確認することが求められる。"}, {"q": "試験勉強における「模擬試験」活用の意義はどれか。", "opts": ["本番同様の形式で実力と時間配分を確認できる", "意味がないから受けなくてよい", "本番より簡単だから不要", "範囲が異なるから無意味"], "a": 0, "e": "本番同様の形式で、実力の把握と時間配分の確認ができることが模擬試験の意義。弱点を事前に発見し、残された学習期間を効率的に使うための有効な手段となる。"}, {"q": "介護福祉士資格取得後に求められることはどれか。", "opts": ["継続的な自己研鑽と実践力の向上", "学びは終了でよい", "資格のみで十分", "更新のための勉強のみ"], "a": 0, "e": "継続的な自己研鑽と、実践力の向上が資格取得後にも求められる。資格取得はゴールではなく、専門職としての学びを生涯続けていく姿勢が期待されている。"}, {"q": "国家試験の学習計画を立てる際に重要なことはどれか。", "opts": ["苦手分野を把握し計画的に学習を進める", "一夜漬けで十分", "計画は不要", "得意分野のみ学習"], "a": 0, "e": "苦手分野を把握し、計画的に学習を進めることが重要とされる。全科目群で得点が必要な試験であるため、得意分野だけに偏った学習では合格が難しくなってしまう。"}, {"q": "介護福祉士国家試験の科目群に含まれるのはどれか。", "opts": ["人間と社会・介護・こころとからだのしくみ等", "数学のみ", "英語のみ", "法律のみ"], "a": 0, "e": "人間と社会、介護、こころとからだのしくみ、医療的ケアなどの科目群で構成されている。これら全ての領域からバランスよく出題されるため、幅広い学習が求められる。"}],qiZ=0,okZ=0,totZ=0;
+function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
+var oo=document.createElement('div');oo.style.display='grid';oo.style.gap='7px';
+q.opts.forEach(function(o,i){var b=document.createElement('button');
+b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
+b.textContent=o;b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
+var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
+var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:10px;font-size:.92rem';
+qq.textContent=(qiZ%QKZ.length+1)+'. '+q.q;
+var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none';
+bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function ansZ(btn,c,a,e){var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
+bs[a].dataset.d='1';totZ++;
+bs[a].style.background='#e8f5e9';bs[a].style.borderColor='#43a047';bs[a].style.color='#1b5e20';
+if(c!==a){btn.style.background='#fce4ec';btn.style.borderColor='#e91e63';btn.style.color='#880e4f';}
+else okZ++;
+var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();} function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
+rndZ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

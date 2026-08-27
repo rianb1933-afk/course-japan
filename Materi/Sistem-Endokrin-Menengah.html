@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#155e63">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>内分泌系（中級）Endokrin Menengah — Fisiologi Umpan Balik Hormon &amp; Diabetes untuk Calon Perawat | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Endokrin Menengah — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Endokrin-Menengah.html","description":"Pembelajaran tingkat menengah sistem endokrin dalam bahasa Jepang — fisiologi umpan balik hormon, klasifikasi diabetes, farmakologi endokrin, dan terminologi rumah sakit untuk calon perawat dan pelajar bahasa Jepang tingkat lanjut.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Materi tingkat menengah sistem endokrin — fisiologi umpan balik hormon, klasifikasi diabetes, farmakologi endokrin, dan terminologi rumah sakit dalam bahasa Jepang.">
+<meta property="og:title" content="内分泌系（中級）Endokrin Menengah — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Fisiologi umpan balik hormon mendalam, diabetes, dan farmakologi endokrin dalam bahasa Jepang untuk calon perawat.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Endokrin-Menengah.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#ecfeff,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#155e63;border-color:#155e63;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#155e63;background:#ecfeff;border:1px solid #a5f3fc;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#155e63;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#155e63}
+.organ-tab.active{color:#155e63;border-bottom-color:#155e63}
+.organ-tab:focus-visible{outline:2px solid #155e63;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #ecfeff;color:#062527}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#155e63}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#ecfeff;border-color:#a5f3fc}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#ecfeff;color:#155e63;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #155e63;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#155e63}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+
+.case-sim{background:var(--white,#fff);border:2px solid #a5f3fc;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#ecfeff;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#155e63;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Endokrin.html">① 基礎 Dasar</a>
+      <a href="Sistem-Endokrin-Menengah.html" class="current">② 中級 Menengah</a>
+      <a href="Sistem-Endokrin-Lanjutan.html">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">⚗️ Level Menengah — Umpan Balik Hormon &amp; Diabetes</span>
+    <h1><span class="jp-big">内分泌系（中級）</span>Endokrin Menengah</h1>
+    <p class="lead">Fisiologi umpan balik hormon, klasifikasi diabetes, farmakologi endokrin, dan konsep dasar tes fungsi hormon — untuk calon perawat dan pelajar bahasa Jepang tingkat lanjut.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi endokrin menengah">
+  <button class="organ-tab active" data-tab="umpanbalik" role="tab" aria-selected="true">フィードバック Umpan Balik Hormon</button>
+  <button class="organ-tab" data-tab="diabetes" role="tab" aria-selected="false">糖尿病分類 Klasifikasi Diabetes</button>
+  <button class="organ-tab" data-tab="tes" role="tab" aria-selected="false">検査 Tes Fungsi Hormon</button>
+  <button class="organ-tab" data-tab="farmakologi" role="tab" aria-selected="false">薬理 Farmakologi</button>
+  <button class="organ-tab" data-tab="komplikasi" role="tab" aria-selected="false">合併症 Komplikasi Kronis</button>
+  <button class="organ-tab" data-tab="karte" role="tab" aria-selected="false">カルテ用語 Istilah Rumah Sakit</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <!-- ═══════════ フィードバック UMPAN BALIK HORMON ═══════════ -->
+  <div class="organ-panel active" id="panel-umpanbalik">
+    <h2>フィードバック — Fisiologi Umpan Balik Hormon</h2>
+    <p>Materi Dasar memperkenalkan kelenjar dan hormonnya. Di level ini, kita bahas MEKANISME PENGATURAN yang menjaga kadar hormon tetap seimbang — dasar memahami kenapa gangguan satu kelenjar bisa berdampak luas.</p>
+
+    <h3>Prinsip umpan balik negatif (negative feedback)</h3>
+    <p>Sebagian besar sistem hormon bekerja lewat umpan balik NEGATIF — saat kadar hormon tertentu naik, sinyal dikirim untuk MENGHENTIKAN produksi lebih lanjut, menjaga kadar tetap dalam rentang seimbang. Contoh sederhana: kadar gula darah naik setelah makan → pankreas melepas insulin → gula darah turun → produksi insulin melambat kembali.</p>
+
+    <h3>Sumbu hipotalamus-hipofisis (視床下部・下垂体系)</h3>
+    <p>Banyak kelenjar endokrin (tiroid, adrenal, gonad) diatur lewat rantai komando bertingkat:</p>
+    <ul>
+      <li><strong>視床下部 (ししょうかぶ) — Hipotalamus</strong>: "pusat komando" di otak, melepas hormon pelepas yang memberi sinyal ke hipofisis</li>
+      <li><strong>下垂体 (かすいたい) — Kelenjar hipofisis</strong>: menerima sinyal dari hipotalamus, melepas hormon perangsang yang menargetkan kelenjar spesifik (mis. TSH untuk tiroid)</li>
+      <li><strong>標的腺 (ひょうてきせん) — Kelenjar target</strong>: menerima sinyal dari hipofisis, melepas hormon akhirnya (mis. tiroid melepas hormon tiroid)</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa ini penting dipahami:</strong> hormon tiroid yang dilepas kelenjar target pada akhirnya memberi umpan balik KEMBALI ke hipotalamus/hipofisis untuk "mengerem" sinyal lebih lanjut — inilah kenapa pemeriksaan TSH (hormon dari hipofisis) sering menjadi indikator TIDAK LANGSUNG yang sensitif untuk menilai fungsi tiroid, bahkan sebelum hormon tiroid itu sendiri berubah signifikan.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 糖尿病分類 KLASIFIKASI DIABETES ═══════════ -->
+  <div class="organ-panel" id="panel-diabetes">
+    <h2>糖尿病分類 — Klasifikasi Diabetes Lebih Rinci</h2>
+    <p>Level Dasar memperkenalkan diabetes tipe 2 sebagai jenis paling umum pada lansia. Di sini kita bahas klasifikasi yang lebih lengkap.</p>
+
+    <h3>Jenis diabetes utama</h3>
+    <ul>
+      <li><strong>1型糖尿病 — Diabetes tipe 1</strong>: tubuh TIDAK memproduksi insulin sama sekali (kerusakan autoimun sel penghasil insulin) — umumnya muncul di usia muda, butuh terapi insulin seumur hidup sejak diagnosis</li>
+      <li><strong>2型糖尿病 — Diabetes tipe 2</strong>: tubuh masih memproduksi insulin tapi sel-sel kurang responsif (resistensi insulin), sering berkembang seiring waktu — jenis paling umum pada lansia, terkait pola makan/berat badan/genetik</li>
+    </ul>
+
+    <h3>Konsep pradiabetes</h3>
+    <p style="margin-bottom:0">Kondisi kadar gula darah lebih tinggi dari normal tapi belum mencapai kriteria diabetes — periode penting untuk intervensi gaya hidup yang bisa mencegah/menunda perkembangan menjadi diabetes tipe 2 penuh.</p>
+  </div>
+
+  <!-- ═══════════ 検査 TES FUNGSI HORMON ═══════════ -->
+  <div class="organ-panel" id="panel-tes">
+    <h2>検査 — Konsep Dasar Tes Fungsi Hormon</h2>
+    <h3>HbA1c — gambaran gula darah jangka panjang</h3>
+    <p>Berbeda dari pengukuran gula darah sesaat, HbA1c (ヘモグロビンエーワンシー) mencerminkan RATA-RATA kadar gula darah selama sekitar 2-3 bulan terakhir — dipakai luas untuk memantau kontrol diabetes jangka panjang, karena tidak terpengaruh fluktuasi harian seperti pengukuran sesaat.</p>
+
+    <h3>TSH dan hormon tiroid bebas</h3>
+    <ul>
+      <li><strong>TSH (甲状腺刺激ホルモン)</strong>: hormon dari hipofisis, sering jadi tes SKRINING pertama fungsi tiroid — TSH tinggi biasanya menandakan tiroid kurang aktif (tubuh "berusaha keras" merangsangnya), TSH rendah biasanya menandakan tiroid terlalu aktif</li>
+      <li><strong>遊離T4 (ゆうりてぃーふぉー) — T4 bebas</strong>: hormon tiroid aktif yang beredar bebas dalam darah, dipakai bersama TSH untuk gambaran lebih lengkap fungsi tiroid</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Relevansi Kaigo:</strong> hasil tes ini membantu menjelaskan kenapa dosis obat tiroid perlu waktu untuk "disesuaikan" — perubahan dosis butuh beberapa minggu sebelum efeknya genuinely terlihat di tes darah berikutnya, sehingga penyesuaian dosis dilakukan bertahap.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 薬理 FARMAKOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-farmakologi">
+    <h2>薬理 — Farmakologi Endokrin Dasar</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">経口血糖降下薬 (けいこうけっとうこうかやく) — Obat Antidiabetes Oral</h3>
+      <p style="margin-bottom:0">Berbagai golongan bekerja lewat mekanisme berbeda (meningkatkan sensitivitas insulin, merangsang pelepasan insulin, memperlambat penyerapan gula usus) — dipakai pada diabetes tipe 2, seringkali dikombinasikan sesuai kebutuhan individual pasien.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">インスリン製剤 (いんすりんせいざい) — Sediaan Insulin</h3>
+      <p style="margin-bottom:0">Diberikan lewat suntikan (tidak bisa diminum karena dipecah sistem pencernaan) — berbagai jenis dengan onset dan durasi kerja berbeda (kerja cepat, menengah, panjang), dipilih sesuai pola kebutuhan individual.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">甲状腺ホルモン補充薬 (こうじょうせんほるもんほじゅうやく) — Terapi Pengganti Hormon Tiroid</h3>
+      <p style="margin-bottom:0">Dipakai pada hipotiroidisme untuk menggantikan hormon yang kurang — PENTING diminum konsisten pada waktu yang sama, umumnya dengan jarak tertentu dari makanan/obat lain untuk penyerapan optimal, sesuai instruksi tenaga medis.</p>
+    </div>
+
+    <h3>Prinsip penting: konsistensi jadwal obat diabetes dan tiroid</h3>
+    <p style="margin-bottom:0">Obat diabetes dan tiroid sama-sama membutuhkan KONSISTENSI waktu pemberian untuk efektivitas optimal dan menghindari fluktuasi berlebihan — caregiver berperan penting menjaga rutinitas ini dan melaporkan bila ada kesulitan konsistensi.</p>
+  </div>
+
+  <!-- ═══════════ 合併症 KOMPLIKASI KRONIS ═══════════ -->
+  <div class="organ-panel" id="panel-komplikasi">
+    <h2>合併症 — Komplikasi Kronis Diabetes</h2>
+    <p>Diabetes yang tidak terkontrol dalam jangka panjang bisa merusak pembuluh darah dan saraf di seluruh tubuh:</p>
+    <ul>
+      <li><strong>糖尿病性神経障害 — Neuropati diabetik</strong>: kerusakan saraf, sering dimulai dari kaki (mati rasa/kesemutan) — menjelaskan kenapa luka kaki penderita diabetes sering tidak terasa nyeri meski sudah cukup parah</li>
+      <li><strong>糖尿病性網膜症 — Retinopati diabetik</strong>: kerusakan pembuluh darah retina mata, bisa menyebabkan gangguan penglihatan hingga kebutaan bila tidak terkontrol</li>
+      <li><strong>糖尿病性腎症 — Nefropati diabetik</strong>: kerusakan ginjal akibat diabetes jangka panjang, salah satu penyebab utama penyakit ginjal kronis (dibahas di materi Urinaria)</li>
+    </ul>
+    <p style="margin-bottom:0">Ketiga komplikasi ini menjelaskan kenapa kontrol gula darah jangka panjang (bukan hanya menghindari gejala akut) sangat penting — kerusakan ini berkembang PERLAHAN dan seringkali tanpa gejala jelas di tahap awal.</p>
+  </div>
+
+  <!-- ═══════════ カルテ用語 ISTILAH RUMAH SAKIT ═══════════ -->
+  <div class="organ-panel" id="panel-karte">
+    <h2>カルテ用語 — Terminologi Pencatatan Medis</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">視床下部</td><td>ししょうかぶ</td><td>Hipotalamus</td><td>Hypothalamus</td></tr>
+        <tr><td class="jp">下垂体</td><td>かすいたい</td><td>Kelenjar hipofisis</td><td>Pituitary gland</td></tr>
+        <tr><td class="jp">甲状腺刺激ホルモン</td><td>こうじょうせんしげきほるもん</td><td>TSH</td><td>Thyroid-stimulating hormone</td></tr>
+        <tr><td class="jp">ヘモグロビンエーワンシー</td><td>へもぐろびんえーわんしー</td><td>HbA1c</td><td>HbA1c</td></tr>
+        <tr><td class="jp">1型糖尿病</td><td>いちがたとうにょうびょう</td><td>Diabetes tipe 1</td><td>Type 1 diabetes</td></tr>
+        <tr><td class="jp">2型糖尿病</td><td>にがたとうにょうびょう</td><td>Diabetes tipe 2</td><td>Type 2 diabetes</td></tr>
+        <tr><td class="jp">糖尿病前症</td><td>とうにょうびょうぜんしょう</td><td>Pradiabetes</td><td>Prediabetes</td></tr>
+        <tr><td class="jp">インスリン抵抗性</td><td>いんすりんていこうせい</td><td>Resistensi insulin</td><td>Insulin resistance</td></tr>
+        <tr><td class="jp">経口血糖降下薬</td><td>けいこうけっとうこうかやく</td><td>Obat antidiabetes oral</td><td>Oral antidiabetic drug</td></tr>
+        <tr><td class="jp">インスリン製剤</td><td>いんすりんせいざい</td><td>Sediaan insulin</td><td>Insulin preparation</td></tr>
+        <tr><td class="jp">糖尿病性神経障害</td><td>とうにょうびょうせいしんけいしょうがい</td><td>Neuropati diabetik</td><td>Diabetic neuropathy</td></tr>
+        <tr><td class="jp">糖尿病性網膜症</td><td>とうにょうびょうせいもうまくしょう</td><td>Retinopati diabetik</td><td>Diabetic retinopathy</td></tr>
+        <tr><td class="jp">糖尿病性腎症</td><td>とうにょうびょうせいじんしょう</td><td>Nefropati diabetik</td><td>Diabetic nephropathy</td></tr>
+        <tr><td class="jp">遊離T4</td><td>ゆうりてぃーふぉー</td><td>T4 bebas</td><td>Free T4</td></tr>
+        <tr><td class="jp">甲状腺ホルモン補充薬</td><td>こうじょうせんほるもんほじゅうやく</td><td>Terapi pengganti hormon tiroid</td><td>Thyroid hormone replacement</td></tr>
+        <tr><td class="jp">負のフィードバック</td><td>ふのふぃーどばっく</td><td>Umpan balik negatif</td><td>Negative feedback</td></tr>
+        <tr><td class="jp">標的腺</td><td>ひょうてきせん</td><td>Kelenjar target</td><td>Target gland</td></tr>
+        <tr><td class="jp">感覚鈍麻</td><td>かんかくどんま</td><td>Penurunan sensasi (mati rasa)</td><td>Sensory numbness</td></tr>
+        <tr><td class="jp">視力障害</td><td>しりょくしょうがい</td><td>Gangguan penglihatan</td><td>Visual impairment</td></tr>
+        <tr><td class="jp">血糖コントロール</td><td>けっとうこんとろーる</td><td>Kontrol gula darah</td><td>Glycemic control</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis tingkat rumah sakit</h3>
+    <div class="clinical-sentence">
+      <div class="jp">HbA1cの数値から血糖コントロール状況を評価します。</div>
+      <div class="id">Status kontrol gula darah dievaluasi dari nilai HbA1c.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">TSHの上昇があり、甲状腺機能低下症が疑われます。</div>
+      <div class="id">Ada peningkatan TSH, dicurigai hipotiroidisme.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">糖尿病性神経障害による感覚鈍麻に注意してください。</div>
+      <div class="id">Waspadai penurunan sensasi akibat neuropati diabetik.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis Tingkat Menengah</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia dengan diabetes lama ditemukan memiliki luka kecil di telapak kaki yang sudah cukup dalam, tapi ia mengaku "tidak terasa sakit sama sekali" dan baru menyadarinya saat mengganti kaus kaki. Keluarga menganggap ini tidak serius karena "tidak sakit berarti tidak parah".
+      </div>
+      <div class="case-question">
+        <label>1. Fakta bahwa luka cukup dalam TIDAK terasa nyeri pada penderita diabetes lama paling mungkin menjelaskan adanya:</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Kemungkinan neuropati diabetik yang mengurangi sensasi di kaki</option>
+          <option value="wrong">Tanda bahwa luka tersebut pasti tidak serius</option>
+          <option value="wrong">Kondisi yang tidak ada kaitan dengan diabetes</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Anggapan "tidak sakit berarti tidak parah" pada kasus ini berisiko karena:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Ketiadaan nyeri BUKAN indikator keparahan yang bisa diandalkan bila ada neuropati -- luka bisa memburuk tanpa terasa</option>
+          <option value="wrong">Nyeri selalu muncul lebih dulu sebelum luka menjadi serius</option>
+          <option value="wrong">Tidak ada risiko apapun dalam situasi ini</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan yang PALING tepat sebagai caregiver dalam situasi ini:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Segera mendorong evaluasi medis untuk luka tersebut, meski tidak terasa nyeri</option>
+          <option value="wrong">Menunggu sampai muncul rasa nyeri sebelum mencari bantuan</option>
+          <option value="wrong">Merawat luka sendiri di rumah tanpa evaluasi profesional</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var MINI_Q = [
+    { q: 'Prinsip umpan balik negatif pada sistem hormon berarti?', opts: ['Kadar hormon yang naik memicu sinyal untuk menghentikan produksi lebih lanjut', 'Hormon selalu diproduksi terus tanpa henti', 'Tidak ada pengaturan sama sekali'], a: 0 },
+    { q: 'TSH tinggi biasanya menandakan kelenjar tiroid?', opts: ['Terlalu aktif', 'Kurang aktif', 'Berfungsi sempurna'], a: 1 },
+    { q: 'Diabetes tipe 1 berbeda dari tipe 2 karena?', opts: ['Tubuh tidak memproduksi insulin sama sekali', 'Selalu muncul di usia lansia', 'Tidak pernah butuh insulin'], a: 0 },
+    { q: 'HbA1c mencerminkan rata-rata kadar gula darah selama periode?', opts: ['Beberapa jam terakhir', 'Sekitar 2-3 bulan terakhir', 'Satu tahun penuh'], a: 1 },
+    { q: 'Neuropati diabetik sering dimulai dari kaki dengan gejala?', opts: ['Mati rasa/kesemutan', 'Nyeri hebat yang tak tertahankan', 'Tidak ada gejala sama sekali selamanya'], a: 0 },
+    { q: 'Kenapa luka kaki penderita diabetes lama bisa tidak terasa nyeri meski sudah parah?', opts: ['Neuropati diabetik mengurangi sensasi', 'Luka pada diabetes selalu tidak berbahaya', 'Diabetes tidak memengaruhi saraf'], a: 0 },
+    { q: 'Retinopati diabetik adalah kerusakan pada?', opts: ['Pembuluh darah retina mata', 'Kelenjar tiroid', 'Saraf pendengaran'], a: 0 },
+    { q: 'Kenapa dosis obat tiroid butuh waktu untuk disesuaikan?', opts: ['Efeknya baru terlihat jelas di tes darah setelah beberapa minggu', 'Efeknya langsung terlihat dalam hitungan jam', 'Dosis tiroid tidak pernah perlu disesuaikan'], a: 0 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Luka dalam yang TIDAK terasa nyeri pada penderita diabetes lama adalah pola klasik NEUROPATI DIABETIK -- kerusakan saraf yang mengurangi sensasi, terutama di kaki. Anggapan "tidak sakit berarti tidak parah" BERBAHAYA pada kondisi ini, karena luka bisa terus memburuk tanpa memberi peringatan nyeri seperti biasanya. Evaluasi medis SEGERA diperlukan meski tanpa keluhan nyeri, karena luka kaki diabetes yang tidak ditangani bisa berkembang jadi komplikasi serius.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: pada penderita diabetes lama, ketiadaan rasa nyeri pada luka BUKAN tanda luka itu ringan -- justru bisa menandakan neuropati diabetik yang membuat luka serius tidak terasa sampai sudah cukup parah.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

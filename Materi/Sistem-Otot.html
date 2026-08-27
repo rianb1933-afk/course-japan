@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#9a3412">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/dark-mode-toggle.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/np-xp.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>筋肉系 Sistem Otot — Kontraksi Otot Bahasa Jepang untuk Kaigo | NihonggoPro</title>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Sistem Otot — Nihonggo Pro Academy","url":"https://nihonggopro.id/Materi/Sistem-Otot.html","description":"Pembelajaran mendalam sistem otot dalam bahasa Jepang — anatomi otot, mekanisme kontraksi, perubahan penuaan, sarkopenia, observasi, dan perawatan Kaigo.","inLanguage":"id","isPartOf":{"@type":"WebSite","name":"Nihonggo Pro Academy","url":"https://nihonggopro.id"}}</script>
+<meta name="description" content="Pelajari sistem otot secara mendalam dalam bahasa Jepang — anatomi otot, mekanisme kontraksi, perubahan akibat penuaan, sarkopenia lansia, observasi, dan perawatan Kaigo.">
+<meta property="og:title" content="筋肉系 Sistem Otot — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:description" content="Anatomi, fisiologi, dan perawatan Kaigo sistem otot dalam bahasa Jepang.">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Sistem-Otot.html">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<style>
+.organ-hero{background:linear-gradient(135deg,#fff7ed,#fff);padding:40px 20px;text-align:center}
+.organ-hero-inner{max-width:900px;margin:0 auto}
+.level-nav{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}
+.level-nav a{font-size:12px;font-weight:700;padding:6px 14px;border-radius:999px;text-decoration:none;border:1px solid var(--border-mid,#ccc);color:var(--ink-mid,#666)}
+.level-nav a.current{background:#9a3412;border-color:#9a3412;color:#fff}
+.organ-kicker{display:inline-block;font-size:12px;font-weight:800;color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:999px;padding:4px 14px;margin-bottom:12px}
+.organ-hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,38px);margin-bottom:8px}
+.organ-hero .jp-big{display:block;font-size:14px;color:#9a3412;font-weight:700;margin-bottom:4px}
+.organ-hero .lead{color:var(--ink-mid,#555);font-size:15px;line-height:1.6;max-width:640px;margin:12px auto 0}
+
+.organ-tabs{display:flex;gap:4px;overflow-x:auto;padding:0 16px;max-width:1000px;margin:24px auto 0;border-bottom:2px solid var(--border,#eee);scrollbar-width:thin}
+.organ-tab{flex-shrink:0;background:none;border:none;padding:12px 16px;font-size:13px;font-weight:700;color:var(--ink-mid,#666);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:all .2s}
+.organ-tab:hover{color:#9a3412}
+.organ-tab.active{color:#9a3412;border-bottom-color:#9a3412}
+.organ-tab:focus-visible{outline:2px solid #9a3412;outline-offset:-2px}
+
+.organ-content{max-width:820px;margin:0 auto;padding:28px 20px 60px}
+.organ-panel{display:none}
+.organ-panel.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+.organ-panel h2{font-family:"Noto Serif JP",serif;font-size:20px;margin-bottom:14px;padding-bottom:8px;border-bottom:2px solid #fff7ed;color:#2e1006}
+.organ-panel h3{font-size:15px;font-weight:800;margin:20px 0 8px;color:#9a3412}
+.organ-panel p{line-height:1.75;color:var(--ink,#222);margin-bottom:12px;font-size:14.5px}
+.organ-panel ul{margin:0 0 14px 0;padding-left:20px}
+.organ-panel li{line-height:1.7;margin-bottom:6px;font-size:14.5px}
+
+.info-card{background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:18px 20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.info-card.warn{background:#fffbeb;border-color:#fde68a}
+.info-card.danger{background:#fef2f2;border-color:#fecaca}
+.info-card.tip{background:#fff7ed;border-color:#fed7aa}
+
+.vocab-table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.vocab-table th{background:#fff7ed;color:#9a3412;font-weight:800;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase}
+.vocab-table td{padding:10px 12px;border-bottom:1px solid var(--border-light,#f0f0f0)}
+.vocab-table .jp{font-family:"Noto Serif JP",serif;font-weight:600}
+.vocab-table .furi{font-size:11px;color:var(--ink-soft,#999);display:block}
+
+.clinical-sentence{background:var(--white,#fff);border-left:3px solid #9a3412;border-radius:8px;padding:12px 16px;margin-bottom:10px}
+.clinical-sentence .jp{font-family:"Noto Serif JP",serif;font-size:15px;margin-bottom:4px}
+.clinical-sentence .id{font-size:13px;color:var(--ink-mid,#666)}
+
+.muscle-wrap{max-width:340px;margin:16px auto;padding:16px;background:var(--white,#fff);border-radius:14px;border:1px solid var(--border-light,#eee)}
+@keyframes myosinPull{0%,100%{transform:translateX(0)}50%{transform:translateX(18px)}}
+@keyframes muscleShorten{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.72)}}
+@keyframes atpFlash{0%,100%{opacity:.2}50%{opacity:1}}
+.ms-actin-l{animation:muscleShorten 2.4s ease-in-out infinite;transform-origin:left center}
+.ms-actin-r{animation:muscleShorten 2.4s ease-in-out infinite;transform-origin:right center}
+.ms-myosin{animation:myosinPull 2.4s ease-in-out infinite}
+.ms-atp{animation:atpFlash 1.2s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.ms-actin-l,.ms-actin-r,.ms-myosin,.ms-atp{animation:none}}
+.ms-th{font-size:12px;font-weight:800;fill:var(--ink,#222)}
+.ms-ts{font-size:10.5px;fill:var(--ink-mid,#666)}
+.muscle-legend{display:flex;gap:12px;justify-content:center;margin-top:8px;font-size:11.5px;color:var(--ink-mid,#666);flex-wrap:wrap}
+.muscle-legend span{display:inline-flex;align-items:center;gap:5px}
+.muscle-swatch{display:inline-block;width:14px;height:6px;border-radius:2px}
+.muscle-controls{display:flex;gap:8px;justify-content:center;margin-top:10px}
+.muscle-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:700}
+.muscle-btn.active{background:#fff7ed;border-color:#9a3412;color:#9a3412}
+
+.model3d-wrap{max-width:560px;margin:16px auto;padding:16px;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px}
+.model3d-canvas-wrap{position:relative;width:100%;height:360px;border-radius:10px;overflow:hidden;background:#f5f7fb;touch-action:none}
+.model3d-loading,.model3d-error{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--ink-mid,#666);text-align:center;padding:20px}
+.model3d-error{color:#9a3412}
+.model3d-info-panel{margin-top:10px;padding:10px 12px;background:#f8f9fb;border-radius:10px;font-size:13px}
+.model3d-info-panel strong{display:block;margin-bottom:2px;font-size:14px}
+.model3d-detail-text{color:var(--ink-mid,#666)}
+.model3d-controls{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.model3d-btn{border:1px solid var(--border-mid,#ccc);background:var(--white,#fff);border-radius:8px;padding:8px 14px;font-size:12.5px;cursor:pointer;font-weight:700}
+.model3d-btn.active{background:#fef2f2;border-color:#dc2626;color:#dc2626}
+.model3d-disclaimer{margin:10px 0 0;font-size:11px;color:var(--ink-soft,#999);line-height:1.5}
+
+.case-sim{background:var(--white,#fff);border:2px solid #fed7aa;border-radius:16px;padding:22px}
+.case-sim .case-vignette{background:#fff7ed;border-radius:10px;padding:16px;margin-bottom:16px;font-size:14.5px;line-height:1.7}
+.case-question{margin-bottom:16px}
+.case-question label{display:block;font-weight:700;font-size:13.5px;margin-bottom:6px}
+.case-question select{width:100%;padding:10px 12px;border:1px solid var(--border-mid,#ccc);border-radius:8px;font-size:14px;font-family:inherit}
+.case-submit{background:#9a3412;color:#fff;border:none;border-radius:10px;padding:12px 24px;font-weight:700;cursor:pointer;font-size:14px}
+.case-result{margin-top:16px;padding:16px;border-radius:10px;display:none}
+.case-result.show{display:block}
+.case-result.correct{background:#f0fdf4;border:1px solid #bbf7d0}
+.case-result.incorrect{background:#fffbeb;border:1px solid #fde68a}
+
+.mini-quiz-choice{display:block;width:100%;text-align:left;padding:12px 14px;margin-bottom:8px;border:1px solid var(--border-mid,#ccc);border-radius:10px;background:var(--white,#fff);cursor:pointer;font-size:14px;transition:all .15s}
+.mini-quiz-choice:hover{border-color:#9a3412}
+.mini-quiz-choice.correct{background:#f0fdf4;border-color:#22c55e}
+.mini-quiz-choice.wrong{background:#fef2f2;border-color:#ef4444}
+.mini-quiz-choice:disabled{cursor:default}
+</style>
+</head>
+<body>
+
+<main id="main-content">
+
+<section class="organ-hero">
+  <div class="organ-hero-inner">
+    <div class="level-nav">
+      <a href="Sistem-Otot.html" class="current">① 基礎 Dasar</a>
+      <a href="Sistem-Otot-Menengah.html">② 中級 Menengah</a>
+      <a href="Sistem-Otot-Lanjutan.html">③ 上級 Lanjutan</a>
+    </div>
+    <span class="organ-kicker">💪 Level 2-4 — Sistem Otot</span>
+    <h1><span class="jp-big">筋肉系</span>Sistem Otot</h1>
+    <p class="lead">Anatomi otot, mekanisme kontraksi, perubahan penuaan, sarkopenia &amp; kelemahan otot lansia, hingga perawatan Kaigo — dengan animasi kontraksi otot interaktif.</p>
+  </div>
+</section>
+
+<div class="organ-tabs" id="organTabs" role="tablist" aria-label="Bagian materi otot">
+  <button class="organ-tab active" data-tab="ringkasan" role="tab" aria-selected="true">概要 Ringkasan</button>
+  <button class="organ-tab" data-tab="anatomi" role="tab" aria-selected="false">解剖 Anatomi</button>
+  <button class="organ-tab" data-tab="fisiologi" role="tab" aria-selected="false">生理 Fisiologi</button>
+  <button class="organ-tab" data-tab="penuaan" role="tab" aria-selected="false">加齢変化 Penuaan</button>
+  <button class="organ-tab" data-tab="penyakit" role="tab" aria-selected="false">疾患 Penyakit</button>
+  <button class="organ-tab" data-tab="gejala" role="tab" aria-selected="false">症状 Gejala</button>
+  <button class="organ-tab" data-tab="observasi" role="tab" aria-selected="false">観察 Observasi</button>
+  <button class="organ-tab" data-tab="perawatan" role="tab" aria-selected="false">介護 Perawatan</button>
+  <button class="organ-tab" data-tab="kosakata" role="tab" aria-selected="false">用語 Kosakata</button>
+  <button class="organ-tab" data-tab="kuis" role="tab" aria-selected="false">クイズ Kuis</button>
+  <button class="organ-tab" data-tab="kasus" role="tab" aria-selected="false">症例 Studi Kasus</button>
+</div>
+
+<div class="organ-content">
+
+  <!-- ═══════════ 概要 RINGKASAN ═══════════ -->
+  <div class="organ-panel active" id="panel-ringkasan">
+    <h2>概要 — Ringkasan Sistem Otot</h2>
+    <p>Sistem otot (筋肉系, きんにくけい) memungkinkan tubuh bergerak, menjaga postur, dan menghasilkan panas. Ada tiga jenis otot: <strong>otot rangka (骨格筋)</strong> yang dikendalikan sadar, <strong>otot polos (平滑筋)</strong> di organ dalam, dan <strong>otot jantung (心筋)</strong>.</p>
+    <div class="info-card">
+      <h3 style="margin-top:0">Kenapa penting untuk Kaigo?</h3>
+      <p style="margin-bottom:0">Sarkopenia (kehilangan massa dan kekuatan otot terkait usia) meningkatkan risiko jatuh, kesulitan bangun dari kursi, dan ketergantungan pada bantuan mobilitas. Memahami kondisi ini membantu caregiver memberi dukungan mobilisasi dan transfer yang tepat.</p>
+    </div>
+    <h3>Fungsi utama</h3>
+    <ul>
+      <li>Menggerakkan tubuh dan tulang lewat kontraksi</li>
+      <li>Menjaga postur dan keseimbangan</li>
+      <li>Menghasilkan panas tubuh (menggigil saat kedinginan)</li>
+      <li>Mendukung organ dalam dan membantu proses seperti pencernaan (otot polos)</li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ 解剖 ANATOMI ═══════════ -->
+  <div class="organ-panel" id="panel-anatomi">
+    <h2>解剖 — Anatomi Otot</h2>
+    <p>Otot rangka (骨格筋, こっかくきん) melekat pada tulang lewat tendon (腱, けん), bekerja berpasangan — satu otot berkontraksi sementara pasangannya relaksasi untuk menghasilkan gerakan.</p>
+    <h3>Otot rangka besar yang penting untuk mobilitas</h3>
+    <ul>
+      <li><strong>大腿四頭筋 (だいたいしとうきん) — Quadriceps</strong>: otot paha depan, penting untuk berdiri dan berjalan</li>
+      <li><strong>殿筋 (でんきん) — Otot Bokong (Gluteus)</strong>: penting untuk keseimbangan dan bangun dari duduk</li>
+      <li><strong>腹筋 (ふっきん) — Otot Perut</strong>: mendukung postur tubuh</li>
+      <li><strong>背筋 (はいきん) — Otot Punggung</strong>: menjaga tulang belakang tetap tegak</li>
+    </ul>
+    <h3>Tendon dan ligamen</h3>
+    <p>Tendon (腱) menghubungkan otot ke tulang; ligamen (靭帯, じんたい) menghubungkan tulang ke tulang di sendi — keduanya berbeda dari otot tapi sering disebut bersamaan saat membahas cedera gerak.</p>
+
+    <h3>🧊 Model 3D interaktif — otot &amp; mobilitas</h3>
+    <div class="model3d-wrap">
+      <div id="muscle3dContainer" class="model3d-canvas-wrap">
+        <div id="muscle3dLoading" class="model3d-loading">Memuat model 3D…</div>
+        <div id="muscle3dError" class="model3d-error" style="display:none">Model 3D gagal dimuat. Coba muat ulang halaman.</div>
+      </div>
+      <div class="model3d-info-panel">
+        <strong id="muscle3dName">Klik bagian otot untuk detail</strong>
+        <div id="muscle3dDetail" class="model3d-detail-text">Putar dengan drag/geser, perbesar dengan scroll/pinch.</div>
+        <div id="muscle3dKaigo" class="model3d-detail-text" style="margin-top:6px;font-style:italic"></div>
+      </div>
+      <div class="model3d-controls">
+        <button type="button" id="muscle3dResetBtn" class="model3d-btn">↺ Reset kamera</button>
+        <button type="button" id="muscle3dStandBtn" class="model3d-btn">🚶 Simulasi Berdiri</button>
+        <button type="button" id="muscle3dWeakBtn" class="model3d-btn">🚨 Simulasi Sarkopenia</button>
+      </div>
+      <div id="muscle3dWeakText" class="info-card danger" style="display:none;margin-top:10px">
+        Area yang ditandai menunjukkan contoh kehilangan massa otot (sarkopenia) dan pelemahan akibat kurang bergerak (disuse syndrome) — bukan lokasi anatomis presisi.
+      </div>
+      <p class="model3d-disclaimer">Model edukatif bergaya sederhana untuk pembelajaran istilah anatomi — bukan untuk diagnosis, penilaian fisioterapi, atau pengukuran klinis.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 生理 FISIOLOGI ═══════════ -->
+  <div class="organ-panel" id="panel-fisiologi">
+    <h2>生理 — Mekanisme Kontraksi Otot</h2>
+    <p>Di dalam serat otot terdapat dua jenis protein filamen: <strong>aktin (アクチン)</strong> dan <strong>miosin (ミオシン)</strong> — keduanya saling menarik dan meluncur satu sama lain untuk memendekkan otot saat berkontraksi.</p>
+
+    <h3>💪 Animasi kontraksi otot — interaktif</h3>
+    <div class="muscle-wrap">
+      <svg width="100%" viewBox="0 0 320 200" role="img" aria-label="Animasi kontraksi otot: filamen aktin dan miosin saling meluncur untuk memendekkan otot, didukung energi ATP">
+        <rect x="20" y="90" width="280" height="20" fill="#fed7aa" opacity=".4"/>
+        <rect class="ms-actin-l" x="30" y="95" width="110" height="10" fill="#c2410c" rx="4"/>
+        <rect class="ms-actin-r" x="180" y="95" width="110" height="10" fill="#c2410c" rx="4"/>
+        <rect class="ms-myosin" x="120" y="85" width="80" height="30" fill="#fb923c" opacity=".7" rx="6"/>
+        <circle class="ms-atp" cx="160" cy="60" r="8" fill="#22c55e"/>
+        <text class="ms-th" x="160" y="45" text-anchor="middle">1</text>
+        <text class="ms-ts" x="160" y="30" text-anchor="middle">ATP memberi energi</text>
+        <text class="ms-th" x="85" y="135" text-anchor="middle">2</text>
+        <text class="ms-ts" x="85" y="150" text-anchor="middle">Aktin (filamen tipis)</text>
+        <text class="ms-th" x="160" y="135" text-anchor="middle">3</text>
+        <text class="ms-ts" x="160" y="150" text-anchor="middle">Miosin (menarik)</text>
+      </svg>
+      <div class="muscle-legend">
+        <span><i class="muscle-swatch" style="background:#c2410c"></i>Aktin</span>
+        <span><i class="muscle-swatch" style="background:#fb923c"></i>Miosin</span>
+        <span><i class="muscle-swatch" style="background:#22c55e;border-radius:50%;width:8px;height:8px"></i>ATP (energi)</span>
+      </div>
+      <div class="muscle-controls">
+        <button type="button" id="muscleToggleBtn" class="muscle-btn active">⏸ Jeda animasi</button>
+      </div>
+    </div>
+
+    <h3>Siklus kontraksi-relaksasi</h3>
+    <ul>
+      <li><strong>Kontraksi (収縮, しゅうしゅく)</strong>: miosin "menarik" filamen aktin agar saling meluncur, memendekkan otot — butuh energi dari ATP</li>
+      <li><strong>Relaksasi (弛緩, しかん)</strong>: filamen kembali ke posisi semula, otot memanjang lagi</li>
+    </ul>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa otot lelah:</strong> kontraksi berulang butuh pasokan ATP terus-menerus — saat pasokan energi/oksigen tidak mencukupi (misalnya olahraga berat), otot terasa lelah dan lemah sementara.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 加齢変化 PERUBAHAN PENUAAN ═══════════ -->
+  <div class="organ-panel" id="panel-penuaan">
+    <h2>加齢に伴う変化 — Perubahan Otot Akibat Penuaan</h2>
+    <ul>
+      <li><strong>Massa otot berkurang secara bertahap (サルコペニア, sarkopenia)</strong> — mulai signifikan sejak usia 30-an, semakin cepat setelah 60 tahun</li>
+      <li><strong>Kekuatan otot menurun</strong> lebih cepat daripada penurunan massa otot itu sendiri</li>
+      <li><strong>Waktu pemulihan otot lebih lama</strong> setelah aktivitas atau cedera</li>
+      <li><strong>Fleksibilitas menurun</strong> — jangkauan gerak sendi berkurang</li>
+    </ul>
+    <div class="info-card warn">
+      <h3 style="margin-top:0">⚠️ Relevansi Kaigo</h3>
+      <p style="margin-bottom:0">Sarkopenia adalah alasan utama lansia kesulitan bangun dari kursi/tempat tidur, berjalan jauh, atau menaiki tangga — memahami ini membantu caregiver memberi dukungan transfer yang aman tanpa membuat lansia merasa semakin tidak berdaya.</p>
+    </div>
+
+    <h3>Lingkaran setan sarkopenia dan inaktivitas</h3>
+    <p>Kelemahan otot membuat aktivitas terasa lebih sulit → lansia cenderung bergerak lebih sedikit untuk menghindari kesulitan/rasa lelah → berkurangnya aktivitas mempercepat lagi kehilangan massa otot → siklus ini terus berulang dan memperberat diri sendiri jika tidak diintervensi.</p>
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Kenapa penting dipahami:</strong> berbeda dari beberapa perubahan penuaan lain yang sulit dicegah, sarkopenia SECARA SIGNIFIKAN bisa diperlambat lewat kombinasi aktivitas fisik teratur (terutama latihan menahan beban/resistance) dan asupan protein cukup — inilah kenapa mendorong lansia tetap aktif (sesuai kemampuan dan arahan medis) adalah bagian penting perawatan, bukan sekadar membiarkan proses "alami" berjalan tanpa upaya.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 疾患 PENYAKIT ═══════════ -->
+  <div class="organ-panel" id="panel-penyakit">
+    <h2>疾患 — Kondisi Otot Umum pada Lansia</h2>
+    <div class="info-card">
+      <h3 style="margin-top:0">サルコペニア — Sarkopenia</h3>
+      <p style="margin-bottom:0">Kehilangan massa dan fungsi otot terkait usia, meningkatkan risiko jatuh dan ketergantungan. Tanda praktis yang bisa diamati caregiver: kecepatan berjalan melambat signifikan, kesulitan bangkit dari kursi tanpa bantuan tangan, dan kekuatan genggaman tangan yang melemah — ketiganya sering dipakai sebagai indikator sederhana selain pengukuran massa otot formal.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">廃用症候群 (はいようしょうこうぐん) — Sindrom Disuse</h3>
+      <p style="margin-bottom:0">Pelemahan otot akibat kurang bergerak dalam waktu lama, misalnya setelah sakit/dirawat di tempat tidur berkepanjangan. PENTING dipahami: kehilangan kekuatan otot pada periode tirah baring bisa terjadi JAUH LEBIH CEPAT dibanding proses membangunnya kembali — inilah kenapa mobilisasi dini (begitu kondisi medis mengizinkan) menjadi prioritas dalam perawatan, bukan sekadar "istirahat total selalu lebih aman".</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">筋痙攣 (きんけいれん) — Kram Otot</h3>
+      <p style="margin-bottom:0">Kontraksi otot mendadak dan tidak disengaja, sering terjadi malam hari pada lansia, bisa terkait dehidrasi atau ketidakseimbangan elektrolit. Kram sesekali umumnya tidak berbahaya, tapi kram yang SANGAT SERING, disertai kelemahan otot yang tidak biasa, atau muncul bersamaan dengan gejala lain (nyeri dada, sesak) perlu dilaporkan — bisa jadi tanda kondisi mendasar yang lebih serius.</p>
+    </div>
+    <div class="info-card">
+      <h3 style="margin-top:0">関節リウマチ (かんせつりうまち) — Rheumatoid Arthritis</h3>
+      <p style="margin-bottom:0">Penyakit autoimun yang menyebabkan peradangan sendi kronis, memengaruhi kemampuan otot bekerja normal di sekitar sendi yang terkena. Ciri khas yang membedakan dari nyeri sendi biasa akibat penuaan: kekakuan sendi di PAGI HARI yang berlangsung cukup lama (bukan sekadar sesaat), dan sering mengenai sendi secara SIMETRIS (kedua sisi tubuh bersamaan).</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 症状 GEJALA ═══════════ -->
+  <div class="organ-panel" id="panel-gejala">
+    <h2>症状 — Gejala yang Perlu Diwaspadai</h2>
+    <ul>
+      <li><strong>筋力低下 (きんりょくていか)</strong> — Kelemahan otot, kesulitan mengangkat/mendorong benda ringan</li>
+      <li><strong>立ち上がりにくさ</strong> — Kesulitan bangun dari kursi/tempat tidur tanpa bantuan</li>
+      <li><strong>歩行速度の低下</strong> — Kecepatan berjalan menurun drastis</li>
+      <li><strong>筋肉痛 (きんにくつう)</strong> — Nyeri otot</li>
+      <li><strong>こむら返り</strong> — Kram kaki, terutama malam hari</li>
+      <li><strong>震え (ふるえ)</strong> — Gemetar otot, bisa terkait kelelahan atau kondisi saraf</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">🚨 Kapan ini darurat?</h3>
+      <p style="margin-bottom:0">Kelemahan otot MENDADAK yang hanya menyerang SATU SISI tubuh bisa jadi tanda stroke (lihat Sistem Saraf), bukan sekadar kelemahan otot biasa — segera evaluasi kondisi menyeluruh, bukan diasumsikan sebagai kelelahan.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 観察 OBSERVASI ═══════════ -->
+  <div class="organ-panel" id="panel-observasi">
+    <h2>観察 — Poin Observasi Caregiver</h2>
+    <p>Observasi rutin membantu deteksi cepat perubahan mendadak (kemungkinan masalah saraf/akut) maupun penurunan kekuatan bertahap (kemungkinan sarkopenia/disuse).</p>
+
+    <h3>Observasi fungsional sehari-hari</h3>
+    <ul>
+      <li><strong>立ち座りの様子</strong> — Kemampuan bangun-duduk dari kursi (perubahan bisa jadi tanda kelemahan progresif). Butuh dorongan tangan yang MAKIN besar dari waktu ke waktu adalah tanda bertahap yang penting dicatat</li>
+      <li><strong>歩行の様子</strong> — Cara dan kecepatan berjalan, ada tidaknya limbung. Perlambatan kecepatan berjalan yang signifikan adalah salah satu indikator sarkopenia yang paling mudah diamati</li>
+      <li><strong>握力</strong> — Kekuatan genggaman tangan (indikator umum kekuatan otot keseluruhan) — bisa dirasakan sederhana lewat jabat tangan atau kesulitan membuka tutup botol/toples</li>
+    </ul>
+
+    <h3>Observasi untuk deteksi tanda bahaya</h3>
+    <ul>
+      <li><strong>活動量の変化</strong> — Perubahan tingkat aktivitas harian — penurunan MENDADAK (bukan bertahap) patut dicurigai sebagai tanda kondisi akut, bukan sekadar "makin tua makin malas bergerak"</li>
+      <li><strong>左右対称性</strong> — Simetri kekuatan kedua sisi tubuh. Kelemahan otot yang SIMETRIS (kedua sisi) sering terkait proses umum (penuaan, kondisi sistemik), sementara kelemahan yang ASIMETRIS MENDADAK (satu sisi jauh lebih lemah) adalah tanda peringatan penting yang mengarah ke kemungkinan masalah saraf (seperti stroke, dibahas di materi Saraf) — bukan sekadar kelemahan otot biasa</li>
+    </ul>
+
+    <div class="info-card tip">
+      <p style="margin-bottom:0"><strong>Prinsip pencatatan:</strong> bedakan selalu antara perubahan BERTAHAP (selama minggu-bulan, mengarah ke sarkopenia/disuse) dan perubahan MENDADAK (dalam hitungan jam-hari, mengarah ke kemungkinan kondisi akut yang butuh evaluasi segera) — kecepatan perubahan sering lebih informatif dibanding derajat kelemahan itu sendiri.</p>
+    </div>
+  </div>
+
+  <!-- ═══════════ 介護 PERAWATAN ═══════════ -->
+  <div class="organ-panel" id="panel-perawatan">
+    <h2>介護 — Tindakan Perawatan Kaigo</h2>
+    <h3>Dukungan transfer dan mobilitas</h3>
+    <ul>
+      <li>Beri waktu dan dukungan yang cukup saat membantu bangun dari kursi/tempat tidur — jangan terburu-buru</li>
+      <li>Dorong aktivitas fisik ringan rutin sesuai kemampuan untuk memperlambat sarkopenia</li>
+      <li>Gunakan teknik transfer yang benar untuk melindungi punggung caregiver maupun keselamatan lansia</li>
+    </ul>
+    <h3>Pencegahan sindrom disuse</h3>
+    <ul>
+      <li>Dorong gerakan/latihan ringan bahkan saat masa pemulihan sakit (sesuai anjuran tenaga medis)</li>
+      <li>Ubah posisi secara teratur bagi yang banyak berbaring, mencegah kelemahan otot tambahan</li>
+    </ul>
+    <div class="info-card danger">
+      <h3 style="margin-top:0">📞 Kapan harus melapor ke perawat/dokter?</h3>
+      <ul style="margin-bottom:0">
+        <li>Kelemahan otot MENDADAK satu sisi tubuh → SEGERA (kemungkinan stroke, lihat Sistem Saraf)</li>
+        <li>Penurunan kemampuan mobilitas yang cepat dan signifikan</li>
+        <li>Nyeri otot hebat yang tidak biasa, terutama disertai bengkak</li>
+        <li>Jatuh berulang akibat kelemahan otot</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════ 用語 KOSAKATA ═══════════ -->
+  <div class="organ-panel" id="panel-kosakata">
+    <h2>用語 — Kosakata Jepang Sistem Otot</h2>
+    <table class="vocab-table">
+      <thead><tr><th>Jepang</th><th>Furigana</th><th>Indonesia</th><th>Inggris</th></tr></thead>
+      <tbody>
+        <tr><td class="jp">筋肉</td><td>きんにく</td><td>Otot</td><td>Muscle</td></tr>
+        <tr><td class="jp">筋力</td><td>きんりょく</td><td>Kekuatan otot</td><td>Muscle strength</td></tr>
+        <tr><td class="jp">腱</td><td>けん</td><td>Tendon</td><td>Tendon</td></tr>
+        <tr><td class="jp">靭帯</td><td>じんたい</td><td>Ligamen</td><td>Ligament</td></tr>
+        <tr><td class="jp">サルコペニア</td><td>さるこぺにあ</td><td>Sarkopenia</td><td>Sarcopenia</td></tr>
+        <tr><td class="jp">筋肉痛</td><td>きんにくつう</td><td>Nyeri otot</td><td>Muscle pain</td></tr>
+        <tr><td class="jp">こむら返り</td><td>こむらがえり</td><td>Kram kaki</td><td>Leg cramp</td></tr>
+        <tr><td class="jp">立ち上がる</td><td>たちあがる</td><td>Berdiri/bangun</td><td>To stand up</td></tr>
+        <tr><td class="jp">歩行</td><td>ほこう</td><td>Berjalan</td><td>Walking/gait</td></tr>
+        <tr><td class="jp">握力</td><td>あくりょく</td><td>Kekuatan genggaman</td><td>Grip strength</td></tr>
+        <tr><td class="jp">廃用症候群</td><td>はいようしょうこうぐん</td><td>Sindrom disuse</td><td>Disuse syndrome</td></tr>
+        <tr><td class="jp">筋痙攣</td><td>きんけいれん</td><td>Kram otot</td><td>Muscle cramp</td></tr>
+        <tr><td class="jp">関節リウマチ</td><td>かんせつりうまち</td><td>Rheumatoid arthritis</td><td>Rheumatoid arthritis</td></tr>
+        <tr><td class="jp">左右非対称</td><td>さゆうひたいしょう</td><td>Asimetri kiri-kanan</td><td>Left-right asymmetry</td></tr>
+        <tr><td class="jp">早期離床</td><td>そうきりしょう</td><td>Mobilisasi dini</td><td>Early mobilization</td></tr>
+        <tr><td class="jp">朝のこわばり</td><td>あさのこわばり</td><td>Kekakuan pagi hari</td><td>Morning stiffness</td></tr>
+        <tr><td class="jp">レジスタンス運動</td><td>れじすたんすうんどう</td><td>Latihan resistensi</td><td>Resistance exercise</td></tr>
+        <tr><td class="jp">タンパク質摂取</td><td>たんぱくしつせっしゅ</td><td>Asupan protein</td><td>Protein intake</td></tr>
+        <tr><td class="jp">筋萎縮</td><td>きんいしゅく</td><td>Atrofi otot</td><td>Muscle atrophy</td></tr>
+        <tr><td class="jp">寝たきり</td><td>ねたきり</td><td>Tirah baring (bedridden)</td><td>Bedridden</td></tr>
+      </tbody>
+    </table>
+
+    <h3>Contoh kalimat klinis</h3>
+    <div class="clinical-sentence">
+      <div class="jp">椅子から立ち上がるのが難しくなっています。</div>
+      <div class="id">Menjadi sulit bangun dari kursi.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">夜間、足がよくつります。</div>
+      <div class="id">Kakinya sering kram di malam hari.</div>
+    </div>
+    <div class="clinical-sentence">
+      <div class="jp">右手の力が急に弱くなりました。</div>
+      <div class="id">Kekuatan tangan kanannya tiba-tiba melemah.</div>
+    </div>
+  </div>
+
+  <!-- ═══════════ クイズ KUIS ═══════════ -->
+  <div class="organ-panel" id="panel-kuis">
+    <h2>クイズ — Uji Pemahaman</h2>
+    <div id="miniQuizWrap"></div>
+  </div>
+
+  <!-- ═══════════ 症例 STUDI KASUS ═══════════ -->
+  <div class="organ-panel" id="panel-kasus">
+    <h2>症例 — Studi Kasus Klinis</h2>
+    <div class="case-sim">
+      <div class="case-vignette">
+        <strong>Skenario:</strong> Seorang lansia yang baru pulih dari rawat inap selama 3 minggu (banyak berbaring di tempat tidur) kini tampak jauh lebih lemah dari sebelumnya. Ia kesulitan bangun dari kursi sendiri dan berjalan jadi lebih lambat serta tidak stabil, meski tidak ada keluhan nyeri atau kelemahan satu sisi tubuh saja.
+      </div>
+      <div class="case-question">
+        <label>1. Sistem tubuh mana yang kemungkinan besar bermasalah?</label>
+        <select id="caseQ1">
+          <option value="">— Pilih jawaban —</option>
+          <option value="correct">Sistem otot</option>
+          <option value="wrong">Sistem endokrin</option>
+          <option value="wrong">Sistem urinaria</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>2. Kombinasi gejala ini (kelemahan MENYELURUH setelah lama berbaring, kedua sisi tubuh) paling mengarah ke:</label>
+        <select id="caseQ2">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Stroke</option>
+          <option value="correct">Sindrom disuse (廃用症候群) akibat kurang bergerak</option>
+          <option value="wrong">Infeksi saluran kemih</option>
+        </select>
+      </div>
+      <div class="case-question">
+        <label>3. Tindakan caregiver yang PALING tepat sekarang:</label>
+        <select id="caseQ3">
+          <option value="">— Pilih jawaban —</option>
+          <option value="wrong">Menyarankan lebih banyak istirahat lagi</option>
+          <option value="correct">Dukung latihan/gerakan ringan bertahap sesuai anjuran tenaga medis</option>
+          <option value="wrong">Membiarkan karena ini "wajar" untuk lansia</option>
+        </select>
+      </div>
+      <button class="case-submit" onclick="checkCaseAnswers()">Periksa Jawaban</button>
+      <div class="case-result" id="caseResult"></div>
+    </div>
+  </div>
+
+</div>
+
+</main>
+
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+// v206: Model 3D otot & mobilitas -- diintegrasikan dari file yang
+// disediakan pengguna (muscle_mobility_3d_kaigo_package.zip). Semua
+// pelajaran dari integrasi sebelumnya (import map, ResizeObserver,
+// normalisasi underscore) diterapkan LANGSUNG sejak awal.
+//
+// CATATAN: GLB berisi 24 mesh, tapi metadata hanya 20 entri -- 4 bagian
+// (Tibia Kanan/Kiri, Pergelangan Kaki Kanan/Kiri) TIDAK punya deskripsi.
+// viewer.js referensi pengguna diam-diam mengembalikan tanpa mengubah UI
+// saat data[n] undefined (info sebelumnya tertinggal di layar, membingungkan).
+// Diperbaiki: fallback eksplisit "metadata tidak tersedia" ditampilkan
+// alih-alih membiarkan teks lama menempel.
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+
+(async function () {
+  const container = document.getElementById('muscle3dContainer');
+  const loadingEl = document.getElementById('muscle3dLoading');
+  const errorEl = document.getElementById('muscle3dError');
+  const nameEl = document.getElementById('muscle3dName');
+  const detailEl = document.getElementById('muscle3dDetail');
+  const kaigoEl = document.getElementById('muscle3dKaigo');
+  if (!container) return;
+
+  function showError(msg) {
+    if (loadingEl) loadingEl.style.display = 'none';
+    if (errorEl) { errorEl.style.display = 'flex'; errorEl.textContent = msg; }
+    console.warn('[Muscle 3D Viewer]', msg);
+  }
+
+  if (!window.WebGLRenderingContext) {
+    showError('Browser Anda tidak mendukung WebGL -- model 3D tidak dapat ditampilkan. Fitur lain di halaman ini tetap berfungsi normal.');
+    return;
+  }
+
+  let metadata = {};
+  try {
+    const res = await fetch('../assets/models/muscle/muscle-data.json');
+    metadata = await res.json();
+  } catch (err) {
+    console.warn('[Muscle 3D Viewer] Metadata gagal dimuat, label akan pakai nama mesh mentah:', err);
+  }
+
+  try {
+    const FALLBACK_W = 560, FALLBACK_H = 360;
+    let width = container.clientWidth || FALLBACK_W;
+    let height = container.clientHeight || FALLBACK_H;
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(width, height);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    const defaultCamPos = { x: 4.7, y: 2.8, z: 7.4 };
+    camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0, 0, .7);
+    controls.minDistance = 3.5;
+    controls.maxDistance = 12;
+
+    if (typeof ResizeObserver !== 'undefined') {
+      const resizeObserver = new ResizeObserver(function (entries) {
+        for (const entry of entries) {
+          const w = entry.contentRect.width, h = entry.contentRect.height;
+          if (w > 0 && h > 0 && (w !== width || h !== height)) {
+            width = w; height = h;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+          }
+        }
+      });
+      resizeObserver.observe(container);
+    }
+
+    scene.add(new THREE.HemisphereLight(0xffffff, 0x657487, 2.6));
+    const key = new THREE.DirectionalLight(0xffffff, 2.7); key.position.set(5, 7, 8); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xd8e6ff, 1.2); rim.position.set(-5, 2, -5); scene.add(rim);
+
+    let standMode = false, weakMode = false, selected = null;
+    const selectable = [];
+    const weakMeshes = [];
+    const primeMeshes = [];
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+
+    function cleanName(rawName) {
+      let n = (rawName || '').replace(/_\d+$/, '');
+      n = n.replace(/_/g, ' ');
+      return n;
+    }
+
+    new GLTFLoader().load(
+      '../assets/models/muscle/muscle_mobility_educational.glb',
+      function (gltf) {
+        gltf.scene.traverse(function (o) {
+          if (!o.isMesh) return;
+          o.material = o.material.clone();
+          o.material.roughness = 0.58; o.material.metalness = 0;
+          o.userData.baseEmissive = o.material.emissive.clone();
+          const n = cleanName(o.name);
+          if (n.startsWith('Area ')) {
+            o.visible = false; // tersembunyi default -- muncul saat simulasi sarkopenia aktif
+            weakMeshes.push(o);
+          }
+          if (n.startsWith('Quadriceps') || n.startsWith('Gluteus') || n === 'Otot Inti') {
+            primeMeshes.push(o);
+          }
+          selectable.push(o);
+        });
+        scene.add(gltf.scene);
+        if (loadingEl) loadingEl.style.display = 'none';
+      },
+      undefined,
+      function (err) {
+        showError('Model 3D gagal dimuat. Coba muat ulang halaman -- fitur lain tetap berfungsi normal.');
+      }
+    );
+
+    // Fallback eksplisit untuk 4 bagian tanpa metadata (Tibia, Pergelangan
+    // Kaki) -- lihat catatan bug di atas. UI selalu diperbarui, tidak pernah
+    // dibiarkan menampilkan info dari klik sebelumnya.
+    function labelFor(rawName) {
+      const name = cleanName(rawName);
+      const m = metadata[name];
+      if (!m) return { title: name || 'Bagian tidak dikenal', detail: 'Metadata belum tersedia untuk bagian ini.', kaigo: '' };
+      return { title: name + '（' + m.jp + '） ' + m.en, detail: m.function, kaigo: '介護ポイント: ' + m.kaigo };
+    }
+
+    renderer.domElement.addEventListener('pointerdown', function (e) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      pointer.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      pointer.y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      raycaster.setFromCamera(pointer, camera);
+      const visibleSelectable = selectable.filter(function (o) { return o.visible; });
+      const hit = raycaster.intersectObjects(visibleSelectable, false)[0];
+      if (!hit) return;
+      selectPart(hit.object);
+    });
+
+    function selectPart(obj) {
+      if (selected) selected.scale.setScalar(1);
+      selected = obj;
+      obj.scale.setScalar(1.055);
+      const name = obj.name || (obj.parent && obj.parent.name) || 'unknown';
+      const label = labelFor(name);
+      if (nameEl) nameEl.textContent = label.title;
+      if (detailEl) detailEl.textContent = label.detail;
+      if (kaigoEl) kaigoEl.textContent = label.kaigo;
+    }
+
+    const resetBtn = document.getElementById('muscle3dResetBtn');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', function () {
+        camera.position.set(defaultCamPos.x, defaultCamPos.y, defaultCamPos.z);
+        controls.target.set(0, 0, .7);
+        controls.update();
+      });
+    }
+
+    // Simulasi berdiri: menyalakan emissive lembut pada otot utama penopang
+    // berdiri (Quadriceps, Gluteus, Otot Inti).
+    const standBtn = document.getElementById('muscle3dStandBtn');
+    if (standBtn) {
+      standBtn.addEventListener('click', function () {
+        standMode = !standMode;
+        standBtn.classList.toggle('active', standMode);
+        primeMeshes.forEach(function (o) {
+          if (standMode) {
+            o.material.emissive.set(0x5b2200);
+            o.material.emissiveIntensity = .55;
+          } else {
+            o.material.emissive.copy(o.userData.baseEmissive);
+            o.material.emissiveIntensity = 1;
+          }
+        });
+      });
+    }
+
+    // Simulasi sarkopenia/disuse: menampilkan 3 mesh area yang tersembunyi
+    // default -- menghubungkan visual 3D dengan pembeda sindrom disuse vs
+    // stroke yang sudah dijelaskan di tab 症例 halaman ini.
+    const weakBtn = document.getElementById('muscle3dWeakBtn');
+    const weakTextEl = document.getElementById('muscle3dWeakText');
+    if (weakBtn) {
+      weakBtn.addEventListener('click', function () {
+        weakMode = !weakMode;
+        weakBtn.classList.toggle('active', weakMode);
+        weakBtn.textContent = weakMode ? '✅ Matikan Simulasi' : '🚨 Simulasi Sarkopenia';
+        if (weakTextEl) weakTextEl.style.display = weakMode ? 'block' : 'none';
+        weakMeshes.forEach(function (o) { o.visible = weakMode; });
+        if (weakMode && weakMeshes[0]) selectPart(weakMeshes[0]);
+      });
+    }
+
+    const clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+  } catch (err) {
+    showError('Terjadi kesalahan saat menyiapkan viewer 3D -- fitur lain tetap berfungsi normal.');
+  }
+})();
+</script>
+<script>
+'use strict';
+(function () {
+  var tabsWrap = document.getElementById('organTabs');
+  tabsWrap.addEventListener('click', function (e) {
+    var btn = e.target.closest('.organ-tab');
+    if (!btn) return;
+    document.querySelectorAll('.organ-tab').forEach(function (b) {
+      b.classList.remove('active'); b.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.organ-panel').forEach(function (p) { p.classList.remove('active'); });
+    btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
+    var panel = document.getElementById('panel-' + btn.dataset.tab);
+    if (panel) panel.classList.add('active');
+  });
+
+  var muscleBtn = document.getElementById('muscleToggleBtn');
+  if (muscleBtn) {
+    muscleBtn.addEventListener('click', function () {
+      var svg = document.querySelector('.muscle-wrap svg');
+      var elements = svg.querySelectorAll('.ms-actin-l, .ms-actin-r, .ms-myosin, .ms-atp');
+      var paused = muscleBtn.dataset.paused === 'true';
+      if (!paused) {
+        elements.forEach(function (el) { el.style.animationPlayState = 'paused'; });
+        muscleBtn.textContent = '▶ Lanjutkan animasi';
+        muscleBtn.dataset.paused = 'true';
+      } else {
+        elements.forEach(function (el) { el.style.animationPlayState = 'running'; });
+        muscleBtn.textContent = '⏸ Jeda animasi';
+        muscleBtn.dataset.paused = 'false';
+      }
+    });
+  }
+
+  var MINI_Q = [
+    { q: 'Dua protein filamen yang saling meluncur saat otot berkontraksi adalah?', opts: ['Aktin dan miosin', 'Insulin dan glukagon', 'Kolagen dan elastin'], a: 0 },
+    { q: 'Istilah untuk kehilangan massa dan kekuatan otot terkait usia adalah?', opts: ['Osteoporosis', 'Sarkopenia', 'Neuropati'], a: 1 },
+    { q: 'Kelemahan otot MENDADAK yang hanya menyerang satu sisi tubuh paling perlu dicurigai sebagai?', opts: ['Kelelahan biasa', 'Tanda stroke — perlu evaluasi segera', 'Efek kurang olahraga'], a: 1 },
+    { q: 'Kehilangan kekuatan otot selama periode tirah baring terjadi dengan kecepatan yang?', opts: ['Jauh lebih cepat dibanding membangunnya kembali', 'Sama cepatnya dengan proses pemulihan', 'Selalu lebih lambat dari pemulihan'], a: 0 },
+    { q: 'Ciri khas yang membedakan rheumatoid arthritis dari nyeri sendi biasa akibat penuaan adalah?', opts: ['Kekakuan pagi hari yang lama dan mengenai sendi secara simetris', 'Hanya terjadi pada satu sendi saja seumur hidup', 'Tidak pernah menyebabkan kekakuan'], a: 0 },
+    { q: 'Kram otot yang perlu dilaporkan (bukan sekadar kram biasa) adalah yang disertai?', opts: ['Kelemahan otot tidak biasa atau gejala lain seperti nyeri dada', 'Terjadi hanya sesekali di malam hari', 'Tidak ada tanda tambahan apapun'], a: 0 },
+    { q: 'Tiga indikator praktis sarkopenia yang bisa diamati caregiver adalah kecepatan berjalan, kekuatan genggaman, dan?', opts: ['Kesulitan bangkit dari kursi tanpa bantuan tangan', 'Warna kulit', 'Suhu tubuh'], a: 0 },
+    { q: 'Prinsip mobilisasi dini pada perawatan pasien pasca-sakit didasarkan pada pemahaman bahwa?', opts: ['Istirahat total selalu lebih aman dalam segala kondisi', 'Bergerak sesegera mungkin (sesuai izin medis) mencegah pelemahan otot cepat akibat tirah baring', 'Mobilisasi tidak memengaruhi kekuatan otot'], a: 1 },
+  ];
+  var miniIdx = 0, miniLocked = false, miniScore = 0;
+
+  function renderMiniQuiz() {
+    miniLocked = false;
+    var wrap = document.getElementById('miniQuizWrap');
+    if (miniIdx >= MINI_Q.length) {
+      wrap.innerHTML = '<div class="info-card tip"><h3 style="margin-top:0">Selesai!</h3><p style="margin-bottom:0">Skor Anda: ' + miniScore + '/' + MINI_Q.length + '</p></div>';
+      return;
+    }
+    var q = MINI_Q[miniIdx];
+    var html = '<p style="font-weight:700">Soal ' + (miniIdx + 1) + '/' + MINI_Q.length + ': ' + q.q + '</p>';
+    q.opts.forEach(function (opt, i) {
+      html += '<button class="mini-quiz-choice" data-i="' + i + '">' + opt + '</button>';
+    });
+    wrap.innerHTML = html;
+    wrap.querySelectorAll('.mini-quiz-choice').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        if (miniLocked) return;
+        miniLocked = true;
+        var i = parseInt(btn.dataset.i, 10);
+        var correct = i === q.a;
+        if (correct) miniScore++;
+        wrap.querySelectorAll('.mini-quiz-choice').forEach(function (b, bi) {
+          b.disabled = true;
+          if (bi === q.a) b.classList.add('correct');
+          else if (bi === i) b.classList.add('wrong');
+        });
+        setTimeout(function () { miniIdx++; renderMiniQuiz(); }, 1400);
+      });
+    });
+  }
+  renderMiniQuiz();
+
+  window.checkCaseAnswers = function () {
+    var q1 = document.getElementById('caseQ1').value;
+    var q2 = document.getElementById('caseQ2').value;
+    var q3 = document.getElementById('caseQ3').value;
+    var resultEl = document.getElementById('caseResult');
+    if (!q1 || !q2 || !q3) {
+      resultEl.className = 'case-result show incorrect';
+      resultEl.innerHTML = '⚠️ Jawab ketiga pertanyaan terlebih dahulu.';
+      return;
+    }
+    var allCorrect = q1 === 'correct' && q2 === 'correct' && q3 === 'correct';
+    resultEl.className = 'case-result show ' + (allCorrect ? 'correct' : 'incorrect');
+    resultEl.innerHTML = allCorrect
+      ? '<strong>✅ Tepat!</strong><br>Kelemahan MENYELURUH (bukan satu sisi) setelah lama berbaring adalah tanda klasik <strong>sindrom disuse (廃用症候群)</strong> — otot melemah akibat kurang bergerak, bukan gangguan saraf mendadak. Penanganannya adalah mendorong gerakan/latihan bertahap, BUKAN membiarkan lebih banyak istirahat (yang justru memperparah) atau menganggapnya "wajar untuk lansia" tanpa intervensi.'
+      : '<strong>Belum tepat.</strong><br>Petunjuk: perhatikan bahwa kelemahan ini MENYELURUH (bukan satu sisi seperti stroke) dan MUNCUL SETELAH periode lama tidak bergerak — pola ini mengarah ke pelemahan otot akibat inaktivitas, yang penanganannya justru butuh MENDORONG gerakan bertahap, bukan istirahat tambahan.';
+  };
+})();
+</script>
+
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

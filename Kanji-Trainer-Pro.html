@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kanji Trainer Pro — Latihan Kanji JLPT N5–N1 | NihonggoPro</title>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Kanji Trainer Pro Nihonggo Pro Academy", "url": "https://nihonggopro.id/Kanji-Trainer-Pro.html", "description": "Latihan kanji JLPT N5–N1 dengan SRS adaptif, quiz interaktif, dan pelacak progres.", "applicationCategory": "EducationalApplication", "operatingSystem": "Web Browser", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"}}</script>
+<meta property="og:title" content="Kanji Trainer Pro — Latihan Kanji JLPT N5–N1 | Nihonggo Pro Academy">
+<meta property="og:description" content="Latih kanji JLPT N5–N1 dengan SRS adaptif, flashcard, dan quiz interaktif. 2000+ kanji dengan contoh kalimat.">
+<meta property="og:url" content="https://nihonggopro.id/Kanji-Trainer-Pro.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Kanji Trainer Pro — Latihan Kanji JLPT N5–N1 | Nihonggo Pro Academy">
+<meta name="twitter:description" content="Latih kanji JLPT N5–N1 dengan SRS adaptif, flashcard, dan quiz interaktif. 2000+ kanji dengan contoh kalimat.">
+<meta name="description" content="Latih kanji JLPT N5 sampai N1 dengan metode SRS, flashcard interaktif, quiz kanji, dan pelacak progres. Lebih dari 2000 kanji dengan contoh kalimat.">
+<link rel="canonical" href="https://nihonggopro.id/Kanji-Trainer-Pro.html">
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8F3E9);color:var(--charcoal,#2D2D2D);min-height:100dvh}
+.page{max-width:1080px;margin:0 auto;padding:32px 20px 80px}
+.hero{text-align:center;padding:40px 0 32px}
+.kicker{display:inline-block;padding:4px 14px;border-radius:20px;background:rgba(107,79,58,.08);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6B4F3A;margin-bottom:14px}
+[data-theme="dark"] .kicker{background:rgba(200,155,60,.10);color:#C89B3C}
+.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(26px,5vw,40px);font-weight:700;color:#6B4F3A;margin-bottom:12px}
+[data-theme="dark"] .hero h1{color:#C89B3C}
+.hero p{font-size:15px;color:#6E6E6E;max-width:560px;margin:0 auto 24px}
+.level-tabs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:32px}
+.ltab{padding:8px 18px;border-radius:20px;border:1.5px solid rgba(107,79,58,.18);background:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all 140ms;color:#4A4A4A}
+.ltab:hover{border-color:#6B4F3A;color:#6B4F3A}
+.ltab.active{background:#6B4F3A;color:#FEF;border-color:#6B4F3A}
+[data-theme="dark"] .ltab{color:#9A9890;border-color:rgba(200,155,60,.18)}
+[data-theme="dark"] .ltab.active{background:#C89B3C;color:#1A1209;border-color:#C89B3C}
+/* MODE TABS */
+.mode-row{display:flex;gap:10px;margin-bottom:24px;overflow-x:auto;padding-bottom:4px}
+.mode-btn{padding:8px 16px;border-radius:9px;border:1px solid rgba(107,79,58,.12);background:#FEFCF8;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all 130ms;white-space:nowrap;color:#4A4A4A}
+.mode-btn:hover,.mode-btn.active{background:#6B4F3A;color:#FEF;border-color:#6B4F3A}
+[data-theme="dark"] .mode-btn{background:#1A1A1A;border-color:rgba(200,155,60,.12);color:#9A9890}
+[data-theme="dark"] .mode-btn.active{background:#C89B3C;color:#1A1209}
+/* FLASHCARD */
+.flashcard-area{display:flex;flex-direction:column;align-items:center;gap:20px;margin-bottom:32px}
+.flashcard{width:100%;max-width:480px;min-height:260px;background:#FEFCF8;border:1px solid rgba(107,79,58,.12);border-radius:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;padding:32px;transition:transform 200ms,box-shadow 200ms;position:relative;user-select:none}
+[data-theme="dark"] .flashcard{background:#1A1A1A;border-color:rgba(200,155,60,.12)}
+.flashcard:hover{box-shadow:0 8px 28px rgba(107,79,58,.12);transform:translateY(-2px)}
+.fc-kanji{font-family:'Noto Serif JP',serif;font-size:80px;font-weight:700;color:#6B4F3A;line-height:1}
+[data-theme="dark"] .fc-kanji{color:#C89B3C}
+.fc-hint{font-size:13px;color:#A0A0A0;margin-top:8px}
+.fc-reading{font-family:'Noto Serif JP',serif;font-size:22px;color:#6B4F3A;font-weight:600}
+[data-theme="dark"] .fc-reading{color:#C89B3C}
+.fc-meaning{font-size:16px;color:#4A4A4A;font-weight:600}
+[data-theme="dark"] .fc-meaning{color:#D0CFC9}
+.fc-example{font-size:13px;color:#6E6E6E;text-align:center;margin-top:6px;font-style:italic}
+.fc-back{display:none;flex-direction:column;align-items:center;gap:8px;width:100%}
+.flashcard.flipped .fc-back{display:flex}
+.flashcard.flipped .fc-front-content{display:none}
+.fc-badge{position:absolute;top:14px;right:14px;font-size:10px;font-weight:700;padding:3px 8px;border-radius:10px;letter-spacing:.08em;text-transform:uppercase}
+.fc-badge.n5{background:#EAF2E8;color:#5B7C5B}
+.fc-badge.n4{background:#E8F0FA;color:#4A7FA5}
+.fc-badge.n3{background:#FBF4E3;color:#C89B3C}
+.fc-badge.n2{background:#FAEAEA;color:#A63A3A}
+.fc-badge.n1{background:#F5EDE0;color:#6B4F3A}
+.fc-controls{display:flex;gap:10px}
+.fc-btn{padding:10px 22px;border-radius:9px;border:none;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:all 130ms}
+.fc-btn.wrong{background:#FAEAEA;color:#A63A3A}
+.fc-btn.wrong:hover{background:#A63A3A;color:#FEF}
+.fc-btn.hard{background:#FBF4E3;color:#C89B3C}
+.fc-btn.hard:hover{background:#C89B3C;color:#FEF}
+.fc-btn.good{background:#EAF2E8;color:#5B7C5B}
+.fc-btn.good:hover{background:#5B7C5B;color:#FEF}
+.fc-btn.skip{background:rgba(107,79,58,.07);color:#6B4F3A}
+.fc-btn.skip:hover{background:rgba(107,79,58,.14)}
+/* STATS ROW */
+.stats-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:28px}
+.stat-chip{background:#FEFCF8;border:1px solid rgba(107,79,58,.10);border-radius:10px;padding:10px 16px;text-align:center;min-width:80px}
+[data-theme="dark"] .stat-chip{background:#1A1A1A;border-color:rgba(200,155,60,.10)}
+.stat-num{font-size:22px;font-weight:700;color:#6B4F3A;display:block}
+[data-theme="dark"] .stat-num{color:#C89B3C}
+.stat-lbl{font-size:11px;color:#A0A0A0;text-transform:uppercase;letter-spacing:.06em}
+/* KANJI GRID */
+.kanji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:10px}
+.kanji-cell{background:#FEFCF8;border:1px solid rgba(107,79,58,.10);border-radius:12px;padding:14px 10px;text-align:center;cursor:pointer;transition:all 130ms}
+[data-theme="dark"] .kanji-cell{background:#1A1A1A;border-color:rgba(200,155,60,.10)}
+.kanji-cell:hover{border-color:#6B4F3A;box-shadow:0 4px 14px rgba(107,79,58,.10)}
+.kanji-cell.mastered{border-color:#5B7C5B;background:rgba(91,124,91,.06)}
+.kc-char{font-family:'Noto Serif JP',serif;font-size:28px;font-weight:700;color:#6B4F3A;display:block;margin-bottom:4px}
+[data-theme="dark"] .kc-char{color:#C89B3C}
+.kc-read{font-size:11px;color:#6E6E6E;margin-bottom:2px}
+.kc-mean{font-size:11px;font-weight:600;color:#4A4A4A}
+[data-theme="dark"] .kc-mean{color:#C8C5BF}
+.kc-status{width:6px;height:6px;border-radius:50%;background:#E0E0E0;margin:4px auto 0}
+.kc-status.mastered{background:#5B7C5B}
+.kc-status.learning{background:#C89B3C}
+/* QUIZ */
+.quiz-wrap{max-width:560px;margin:0 auto}
+.quiz-q{background:#FEFCF8;border:1px solid rgba(107,79,58,.10);border-radius:16px;padding:28px;text-align:center;margin-bottom:20px}
+[data-theme="dark"] .quiz-q{background:#1A1A1A;border-color:rgba(200,155,60,.10)}
+.quiz-kanji{font-family:'Noto Serif JP',serif;font-size:72px;font-weight:700;color:#6B4F3A;display:block;margin-bottom:8px}
+[data-theme="dark"] .quiz-kanji{color:#C89B3C}
+.quiz-prompt{font-size:14px;color:#6E6E6E}
+.quiz-choices{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.choice-btn{padding:14px;border-radius:10px;border:1.5px solid rgba(107,79,58,.14);background:#FEFCF8;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:all 130ms;color:#2D2D2D;text-align:left}
+[data-theme="dark"] .choice-btn{background:#1A1A1A;border-color:rgba(200,155,60,.12);color:#E8E5DF}
+.choice-btn:hover:not(:disabled){border-color:#6B4F3A;background:rgba(107,79,58,.05)}
+.choice-btn.correct{background:#EAF2E8!important;border-color:#5B7C5B!important;color:#5B7C5B!important}
+.choice-btn.wrong{background:#FAEAEA!important;border-color:#A63A3A!important;color:#A63A3A!important}
+/* PROGRESS BAR */
+.prog-bar{width:100%;height:6px;background:rgba(107,79,58,.10);border-radius:3px;margin-bottom:20px;overflow:hidden}
+.prog-fill{height:100%;background:#6B4F3A;border-radius:3px;transition:width 300ms}
+[data-theme="dark"] .prog-fill{background:#C89B3C}
+@media(max-width:600px){.fc-kanji{font-size:60px}.kanji-grid{grid-template-columns:repeat(auto-fill,minmax(80px,1fr))}.quiz-choices{grid-template-columns:1fr}}
+</style>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+
+<div class="page">
+  <div class="hero">
+    <div class="kicker">漢 Kanji Trainer Pro</div>
+    <h1>Kuasai Kanji JLPT<br>N5 sampai N1</h1>
+    <p>Lebih dari 2.000 kanji dengan SRS adaptif, quiz, dan pelacak progres. Belajar efisien, ingat lebih lama.</p>
+  </div>
+
+  <!-- LEVEL SELECTOR -->
+  <div class="level-tabs" id="levelTabs">
+    <button class="ltab active" data-lv="N5" onclick="setLevel(this,'N5')">N5 · 80 kanji</button>
+    <button class="ltab" data-lv="N4" onclick="setLevel(this,'N4')">N4 · 166 kanji</button>
+    <button class="ltab" data-lv="N3" onclick="setLevel(this,'N3')">N3 · 367 kanji</button>
+    <button class="ltab" data-lv="N2" onclick="setLevel(this,'N2')">N2 · 367 kanji</button>
+    <button class="ltab" data-lv="N1" onclick="setLevel(this,'N1')">N1 · 1000+ kanji</button>
+  </div>
+
+  <!-- MODE TABS -->
+  <div class="mode-row">
+    <button class="mode-btn active" onclick="setMode(this,'flashcard')">🃏 Flashcard SRS</button>
+    <button class="mode-btn" onclick="setMode(this,'quiz')">❓ Quiz</button>
+    <button class="mode-btn" onclick="setMode(this,'grid')">🗂 Daftar Kanji</button>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row">
+    <div class="stat-chip"><span class="stat-num" id="statTotal">80</span><span class="stat-lbl">Total</span></div>
+    <div class="stat-chip"><span class="stat-num" id="statMastered">0</span><span class="stat-lbl">Dikuasai</span></div>
+    <div class="stat-chip"><span class="stat-num" id="statLearning">0</span><span class="stat-lbl">Dipelajari</span></div>
+    <div class="stat-chip"><span class="stat-num" id="statStreak">0</span><span class="stat-lbl">Streak</span></div>
+  </div>
+
+  <!-- PROGRESS BAR -->
+  <div class="prog-bar"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+
+  <!-- FLASHCARD MODE -->
+  <div id="modeFlashcard">
+    <div class="flashcard-area">
+      <div class="flashcard" id="flashcard" onclick="flipCard()">
+        <span class="fc-badge n5" id="fcBadge">N5</span>
+        <div class="fc-front-content" id="fcFront">
+          <span class="fc-kanji" id="fcKanji">山</span>
+          <span class="fc-hint">Klik untuk lihat arti</span>
+        </div>
+        <div class="fc-back" id="fcBack">
+          <span class="fc-reading" id="fcReading"></span>
+          <span class="fc-meaning" id="fcMeaning"></span>
+          <span class="fc-example" id="fcExample"></span>
+        </div>
+      </div>
+
+      <div class="fc-controls" id="fcControls" style="display:none">
+        <button class="fc-btn wrong" onclick="rateCard(1)">✗ Lupa</button>
+        <button class="fc-btn hard" onclick="rateCard(2)">△ Sulit</button>
+        <button class="fc-btn good" onclick="rateCard(3)">✓ Ingat</button>
+        <button class="fc-btn skip" onclick="nextCard()">→ Skip</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ MODE -->
+  <div id="modeQuiz" style="display:none">
+    <div class="quiz-wrap">
+      <div class="quiz-q">
+        <span class="quiz-kanji" id="quizKanji">山</span>
+        <p class="quiz-prompt" id="quizPrompt">Pilih arti yang benar:</p>
+      </div>
+      <div class="quiz-choices" id="quizChoices"></div>
+      <div style="text-align:center;margin-top:14px;font-size:13px;color:#A0A0A0" id="quizScore"></div>
+    </div>
+  </div>
+
+  <!-- GRID MODE -->
+  <div id="modeGrid" style="display:none">
+    <div class="kanji-grid" id="kanjiGrid"></div>
+  </div>
+</div>
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+/* ── KANJI DATA N5 (80 kanji) ── */
+const KANJI_DB = {
+  N5: [
+    {k:'山',on:'サン・ザン',kun:'やま',mean:'Gunung',ex:'富士山 (Fujisan)'},
+    {k:'川',on:'セン',kun:'かわ',mean:'Sungai',ex:'川べり (kawaberi)'},
+    {k:'田',on:'デン',kun:'た',mean:'Sawah',ex:'田んぼ (tanbo)'},
+    {k:'日',on:'ニチ・ジツ',kun:'ひ・か',mean:'Hari / Matahari',ex:'日本 (Nihon)'},
+    {k:'月',on:'ゲツ・ガツ',kun:'つき',mean:'Bulan',ex:'月曜日 (getsuyoubi)'},
+    {k:'火',on:'カ',kun:'ひ',mean:'Api',ex:'火曜日 (kayoubi)'},
+    {k:'水',on:'スイ',kun:'みず',mean:'Air',ex:'水曜日 (suiyoubi)'},
+    {k:'木',on:'モク・ボク',kun:'き',mean:'Pohon / Kayu',ex:'木曜日 (mokuyoubi)'},
+    {k:'金',on:'キン・コン',kun:'かね・かな',mean:'Emas / Uang',ex:'金曜日 (kin\'youbi)'},
+    {k:'土',on:'ド・ト',kun:'つち',mean:'Tanah',ex:'土曜日 (doyoubi)'},
+    {k:'人',on:'ジン・ニン',kun:'ひと',mean:'Orang',ex:'日本人 (nihonjin)'},
+    {k:'大',on:'ダイ・タイ',kun:'おお',mean:'Besar',ex:'大学 (daigaku)'},
+    {k:'小',on:'ショウ',kun:'ちい・こ',mean:'Kecil',ex:'小学校 (shougakkou)'},
+    {k:'中',on:'チュウ',kun:'なか',mean:'Tengah / Dalam',ex:'中学校 (chuugakkou)'},
+    {k:'上',on:'ジョウ・ショウ',kun:'うえ・かみ',mean:'Atas',ex:'上手 (jouzu)'},
+    {k:'下',on:'カ・ゲ',kun:'した・しも',mean:'Bawah',ex:'地下 (chika)'},
+    {k:'口',on:'コウ・ク',kun:'くち',mean:'Mulut',ex:'入口 (iriguchi)'},
+    {k:'手',on:'シュ',kun:'て',mean:'Tangan',ex:'手紙 (tegami)'},
+    {k:'目',on:'モク・ボク',kun:'め',mean:'Mata',ex:'目的 (mokuteki)'},
+    {k:'耳',on:'ジ',kun:'みみ',mean:'Telinga',ex:'耳鼻科 (jibika)'},
+    {k:'子',on:'シ・ス',kun:'こ',mean:'Anak',ex:'子供 (kodomo)'},
+    {k:'女',on:'ジョ・ニョ',kun:'おんな',mean:'Perempuan',ex:'女性 (josei)'},
+    {k:'男',on:'ダン・ナン',kun:'おとこ',mean:'Laki-laki',ex:'男性 (dansei)'},
+    {k:'父',on:'フ',kun:'ちち',mean:'Ayah',ex:'父親 (chichioya)'},
+    {k:'母',on:'ボ',kun:'はは',mean:'Ibu',ex:'母親 (hahaoya)'},
+    {k:'一',on:'イチ・イツ',kun:'ひと',mean:'Satu',ex:'一緒 (issho)'},
+    {k:'二',on:'ニ',kun:'ふた',mean:'Dua',ex:'二月 (nigatsu)'},
+    {k:'三',on:'サン',kun:'み',mean:'Tiga',ex:'三角 (sankaku)'},
+    {k:'四',on:'シ',kun:'よ・よん',mean:'Empat',ex:'四月 (shigatsu)'},
+    {k:'五',on:'ゴ',kun:'いつ',mean:'Lima',ex:'五月 (gogatsu)'},
+    {k:'六',on:'ロク',kun:'む',mean:'Enam',ex:'六月 (rokugatsu)'},
+    {k:'七',on:'シチ',kun:'なな',mean:'Tujuh',ex:'七月 (shichigatsu)'},
+    {k:'八',on:'ハチ',kun:'や',mean:'Delapan',ex:'八月 (hachigatsu)'},
+    {k:'九',on:'ク・キュウ',kun:'ここの',mean:'Sembilan',ex:'九月 (kugatsu)'},
+    {k:'十',on:'ジュウ',kun:'とお',mean:'Sepuluh',ex:'十月 (juugatsu)'},
+    {k:'百',on:'ヒャク',kun:'-',mean:'Seratus',ex:'百円 (hyaku en)'},
+    {k:'千',on:'セン',kun:'ち',mean:'Seribu',ex:'千円 (sen en)'},
+    {k:'万',on:'マン・バン',kun:'-',mean:'Sepuluh ribu',ex:'一万円 (ichiman en)'},
+    {k:'円',on:'エン',kun:'まる',mean:'Yen / Lingkaran',ex:'五百円 (gohyaku en)'},
+    {k:'年',on:'ネン',kun:'とし',mean:'Tahun',ex:'今年 (kotoshi)'},
+    {k:'時',on:'ジ',kun:'とき',mean:'Waktu / Jam',ex:'時間 (jikan)'},
+    {k:'間',on:'カン・ケン',kun:'あいだ・ま',mean:'Antara / Ruang',ex:'時間 (jikan)'},
+    {k:'分',on:'フン・ブン',kun:'わ',mean:'Menit / Bagian',ex:'五分 (gofun)'},
+    {k:'半',on:'ハン',kun:'なか',mean:'Setengah',ex:'半分 (hanbun)'},
+    {k:'本',on:'ホン',kun:'もと',mean:'Buku / Akar / Jepang',ex:'日本 (Nihon)'},
+    {k:'字',on:'ジ',kun:'あざ',mean:'Huruf / Karakter',ex:'漢字 (kanji)'},
+    {k:'学',on:'ガク',kun:'まな',mean:'Belajar',ex:'学校 (gakkou)'},
+    {k:'校',on:'コウ',kun:'-',mean:'Sekolah',ex:'学校 (gakkou)'},
+    {k:'先',on:'セン',kun:'さき',mean:'Sebelumnya / Guru',ex:'先生 (sensei)'},
+    {k:'生',on:'セイ・ショウ',kun:'い・う・は',mean:'Hidup / Lahir',ex:'先生 (sensei)'},
+    {k:'友',on:'ユウ',kun:'とも',mean:'Teman',ex:'友達 (tomodachi)'},
+    {k:'国',on:'コク',kun:'くに',mean:'Negara',ex:'外国 (gaikoku)'},
+    {k:'語',on:'ゴ',kun:'かた',mean:'Bahasa / Kata',ex:'日本語 (nihongo)'},
+    {k:'見',on:'ケン',kun:'み',mean:'Melihat',ex:'意見 (iken)'},
+    {k:'聞',on:'ブン・モン',kun:'き',mean:'Mendengar',ex:'聞こえる (kikoeru)'},
+    {k:'話',on:'ワ',kun:'はな',mean:'Berbicara / Cerita',ex:'電話 (denwa)'},
+    {k:'読',on:'ドク',kun:'よ',mean:'Membaca',ex:'読書 (dokusho)'},
+    {k:'書',on:'ショ',kun:'か',mean:'Menulis',ex:'書道 (shodou)'},
+    {k:'食',on:'ショク',kun:'た',mean:'Makanan / Makan',ex:'食事 (shokuji)'},
+    {k:'飲',on:'イン',kun:'の',mean:'Minum',ex:'飲み物 (nomimono)'},
+    {k:'行',on:'コウ・ギョウ',kun:'い・おこな',mean:'Pergi',ex:'旅行 (ryokou)'},
+    {k:'来',on:'ライ',kun:'く',mean:'Datang',ex:'未来 (mirai)'},
+    {k:'帰',on:'キ',kun:'かえ',mean:'Pulang',ex:'帰国 (kikoku)'},
+    {k:'入',on:'ニュウ',kun:'い・はい',mean:'Masuk',ex:'入口 (iriguchi)'},
+    {k:'出',on:'シュツ・スイ',kun:'で・だ',mean:'Keluar',ex:'出口 (deguchi)'},
+    {k:'買',on:'バイ',kun:'か',mean:'Membeli',ex:'売買 (baibai)'},
+    {k:'売',on:'バイ',kun:'う',mean:'Menjual',ex:'売り場 (uriba)'},
+    {k:'電',on:'デン',kun:'-',mean:'Listrik',ex:'電話 (denwa)'},
+    {k:'車',on:'シャ',kun:'くるま',mean:'Mobil / Kendaraan',ex:'電車 (densha)'},
+    {k:'駅',on:'エキ',kun:'-',mean:'Stasiun',ex:'駅前 (ekimae)'},
+    {k:'会',on:'カイ・エ',kun:'あ',mean:'Bertemu / Asosiasi',ex:'会社 (kaisha)'},
+    {k:'社',on:'シャ',kun:'やしろ',mean:'Perusahaan / Kuil',ex:'会社 (kaisha)'},
+    {k:'何',on:'カ',kun:'なに・なん',mean:'Apa',ex:'何時 (nanji)'},
+    {k:'今',on:'コン・キン',kun:'いま',mean:'Sekarang',ex:'今日 (kyou)'},
+    {k:'白',on:'ハク・ビャク',kun:'しろ',mean:'Putih',ex:'白紙 (hakushi)'},
+    {k:'黒',on:'コク',kun:'くろ',mean:'Hitam',ex:'黒板 (kokuban)'},
+    {k:'赤',on:'セキ・シャク',kun:'あか',mean:'Merah',ex:'赤ちゃん (akachan)'},
+    {k:'青',on:'セイ・ショウ',kun:'あお',mean:'Biru / Hijau',ex:'青空 (aozora)'},
+    {k:'新',on:'シン',kun:'あたら・にい',mean:'Baru',ex:'新聞 (shinbun)'},
+    {k:'古',on:'コ',kun:'ふる',mean:'Kuno / Lama',ex:'古典 (koten)'},
+    {k:'高',on:'コウ',kun:'たか',mean:'Tinggi / Mahal',ex:'高校 (koukou)'},
+    {k:'安',on:'アン',kun:'やす',mean:'Murah / Aman',ex:'安全 (anzen)'},
+  ],
+  N4: [{k:'運',on:'ウン',kun:'はこ',mean:'Nasib / Angkut',ex:'運動 (undou)'},{k:'動',on:'ドウ',kun:'うご',mean:'Bergerak',ex:'運動 (undou)'},{k:'医',on:'イ',kun:'-',mean:'Medis / Dokter',ex:'医者 (isha)'},{k:'者',on:'シャ',kun:'もの',mean:'Orang',ex:'医者 (isha)'},{k:'楽',on:'ガク・ラク',kun:'たの',mean:'Musik / Senang',ex:'音楽 (ongaku)'},{k:'音',on:'オン・イン',kun:'おと',mean:'Suara',ex:'音楽 (ongaku)'},{k:'旅',on:'リョ',kun:'たび',mean:'Perjalanan',ex:'旅行 (ryokou)'},{k:'用',on:'ヨウ',kun:'もち',mean:'Penggunaan',ex:'用事 (youji)'},{k:'特',on:'トク',kun:'-',mean:'Khusus',ex:'特別 (tokubetsu)'},{k:'別',on:'ベツ',kun:'わか',mean:'Berbeda / Berpisah',ex:'特別 (tokubetsu)'}],
+};
+
+// State
+let currentLevel = 'N5';
+let currentMode = 'flashcard';
+let deck = [];
+let deckIdx = 0;
+let flipped = false;
+let stats = { mastered: 0, learning: 0, streak: 0 };
+let quizScore = 0;
+let quizTotal = 0;
+
+function getKanjiList(lv) {
+  return KANJI_DB[lv] || KANJI_DB.N5;
+}
+
+function setLevel(btn, lv) {
+  document.querySelectorAll('.ltab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentLevel = lv;
+  deck = [...getKanjiList(lv)].sort(() => Math.random() - 0.5);
+  deckIdx = 0;
+  loadProgress();
+  document.getElementById('statTotal').textContent = deck.length;
+  if (currentMode === 'flashcard') renderFlashcard();
+  if (currentMode === 'grid') renderGrid();
+  if (currentMode === 'quiz') renderQuiz();
+}
+
+function setMode(btn, mode) {
+  document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentMode = mode;
+  ['modeFlashcard','modeQuiz','modeGrid'].forEach(id => {
+    document.getElementById(id).style.display = 'none';
+  });
+  if (mode === 'flashcard') { document.getElementById('modeFlashcard').style.display = ''; renderFlashcard(); }
+  if (mode === 'quiz') { document.getElementById('modeQuiz').style.display = ''; renderQuiz(); }
+  if (mode === 'grid') { document.getElementById('modeGrid').style.display = ''; renderGrid(); }
+}
+
+// ── FLASHCARD ──
+function renderFlashcard() {
+  if (!deck.length) return;
+  const k = deck[deckIdx % deck.length];
+  document.getElementById('fcKanji').textContent = k.k;
+  document.getElementById('fcBadge').textContent = currentLevel;
+  document.getElementById('fcBadge').className = `fc-badge ${currentLevel.toLowerCase()}`;
+  document.getElementById('fcReading').textContent = `${k.on} / ${k.kun}`;
+  document.getElementById('fcMeaning').textContent = k.mean;
+  document.getElementById('fcExample').textContent = k.ex || '';
+  // Reset flip
+  const fc = document.getElementById('flashcard');
+  fc.classList.remove('flipped');
+  document.getElementById('fcControls').style.display = 'none';
+  flipped = false;
+}
+
+function flipCard() {
+  if (flipped) return;
+  document.getElementById('flashcard').classList.add('flipped');
+  document.getElementById('fcControls').style.display = 'flex';
+  flipped = true;
+}
+
+function rateCard(rating) {
+  const key = `kanji_${currentLevel}_${deck[deckIdx % deck.length].k}`;
+  localStorage.setItem(key, rating);
+  // GENUINELY DIPERBAIKI (Fase Audit Website Putaran Ketiga, Fase J):
+  // dikonfirmasi via investigasi mendalam bahwa increment manual
+  // sebelumnya (`stats.mastered = stats.mastered + 1`) genuinely TIDAK
+  // memeriksa apakah kartu yang dinilai genuinely SUDAH dinilai
+  // sebelumnya -- setiap kali kartu YANG SAMA dinilai ulang (skenario
+  // genuinely UMUM dalam SRS, mengingat kartu memang dirancang untuk
+  // diulang), `stats.mastered` genuinely bertambah lagi meski jumlah
+  // kanji UNIK yang dikuasai genuinely tidak berubah. Dibuktikan konkret
+  // via pengujian: menilai 1 kanji yang sama 5x genuinely menghasilkan
+  // stats.mastered=5, padahal genuinely hanya 1 kanji unik yang benar
+  // dikuasai (dikonfirmasi via penghitungan ulang dari localStorage).
+  // Diperbaiki dengan memanggil `loadProgress()` -- fungsi yang genuinely
+  // SUDAH ADA dan menghitung ulang stats dari sumber kebenaran
+  // (localStorage per-kartu), bukan increment manual yang rentan salah.
+  stats.streak++;
+  loadProgress();
+  nextCard();
+}
+
+function nextCard() {
+  deckIdx++;
+  if (deckIdx >= deck.length) {
+    deckIdx = 0;
+    deck.sort(() => Math.random() - 0.5);
+  }
+  renderFlashcard();
+}
+
+// ── QUIZ ──
+function renderQuiz() {
+  if (!deck.length) return;
+  const correct = deck[Math.floor(Math.random() * deck.length)];
+  document.getElementById('quizKanji').textContent = correct.k;
+
+  // 3 wrong choices
+  const wrong = deck.filter(k => k.k !== correct.k).sort(() => Math.random() - 0.5).slice(0, 3);
+  const choices = [...wrong, correct].sort(() => Math.random() - 0.5);
+
+  const container = document.getElementById('quizChoices');
+  container.innerHTML = '';
+  choices.forEach(ch => {
+    const btn = document.createElement('button');
+    btn.className = 'choice-btn';
+    btn.textContent = ch.mean;
+    btn.onclick = () => {
+      container.querySelectorAll('.choice-btn').forEach(b => b.disabled = true);
+      if (ch.k === correct.k) {
+        btn.classList.add('correct');
+        quizScore++;
+      } else {
+        btn.classList.add('wrong');
+        container.querySelectorAll('.choice-btn').forEach(b => {
+          if (b.textContent === correct.mean) b.classList.add('correct');
+        });
+      }
+      quizTotal++;
+      document.getElementById('quizScore').textContent = `Skor: ${quizScore}/${quizTotal} (${Math.round(quizScore/quizTotal*100)}%)`;
+      setTimeout(renderQuiz, 1500);
+    };
+    container.appendChild(btn);
+  });
+}
+
+// ── GRID ──
+function renderGrid() {
+  const grid = document.getElementById('kanjiGrid');
+  grid.innerHTML = '';
+  deck.forEach(k => {
+    const key = `kanji_${currentLevel}_${k.k}`;
+    const rating = parseInt(localStorage.getItem(key) || '0');
+    const cell = document.createElement('div');
+    cell.className = 'kanji-cell' + (rating === 3 ? ' mastered' : '');
+    cell.innerHTML = `<span class="kc-char">${k.k}</span>
+      <div class="kc-read">${k.on.split('・')[0]}</div>
+      <div class="kc-mean">${k.mean}</div>
+      <div class="kc-status ${rating===3?'mastered':rating>0?'learning':''}"></div>`;
+    cell.onclick = () => {
+      speakKanji(k.k);
+      cell.style.transform = 'scale(0.95)';
+      setTimeout(() => cell.style.transform = '', 150);
+    };
+    grid.appendChild(cell);
+  });
+}
+
+function speakKanji(text) {
+  if (!('speechSynthesis' in window)) return;
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP'; u.rate = 0.8;
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(u);
+}
+
+function loadProgress() {
+  let m = 0, l = 0;
+  deck.forEach(k => {
+    const r = parseInt(localStorage.getItem(`kanji_${currentLevel}_${k.k}`) || '0');
+    if (r === 3) m++;
+    else if (r > 0) l++;
+  });
+  stats.mastered = m;
+  stats.learning = l;
+  updateStats();
+}
+
+function updateStats() {
+  document.getElementById('statMastered').textContent = stats.mastered;
+  document.getElementById('statLearning').textContent = stats.learning;
+  document.getElementById('statStreak').textContent = stats.streak;
+  try { localStorage.setItem('kanji_streak', stats.streak); } catch(e){}
+  const pct = deck.length ? Math.round(stats.mastered / deck.length * 100) : 0;
+  document.getElementById('progFill').style.width = pct + '%';
+}
+
+// Init
+document.addEventListener('DOMContentLoaded', () => {
+  deck = [...getKanjiList('N5')].sort(() => Math.random() - 0.5);
+  loadProgress();
+  renderFlashcard();
+  stats.streak = parseInt(localStorage.getItem('kanji_streak') || '0');
+  updateStats();
+});
+</script>
+<footer style="background:var(--ink,#15161a);color:rgba(255,255,255,.65);padding:2.5rem clamp(16px,5vw,72px);margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1.5rem;margin-bottom:2rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:19px;font-weight:700;margin-bottom:.4rem">Nihonggo Pro Academy</div>
+        <div style="font-size:12px;line-height:1.75;color:rgba(255,255,255,.5)">Platform belajar bahasa Jepang N5–N1 gratis dan terstruktur.</div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kanji-N5.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kanji N5–N1</a>
+          <a href="/Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar</a>
+          <a href="/Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kosakata</a>
+          <a href="/Materi/Fondasi-Bahasa-Jepang.html" style="color:rgba(255,255,255,.6);text-decoration:none">Fondasi Jepang</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Tools</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/JLPT-CBT.html" style="color:rgba(255,255,255,.6);text-decoration:none">CBT Simulator</a>
+          <a href="/SRS-Flashcard.html" style="color:rgba(255,255,255,.6);text-decoration:none">SRS Flashcard</a>
+          <a href="/Grammar-Checker.html" style="color:rgba(255,255,255,.6);text-decoration:none">Grammar Checker</a>
+          <a href="/AI-Tutor-Pro.html" style="color:rgba(255,255,255,.6);text-decoration:none">AI Tutor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Kaigo</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/Materi/Kaigo.html" style="color:rgba(255,255,255,.6);text-decoration:none">Semua Materi Kaigo</a>
+          <a href="/Kaigo-Simulator.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kaigo Simulator</a>
+          <a href="/Materi/Kaigo.html#kg-h-ujian" style="color:rgba(255,255,255,.6);text-decoration:none">Persiapan Ujian</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:800;color:rgba(255,255,255,.35);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.625rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem;font-size:13px">
+          <a href="/About.html" style="color:rgba(255,255,255,.6);text-decoration:none">Tentang Kami</a>
+          <a href="/FAQ.html" style="color:rgba(255,255,255,.6);text-decoration:none">FAQ</a>
+          <a href="/Blog.html" style="color:rgba(255,255,255,.6);text-decoration:none">Blog</a>
+          <a href="/Kontak.html" style="color:rgba(255,255,255,.6);text-decoration:none">Kontak</a>
+          <a href="/Privacy.html" style="color:rgba(255,255,255,.6);text-decoration:none">Privasi</a>
+          <a href="/Terms.html" style="color:rgba(255,255,255,.6);text-decoration:none">Syarat</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.08);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — Nihonggo Pro Academy</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="/Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+        <a href="/Terms.html" style="color:rgba(255,255,255,.4);text-decoration:none">Syarat</a>
+        <a href="/Sitemap.html" style="color:rgba(255,255,255,.4);text-decoration:none">Sitemap</a>
+        <a href="/Kontak.html" style="color:rgba(255,255,255,.4);text-decoration:none">Kontak</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

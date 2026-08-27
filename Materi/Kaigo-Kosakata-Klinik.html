@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
+     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
+     tag script eksternal genuinely mengabaikan konten inline karena
+     atribut src hadir. Dipisah ke tag terpisah, dibungkus
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     (elemen target genuinely berada di <body>, setelah <head>). -->
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+var PH_VOCAB=[["バイタルサイン", "baitaru sain", "tanda vital"], ["血圧", "ketsuatsu", "tekanan darah"], ["脈拍", "myakuhaku", "denyut nadi"], ["体温", "taion", "suhu tubuh"], ["浮腫", "fushu", "edema"], ["チアノーゼ", "chianooze", "sianosis"], ["呼吸音", "kokyu-on", "suara napas"], ["意識障害", "ishiki shogai", "gangguan kesadaran"]];
+var pgv=document.getElementById('pg');
+if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
++'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
++'<div style="font-size:.85rem;color:#2e7d32">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';
+btn.style.cssText='border:none;background:#2e7d32;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
+});
+</script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Kosakata Klinis & Medis 介護 — 介護福祉士 | Nihonggo Pro Academy</title>
+<meta name="description" content="Kosakata medis dan klinis lengkap untuk 介護福祉士 — penyakit, obat-obatan, istilah prosedur medis, dan bahasa laporan yang sering muncul di ujian nasional 国家試験.">
+<meta property="og:title" content="Kosakata Klinis & Medis 介護 — NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Kaigo-Kosakata-Klinik.html">
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Kosakata Klinis & Medis 介護", "description": "Kosakata medis dan klinis lengkap untuk 介護福祉士 — penyakit, obat-obatan, istilah prosedur medis, dan bahasa laporan yang sering muncul di ujian nasional 国家試験.", "url": "https://nihonggopro.id/Materi/Kaigo-Kosakata-Klinik.html", "provider": {"@type": "Organization", "name": "NihonggoPro"}, "educationalLevel": "N4", "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"介護福祉士","item":"https://nihonggopro.id/Materi/Kaigo-Fukushishi-Overview.html"},{"@type":"ListItem","position":4,"name":"Kosakata Klinis & Medis 介護","item":"https://nihonggopro.id/Materi/Kaigo-Kosakata-Klinik.html"}]}</script>
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:2px;list-style:none}
+
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+.hamb{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border-mid);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+.hamb span{display:block;width:16px;height:2px;background:var(--ink);border-radius:1px}
+@media(max-width:768px){.nav-links{display:none!important}.hamb{display:flex!important}}
+.hero{padding:clamp(40px,6vw,64px) clamp(16px,5vw,72px) 40px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"医療";position:absolute;right:-10px;bottom:-30px;font-family:"Noto Serif JP",serif;font-size:160px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:1.1;margin-bottom:.625rem}
+.hero-desc{color:rgba(255,255,255,.62);font-size:14px;line-height:1.85;max-width:640px;margin-bottom:1.25rem}
+.breadcrumb{padding:.5rem clamp(16px,5vw,72px);background:var(--white);border-bottom:1px solid var(--border);font-size:12px;color:var(--ink-soft)}
+.breadcrumb a{color:var(--ink-soft);text-decoration:none}.breadcrumb a:hover{color:var(--red)}.breadcrumb span{margin:0 .35rem}
+/* Module 
+.mod-link{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:7px;font-size:12px;font-weight:700;color:var(--ink-mid);text-decoration:none;transition:all .15s;margin-right:.3rem}
+.mod-link:hover,.mod-link.active{background:var(--red-pale);color:var(--red)}
+/* Layout */
+.page-layout{display:grid;grid-template-columns:220px 1fr;flex:1}
+@media(max-width:860px){.page-layout{grid-template-columns:1fr}.toc-panel{display:none}}
+.toc-panel{position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;border-right:1px solid var(--border);background:var(--white);padding:1.25rem}
+.toc-title{font-size:10px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
+.toc-a{display:block;padding:.3rem .5rem;border-radius:6px;font-size:12px;color:var(--ink-mid);text-decoration:none;transition:all .15s;border-left:2px solid transparent;margin-bottom:.1rem}
+.toc-a:hover,.toc-a.on{background:var(--red-pale);color:var(--red);border-left-color:var(--red);font-weight:700}
+.toc-a.sub{padding-left:1rem;font-size:11px}
+.content{padding:2rem clamp(16px,4vw,48px) 5rem;min-width:0;max-width:900px}
+/* Sections */
+.sec{margin-bottom:3rem;scroll-margin-top:88px}
+.sec-num{font-size:10px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
+.sec h2{font-family:"Noto Serif JP",serif;font-size:clamp(20px,3vw,28px);margin-bottom:.5rem}
+.sec-desc{color:var(--ink-mid);font-size:14px;line-height:1.85;margin-bottom:1.25rem}
+.sec h3{font-family:"Noto Serif JP",serif;font-size:18px;margin:1.75rem 0 .875rem;display:flex;align-items:center;gap:.5rem}
+.sec h3::before{content:'';display:block;width:4px;height:18px;background:var(--red);border-radius:2px;flex-shrink:0}
+.sec h4{font-size:14px;font-weight:800;margin:1.25rem 0 .5rem}
+/* Info boxes */
+.box{border-radius:10px;padding:.875rem 1.125rem;margin-bottom:1rem;border:.5px solid;font-size:13px;line-height:1.75}
+.box.tip{background:var(--blue-pale);border-color:rgba(47,111,237,.2);color:var(--ink-mid)}
+.box.warn{background:var(--gold-pale,rgba(185,137,47,.08));border-color:rgba(185,137,47,.2)}
+.box.red{background:var(--red-pale);border-color:rgba(190,52,40,.15)}
+.box.green{background:var(--green-pale);border-color:rgba(33,135,93,.2)}
+.box-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
+.box.tip .box-title{color:var(--blue)}.box.warn .box-title{color:var(--gold)}.box.red .box-title{color:var(--red)}.box.green .box-title{color:var(--green)}
+/* Vocab cards */
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;margin-bottom:1.5rem}
+.vc{background:var(--white);border-radius:12px;padding:1.125rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);transition:all .2s}
+.vc:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.07);border-color:var(--red)}
+.vc-jp{font-family:"Noto Serif JP",serif;font-size:20px;font-weight:700;margin-bottom:.15rem}
+.vc-rom{font-size:11px;color:var(--ink-soft);font-style:italic;margin-bottom:.3rem}
+.vc-id{font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem}
+.vc-ex{font-size:12px;color:var(--ink-mid);border-top:.5px solid var(--border);padding-top:.4rem;margin-top:.4rem;line-height:1.6}
+.vc-ex-jp{font-family:"Noto Serif JP",serif;font-weight:600;color:var(--ink)}
+.lv-badge{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:800;margin-bottom:.4rem}
+/* Table */
+.tbl{width:100%;border-collapse:collapse;margin-bottom:1.5rem;background:var(--white);border-radius:12px;overflow:hidden;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
+.tbl th{background:var(--ink);color:#fff;padding:.625rem 1rem;font-size:12px;font-weight:700;text-align:left}
+.tbl td{padding:.625rem 1rem;font-size:13px;border-bottom:.5px solid var(--border);line-height:1.6;vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:nth-child(even) td{background:var(--cream)}
+.td-jp{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:600}
+/* Procedure steps */
+.steps{display:flex;flex-direction:column;gap:.625rem;margin-bottom:1.5rem}
+.step{display:flex;gap:.875rem;align-items:flex-start;padding:.875rem 1rem;background:var(--white);border-radius:10px;border:.5px solid var(--border-mid)}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.step-body{flex:1}
+.step-title{font-size:14px;font-weight:700;margin-bottom:.2rem}
+.step-jp{font-family:"Noto Serif JP",serif;font-size:14px;color:var(--ink);margin-bottom:.15rem}
+.step-id{font-size:12px;color:var(--ink-soft)}
+.step-note{font-size:11px;color:var(--gold);font-weight:600;margin-top:.2rem}
+/* Dialog */
+.dialog{background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.25rem}
+.dialog-title{font-size:13px;font-weight:800;margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem}
+.d-turn{display:flex;gap:.625rem;align-items:flex-start;margin-bottom:.5rem}
+.d-role{min-width:48px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;text-align:center;flex-shrink:0}
+.d-text .jp{font-family:"Noto Serif JP",serif;font-size:13px;font-weight:600;margin-bottom:.1rem}
+.d-text .id{font-size:11px;color:var(--ink-soft)}
+/* Quiz */
+.quiz-wrap{background:var(--ink);color:#fff;border-radius:14px;padding:1.5rem;margin-top:2rem}
+.q-title{font-size:13px;font-weight:800;color:rgba(255,255,255,.7);margin-bottom:1rem}
+.q-text{font-family:"Noto Serif JP",serif;font-size:17px;margin-bottom:1rem;line-height:1.65}
+.q-opts{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.875rem}
+.q-opt{padding:.75rem 1rem;border-radius:8px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;font-family:Outfit,sans-serif;font-size:13px;font-weight:600;text-align:left;transition:all .15s}
+.q-opt:hover{border-color:rgba(255,255,255,.4)}
+.q-opt.ok{border-color:#22c55e;background:rgba(34,197,94,.2)}
+.q-opt.ng{border-color:#ef4444;background:rgba(239,68,68,.2)}
+.q-fb{font-size:12px;color:rgba(255,255,255,.65);padding:.625rem;background:rgba(255,255,255,.06);border-radius:7px;display:none;line-height:1.65}
+.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:.875rem}
+.q-btn{height:34px;padding:0 14px;border-radius:8px;border:none;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer}
+.q-btn.nxt{background:var(--red);color:#fff}
+.q-btn.rst{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
+/* btt */
+#bttBtn{position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
+*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/kaigo-progress.js" defer></script>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Kosakata medis dan klinis lengkap untuk 介護福祉士 — penyakit, obat-obatan, istilah prosedur medis, dan bahasa laporan yang sering muncul di ujian nasional 国家試験.">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Kaigo-Kosakata-Klinik.html">
+<meta name="twitter:title" content="Kosakata Klinis & Medis 介護 — 介護福祉士">
+<meta name="twitter:description" content="Kosakata medis dan klinis lengkap untuk 介護福祉士 — penyakit, obat-obatan, istilah prosedur medis, dan bahasa laporan yang sering muncul di ujian nasional 国家試験.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<div class="breadcrumb">
+  <a href="../index.html">Beranda</a><span>›</span>
+  <a href="Materi.html">Materi</a><span>›</span>
+  <a href="Kaigo-Fukushishi-Overview.html">介護福祉士</a><span>›</span>
+  <strong>Kosakata Klinis & Medis 介護</strong>
+</div>
+
+<div class="module-nav">
+  <a href="Kaigo-Fukushishi-Overview.html" class="mod-link">🏠 Overview</a>
+  <a href="Kaigo-Bahasa.html" class="mod-link">🗣️ Bahasa Dasar</a>
+  <a href="Kaigo-Kosakata-Klinik.html" class="mod-link active">💊 Kosakata Klinik</a>
+  <a href="Kaigo-Prosedur.html" class="mod-link ">📋 Prosedur</a>
+  <a href="Kaigo-Penyakit.html" class="mod-link ">🏥 Penyakit Lansia</a>
+  <a href="Kaigo-Hukum.html" class="mod-link ">⚖️ Hukum & Etika</a>
+  <a href="Kaigo-Komunikasi.html" class="mod-link ">💬 Komunikasi</a>
+  <a href="Kaigo-Nihongo-N4.html" class="mod-link ">📝 Bahasa Jepang N4</a>
+  <a href="Kaigo-Rekod.html" class="mod-link ">📄 Penulisan Rekod</a>
+  <a href="Kaigo-Ujian-Nasional.html" class="mod-link ">🎯 Ujian Nasional</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="kicker">💊 Kosakata Klinis · N4</div>
+    <h1>Kosakata Klinis & Medis 介護</h1>
+    <p class="hero-desc">Kosakata medis dan klinis lengkap untuk 介護福祉士 — penyakit, obat-obatan, istilah prosedur medis, dan bahasa laporan yang sering muncul di ujian nasional 国家試験.</p>
+  </div>
+</section>
+
+<div style="display:flex;flex:1">
+<nav class="toc-panel" aria-label="Daftar isi" id="tocPanel">
+  <div class="toc-title">📋 Daftar Isi</div>
+  <div id="tocList"></div>
+</nav>
+<div class="content" id="mainContent" role="main">
+
+<!-- ── BAGIAN 1: PENYAKIT & KONDISI MEDIS ── -->
+<div class="sec" id="kondisi-medis">
+  <div class="sec-num">Bagian 1</div>
+  <h2>Penyakit & Kondisi Medis Utama</h2>
+  <p class="sec-desc">Istilah penyakit yang paling sering muncul dalam ujian nasional 国家試験 dan pekerjaan kaigo sehari-hari. Wajib hafal untuk semua jalur WNI.</p>
+
+  <h3 id="otak-saraf">Otak & Saraf</h3>
+  <div class="vocab-grid">
+    <div class="vc"><span class="lv-badge" style="background:rgba(190,52,40,.1);color:var(--red)">頻出</span>
+      <div class="vc-jp">認知症（にんちしょう）</div><div class="vc-rom">ninchi-shō</div>
+      <div class="vc-id">Demensia</div>
+      <div class="vc-ex"><div class="vc-ex-jp">認知症の症状には記憶障害、見当識障害などがあります。</div><div>Gejala demensia meliputi gangguan memori dan disorientasi.</div></div>
+    </div>
+    <div class="vc"><span class="lv-badge" style="background:rgba(190,52,40,.1);color:var(--red)">頻出</span>
+      <div class="vc-jp">アルツハイマー型認知症</div><div class="vc-rom">Arutsuhaimā-gata ninchi-shō</div>
+      <div class="vc-id">Demensia tipe Alzheimer (paling umum, 60–70%)</div>
+      <div class="vc-ex"><div class="vc-ex-jp">進行性の認知機能低下が特徴です。</div><div>Ditandai penurunan fungsi kognitif yang progresif.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">血管性認知症（けっかんせいにんちしょう）</div><div class="vc-rom">kekkansen ninchi-shō</div>
+      <div class="vc-id">Demensia vaskular (akibat stroke/masalah pembuluh darah)</div>
+      <div class="vc-ex"><div class="vc-ex-jp">脳梗塞後に発症することが多い。</div><div>Sering terjadi setelah infark serebral.</div></div>
+    </div>
+    <div class="vc"><span class="lv-badge" style="background:rgba(190,52,40,.1);color:var(--red)">頻出</span>
+      <div class="vc-jp">レビー小体型認知症</div><div class="vc-rom">Rebi shōtai-gata ninchi-shō</div>
+      <div class="vc-id">Demensia Lewy Body (halusinasi visual, gejala Parkinson)</div>
+      <div class="vc-ex"><div class="vc-ex-jp">幻視や歩行障害が特徴。</div><div>Ditandai halusinasi visual dan gangguan berjalan.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">脳梗塞（のうこうそく）</div><div class="vc-rom">nō-kōsoku</div>
+      <div class="vc-id">Infark serebral / stroke iskemik</div>
+      <div class="vc-ex"><div class="vc-ex-jp">片麻痺や言語障害が後遺症として残ることがある。</div><div>Dapat menyisakan hemiplegia dan gangguan bahasa.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">脳出血（のうしゅっけつ）</div><div class="vc-rom">nō-shukketsu</div>
+      <div class="vc-id">Perdarahan otak / stroke hemoragik</div>
+      <div class="vc-ex"><div class="vc-ex-jp">高血圧が主な原因の一つ。</div><div>Hipertensi adalah salah satu penyebab utama.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">パーキンソン病（パーキンソンびょう）</div><div class="vc-rom">Pākinsonsbyō</div>
+      <div class="vc-id">Penyakit Parkinson</div>
+      <div class="vc-ex"><div class="vc-ex-jp">振戦、筋固縮、無動が三主徴。</div><div>Tremor, rigiditas, dan akinesia adalah tiga gejala utama.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">てんかん（癲癇）</div><div class="vc-rom">tenkan</div>
+      <div class="vc-id">Epilepsi</div>
+      <div class="vc-ex"><div class="vc-ex-jp">発作時は安全を確保し、無理に押さえない。</div><div>Saat kejang, amankan lingkungan, jangan dipaksa ditahan.</div></div>
+    </div>
+  </div>
+
+  <h3 id="tulang-sendi">Tulang, Sendi & Otot</h3>
+  <div class="vocab-grid">
+    <div class="vc"><span class="lv-badge" style="background:rgba(190,52,40,.1);color:var(--red)">頻出</span>
+      <div class="vc-jp">骨粗鬆症（こつそしょうしょう）</div><div class="vc-rom">kotsu-soshōshō</div>
+      <div class="vc-id">Osteoporosis</div>
+      <div class="vc-ex"><div class="vc-ex-jp">転倒による骨折リスクが高まる。</div><div>Meningkatkan risiko fraktur akibat jatuh.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">変形性膝関節症（へんけいせいひざかんせつしょう）</div><div class="vc-rom">henkeisei hiza kansetsu-shō</div>
+      <div class="vc-id">Osteoartritis lutut</div>
+      <div class="vc-ex"><div class="vc-ex-jp">膝の痛みと歩行困難を引き起こす。</div><div>Menyebabkan nyeri lutut dan kesulitan berjalan.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">関節リウマチ（かんせつリウマチ）</div><div class="vc-rom">kansetsu ryūmachi</div>
+      <div class="vc-id">Artritis reumatoid</div>
+      <div class="vc-ex"><div class="vc-ex-jp">朝のこわばりが特徴的な症状の一つ。</div><div>Kekakuan di pagi hari adalah salah satu gejala khas.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">大腿骨頸部骨折（だいたいこつけいぶこっせつ）</div><div class="vc-rom">daitaikotsu keibu kossetsu</div>
+      <div class="vc-id">Fraktur leher femur (patah tulang pinggul)</div>
+      <div class="vc-ex"><div class="vc-ex-jp">高齢者の転倒で最も多い骨折の一つ。</div><div>Salah satu fraktur paling umum akibat jatuh pada lansia.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">拘縮（こうしゅく）</div><div class="vc-rom">kōshuku</div>
+      <div class="vc-id">Kontraktur (kekakuan sendi akibat imobilisasi)</div>
+      <div class="vc-ex"><div class="vc-ex-jp">廃用症候群の一つとして起こる。</div><div>Terjadi sebagai bagian dari sindrom disuse.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">廃用症候群（はいようしょうこうぐん）</div><div class="vc-rom">haiyō shōkōgun</div>
+      <div class="vc-id">Sindrom disuse / sindrom imobilisasi</div>
+      <div class="vc-ex"><div class="vc-ex-jp">長期臥床により全身機能が低下する状態。</div><div>Penurunan fungsi seluruh tubuh akibat tirah baring jangka panjang.</div></div>
+    </div>
+  </div>
+
+  <h3 id="jantung-pembuluh">Jantung & Pembuluh Darah</h3>
+  <div class="vocab-grid">
+    <div class="vc"><span class="lv-badge" style="background:rgba(190,52,40,.1);color:var(--red)">頻出</span>
+      <div class="vc-jp">高血圧（こうけつあつ）</div><div class="vc-rom">kōketsuatsu</div>
+      <div class="vc-id">Hipertensi / tekanan darah tinggi</div>
+      <div class="vc-ex"><div class="vc-ex-jp">血圧測定は介護の基本業務の一つ。</div><div>Pengukuran tekanan darah adalah salah satu tugas dasar kaigo.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">心不全（しんふぜん）</div><div class="vc-rom">shin-fuzen</div>
+      <div class="vc-id">Gagal jantung</div>
+      <div class="vc-ex"><div class="vc-ex-jp">むくみや息切れが主な症状。</div><div>Edema dan sesak napas adalah gejala utama.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">心筋梗塞（しんきんこうそく）</div><div class="vc-rom">shinkin-kōsoku</div>
+      <div class="vc-id">Infark miokard / serangan jantung</div>
+      <div class="vc-ex"><div class="vc-ex-jp">胸痛が突然起きたらすぐに報告する。</div><div>Jika nyeri dada tiba-tiba, segera laporkan.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">糖尿病（とうにょうびょう）</div><div class="vc-rom">tōnyōbyō</div>
+      <div class="vc-id">Diabetes mellitus</div>
+      <div class="vc-ex"><div class="vc-ex-jp">低血糖の症状（ふるえ、冷汗など）に注意。</div><div>Waspadai gejala hipoglikemia (tremor, keringat dingin, dll.).</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">低血糖（ていけっとう）</div><div class="vc-rom">tei-kettō</div>
+      <div class="vc-id">Hipoglikemia / gula darah rendah</div>
+      <div class="vc-ex"><div class="vc-ex-jp">意識障害を起こす場合があるため緊急対応が必要。</div><div>Dapat menyebabkan gangguan kesadaran, perlu penanganan darurat.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">浮腫（むくみ・ふしゅ）</div><div class="vc-rom">mukumi / fushu</div>
+      <div class="vc-id">Edema / pembengkakan</div>
+      <div class="vc-ex"><div class="vc-ex-jp">足首や下肢にむくみが見られる場合は報告する。</div><div>Jika ada edema di pergelangan kaki atau tungkai bawah, laporkan.</div></div>
+    </div>
+  </div>
+
+  <h3 id="pernapasan">Pernapasan</h3>
+  <div class="vocab-grid">
+    <div class="vc"><span class="lv-badge" style="background:rgba(190,52,40,.1);color:var(--red)">頻出</span>
+      <div class="vc-jp">誤嚥（ごえん）</div><div class="vc-rom">goen</div>
+      <div class="vc-id">Aspirasi / tersedak (masuknya makanan ke saluran napas)</div>
+      <div class="vc-ex"><div class="vc-ex-jp">誤嚥を予防するために食事姿勢が重要。</div><div>Posisi makan penting untuk mencegah aspirasi.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">誤嚥性肺炎（ごえんせいはいえん）</div><div class="vc-rom">goensei haien</div>
+      <div class="vc-id">Pneumonia aspirasi (komplikasi aspirasi yang berbahaya)</div>
+      <div class="vc-ex"><div class="vc-ex-jp">高齢者の死因として多い疾患の一つ。</div><div>Salah satu penyebab kematian tersering pada lansia.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">慢性閉塞性肺疾患（COPD）</div><div class="vc-rom">mansei heisoku-sei hai-shikkan</div>
+      <div class="vc-id">PPOK / Penyakit Paru Obstruktif Kronik</div>
+      <div class="vc-ex"><div class="vc-ex-jp">喫煙が主な原因。息切れが日常生活に影響する。</div><div>Merokok sebagai penyebab utama. Sesak napas mempengaruhi aktivitas harian.</div></div>
+    </div>
+  </div>
+
+  <h3 id="kulit-luka">Kulit & Luka</h3>
+  <div class="vocab-grid">
+    <div class="vc"><span class="lv-badge" style="background:rgba(190,52,40,.1);color:var(--red)">頻出</span>
+      <div class="vc-jp">褥瘡（じょくそう）</div><div class="vc-rom">jokusō</div>
+      <div class="vc-id">Dekubitus / luka tekan / bedsore</div>
+      <div class="vc-ex"><div class="vc-ex-jp">体位変換を定期的に行い予防する。</div><div>Mencegah dengan mengubah posisi tubuh secara berkala.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">皮膚の乾燥（ひふのかんそう）</div><div class="vc-rom">hifu no kansō</div>
+      <div class="vc-id">Kulit kering</div>
+      <div class="vc-ex"><div class="vc-ex-jp">保湿ケアを定期的に行う必要がある。</div><div>Perlu dilakukan perawatan pelembap secara rutin.</div></div>
+    </div>
+    <div class="vc"><div class="vc-jp">浮腫（むくみ）</div><div class="vc-rom">mukumi</div>
+      <div class="vc-id">Pembengkakan jaringan</div>
+      <div class="vc-ex"><div class="vc-ex-jp">皮膚が赤みを帯びているか観察する。</div><div>Perhatikan apakah kulit tampak kemerahan.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── BAGIAN 2: TANDA VITAL ── -->
+<div class="sec" id="tanda-vital">
+  <div class="sec-num">Bagian 2</div>
+  <h2>Tanda Vital (バイタルサイン)</h2>
+  <p class="sec-desc">Pemantauan tanda vital adalah rutinitas harian kaigo. Hafal istilah, nilai normal, dan cara melaporkannya.</p>
+
+  <table class="tbl">
+    <thead><tr><th>Istilah Jepang</th><th>Romaji</th><th>Arti</th><th>Nilai Normal</th><th>Cara Laporan</th></tr></thead>
+    <tbody>
+      <tr><td class="td-jp">体温（たいおん）</td><td>taion</td><td>Suhu tubuh</td><td>36.0–37.0°C</td><td>体温は36.5度です</td></tr>
+      <tr><td class="td-jp">血圧（けつあつ）</td><td>ketsuatsu</td><td>Tekanan darah</td><td>収縮期 &lt;140 mmHg</td><td>血圧は120の80です</td></tr>
+      <tr><td class="td-jp">脈拍（みゃくはく）</td><td>myakuhaku</td><td>Denyut nadi</td><td>60–100 /menit</td><td>脈拍は72です</td></tr>
+      <tr><td class="td-jp">呼吸数（こきゅうすう）</td><td>kokyū-sū</td><td>Frekuensi napas</td><td>12–20 /menit</td><td>呼吸数は16です</td></tr>
+      <tr><td class="td-jp">SpO2（酸素飽和度）</td><td>san-so hōwado</td><td>Saturasi oksigen</td><td>≥96%</td><td>SpO2は98パーセントです</td></tr>
+      <tr><td class="td-jp">血糖値（けっとうち）</td><td>kettō-chi</td><td>Kadar gula darah</td><td>空腹時 70–110 mg/dL</td><td>血糖値は105です</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box tip">
+    <div class="box-title">💡 Frasa Laporan Tanda Vital</div>
+    〇〇さんのバイタルを測定しました。体温は〇〇度、血圧は〇〇の〇〇、脈拍は〇〇、SpO2は〇〇パーセントでした。<strong>平常範囲内です / 基準値を外れています</strong>。<br>
+    <em>(Saya telah mengukur tanda vital Tn/Ny ○○. Suhu ○○ derajat, tekanan darah ○○/○○, denyut nadi ○○, SpO2 ○○ persen. Dalam batas normal / Di luar nilai rujukan.)</em>
+  </div>
+</div>
+
+<!-- ── BAGIAN 3: OBAT-OBATAN ── -->
+<div class="sec" id="obat-obatan">
+  <div class="sec-num">Bagian 3</div>
+  <h2>Kosakata Obat-obatan (薬・お薬)</h2>
+  <p class="sec-desc">Perawat kaigo tidak meresepkan obat, tapi harus memahami nama, jenis, dan cara pemberian obat untuk keselamatan residen.</p>
+
+  <div class="box warn">
+    <div class="box-title">⚠️ Lingkup Tugas Kaigo vs Medis</div>
+    介護福祉士 boleh membantu pemberian obat yang sudah disiapkan, <strong>tidak boleh</strong> memutuskan dosis atau menghentikan obat. Jika ada keraguan, selalu konsultasikan ke perawat (看護師) atau dokter (医師).
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Kosakata</th><th>Romaji</th><th>Arti</th><th>Contoh Penggunaan</th></tr></thead>
+    <tbody>
+      <tr><td class="td-jp">内服薬（ないふくやく）</td><td>naifuku-yaku</td><td>Obat minum (oral)</td><td>内服薬を飲む時間です</td></tr>
+      <tr><td class="td-jp">外用薬（がいようやく）</td><td>gaiyō-yaku</td><td>Obat luar (topikal)</td><td>軟膏を塗布します</td></tr>
+      <tr><td class="td-jp">点眼薬（てんがんやく）</td><td>tengan-yaku</td><td>Obat tetes mata</td><td>目薬をさします</td></tr>
+      <tr><td class="td-jp">座薬（ざやく）</td><td>za-yaku</td><td>Supositoria</td><td>座薬を挿入します</td></tr>
+      <tr><td class="td-jp">頓服（とんぷく）</td><td>tonpuku</td><td>Obat PRN (jika perlu)</td><td>痛い時に頓服を服用する</td></tr>
+      <tr><td class="td-jp">副作用（ふくさよう）</td><td>fuku-sayō</td><td>Efek samping</td><td>眠気などの副作用に注意</td></tr>
+      <tr><td class="td-jp">服薬確認（ふくやくかくにん）</td><td>fukuyaku kakunin</td><td>Konfirmasi minum obat</td><td>服薬確認を行いました</td></tr>
+      <tr><td class="td-jp">一包化（いっぽうか）</td><td>ippōka</td><td>Obat dikemas per dosis</td><td>一包化した薬を管理する</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ── BAGIAN 4: ISTILAH PROSEDUR MEDIS ── -->
+<div class="sec" id="prosedur-medis">
+  <div class="sec-num">Bagian 4</div>
+  <h2>Istilah Prosedur & Pemeriksaan Medis</h2>
+  <div class="vocab-grid">
+    <div class="vc"><div class="vc-jp">採血（さいけつ）</div><div class="vc-rom">saiketsu</div><div class="vc-id">Pengambilan darah / venipunktur</div></div>
+    <div class="vc"><div class="vc-jp">点滴（てんてき）</div><div class="vc-rom">tenteki</div><div class="vc-id">Infus intravena</div></div>
+    <div class="vc"><div class="vc-jp">導尿（どうにょう）</div><div class="vc-rom">dōnyō</div><div class="vc-id">Kateterisasi urin</div></div>
+    <div class="vc"><div class="vc-jp">経管栄養（けいかんえいよう）</div><div class="vc-rom">keikan eiyō</div><div class="vc-id">Nutrisi enteral via selang (NGT/PEG)</div></div>
+    <div class="vc"><div class="vc-jp">吸引（きゅういん）</div><div class="vc-rom">kyūin</div><div class="vc-id">Penghisapan sekret (suction)</div></div>
+    <div class="vc"><div class="vc-jp">インスリン注射（インスリンちゅうしゃ）</div><div class="vc-rom">insyurin chūsha</div><div class="vc-id">Injeksi insulin</div></div>
+    <div class="vc"><div class="vc-jp">人工呼吸器（じんこうこきゅうき）</div><div class="vc-rom">jinkō kokyūki</div><div class="vc-id">Ventilator / respirator</div></div>
+    <div class="vc"><div class="vc-jp">胃ろう（いろう）</div><div class="vc-rom">irō</div><div class="vc-id">Gastrostomi (PEG)</div></div>
+  </div>
+
+  <div class="box red">
+    <div class="box-title">🔴 Tindakan Medis yang Diperbolehkan untuk 介護福祉士</div>
+    Sejak 2012, 介護福祉士 boleh melakukan: <strong>吸引（口腔・鼻腔・気管カニューレ内）</strong> dan <strong>経管栄養（胃ろう・腸ろう・経鼻経管栄養）</strong> — dengan syarat mengikuti pelatihan dan memenuhi persyaratan khusus.
+  </div>
+</div>
+
+<!-- ── BAGIAN 5: QUIZ ── -->
+<div class="sec" id="quiz-klinik">
+  <div class="sec-num">Bagian 5</div>
+  <h2>Quiz Kosakata Klinis</h2>
+  <!-- dlg-injected -->
+<div style="max-width:900px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#b71c1c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">💬 Dialog Kosakata Klinik</h2>
+<div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px"><div style="font-size:.95rem;font-weight:700;color:#b71c1c;margin-bottom:12px">🌡️ Dialog — バイタル測定と報告</div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:2px">介護士</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">田中様のバイタルを測定します。まず体温から。36.5度です。次に血圧を測りますね。<button aria-label="Ucapkan: 田中様のバイタルを測定します。まず体温から。36.5度です。…" onclick="speak('田中様のバイタルを測定します。まず体温から。36.5度です。次に血圧を測りますね。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Saya ukur vital sign Bu Tanaka. Mulai suhu: 36.5°C. Selanjutnya tekanan darah.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:2px">介護士→看護師</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">山田様のバイタルです。体温36.5度、血圧142/88、脈拍78、SpO₂97%です。<button aria-label="Ucapkan: 山田様のバイタルです。体温36.5度、血圧142/88、脈拍…" onclick="speak('山田様のバイタルです。体温36.5度、血圧142/88、脈拍78、SpO₂97%です。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">(ke perawat) Vital Pak Yamada: suhu 36.5°C, TD 142/88, nadi 78, SpO2 97%.</div></div></div><div style="display:flex;gap:10px;margin:8px 0;align-items:flex-start"><span style="min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:2px">看護師</span><div><div style="font-size:.92rem;font-weight:500;color:var(--ink)">血圧が少し高めですね。引き続き観察をお願いします。<button aria-label="Ucapkan: 血圧が少し高めですね。引き続き観察をお願いします。" onclick="speak('血圧が少し高めですね。引き続き観察をお願いします。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.8rem;color:var(--ink-mid);margin-top:2px">Tekanan darah agak tinggi. Tolong pantau terus.</div></div></div></div></div>
+
+<!-- dlg-v2 -->
+<div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:#b71c1c;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #ffebee">💬 医療用語・クリニカル実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#b71c1c;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #ffebee">🌡️ Dialog 1 — バイタル測定と記録</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">田中様のバイタルを測定します。体温36.7度、血圧132/80、脈拍72回で規則的、SpO₂97%です。<button aria-label="Ucapkan: 田中様のバイタルを測定します。体温36.7度、血圧132/8…" onclick="speak('田中様のバイタルを測定します。体温36.7度、血圧132/80、脈拍72回で規則的、SpO₂97%です。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Mengukur vital Bu Tanaka: suhu 36.7°C, TD 132/80, nadi 72x teratur, SpO2 97%.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">看護師</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">ありがとうございます。今日は安定していますね。特変があればすぐ報告してください。<button aria-label="Ucapkan: ありがとうございます。今日は安定していますね。特変があればす…" onclick="speak('ありがとうございます。今日は安定していますね。特変があればすぐ報告してください。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Terima kasih. Hari ini stabil ya. Kalau ada perubahan tolong segera lapor.</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:#b71c1c;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #ffebee">🚑 Dialog 2 — 急変時の用語使用</div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">介護士</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">看護師さん、緊急報告です。山田様が急変しました。SpO₂が89%に低下、チアノーゼあり、意識はあります。<button aria-label="Ucapkan: 看護師さん、緊急報告です。山田様が急変しました。SpO₂が8…" onclick="speak('看護師さん、緊急報告です。山田様が急変しました。SpO₂が89%に低下、チアノーゼあり、意識はあります。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Suster, laporan darurat. Pak Yamada kondisi mendadak memburuk. SpO2 turun ke 89%, ada sianosis, masih sadar.</div></div></div><div style="display:flex;gap:10px;margin:9px 0;align-items:flex-start"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#ffebee;color:#b71c1c;margin-top:1px;flex-shrink:0">看護師</span><div><div style="font-size:.91rem;font-weight:500;color:var(--ink);line-height:1.6">すぐ行きます。仰臥位のままにして酸素の準備をお願いします。<button aria-label="Ucapkan: すぐ行きます。仰臥位のままにして酸素の準備をお願いします。" onclick="speak('すぐ行きます。仰臥位のままにして酸素の準備をお願いします。')" style="border:none;background:#b71c1c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div style="font-size:.79rem;color:var(--ink-mid);margin-top:2px">Segera ke sana. Pertahankan posisi telentang dan siapkan oksigen.</div></div></div></div></div>
+<div class="quiz-wrap" id="quizWrap">
+    <div class="q-title">🎯 Soal <span id="qNum">1</span>/<span id="qTot"></span></div>
+    <div class="q-text" id="qText"></div>
+    <div class="q-opts" id="qOpts"></div>
+    <div class="q-fb" id="qFb"></div>
+    <div class="q-nav">
+      <button class="q-btn rst" onclick="rstQ()">↺ Ulangi</button>
+      <div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="qSc">0</span></div>
+      <button class="q-btn nxt" onclick="nxtQ()" id="qNxt" style="display:none">Berikutnya →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtterance(t);u.lang='ja-JP';u.rate=0.85;speechSynthesis.cancel();speechSynthesis.speak(u);}}
+const QUIZ_KLINIK = [
+  {q:'Apa bahasa Jepang dari "dekubitus / luka tekan"?', opts:['拘縮（こうしゅく）','褥瘡（じょくそう）','浮腫（むくみ）','廃用症候群'], ans:1, exp:'褥瘡（じょくそう）adalah dekubitus. Pencegahan dengan体位変換 (ubah posisi) setiap 2 jam.'},
+  {q:'Bahasa Jepang dari "aspirasi / tersedak makanan ke saluran napas"?', opts:['誤嚥（ごえん）','嚥下（えんか）','咀嚼（そしゃく）','嘔吐（おうと）'], ans:0, exp:'誤嚥（ごえん）= aspirasi. Komplikasi terberatnya adalah 誤嚥性肺炎 (pneumonia aspirasi).'},
+  {q:'Apa nilai normal SpO2 (saturasi oksigen)?', opts:['85–90%','90–95%','96% ke atas','100% selalu'], ans:2, exp:'SpO2 normal ≥96%. Jika turun di bawah 90%, ini adalah kondisi darurat yang harus segera dilaporkan.'},
+  {q:'"廃用症候群" berarti?', opts:['Sindrom demensia','Sindrom disuse / imobilisasi','Sindrom Parkinson','Sindrom down'], ans:1, exp:'廃用症候群 adalah sindrom disuse — penurunan fungsi tubuh akibat imobilisasi/tirah baring berkepanjangan. Termasuk拘縮、筋力低下、褥瘡, dll.'},
+  {q:'Tindakan medis mana yang BOLEH dilakukan 介護福祉士 (dengan pelatihan khusus)?', opts:['Pemberian infus','Pengambilan darah','Penghisapan sekret (吸引)','Operasi kecil'], ans:2, exp:'Sejak 2012, 介護福祉士 boleh melakukan 吸引（口腔・鼻腔）dan 経管栄養 dengan syarat mengikuti pelatihan khusus.'},
+  {q:'Cara melaporkan tekanan darah 120/80 dalam bahasa Jepang?', opts:['血圧は百二十八十です','血圧は120の80です','血圧は120パーセントです','血圧は80から120です'], ans:1, exp:'Format standar: 血圧は上が120、下が80です atau singkatnya 120の80. Kata 収縮期/拡張期 juga bisa digunakan.'},
+  {q:'"拘縮（こうしゅく）" adalah?', opts:['Radang sendi','Kontraktur / kekakuan sendi','Fraktur tulang','Atrofi otot'], ans:1, exp:'拘縮 adalah kontraktur — kekakuan sendi akibat imobilisasi. Pencegahan dengan 関節可動域訓練 (ROM exercise).'},
+  {q:'Bahasa Jepang dari "gagal jantung"?', opts:['心臓病','心不全','心筋梗塞','狭心症'], ans:1, exp:'心不全（しんふぜん）= gagal jantung. Gejala utama: むくみ (edema) dan 息切れ (sesak napas).'},
+  {q:'"認知症の4大原因疾患" mana yang paling umum (60–70%)?', opts:['血管性認知症','レビー小体型認知症','アルツハイマー型認知症','前頭側頭型認知症'], ans:2, exp:'アルツハイマー型認知症 adalah paling umum (60–70%). Ditandai penurunan memori episodik progresif.'},
+  {q:'Obat yang diberikan hanya jika diperlukan (PRN) disebut?', opts:['内服薬','定期薬','頓服（とんぷく）','処方箋'], ans:2, exp:'頓服（とんぷく）adalah obat PRN (pro re nata) — diberikan sesuai kebutuhan, misalnya saat nyeri atau demam.'},
+];
+</script>
+
+</div>
+</div>
+
+<button id="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas">↑</button>
+
+<footer style="background:var(--ink);color:rgba(255,255,255,.6);padding:1.5rem clamp(16px,5vw,72px)"><div style="max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between"><div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:18px;font-weight:700">Nihonggo Pro Academy</div><div style="display:flex;gap:1rem;font-size:13px"><a href="../index.html" style="color:rgba(255,255,255,.5);text-decoration:none">Beranda</a><a href="Materi.html" style="color:rgba(255,255,255,.5);text-decoration:none">Materi</a><a href="Kaigo-Fukushishi-Overview.html" style="color:rgba(255,255,255,.5);text-decoration:none">介護福祉士</a><a href="../FAQ.html" style="color:rgba(255,255,255,.5);text-decoration:none">FAQ</a></div><div style="font-size:11px;color:rgba(255,255,255,.25)">© 2025 NihonggoPro</div></div></footer>
+
+<script>
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+const btt=document.getElementById('bttBtn');window.addEventListener('scroll',()=>btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});
+// Auto-build TOC
+(()=>{
+  const headings=document.querySelectorAll('#mainContent h2[id],#mainContent h3[id]');
+  const tl=document.getElementById('tocList');
+  if(!tl)return;
+  headings.forEach(h=>{
+    const a=document.createElement('a');
+    a.href='#'+h.id;a.className='toc-a'+(h.tagName==='H3'?' sub':'');
+    a.textContent=h.textContent.replace(/^[▪●■]\s*/,'');
+    tl.appendChild(a);
+  });
+  // Active state
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      const a=tl.querySelector('a[href="#'+e.target.id+'"]');
+      if(a)a.classList.toggle('on',e.isIntersecting);
+    });
+  },{rootMargin:'-30% 0px -60% 0px'});
+  headings.forEach(h=>obs.observe(h));
+})();
+// Quiz engine
+let qIdx=0,qScore=0,qAnswered=false;
+function initQuiz(data){
+  window._qData=[...data].sort(()=>Math.random()-.5);
+  qIdx=0;qScore=0;renderQ();
+}
+function renderQ(){
+  const d=window._qData;if(!d||!d[qIdx])return;
+  const q=d[qIdx];
+  document.getElementById('qNum').textContent=qIdx+1;
+  document.getElementById('qTot').textContent=d.length;
+  document.getElementById('qText').textContent=q.q;
+  document.getElementById('qOpts').innerHTML=q.opts.map((o,i)=>`<button class="q-opt" onclick="ansQ(${i},this)">${String.fromCharCode(65+i)}. ${o}</button>`).join('');
+  document.getElementById('qFb').style.display='none';
+  document.getElementById('qNxt').style.display='none';
+  qAnswered=false;
+}
+function ansQ(idx,btn){
+  if(qAnswered)return;qAnswered=true;
+  const q=window._qData[qIdx];
+  document.querySelectorAll('.q-opt')[q.ans].classList.add('ok');
+  if(idx!==q.ans)btn.classList.add('ng');else qScore++;
+  document.getElementById('qSc').textContent=qScore;
+  document.getElementById('qFb').textContent=q.exp;
+  document.getElementById('qFb').style.display='block';
+  document.getElementById('qNxt').style.display='block';
+}
+function nxtQ(){
+  qIdx++;
+  const d=window._qData;
+  if(qIdx>=d.length){
+    const pct=Math.round(qScore/d.length*100);
+    document.getElementById('quizWrap').innerHTML=`<div style="text-align:center;padding:1.5rem"><div style="font-size:40px;margin-bottom:.5rem">${pct>=80?'🏆':pct>=60?'📚':'🔄'}</div><div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:.3rem">Skor: ${qScore}/${d.length} (${pct}%)</div><div style="color:rgba(255,255,255,.6);margin-bottom:1rem">${pct>=80?'Siap ujian nasional!':pct>=60?'Terus berlatih!':'Review materi dan ulangi.'}</div><button class="q-btn nxt" onclick="rstQ()" style="margin:0 auto">↺ Ulangi</button></div>`;
+    return;
+  }
+  renderQ();
+}
+function rstQ(){qIdx=0;qScore=0;document.getElementById('quizWrap').innerHTML=`<div class="q-title">🎯 Soal <span id="qNum">1</span>/<span id="qTot"></span></div><div class="q-text" id="qText"></div><div class="q-opts" id="qOpts"></div><div class="q-fb" id="qFb"></div><div class="q-nav"><button class="q-btn rst" onclick="rstQ()">↺ Ulangi</button><div style="font-size:12px;color:rgba(255,255,255,.5)">Benar: <span id="qSc">0</span></div><button class="q-btn nxt" onclick="nxtQ()" id="qNxt" style="display:none">Berikutnya →</button></div>`;initQuiz(window._qData);}
+// Dipindah dari script pertama (v181): initQuiz butuh function initQuiz()
+// yang didefinisikan DI SINI (script kedua) -- memanggilnya dari script
+// pertama menyebabkan ReferenceError karena hoisting tak lintas <script>.
+initQuiz(QUIZ_KLINIK);
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+
+<section style="max-width:900px;margin:0 auto;padding:0 20px 40px">
+<h2 style="font-size:1.1rem;font-weight:700;color:#1565c0;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz</h2>
+<div id="qkZ"></div>
+<div style="display:flex;gap:10px;margin-top:10px">
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:#1565c0;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
+</div>
+<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
+</section>
+<script>
+var QKZ=[{"q": "「褥瘡」の英語表現は？", "opts": ["pressure ulcer/bedsore", "diabetes", "fracture", "infection"], "a": 0, "e": "褥瘡はpressure ulcer（プレッシャーアルサー）またはbedsore（ベッドソア）と英語で表現される。長時間の圧迫によって皮膚や組織が損傷する状態を指し、体位変換による予防が重要とされる。"}, {"q": "「誤嚥」の意味は？", "opts": ["食欲がない", "食べ物・液体が気管に入ること", "嚥下が正常", "むせない"], "a": 1, "e": "誤嚥（ごえん）とは、食物や液体が誤って気管（呼吸の通り道）に入ってしまうことを意味する。英語ではaspirationと呼ばれ、誤嚥性肺炎の直接的な原因となるため、食事介助において特に注意が必要な状態である。"}, {"q": "「失禁」(しっきん)の意味は？", "opts": ["便秘", "排泄を我慢できない状態", "排泄量が多い", "排泄がない"], "a": 1, "e": "失禁とは、自分の意思とは関係なく尿や便が漏れてしまう状態を意味する。英語ではincontinenceと呼ばれ、身体的な要因だけでなく心理的な影響も大きいため、羞恥心への配慮が特に重要となる。"}, {"q": "「拘縮」(こうしゅく)の意味は？", "opts": ["筋肉が強くなる", "関節・筋肉が硬くなり動かなくなること", "痛みがある", "腫れること"], "a": 1, "e": "拘縮とは、関節が固まり動きにくくなった状態を意味する。英語ではcontractureと呼ばれ、長期間の不動が主な原因となるため、日々のROM訓練や体位変換による予防が重視される。"}, {"q": "「転倒」と「転落」の違いは？", "opts": ["同じ", "転倒=同一平面で倒れる、転落=高い所から落ちる", "転落の方が軽い", "どちらも骨折のみ"], "a": 1, "e": "転倒(てんとう)=jatuh di permukaan yang sama(床で転ぶ). 転落(てんらく)=jatuh dari tempat yang lebih tinggi(ベッドから落ちる). 報告書で区別して記録。"}, {"q": "「バイタルサイン」に含まれる4項目は？", "opts": ["身長・体重・血液型・視力", "体温・脈拍・呼吸・血圧", "血糖値・コレステロール・尿酸・ヘモグロビン", "痛み・浮腫・発疹・意識"], "a": 1, "e": "バイタルサイン=生命徴候。4大バイタル: ①体温(正常36-37°C)②脈拍(60-100回/分)③呼吸(12-20回/分)④血圧(収縮期<140mmHg)。意識・SpO₂を加えて6項目とすることもある。"}, {"q": "「浮腫（むくみ）」が介護において重要な観察ポイントである理由は？", "opts": ["美容上の問題", "心臓・腎臓・肝臓疾患のサインである可能性があるため", "暑いと必ず起こる", "食べすぎのサイン"], "a": 1, "e": "浮腫（組織に水分が貯留した状態）は心不全・腎不全・肝硬変・薬の副作用のサインであることがある。下肢の浮腫は特に高齢者に多い。「押すとへこむか」を確認し、変化があれば看護師に報告。"}, {"q": "「バイタルサイン」の4大指標として正しい組み合わせは？", "opts": ["身長・体重・血糖・尿量", "体温・血圧・脈拍・呼吸（SpO₂を加えた5指標が現代の標準）", "食欲・水分量・排泄・睡眠", "意識・疼痛・浮腫・体重"], "a": 1, "e": "バイタルサイン4大指標：①体温②血圧③脈拍④呼吸数。現代ではSpO₂（酸素飽和度）を加えた5項目が標準的。これらは「生命維持の徴候」であり、変化が生命の危機につながるため最優先で観察・報告する。"}, {"q": "「バイタルサイン」を構成する4要素に含まれないのはどれか。", "opts": ["体重", "体温", "脈拍", "血圧"], "a": 0, "e": "基本的なバイタルサインは体温・脈拍・血圧・呼吸の4要素で構成される（近年はSpO2も含めることが多い）。体重はこれらには含まれず、栄養状態の指標として別に扱われる。"}, {"q": "「浮腫(ふしゅ)」の意味はどれか。", "opts": ["体内に水分がたまりむくむこと", "発熱", "発疹", "脱水"], "a": 0, "e": "浮腫とは、体内に水分がたまりむくむ状態を意味する。英語ではedemaと呼ばれ、心不全や腎機能低下など、様々な疾患のサインとして現れることがあるため、観察が重要な症状の一つとされる。"}, {"q": "「チアノーゼ」の意味はどれか。", "opts": ["酸素不足で唇や皮膚が青紫になる状態", "発熱状態", "発疹", "高血圧"], "a": 0, "e": "チアノーゼとは、酸素不足により唇や皮膚が青紫色になる状態を指す。英語ではcyanosisと呼ばれ、呼吸・循環器系の重大な異常を示す緊急性の高いサインとして扱われる。"}, {"q": "「せん妄」の英語表現はどれか。", "opts": ["delirium", "dementia", "depression", "disability"], "a": 0, "e": "せん妄はdelirium（デリリウム）と英語で表現される。急性で可逆的な意識障害を指し、慢性進行性の認知症（dementia）とは明確に区別される医学用語として重要である。"}, {"q": "「褥瘡(じょくそう)」の英語表現はどれか。", "opts": ["pressure ulcer / bedsore", "fracture", "infection", "dehydration"], "a": 0, "e": "褥瘡はpressure ulcerまたはbedsoreと英語で表現される。長時間の圧迫による皮膚・組織の損傷を指し、定期的な体位変換や体圧分散用具の使用によって予防される。"}, {"q": "「誤嚥」の意味はどれか。", "opts": ["食物や液体が誤って気管に入ること", "食べ過ぎ", "消化不良", "嘔吐"], "a": 0, "e": "誤嚥とは、食物や液体が誤って気管に入ってしまうことを意味する。英語ではaspirationと呼ばれ、誤嚥性肺炎の主な原因となるため、食事介助時の姿勢や一口量への配慮が欠かせない。"}, {"q": "「拘縮(こうしゅく)」の意味はどれか。", "opts": ["関節が固まり動きにくくなること", "骨折", "炎症", "感染"], "a": 0, "e": "拘縮とは、関節が固まり動きにくくなる状態を指す。英語ではcontractureと呼ばれ、不動が主な原因となるため、ROM訓練や体位変換による予防が介護現場で重視されている。"}, {"q": "「せつじょく」ではなく正しい読み方はどれか。", "opts": ["じょくそう", "せきそう", "じゅくそう", "せつそう"], "a": 0, "e": "「褥瘡」の正しい読み方は「じょくそう」である。誤って「せつじょく」と読まれることがあるが、医療・介護現場で正確な用語の読み方を理解しておくことは重要になる。"}, {"q": "「ADL」と「IADL」の違いはどれか。", "opts": ["ADLは基本動作、IADLは手段的(買い物等)動作", "同じ意味", "IADLの方が基本的", "無関係"], "a": 0, "e": "ADLは食事・排泄・入浴などの基本的な動作を指すのに対し、IADLは買い物・電話・金銭管理など、より複雑な手段的な動作を指すという違いがある。両者を区別して評価することで、支援の必要な範囲をより具体的に把握できる。"}, {"q": "「せん妄」と「認知症」の英語での区別はどれか。", "opts": ["delirium(急性)とdementia(慢性)", "同じ単語", "dementiaの方が急性", "区別なし"], "a": 0, "e": "せん妄はdelirium（急性で可逆的）、認知症はdementia（慢性で進行性）と英語で明確に区別される。この区別は、症状の原因と対応方法が大きく異なるため、臨床上非常に重要な意味を持つ。"}, {"q": "「バイタル」の中で「SpO2」が示すものはどれか。", "opts": ["血中酸素飽和度", "血圧", "脈拍数", "体温"], "a": 0, "e": "SpO2は、血液中にどれだけ酸素が含まれているかを示す経皮的動脈血酸素飽和度を表す。95%以上が一般的な目安とされ、呼吸状態を把握する上で重要な指標として活用される。"}, {"q": "「既往歴」の意味はどれか。", "opts": ["過去にかかった病気の記録", "現在の症状", "将来の予測", "家族の病歴のみ"], "a": 0, "e": "既往歴とは、過去にかかった病気や治療の記録を意味する。現在の症状ではなく過去の病歴を指す用語であり、アセスメントや医療的判断において重要な情報として扱われる。"}],qiZ=0,okZ=0,totZ=0;
+function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;
+var oo=document.createElement('div');oo.style.display='grid';oo.style.gap='7px';
+q.opts.forEach(function(o,i){var b=document.createElement('button');
+b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';
+b.textContent=o;b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
+var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
+var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:10px;font-size:.92rem';
+qq.textContent=(qiZ%QKZ.length+1)+'. '+q.q;
+var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none';
+bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function ansZ(btn,c,a,e){var bs=btn.parentNode.querySelectorAll('button');if(bs[a].dataset.d)return;
+bs[a].dataset.d='1';totZ++;
+bs[a].style.background='#e8f5e9';bs[a].style.borderColor='#43a047';bs[a].style.color='#1b5e20';
+if(c!==a){btn.style.background='#fce4ec';btn.style.borderColor='#e91e63';btn.style.color='#880e4f';}
+else okZ++;
+var ex=document.getElementById('qeZ');if(ex){ex.textContent='💡 '+e;ex.style.display='block';}
+var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ;}
+function nQkZ(){qiZ=(qiZ+1)%QKZ.length;rndZ();} function rQkZ(){qiZ=0;okZ=0;totZ=0;rndZ();}
+rndZ();
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

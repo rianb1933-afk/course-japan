@@ -1,0 +1,157 @@
+/**
+ * anatomy-viewer.css — Nihonggo Pro Academy
+ * Style untuk halaman Anatomi-Dasar.html (dipisah dari inline sesuai Tahap 1 refactor).
+ * Mempertahankan seluruh gaya desain Kyoto/NihonggoPro yang sudah ada.
+ */
+*,*::before,*::after{box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:var(--cream,#F8F3E9);color:var(--ink,#2d2d2d);margin:0;line-height:1.7}
+.wrap{max-width:1080px;margin:0 auto;padding:0 5vw}
+
+/* ── HERO ── */
+.ana-hero{background:linear-gradient(160deg,#3B2E24,#2A2018);color:#fff;padding:3.5rem 5vw 3rem;position:relative;overflow:hidden}
+.ana-hero::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 85% 20%,rgba(200,155,60,.18),transparent 55%);pointer-events:none}
+.ana-hero-inner{max-width:1080px;margin:0 auto;position:relative;z-index:1}
+.ana-kicker{display:inline-flex;align-items:center;gap:.5rem;font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#D9B36C;background:rgba(217,179,108,.12);border:1px solid rgba(217,179,108,.3);padding:.4rem .9rem;border-radius:999px;margin-bottom:1.1rem}
+.ana-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4.2vw,44px);font-weight:700;margin:0 0 .6rem;letter-spacing:.01em}
+.ana-hero h1 .jp{display:block;font-size:.5em;font-weight:400;color:rgba(255,255,255,.55);letter-spacing:.2em;margin-bottom:.3rem}
+.ana-hero p.lead{max-width:640px;color:rgba(255,255,255,.72);font-size:16px;margin:0 0 1.6rem}
+.ana-hero-stats{display:flex;gap:1.8rem;flex-wrap:wrap}
+.ana-hero-stat b{display:block;font-family:'Noto Serif JP',serif;font-size:24px;color:#D9B36C}
+.ana-hero-stat span{font-size:12px;color:rgba(255,255,255,.55)}
+
+/* ── MODE SWITCHER (Tahap 5: Belajar / Eksplorasi / Kuis Visual) ── */
+.mode-switcher{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:1.2rem}
+.mode-btn{border:1.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.08);color:#fff;border-radius:999px;padding:7px 14px;font:inherit;font-size:12.5px;font-weight:700;cursor:pointer;transition:all .15s}
+.mode-btn.active{background:#D9B36C;color:#2A2018;border-color:#D9B36C}
+.mode-btn:hover{border-color:#D9B36C}
+
+/* ── VIEWER TOOLBAR (Tahap 2: zoom/pan/fullscreen controls) ── */
+.viewer-toolbar{display:flex;gap:.4rem;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem}
+.vt-btn{width:36px;height:36px;border-radius:8px;border:1.5px solid var(--border-mid,rgba(107,79,58,.2));background:var(--surface,#fff);color:var(--ink,#2d2d2d);font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.vt-btn:hover{border-color:#C89B3C;background:var(--gold-pale,#FBF4E3)}
+.vt-btn:focus-visible{outline:2px solid #A63A3A;outline-offset:2px}
+.vt-btn[aria-pressed="true"]{background:#5B3A29;color:#fff;border-color:#5B3A29}
+
+/* ── DIAGRAM SIGNATURE ── */
+.diagram-section{padding:3rem 5vw;background:var(--surface,#fff)}
+.diagram-grid{max-width:1080px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,340px) 1fr;gap:2.5rem;align-items:start}
+@media(max-width:760px){.diagram-grid{grid-template-columns:1fr}}
+.diagram-stage{position:sticky;top:80px;text-align:center}
+.diagram-viewport{overflow:hidden;border-radius:14px;background:var(--cream,#F8F3E9);position:relative;touch-action:none}
+.diagram-viewport.fullscreen-active{position:fixed;inset:0;z-index:9999;background:var(--surface,#fff);border-radius:0;display:flex;align-items:center;justify-content:center}
+.diagram-stage svg{width:100%;max-width:300px;height:auto;transition:transform .2s ease-out;transform-origin:center center}
+.diagram-viewport.fullscreen-active svg{max-width:500px}
+.body-part{cursor:pointer;transition:opacity .2s}
+.body-part:hover,.body-part.active{opacity:.75}
+
+/* Hotspot tombol aksesibel (Tahap 3) — dioverlay di atas SVG, posisi via % */
+.hotspot-btn{position:absolute;width:28px;height:28px;min-width:44px;min-height:44px;margin:-22px 0 0 -22px;border-radius:50%;border:2px solid #D9B36C;background:rgba(217,179,108,.25);cursor:pointer;transition:all .2s;animation:hotspotPulse 2.4s ease-in-out infinite}
+.hotspot-btn:hover,.hotspot-btn:focus-visible{background:rgba(217,179,108,.55);outline:none;transform:scale(1.15)}
+.hotspot-btn:focus-visible{box-shadow:0 0 0 3px rgba(166,58,58,.4)}
+.hotspot-btn.dimmed{opacity:.25;animation:none}
+.hotspot-btn.selected{background:#A63A3A;border-color:#A63A3A;animation:none}
+@keyframes hotspotPulse{0%,100%{box-shadow:0 0 0 0 rgba(217,179,108,.45)}50%{box-shadow:0 0 0 8px rgba(217,179,108,0)}}
+@media(prefers-reduced-motion:reduce){.hotspot-btn{animation:none}}
+
+.hotspot-tooltip{position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:8px;background:#2A2018;color:#fff;font-size:12px;padding:6px 10px;border-radius:8px;white-space:nowrap;pointer-events:none;opacity:0;transition:opacity .15s;z-index:10}
+.hotspot-btn:hover .hotspot-tooltip,.hotspot-btn:focus-visible .hotspot-tooltip{opacity:1}
+
+.diagram-caption{margin-top:.8rem;font-size:12.5px;color:var(--ink-soft,#6e6e6e)}
+.system-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.5rem}
+.sys-tab{border:1.5px solid var(--border-mid,rgba(107,79,58,.2));background:var(--cream,#F8F3E9);color:var(--ink,#2d2d2d);border-radius:999px;padding:8px 16px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;min-height:44px}
+.sys-tab.active{background:#5B3A29;color:#fff;border-color:#5B3A29}
+.sys-tab:focus-visible{outline:2px solid #A63A3A;outline-offset:2px}
+.term-list{display:grid;gap:.7rem}
+.term-card{border:1px solid var(--border-light,rgba(107,79,58,.12));border-radius:12px;padding:1rem 1.2rem;background:var(--surface,#fff);display:flex;align-items:flex-start;gap:1rem;transition:border-color .15s;cursor:pointer;min-height:44px}
+.term-card:hover,.term-card.hl{border-color:#C89B3C}
+.term-card:focus-visible{outline:2px solid #A63A3A;outline-offset:2px}
+.term-num{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:var(--cream,#F8F3E9);color:#5B3A29;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+.term-jp{font-family:'Noto Serif JP',serif;font-size:20px;font-weight:700}
+.term-jp .furi{font-size:12px;font-weight:400;color:var(--ink-soft,#6e6e6e);display:block;margin-bottom:2px}
+.term-romaji{font-size:12px;color:#A63A3A;font-weight:700}
+.term-id{font-size:14px;margin-top:.2rem}
+.term-note{font-size:12.5px;color:var(--ink-soft,#6e6e6e);margin-top:.3rem;line-height:1.5}
+.term-progress-dot{width:8px;height:8px;border-radius:50%;background:var(--border-mid,rgba(107,79,58,.2));flex-shrink:0;margin-top:6px}
+.term-progress-dot.learned{background:#5B7C5B}
+
+/* ── INFO PANEL (Tahap 4): side panel desktop, bottom sheet mobile ── */
+.info-panel-overlay{position:fixed;inset:0;background:rgba(20,15,10,.4);z-index:998;display:none;opacity:0;transition:opacity .2s}
+.info-panel-overlay.open{display:block;opacity:1}
+.info-panel{position:fixed;top:0;right:-420px;width:400px;max-width:92vw;height:100%;background:var(--surface,#fff);z-index:999;box-shadow:-8px 0 30px rgba(0,0,0,.15);transition:right .25s ease-out;overflow-y:auto;padding:1.5rem}
+.info-panel.open{right:0}
+@media(max-width:640px){
+  .info-panel{top:auto;bottom:-100%;right:0;left:0;width:100%;max-width:100%;height:auto;max-height:85vh;border-radius:20px 20px 0 0;transition:bottom .25s ease-out}
+  .info-panel.open{bottom:0}
+}
+.info-panel-close{position:absolute;top:1rem;right:1rem;width:36px;height:36px;border-radius:50%;border:none;background:var(--cream,#F8F3E9);font-size:18px;cursor:pointer;min-width:44px;min-height:44px}
+.info-panel-close:focus-visible{outline:2px solid #A63A3A}
+.info-panel h3.jp-big{font-family:'Noto Serif JP',serif;font-size:32px;margin:1rem 0 .2rem}
+.info-panel .furi-big{font-size:14px;color:var(--ink-soft,#6e6e6e)}
+.info-panel .romaji-big{font-size:13px;color:#A63A3A;font-weight:700;margin-bottom:1rem}
+.ip-row{display:flex;gap:.6rem;padding:.6rem 0;border-bottom:1px solid var(--border-light,rgba(107,79,58,.1))}
+.ip-row .ip-label{width:90px;flex-shrink:0;font-size:11px;font-weight:800;text-transform:uppercase;color:var(--ink-soft,#6e6e6e);letter-spacing:.05em}
+.ip-row .ip-val{font-size:14px}
+.ip-actions{display:flex;gap:.5rem;margin-top:1.2rem;flex-wrap:wrap}
+.ip-btn{border:1.5px solid var(--border-mid,rgba(107,79,58,.2));background:var(--cream,#F8F3E9);border-radius:10px;padding:9px 14px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:.4rem;min-height:44px}
+.ip-btn:hover{border-color:#C89B3C}
+.ip-btn:focus-visible{outline:2px solid #A63A3A}
+.ip-btn.primary{background:linear-gradient(135deg,#5B7C5B,#6B4F3A);color:#fff;border:none}
+.ip-nav{display:flex;justify-content:space-between;margin-top:1.5rem;padding-top:1rem;border-top:1px solid var(--border-light,rgba(107,79,58,.1))}
+
+/* ── PROGRESS & GAMIFIKASI (Tahap 6) ── */
+.ana-progress-bar{height:6px;background:var(--border-light,rgba(107,79,58,.12));border-radius:99px;overflow:hidden;margin-top:.6rem}
+.ana-progress-fill{height:100%;background:linear-gradient(90deg,#D9B36C,#5B7C5B);border-radius:99px;transition:width .4s ease-out}
+.ana-toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(100px);background:#2A2018;color:#fff;padding:10px 20px;border-radius:99px;font-size:13px;font-weight:700;z-index:1000;transition:transform .3s ease-out;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.ana-toast.show{transform:translateX(-50%) translateY(0)}
+@media(prefers-reduced-motion:reduce){.ana-toast{transition:none}.ana-progress-fill{transition:none}}
+
+/* ── QUIZ (pola sama dgn Ujian.html) ── */
+.quiz-section{padding:3rem 5vw 4rem;max-width:760px;margin:0 auto}
+.quiz-section h2{font-family:'Noto Serif JP',serif;font-size:24px;margin-bottom:.4rem}
+.q-panel{background:var(--surface,#fff);border:1px solid var(--border-light,rgba(107,79,58,.12));border-radius:16px;padding:1.6rem;box-shadow:0 4px 20px rgba(91,58,41,.06)}
+.q-progress{font-size:13px;color:var(--ink-soft,#6e6e6e);margin-bottom:.8rem}
+.q-text{font-size:17px;font-weight:600;margin-bottom:1.1rem;line-height:1.6;overflow-wrap:break-word}
+.q-choices{display:grid;gap:.6rem}
+.q-choice{border:1.5px solid var(--border-mid,rgba(107,79,58,.2));background:var(--cream,#F8F3E9);color:var(--ink,#2d2d2d);border-radius:10px;padding:12px 16px;font:inherit;font-size:14.5px;text-align:left;cursor:pointer;transition:all .15s;overflow-wrap:break-word;min-height:44px}
+.q-choice:hover{border-color:#C89B3C}
+.q-choice:focus-visible{outline:2px solid #A63A3A;outline-offset:2px}
+.q-choice.sel{border-color:#A63A3A;background:rgba(166,58,58,.06)}
+.q-choice.correct{border-color:#5B7C5B;background:rgba(91,124,91,.1)}
+.q-choice.wrong{border-color:#A63A3A;background:rgba(166,58,58,.1)}
+.q-expl{display:none;margin-top:1rem;padding:.9rem;background:var(--gold-pale,#FBF4E3);border-radius:10px;font-size:13.5px;line-height:1.6}
+.q-expl.show{display:block}
+.q-nav{display:flex;justify-content:space-between;margin-top:1.2rem}
+.q-btn{border:none;background:linear-gradient(135deg,#5B7C5B,#6B4F3A);color:#fff;border-radius:10px;padding:10px 22px;font:inherit;font-weight:700;cursor:pointer;min-height:44px}
+.q-btn:disabled{opacity:.4;cursor:not-allowed}
+.q-btn:focus-visible{outline:2px solid #A63A3A;outline-offset:2px}
+#quizResult{display:none;text-align:center;padding:2rem}
+#quizResult .big{font-family:'Noto Serif JP',serif;font-size:42px;font-weight:800;color:#5B3A29}
+
+/* ── 2D/3D TAB (Tahap 7) ── */
+.viewmode-tabs{display:flex;gap:.4rem;justify-content:center;margin-bottom:1rem}
+.vm-tab{border:1.5px solid var(--border-mid,rgba(107,79,58,.2));background:var(--cream,#F8F3E9);border-radius:8px;padding:6px 18px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;min-height:44px}
+.vm-tab.active{background:#5B3A29;color:#fff}
+.model3d-fallback{padding:2.5rem 1rem;text-align:center;color:var(--ink-soft,#6e6e6e);font-size:14px;background:var(--cream,#F8F3E9);border-radius:14px}
+
+/* Pastikan tidak ada horizontal overflow di layar sempit (320px) */
+@media(max-width:340px){
+  .ana-hero-stats{gap:1rem}
+  .info-panel{padding:1rem}
+}
+
+/* ── MODE EKSPLORASI (Tahap 5.2): label disembunyikan sampai istilah dibuka ── */
+body[data-anatomy-mode="eksplorasi"] .term-jp,
+body[data-anatomy-mode="eksplorasi"] .term-romaji,
+body[data-anatomy-mode="eksplorasi"] .term-id{
+  filter:blur(5px);opacity:.5;transition:filter .2s,opacity .2s;user-select:none
+}
+body[data-anatomy-mode="eksplorasi"] .term-card.revealed .term-jp,
+body[data-anatomy-mode="eksplorasi"] .term-card.revealed .term-romaji,
+body[data-anatomy-mode="eksplorasi"] .term-card.revealed .term-id{
+  filter:none;opacity:1;user-select:auto
+}
+body[data-anatomy-mode="eksplorasi"] .term-card:not(.revealed)::after{
+  content:"🔍 Tap untuk mengungkap nama";position:absolute;left:1.2rem;bottom:.6rem;font-size:11px;color:#A63A3A;font-weight:700
+}
+body[data-anatomy-mode="eksplorasi"] .term-card{position:relative;padding-bottom:1.8rem}
+body[data-anatomy-mode="eksplorasi"] .hotspot-tooltip{display:none} /* jangan bocorkan nama lewat tooltip di mode ini */

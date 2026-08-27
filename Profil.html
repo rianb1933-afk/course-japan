@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Profil Saya — Nihonggo Pro Academy</title>
+<meta name="description" content="Profil pengguna NihonggoPro: edit nama, avatar, target level, statistik belajar, dan ekspor data progress.">
+<link rel="canonical" href="https://nihonggopro.id/Profil.html">
+<meta property="og:title" content="Profil — Nihonggo Pro Academy">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Profil.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"ProfilePage","name":"Profil NihonggoPro","url":"https://nihonggopro.id/Profil.html"}</script>
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8F3E9);color:var(--charcoal,#2D2D2D);min-height:100dvh;display:flex;flex-direction:column}
+.page{max-width:720px;margin:0 auto;padding:32px 20px 80px;flex:1}
+.card{background:#FEFCF8;border:1px solid rgba(107,79,58,.12);border-radius:16px;padding:24px;margin-bottom:20px}
+[data-theme="dark"] .card{background:#1A1A1A;border-color:rgba(200,155,60,.12)}
+.card-title{font-size:13px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#A0A0A0;margin-bottom:16px}
+.avatar-row{display:flex;align-items:center;gap:20px;margin-bottom:20px}
+.avatar-big{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#6B4F3A,#C89B3C);display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700;color:#FEF;flex-shrink:0;cursor:pointer;transition:transform 150ms}
+.avatar-big:hover{transform:scale(1.05)}
+.avatar-info h2{font-size:20px;font-weight:700;color:#2D2D2D;margin-bottom:4px}
+[data-theme="dark"] .avatar-info h2{color:#E8E5DF}
+.avatar-info p{font-size:13px;color:#6E6E6E}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:500px){.form-row{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:12px;font-weight:600;color:#6B4F3A;text-transform:uppercase;letter-spacing:.05em}
+[data-theme="dark"] .form-label{color:#C89B3C}
+.form-input,.form-select{width:100%;padding:11px 14px;border:1.5px solid rgba(107,79,58,.15);border-radius:9px;background:var(--kyoto-cream,#F8F3E9);font-family:inherit;font-size:14px;color:#2D2D2D;outline:none;transition:border-color 150ms}
+[data-theme="dark"] .form-input,[data-theme="dark"] .form-select{background:#111;color:#E8E5DF;border-color:rgba(200,155,60,.15)}
+.form-input:focus,.form-select:focus{border-color:#6B4F3A}
+.save-btn{padding:11px 24px;border-radius:9px;background:#6B4F3A;color:#FEF;border:none;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:background 130ms}
+.save-btn:hover{background:#553C2B}
+[data-theme="dark"] .save-btn{background:#C89B3C;color:#1A1209}
+.stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media(max-width:400px){.stat-grid{grid-template-columns:1fr 1fr}}
+.s-box{background:rgba(107,79,58,.05);border-radius:10px;padding:14px;text-align:center}
+[data-theme="dark"] .s-box{background:rgba(200,155,60,.06)}
+.s-num{font-size:22px;font-weight:700;color:#6B4F3A;display:block}
+[data-theme="dark"] .s-num{color:#C89B3C}
+.s-lbl{font-size:10px;color:#A0A0A0;text-transform:uppercase;letter-spacing:.05em}
+.danger-zone{border-color:rgba(166,58,58,.20)!important}
+[data-theme="dark"] .danger-zone{border-color:rgba(200,100,100,.20)!important}
+.danger-btn{padding:9px 18px;border-radius:8px;background:none;border:1.5px solid rgba(166,58,58,.25);color:#A63A3A;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all 130ms}
+.danger-btn:hover{background:#A63A3A;color:#FEF}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#2D2D2D;color:#FEF;padding:10px 20px;border-radius:9px;font-size:14px;z-index:999;opacity:0;transition:opacity 200ms;pointer-events:none}
+.toast.show{opacity:1}
+</style>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Profil pengguna NihonggoPro: edit nama, avatar, target level, statistik belajar, dan ekspor data progress.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Profil Saya — Nihonggo Pro Academy">
+<meta name="twitter:description" content="Profil pengguna NihonggoPro: edit nama, avatar, target level, statistik belajar, dan ekspor data progress.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<div class="page">
+  <h1 style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:#6B4F3A;margin-bottom:24px">👤 Profil Saya</h1>
+
+  <!-- Avatar & Info -->
+  <div class="card">
+    <div class="card-title">Identitas</div>
+    <div class="avatar-row">
+      <div class="avatar-big" id="avatarEl" onclick="changeAvatar()" title="Klik untuk ganti">?</div>
+      <div class="avatar-info">
+        <h2 id="displayName">Nama Pengguna</h2>
+        <p id="displayEmail" style="color:#6E6E6E">email@example.com</p>
+        <p id="displayJoined" style="font-size:12px;color:#A0A0A0;margin-top:4px">Bergabung: —</p>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="pName">Nama Lengkap</label>
+        <input class="form-input" id="pName" type="text" placeholder="Nama kamu">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="pUsername">Username</label>
+        <input class="form-input" id="pUsername" type="text" placeholder="username_unik">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="pLevel">Target Level JLPT</label>
+        <select class="form-select" id="pLevel">
+          <option value="N5">N5 — Pemula</option>
+          <option value="N4">N4 — Dasar</option>
+          <option value="N3">N3 — Menengah</option>
+          <option value="N2">N2 — Atas</option>
+          <option value="N1">N1 — Mahir</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="pTarget">Target Menit/Hari</label>
+        <select class="form-select" id="pTarget">
+          <option value="10">10 menit</option>
+          <option value="20">20 menit</option>
+          <option value="30" selected>30 menit</option>
+          <option value="60">1 jam</option>
+          <option value="90">1.5 jam</option>
+        </select>
+      </div>
+    </div>
+    <button class="save-btn" onclick="saveProfile()">💾 Simpan Profil</button>
+  </div>
+
+  <!-- Statistik -->
+  <div class="card">
+    <div class="card-title">Statistik Belajar</div>
+    <div class="stat-grid">
+      <div class="s-box"><span class="s-num" id="sXP">0</span><span class="s-lbl">Total XP</span></div>
+      <div class="s-box"><span class="s-num" id="sStreak">0🔥</span><span class="s-lbl">Streak</span></div>
+      <div class="s-box"><span class="s-num" id="sLevel">1</span><span class="s-lbl">Level</span></div>
+      <div class="s-box"><span class="s-num" id="sKanji">0</span><span class="s-lbl">Kanji Hafal</span></div>
+      <div class="s-box"><span class="s-num" id="sVocab">0</span><span class="s-lbl">Vocab Hafal</span></div>
+      <div class="s-box"><span class="s-num" id="sQuiz">0</span><span class="s-lbl">Quiz Selesai</span></div>
+    </div>
+  </div>
+
+  <!-- Export Data -->
+  <div class="card">
+    <div class="card-title">Data & Ekspor</div>
+    <p style="font-size:13px;color:#6E6E6E;margin-bottom:14px">Ekspor semua data belajar kamu dalam format JSON untuk backup atau migrasi.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="save-btn" onclick="exportData()">📥 Ekspor Data</button>
+      <button class="save-btn" style="background:rgba(107,79,58,.08);color:#6B4F3A;border:1px solid rgba(107,79,58,.20)" onclick="importData()">📤 Impor Data</button>
+      <input type="file" id="importFile" accept=".json" aria-label="Import data profil" style="display:none" onchange="doImport(this)">
+    </div>
+  </div>
+
+  <!-- Danger Zone -->
+  <div class="card danger-zone">
+    <div class="card-title" style="color:#A63A3A">Zona Bahaya</div>
+    <p style="font-size:13px;color:#6E6E6E;margin-bottom:14px">Tindakan ini tidak dapat dibatalkan.</p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="danger-btn" onclick="resetProgress()">🗑️ Reset Progress</button>
+      <button class="danger-btn" onclick="deleteAccount()">❌ Hapus Akun</button>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<footer style="background:#15161a;color:rgba(255,255,255,.65);padding:1.5rem clamp(16px,5vw,48px);margin-top:auto">
+  <div style="max-width:720px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem;border-top:1px solid rgba(255,255,255,.08);padding-top:1.25rem">
+    <span style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro</span>
+    <div style="display:flex;gap:1rem;font-size:12px">
+      <a href="Dashboard/Dashboard.html" style="color:rgba(255,255,255,.4);text-decoration:none">Dashboard</a>
+      <a href="Akun.html" style="color:rgba(255,255,255,.4);text-decoration:none">Akun</a>
+      <a href="Privacy.html" style="color:rgba(255,255,255,.4);text-decoration:none">Privasi</a>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js" defer></script>
+<script src="assets/analytics-loader.js" defer></script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script>
+function toast(msg, dur=3000){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur);}
+
+function loadProfile(){
+  const st = JSON.parse(localStorage.getItem('np-state-v3')||'{}');
+  const u  = st.user || {};
+  const sb = window.SupabaseClient?.Auth;
+  const user = sb?.user?.();
+
+  document.getElementById('pName').value    = u.name || (user?.user_metadata?.full_name) || '';
+  document.getElementById('pUsername').value= u.username || '';
+  document.getElementById('pLevel').value   = u.jlptLevel || localStorage.getItem('np_jlpt_level') || 'N5';
+  document.getElementById('pTarget').value  = localStorage.getItem('np_daily_target_min') || '30';
+
+  document.getElementById('displayName').textContent  = u.name || user?.user_metadata?.full_name || 'Nama Pengguna';
+  document.getElementById('displayEmail').textContent = user?.email || u.email || 'Belum login';
+  document.getElementById('displayJoined').textContent= 'Bergabung: ' + (u.joinedAt ? new Date(u.joinedAt).toLocaleDateString('id-ID') : '—');
+
+  const initials = (u.name||'?').split(' ').map(w=>w[0]||'').join('').slice(0,2).toUpperCase();
+  document.getElementById('avatarEl').textContent = initials;
+  document.getElementById('displayName').textContent = u.name || '—';
+
+  // XP & streak: ambil dari np-dash-v3 (sumber yang diisi dashboard + KaigoProgress),
+  // fallback ke np-state-v3 lama agar tetap kompatibel.
+  var _dash = {};
+  try { _dash = JSON.parse(localStorage.getItem('np-dash-v3')||'{}'); } catch(e){}
+  var _xp = _dash.xp || u.xp || 0;
+  var _streak = _dash.streak || u.streak || 0;
+  document.getElementById('sXP').textContent     = _xp.toLocaleString();
+  document.getElementById('sStreak').textContent  = _streak+'🔥';
+  document.getElementById('sLevel').textContent   = u.level||1;
+  document.getElementById('sKanji').textContent   = u.kanjiLearned||0;
+  document.getElementById('sVocab').textContent   = u.vocabLearned||0;
+  document.getElementById('sQuiz').textContent    = u.quizTotal||0;
+}
+
+function saveProfile(){
+  const name     = document.getElementById('pName').value.trim();
+  const username = document.getElementById('pUsername').value.trim();
+  const level    = document.getElementById('pLevel').value;
+  const target   = document.getElementById('pTarget').value;
+  if(!name){toast('⚠️ Nama tidak boleh kosong');return;}
+
+  const st = JSON.parse(localStorage.getItem('np-state-v3')||'{}');
+  st.user = st.user || {};
+  Object.assign(st.user, {name, username, jlptLevel: level, updatedAt: Date.now()});
+  localStorage.setItem('np-state-v3', JSON.stringify(st));
+  localStorage.setItem('np_jlpt_level', level);
+  localStorage.setItem('np_daily_target_min', target);
+
+  // Sync ke Supabase jika login
+  const sync = window.SupabaseClient?.Sync;
+  if(sync){sync.markDirty();sync.push().catch(()=>{});}
+
+  loadProfile();
+  toast('✅ Profil berhasil disimpan!');
+}
+
+function changeAvatar(){
+  const emojis=['😊','🎌','📚','🎎','🏯','🌸','🦊','🐉','⛩️','🎋'];
+  const pick=emojis[Math.floor(Math.random()*emojis.length)];
+  document.getElementById('avatarEl').textContent=pick;
+  const st=JSON.parse(localStorage.getItem('np-state-v3')||'{}');
+  st.user=st.user||{}; st.user.avatar=pick;
+  localStorage.setItem('np-state-v3',JSON.stringify(st));
+  toast('Avatar diperbarui!');
+}
+
+function exportData(){
+  // Backup HARUS mencerminkan data yang benar-benar dipakai sistem.
+  // Versi lama mengekspor 'grammar_n4_mastered' & 'vocab_N5_mastered' yang tidak
+  // pernah ditulis siapa pun (selalu kosong), sekaligus MELEWATKAN data nyata:
+  // XP & misi (np-dash-v3), rekap sumber XP, progress materi, dan kanji.
+  const readJSON = (key, fallback) => {
+    try { return JSON.parse(localStorage.getItem(key) || fallback); }
+    catch (e) { return JSON.parse(fallback); }
+  };
+
+  // Progress per-materi disimpan dengan prefix (np-progress-<materi>).
+  const materiProgress = {};
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    if (k && (k.startsWith('np-progress-') || k.startsWith('np-materi-'))) {
+      materiProgress[k] = localStorage.getItem(k);
+    }
+  }
+
+  const data = {
+    profile:    readJSON('np-state-v3', '{}'),
+    dashboard:  readJSON('np-dash-v3', '{}'),          // XP, streak, misi harian
+    xpSources:  readJSON('np-xp-sources-v1', '{}'),    // rekap XP per sumber
+    srs:        readJSON('np-srs-cards', '{}'),
+    activity:   readJSON('np_daily_activity', '[]'),
+    mastered:{
+      grammar_n5: readJSON('grammar_n5_mastered', '[]'),
+      kanji:      readJSON('np-kanji-mastered', '[]'),  // sebelumnya tidak ikut ter-backup
+    },
+    kaigoProgress: readJSON('np-kaigo-progress-v1', '{}'),
+    materiProgress,
+    jlptLevel:  localStorage.getItem('np_jlpt_level') || null,
+    exportedAt: new Date().toISOString(),
+    version: 2,
+  };
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download='nihonggopro-backup-'+Date.now()+'.json'; a.click();
+  URL.revokeObjectURL(url);
+  toast('✅ Data berhasil diekspor!');
+}
+
+function importData(){document.getElementById('importFile').click();}
+function doImport(inp){
+  const file=inp.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    try{
+      const d=JSON.parse(e.target.result);
+      // GENUINELY DIPERBAIKI (Fase Audit Website Putaran Ketiga, Fase K):
+      // dikonfirmasi via simulasi siklus export->import bahwa doImport()
+      // genuinely HANYA mengembalikan 4 dari 9 field yang genuinely
+      // diekspor `exportData()` -- `dashboard` (XP/streak/misi harian),
+      // `xpSources`, `kaigoProgress`, `materiProgress`, dan `jlptLevel`
+      // genuinely TIDAK PERNAH dikembalikan. Dibuktikan konkret: data
+      // dashboard (XP 5000, streak 30 hari) genuinely HILANG TOTAL
+      // (`localStorage` bernilai `null`) setelah siklus export->import,
+      // meski genuinely berhasil diekspor -- pengguna yang backup lalu
+      // restore (mis. ganti perangkat) genuinely kehilangan progress XP
+      // dan streak mereka. Dilengkapi agar genuinely SIMETRIS dengan
+      // seluruh field yang diekspor.
+      if(d.profile)localStorage.setItem('np-state-v3',JSON.stringify(d.profile));
+      if(d.dashboard)localStorage.setItem('np-dash-v3',JSON.stringify(d.dashboard));
+      if(d.xpSources)localStorage.setItem('np-xp-sources-v1',JSON.stringify(d.xpSources));
+      if(d.srs)localStorage.setItem('np-srs-cards',JSON.stringify(d.srs));
+      if(d.activity)localStorage.setItem('np_daily_activity',JSON.stringify(d.activity));
+      if(d.mastered){
+        for(const[k,v] of Object.entries(d.mastered))
+          localStorage.setItem(k,JSON.stringify(v));
+      }
+      if(d.kaigoProgress)localStorage.setItem('np-kaigo-progress-v1',JSON.stringify(d.kaigoProgress));
+      if(d.materiProgress){
+        for(const[k,v] of Object.entries(d.materiProgress))
+          localStorage.setItem(k,v);
+      }
+      if(d.jlptLevel)localStorage.setItem('np_jlpt_level',d.jlptLevel);
+      loadProfile(); toast('✅ Data berhasil diimpor!');
+    }catch(err){toast('❌ File tidak valid: '+err.message);}
+  };
+  reader.readAsText(file); inp.value='';
+}
+
+function resetProgress(){
+  if(!confirm('Reset semua progress? Tindakan ini tidak bisa dibatalkan!'))return;
+  ['np-state-v3','np-srs-cards','np_daily_activity','grammar_n5_mastered','grammar_n4_mastered',
+   'grammar_n3_mastered','vocab_N5_mastered','vocab_N4_mastered','vocab_N3_mastered',
+   'kanji_streak','np_grammar_errors','kaiwa_vocab'].forEach(k=>localStorage.removeItem(k));
+  toast('Progress direset. Mulai dari awal! 💪');
+  setTimeout(loadProfile, 1000);
+}
+
+function deleteAccount(){
+  const sb=window.SupabaseClient?.Auth;
+  // GENUINELY DIPERBAIKI (Fase Audit Website Putaran Ketiga, Fase K):
+  // dikonfirmasi via investigasi bahwa untuk pengguna yang GENUINELY
+  // login, tombol ini sebelumnya HANYA memanggil sb.signOut() (logout
+  // biasa via endpoint /auth/v1/logout), TIDAK PERNAH benar-benar
+  // menghapus data akun di server -- dikonfirmasi tidak ada fungsi
+  // penghapusan akun sungguhan di manapun dalam basis kode. Pesan
+  // sebelumnya ("Semua data akan hilang permanen!") genuinely
+  // MENYESATKAN untuk pengguna login: mereka akan melihat seluruh data
+  // mereka UTUH kembali saat login ulang. Diperbaiki dengan memisahkan
+  // pesan sesuai keadaan genuine: pengguna login diarahkan untuk
+  // menghubungi dukungan (penghapusan akun sungguhan memerlukan
+  // verifikasi identitas di backend, di luar cakupan aman untuk
+  // diimplementasikan hanya di frontend), sementara pengguna tanpa akun
+  // (data lokal saja) tetap genuinely bisa menghapus data mereka sendiri.
+  if(sb&&sb.isLoggedIn()){
+    if(!confirm('Untuk menghapus akun secara permanen (termasuk data di server), hubungi dukungan kami. Klik OK untuk logout dari perangkat ini sekarang, atau Batal untuk tetap masuk.'))return;
+    sb.signOut().then(()=>{toast('Berhasil logout. Hubungi dukungan untuk penghapusan akun permanen.');setTimeout(()=>location.href='index.html',2500);});
+  } else {
+    if(!confirm('Hapus semua data lokal di perangkat ini? Tindakan ini tidak bisa dibatalkan!'))return;
+    resetProgress();toast('Data lokal dihapus.');setTimeout(()=>location.href='index.html',2000);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadProfile);
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body>
+</html>

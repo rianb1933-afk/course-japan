@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<script src="assets/dark-mode-toggle.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<script src="assets/platform.min.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+<link rel="stylesheet" href="assets/pro-style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Grammar Checker Bahasa Jepang — Nihonggo Pro Academy</title>
+<meta name="description" content="Cek grammar bahasa Jepang secara otomatis dengan AI. Perbaiki kesalahan partikel, konjugasi, keigo, dan pola kalimat N5-N1 secara instan.">
+<meta property="og:title" content="AI Grammar Checker Jepang — Nihonggo Pro Academy">
+<meta property="og:description" content="Cek dan perbaiki grammar bahasa Jepang dengan AI. Gratis, instan, dan mendalam.">
+<meta property="og:url" content="https://nihonggopro.id/Grammar-Checker.html">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://nihonggopro.id/Grammar-Checker.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI Grammar Checker Bahasa Jepang","url":"https://nihonggopro.id/Grammar-Checker.html","description":"Cek grammar bahasa Jepang dengan AI","applicationCategory":"EducationApplication","inLanguage":"id"}</script>
+
+<link rel="stylesheet" href="assets/legacy-bundle.min.css">
+
+    <style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+
+.brand{display:flex;align-items:baseline;gap:8px}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+
+
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;cursor:pointer;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+
+.hero{padding:clamp(44px,7vw,72px) clamp(16px,5vw,72px) 44px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"文法";position:absolute;right:-10px;bottom:-60px;font-family:"Noto Serif JP",serif;font-size:260px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(28px,5vw,52px);line-height:1.1;margin-bottom:.75rem}
+.hero p{color:rgba(255,255,255,.62);font-size:15px;line-height:1.85;max-width:640px;margin-bottom:1.5rem}
+.feat-row{display:flex;flex-wrap:wrap;gap:.5rem}
+.feat-chip{padding:5px 12px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:12px;font-weight:600;color:rgba(255,255,255,.75)}
+
+.main{max-width:1200px;margin:0 auto;padding:2.5rem clamp(16px,5vw,72px) 5rem;display:grid;grid-template-columns:1fr 380px;gap:1.5rem;align-items:start}
+@media(max-width:900px){.main{grid-template-columns:1fr;padding-bottom:3rem}}
+
+/* Checker panel */
+.checker{background:var(--white);border-radius:16px;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);overflow:hidden}
+.checker-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.checker-head h2{font-family:"Noto Serif JP",serif;font-size:20px}
+.level-select{display:flex;gap:.3rem}
+.check-mode{display:flex;align-items:center;gap:.4rem}.check-mode label{font-size:11px;font-weight:700;color:var(--ink-soft)}.check-mode select{height:28px;padding:0 7px;border:1px solid var(--border-mid);border-radius:6px;background:var(--white);color:var(--ink-mid);font:700 11px Outfit,sans-serif}
+.lv-btn{height:28px;padding:0 10px;border-radius:6px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);font-size:11px;font-weight:800;cursor:pointer;transition:all .15s}
+.lv-btn.on{background:var(--red-pale);border-color:var(--red);color:var(--red)}
+
+.input-area{padding:1.25rem 1.5rem}
+.jp-input{width:100%;min-height:140px;padding:1rem;border-radius:10px;border:1.5px solid var(--border-mid);font-family:"Noto Serif JP",serif;font-size:18px;line-height:1.8;background:var(--cream);color:var(--ink);resize:vertical;outline:none;transition:border-color .15s}
+.jp-input:focus{border-color:var(--red)}
+.input-footer{display:flex;align-items:center;gap:.5rem;margin-top:.625rem;flex-wrap:wrap}
+.char-count{font-size:12px;color:var(--ink-faint)}
+.check-btn{height:44px;padding:0 20px;border-radius:10px;border:none;background:var(--red);color:#fff;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .2s;flex-shrink:0}
+.check-btn:hover{background:#a02d23;transform:translateY(-1px)}
+.check-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.clear-btn{height:44px;padding:0 14px;border-radius:10px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.clear-btn:hover{border-color:var(--red);color:var(--red)}
+.example-btn{height:34px;padding:0 12px;border-radius:7px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.example-btn:hover{border-color:var(--blue);color:var(--blue)}
+
+/* Results */
+.result-area{padding:0 1.5rem 1.5rem}
+.loading-dots{display:none;text-align:center;padding:2rem;color:var(--ink-soft);font-size:14px}
+.score-bar{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border-radius:10px;margin-bottom:1rem}
+.score-bar.great{background:var(--green-pale);border:.5px solid rgba(33,135,93,.2)}
+.score-bar.good{background:var(--blue-pale);border:.5px solid rgba(47,111,237,.2)}
+.score-bar.fair{background:var(--gold-pale);border:.5px solid rgba(185,137,47,.2)}
+.score-bar.poor{background:var(--red-pale);border:.5px solid rgba(190,52,40,.15)}
+.score-num{font-family:"Noto Serif JP",serif;font-size:40px;font-weight:700;line-height:1}
+.score-label{font-size:13px;font-weight:700}
+.score-sub{font-size:12px;color:var(--ink-soft);margin-top:2px}
+
+.correction-card{background:var(--cream);border-radius:10px;padding:1rem;border:.5px solid var(--border);margin-bottom:.75rem}
+.corr-type{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.5rem}
+.corr-type.particle{background:var(--blue-pale);color:var(--blue)}
+.corr-type.conjugation{background:var(--red-pale);color:var(--red)}
+.corr-type.word-order{background:var(--gold-pale);color:var(--gold)}
+.corr-type.keigo{background:var(--green-pale);color:var(--green)}
+.corr-type.nuance{background:rgba(147,51,234,.1);color:#9333ea}
+.corr-type.spelling{background:var(--red-pale);color:var(--red)}
+.wrong{font-family:"Noto Serif JP",serif;font-size:16px;text-decoration:underline;text-decoration-color:#ef4444;text-decoration-style:wavy;color:var(--ink)}
+.arrow{color:var(--ink-faint);margin:0 .4rem}
+.right{font-family:"Noto Serif JP",serif;font-size:16px;font-weight:700;color:var(--green)}
+.explanation{font-size:13px;color:var(--ink-mid);line-height:1.65;margin-top:.4rem}
+
+.corrected-sentence{background:var(--green-pale);border:.5px solid rgba(33,135,93,.2);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.corrected-label{font-size:11px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+.corrected-jp{font-family:"Noto Serif JP",serif;font-size:20px;font-weight:600;color:var(--ink)}
+.corrected-id{font-size:13px;color:var(--ink-soft);margin-top:3px}
+
+/* Sidebar */
+.sidebar-panel{display:flex;flex-direction:column;gap:1rem}
+.side-card{background:var(--white);border-radius:14px;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);overflow:hidden}
+.side-head{padding:.875rem 1.25rem;border-bottom:1px solid var(--border);font-size:13px;font-weight:800;color:var(--ink)}
+.side-body{padding:1rem 1.25rem}
+.example-item{padding:.5rem 0;border-bottom:.5px solid var(--border);cursor:pointer;transition:background .15s;margin:0 -.5rem;padding-left:.5rem;padding-right:.5rem;border-radius:6px}
+.example-item:last-child{border-bottom:none}
+.example-item:hover{background:var(--cream)}
+.ex-jp{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:600}
+.ex-err{font-size:11px;color:var(--red);font-weight:600;margin-top:1px}
+.history-item{padding:.4rem 0;border-bottom:.5px solid var(--border);font-size:13px;cursor:pointer;transition:all .15s;padding-left:.5rem;border-radius:6px}
+.history-item:last-child{border-bottom:none}
+.history-item:hover{background:var(--cream)}
+.history-score{display:inline-flex;align-items:center;justify-content:center;width:32px;height:20px;border-radius:4px;font-size:10px;font-weight:800;margin-left:.5rem;float:right}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:400;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
+.toast{background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:8px;font-size:13px;font-weight:600;opacity:0;transform:translateY(8px);transition:all .3s}
+.toast.show{opacity:1;transform:translateY(0)}
+</style>
+
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="AI Grammar Checker Jepang — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  
+
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<script src="assets/nihongo-ai.js" defer></script>
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="Cek grammar bahasa Jepang secara otomatis dengan AI. Perbaiki kesalahan partikel, konjugasi, keigo, dan pola kalimat N5-N1 secara instan.">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
+<section id="main-content" class="hero" role="main">
+  <div class="hero-inner">
+    <div class="kicker">🤖 AI Grammar Checker</div>
+    <h1>Cek Grammar Bahasa<br>Jepang dengan AI</h1>
+    <p>Tulis kalimat bahasa Jepang, AI akan menganalisis kesalahan partikel, konjugasi, keigo, urutan kata, dan memberikan koreksi lengkap dengan penjelasan dalam bahasa Indonesia.</p>
+    <div class="feat-row">
+      <span class="feat-chip">🔤 Partikel</span>
+      <span class="feat-chip">🔄 Konjugasi</span>
+      <span class="feat-chip">🎌 Keigo</span>
+      <span class="feat-chip">📐 Urutan Kata</span>
+      <span class="feat-chip">✨ Nuansa</span>
+      <span class="feat-chip">N5–N1</span>
+    </div>
+  </div>
+</section>
+
+<div class="main">
+  <!-- CHECKER -->
+  <div class="checker">
+    <div class="checker-head">
+      <h2>✍️ Input Kalimat</h2>
+      <div class="level-select">
+        <button class="lv-btn on" data-lv="N5" onclick="setLevel(this)">N5</button>
+        <button class="lv-btn" data-lv="N4" onclick="setLevel(this)">N4</button>
+        <button class="lv-btn" data-lv="N3" onclick="setLevel(this)">N3</button>
+        <button class="lv-btn" data-lv="N2" onclick="setLevel(this)">N2</button>
+        <button class="lv-btn" data-lv="N1" onclick="setLevel(this)">N1</button>
+      </div>
+      <div class="check-mode">
+        <label for="grammarMode">Mode</label>
+        <select id="grammarMode" aria-label="Mode pemeriksaan grammar">
+          <option value="general">Umum</option>
+          <option value="structure">Bedah struktur</option>
+          <option value="keigo">Keigo formal</option>
+        </select>
+      </div>
+    </div>
+    <div class="input-area">
+      <textarea class="jp-input" id="grammarInput" aria-label="Input kalimat bahasa Jepang" placeholder="Tulis kalimat bahasa Jepang di sini…&#10;&#10;Contoh:&#10;私は学校に行きたいです。&#10;昨日映画を見てた。&#10;先生に質問するべきです。" oninput="updateCharCount()"></textarea>
+      <div class="input-footer">
+        <span class="char-count" id="charCount">0 karakter</span>
+        <button class="example-btn" onclick="loadExample()">📝 Contoh</button>
+        <div style="flex:1"></div>
+        <button class="clear-btn" onclick="clearAll()">✕ Hapus</button>
+        <button class="check-btn" aria-live="polite" id="checkBtn" onclick="checkGrammar()">
+          <span>🔍</span> Cek Grammar
+        </button>
+      </div>
+    </div>
+    <div class="result-area" id="resultArea">
+      <div class="loading-dots" id="loadingDots">
+        <div style="font-size:24px;animation:spin 1s linear infinite;display:inline-block">⟳</div>
+        <div style="margin-top:.5rem">AI menganalisis grammar…</div>
+      </div>
+      <div id="resultContent"></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  
+<!-- Sentence Breakdown Parser -->
+<div id="sentenceParserWrap" style="background:var(--white);border-radius:14px;padding:1.5rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.5rem">
+  <div style="font-size:13px;font-weight:800;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.875rem">🔍 Sentence Breakdown — Bedah Kalimat</div>
+  <div style="display:flex;gap:.5rem;margin-bottom:.75rem;flex-wrap:wrap">
+    <input id="parseInput" type="text" placeholder="Masukkan kalimat Jepang… cth: 私は毎日学校に行きます。"
+      style="flex:1;min-width:200px;padding:10px 13px;border-radius:9px;border:1.5px solid var(--border-mid);font-family:'Noto Serif JP',serif;font-size:16px;color:var(--ink);background:var(--cream);outline:none;transition:border-color .15s"
+      onfocus="this.style.borderColor='var(--red)'" onblur="this.style.borderColor=''"
+      onkeydown="if(event.key==='Enter')parseSentence()" aria-label="Teks untuk dicek grammarnya">
+    <button onclick="parseSentence()" style="height:44px;padding:0 18px;border-radius:9px;border:none;background:var(--red);color:#fff;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;white-space:nowrap;transition:background .15s" onmouseover="this.style.background='#a02d23'" onmouseout="this.style.background='var(--red)'">🔍 Bedah</button>
+  </div>
+  <div style="display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.75rem">
+    <button onclick="document.getElementById('parseInput').value='私は毎日学校に行きます。';parseSentence()" style="height:28px;padding:0 10px;border-radius:6px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);font-size:11px;font-weight:600;cursor:pointer;font-family:Outfit,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor=''">例1</button>
+    <button onclick="document.getElementById('parseInput').value='昨日友達と映画を見ました。';parseSentence()" style="height:28px;padding:0 10px;border-radius:6px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);font-size:11px;font-weight:600;cursor:pointer;font-family:Outfit,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor=''">例2</button>
+    <button onclick="document.getElementById('parseInput').value='日本語を勉強しているので、毎日練習します。';parseSentence()" style="height:28px;padding:0 10px;border-radius:6px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);font-size:11px;font-weight:600;cursor:pointer;font-family:Outfit,sans-serif;transition:all .15s" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor=''">例3</button>
+  </div>
+  <div id="parseResult" style="display:none">
+    <div id="parseTokens" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem"></div>
+    <div id="parseDetail" style="display:flex;flex-direction:column;gap:.4rem"></div>
+  </div>
+  <div id="parseLoading" style="display:none;text-align:center;padding:1rem;color:var(--ink-soft);font-size:13px">AI menganalisis kalimat…</div>
+</div>
+
+<script>
+const PARTICLE_MAP = {
+  'は':  {role:'Topik',    color:'var(--blue,#2f6fed)', bg:'#E6F1FB', desc:'Penanda topik kalimat'},
+  'が':  {role:'Subjek',   color:'var(--red,#be3428)', bg:'#fef2f2', desc:'Penanda subjek/penekanan'},
+  'を':  {role:'Objek',    color:'var(--green,#21875d)', bg:'#EAF3DE', desc:'Penanda objek langsung'},
+  'に':  {role:'Tujuan/Waktu', color:'#9333ea', bg:'#f3e8ff', desc:'Arah, waktu, atau penerima'},
+  'で':  {role:'Tempat/Alat', color:'#b9892f', bg:'#FAEEDA', desc:'Tempat kejadian atau alat'},
+  'へ':  {role:'Arah',     color:'#0891b2', bg:'#ecfeff', desc:'Menunjukkan arah'},
+  'と':  {role:'Bersama/Dan', color:'#7c3aed', bg:'#ede9fe', desc:'Bersama atau menghubungkan'},
+  'も':  {role:'Juga',     color:'#db2777', bg:'#fdf2f8', desc:'Juga / pula'},
+  'の':  {role:'Kepunyaan',color:'#059669', bg:'#d1fae5', desc:'Kepemilikan atau modifikasi'},
+  'から':{role:'Dari/Karena', color:'#dc2626', bg:'#fee2e2', desc:'Titik awal atau alasan'},
+  'まで':{role:'Sampai',   color:'#d97706', bg:'#fef3c7', desc:'Batas akhir waktu/tempat'},
+  'より':{role:'Dibanding',color:'#6d28d9', bg:'#ede9fe', desc:'Perbandingan'},
+  'ので':{role:'Karena',   color:'#1d4ed8', bg:'#dbeafe', desc:'Alasan (formal)'},
+  'から':{role:'Karena',   color:'#1d4ed8', bg:'#dbeafe', desc:'Alasan (kasual)'},
+};
+const VERB_ENDINGS = ['ます','ません','ました','ませんでした','て','た','ない','たい','てい','ている'];
+const ADJ_I = ['い','くない','かった','くなかった'];
+const PUNCT = ['。','、','！','？','…','・'];
+
+async function parseSentence(){
+  const input = document.getElementById('parseInput').value.trim();
+  if(!input){ return; }
+
+  document.getElementById('parseResult').style.display='none';
+  document.getElementById('parseLoading').style.display='block';
+
+  try {
+    // Use Claude API for analysis
+    const prompt = `Bedah kalimat bahasa Jepang ini secara gramatikal. Berikan analisis dalam JSON (tanpa markdown):
+Kalimat: "${input}"
+
+Format JSON:
+{
+  "tokens": [
+    {"text":"私","role":"Subjek","romaji":"watashi","meaning":"saya","color":"#6B4F3A"},
+    {"text":"は","role":"Partikel Topik","romaji":"wa","meaning":"(topik)","color":"var(--blue,#2f6fed)"},
+    ...
+  ],
+  "translation": "Terjemahan Indonesia",
+  "pattern": "Pola grammar utama",
+  "level": "N5",
+  "notes": "Catatan grammar penting"
+}
+
+Token harus mencakup SETIAP karakter/kata termasuk partikel. Bedakan: subjek, predikat, objek, partikel, kata keterangan, konjungsi. Gunakan warna berbeda per peran: merah=subjek, biru=partikel, hijau=objek, ungu=predikat, emas=keterangan.`;
+
+    const res = await NihongoAI.chat({
+      messages: [{ role: 'user', content: prompt }],
+      mode: 'grammar',
+      level: currentLevel || 'N5',
+    });
+    const raw = res.text || '';
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if(!jsonMatch) throw new Error('no json');
+    const result = JSON.parse(jsonMatch[0]);
+    renderParse(result);
+  } catch(e) {
+    // Fallback: basic rule-based parser
+    renderParse(basicParse(input));
+  }
+
+  document.getElementById('parseLoading').style.display='none';
+}
+
+function basicParse(sentence){
+  const tokens = [];
+  let cur = '';
+  for(let i=0;i<sentence.length;i++){
+    const ch = sentence[i];
+    const twoCh = sentence.slice(i,i+2);
+
+    if(PUNCT.includes(ch)){
+      if(cur){tokens.push({text:cur,role:'Kata',romaji:'',meaning:'',color:'#15161a'});cur='';}
+      tokens.push({text:ch,role:'Tanda Baca',romaji:'',meaning:'',color:'#888'});
+    } else if(PARTICLE_MAP[twoCh]){
+      if(cur){tokens.push({text:cur,role:'Kata',romaji:'',meaning:'',color:'#15161a'});cur='';}
+      const p=PARTICLE_MAP[twoCh];
+      tokens.push({text:twoCh,role:p.role,romaji:twoCh,meaning:p.desc,color:p.color});i++;
+    } else if(PARTICLE_MAP[ch]){
+      if(cur){tokens.push({text:cur,role:'Kata',romaji:'',meaning:'',color:'#15161a'});cur='';}
+      const p=PARTICLE_MAP[ch];
+      tokens.push({text:ch,role:p.role,romaji:ch,meaning:p.desc,color:p.color});
+    } else {
+      cur+=ch;
+    }
+  }
+  if(cur) tokens.push({text:cur,role:'Predikat',romaji:'',meaning:'',color:'#9333ea'});
+  return {tokens,translation:'(Analisis dasar — gunakan AI untuk detail)',pattern:'',level:'—',notes:'Aktifkan API untuk analisis mendalam.'};
+}
+
+function renderParse(result){
+  const tokensEl = document.getElementById('parseTokens');
+  const detailEl = document.getElementById('parseDetail');
+  document.getElementById('parseResult').style.display='block';
+
+  tokensEl.innerHTML = (result.tokens||[]).map(t=>`
+    <div style="display:inline-flex;flex-direction:column;align-items:center;gap:2px;padding:.35rem .5rem;border-radius:7px;border:1.5px solid ${esc(t.color)}20;background:${esc(t.color)}10;cursor:default" title="${esc(t.meaning||'')}">
+      <span style="font-family:'Noto Serif JP',serif;font-size:20px;color:${esc(t.color||'#15161a')};font-weight:600">${esc(t.text)}</span>
+      <span style="font-size:9px;font-weight:800;color:${esc(t.color)};letter-spacing:.03em;text-transform:uppercase">${esc(t.role)}</span>
+      ${t.romaji?`<span style="font-size:10px;color:#888">${esc(t.romaji)}</span>`:''}
+    </div>`).join('');
+
+  let detail = '';
+  if(result.translation) detail += `<div style="padding:.625rem .875rem;background:var(--cream);border-radius:8px;border:.5px solid var(--border);font-size:14px"><span style="font-size:11px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;display:block;margin-bottom:.2rem">🇮🇩 Terjemahan</span>${esc(result.translation)}</div>`;
+  if(result.pattern) detail += `<div style="padding:.625rem .875rem;background:var(--blue-pale);border-radius:8px;border:.5px solid rgba(47,111,237,.15);font-size:13px"><span style="font-size:11px;font-weight:800;color:var(--blue);text-transform:uppercase;display:block;margin-bottom:.2rem">📐 Pola Grammar</span>${esc(result.pattern)} ${result.level?'<span style="font-size:11px;padding:1px 6px;border-radius:4px;background:var(--blue-pale);color:var(--blue);font-weight:700">'+esc(result.level)+'</span>':''}</div>`;
+  if(result.notes) detail += `<div style="padding:.625rem .875rem;background:var(--cream);border-radius:8px;border:.5px solid var(--border);font-size:13px;color:var(--ink-mid);line-height:1.65"><span style="font-size:11px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;display:block;margin-bottom:.2rem">💡 Catatan</span>${esc(result.notes)}</div>`;
+  detailEl.innerHTML = detail;
+}
+</script>
+<div class="sidebar-panel">
+    <!-- Common errors -->
+    <div class="side-card">
+      <div class="side-head">⚠️ Kesalahan Umum N5-N3</div>
+      <div class="side-body">
+        <div class="example-item" onclick="setInput('私は学校を行きます。')">
+          <div class="ex-jp">私は学校<span style="color:#ef4444">を</span>行きます。</div>
+          <div class="ex-err">Partikel salah: を → に</div>
+        </div>
+        <div class="example-item" onclick="setInput('昨日映画を見てた。')">
+          <div class="ex-jp">昨日映画を見てた。</div>
+          <div class="ex-err">Terlalu kasual: 見ていた lebih natural</div>
+        </div>
+        <div class="example-item" onclick="setInput('私が日本語を好きです。')">
+          <div class="ex-jp">私が日本語を<span style="color:#ef4444">好きです</span>。</div>
+          <div class="ex-err">好き = na-adj: が → は, を → が</div>
+        </div>
+        <div class="example-item" onclick="setInput('先生は説明してくれてありがとう。')">
+          <div class="ex-jp">先生は説明してくれてありがとう。</div>
+          <div class="ex-err">Keigo tidak tepat untuk sensei</div>
+        </div>
+        <div class="example-item" onclick="setInput('彼女は来なかったでしょう。')">
+          <div class="ex-jp">彼女は来なかったでしょう。</div>
+          <div class="ex-err">Redundant: ないでしょう vs なかった</div>
+        </div>
+        <div class="example-item" onclick="setInput('早く宿題をしなければです。')">
+          <div class="ex-jp">早く宿題をしなければです。</div>
+          <div class="ex-err">Pola kewajiban belum lengkap: しなければなりません</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="side-card">
+      <div class="side-head" style="display:flex;align-items:center;justify-content:space-between">
+        📋 Riwayat Cek <button onclick="clearHistory()" style="height:24px;padding:0 8px;border-radius:5px;border:1px solid var(--border-mid);background:none;font-size:11px;color:var(--ink-soft);cursor:pointer">Hapus</button>
+      </div>
+      <div class="side-body" id="historyList">
+        <div style="color:var(--ink-faint);font-size:13px;text-align:center;padding:.5rem">Belum ada riwayat.</div>
+      </div>
+    </div>
+
+    <!-- Grammar tips -->
+    <div class="side-card">
+      <div class="side-head">💡 Tips Grammar</div>
+      <div class="side-body">
+        <div style="display:flex;flex-direction:column;gap:.625rem">
+          ${[
+            ['は vs が','は = topik (sudah diketahui), が = subjek baru/penekanan. 猫がいます。 (ada kucing baru) vs 猫は元気です。 (kucing itu sehat)'],
+            ['を vs に','を = objek langsung aksi transitif. に = tujuan/lokasi/waktu/penerima. 学校に行く vs 本を読む'],
+            ['Konjugasi て-form','う→って: 買う→買って. ぬ/ぶ/む→んで: 飲む→飲んで. く→いて: 書く→書いて. ぐ→いで. す→して'],
+            ['Keigo dasar','Gunakan お/ご + V: おいでになる (hadir/sopan). Hindari ～てくれてありがとう kepada atasan.'],
+          ].map(([t,d])=>`<div style="padding:.5rem 0;border-bottom:.5px solid var(--border)"><div style="font-size:12px;font-weight:800;color:var(--ink);margin-bottom:2px">${t}</div><div style="font-size:12px;color:var(--ink-mid);line-height:1.6">${d}</div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+<script>
+// ── THEME ──
+// GENUINELY DIPERBAIKI (Fase EE, Verifikasi Visual): tombol toggleTheme() legacy dihapus (duplikat dengan navbar resmi kyoto-navbar.js). IIFE inisialisasi tema dipertahankan (mencegah flash-of-wrong-theme sebelum navbar defer selesai load), disesuaikan tanpa referensi elemen yang dihapus.
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+function toast(m,d=3000){const w=document.getElementById('toastWrap');const el=document.createElement('div');el.className='toast';el.textContent=m;w.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),350);},d);}
+
+let currentLevel = 'N5';
+let currentMode = 'general';
+let checkHistory = JSON.parse(localStorage.getItem('grammar-check-history')||'[]');
+
+function setLevel(btn){
+  currentLevel = btn.dataset.lv;
+  document.querySelectorAll('.lv-btn').forEach(b=>b.classList.toggle('on',b===btn));
+}
+document.getElementById('grammarMode').addEventListener('change', function(){ currentMode = this.value; });
+function updateCharCount(){
+  const n=document.getElementById('grammarInput').value.length;
+  document.getElementById('charCount').textContent=n+' karakter';
+}
+function clearAll(){
+  document.getElementById('grammarInput').value='';
+  document.getElementById('resultContent').innerHTML='';
+  updateCharCount();
+}
+function setInput(text){
+  document.getElementById('grammarInput').value=text;
+  updateCharCount();
+  document.getElementById('grammarInput').focus();
+}
+
+const examples = [
+  '私は学校に行きます。今日は天気がいいですね。',
+  '昨日友達と映画を見て、それからご飯を食べた。',
+  '日本語を勉強していますが、まだ難しいと思います。',
+  '先生に質問してもいいですか。',
+  '来週試験があるので、今週は毎日勉強するつもりです。',
+];
+let exampleIdx = 0;
+function loadExample(){ setInput(examples[exampleIdx++ % examples.length]); }
+
+async function checkGrammar(){
+  const text = document.getElementById('grammarInput').value.trim();
+  if(!text){toast('⚠️ Tulis kalimat dulu');return;}
+  if(text.length > 500){toast('⚠️ Maksimal 500 karakter');return;}
+  
+  document.getElementById('checkBtn').disabled = true;
+  document.getElementById('loadingDots').style.display = 'block';
+  document.getElementById('resultContent').innerHTML = '';
+  
+  const modeInstructions = {
+    general: 'Periksa grammar secara menyeluruh: partikel, konjugasi, urutan kata, ejaan, dan kealamian.',
+    structure: 'Fokuskan analisis pada struktur kalimat, fungsi setiap partikel, urutan kata, dan pola grammar.',
+    keigo: 'Fokuskan analisis pada tingkat kesopanan, keigo, pilihan ungkapan formal, dan kesesuaian konteks profesional.'
+  };
+  const prompt = `Kamu adalah guru bahasa Jepang yang ahli. Analisis grammar kalimat bahasa Jepang berikut untuk level ${currentLevel}. ${modeInstructions[currentMode]}
+
+Kalimat: "${text}"
+
+Berikan analisis dalam format JSON persis seperti ini (tanpa markdown, hanya JSON murni):
+{
+  "score": 85,
+  "level": "N5",
+  "overall": "Kalimat cukup baik dengan sedikit kesalahan partikel.",
+  "corrected": "私は学校に行きます。",
+  "corrected_id": "Saya pergi ke sekolah.",
+  "errors": [
+    {
+      "type": "particle",
+      "wrong": "を",
+      "right": "に",
+      "explanation": "Untuk verba 行く yang menunjukkan arah, gunakan partikel に, bukan を."
+    }
+  ],
+  "tips": ["Partikel に digunakan untuk arah/tujuan dengan verba gerak seperti 行く, 来る, 帰る."]
+}
+
+Type bisa: particle, conjugation, word-order, keigo, nuance, spelling, tense.
+Score 0-100. Jika tidak ada error, errors = [].`;
+
+  try {
+    const aiBtn = document.getElementById('checkBtn') || document.querySelector('.check-btn');
+    const response = await NihongoAI.chat({
+      messages: [{ role: 'user', content: prompt }],
+      mode: 'grammar',
+      level: currentLevel,
+      btnEl: aiBtn,
+      loadingText: 'AI memeriksa grammar...',
+    });
+    const raw = response.text || '';
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if(!jsonMatch) throw new Error('Invalid response');
+    const result = JSON.parse(jsonMatch[0]);
+    renderResult(text, result);
+    saveHistory(text, result.score);
+    if(window.NihonggoProgress) NihonggoProgress.logActivity('grammar','Grammar check: '+text.substring(0,20), result.score);
+  } catch(e) {
+    // Fallback: basic local grammar check
+    const result = localGrammarCheck(text);
+    renderResult(text, result);
+  } finally {
+    document.getElementById('checkBtn').disabled = false;
+    document.getElementById('loadingDots').style.display = 'none';
+  }
+}
+
+// Local fallback grammar checker
+function localGrammarCheck(text){
+  const errors = [];
+  const tips = [];
+  let corrected = text;
+  
+  // Rule 1: 学校を行く (を → に for movement verbs)
+  if(/[校|駅|店|家|公園|図書館]を(行|来|帰|向)/.test(text)){
+    errors.push({type:'particle',wrong:'場所を+移動動詞',right:'場所に+移動動詞',explanation:'移動動詞（行く・来る・帰る）の前は方向を示すに。'});
+    corrected = corrected.replace(/([校駅店家園館])を(行|来|帰|向)/g, '$1に$2');
+  }
+  // Rule 2: 好きをvs好きが
+  if(/[^\n]を好き/.test(text)){
+    errors.push({type:'particle',wrong:'Nを好き',right:'Nが好き',explanation:'「好き」はな形容詞なので、目的語にはをではなくがを使います。'});
+    corrected = corrected.replace(/を好き/g, 'が好き');
+  }
+  // Rule 3: double particle
+  if(/[はがをにで]{2}/.test(text)){
+    errors.push({type:'particle',wrong:'重複助詞',right:'一つの助詞',explanation:'同じ名詞に二つの助詞は使いません。'});
+  }
+
+  // Rule 4: obligation pattern must end with なりません or いけません
+  if(/しなければです|なければです/.test(text)){
+    errors.push({type:'conjugation',wrong:'しなければです',right:'しなければなりません',explanation:'「なければ」は義務の条件形なので、「なりません」または「いけません」と組み合わせます。'});
+    corrected = corrected.replace(/しなければです/g, 'しなければなりません').replace(/なければです/g, 'なければなりません');
+  }
+
+  // Rule 5: polite past needs ました, not a plain past verb before です
+  if(/(見|食べ|行き|読ん|書い|飲ん)たです/.test(text)){
+    errors.push({type:'conjugation',wrong:'動詞た + です',right:'動詞ました',explanation:'Kalimat sopan memakai bentuk ました. Bentuk biasa た tidak langsung diikuti です.'});
+    corrected = corrected.replace(/見たです/g, '見ました').replace(/食べたです/g, '食べました').replace(/行きたです/g, '行きました').replace(/読んたです/g, '読みました').replace(/書いたです/g, '書きました').replace(/飲んたです/g, '飲みました');
+  }
+  
+  const score = Math.max(40, 100 - errors.length * 20);
+  tips.push('AIサービスが利用できない場合、基本的な文法チェックのみ行います。');
+  
+  return {
+    score, level: currentLevel,
+    overall: errors.length===0 ? 'ローカルチェックでは問題が見つかりませんでした。AIチェックをお試しください。' : `${errors.length}件の問題が見つかりました。`,
+    corrected, corrected_id: '(AI翻訳なし)',
+    errors, tips
+  };
+}
+
+function renderResult(original, result){
+  const typeLabels = {particle:'Partikel',conjugation:'Konjugasi','word-order':'Urutan Kata',keigo:'Keigo',nuance:'Nuansa',spelling:'Ejaan',tense:'Kala'};
+  const scoreClass = result.score>=90?'great':result.score>=70?'good':result.score>=50?'fair':'poor';
+  const scoreLabel = result.score>=90?'Sempurna!':result.score>=70?'Bagus!':result.score>=50?'Cukup':result.score>=30?'Perlu Perbaikan':'Banyak Kesalahan';
+  
+  let html = `
+    <div class="score-bar ${scoreClass}">
+      <div class="score-num" style="color:${result.score>=90?'var(--green)':result.score>=70?'var(--blue)':result.score>=50?'var(--gold)':'var(--red)'}">${result.score}</div>
+      <div><div class="score-label">${scoreLabel}</div><div class="score-sub">${result.overall}</div></div>
+    </div>`;
+
+  if(result.corrected && result.corrected !== original){
+    html += `<div class="corrected-sentence">
+      <div class="corrected-label">✅ Kalimat yang Benar</div>
+      <div class="corrected-jp">${esc(result.corrected)}</div>
+      ${result.corrected_id?`<div class="corrected-id">🇮🇩 ${esc(result.corrected_id)}</div>`:''}
+    </div>`;
+  }
+
+  if(result.errors?.length){
+    html += `<div style="font-size:13px;font-weight:800;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem">⚠️ Koreksi (${result.errors.length})</div>`;
+    result.errors.forEach(err=>{
+      html += `<div class="correction-card">
+        <div class="corr-type ${err.type}">${typeLabels[err.type]||err.type}</div>
+        <div><span class="wrong">${esc(err.wrong)}</span><span class="arrow">→</span><span class="right">${esc(err.right)}</span></div>
+        <div class="explanation">${esc(err.explanation)}</div>
+      </div>`;
+    });
+  } else {
+    html += `<div style="padding:.875rem;background:var(--green-pale);border-radius:10px;border:.5px solid rgba(33,135,93,.2);font-size:14px;font-weight:700;color:var(--green);text-align:center">✅ Tidak ada kesalahan ditemukan!</div>`;
+  }
+
+  if(result.tips?.length){
+    html += `<div style="margin-top:.875rem;padding:.875rem 1rem;background:var(--blue-pale);border-radius:10px;border:.5px solid rgba(47,111,237,.15)">
+      <div style="font-size:12px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">💡 Tips</div>
+      ${result.tips.map(t=>`<div style="font-size:13px;color:var(--ink-mid);margin-bottom:3px">• ${esc(t)}</div>`).join('')}
+    </div>`;
+  }
+
+  document.getElementById('resultContent').innerHTML = html;
+}
+
+function saveHistory(text, score){
+  checkHistory = [{text:text.substring(0,30), score, time:Date.now()}, ...checkHistory].slice(0,20);
+  localStorage.setItem('grammar-check-history', JSON.stringify(checkHistory));
+  renderHistory();
+}
+function clearHistory(){checkHistory=[];localStorage.removeItem('grammar-check-history');renderHistory();}
+function renderHistory(){
+  const el=document.getElementById('historyList');
+  if(!checkHistory.length){el.innerHTML='<div style="color:var(--ink-faint);font-size:13px;text-align:center;padding:.5rem">Belum ada riwayat.</div>';return;}
+  const colors={90:'var(--green)',70:'var(--blue)',50:'var(--gold)',0:'var(--red)'};
+  const getColor=s=>s>=90?'var(--green)':s>=70?'var(--blue)':s>=50?'var(--gold)':'var(--red)';
+  // GENUINELY DIPERBAIKI (Fase Audit Website Putaran Ketiga, Fase J):
+  // dikonfirmasi via pengujian interaktif genuine bahwa `esc()` genuinely
+  // TIDAK CUKUP untuk mengamankan teks yang disisipkan ke string
+  // `onclick="..."` -- HTML entity (`&#039;`) genuinely di-decode balik
+  // oleh browser SAAT PARSING nilai atribut, menghasilkan kutip tunggal
+  // ASLI di dalam kode JavaScript yang genuinely dieksekusi. Ini
+  // GENUINELY POLA BUG IDENTIK dengan yang ditemukan dan diperbaiki di
+  // `Certificate-Pro.html` (Website v18) -- dibuktikan konkret: teks
+  // riwayat "D'Angelo's test" genuinely merusak onclick menjadi
+  // `setInput('D'Angelo's test')`, error "missing ) after argument list".
+  // Diperbaiki dengan pola yang GENUINELY SUDAH TERBUKTI AMAN: atribut
+  // `data-*` dibaca via `addEventListener`, sepenuhnya menghindari
+  // penyisipan data apapun ke dalam string kode JavaScript.
+  el.innerHTML=checkHistory.map((h,i)=>`
+    <div class="history-item" data-idx="${i}">
+      ${esc(h.text.substring(0,25))}${h.text.length>25?'…':''}
+      <span class="history-score" style="background:${getColor(h.score)}1a;color:${getColor(h.score)}">${h.score}</span>
+    </div>`).join('');
+  el.querySelectorAll('.history-item').forEach(function(item){
+    item.addEventListener('click', function(){
+      const idx = parseInt(item.dataset.idx, 10);
+      setInput(checkHistory[idx].text);
+    });
+  });
+}
+
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+renderHistory();
+</script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="Materi/JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Materi/Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Materi/Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Materi/Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+</body>
+</html>

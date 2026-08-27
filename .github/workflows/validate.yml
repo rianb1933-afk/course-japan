@@ -1,0 +1,41 @@
+name: Validate Site
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    name: Run site validator
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Set up Node (for JS syntax check + unit tests)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests (SRS algorithm, XP/level system)
+        run: node scripts/tests/run-all.js
+
+      - name: Run validator
+        run: python3 scripts/validate.py
+
+      - name: Validator summary
+        if: always()
+        run: |
+          echo "### Site Validation Result" >> $GITHUB_STEP_SUMMARY
+          python3 scripts/validate.py >> $GITHUB_STEP_SUMMARY 2>&1 || true

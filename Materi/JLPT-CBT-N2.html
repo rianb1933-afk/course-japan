@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="id"><head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#2e7d32">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>JLPT CBT Simulator N2 模擬試験 | Nihonggo Pro Academy</title>
+<meta name="description" content="Simulasi ujian JLPT N2 mode komputer — 30 soal grammar, vocabulary, reading dengan timer 45 menit dan skor otomatis.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/JLPT-CBT-N2.html">
+<meta property="og:title" content="JLPT CBT Simulator N2 — Nihonggo Pro Academy">
+<meta property="og:url" content="https://nihonggopro.id/Materi/JLPT-CBT-N2.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{max-width:840px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,#7b1fa2,#9c27b0);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
+.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
+.start-box{background:var(--white);border-radius:16px;padding:32px;text-align:center;margin:28px 0;border:2px solid var(--border-light,rgba(0,0,0,.1));box-shadow:0 4px 20px rgba(123,31,162,.08)}
+.start-box h2{color:#7b1fa2;margin:0 0 10px;font-family:'Noto Serif JP',serif}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.info-item{background:#f3e5f5;border-radius:10px;padding:14px;text-align:center}
+.info-val{font-size:1.5rem;font-weight:700;color:#7b1fa2;font-family:'Noto Serif JP',serif}
+.info-lbl{font-size:.75rem;color:#6a6a6a;margin-top:2px}
+.start-btn{background:linear-gradient(135deg,#7b1fa2,#9c27b0);color:#fff;border:none;border-radius:12px;padding:15px 44px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:14px;transition:all .2s;box-shadow:0 4px 14px rgba(123,31,162,.3)}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(123,31,162,.35)}
+.cbt-header{display:flex;justify-content:space-between;align-items:center;background:var(--white);border-radius:12px;padding:12px 18px;margin-bottom:14px;border:1px solid rgba(123,31,162,.15);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.cbt-title{font-weight:700;color:#7b1fa2;font-size:.95rem}
+.cbt-timer{font-size:1.3rem;font-weight:700;color:#7b1fa2;font-family:'Noto Serif JP',serif;min-width:70px;text-align:right}
+.cbt-timer.warn{color:#e53935;animation:blink .8s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.cbt-prog{font-size:.82rem;color:#888}
+.q-nav{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-bottom:14px}
+.qn-dot{width:30px;height:30px;border-radius:50%;border:2px solid rgba(123,31,162,.2);display:flex;align-items:center;justify-content:center;font-size:.72rem;cursor:pointer;font-weight:600;transition:all .2s;background:var(--white)}
+.qn-dot.current{border-color:#7b1fa2;background:#7b1fa2;color:#fff}
+.qn-dot.answered{background:#e8f5e9;border-color:#43a047;color:#2e7d32}
+.qn-dot.flagged{background:#fff3e0;border-color:#fb8c00;color:#e65100}
+@media(max-width:480px){.q-nav{grid-template-columns:repeat(6,1fr)}}
+.q-box{background:var(--white);border-radius:14px;padding:24px;border:1px solid rgba(123,31,162,.12);margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px}
+.q-num{font-size:.8rem;font-weight:700;color:#7b1fa2;background:#f3e5f5;padding:3px 10px;border-radius:20px}
+.q-cat{font-size:.72rem;background:#ede7f6;color:#7b1fa2;padding:3px 10px;border-radius:20px;font-weight:600}
+.q-flag-btn{font-size:.75rem;background:none;border:1px solid #fb8c00;color:#fb8c00;border-radius:20px;padding:3px 10px;cursor:pointer;transition:all .2s}
+.q-flag-btn.flagged{background:#fb8c00;color:#fff}
+.q-text{font-size:1rem;font-weight:600;color:var(--ink,#111);margin-bottom:18px;line-height:1.65}
+.q-opts{display:grid;gap:10px}
+.q-opt{background:var(--cream,#faf8f5);border:2px solid rgba(123,31,162,.15);border-radius:10px;padding:12px 16px;cursor:pointer;font-size:.9rem;transition:all .2s;text-align:left;font-family:inherit;color:var(--ink,#111);width:100%}
+.q-opt:hover{border-color:#7b1fa2;background:#f3e5f5;transform:translateX(2px)}
+.q-opt.selected{border-color:#7b1fa2;background:#f3e5f5;font-weight:600}
+.q-opt.correct{border-color:#43a047;background:#e8f5e9;color:#2e7d32}
+.q-opt.wrong{border-color:#e53935;background:#ffebee;color:#c62828}
+.nav-btns{display:flex;gap:10px;flex-wrap:wrap}
+.nav-btn{padding:10px 20px;border:none;border-radius:10px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s;font-family:inherit}
+.btn-prev{background:var(--cream,#faf8f5);border:1px solid rgba(123,31,162,.2);color:#7b1fa2}
+.btn-prev:hover{background:#f3e5f5}
+.btn-next{background:#7b1fa2;color:#fff;flex:1}
+.btn-next:hover{background:#9c27b0}
+.btn-submit{background:#2e7d32;color:#fff;flex:1}
+.btn-submit:hover{background:#388e3c}
+.result-box{background:var(--white);border-radius:16px;padding:32px;text-align:center;margin:28px 0;border:2px solid rgba(123,31,162,.15);box-shadow:0 4px 20px rgba(123,31,162,.1)}
+.score-ring{width:130px;height:130px;border-radius:50%;margin:0 auto 18px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:6px solid #7b1fa2;background:#f3e5f5}
+.score-num{font-size:2.2rem;font-weight:700;color:#7b1fa2;font-family:'Noto Serif JP',serif;line-height:1}
+.score-lbl{font-size:.7rem;color:#888;margin-top:2px}
+.score-msg{font-size:1.1rem;font-weight:700;margin:10px 0 4px}
+.score-pct{font-size:.9rem;color:#666}
+.grade-badge{display:inline-block;font-size:.85rem;font-weight:700;padding:6px 20px;border-radius:100px;margin:12px 0}
+.grade-s{background:#fff3e0;color:#e65100}
+.grade-a{background:#e8f5e9;color:#2e7d32}
+.grade-b{background:#e3f2fd;color:#1565c0}
+.grade-c{background:#fce4ec;color:#c62828}
+.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.rst{background:#f3e5f5;border-radius:10px;padding:12px;text-align:center}
+.rst-num{font-size:1.4rem;font-weight:700;color:#7b1fa2;font-family:'Noto Serif JP',serif}
+.rst-num.ok{color:#2e7d32}.rst-num.ng{color:#c62828}
+.rst-lbl{font-size:.72rem;color:#888;margin-top:2px}
+.btn-retry{background:#7b1fa2;color:#fff;border:none;border-radius:10px;padding:12px 32px;cursor:pointer;font-size:.95rem;font-weight:700;margin:14px 6px 0;font-family:inherit;transition:all .2s}
+.btn-retry:hover{background:#9c27b0}
+.btn-review{background:var(--cream,#faf8f5);border:1px solid rgba(123,31,162,.3);color:#7b1fa2;border-radius:10px;padding:12px 24px;cursor:pointer;font-size:.9rem;font-weight:600;margin:14px 6px 0;font-family:inherit}
+.review-header{font-size:1.1rem;font-weight:700;color:#7b1fa2;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #f3e5f5;font-family:'Noto Serif JP',serif}
+.ans-item{background:var(--white);border-radius:10px;padding:14px 16px;margin-bottom:10px;border-left:4px solid #ccc}
+.ans-item.ok{border-left-color:#43a047}
+.ans-item.ng{border-left-color:#e53935}
+.ans-q{font-size:.88rem;font-weight:600;color:var(--ink,#111);margin-bottom:6px;line-height:1.5}
+.ans-correct{font-size:.82rem;color:#2e7d32;margin-bottom:3px}
+.ans-wrong{font-size:.82rem;color:#c62828;margin-bottom:3px}
+.ans-skip{font-size:.82rem;color:#888;margin-bottom:3px}
+.ans-exp{font-size:.8rem;color:#666;line-height:1.6;background:#f9f9f9;border-radius:6px;padding:8px 10px;margin-top:6px}
+</style>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Quiz", "name": "JLPT CBT Simulator N2 模擬試験 | Nihonggo Pro Academy", "description": "Simulasi ujian JLPT N2 mode komputer — 30 soal grammar, vocabulary, reading dengan timer 45 menit dan skor otomatis.", "url": "https://nihonggopro.id/Materi/JLPT-CBT-N2.html", "educationalLevel": "Upper-Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}}</script>
+<script src="../assets/np-xp.js" defer></script>
+<script src="../assets/np-materi-progress.js" defer></script>
+<link rel="manifest" href="/manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta property="og:description" content="Simulasi ujian JLPT N2 mode komputer — 30 soal grammar, vocabulary, reading dengan timer 45 menit dan skor otomatis.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="JLPT CBT Simulator N2 模擬試験">
+<meta name="twitter:description" content="Simulasi ujian JLPT N2 mode komputer — 30 soal grammar, vocabulary, reading dengan timer 45 menit dan skor otomatis.">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head><body>
+<main id="main-content">
+<div class="hero">
+  <span class="bdg">N2 模擬試験</span>
+  <h1>JLPT CBT Simulator N2<br>模擬試験 Simulasi Ujian N2</h1>
+  <p style="font-size:.88rem;opacity:.85;margin-top:6px">Grammar · Vocabulary · Reading · 45 menit</p>
+</div>
+<div class="wrap" style="padding-top:24px">
+<div id="startView">
+  <div class="start-box">
+    <h2>JLPT N2 模擬試験</h2>
+    <p style="color:#666;font-size:.9rem;margin-top:6px">Simulasi ujian resmi JLPT N2 — soal diacak tiap sesi</p>
+    <div class="info-grid">
+      <div class="info-item"><div class="info-val">30</div><div class="info-lbl">Soal</div></div>
+      <div class="info-item"><div class="info-val">45</div><div class="info-lbl">Menit</div></div>
+      <div class="info-item"><div class="info-val">60%</div><div class="info-lbl">Target Lulus</div></div>
+    </div>
+    <p style="font-size:.82rem;color:#888;margin:10px 0">Kategori: 文法 · 語彙 · 読解 · Soal diacak tiap sesi</p>
+    <button class="start-btn" onclick="startCBT()">Mulai Ujian N2</button>
+  </div>
+</div>
+<div id="cbtView" style="display:none">
+  <div class="cbt-header">
+    <div>
+      <div class="cbt-title">JLPT N2 模擬試験</div>
+      <div class="cbt-prog" id="prog">Soal 1 dari 30</div>
+    </div>
+    <div class="cbt-timer" id="timer">45:00</div>
+  </div>
+  <div class="q-nav" id="qNav"></div>
+  <div class="q-box" id="qBox"></div>
+  <div class="nav-btns">
+    <button class="nav-btn btn-prev" onclick="goQ(-1)">Sebelumnya</button>
+    <button class="nav-btn btn-next" id="btnNext" onclick="goQ(1)">Berikutnya</button>
+    <button class="nav-btn btn-submit" id="btnSubmit" style="display:none" onclick="submitCBT()">Selesai &amp; Nilai</button>
+  </div>
+  <p style="text-align:center;font-size:.78rem;color:#aaa;margin-top:10px">Klik nomor soal di atas untuk loncat ke soal mana saja</p>
+</div>
+<div id="resultView" style="display:none">
+  <div class="result-box">
+    <h2 style="color:#7b1fa2;margin-bottom:16px;font-family:'Noto Serif JP',serif">Hasil Ujian N2</h2>
+    <div class="score-ring">
+      <div class="score-num" id="scoreNum">0</div>
+      <div class="score-lbl">dari 30</div>
+    </div>
+    <div class="grade-badge" id="gradeBadge"></div>
+    <div class="score-msg" id="scoreMsg"></div>
+    <div class="score-pct" id="scorePct"></div>
+    <div class="result-stats">
+      <div class="rst"><div class="rst-num ok" id="okCount">0</div><div class="rst-lbl">Benar</div></div>
+      <div class="rst"><div class="rst-num ng" id="ngCount">0</div><div class="rst-lbl">Salah</div></div>
+      <div class="rst"><div class="rst-num" id="skipCount" style="color:#888">0</div><div class="rst-lbl">Lewat</div></div>
+    </div>
+    <button class="btn-retry" onclick="restartCBT()">Ulangi Ujian</button>
+    <button class="btn-review" onclick="showReview()">Lihat Pembahasan</button>
+  </div>
+  <div id="reviewSection" style="display:none">
+    <div class="review-header">Pembahasan Lengkap</div>
+    <div id="ansList"></div>
+  </div>
+</div>
+</div></main>
+<script>
+var QS_DATA = [{"n": 1, "cat": "文法", "q": "彼女はピアノが上手な（　）、歌も得意だ。", "opts": ["上に", "以上", "だけに", "ものの"], "a": 0, "e": "上に=tidak hanya, tapi juga(累加). 上手な上に歌も得意=tidak hanya pandai piano, juga pandai menyanyi."}, {"n": 2, "cat": "語彙", "q": "プロジェクトの進捗を（　）するため、週次報告を行う。", "opts": ["把握", "解決", "提案", "拒否"], "a": 0, "e": "把握(はあく)=memahami; menguasai. 進捗を把握する=memahami perkembangan proyek."}, {"n": 3, "cat": "文法", "q": "申し訳ありませんが、その件についてはお答え（　）。", "opts": ["しかねます", "できかねます", "いたしかねます", "申しかねます"], "a": 2, "e": "いたしかねます=tidak bisa(keigo paling sopan). いたす=謙譲語 untuk する. 丁寧な断り。"}, {"n": 4, "cat": "語彙", "q": "彼の発言は事実に（　）するものだった。", "opts": ["抵触", "融合", "把握", "妥当"], "a": 0, "e": "抵触する(ていしょく)=bertentangan dengan. 法律・事実に抵触する=bertentangan dengan hukum/fakta."}, {"n": 5, "cat": "文法", "q": "会議の結果（　）、今後の方針を決定します。", "opts": ["を踏まえて", "にかかわらず", "をよそに", "はさておき"], "a": 0, "e": "を踏まえて=berdasarkan ~. 結果を踏まえて方針を決める=tentukan kebijakan berdasarkan hasil."}, {"n": 6, "cat": "語彙", "q": "この問題は（　）的なアプローチが必要だ。", "opts": ["包括", "曖昧", "抽象", "困惑"], "a": 0, "e": "包括的(ほうかつてき)=komprehensif; mencakup semua. 包括的なアプローチ=pendekatan komprehensif."}, {"n": 7, "cat": "文法", "q": "努力した（　）、結果が伴わないこともある。", "opts": ["ものの", "ものだから", "ものとして", "ものなら"], "a": 0, "e": "ものの=walaupun ~; tapi. 努力したものの結果が出ない=sudah berusaha tapi hasilnya tidak keluar."}, {"n": 8, "cat": "語彙", "q": "報告書の内容が（　）で、何を言いたいのかわからない。", "opts": ["曖昧", "顕著", "端的", "妥当"], "a": 0, "e": "曖昧(あいまい)=ambigu; tidak jelas. 曖昧な内容=isi yang tidak jelas. 反対:明確=jelas."}, {"n": 9, "cat": "文法", "q": "先生に何度も指導していただいた（　）、ようやく合格できた。", "opts": ["おかげで", "せいで", "ために", "くせに"], "a": 0, "e": "おかげで=berkat ~(positif). 指導していただいたおかげで合格=berkat bimbingan, akhirnya lulus."}, {"n": 10, "cat": "語彙", "q": "社会の（　）に応じて、サービスを改善する必要がある。", "opts": ["要求", "欠如", "削減", "収束"], "a": 0, "e": "要求(ようきゅう)=tuntutan; kebutuhan. 社会の要求に応じる=merespons kebutuhan masyarakat."}, {"n": 11, "cat": "文法", "q": "この規則は全員に（　）適用される。", "opts": ["例外なく", "例外として", "例外ながら", "例外でも"], "a": 0, "e": "例外なく=tanpa pengecualian. 全員に例外なく適用=diterapkan ke semua tanpa terkecuali."}, {"n": 12, "cat": "語彙", "q": "彼女は困難な状況に（　）することなく、前進し続けた。", "opts": ["屈", "就", "接", "達"], "a": 0, "e": "屈する(くっする)=menyerah; tunduk. 困難に屈することなく=tanpa menyerah pada kesulitan."}, {"n": 13, "cat": "文法", "q": "彼は約束を（　）、大切なミーティングに遅刻した。", "opts": ["破ったせいで", "破った上に", "破ったことに", "破ったものの"], "a": 0, "e": "せいで=karena(negatif). 約束を破ったせいで遅刻=karena ingkar janji, terlambat."}, {"n": 14, "cat": "語彙", "q": "新しい政策の（　）を徹底的に分析する必要がある。", "opts": ["影響", "欠如", "収束", "困惑"], "a": 0, "e": "影響(えいきょう)=pengaruh; dampak. 政策の影響を分析=menganalisis dampak kebijakan."}, {"n": 15, "cat": "文法", "q": "問題が発生した（　）、すぐに上司に報告すること。", "opts": ["際には", "わけには", "ことには", "ものには"], "a": 0, "e": "際には(さいには)=pada saat ~. 問題が発生した際には=ketika masalah terjadi, segera lapor."}, {"n": 16, "cat": "読解", "q": "「一概に言えない」の意味は？", "opts": ["全部同じとは言えない", "全部言える", "簡単に言える", "はっきり言える"], "a": 0, "e": "一概に言えない=tidak bisa digeneralisasi. 〜とは一概に言えない=tidak bisa serta-merta berkata ~."}, {"n": 17, "cat": "文法", "q": "経験（　）、知識も大切だ。", "opts": ["はもとより", "はさておき", "をよそに", "にかかわらず"], "a": 0, "e": "はもとより=tidak hanya ~, sudah tentu ~. 経験はもとより知識も大切=tidak hanya pengalaman, pengetahuan juga penting."}, {"n": 18, "cat": "語彙", "q": "彼の発言は（　）していて、すぐ要点が伝わった。", "opts": ["端的", "曖昧", "抽象", "顕著"], "a": 0, "e": "端的(たんてき)=langsung ke poin; ringkas. 端的な発言=pernyataan yang langsung ke poin."}, {"n": 19, "cat": "文法", "q": "どんなに忙しくとも、健康管理を（　）にしてはいけない。", "opts": ["おろそか", "あいまい", "ちぐはぐ", "めちゃくちゃ"], "a": 0, "e": "おろそかにする=mengabaikan; lalai. 健康管理をおろそかにしてはいけない=jangan lalai menjaga kesehatan."}, {"n": 20, "cat": "語彙", "q": "長年の研究の（　）、ついに新薬が開発された。", "opts": ["末に", "際に", "上に", "ために"], "a": 0, "e": "末に(すえに)=setelah panjang ~; akhirnya. 長年の研究の末に=setelah penelitian bertahun-tahun akhirnya."}, {"n": 21, "cat": "文法", "q": "この映画は感動（　）ならない素晴らしい作品だ。", "opts": ["せずには", "しないでは", "せずとも", "しないまま"], "a": 0, "e": "ずにはいられない=tidak bisa tidak ~. 感動せずにはいられない=tidak bisa tidak tersentuh."}, {"n": 22, "cat": "語彙", "q": "会社の（　）を分析して、改善策を提案した。", "opts": ["現状", "欠如", "削減", "収束"], "a": 0, "e": "現状(げんじょう)=kondisi saat ini. 現状を分析する=menganalisis kondisi terkini."}, {"n": 23, "cat": "文法", "q": "彼は批判される（　）、ますます頑張るようになった。", "opts": ["たびに", "ために", "ものに", "ことに"], "a": 0, "e": "たびに=setiap kali ~. 批判されるたびに頑張る=setiap kali dikritik, semakin bersemangat."}, {"n": 24, "cat": "語彙", "q": "プロジェクトが（　）に乗り始め、成果が出てきた。", "opts": ["軌道", "収束", "妥当", "顕著"], "a": 0, "e": "軌道に乗る(きどう)=berjalan pada jalurnya; mulai stabil. プロジェクトが軌道に乗る=proyek mulai berjalan lancar."}, {"n": 25, "cat": "文法", "q": "先生（　）の指導があってこそ、合格できた。", "opts": ["ならでは", "だけに", "にして", "くらい"], "a": 0, "e": "ならでは=khas ~; hanya milik ~. 先生ならではの指導=bimbingan yang khas dari guru ini."}, {"n": 26, "cat": "語彙", "q": "彼女の才能は（　）で、誰もが注目している。", "opts": ["顕著", "曖昧", "抽象", "困惑"], "a": 0, "e": "顕著(けんちょ)=menonjol; nyata. 顕著な才能=bakat yang menonjol. 顕著な成果=hasil yang nyata."}, {"n": 27, "cat": "文法", "q": "困難な状況に（　）も、彼は諦めなかった。", "opts": ["あって", "あるに", "あれど", "あれば"], "a": 0, "e": "にあっても=meski dalam situasi ~. 困難な状況にあっても=meski dalam situasi sulit."}, {"n": 28, "cat": "語彙", "q": "彼の説明は（　）で、聞いている人を混乱させた。", "opts": ["複雑", "端的", "顕著", "妥当"], "a": 0, "e": "複雑(ふくざつ)=kompleks; rumit. 複雑な説明=penjelasan yang rumit. 反対:端的=ringkas."}, {"n": 29, "cat": "文法", "q": "この問題を解決する（　）、まず原因を特定する必要がある。", "opts": ["にあたって", "にかかわらず", "をよそに", "はさておき"], "a": 0, "e": "にあたって=dalam rangka ~; pada saat ~. 問題を解決するにあたって=dalam rangka menyelesaikan masalah."}, {"n": 30, "cat": "読解", "q": "「手をこまねく」の意味は？", "opts": ["何もせず傍観する", "一生懸命頑張る", "手伝いを断る", "慎重に行動する"], "a": 0, "e": "手をこまねく=berpangku tangan; menonton tanpa berbuat apa-apa. 問題が起きているのに手をこまねいている=ada masalah tapi hanya menonton."}];
+var questions = [], answers = {}, cur = 0, flagged = {}, timerInt = null, timeLeft = 2700;
+
+function shuffle(arr) {
+  var a = arr.slice();
+  for (var i = a.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var t = a[i]; a[i] = a[j]; a[j] = t;
+  }
+  return a;
+}
+
+function startCBT() {
+  cbtSubmitted = false; // genuinely reset guard untuk ujian baru
+  questions = shuffle(QS_DATA);
+  answers = {}; flagged = {}; cur = 0; timeLeft = 2700;
+  document.getElementById('startView').style.display = 'none';
+  document.getElementById('cbtView').style.display = 'block';
+  document.getElementById('resultView').style.display = 'none';
+  renderNav(); showQ(0);
+  timerInt = setInterval(function() {
+    timeLeft--;
+    var m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+    var tEl = document.getElementById('timer');
+    if (tEl) tEl.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+    if (tEl) tEl.className = 'cbt-timer' + (timeLeft <= 300 ? ' warn' : '');
+    if (timeLeft <= 0) { clearInterval(timerInt); submitCBT(); }
+  }, 1000);
+}
+
+function renderNav() {
+  var nav = document.getElementById('qNav');
+  if (!nav) return;
+  nav.innerHTML = '';
+  questions.forEach(function(q, i) {
+    var d = document.createElement('div');
+    var cls = 'qn-dot';
+    if (i === cur) cls += ' current';
+    else if (flagged[i]) cls += ' flagged';
+    else if (answers[i] !== undefined) cls += ' answered';
+    d.className = cls;
+    d.textContent = i + 1;
+    d.onclick = (function(idx) { return function() { cur = idx; showQ(idx); }; })(i);
+    nav.appendChild(d);
+  });
+}
+
+function showQ(i) {
+  var q = questions[i];
+  if (!q) return;
+  var pg = document.getElementById('prog');
+  if (pg) pg.textContent = 'Soal ' + (i + 1) + ' dari 30';
+  var isFlagged = flagged[i] ? true : false;
+  var qb = document.getElementById('qBox');
+  if (!qb) return;
+  qb.innerHTML =
+    '<div class="q-meta">' +
+    '<span class="q-num">Q ' + (i + 1) + '</span>' +
+    '<span class="q-cat">' + q.cat + '</span>' +
+    '<button class="q-flag-btn' + (isFlagged ? ' flagged' : '') + '" id="flagBtn">Tandai</button>' +
+    '</div>' +
+    '<div class="q-text">' + q.q + '</div>' +
+    '<div class="q-opts" id="opts"></div>';
+  document.getElementById('flagBtn').onclick = function() { toggleFlag(i); };
+  var oo = document.getElementById('opts');
+  q.opts.forEach(function(opt, j) {
+    var btn = document.createElement('button');
+    btn.className = 'q-opt' + (answers[i] === j ? ' selected' : '');
+    btn.textContent = (j + 1) + '. ' + opt;
+    btn.onclick = (function(qi, ai) { return function() { selectAns(qi, ai); }; })(i, j);
+    oo.appendChild(btn);
+  });
+  var bn = document.getElementById('btnNext');
+  var bs = document.getElementById('btnSubmit');
+  if (bn) bn.style.display = i < 29 ? 'inline-block' : 'none';
+  if (bs) bs.style.display = i === 29 ? 'inline-block' : 'none';
+  renderNav();
+}
+
+function selectAns(qi, ai) {
+  answers[qi] = ai;
+  var oo = document.getElementById('opts');
+  if (oo) oo.querySelectorAll('.q-opt').forEach(function(b, j) {
+    b.className = 'q-opt' + (j === ai ? ' selected' : '');
+  });
+  renderNav();
+}
+
+function toggleFlag(i) {
+  flagged[i] = !flagged[i];
+  showQ(i);
+}
+
+function goQ(d) {
+  cur = Math.max(0, Math.min(29, cur + d));
+  showQ(cur);
+}
+
+// GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Keempat, Fase R):
+// guard flag untuk mencegah submitCBT() genuinely dieksekusi dua kali,
+// mengikuti pola yang sudah terbukti di JLPT-CBT.html (Website v25)
+// dan JLPT-CBT-N3.html (sesi ini). Dikonfirmasi risiko nyata mengingat
+// ada DUA jalur pemanggilan: timer otomatis saat waktu habis DAN
+// tombol "Selesai & Nilai" manual -- keduanya genuinely bisa
+// menyebabkan XP/progress terduplikasi tanpa guard ini.
+var cbtSubmitted = false;
+function submitCBT() {
+  if(cbtSubmitted) return;
+  cbtSubmitted = true;
+  clearInterval(timerInt);
+  var ok = 0, ng = 0, skip = 0;
+  questions.forEach(function(q, i) {
+    if (answers[i] === undefined) skip++;
+    else if (answers[i] === q.a) ok++;
+    else ng++;
+  });
+  var pct = Math.round(ok / 30 * 100);
+  document.getElementById('cbtView').style.display = 'none';
+  document.getElementById('resultView').style.display = 'block';
+  document.getElementById('scoreNum').textContent = ok;
+  document.getElementById('okCount').textContent = ok;
+  document.getElementById('ngCount').textContent = ng;
+  document.getElementById('skipCount').textContent = skip;
+  document.getElementById('scorePct').textContent = pct + '% (' + ok + '/30 soal benar)';
+  var grade, gClass, msg;
+  if (pct >= 90) { grade = 'S — Luar Biasa!'; gClass = 'grade-s'; msg = 'Sempurna! Siap ujian JLPT N2 sesungguhnya!'; }
+  else if (pct >= 75) { grade = 'A — Sangat Baik'; gClass = 'grade-a'; msg = 'Bagus sekali! Sedikit lagi sempurna!'; }
+  else if (pct >= 60) { grade = 'B — Lulus'; gClass = 'grade-b'; msg = 'Lulus! Pertahankan dan tingkatkan terus!'; }
+  else { grade = 'C — Perlu Belajar Lagi'; gClass = 'grade-c'; msg = 'Belum lulus. Pelajari lagi materi N2!'; }
+  var gb = document.getElementById('gradeBadge');
+  if (gb) { gb.textContent = grade; gb.className = 'grade-badge ' + gClass; }
+  var sm = document.getElementById('scoreMsg');
+  if (sm) { sm.textContent = msg; sm.style.color = pct >= 60 ? '#2e7d32' : '#c62828'; }
+}
+
+function showReview() {
+  var sec = document.getElementById('reviewSection');
+  if (!sec) return;
+  sec.style.display = sec.style.display === 'none' ? 'block' : 'none';
+  if (sec.style.display === 'none') return;
+  var list = document.getElementById('ansList');
+  if (!list) return;
+  list.innerHTML = '';
+  questions.forEach(function(q, i) {
+    var ua = answers[i];
+    var isOk = ua === q.a;
+    var isSkip = ua === undefined;
+    var d = document.createElement('div');
+    d.className = 'ans-item ' + (isSkip ? '' : (isOk ? 'ok' : 'ng'));
+    var html = '<div class="ans-q">Q' + (i + 1) + '. [' + q.cat + '] ' + q.q + '</div>';
+    html += '<div class="ans-correct">Jawaban benar: ' + q.opts[q.a] + '</div>';
+    if (!isSkip && !isOk) html += '<div class="ans-wrong">Jawaban kamu: ' + q.opts[ua] + '</div>';
+    if (isSkip) html += '<div class="ans-skip">Tidak dijawab</div>';
+    html += '<div class="ans-exp">' + q.e + '</div>';
+    d.innerHTML = html;
+    list.appendChild(d);
+  });
+}
+
+function restartCBT() {
+  document.getElementById('resultView').style.display = 'none';
+  var rs = document.getElementById('reviewSection');
+  if (rs) rs.style.display = 'none';
+  startCBT();
+}
+</script><script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+</body></html>

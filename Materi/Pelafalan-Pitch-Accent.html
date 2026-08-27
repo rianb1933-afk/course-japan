@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="../assets/env.js"></script>
+<script src="../assets/supabase-client.js"></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="preload" href="../assets/kyoto-bundle.min.css" as="style">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pelafalan Jepang & Pitch Accent — Nihonggo Pro Academy</title>
+<meta name="description" content="Panduan pelafalan bahasa Jepang: vokal panjang, konsonan ganda, bunyi ん, ritme mora, intonasi, pitch accent dasar, dan latihan shadowing.">
+<link rel="canonical" href="https://nihonggopro.id/Materi/Pelafalan-Pitch-Accent.html">
+<meta property="og:title" content="Pelafalan Jepang & Pitch Accent — Nihonggo Pro Academy">
+<meta property="og:description" content="Latihan bunyi Jepang, vokal panjang, っ, ん, ritme mora, dan pitch accent dasar.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihonggopro.id/Materi/Pelafalan-Pitch-Accent.html">
+<meta property="og:image" content="https://nihonggopro.id/assets/og-preview.svg">
+
+<link rel="stylesheet" href="../assets/pro-style.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.brand{display:flex;align-items:baseline;gap:10px}.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:22px}.brand span{font-size:12px;color:var(--ink-soft);font-weight:800;letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:8px;flex-wrap:wrap}
+.hero{background:#17181d;color:#fff;padding:58px 5vw 38px;position:relative;overflow:hidden}.hero:before{content:"発音";position:absolute;right:4vw;bottom:-72px;font-family:"Noto Serif JP",serif;font-size:220px;color:rgba(255,255,255,.045);line-height:1}
+.inner{width:min(1120px,100%);margin:0 auto;position:relative}.kicker{display:inline-flex;padding:5px 11px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px}
+h1{font-family:"Noto Serif JP",serif;font-size:clamp(32px,5vw,58px);line-height:1.12;margin-bottom:12px}.lead{max-width:760px;color:rgba(255,255,255,.7);font-size:16px}
+.hero-links{display:flex;gap:8px;flex-wrap:wrap;margin-top:22px}.hero-links a{display:inline-flex;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.18);color:rgba(255,255,255,.82);font-size:12px;font-weight:900}
+.section{padding:38px 5vw}.section-head{display:flex;justify-content:space-between;gap:24px;align-items:flex-end;margin-bottom:18px}.label{font-size:11px;font-weight:900;color:var(--red);letter-spacing:.16em;text-transform:uppercase;margin-bottom:8px}h2{font-family:"Noto Serif JP",serif;font-size:clamp(24px,3vw,34px);line-height:1.2}.sub{max-width:650px;color:var(--ink-soft);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:18px;box-shadow:var(--shadow-sm)}.card h3{font-size:16px;margin-bottom:8px}.card p,.card li{font-size:13px;color:var(--ink-mid)}.card ul{padding-left:18px;display:grid;gap:6px}.jp{font-family:"Noto Serif JP",serif}
+.pairs{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;box-shadow:var(--shadow-sm)}.pairs th,.pairs td{padding:12px;border-bottom:1px solid var(--border);font-size:13px;text-align:left;vertical-align:top}.pairs th{background:var(--cream);color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.08em}.pairs tr:last-child td{border-bottom:0}
+.drill{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.step{background:var(--white);border:1px solid var(--border);border-radius:8px;padding:14px}.step b{display:block;color:var(--red);margin-bottom:6px}.step span{font-size:13px;color:var(--ink-mid)}
+.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.16);border-radius:8px;padding:14px;color:var(--ink-mid);font-size:13px;margin-top:14px}
+@media(max-width:900px){.section-head{display:block}.grid,.drill{grid-template-columns:1fr 1fr}.pairs{display:block;overflow-x:auto}}
+@media(max-width:620px){.grid,.drill{grid-template-columns:1fr}}
+</style>
+<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Pelafalan & Pitch Accent Bahasa Jepang", "description": "Panduan pelafalan dan pitch accent bahasa Jepang", "url": "https://nihonggopro.id/Materi/Pelafalan-Pitch-Accent.html", "provider": {"@type": "Organization", "name": "NihonggoPro", "url": "https://nihonggopro.id"}, "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihonggopro">
+<meta name="twitter:title" content="Pelafalan Jepang & Pitch Accent — Nihonggo Pro Academy">
+<meta name="twitter:image" content="https://nihonggopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Pelafalan Jepang & Pitch Accent — Nihonggo Pro Academy","item":"https://nihonggopro.id/Materi/Pelafalan-Pitch-Accent.html"}]}</script>
+<link rel="manifest" href="../manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihonggoPro">
+<link rel="apple-touch-icon" href="../assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  .nav-links{display:none!important}
+  
+  
+  
+  
+}
+
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="../assets/kyoto-design-system.css">
+<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<link rel="stylesheet" href="../assets/kyoto-elevation.css">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<meta property="og:site_name" content="Nihonggo Pro Academy">
+<meta name="twitter:description" content="Panduan pelafalan bahasa Jepang: vokal panjang, konsonan ganda, bunyi ん, ritme mora, intonasi, pitch accent dasar, dan latihan shadowing.">
+<link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+<main id="main-content">
+  <section class="hero">
+    <div class="inner">
+      <div class="kicker">Lab Pelafalan Bahasa Jepang</div>
+      <h1>Pelafalan Jepang<br>dan Aksen Nada (Pitch Accent)</h1>
+      <p class="lead">Materi ini membantu membedakan bunyi yang sering membuat arti berubah: vokal panjang, konsonan ganda, ん, ritme mora, dan pitch accent dasar.</p>
+      <div class="hero-links">
+        <a href="#core">Bunyi Inti</a>
+        <a href="#pairs">Pasangan Bunyi Mirip</a>
+        <a href="#pitch">Aksen Nada</a>
+        <a href="#routine">Latihan Harian</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="core">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Bunyi Inti</div><h2>Bunyi yang wajib stabil</h2></div><p class="sub">Bahasa Jepang terdengar sederhana, tetapi durasi bunyi sangat penting. Satu mora yang hilang bisa mengubah arti.</p></div>
+      <div class="grid">
+        <article class="card"><h3>Vokal Pendek & Panjang</h3><ul><li><span class="jp">おばさん</span> tante vs <span class="jp">おばあさん</span> nenek.</li><li>Tahan vokal panjang satu ketukan ekstra.</li><li>Dalam katakana sering ditulis ー.</li></ul></article>
+        <article class="card"><h3>Konsonan Ganda っ</h3><ul><li><span class="jp">きて</span> datanglah vs <span class="jp">きって</span> perangko/potong.</li><li>Berhenti sebentar sebelum konsonan berikutnya.</li><li>Jangan dibaca sebagai “tsu” penuh.</li></ul></article>
+        <article class="card"><h3>Bunyi ん</h3><ul><li>Bisa terdengar seperti n, m, atau ng tergantung bunyi setelahnya.</li><li><span class="jp">さんぽ</span> sering terdengar mendekati “sampo”.</li><li>Tetap dihitung satu mora.</li></ul></article>
+        <article class="card"><h3>Ritme Mora</h3><ul><li>Setiap kana biasanya satu ketukan.</li><li>っ, ん, dan vokal panjang juga dihitung satu ketukan.</li><li>Latih dengan tepuk tangan pelan.</li></ul></article>
+        <article class="card"><h3>R dan L Jepang</h3><ul><li>Bunyi らりるれろ berada di antara r dan l.</li><li>Sentuh langit-langit mulut sebentar.</li><li>Jangan digulung seperti r Indonesia.</li></ul></article>
+        <article class="card"><h3>Suara Tidak Terlalu Kuat</h3><ul><li>Konsonan Jepang cenderung ringan.</li><li>Hindari tekanan berlebihan di setiap suku kata.</li><li>Utamakan ritme rata dan jelas.</li></ul></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="pairs">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Pasangan Bunyi Mirip</div><h2>Pasangan bunyi yang mengubah arti</h2></div><p class="sub">Baca berulang, rekam, lalu bandingkan panjang bunyinya.</p></div>
+      <table class="pairs">
+        <thead><tr><th>Pasangan</th><th>Arti</th><th>Fokus</th><th>Latihan</th></tr></thead>
+        <tbody>
+          <tr><td class="jp">おじさん / おじいさん</td><td>paman / kakek</td><td>vokal panjang い</td><td>o-ji-san, o-jii-san</td></tr>
+          <tr><td class="jp">ここ / こうこう</td><td>di sini / SMA</td><td>vokal panjang おう</td><td>ko-ko, koo-koo</td></tr>
+          <tr><td class="jp">きて / きって</td><td>datanglah / perangko</td><td>jeda っ</td><td>ki-te, kit-te</td></tr>
+          <tr><td class="jp">さか / さっか</td><td>lereng / penulis</td><td>konsonan ganda</td><td>sa-ka, sak-ka</td></tr>
+          <tr><td class="jp">かな / かんな</td><td>kana / alat serut</td><td>ん sebagai mora</td><td>ka-na, kan-na</td></tr>
+          <tr><td class="jp">びよういん / びょういん</td><td>salon / rumah sakit</td><td>yoon dan vokal panjang</td><td>bi-yo-u-in, byo-u-in</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="pitch">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Aksen Nada</div><h2>Dasar naik-turun nada</h2></div><p class="sub">Pitch accent bukan tekanan keras seperti bahasa Inggris. Yang berubah adalah tinggi-rendah nada antar mora.</p></div>
+      <div class="grid">
+        <article class="card"><h3>Heiban</h3><p>Nada naik setelah mora pertama lalu tetap tinggi. Banyak kata umum mengikuti pola ini.</p></article>
+        <article class="card"><h3>Atamadaka</h3><p>Mora pertama tinggi, lalu turun. Contoh klasik yang sering diajarkan: <span class="jp">雨</span> dalam beberapa dialek standar.</p></article>
+        <article class="card"><h3>Nakadaka / Odaka</h3><p>Nada turun di tengah atau setelah kata. Pola ini penting saat kata diikuti partikel.</p></article>
+      </div>
+      <div class="note">Untuk pemula, prioritas pertama adalah durasi bunyi. Setelah vokal panjang, っ, dan ん stabil, baru fokus memperhalus pitch accent.</div>
+    </div>
+  </section>
+
+  <section class="section" id="routine">
+    <div class="inner">
+      <div class="section-head"><div><div class="label">Rutinitas Harian</div><h2>Latihan 12 menit per hari</h2></div><p class="sub">Latihan kecil yang konsisten lebih efektif daripada koreksi pelafalan besar sesekali.</p></div>
+      <div class="drill">
+        <div class="step"><b>1 menit</b><span>Panaskan mulut: あいうえお, らりるれろ.</span></div>
+        <div class="step"><b>3 menit</b><span>Baca minimal pairs dan tepuk mora.</span></div>
+        <div class="step"><b>3 menit</b><span>Shadowing satu dialog pendek.</span></div>
+        <div class="step"><b>3 menit</b><span>Rekam 5 kalimat dari materi hari ini.</span></div>
+        <div class="step"><b>2 menit</b><span>Dengar ulang, catat satu bunyi yang perlu diperbaiki.</span></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head"><div><div class="label">Pasangan Minimal Lanjutan</div><h2>30 pasangan yang sering tertukar</h2></div><p class="sub">Latih membaca pasangan ini keras-keras, lalu dengarkan audio untuk konfirmasi. Fokus pada durasi dan titik jeda.</p></div>
+    <div class="grid">
+      <article class="card"><h3>Vokal panjang vs pendek</h3>
+        <ul>
+          <li><span class="jp">おじさん</span> (paman) vs <span class="jp">おじいさん</span> (kakek)</li>
+          <li><span class="jp">ここ</span> (di sini) vs <span class="jp">こうこう</span> (SMA)</li>
+          <li><span class="jp">ビル</span> (gedung) vs <span class="jp">ビール</span> (bir)</li>
+          <li><span class="jp">スト</span> (pemogokan) vs <span class="jp">ストー</span> (kompor)</li>
+          <li><span class="jp">ゆき</span> (salju) vs <span class="jp">ゆうき</span> (keberanian)</li>
+          <li><span class="jp">さか</span> (lereng) vs <span class="jp">さあか</span> × → <span class="jp">坂</span> vs <span class="jp">さかな</span> (ikan)</li>
+        </ul>
+      </article>
+      <article class="card"><h3>Konsonan ganda (促音)</h3>
+        <ul>
+          <li><span class="jp">来て</span> きて (datanglah) vs <span class="jp">切って</span> きって (potonglah)</li>
+          <li><span class="jp">一家</span> いっか (satu keluarga) vs <span class="jp">以下</span> いか (berikut ini)</li>
+          <li><span class="jp">結果</span> けっか vs <span class="jp">下記</span> かき (tidak sama, tapi latih jeda)</li>
+          <li><span class="jp">勝手</span> かって vs <span class="jp">彼女</span> かのじょ (perhatikan panjang)</li>
+          <li><span class="jp">学校</span> がっこう — dua mora pendek, jeda di tengah</li>
+        </ul>
+      </article>
+      <article class="card"><h3>ん (moraic nasal)</h3>
+        <ul>
+          <li><span class="jp">うん</span> (iya, kasual) — ん = satu mora penuh</li>
+          <li><span class="jp">あんない</span> 案内 (panduan) — ん tidak hilang</li>
+          <li><span class="jp">こんにちは</span> — ん sebelum に mengubah bunyi</li>
+          <li><span class="jp">まんが</span> 漫画 vs <span class="jp">マンガ</span> — sama, latih ん penuh</li>
+          <li>ん sebelum m/b/p → bunyi [m]: <span class="jp">さんぽ</span> = [sampo]</li>
+        </ul>
+      </article>
+      <article class="card"><h3>Pitch accent — kata dengan nada berbeda</h3>
+        <ul>
+          <li><span class="jp">橋</span> (jembatan) HIGH-low vs <span class="jp">箸</span> (sumpit) low-HIGH vs <span class="jp">端</span> (ujung) low-HIGH-sama</li>
+          <li><span class="jp">雨</span> あめ (hujan) low-HIGH vs <span class="jp">飴</span> あめ (permen) HIGH-low</li>
+          <li><span class="jp">柿</span> かき (kesemek) HIGH-low vs <span class="jp">牡蠣</span> かき (tiram) low-HIGH</li>
+          <li><span class="jp">切る</span> きる (memotong) HIGH-low vs <span class="jp">着る</span> きる (memakai) low-HIGH</li>
+          <li><span class="jp">花</span> はな HIGH-low vs <span class="jp">鼻</span> はな low-HIGH</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head"><div><div class="label">Pelafalan Bunyi Sulit</div><h2>Bunyi yang tidak ada dalam bahasa Indonesia</h2></div><p class="sub">Bunyi-bunyi ini perlu latihan ekstra karena tidak ada padanannya dalam bahasa Indonesia.</p></div>
+    <div class="grid">
+      <article class="card"><h3>ふ (fu)</h3><p>Bukan "fu" seperti bahasa Inggris. Bibir tidak mengunci. Seperti hembusan udara tipis antara bibir atas dan bawah. Coba: tiup lilin perlahan dan katakan あ secara bersamaan.</p>
+        <ul><li><span class="jp">ふじさん</span> 富士山</li><li><span class="jp">ふとん</span> 布団</li><li><span class="jp">ふるい</span> (lama)</li></ul>
+      </article>
+      <article class="card"><h3>つ (tsu)</h3><p>Lidah menyentuh langit-langit depan (bukan gigi). Bukan "chu" dan bukan "su" biasa. Mirip "ts" dalam "tsunami".</p>
+        <ul><li><span class="jp">つき</span> 月 (bulan)</li><li><span class="jp">つくえ</span> 机 (meja)</li><li><span class="jp">つまらない</span> (membosankan)</li></ul>
+      </article>
+      <article class="card"><h3>り / る (ri/ru)</h3><p>Bukan "r" bergulir seperti bahasa Indonesia. Lidah mengetuk langit-langit satu kali, seperti antara "d" dan "l" dalam bahasa Inggris. Jangan putar lidah.</p>
+        <ul><li><span class="jp">りんご</span> (apel)</li><li><span class="jp">らいねん</span> 来年 (tahun depan)</li><li><span class="jp">これ</span> (ini)</li></ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head">
+      <div><div class="label">Drill Baca</div><h2>Drill Pasangan Minimal — 最小対テスト</h2></div>
+      <p class="sub">Baca pasangan kata keras-keras, perhatikan perbedaan bunyi. Klik untuk lihat arti dan petunjuk pelafalan.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem" id="minPairGrid"></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="inner">
+    <div class="section-head">
+      <div><div class="label">Pelafalan Otomatis</div><h2>Dengarkan dengan Browser TTS</h2></div>
+      <p class="sub">Klik tombol di bawah untuk mendengar kata dengan suara sistem (Text-to-Speech). Butuh browser yang mendukung Web Speech API.</p>
+    </div>
+    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+      <div style="display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem">
+        <input id="ttsInput" type="text" placeholder="Ketik teks Jepang…" style="flex:1;min-width:200px;padding:9px 14px;border:.5px solid var(--border-mid);border-radius:8px;font-family:'Noto Serif JP',serif;font-size:16px;background:var(--cream)" aria-label="Teks pelafalan">
+        <button onclick="speakJP()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">▶ Dengarkan</button>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap" id="ttsQuickBtns"></div>
+      <div id="ttsStatus" style="font-size:12px;color:var(--ink-faint);margin-top:.5rem"></div>
+    </div>
+  </div>
+</section>
+
+<script>
+// Minimal pair data
+const minPairs=[
+  {a:'おじさん',ar:'ojisan',am:'paman',b:'おじいさん',br:'ojiisan',bm:'kakek',tip:'Perhatikan panjang vokal い — ojisan (pendek) vs ojiisan (panjang)'},
+  {a:'ビル',ar:'biru',am:'gedung',b:'ビール',br:'biiru',bm:'bir',tip:'ル pendek vs ール panjang. Perhatikan panjang vokal ー'},
+  {a:'きた',ar:'kita',am:'datang (来た)',b:'きった',br:'kitta',bm:'memotong (切った)',tip:'た tunggal vs った ganda (促音). Jeda sebelum た'},
+  {a:'かき',ar:'kaki',am:'kesemek',b:'かぎ',br:'kagi',bm:'kunci',tip:'か bersih vs が berbunyi (dakuten). Pita suara bergetar'},
+  {a:'はな',ar:'hana',am:'bunga',b:'はなし',br:'hanashi',bm:'cerita/bicara',tip:'Perhatikan panjangnya — はな (2 mora) vs はなし (3 mora)'},
+  {a:'し',ar:'shi',am:'4/mati/penyair',b:'じ',br:'ji',bm:'huruf/waktu/bumi',tip:'し tidak bersuara vs じ bersuara (dakuten)'},
+  {a:'こうこう',ar:'koukou',am:'SMA',b:'ここ',br:'koko',bm:'di sini',tip:'こうこう (4 mora panjang) vs ここ (2 mora pendek)'},
+  {a:'かいしゃ',ar:'kaisha',am:'perusahaan',b:'かいさつ',br:'kaisatsu',bm:'penghalang tiket',tip:'Perhatikan konsonan tengah: sha vs tsu'},
+  {a:'ふ',ar:'fu',am:'bukan "fu" Inggris',b:'ぷ',br:'pu',bm:'Perbedaan aspirasi',tip:'ふ = hembus tipis bibir. ぷ = ledakan bibir. Coba tiup lilin untuk ふ'},
+  {a:'つ',ar:'tsu',am:'seperti "ts" di "tsunami"',b:'す',br:'su',bm:'su biasa',tip:'つ = lidah ke langit-langit depan. す = lidah ke gigi atas'},
+  {a:'ん',ar:'n (mora)',am:'satu mora penuh',b:'な',br:'na',bm:'bukan ん',tip:'ん memiliki durasi satu mora penuh. Jangan terlalu pendek!'},
+  {a:'橋',ar:'hashi',am:'jembatan (high-low)',b:'箸',br:'hashi',bm:'sumpit (low-high)',tip:'Kata sama tapi pitch accent berbeda. 橋: HA-shi. 箸: ha-SHI'},
+];
+
+const grid=document.getElementById('minPairGrid');
+minPairs.forEach(p=>{
+  const card=document.createElement('div');
+  card.style.cssText='background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;overflow:hidden;cursor:pointer;transition:all .2s';
+  card.innerHTML=`<div style="padding:1rem;display:flex;justify-content:space-around;align-items:center;background:var(--cream)">
+    <div style="text-align:center">
+      <div style="font-family:'Noto Serif JP',serif;font-size:26px;color:var(--ink)">${p.a}</div>
+      <div style="font-size:10px;color:var(--ink-faint)">${p.ar}</div>
+      <div style="font-size:11px;color:var(--ink-mid);margin-top:2px">${p.am}</div>
+    </div>
+    <div style="font-size:20px;color:var(--ink-faint)">vs</div>
+    <div style="text-align:center">
+      <div style="font-family:'Noto Serif JP',serif;font-size:26px;color:var(--red)">${p.b}</div>
+      <div style="font-size:10px;color:var(--ink-faint)">${p.br}</div>
+      <div style="font-size:11px;color:var(--ink-mid);margin-top:2px">${p.bm}</div>
+    </div>
+  </div>
+  <div class="pair-tip" style="display:none;padding:.6rem 1rem;font-size:12px;color:var(--ink-mid);background:var(--gold-pale);border-top:.5px solid var(--border)">💡 ${p.tip}</div>
+  <div style="padding:.4rem 1rem;display:flex;gap:.5rem">
+    <button onclick="speakWord('${p.a}',event)" style="flex:1;font-size:11px;background:var(--cream);border:.5px solid var(--border-mid);border-radius:6px;padding:4px;cursor:pointer">▶ ${p.a}</button>
+    <button onclick="speakWord('${p.b}',event)" style="flex:1;font-size:11px;background:var(--cream);border:.5px solid var(--border-mid);border-radius:6px;padding:4px;cursor:pointer">▶ ${p.b}</button>
+  </div>`;
+  card.querySelector('div').addEventListener('click',()=>{
+    const tip=card.querySelector('.pair-tip');
+    tip.style.display=tip.style.display==='none'?'block':'none';
+  });
+  grid.appendChild(card);
+});
+
+// TTS quick buttons
+const quickWords=['あ','い','う','え','お','はな','ふじさん','ありがとうございます','おはようございます','すみません','よろしくおねがいします'];
+const qBtn=document.getElementById('ttsQuickBtns');
+quickWords.forEach(w=>{
+  const b=document.createElement('button');
+  b.textContent=w;
+  b.style.cssText='background:var(--white);border:.5px solid var(--border-mid);border-radius:6px;padding:5px 10px;font-size:13px;font-family:\'Noto Serif JP\',serif;cursor:pointer';
+  b.onclick=()=>speakWord(w);
+  qBtn.appendChild(b);
+});
+
+function speakWord(text,evt){
+  if(evt)evt.stopPropagation();
+  if(!('speechSynthesis' in window)){
+    document.getElementById('ttsStatus').textContent='Browser tidak mendukung TTS.';
+    return;
+  }
+  const u=new SpeechSynthesisUtterance(text);
+  const voices=speechSynthesis.getVoices();
+  const jpVoice=voices.find(v=>v.lang.startsWith('ja'));
+  if(jpVoice)u.voice=jpVoice;
+  u.lang='ja-JP';u.rate=0.8;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+  document.getElementById('ttsStatus').textContent=`Melafalkan: ${text}`;
+}
+
+function speakJP(){
+  const text=document.getElementById('ttsInput').value.trim();
+  if(text)speakWord(text);
+}
+</script>
+
+<section class="section" id="pronounceQuiz">
+  <div class="inner">
+    <div class="section-head">
+      <div><div class="label">Kuis Pelafalan</div><h2>Drill Pelafalan — 発音ドリル</h2></div>
+      <p class="sub">Pilih pasangan kata yang memiliki bunyi atau nada yang berbeda. 12 soal per sesi.</p>
+    </div>
+    <div id="pqBox" style="max-width:560px"></div>
+  </div>
+</section>
+
+<script>
+const pronounceQs = [
+  // Pasangan minimal - bunyi berbeda makna
+  { q:'「はし」— Kata mana yang berarti "jembatan"?', opts:['はし (hashi — naik-datar)','はし (hashi — datar-naik)','はし (hashi — datar-datar)'], ans:0, exp:'橋(はし)=jembatan: nada naik di awal, turun di し. 箸(はし)=sumpit: nada datar-naik.' },
+  { q:'"あめ" mana yang berarti "hujan"?', opts:['あめ (あ naik, め turun)','あめ (あ datar, め naik)','あめ (datar semua)'], ans:0, exp:'雨(あめ)=hujan: あ tinggi, め rendah. 飴(あめ)=permen: あ rendah, め tinggi.' },
+  { q:'"かみ" mana yang berarti "kertas"?', opts:['かみ (か naik, み turun)','かみ (か datar, み naik)'], ans:0, exp:'紙(かみ)=kertas: か tinggi. 神(かみ)=dewa: み tinggi.' },
+  // Bunyi yang mengubah arti
+  { q:'Bunyi yang BENAR untuk "penghapus" dalam bahasa Jepang?', opts:['けしごむ (keshigomu)','けしごも (keshigomo)','きしごむ (kishigomu)','けじごむ (kejigumu)'], ans:0, exp:'消しゴム(けしごむ)= penghapus. け bukan き, ご bukan ど.' },
+  { q:'Yang mana pengucapan benar untuk "restoran"?', opts:['れすとらん','れすとらむ','れすとわん','れすとらに'], ans:0, exp:'レストラン = restoran. Perhatikan "ら" bukan "わ" dan "ん" di akhir.' },
+  { q:'Bunyi ん vs む — yang mana "binatang"?', opts:['どうぶつ (doubutsu)','どうぶっ (doubut)','どうぶん (doubun)','どうぶむ (doubumu)'], ans:0, exp:'動物(どうぶつ)=binatang. Perhatikan っ (sokuon) dan つ, bukan む atau ん.' },
+  // Long vs short vowel
+  { q:'"おばさん" vs "おばあさん" — mana yang berarti bibi (tante)?', opts:['おばさん (tanpa perpanjangan)','おばあさん (dengan perpanjangan あ)'], ans:0, exp:'おばさん=bibi. おばあさん=nenek. Panjang-pendek vokal mengubah arti!' },
+  { q:'"ゆき" mana yang berarti "salju"?', opts:['ゆき (yu-ki pendek)','ゆうき (yuu-ki panjang)'], ans:0, exp:'雪(ゆき)=salju (pendek). 勇気(ゆうき)=keberanian (yuu panjang).' },
+  { q:'ビル vs ビール — mana yang berarti "bir"?', opts:['ビル (bi-ru)','ビール (bii-ru panjang)'], ans:1, exp:'ビール=bir (ii panjang). ビル=gedung (i pendek).' },
+  // Double consonant
+  { q:'"きって" vs "きて" — mana yang berarti "memotong" (te-form)?', opts:['きって (kitte — ada っ)','きて (kite — tanpa っ)'], ans:0, exp:'切って(きって)=memotong (っ sebelum て). 来て(きて)=datang.' },
+  { q:'Pelafalan yang benar untuk "一杯" (satu cangkir)?', opts:['いっぱい (ippai — っ+ぱ)','いちぱい (ichipai)','いっはい (ihai)','いぱい (ipai)'], ans:0, exp:'一杯(いっぱい)=satu cangkir. っ+ぱ = bunyi "p" berganda.' },
+  { q:'Arti "さっか" vs "さか"?', opts:['"さっか" = penulis/pengarang','"さか" = penulis/pengarang'], ans:0, exp:'作家(さっか)=penulis (double k). 坂(さか)=lereng bukit.' },
+,
+  { q:'「かみ」— Kata mana yang berarti "rambut"?', opts:['か↗み↘ (naik-turun)','か↘み↗ (turun-naik)','か↗み↗ (naik-naik)'], ans:0, exp:'髪(かみ)=rambut: か↗み↘. 神(かみ)=dewa: か↘み↗. 紙(かみ)=kertas: か↗み↗. Tiga kata berbeda aksen!' },
+  { q:'「はな」— Kata mana yang berarti "bunga"?', opts:['は↗な↘ (naik-turun)','は↘な↗ (turun-naik)','は↘な↘ (datar rendah)'], ans:0, exp:'花(はな)=bunga: は↗な↘. 鼻(はな)=hidung: は↘な↗. Pasangan minimal klasik dalam aksen Tokyo.' },
+  { q:'Kata 「あめ」— "hujan" diucapkan dengan aksen seperti apa?', opts:['あ↗め↘','あ↘め↗','あ↗め↗','あ↘め↘'], ans:0, exp:'雨(あめ)=hujan: あ↗め↘ (nada turun setelah あ). 飴(あめ)=permen: あ↘め↗ (nada naik).' },
+  { q:'Dalam bahasa Jepang standar (Tokyo), pola nada umum kata 3 mora seperti「さかな(魚)」adalah?', opts:['平板型: nada sama semua','中高型: naik di tengah, turun di akhir','頭高型: tinggi di awal','尾高型: rendah, naik di akhir'], ans:1, exp:'さかな = sa↘ka↗na↘. Kata 3 mora sering punya pola 中高 (naik-turun).' },
+  { q:'Frasa「おもしろい映画」— di mana nada turun?', opts:['Setelah お','Setelah い(kata sifat)','Setelah 映','Tidak ada perubahan (flat)'], ans:1, exp:'Kata sifat い-form yang termodifikasi nomina: nada turun setelah い, baru naik ke nomina.' },
+  { q:'Kata ganti「これ」beraksen?', opts:['これ (ko↗re↘)','これ (ko↘re↗)','これ (ko↗re↗)','これ (ko↘re↘)'], ans:0, exp:'これ/それ/あれ/どれ semua pola: ko↗re↘ — nada tinggi di suku pertama, turun di ke-2.' },
+  { q:'「先生」(せんせい) — di Tokyo-ben, aksennya?', opts:['せん↗せい↘','せ↘ん↗せい','せんせい (datar tinggi)','せん↘せい↗'], ans:2, exp:'先生(せんせい) = pola 平板 (heiban) = datar tinggi semua. Tidak ada nada turun dalam kata itu sendiri.' },
+  { q:'Kata「国 (くに)」diucapkan dengan aksen?', opts:['く↗に (naik)','く↘に↗ (turun-naik)','く↗に↘ (naik-turun)','くに (datar)'], ans:2, exp:'国(くに) = く↗に↘ = 頭高型 (kata kerja/benda pendek sering punya pola ini).' },
+  { q:'Mengapa aksen penting dalam percakapan alami bahasa Jepang?', opts:['Tidak penting sama sekali','Membedakan makna kata homofon dan terdengar lebih alami','Hanya penting di Osaka','Hanya penting saat bernyanyi'], ans:1, exp:'Aksen membedakan: 橋/箸/端, 雨/飴, 髪/神/紙, dll. Dan penutur asli mendengar "asing" jika aksen salah.' },
+  { q:'Dialek Osaka-ben berbeda dari Tokyo-ben dalam hal aksen. Manakah yang benar?', opts:['Aksen Osaka lebih banyak kata datar','Dalam banyak kata, aksen Osaka berkebalikan dari Tokyo','Osaka tidak punya aksen nada','Aksen Osaka sama persis dengan Tokyo'], ans:1, exp:'Osaka-ben (Kansai) sering berkebalikan: kata yang tinggi-turun di Tokyo bisa rendah-naik di Osaka.' },
+  { q:'「水 (みず)」aksen standar Tokyo adalah?', opts:['み↗ず↘','み↘ず↗','みず (datar tinggi)','みず (datar rendah)'], ans:0, exp:'水(みず) = み↗ず↘ = 頭高型. Suku pertama tinggi, langsung turun. Contoh pola kepala-tinggi.' },
+  { q:'Istilah "助詞下がり (joshi sagari)" artinya?', opts:['Partikel ditulis lebih kecil','Partikel menyebabkan nada turun setelahnya','Partikel memiliki aksen sendiri','Partikel tidak berpengaruh pada nada'], ans:1, exp:'助詞下がり = setelah kata + partikel, nada cenderung turun ke depan. Efek aksen kata merambat ke partikel.' },
+,
+  { q:'「橋(はし)」vs「箸(はし)」vs「端(はし)」を区別する方法は？', opts:['全部同じ発音','アクセントパターンが異なる：橋=頭高、箸=平板、端=頭高（文脈依存）','漢字を見なければ分からない','全部平板型'], ans:1, exp:'橋(はし)=jembatan: は↗し↘(頭高). 箸(はし)=sumpit: は↘し↗(尾高). 端(はし)=tepi/ujung: は↗し↘または平板。文脈で判断。' },
+  { q:'「雨(あめ)」と「飴(あめ)」のアクセントの違いは？', opts:['同じ発音','雨=尾高型(あ↘め↗)、飴=頭高型(あ↗め↘)','雨=頭高型、飴=平板型','両方とも平板型'], ans:1, exp:'雨(あめ)=hujan: あ↘め↗(尾高). 飴(あめ)=permen: あ↗め↘(頭高). Konteksnya sangat membantu membedakan!' },
+  { q:'長い複合語のアクセントは一般的にどうなりますか？', opts:['語頭が常に高い','全体が平板になりやすい（後半が低め）','語尾が常に高い','ランダムに変わる'], ans:1, exp:'長い複合語(3語以上など)は全体的に平板型になりやすい。短い単語同士が組み合わさると変化も起こる。' },
+  { q:'「ありがとう」のアクセント（東京標準語）はどれ？', opts:['あ↗り↘が↘と↘う↘','あ↘り↗が↗と↗う↘','あ↗り↗が↗と↘う↘','全部高い（平板型）'], ans:1, exp:'ありがとう = あ↘り↗が↗と↗う↘ (中高型). 日常的すぎて意識しないが正確なアクセントがある。' },
+  { q:'外来語(カタカナ語)のアクセントパターンとして最も多いのは？', opts:['頭高型','平板型が多い傾向','尾高型','ランダム'], ans:1, exp:'カタカナ語(外来語)は平板型になりやすい傾向がある。例: コンピューター、テレビ、スマートフォン = 多くが平板。' },
+  { q:'関西弁のアクセントが標準語（東京）と正反対になりやすい例は？', opts:['ない（同じ）','あめ・はし・はななど多くの単語で逆になる','一部の助詞のみ','動詞のみ'], ans:1, exp:'関西弁では多くの単語で東京と逆のアクセント。飴: 東京=あ↗め↘、大阪=あ↘め↗。学習者は「標準語=東京アクセント」を意識すること。' },
+,
+  { q:'「し」と「じ」の発音の違いを正しく説明しているのは？', opts:['違いはない','し=摩擦音(shi)、じ=有声摩擦音(ji)で口の形が違う','発音は同じだが書き方が違うだけ','しはひらがな、じは英語発音'], ans:1, exp:'し(shi) = tidak bersuara. じ(ji) = bersuara. 口の形と喉の振動が違う。初学者には難しい対の音。' },
+  { q:'「つ」の発音で日本語学習者がよく間違えるのは？', opts:['「ス」として発音する','「チュ」として発音する','「ツー」として伸ばす','「トゥ」として発音する(英語的に)'], ans:3, exp:'「つ」 = "tsu" bukan "tu" (bahasa Inggris). 英語話者は "tu" と発音しがち。日本語の「つ」はts+u の破擦音。' },
+  { q:'「ん」（撥音）の発音は状況によって変わりますか？', opts:['常に「ん」と同じ発音','後に続く音によって変わる(n, m, ng, N)','常に「n」','変わらない'], ans:1, exp:'ん の実際の発音は後の音によって変わる: んぱ/んば=m音(撥音), んか/んが=ng音, んな/んら=n音, など。自然な日本語には重要。' },
+  { q:'「r行」（ら行）の発音について正しいのは？', opts:['英語の"r"と同じ','フランス語の"r"と同じ','英語の"l"でも"r"でもなく、舌を弾く音(弾き音)','舌をまく'],ans:2, exp:'ら行 = 弾き音(flap). 舌先を歯茎に一度当てて弾く。英語の"l"でも"r"でもない。イタリア語やスペイン語のシングルRに近い。' },
+  { q:'「二重母音」(二重母音)とは？例として「ゆ」と「い」が組み合わさった場合は？', opts:['ゆっくり発音する','「ゆい」→「ゆい」2モーラ','特に変わらない','「yi」と発音する'], ans:1, exp:'二重母音ではなく、日本語は母音を別々のモーラとして数える。「有意(ゆうい)」= ゆ・う・い 3モーラ。英語の二重母音とは扱いが異なる。' },
+];
+
+let pqIdx=0, pqScore=0, pqActive=[];
+function shufPQ(a){return[...a].sort(()=>Math.random()-0.5);}
+pqActive = shufPQ([...pronounceQs]).slice(0,10);
+
+function renderPQ(){
+  const box=document.getElementById('pqBox');
+  if(pqIdx>=pqActive.length){
+    const pct=Math.round(pqScore/pqActive.length*100);
+    box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.5rem;text-align:center">
+      <div style="font-size:40px;font-weight:800;color:${pct>=80?'var(--green,#27ae60)':pct>=60?'var(--gold)':'var(--red)'}">${pqScore}/${pqActive.length}</div>
+      <div style="font-size:13px;color:var(--ink-soft);margin:.5rem 0">${pct>=80?'Pelafalan kamu sangat baik!':pct>=60?'Bagus, latih bunyi panjang dan sokuon.':'Fokus pada panjang vokal dan っ/ん perbedaan.'}</div>
+      <button onclick="pqIdx=0;pqScore=0;pqActive=shufPQ([...pronounceQs]).slice(0,10);renderPQ()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">Ulangi</button>
+    </div>`;
+    return;
+  }
+  const q=pqActive[pqIdx];
+  const opts=q.opts.map((o,i)=>`<button onclick="checkPQ(${i})" style="width:100%;text-align:left;background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:10px 14px;font-size:13px;font-family:\'Noto Serif JP\',serif;cursor:pointer;transition:all .15s">${o}</button>`).join('');
+  box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--red);margin-bottom:.5rem">
+      <span>SOAL ${pqIdx+1}/${pqActive.length}</span><span>${pqScore} benar</span>
+    </div>
+    <p style="font-size:14px;font-weight:600;color:var(--ink);margin-bottom:.75rem;font-family:'Noto Serif JP',serif">${q.q}</p>
+    <div style="display:grid;gap:.5rem" id="pqOpts">${opts}</div>
+    <div id="pqExp" style="display:none;margin-top:.75rem;padding:.6rem .85rem;background:var(--cream);border-radius:8px;font-size:12px;color:var(--ink-mid)"></div>
+  </div>`;
+}
+
+function checkPQ(i){
+  const q=pqActive[pqIdx];const ok=i===q.ans;
+  if(ok)pqScore++;
+  document.querySelectorAll('#pqOpts button').forEach((b,idx)=>{b.disabled=true;if(idx===q.ans)b.style.background='var(--green-pale,#eafaf1)';if(idx===i&&!ok)b.style.background='var(--red-pale)';});
+  const e=document.getElementById('pqExp');
+  e.style.display='block';e.style.color=ok?'var(--red)':'var(--ink-mid)';
+  e.textContent=(ok?'✓ Benar! ':'✗ Salah. ')+q.exp;
+  setTimeout(()=>{pqIdx++;renderPQ();},1700);
+}
+renderPQ();
+</script>
+<script src="../assets/pro-app.min.js" defer></script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihonggo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="../Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="../Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      
+  </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Lengkap</a>
+          <a href="Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kosakata</a>
+          <a href="Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kana Lengkap</a>
+          <a href="Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kanji</a>
+          <a href="Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">AI Tutor</a>
+          <a href="../Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Grammar Checker</a>
+          <a href="../Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kelas Live</a>
+          <a href="../Sertifikat.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Sertifikat</a>
+          <a href="../QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kuis Pro</a>
+          <a href="../Dashboard/Dashboard.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Dasbor</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="../Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Premium</a>
+          <a href="../Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Akun Murid</a>
+          <a href="../Pembelajaran-Lain.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Belajar Lain</a>
+          <a href="../index.html#faq" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">FAQ</a>
+          <a href="../Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihonggoPro — nihonggopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihonggoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+<div id="floatingTimer" style="position:fixed;bottom:5.5rem;left:1rem;z-index:150;background:white;border-radius:12px;padding:.75rem 1rem;box-shadow:0 4px 16px rgba(0,0,0,.12);border:.5px solid rgba(0,0,0,.08);min-width:200px;max-width:240px;transition:all .3s" onclick="this.style.display='none'" title="Klik untuk tutup">
+  <div style="font-size:10px;font-weight:800;color:var(--red,#be3428);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">⏱ Belajar hari ini</div>
+  <div id="studyTimerWidget"></div>
+</div>
+<script>
+(function initStudyTimer(){
+  const TIMER_KEY = 'np-study-timer-' + new Date().toDateString();
+  const GOAL_KEY  = 'np-study-goal';
+  let timerSecs   = +localStorage.getItem(TIMER_KEY) || 0;
+  let goalMins    = +localStorage.getItem(GOAL_KEY) || 30;
+  let running     = false;
+  let iv          = null;
+
+  const el = document.getElementById('studyTimerWidget');
+  if (!el) return;
+
+  function fmt(s){ return String(Math.floor(s/60)).padStart(2,'0') + ':' + String(s%60).padStart(2,'0'); }
+  function pct(){ return Math.min(100, Math.round(timerSecs / (goalMins*60) * 100)); }
+
+  function render(){
+    const p = pct();
+    el.innerHTML = `
+      <div style="display:flex;align-items:center;gap:.5rem;flex-wrap:wrap">
+        <div style="position:relative;width:42px;height:42px;flex-shrink:0">
+          <svg width="42" height="42" style="transform:rotate(-90deg)">
+            <circle cx="21" cy="21" r="18" fill="none" stroke="var(--border,#e0e0e0)" stroke-width="3"/>
+            <circle cx="21" cy="21" r="18" fill="none" stroke="${p>=100?'#22c55e':'var(--red,#be3428)'}" stroke-width="3"
+              stroke-dasharray="${2*Math.PI*18}" stroke-dashoffset="${2*Math.PI*18*(1-p/100)}"
+              style="transition:stroke-dashoffset .5s"/>
+          </svg>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:${p>=100?'#22c55e':'var(--red,#be3428)'}">${p}%</div>
+        </div>
+        <div>
+          <div style="font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;color:var(--ink,#15161a)">${fmt(timerSecs)}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#888)">dari ${goalMins} mnt target</div>
+        </div>
+        <div style="display:flex;gap:.3rem;margin-left:auto">
+          <button onclick="window._stToggle()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:${running?'var(--red,#be3428)':'white'};color:${running?'#fff':'var(--ink,#15161a)'};font-size:14px;cursor:pointer;transition:all .2s">${running?'⏸':'▶'}</button>
+          <button aria-label="Window. streset" onclick="window._stReset()" style="width:32px;height:32px;border-radius:50%;border:1.5px solid var(--border-mid,#d0d0d0);background:white;color:var(--ink-soft,#888);font-size:12px;cursor:pointer">↺</button>
+        </div>
+      </div>
+      ${p>=100?'<div style="font-size:12px;color:#22c55e;font-weight:700;margin-top:.35rem">🎉 Target hari ini tercapai!</div>':''}`;
+  }
+
+  window._stToggle = function(){
+    running = !running;
+    if(running){ iv = setInterval(()=>{ timerSecs++; localStorage.setItem(TIMER_KEY, timerSecs); render(); }, 1000); }
+    else { clearInterval(iv); }
+    render();
+  };
+  window._stReset = function(){
+    clearInterval(iv); running=false; timerSecs=0; localStorage.setItem(TIMER_KEY,0); render();
+  };
+
+  render();
+  // Auto-start when user is on a Materi page
+  if(location.pathname.includes('/Materi/') && timerSecs === 0){ window._stToggle(); }
+})();
+</script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+</body>
+</html>
