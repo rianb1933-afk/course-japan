@@ -33,6 +33,16 @@ jobs:
       - name: Run site validator
         run: python3 scripts/validate.py
 
+      # Buang file non-publik (skema DB, CHANGELOG, script build, seed SQL)
+      # dari checkout runner sebelum diunggah. publish-dir '.' mengirim SEMUA
+      # isi direktori ke CDN, jadi pemangkasan harus terjadi di sini — bukan
+      # di [build] netlify.toml, yang tidak dijalankan pada jalur deploy ini.
+      # Disalin ke /tmp agar bash tidak kehilangan file saat scripts/ terhapus.
+      - name: Prune non-public files
+        run: |
+          cp scripts/prune-publish.sh /tmp/prune-publish.sh
+          bash /tmp/prune-publish.sh
+
       - name: Deploy to Netlify
         uses: nwtgck/actions-netlify@v3
         with:

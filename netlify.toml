@@ -48,7 +48,13 @@
 
 [build]
   publish = "."
-  command = "npm ci"
+  # publish "." mengunggah SELURUH isi repo. prune-publish.sh membuang file
+  # non-publik (supabase-schema.sql, CHANGELOG, scripts/, seed/*.sql) lebih
+  # dulu — lihat script itu untuk daftar & alasannya. Disalin ke /tmp supaya
+  # bash tidak kehilangan file sumbernya saat scripts/ ikut terhapus.
+  # Catatan: jalur deploy utama adalah .github/workflows/deploy.yml, yang
+  # memanggil script yang sama; baris ini untuk Netlify build dari git.
+  command = "npm ci && cp scripts/prune-publish.sh /tmp/prune-publish.sh && bash /tmp/prune-publish.sh"
   functions = "netlify/functions"
 
 # ── Environment Variables (WAJIB diisi di Netlify Dashboard) ──────────
