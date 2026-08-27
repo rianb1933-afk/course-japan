@@ -8535,3 +8535,13 @@ Sesi ini adalah contoh penting tentang investigasi yang GENUINELY MEMPERDALAM CA
 **Perbaikan**: ditambahkan 4 system prompt baru mengikuti gaya persona "Tanaka Sensei" yang sudah established. Widget Translator Pro disambungkan ke `NihongoAI.translate()` sebagai jalur utama (lazy-load `nihongo-ai.js` hanya saat panel dibuka), endpoint kustom manual jadi opsi lanjutan opsional. Breakdown kata (tokenizer + kamus partikel lokal) tetap ditampilkan berdampingan dengan hasil AI, bukan digantikan.
 
 **Verifikasi**: end-to-end via Playwright — lazy-load SDK berhasil, panggilan ke `/api/ai-chat` terkonfirmasi terkirim dengan format benar, 0 error JS, breakdown kata tetap akurat berdampingan dengan hasil AI. Validator resmi PASSED 0 error 0 warning.
+
+## Website v97 — Perbaikan Speaking-Practice.html: Bank Kalimat N2/N1 (15 Kalimat) Ditemukan Tak Terjangkau
+
+**Konteks**: Melanjutkan item plan konten (perluas materi Speaking, skill yang dianggap paling tipis). Investigasi menemukan `Speaking-Practice.html` sebenarnya alat latihan speech-recognition yang sudah matang, bukan sekadar kuis tipis seperti dugaan awal.
+
+**Bug ditemukan**: data `SENTENCES` di halaman ini mencakup 6 level (N5/N4/N3/kaigo/N2/N1), tapi `#levelTabs` cuma me-render 4 tombol — N2 (5 kalimat) dan N1 (10 kalimat) 100% tak terjangkau pengguna sejak dibuat, tidak ada cara UI memicu level tersebut. Ditemukan juga key JS `'Kaigo'` (kapital) terpisah dari `'kaigo'` (huruf kecil, yang dipanggil tombol) — 5 kalimat kaigo lanjutan mati karena JavaScript object key case-sensitive.
+
+**Perbaikan**: tombol N2 & N1 ditambahkan; 5 kalimat 'Kaigo' digabung ke key 'kaigo' yang benar (4→9 kalimat), duplikat dihapus; N3 (tadinya 3 kalimat, paling tipis) ditambah 4 kalimat baru (→7).
+
+**Verifikasi**: Playwright — keenam tab berfungsi, kalimat yang tadinya tak terjangkau kini termuat benar, 0 error JS. Validator resmi PASSED 0 error 0 warning.

@@ -33,9 +33,13 @@ Klaim awal "0/277 soal punya `jlpt_level`" benar sebagai gejala, tapi diagnosis 
 
 Diperbaiki dengan `json.JSONDecoder().raw_decode()` (berhenti tepat di akhir JSON valid, robust terhadap apa pun yang menyusul). Hasil: bank naik dari **277 → 711 soal unik** (2.6×), level JLPT kini terisi benar (N1=52, N2=69, N3=47, N4=27, N5=23 — sisanya soal umum/topikal yang wajar tidak terikat 1 level).
 
-### 🟡 2. Speaking adalah skill paling tipis dari 4 skill inti (Reading/Listening/Writing/Speaking)
+### 🟡 2. Speaking — sebagian diperbaiki (27 Agustus 2026): bug tab hilang, bukan cuma "konten tipis"
 
-Cuma **4 halaman** murni speaking (`Speaking-Daily`, `Speaking-Practice`, `Speaking-N2-N1`, `Listening-Speaking`), masing-masing hanya **4-5 soal**. Bandingkan dengan Grammar/Kosakata yang punya puluhan halaman dengan varian Review/Lanjut per level. (Catatan: `Speaking-AI.html` & `Pronunciation.html` di root menutupi sebagian lewat AI, tapi materi terstruktur/kurikulum untuk speaking tetap jauh lebih tipis dari 3 skill lain.)
+Klaim awal ("cuma 4-5 soal per halaman") ternyata melewatkan bahwa `Speaking-Practice.html` sebenarnya alat latihan speech-recognition yang sudah matang (Web Speech API, penilaian akurasi real-time) — angka "4-5 soal" cuma menghitung kuis statis di bagian bawah, bukan bank kalimat latihan mic yang jadi fitur utamanya.
+
+**Bug ditemukan & diperbaiki**: bank kalimat N2 (5 kalimat) dan N1 (10 kalimat) sudah ditulis lengkap di kode tapi **tidak ada tombol tab untuk mengaksesnya** — 100% tak terjangkau pengguna sejak dibuat. Ditemukan juga key JS `'Kaigo'`/`'kaigo'` (beda kapitalisasi) yang membuat 5 kalimat kaigo lanjutan mati. Diperbaiki: tombol N2/N1 ditambahkan, duplikasi digabung (kaigo 4→9 kalimat), N3 yang tadinya paling tipis (3 kalimat) ditambah jadi 7.
+
+**Masih berlaku**: `Speaking-Daily`, `Speaking-N2-N1` (ternyata cuma kuis vocab biasa, bukan speaking sungguhan meski namanya begitu), `Listening-Speaking` tetap dengan kuis 4-5 soal. `Speaking-AI.html`/`Pronunciation.html` di root menutupi sebagian lewat AI. Kalau mau diperluas lagi: pertimbangkan menambah lebih banyak halaman speech-recognition seperti pola `Speaking-Practice.html`, bukan sekadar tambah soal kuis pilihan ganda.
 
 ### 🟡 3. Reading & Listening: 1 set soal per level, tanpa varian lanjutan
 
