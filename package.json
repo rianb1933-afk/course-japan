@@ -4,8 +4,11 @@
   "private": true,
   "description": "Nihongo Pro Academy — platform pembelajaran bahasa Jepang, Kaigo, dan persiapan kerja di Jepang. Situs statis (335+ halaman HTML) dengan Netlify Functions untuk AI chat, payment, dan live class token.",
   "scripts": {
+    "build": "node scripts/build-assets.mjs",
+    "build:check": "node scripts/build-assets.mjs --check",
     "validate": "python3 scripts/validate.py",
     "test": "node scripts/tests/run-all.js",
+    "test:min": "NP_PLATFORM=min node scripts/tests/run-all.js",
     "test:kaigo-browser": "node scripts/tests/browser/test-kaigo-simulator.js",
     "test:payment-certificate-browser": "node scripts/tests/browser/test-payment-certificate.js"
   },
@@ -17,6 +20,7 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "esbuild": "^0.28.2",
     "playwright": "^1.62.1"
   }
 }

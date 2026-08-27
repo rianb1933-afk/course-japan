@@ -10,7 +10,11 @@ const vm = require('vm');
 const { LocalStorageMock } = require('./mock-dom');
 
 function loadPlatform() {
-  const filePath = path.join(__dirname, '..', '..', 'assets', 'platform.js');
+  // Default: uji sumbernya. Set NP_PLATFORM=min untuk menguji berkas yang
+  // BENAR-BENAR dimuat 228 halaman — dipakai `npm run test:min` sesudah build,
+  // supaya minifikasi tidak pernah lolos tanpa dibuktikan setara.
+  const file = process.env.NP_PLATFORM === 'min' ? 'platform.min.js' : 'platform.js';
+  const filePath = path.join(__dirname, '..', '..', 'assets', file);
   const src = fs.readFileSync(filePath, 'utf-8');
 
   const localStorage = new LocalStorageMock();
