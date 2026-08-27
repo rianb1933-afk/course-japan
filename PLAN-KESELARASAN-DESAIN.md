@@ -76,11 +76,19 @@ Masalah sebenarnya: 145 halaman men-download font Google `Outfit` (bandwidth ter
 
 6 halaman dikecualikan (genuinely tidak memuat `kyoto-bundle.min.css`, jadi Outfit genuinely dirender di sana): `Analytics.html`, `Kanji-Trainer.html`, `Speaking-AI.html`, `Dashboard/Dashboard.html`, `Landing-Page/landing.html`, `Materi/Kaigo.html`.
 
-### Fase 5 — Standarkan breakpoint (🟢 jangka panjang, batch bertahap)
-69 nilai → target set kecil (mis. `480px`/`768px`/`1024px`/`1280px`, mengikuti nilai yang sudah paling umum: 900/920/768/640). Dikerjakan bertahap per kelompok halaman (pola sama seperti batch Kaigo/dark-mode sebelumnya), bukan sekali jalan ke 377 halaman.
+### Fase 5 — Breakpoint ✅ DIPERIKSA, TERNYATA BUKAN MASALAH SIGNIFIKAN
 
-### Fase 6 — Sentralisasi komponen tombol & kartu (🟡 besar, jangka panjang)
-Definisikan `.btn`/`.card` standar di design system (kalau belum lengkap), lalu ganti `style=""` ad-hoc di halaman-halaman yang belum punya class ini. Pekerjaan besar karena menyentuh markup, bukan cuma CSS — cocok dikerjakan halaman-per-halaman seiring waktu.
+Klaim "69 nilai breakpoint berbeda" (dan revisi lanjutannya "900px dipakai 406×, 920px 233×") ternyata salah hitung — angka itu menghitung SEMUA properti `max-width`/`min-width` di seluruh CSS (termasuk ukuran gambar/ikon/kartu, yang wajar bervariasi), bukan cuma nilai di dalam kondisi `@media(...)` yang sungguh mempengaruhi breakpoint responsif.
+
+Setelah dihitung akurat (hanya nilai di dalam `@media`): **cuma 22 nilai berbeda**, dari 266 total deklarasi, dan **61% di antaranya sudah 2 nilai dominan** (`768px` 101×, `900px` 55×). Sisanya nilai satu-dua-pakai (mis. `620px`, `940px`, `1100px`) yang wajar untuk konten spesifik per halaman (tabel lebar, grid kartu, dll) — bukan inkonsistensi sistemik yang perlu dipaksa seragam. **Kesimpulan: tidak ada tindakan besar yang perlu diambil di sini** — memaksa semua ke 1-2 nilai berisiko merusak layout yang sudah disetel pas untuk konten masing-masing, demi manfaat visual yang nyaris tidak terlihat pengguna.
+
+### Fase 6 — Sentralisasi komponen tombol & kartu ⏸️ SENGAJA DITUNDA (bukan lupa)
+
+Dikonfirmasi nyata (bukan salah baca seperti Fase 3/4/5/7): hanya **10 dari 377 halaman** punya class `.btn` terdefinisi — mayoritas mutlak tombol di situs pakai `style=""` ad-hoc langsung di markup. Border-radius yang ditemukan (8px/10px/12px/100px-pill) cukup terkonsentrasi, tapi tetap bukan sistem komponen bersama.
+
+**Kenapa ditunda, bukan dikerjakan seperti Fase 1-5/7**: semua perbaikan sebelumnya aman diotomasi karena TIDAK mengubah struktur HTML — cuma mengganti nilai CSS/atribut dengan variabel setara, diverifikasi lewat validator teks proyek (`scripts/validate.py`) yang tidak mengecek tata letak visual. Fase 6 secara jujur butuh **mengubah markup** (`<a style="...">` → `<a class="btn btn-primary">`) di ratusan halaman — perubahan yang bisa merusak tata letak dengan cara yang tidak akan terdeteksi validator teks maupun tanpa peninjauan visual (screenshot/browser) per halaman.
+
+**Keputusan (dikonsultasikan dengan pemilik proyek)**: tidak dikerjakan sekarang. Kalau mau dilanjutkan nanti, pendekatan yang aman: pilih beberapa halaman berdampak tinggi dulu, verifikasi visual per halaman (dev server + Playwright screenshot before/after, proyek ini sudah punya kedua tool tsb di `package.json`) sebelum lanjut ke halaman berikutnya — bukan diproses massal sekaligus.
 
 ### Fase 7 — Footer konsisten ✅ SELESAI (ternyata cuma 2 halaman yang genuinely kelewat)
 
