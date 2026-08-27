@@ -137,8 +137,9 @@ h1.page-title{font-size:26px;font-weight:900;margin-bottom:6px}
   <div class="tb-nav">
     <a href="Dashboard/Dashboard.html" class="tb-btn">🏠 Dashboard</a>
     <a href="AI-Tutor-Pro.html" class="tb-btn">🤖 AI Tools</a>
-    <button aria-label="Document.documentelement.toggleattribute" class="tb-btn" onclick="var d=document.documentElement.toggleAttribute('data-dark');document.documentElement.setAttribute('data-theme',d?'dark':'');['kyoto-theme','nihongo-theme','theme'].forEach(function(k){localStorage.setItem(k,d?'dark':'light')})">🌙</button>
+    <button aria-label="Ganti mode terang/gelap" class="tb-btn" onclick="var d=document.documentElement.toggleAttribute('data-dark');document.documentElement.setAttribute('data-theme',d?'dark':'');['kyoto-theme','nihongo-theme','theme'].forEach(function(k){localStorage.setItem(k,d?'dark':'light')});this.textContent=d?'☀️':'🌙'">🌙</button>
   </div>
+  <script>document.querySelector('.tb-btn[aria-label="Ganti mode terang/gelap"]').textContent=document.documentElement.hasAttribute('data-dark')?'☀️':'🌙';</script>
 </div>
 
 <div class="page">

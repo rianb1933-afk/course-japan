@@ -122,8 +122,9 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink)}
     <div class="tb-nav">
       <a href="Dashboard/Dashboard.html" class="tb-btn">🏠</a>
       <a href="Analytics.html" class="tb-btn">📊</a>
-      <button aria-label="Document.documentelement.toggleattribute" class="tb-btn" onclick="var d=document.documentElement.toggleAttribute('data-dark');document.documentElement.setAttribute('data-theme',d?'dark':'');['kyoto-theme','nihongo-theme','theme'].forEach(function(k){localStorage.setItem(k,d?'dark':'light')})">🌙</button>
+      <button aria-label="Ganti mode terang/gelap" class="tb-btn" onclick="var d=document.documentElement.toggleAttribute('data-dark');document.documentElement.setAttribute('data-theme',d?'dark':'');['kyoto-theme','nihongo-theme','theme'].forEach(function(k){localStorage.setItem(k,d?'dark':'light')});this.textContent=d?'☀️':'🌙'">🌙</button>
     </div>
+    <script>document.querySelector('.tb-btn[aria-label="Ganti mode terang/gelap"]').textContent=document.documentElement.hasAttribute('data-dark')?'☀️':'🌙';</script>
   </div>
 </div>
 
