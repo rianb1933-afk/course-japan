@@ -100,6 +100,10 @@ const PRECACHE = [
   '/assets/kyoto-navbar.css',
   '/assets/kyoto-theme.js',
   '/assets/kaigo-progress.js',
+  // Dipakai seluruh 100 halaman Materi/Kaigo-*.html sejak mesin kuis, TTS,
+  // dan gaya modul diekstrak keluar dari HTML masing-masing.
+  '/assets/kaigo-quiz.js',
+  '/assets/kaigo-module.css',
   '/assets/design-system.css',
 ];
 
