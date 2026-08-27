@@ -106,6 +106,14 @@ A: わかりました。やってみます。<br>
 <br>🎯 Q: Bさんの最初のアドバイスは？ → コンセントを抜いて5分待ってから再起動
 </div></div>
 <div class="card" onclick="this.classList.toggle('open')">
+<b>Dialog 4 — 遅れる連絡</b>
+<div class="det">
+A: もしもし、田中です。すみません、電車が遅れていて、10分くらい遅刻しそうです。<br>
+B: わかりました。じゃあ、先に始めていますので、着いたら会議室に来てください。<br>
+A: 申し訳ありません。よろしくお願いします。<br>
+<br>🎯 Q: 田中さんはなぜ電話しましたか？ → 電車遅延で10分ほど遅刻しそうだから
+</div></div>
+<div class="card" onclick="this.classList.toggle('open')">
 <b>発話表現練習 — 相手を誘う</b>
 <div class="det">
 状況: 友達を映画に誘いたい。<br>
@@ -153,7 +161,7 @@ A: わかりました。やってみます。<br>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
 </div></main>
 <script>
-var Q=[{"q": "N3聴解「課題理解」では何を聞き取る？", "opts": ["主人公の感情", "この後、誰が何をするか(行動・タスク)", "場所の名前", "時代背景"], "a": 1, "e": "課題理解=pemahaman tugas. 誰が・何を・いつ・どのように行動するかを正確に聞き取る。特に最後の指示や決定に注目。"}, {"q": "N3聴解で選択肢を先に読む理由は？", "opts": ["時間を節約するため", "聞くべきポイントが事前に分かるため", "記憶力を使うため", "なんとなく"], "a": 1, "e": "選択肢先読み=聞くべきことが分かる. ポイント理解問題では特に有効。音声前に選択肢を読んで、重要情報にフォーカスできる。"}, {"q": "「概要理解」問題で最重要なのは？", "opts": ["全ての単語を理解する", "話の主テーマや話者の主張", "細かい数字", "固有名詞"], "a": 1, "e": "概要理解=garis besar. 詳細ではなく全体のテーマ・話者の気持ち・主張を把握する。全部分からなくても概要が掴めれば正解できる。"}, {"q": "「発話表現」問題の攻略法は？", "opts": ["丁寧な言葉を選ぶ", "状況・関係性に合った自然な反応を選ぶ", "一番長い選択肢を選ぶ", "最初の選択肢を選ぶ"], "a": 1, "e": "発話表現=respons natural. 状況(フォーマル/カジュアル)・関係性(上下/友人)に合った自然な反応を選ぶ。不自然な表現は×。"}, {"q": "N3聴解で最も効果的な練習方法は？", "opts": ["テキストを読む", "毎日少しずつ実際の音声を聞く", "単語を暗記する", "文法だけ勉強する"], "a": 1, "e": "リスニングは積み重ね。毎日NHK Web Easy・日本語ドラマ・アニメなどを聴く習慣が最重要。シャドーイングも効果的。"}],qi=0,ok=0,tot=0;
+var Q=[{"q": "N3聴解「課題理解」では何を聞き取る？", "opts": ["主人公の感情", "この後、誰が何をするか(行動・タスク)", "場所の名前", "時代背景"], "a": 1, "e": "課題理解=pemahaman tugas. 誰が・何を・いつ・どのように行動するかを正確に聞き取る。特に最後の指示や決定に注目。"}, {"q": "N3聴解で選択肢を先に読む理由は？", "opts": ["時間を節約するため", "聞くべきポイントが事前に分かるため", "記憶力を使うため", "なんとなく"], "a": 1, "e": "選択肢先読み=聞くべきことが分かる. ポイント理解問題では特に有効。音声前に選択肢を読んで、重要情報にフォーカスできる。"}, {"q": "「概要理解」問題で最重要なのは？", "opts": ["全ての単語を理解する", "話の主テーマや話者の主張", "細かい数字", "固有名詞"], "a": 1, "e": "概要理解=garis besar. 詳細ではなく全体のテーマ・話者の気持ち・主張を把握する。全部分からなくても概要が掴めれば正解できる。"}, {"q": "「発話表現」問題の攻略法は？", "opts": ["丁寧な言葉を選ぶ", "状況・関係性に合った自然な反応を選ぶ", "一番長い選択肢を選ぶ", "最初の選択肢を選ぶ"], "a": 1, "e": "発話表現=respons natural. 状況(フォーマル/カジュアル)・関係性(上下/友人)に合った自然な反応を選ぶ。不自然な表現は×。"}, {"q": "N3聴解で最も効果的な練習方法は？", "opts": ["テキストを読む", "毎日少しずつ実際の音声を聞く", "単語を暗記する", "文法だけ勉強する"], "a": 1, "e": "リスニングは積み重ね。毎日NHK Web Easy・日本語ドラマ・アニメなどを聴く習慣が最重要。シャドーイングも効果的。"}, {"q": "Dialog 4で、田中さんはなぜ電話しましたか？", "opts": ["会議に出られないから", "電車が遅れて遅刻しそうだから", "道に迷ったから", "体調が悪いから"], "a": 1, "e": "「電車が遅れていて、10分くらい遅刻しそうです」と伝えている。〜そうです=perkiraan berdasar kondisi saat ini。"}, {"q": "Dialog 4で、Bさんはどうすると言いましたか？", "opts": ["会議を中止する", "先に始めて、着いたら会議室に来るように言う", "田中さんを迎えに行く", "会議の時間を変更する"], "a": 1, "e": "「先に始めていますので、着いたら会議室に来てください」とある。〜ので=karena, alasan tindakan yang diambil。"}],qi=0,ok=0,tot=0;
 function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
 function ans(b,c,a,e){var bs=document.querySelectorAll('.qopt');if(bs[a].dataset.d)return;bs[a].dataset.d='1';tot++;bs[a].classList.add('correct');if(c!==a)b.classList.add('wrong');else ok++;var ex=document.getElementById('qe');if(ex){ex.textContent='💡 '+e;ex.classList.add('show');}var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}
 function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
