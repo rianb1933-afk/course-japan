@@ -24,12 +24,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#37474f,#546e7a);color:#fff;padding:44px 20px 28px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#37474f),var(--primary-dark,#546e7a));color:#fff;padding:44px 20px 28px;text-align:center}
 .hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:10px}
 .sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#37474f;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.1rem;font-weight:700;color:#37474f;margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.1rem;font-weight:700;color:var(--primary,#37474f);margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
 .tbl th{padding:7px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)}
@@ -77,7 +77,7 @@
 
 <div style="max-width:900px;margin:0 auto;padding:0 20px">
 <div style="background:#fff;border:1px solid rgba(55,71,79,.08);border-radius:12px;padding:16px;margin:12px 0">
-<h3 style="color:#37474f;margin:0 0 10px;font-size:1rem">📞 ビジネス語彙 — 会議での使い方</h3>
+<h3 style="color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem">📞 ビジネス語彙 — 会議での使い方</h3>
 <table style="width:100%;border-collapse:collapse;font-size:.84rem">
 <tr style="background:rgba(0,0,0,.05)"><th style="padding:7px 10px;text-align:left">場面</th><th style="padding:7px 10px;text-align:left">ビジネス語彙を使った表現</th></tr>
 <tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">会議開始</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">本日の<b>議題</b>は〇〇についての<b>調整</b>です。</td></tr>
@@ -88,7 +88,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:10px;margin-top:10px">
-<button onclick="nQ()" style="flex:1;padding:11px;background:#37474f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:11px;background:var(--primary,#37474f);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
@@ -100,16 +100,16 @@ function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset
 function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
 var BD=[["稟議", "りんぎ", "persetujuan berjenjang", "稟議を通す", "手続"], ["根回し", "ねまわし", "lobi informal sebelumnya", "根回しをする", "交渉"], ["折衝", "せっしょう", "negosiasi", "折衝を重ねる", "交渉"], ["打診", "だしん", "menjajaki kemungkinan", "転職を打診される", "交渉"], ["裁量", "さいりょう", "diskresi; kebijakan sendiri", "裁量に任せる", "管理"], ["差配", "さはい", "mengatur; memimpin", "プロジェクトを差配", "管理"], ["策定", "さくてい", "merumuskan", "方針を策定する", "戦略"], ["施策", "しさく", "langkah kebijakan", "施策を講じる", "戦略"], ["見積もり", "みつもり", "estimasi biaya", "見積もりを出す", "財務"], ["精査", "せいさ", "pemeriksaan teliti", "データを精査する", "分析"], ["懸案", "けんあん", "masalah tertunda", "懸案を解決する", "問題"], ["周知", "しゅうち", "sosialisasi ke semua", "社内に周知する", "連絡"], ["取りまとめ", "とりまとめ", "kompilasi; koordinasi", "意見を取りまとめ", "管理"], ["承認", "しょうにん", "persetujuan resmi", "上司の承認を得る", "手続"], ["調整", "ちょうせい", "koordinasi; penyesuaian", "スケジュール調整", "管理"]];var bc='全部';
 function filterB(){var s=document.getElementById('bsrch').value.toLowerCase();renderB(s);}
-function setBC(c,btn){bc=c;document.querySelectorAll('#bCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='#37474f';btn.style.color='#fff';renderB('');}
+function setBC(c,btn){bc=c;document.querySelectorAll('#bCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='var(--primary,#37474f)';btn.style.color='#fff';renderB('');}
 function renderB(s){
   var items=bc==='全部'?BD:BD.filter(function(v){return v[4]===bc;});
   if(s)items=items.filter(function(v){return v[0].includes(s)||v[1].includes(s)||v[2].toLowerCase().includes(s);});
   var g=document.getElementById('bGrid');if(!g)return;g.innerHTML='';
   items.forEach(function(v){var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(55,71,79,.12);border-radius:8px;padding:10px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#37474f';};d.onmouseout=function(){this.style.borderColor='rgba(55,71,79,.12)';};
-    d.innerHTML='<span style="font-size:.68rem;background:#eceff1;color:#37474f;padding:2px 7px;border-radius:8px;display:inline-block;margin-bottom:4px">'+v[4]+'</span>'
-      +'<div style="font-size:.95rem;font-weight:700;color:#37474f">'+v[0]+'</div>'
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#37474f)';};d.onmouseout=function(){this.style.borderColor='rgba(55,71,79,.12)';};
+    d.innerHTML='<span style="font-size:.68rem;background:#eceff1;color:var(--primary,#37474f);padding:2px 7px;border-radius:8px;display:inline-block;margin-bottom:4px">'+v[4]+'</span>'
+      +'<div style="font-size:.95rem;font-weight:700;color:var(--primary,#37474f)">'+v[0]+'</div>'
       +'<div style="font-size:.72rem;color:#888;margin:1px 0">'+v[1]+'</div>'
       +'<div style="font-size:.82rem;color:#333">🇮🇩 '+v[2]+'</div>'
       +'<div style="display:none;margin-top:5px;font-size:.75rem;color:#666">📝 '+v[3]+'</div>';
@@ -119,7 +119,7 @@ function renderB(s){
   var cats=['全部',...new Set(BD.map(function(v){return v[4];}))] ;
   var cr=document.getElementById('bCatRow');
   cats.forEach(function(c,i){var btn=document.createElement('button');
-    btn.style.cssText='padding:4px 12px;border-radius:16px;border:1px solid '+(i===0?'#37474f':'#ddd')+';background:'+(i===0?'#37474f':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.78rem';
+    btn.style.cssText='padding:4px 12px;border-radius:16px;border:1px solid '+(i===0?'var(--primary,#37474f)':'#ddd')+';background:'+(i===0?'var(--primary,#37474f)':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.78rem';
     btn.textContent=c;btn.onclick=function(){setBC(c,this);};cr.appendChild(btn);
   });
   renderB('');

@@ -25,12 +25,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,#1b5e20,#2e7d32);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#1b5e20),var(--primary-dark,#2e7d32));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
 .bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#1b5e20;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#1b5e20;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#1b5e20);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#1b5e20);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
 .tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
@@ -53,7 +53,7 @@
 .srch{width:100%;padding:10px 14px;border:1px solid var(--border-mid);border-radius:10px;font-size:.9rem;margin-bottom:10px;box-sizing:border-box}
 .tab-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
 .tab{padding:7px 16px;border-radius:20px;border:1px solid var(--border-mid);background:var(--cream);cursor:pointer;font-size:.85rem;transition:all .2s}
-.tab.active,.tab:hover{background:#1b5e20;color:#fff;border-color:#1b5e20}
+.tab.active,.tab:hover{background:var(--primary,#1b5e20);color:#fff;border-color:var(--primary,#1b5e20)}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Speaking Practice N2-N1 | Nihonggo Pro Academy", "description": "Kalimat speaking level N2-N1 — topik sosial, teknologi, lingkungan, pendidikan, dan kaigo untuk latihan berbicara formal.", "url": "https://nihonggopro.id/Materi/Speaking-N2-N1.html", "educationalLevel": "Upper-Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/np-xp.js" defer></script>
@@ -88,7 +88,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#1b5e20;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#1b5e20);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
@@ -113,11 +113,11 @@ function renderSpeak(){
     var top=document.createElement('div');
     top.style.cssText='display:flex;justify-content:space-between;align-items:center;margin-bottom:8px';
     var catSpan=document.createElement('span');
-    catSpan.style.cssText='font-size:.7rem;background:#e8f5e9;color:#1b5e20;padding:2px 8px;border-radius:10px;font-weight:600';
+    catSpan.style.cssText='font-size:.7rem;background:#e8f5e9;color:var(--primary,#1b5e20);padding:2px 8px;border-radius:10px;font-weight:600';
     catSpan.textContent=s.cat;
     var btn=document.createElement('button');
     btn.textContent='🔊 聞く';
-    btn.style.cssText='border:none;background:#1b5e20;color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:.75rem';
+    btn.style.cssText='border:none;background:var(--primary,#1b5e20);color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:.75rem';
     btn.onclick=function(e){e.stopPropagation();if(window.speechSynthesis){var u=new SpeechSynthesisUtterance(s.jp);u.lang='ja-JP';u.rate=0.8;speechSynthesis.cancel();speechSynthesis.speak(u);}};
     top.appendChild(catSpan);top.appendChild(btn);
     var jp=document.createElement('div');
@@ -129,7 +129,7 @@ function renderSpeak(){
     rd.style.cssText='font-size:.78rem;color:var(--ink-mid);margin-bottom:6px;font-style:italic';
     rd.textContent=s.rd;
     var id=document.createElement('div');
-    id.style.cssText='font-size:.88rem;color:#1b5e20;font-weight:500';
+    id.style.cssText='font-size:.88rem;color:var(--primary,#1b5e20);font-weight:500';
     id.textContent='🇮🇩 '+s.id;
     det.appendChild(rd);det.appendChild(id);
     d.appendChild(top);d.appendChild(jp);d.appendChild(det);

@@ -30,9 +30,9 @@ var pgv=document.getElementById('pg');
 if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
 d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
 +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#bf360c">🇮🇩 '+p[2]+'</div>';
++'<div style="font-size:.85rem;color:var(--primary,#bf360c)">🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#bf360c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+btn.style.cssText='border:none;background:var(--primary,#bf360c);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
 });
 </script>
@@ -47,27 +47,27 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,#bf360c,#d84315);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#bf360c),var(--primary-dark,#d84315));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#bf360c;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#bf360c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #fbe9e7}
+.sec h3{color:var(--primary,#bf360c);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#bf360c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #fbe9e7}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#fbe9e7;color:#bf360c}
+.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#fbe9e7;color:var(--primary,#bf360c)}
 .tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light);vertical-align:top}
-.tip{background:#fbe9e7;border-left:3px solid #bf360c;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+.tip{background:#fbe9e7;border-left:3px solid var(--primary,#bf360c);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
 .warn{background:#fff3e0;border-left:3px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
 .g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin:12px 0}
 .card{background:var(--white);border:2px solid #fbe9e7;border-radius:12px;padding:14px}
-.ct{font-weight:700;color:#bf360c;font-size:.95rem;margin-bottom:6px}
+.ct{font-weight:700;color:var(--primary,#bf360c);font-size:.95rem;margin-bottom:6px}
 .cb{font-size:.85rem;line-height:1.7;color:var(--ink)}
 .dl{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
 .spk{min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;margin-top:2px}
-.sc{background:#fbe9e7;color:#bf360c} .sr{background:#e8f5e9;color:#1b5e20} .sn{background:#e3f2fd;color:#1565c0}
+.sc{background:#fbe9e7;color:var(--primary,#bf360c)} .sr{background:#e8f5e9;color:#1b5e20} .sn{background:#e3f2fd;color:#1565c0}
 .jp{font-size:.92rem;font-weight:500;color:var(--ink)} .id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
-.tts{border:none;background:#bf360c;color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
+.tts{border:none;background:var(--primary,#bf360c);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
 .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:12px 0}
 .pc{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
 .qbox{background:#fbe9e7;border-radius:14px;padding:20px;margin:20px 0}
@@ -144,12 +144,12 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 
 <h2 class="st">💬 Dialog 個人情報保護</h2>
 <div class="sec">
-<div style="font-weight:700;color:#bf360c;margin-bottom:12px">🔒 Dialog 1 — 外部からの問い合わせへの対応</div>
+<div style="font-weight:700;color:var(--primary,#bf360c);margin-bottom:12px">🔒 Dialog 1 — 外部からの問い合わせへの対応</div>
 <div class="dl"><span class="sn spk">電話</span><div><div class="jp">「田中さんという利用者がいますか？知人なんですが病状を教えてもらえませんか？」</div><div class="id">"Ada penghuni bernama Tanaka? Saya kenalannya, bisa beritahu kondisinya?"</div></div></div>
 <div class="dl"><span class="sc spk">介護士</span><div><div class="jp">申し訳ございません。個人情報保護の観点から、入居の有無や状態については、ご本人またはご本人が指定した方以外にはお答えすることができません。<button aria-label="Ucapkan: 申し訳ございません。個人情報保護の観点から、入居の有無や状態…" class="tts" onclick="speak('申し訳ございません。個人情報保護の観点から、入居の有無や状態については、ご本人またはご本人が指定した方以外にはお答えすることができません。')">🔊</button></div><div class="id">Mohon maaf. Dari sudut pandang perlindungan data pribadi, keberadaan dan kondisi penghuni tidak dapat kami informasikan kecuali kepada yang bersangkutan atau yang ditunjuk.</div></div></div>
 </div>
 <div class="sec">
-<div style="font-weight:700;color:#bf360c;margin-bottom:12px">📱 Dialog 2 — SNS投稿について指導</div>
+<div style="font-weight:700;color:var(--primary,#bf360c);margin-bottom:12px">📱 Dialog 2 — SNS投稿について指導</div>
 <div class="dl"><span class="sn spk">上司</span><div><div class="jp">Aさん、昨日のSNS投稿について話があります。「今日入浴介助で大変だったおばあちゃん」という投稿は、個人情報保護の観点から問題があります。<button aria-label="Ucapkan: 昨日のSNS投稿について話があります。個人情報保護の観点から…" class="tts" onclick="speak('昨日のSNS投稿について話があります。個人情報保護の観点から問題があります。')">🔊</button></div><div class="id">A-san, ada yang perlu dibicarakan soal postingan SNS kemarin. 'Nenek yang bikin repot saat bantu mandi hari ini' — dari sudut pandang perlindungan data, ada masalahnya.</div></div></div>
 <div class="dl"><span class="sc spk">介護士A</span><div><div class="jp">名前は出していないので大丈夫かと思っていました…</div><div class="id">Saya pikir tidak apa-apa karena tidak menyebut nama...</div></div></div>
 <div class="dl"><span class="sn spk">上司</span><div><div class="jp">名前がなくても、状況から特定できる可能性があります。また業務の内容をSNSに書くこと自体が守秘義務違反になりえます。今後は業務に関する投稿は控えてください。<button aria-label="Ucapkan: 名前がなくても、状況から特定できる可能性があります。業務の内…" class="tts" onclick="speak('名前がなくても、状況から特定できる可能性があります。業務の内容をSNSに書くこと自体が守秘義務違反になりえます。')">🔊</button></div><div class="id">Meskipun tanpa nama, ada kemungkinan bisa diidentifikasi dari situasinya. Menulis isi pekerjaan di SNS itu sendiri berpotensi jadi pelanggaran kewajiban kerahasiaan. Ke depannya tolong hindari.</div></div></div>
@@ -199,12 +199,12 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div>
 <h2 class="st">📚 Kosakata</h2>
 <div class="pg" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:#bf360c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#bf360c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg2"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#bf360c;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#bf360c);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
@@ -278,7 +278,7 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 var PH=[["個人情報保護", "kojin joho hogo", "perlindungan data pribadi"], ["個人情報", "kojin joho", "data/informasi pribadi"], ["要配慮個人情報", "yo-hairyo kojin joho", "data pribadi sensitif (penyakit, cacat, dll)"], ["守秘義務", "shuhi gimu", "kewajiban kerahasiaan / duty of confidentiality"], ["情報漏洩", "joho roei", "kebocoran informasi"], ["第三者提供", "dai-sanssha teikyou", "penyediaan kepada pihak ketiga"], ["本人同意", "honin doi", "persetujuan dari yang bersangkutan"], ["開示請求", "kaiji seikyuu", "permintaan akses/pengungkapan data"], ["個人情報保護法", "kojin joho hogo ho", "UU Perlindungan Data Pribadi"], ["プライバシー", "puraibashii", "privasi"], ["情報管理", "joho kanri", "manajemen informasi"], ["セキュリティ", "sekyuriti", "keamanan informasi"]];
 var pg=document.getElementById('pg');
 if(pg)PH.forEach(function(p){var d=document.createElement('div');d.className='pc';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.85rem;color:#bf360c">🇮🇩 '+p[2]+'</div>';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.85rem;color:var(--primary,#bf360c)">🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';btn.className='tts';var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});
 var Q=[{"q": "介護福祉士の「守秘義務」はいつまで有効ですか？", "opts": ["在職中だけ", "退職後3年間", "退職後も継続して有効", "法律に定めはない"], "a": 2, "e": "守秘義務は退職後も継続して有効となる。在職中に知り得た情報は、退職したからといって話してよいわけではなく、生涯にわたって守るべき専門職としての責任である。"}, {"q": "利用者の知人から電話で「〇〇さんの病状を教えてください」と言われた。正しい対応は？", "opts": ["詳しく病状を説明する", "本人または家族の承認がない限り、情報提供できない旨を丁寧に伝える", "個人情報なので電話を切る", "施設長に判断を求める"], "a": 1, "e": "本人の同意なく第三者に個人情報を提供することは原則禁止。知人であっても同様。「ご本人またはご指定の方以外への開示はできません」と丁寧に断る。"}, {"q": "SNSへの投稿で守秘義務違反になる可能性がある例は？", "opts": ["休日の自分の料理写真", "「今日大変だった利用者のこと」を匂わせる投稿（名前なし）", "施設の近くの風景写真", "介護の勉強のメモ(個人情報なし)"], "a": 1, "e": "名前がなくても状況・日時・施設から特定できる情報は守秘義務違反になりうる。「名前を出していない」は免責にならない。業務内容のSNS投稿は原則として控える。"}, {"q": "チーム内で利用者の情報を共有することは守秘義務違反か？", "opts": ["いつでも違反", "業務上必要な範囲での共有は許可される", "家族への共有は常に必要", "外部の専門家には全部教えてよい"], "a": 1, "e": "ケアに必要な範囲での関係者間の情報共有は、守秘義務違反にはあたらない。むしろ、適切なチームケアを実現するために必要な情報共有として認められている。"}, {"q": "「要配慮個人情報」の取り扱いで正しいのは？", "opts": ["一般の個人情報と同じ扱いでよい", "取得・利用には原則として本人の同意が必要", "医師だけが扱える", "書面がなくても口頭同意で十分"], "a": 1, "e": "病歴や障害の有無など、要配慮個人情報は特に厳重な管理を求められる。一般的な個人情報以上に慎重な取り扱いが必要であり、漏洩防止のための対策を徹底する必要がある。"}, {"q": "守秘義務が例外的に「通報義務に劣後する（通報が優先される）」場合は？", "opts": ["利用者の家族から頼まれた時", "虐待が疑われる場合（高齢者虐待防止法による通報義務）", "施設長の命令がある時", "マスコミの取材がある時"], "a": 1, "e": "守秘義務vs通報義務: 虐待が疑われる場合は通報義務が守秘義務に優先する。高齢者虐待防止法に基づき市区町村への通報は法的義務。「秘密だから報告しない」は許されない。"}, {"q": "医療機関・他事業所との連携で「個人情報を共有する」際の正しい対応は？", "opts": ["自由に情報共有してよい", "本人の同意を得るか、法令上の根拠がある場合に限り、必要最小限の情報を共有する", "一切共有しない", "施設長の許可だけあればよい"], "a": 1, "e": "個人情報の第三者提供: ①本人の同意が原則②医療連携・虐待対応・法的義務など例外的に同意なしで可。提供する情報は必要最小限。提供先・目的・内容を記録することも重要。"}, {"q": "「匿名化（anonymization）」した情報でも注意が必要な理由は？", "opts": ["完全に安全なので不要", "他の情報と組み合わせることで個人の特定が可能になることがある", "法律で禁止されている", "コストがかかるから"], "a": 1, "e": "匿名化=名前・住所などを除去する処理だが、年齢+疾患+地域などの組み合わせで個人が特定できる「再識別」リスクがある。完全な匿名化は難しく、情報管理には常に注意が必要。"}, {"q": "個人情報保護で最も基本的な原則はどれか。", "opts": ["目的の範囲で適切に管理する", "自由に共有", "放置", "公開"], "a": 0, "e": "利用目的の範囲で適切に管理することが個人情報保護の最も基本的な原則。目的を超えた利用や、必要以上の共有は、この原則に反する不適切な取り扱いとなる。"}, {"q": "介護記録の適切な保管方法はどれか。", "opts": ["施錠し関係者のみ閲覧", "誰でも閲覧", "持ち帰る", "放置"], "a": 0, "e": "施錠管理し、関係者のみが閲覧できるようにすることが適切な保管方法。誰でも見られる状態や、記録の持ち帰りは、情報漏洩や紛失のリスクを高める危険な行為となる。"}, {"q": "個人情報を第三者に提供する際に必要なのはどれか。", "opts": ["原則本人の同意", "自由提供", "無断", "匿名なら不要"], "a": 0, "e": "原則として本人の同意が必要となる。自由な提供や無断での共有は、個人情報保護の原則に反する行為であり、例外は法令等に基づく限られた場合に限定される。"}, {"q": "SNSに利用者の写真を載せることは。", "opts": ["禁止(重大な違反)", "自由", "推奨", "問題ない"], "a": 0, "e": "SNSへの投稿は、重大な守秘義務違反にあたるため禁止されている。顔や名前、状況が特定できる情報の公開は、利用者のプライバシーを著しく侵害する行為として厳しく扱われる。"}, {"q": "個人情報保護法が対象とする情報はどれか。", "opts": ["氏名・住所・健康状態など個人を特定できる情報", "天気", "統計のみ", "公開情報のみ"], "a": 0, "e": "氏名・住所・健康状態など、個人を特定できる情報が個人情報保護法の対象となる。天気や統計情報のような、個人を特定しない情報はこの法律の対象には含まれない。"}, {"q": "記録を電子化する際の注意点はどれか。", "opts": ["アクセス制限とパスワード管理", "誰でもアクセス", "共有自由", "放置"], "a": 0, "e": "アクセス制限とパスワード管理が、電子記録化における重要な注意点。誰でもアクセスできる状態や、共有が自由な設定は、情報漏洩のリスクを大きく高めてしまう。"}, {"q": "退職後の個人情報の扱いはどれか。", "opts": ["守秘義務は継続し漏らさない", "自由に話せる", "公開可", "消滅"], "a": 0, "e": "守秘義務は退職後も継続し、知り得た情報を漏らしてはならない。退職によって義務が消滅するわけではなく、生涯にわたって守るべき責任として位置づけられている。"}, {"q": "個人情報の漏洩が起きたときの対応はどれか。", "opts": ["速やかに報告し対応する", "隠す", "放置", "無視"], "a": 0, "e": "速やかに報告し、被害拡大を防ぐための対応をとることが重要。隠したり放置したりすることは、被害をさらに深刻化させ、信頼回復をより困難にしてしまう危険な対応となる。"}, {"q": "家族から利用者情報を求められたときの対応はどれか。", "opts": ["本人同意や規定を確認して対応", "全て教える", "自由に話す", "拒否のみ"], "a": 0, "e": "本人の同意状況や施設の規定を確認した上で、慎重に対応することが基本。家族であっても無条件に全ての情報を開示してよいわけではなく、確認のプロセスを経ることが求められる。"}, {"q": "申し送りで個人情報を扱うときの配慮はどれか。", "opts": ["必要な範囲で関係者間のみ共有", "大声で", "公共の場で", "誰にでも"], "a": 0, "e": "必要な範囲で、関係者間のみで行うことが申し送りにおける配慮。大声で話したり、公共の場で行ったりすることは、情報漏洩のリスクを高める不適切な行為となる。"}, {"q": "利用者の情報を持ち出すことは。", "opts": ["原則禁止(紛失・漏洩リスク)", "自由", "推奨", "問題ない"], "a": 0, "e": "原則として禁止される行為であり、紛失や漏洩のリスクを伴う。記録は施設内で管理することが基本であり、業務外に持ち出す必要がある場合は厳格なルールに従う必要がある。"}, {"q": "個人情報保護と情報共有のバランスで大切なのはどれか。", "opts": ["ケアに必要な範囲で適切に共有", "一切共有しない", "全公開", "無管理"], "a": 0, "e": "ケアに必要な範囲で適切に共有することが、両者のバランスを取る上で大切な考え方。一切共有しないことも、全て公開することも、どちらも適切なケアの実現を妨げてしまう。"}];var qi=0,ok=0,tot=0;
 function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}

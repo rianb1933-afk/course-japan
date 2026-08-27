@@ -24,12 +24,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#37474f,#546e7a);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#37474f),var(--primary-dark,#546e7a));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
 .sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#37474f;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#37474f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
 .tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
@@ -75,7 +75,7 @@
 
 <div style="max-width:900px;margin:0 auto;padding:0 20px">
 <div style="background:#fff;border:1px solid rgba(55,71,79,.08);border-radius:12px;padding:16px;margin:12px 0">
-<h3 style="color:#37474f;margin:0 0 10px;font-size:1rem">📋 メールの件名 — 書き方パターン</h3>
+<h3 style="color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem">📋 メールの件名 — 書き方パターン</h3>
 <table style="width:100%;border-collapse:collapse;font-size:.84rem">
 <tr style="background:rgba(0,0,0,.05)"><th style="padding:7px 10px;text-align:left">状況</th><th style="padding:7px 10px;text-align:left">件名例</th></tr>
 <tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">初めての連絡</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">「〔会社名〕〇〇よりご挨拶」</td></tr>
@@ -85,7 +85,7 @@
 <tr><td style="padding:7px 10px">緊急</td><td style="padding:7px 10px">「【重要・至急】〇〇の件について」</td></tr>
 </table></div>
 <div style="background:#fff;border:1px solid rgba(55,71,79,.08);border-radius:12px;padding:16px;margin:12px 0">
-<h3 style="color:#37474f;margin:0 0 10px;font-size:1rem">✅ ビジネスメール チェックリスト</h3>
+<h3 style="color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem">✅ ビジネスメール チェックリスト</h3>
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;font-size:.83rem">
 <div style="background:#eceff1;border-radius:8px;padding:8px">☐ 件名は具体的か？</div>
 <div style="background:#eceff1;border-radius:8px;padding:8px">☐ 宛名は正しいか？</div>
@@ -99,7 +99,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#37474f;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#37474f);color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
@@ -121,7 +121,7 @@ function renderTmpls(){
     pre.textContent=t.body;sec.appendChild(pre);
     var pts=document.createElement("div");pts.style.cssText="margin-top:10px";
     t.points.forEach(function(p){
-      var pi=document.createElement("div");pi.style.cssText="font-size:.8rem;color:#37474f;padding:3px 0";pi.textContent="💡 "+p;pts.appendChild(pi);
+      var pi=document.createElement("div");pi.style.cssText="font-size:.8rem;color:var(--primary,#37474f);padding:3px 0";pi.textContent="💡 "+p;pts.appendChild(pi);
     });
     sec.appendChild(pts);area.appendChild(sec);
   });

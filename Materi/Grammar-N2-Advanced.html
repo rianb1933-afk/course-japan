@@ -24,12 +24,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#880e4f,#ad1457);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#880e4f),var(--primary-dark,#ad1457));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
 .sec{background:var(--white,#fff);border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.sec h3{color:#880e4f;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#880e4f);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#880e4f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
 .tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
@@ -75,7 +75,7 @@
 
 <div style="max-width:900px;margin:0 auto;padding:0 20px">
 <div style="background:#fff;border:1px solid rgba(136,14,79,.1);border-radius:12px;padding:18px;margin:12px 0">
-<h3 style="color:#880e4f;margin:0 0 10px">🔍 Contoh Penggunaan dalam Percakapan N2</h3>
+<h3 style="color:var(--primary,#880e4f);margin:0 0 10px">🔍 Contoh Penggunaan dalam Percakapan N2</h3>
 <div style="background:#fce4ec;border-radius:8px;padding:12px;font-size:.85rem;line-height:1.9">
 A: 「先週の会議ですが、<b>努力したものの</b>、合意には至りませんでした。」<br>
 B: 「<b>それにもかかわらず</b>、チームは諦めませんでしたね。」<br>
@@ -85,7 +85,7 @@ B: 「<b>を余儀なくされる</b>こともあるかもしれませんが、�
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#880e4f;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#880e4f);color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
@@ -100,13 +100,13 @@ function renderN2A(){
   N2AD.forEach(function(d){
     var el=document.createElement("div");
     el.style.cssText="background:#fff;border:1px solid rgba(136,14,79,.15);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s";
-    el.onmouseover=function(){this.style.borderColor="#880e4f";this.style.boxShadow="0 4px 16px rgba(136,14,79,.12)";};
+    el.onmouseover=function(){this.style.borderColor="var(--primary,#880e4f)";this.style.boxShadow="0 4px 16px rgba(136,14,79,.12)";};
     el.onmouseout=function(){this.style.borderColor="rgba(136,14,79,.15)";this.style.boxShadow="none";};
-    el.innerHTML="<div style='font-size:1.05rem;font-weight:700;color:#880e4f;margin-bottom:6px'>"+d.p+"</div>"
+    el.innerHTML="<div style='font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f);margin-bottom:6px'>"+d.p+"</div>"
       +"<div style='font-size:.88rem;color:#555;margin-bottom:4px'>🇮🇩 "+d.id+"</div>"
       +"<div style='display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1)'>"
       +"<div style='font-size:.8rem;color:#666;margin-bottom:4px'>📝 "+d.ex+"</div>"
-      +"<div style='font-size:.78rem;color:#880e4f;background:#fce4ec;padding:4px 8px;border-radius:6px'>💡 "+d.nuance+"</div>"
+      +"<div style='font-size:.78rem;color:var(--primary,#880e4f);background:#fce4ec;padding:4px 8px;border-radius:6px'>💡 "+d.nuance+"</div>"
       +"</div>";
     el.onclick=function(){var det=this.querySelector("div[style*='display:none']");if(det)det.style.display="block";};
     g.appendChild(el);
@@ -118,13 +118,13 @@ function renderN2A(){
   N2AD.forEach(function(d){
     var el=document.createElement("div");
     el.style.cssText="background:#fff;border:1px solid rgba(136,14,79,.15);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s";
-    el.onmouseover=function(){this.style.borderColor="#880e4f";this.style.boxShadow="0 4px 16px rgba(136,14,79,.12)";};
+    el.onmouseover=function(){this.style.borderColor="var(--primary,#880e4f)";this.style.boxShadow="0 4px 16px rgba(136,14,79,.12)";};
     el.onmouseout=function(){this.style.borderColor="rgba(136,14,79,.15)";this.style.boxShadow="none";};
-    el.innerHTML="<div style='font-size:1.05rem;font-weight:700;color:#880e4f;margin-bottom:6px'>"+d.p+"</div>"
+    el.innerHTML="<div style='font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f);margin-bottom:6px'>"+d.p+"</div>"
       +"<div style='font-size:.88rem;color:#555;margin-bottom:4px'>🇮🇩 "+d.id+"</div>"
       +"<div style='display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1)'>"
       +"<div style='font-size:.8rem;color:#666;margin-bottom:4px'>📝 "+d.ex+"</div>"
-      +"<div style='font-size:.78rem;color:#880e4f;background:#fce4ec;padding:4px 8px;border-radius:6px'>💡 "+d.nuance+"</div>"
+      +"<div style='font-size:.78rem;color:var(--primary,#880e4f);background:#fce4ec;padding:4px 8px;border-radius:6px'>💡 "+d.nuance+"</div>"
       +"</div>";
     el.onclick=function(){var det=this.querySelector("div[style*='display:none']");if(det)det.style.display="block";};
     g.appendChild(el);
@@ -137,13 +137,13 @@ function renderN2A(){
   N2AD.forEach(function(d){
     var el=document.createElement("div");
     el.style.cssText="background:#fff;border:1px solid rgba(136,14,79,.15);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s";
-    el.onmouseover=function(){this.style.borderColor="#880e4f";this.style.boxShadow="0 4px 16px rgba(136,14,79,.12)";};
+    el.onmouseover=function(){this.style.borderColor="var(--primary,#880e4f)";this.style.boxShadow="0 4px 16px rgba(136,14,79,.12)";};
     el.onmouseout=function(){this.style.borderColor="rgba(136,14,79,.15)";this.style.boxShadow="none";};
-    el.innerHTML="<div style='font-size:1.05rem;font-weight:700;color:#880e4f;margin-bottom:6px'>"+d.p+"</div>"
+    el.innerHTML="<div style='font-size:1.05rem;font-weight:700;color:var(--primary,#880e4f);margin-bottom:6px'>"+d.p+"</div>"
       +"<div style='font-size:.88rem;color:#555;margin-bottom:4px'>🇮🇩 "+d.id+"</div>"
       +"<div style='display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1)'>"
       +"<div style='font-size:.8rem;color:#666;margin-bottom:4px'>📝 "+d.ex+"</div>"
-      +"<div style='font-size:.78rem;color:#880e4f;background:#fce4ec;padding:4px 8px;border-radius:6px'>💡 "+d.nuance+"</div>"
+      +"<div style='font-size:.78rem;color:var(--primary,#880e4f);background:#fce4ec;padding:4px 8px;border-radius:6px'>💡 "+d.nuance+"</div>"
       +"</div>";
     el.onclick=function(){var det=this.querySelector("div[style*='display:none']");if(det)det.style.display="block";};
     g.appendChild(el);

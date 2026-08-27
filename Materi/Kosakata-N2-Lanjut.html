@@ -24,12 +24,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#e65100,#f57c00);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#e65100),var(--primary-dark,#f57c00));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
 .sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#e65100;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#e65100;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#e65100);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#e65100);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
 .tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
@@ -76,7 +76,7 @@
 
 <div style="max-width:900px;margin:0 auto;padding:0 20px">
 <div style="background:#fff;border:1px solid rgba(230,81,0,.08);border-radius:12px;padding:16px;margin:12px 0">
-<h3 style="color:#e65100;margin:0 0 10px;font-size:1rem">📝 N2副詞 — ネガティブ表現での使い方</h3>
+<h3 style="color:var(--primary,#e65100);margin:0 0 10px;font-size:1rem">📝 N2副詞 — ネガティブ表現での使い方</h3>
 <table style="width:100%;border-collapse:collapse;font-size:.84rem">
 <tr style="background:rgba(0,0,0,.05)"><th style="padding:7px 10px;text-align:left">副詞</th><th style="padding:7px 10px;text-align:left">必ずセットになる表現</th><th style="padding:7px 10px;text-align:left">意味</th></tr>
 <tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)"><b>必ずしも</b></td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">〜とは限らない・〜ない</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">必ずしも正しいとは限らない</td></tr>
@@ -87,7 +87,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#e65100;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#e65100);color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
@@ -105,9 +105,9 @@ function renderK2(s){
   items.forEach(function(v){
     var d=document.createElement("div");
     d.style.cssText="background:#fff;border:1px solid rgba(230,81,0,.12);border-radius:10px;padding:12px;cursor:pointer;transition:all .2s";
-    d.onmouseover=function(){this.style.borderColor="#e65100";};
+    d.onmouseover=function(){this.style.borderColor="var(--primary,#e65100)";};
     d.onmouseout=function(){this.style.borderColor="rgba(230,81,0,.12)";};
-    d.innerHTML="<div style='font-size:1rem;font-weight:700;color:#e65100'>"+v.jp+"</div>"
+    d.innerHTML="<div style='font-size:1rem;font-weight:700;color:var(--primary,#e65100)'>"+v.jp+"</div>"
       +"<div style='font-size:.75rem;color:#888;margin:2px 0'>"+v.r+"</div>"
       +"<div style='font-size:.85rem;color:#333'>🇮🇩 "+v.id+"</div>"
       +"<div style='display:none;margin-top:6px;font-size:.78rem;color:#666'>📝 "+v.ex+"</div>";

@@ -29,9 +29,9 @@ var pgv=document.getElementById('pg');
 if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
 d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
 +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#4a148c">🇮🇩 '+p[2]+'</div>';
++'<div style="font-size:.85rem;color:var(--primary,#4a148c)">🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#4a148c;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+btn.style.cssText='border:none;background:var(--primary,#4a148c);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
 });
 </script>
@@ -46,12 +46,12 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:920px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#4a148c),var(--primary-dark,#6a1b9a));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
 .sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#4a148c;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#4a148c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(74,20,140,.12)}
+.sec h3{color:var(--primary,#4a148c);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(74,20,140,.12)}
 .tip{background:#f0faf0;border-left:3px solid #43a047;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
@@ -59,13 +59,13 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 .tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
 .dl{padding:10px 14px;border-radius:10px;margin-bottom:8px;font-size:.88rem;line-height:1.6}
 .dl-pt{background:#f5f5f5;border-left:3px solid #9e9e9e}
-.dl-st{background:#ede7f6;border-left:3px solid #6a1b9a}
+.dl-st{background:#ede7f6;border-left:3px solid var(--primary-dark,#6a1b9a)}
 .spk{font-size:.72rem;font-weight:700;margin-bottom:4px}
 .dl-id{font-size:.78rem;color:#666;margin-top:3px}
-.tts-btn{border:none;background:#6a1b9a;color:#fff;padding:3px 8px;border-radius:6px;cursor:pointer;font-size:.72rem;margin-top:4px}
+.tts-btn{border:none;background:var(--primary-dark,#6a1b9a);color:#fff;padding:3px 8px;border-radius:6px;cursor:pointer;font-size:.72rem;margin-top:4px}
 .g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
 .phrase{background:#fff;border:1px solid rgba(74,20,140,.12);border-radius:10px;padding:12px}
-.pjp{font-size:.95rem;font-weight:600;color:#4a148c;margin-bottom:4px}
+.pjp{font-size:.95rem;font-weight:600;color:var(--primary,#4a148c);margin-bottom:4px}
 .pid{font-size:.83rem;color:#555}
 .qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
 .qq{font-weight:600;margin-bottom:12px}
@@ -113,7 +113,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <div id="dialogBox"></div>
 <h2 class="st">💡 Frasa Kunci — Klik 🔊 untuk Dengar</h2>
 <div class="g2" id="phraseGrid"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:#4a148c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 
 
@@ -124,7 +124,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#4a148c;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#4a148c);color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
@@ -237,10 +237,10 @@ function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
 renderDialog();renderPhrases();rnd();
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
-<h2 style="font-size:1.1rem;font-weight:700;color:#4a148c;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
+<h2 style="font-size:1.1rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
 <div id="qkZ"></div>
 <div style="display:flex;gap:10px;margin-top:12px">
-<button onclick="nQkZ()" style="flex:1;padding:11px;background:#4a148c;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:var(--primary,#4a148c);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">🔄 Reset</button>
 </div>
 <p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:8px">Skor: 0/0</p>
@@ -265,7 +265,7 @@ function rndZ(){
   var bx=document.createElement('div');
   bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
   var qn=document.createElement('div');
-  qn.style.cssText='font-size:.72rem;background:#4a148c;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
+  qn.style.cssText='font-size:.72rem;background:var(--primary,#4a148c);color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
   qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
   var qq=document.createElement('div');
   qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';

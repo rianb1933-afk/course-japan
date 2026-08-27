@@ -24,12 +24,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#37474f,#546e7a);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#37474f),var(--primary-dark,#546e7a));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
 .sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#37474f;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#37474f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
 .tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
@@ -76,7 +76,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#37474f;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#37474f);color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
@@ -87,7 +87,7 @@ function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementByI
 function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
 function nQ(){qi=(qi+1)%Q.length;var SD=[{"n": "確認する", "r": "かくにんする", "id": "mengkonfirmasi; memverifikasi", "ex": "内容を確認する。", "cat": "確認・管理"}, {"n": "把握する", "r": "はあくする", "id": "memahami; menguasai situasi", "ex": "現状を把握する。", "cat": "確認・管理"}, {"n": "対応する", "r": "たいおうする", "id": "merespons; menangani", "ex": "問題に対応する。", "cat": "対応・行動"}, {"n": "検討する", "r": "けんとうする", "id": "mempertimbangkan; mengkaji", "ex": "提案を検討する。", "cat": "思考・判断"}, {"n": "判断する", "r": "はんだんする", "id": "memutuskan; menilai", "ex": "状況を判断する。", "cat": "思考・判断"}, {"n": "促進する", "r": "そくしんする", "id": "mempercepat; mendorong", "ex": "発展を促進する。", "cat": "推進・改善"}, {"n": "改善する", "r": "かいぜんする", "id": "memperbaiki; meningkatkan", "ex": "品質を改善する。", "cat": "推進・改善"}, {"n": "強化する", "r": "きょうかする", "id": "memperkuat; meningkatkan", "ex": "チームを強化する。", "cat": "推進・改善"}, {"n": "展開する", "r": "てんかいする", "id": "mengembangkan; memperluas", "ex": "事業を展開する。", "cat": "拡大・発展"}, {"n": "構築する", "r": "こうちくする", "id": "membangun; mendirikan (sistem)", "ex": "信頼関係を構築する。", "cat": "構築・設立"}, {"n": "実施する", "r": "じっしする", "id": "melaksanakan; mengimplementasikan", "ex": "計画を実施する。", "cat": "実行"}, {"n": "遂行する", "r": "すいこうする", "id": "melaksanakan sampai selesai", "ex": "任務を遂行する。", "cat": "実行"}, {"n": "貢献する", "r": "こうけんする", "id": "berkontribusi; berperan", "ex": "社会に貢献する。", "cat": "社会・協力"}, {"n": "協力する", "r": "きょうりょくする", "id": "bekerjasama; berkolaborasi", "ex": "チームと協力する。", "cat": "社会・協力"}, {"n": "共有する", "r": "きょうゆうする", "id": "berbagi; share informasi", "ex": "情報を共有する。", "cat": "情報・コミュニケーション"}, {"n": "提案する", "r": "ていあんする", "id": "mengusulkan; menyarankan", "ex": "改善策を提案する。", "cat": "情報・コミュニケーション"}, {"n": "分析する", "r": "ぶんせきする", "id": "menganalisis", "ex": "データを分析する。", "cat": "分析・調査"}, {"n": "調査する", "r": "ちょうさする", "id": "menyelidiki; meneliti", "ex": "原因を調査する。", "cat": "分析・調査"}, {"n": "評価する", "r": "ひょうかする", "id": "mengevaluasi; menilai", "ex": "成果を評価する。", "cat": "評価"}, {"n": "管理する", "r": "かんりする", "id": "mengelola; mengawasi", "ex": "プロジェクトを管理する。", "cat": "確認・管理"}];var sc2='全部';
 function filterS(){var s=document.getElementById('ssrch').value.toLowerCase();renderS(s);}
-function setSC(c,btn){sc2=c;document.querySelectorAll('#sCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='#37474f';btn.style.color='#fff';renderS('');}
+function setSC(c,btn){sc2=c;document.querySelectorAll('#sCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='var(--primary,#37474f)';btn.style.color='#fff';renderS('');}
 function renderS(s){
   var items=sc2==='全部'?SD:SD.filter(function(v){return v.cat===sc2;});
   if(s)items=items.filter(function(v){return v.n.includes(s)||v.r.includes(s)||v.id.toLowerCase().includes(s);});
@@ -95,10 +95,10 @@ function renderS(s){
   items.forEach(function(v){
     var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(55,71,79,.12);border-radius:10px;padding:12px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#37474f';};
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#37474f)';};
     d.onmouseout=function(){this.style.borderColor='rgba(55,71,79,.12)';};
-    d.innerHTML='<span style="font-size:.7rem;background:#eceff1;color:#37474f;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
-      +'<div style="font-size:1rem;font-weight:700;color:#37474f">'+v.n+'</div>'
+    d.innerHTML='<span style="font-size:.7rem;background:#eceff1;color:var(--primary,#37474f);padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
+      +'<div style="font-size:1rem;font-weight:700;color:var(--primary,#37474f)">'+v.n+'</div>'
       +'<div style="font-size:.75rem;color:#888;margin:2px 0">'+v.r+'</div>'
       +'<div style="font-size:.85rem;color:#333">🇮🇩 '+v.id+'</div>'
       +'<div style="display:none;margin-top:6px;font-size:.78rem;color:#666">📝 '+v.ex+'</div>';
@@ -111,14 +111,14 @@ function renderS(s){
   var cr=document.getElementById('sCatRow');
   cats.forEach(function(c,i){
     var btn=document.createElement('button');
-    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'#37474f':'#ddd')+';background:'+(i===0?'#37474f':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem;margin-right:4px';
+    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'var(--primary,#37474f)':'#ddd')+';background:'+(i===0?'var(--primary,#37474f)':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem;margin-right:4px';
     btn.textContent=c;btn.onclick=function(){setSC(c,this);};cr.appendChild(btn);
   });
   renderS('');
 })();
 rnd();} function rQ(){qi=0;ok=0;tot=0;var SD=[{"n": "確認する", "r": "かくにんする", "id": "mengkonfirmasi; memverifikasi", "ex": "内容を確認する。", "cat": "確認・管理"}, {"n": "把握する", "r": "はあくする", "id": "memahami; menguasai situasi", "ex": "現状を把握する。", "cat": "確認・管理"}, {"n": "対応する", "r": "たいおうする", "id": "merespons; menangani", "ex": "問題に対応する。", "cat": "対応・行動"}, {"n": "検討する", "r": "けんとうする", "id": "mempertimbangkan; mengkaji", "ex": "提案を検討する。", "cat": "思考・判断"}, {"n": "判断する", "r": "はんだんする", "id": "memutuskan; menilai", "ex": "状況を判断する。", "cat": "思考・判断"}, {"n": "促進する", "r": "そくしんする", "id": "mempercepat; mendorong", "ex": "発展を促進する。", "cat": "推進・改善"}, {"n": "改善する", "r": "かいぜんする", "id": "memperbaiki; meningkatkan", "ex": "品質を改善する。", "cat": "推進・改善"}, {"n": "強化する", "r": "きょうかする", "id": "memperkuat; meningkatkan", "ex": "チームを強化する。", "cat": "推進・改善"}, {"n": "展開する", "r": "てんかいする", "id": "mengembangkan; memperluas", "ex": "事業を展開する。", "cat": "拡大・発展"}, {"n": "構築する", "r": "こうちくする", "id": "membangun; mendirikan (sistem)", "ex": "信頼関係を構築する。", "cat": "構築・設立"}, {"n": "実施する", "r": "じっしする", "id": "melaksanakan; mengimplementasikan", "ex": "計画を実施する。", "cat": "実行"}, {"n": "遂行する", "r": "すいこうする", "id": "melaksanakan sampai selesai", "ex": "任務を遂行する。", "cat": "実行"}, {"n": "貢献する", "r": "こうけんする", "id": "berkontribusi; berperan", "ex": "社会に貢献する。", "cat": "社会・協力"}, {"n": "協力する", "r": "きょうりょくする", "id": "bekerjasama; berkolaborasi", "ex": "チームと協力する。", "cat": "社会・協力"}, {"n": "共有する", "r": "きょうゆうする", "id": "berbagi; share informasi", "ex": "情報を共有する。", "cat": "情報・コミュニケーション"}, {"n": "提案する", "r": "ていあんする", "id": "mengusulkan; menyarankan", "ex": "改善策を提案する。", "cat": "情報・コミュニケーション"}, {"n": "分析する", "r": "ぶんせきする", "id": "menganalisis", "ex": "データを分析する。", "cat": "分析・調査"}, {"n": "調査する", "r": "ちょうさする", "id": "menyelidiki; meneliti", "ex": "原因を調査する。", "cat": "分析・調査"}, {"n": "評価する", "r": "ひょうかする", "id": "mengevaluasi; menilai", "ex": "成果を評価する。", "cat": "評価"}, {"n": "管理する", "r": "かんりする", "id": "mengelola; mengawasi", "ex": "プロジェクトを管理する。", "cat": "確認・管理"}];var sc2='全部';
 function filterS(){var s=document.getElementById('ssrch').value.toLowerCase();renderS(s);}
-function setSC(c,btn){sc2=c;document.querySelectorAll('#sCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='#37474f';btn.style.color='#fff';renderS('');}
+function setSC(c,btn){sc2=c;document.querySelectorAll('#sCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='var(--primary,#37474f)';btn.style.color='#fff';renderS('');}
 function renderS(s){
   var items=sc2==='全部'?SD:SD.filter(function(v){return v.cat===sc2;});
   if(s)items=items.filter(function(v){return v.n.includes(s)||v.r.includes(s)||v.id.toLowerCase().includes(s);});
@@ -126,10 +126,10 @@ function renderS(s){
   items.forEach(function(v){
     var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(55,71,79,.12);border-radius:10px;padding:12px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#37474f';};
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#37474f)';};
     d.onmouseout=function(){this.style.borderColor='rgba(55,71,79,.12)';};
-    d.innerHTML='<span style="font-size:.7rem;background:#eceff1;color:#37474f;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
-      +'<div style="font-size:1rem;font-weight:700;color:#37474f">'+v.n+'</div>'
+    d.innerHTML='<span style="font-size:.7rem;background:#eceff1;color:var(--primary,#37474f);padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
+      +'<div style="font-size:1rem;font-weight:700;color:var(--primary,#37474f)">'+v.n+'</div>'
       +'<div style="font-size:.75rem;color:#888;margin:2px 0">'+v.r+'</div>'
       +'<div style="font-size:.85rem;color:#333">🇮🇩 '+v.id+'</div>'
       +'<div style="display:none;margin-top:6px;font-size:.78rem;color:#666">📝 '+v.ex+'</div>';
@@ -142,7 +142,7 @@ function renderS(s){
   var cr=document.getElementById('sCatRow');
   cats.forEach(function(c,i){
     var btn=document.createElement('button');
-    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'#37474f':'#ddd')+';background:'+(i===0?'#37474f':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem;margin-right:4px';
+    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'var(--primary,#37474f)':'#ddd')+';background:'+(i===0?'var(--primary,#37474f)':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem;margin-right:4px';
     btn.textContent=c;btn.onclick=function(){setSC(c,this);};cr.appendChild(btn);
   });
   renderS('');
@@ -150,7 +150,7 @@ function renderS(s){
 rnd();}
 var SD=[{"n": "確認する", "r": "かくにんする", "id": "mengkonfirmasi; memverifikasi", "ex": "内容を確認する。", "cat": "確認・管理"}, {"n": "把握する", "r": "はあくする", "id": "memahami; menguasai situasi", "ex": "現状を把握する。", "cat": "確認・管理"}, {"n": "対応する", "r": "たいおうする", "id": "merespons; menangani", "ex": "問題に対応する。", "cat": "対応・行動"}, {"n": "検討する", "r": "けんとうする", "id": "mempertimbangkan; mengkaji", "ex": "提案を検討する。", "cat": "思考・判断"}, {"n": "判断する", "r": "はんだんする", "id": "memutuskan; menilai", "ex": "状況を判断する。", "cat": "思考・判断"}, {"n": "促進する", "r": "そくしんする", "id": "mempercepat; mendorong", "ex": "発展を促進する。", "cat": "推進・改善"}, {"n": "改善する", "r": "かいぜんする", "id": "memperbaiki; meningkatkan", "ex": "品質を改善する。", "cat": "推進・改善"}, {"n": "強化する", "r": "きょうかする", "id": "memperkuat; meningkatkan", "ex": "チームを強化する。", "cat": "推進・改善"}, {"n": "展開する", "r": "てんかいする", "id": "mengembangkan; memperluas", "ex": "事業を展開する。", "cat": "拡大・発展"}, {"n": "構築する", "r": "こうちくする", "id": "membangun; mendirikan (sistem)", "ex": "信頼関係を構築する。", "cat": "構築・設立"}, {"n": "実施する", "r": "じっしする", "id": "melaksanakan; mengimplementasikan", "ex": "計画を実施する。", "cat": "実行"}, {"n": "遂行する", "r": "すいこうする", "id": "melaksanakan sampai selesai", "ex": "任務を遂行する。", "cat": "実行"}, {"n": "貢献する", "r": "こうけんする", "id": "berkontribusi; berperan", "ex": "社会に貢献する。", "cat": "社会・協力"}, {"n": "協力する", "r": "きょうりょくする", "id": "bekerjasama; berkolaborasi", "ex": "チームと協力する。", "cat": "社会・協力"}, {"n": "共有する", "r": "きょうゆうする", "id": "berbagi; share informasi", "ex": "情報を共有する。", "cat": "情報・コミュニケーション"}, {"n": "提案する", "r": "ていあんする", "id": "mengusulkan; menyarankan", "ex": "改善策を提案する。", "cat": "情報・コミュニケーション"}, {"n": "分析する", "r": "ぶんせきする", "id": "menganalisis", "ex": "データを分析する。", "cat": "分析・調査"}, {"n": "調査する", "r": "ちょうさする", "id": "menyelidiki; meneliti", "ex": "原因を調査する。", "cat": "分析・調査"}, {"n": "評価する", "r": "ひょうかする", "id": "mengevaluasi; menilai", "ex": "成果を評価する。", "cat": "評価"}, {"n": "管理する", "r": "かんりする", "id": "mengelola; mengawasi", "ex": "プロジェクトを管理する。", "cat": "確認・管理"}];var sc2='全部';
 function filterS(){var s=document.getElementById('ssrch').value.toLowerCase();renderS(s);}
-function setSC(c,btn){sc2=c;document.querySelectorAll('#sCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='#37474f';btn.style.color='#fff';renderS('');}
+function setSC(c,btn){sc2=c;document.querySelectorAll('#sCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='var(--primary,#37474f)';btn.style.color='#fff';renderS('');}
 function renderS(s){
   var items=sc2==='全部'?SD:SD.filter(function(v){return v.cat===sc2;});
   if(s)items=items.filter(function(v){return v.n.includes(s)||v.r.includes(s)||v.id.toLowerCase().includes(s);});
@@ -158,10 +158,10 @@ function renderS(s){
   items.forEach(function(v){
     var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(55,71,79,.12);border-radius:10px;padding:12px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#37474f';};
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#37474f)';};
     d.onmouseout=function(){this.style.borderColor='rgba(55,71,79,.12)';};
-    d.innerHTML='<span style="font-size:.7rem;background:#eceff1;color:#37474f;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
-      +'<div style="font-size:1rem;font-weight:700;color:#37474f">'+v.n+'</div>'
+    d.innerHTML='<span style="font-size:.7rem;background:#eceff1;color:var(--primary,#37474f);padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
+      +'<div style="font-size:1rem;font-weight:700;color:var(--primary,#37474f)">'+v.n+'</div>'
       +'<div style="font-size:.75rem;color:#888;margin:2px 0">'+v.r+'</div>'
       +'<div style="font-size:.85rem;color:#333">🇮🇩 '+v.id+'</div>'
       +'<div style="display:none;margin-top:6px;font-size:.78rem;color:#666">📝 '+v.ex+'</div>';
@@ -174,7 +174,7 @@ function renderS(s){
   var cr=document.getElementById('sCatRow');
   cats.forEach(function(c,i){
     var btn=document.createElement('button');
-    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'#37474f':'#ddd')+';background:'+(i===0?'#37474f':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem;margin-right:4px';
+    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'var(--primary,#37474f)':'#ddd')+';background:'+(i===0?'var(--primary,#37474f)':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem;margin-right:4px';
     btn.textContent=c;btn.onclick=function(){setSC(c,this);};cr.appendChild(btn);
   });
   renderS('');

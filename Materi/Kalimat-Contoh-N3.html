@@ -24,12 +24,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#bf360c,#d84315);color:#fff;padding:44px 20px 28px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#bf360c),var(--primary-dark,#d84315));color:#fff;padding:44px 20px 28px;text-align:center}
 .hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:10px}
 .sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#bf360c;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.1rem;font-weight:700;color:#bf360c;margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#bf360c);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.1rem;font-weight:700;color:var(--primary,#bf360c);margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
 .tbl th{padding:7px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)}
@@ -74,7 +74,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:10px;margin-top:10px">
-<button onclick="nQ()" style="flex:1;padding:11px;background:#bf360c;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:11px;background:var(--primary,#bf360c);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
@@ -89,14 +89,14 @@ function renderKN3L(){
   KN3LD.forEach(function(v,i){
     var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(191,54,12,.1);border-radius:10px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#bf360c';this.style.boxShadow='0 2px 8px rgba(191,54,12,.1)';};
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#bf360c)';this.style.boxShadow='0 2px 8px rgba(191,54,12,.1)';};
     d.onmouseout=function(){this.style.borderColor='rgba(191,54,12,.1)';this.style.boxShadow='none';};
     d.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'
-      +'<span style="font-size:.7rem;background:#fbe9e7;color:#bf360c;padding:2px 8px;border-radius:10px">'+v[2]+'</span>'
+      +'<span style="font-size:.7rem;background:#fbe9e7;color:var(--primary,#bf360c);padding:2px 8px;border-radius:10px">'+v[2]+'</span>'
       +'<span style="font-size:.68rem;color:#888">クリックで詳細</span></div>'
       +'<div style="font-size:.95rem;font-weight:600;color:#111;margin-bottom:5px">'+v[0]+'</div>'
       +'<div style="font-size:.85rem;color:#555">🇮🇩 '+v[1]+'</div>'
-      +'<div style="display:none;margin-top:8px;font-size:.78rem;color:#bf360c;background:#fbe9e7;padding:6px 10px;border-radius:6px">📌 '+v[3]+'</div>';
+      +'<div style="display:none;margin-top:8px;font-size:.78rem;color:var(--primary,#bf360c);background:#fbe9e7;padding:6px 10px;border-radius:6px">📌 '+v[3]+'</div>';
     d.onclick=function(){var det=this.querySelector("div[style*='display:none']");if(det)det.style.display='block';};
     c.appendChild(d);
   });
@@ -107,14 +107,14 @@ function renderKN3L(){
   KN3LD.forEach(function(v,i){
     var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(191,54,12,.1);border-radius:10px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#bf360c';this.style.boxShadow='0 2px 8px rgba(191,54,12,.1)';};
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#bf360c)';this.style.boxShadow='0 2px 8px rgba(191,54,12,.1)';};
     d.onmouseout=function(){this.style.borderColor='rgba(191,54,12,.1)';this.style.boxShadow='none';};
     d.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'
-      +'<span style="font-size:.7rem;background:#fbe9e7;color:#bf360c;padding:2px 8px;border-radius:10px">'+v[2]+'</span>'
+      +'<span style="font-size:.7rem;background:#fbe9e7;color:var(--primary,#bf360c);padding:2px 8px;border-radius:10px">'+v[2]+'</span>'
       +'<span style="font-size:.68rem;color:#888">クリックで詳細</span></div>'
       +'<div style="font-size:.95rem;font-weight:600;color:#111;margin-bottom:5px">'+v[0]+'</div>'
       +'<div style="font-size:.85rem;color:#555">🇮🇩 '+v[1]+'</div>'
-      +'<div style="display:none;margin-top:8px;font-size:.78rem;color:#bf360c;background:#fbe9e7;padding:6px 10px;border-radius:6px">📌 '+v[3]+'</div>';
+      +'<div style="display:none;margin-top:8px;font-size:.78rem;color:var(--primary,#bf360c);background:#fbe9e7;padding:6px 10px;border-radius:6px">📌 '+v[3]+'</div>';
     d.onclick=function(){var det=this.querySelector("div[style*='display:none']");if(det)det.style.display='block';};
     c.appendChild(d);
   });
@@ -126,14 +126,14 @@ function renderKN3L(){
   KN3LD.forEach(function(v,i){
     var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(191,54,12,.1);border-radius:10px;padding:16px;margin-bottom:10px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#bf360c';this.style.boxShadow='0 2px 8px rgba(191,54,12,.1)';};
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#bf360c)';this.style.boxShadow='0 2px 8px rgba(191,54,12,.1)';};
     d.onmouseout=function(){this.style.borderColor='rgba(191,54,12,.1)';this.style.boxShadow='none';};
     d.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">'
-      +'<span style="font-size:.7rem;background:#fbe9e7;color:#bf360c;padding:2px 8px;border-radius:10px">'+v[2]+'</span>'
+      +'<span style="font-size:.7rem;background:#fbe9e7;color:var(--primary,#bf360c);padding:2px 8px;border-radius:10px">'+v[2]+'</span>'
       +'<span style="font-size:.68rem;color:#888">クリックで詳細</span></div>'
       +'<div style="font-size:.95rem;font-weight:600;color:#111;margin-bottom:5px">'+v[0]+'</div>'
       +'<div style="font-size:.85rem;color:#555">🇮🇩 '+v[1]+'</div>'
-      +'<div style="display:none;margin-top:8px;font-size:.78rem;color:#bf360c;background:#fbe9e7;padding:6px 10px;border-radius:6px">📌 '+v[3]+'</div>';
+      +'<div style="display:none;margin-top:8px;font-size:.78rem;color:var(--primary,#bf360c);background:#fbe9e7;padding:6px 10px;border-radius:6px">📌 '+v[3]+'</div>';
     d.onclick=function(){var det=this.querySelector("div[style*='display:none']");if(det)det.style.display='block';};
     c.appendChild(d);
   });

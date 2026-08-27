@@ -30,9 +30,9 @@ var pgv=document.getElementById('pg');
 if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
 d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
 +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#1565c0">🇮🇩 '+p[2]+'</div>';
++'<div style="font-size:.85rem;color:var(--primary,#1565c0)">🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#1565c0;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+btn.style.cssText='border:none;background:var(--primary,#1565c0);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
 });
 </script>
@@ -47,12 +47,12 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#1565c0),var(--primary-dark,#1976d2));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
 .bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#1565c0;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#1565c0);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#1565c0);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
 .tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
@@ -95,14 +95,14 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <div class="wrap" style="padding-top:24px">
 <div class="tip">💡 Pola kalimat dan kosakata di halaman ini fokus pada percakapan sehari-hari tingkat pemula -- praktikkan dengan mendengarkan audio dan mencoba quiz di bawah!</div>
 <div id="kn2List"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:#1565c0;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#1565c0);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 
 
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#1565c0;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#1565c0);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>

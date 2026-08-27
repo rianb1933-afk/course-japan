@@ -24,12 +24,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#880e4f,#ad1457);color:#fff;padding:44px 20px 28px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#880e4f),var(--primary-dark,#ad1457));color:#fff;padding:44px 20px 28px;text-align:center}
 .hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:10px}
 .sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#880e4f;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.1rem;font-weight:700;color:#880e4f;margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#880e4f);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.1rem;font-weight:700;color:var(--primary,#880e4f);margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
 .tbl th{padding:7px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)}
@@ -75,7 +75,7 @@
 
 <div style="max-width:900px;margin:0 auto;padding:0 20px">
 <div style="background:#fff;border:1px solid rgba(136,14,79,.08);border-radius:12px;padding:16px;margin:12px 0">
-<h3 style="color:#880e4f;margin:0 0 10px;font-size:1rem">🔍 N2 接続詞 vs 複文パターン — 使い分け</h3>
+<h3 style="color:var(--primary,#880e4f);margin:0 0 10px;font-size:1rem">🔍 N2 接続詞 vs 複文パターン — 使い分け</h3>
 <table style="width:100%;border-collapse:collapse;font-size:.84rem">
 <tr style="background:rgba(0,0,0,.05)"><th style="padding:7px 10px;text-align:left">場面</th><th style="padding:7px 10px;text-align:left">接続詞</th><th style="padding:7px 10px;text-align:left">複文パターン</th></tr>
 <tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">理由</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">そのため</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">〜ために・〜ので</td></tr>
@@ -86,7 +86,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:10px;margin-top:10px">
-<button onclick="nQ()" style="flex:1;padding:11px;background:#880e4f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:11px;background:var(--primary,#880e4f);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
@@ -102,11 +102,11 @@ function renderKM2(){
   KM2D.forEach(function(v){
     var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(136,14,79,.1);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#880e4f';this.style.boxShadow='0 2px 8px rgba(136,14,79,.08)';};
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#880e4f)';this.style.boxShadow='0 2px 8px rgba(136,14,79,.08)';};
     d.onmouseout=function(){this.style.borderColor='rgba(136,14,79,.1)';this.style.boxShadow='none';};
     d.innerHTML='<div style="font-size:.9rem;font-weight:600;color:#111;margin-bottom:5px;line-height:1.6">'+v[0]+'</div>'
       +'<div style="font-size:.83rem;color:#555;margin-bottom:5px">🇮🇩 '+v[1]+'</div>'
-      +'<div style="display:none;font-size:.75rem;color:#880e4f;background:#fce4ec;padding:5px 8px;border-radius:6px">📌 '+v[2]+'</div>';
+      +'<div style="display:none;font-size:.75rem;color:var(--primary,#880e4f);background:#fce4ec;padding:5px 8px;border-radius:6px">📌 '+v[2]+'</div>';
     d.onclick=function(){var det=this.querySelector("div[style*='display:none']");if(det)det.style.display='block';};
     c.appendChild(d);
   });

@@ -25,7 +25,7 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 .wrap{max-width:820px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#1a0a2e,#3d1b69);color:#fff;padding:44px 20px 28px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#1a0a2e),var(--primary-dark,#3d1b69));color:#fff;padding:44px 20px 28px;text-align:center}
 .hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 6px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:10px}
 .sbox{background:#fff;border-radius:14px;padding:28px;text-align:center;margin:24px 0;border:1px solid rgba(0,0,0,.08);box-shadow:0 4px 16px rgba(0,0,0,.06)}
@@ -33,7 +33,7 @@
 .iv{font-size:1.4rem;font-weight:700;color:#333;font-family:"Noto Serif JP",serif}
 .il{font-size:.72rem;color:#888;margin-top:2px}
 .ii{background:#f5f5f5;border-radius:10px;padding:12px;text-align:center}
-.sbtn{background:linear-gradient(135deg,#1a0a2e,#3d1b69);color:#fff;border:none;border-radius:10px;padding:13px 40px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:12px;transition:all .2s;font-family:inherit}
+.sbtn{background:linear-gradient(135deg,var(--primary,#1a0a2e),var(--primary-dark,#3d1b69));color:#fff;border:none;border-radius:10px;padding:13px 40px;font-size:.95rem;font-weight:700;cursor:pointer;margin-top:12px;transition:all .2s;font-family:inherit}
 .sbtn:hover{opacity:.9;transform:translateY(-1px)}
 .ch{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:10px;padding:10px 16px;margin-bottom:12px;border:1px solid rgba(0,0,0,.08)}
 .ct{font-weight:700;font-size:.92rem}
@@ -44,29 +44,29 @@
 .qn{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;margin-bottom:12px}
 @media(max-width:480px){.qn{grid-template-columns:repeat(5,1fr)}}
 .qd{width:100%;aspect-ratio:1;border-radius:50%;border:2px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:.7rem;cursor:pointer;font-weight:600;background:#fff;transition:all .2s}
-.qd.cur{background:linear-gradient(135deg,#1a0a2e,#3d1b69);border-color:linear-gradient(135deg,#1a0a2e,#3d1b69);color:#fff}
+.qd.cur{background:linear-gradient(135deg,var(--primary,#1a0a2e),var(--primary-dark,#3d1b69));border-color:linear-gradient(135deg,var(--primary,#1a0a2e),var(--primary-dark,#3d1b69));color:#fff}
 .qd.ans{background:#e8f5e9;border-color:#43a047;color:#2e7d32}
 .qd.flg{background:#fff3e0;border-color:#fb8c00;color:#e65100}
 .qbx{background:#fff;border-radius:12px;padding:20px;border:1px solid rgba(0,0,0,.08);margin-bottom:12px}
 .qm{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:6px}
 .qnum{font-size:.78rem;font-weight:700;background:#f0f0f0;padding:3px 10px;border-radius:20px}
-.qcat{font-size:.7rem;background:#e8eaf6;color:#3d1b69;padding:3px 10px;border-radius:20px;font-weight:600}
+.qcat{font-size:.7rem;background:#e8eaf6;color:var(--primary-dark,#3d1b69);padding:3px 10px;border-radius:20px;font-weight:600}
 .qfbtn{font-size:.72rem;border:1px solid #fb8c00;color:#fb8c00;background:none;border-radius:20px;padding:3px 10px;cursor:pointer}
 .qfbtn.on{background:#fb8c00;color:#fff}
 .qtxt{font-size:.95rem;font-weight:600;margin-bottom:16px;line-height:1.65}
 .qopts{display:grid;gap:8px}
 .qopt{background:#fafafa;border:2px solid rgba(0,0,0,.1);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
-.qopt:hover{border-color:linear-gradient(135deg,#1a0a2e,#3d1b69);background:#f0f4ff}
-.qopt.sel{border-color:linear-gradient(135deg,#1a0a2e,#3d1b69);background:#f0f4ff;font-weight:600}
+.qopt:hover{border-color:linear-gradient(135deg,var(--primary,#1a0a2e),var(--primary-dark,#3d1b69));background:#f0f4ff}
+.qopt.sel{border-color:linear-gradient(135deg,var(--primary,#1a0a2e),var(--primary-dark,#3d1b69));background:#f0f4ff;font-weight:600}
 .qopt.cor{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
 .qopt.wrg{background:#fce4ec;border-color:#e91e63;color:#880e4f}
 .nav{display:flex;gap:8px;flex-wrap:wrap}
 .nb{padding:10px 18px;border:none;border-radius:8px;cursor:pointer;font-size:.85rem;font-weight:600;font-family:inherit}
 .np{background:#f5f5f5;color:#333;border:1px solid #ddd}
-.nn{background:linear-gradient(135deg,#1a0a2e,#3d1b69);color:#fff;flex:1}
+.nn{background:linear-gradient(135deg,var(--primary,#1a0a2e),var(--primary-dark,#3d1b69));color:#fff;flex:1}
 .ns{background:#2e7d32;color:#fff;flex:1}
 .rb{background:#fff;border-radius:14px;padding:28px;text-align:center;margin:24px 0;border:1px solid rgba(0,0,0,.08)}
-.sr{width:120px;height:120px;border-radius:50%;margin:0 auto 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:5px solid linear-gradient(135deg,#1a0a2e,#3d1b69);background:#f5f5f5}
+.sr{width:120px;height:120px;border-radius:50%;margin:0 auto 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:5px solid linear-gradient(135deg,var(--primary,#1a0a2e),var(--primary-dark,#3d1b69));background:#f5f5f5}
 .sn{font-size:2rem;font-weight:700;font-family:"Noto Serif JP",serif;line-height:1}
 .sl{font-size:.68rem;color:#888}
 .gb{display:inline-block;font-size:.82rem;font-weight:700;padding:5px 18px;border-radius:100px;margin:10px 0}
@@ -144,7 +144,7 @@
       <div class="ri"><div class="rn" id="rsk" style="color:#888">0</div><div class="rl">Lewat</div></div>
     </div>
     <div style="margin-top:14px">
-      <button onclick="restartTest()" style="background:linear-gradient(135deg,#1a0a2e,#3d1b69);color:#fff;border:none;border-radius:8px;padding:10px 28px;cursor:pointer;font-size:.9rem;font-weight:700;margin:4px;font-family:inherit">Ulangi</button>
+      <button onclick="restartTest()" style="background:linear-gradient(135deg,var(--primary,#1a0a2e),var(--primary-dark,#3d1b69));color:#fff;border:none;border-radius:8px;padding:10px 28px;cursor:pointer;font-size:.9rem;font-weight:700;margin:4px;font-family:inherit">Ulangi</button>
       <button onclick="showRev()" style="background:#f5f5f5;border:1px solid #ddd;border-radius:8px;padding:10px 20px;cursor:pointer;font-size:.88rem;font-weight:600;margin:4px;font-family:inherit">Pembahasan</button>
     </div>
   </div>

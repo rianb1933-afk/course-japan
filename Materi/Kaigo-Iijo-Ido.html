@@ -30,9 +30,9 @@ var pgv=document.getElementById('pg');
 if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
 d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
 +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#37474f">🇮🇩 '+p[2]+'</div>';
++'<div style="font-size:.85rem;color:var(--primary,#37474f)">🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+btn.style.cssText='border:none;background:var(--primary,#37474f);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
 });
 </script>
@@ -47,30 +47,30 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,#37474f,#546e7a);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#37474f),var(--primary-dark,#546e7a));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#37474f;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #eceff1}
+.sec h3{color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#37474f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #eceff1}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#eceff1;color:#37474f}
+.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#eceff1;color:var(--primary,#37474f)}
 .tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light);vertical-align:top}
-.tip{background:#eceff1;border-left:3px solid #37474f;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+.tip{background:#eceff1;border-left:3px solid var(--primary,#37474f);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
 .warn{background:#fff3e0;border-left:3px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
 .steps{counter-reset:step;list-style:none;padding:0;margin:10px 0}
 .steps li{counter-increment:step;display:flex;gap:12px;margin-bottom:10px;align-items:flex-start;font-size:.9rem}
-.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:#37474f;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
+.steps li::before{content:counter(step);min-width:26px;height:26px;border-radius:50%;background:var(--primary,#37474f);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0}
 .g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:10px;margin:12px 0}
 .card{background:var(--white);border:2px solid #eceff1;border-radius:12px;padding:14px}
-.card-t{font-weight:700;color:#37474f;font-size:.95rem;margin-bottom:6px}
+.card-t{font-weight:700;color:var(--primary,#37474f);font-size:.95rem;margin-bottom:6px}
 .card-b{font-size:.85rem;line-height:1.7;color:var(--ink)}
 .dl{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
 .spk{min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;margin-top:2px}
-.sc{background:#eceff1;color:#37474f} .sr{background:#e8f5e9;color:#1b5e20} .sn{background:#e3f2fd;color:#1565c0}
+.sc{background:#eceff1;color:var(--primary,#37474f)} .sr{background:#e8f5e9;color:#1b5e20} .sn{background:#e3f2fd;color:#1565c0}
 .jp{font-size:.92rem;font-weight:500;color:var(--ink)} .id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
-.tts{border:none;background:#37474f;color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
+.tts{border:none;background:var(--primary,#37474f);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
 .pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:12px 0}
 .pc{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
 .qbox{background:#eceff1;border-radius:14px;padding:20px;margin:20px 0}
@@ -141,13 +141,13 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 
 <h2 class="st">💬 Dialog 移乗・移動</h2>
 <div class="sec">
-<div style="font-weight:700;color:#37474f;margin-bottom:12px">🛏️ Dialog 1 — ベッドから車椅子への移乗</div>
+<div style="font-weight:700;color:var(--primary,#37474f);margin-bottom:12px">🛏️ Dialog 1 — ベッドから車椅子への移乗</div>
 <div class="dl"><span class="spk sc">介護士</span><div><div class="jp">田中さん、食堂に行く時間です。車椅子に移りましょうか。ブレーキをかけましたので安全ですよ。<button aria-label="Ucapkan: 田中さん、食堂に行く時間です。車椅子に移りましょうか。ブレー…" class="tts" onclick="speak('田中さん、食堂に行く時間です。車椅子に移りましょうか。ブレーキをかけましたので安全ですよ。')">🔊</button></div><div class="id">Bu Tanaka, waktunya ke ruang makan. Mau pindah ke kursi roda? Remnya sudah dikunci, aman.</div></div></div>
 <div class="dl"><span class="spk sr">田中さん</span><div><div class="jp">はい、お願いします。</div><div class="id">Ya, tolong.</div></div></div>
 <div class="dl"><span class="spk sc">介護士</span><div><div class="jp">では、ゆっくりベッドの端に腰をかけてください。足がしっかり床についていますか？では、せーの、でゆっくり立ちましょう。<button aria-label="Ucapkan: では、ゆっくりベッドの端に腰をかけてください。足がしっかり床…" class="tts" onclick="speak('では、ゆっくりベッドの端に腰をかけてください。足がしっかり床についていますか？では、せーの、でゆっくり立ちましょう。')">🔊</button></div><div class="id">Pelan-pelan duduk di tepi tempat tidur. Kaki sudah menapak di lantai? Oke, hitungan tiga, kita berdiri pelan-pelan.</div></div></div>
 </div>
 <div class="sec">
-<div style="font-weight:700;color:#37474f;margin-bottom:12px">🚶 Dialog 2 — Memandu Berjalan dengan Tongkat</div>
+<div style="font-weight:700;color:var(--primary,#37474f);margin-bottom:12px">🚶 Dialog 2 — Memandu Berjalan dengan Tongkat</div>
 <div class="dl"><span class="spk sc">介護士</span><div><div class="jp">山田さん、杖を使って廊下を歩いてみましょう。私は左側（患側）のそばにいますね。<button aria-label="Ucapkan: 山田さん、杖を使って廊下を歩いてみましょう。私は左側のそばに…" class="tts" onclick="speak('山田さん、杖を使って廊下を歩いてみましょう。私は左側のそばにいますね。')">🔊</button></div><div class="id">Pak Yamada, coba jalan di lorong pakai tongkat. Saya di sebelah kiri (sisi yang lemah) ya.</div></div></div>
 <div class="dl"><span class="spk sr">山田さん</span><div><div class="jp">転ばないか心配です。</div><div class="id">Khawatir jatuh.</div></div></div>
 <div class="dl"><span class="spk sc">介護士</span><div><div class="jp">大丈夫です。万一の時のために私がそばにいます。まず杖を前に出して、次に左足、右足の順に出してみてください。<button aria-label="Ucapkan: 大丈夫です。万一の時のために私がそばにいます。まず杖を前に出…" class="tts" onclick="speak('大丈夫です。万一の時のために私がそばにいます。まず杖を前に出して、次に左足、右足の順に出してみてください。')">🔊</button></div><div class="id">Tenang saja. Saya di samping untuk jaga-jaga. Maju tongkatnya dulu, lalu kaki kiri, kaki kanan.</div></div></div>
@@ -209,76 +209,76 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 </div>
 <h2 class="st">📚 Kosakata</h2>
 <div class="pg" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#37474f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg2"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#37474f;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#37474f);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
 </div><section style="padding:16px;max-width:860px;margin:20px auto">
-<h2 style="font-size:1rem;color:#37474f;border-bottom:3px solid #37474f;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 移乗・移動介助</h2>
+<h2 style="font-size:1rem;color:var(--primary,#37474f);border-bottom:3px solid var(--primary,#37474f);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 移乗・移動介助</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
-<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('移乗')" title="クリックで発音">🔊 移乗</div>
+<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('移乗')" title="クリックで発音">🔊 移乗</div>
   <div style="font-size:.8rem;color:#777">ijō</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">transfer / pindah posisi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('移動')" title="クリックで発音">🔊 移動</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('移動')" title="クリックで発音">🔊 移動</div>
   <div style="font-size:.8rem;color:#777">idō</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">mobilisasi / berpindah</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('ボディメカニクス')" title="クリックで発音">🔊 ボディメカニクス</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('ボディメカニクス')" title="クリックで発音">🔊 ボディメカニクス</div>
   <div style="font-size:.8rem;color:#777">bodi mekanikusu</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">body mechanics</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('支持基底面')" title="クリックで発音">🔊 支持基底面</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('支持基底面')" title="クリックで発音">🔊 支持基底面</div>
   <div style="font-size:.8rem;color:#777">shiji kitei-men</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">bidang tumpuan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('重心')" title="クリックで発音">🔊 重心</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('重心')" title="クリックで発音">🔊 重心</div>
   <div style="font-size:.8rem;color:#777">jūshin</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">titik gravitasi / pusat berat</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('スライディングシート')" title="クリックで発音">🔊 スライディングシート</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('スライディングシート')" title="クリックで発音">🔊 スライディングシート</div>
   <div style="font-size:.8rem;color:#777">suraidingu shīto</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">sliding sheet</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('車椅子')" title="クリックで発音">🔊 車椅子</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('車椅子')" title="クリックで発音">🔊 車椅子</div>
   <div style="font-size:.8rem;color:#777">kuruma isu</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">kursi roda</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('歩行器')" title="クリックで発音">🔊 歩行器</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('歩行器')" title="クリックで発音">🔊 歩行器</div>
   <div style="font-size:.8rem;color:#777">hokōki</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">walker / alat bantu jalan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('杖')" title="クリックで発音">🔊 杖</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('杖')" title="クリックで発音">🔊 杖</div>
   <div style="font-size:.8rem;color:#777">tsue</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">tongkat</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('トランスファーボード')" title="クリックで発音">🔊 トランスファーボード</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('トランスファーボード')" title="クリックで発音">🔊 トランスファーボード</div>
   <div style="font-size:.8rem;color:#777">toransufā bōdo</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">papan transfer</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('端坐位')" title="クリックで発音">🔊 端坐位</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('端坐位')" title="クリックで発音">🔊 端坐位</div>
   <div style="font-size:.8rem;color:#777">tan-za-i</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">duduk di tepi tempat tidur</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('立位')" title="クリックで発音">🔊 立位</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('立位')" title="クリックで発音">🔊 立位</div>
   <div style="font-size:.8rem;color:#777">ritchi</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">posisi berdiri</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('平行棒')" title="クリックで発音">🔊 平行棒</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('平行棒')" title="クリックで発音">🔊 平行棒</div>
   <div style="font-size:.8rem;color:#777">heikōbō</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">parallel bars</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('リフト')" title="クリックで発音">🔊 リフト</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('リフト')" title="クリックで発音">🔊 リフト</div>
   <div style="font-size:.8rem;color:#777">rifuto</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">alat angkat / lift</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid #37474f">
-  <div style="font-size:1.05rem;font-weight:700;color:#37474f" onclick="speak('腰痛予防')" title="クリックで発音">🔊 腰痛予防</div>
+</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--primary,#37474f)">
+  <div style="font-size:1.05rem;font-weight:700;color:var(--primary,#37474f)" onclick="speak('腰痛予防')" title="クリックで発音">🔊 腰痛予防</div>
   <div style="font-size:.8rem;color:#777">yōtsū yobō</div>
   <div style="font-size:.85rem;color:#333;margin-top:3px">pencegahan sakit punggung</div>
 </div>
@@ -288,7 +288,7 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 var PH=[["移乗", "iijo", "transfer (pindah dari satu tempat ke tempat lain)"], ["移動", "ido", "mobilitas / berpindah tempat"], ["端坐位", "tanza-i", "posisi duduk di tepi tempat tidur"], ["健側", "kenssoku", "sisi sehat / sisi yang lebih kuat"], ["患側", "kanssoku", "sisi yang sakit / lemah"], ["ボディメカニクス", "bodi mekkanikusu", "body mechanics — teknik ergonomis"], ["支持基底面", "shiji kiteimen", "bidang tumpuan / base of support"], ["スライディングボード", "suraidingu boodo", "sliding board / papan transfer"], ["フットレスト", "futtoresuto", "pijakan kaki kursi roda"], ["三点歩行", "santen hoko", "tiga titik tumpuan berjalan (tongkat)"], ["介助歩行", "kaijo hoko", "ambulasi dengan bantuan"], ["腰痛予防", "yoto yobo", "pencegahan nyeri punggung bawah"], ["転倒リスク", "tonto risuku", "risiko jatuh"]];
 var pg=document.getElementById('pg');
 if(pg)PH.forEach(function(p){var d=document.createElement('div');d.className='pc';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.85rem;color:#37474f">🇮🇩 '+p[2]+'</div>';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.85rem;color:var(--primary,#37474f)">🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';btn.className='tts';var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});
 var Q=[{"q": "ベッドから車椅子への移乗で「車椅子を配置する正しい角度」は？", "opts": ["利用者の正面（90°）", "患側に45°", "健側に30-45°", "どこでも同じ"], "a": 2, "e": "車椅子はベッドに対して20〜30度程度の角度で配置するのが一般的とされる。この角度により、移乗時の回転動作が少なく済み、利用者・介助者双方の負担を軽減しながら安全に移乗できる。"}, {"q": "ボディメカニクスで「腰痛予防」に最も重要なことは？", "opts": ["できるだけ速く動く", "重心を低くし、利用者に密着して大きな筋肉を使う", "腕の力だけで持ち上げる", "背中を丸めて作業する"], "a": 1, "e": "ボディメカニクスの核心: 膝を曲げて重心を低く→腰ではなく脚・体幹の筋肉を使う→利用者に近づいてレバーアームを短くする。これが介護士の腰痛予防の基本。"}, {"q": "杖を使用する利用者が階段を「上る」時、正しい順序は？", "opts": ["患側の足→健側の足→杖", "杖→患側の足→健側の足", "健側の足→杖→患側の足", "杖→健側の足→患側の足"], "a": 3, "e": "階段を上るときは「杖→健側の足→患側の足」の順序で進むのが基本。健側（動く方）を先に上げることで、安定した支えを保ちながら安全に一段ずつ昇ることができる。"}, {"q": "移乗時に「端坐位（たんざいい）」で確認すべきことは？", "opts": ["利用者が笑顔かどうか", "両足の足底が床にしっかりついているか", "車椅子の色", "介護士の準備ができているか"], "a": 1, "e": "端坐位では、姿勢の安定性やめまい・ふらつきの有無を確認することが重要。座位が安定していない状態で移乗を進めると、転倒やバランスを崩すリスクが高まるため、事前の確認が欠かせない。"}, {"q": "歩行介助時、介護士が立つ正しい位置は？", "opts": ["利用者の前", "利用者の患側の斜め後方", "利用者の健側の前", "どこでも同じ"], "a": 1, "e": "患側（麻痺側）のやや後方に立つのが正しい位置。この位置により、利用者がバランスを崩した際にすぐに支えることができ、安全な歩行介助を行うことができる。"}, {"q": "ボディメカニクスで「支持基底面を広げる」理由は？", "opts": ["速く動くため", "安定性を高めて腰への負担を減らすため", "利用者を驚かせないため", "見た目を良くするため"], "a": 1, "e": "支持基底面を広げることで、身体の安定性が高まり、介助時の重心が保ちやすくなるため、腰痛予防と安全な介助につながる。足を肩幅程度に開くことで、より安定した姿勢での介助が可能になる。"}, {"q": "「スライディングボード」の主な使用目的は？", "opts": ["マッサージ", "ベッドと車椅子の間を滑らせて移乗する（抱え上げずに）", "血圧測定", "筋力トレーニング"], "a": 1, "e": "スライディングボード=摩擦を減らして利用者が滑るように移乗できる板。抱え上げが不要なためボディメカニクス的に安全。介護士の腰痛予防にも有効。"}, {"q": "「ボディメカニクス」の原則として正しいのは？", "opts": ["腰を丸めてリフトする", "支持基底面を広げ、重心を低くし、身体を近づけて、ねじらずに移動する", "腕の力だけで持ち上げる", "できるだけ速く動く"], "a": 1, "e": "ボディメカニクス6原則：①支持基底面を広げる②重心を低くする③対象物に近づく④大きな筋群を使う⑤ねじらない・回転させる⑥水平移動を活用する。腰痛予防と安全な移乗の基礎。スライディングシートの活用も組み合わせる。"}, {"q": "移乗介助の基本原則はどれか。", "opts": ["ボディメカニクスを使い負担を減らす", "力任せ", "腰をひねる", "急ぐ"], "a": 0, "e": "ボディメカニクスを活用し、介助者・利用者双方に無理な力をかけないことが移乗介助の基本原則。力任せの介助は、腰痛や事故のリスクを高めるため、正しい体の使い方を意識することが重要になる。"}, {"q": "移乗前に必ず確認することはどれか。", "opts": ["ブレーキ・フットレスト・本人の状態", "天気", "時間", "室温"], "a": 0, "e": "車椅子のブレーキがかかっているか、フットレストが上がっているかを移乗前に必ず確認する。これらを怠ると、移乗中に車椅子が動いたり、足が引っかかったりして転倒事故につながる危険がある。"}, {"q": "移乗時に介助者が近づく理由はどれか。", "opts": ["重心を近づけ負担を減らす", "遠いほうが楽", "関係ない", "見た目"], "a": 0, "e": "介助者が利用者に近づくことで、重心の移動距離が短くなり、少ない力で安定した移乗が可能になる。距離が離れていると、余計な力が必要になり、介助者の腰への負担も大きくなってしまう。"}, {"q": "片麻痺のある人の移乗方向で正しいのはどれか。", "opts": ["健側方向へ移す", "患側方向へ", "どちらでも", "立たせない"], "a": 0, "e": "健側（動く方）を軸にして移乗することが正しい方向。患側を軸にすると支えが不十分になり、転倒のリスクが高まるため、本人の残存機能を活かせる健側からの移乗が基本となる。"}, {"q": "移乗時の声かけとして適切なのはどれか。", "opts": ["「立ちますよ」と動作前に伝える", "無言", "急に動かす", "叱る"], "a": 0, "e": "「体を支えますので、ゆっくり立ちましょう」など、これから行う動作を事前に伝える声かけが適切。無言で動かすと、利用者が驚いたり体勢を崩したりする危険があるため、丁寧な声かけが欠かせない。"}, {"q": "スライディングボードの用途はどれか。", "opts": ["座ったまま横移動を助ける", "歩行", "入浴", "食事"], "a": 0, "e": "スライディングボードは、座ったまま滑らせるように移乗するための福祉用具で、立位が困難な利用者の移乗を補助する用途を持つ。介助者の負担軽減と、利用者の安全な移乗を両立させる道具となる。"}, {"q": "移乗で腰痛を防ぐ姿勢はどれか。", "opts": ["膝を曲げ背筋を伸ばす", "腰を曲げる", "膝を伸ばす", "ひねる"], "a": 0, "e": "重心を低くし、利用者に体を近づけた姿勢を保つことが、介助者の腰痛を防ぐ基本。遠くから前かがみで持ち上げようとする姿勢は、腰への負担が大きく、慢性的な腰痛の原因となりやすい。"}, {"q": "全介助の移乗でリフトを使う利点はどれか。", "opts": ["双方の安全と負担軽減", "時間短縮のみ", "装飾", "不要"], "a": 0, "e": "リフトを使うことで、介助者の身体的負担を大幅に軽減しながら、重度の身体機能低下がある利用者でも安全に移乗できるという利点がある。無理な人力での移乗による事故を防ぐ効果的な手段となる。"}, {"q": "移乗介助で残存機能を活かす方法はどれか。", "opts": ["できる動作は本人にしてもらう", "全部介助", "放置", "急がせる"], "a": 0, "e": "本人ができる動作（手すりを持つ、体重を移動する等）は本人に任せ、必要な部分だけを支援することが残存機能を活かす方法。全介助にしてしまうと、機能低下や依存を招く可能性がある。"}, {"q": "移乗後に確認することはどれか。", "opts": ["姿勢の安定と本人の様子", "時計", "天気", "室温"], "a": 0, "e": "移乗後は、姿勢の安定性や、フットレスト・衣服の位置、痛みや不快感の有無を確認することが重要。確認を怠ると、姿勢の崩れによる転落や、気づかないうちの怪我につながる可能性がある。"}, {"q": "立ち上がり介助で促す動作はどれか。", "opts": ["前傾姿勢でお辞儀するように", "後ろに反る", "真上に引く", "ひねる"], "a": 0, "e": "前に体を倒してから立ち上がる動作を促すことが、立ち上がり介助の基本。前傾姿勢を作ることで重心が移動しやすくなり、少ない力でスムーズに立ち上がることができるようになる。"}, {"q": "移乗介助の環境整備として適切なのはどれか。", "opts": ["床の障害物を除き空間を確保", "物を置く", "狭くする", "暗くする"], "a": 0, "e": "障害物を取り除き、ベッドの高さを適切に調整することが移乗介助の環境整備として適切。周囲が整っていないまま移乗を行うと、つまずきや接触による事故のリスクが高まってしまう。"}];var qi=0,ok=0,tot=0;
 function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementById('qc');if(!c)return;var oo=document.createElement('div');oo.className='qopts';q.opts.forEach(function(o,i){var b=document.createElement('button');b.className='qopt';b.textContent=o;b.onclick=function(){ans(b,i,q.a,q.e);};oo.appendChild(b);});var bx=document.createElement('div');bx.className='qbox';var qq=document.createElement('div');qq.className='qq';qq.textContent=(qi%Q.length+1)+'. '+q.q;var ex=document.createElement('div');ex.className='qexp';ex.id='qe';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qs');if(s)s.textContent='Skor: '+ok+'/'+tot;}

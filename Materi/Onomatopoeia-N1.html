@@ -25,12 +25,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,#880e4f,#ad1457);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#880e4f),var(--primary-dark,#ad1457));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
 .bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#880e4f;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#880e4f);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#880e4f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
 .tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
@@ -51,7 +51,7 @@
 .qexp.show{display:block}
 .tab-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
 .tab{padding:7px 16px;border-radius:20px;border:1px solid var(--border-mid);background:var(--cream);cursor:pointer;font-size:.85rem;transition:all .2s}
-.tab.active,.tab:hover{background:#880e4f;color:#fff;border-color:#880e4f}
+.tab.active,.tab:hover{background:var(--primary,#880e4f);color:#fff;border-color:var(--primary,#880e4f)}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Onomatopoeia N1 Lanjutan 擬態語・擬情語 | Nihonggo Pro Academy", "description": "25+ onomatopoeia N1 tingkat lanjut — cara, perasaan, ekspresi wajah, dan nuansa halus dalam bahasa Jepang.", "url": "https://nihonggopro.id/Materi/Onomatopoeia-N1.html", "educationalLevel": "Advanced", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihonggo Pro Academy", "url": "https://nihonggopro.id"}, "image": "https://nihonggopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/np-xp.js" defer></script>
@@ -87,7 +87,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#880e4f;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#880e4f);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
@@ -107,11 +107,11 @@ function renderOno(){
   items.forEach(function(o){
     var d=document.createElement('div');
     d.style.cssText='background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:14px;cursor:pointer;transition:all .2s;text-align:center;margin-bottom:10px';
-    d.onmouseover=function(){this.style.borderColor='#880e4f';this.style.boxShadow='0 2px 8px rgba(136,14,79,.15)';}
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#880e4f)';this.style.boxShadow='0 2px 8px rgba(136,14,79,.15)';}
     d.onmouseout=function(){this.style.borderColor='var(--border-light)';this.style.boxShadow='none';}
-    var inner='<div style="font-size:1.3rem;font-weight:700;color:#880e4f">'+o.w+'</div>';
+    var inner='<div style="font-size:1.3rem;font-weight:700;color:var(--primary,#880e4f)">'+o.w+'</div>';
     inner+='<div style="font-size:.78rem;color:var(--ink-mid);margin:2px 0">'+o.r+'</div>';
-    inner+='<span style="display:inline-block;font-size:.7rem;background:#fce4ec;color:#880e4f;padding:2px 8px;border-radius:10px;margin:4px 0">'+getType(o.tp)+'</span>';
+    inner+='<span style="display:inline-block;font-size:.7rem;background:#fce4ec;color:var(--primary,#880e4f);padding:2px 8px;border-radius:10px;margin:4px 0">'+getType(o.tp)+'</span>';
     inner+='<div class="det" style="display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.85rem;color:var(--ink)">';
     inner+='🇮🇩 '+o.id+'<br><small style="color:var(--ink-mid)">📝 '+o.ex+'</small></div>';
     d.innerHTML=inner;

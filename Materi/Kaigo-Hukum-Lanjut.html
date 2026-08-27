@@ -26,9 +26,9 @@ var pgv=document.getElementById('pg');
 if(pgv)PH_VOCAB.forEach(function(p){var d=document.createElement('div');d.className='pv';
 d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
 +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-+'<div style="font-size:.85rem;color:#37474f">🇮🇩 '+p[2]+'</div>';
++'<div style="font-size:.85rem;color:var(--primary,#37474f)">🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';
-btn.style.cssText='border:none;background:#37474f;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
+btn.style.cssText='border:none;background:var(--primary,#37474f);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendChild(d);});
 });
 </script>
@@ -43,12 +43,12 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#37474f,#546e7a);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#37474f),var(--primary-dark,#546e7a));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
 .sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#37474f;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#37474f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
 .tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
@@ -122,14 +122,14 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 
 <div style="max-width:900px;margin:0 auto;padding:0 20px">
 <div style="background:#fff;border:1px solid rgba(55,71,79,.1);border-radius:12px;padding:16px;margin:12px 0">
-<h3 style="color:#37474f;margin:0 0 10px;font-size:1rem">⚖️ 介護福祉士 — 資格と倫理</h3>
+<h3 style="color:var(--primary,#37474f);margin:0 0 10px;font-size:1rem">⚖️ 介護福祉士 — 資格と倫理</h3>
 <table style="width:100%;border-collapse:collapse;font-size:.84rem">
 <tr style="background:rgba(0,0,0,.05)"><th style="padding:7px 10px;text-align:left">項目</th><th style="padding:7px 10px;text-align:left">内容</th></tr>
 <tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">資格の種類</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">介護福祉士(国家資格)・介護職員初任者研修・実務者研修</td></tr>
 <tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">義務</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">誠実義務・守秘義務・資質向上義務・連携義務</td></tr>
 <tr><td style="padding:7px 10px">倫理綱領</td><td style="padding:7px 10px">利用者の尊厳・自立支援・プライバシー保護・差別禁止</td></tr>
 </table></div></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#37474f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 
 
@@ -140,7 +140,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#37474f;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#37474f);color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
@@ -219,7 +219,7 @@ function nQ(){qi=(qi+1)%Q.length;rnd();} function rQ(){qi=0;ok=0;tot=0;rnd();}
 rnd();
 </script><section style="max-width:900px;margin:0 auto;padding:0 20px 0">
 <div style="background:#fff;border:1px solid rgba(55,71,79,.1);border-radius:12px;padding:18px;margin:12px 0">
-<h3 style="color:#37474f;margin:0 0 12px;font-size:1rem">⚖️ 介護に関わる主要法律まとめ</h3>
+<h3 style="color:var(--primary,#37474f);margin:0 0 12px;font-size:1rem">⚖️ 介護に関わる主要法律まとめ</h3>
 <table style="width:100%;border-collapse:collapse;font-size:.84rem">
 <tr style="background:rgba(0,0,0,.05)"><th style="padding:7px 10px;text-align:left">法律</th><th style="padding:7px 10px;text-align:left">主な内容</th><th style="padding:7px 10px;text-align:left">施行</th></tr>
 <tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">介護保険法</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">介護保険制度の根拠法・要介護認定・サービス</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">2000年</td></tr>
@@ -229,10 +229,10 @@ rnd();
 </table></div></section>
 
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
-<h2 style="font-size:1.1rem;font-weight:700;color:#37474f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
+<h2 style="font-size:1.1rem;font-weight:700;color:var(--primary,#37474f);margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>
 <div id="qkZ"></div>
 <div style="display:flex;gap:10px;margin-top:12px">
-<button onclick="nQkZ()" style="flex:1;padding:11px;background:#37474f;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQkZ()" style="flex:1;padding:11px;background:var(--primary,#37474f);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQkZ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">🔄 Reset</button>
 </div>
 <p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:8px">Skor: 0/0</p>
@@ -251,7 +251,7 @@ function rndZ(){
     b.onmouseout=function(){if(!this.dataset.d)this.style.background='#fff';};
     b.onclick=function(){ansZ(b,i,q.a,q.e);};oo.appendChild(b);});
   var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';
-  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:#37474f;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
+  var qn=document.createElement('div');qn.style.cssText='font-size:.72rem;background:var(--primary,#37474f);color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px';
   qn.textContent='Soal '+(qiZ%QKZ.length+1)+' / '+QKZ.length;
   var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;
   var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';

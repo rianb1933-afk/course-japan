@@ -28,8 +28,8 @@ document.addEventListener('DOMContentLoaded', function(){
 var PH_VOCAB=[["尊厳", "songen", "martabat / dignity"], ["自立", "jiritsu", "kemandirian"], ["自律", "jiritsu", "otonomi / menentukan diri"], ["権利擁護", "kenri yogo", "advokasi hak"], ["インフォームドコンセント", "informed consent", "persetujuan berdasar informasi"], ["意思決定支援", "ishi kettei shien", "dukungan pengambilan keputusan"], ["バイスティック", "baisutikku", "prinsip Biestek"], ["成年後見制度", "seinen koiken seido", "sistem perwalian dewasa"]];
 (function(){var pg=document.getElementById('pgv');if(!pg)return;PH_VOCAB.forEach(function(p){
 var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.76rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.86rem;color:#1a237e">🇮🇩 '+p[2]+'</div>';
-var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:#1a237e;color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;margin-top:6px';
+d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.76rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.86rem;color:var(--primary,#1a237e)">🇮🇩 '+p[2]+'</div>';
+var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:var(--primary,#1a237e);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});})();
 });
 </script>
@@ -44,51 +44,51 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:920px;margin:0 auto;padding:0 20px 48px}
-.hero{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;padding:56px 20px 36px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#1a237e),var(--primary-dark,#283593));color:#fff;padding:56px 20px 36px;text-align:center}
 .hero h1{font-size:clamp(1.5rem,3.5vw,2.2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif;line-height:1.3}
 .badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:14px}
 .hero-sub{font-size:.9rem;opacity:.85;margin-top:6px}
-.st{font-size:1.2rem;font-weight:700;color:#1a237e;margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e8eaf6}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#1a237e);margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e8eaf6}
 .sec{background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:14px 0;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-.sec h3{color:#1a237e;margin:0 0 12px;font-size:1rem;font-weight:700}
-.sec h4{color:#1a237e;margin:16px 0 8px;font-size:.95rem;font-weight:600}
+.sec h3{color:var(--primary,#1a237e);margin:0 0 12px;font-size:1rem;font-weight:700}
+.sec h4{color:var(--primary,#1a237e);margin:16px 0 8px;font-size:.95rem;font-weight:600}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:10px 0}
-.tbl th{padding:10px 12px;text-align:left;font-size:.78rem;background:#e8eaf6;color:#1a237e;font-weight:700}
+.tbl th{padding:10px 12px;text-align:left;font-size:.78rem;background:#e8eaf6;color:var(--primary,#1a237e);font-weight:700}
 .tbl td{padding:9px 12px;border-bottom:1px solid var(--border-light);vertical-align:top;line-height:1.6}
 .tbl tr:nth-child(even) td{background:rgba(0,0,0,.015)}
 .tbl tr:hover td{background:#e8eaf655}
-.tip{background:#e8eaf6;border-left:4px solid #1a237e;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.87rem;margin:14px 0;line-height:1.7}
+.tip{background:#e8eaf6;border-left:4px solid var(--primary,#1a237e);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.87rem;margin:14px 0;line-height:1.7}
 .warn{background:#fff3e0;border-left:4px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.87rem;margin:14px 0;line-height:1.7}
 .danger{background:#ffebee;border-left:4px solid #e53935;padding:14px 16px;border-radius:0 10px 10px 0;font-size:.88rem;margin:14px 0;font-weight:500;line-height:1.7}
 .steps{counter-reset:step;list-style:none;padding:0;margin:12px 0}
 .steps li{counter-increment:step;display:flex;gap:14px;margin-bottom:12px;align-items:flex-start;font-size:.9rem;line-height:1.6}
-.steps li::before{content:counter(step);min-width:28px;height:28px;border-radius:50%;background:#1a237e;color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:1px}
+.steps li::before{content:counter(step);min-width:28px;height:28px;border-radius:50%;background:var(--primary,#1a237e);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:1px}
 .g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
 .card{background:var(--white);border:2px solid #e8eaf6;border-radius:12px;padding:16px}
-.card-t{font-weight:700;color:#1a237e;font-size:.95rem;margin-bottom:8px}
+.card-t{font-weight:700;color:var(--primary,#1a237e);font-size:.95rem;margin-bottom:8px}
 .card-b{font-size:.86rem;line-height:1.7;color:var(--ink)}
-.card-tag{display:inline-block;background:#1a237e;color:#fff;font-size:.72rem;padding:2px 8px;border-radius:10px;margin-bottom:8px}
+.card-tag{display:inline-block;background:var(--primary,#1a237e);color:#fff;font-size:.72rem;padding:2px 8px;border-radius:10px;margin-bottom:8px}
 .dl{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
 .spk{min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;margin-top:2px;flex-shrink:0}
 .jp{font-size:.92rem;font-weight:500;color:var(--ink);line-height:1.6}
 .id-txt{font-size:.8rem;color:var(--ink-mid);margin-top:3px}
-.tts-btn{border:none;background:#1a237e;color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-left:6px;vertical-align:middle}
+.tts-btn{border:none;background:var(--primary,#1a237e);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-left:6px;vertical-align:middle}
 .dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-.dialog-title{font-size:.95rem;font-weight:700;color:#1a237e;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #e8eaf6}
+.dialog-title{font-size:.95rem;font-weight:700;color:var(--primary,#1a237e);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #e8eaf6}
 .pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:14px 0}
 .pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:13px 15px}
 .pv-jp{font-size:.95rem;font-weight:600;color:var(--ink)}
 .pv-ro{font-size:.76rem;color:var(--ink-mid);margin:2px 0}
-.pv-id{font-size:.86rem;color:#1a237e}
-.pv-btn{border:none;background:#1a237e;color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:7px}
+.pv-id{font-size:.86rem;color:var(--primary,#1a237e)}
+.pv-btn{border:none;background:var(--primary,#1a237e);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:7px}
 .qbox{background:#e8eaf6;border-radius:14px;padding:22px;margin:20px 0}
 .qq{font-weight:600;margin-bottom:14px;font-size:.95rem;line-height:1.6}
 .qopts{display:grid;gap:9px}
 .qopt{background:var(--white);border:1.5px solid var(--border-mid);border-radius:9px;padding:11px 15px;cursor:pointer;font-size:.9rem;transition:all .2s;width:100%;text-align:left;font-family:inherit;line-height:1.5}
-.qopt:hover{background:#e8eaf6;border-color:#1a237e}
+.qopt:hover{background:#e8eaf6;border-color:var(--primary,#1a237e)}
 .qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
 .qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:10px;padding:12px 14px;background:var(--white);border-radius:9px;font-size:.86rem;color:var(--ink-mid);display:none;line-height:1.7;border-left:3px solid #1a237e}
+.qexp{margin-top:10px;padding:12px 14px;background:var(--white);border-radius:9px;font-size:.86rem;color:var(--ink-mid);display:none;line-height:1.7;border-left:3px solid var(--primary,#1a237e)}
 .qexp.show{display:block}
 </style>
 <script type="application/ld+json">{
@@ -190,44 +190,44 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 </div>
 <h2 class="st">💬 Dialog 人間の尊厳と自立</h2>
 <div class="dialog-card"><div class="dialog-title">🧑‍💼 Dialog 1 — 自己決定権の尊重</div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:#1a237e">介護士</span>
+  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">介護士</span>
   <div><div class="jp">田中さん、今日の入浴はシャワーにしますか？それとも湯船につかりますか？ <button aria-label="Ucapkan: 田中さん、今日の入浴はシャワーにしますか？それとも湯船につか…" class="tts-btn" onclick="speak('田中さん、今日の入浴はシャワーにしますか？それとも湯船につかりますか？')">🔊</button></div><div class="id-txt">Bu Tanaka, mandi hari ini mau shower atau berendam?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:#1a237e">田中さん</span>
+  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">田中さん</span>
   <div><div class="jp">湯船がいいですね。でも迷惑じゃないですか？ <button aria-label="Ucapkan: 湯船がいいですね。でも迷惑じゃないですか？" class="tts-btn" onclick="speak('湯船がいいですね。でも迷惑じゃないですか？')">🔊</button></div><div class="id-txt">Berendam mau. Tapi tidak merepotkan?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:#1a237e">介護士</span>
+  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">介護士</span>
   <div><div class="jp">全然迷惑ではないですよ。田中さんの希望が一番大切ですから。準備しますね。 <button aria-label="Ucapkan: 全然迷惑ではないですよ。田中さんの希望が一番大切ですから。準…" class="tts-btn" onclick="speak('全然迷惑ではないですよ。田中さんの希望が一番大切ですから。準備しますね。')">🔊</button></div><div class="id-txt">Sama sekali tidak. Keinginan Bu Tanaka adalah yang terpenting. Saya siapkan ya.</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">⚖️ Dialog 2 — 身体拘束の検討場面</div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:#1a237e">介護士</span>
+  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">介護士</span>
   <div><div class="jp">主任、山田様が夜間に起き上がって転倒しそうになります。ベッド柵をつけてもいいですか？ <button aria-label="Ucapkan: 主任、山田様が夜間に起き上がって転倒しそうになります。ベッド…" class="tts-btn" onclick="speak('主任、山田様が夜間に起き上がって転倒しそうになります。ベッド柵をつけてもいいですか？')">🔊</button></div><div class="id-txt">Kepala, Pak Yamada malam sering duduk dan hampir jatuh. Boleh pasang pagar tempat tidur?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:#1a237e">主任</span>
+  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">主任</span>
   <div><div class="jp">まず代替手段を考えましょう。低床ベッドへの変更や、センサーマットの設置はどうでしょうか。 <button aria-label="Ucapkan: まず代替手段を考えましょう。低床ベッドへの変更や、センサーマ…" class="tts-btn" onclick="speak('まず代替手段を考えましょう。低床ベッドへの変更や、センサーマットの設置はどうでしょうか。')">🔊</button></div><div class="id-txt">Pertama pikirkan alternatif. Bagaimana kalau ganti ke tempat tidur rendah, atau pasang matras sensor?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:#1a237e">主任</span>
+  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">主任</span>
   <div><div class="jp">身体拘束は切迫性・非代替性・一時性の3要件と家族の同意が揃った場合のみ検討できます。 <button aria-label="Ucapkan: 身体拘束は切迫性・非代替性・一時性の3要件と家族の同意が揃っ…" class="tts-btn" onclick="speak('身体拘束は切迫性・非代替性・一時性の3要件と家族の同意が揃った場合のみ検討できます。')">🔊</button></div><div class="id-txt">Restriksi fisik hanya bisa dipertimbangkan jika 3 syarat terpenuhi dan ada persetujuan keluarga.</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">💬 Dialog 3 — パターナリズムを避ける</div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:#1a237e">ご家族</span>
+  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">ご家族</span>
   <div><div class="jp">母は認知症だから、施設入居を勝手に決めてもいいですよね？ <button aria-label="Ucapkan: 母は認知症だから、施設入居を勝手に決めてもいいですよね？" class="tts-btn" onclick="speak('母は認知症だから、施設入居を勝手に決めてもいいですよね？')">🔊</button></div><div class="id-txt">Ibu punya demensia, jadi boleh kami putuskan sendiri soal masuk fasilitas?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:#1a237e">介護士</span>
+  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">介護士</span>
   <div><div class="jp">お気持ちはよくわかります。ただ、お母様にも意思があります。認知症でも、できる限りご本人の意向を確認することが大切です。 <button aria-label="Ucapkan: お気持ちはよくわかります。ただ、お母様にも意思があります。認…" class="tts-btn" onclick="speak('お気持ちはよくわかります。ただ、お母様にも意思があります。認知症でも、できる限りご本人の意向を確認することが大切です。')">🔊</button></div><div class="id-txt">Saya mengerti perasaan Anda. Tapi ibu juga punya kehendak. Meski ada demensia, penting untuk tetap mengkonfirmasi keinginan beliau sebisa mungkin.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:#1a237e">ご家族</span>
+  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">ご家族</span>
   <div><div class="jp">そうですね、一緒に話し合ってみます。 <button aria-label="Ucapkan: そうですね、一緒に話し合ってみます。" class="tts-btn" onclick="speak('そうですね、一緒に話し合ってみます。')">🔊</button></div><div class="id-txt">Betul ya, coba kami ajak diskusi bersama.</div></div>
 </div></div>
 
 <h2 class="st">📚 Kosakata 人間の尊厳と自立</h2>
 <div class="pg-vocab" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:#1a237e;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#1a237e);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pgv"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:14px">
-<button onclick="nQ()" style="flex:1;padding:13px;background:#1a237e;color:#fff;border:none;border-radius:11px;cursor:pointer;font-family:inherit;font-size:.95rem;font-weight:600">次の問題 →</button>
+<button onclick="nQ()" style="flex:1;padding:13px;background:var(--primary,#1a237e);color:#fff;border:none;border-radius:11px;cursor:pointer;font-family:inherit;font-size:.95rem;font-weight:600">次の問題 →</button>
 <button onclick="rQ()" style="padding:13px 22px;background:var(--cream);border:1px solid var(--border-mid);border-radius:11px;cursor:pointer;font-family:inherit">リセット</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:10px">Skor: 0/0</p>

@@ -24,12 +24,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#1565c0,#1976d2);color:#fff;padding:44px 20px 28px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#1565c0),var(--primary-dark,#1976d2));color:#fff;padding:44px 20px 28px;text-align:center}
 .hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:10px}
 .sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#1565c0;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.1rem;font-weight:700;color:#1565c0;margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#1565c0);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.1rem;font-weight:700;color:var(--primary,#1565c0);margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
 .tbl th{padding:7px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)}
@@ -76,7 +76,7 @@
 
 <div style="max-width:900px;margin:0 auto;padding:0 20px">
 <div style="background:#fff;border:1px solid rgba(21,101,192,.08);border-radius:12px;padding:16px;margin:12px 0">
-<h3 style="color:#1565c0;margin:0 0 10px;font-size:1rem">🔗 Pasangan Kata N4 yang Sering Dipakai Bersama</h3>
+<h3 style="color:var(--primary,#1565c0);margin:0 0 10px;font-size:1rem">🔗 Pasangan Kata N4 yang Sering Dipakai Bersama</h3>
 <table style="width:100%;border-collapse:collapse;font-size:.84rem">
 <tr style="background:rgba(0,0,0,.05)"><th style="padding:7px 10px;text-align:left">Kata</th><th style="padding:7px 10px;text-align:left">Kolokasi Umum</th></tr>
 <tr><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">目標(もくひょう)</td><td style="padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)">目標を<b>設定する</b> / 目標を<b>達成する</b> / 目標に<b>向かう</b></td></tr>
@@ -87,7 +87,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:10px;margin-top:10px">
-<button onclick="nQ()" style="flex:1;padding:11px;background:#1565c0;color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:11px;background:var(--primary,#1565c0);color:#fff;border:none;border-radius:8px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:11px 18px;background:#f5f5f5;border:1px solid #ddd;border-radius:8px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
@@ -103,8 +103,8 @@ function renderN4(s){var items=s?N4D.filter(function(v){return v[0].includes(s)|
 var g=document.getElementById('n4Grid');if(!g)return;g.innerHTML='';
 items.forEach(function(v){var d=document.createElement('div');
 d.style.cssText='background:#fff;border:1px solid rgba(21,101,192,.1);border-radius:8px;padding:10px;cursor:pointer;transition:all .2s';
-d.onmouseover=function(){this.style.borderColor='#1565c0';};d.onmouseout=function(){this.style.borderColor='rgba(21,101,192,.1)';};
-d.innerHTML='<div style="font-size:1rem;font-weight:700;color:#1565c0">'+v[0]+'</div>'
+d.onmouseover=function(){this.style.borderColor='var(--primary,#1565c0)';};d.onmouseout=function(){this.style.borderColor='rgba(21,101,192,.1)';};
+d.innerHTML='<div style="font-size:1rem;font-weight:700;color:var(--primary,#1565c0)">'+v[0]+'</div>'
 +'<div style="font-size:.72rem;color:#888;margin:1px 0">'+v[1]+'</div>'
 +'<div style="font-size:.82rem;color:#333">🇮🇩 '+v[2]+'</div>';
 g.appendChild(d);});};

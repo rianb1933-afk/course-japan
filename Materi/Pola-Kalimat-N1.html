@@ -25,12 +25,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,#4a148c,#6a1b9a);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#4a148c),var(--primary-dark,#6a1b9a));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
 .bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
 .sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#4a148c;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#4a148c;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#4a148c);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
 .tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
@@ -75,7 +75,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#4a148c;color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#4a148c);color:#fff;border:none;border-radius:10px;cursor:pointer">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px;cursor:pointer">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
@@ -91,10 +91,10 @@ function renderPK1(){
   PK1D.forEach(function(d){
     var el=document.createElement('div');
     el.style.cssText='background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:16px;cursor:pointer;transition:all .2s';
-    el.onmouseover=function(){this.style.boxShadow='0 2px 12px rgba(74,20,140,.15)';this.style.borderColor='#4a148c';};
+    el.onmouseover=function(){this.style.boxShadow='0 2px 12px rgba(74,20,140,.15)';this.style.borderColor='var(--primary,#4a148c)';};
     el.onmouseout=function(){this.style.boxShadow='none';this.style.borderColor='var(--border-light)';};
     var det='<div style="display:none;margin-top:10px;padding-top:10px;border-top:1px dashed var(--border-light);font-size:.82rem;color:var(--ink-mid)">📝 '+d.ex+'<br><small style="color:var(--matcha)">💡 '+d.note+'</small></div>';
-    el.innerHTML='<div style="font-size:1.05rem;font-weight:700;color:#4a148c;margin-bottom:6px">'+d.p+'</div>'
+    el.innerHTML='<div style="font-size:1.05rem;font-weight:700;color:var(--primary,#4a148c);margin-bottom:6px">'+d.p+'</div>'
       +'<div style="font-size:.88rem;color:var(--ink-mid)">🇮🇩 '+d.id+'</div>'+det;
     el.onclick=function(){var det=this.querySelector('div[style*="display:none"]');if(det)det.style.display=det.style.display==='none'?'block':'none';};
     g.appendChild(el);

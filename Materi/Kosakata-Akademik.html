@@ -24,12 +24,12 @@
 <script src="../assets/anime-theme.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,#1a237e,#283593);color:#fff;padding:48px 20px 32px;text-align:center}
+.hero{background:linear-gradient(135deg,var(--primary,#1a237e),var(--primary-dark,#283593));color:#fff;padding:48px 20px 32px;text-align:center}
 .hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
 .bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
 .sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:#1a237e;margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:#1a237e;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
+.sec h3{color:var(--primary,#1a237e);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#1a237e);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
 .tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
 .tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
 .tbl td{padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06)}
@@ -76,7 +76,7 @@
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
 <div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" style="flex:1;padding:12px;background:#1a237e;color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
+<button onclick="nQ()" style="flex:1;padding:12px;background:var(--primary,#1a237e);color:#fff;border:none;border-radius:10px;cursor:pointer;font-family:inherit;font-weight:600">Soal Berikutnya →</button>
 <button onclick="rQ()" style="padding:12px 20px;background:#f5f5f5;border:1px solid #ddd;border-radius:10px;cursor:pointer;font-family:inherit">Reset</button>
 </div>
 <p id="qs" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
@@ -87,7 +87,7 @@ function rnd(){if(!Q.length)return;var q=Q[qi%Q.length],c=document.getElementByI
 function ans(b,c,a,e){var bs=document.querySelectorAll(".qopt");if(bs[a].dataset.d)return;bs[a].dataset.d="1";tot++;bs[a].classList.add("correct");if(c!==a)b.classList.add("wrong");else ok++;var ex=document.getElementById("qe");if(ex){ex.textContent="💡 "+e;ex.classList.add("show");}var s=document.getElementById("qs");if(s)s.textContent="Skor: "+ok+"/"+tot;}
 function nQ(){qi=(qi+1)%Q.length;var AKD=[{"jp": "概念", "r": "がいねん", "id": "konsep; gagasan abstrak", "ex": "新しい概念を提示する。", "cat": "研究"}, {"jp": "仮説", "r": "かせつ", "id": "hipotesis; dugaan sementara", "ex": "仮説を立てて検証する。", "cat": "研究"}, {"jp": "実証", "r": "じっしょう", "id": "pembuktian empiris; verifikasi", "ex": "理論を実証する実験。", "cat": "研究"}, {"jp": "論証", "r": "ろんしょう", "id": "argumentasi logis; pembuktian", "ex": "論証によって結論を導く。", "cat": "論理"}, {"jp": "考察", "r": "こうさつ", "id": "pertimbangan; analisis mendalam", "ex": "結果について考察する。", "cat": "研究"}, {"jp": "含意", "r": "がんい", "id": "implikasi; makna tersirat", "ex": "この発言の含意を読み取る。", "cat": "論理"}, {"jp": "前提", "r": "ぜんてい", "id": "premis; asumsi dasar", "ex": "議論の前提を確認する。", "cat": "論理"}, {"jp": "帰結", "r": "きけつ", "id": "konsekuensi; hasil yang mengikuti", "ex": "論理的帰結として〜である。", "cat": "論理"}, {"jp": "批判的", "r": "ひはんてき", "id": "kritis; analytical", "ex": "批判的に思考する能力。", "cat": "思考"}, {"jp": "客観的", "r": "きゃっかんてき", "id": "objektif; tidak bias", "ex": "客観的な視点で分析する。", "cat": "思考"}, {"jp": "主観的", "r": "しゅかんてき", "id": "subjektif; berdasar pendapat pribadi", "ex": "主観的な判断を避ける。", "cat": "思考"}, {"jp": "抽象的", "r": "ちゅうしょうてき", "id": "abstrak; tidak konkret", "ex": "抽象的な概念を具体化する。", "cat": "思考"}, {"jp": "体系的", "r": "たいけいてき", "id": "sistematis; terstruktur", "ex": "体系的に整理する。", "cat": "方法"}, {"jp": "網羅的", "r": "もうらてき", "id": "komprehensif; mencakup semua", "ex": "網羅的な調査を行う。", "cat": "方法"}, {"jp": "相関", "r": "そうかん", "id": "korelasi; hubungan timbal balik", "ex": "二つの変数の相関を調べる。", "cat": "統計"}];var akc='全部';
 function filterAK(){var s=document.getElementById('aksrch').value.toLowerCase();renderAK(s);}
-function setAKC(c,btn){akc=c;document.querySelectorAll('#akCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='#1a237e';btn.style.color='#fff';renderAK('');}
+function setAKC(c,btn){akc=c;document.querySelectorAll('#akCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='var(--primary,#1a237e)';btn.style.color='#fff';renderAK('');}
 function renderAK(s){
   var items=akc==='全部'?AKD:AKD.filter(function(v){return v.cat===akc;});
   if(s)items=items.filter(function(v){return v.jp.includes(s)||v.r.includes(s)||v.id.toLowerCase().includes(s);});
@@ -95,10 +95,10 @@ function renderAK(s){
   items.forEach(function(v){
     var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(26,35,126,.12);border-radius:10px;padding:12px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#1a237e';};
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#1a237e)';};
     d.onmouseout=function(){this.style.borderColor='rgba(26,35,126,.12)';};
-    d.innerHTML='<span style="font-size:.7rem;background:#e8eaf6;color:#1a237e;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
-      +'<div style="font-size:1rem;font-weight:700;color:#1a237e">'+v.jp+'</div>'
+    d.innerHTML='<span style="font-size:.7rem;background:#e8eaf6;color:var(--primary,#1a237e);padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
+      +'<div style="font-size:1rem;font-weight:700;color:var(--primary,#1a237e)">'+v.jp+'</div>'
       +'<div style="font-size:.75rem;color:#888;margin:2px 0">'+v.r+'</div>'
       +'<div style="font-size:.85rem;color:#333">🇮🇩 '+v.id+'</div>'
       +'<div style="display:none;margin-top:6px;font-size:.78rem;color:#666">📝 '+v.ex+'</div>';
@@ -111,14 +111,14 @@ function renderAK(s){
   var cr=document.getElementById('akCatRow');
   cats.forEach(function(c,i){
     var btn=document.createElement('button');
-    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'#1a237e':'#ddd')+';background:'+(i===0?'#1a237e':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem';
+    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'var(--primary,#1a237e)':'#ddd')+';background:'+(i===0?'var(--primary,#1a237e)':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem';
     btn.textContent=c;btn.onclick=function(){setAKC(c,this);};cr.appendChild(btn);
   });
   renderAK('');
 })();
 rnd();} function rQ(){qi=0;ok=0;tot=0;var AKD=[{"jp": "概念", "r": "がいねん", "id": "konsep; gagasan abstrak", "ex": "新しい概念を提示する。", "cat": "研究"}, {"jp": "仮説", "r": "かせつ", "id": "hipotesis; dugaan sementara", "ex": "仮説を立てて検証する。", "cat": "研究"}, {"jp": "実証", "r": "じっしょう", "id": "pembuktian empiris; verifikasi", "ex": "理論を実証する実験。", "cat": "研究"}, {"jp": "論証", "r": "ろんしょう", "id": "argumentasi logis; pembuktian", "ex": "論証によって結論を導く。", "cat": "論理"}, {"jp": "考察", "r": "こうさつ", "id": "pertimbangan; analisis mendalam", "ex": "結果について考察する。", "cat": "研究"}, {"jp": "含意", "r": "がんい", "id": "implikasi; makna tersirat", "ex": "この発言の含意を読み取る。", "cat": "論理"}, {"jp": "前提", "r": "ぜんてい", "id": "premis; asumsi dasar", "ex": "議論の前提を確認する。", "cat": "論理"}, {"jp": "帰結", "r": "きけつ", "id": "konsekuensi; hasil yang mengikuti", "ex": "論理的帰結として〜である。", "cat": "論理"}, {"jp": "批判的", "r": "ひはんてき", "id": "kritis; analytical", "ex": "批判的に思考する能力。", "cat": "思考"}, {"jp": "客観的", "r": "きゃっかんてき", "id": "objektif; tidak bias", "ex": "客観的な視点で分析する。", "cat": "思考"}, {"jp": "主観的", "r": "しゅかんてき", "id": "subjektif; berdasar pendapat pribadi", "ex": "主観的な判断を避ける。", "cat": "思考"}, {"jp": "抽象的", "r": "ちゅうしょうてき", "id": "abstrak; tidak konkret", "ex": "抽象的な概念を具体化する。", "cat": "思考"}, {"jp": "体系的", "r": "たいけいてき", "id": "sistematis; terstruktur", "ex": "体系的に整理する。", "cat": "方法"}, {"jp": "網羅的", "r": "もうらてき", "id": "komprehensif; mencakup semua", "ex": "網羅的な調査を行う。", "cat": "方法"}, {"jp": "相関", "r": "そうかん", "id": "korelasi; hubungan timbal balik", "ex": "二つの変数の相関を調べる。", "cat": "統計"}];var akc='全部';
 function filterAK(){var s=document.getElementById('aksrch').value.toLowerCase();renderAK(s);}
-function setAKC(c,btn){akc=c;document.querySelectorAll('#akCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='#1a237e';btn.style.color='#fff';renderAK('');}
+function setAKC(c,btn){akc=c;document.querySelectorAll('#akCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='var(--primary,#1a237e)';btn.style.color='#fff';renderAK('');}
 function renderAK(s){
   var items=akc==='全部'?AKD:AKD.filter(function(v){return v.cat===akc;});
   if(s)items=items.filter(function(v){return v.jp.includes(s)||v.r.includes(s)||v.id.toLowerCase().includes(s);});
@@ -126,10 +126,10 @@ function renderAK(s){
   items.forEach(function(v){
     var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(26,35,126,.12);border-radius:10px;padding:12px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#1a237e';};
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#1a237e)';};
     d.onmouseout=function(){this.style.borderColor='rgba(26,35,126,.12)';};
-    d.innerHTML='<span style="font-size:.7rem;background:#e8eaf6;color:#1a237e;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
-      +'<div style="font-size:1rem;font-weight:700;color:#1a237e">'+v.jp+'</div>'
+    d.innerHTML='<span style="font-size:.7rem;background:#e8eaf6;color:var(--primary,#1a237e);padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
+      +'<div style="font-size:1rem;font-weight:700;color:var(--primary,#1a237e)">'+v.jp+'</div>'
       +'<div style="font-size:.75rem;color:#888;margin:2px 0">'+v.r+'</div>'
       +'<div style="font-size:.85rem;color:#333">🇮🇩 '+v.id+'</div>'
       +'<div style="display:none;margin-top:6px;font-size:.78rem;color:#666">📝 '+v.ex+'</div>';
@@ -142,7 +142,7 @@ function renderAK(s){
   var cr=document.getElementById('akCatRow');
   cats.forEach(function(c,i){
     var btn=document.createElement('button');
-    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'#1a237e':'#ddd')+';background:'+(i===0?'#1a237e':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem';
+    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'var(--primary,#1a237e)':'#ddd')+';background:'+(i===0?'var(--primary,#1a237e)':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem';
     btn.textContent=c;btn.onclick=function(){setAKC(c,this);};cr.appendChild(btn);
   });
   renderAK('');
@@ -150,7 +150,7 @@ function renderAK(s){
 rnd();}
 var AKD=[{"jp": "概念", "r": "がいねん", "id": "konsep; gagasan abstrak", "ex": "新しい概念を提示する。", "cat": "研究"}, {"jp": "仮説", "r": "かせつ", "id": "hipotesis; dugaan sementara", "ex": "仮説を立てて検証する。", "cat": "研究"}, {"jp": "実証", "r": "じっしょう", "id": "pembuktian empiris; verifikasi", "ex": "理論を実証する実験。", "cat": "研究"}, {"jp": "論証", "r": "ろんしょう", "id": "argumentasi logis; pembuktian", "ex": "論証によって結論を導く。", "cat": "論理"}, {"jp": "考察", "r": "こうさつ", "id": "pertimbangan; analisis mendalam", "ex": "結果について考察する。", "cat": "研究"}, {"jp": "含意", "r": "がんい", "id": "implikasi; makna tersirat", "ex": "この発言の含意を読み取る。", "cat": "論理"}, {"jp": "前提", "r": "ぜんてい", "id": "premis; asumsi dasar", "ex": "議論の前提を確認する。", "cat": "論理"}, {"jp": "帰結", "r": "きけつ", "id": "konsekuensi; hasil yang mengikuti", "ex": "論理的帰結として〜である。", "cat": "論理"}, {"jp": "批判的", "r": "ひはんてき", "id": "kritis; analytical", "ex": "批判的に思考する能力。", "cat": "思考"}, {"jp": "客観的", "r": "きゃっかんてき", "id": "objektif; tidak bias", "ex": "客観的な視点で分析する。", "cat": "思考"}, {"jp": "主観的", "r": "しゅかんてき", "id": "subjektif; berdasar pendapat pribadi", "ex": "主観的な判断を避ける。", "cat": "思考"}, {"jp": "抽象的", "r": "ちゅうしょうてき", "id": "abstrak; tidak konkret", "ex": "抽象的な概念を具体化する。", "cat": "思考"}, {"jp": "体系的", "r": "たいけいてき", "id": "sistematis; terstruktur", "ex": "体系的に整理する。", "cat": "方法"}, {"jp": "網羅的", "r": "もうらてき", "id": "komprehensif; mencakup semua", "ex": "網羅的な調査を行う。", "cat": "方法"}, {"jp": "相関", "r": "そうかん", "id": "korelasi; hubungan timbal balik", "ex": "二つの変数の相関を調べる。", "cat": "統計"}];var akc='全部';
 function filterAK(){var s=document.getElementById('aksrch').value.toLowerCase();renderAK(s);}
-function setAKC(c,btn){akc=c;document.querySelectorAll('#akCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='#1a237e';btn.style.color='#fff';renderAK('');}
+function setAKC(c,btn){akc=c;document.querySelectorAll('#akCatRow button').forEach(function(b){b.style.background='#f5f5f5';b.style.color='#333';});btn.style.background='var(--primary,#1a237e)';btn.style.color='#fff';renderAK('');}
 function renderAK(s){
   var items=akc==='全部'?AKD:AKD.filter(function(v){return v.cat===akc;});
   if(s)items=items.filter(function(v){return v.jp.includes(s)||v.r.includes(s)||v.id.toLowerCase().includes(s);});
@@ -158,10 +158,10 @@ function renderAK(s){
   items.forEach(function(v){
     var d=document.createElement('div');
     d.style.cssText='background:#fff;border:1px solid rgba(26,35,126,.12);border-radius:10px;padding:12px;cursor:pointer;transition:all .2s';
-    d.onmouseover=function(){this.style.borderColor='#1a237e';};
+    d.onmouseover=function(){this.style.borderColor='var(--primary,#1a237e)';};
     d.onmouseout=function(){this.style.borderColor='rgba(26,35,126,.12)';};
-    d.innerHTML='<span style="font-size:.7rem;background:#e8eaf6;color:#1a237e;padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
-      +'<div style="font-size:1rem;font-weight:700;color:#1a237e">'+v.jp+'</div>'
+    d.innerHTML='<span style="font-size:.7rem;background:#e8eaf6;color:var(--primary,#1a237e);padding:2px 8px;border-radius:10px;display:inline-block;margin-bottom:4px">'+v.cat+'</span>'
+      +'<div style="font-size:1rem;font-weight:700;color:var(--primary,#1a237e)">'+v.jp+'</div>'
       +'<div style="font-size:.75rem;color:#888;margin:2px 0">'+v.r+'</div>'
       +'<div style="font-size:.85rem;color:#333">🇮🇩 '+v.id+'</div>'
       +'<div style="display:none;margin-top:6px;font-size:.78rem;color:#666">📝 '+v.ex+'</div>';
@@ -174,7 +174,7 @@ function renderAK(s){
   var cr=document.getElementById('akCatRow');
   cats.forEach(function(c,i){
     var btn=document.createElement('button');
-    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'#1a237e':'#ddd')+';background:'+(i===0?'#1a237e':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem';
+    btn.style.cssText='padding:5px 14px;border-radius:20px;border:1px solid '+(i===0?'var(--primary,#1a237e)':'#ddd')+';background:'+(i===0?'var(--primary,#1a237e)':'#f5f5f5')+';color:'+(i===0?'#fff':'#333')+';cursor:pointer;font-size:.82rem';
     btn.textContent=c;btn.onclick=function(){setAKC(c,this);};cr.appendChild(btn);
   });
   renderAK('');
