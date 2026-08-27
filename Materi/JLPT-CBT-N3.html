@@ -57,7 +57,7 @@
 .q-nav{display:grid;grid-template-columns:repeat(10,1fr);gap:6px;margin-bottom:16px}
 .qn-dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--border-light);display:flex;align-items:center;justify-content:center;font-size:.75rem;cursor:pointer;font-weight:600;transition:all .2s}
 .qn-dot.current{border-color:var(--primary,#bf360c);background:var(--primary,#bf360c);color:#fff}
-.qn-dot.answered{background:#e0f2f1;border-color:#00695c;color:#00695c}
+.qn-dot.answered{background:#e0f2f1;border-color:var(--accent,#00695c);color:var(--accent,#00695c)}
 .result-box{background:var(--white);border-radius:16px;padding:32px;text-align:center;margin:24px 0;border:2px solid var(--border-light)}
 .score-circle{width:120px;height:120px;border-radius:50%;border:6px solid var(--primary,#bf360c);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 16px}
 .score-num{font-size:2rem;font-weight:700;color:var(--primary,#bf360c)}
@@ -222,7 +222,7 @@ function submitCBT(){
   try{ if(window.NPXP) NPXP.recordQuiz('jlpt', ok, QS.length||30); }catch(e){}
   document.getElementById('scorePct').textContent=pct+'% ('+ok+'/30 soal benar)';
   document.getElementById('scoreMsg').textContent=pct>=60?'🎉 LULUS! Skor di atas passing grade 60%':'❌ Belum lulus. Terus berlatih ya!';
-  document.getElementById('scoreMsg').style.color=pct>=60?'#2e7d32':'#c62828';
+  document.getElementById('scoreMsg').style.color=pct>=60?'#2e7d32':'var(--accent,#c62828)';
   var list=document.getElementById('ansList');list.innerHTML='';
   QS.forEach(function(q,i){
     var ok2=answers[i]===q.a;

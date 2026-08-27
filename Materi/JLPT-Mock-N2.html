@@ -72,8 +72,8 @@
 .gb{display:inline-block;font-size:.82rem;font-weight:700;padding:5px 18px;border-radius:100px;margin:10px 0}
 .gs{background:#fff3e0;color:#e65100}
 .ga{background:#e8f5e9;color:#2e7d32}
-.gb2{background:#e3f2fd;color:#1565c0}
-.gc{background:#fce4ec;color:#c62828}
+.gb2{background:#e3f2fd;color:var(--accent,#1565c0)}
+.gc{background:#fce4ec;color:var(--accent,#c62828)}
 .rst{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
 .ri{background:#f5f5f5;border-radius:8px;padding:10px;text-align:center}
 .rn{font-size:1.3rem;font-weight:700;font-family:"Noto Serif JP",serif}
@@ -140,7 +140,7 @@
     <div style="font-size:.88rem;color:#666" id="rpct"></div>
     <div class="rst">
       <div class="ri"><div class="rn" id="rok" style="color:#2e7d32">0</div><div class="rl">Benar</div></div>
-      <div class="ri"><div class="rn" id="rng" style="color:#c62828">0</div><div class="rl">Salah</div></div>
+      <div class="ri"><div class="rn" id="rng" style="color:var(--accent,#c62828)">0</div><div class="rl">Salah</div></div>
       <div class="ri"><div class="rn" id="rsk" style="color:#888">0</div><div class="rl">Lewat</div></div>
     </div>
     <div style="margin-top:14px">
@@ -208,7 +208,7 @@ function submitTest(){if(testMockSubmitted)return;testMockSubmitted=true;clearIn
   else if(pct>=60){g='B — Lulus';gc='gb2';msg='✅ Lulus! Terus semangat!';}
   else{g='C — Belajar Lagi';gc='gc';msg='📚 Pelajari materi lagi!';}
   var rgb=document.getElementById('rgb');if(rgb){rgb.textContent=g;rgb.className='gb '+gc;}
-  var rm=document.getElementById('rmsg');if(rm){rm.textContent=msg;rm.style.color=pct>=60?'#2e7d32':'#c62828';}}
+  var rm=document.getElementById('rmsg');if(rm){rm.textContent=msg;rm.style.color=pct>=60?'#2e7d32':'var(--accent,#c62828)';}}
 function showRev(){var s=document.getElementById('revs');if(!s)return;
   s.style.display=s.style.display==='none'?'block':'none';if(s.style.display==='none')return;
   var ral=document.getElementById('ral');if(!ral)return;ral.innerHTML='';
@@ -216,7 +216,7 @@ function showRev(){var s=document.getElementById('revs');if(!s)return;
     var d=document.createElement('div');d.className='ai '+(isSkip?'':isOk?'ok':'ng');
     d.innerHTML='<div class="aq">Q'+(i+1)+'. ['+q.cat+'] '+q.q+'</div>'
       +'<div style="font-size:.78rem;color:#2e7d32;margin-bottom:2px">✅ '+q.opts[q.a]+'</div>'
-      +(!isSkip&&!isOk?'<div style="font-size:.78rem;color:#c62828;margin-bottom:2px">❌ '+q.opts[ua]+'</div>':'')
+      +(!isSkip&&!isOk?'<div style="font-size:.78rem;color:var(--accent,#c62828);margin-bottom:2px">❌ '+q.opts[ua]+'</div>':'')
       +(isSkip?'<div style="font-size:.78rem;color:#888">⏭️ Tidak dijawab</div>':'')
       +'<div class="ae">💡 '+q.e+'</div>';
     ral.appendChild(d);});}
