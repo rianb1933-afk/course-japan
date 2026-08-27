@@ -90,6 +90,7 @@ ${di('🫀','Anatomi Dasar','Istilah tubuh & organ berlabel','/Anatomi-Dasar.htm
 ${di('🤖','AI Tutor Pro','JLPT coach & koreksi','/AI-Tutor-Pro.html')}
 ${di('師','AI Sensei','Tutor percakapan','/AI-Sensei.html')}
 ${di('✍️','Grammar Checker','Periksa & koreksi kalimat','/Grammar-Checker.html')}
+${di('📝','Writing Practice','Latihan menulis dengan AI','/AI-Writing-Practice.html')}
 ${di('💬','AI Kaiwa','Latihan percakapan AI','/AI-Kaiwa.html')}
 </div>
 </li>
@@ -193,6 +194,7 @@ ${dl('🩺','Kaigo Simulator','/Kaigo-Simulator.html')}
 ${dl('🤖','AI Tutor Pro','/AI-Tutor-Pro.html')}
 ${dl('師','AI Sensei','/AI-Sensei.html')}
 ${dl('✍️','Grammar Checker','/Grammar-Checker.html')}
+${dl('📝','Writing Practice','/AI-Writing-Practice.html')}
 ${dl('💬','AI Kaiwa','/AI-Kaiwa.html')}
 <div class="kn-drawer-sep"></div>
 <div class="kn-drawer-section">Platform & Info</div>

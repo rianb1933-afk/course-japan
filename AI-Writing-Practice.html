@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<script src="assets/dark-mode-toggle.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<script src="assets/platform.min.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="preload" href="assets/kyoto-design-system.css" as="style">
+<link rel="stylesheet" href="assets/pro-style.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Writing Practice — Latihan Menulis Bahasa Jepang — Nihongo Pro Academy</title>
+<meta name="description" content="Latihan menulis bahasa Jepang dengan AI. Dapatkan koreksi real-time untuk grammar, kosakata, struktur kalimat, dan tingkat naturalness tulisan Anda.">
+<meta property="og:title" content="AI Writing Practice — Nihongo Pro Academy">
+<meta property="og:description" content="Latihan menulis bahasa Jepang dengan AI feedback mendalam. Koreksi grammar, kosakata, dan naturalness secara instan.">
+<meta property="og:url" content="https://nihongopro.id/AI-Writing-Practice.html">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://nihongopro.id/AI-Writing-Practice.html">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"AI Writing Practice — Latihan Menulis Bahasa Jepang","url":"https://nihongopro.id/AI-Writing-Practice.html","description":"Latihan menulis bahasa Jepang dengan koreksi AI real-time","applicationCategory":"EducationApplication","inLanguage":"id"}</script>
+
+<link rel="stylesheet" href="assets/legacy-bundle.min.css">
+
+    <style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);min-height:100vh}
+
+.hero{padding:clamp(44px,7vw,72px) clamp(16px,5vw,72px) 44px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"作文";position:absolute;right:-10px;bottom:-60px;font-family:"Noto Serif JP",serif;font-size:260px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none}
+.hero-inner{max-width:1200px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(28px,5vw,52px);line-height:1.1;margin-bottom:.75rem}
+.hero p{color:rgba(255,255,255,.62);font-size:15px;line-height:1.85;max-width:640px;margin-bottom:1.5rem}
+.feat-row{display:flex;flex-wrap:wrap;gap:.5rem}
+.feat-chip{padding:5px 12px;border-radius:20px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:12px;font-weight:600;color:rgba(255,255,255,.75)}
+
+.main{max-width:1200px;margin:0 auto;padding:2.5rem clamp(16px,5vw,72px) 5rem;display:grid;grid-template-columns:1fr 360px;gap:1.5rem;align-items:start}
+@media(max-width:900px){.main{grid-template-columns:1fr;padding-bottom:3rem}}
+
+/* Editor panel */
+.editor{background:var(--white);border-radius:16px;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);overflow:hidden}
+.editor-head{padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem}
+.editor-head h2{font-family:"Noto Serif JP",serif;font-size:20px}
+.level-select{display:flex;gap:.3rem}
+.lv-btn{height:28px;padding:0 10px;border-radius:6px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);font-size:11px;font-weight:800;cursor:pointer;transition:all .15s}
+.lv-btn.on{background:var(--red-pale);border-color:var(--red);color:var(--red)}
+
+.prompt-area{padding:1rem 1.5rem;border-bottom:1px dashed var(--border);background:linear-gradient(135deg,var(--cream) 0%,var(--white) 100%)}
+.prompt-label{font-size:11px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem;display:flex;align-items:center;gap:.4rem}
+.prompt-text{font-family:"Noto Serif JP",serif;font-size:16px;line-height:1.7;color:var(--ink);margin-bottom:.5rem}
+.prompt-meta{display:flex;gap:.5rem;flex-wrap:wrap}
+.prompt-tag{padding:3px 8px;border-radius:5px;font-size:10px;font-weight:700}
+.prompt-tag.topic{background:var(--blue-pale);color:var(--blue)}
+.prompt-tag.target{background:var(--green-pale);color:var(--green)}
+.prompt-tag.length{background:var(--gold-pale);color:var(--gold)}
+.next-prompt-btn{height:28px;padding:0 10px;border-radius:6px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);font-size:11px;font-weight:700;cursor:pointer;transition:all .15s;margin-top:.5rem}
+.next-prompt-btn:hover{border-color:var(--red);color:var(--red)}
+
+.input-area{padding:1.25rem 1.5rem}
+.wp-input{width:100%;min-height:180px;padding:1rem;border-radius:10px;border:1.5px solid var(--border-mid);font-family:"Noto Serif JP",serif;font-size:17px;line-height:2;background:var(--cream);color:var(--ink);resize:vertical;outline:none;transition:border-color .15s}
+.wp-input:focus{border-color:var(--red)}
+.input-footer{display:flex;align-items:center;gap:.5rem;margin-top:.625rem;flex-wrap:wrap}
+.char-count{font-size:12px;color:var(--ink-faint)}
+.check-btn{height:44px;padding:0 20px;border-radius:10px;border:none;background:var(--red);color:#fff;font-family:Outfit,sans-serif;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .2s;flex-shrink:0}
+.check-btn:hover{background:#a02d23;transform:translateY(-1px)}
+.check-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.clear-btn{height:44px;padding:0 14px;border-radius:10px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.clear-btn:hover{border-color:var(--red);color:var(--red)}
+.example-btn{height:34px;padding:0 12px;border-radius:7px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+.example-btn:hover{border-color:var(--blue);color:var(--blue)}
+
+/* Results */
+.result-area{padding:0 1.5rem 1.5rem}
+.loading-dots{display:none;text-align:center;padding:2rem;color:var(--ink-soft);font-size:14px}
+.score-bar{display:flex;align-items:center;gap:1rem;padding:1rem 1.25rem;border-radius:10px;margin-bottom:1rem}
+.score-bar.great{background:var(--green-pale);border:.5px solid rgba(33,135,93,.2)}
+.score-bar.good{background:var(--blue-pale);border:.5px solid rgba(47,111,237,.2)}
+.score-bar.fair{background:var(--gold-pale);border:.5px solid rgba(185,137,47,.2)}
+.score-bar.poor{background:var(--red-pale);border:.5px solid rgba(190,52,40,.15)}
+.score-num{font-family:"Noto Serif JP",serif;font-size:40px;font-weight:700;line-height:1}
+.score-label{font-size:13px;font-weight:700}
+.score-sub{font-size:12px;color:var(--ink-soft);margin-top:2px}
+
+.score-dims{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:.5rem;margin-bottom:1rem}
+.dim-card{padding:.625rem .875rem;border-radius:8px;border:.5px solid var(--border);background:var(--cream)}
+.dim-label{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin-bottom:.2rem}
+.dim-value{font-size:18px;font-weight:700}
+.dim-bar{height:4px;border-radius:2px;background:var(--border);margin-top:.3rem;overflow:hidden}
+.dim-bar-fill{height:100%;border-radius:2px;transition:width .6s ease}
+
+.correction-card{background:var(--cream);border-radius:10px;padding:1rem;border:.5px solid var(--border);margin-bottom:.75rem}
+.corr-type{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:5px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;margin-bottom:.5rem}
+.corr-type.grammar{background:var(--blue-pale);color:var(--blue)}
+.corr-type.vocab{background:var(--green-pale);color:var(--green)}
+.corr-type.structure{background:var(--gold-pale);color:var(--gold)}
+.corr-type.naturalness{background:rgba(147,51,234,.1);color:#9333ea}
+.corr-type.spelling{background:var(--red-pale);color:var(--red)}
+.wrong{font-family:"Noto Serif JP",serif;font-size:16px;text-decoration:underline;text-decoration-color:#ef4444;text-decoration-style:wavy;color:var(--ink)}
+.arrow{color:var(--ink-faint);margin:0 .4rem}
+.right{font-family:"Noto Serif JP",serif;font-size:16px;font-weight:700;color:var(--green)}
+.explanation{font-size:13px;color:var(--ink-mid);line-height:1.65;margin-top:.4rem}
+
+.improved-box{background:var(--green-pale);border:.5px solid rgba(33,135,93,.2);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.improved-label{font-size:11px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.3rem}
+.improved-jp{font-family:"Noto Serif JP",serif;font-size:18px;font-weight:600;color:var(--ink);line-height:1.8}
+.improved-id{font-size:13px;color:var(--ink-soft);margin-top:3px}
+
+.vocab-card{display:inline-flex;align-items:center;gap:.5rem;padding:.35rem .75rem;border-radius:8px;background:var(--blue-pale);border:.5px solid rgba(47,111,237,.15);margin:.2rem;font-size:13px}
+.vocab-word{font-family:"Noto Serif JP",serif;font-weight:700;color:var(--blue)}
+.vocab-meaning{color:var(--ink-mid)}
+
+/* Sidebar */
+.sidebar-panel{display:flex;flex-direction:column;gap:1rem}
+.side-card{background:var(--white);border-radius:14px;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);overflow:hidden}
+.side-head{padding:.875rem 1.25rem;border-bottom:1px solid var(--border);font-size:13px;font-weight:800;color:var(--ink)}
+.side-body{padding:1rem 1.25rem}
+.history-item{padding:.4rem 0;border-bottom:.5px solid var(--border);font-size:13px;cursor:pointer;transition:all .15s;padding-left:.5rem;border-radius:6px}
+.history-item:last-child{border-bottom:none}
+.history-item:hover{background:var(--cream)}
+.history-score{display:inline-flex;align-items:center;justify-content:center;width:32px;height:20px;border-radius:4px;font-size:10px;font-weight:800;margin-left:.5rem;float:right}
+
+/* Toast */
+.toast-wrap{position:fixed;bottom:1.5rem;right:1.5rem;z-index:400;display:flex;flex-direction:column;gap:.4rem;pointer-events:none}
+.toast{background:var(--ink);color:#fff;padding:.6rem 1rem;border-radius:8px;font-size:13px;font-weight:600;opacity:0;transform:translateY(8px);transition:all .3s}
+.toast.show{opacity:1;transform:translateY(0)}
+</style>
+
+<meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@nihongopro">
+<meta name="twitter:title" content="AI Writing Practice — Nihongo Pro Academy">
+<meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihongoPro">
+<link rel="apple-touch-icon" href="assets/og-preview.svg">
+
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<style>
+@media(max-width:768px){
+  .score-dims{grid-template-columns:1fr 1fr}
+}
+</style>
+<style>
+/* ── KEYBOARD ACCESSIBILITY ── */
+*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
+.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
+.skip-to-content:focus{top:0}
+</style>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
+<script src="assets/nihongo-ai.js" defer></script>
+<meta property="og:site_name" content="Nihongo Pro Academy">
+<meta name="twitter:description" content="Latihan menulis bahasa Jepang dengan AI. Dapatkan koreksi real-time untuk grammar, kosakata, struktur kalimat, dan naturalness.">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+</head>
+<body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
+<section id="main-content" class="hero" role="main">
+  <div class="hero-inner">
+    <div class="kicker">📝 AI Writing Practice</div>
+    <h1>Latihan Menulis<br>Bahasa Jepang</h1>
+    <p>Tulis paragraf, esai, atau cerita dalam bahasa Jepang. AI akan menilai grammar, kosakata, struktur kalimat, dan naturalness — lengkap dengan perbaikan dan penjelasan mendalam dalam bahasa Indonesia.</p>
+    <div class="feat-row">
+      <span class="feat-chip">✍️ Free Writing</span>
+      <span class="feat-chip">📐 Grammar Check</span>
+      <span class="feat-chip">📖 Vocabulary Tips</span>
+      <span class="feat-chip">🎭 Naturalness Score</span>
+      <span class="feat-chip">📝 Writing Prompts</span>
+      <span class="feat-chip">N5–N1</span>
+    </div>
+  </div>
+</section>
+
+<div class="main">
+  <!-- EDITOR -->
+  <div class="editor">
+    <div class="editor-head">
+      <h2>✍️ Tulis dalam Bahasa Jepang</h2>
+      <div class="level-select">
+        <button class="lv-btn on" data-lv="N5" onclick="setLevel(this)">N5</button>
+        <button class="lv-btn" data-lv="N4" onclick="setLevel(this)">N4</button>
+        <button class="lv-btn" data-lv="N3" onclick="setLevel(this)">N3</button>
+        <button class="lv-btn" data-lv="N2" onclick="setLevel(this)">N2</button>
+        <button class="lv-btn" data-lv="N1" onclick="setLevel(this)">N1</button>
+      </div>
+    </div>
+
+    <!-- Writing Prompt -->
+    <div class="prompt-area" id="promptArea">
+      <div class="prompt-label">💡 Topik Menulis Hari Ini</div>
+      <div class="prompt-text" id="promptText"></div>
+      <div class="prompt-meta" id="promptMeta"></div>
+      <button class="next-prompt-btn" onclick="nextPrompt()">🔄 Topik Lain</button>
+    </div>
+
+    <div class="input-area">
+      <textarea class="wp-input" id="writingInput" aria-label="Tulis teks bahasa Jepang di sini" placeholder="Tulis teks bahasa Jepang di sini…&#10;&#10;Contoh:&#10;日本の文化はとても面白いです。&#10;特に、お祭りが好きです。&#10;毎年夏に花火大会があって…&#10;&#10;Tulis minimal 2 kalimat untuk hasil koreksi yang optimal." oninput="updateCharCount()"></textarea>
+      <div class="input-footer">
+        <span class="char-count" id="charCount">0 karakter</span>
+        <button class="example-btn" onclick="loadExample()">📝 Contoh</button>
+        <div style="flex:1"></div>
+        <button class="clear-btn" onclick="clearAll()">✕ Hapus</button>
+        <button class="check-btn" aria-live="polite" id="checkBtn" onclick="checkWriting()">
+          <span>🔍</span> Evaluasi Tulisan
+        </button>
+      </div>
+    </div>
+    <div class="result-area" id="resultArea">
+      <div class="loading-dots" id="loadingDots">
+        <div style="font-size:24px;animation:spin 1s linear infinite;display:inline-block">⟳</div>
+        <div style="margin-top:.5rem">AI menganalisis tulisan Anda…</div>
+      </div>
+      <div id="resultContent"></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR -->
+  <div class="sidebar-panel">
+    <!-- Writing tips -->
+    <div class="side-card">
+      <div class="side-head">💡 Tips Menulis</div>
+      <div class="side-body">
+        <div style="display:flex;flex-direction:column;gap:.625rem">
+          ${[
+            ['Tulis Minimal 3 Kalimat','Semakin panjang tulisan, semakin banyak feedback yang bisa AI berikan. Idealnya 50-200 karakter.'],
+            ['Gunakan Variasi Kosakata','Hindari mengulang kata yang sama. Gunakan sinonim untuk menunjukkan penguasaan kosakata.'],
+            ['Perhatikan Partikel','は/が, を/に, で/と — partikel yang salah mengubah makna seluruh kalimat.'],
+            ['Gunakan Tingkat Bahasa Konsisten','Jangan campur casual (た form) dan formal (ます form) dalam satu paragraf.'],
+            ['Coba Topik Berbeda','Ganti topik secara berkala untuk melatih kosakata dan grammar dari berbagai topik.'],
+          ].map(([t,d])=>`<div style="padding:.5rem 0;border-bottom:.5px solid var(--border)"><div style="font-size:12px;font-weight:800;color:var(--ink);margin-bottom:2px">${t}</div><div style="font-size:12px;color:var(--ink-mid);line-height:1.6">${d}</div></div>`).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- History -->
+    <div class="side-card">
+      <div class="side-head" style="display:flex;align-items:center;justify-content:space-between">
+        📋 Riwayat Menulis <button onclick="clearHistory()" style="height:24px;padding:0 8px;border-radius:5px;border:1px solid var(--border-mid);background:none;font-size:11px;color:var(--ink-soft);cursor:pointer">Hapus</button>
+      </div>
+      <div class="side-body" id="historyList">
+        <div style="color:var(--ink-faint);font-size:13px;text-align:center;padding:.5rem">Belum ada riwayat.</div>
+      </div>
+    </div>
+
+    <!-- Writing examples -->
+    <div class="side-card">
+      <div class="side-head">📝 Contoh Tulisan</div>
+      <div class="side-body">
+        <div id="exampleList"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast-wrap" id="toastWrap"></div>
+
+<style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+
+<script>
+// ── THEME ──
+(()=>{const t=localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
+function toast(m,d=3000){const w=document.getElementById('toastWrap');const el=document.createElement('div');el.className='toast';el.textContent=m;w.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),350);},d);}
+
+function esc(s){return String(s||'').replace(/[&<>\"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;',"'":'&#039;'}[c]));}
+
+// ── WRITING PROMPTS ──
+const WRITING_PROMPTS = [
+  {text:'自己紹介を書いてください。名前、出身、趣味、好きな食べ物などを含めてください。',tags:[{t:'自己紹介',c:'topic'},{t:'N5',c:'target'},{t:'50-100字',c:'length'}]},
+  {text:'今日の天気について書いてください。どんな天気ですか？何をしましたか？',tags:[{t:'日常',c:'topic'},{t:'N5',c:'target'},{t:'50-100字',c:'length'}]},
+  {text:'日本の文化について書いてください。好きな日本の文化や行事があれば教えてください。',tags:[{t:'文化',c:'topic'},{t:'N4',c:'target'},{t:'80-150字',c:'length'}]},
+  {text:'日本の食べ物の中で一番好きなものは何ですか？なぜ好きですか？',tags:[{t:'食べ物',c:'topic'},{t:'N4',c:'target'},{t:'80-150字',c:'length'}]},
+  {text:'将来の夢について書いてください。なぜその夢を持っていますか？',tags:[{t:'将来の夢',c:'topic'},{t:'N4',c:'target'},{t:'100-150字',c:'length'}]},
+  {text:'日本に旅行したことがあるなら、その経験を書いてください。まだなら、行きたい場所とその理由を書いてください。',tags:[{t:'旅行',c:'topic'},{t:'N3',c:'target'},{t:'100-200字',c:'length'}]},
+  {text:'最近読んだ本、見た映画、または行った場所についてレビューを書いてください。',tags:[{t:'レビュー',c:'topic'},{t:'N3',c:'target'},{t:'100-200字',c:'length'}]},
+  {text:'日本の教育制度についてどう思いますか？自分の国と比較して書いてください。',tags:[{t:'教育',c:'topic'},{t:'N3',c:'target'},{t:'100-200字',c:'length'}]},
+  {text:'日本のビジネス文化と自分の国のビジネス文化の違いについて论述してください。',tags:[{t:'ビジネス',c:'topic'},{t:'N2',c:'target'},{t:'150-300字',c:'length'}]},
+  {text:'日本の少子高齢化問題について、その原因と解決策を考えて書いてください。',tags:[{t:'社会問題',c:'topic'},{t:'N2',c:'target'},{t:'150-300字',c:'length'}]},
+  {text:'介護福祉士として日本で働くために必要なことを、経験や想いを交えて書いてください。',tags:[{t:'介護',c:'topic'},{t:'N2',c:'target'},{t:'150-300字',c:'length'}]},
+  {text:'日本の環境問題について、現状と解決策を論理的に述べてください。',tags:[{t:'環境',c:'topic'},{t:'N1',c:'target'},{t:'200-400字',c:'length'}]},
+  {text:'グローバル化が日本の传统文化に与える影響について、多角的に考察してください。',tags:[{t:'文化論',c:'topic'},{t:'N1',c:'target'},{t:'200-400字',c:'length'}]},
+  {text:'あなたの人生で最も大切な経験を、なぜそれが大切だったのかを論じて書いてください。',tags:[{t:'エッセイ',c:'topic'},{t:'N1',c:'target'},{t:'200-400字',c:'length'}]},
+  {text:'日本の四季について、それぞれの季節の魅力を描写してください。',tags:[{t:'季節',c:'topic'},{t:'N4',c:'target'},{t:'80-150字',c:'length'}]},
+  {text:'学校や会社での毎日のルーティンについて書いてください。',tags:[{t:'日常',c:'topic'},{t:'N5',c:'target'},{t:'50-100字',c:'length'}]},
+  {text:'最近のニュースで気になったことについて、自分の意見を書いてください。',tags:[{t:'ニュース',c:'topic'},{t:'N2',c:'target'},{t:'150-300字',c:'length'}]},
+  {text:'音楽について書いてください。好きなジャンル、アーティスト、なぜ音楽が好きか。',tags:[{t:'音楽',c:'topic'},{t:'N3',c:'target'},{t:'100-200字',c:'length'}]},
+  {text:'日本語を勉強している中で、一番難しいことは何ですか？どう克服していますか？',tags:[{t:'語学',c:'topic'},{t:'N3',c:'target'},{t:'100-200字',c:'length'}]},
+  {text:'サステナビリティ（持続可能性）について、日常生活でできることを書いてください。',tags:[{t:'環境',c:'topic'},{t:'N2',c:'target'},{t:'150-300字',c:'length'}]},
+];
+
+const WRITING_EXAMPLES = [
+  {text:'私は毎朝七時に起きて、学校に行きます。日本語の勉強は楽しいですが、有时難しいです。特に漢字が難しいです。でも、毎日練習しています。',level:'N5'},
+  {text:'日本の文化はとても好きです。特に、お花見が好きです。春になると、桜が咲いて、公園にたくさんの人たちが集まります。友達と一緒に歩いて、お弁当を食べて、とても楽しいです。日本の四季は本当に美しいと思います。',level:'N4'},
+  {text:'私は介護福祉士になりたいです。なぜなら、高齢者と一緒にいるのが好きだからです。日本の介護制度は世界で一番先进していると思います。私は日本で働いて、介護技術を学びたいです。将来、自分の国でも役に立ちたいです。',level:'N3'},
+  {text:'日本の少子高齢化問題は、現代日本が直面している最も深刻な課題の一つである。出生率の低下と平均寿命の延伸により、労働力不足が深刻化しており、社会保障制度への圧力も増している。解決策として、移民政策の緩和、女性の就業環境改善、介護ロボットの開発などが挙げられる。',level:'N2'},
+];
+
+let currentLevel = 'N5';
+let currentPromptIdx = Math.floor(Math.random() * WRITING_PROMPTS.length);
+let writeHistory = JSON.parse(localStorage.getItem('writing-practice-history')||'[]');
+
+// ── LEVEL ──
+function setLevel(btn){
+  currentLevel = btn.dataset.lv;
+  document.querySelectorAll('.lv-btn').forEach(b=>b.classList.toggle('on',b===btn));
+  renderExamples();
+}
+
+// ── PROMPT ──
+function renderPrompt(){
+  const p = WRITING_PROMPTS[currentPromptIdx];
+  document.getElementById('promptText').textContent = p.text;
+  document.getElementById('promptMeta').innerHTML = p.tags.map(t=>`<span class="prompt-tag ${t.c}">${t.t}</span>`).join('');
+}
+function nextPrompt(){
+  currentPromptIdx = (currentPromptIdx + 1) % WRITING_PROMPTS.length;
+  renderPrompt();
+}
+
+// ── EXAMPLES ──
+function renderExamples(){
+  const el = document.getElementById('exampleList');
+  const filtered = WRITING_EXAMPLES.filter(e=>e.level===currentLevel || parseInt(e.level.replace('N',''))>=parseInt(currentLevel.replace('N','')));
+  el.innerHTML = (filtered.length ? filtered : WRITING_EXAMPLES.slice(0,2)).map((ex,i)=>`
+    <div style="padding:.5rem 0;border-bottom:.5px solid var(--border);cursor:pointer;transition:background .15s" class="example-item" data-idx="${i}">
+      <div style="font-family:'Noto Serif JP',serif;font-size:13px;line-height:1.6;color:var(--ink)">${esc(ex.text.substring(0,60))}${ex.text.length>60?'…':''}</div>
+      <div style="font-size:10px;font-weight:700;color:var(--blue);margin-top:2px">${ex.level}</div>
+    </div>
+  `).join('');
+  el.querySelectorAll('.example-item').forEach(item=>{
+    item.addEventListener('click',function(){
+      const idx = parseInt(this.dataset.idx,10);
+      const examples = filtered.length ? filtered : WRITING_EXAMPLES.slice(0,2);
+      document.getElementById('writingInput').value = examples[idx].text;
+      updateCharCount();
+      toast('📝 Contoh dimuat');
+    });
+  });
+}
+
+// ── INPUT ──
+function updateCharCount(){
+  const n=document.getElementById('writingInput').value.length;
+  document.getElementById('charCount').textContent=n+' karakter';
+}
+function clearAll(){
+  document.getElementById('writingInput').value='';
+  document.getElementById('resultContent').innerHTML='';
+  updateCharCount();
+}
+function loadExample(){
+  const filtered = WRITING_EXAMPLES.filter(e=>e.level===currentLevel || parseInt(e.level.replace('N',''))>=parseInt(currentLevel.replace('N','')));
+  const examples = filtered.length ? filtered : WRITING_EXAMPLES;
+  const ex = examples[Math.floor(Math.random()*examples.length)];
+  document.getElementById('writingInput').value = ex.text;
+  updateCharCount();
+}
+
+// ── CHECK WRITING ──
+async function checkWriting(){
+  const text = document.getElementById('writingInput').value.trim();
+  if(!text){toast('⚠️ Tulis teks dulu');return;}
+  if(text.length < 10){toast('⚠️ Tulis minimal 10 karakter');return;}
+  if(text.length > 2000){toast('⚠️ Maksimal 2000 karakter');return;}
+
+  document.getElementById('checkBtn').disabled = true;
+  document.getElementById('loadingDots').style.display = 'block';
+  document.getElementById('resultContent').innerHTML = '';
+
+  const prompt = `Kamu adalah Tanaka Sensei, guru bahasa Jepang ahli writing coach di Nihongo Pro Academy. Evaluasi tulisan bahasa Jepang berikut untuk level ${currentLevel}.
+
+Tulisan pengguna:
+「${text}」
+
+Berikan evaluasi dalam format JSON (tanpa markdown, hanya JSON murni):
+{
+  "overall_score": 85,
+  "dimensions": {
+    "grammar": 90,
+    "vocabulary": 80,
+    "structure": 85,
+    "naturalness": 80
+  },
+  "overall": "Ringkasan singkat kualitas tulisan dalam bahasa Indonesia",
+  "improved": "Versi perbaikan tulisan dalam bahasa Jepang",
+  "improved_id": "Terjemahan versi perbaikan dalam bahasa Indonesia",
+  "errors": [
+    {
+      "type": "grammar",
+      "original": "bagian yang salah",
+      "corrected": "perbaikan",
+      "explanation": "Penjelasan dalam bahasa Indonesia"
+    }
+  ],
+  "vocabulary_tips": [
+    {"word": "kata", "meaning": "arti", "usage": "contoh penggunaan"}
+  ],
+  "strengths": ["kelebihan tulisan"],
+  "areas_to_improve": ["area yang perlu diperbaiki"]
+}
+
+Type error: grammar, vocab, structure, naturalness, spelling.
+Skor 0-100 per dimensi. Jika tidak ada error, errors = [].
+Tulisan yang bagus tetap beri 1-2 saran peningkatan (naturalness/nuansa).
+Selalu berikan improved versi yang lebih natural.`;
+
+  try {
+    const aiBtn = document.getElementById('checkBtn');
+    const response = await NihongoAI.chat({
+      messages: [{ role: 'user', content: prompt }],
+      mode: 'grammar',
+      level: currentLevel,
+      btnEl: aiBtn,
+      loadingText: 'AI mengevaluasi tulisan...',
+    });
+    const raw = response.text || '';
+    const jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if(!jsonMatch) throw new Error('Invalid response');
+    const result = JSON.parse(jsonMatch[0]);
+    renderResult(text, result);
+    saveHistory(text, result.overall_score);
+    // Track XP & activity
+    if(window.NihongoProgress) NihongoProgress.logActivity('writing','Writing: '+text.substring(0,20), result.overall_score);
+  } catch(e) {
+    toast('⚠️ Error menganalisis. Coba lagi.');
+    console.error('Writing check error:', e);
+  } finally {
+    document.getElementById('checkBtn').disabled = false;
+    document.getElementById('loadingDots').style.display = 'none';
+  }
+}
+
+function renderResult(original, result){
+  const scoreClass = result.overall_score>=90?'great':result.overall_score>=70?'good':result.overall_score>=50?'fair':'poor';
+  const scoreLabel = result.overall_score>=90?'Excellent! 素晴らしい！':result.overall_score>=70?'Good! 上手！':result.overall_score>=50?'Fair まあまあ':'Needs Improvement もっと頑張ろう';
+
+  let html = `
+    <div class="score-bar ${scoreClass}">
+      <div class="score-num" style="color:${result.overall_score>=90?'var(--green)':result.overall_score>=70?'var(--blue)':result.overall_score>=50?'var(--gold)':'var(--red)'}">${result.overall_score}</div>
+      <div><div class="score-label">${scoreLabel}</div><div class="score-sub">${esc(result.overall||'')}</div></div>
+    </div>`;
+
+  // Dimension scores
+  if(result.dimensions){
+    const dims = result.dimensions;
+    const dimNames = {grammar:'Grammar 文法',vocabulary:'Vocabulary 語彙',structure:'Structure 構成',naturalness:'Naturalness 自然さ'};
+    const dimColors = {grammar:'var(--blue)',vocabulary:'var(--green)',structure:'var(--gold)',naturalness:'#9333ea'};
+    html += `<div class="score-dims">`;
+    for(const [k,v] of Object.entries(dims)){
+      html += `<div class="dim-card">
+        <div class="dim-label">${dimNames[k]||k}</div>
+        <div class="dim-value" style="color:${dimColors[k]||'var(--ink)'}">${v}</div>
+        <div class="dim-bar"><div class="dim-bar-fill" style="width:${v}%;background:${dimColors[k]||'var(--ink)'}"></div></div>
+      </div>`;
+    }
+    html += `</div>`;
+  }
+
+  // Improved version
+  if(result.improved && result.improved !== original){
+    html += `<div class="improved-box">
+      <div class="improved-label">✅ Versi Perbaikan</div>
+      <div class="improved-jp">${esc(result.improved)}</div>
+      ${result.improved_id?`<div class="improved-id">🇮🇩 ${esc(result.improved_id)}</div>`:''}
+    </div>`;
+  }
+
+  // Errors
+  if(result.errors?.length){
+    const typeLabels = {grammar:'Grammar 文法',vocab:'Vocabulary 語彙',structure:'Structure 構成',naturalness:'Naturalness 自然さ',spelling:'Spelling 拼写'};
+    html += `<div style="font-size:13px;font-weight:800;color:var(--ink-mid);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem">⚠️ Koreksi (${result.errors.length})</div>`;
+    result.errors.forEach(err=>{
+      html += `<div class="correction-card">
+        <div class="corr-type ${err.type}">${typeLabels[err.type]||err.type}</div>
+        <div><span class="wrong">${esc(err.original)}</span><span class="arrow">→</span><span class="right">${esc(err.corrected)}</span></div>
+        <div class="explanation">${esc(err.explanation)}</div>
+      </div>`;
+    });
+  } else {
+    html += `<div style="padding:.875rem;background:var(--green-pale);border-radius:10px;border:.5px solid rgba(33,135,93,.2);font-size:14px;font-weight:700;color:var(--green);text-align:center;margin-bottom:1rem">✅ Tulisan sangat bagus! Tidak ada kesalahan signifikan.</div>`;
+  }
+
+  // Vocabulary tips
+  if(result.vocabulary_tips?.length){
+    html += `<div style="margin-top:.875rem;padding:.875rem 1rem;background:var(--blue-pale);border-radius:10px;border:.5px solid rgba(47,111,237,.15)">
+      <div style="font-size:12px;font-weight:800;color:var(--blue);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.5rem">📖 Tips Kosakata</div>
+      <div style="display:flex;flex-wrap:wrap;gap:.3rem">`;
+    result.vocabulary_tips.forEach(v=>{
+      html += `<div class="vocab-card" title="${esc(v.usage||'')}"><span class="vocab-word">${esc(v.word)}</span><span class="vocab-meaning">${esc(v.meaning)}</span></div>`;
+    });
+    html += `</div></div>`;
+  }
+
+  // Strengths
+  if(result.strengths?.length){
+    html += `<div style="margin-top:.75rem;padding:.875rem 1rem;background:var(--green-pale);border-radius:10px;border:.5px solid rgba(33,135,93,.15)">
+      <div style="font-size:12px;font-weight:800;color:var(--green);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">💪 Kekuatan</div>
+      ${result.strengths.map(s=>`<div style="font-size:13px;color:var(--ink-mid);margin-bottom:3px">✓ ${esc(s)}</div>`).join('')}
+    </div>`;
+  }
+
+  // Areas to improve
+  if(result.areas_to_improve?.length){
+    html += `<div style="margin-top:.75rem;padding:.875rem 1rem;background:var(--gold-pale);border-radius:10px;border:.5px solid rgba(185,137,47,.15)">
+      <div style="font-size:12px;font-weight:800;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem">📌 Perlu Diperbaiki</div>
+      ${result.areas_to_improve.map(s=>`<div style="font-size:13px;color:var(--ink-mid);margin-bottom:3px">• ${esc(s)}</div>`).join('')}
+    </div>`;
+  }
+
+  document.getElementById('resultContent').innerHTML = html;
+  toast(`✨ Skor: ${result.overall_score}/100`);
+}
+
+// ── HISTORY ──
+function saveHistory(text, score){
+  writeHistory = [{text:text.substring(0,40), score, time:Date.now()}, ...writeHistory].slice(0,20);
+  localStorage.setItem('writing-practice-history', JSON.stringify(writeHistory));
+  renderHistory();
+}
+function clearHistory(){writeHistory=[];localStorage.removeItem('writing-practice-history');renderHistory();}
+function renderHistory(){
+  const el=document.getElementById('historyList');
+  if(!writeHistory.length){el.innerHTML='<div style="color:var(--ink-faint);font-size:13px;text-align:center;padding:.5rem">Belum ada riwayat.</div>';return;}
+  const getColor=s=>s>=90?'var(--green)':s>=70?'var(--blue)':s>=50?'var(--gold)':'var(--red)';
+  el.innerHTML=writeHistory.map((h,i)=>`
+    <div class="history-item" data-idx="${i}">
+      ${esc(h.text.substring(0,30))}${h.text.length>30?'…':''}
+      <span class="history-score" style="background:${getColor(h.score)}1a;color:${getColor(h.score)}">${h.score}</span>
+    </div>`).join('');
+  el.querySelectorAll('.history-item').forEach(function(item){
+    item.addEventListener('click', function(){
+      const idx = parseInt(this.dataset.idx, 10);
+      document.getElementById('writingInput').value = writeHistory[idx].text;
+      updateCharCount();
+    });
+  });
+}
+
+// ── INIT ──
+renderPrompt();
+renderExamples();
+renderHistory();
+</script>
+<footer style="background:var(--ink);color:rgba(255,255,255,.7);padding:3rem clamp(16px,5vw,72px) 2rem;margin-top:auto">
+  <div style="max-width:1200px;margin:0 auto">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:2rem;margin-bottom:2.5rem">
+      <div>
+        <div style="font-family:'Noto Serif JP',serif;color:#fff;font-size:20px;font-weight:700;margin-bottom:.5rem">Nihongo Pro Academy</div>
+        <div style="font-size:13px;line-height:1.75;margin-bottom:.875rem">Platform belajar bahasa Jepang N5–N1 yang komprehensif, gratis, dan terstruktur.</div>
+        <div style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <a href="Akun.html" style="padding:4px 10px;border-radius:6px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.8);font-size:11px;font-weight:700;text-decoration:none;transition:background .15s">Akun</a>
+          <a href="Premium.html" style="padding:4px 10px;border-radius:6px;background:rgba(185,137,47,.25);color:#f0c56e;font-size:11px;font-weight:700;text-decoration:none">Premium</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Materi</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="Materi/JLPT-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none;transition:color .15s" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,.65)'">JLPT N5–N1</a>
+          <a href="Materi/Grammar-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Grammar Lengkap</a>
+          <a href="Materi/Vocabulary-Lengkap.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Kosakata</a>
+          <a href="Materi/Kana-Hiragana-Katakana.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Kana Lengkap</a>
+          <a href="Materi/Kanji-N5.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Kanji</a>
+          <a href="Materi/Listening-Speaking.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Listening & Speaking</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Alat Bantu</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="AI-Tutor-Pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">AI Tutor</a>
+          <a href="Grammar-Checker.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Grammar Checker</a>
+          <a href="AI-Writing-Practice.html" style="color:rgba(255,255,255,.85);font-size:13px;text-decoration:none;font-weight:700">Writing Practice</a>
+          <a href="Kelas-Online.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Kelas Live</a>
+          <a href="QUIZ/nihongo-pro.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Kuis Pro</a>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:800;color:rgba(255,255,255,.4);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.75rem">Info</div>
+        <div style="display:flex;flex-direction:column;gap:.35rem">
+          <a href="Premium.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Premium</a>
+          <a href="Akun.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Akun Murid</a>
+          <a href="FAQ.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">FAQ</a>
+          <a href="Kontak.html" style="color:rgba(255,255,255,.65);font-size:13px;text-decoration:none">Kontak</a>
+        </div>
+      </div>
+    </div>
+    <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihongoPro — nihongopro.id · Semua hak dilindungi</div>
+      <div style="display:flex;gap:1rem;font-size:12px">
+        <a href="Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
+        <a href="FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>
+      </div>
+    </div>
+  </div>
+</footer>
+<button onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Kembali ke atas" style="position:fixed;bottom:5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red,#be3428);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s,transform .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)" id="bttBtn">↑</button>
+<script>const _btt=document.getElementById('bttBtn');if(_btt)window.addEventListener('scroll',()=>_btt.style.opacity=window.scrollY>400?'1':'0',{passive:true});</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js').then(r => {
+      r.addEventListener('updatefound', () => {
+        const w = r.installing;
+        w.addEventListener('statechange', () => {
+          if(w.state === 'installed' && navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?')) location.reload();
+          }
+        });
+      });
+    }).catch(() => {});
+  });
+}
+</script>
+
+<script src="assets/kyoto-theme.js" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+</body>
+</html>
