@@ -36,6 +36,29 @@
     <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
       <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#C0392B" flood-opacity="0.16"/>
     </filter>
+    <style>
+      .eyes { transform-box: fill-box; transform-origin: center; animation: catBlink 5s ease-in-out infinite; }
+      .tail { transform-box: fill-box; transform-origin: 80% 90%; animation: tailSway 3.2s ease-in-out infinite; }
+      .sparkle { transform-box: fill-box; transform-origin: center; animation: sparkleTwinkle 2.4s ease-in-out infinite; }
+      .sparkle-2 { animation-delay: .5s; }
+      .sparkle-3 { animation-delay: 1.1s; }
+      .sparkle-4 { animation-delay: 1.7s; }
+      @keyframes catBlink {
+        0%, 88%, 100% { transform: scaleY(1); }
+        91%, 95% { transform: scaleY(0.08); }
+      }
+      @keyframes tailSway {
+        0%, 100% { transform: rotate(-5deg); }
+        50% { transform: rotate(5deg); }
+      }
+      @keyframes sparkleTwinkle {
+        0%, 100% { opacity: 0.85; transform: scale(1); }
+        50% { opacity: 0.3; transform: scale(0.75); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .eyes, .tail, .sparkle { animation: none; }
+      }
+    </style>
   </defs>
 
   <!-- Soft halo backdrop -->
@@ -43,10 +66,10 @@
 
   <!-- Sparkles -->
   <g fill="#D4A042">
-    <path d="M62,120 l4,10 10,4 -10,4 -4,10 -4,-10 -10,-4 10,-4 Z" opacity="0.85"/>
-    <path d="M340,360 l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3 Z" opacity="0.7"/>
-    <circle cx="52" cy="260" r="4" opacity="0.6"/>
-    <circle cx="352" cy="230" r="3.5" opacity="0.55"/>
+    <path class="sparkle sparkle-1" d="M62,120 l4,10 10,4 -10,4 -4,10 -4,-10 -10,-4 10,-4 Z" opacity="0.85"/>
+    <path class="sparkle sparkle-3" d="M340,360 l3,7 7,3 -7,3 -3,7 -3,-7 -7,-3 7,-3 Z" opacity="0.7"/>
+    <circle class="sparkle sparkle-2" cx="52" cy="260" r="4" opacity="0.6"/>
+    <circle class="sparkle sparkle-4" cx="352" cy="230" r="3.5" opacity="0.55"/>
   </g>
 
   <!-- Floating kanji hint, right-aligned so it never runs off-canvas -->
@@ -60,7 +83,7 @@
   <g filter="url(#softShadow)">
 
     <!-- Tail: curled comma-shape tucked behind the body's right side -->
-    <path d="M272,392
+    <path class="tail" d="M272,392
              C 316,388 344,352 338,310
              C 334,282 312,264 290,268
              C 308,278 320,298 318,320
@@ -102,14 +125,16 @@
     </g>
 
     <!-- Eyes -->
-    <ellipse cx="174" cy="184" rx="15.5" ry="17" fill="#FFFFFF" stroke="#C0392B" stroke-width="1.4"/>
-    <ellipse cx="226" cy="184" rx="15.5" ry="17" fill="#FFFFFF" stroke="#C0392B" stroke-width="1.4"/>
-    <ellipse cx="175.5" cy="186" rx="10" ry="11.5" fill="url(#eyeGrad)"/>
-    <ellipse cx="227.5" cy="186" rx="10" ry="11.5" fill="url(#eyeGrad)"/>
-    <circle cx="179.5" cy="179" r="3.6" fill="#FFFFFF"/>
-    <circle cx="231.5" cy="179" r="3.6" fill="#FFFFFF"/>
-    <circle cx="171.5" cy="192" r="1.7" fill="#FFFFFF" opacity="0.85"/>
-    <circle cx="223.5" cy="192" r="1.7" fill="#FFFFFF" opacity="0.85"/>
+    <g class="eyes">
+      <ellipse cx="174" cy="184" rx="15.5" ry="17" fill="#FFFFFF" stroke="#C0392B" stroke-width="1.4"/>
+      <ellipse cx="226" cy="184" rx="15.5" ry="17" fill="#FFFFFF" stroke="#C0392B" stroke-width="1.4"/>
+      <ellipse cx="175.5" cy="186" rx="10" ry="11.5" fill="url(#eyeGrad)"/>
+      <ellipse cx="227.5" cy="186" rx="10" ry="11.5" fill="url(#eyeGrad)"/>
+      <circle cx="179.5" cy="179" r="3.6" fill="#FFFFFF"/>
+      <circle cx="231.5" cy="179" r="3.6" fill="#FFFFFF"/>
+      <circle cx="171.5" cy="192" r="1.7" fill="#FFFFFF" opacity="0.85"/>
+      <circle cx="223.5" cy="192" r="1.7" fill="#FFFFFF" opacity="0.85"/>
+    </g>
 
     <!-- Nose & mouth -->
     <path d="M200,202 L207,210 Q200,215 193,210 Z" fill="#E8534A"/>
