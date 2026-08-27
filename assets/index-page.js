@@ -523,9 +523,10 @@ document.getElementById('kq-btn-change').addEventListener('click', () => {
   window.scrollTo({ top: document.getElementById('kuis-kanji').offsetTop - 80, behavior: 'smooth' });
 });
 
-// Build mini kanji chart
+// Build mini kanji chart (cuplikan 20 dari 80 -- lengkapnya di halaman Kanji-N5,
+// supaya homepage tidak menanam referensi 80-kanji penuh yang bikin halaman sangat panjang)
 const kqGrid = document.getElementById('kq-kanji-grid');
-kanjiN5.forEach(k => {
+kanjiN5.slice(0, 20).forEach(k => {
   const cell = document.createElement('div');
   cell.className = 'kq-kanji-cell';
   cell.innerHTML = `<span class="kqk-char">${k.k}</span><span class="kqk-read">${k.on.split('・')[0]}</span><span class="kqk-mean">${k.meaning}</span>`;
