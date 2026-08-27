@@ -8515,3 +8515,13 @@ Sesi ini adalah contoh penting tentang investigasi yang GENUINELY MEMPERDALAM CA
 **Verifikasi**: validator resmi dijalankan penuh setelah seluruh perubahan — PASSED 0 error 0 warning (377 halaman, 321 materi, 96/96 unit test lulus), termasuk check `search-index`, `materi-parity`, dan `kaigo-hub` yang sudah mencakup 4 modul baru.
 
 **Hasil**: 10 modul Kaiwa total (dari 6), dan 6 modul lama tidak lagi salah tampil di preview share sosial media.
+
+## Website v95 — Aktivasi Tema Zen Temple & Tokyo Night (Sebelumnya Placeholder "Segera")
+
+**Konteks**: `Theme-Settings.html` sudah lama menampilkan preview 2 tema tambahan (⛩️ Zen Temple, 🌃 Tokyo Night) dengan tag "Segera"/"Dalam pengembangan" — kartu tidak bisa diklik, tidak ada implementasi di baliknya.
+
+**Dibangun**: mengikuti pola arsitektur tema Anime Classroom yang sudah terbukti aman (layer dekoratif fixed-position murni CSS/DOM, di-scope ke `[data-np-theme="..."]`, tidak menyentuh warna kartu/teks situs). Zen Temple: pegunungan siluet, pasir bertekstur rake, batu, lumut, torii — statis tanpa animasi. Tokyo Night: langit malam gradasi gelap, bintang berkelip (mati otomatis saat `prefers-reduced-motion`), skyline gedung dengan jendela menyala acak. `assets/anime-theme.js` (dimuat di 375/377 halaman) digeneralisasi jadi loader multi-tema tanpa perlu menyentuh satu pun halaman lain — aset tema baru cuma dimuat saat dipilih.
+
+**Verifikasi**: visual via Playwright (dev server lokal + screenshot, termasuk klik kartu end-to-end di `Theme-Settings.html`) — dikonfirmasi kedua tema tampil benar di halaman dengan area terbuka. Ditemukan & dikonfirmasi BUKAN regresi: latar tema tidak terlihat di balik hero gelap `index.html` — keterbatasan identik sudah ada di tema Anime Classroom sebelumnya (wrapper opaque bawaan halaman, bukan bug tema baru).
+
+**Hasil**: 4 tema aktif (Kyoto, Anime Classroom, Zen Temple, Tokyo Night), semua bisa dipilih dari `Theme-Settings.html`. Validator resmi PASSED 0 error 0 warning.
