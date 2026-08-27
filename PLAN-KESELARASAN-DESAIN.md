@@ -58,8 +58,15 @@ Selama proses ini dibangun & diverifikasi **proteksi berbasis posisi** untuk blo
 - Latar pucat berpasangan (`#f3e5f5`, `#e3f2fd`, dll) — sangat desaturasi, dampak visual "off-brand" kecil dibanding aksen gelapnya yang sudah diperbaiki.
 - Warna kategori exam UI (`.flagged` — oranye "ditandai untuk ditinjau") — sengaja dilindungi, ini status fungsional bukan branding.
 
-### Fase 3 — Migrasi 7 halaman yatim ke design system (🟡 sedang-besar, per halaman)
-`Papan-Tulis.html`, `Analytics.html`, `Kanji-Trainer.html`, `Speaking-AI.html`, `Landing-Page/landing.html`, `Dashboard/Dashboard.html`. Ini bukan sekadar tambah link CSS — perlu migrasi markup navbar/footer ke `kyoto-navbar.js`, jadi harus dikerjakan & diuji satu per satu.
+### Fase 3 — 7 halaman yatim ✅ SEBAGIAN BESAR TERNYATA TIDAK PERLU "MIGRASI"
+
+Asumsi awal ("perlu migrasi navbar/footer ke `kyoto-navbar.js`, pekerjaan besar per halaman") ternyata salah setelah diperiksa satu per satu — 4 dari 6 halaman *tool* ternyata memang sengaja punya UI ringkas sendiri (wajar untuk halaman fokus/full-screen), dan masalah sebenarnya lebih sempit:
+
+- **`Analytics.html`, `Kanji-Trainer.html`, `Speaking-AI.html`** ✅ diperbaiki — bukan "tanpa design system", tapi punya sistem dark-mode SENDIRI (`[data-dark]`) yang genuinely tidak nyambung dengan `[data-theme]`+localStorage yang dipakai situs lain. Preferensi gelap/terang pengguna tidak terbawa saat pindah ke/dari 3 halaman ini. Diperbaiki dengan menjembatani kedua mekanisme toggle (state-sync saja, warna internal halaman — sengaja slate/biru-abu, beda dari coklat Kyoto — tidak disentuh, itu pilihan wajar untuk nuansa tool/dashboard).
+- **`Papan-Tulis.html`** ✅ diperbaiki — ternyata SUDAH kompatibel penuh (`dark-mode-toggle.js` + CSS `[data-theme="dark"]` lengkap di `whiteboard.css`), cuma tidak ada tombol toggle di markup. Ditambahkan 1 tombol.
+- **`Dashboard/Dashboard.html`** ✅ TIDAK PERLU DIPERBAIKI — diperiksa `dashboard-v86.css`: sudah punya sistem variabel sendiri yang lengkap (`--paper`/`--surface`/`--ink`/`--green` dst.) dengan satu blok `[data-theme="dark"]` yang me-remap SEMUA variabel sekaligus, dipakai konsisten di seluruh 140 baris CSS. Sudah benar sejak awal — grep dangkal sebelumnya ("cuma 1 referensi data-theme") salah membaca ini sebagai kurang, padahal itu satu blok besar yang cukup.
+- **`Landing-Page/landing.html`** ⏳ sengaja belum disentuh — benar-benar berdiri sendiri (0 stylesheet bersama, 0 dark mode). Kemungkinan disengaja untuk landing page (performa maksimal untuk trafik iklan/konversi, wajar minim dependency). Butuh keputusan Anda: apakah halaman ini memang harus ikut identitas Kyoto, atau boleh tetap independen karena fungsinya beda (marketing funnel vs platform utama)?
+- **`Teacher-Dashboard.html`** — dikonfirmasi ulang bukan halaman yatim (sudah pakai `kyoto-bundle.min.css` sejak awal, klaim lama di dokumen ini salah).
 
 ### Fase 4 — Satukan font (🔴 butuh keputusan Anda dulu, lihat di bawah)
 Setelah keputusan diambil, ganti deklarasi font yang menyimpang di halaman-halaman minoritas.
