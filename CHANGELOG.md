@@ -8606,3 +8606,19 @@ Sesi ini adalah contoh penting tentang investigasi yang GENUINELY MEMPERDALAM CA
 **Catatan transparansi**: selama kerja ini terdeteksi ada proses/sesi lain yang sedang membangun fitur "AI Writing Practice" secara bersamaan di working tree yang sama (`assets/kyoto-navbar.js`/`.min.js`, `AI-Writing-Practice.html`, `Search.html`, `sitemap.xml`, `sw.js` berubah tanpa saya sentuh). File-file tsb sengaja tidak ikut di-commit di sini agar tidak menimpa pekerjaan yang sedang berjalan.
 
 **Belum dikerjakan**: sentralisasi `.card` dan pola tombol non-quiz (CTA, navigasi) — belum diaudit, jadi belum diklaim selesai.
+
+---
+
+## Website v102 — Fase 6 Gelombang 2: Sentralisasi Seluruh Varian Tombol Quiz Tersisa + Fix Bug CSS Rusak
+
+**Konteks**: v101 hanya menyasar satu pola byte-exact (`onclick="nQ()"/"rQ()"` tanpa font-weight/font-family tambahan). Audit lanjutan dengan grep pola longgar menemukan varian lain dari tombol "Soal Berikutnya"/"Reset" yang secara semantik identik tapi beda kecil (padding 11/12/13px, border-radius 8/10/11px, kadang tambahan `font-weight:600`/`font-family:inherit`) — dari "vintage" generator berbeda, pakai nama fungsi berbeda: `nQkZ/rQkZ` (quiz kedua di file Kaigo/Kaiwa yang punya 2 quiz per halaman), `nQT/rQT`, `nQx/rQx`, `nQX/rQX`, `nextQ/nextQuiz`.
+
+**Perbaikan**: 159 file tambahan, 183 tombol "next" + 155 tombol reset diganti ke `class="btn btn-primary" style="flex:1"` / `class="btn btn-outline"` — konsisten dengan v101. Regex hanya menyasar nama fungsi quiz yang sudah dikonfirmasi + penanda struktural (`color:#fff`+`border:none` untuk next, `border:1px solid`+`cursor:pointer` untuk reset) agar tidak salah sasaran ke tombol lain.
+
+**Bug nyata ditemukan**: `Kaigo-ADL-Guide.html` punya tombol dengan CSS rusak — `background:linear-gradient(135deg;` kurang color-stop dan tanda kurung penutup (invalid), sehingga browser mengabaikan seluruh deklarasi `background` dan tombol tampil tanpa warna. Konversi ke `.btn-primary` otomatis memperbaikinya jadi warna solid brand (`rgb(107,79,58)`) yang benar — dikonfirmasi lewat Playwright `getComputedStyle`.
+
+**Verifikasi**: setelah konversi, grep ulang untuk semua nama fungsi di atas menunjukkan 0 pola lama tersisa. Playwright pada sampel acak 12 file lintas varian: semua tombol `.btn-primary` bisa diklik, 0 console error. `python3 scripts/validate.py`: PASSED — 0 warning, 0 error.
+
+**Catatan transparansi**: sama seperti v101, `assets/kyoto-navbar.js`/`.min.js`, `AI-Writing-Practice.html`, `Search.html`, `sitemap.xml`, `sw.js` tetap tidak disentuh (perubahan in-progress dari proses/sesi lain).
+
+**Belum dikerjakan**: sentralisasi `.card` — beda dengan tombol, `.card` bawaan (`kyoto-design-system.css`) punya border lebih gelap (`--border` 0.10 opacity vs `--border-light` 0.05 opacity yang dipakai kartu ad-hoc di 140+ file) dan menambah `box-shadow` yang tidak ada di versi ad-hoc. Ini genuinely mengubah tampilan (bukan cuma markup), jadi butuh keputusan/verifikasi visual sebelum dikerjakan massal — beda dengan tombol yang class-nya identik secara visual dengan versi ad-hoc.
