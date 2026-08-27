@@ -537,9 +537,21 @@
     });
     document.body.dataset.anatomyMode = mode;
     renderTerms(state.currentSystem); // render ulang: label disembunyikan di mode eksplorasi via CSS [data-anatomy-mode="eksplorasi"]
-    showToast(mode === 'belajar' ? '📖 Mode Belajar — semua label terlihat' :
-      mode === 'eksplorasi' ? '🔍 Mode Eksplorasi — tebak dulu sebelum lihat nama' :
-        '🎯 Mode Kuis Visual — pilih lokasi yang diminta');
+    // GENUINELY DIPERBAIKI: toast generik mode Kuis Visual di sini DIHAPUS --
+    // dikonfirmasi nyata (via pengujian interaktif) bahwa toast ini SELALU
+    // menimpa toast soal spesifik ("「◯◯」をタップしてください") yang dipicu
+    // NPAnatomyQuiz.startVisualQuiz() dari listener terpisah di Anatomi-Dasar.html
+    // pada #modeSwitcher yang sama. Karena listener inline itu teregistrasi
+    // LEBIH DULU (kode sinkron, sementara initModeSwitcher() di sini baru
+    // jalan saat DOMContentLoaded), urutan tembak toast genuinely: soal
+    // spesifik dulu, baru toast generik ini -- hasil akhir yang terlihat
+    // pengguna SELALU toast generik, soal yang harus ditap tidak pernah
+    // tampil. Akibatnya Kuis Visual genuinely tidak bisa dimainkan (state
+    // internal benar, tapi pengguna tidak tahu target mana yang harus diklik).
+    if (mode !== 'kuisvisual') {
+      showToast(mode === 'belajar' ? '📖 Mode Belajar — semua label terlihat' :
+        '🔍 Mode Eksplorasi — tebak dulu sebelum lihat nama');
+    }
   }
 
   // ═══════════ INISIALISASI ═══════════
