@@ -8525,3 +8525,13 @@ Sesi ini adalah contoh penting tentang investigasi yang GENUINELY MEMPERDALAM CA
 **Verifikasi**: visual via Playwright (dev server lokal + screenshot, termasuk klik kartu end-to-end di `Theme-Settings.html`) — dikonfirmasi kedua tema tampil benar di halaman dengan area terbuka. Ditemukan & dikonfirmasi BUKAN regresi: latar tema tidak terlihat di balik hero gelap `index.html` — keterbatasan identik sudah ada di tema Anime Classroom sebelumnya (wrapper opaque bawaan halaman, bukan bug tema baru).
 
 **Hasil**: 4 tema aktif (Kyoto, Anime Classroom, Zen Temple, Tokyo Night), semua bisa dipilih dari `Theme-Settings.html`. Validator resmi PASSED 0 error 0 warning.
+
+## Website v96 — Fitur Terjemahan AI Nyata: Translator Pro Disambungkan ke Backend, Bug Mode Hilang di 4 Fungsi SDK Ditemukan
+
+**Konteks**: Diminta membangun fitur terjemahan. Investigasi menemukan widget "Translator Pro" (`assets/translator.js`, aktif di 33 halaman) sudah ada sejak lama tapi hanya mampu pencarian kamus lokal (`assets/vocab-all.csv`) — mode "API" hanya aktif jika pengguna manual mengetik URL endpoint sendiri, sesuatu yang praktis tidak pernah terjadi.
+
+**Bug ditemukan**: `assets/nihongo-ai.js` (SDK klien AI resmi platform) sudah lama mengekspor `NihongoAI.translate()`, `.explainKanji()`, `.explainVocab()`, `.makeSentence()` yang masing-masing mengirim `mode:'translate'/'kanji'/'vocabulary'/'sentence'` ke `/api/ai-chat` — tapi `netlify/functions/ai-chat.js` tidak punya `SYSTEM_PROMPTS` untuk 4 mode itu, sehingga diam-diam jatuh ke fallback persona percakapan umum (`SYSTEM_PROMPTS[mode] || SYSTEM_PROMPTS.conversation`). 4 fungsi SDK ini genuinely tidak pernah melakukan tugas yang dimaksud sejak dibuat.
+
+**Perbaikan**: ditambahkan 4 system prompt baru mengikuti gaya persona "Tanaka Sensei" yang sudah established. Widget Translator Pro disambungkan ke `NihongoAI.translate()` sebagai jalur utama (lazy-load `nihongo-ai.js` hanya saat panel dibuka), endpoint kustom manual jadi opsi lanjutan opsional. Breakdown kata (tokenizer + kamus partikel lokal) tetap ditampilkan berdampingan dengan hasil AI, bukan digantikan.
+
+**Verifikasi**: end-to-end via Playwright — lazy-load SDK berhasil, panggilan ke `/api/ai-chat` terkonfirmasi terkirim dengan format benar, 0 error JS, breakdown kata tetap akurat berdampingan dengan hasil AI. Validator resmi PASSED 0 error 0 warning.
