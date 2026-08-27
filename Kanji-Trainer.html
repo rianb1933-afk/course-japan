@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+<script>(function(){var k=['kyoto-theme','nihongo-theme','theme'],s=null;for(var i=0;i<k.length;i++){s=localStorage.getItem(k[i]);if(s)break}if(s==='dark'){document.documentElement.setAttribute('data-dark','');document.documentElement.setAttribute('data-theme','dark')}})();</script>
 <meta charset="UTF-8">
 <link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
 <meta name="theme-color" content="#6B4F3A">
@@ -121,7 +122,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink)}
     <div class="tb-nav">
       <a href="Dashboard/Dashboard.html" class="tb-btn">🏠</a>
       <a href="Analytics.html" class="tb-btn">📊</a>
-      <button aria-label="Document.documentelement.toggleattribute" class="tb-btn" onclick="document.documentElement.toggleAttribute('data-dark')">🌙</button>
+      <button aria-label="Document.documentelement.toggleattribute" class="tb-btn" onclick="var d=document.documentElement.toggleAttribute('data-dark');document.documentElement.setAttribute('data-theme',d?'dark':'');['kyoto-theme','nihongo-theme','theme'].forEach(function(k){localStorage.setItem(k,d?'dark':'light')})">🌙</button>
     </div>
   </div>
 </div>
