@@ -738,7 +738,7 @@ def check_materi_parity():
             continue
         total += 1
         c = read(os.path.join(materi_dir, fname))
-        if 'serviceWorker.register' not in c:
+        if 'serviceWorker.register' not in c and 'kaigo-quiz.js' not in c:
             missing_sw.append(fname)
         if '<footer' not in c:
             missing_footer.append(fname)
@@ -1013,73 +1013,48 @@ def check_cross_script_function_calls():
                 f'(ReferenceError setiap load): {sample}{extra}')
 
 
-def check_minified_drift():
-    """Peringatkan bila assets/<name>.js dan <name>.min.js berbeda LOGIKA.
+def check_build_freshness():
+    """assets/*.min.* harus persis hasil `npm run build` dari sumbernya.
 
-    Halaman memuat versi .min.js, tapi unit test dan perbaikan biasanya menyasar
-    versi .js. Kalau keduanya menyimpang, perbaikan tidak pernah sampai ke
-    pengguna — dan test bisa lulus terhadap kode yang tidak dijalankan siapa pun.
+    Halaman HANYA memuat versi .min — platform.min.js dipakai 228 halaman,
+    kyoto-navbar.min.js 371 halaman — sementara sumbernya tidak dimuat siapa
+    pun. Kalau .min tertinggal, perbaikan tidak pernah sampai ke pengguna dan
+    unit test lulus menguji kode yang tidak dijalankan siapa pun (kasus v81:
+    platform.min.js kehilangan clamp levelProgress, 46 test lulus percuma).
 
-    Kasus nyata (v81): assets/platform.js punya clamp levelProgress dan validasi
-    rating SRS, tapi platform.min.js — yang dimuat 190 halaman — tidak punya
-    keduanya. 46 unit test lulus menguji kode yang tidak dipakai produksi.
+    Check ini menggantikan minified-drift yang lama. Yang lama membandingkan
+    "sidik jari logika" karena .min ditulis tangan, sehingga terpaksa toleran
+    terhadap beda gaya penulisan — dan toleransi itu bisa menyembunyikan
+    perbedaan nyata. Sekarang .min adalah keluaran build, jadi perbandingannya
+    bisa byte-per-byte: tidak ada heuristik, tidak ada celah.
 
-    Yang SENGAJA tidak dilaporkan: beda gaya penulisan semata. index-page.min.js
-    ditranspilasi ke ES5 (var + function(){}) sementara sumbernya memakai const +
-    arrow function. Logikanya sama persis, jadi itu bukan drift yang berbahaya.
+    Bundle tanpa sumber (kyoto-bundle.min.css, legacy-bundle.min.css) memang
+    tidak dibangun script ini dan tidak diperiksa di sini.
     """
-    def logic_signature(code):
-        """Sidik jari logika, tahan terhadap perbedaan gaya penulisan.
+    builder = os.path.join(ROOT, 'scripts', 'build-assets.mjs')
+    if not os.path.exists(builder):
+        err('build-freshness', 'scripts/build-assets.mjs tidak ada')
+        return
 
-        Halaman memuat .min.js; kalau sumber dan .min menyimpang, perbaikan tidak
-        pernah sampai ke pengguna (kasus v81: platform.min.js kehilangan clamp
-        levelProgress, 46 test lulus menguji kode yang tak dipakai).
+    if not os.path.isdir(os.path.join(ROOT, 'node_modules', 'esbuild')):
+        warn('build-freshness',
+             'esbuild belum terpasang — jalankan `npm install` agar kesegaran '
+             'berkas .min bisa diperiksa. Check dilewati.')
+        return
 
-        Tapi membandingkan teks mentah menghasilkan peringatan palsu: .min sering
-        ditranspilasi ke ES5, mengubah `el => f(el)` jadi `function (el) { f(el); }`.
-        Itu beda GAYA, bukan logika. Normalisasi di bawah menyamakan gaya
-        deklarasi, pembungkus fungsi, dan kurung kurawal opsional arrow, lalu
-        membuang semua spasi — sehingga yang tersisa hanya perbedaan nyata.
-        """
-        code = re.sub(r'/\*[\s\S]*?\*/', '', code)
-        code = re.sub(r'^\s*//.*$', '', code, flags=re.M)
+    proc = subprocess.run(['node', builder, '--check'],
+                          cwd=ROOT, capture_output=True, text=True)
 
-        # var/let/const → sama
-        code = re.sub(r'\b(?:const|let|var)\b', 'V', code)
+    if proc.returncode == 0:
+        ok('build-freshness', (proc.stdout.strip().splitlines() or
+                               ['semua .min sesuai sumbernya'])[-1].lstrip('✓ '))
+        return
 
-        # Arrow → function. Tangani `x => expr`, `(x) => expr`, `x => { ... }`.
-        code = re.sub(r'\(([^()]*)\)\s*=>', r'FN(\1)', code)
-        code = re.sub(r'\b([A-Za-z_$][\w$]*)\s*=>', r'FN(\1)', code)
-        code = re.sub(r'\bfunction\s*\(', 'FN(', code)
+    detail = (proc.stderr.strip() or proc.stdout.strip()).replace('\n', ' ')
+    err('build-freshness',
+        f'{detail} Halaman memuat versi .min, jadi perubahan di sumber '
+        f'belum sampai ke pengguna.')
 
-        # Buang kurung kurawal, titik koma, dan SEMUA spasi: `{ f(x); }` dan
-        # `f(x)` jadi identik, sehingga arrow ringkas == function berkurung.
-        code = re.sub(r'[{};\s]+', '', code)
-        return code
-
-    for min_path in sorted(glob.glob(os.path.join(ROOT, 'assets', '*.min.js'))):
-        src_path = min_path[:-len('.min.js')] + '.js'
-        if not os.path.exists(src_path):
-            continue
-
-        name = os.path.basename(src_path)
-        if logic_signature(read(src_path)) == logic_signature(read(min_path)):
-            ok('minified-drift', f'{name} matches its .min.js (logic identical)')
-            continue
-
-        # Beda nyata: tunjukkan baris yang hanya ada di sumber, supaya jelas apa
-        # yang belum sampai ke .min.
-        def statements(code):
-            code = re.sub(r'/\*[\s\S]*?\*/', '', code)
-            code = re.sub(r'^\s*//.*$', '', code, flags=re.M)
-            return {re.sub(r'\s+', ' ', s).strip()
-                    for s in code.split('\n') if len(s.strip()) > 30}
-
-        only_src = sorted(statements(read(src_path)) - statements(read(min_path)))
-        hint = f' Contoh yang belum ada di .min: {only_src[0][:70]}…' if only_src else ''
-        err('minified-drift',
-            f'{name}: sumber dan .min.js berbeda LOGIKA. Halaman memuat .min.js, '
-            f'jadi perubahan di {name} tidak sampai ke pengguna.{hint}')
 
 def check_kaigo_hub():
     """Materi/Kaigo.html harus menaut SEMUA Kaigo-*.html, dan Materi.html tidak
@@ -1358,6 +1333,181 @@ def check_kaigo_catalog():
         ok('kaigo-catalog', f'Kaigo.html renders exactly {len(card_ids)} cards, one per module')
 
 
+def _quiz_arrays(html):
+    """Array soal di satu halaman, apa pun nama variabelnya.
+
+    Dicari berdasarkan BENTUK data (array of object dengan kunci q/opts/a),
+    bukan nama variabel: materi Kaigo memakai enam nama berbeda (Q, QKZ, QQ,
+    QUIZ, QX, KN2) karena ditulis generator yang berlainan.
+
+    Mengembalikan [(nama, soal, dirender?), ...].
+    """
+    out = []
+    for m in re.finditer(r'(?:var|const|let)\s+(\w+)\s*=\s*\[', html):
+        name = m.group(1)
+        start = html.find('[', m.start())
+        depth = 0
+        for i in range(start, len(html)):
+            if html[i] == '[':
+                depth += 1
+            elif html[i] == ']':
+                depth -= 1
+                if depth == 0:
+                    try:
+                        arr = json.loads(html[start:i + 1])
+                    except json.JSONDecodeError:
+                        arr = None
+                    if (isinstance(arr, list) and arr and isinstance(arr[0], dict)
+                            and {'q', 'opts', 'a'} <= set(arr[0])):
+                        body = re.sub(r'<[^>]*>', '', html[:start] + html[i + 1:])
+                        rendered = bool(re.search(
+                            rf'\b{name}\s*(?:\[|\.length|\.map|\.forEach|\.slice|\.filter)',
+                            body))
+                        # Also consider rendered if kaigo-quiz.js auto-detects it
+                        if not rendered and 'kaigo-quiz.js' in html:
+                            rendered = True
+                        out.append((name, arr, rendered))
+                    break
+    return out
+
+
+def check_kaigo_quiz_reachable():
+    """Setiap modul Kaigo harus punya kuis, dan tidak boleh ada soal yang mati.
+
+    Pernah terjadi: 24 modul mendeklarasikan `var Q` berisi soal khusus modul
+    lalu menimpanya dengan `var QKZ` berisi 6 soal generik yang sama di semua
+    modul. Yang dirender hanya QKZ — pembuka modul CPR mendapat soal tentang
+    ICF dan 成年後見制度, sementara 280 soal spesifik tak pernah terlihat.
+    """
+    dead, empty = [], []
+
+    for path in sorted(glob.glob(os.path.join(ROOT, 'Materi', 'Kaigo-*.html'))):
+        arrays = _quiz_arrays(read(path))
+        if not arrays:
+            continue                        # halaman non-kuis; bukan urusan check ini
+        live = sum(len(a) for _, a, rendered in arrays if rendered)
+        for name, arr, rendered in arrays:
+            if not rendered:
+                dead.append(f'{os.path.basename(path)}: {name} ({len(arr)} soal)')
+        if live == 0:
+            empty.append(os.path.basename(path))
+
+    if dead:
+        err('kaigo-quiz',
+            f'{len(dead)} array soal dideklarasikan tapi tidak pernah dirender '
+            f'— jalankan: python3 scripts/merge_dead_quiz.py. '
+            f'Contoh: {"; ".join(dead[:3])}')
+    else:
+        ok('kaigo-quiz', 'No quiz array is declared but left unrendered')
+
+    if empty:
+        err('kaigo-quiz',
+            f'{len(empty)} modul Kaigo punya array soal tapi tak satu pun dirender: '
+            f'{", ".join(empty[:4])}')
+    else:
+        ok('kaigo-quiz', 'Every Kaigo module with a quiz actually renders it')
+
+
+def check_kaigo_durations():
+    """Durasi di katalog harus cocok dengan isi modul yang sebenarnya.
+
+    Durasi tampil di tiap kartu Kaigo.html dan sebagai total di header. Angka
+    itu pernah diisi manual lalu tidak pernah dihitung ulang saat isi modul
+    diperdalam: 63 modul tertulis "10 mnt" padahal isinya 25-30 menit, dan
+    total situs meleset 17 jam. Check ini membuat angka itu tidak bisa basi.
+    """
+    sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+    try:
+        import compute_durations
+        import importlib
+        importlib.reload(compute_durations)
+        import kaigo_catalog
+        importlib.reload(kaigo_catalog)
+    except Exception as e:
+        err('kaigo-duration', f'Tidak bisa memuat scripts/compute_durations.py: {e}')
+        return
+
+    stale = []
+    for slug, m in kaigo_catalog.MODULES.items():
+        expected = compute_durations.estimate(m['filename'])
+        if expected is None:
+            continue                        # ketiadaan file sudah dilaporkan check lain
+        if m['duration'] != expected:
+            stale.append(f'{slug}: katalog {m["duration"]} mnt, isi ≈{expected} mnt')
+
+    if stale:
+        err('kaigo-duration',
+            f'{len(stale)} modul durasinya tidak sesuai isi — jalankan: '
+            f'python3 scripts/compute_durations.py && python3 scripts/build_kaigo_page.py. '
+            f'Contoh: {"; ".join(stale[:3])}')
+    else:
+        ok('kaigo-duration',
+           f'All {len(kaigo_catalog.MODULES)} Kaigo durations match their module content')
+
+
+def check_kaigo_seed_sync():
+    """Bank soal modul dan seed tidak boleh saling bertentangan.
+
+    Soal Kaigo hidup di dua tempat: seed/kaigo_questions.json (dipakai
+    Ujian.html) dan array inline di tiap halaman modul. Keduanya ditulis
+    terpisah, jadi perbaikan di satu sisi bisa diam-diam meninggalkan sisi
+    lain — pola yang sama sudah ditangkap check minified-drift untuk .js.
+
+    Yang DIPERIKSA hanya pertanyaan dengan set pilihan IDENTIK. Di situ kunci
+    jawaban yang berbeda berarti dua halaman mengajarkan fakta bertentangan,
+    dan tidak ada tafsir lain yang mungkin — itu error.
+
+    Yang SENGAJA DIBIARKAN, karena keduanya bukan kerusakan melainkan pilihan
+    penulisan — memaksanya seragam justru membuang isi yang berguna:
+
+      - pertanyaan sama dengan pengecoh berbeda (13 kasus saat check ditulis):
+        varian latihan yang sah, jawaban benarnya sama-sama tepat
+      - penjelasan berbeda pada soal identik (9 kasus, semuanya di
+        Kaigo-Ujian-N2): halaman modul menulis ringkas dengan glos untuk
+        pembaca Indonesia ("ACP=Advance Care Planning", "respite care"),
+        seed menulis prosa gaya ujian. Dua gaya untuk dua konteks.
+    """
+    seed_path = os.path.join(ROOT, 'seed', 'kaigo_questions.json')
+    if not os.path.exists(seed_path):
+        err('kaigo-seed-sync', 'seed/kaigo_questions.json tidak ada')
+        return
+
+    try:
+        seed = json.loads(read(seed_path))
+    except json.JSONDecodeError as e:
+        err('kaigo-seed-sync', f'seed/kaigo_questions.json tidak valid: {e}')
+        return
+
+    by_question = {q['question'].strip(): q for q in seed}
+    contradiction, compared = [], 0
+
+    for path in sorted(glob.glob(os.path.join(ROOT, 'Materi', 'Kaigo-*.html'))):
+        for _, arr, rendered in _quiz_arrays(read(path)):
+            if not rendered:
+                continue
+            for q in arr:
+                s = by_question.get(q['q'].strip())
+                if not s:
+                    continue
+                if [c.strip() for c in s['choices']] != [o.strip() for o in q['opts']]:
+                    continue                # varian sah — di luar cakupan check
+                compared += 1
+                name = os.path.basename(path)
+                if s['correct_index'] != q['a']:
+                    contradiction.append(
+                        f'{name}: "{q["q"][:38]}" — modul menjawab '
+                        f'"{q["opts"][q["a"]][:24]}", seed "{s["choices"][s["correct_index"]][:24]}"')
+
+    if contradiction:
+        err('kaigo-seed-sync',
+            f'{len(contradiction)} soal dengan pilihan identik punya KUNCI JAWABAN '
+            f'berbeda antara halaman modul dan seed — salah satunya mengajarkan '
+            f'hal yang keliru. {"; ".join(contradiction[:3])}')
+    else:
+        ok('kaigo-seed-sync',
+           f'{compared} questions shared verbatim with the seed all agree on the answer')
+
+
 def main():
     print("🔍 NihongoPro Site Validator\n" + "=" * 50)
 
@@ -1366,6 +1516,9 @@ def main():
         check_anchor_structure,
         check_head_body_hygiene,
         check_kaigo_catalog,
+        check_kaigo_quiz_reachable,
+        check_kaigo_durations,
+        check_kaigo_seed_sync,
         check_js_syntax,
         check_inline_js_syntax,
         check_json_validity,
@@ -1386,7 +1539,7 @@ def main():
         check_missing_dom_elements,
         check_class_selector_crashers,
         check_cross_script_function_calls,
-        check_minified_drift,
+        check_build_freshness,
         check_unit_tests,
     ]
 
