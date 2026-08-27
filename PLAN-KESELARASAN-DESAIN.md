@@ -68,8 +68,13 @@ Asumsi awal ("perlu migrasi navbar/footer ke `kyoto-navbar.js`, pekerjaan besar 
 - **`Landing-Page/landing.html`** ⏳ sengaja belum disentuh — benar-benar berdiri sendiri (0 stylesheet bersama, 0 dark mode). Kemungkinan disengaja untuk landing page (performa maksimal untuk trafik iklan/konversi, wajar minim dependency). Butuh keputusan Anda: apakah halaman ini memang harus ikut identitas Kyoto, atau boleh tetap independen karena fungsinya beda (marketing funnel vs platform utama)?
 - **`Teacher-Dashboard.html`** — dikonfirmasi ulang bukan halaman yatim (sudah pakai `kyoto-bundle.min.css` sejak awal, klaim lama di dokumen ini salah).
 
-### Fase 4 — Satukan font (🔴 butuh keputusan Anda dulu, lihat di bawah)
-Setelah keputusan diambil, ganti deklarasi font yang menyimpang di halaman-halaman minoritas.
+### Fase 4 — Satukan font ✅ SELESAI (ternyata bukan keputusan desain, tapi bug cascade CSS)
+
+Investigasi CSS cascade (bukan sekadar grep deklarasi) membuktikan "3 font berbeda" bukan inkonsistensi visual nyata: `kyoto-bundle.min.css` punya `body{font-family:'DM Sans','Noto Sans JP',...!important}` yang **selalu menang** atas `body{font-family:Outfit,...}` halaman manapun yang juga memuat bundle ini (specificity sama, `!important` menang mutlak). Jadi font yang benar-benar dirender di 369/377 halaman **sudah** DM Sans — tidak perlu "memilih pemenang" seperti dugaan awal.
+
+Masalah sebenarnya: 145 halaman men-download font Google `Outfit` (bandwidth terbuang), 139 di antaranya (yang juga memuat `kyoto-bundle.min.css`) tidak pernah benar-benar menampilkannya. Dibersihkan: link Google Fonts `Outfit` dari query string gabungan + 221 deklarasi `body{font-family:Outfit,...}` mati. Zero perubahan visual — murni bandwidth/dead-code.
+
+6 halaman dikecualikan (genuinely tidak memuat `kyoto-bundle.min.css`, jadi Outfit genuinely dirender di sana): `Analytics.html`, `Kanji-Trainer.html`, `Speaking-AI.html`, `Dashboard/Dashboard.html`, `Landing-Page/landing.html`, `Materi/Kaigo.html`.
 
 ### Fase 5 — Standarkan breakpoint (🟢 jangka panjang, batch bertahap)
 69 nilai → target set kecil (mis. `480px`/`768px`/`1024px`/`1280px`, mengikuti nilai yang sudah paling umum: 900/920/768/640). Dikerjakan bertahap per kelompok halaman (pola sama seperti batch Kaigo/dark-mode sebelumnya), bukan sekali jalan ke 377 halaman.
