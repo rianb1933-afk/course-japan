@@ -1,4 +1,4 @@
-const CACHE = 'eduma-kaigo-v322';
+const CACHE = 'eduma-kaigo-v323';
 const PRECACHE = [
   '/offline.html',
   '/',
@@ -78,6 +78,9 @@ const PRECACHE = [
   '/assets/og-preview.svg',
   '/assets/mascot-kucing.svg',
   '/assets/my-kucing.svg',
+  // Hanya WebP yang di-precache; fallback .jpg di-cache oleh fetch handler
+  // saat benar-benar dipakai (browser hanya mengunduh salah satu dari keduanya).
+  '/assets/hero-kucing.webp',
   '/assets/eduma-platform.css',
   '/assets/eduma-data.js',
   '/assets/eduma-platform.js',
