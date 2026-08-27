@@ -8622,3 +8622,19 @@ Sesi ini adalah contoh penting tentang investigasi yang GENUINELY MEMPERDALAM CA
 **Catatan transparansi**: sama seperti v101, `assets/kyoto-navbar.js`/`.min.js`, `AI-Writing-Practice.html`, `Search.html`, `sitemap.xml`, `sw.js` tetap tidak disentuh (perubahan in-progress dari proses/sesi lain).
 
 **Belum dikerjakan**: sentralisasi `.card` — beda dengan tombol, `.card` bawaan (`kyoto-design-system.css`) punya border lebih gelap (`--border` 0.10 opacity vs `--border-light` 0.05 opacity yang dipakai kartu ad-hoc di 140+ file) dan menambah `box-shadow` yang tidak ada di versi ad-hoc. Ini genuinely mengubah tampilan (bukan cuma markup), jadi butuh keputusan/verifikasi visual sebelum dikerjakan massal — beda dengan tombol yang class-nya identik secara visual dengan versi ad-hoc.
+
+---
+
+## Website v103 — Tutup Item Roadmap "6 Halaman Tanpa Dark Mode"
+
+**Konteks**: `ROADMAP-KONSOLIDASI.md` mencatat 6 halaman (`Papan-Tulis.html`, `Teacher-Dashboard.html`, `Analytics.html`, `Kanji-Trainer.html`, `Speaking-AI.html`, `Landing-Page/landing.html`) sebagai "tidak punya dark mode sama sekali", diduga butuh migrasi design system penuh per halaman.
+
+**Temuan setelah investigasi satu-per-satu (bukan asumsi dari klaim lama)**:
+- `Papan-Tulis.html`: genuinely sudah lengkap dan benar. Kanvas gambar sengaja tetap putih di dark mode (seperti kanvas alat gambar pada umumnya) — bukan bug.
+- `Analytics.html`, `Kanji-Trainer.html`, `Speaking-AI.html`: ternyata SUDAH punya dark mode fungsional penuh (script anti-FOUC, variabel `[data-dark]`, toggle button) sejak sebelumnya. Bug nyata yang ditemukan: aria-label tombol toggle rusak ("Document.documentelement.toggleattribute" — hasil auto-generate dari isi onclick) dan ikon tidak pernah berganti 🌙/☀️ sesuai status tema. Diperbaiki di ketiganya.
+- `Teacher-Dashboard.html`: sudah memuat CSS dark mode (`kyoto-bundle.min.css`+`kyoto-theme.css`) tapi belum ada script+tombol toggle. Ditambahkan `kyoto-theme.js` (skrip toggle mandiri) — sengaja BUKAN `kyoto-navbar.js`, karena skrip itu memaksa injeksi navbar publik penuh ke `document.body` dan menghapus elemen `<nav>` lain di halaman, yang akan merusak header dashboard guru yang sudah ada.
+- `Landing-Page/landing.html`: satu-satunya dari 6 yang genuinely nol dark mode. Halaman ini sudah ditulis dengan `var(--ink/--bg/--white/--border/dst)` di hampir semua komponennya, jadi dibangun baru: blok `[data-dark]{...}` dengan palet sama seperti 3 halaman dashboard di atas (untuk konsistensi lintas halaman "mandiri"), plus toggle button di nav dan perbaikan 2 tempat yang masih hardcode warna (`nav` background & section `#success`).
+
+**Verifikasi**: Playwright pada kelima halaman yang diubah — toggle 🌙↔☀️ berfungsi, `data-theme`/localStorage tersimpan dan bertahan setelah reload, 0 console error di semua. Screenshot per-section (hero, testimoni, pricing, FAQ) untuk `landing.html` dan area stats/tabel untuk `Teacher-Dashboard.html` menunjukkan kontras benar di kedua mode, tidak ada regresi di mode terang. `python3 scripts/validate.py`: PASSED — 0 warning, 0 error di setiap commit.
+
+**Pola yang berulang lagi**: seperti audit-audit sebelumnya di proyek ini, klaim "X halaman tidak punya fitur Y sama sekali" ternyata heterogen setelah dicek langsung — mayoritas sudah punya fiturnya dengan bug kecil, bukan benar-benar kosong. Verifikasi langsung ke kode/DOM tetap lebih dapat diandalkan daripada dokumen audit lama.
