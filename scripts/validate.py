@@ -1712,6 +1712,54 @@ def check_kaigo_quiz_reachable():
            f'Every Kaigo module renders at least {MIN_QUESTIONS} questions')
 
 
+def check_explanation_id_coverage():
+    """Lacak berapa penjelasan kuis Kaigo yang sudah punya bahasa Indonesia.
+
+    Penjelasan adalah momen mengajarnya — yang membacanya justru orang yang
+    baru saja salah menjawab. Saat check ini ditulis, 2.104 dari 2.183
+    penjelasan tidak memuat satu kata Indonesia pun (77 dari 100 modul nol
+    sama sekali), rata-rata 82 karakter dengan 45% kanji. Untuk pembaca N4-N3
+    yang jadi sasaran platform ini, bagian yang paling dibutuhkan justru yang
+    paling tidak terbaca.
+
+    Ini BUKAN error: melengkapinya adalah pekerjaan menulis konten yang
+    berjalan bertahap lewat seed/kaigo_explanation_id.json. Yang dijaga di
+    sini hanya arahnya — cakupan tidak boleh mundur dari yang sudah dicapai.
+    """
+    engine = _quiz_engine()
+    indonesian = re.compile(
+        r'\b(yang|dan|untuk|dengan|pada|dari|atau|tidak|adalah|bisa|agar|saat'
+        r'|oleh|dalam|secara|harus|dapat|perlu|karena)\b', re.I)
+    value = re.compile(r'["\']?(?:e|exp|explanation)["\']?\s*:\s*(["\'])'
+                       r'((?:[^\\]|\\.)*?)\1', re.S)
+
+    total = covered = 0
+    for path in sorted(glob.glob(os.path.join(ROOT, 'Materi', 'Kaigo-*.html'))):
+        html = read(path)
+        for name, _, span in engine.quiz_arrays(html):
+            if not engine.is_rendered(html, name, span):
+                continue
+            for m in value.finditer(html[span[0]:span[1]]):
+                total += 1
+                if indonesian.search(m.group(2)):
+                    covered += 1
+
+    if not total:
+        return
+
+    BASELINE = 103          # dicapai pada batch pertama; jangan turun
+    pct = covered / total * 100
+
+    if covered < BASELINE:
+        err('explanation-id',
+            f'Cakupan glos Indonesia turun ke {covered}/{total} ({pct:.0f}%), '
+            f'di bawah {BASELINE} yang sudah dicapai. Glos hilang, bukan bertambah.')
+    else:
+        ok('explanation-id',
+           f'{covered}/{total} ({pct:.0f}%) penjelasan kuis memuat bahasa Indonesia '
+           f'— sisa {total - covered} menunggu penulisan')
+
+
 def check_kaigo_durations():
     """Durasi di katalog harus cocok dengan isi modul yang sebenarnya.
 
@@ -1819,6 +1867,7 @@ def main():
         check_precache_budget,
         check_kaigo_catalog,
         check_kaigo_quiz_reachable,
+        check_explanation_id_coverage,
         check_kaigo_durations,
         check_kaigo_seed_sync,
         check_js_syntax,
