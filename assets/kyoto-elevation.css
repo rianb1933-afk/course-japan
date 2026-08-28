@@ -262,3 +262,36 @@ table.kx-table, .kx-table table { border-collapse: separate; border-spacing: 0; 
   font-size: 18px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
 }
+
+/* ── Footer situs ─────────────────────────────────────────────────────
+   126 halaman menyalin markup footer yang sama beserta gayanya sebagai
+   atribut style= — 3.397 atribut, ditambah 1.058 handler onmouseover/
+   onmouseout inline yang hanya mengubah warna saat hover.
+
+   Kelas di bawah menyalin deklarasi itu PERSIS, jadi tampilannya tidak
+   berubah sedikit pun. Yang berubah: warna hover kini ditangani :hover CSS,
+   bukan JavaScript inline pada tiap tautan.
+
+   Varian opasitas lain (.35, .4, .55) sengaja tidak dibuatkan kelas —
+   perbedaannya kemungkinan besar hasil salin-tempel yang menyimpang, dan
+   menyeragamkannya di sini akan mengubah tampilan tanpa keputusan desain. */
+.site-footer {
+  background: var(--ink);
+  color: rgba(255, 255, 255, .7);
+  padding: 3rem clamp(16px, 5vw, 72px) 2rem;
+  margin-top: auto;
+}
+.ft-inner   { max-width: 1200px; margin: 0 auto; }
+.ft-grid    { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2rem; margin-bottom: 2.5rem; }
+.ft-brand   { font-family: 'Noto Serif JP', serif; color: #fff; font-size: 20px; font-weight: 700; margin-bottom: .5rem; }
+.ft-tagline { font-size: 13px; line-height: 1.75; margin-bottom: .875rem; }
+.ft-chips   { display: flex; gap: .4rem; flex-wrap: wrap; }
+.ft-heading { font-size: 11px; font-weight: 800; color: rgba(255, 255, 255, .4); letter-spacing: .08em; text-transform: uppercase; margin-bottom: .75rem; }
+.ft-links   { display: flex; flex-direction: column; gap: .35rem; }
+.ft-meta    { display: flex; gap: 1rem; font-size: 12px; }
+.ft-note    { font-size: 12px; color: rgba(255, 255, 255, .35); }
+
+.ft-link     { color: rgba(255, 255, 255, .65); font-size: 13px; text-decoration: none; transition: color .15s; }
+.ft-link-dim { color: rgba(255, 255, 255, .6); text-decoration: none; transition: color .15s; }
+.ft-link:hover,
+.ft-link-dim:hover { color: #fff; }
