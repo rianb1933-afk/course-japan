@@ -1747,7 +1747,7 @@ def check_explanation_id_coverage():
     if not total:
         return
 
-    BASELINE = 103          # dicapai pada batch pertama; jangan turun
+    BASELINE = 192          # dicapai pada batch pertama; jangan turun
     pct = covered / total * 100
 
     if covered < BASELINE:
