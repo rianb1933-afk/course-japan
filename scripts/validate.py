@@ -1766,7 +1766,7 @@ def check_explanation_id_coverage():
     if not total:
         return
 
-    BASELINE = 1482          # dicapai pada batch pertama; jangan turun
+    BASELINE = 1599          # dicapai pada batch pertama; jangan turun
     pct = covered / total * 100
 
     if covered < BASELINE:
@@ -1777,6 +1777,53 @@ def check_explanation_id_coverage():
         ok('explanation-id',
            f'{covered}/{total} ({pct:.0f}%) penjelasan kuis memuat bahasa Indonesia '
            f'— sisa {total - covered} menunggu penulisan')
+
+
+def check_no_hangul():
+    """Tidak boleh ada aksara Korea di materi.
+
+    Platform ini memakai tiga aksara: Jepang (kanji, kana), Latin untuk bahasa
+    Indonesia, dan sesekali angka. Hangul tidak punya tempat di sini, jadi
+    kemunculannya selalu berarti salah tempel dari sumber lain.
+
+    Ditemukan saat menerjemahkan penjelasan kuis: tujuh serpihan di enam
+    berkas, semuanya menggantikan kata yang seharusnya ada —
+
+        安全確認   → 안전確認      Kaigo-Yakan-Care
+        発見したら  → 발견したら     Kaigo-Hukum-Lanjut
+        自然地名   → 자연地名      Wago-Kango-Gairaigo
+        hipotensi → 히포텐시      Kaigo-Prosedur
+        せんしゅう  → 지난 주       Kosakata-N5-Review
+
+    Yang terakhir paling parah: ia berada di dalam OPSI JAWABAN, bukan di
+    penjelasan. Pembelajar diminta memilih jawaban benar yang sebagian
+    tertulis dalam bahasa yang tidak ia pelajari.
+
+    Tidak ada yang menangkapnya karena tidak ada yang mencarinya — hangul
+    terbaca sebagai "aksara Asia" sekilas pandang dan lolos begitu saja.
+    """
+    # Hangul suku kata, jamo modern, dan jamo kompatibilitas.
+    hangul = re.compile(r'[가-힣ᄀ-ᇿ㄰-㆏]+')
+
+    found = []
+    for path in sorted(glob.glob(os.path.join(ROOT, '**', '*.html'),
+                                 recursive=True)):
+        if 'node_modules' in path:
+            continue
+        html = read(path)
+        for m in hangul.finditer(html):
+            found.append((os.path.relpath(path, ROOT), m.group(0),
+                          html[max(0, m.start() - 25):m.end() + 15]))
+
+    if not found:
+        ok('no-hangul', 'Tidak ada aksara Korea di materi Jepang-Indonesia.')
+        return
+
+    err('no-hangul',
+        f'{len(found)} serpihan aksara Korea di '
+        f'{len({f[0] for f in found})} berkas — hampir pasti salah tempel:')
+    for rel, frag, ctx in found[:6]:
+        err('no-hangul', f'    {rel}  「{frag}」  …{ctx.strip()}…')
 
 
 def check_kaigo_durations():
@@ -1887,6 +1934,7 @@ def main():
         check_kaigo_catalog,
         check_kaigo_quiz_reachable,
         check_explanation_id_coverage,
+        check_no_hangul,
         check_kaigo_durations,
         check_kaigo_seed_sync,
         check_js_syntax,
