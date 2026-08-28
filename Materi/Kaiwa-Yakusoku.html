@@ -39,6 +39,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
@@ -184,10 +185,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 var Q=[{"q": "会う時間を提案する言い方はどれか。", "opts": ["何時に会いましょうか", "何時ですか", "いつですか", "どこですか"], "a": 0, "e": "「〜ましょうか」(bagaimana kalau kita…?)で提案する丁寧な表現。"}, {"q": "都合を尋ねる言い方はどれか。", "opts": ["ご都合はいかがですか", "元気ですか", "忙しいですか", "暇ですか"], "a": 0, "e": "「ご都合はいかがですか」(bagaimana jadwal Anda?)は丁寧な確認の仕方。"}, {"q": "その日は空いていることを伝える言い方はどれか。", "opts": ["その日は空いています", "その日は忙しいです", "その日は休みです", "その日はだめです"], "a": 0, "e": "「空いています」(kosong/luang)で予定がないことを伝える。"}, {"q": "予定を変更したいときの言い方はどれか。", "opts": ["予定を変更してもいいですか", "予定はいくらですか", "予定はだれですか", "予定はどこですか"], "a": 0, "e": "「〜てもいいですか」(bolehkah…?)で丁寧に変更を申し出る。"}, {"q": "約束をキャンセルしたいときの丁寧な言い方はどれか。", "opts": ["すみません、キャンセルしてもいいですか", "キャンセルします", "だめです", "知りません"], "a": 0, "e": "「すみません」を添えて丁寧にキャンセルを申し出る。"}, {"q": "待ち合わせ場所を確認する言い方はどれか。", "opts": ["場所はどこですか", "時間はいつですか", "名前は何ですか", "値段はいくらですか"], "a": 0, "e": "「場所はどこですか」(tempatnya di mana?)で待ち合わせ場所を確認する。"}, {"q": "集合時間を伝える言い方はどれか。", "opts": ["10時に集合しましょう", "10時は忙しいです", "10時はだめです", "10時はいくらですか"], "a": 0, "e": "「〜に集合しましょう」(mari berkumpul jam…)で集合時間を提案する。"}, {"q": "遅れそうなときに連絡する言い方はどれか。", "opts": ["少し遅れます、すみません", "もう着きました", "時間通りです", "早いです"], "a": 0, "e": "「遅れます」(akan terlambat)と一言連絡するのがマナー。"}, {"q": "会う約束を楽しみにしていると伝える言い方はどれか。", "opts": ["楽しみにしています", "忙しいです", "疲れました", "眠いです"], "a": 0, "e": "「楽しみにしています」(menantikan dengan senang)は約束前の前向きな一言。"}, {"q": "相手の予定に合わせると伝える言い方はどれか。", "opts": ["いつでも大丈夫です", "いつもだめです", "いつも忙しいです", "いつも遅いです"], "a": 0, "e": "「いつでも大丈夫です」(kapan saja tidak masalah)で柔軟に合わせる意思を伝える。"}];
 function initKN2(){
   var list=document.getElementById('kn2List');if(!list)return;
-  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+QKZ.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
 }
 function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
+/* QKZ dideklarasikan di blok <script> berikutnya, jadi init() tidak boleh
+   berjalan saat halaman masih diurai. */
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof init==='function')init();
+  if(typeof rndZ==='function')rndZ();
+});
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>

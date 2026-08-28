@@ -39,6 +39,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
@@ -184,10 +185,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 var Q=[{"q": "同僚に会ったときの一般的な挨拶はどれか。", "opts": ["お疲れ様です", "いただきます", "ごちそうさま", "おやすみ"], "a": 0, "e": "「お疲れ様です」(terima kasih atas kerja kerasnya)は職場の基本挨拶。"}, {"q": "新しい仕事を頼まれたときの丁寧な返事はどれか。", "opts": ["はい、よろしくお願いします", "はい、そうです", "いいえ、だめです", "知りません"], "a": 0, "e": "「よろしくお願いします」(mohon bantuannya)は依頼を受けたときの丁寧な返事。"}, {"q": "休憩を取りたいときの言い方はどれか。", "opts": ["休憩してもいいですか", "休憩はだめです", "休憩は高いです", "休憩はどこですか"], "a": 0, "e": "「〜てもいいですか」(bolehkah…?)で許可を求める丁寧な表現。"}, {"q": "シフトを確認したいときの言い方はどれか。", "opts": ["シフトを確認してもいいですか", "シフトはいくらですか", "シフトはだれですか", "シフトは何ですか"], "a": 0, "e": "「確認してもいいですか」(boleh saya cek?)でシフトの確認を丁寧に頼む。"}, {"q": "上司に報告するときの切り出しはどれか。", "opts": ["ご報告があります", "さようなら", "おやすみなさい", "いただきます"], "a": 0, "e": "「ご報告があります」(ada laporan)は報告を切り出す丁寧な言い方。"}, {"q": "残業を頼まれて引き受けるときの言い方はどれか。", "opts": ["わかりました、やります", "知りません", "だめです", "いいです"], "a": 0, "e": "「わかりました」(mengerti)で指示を受け入れる基本の返事。"}, {"q": "有給休暇を申請したいときの言い方はどれか。", "opts": ["有給休暇を取りたいです", "有給休暇はいくらですか", "有給休暇はだれのですか", "有給休暇はどこですか"], "a": 0, "e": "「〜たいです」(ingin…)で有給休暇の希望を伝える。"}, {"q": "引き継ぎを受けるときに確認する言い方はどれか。", "opts": ["もう一度説明してもらえますか", "説明はいりません", "知っています", "わかりません"], "a": 0, "e": "「もう一度説明してもらえますか」(bisa dijelaskan sekali lagi?)で丁寧に確認する。"}, {"q": "先に帰るときに同僚に言う言葉はどれか。", "opts": ["お先に失礼します", "ただいま", "いってきます", "おかえりなさい"], "a": 0, "e": "「お先に失礼します」(permisi pulang duluan)は退勤時の丁寧な挨拶。"}, {"q": "ミスを謝るときの丁寧な言い方はどれか。", "opts": ["申し訳ございません", "ありがとうございます", "おめでとうございます", "こんにちは"], "a": 0, "e": "「申し訳ございません」(mohon maaf sebesar-besarnya)はミスを謝る最も丁寧な表現。"}];
 function initKN2(){
   var list=document.getElementById('kn2List');if(!list)return;
-  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+QKZ.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
 }
 function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
+/* QKZ dideklarasikan di blok <script> berikutnya, jadi init() tidak boleh
+   berjalan saat halaman masih diurai. */
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof init==='function')init();
+  if(typeof rndZ==='function')rndZ();
+});
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>

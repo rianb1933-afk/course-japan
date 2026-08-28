@@ -39,6 +39,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
@@ -184,10 +185,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 var Q=[{"q": "具合が悪いことを伝える言い方はどれか。", "opts": ["具合が悪いです", "元気です", "忙しいです", "眠いです"], "a": 0, "e": "「具合が悪いです」(kondisi tidak enak badan)で体調不良を伝える。"}, {"q": "熱があることを伝える言い方はどれか。", "opts": ["熱があります", "熱がないです", "元気です", "寒いです"], "a": 0, "e": "「熱があります」(saya demam)で症状を伝える基本表現。"}, {"q": "痛い場所を伝えるときの言い方はどれか。", "opts": ["ここが痛いです", "ここが安いです", "ここが遠いです", "ここが高いです"], "a": 0, "e": "「ここが痛いです」(di sini sakit)で患部を指して伝える。"}, {"q": "初診で受付に出すものはどれか。", "opts": ["保険証", "予約", "処方箋", "症状"], "a": 0, "e": "初診では「保険証」(kartu asuransi)を受付に提示する。"}, {"q": "診察の予約を取りたいときの言い方はどれか。", "opts": ["予約したいです", "予約しました", "予約ですか", "予約します"], "a": 0, "e": "「〜たいです」(ingin…)で希望を伝え、予約を申し込む。"}, {"q": "薬局で処方箋を渡すときに言う言葉はどれか。", "opts": ["これをお願いします", "これはいくらですか", "これはだれのですか", "これは何ですか"], "a": 0, "e": "「これをお願いします」(tolong ini)で処方箋を渡し薬を頼む。"}, {"q": "医者に症状の期間を伝える言い方はどれか。", "opts": ["三日前から具合が悪いです", "三日前は元気でした", "三日前に行きました", "三日前は休みでした"], "a": 0, "e": "「〜前から」(sejak…yang lalu)で症状が始まった時期を伝える。"}, {"q": "診察が終わったときに医者が言う言葉はどれか。", "opts": ["お大事に", "いらっしゃいませ", "ただいま", "おかえりなさい"], "a": 0, "e": "「お大事に」(semoga lekas sembuh)は診察後の丁寧な締めくくりの言葉。"}, {"q": "薬の飲み方を尋ねる言い方はどれか。", "opts": ["一日に何回飲みますか", "いくらですか", "どこで買いますか", "いつ休みですか"], "a": 0, "e": "「一日に何回」(berapa kali sehari)で服用回数を確認する。"}, {"q": "「アレルギーはありますか」と聞かれたときに答える言い方はどれか。", "opts": ["いいえ、ありません", "はい、痛いです", "はい、忙しいです", "いいえ、元気です"], "a": 0, "e": "アレルギーの有無は「はい/いいえ、あります/ありません」で答える。"}];
 function initKN2(){
   var list=document.getElementById('kn2List');if(!list)return;
-  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+QKZ.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
 }
 function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
+/* QKZ dideklarasikan di blok <script> berikutnya, jadi init() tidak boleh
+   berjalan saat halaman masih diurai. */
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof init==='function')init();
+  if(typeof rndZ==='function')rndZ();
+});
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>

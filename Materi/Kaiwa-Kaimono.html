@@ -39,6 +39,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
@@ -184,10 +185,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 var Q=[{"q": "値段を尋ねるときの言い方はどれか。", "opts": ["これはいくらですか", "これは何ですか", "これはどこですか", "これはだれですか"], "a": 0, "e": "「いくらですか」(berapa harganya?)で値段を尋ねる。"}, {"q": "商品を買いたいときの言い方はどれか。", "opts": ["これをください", "これをします", "これをですか", "これをいます"], "a": 0, "e": "「〜をください」(minta/tolong…)で購入や依頼を伝える。"}, {"q": "「袋はいりますか」への断り方はどれか。", "opts": ["いいえ、けっこうです", "はい、そうです", "わかりません", "高いです"], "a": 0, "e": "「けっこうです」(tidak usah)で丁寧に断る。「いりません」も可。"}, {"q": "支払い方法を伝える言い方はどれか。", "opts": ["カードでお願いします", "カードします", "カードですか", "カードください"], "a": 0, "e": "「カードでお願いします」(dengan kartu)で支払い方法を伝える。"}, {"q": "「高い」の反対の意味の語はどれか。", "opts": ["安い", "大きい", "新しい", "多い"], "a": 0, "e": "安い(murah)⇔高い(mahal). 値段を表す基本の形容詞。"}, {"q": "店員の「いらっしゃいませ」の意味はどれか。", "opts": ["ようこそ(いらっしゃい)", "さようなら", "ありがとう", "ごめんなさい"], "a": 0, "e": "「いらっしゃいませ」(selamat datang)は店で客を迎える挨拶。"}, {"q": "数量を伝える言い方で正しいのはどれか。", "opts": ["みっつください", "みっつします", "みっつですか", "みっついます"], "a": 0, "e": "「〜ください」に数を付け「みっつ(3個)ください」(minta 3)と言う。"}, {"q": "「ありがとうございました」に対する店員の返事はどれか。", "opts": ["またお越しくださいませ", "いくらですか", "高いです", "だめです"], "a": 0, "e": "「またお越しください」(datang lagi ya)は退店時の丁寧な見送り。"}, {"q": "試着したいときの言い方はどれか。", "opts": ["試着してもいいですか", "試着します", "試着ください", "試着ですか"], "a": 0, "e": "「〜てもいいですか」(bolehkah…?)で許可を求める丁寧な表現。"}, {"q": "支払いで現金を使うことを表す語はどれか。", "opts": ["現金", "カード", "袋", "レジ"], "a": 0, "e": "現金(tunai)⇔カード. レジ(kasir)で支払う。"}];
 function initKN2(){
   var list=document.getElementById('kn2List');if(!list)return;
-  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+QKZ.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
 }
 function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
+/* QKZ dideklarasikan di blok <script> berikutnya, jadi init() tidak boleh
+   berjalan saat halaman masih diurai. */
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof init==='function')init();
+  if(typeof rndZ==='function')rndZ();
+});
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>

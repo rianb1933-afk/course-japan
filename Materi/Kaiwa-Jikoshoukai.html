@@ -39,6 +39,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
@@ -184,10 +185,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 var Q=[{"q": "初対面の相手に最初に言う挨拶はどれか。", "opts": ["はじめまして", "おやすみ", "ただいま", "いただきます"], "a": 0, "e": "初対面は「はじめまして」(salam pertama kali bertemu)から始める。"}, {"q": "名前を伝えるときの自然な言い方はどれか。", "opts": ["わたしは田中です", "田中する", "田中ください", "田中ですか"], "a": 0, "e": "「わたしは〜です」(nama saya…)で名乗る. 丁寧で基本的な自己紹介。"}, {"q": "「ご出身はどちらですか」への答えはどれか。", "opts": ["インドネシアです", "元気です", "そうです", "わかりません"], "a": 0, "e": "出身=asal daerah. 「〜です」で国や地域を答える。"}, {"q": "自己紹介の結びとして適切なのはどれか。", "opts": ["どうぞよろしくお願いします", "さようなら", "おやすみなさい", "いただきます"], "a": 0, "e": "結びは「どうぞよろしくお願いします」(mohon kerja samanya)が定番。"}, {"q": "「どうぞよろしく」と言われたときの返事はどれか。", "opts": ["こちらこそ、よろしくお願いします", "いいえ", "けっこうです", "だめです"], "a": 0, "e": "「こちらこそ」(saya juga)で返すと丁寧で自然。"}, {"q": "仕事を尋ねる質問はどれか。", "opts": ["お仕事は何ですか", "元気ですか", "何時ですか", "いくらですか"], "a": 0, "e": "「お仕事は何ですか」(pekerjaan apa?)で職業を尋ねる。"}, {"q": "趣味を伝える言い方はどれか。", "opts": ["趣味は音楽です", "趣味します", "趣味ください", "趣味ですか"], "a": 0, "e": "「趣味は〜です」(hobi saya…)で好きなことを紹介する。"}, {"q": "部屋を出るときの丁寧な言葉はどれか。", "opts": ["失礼します", "いただきます", "ただいま", "おかえり"], "a": 0, "e": "「失礼します」(permisi)は入退室や別れ際の丁寧な表現。"}, {"q": "相手の名前を聞き取れなかったときの言い方はどれか。", "opts": ["もう一度お願いします", "だめです", "知りません", "いいです"], "a": 0, "e": "「もう一度お願いします」(tolong ulangi)で丁寧に聞き返す。"}, {"q": "自己紹介で避けたほうがよいのはどれか。", "opts": ["いきなりタメ口で話す", "丁寧語を使う", "笑顔で話す", "名前を言う"], "a": 0, "e": "初対面はタメ口を避け丁寧語(bahasa sopan)で. 良い第一印象に。"}];
 function initKN2(){
   var list=document.getElementById('kn2List');if(!list)return;
-  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+QKZ.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
 }
 function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
+/* QKZ dideklarasikan di blok <script> berikutnya, jadi init() tidak boleh
+   berjalan saat halaman masih diurai. */
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof init==='function')init();
+  if(typeof rndZ==='function')rndZ();
+});
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>

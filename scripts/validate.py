@@ -959,6 +959,79 @@ def check_class_selector_crashers():
                 f'(akan melempar TypeError setiap load): {sample}{extra}')
 
 
+def check_inline_handler_targets():
+    """Fungsi yang dipanggil atribut on*= harus benar-benar ada.
+
+    Bug nyata: saat mesin kuis Kaigo diekstrak ke assets/kaigo-quiz.js,
+    definisi nQ()/rQ()/nQkZ()/rQkZ() ikut terbuang dari skrip inline tiap
+    halaman, tapi atribut onclick-nya tetap tinggal. Menekan "Soal Berikutnya"
+    hanya melempar ReferenceError — 93 dari 100 halaman Kaigo, pembacanya
+    terjebak di soal pertama. Halaman tetap memuat tanpa keluhan; tidak ada
+    check yang melihatnya.
+
+    Berbeda dari check_cross_script_function_calls, yang menyoroti pemanggilan
+    top-level ANTAR <script> inline. Di sini pemanggilnya adalah markup, dan
+    fungsinya boleh datang dari mana saja — inline maupun berkas eksternal.
+
+    Sebuah nama dianggap tersedia bila muncul di salah satu skrip yang dimuat
+    halaman sebagai `function nama`, penugasan `nama =`, `window.nama`, ATAU
+    sebagai string literal. Aturan string itu sengaja longgar: pemasangan
+    dinamis seperti window[pair[0]] = handle.next tidak bisa dilihat secara
+    statis, dan lebih baik melewatkan satu kasus daripada mengarang kesalahan.
+    """
+    # Kata kunci JS: `onclick="if(x)..."` bukan pemanggilan fungsi bernama `if`.
+    KEYWORDS = {
+        'if', 'for', 'while', 'switch', 'return', 'typeof', 'do', 'else',
+        'new', 'delete', 'void', 'in', 'instanceof', 'function', 'catch',
+    }
+    # Fungsi bawaan browser yang tidak perlu didefinisikan halaman.
+    BUILTINS = {
+        'alert', 'print', 'confirm', 'open', 'close', 'focus', 'blur',
+        'submit', 'reset', 'reload', 'back', 'forward', 'history',
+        'setTimeout', 'setInterval', 'requestAnimationFrame', 'fetch',
+    }
+
+    broken = []
+    for path in all_html_files():
+        html = read(path)
+
+        markup = re.sub(r'<script(?:\s[^>]*)?>.*?</script>', ' ', html, flags=re.S)
+        called = set(re.findall(r'\son\w+="\s*(\w+)\s*\(', markup))
+        called -= KEYWORDS | BUILTINS
+        if not called:
+            continue
+
+        # Semua kode yang benar-benar tersedia di halaman ini.
+        code = '\n'.join(re.findall(
+            r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>', html, re.S))
+        for src in re.findall(r'<script[^>]+src="([^"?]+)', html):
+            asset = os.path.normpath(os.path.join(os.path.dirname(path), src))
+            if os.path.exists(asset):
+                code += '\n' + read(asset)
+
+        missing = []
+        for name in sorted(called):
+            provided = re.search(
+                rf'function\s+{re.escape(name)}\b'
+                rf'|\b{re.escape(name)}\s*=(?!=)'
+                rf'|window\.{re.escape(name)}\b'
+                rf'|[\'"]{re.escape(name)}[\'"]', code)
+            if not provided:
+                missing.append(name)
+
+        if missing:
+            broken.append(f'{os.path.relpath(path, ROOT)}: {", ".join(missing[:3])}')
+
+    if broken:
+        err('inline-handler',
+            f'{len(broken)} halaman punya atribut on*= yang memanggil fungsi tidak '
+            f'terdefinisi — menekannya hanya melempar ReferenceError. '
+            f'{"; ".join(broken[:3])}')
+    else:
+        ok('inline-handler',
+           'Every on*= handler resolves to a function the page actually loads')
+
+
 def check_cross_script_function_calls():
     """Cari function call top-level di satu <script> tag yang function-nya
     baru didefinisikan di <script> tag LAIN yang muncul setelahnya.
@@ -1600,6 +1673,7 @@ def main():
         check_missing_dom_elements,
         check_class_selector_crashers,
         check_cross_script_function_calls,
+        check_inline_handler_targets,
         check_build_freshness,
         check_unit_tests,
     ]

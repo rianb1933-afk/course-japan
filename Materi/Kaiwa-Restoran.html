@@ -39,6 +39,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
@@ -184,10 +185,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 var Q=[{"q": "店員を呼んで注文したいときの言い方はどれか。", "opts": ["すみません、注文お願いします", "さようなら", "ただいま", "おやすみ"], "a": 0, "e": "「すみません」で呼び「注文お願いします」(mau pesan)と伝える。"}, {"q": "店員におすすめを尋ねる言い方はどれか。", "opts": ["おすすめは何ですか", "いくらですか", "どこですか", "だれですか"], "a": 0, "e": "「おすすめは何ですか」(rekomendasinya apa?)でおすすめを聞く。"}, {"q": "料理を一つ頼むときの言い方はどれか。", "opts": ["これを一つください", "これを一つします", "これを一つですか", "これ一ついます"], "a": 0, "e": "「〜を一つください」(minta satu…)で数を添えて注文する。"}, {"q": "食事の前に言う言葉はどれか。", "opts": ["いただきます", "ごちそうさま", "さようなら", "はじめまして"], "a": 0, "e": "食前は「いただきます」(selamat makan). 感謝を表す挨拶。"}, {"q": "食事の後に言う言葉はどれか。", "opts": ["ごちそうさまでした", "いただきます", "いらっしゃいませ", "おはよう"], "a": 0, "e": "食後は「ごちそうさま」(terima kasih makanannya)と言う。"}, {"q": "「お会計」の意味はどれか。", "opts": ["支払い(tagihan)", "入口", "予約", "注文"], "a": 0, "e": "お会計(tagihan/bayar)=食事後の支払い. 「お会計お願いします」で頼む。"}, {"q": "水がほしいときの言い方はどれか。", "opts": ["お水をください", "お水します", "お水ですか", "お水います"], "a": 0, "e": "「お水をください」(minta air)で丁寧に頼む。"}, {"q": "料理がおいしいと伝える言い方はどれか。", "opts": ["おいしいです", "たかいです", "さむいです", "ねむいです"], "a": 0, "e": "「おいしいです」(enak)で感想を伝える. 店の人も喜ぶ表現。"}, {"q": "予約があることを伝える言い方はどれか。", "opts": ["予約しています", "予約ください", "予約ですか", "予約します"], "a": 0, "e": "「予約しています」(sudah reservasi)で来店時に伝える。"}, {"q": "注文を変えたいときの丁寧な言い方はどれか。", "opts": ["すみません、変更してもいいですか", "変える", "だめです", "知りません"], "a": 0, "e": "「変更してもいいですか」(boleh ubah?)で丁寧に許可を求める。"}];
 function initKN2(){
   var list=document.getElementById('kn2List');if(!list)return;
-  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+QKZ.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
 }
 function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
+/* QKZ dideklarasikan di blok <script> berikutnya, jadi init() tidak boleh
+   berjalan saat halaman masih diurai. */
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof init==='function')init();
+  if(typeof rndZ==='function')rndZ();
+});
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>

@@ -39,6 +39,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
@@ -184,10 +185,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 var Q=[{"q": "知らない場所を尋ねるときの切り出しはどれか。", "opts": ["すみません、駅はどこですか", "こんばんは", "いただきます", "おやすみ"], "a": 0, "e": "「すみません、〜はどこですか」(permisi, di mana…?)で丁寧に尋ねる。"}, {"q": "「まっすぐ行ってください」の意味はどれか。", "opts": ["lurus terus", "belok kanan", "berhenti", "kembali"], "a": 0, "e": "まっすぐ=lurus. 「行ってください」で「pergilah/jalan terus」。"}, {"q": "「次の信号を右に曲がってください」の「右」はどれか。", "opts": ["kanan", "kiri", "depan", "belakang"], "a": 0, "e": "右=kanan、左=kiri. 信号(lampu lalu lintas)で曲がる指示。"}, {"q": "距離を尋ねる言い方はどれか。", "opts": ["ここから遠いですか", "何時ですか", "いくらですか", "だれですか"], "a": 0, "e": "「遠いですか」(jauh?)で距離を尋ねる. 近い=chikai。"}, {"q": "道を教えてもらったお礼はどれか。", "opts": ["ありがとうございます", "さようなら", "いただきます", "はじめまして"], "a": 0, "e": "教えてもらったら「ありがとうございます」(terima kasih)とお礼を。"}, {"q": "「駅の近くです」の「近く」の意味はどれか。", "opts": ["dekat", "jauh", "dalam", "atas"], "a": 0, "e": "近く=dekat. 「駅の近く」=dekat stasiun。"}, {"q": "分からないとき丁寧に聞き返す言い方はどれか。", "opts": ["もう一度お願いします", "だめです", "知りません", "いいです"], "a": 0, "e": "「もう一度お願いします」(tolong ulangi)で丁寧に確認する。"}, {"q": "「歩いて10分ぐらいです」の意味はどれか。", "opts": ["sekitar 10 menit jalan kaki", "10 jam", "10 km naik mobil", "tidak tahu"], "a": 0, "e": "歩いて(jalan kaki)〜分ぐらい(sekitar…menit)で所要時間を伝える。"}, {"q": "目印(patokan)を尋ねる言い方はどれか。", "opts": ["近くに何がありますか", "いくらですか", "何時ですか", "だれですか"], "a": 0, "e": "「近くに何がありますか」(ada apa di dekatnya?)で目印を尋ねる。"}, {"q": "道案内で「渡ってください」が使われる場所はどれか。", "opts": ["横断歩道・橋", "部屋の中", "椅子", "机"], "a": 0, "e": "渡る(menyeberang)=横断歩道・橋など. 「渡ってください」で指示。"}];
 function initKN2(){
   var list=document.getElementById('kn2List');if(!list)return;
-  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+QKZ.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
 }
 function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
+/* QKZ dideklarasikan di blok <script> berikutnya, jadi init() tidak boleh
+   berjalan saat halaman masih diurai. */
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof init==='function')init();
+  if(typeof rndZ==='function')rndZ();
+});
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>

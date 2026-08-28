@@ -39,6 +39,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pgv.appendCh
 <script src="../assets/supabase-client.js" defer></script>
 <script src="../assets/analytics-loader.js" defer></script>
 <script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
 <script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
@@ -184,10 +185,15 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 var Q=[{"q": "切符を買いたいときの言い方はどれか。", "opts": ["東京までの切符をください", "切符", "東京", "ください切符"], "a": 0, "e": "「〜までの切符をください」(minta tiket sampai…)で購入する。"}, {"q": "何番線か尋ねる言い方はどれか。", "opts": ["何番線ですか", "いくらですか", "何時ですか", "だれですか"], "a": 0, "e": "「何番線ですか」(peron nomor berapa?)でホームを尋ねる。"}, {"q": "「乗り換え」の意味はどれか。", "opts": ["ganti kereta/transit", "turun", "tiket", "peron"], "a": 0, "e": "乗り換え=transit/ganti kereta. 「〜で乗り換えます」で使う。"}, {"q": "次の電車の時刻を尋ねる言い方はどれか。", "opts": ["次の電車は何時ですか", "次", "電車", "何"], "a": 0, "e": "「次の電車は何時ですか」(kereta berikutnya jam berapa?)で尋ねる。"}, {"q": "「急行」と「各駅停車」の違いはどれか。", "opts": ["急行は速く主要駅のみ停車", "同じ", "各駅が速い", "急行は遅い"], "a": 0, "e": "急行(ekspres)=主要駅のみ停車で速い. 各駅停車=すべての駅に停車。"}, {"q": "料金を尋ねる言い方はどれか。", "opts": ["料金はいくらですか", "料金", "いくら料金", "だれ"], "a": 0, "e": "「料金はいくらですか」(tarifnya berapa?)で運賃を尋ねる。"}, {"q": "改札(kaisatsu)で必要なものはどれか。", "opts": ["切符またはICカード", "パスポート", "財布のみ", "何もいらない"], "a": 0, "e": "改札=gerbang tiket. 切符・ICカード(tiket/kartu)が必要。"}, {"q": "道に迷ったとき駅員に尋ねる言い方はどれか。", "opts": ["すみません、〜線はどこですか", "うるさい", "早く", "知らない"], "a": 0, "e": "「すみません、〜線はどこですか」(di mana jalur…?)で駅員に尋ねる。"}, {"q": "電車が遅れているときのアナウンス語はどれか。", "opts": ["遅れ(keterlambatan)", "出発", "到着", "満員"], "a": 0, "e": "遅れ=keterlambatan. 「電車が遅れています」でアナウンスされる。"}, {"q": "目的の駅で降りる準備を表す言い方はどれか。", "opts": ["次で降ります", "乗ります", "待ちます", "戻ります"], "a": 0, "e": "「次で降ります」(turun di berikutnya)で下車を伝える. 降りる=turun。"}];
 function initKN2(){
   var list=document.getElementById('kn2List');if(!list)return;
-  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+KN2.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
+  list.innerHTML='<p style="font-size:.88rem;color:var(--ink-mid);margin-bottom:16px">📝 '+QKZ.length+' soal konsep dan etika kaigo level N2 — klik Soal Berikutnya untuk mulai quiz!</p>';
 }
 function init(){initKN2();}
-if(typeof init==='function')init(); rnd();
+/* QKZ dideklarasikan di blok <script> berikutnya, jadi init() tidak boleh
+   berjalan saat halaman masih diurai. */
+document.addEventListener('DOMContentLoaded',function(){
+  if(typeof init==='function')init();
+  if(typeof rndZ==='function')rndZ();
+});
 </script>
 <section style="max-width:900px;margin:0 auto;padding:0 20px 48px">
 <h2 style="font-size:1.1rem;font-weight:700;color:#880e4f;margin:28px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Latihan Soal</h2>

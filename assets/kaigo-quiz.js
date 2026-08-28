@@ -120,18 +120,49 @@ window.createQuiz=createQuiz;
 /* ── Auto-detect and render quiz data arrays ──
    Inline scripts define quiz data as global Q, QQ, or QKZ arrays.
    This auto-detection creates quiz instances using the createQuiz() API. */
+/* Tombol "Soal Berikutnya" dan "Reset" di markup memanggil fungsi global —
+   nQ()/rQ() pada kebanyakan halaman, nQkZ()/rQkZ() untuk kuis kedua, dan
+   nextQ()/resetQ() di sebagian lain. Dulu fungsi itu didefinisikan oleh skrip
+   inline tiap halaman; saat mesin kuis diekstrak ke berkas ini, definisinya
+   ikut terbuang tapi atribut onclick-nya tetap tinggal. Akibatnya menekan
+   "Soal Berikutnya" hanya melempar ReferenceError, dan pembaca terjebak di
+   soal pertama — 93 dari 100 halaman Kaigo.
+
+   Alias dipasang HANYA bila belum ada: banyak halaman non-Kaigo masih punya
+   nextQ()/resetQ() sendiri, dan menimpanya akan merusak kuis mereka. */
+function exposeControls(handle, names){
+  names.forEach(function(pair){
+    if(typeof window[pair[0]]!=='function') window[pair[0]]=handle.next;
+    if(typeof window[pair[1]]!=='function') window[pair[1]]=handle.reset;
+  });
+}
+
+/* Halaman yang sudah punya renderer sendiri untuk sebuah kuis ditandai oleh
+   adanya fungsi kontrolnya. Kalau nQkZ() sudah ada, halaman itu menggambar
+   kuis QKZ-nya sendiri dan mesin ini tidak boleh mengambil alih — dua
+   renderer pada satu wadah akan saling menimpa. */
+function alreadyHandled(names){
+  return names.some(function(n){ return typeof window[n]==='function'; });
+}
+
 document.addEventListener('DOMContentLoaded',function(){
   // Standard quiz (uses 'qc' container, 'qs' score)
-  if(typeof Q!=='undefined'&&Q&&Q.length){
-    createQuiz({questions:Q,containerId:'qc',scoreId:'qs',explanationId:'qe'});
+  if(typeof Q!=='undefined'&&Q&&Q.length&&!alreadyHandled(['nQ','nextQ'])){
+    exposeControls(
+      createQuiz({questions:Q,containerId:'qc',scoreId:'qs',explanationId:'qe'}),
+      [['nQ','rQ'],['nextQ','resetQ']]);
   }
   // QQ variant (used in some files like ADL-Guide)
-  if(typeof QQ!=='undefined'&&QQ&&QQ.length){
-    createQuiz({questions:QQ,containerId:'qc',scoreId:'qs',explanationId:'qe',showLabels:true});
+  if(typeof QQ!=='undefined'&&QQ&&QQ.length&&!alreadyHandled(['nextQ','nQ'])){
+    exposeControls(
+      createQuiz({questions:QQ,containerId:'qc',scoreId:'qs',explanationId:'qe',showLabels:true}),
+      [['nextQ','resetQ'],['nQ','rQ']]);
   }
   // QKZ variant (second quiz, uses 'qkZ' container, 'qsZ' score)
-  if(typeof QKZ!=='undefined'&&QKZ&&QKZ.length){
-    createQuiz({questions:QKZ,containerId:'qkZ',scoreId:'qsZ',explanationId:'qeZ',showLabels:true});
+  if(typeof QKZ!=='undefined'&&QKZ&&QKZ.length&&!alreadyHandled(['nQkZ'])){
+    exposeControls(
+      createQuiz({questions:QKZ,containerId:'qkZ',scoreId:'qsZ',explanationId:'qeZ',showLabels:true}),
+      [['nQkZ','rQkZ'],['nextQ','resetQ']]);
   }
 });
 
