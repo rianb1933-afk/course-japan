@@ -57,14 +57,26 @@ def visible_text(html):
     return re.sub(r'<[^>]+>', ' ', html)
 
 
-def quiz_arrays(html):
-    """Semua array soal di halaman, apa pun nama variabelnya.
+# Satu soal, pada kedua gaya penulisan yang dipakai materi Kaigo:
+#   JSON      : {"q": "…", "opts": [...], "a": 1, "e": "…"}
+#   literal JS: {q:'…',    opts:[...],    ans:2,  exp:'…'}
+QUESTION_KEY = re.compile(r'[{,]\s*"?q"?\s*:')
 
-    Sengaja TIDAK mencari nama tertentu: materi Kaigo memakai enam nama
-    berbeda (Q, QKZ, QQ, QUIZ, QX, KN2) karena ditulis oleh generator yang
-    berbeda-beda. Mencari per-nama pernah membuat 280 soal luput terhitung.
-    Yang dipakai sebagai penanda adalah BENTUK datanya: array of object
-    dengan kunci q/opts/a.
+
+def quiz_arrays(html):
+    """Semua array soal di halaman, apa pun nama variabel dan gayanya.
+
+    Sengaja TIDAK mencari nama tertentu: materi Kaigo memakai banyak nama
+    (Q, QKZ, QQ, QUIZ, QX, KN2, QUIZ_HK, QUIZ_PROS, …) karena ditulis oleh
+    generator yang berbeda-beda. Mencari per-nama pernah membuat 280 soal
+    luput terhitung.
+
+    Isinya juga tidak selalu JSON. Sebagian modul memakai literal JavaScript
+    dengan kunci tanpa kutip dan string berkutip tunggal, yang membuat
+    json.loads gagal — dan kegagalan diam itu sempat membuat 140 soal di 7
+    modul terhitung nol, lalu durasinya ikut salah. Karena yang dibutuhkan
+    hanya JUMLAH soal, penghitungan dilakukan dengan mencari kunci `q:` pada
+    kedalaman kurung kurawal 1, bukan dengan mem-parse nilainya.
 
     Mengembalikan [(nama, jumlah_soal, (awal, akhir)), ...].
     """
@@ -79,14 +91,12 @@ def quiz_arrays(html):
             elif html[i] == ']':
                 depth -= 1
                 if depth == 0:
-                    try:
-                        arr = json.loads(html[start:i + 1])
-                    except json.JSONDecodeError:
-                        arr = None
-                    if (isinstance(arr, list) and arr
-                            and isinstance(arr[0], dict)
-                            and {'q', 'opts', 'a'} <= set(arr[0])):
-                        found.append((name, len(arr), (start, i + 1)))
+                    body = html[start:i + 1]
+                    count = len(QUESTION_KEY.findall(body))
+                    # `opts` memastikan ini array soal, bukan array lain yang
+                    # kebetulan punya kunci bernama q.
+                    if count and 'opts' in body:
+                        found.append((name, count, (start, i + 1)))
                     break
     return found
 
@@ -113,6 +123,10 @@ def is_rendered(html, name, span):
     body = html[:span[0]] + html[span[1]:]
     body = re.sub(r'<[^>]*>', '', body)
     if re.search(rf'\b{name}\s*(?:\[|\.length|\.map|\.forEach|\.slice|\.filter)', body):
+        return True
+    # Mesin kuis yang lebih baru menerima arraynya sebagai argumen —
+    # `initQuiz(QUIZ_HK)` — bukan mengindeksnya langsung.
+    if re.search(rf'\binitQuiz\s*\(\s*{name}\s*\)', body):
         return True
     return SHARED_ENGINE in html and name in AUTO_RENDERED
 

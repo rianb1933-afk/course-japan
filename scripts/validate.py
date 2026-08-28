@@ -1333,18 +1333,31 @@ def check_kaigo_catalog():
         ok('kaigo-catalog', f'Kaigo.html renders exactly {len(card_ids)} cards, one per module')
 
 
-def _quiz_arrays(html):
-    """Array soal di satu halaman, apa pun nama variabelnya.
+def _quiz_engine():
+    """Muat scripts/compute_durations.py — pemilik tunggal logika deteksi kuis.
 
-    Dicari berdasarkan BENTUK data (array of object dengan kunci q/opts/a),
-    bukan nama variabel: materi Kaigo memakai enam nama berbeda (Q, QKZ, QQ,
-    QUIZ, QX, KN2) karena ditulis generator yang berlainan.
+    Validator dulu punya salinan sendiri fungsi ini. Salinan itu langsung
+    menyimpang: saat mesin kuis bersama diperkenalkan, hanya salinan validator
+    yang ditambal, dan tambalannya terlalu longgar (menganggap SEMUA array
+    terender begitu kaigo-quiz.js dimuat, padahal berkas itu hanya mengenali
+    Q, QQ, dan QKZ). Satu sumber menghapus seluruh kelas masalah itu.
+    """
+    sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+    import importlib
+    import compute_durations
+    importlib.reload(compute_durations)
+    return compute_durations
 
-    Mengembalikan [(nama, soal, dirender?), ...].
+
+def _json_questions(html):
+    """Soal yang bisa dibaca sebagai JSON, untuk dibandingkan dengan seed.
+
+    Sebagian modul menulis soalnya sebagai literal JavaScript (kunci tanpa
+    kutip, string berkutip tunggal). Itu tetap dihitung untuk durasi, tapi
+    tidak bisa dibandingkan isinya di sini — jadi dilewati, bukan dipaksakan.
     """
     out = []
     for m in re.finditer(r'(?:var|const|let)\s+(\w+)\s*=\s*\[', html):
-        name = m.group(1)
         start = html.find('[', m.start())
         depth = 0
         for i in range(start, len(html)):
@@ -1356,17 +1369,10 @@ def _quiz_arrays(html):
                     try:
                         arr = json.loads(html[start:i + 1])
                     except json.JSONDecodeError:
-                        arr = None
+                        break
                     if (isinstance(arr, list) and arr and isinstance(arr[0], dict)
                             and {'q', 'opts', 'a'} <= set(arr[0])):
-                        body = re.sub(r'<[^>]*>', '', html[:start] + html[i + 1:])
-                        rendered = bool(re.search(
-                            rf'\b{name}\s*(?:\[|\.length|\.map|\.forEach|\.slice|\.filter)',
-                            body))
-                        # Also consider rendered if kaigo-quiz.js auto-detects it
-                        if not rendered and 'kaigo-quiz.js' in html:
-                            rendered = True
-                        out.append((name, arr, rendered))
+                        out += arr
                     break
     return out
 
@@ -1379,16 +1385,20 @@ def check_kaigo_quiz_reachable():
     modul. Yang dirender hanya QKZ — pembuka modul CPR mendapat soal tentang
     ICF dan 成年後見制度, sementara 280 soal spesifik tak pernah terlihat.
     """
+    engine = _quiz_engine()
     dead, empty = [], []
 
     for path in sorted(glob.glob(os.path.join(ROOT, 'Materi', 'Kaigo-*.html'))):
-        arrays = _quiz_arrays(read(path))
+        html = read(path)
+        arrays = engine.quiz_arrays(html)
         if not arrays:
             continue                        # halaman non-kuis; bukan urusan check ini
-        live = sum(len(a) for _, a, rendered in arrays if rendered)
-        for name, arr, rendered in arrays:
-            if not rendered:
-                dead.append(f'{os.path.basename(path)}: {name} ({len(arr)} soal)')
+        live = 0
+        for name, count, span in arrays:
+            if engine.is_rendered(html, name, span):
+                live += count
+            else:
+                dead.append(f'{os.path.basename(path)}: {name} ({count} soal)')
         if live == 0:
             empty.append(os.path.basename(path))
 
@@ -1482,21 +1492,18 @@ def check_kaigo_seed_sync():
     contradiction, compared = [], 0
 
     for path in sorted(glob.glob(os.path.join(ROOT, 'Materi', 'Kaigo-*.html'))):
-        for _, arr, rendered in _quiz_arrays(read(path)):
-            if not rendered:
+        for q in _json_questions(read(path)):
+            s = by_question.get(q['q'].strip())
+            if not s:
                 continue
-            for q in arr:
-                s = by_question.get(q['q'].strip())
-                if not s:
-                    continue
-                if [c.strip() for c in s['choices']] != [o.strip() for o in q['opts']]:
-                    continue                # varian sah — di luar cakupan check
-                compared += 1
-                name = os.path.basename(path)
-                if s['correct_index'] != q['a']:
-                    contradiction.append(
-                        f'{name}: "{q["q"][:38]}" — modul menjawab '
-                        f'"{q["opts"][q["a"]][:24]}", seed "{s["choices"][s["correct_index"]][:24]}"')
+            if [c.strip() for c in s['choices']] != [o.strip() for o in q['opts']]:
+                continue                # varian sah — di luar cakupan check
+            compared += 1
+            name = os.path.basename(path)
+            if s['correct_index'] != q['a']:
+                contradiction.append(
+                    f'{name}: "{q["q"][:38]}" — modul menjawab '
+                    f'"{q["opts"][q["a"]][:24]}", seed "{s["choices"][s["correct_index"]][:24]}"')
 
     if contradiction:
         err('kaigo-seed-sync',
