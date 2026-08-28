@@ -10,7 +10,7 @@
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
      DOMContentLoaded untuk mengantisipasi masalah timing DOM
-     (elemen target genuinely berada di <body>, setelah <head>). -->
+
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 renderVocabGrid('pg', PH_VOCAB);
@@ -141,7 +141,6 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 #bttBtn{position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
 *:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
 
-
 .pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
 .pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
 </style>
@@ -165,6 +164,7 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head>
 <body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
 <div class="breadcrumb"><a href="../index.html">Beranda</a><span>›</span><a href="Materi.html">Materi</a><span>›</span><a href="Kaigo-Fukushishi-Overview.html">介護福祉士</a><span>›</span><strong>Penulisan Rekod & Dokumentasi Asuhan</strong></div>
 <div class="module-nav">
   <a href="Kaigo-Fukushishi-Overview.html" class="mod-link">🏠 Overview</a>
@@ -178,7 +178,7 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
   <a href="Kaigo-Rekod.html" class="mod-link active">📄 Penulisan Rekod</a>
   <a href="Kaigo-Ujian-Nasional.html" class="mod-link ">🎯 Ujian Nasional</a>
 </div>
-<section class="hero"><div class="hero-inner"><div class="kicker">📄 Penulisan Rekod · N3–N4</div><h1>Penulisan Rekod & Dokumentasi Asuhan</h1><p class="hero-desc">Cara menulis rekod harian yang benar, template catatan kegiatan, penulisan laporan insiden, dan perbedaan ケアプラン vs 日常記録 dalam konteks 介護福祉士.</p></div></section>
+<section id="main-content" class="hero"><div class="hero-inner"><div class="kicker">📄 Penulisan Rekod · N3–N4</div><h1>Penulisan Rekod & Dokumentasi Asuhan</h1><p class="hero-desc">Cara menulis rekod harian yang benar, template catatan kegiatan, penulisan laporan insiden, dan perbedaan ケアプラン vs 日常記録 dalam konteks 介護福祉士.</p></div></section>
 <div style="display:flex;flex:1">
 <nav class="toc-panel" aria-label="Daftar isi"><div class="toc-title">📋 Daftar Isi</div><div id="tocList"></div></nav>
 <div class="content" id="mainContent" role="main">
@@ -364,17 +364,8 @@ initQuiz(QUIZ_RKD);
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
 
-<section style="max-width:900px;margin:0 auto;padding:0 20px 40px">
-<h2 style="font-size:1.1rem;font-weight:700;color:var(--accent,#1565c0);margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz</h2>
-<div id="qkZ"></div>
-<div style="display:flex;gap:10px;margin-top:10px">
-<button onclick="nQkZ()" class="btn btn-primary" style="flex:1">Soal Berikutnya →</button>
-<button onclick="rQkZ()" class="btn btn-outline">Reset</button>
-</div>
-<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
-</section>
-<script>
-var QKZ=[{"q": "「5W1H」の介護記録への応用は？", "opts": ["関係ない", "いつ・どこで・誰が・何を・なぜ・どのように=客観的記録の基本", "書き方の飾り", "難しすぎる"], "a": 1, "e": "5W1H=介護記録の基本。When(いつ)Where(どこで)Who(誰が)What(何を)Why(なぜ)How(どのように)。全て含めることで客観的・完全な記録に。"}, {"q": "食事摂取量「全量」は何%？", "opts": ["50%", "75%", "100%", "25%"], "a": 2, "e": "食事記録における「全量」は摂取量の約100%を意味する。「半量」50%、「7割」70%などと合わせて、栄養状態を把握するための共通の記録基準として多職種間で使われている。"}, {"q": "「記録の訂正」で正しい方法は？", "opts": ["修正液で消す", "誤った部分に二重線を引き、訂正者のサイン・日時を記入する", "全部書き直す", "消しゴムで消す"], "a": 1, "e": "二重線を引いて訂正者が押印し、訂正日を明記する方法が正しいとされる。修正液で消したり書き直して破棄したりすることは、記録の信頼性を損なう改ざんと疑われる危険な行為となる。"}, {"q": "「電子記録システム」の利点は？", "opts": ["コストが高い", "情報共有の迅速化・検索性の向上・多職種でのリアルタイム共有", "難しい", "紙より時間がかかる"], "a": 1, "e": "情報共有の迅速化と、検索性の向上が電子記録システムの利点。紙の記録と異なり、必要な情報を即座に確認・更新できる点が、多職種間の連携の質を大きく高めることにつながる。"}, {"q": "「個人情報の第三者への提供」で正当な理由に含まれるのは？", "opts": ["知人への情報共有", "医療機関・多職種での連携に必要な場合", "SNSでの情報発信", "家族以外の誰でも"], "a": 1, "e": "生命に関わる緊急事態や、法令に基づく場合が正当な理由に含まれる。単なる利便性や興味本位での提供は、この正当な理由には該当せず、守秘義務違反となる危険がある。"}, {"q": "介護記録で「客観的事実」として正しく記録されているのは？", "opts": ["「機嫌が悪そうだった」", "「14時に『足が痛い』と訴え、顔をしかめた」", "「怒っていると思われる」", "「今日は調子が良さそうだった」"], "a": 1, "e": "体温37.5℃、血圧130/80のような具体的な数値や、実際に観察された行動が客観的事実として正しい記録。感想や推測を交えず、実際に見聞きしたことをそのまま記載することが求められる。"}, {"q": "「SOAPノート」の「O」(Objective)に記録するのは？", "opts": ["利用者の訴え", "測定値・観察した客観的情報（バイタル・行動など）", "介護士のアセスメント", "ケア計画"], "a": 1, "e": "SOAP: S=Subjective(利用者の訴え)、O=Objective(客観的情報・バイタル・行動観察)、A=Assessment(評価・判断)、P=Plan(計画)。"}, {"q": "介護記録における「客観的事実」の書き方として正しいのは？", "opts": ["「元気そうだった」", "「14時に食事を全量摂取。食後30分間座位保持。発熱なし(36.5°C)。本人より「食事がおいしかった」と発言あり」", "「今日も普通だった」", "「何となく気になった」"], "a": 1, "e": "介護記録の原則：①5W1H（いつ・どこで・誰が・何を・なぜ・どのように）②観察した事実を客観的に記載③利用者の発言は「 」で引用④推測・感想と事実を混在させない。主観語（元気そう・普通など）は避け、数値・行動・発言を具体的に記録する。"}, {"q": "介護記録における「主観的情報」と「客観的情報」を分ける理由はどれか。", "opts": ["情報の性質を明確にし正確な判断につなげるため", "記録を増やすためだけ", "形式のためだけ", "区別は不要"], "a": 0, "e": "両方をバランスよく捉え、全体像を把握するためとされる。本人の訴えと数値データを区別して記録することで、より正確で多角的なアセスメントにつなげることができる。"}, {"q": "介護記録の「即時記録」の原則が重要な理由はどれか。", "opts": ["記憶が新しいうちに正確な記録ができるため", "後でまとめて書けばよいから", "記憶に頼ればよいから", "無関係"], "a": 0, "e": "記憶が新しいうちに正確な記録ができるためとされる。時間が経ってから記録すると細部を忘れたり記憶が曖昧になったりして、記録の正確性が損なわれてしまう危険がある。"}, {"q": "介護記録の「情報公開請求」への対応原則はどれか。", "opts": ["規定の手続きに沿って適切に対応する", "全て拒否する", "無条件に開示する", "無視してよい"], "a": 0, "e": "規定に沿って適切に開示手続きを行うことが原則となる。一律に拒否したり、逆に無条件で全て見せたりするのではなく、定められた手順とプライバシー保護を両立させる対応が求められる。"}, {"q": "「ヒヤリハット」記録を分析する目的はどれか。", "opts": ["再発防止策を導き出すため", "処罰のため", "記録を増やすためだけ", "無関係"], "a": 0, "e": "ヒヤリハット分析(analisis nyaris kecelakaan)は再発防止策(cegah kejadian ulang)を導くため。"}, {"q": "介護記録の「共有」が多職種連携に果たす役割はどれか。", "opts": ["情報の一貫性を保ち連携をスムーズにする", "記録を複雑にするだけ", "連携には無関係", "時間を増やすだけ"], "a": 0, "e": "情報の一貫性を保ち、連携をスムーズにする役割を果たす。記録を通じた正確な情報共有がなければ、職種間で対応がばらつき、利用者に不利益が生じる恐れがある。"}, {"q": "デジタル記録システム導入のメリットはどれか。", "opts": ["検索性向上とリアルタイム共有が可能になる", "メリットはない", "記録が消えやすくなる", "誰でも編集可能で問題ない"], "a": 0, "e": "検索性の向上と、リアルタイム共有が可能になることがメリット。紙の記録では時間がかかる情報の検索や共有が、デジタル化によって大幅に効率化される。"}, {"q": "記録における「個人の感想」の扱いはどれか。", "opts": ["事実と区別し必要最小限にとどめる", "積極的に多く書く", "事実より優先する", "一切書かない"], "a": 0, "e": "事実と区別し、必要最小限にとどめることが適切な扱い。感想を多く盛り込むことは、記録の客観性を損ない、多職種間での正確な情報共有を妨げる原因となってしまう。"}, {"q": "記録監査で確認される主なポイントはどれか。", "opts": ["正確性・一貫性・適時性", "文字の綺麗さのみ", "記録の長さのみ", "職員の好みのみ"], "a": 0, "e": "正確性・一貫性・適時性が主なポイントとなる。文字の綺麗さや記録の長さではなく、内容が正確で一貫しており、適切なタイミングで書かれているかが評価の中心となる。"}, {"q": "記録の「事実」と「解釈」を分けて書く利点はどれか。", "opts": ["誤解を防ぎ多職種で正確に共有できる", "記録が長くなるだけ", "利点はない", "形式のためだけ"], "a": 0, "e": "誤解を防ぎ、多職種で正確に共有できることが利点。事実と解釈を混在させると、読み手によって受け取り方が変わり、正確な情報伝達が難しくなってしまう。"}, {"q": "記録における「特記事項」欄の使い方はどれか。", "opts": ["通常と異なる重要な変化を記載する", "毎回全て記載する", "使わなくてよい", "感想のみ書く"], "a": 0, "e": "通常と異なる重要な変化を記載することが正しい使い方。毎回全ての内容を記載する欄ではなく、特に注目すべき変化や出来事を強調して伝えるための欄として活用される。"}, {"q": "介護記録が裁判等で証拠となる場合の条件はどれか。", "opts": ["正確かつ適時に記載されていること", "感想が豊富なこと", "長文であること", "無関係"], "a": 0, "e": "正確かつ適時に記載されていることが条件となる。感想が豊富なことや長文であることは証拠能力に関係なく、事実に基づいた正確でタイムリーな記録であることが重視される。"}, {"q": "多職種記録の統一書式導入の目的はどれか。", "opts": ["情報の齟齬を防ぎ連携を円滑にする", "記録者の自由度を減らすだけ", "目的はない", "効率を下げるだけ"], "a": 0, "e": "情報の齟齬を防ぎ、連携を円滑にすることが目的となる。記録者の自由度を制限することが目的なのではなく、共通の形式によって誰もが正確に情報を読み取れるようにするためである。"}],qiZ=0,okZ=0,totZ=0;
-</script>
+
+
+<button aria-label="Ganti tema" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999;background:var(--white,#fff);border:1px solid var(--border-mid,#ddd);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center">🌙</button>
 </body>
 </html>

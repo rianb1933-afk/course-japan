@@ -20,7 +20,7 @@
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
      DOMContentLoaded untuk mengantisipasi masalah timing DOM
-     (elemen target genuinely berada di <body>, setelah <head>). -->
+     
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 renderVocabGrid('pg', PH_VOCAB);
@@ -89,6 +89,8 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head><body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
 <main id="main-content">
 <div class="hero"><span class="bdg">🏥 介護</span><h1>ICF & アセスメント完全ガイド ICF・介護過程</h1><p class="sub">ICF分類 · 介護過程4段階 · アセスメントシート · ケアプラン</p></div>
 <div class="wrap" style="padding-top:20px">
@@ -152,7 +154,6 @@ renderVocabGrid('pg', PH_VOCAB);
 <h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#1b5e20);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 
-
 <!-- enriched-v2 -->
 <div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:var(--accent,#1565c0);margin:0 0 12px;font-size:1rem;font-weight:700">📊 ICF評価の実践マトリックス</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#1565c0)">ICF要素</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#1565c0)">具体的な評価内容</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#1565c0)">情報収集源</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">心身機能・構造</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">筋力/ROM/認知機能/感覚/疼痛</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">観察・PT/OT評価・医療記録</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">活動(Activity)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ADL実際の遂行能力(できる/できない)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ADL評価ツール・直接観察</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">参加(Participation)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">社会的役割・交流・趣味活動</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">インタビュー・生活歴</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">環境因子(+/-)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">住環境・家族支援・制度利用・用具</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">家庭訪問・家族面談</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">個人因子</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">価値観・生活歴・目標・性格・年齢</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">本人インタビュー</td></tr></table><div style="background:rgba(0,0,0,.04);border-left:3px solid var(--accent,#1565c0);padding:12px 15px;border-radius:0 10px 10px 0;font-size:.87rem;margin:12px 0;line-height:1.7">💡 ICFの強み: できないことだけでなく「できること・ストレングス・環境を変えればできること」を積極的に評価する。これがケアプランの質を上げる。</div></div></div>
 <!-- dlg-v2 -->
@@ -167,66 +168,66 @@ renderVocabGrid('pg', PH_VOCAB);
 </div><section style="padding:16px;max-width:860px;margin:20px auto">
 <h2 style="font-size:1rem;color:var(--accent,#004d40);border-bottom:3px solid var(--accent,#004d40);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — ICF・アセスメント</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
-<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('ICF')" title="クリックで発音">🔊 ICF</div>
-  <div style="font-size:.8rem;color:#777">ICF</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">International Classification of Functioning</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('健康状態')" title="クリックで発音">🔊 健康状態</div>
-  <div style="font-size:.8rem;color:#777">kenkō jōtai</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">kondisi kesehatan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('心身機能・構造')" title="クリックで発音">🔊 心身機能・構造</div>
-  <div style="font-size:.8rem;color:#777">shinshin kinō kōzō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">fungsi dan struktur tubuh</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('活動')" title="クリックで発音">🔊 活動</div>
-  <div style="font-size:.8rem;color:#777">katsudō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">aktivitas</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('参加')" title="クリックで発音">🔊 参加</div>
-  <div style="font-size:.8rem;color:#777">sanka</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">partisipasi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('環境因子')" title="クリックで発音">🔊 環境因子</div>
-  <div style="font-size:.8rem;color:#777">kankyō inshi</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">faktor lingkungan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('個人因子')" title="クリックで発音">🔊 個人因子</div>
-  <div style="font-size:.8rem;color:#777">kojin inshi</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">faktor personal</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('促進因子')" title="クリックで発音">🔊 促進因子</div>
-  <div style="font-size:.8rem;color:#777">sokushin inshi</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">faktor pendukung</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('阻害因子')" title="クリックで発音">🔊 阻害因子</div>
-  <div style="font-size:.8rem;color:#777">sogai inshi</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">faktor penghambat</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('バリア')" title="クリックで発音">🔊 バリア</div>
-  <div style="font-size:.8rem;color:#777">baria</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">hambatan / barrier</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('アセスメント')" title="クリックで発音">🔊 アセスメント</div>
-  <div style="font-size:.8rem;color:#777">asesumento</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">penilaian / asesmen</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('ニーズ')" title="クリックで発音">🔊 ニーズ</div>
-  <div style="font-size:.8rem;color:#777">nīzu</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">kebutuhan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('強み')" title="クリックで発音">🔊 強み</div>
-  <div style="font-size:.8rem;color:#777">tsuyomi</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">kekuatan / potensi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('生活機能')" title="クリックで発音">🔊 生活機能</div>
-  <div style="font-size:.8rem;color:#777">seikatsu kinō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">fungsi kehidupan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('WHO')" title="クリックで発音">🔊 WHO</div>
-  <div style="font-size:.8rem;color:#777">WHO</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">World Health Organization</div>
+<div class="vocab-item">
+  <div class="vocab-term" onclick="speak('ICF')" title="クリックで発音">🔊 ICF</div>
+  <div class="vocab-romaji">ICF</div>
+  <div class="vocab-meaning">International Classification of Functioning</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('健康状態')" title="クリックで発音">🔊 健康状態</div>
+  <div class="vocab-romaji">kenkō jōtai</div>
+  <div class="vocab-meaning">kondisi kesehatan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('心身機能・構造')" title="クリックで発音">🔊 心身機能・構造</div>
+  <div class="vocab-romaji">shinshin kinō kōzō</div>
+  <div class="vocab-meaning">fungsi dan struktur tubuh</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('活動')" title="クリックで発音">🔊 活動</div>
+  <div class="vocab-romaji">katsudō</div>
+  <div class="vocab-meaning">aktivitas</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('参加')" title="クリックで発音">🔊 参加</div>
+  <div class="vocab-romaji">sanka</div>
+  <div class="vocab-meaning">partisipasi</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('環境因子')" title="クリックで発音">🔊 環境因子</div>
+  <div class="vocab-romaji">kankyō inshi</div>
+  <div class="vocab-meaning">faktor lingkungan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('個人因子')" title="クリックで発音">🔊 個人因子</div>
+  <div class="vocab-romaji">kojin inshi</div>
+  <div class="vocab-meaning">faktor personal</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('促進因子')" title="クリックで発音">🔊 促進因子</div>
+  <div class="vocab-romaji">sokushin inshi</div>
+  <div class="vocab-meaning">faktor pendukung</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('阻害因子')" title="クリックで発音">🔊 阻害因子</div>
+  <div class="vocab-romaji">sogai inshi</div>
+  <div class="vocab-meaning">faktor penghambat</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('バリア')" title="クリックで発音">🔊 バリア</div>
+  <div class="vocab-romaji">baria</div>
+  <div class="vocab-meaning">hambatan / barrier</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('アセスメント')" title="クリックで発音">🔊 アセスメント</div>
+  <div class="vocab-romaji">asesumento</div>
+  <div class="vocab-meaning">penilaian / asesmen</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('ニーズ')" title="クリックで発音">🔊 ニーズ</div>
+  <div class="vocab-romaji">nīzu</div>
+  <div class="vocab-meaning">kebutuhan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('強み')" title="クリックで発音">🔊 強み</div>
+  <div class="vocab-romaji">tsuyomi</div>
+  <div class="vocab-meaning">kekuatan / potensi</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('生活機能')" title="クリックで発音">🔊 生活機能</div>
+  <div class="vocab-romaji">seikatsu kinō</div>
+  <div class="vocab-meaning">fungsi kehidupan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('WHO')" title="クリックで発音">🔊 WHO</div>
+  <div class="vocab-romaji">WHO</div>
+  <div class="vocab-meaning">World Health Organization</div>
 </div>
 </div></section></main>
 <script>
@@ -234,4 +235,6 @@ renderVocabGrid('pg', PH_VOCAB);
 var Q=[{"q": "ICFの「参加(Participation)」とは何を指す？", "opts": ["身体の動作", "地域活動・家庭での役割・社会的な関与", "食べること", "歩くこと"], "a": 1, "e": "ICF参加=社会レベルの生活関与。例: 地域のサークル参加・家族との食事・ボランティア・宗教活動・趣味のグループ。身体機能や活動が制限されても環境整備で参加を実現できる。"}, {"q": "「アセスメント」で最も重要な情報として含めるべきは？", "opts": ["スタッフの意見のみ", "できないことだけでなく、できること(強み・残存能力)も含む多面的な情報", "医師の指示のみ", "家族の意向のみ"], "a": 1, "e": "ICFに基づくアセスメントの特徴: 機能障害・できないことだけでなく、強み・残存能力・環境因子・個人因子(価値観・生活歴)も含む。「できること」から支援を設計するのが自立支援の基本。"}, {"q": "「SMARTな目標」の「M」は何を意味する？", "opts": ["医療的", "Measurable(測定できる・達成が確認できる)", "マルチプル", "毎日"], "a": 1, "e": "SMART: S=Specific(具体的) M=Measurable(測定可能) A=Achievable(達成可能) R=Relevant(本人の望みと関連) T=Time-bound(期限あり)。M=「一人でトイレに行ける」など達成したか確認できる指標。"}, {"q": "介護過程の「評価」フェーズで行うことは？", "opts": ["計画を作る", "目標の達成度を確認し、達成できていなければ再アセスメントを行う", "実施する", "情報収集のみ"], "a": 1, "e": "介護過程評価: 設定した目標(長期・短期)が達成できたかを期限に評価。達成できた→次の目標へ。できていない→なぜできないかを再アセスメント→計画修正。PDCAサイクルで継続改善。"}, {"q": "「ケアカンファレンス」で介護職の最も重要な貢献は？", "opts": ["医療的判断", "毎日の観察から得た利用者の生活・行動・変化についての詳細な情報提供", "書類の整理", "会議の進行"], "a": 1, "e": "ケアカンファレンスでの介護職の役割: 最も多く接触する職種として、日常生活の様子・変化・本人の言葉・行動パターンなどの豊富な観察情報を提供する。これが多職種連携の中心的な貢献。"}, {"q": "ICFで「環境因子」が改善されると何が変わるか？", "opts": ["疾病が治る", "活動や参加の制限が軽減され、生活機能が向上することがある", "薬が変わる", "記憶が戻る"], "a": 1, "e": "ICFの相互作用モデル: 環境因子(手すり設置・福祉用具・家族支援・社会サービス)を改善すると、同じ心身機能障害でも「活動」「参加」の制限が大きく軽減できる。環境改善=介護の重要な介入手段。"}, {"q": "「長期目標」と「短期目標」の正しい関係は？", "opts": ["短期の方が重要", "短期目標は長期目標達成のための中間ステップ", "同じ内容でよい", "家族が決める"], "a": 1, "e": "長期目標=利用者の最終的な望む生活・状態(6ヶ月〜1年)。短期目標=長期目標に向けた段階的なステップ(1〜3ヶ月)。例: 長期「一人で外出できる」→短期「手すりで10m歩行できる」。"}, {"q": "ICFにおける「環境因子」が「活動・参加」に与える影響の例として正しいのは？", "opts": ["加齢は環境因子", "段差のある建物（バリア）は車椅子ユーザーの外出参加を阻害する環境因子", "薬の副作用は環境因子", "筋力低下は環境因子"], "a": 1, "e": "ICFの環境因子：物的環境（建物・道路・器具）・社会的環境（制度・支援）・態度（他者の偏見）が「活動・参加」を促進または阻害する。バリアフリー化=阻害因子の除去。福祉用具の提供=促進因子の追加。"}, {"q": "ICFにおける「心身機能・身体構造」とは何か。", "opts": ["身体の機能や構造そのもの", "社会参加", "環境因子", "個人因子"], "a": 0, "e": "心身機能・身体構造とは、身体の生理的な機能や解剖学的な構造そのものを指すICFの構成要素。環境因子や個人因子とは区別され、身体そのものの状態を評価する視点として位置づけられている。"}, {"q": "ICFの「環境因子」に含まれるのはどれか。", "opts": ["福祉用具や住環境、周囲の人の支援", "本人の性格", "病気の重さ", "身体機能"], "a": 0, "e": "福祉用具、住環境、周囲の人々の支援などが環境因子に含まれる。本人を取り巻く外的な要因を指し、これらを整えることで生活のしやすさに大きな影響を与えることができる。"}, {"q": "ICFの「個人因子」の例はどれか。", "opts": ["年齢・性格・価値観など個人の特性", "住環境", "制度", "介護サービス"], "a": 0, "e": "年齢・性格・価値観といった、その人固有の特性が個人因子の例として挙げられる。住環境や制度といった外的な要因とは異なり、本人そのものが持つ内的な特性を指すICFの構成要素。"}, {"q": "アセスメントで主観的情報と客観的情報を区別する理由はどれか。", "opts": ["両方バランスよく捉え全体像を把握するため", "主観のみ重要だから", "客観のみ重要だから", "区別不要だから"], "a": 0, "e": "両方の情報をバランスよく捉えることで、利用者の全体像をより正確に把握できるため区別が重要となる。主観的な訴えと客観的なデータの両方を組み合わせることが、質の高いアセスメントにつながる。"}, {"q": "ICFモデルの特徴として正しいのはどれか。", "opts": ["障害を環境との相互作用として捉える", "障害を個人の問題のみとする", "医学的視点のみ", "評価不要"], "a": 0, "e": "ICFモデルの特徴は、障害を個人の問題だけでなく、環境との相互作用として捉える視点にある。医学的な側面だけでなく、社会的・環境的な要因も含めた包括的な理解を目指す点が特徴となっている。"}, {"q": "アセスメントの情報収集で優先すべき視点はどれか。", "opts": ["本人・家族の意向と生活歴を含む全体像", "数値データのみ", "職員の観察のみ", "過去の記録のみ"], "a": 0, "e": "本人・家族の意向や生活歴を含めた全体像の把握を優先すべき視点とする。数値データや職員の観察だけに偏らず、多面的な情報を収集することが、適切な支援計画につながる。"}, {"q": "ICFの「活動」と「参加」の違いはどれか。", "opts": ["活動は個人の遂行、参加は社会的関わり", "同じ意味", "活動が参加を含む", "区別不要"], "a": 0, "e": "活動は個人が課題や動作を遂行すること、参加は家庭や社会生活への関わりを指すという違いがある。両者は密接に関連しながらも、ICFでは異なる視点として区別して評価される。"}, {"q": "アセスメントを定期的に見直す理由はどれか。", "opts": ["状態は変化するため最新情報で計画を最適化する", "一度で十分だから", "形式的だから", "時間の無駄だから"], "a": 0, "e": "利用者の状態は変化するため、最新の情報に基づいて計画を最適化する必要があるという理由から、定期的な見直しが求められる。一度きりのアセスメントでは、状態変化に対応した適切な支援ができなくなる。"}, {"q": "ICF視点でのケアプラン作成の利点はどれか。", "opts": ["環境調整も含めた包括的な支援を計画できる", "身体面のみ計画", "時間短縮のみ", "記録簡略化のみ"], "a": 0, "e": "環境調整も含めた包括的な支援を計画できることが、ICF視点でのケアプラン作成の利点。身体機能面だけに焦点を当てるのではなく、環境や社会参加も含めた総合的な計画を立てることができる。"}, {"q": "「阻害因子」と「促進因子」の違いはどれか。", "opts": ["生活を妨げるか助けるかの環境要因の違い", "同じ意味", "個人因子のみ", "身体機能のみ"], "a": 0, "e": "阻害因子は生活を妨げる環境要因、促進因子は生活を助ける環境要因という違いがある。同じ環境でも、その人にとって阻害となるか促進となるかは状況によって異なるため、丁寧な評価が求められる。"}, {"q": "多職種でICFを共有する意義はどれか。", "opts": ["共通言語として情報を統合し連携しやすくする", "記録を増やすため", "評価を複雑にするため", "不要な作業"], "a": 0, "e": "ICFは共通言語として、多職種が情報を統合し連携しやすくする意義を持つ。異なる専門職がそれぞれの用語で語るのではなく、共通の枠組みを用いることで、円滑な情報共有と連携が可能になる。"}, {"q": "利用者の「参加」を支援する具体例はどれか。", "opts": ["趣味活動やレクリエーションへの参加を促す", "外出禁止", "孤立させる", "活動制限"], "a": 0, "e": "趣味活動やレクリエーションへの参加を促すことが、「参加」を支援する具体例として挙げられる。外出を制限したり孤立させたりするのではなく、社会的な関わりの機会を積極的に作ることが重要になる。"}],qi=0,ok=0,tot=0;
 document.querySelectorAll('.card').forEach(function(c){c.addEventListener('click',function(){this.classList.toggle('open');});});
 </script>
+
+<button aria-label="Ganti tema" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999;background:var(--white,#fff);border:1px solid var(--border-mid,#ddd);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center">🌙</button>
 </body></html>

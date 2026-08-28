@@ -10,7 +10,7 @@
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
      DOMContentLoaded untuk mengantisipasi masalah timing DOM
-     (elemen target genuinely berada di <body>, setelah <head>). -->
+
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 renderVocabGrid('pg', PH_VOCAB);
@@ -141,7 +141,6 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 #bttBtn{position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
 *:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
 
-
 .pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
 .pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
 </style>
@@ -165,6 +164,7 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head>
 <body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
 <div class="breadcrumb">
   <a href="../index.html">Beranda</a><span>›</span>
   <a href="Materi.html">Materi</a><span>›</span>
@@ -183,7 +183,7 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
   <a href="Kaigo-Rekod.html" class="mod-link ">📄 Penulisan Rekod</a>
   <a href="Kaigo-Ujian-Nasional.html" class="mod-link ">🎯 Ujian Nasional</a>
 </div>
-<section class="hero">
+<section id="main-content" class="hero">
   <div class="hero-inner">
     <div class="kicker">🏥 Penyakit Lansia · N3–N1</div>
     <h1>Penyakit Utama Lansia & Pendekatan Kaigo</h1>
@@ -391,17 +391,8 @@ initQuiz(QUIZ_PEN);
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
 
-<section style="max-width:900px;margin:0 auto;padding:0 20px 40px">
-<h2 style="font-size:1.1rem;font-weight:700;color:var(--accent,#1565c0);margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)">🧠 Quiz</h2>
-<div id="qkZ"></div>
-<div style="display:flex;gap:10px;margin-top:10px">
-<button onclick="nQkZ()" class="btn btn-primary" style="flex:1">Soal Berikutnya →</button>
-<button onclick="rQkZ()" class="btn btn-outline">Reset</button>
-</div>
-<p id="qsZ" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
-</section>
-<script>
-var QKZ=[{"q": "「高血圧」のケアで介護職が観察すべきことは？", "opts": ["体重のみ", "定期的なBP測定・頭痛・めまい・降圧剤の副作用", "食欲のみ", "体温のみ"], "a": 1, "e": "頭痛・めまい・顔面紅潮などの随伴症状と、血圧測定値の変化を観察することが重要。これらの異常に気づいたら速やかに看護師へ報告し、医療的な判断につなげる必要がある。"}, {"q": "「糖尿病」利用者で最も注意すべき症状は？", "opts": ["食欲増進", "低血糖(冷汗・震え・意識混濁)", "発熱", "咳"], "a": 1, "e": "低血糖の症状（冷や汗・手の震え・意識のもうろう感等）が最も注意すべき症状となる。急速に進行し重篤な意識障害に至る可能性があるため、早期発見と迅速な対応が求められる。"}, {"q": "「パーキンソン病」の特徴的な症状は？", "opts": ["記憶障害", "振戦・固縮・無動・姿勢反射障害の4徴候", "幻視", "食欲低下"], "a": 1, "e": "振戦・筋固縮・無動・姿勢反射障害の四大症状が特徴的とされる。これらの運動症状に加え、便秘やうつといった非運動症状も伴うことが多く、総合的な理解が必要になる。"}, {"q": "脳卒中後の「左片麻痺」の利用者の食事介助で配慮することは？", "opts": ["右から食べさせる", "左側に食べ物が見えるよう配置・左側への注意を促す", "速く食べさせる", "液体のみ"], "a": 1, "e": "健側（右側）に食べ物を配置し、患側（左側）への注意を促すことが配慮点。左片麻痺では左側の空間を認識しにくい半側空間無視を伴うことがあり、食事の見落としに注意が必要となる。"}, {"q": "「骨粗鬆症」の利用者で特に注意すべきことは？", "opts": ["血圧管理", "転倒予防・骨折リスク低減", "食欲", "睡眠"], "a": 1, "e": "軽微な力でも骨折しうるため、急な動作や強い圧迫を避けることが特に注意すべき点。日常のわずかな動作でも圧迫骨折等が起こりうるほど、骨が脆弱化している状態を理解する必要がある。"}, {"q": "「COPDの利用者」に対して特に注意すべき介護上のポイントは？", "opts": ["骨折に注意", "呼吸困難への対応と酸素投与中の安全管理・活動量の調整", "血糖値の管理", "認知機能のみ確認"], "a": 1, "e": "COPD(慢性閉塞性肺疾患)の介護: 動作時の息切れ・呼吸困難が最大の問題。酸素療法中は火気厳禁。活動量を調整しながら呼吸リハビリを支援。喫煙歴のある高齢者に多い。"}, {"q": "「高血圧（こうけつあつ）」の利用者に介護士が特に注意すべきことは？", "opts": ["体重の増加", "急な体位変換・激しい運動・極端な温度変化(入浴時など)を避ける", "食事量の増加", "睡眠を短くする"], "a": 1, "e": "高血圧の介護: 急な動作や体位変換→血圧急上昇リスク。熱い風呂→血管拡張→血圧急低下。ストレス・寒冷刺激も血圧を上げる。毎日の血圧測定と記録が重要。"}, {"q": "「心不全」の利用者への介護で「毎朝体重を測る」理由は？", "opts": ["食欲確認のため", "体液貯留（浮腫）を早期発見するため。2〜3日で2kg以上の増加は水分過多のサインで要報告", "骨密度確認のため", "栄養状態確認のため"], "a": 1, "e": "心不全の体重管理：心不全では心臓のポンプ機能低下→体内に水分が溜まる→浮腫・体重増加。毎日同時刻（起床後排尿後）に測定。2〜3日で2kg以上増加は心不全悪化のサイン→即看護師・医師に報告。"}, {"q": "高齢者に多い「変形性膝関節症」の主な症状はどれか。", "opts": ["膝の痛みと可動域制限", "発熱", "記憶障害", "呼吸困難"], "a": 0, "e": "変形性膝関節症(osteoartritis lutut)は膝の痛み・可動域制限(nyeri & keterbatasan gerak)が主症状。"}, {"q": "高齢者の「白内障」が生活に与える影響はどれか。", "opts": ["視力低下による転倒リスクの増加", "聴力低下", "記憶障害", "運動機能向上"], "a": 0, "e": "視力低下による転倒リスクの増加が白内障の生活への影響。見えにくさから段差や障害物に気づきにくくなり、事故のリスクが高まるため、環境整備での配慮が重要になる。"}, {"q": "高齢者の「難聴」への対応で適切なのはどれか。", "opts": ["正面から口を見せてゆっくり話す", "後ろから大声で話す", "筆談のみに頼る", "無視する"], "a": 0, "e": "正面から口を見せて、ゆっくり話すことが適切な対応。後ろから大声で話すことや、筆談のみに頼ることは、かえってコミュニケーションを困難にしてしまう可能性がある。"}, {"q": "高齢者の「前立腺肥大」が引き起こしやすい症状はどれか。", "opts": ["頻尿や排尿困難", "便秘のみ", "視力低下", "記憶障害"], "a": 0, "e": "頻尿や排尿困難が前立腺肥大による典型的な症状。男性高齢者に多く見られ、夜間のトイレ回数増加にもつながるため、排泄介助の際の配慮が必要になる。"}, {"q": "高齢者の「帯状疱疹」の特徴はどれか。", "opts": ["神経に沿った痛みを伴う発疹", "全身の発熱のみ", "記憶障害", "呼吸困難"], "a": 0, "e": "神経に沿った痛みを伴う発疹が帯状疱疹の特徴。過去に感染した水痘ウイルスが再活性化することで発症し、強い神経痛を伴うことが多いため早期の医療的対応が重要となる。"}, {"q": "高齢者の「関節リウマチ」の特徴的な症状はどれか。", "opts": ["朝のこわばりと関節の腫れ", "発熱のみ", "視力低下", "記憶障害"], "a": 0, "e": "朝のこわばりと、関節の腫れが関節リウマチの特徴的な症状。これらの症状により日常動作に支障をきたすことが多いため、介助の際には無理のない範囲での支援が求められる。"}, {"q": "高齢者の「貧血」が生活に与える影響はどれか。", "opts": ["倦怠感やめまいで活動性が低下する", "活力が向上する", "無関係", "食欲が増進する"], "a": 0, "e": "倦怠感やめまいにより活動性が低下することが貧血の生活への影響。日常の動作への意欲や体力に影響を及ぼすため、原因の把握と適切な栄養管理が重要になる。"}, {"q": "高齢者の「誤嚥性肺炎」の主な原因はどれか。", "opts": ["嚥下機能低下による食物・唾液の誤嚥", "運動不足のみ", "水分過多", "栄養過多"], "a": 0, "e": "嚥下機能の低下による、食物・唾液の誤嚥が主な原因となる。加齢に伴う嚥下機能の衰えが背景にあるため、食事姿勢や口腔ケアを通じた予防が重視される。"}, {"q": "高齢者の「変形性脊椎症」への配慮はどれか。", "opts": ["無理のない姿勢と適度な運動を勧める", "安静を強制する", "激しい運動を勧める", "無関係"], "a": 0, "e": "無理のない姿勢と、適度な運動を勧めることが配慮として適切。安静を強制したり激しい運動を勧めたりすることは、かえって症状を悪化させる可能性がある。"}, {"q": "高齢者の疾患管理で「多疾患併存(マルチモビディティ)」が意味することはどれか。", "opts": ["複数の慢性疾患を同時に抱える状態", "単一の疾患のみ", "治療の必要がない状態", "急性疾患のみ"], "a": 0, "e": "マルチモビディティ(multimorbiditas)=複数の慢性疾患(beberapa penyakit kronis)を同時に抱える状態。"}, {"q": "高齢者の「褥瘡」予防と栄養状態の関係はどれか。", "opts": ["低栄養は褥瘡リスクを高める", "栄養状態は無関係", "高栄養は逆にリスクを高める", "予防に栄養は関係ない"], "a": 0, "e": "低栄養は褥瘡のリスクを高める関係にある。栄養状態が悪いと皮膚の耐久性が低下し、圧迫による損傷を受けやすくなるため、適切な栄養管理が褥瘡予防に直結する。"}, {"q": "高齢者の「フレイル」の概念が示すものはどれか。", "opts": ["加齢に伴う心身の脆弱性が高まった状態", "完全な健康状態", "若年層の状態", "急性疾患のみ"], "a": 0, "e": "加齢に伴う心身の脆弱性が高まった状態をフレイルという概念は示している。完全な健康状態でも重度の要介護状態でもない中間的な段階であり、早期の介入で改善が可能とされる。"}],qiZ=0,okZ=0,totZ=0;
-</script>
+
+
+<button aria-label="Ganti tema" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999;background:var(--white,#fff);border:1px solid var(--border-mid,#ddd);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center">🌙</button>
 </body>
 </html>

@@ -20,7 +20,7 @@
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
      DOMContentLoaded untuk mengantisipasi masalah timing DOM
-     (elemen target genuinely berada di <body>, setelah <head>). -->
+     
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 renderVocabGrid('pg', PH_VOCAB);
@@ -93,6 +93,8 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head><body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
 <main id="main-content">
 <div class="hero"><span class="bdg">📋 介護·記録</span><h1>Dokumentasi Kaigo 介護記録</h1></div>
 <div class="wrap" style="padding-top:24px">
@@ -145,7 +147,6 @@ renderVocabGrid('pg', PH_VOCAB);
 <h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#1565c0);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 
-
 <!-- enriched-v2 -->
 <div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:#1b5e20;margin:0 0 12px;font-size:1rem;font-weight:700">📝 介護記録の書き方原則</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">原則</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">内容</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:#1b5e20">NG例→OK例</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">客観性</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">見たこと・聞いたことを事実通りに</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">「元気そう」→「食事全量摂取し笑顔で話された」</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">具体性</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">数字・固有名詞を使って具体的に</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">「少し食べた」→「主食5割・副菜3割摂取」</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">正確性</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">誤字・誤記なく正確に</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">曖昧な表現を避ける</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">タイムリー</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ケア直後に記録</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">記憶が薄れる前に</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">個人情報保護</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">鍵のかかる場所で管理</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">持ち出し・SNS投稿禁止</td></tr></table><div style="background:rgba(0,0,0,.04);border-left:3px solid #1b5e20;padding:12px 15px;border-radius:0 10px 10px 0;font-size:.87rem;margin:12px 0;line-height:1.7">💡 SOAP記録: S=主観(本人の言葉)・O=客観(観察事実)・A=アセスメント・P=計画</div></div></div>
 <!-- dlg-v2 -->
@@ -160,66 +161,66 @@ renderVocabGrid('pg', PH_VOCAB);
 </div><section style="padding:16px;max-width:860px;margin:20px auto">
 <h2 style="font-size:1rem;color:var(--accent,#4a148c);border-bottom:3px solid var(--accent,#4a148c);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 介護記録・ドキュメンテーション</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
-<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('介護記録')" title="クリックで発音">🔊 介護記録</div>
-  <div style="font-size:.8rem;color:#777">kaigo kiroku</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">catatan perawatan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('客観的記録')" title="クリックで発音">🔊 客観的記録</div>
-  <div style="font-size:.8rem;color:#777">kyakkan-teki kiroku</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">catatan objektif</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('SOAPノート')" title="クリックで発音">🔊 SOAPノート</div>
-  <div style="font-size:.8rem;color:#777">SOAP nōto</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">catatan SOAP</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('S（主観的情報）')" title="クリックで発音">🔊 S（主観的情報）</div>
-  <div style="font-size:.8rem;color:#777">S (shukan-teki jōhō)</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">S: informasi subjektif</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('O（客観的情報）')" title="クリックで発音">🔊 O（客観的情報）</div>
-  <div style="font-size:.8rem;color:#777">O (kyakkan-teki jōhō)</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">O: informasi objektif</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('A（評価）')" title="クリックで発音">🔊 A（評価）</div>
-  <div style="font-size:.8rem;color:#777">A (hyōka)</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">A: penilaian</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('P（計画）')" title="クリックで発音">🔊 P（計画）</div>
-  <div style="font-size:.8rem;color:#777">P (keikaku)</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">P: rencana tindakan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('申し送り')" title="クリックで発音">🔊 申し送り</div>
-  <div style="font-size:.8rem;color:#777">moshi-okuri</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">handover / serah terima</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('ヒヤリハット')" title="クリックで発音">🔊 ヒヤリハット</div>
-  <div style="font-size:.8rem;color:#777">hiyari hatto</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">near-miss / kejadian hampir celaka</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('インシデントレポート')" title="クリックで発音">🔊 インシデントレポート</div>
-  <div style="font-size:.8rem;color:#777">inshidento repōto</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">laporan insiden</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('個人情報')" title="クリックで発音">🔊 個人情報</div>
-  <div style="font-size:.8rem;color:#777">kojin jōhō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">informasi pribadi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('守秘義務')" title="クリックで発音">🔊 守秘義務</div>
-  <div style="font-size:.8rem;color:#777">shuhi gimu</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">kewajiban kerahasiaan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('電子記録')" title="クリックで発音">🔊 電子記録</div>
-  <div style="font-size:.8rem;color:#777">denshi kiroku</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">catatan elektronik</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('証拠性')" title="クリックで発音">🔊 証拠性</div>
-  <div style="font-size:.8rem;color:#777">shōko-sei</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">nilai pembuktian</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#4a148c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#4a148c)" onclick="speak('5W1H')" title="クリックで発音">🔊 5W1H</div>
-  <div style="font-size:.8rem;color:#777">5W1H</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">siapa-apa-kapan-di mana-mengapa-bagaimana</div>
+<div class="vocab-item">
+  <div class="vocab-term" onclick="speak('介護記録')" title="クリックで発音">🔊 介護記録</div>
+  <div class="vocab-romaji">kaigo kiroku</div>
+  <div class="vocab-meaning">catatan perawatan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('客観的記録')" title="クリックで発音">🔊 客観的記録</div>
+  <div class="vocab-romaji">kyakkan-teki kiroku</div>
+  <div class="vocab-meaning">catatan objektif</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('SOAPノート')" title="クリックで発音">🔊 SOAPノート</div>
+  <div class="vocab-romaji">SOAP nōto</div>
+  <div class="vocab-meaning">catatan SOAP</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('S（主観的情報）')" title="クリックで発音">🔊 S（主観的情報）</div>
+  <div class="vocab-romaji">S (shukan-teki jōhō)</div>
+  <div class="vocab-meaning">S: informasi subjektif</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('O（客観的情報）')" title="クリックで発音">🔊 O（客観的情報）</div>
+  <div class="vocab-romaji">O (kyakkan-teki jōhō)</div>
+  <div class="vocab-meaning">O: informasi objektif</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('A（評価）')" title="クリックで発音">🔊 A（評価）</div>
+  <div class="vocab-romaji">A (hyōka)</div>
+  <div class="vocab-meaning">A: penilaian</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('P（計画）')" title="クリックで発音">🔊 P（計画）</div>
+  <div class="vocab-romaji">P (keikaku)</div>
+  <div class="vocab-meaning">P: rencana tindakan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('申し送り')" title="クリックで発音">🔊 申し送り</div>
+  <div class="vocab-romaji">moshi-okuri</div>
+  <div class="vocab-meaning">handover / serah terima</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('ヒヤリハット')" title="クリックで発音">🔊 ヒヤリハット</div>
+  <div class="vocab-romaji">hiyari hatto</div>
+  <div class="vocab-meaning">near-miss / kejadian hampir celaka</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('インシデントレポート')" title="クリックで発音">🔊 インシデントレポート</div>
+  <div class="vocab-romaji">inshidento repōto</div>
+  <div class="vocab-meaning">laporan insiden</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('個人情報')" title="クリックで発音">🔊 個人情報</div>
+  <div class="vocab-romaji">kojin jōhō</div>
+  <div class="vocab-meaning">informasi pribadi</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('守秘義務')" title="クリックで発音">🔊 守秘義務</div>
+  <div class="vocab-romaji">shuhi gimu</div>
+  <div class="vocab-meaning">kewajiban kerahasiaan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('電子記録')" title="クリックで発音">🔊 電子記録</div>
+  <div class="vocab-romaji">denshi kiroku</div>
+  <div class="vocab-meaning">catatan elektronik</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('証拠性')" title="クリックで発音">🔊 証拠性</div>
+  <div class="vocab-romaji">shōko-sei</div>
+  <div class="vocab-meaning">nilai pembuktian</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('5W1H')" title="クリックで発音">🔊 5W1H</div>
+  <div class="vocab-romaji">5W1H</div>
+  <div class="vocab-meaning">siapa-apa-kapan-di mana-mengapa-bagaimana</div>
 </div>
 </div></section></main>
 <script>
@@ -238,4 +239,6 @@ var Q=[{"q": "介護記録の「客観的事実」の原則とは？", "opts": [
 <script>
 var QKZ=[{"q": "介護記録で「客観的事実」の書き方は？", "opts": ["「元気がない」と書く", "「発話少なく、食事摂取量2割、BP128/84」と数値・観察で書く", "気持ちを書く", "推測を書く"], "a": 1, "e": "客観的記録=観察できる事実+数値のみ。×「元気がない」→✅「発話が平常より少なく、昼食2割摂取、BP128/84mmHg」。感情・推測は除外。"}, {"q": "「ヒヤリハット」と「インシデント」の違いは？", "opts": ["同じ", "ヒヤリハット=事故未然(ヒヤリとしたが怪我なし)、インシデント=実際に軽度の事故が起きた", "インシデントの方が軽い", "どちらも同じ対応"], "a": 1, "e": "ヒヤリハット=near miss(事故寸前・怪我なし)。インシデント=実際に軽度の事故・トラブルが起きた。アクシデント=重大事故。報告して再発防止に活かす。"}, {"q": "申し送りで必ず伝えるべき情報の優先順位は？", "opts": ["楽しい話を先に", "状態変化・注意事項・未完了タスクを最優先で伝える", "長い話を先に", "どれでも同じ"], "a": 1, "e": "申し送り優先順位: ①緊急・重要な状態変化 ②注意が必要な事項 ③未完了のケア ④継続観察事項。簡潔・正確・時系列で伝える。引き継ぎミスが事故の原因になる。"}, {"q": "「SOAP記録」のAとは何か？", "opts": ["アクション", "Assessment=評価・アセスメント(観察情報から専門職が判断したこと)", "目標", "記録"], "a": 1, "e": "SOAP: S=Subjective(主観/利用者の言葉) O=Objective(客観/測定値) A=Assessment(評価/専門職の判断) P=Plan(計画)。Aは観察からの専門的判断が入る。"}, {"q": "食事摂取量「全量の半分」は記録上何割？", "opts": ["3割", "5割(半量)", "7割", "2割"], "a": 1, "e": "摂取量記録: 全量=10割(100%)。半量=5割(50%)。3割=30%。2割=20%。数値で統一することで多職種間での共通認識が生まれる。"}, {"q": "「個人情報保護」の観点で介護記録の取り扱いで正しいのは？", "opts": ["自由に持ち帰れる", "施設外持出禁止・SNS投稿禁止・業務目的外使用禁止", "コピーして保管してよい", "家族なら誰でも閲覧可"], "a": 1, "e": "個人情報保護法+介護倫理: 記録は業務目的のみ。施設外持出・SNS投稿・不必要な第三者への開示は全て禁止。退職後も守秘義務は継続する。"}],qiZ=0,okZ=0,totZ=0;
 </script>
+
+<button aria-label="Ganti tema" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999;background:var(--white,#fff);border:1px solid var(--border-mid,#ddd);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center">🌙</button>
 </body></html>

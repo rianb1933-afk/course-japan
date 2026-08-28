@@ -10,7 +10,7 @@
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
      DOMContentLoaded untuk mengantisipasi masalah timing DOM
-     (elemen target genuinely berada di <body>, setelah <head>). -->
+
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 renderVocabGrid('pg', PH_VOCAB);
@@ -141,7 +141,6 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 #bttBtn{position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
 *:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
 
-
 .pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
 .pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
 </style>
@@ -165,6 +164,7 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head>
 <body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
 <div class="breadcrumb">
   <a href="../index.html">Beranda</a><span>›</span>
   <a href="Materi.html">Materi</a><span>›</span>
@@ -183,7 +183,7 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
   <a href="Kaigo-Rekod.html" class="mod-link">📄 Penulisan Rekod</a>
   <a href="Kaigo-Ujian-Nasional.html" class="mod-link active">🎯 Ujian Nasional</a>
 </div>
-<section class="hero">
+<section id="main-content" class="hero">
   <div class="hero-inner">
     <div class="kicker">🎯 Bank Soal · Ujian Nasional</div>
     <h1>Latihan Soal 国家試験</h1>
@@ -222,13 +222,6 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:
   </div>
 </div>
 
-<!-- GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Keempat, Fase N):
-     dikonfirmasi elemen target #pg genuinely TIDAK PERNAH ADA di HTML
-     halaman ini, berbeda dari 31 halaman Kaigo lain yang genuinely
-     konsisten memilikinya -- meski CSS .pg-vocab dan data PH_VOCAB
-     (8 kosakata Ujian Nasional) genuinely sudah tersedia. Disisipkan
-     mengikuti pola heading yang sama dengan halaman lain, agar
-     JavaScript render yang genuinely sudah ada memiliki target valid. -->
 <div style="max-width:920px;margin:0 auto;padding:0 20px">
 <h2 style="font-size:1.2rem;font-weight:700;color:var(--accent,#1a237e);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
@@ -591,5 +584,7 @@ const btt=document.getElementById('bttBtn');window.addEventListener('scroll',()=
 <script>
 var QKZ=[{"q": "介護福祉士試験で「尊厳の保持」の意味は？", "opts": ["外見を整える", "その人が人として持つ価値・権利を最大限尊重すること", "高価なケアをする", "医療優先"], "a": 1, "e": "一人の人間として尊重し、その人らしい生活を支えることが尊厳の保持の意味。介護保険法第1条にも掲げられる、介護実践の根幹をなす重要な理念とされている。"}, {"q": "「介護保険サービスの利用者負担割合」を決めるのは？", "opts": ["ケアマネジャー", "利用者の収入・所得による(1-3割)", "施設長", "医師"], "a": 1, "e": "利用者の所得状況に応じて、負担割合（1〜3割）が決定される仕組みとなっている。所得の高い方はより多くを負担する応能負担の考え方が取り入れられている。"}, {"q": "「認知症初期集中支援チーム」の目的は？", "opts": ["入院させる", "認知症の疑いがある人を早期発見・早期支援するために訪問する専門チーム", "薬を処方する", "施設に入れる"], "a": 1, "e": "認知症初期集中支援チーム=医療職+介護職で構成。認知症の疑いがある人の自宅に訪問し、早期診断・支援につなげる。2015年から全市区町村に設置義務化。"}, {"q": "「BPSD(行動・心理症状)」の非薬物的介入で最初に試みることは？", "opts": ["抗精神病薬", "環境整備・関わり方・活動の調整などの非薬物的アプローチ", "身体拘束", "入院"], "a": 1, "e": "BPSD対応の原則: まず非薬物的介入(環境・コミュニケーション・活動・ケア方法の改善)を試みる。薬物療法は副作用リスクがあるため最後の手段。"}, {"q": "介護職の「守秘義務」はいつまで続くか？", "opts": ["在職中のみ", "退職後も続く(生涯)", "3年間", "5年間"], "a": 1, "e": "退職後も生涯にわたって守秘義務は継続する。在職中に知り得た情報は、職を離れたからといって自由に話してよいものではなく、専門職としての永続的な責任となる。"}, {"q": "介護福祉士国家試験の出題領域「人間と社会」に含まれない科目は？", "opts": ["人間の尊厳と自立", "人間関係とコミュニケーション", "医療的ケア", "社会の理解"], "a": 2, "e": "「人間と社会」領域には人間の尊厳と自立、人間関係とコミュニケーション、社会の理解が含まれる。こころとからだのしくみや医療的ケアは、別の領域に区分されている。"}, {"q": "介護福祉士国家試験の合格基準は？", "opts": ["全問正解のみ", "総得点の60%以上かつ各領域で0点がないこと", "全科目50%以上", "年度によって変わり基準なし"], "a": 1, "e": "総得点の約60%以上を得点し、かつ全ての科目群で得点があることが合格基準とされる。一つでも0点の科目群があると、総得点が高くても不合格となる点に注意が必要である。"}, {"q": "介護福祉士国家試験の「出題基準（カリキュラム）」として正しいのは？", "opts": ["毎年大きく変わる", "人間と社会・介護・こころとからだのしくみ・医療的ケアの4領域、全125問が出題される", "問題数は50問", "筆記試験は不要"], "a": 1, "e": "介護福祉士国家試験：筆記試験（全125問）＋実技試験または介護技術講習修了で実技免除。出題領域：①人間と社会（人間の尊厳・社会理解・コミュニケーション）②介護（生活支援・介護過程）③こころとからだのしくみ④医療的ケア。合格ラインは総得点の60%以上かつ各領域で足切りなし。"}, {"q": "介護福祉士国家試験の合格基準はどれか。", "opts": ["総得点の60%程度以上かつ各科目群で得点があること", "100%正解が必要", "50%以上のみで合格", "科目群基準はない"], "a": 0, "e": "総得点の約60%程度以上に加え、全ての科目群で得点があることが必要とされる。苦手科目を作らず、全領域をバランスよく学習することが合格への鍵となる。"}, {"q": "国家試験の実技試験が免除される条件はどれか。", "opts": ["実務者研修修了等の要件を満たす場合", "誰でも免除", "免除制度はない", "経験年数のみで免除"], "a": 0, "e": "実務者研修を修了することなどにより、実技試験が免除される仕組みとなっている。要件を満たすことで筆記試験のみでの資格取得が可能になる制度として整備されている。"}, {"q": "国家試験の出題形式はどれか。", "opts": ["五肢択一のマークシート方式", "記述式のみ", "面接のみ", "口頭試問のみ"], "a": 0, "e": "五肢択一のマークシート方式が介護福祉士国家試験の出題形式となる。記述式や口頭試問ではなく、全問が選択肢から正答を選ぶ形式で統一されている点が特徴である。"}, {"q": "国家試験対策で「過去問演習」が有効な理由はどれか。", "opts": ["出題傾向を把握し弱点を補強できるため", "無意味だから", "範囲外だから", "効果がないから"], "a": 0, "e": "過去問演習(latihan soal lampau)で出題傾向把握・弱点補強(pola soal & perkuat kelemahan)ができる。"}, {"q": "試験当日の持ち物として重要なのはどれか。", "opts": ["受験票と本人確認書類", "参考書のみ", "不要", "友人の同伴のみ"], "a": 0, "e": "受験票と本人確認書類が試験当日に必ず必要となる持ち物。これらを忘れると受験できない可能性があるため、前日までに準備を確認しておくことが重要になる。"}, {"q": "国家試験不合格の場合の再受験制度はどれか。", "opts": ["翌年度以降、再度受験可能", "二度と受験できない", "即日再試験可能", "永久に資格取得不可"], "a": 0, "e": "翌年度以降、何度でも再受験が可能な制度となっている。一度の不合格で資格取得の道が閉ざされるわけではないため、諦めずに再挑戦することができる。"}, {"q": "外国人受験者への国家試験の配慮として実施されているものはどれか。", "opts": ["ルビ(読み仮名)付き問題用紙の提供", "母国語での受験", "試験免除", "無配慮"], "a": 0, "e": "全ての漢字にルビ（読み仮名）を付した問題用紙の提供などの配慮が実施されている。日本語能力による不利を軽減し、専門知識を公平に評価するための措置となっている。"}, {"q": "介護福祉士国家試験の受験手数料に関する一般的な説明はどれか。", "opts": ["受験の際に所定の手数料が必要", "無料で受験できる", "手数料は資格取得後に支払う", "手数料制度はない"], "a": 0, "e": "受験に際しては所定の受験手数料を納付する必要がある。金額や納付方法の詳細は、試験センターが毎年公表する受験の手引きで必ず確認することが求められる。"}, {"q": "試験勉強における「模擬試験」活用の意義はどれか。", "opts": ["本番同様の形式で実力と時間配分を確認できる", "意味がないから受けなくてよい", "本番より簡単だから不要", "範囲が異なるから無意味"], "a": 0, "e": "本番同様の形式で、実力の把握と時間配分の確認ができることが模擬試験の意義。弱点を事前に発見し、残された学習期間を効率的に使うための有効な手段となる。"}, {"q": "介護福祉士資格取得後に求められることはどれか。", "opts": ["継続的な自己研鑽と実践力の向上", "学びは終了でよい", "資格のみで十分", "更新のための勉強のみ"], "a": 0, "e": "継続的な自己研鑽と、実践力の向上が資格取得後にも求められる。資格取得はゴールではなく、専門職としての学びを生涯続けていく姿勢が期待されている。"}, {"q": "国家試験の学習計画を立てる際に重要なことはどれか。", "opts": ["苦手分野を把握し計画的に学習を進める", "一夜漬けで十分", "計画は不要", "得意分野のみ学習"], "a": 0, "e": "苦手分野を把握し、計画的に学習を進めることが重要とされる。全科目群で得点が必要な試験であるため、得意分野だけに偏った学習では合格が難しくなってしまう。"}, {"q": "介護福祉士国家試験の科目群に含まれるのはどれか。", "opts": ["人間と社会・介護・こころとからだのしくみ等", "数学のみ", "英語のみ", "法律のみ"], "a": 0, "e": "人間と社会、介護、こころとからだのしくみ、医療的ケアなどの科目群で構成されている。これら全ての領域からバランスよく出題されるため、幅広い学習が求められる。"}],qiZ=0,okZ=0,totZ=0;
 </script>
+
+<button aria-label="Ganti tema" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999;background:var(--white,#fff);border:1px solid var(--border-mid,#ddd);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center">🌙</button>
 </body>
 </html>

@@ -22,7 +22,7 @@
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
      DOMContentLoaded untuk mengantisipasi masalah timing DOM
-     (elemen target genuinely berada di <body>, setelah <head>). -->
+     
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 renderVocabGrid('pg', PH_VOCAB);
@@ -91,6 +91,8 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head><body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
 <main id="main-content">
 <div class="hero"><span class="bdg">🧠 介護·認知症</span><h1>認知症コミュニケーション<br>Teknik Komunikasi dengan Residen Demensia</h1></div>
 <div class="wrap" style="padding-top:24px">
@@ -111,7 +113,6 @@ renderVocabGrid('pg', PH_VOCAB);
 <h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 
-
 <!-- enriched-v2 -->
 <div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:var(--accent,#00695c);margin:0 0 12px;font-size:1rem;font-weight:700">💬 認知症コミュニケーション技法まとめ</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#00695c)">技法</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#00695c)">概要</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#00695c)">具体的対応</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">バリデーション</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">感情に共感・受容する</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">「家に帰りたい」→「帰りたいんですね」と共感</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ユマニチュード</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">見る・話す・触れる・立つの4柱</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">正面から目を合わせ穏やかに話しかける</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">回想法</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">過去の記憶を引き出す</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">昔の写真・音楽・物品を活用</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">RO</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">現実の見当識を維持</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">毎日日付・場所・季節を自然に伝える</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">音楽療法</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">音楽で感情に働きかける</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">昔なじみの曲を一緒に聴く・歌う</td></tr></table></div></div>
 <!-- dlg-v2 -->
@@ -126,66 +127,66 @@ renderVocabGrid('pg', PH_VOCAB);
 </div><section style="padding:16px;max-width:860px;margin:20px auto">
 <h2 style="font-size:1rem;color:var(--accent,#006064);border-bottom:3px solid var(--accent,#006064);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 認知症コミュニケーション</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
-<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('傾聴')" title="クリックで発音">🔊 傾聴</div>
-  <div style="font-size:.8rem;color:#777">keichō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">mendengarkan aktif</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('共感')" title="クリックで発音">🔊 共感</div>
-  <div style="font-size:.8rem;color:#777">kyōkan</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">empati</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('ユマニチュード')" title="クリックで発音">🔊 ユマニチュード</div>
-  <div style="font-size:.8rem;color:#777">yumanicchuudo</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">Humanitude (teknik komunikasi)</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('バリデーション')" title="クリックで発音">🔊 バリデーション</div>
-  <div style="font-size:.8rem;color:#777">baridēshon</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">validation therapy</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('回想法')" title="クリックで発音">🔊 回想法</div>
-  <div style="font-size:.8rem;color:#777">kaisō-hō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">reminiscence therapy</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('非言語コミュニケーション')" title="クリックで発音">🔊 非言語コミュニケーション</div>
-  <div style="font-size:.8rem;color:#777">hi-gengo komyunikēshon</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">komunikasi non-verbal</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('タッチング')" title="クリックで発音">🔊 タッチング</div>
-  <div style="font-size:.8rem;color:#777">tacchingu</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">sentuhan / touching</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('アイコンタクト')" title="クリックで発音">🔊 アイコンタクト</div>
-  <div style="font-size:.8rem;color:#777">ai kontakuto</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">kontak mata</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('声かけ')" title="クリックで発音">🔊 声かけ</div>
-  <div style="font-size:.8rem;color:#777">koegake</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">menyapa / berbicara terlebih dahulu</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('見当識へのアプローチ')" title="クリックで発音">🔊 見当識へのアプローチ</div>
-  <div style="font-size:.8rem;color:#777">kentōshiki e no apurōchi</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">pendekatan orientasi realitas</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('否定しない')" title="クリックで発音">🔊 否定しない</div>
-  <div style="font-size:.8rem;color:#777">hitei shinai</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">tidak menyanggah</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('感情に寄り添う')" title="クリックで発音">🔊 感情に寄り添う</div>
-  <div style="font-size:.8rem;color:#777">kanjō ni yorisou</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">mendampingi emosi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('個別化')" title="クリックで発音">🔊 個別化</div>
-  <div style="font-size:.8rem;color:#777">kobetsuka</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">individualisasi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('本人の言葉')" title="クリックで発音">🔊 本人の言葉</div>
-  <div style="font-size:.8rem;color:#777">honin no kotoba</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">perkataan orang itu sendiri</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#006064)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#006064)" onclick="speak('反映')" title="クリックで発音">🔊 反映</div>
-  <div style="font-size:.8rem;color:#777">han-ei</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">refleksi / parafrase</div>
+<div class="vocab-item">
+  <div class="vocab-term" onclick="speak('傾聴')" title="クリックで発音">🔊 傾聴</div>
+  <div class="vocab-romaji">keichō</div>
+  <div class="vocab-meaning">mendengarkan aktif</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('共感')" title="クリックで発音">🔊 共感</div>
+  <div class="vocab-romaji">kyōkan</div>
+  <div class="vocab-meaning">empati</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('ユマニチュード')" title="クリックで発音">🔊 ユマニチュード</div>
+  <div class="vocab-romaji">yumanicchuudo</div>
+  <div class="vocab-meaning">Humanitude (teknik komunikasi)</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('バリデーション')" title="クリックで発音">🔊 バリデーション</div>
+  <div class="vocab-romaji">baridēshon</div>
+  <div class="vocab-meaning">validation therapy</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('回想法')" title="クリックで発音">🔊 回想法</div>
+  <div class="vocab-romaji">kaisō-hō</div>
+  <div class="vocab-meaning">reminiscence therapy</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('非言語コミュニケーション')" title="クリックで発音">🔊 非言語コミュニケーション</div>
+  <div class="vocab-romaji">hi-gengo komyunikēshon</div>
+  <div class="vocab-meaning">komunikasi non-verbal</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('タッチング')" title="クリックで発音">🔊 タッチング</div>
+  <div class="vocab-romaji">tacchingu</div>
+  <div class="vocab-meaning">sentuhan / touching</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('アイコンタクト')" title="クリックで発音">🔊 アイコンタクト</div>
+  <div class="vocab-romaji">ai kontakuto</div>
+  <div class="vocab-meaning">kontak mata</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('声かけ')" title="クリックで発音">🔊 声かけ</div>
+  <div class="vocab-romaji">koegake</div>
+  <div class="vocab-meaning">menyapa / berbicara terlebih dahulu</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('見当識へのアプローチ')" title="クリックで発音">🔊 見当識へのアプローチ</div>
+  <div class="vocab-romaji">kentōshiki e no apurōchi</div>
+  <div class="vocab-meaning">pendekatan orientasi realitas</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('否定しない')" title="クリックで発音">🔊 否定しない</div>
+  <div class="vocab-romaji">hitei shinai</div>
+  <div class="vocab-meaning">tidak menyanggah</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('感情に寄り添う')" title="クリックで発音">🔊 感情に寄り添う</div>
+  <div class="vocab-romaji">kanjō ni yorisou</div>
+  <div class="vocab-meaning">mendampingi emosi</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('個別化')" title="クリックで発音">🔊 個別化</div>
+  <div class="vocab-romaji">kobetsuka</div>
+  <div class="vocab-meaning">individualisasi</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('本人の言葉')" title="クリックで発音">🔊 本人の言葉</div>
+  <div class="vocab-romaji">honin no kotoba</div>
+  <div class="vocab-meaning">perkataan orang itu sendiri</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('反映')" title="クリックで発音">🔊 反映</div>
+  <div class="vocab-romaji">han-ei</div>
+  <div class="vocab-meaning">refleksi / parafrase</div>
 </div>
 </div></section></main>
 <script>
@@ -239,4 +240,6 @@ renderDialog();renderPhrases();</script>
 <script>
 var QKZ=[{"q": "「バリデーション療法」の創始者は？", "opts": ["Tom Kitwood", "Naomi Feil", "Virginia Henderson", "Florence Nightingale"], "a": 1, "e": "バリデーション療法=Naomi Feilが1963年頃から開発。感情を否定せず受け入れることで認知症の方の不安・孤立を軽減。世界中の認知症ケアに影響を与えた。"}, {"q": "「帰宅願望」の背後にある感情として最も多いのは？", "opts": ["旅行したい", "不安・孤独・安心できる場所を求める気持ち", "退屈", "お腹が空いた"], "a": 1, "e": "帰宅願望=安心できる場所(家・若い頃の家)への渇望。「帰りたい」=「不安で安心したい」のサイン。場所より感情に寄り添うことが鍵。"}, {"q": "コミュニケーションで「目線を合わせる」ことの意味は？", "opts": ["見下すため", "相手と同じ高さで話すことで安心感・尊重の気持ちを伝える", "見えにくいから", "ケアの手順"], "a": 1, "e": "目線を合わせる=しゃがむ・椅子に座る。上から見下ろす姿勢は威圧感を与える。目線を同じ高さにすることで平等・安心・信頼関係が生まれる。"}, {"q": "「声のトーン・速さ」が認知症ケアで特に重要な理由は？", "opts": ["聞こえにくいから", "言語理解が低下しても声の感情・トーンは伝わり続けるから", "決まりだから", "効率的だから"], "a": 1, "e": "認知症が進んでも感情は伝わる。穏やかな声=安心感。大きな声・早口=不安・恐怖。非言語の感情伝達は言語より長く保たれる。"}, {"q": "「繰り返し同じことを聞く」利用者への対応は？", "opts": ["「さっき言いました」と指摘", "毎回初めて聞くように答え、その感情に注目する", "無視する", "叱る"], "a": 1, "e": "繰り返し質問への対応: 「さっき言った」は禁止。その質問の背後の感情(不安？確認？)を受け止め毎回丁寧に答える。不安が減れば質問も減ることがある。"}, {"q": "「思い出の物(写真・音楽)」をケアに活用する根拠は？", "opts": ["気分転換のため", "感情記憶・遠隔記憶は認知症が進んでも比較的保たれるから", "コスト節約", "決まりだから"], "a": 1, "e": "感情記憶・手続き記憶は扁桃体・大脳基底核に保存→海馬が障害されるアルツハイマーでも長く残る。懐かしい歌・写真が笑顔を引き出すのはこのため。"}],qiZ=0,okZ=0,totZ=0;
 </script>
+
+<button aria-label="Ganti tema" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999;background:var(--white,#fff);border:1px solid var(--border-mid,#ddd);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center">🌙</button>
 </body></html>

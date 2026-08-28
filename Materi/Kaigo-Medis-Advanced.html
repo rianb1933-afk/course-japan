@@ -20,7 +20,7 @@
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
      DOMContentLoaded untuk mengantisipasi masalah timing DOM
-     (elemen target genuinely berada di <body>, setelah <head>). -->
+     
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 renderVocabGrid('pg', PH_VOCAB);
@@ -54,6 +54,8 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head><body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
 <main id="main-content">
 <div class="hero"><span class="bdg">🏥 介護·医療</span><h1>Kaigo Medis Lanjutan 医療連携応用</h1></div>
 <div class="wrap" style="padding-top:20px">
@@ -103,7 +105,6 @@ renderVocabGrid('pg', PH_VOCAB);
 <h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#1565c0);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 
-
 <!-- enriched-v2 -->
 <div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:var(--accent,#37474f);margin:0 0 12px;font-size:1rem;font-weight:700">💊 高齢者の薬物療法と介護</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#37474f)">テーマ</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#37474f)">内容</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#37474f)">介護士の役割</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ポリファーマシー</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">5〜6種類以上の多剤服用。副作用・相互作用リスク↑。</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">服用数の変化・副作用症状の観察・報告</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">服薬アドヒアランス</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">処方通りに薬を飲むこと。認知症・副作用で低下しやすい。</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">服薬支援・飲み忘れ確認・拒薬への対応</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">主な副作用と観察</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">眠気・立ちくらみ(降圧薬)・便秘(鉄剤)・出血(抗凝固薬)</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ADLへの影響観察・バイタル変化・転倒リスク</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">服薬記録</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">いつ・どの薬・誰に・どれだけ飲ませたか</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">5R原則での確認(右人・右薬・右量・右時・右ルート)</td></tr></table></div></div>
 <!-- dlg-v2 -->
@@ -118,66 +119,66 @@ renderVocabGrid('pg', PH_VOCAB);
 </div><section style="padding:16px;max-width:860px;margin:20px auto">
 <h2 style="font-size:1rem;color:var(--accent,#b71c1c);border-bottom:3px solid var(--accent,#b71c1c);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 医療的ケア（詳細）</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
-<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('医療的ケア')" title="クリックで発音">🔊 医療的ケア</div>
-  <div style="font-size:.8rem;color:#777">iryō-teki kea</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">tindakan medis perawatan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('喀痰吸引')" title="クリックで発音">🔊 喀痰吸引</div>
-  <div style="font-size:.8rem;color:#777">kakutan kyūin</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">suction / penghisapan dahak</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('経管栄養')" title="クリックで発音">🔊 経管栄養</div>
-  <div style="font-size:.8rem;color:#777">keikan eiyō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">nutrisi enteral</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('胃瘻')" title="クリックで発音">🔊 胃瘻</div>
-  <div style="font-size:.8rem;color:#777">irō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">gastrostomi / PEG</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('気管カニューレ')" title="クリックで発音">🔊 気管カニューレ</div>
-  <div style="font-size:.8rem;color:#777">kikan kanyūre</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">kanula trakeostomi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('在宅酸素')" title="クリックで発音">🔊 在宅酸素</div>
-  <div style="font-size:.8rem;color:#777">zaitaku sanso</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">oksigen di rumah</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('人工呼吸器')" title="クリックで発音">🔊 人工呼吸器</div>
-  <div style="font-size:.8rem;color:#777">jinkō kokyūki</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">ventilator mekanik</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('喀痰吸引等研修')" title="クリックで発音">🔊 喀痰吸引等研修</div>
-  <div style="font-size:.8rem;color:#777">kakutan kyūin-tō kenshū</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">pelatihan suction & tube feeding</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('指示書')" title="クリックで発音">🔊 指示書</div>
-  <div style="font-size:.8rem;color:#777">shijisho</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">lembar instruksi dokter</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('看護師の指導')" title="クリックで発音">🔊 看護師の指導</div>
-  <div style="font-size:.8rem;color:#777">kangoshi no shidō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">bimbingan perawat</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('リスク管理')" title="クリックで発音">🔊 リスク管理</div>
-  <div style="font-size:.8rem;color:#777">risuku kanri</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">manajemen risiko</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('緊急時対応')" title="クリックで発音">🔊 緊急時対応</div>
-  <div style="font-size:.8rem;color:#777">kinkyū-ji taiō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">respons darurat</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('モニタリング')" title="クリックで発音">🔊 モニタリング</div>
-  <div style="font-size:.8rem;color:#777">monitaringu</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">pemantauan / monitoring</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('記録と報告')" title="クリックで発音">🔊 記録と報告</div>
-  <div style="font-size:.8rem;color:#777">kiroku to hōkoku</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">pencatatan dan pelaporan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#b71c1c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#b71c1c)" onclick="speak('多職種連携')" title="クリックで発音">🔊 多職種連携</div>
-  <div style="font-size:.8rem;color:#777">ta-shokushu renkkei</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">kolaborasi multidisiplin</div>
+<div class="vocab-item">
+  <div class="vocab-term" onclick="speak('医療的ケア')" title="クリックで発音">🔊 医療的ケア</div>
+  <div class="vocab-romaji">iryō-teki kea</div>
+  <div class="vocab-meaning">tindakan medis perawatan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('喀痰吸引')" title="クリックで発音">🔊 喀痰吸引</div>
+  <div class="vocab-romaji">kakutan kyūin</div>
+  <div class="vocab-meaning">suction / penghisapan dahak</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('経管栄養')" title="クリックで発音">🔊 経管栄養</div>
+  <div class="vocab-romaji">keikan eiyō</div>
+  <div class="vocab-meaning">nutrisi enteral</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('胃瘻')" title="クリックで発音">🔊 胃瘻</div>
+  <div class="vocab-romaji">irō</div>
+  <div class="vocab-meaning">gastrostomi / PEG</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('気管カニューレ')" title="クリックで発音">🔊 気管カニューレ</div>
+  <div class="vocab-romaji">kikan kanyūre</div>
+  <div class="vocab-meaning">kanula trakeostomi</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('在宅酸素')" title="クリックで発音">🔊 在宅酸素</div>
+  <div class="vocab-romaji">zaitaku sanso</div>
+  <div class="vocab-meaning">oksigen di rumah</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('人工呼吸器')" title="クリックで発音">🔊 人工呼吸器</div>
+  <div class="vocab-romaji">jinkō kokyūki</div>
+  <div class="vocab-meaning">ventilator mekanik</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('喀痰吸引等研修')" title="クリックで発音">🔊 喀痰吸引等研修</div>
+  <div class="vocab-romaji">kakutan kyūin-tō kenshū</div>
+  <div class="vocab-meaning">pelatihan suction & tube feeding</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('指示書')" title="クリックで発音">🔊 指示書</div>
+  <div class="vocab-romaji">shijisho</div>
+  <div class="vocab-meaning">lembar instruksi dokter</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('看護師の指導')" title="クリックで発音">🔊 看護師の指導</div>
+  <div class="vocab-romaji">kangoshi no shidō</div>
+  <div class="vocab-meaning">bimbingan perawat</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('リスク管理')" title="クリックで発音">🔊 リスク管理</div>
+  <div class="vocab-romaji">risuku kanri</div>
+  <div class="vocab-meaning">manajemen risiko</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('緊急時対応')" title="クリックで発音">🔊 緊急時対応</div>
+  <div class="vocab-romaji">kinkyū-ji taiō</div>
+  <div class="vocab-meaning">respons darurat</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('モニタリング')" title="クリックで発音">🔊 モニタリング</div>
+  <div class="vocab-romaji">monitaringu</div>
+  <div class="vocab-meaning">pemantauan / monitoring</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('記録と報告')" title="クリックで発音">🔊 記録と報告</div>
+  <div class="vocab-romaji">kiroku to hōkoku</div>
+  <div class="vocab-meaning">pencatatan dan pelaporan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('多職種連携')" title="クリックで発音">🔊 多職種連携</div>
+  <div class="vocab-romaji">ta-shokushu renkkei</div>
+  <div class="vocab-meaning">kolaborasi multidisiplin</div>
 </div>
 </div></section></main>
 <script>
@@ -206,4 +207,6 @@ if(typeof xi==="function")xi();</script><section style="max-width:900px;margin:0
 <script>
 var QKZ=[{"q": "「FAST」で脳卒中を疑うサインは？", "opts": ["熱が出た", "Face(顔の歪み)+Arm(片腕の脱力)+Speech(言語障害)+Time(すぐ119)", "頭痛のみ", "血圧が高い"], "a": 1, "e": "FAST=脳卒中早期認識ツール。突然の顔の歪み・片腕の脱力・言語障害のどれか一つでも→即119番。時間=脳細胞。「Time is brain」。"}, {"q": "「低血糖」の症状で正しいのは？", "opts": ["高熱", "冷汗・震え・動悸・めまい・意識混濁", "血圧上昇", "咳"], "a": 1, "e": "低血糖症状: 初期=冷汗・震え・動悸・空腹感。進行=めまい・集中力低下・意識混濁。インスリン使用者に多い。意識あれば砂糖水・ブドウ糖。意識なしは絶対に口から与えず119番。"}, {"q": "「起立性低血圧」の予防として正しいのは？", "opts": ["すぐ立たせる", "ベッドから起き上がる時はゆっくり段階的に(臥位→座位→立位)", "降圧剤を増やす", "水分制限"], "a": 1, "e": "起立性低血圧予防: 臥位(3分)→ゆっくり座位(3分)→立位の順で段階的に。急に立つと血圧が下がりめまい・転倒の原因になる。降圧剤・脱水・長期臥床で起きやすい。"}, {"q": "SpO2が89%の利用者に最初にすることは？", "opts": ["様子を見る", "即座に看護師に報告し指示を待つ", "水を飲ませる", "運動させる"], "a": 1, "e": "SpO2 89%=危険な低酸素状態。正常95%以上。90%未満は緊急性が高い。即報告。看護師指示下で酸素投与が必要になる場合が多い。介護職は処置せず報告が第一。"}, {"q": "「誤嚥性肺炎」の「誤嚥」を防ぐ食事姿勢は？", "opts": ["仰向け", "可能なら90度座位・ベッドなら30度以上のギャッジアップ+頸部前屈", "横向き", "うつ伏せ"], "a": 1, "e": "誤嚥防止体位: 90度座位が最良。ベッドでは最低30度(できれば45-60度)以上のギャッジアップ。頸部を軽く前屈(顎引き)。食後も30分は同姿勢を維持。"}, {"q": "「褥瘡」のステージI(発赤のみ)で適切な対応は？", "opts": ["しばらく様子を見る", "即看護師に報告+体位変換で圧迫除去+皮膚保護", "直接マッサージする", "テープを貼る"], "a": 1, "e": "褥瘡Stage I(発赤・皮膚は保たれている): 即看護師報告→体位変換で圧迫除去→保湿・皮膚保護材使用。この段階で適切に対処すれば悪化を防げる。Stage IIに進むと治癒に時間がかかる。"}],qiZ=0,okZ=0,totZ=0;
 </script>
+
+<button aria-label="Ganti tema" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999;background:var(--white,#fff);border:1px solid var(--border-mid,#ddd);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center">🌙</button>
 </body></html>

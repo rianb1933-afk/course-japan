@@ -22,7 +22,7 @@
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
      DOMContentLoaded untuk mengantisipasi masalah timing DOM
-     (elemen target genuinely berada di <body>, setelah <head>). -->
+     
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 renderVocabGrid('pg', PH_VOCAB);
@@ -87,6 +87,8 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head><body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
 <main id="main-content">
 <div class="hero"><span class="bdg">🗣️ 介護·N2·応用</span>
 <h1>Kaigo Speaking Advanced<br>介護会話応用レベル</h1>
@@ -99,7 +101,6 @@ renderVocabGrid('pg', PH_VOCAB);
 <div class="g2" id="phraseGrid"></div>
 <h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#1b5e20);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
-
 
 <!-- enriched-v2 -->
 <div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:var(--accent,#4a148c);margin:0 0 12px;font-size:1rem;font-weight:700">🎯 上級会話フレーズ — 場面別</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#4a148c)">場面</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#4a148c)">フレーズ</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#4a148c)">ポイント</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">SBAR報告</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">【S】〜の状態です。【B】〜の背景があります。【A】〜と判断します。【R】〜をお願いします。</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">構造的に伝えることで誤解を防ぐ</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">倫理的問題</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">「多職種で検討させていただきたいと思います」</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">一人で判断しない姿勢を示す</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">拒否への対応</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">「そのようなお気持ちなんですね。どんなことが気になりますか？」</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">否定せず理由を探る</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">インシデント報告</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">「〇時に〇様が〇の状況で発見されました」</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">5W1Hで事実を客観的に</td></tr></table></div></div>
@@ -115,66 +116,66 @@ renderVocabGrid('pg', PH_VOCAB);
 </div><section style="padding:16px;max-width:860px;margin:20px auto">
 <h2 style="font-size:1rem;color:var(--accent,#004d40);border-bottom:3px solid var(--accent,#004d40);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 介護スピーキング（上級）</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
-<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('報告')" title="クリックで発音">🔊 報告</div>
-  <div style="font-size:.8rem;color:#777">hōkoku</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">pelaporan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('連絡')" title="クリックで発音">🔊 連絡</div>
-  <div style="font-size:.8rem;color:#777">renraku</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">pemberitahuan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('相談')" title="クリックで発音">🔊 相談</div>
-  <div style="font-size:.8rem;color:#777">sōdan</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">konsultasi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('プレゼンテーション')" title="クリックで発音">🔊 プレゼンテーション</div>
-  <div style="font-size:.8rem;color:#777">purezentēshon</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">presentasi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('カンファレンス')" title="クリックで発音">🔊 カンファレンス</div>
-  <div style="font-size:.8rem;color:#777">kanfarensu</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">konferensi / rapat</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('申し送り')" title="クリックで発音">🔊 申し送り</div>
-  <div style="font-size:.8rem;color:#777">moshi-okuri</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">handover / serah terima</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('記録の読み上げ')" title="クリックで発音">🔊 記録の読み上げ</div>
-  <div style="font-size:.8rem;color:#777">kiroku no yomiage</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">membacakan catatan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('専門用語')" title="クリックで発音">🔊 専門用語</div>
-  <div style="font-size:.8rem;color:#777">senmon yōgo</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">terminologi medis</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('敬語')" title="クリックで発音">🔊 敬語</div>
-  <div style="font-size:.8rem;color:#777">keigo</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">bahasa hormat</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('クレーム対応')" title="クリックで発音">🔊 クレーム対応</div>
-  <div style="font-size:.8rem;color:#777">kurēmu taiō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">penanganan keluhan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('交渉')" title="クリックで発音">🔊 交渉</div>
-  <div style="font-size:.8rem;color:#777">kōshō</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">negosiasi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('説明と同意')" title="クリックで発音">🔊 説明と同意</div>
-  <div style="font-size:.8rem;color:#777">setsumei to dōi</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">informed consent</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('面接')" title="クリックで発音">🔊 面接</div>
-  <div style="font-size:.8rem;color:#777">mensetsu</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">wawancara</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('記録')" title="クリックで発音">🔊 記録</div>
-  <div style="font-size:.8rem;color:#777">kiroku</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">pencatatan</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#004d40)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#004d40)" onclick="speak('フィードバック')" title="クリックで発音">🔊 フィードバック</div>
-  <div style="font-size:.8rem;color:#777">fīdobakku</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">umpan balik</div>
+<div class="vocab-item">
+  <div class="vocab-term" onclick="speak('報告')" title="クリックで発音">🔊 報告</div>
+  <div class="vocab-romaji">hōkoku</div>
+  <div class="vocab-meaning">pelaporan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('連絡')" title="クリックで発音">🔊 連絡</div>
+  <div class="vocab-romaji">renraku</div>
+  <div class="vocab-meaning">pemberitahuan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('相談')" title="クリックで発音">🔊 相談</div>
+  <div class="vocab-romaji">sōdan</div>
+  <div class="vocab-meaning">konsultasi</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('プレゼンテーション')" title="クリックで発音">🔊 プレゼンテーション</div>
+  <div class="vocab-romaji">purezentēshon</div>
+  <div class="vocab-meaning">presentasi</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('カンファレンス')" title="クリックで発音">🔊 カンファレンス</div>
+  <div class="vocab-romaji">kanfarensu</div>
+  <div class="vocab-meaning">konferensi / rapat</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('申し送り')" title="クリックで発音">🔊 申し送り</div>
+  <div class="vocab-romaji">moshi-okuri</div>
+  <div class="vocab-meaning">handover / serah terima</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('記録の読み上げ')" title="クリックで発音">🔊 記録の読み上げ</div>
+  <div class="vocab-romaji">kiroku no yomiage</div>
+  <div class="vocab-meaning">membacakan catatan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('専門用語')" title="クリックで発音">🔊 専門用語</div>
+  <div class="vocab-romaji">senmon yōgo</div>
+  <div class="vocab-meaning">terminologi medis</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('敬語')" title="クリックで発音">🔊 敬語</div>
+  <div class="vocab-romaji">keigo</div>
+  <div class="vocab-meaning">bahasa hormat</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('クレーム対応')" title="クリックで発音">🔊 クレーム対応</div>
+  <div class="vocab-romaji">kurēmu taiō</div>
+  <div class="vocab-meaning">penanganan keluhan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('交渉')" title="クリックで発音">🔊 交渉</div>
+  <div class="vocab-romaji">kōshō</div>
+  <div class="vocab-meaning">negosiasi</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('説明と同意')" title="クリックで発音">🔊 説明と同意</div>
+  <div class="vocab-romaji">setsumei to dōi</div>
+  <div class="vocab-meaning">informed consent</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('面接')" title="クリックで発音">🔊 面接</div>
+  <div class="vocab-romaji">mensetsu</div>
+  <div class="vocab-meaning">wawancara</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('記録')" title="クリックで発音">🔊 記録</div>
+  <div class="vocab-romaji">kiroku</div>
+  <div class="vocab-meaning">pencatatan</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('フィードバック')" title="クリックで発音">🔊 フィードバック</div>
+  <div class="vocab-romaji">fīdobakku</div>
+  <div class="vocab-meaning">umpan balik</div>
 </div>
 </div></section></main>
 <script>
@@ -229,4 +230,6 @@ renderDialogs();renderPhrases();</script>
 <script>
 var QKZ=[{"q": "「SBAR」を使った報告の「S(Situation)」は何を伝える？", "opts": ["過去の病歴", "今何が起きているか(現在の状況)", "自分の意見", "次の予定"], "a": 1, "e": "SBAR-S=Situation=今起きていること。「田中様が突然胸を押さえています」等。最初に何が起きているかを端的に伝える。その後B(背景)A(評価)R(要求)と続く。"}, {"q": "「多職種への情報共有」で介護職が最も貢献できる情報は？", "opts": ["医療的判断", "日常のケアで観察した生活・行動・状態の変化(最も接触が多いため)", "薬の情報", "検査結果"], "a": 1, "e": "介護職は最も多く利用者に接触する→日常の変化に最初に気づく。「いつもと違う」という小さな気づきが多職種のアセスメントに重要な情報を提供する。"}, {"q": "家族への報告で「クッション言葉」を使う目的は？", "opts": ["時間稼ぎ", "不安・ショックを与える前に配慮を示し、コミュニケーションを円滑にするため", "礼儀のみ", "決まりだから"], "a": 1, "e": "クッション言葉: 「ご心配をおかけして申し訳ありません」「少し気になることがありますので」等。難しい情報を伝える前の緩衝材。家族の不安を最小化しながら正確に伝える。"}, {"q": "「報告後の記録」で大切なことは？", "opts": ["記録しなくてよい", "報告内容・報告先・報告時刻・その後の対応を正確に記録する", "後で書く", "口頭だけでよい"], "a": 1, "e": "報告後は必ず記録: ①報告内容(何を) ②報告先(誰に) ③報告時刻 ④指示内容 ⑤その後の対応。記録がなければ法的に「やっていない」と同じ。当日中に記録。"}, {"q": "「引き継ぎ(申し送り)」の効果的な方法は？", "opts": ["長く詳しく全て話す", "重要事項を優先順位をつけて簡潔に・正確に伝える", "急いで終わらせる", "メモなしで口頭のみ"], "a": 1, "e": "効果的な申し送り: ①優先順位(緊急・重要を先に) ②簡潔・正確(余分な話はしない) ③5W1H(誰が・いつ・どこで・何を・なぜ・どのように) ④確認(受け手が理解したか確認)。"}, {"q": "「否定的な情報」を伝える際に避けるべきことは？", "opts": ["正確な事実を伝える", "事実を隠す・誇張する・責任をなすりつける", "証拠を持参する", "上司に相談する"], "a": 1, "e": "否定的情報を伝える時に絶対NGなこと: 事実の隠蔽・誇張・責任転嫁・感情的になること。正確な事実+対応策を冷静に。「誰の責任か」より「どう防ぐか」に焦点。"}],qiZ=0,okZ=0,totZ=0;
 </script>
+
+<button aria-label="Ganti tema" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999;background:var(--white,#fff);border:1px solid var(--border-mid,#ddd);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center">🌙</button>
 </body></html>

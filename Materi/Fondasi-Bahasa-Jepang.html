@@ -66,9 +66,7 @@ a{text-decoration:none;color:inherit}
 
 <style>
 @media(max-width:768px){
-  
 
-  
 }
 
 </style>
@@ -88,7 +86,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head>
 <body>
-<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
 <section id="main-content" class="hero" role="main">
   <div class="hero-inner">
     <div class="kicker">Mulai di Sini</div>
@@ -254,8 +251,7 @@ function renderFQ() {
     const pct = Math.round(fqScore/fqActive.length*100);
     box.innerHTML = `<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.5rem;text-align:center">
       <div style="font-size:40px;font-weight:800;color:${pct>=80?'var(--green,#27ae60)':pct>=60?'var(--gold)':'var(--red)'}">${fqScore}/${fqActive.length}
-  
-  
+
   </div>
       <div style="font-size:14px;color:var(--ink-soft);margin:.5rem 0">${pct}% benar · ${pct>=80?'Fondasi kuat! ✓':pct>=60?'Cukup baik, review beberapa pola lagi.':'Review fondasi dulu sebelum naik level.'}</div>
       <button onclick="fqIdx=0;fqScore=0;fqActive=shuffleArr([...fondasiQs]).slice(0,10);renderFQ()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">Ulangi</button>

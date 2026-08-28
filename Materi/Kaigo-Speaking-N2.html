@@ -22,7 +22,7 @@
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
      DOMContentLoaded untuk mengantisipasi masalah timing DOM
-     (elemen target genuinely berada di <body>, setelah <head>). -->
+     
 <script>
 document.addEventListener('DOMContentLoaded', function(){
 renderVocabGrid('pg', PH_VOCAB);
@@ -90,6 +90,8 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 </head><body>
+<a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
 <main id="main-content">
 <div class="hero"><span class="bdg">🗣️ N2·介護</span><h1>Kaigo Speaking N2<br>介護会話 Level N2</h1><p style="font-size:.88rem;opacity:.85;margin-top:6px">Pelaporan · Koordinasi · Komunikasi Keluarga</p></div>
 <div class="wrap" style="padding-top:24px">
@@ -100,7 +102,6 @@ renderVocabGrid('pg', PH_VOCAB);
 <div class="g2" id="phraseGrid"></div>
 <h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#1b5e20);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
-
 
 <!-- enriched-v2 -->
 <div style="max-width:920px;margin:0 auto;padding:0 20px"><div style="background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:16px 0"><h3 style="color:var(--accent,#1565c0);margin:0 0 12px;font-size:1rem;font-weight:700">📝 N2レベル介護表現</h3><table style="width:100%;border-collapse:collapse;margin:10px 0"><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#1565c0)">表現</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#1565c0)">読み方</th><th style="padding:8px 12px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.07);color:var(--accent,#1565c0)">使用場面</th><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">誤嚥性肺炎が懸念されます</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">goen-sei haien ga kenen saremasu</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">嚥下状態報告</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">廃用症候群のリスクがあります</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">haiyou shokougun no risuku ga arimasu</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">リハビリ相談</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">バイタルは安定しています</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">baitaru wa antei shite imasu</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">状態報告</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">褥瘡予防のため体位変換を実施しました</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">jokuso yobo no tame tai-i henkan wo jisshi shimashita</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">記録</td></tr><tr><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">ご本人の意向を確認いたします</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">gohonnin no iko wo kakunin itashimasu</td><td style="padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);font-size:.85rem;vertical-align:top;line-height:1.6">意思決定支援</td></tr></table></div></div>
@@ -116,66 +117,66 @@ renderVocabGrid('pg', PH_VOCAB);
 </div><section style="padding:16px;max-width:860px;margin:20px auto">
 <h2 style="font-size:1rem;color:var(--accent,#00695c);border-bottom:3px solid var(--accent,#00695c);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 介護日本語N2レベル</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
-<div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('敬語の使い分け')" title="クリックで発音">🔊 敬語の使い分け</div>
-  <div style="font-size:.8rem;color:#777">keigo no tsukaiwake</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">penggunaan tepat bahasa hormat</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('謙譲語')" title="クリックで発音">🔊 謙譲語</div>
-  <div style="font-size:.8rem;color:#777">kenjōgo</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">bahasa merendah diri</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('尊敬語')" title="クリックで発音">🔊 尊敬語</div>
-  <div style="font-size:.8rem;color:#777">sonkeigo</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">bahasa meninggikan lawan bicara</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('〜させていただく')" title="クリックで発音">🔊 〜させていただく</div>
-  <div style="font-size:.8rem;color:#777">sasete itadaku</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">izinkan saya melakukan...</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('〜いただければ幸いです')" title="クリックで発音">🔊 〜いただければ幸いです</div>
-  <div style="font-size:.8rem;color:#777">itadakereba saiwai desu</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">akan sangat berterima kasih jika...</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('〜ご確認ください')" title="クリックで発音">🔊 〜ご確認ください</div>
-  <div style="font-size:.8rem;color:#777">go-kakunin kudasai</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">mohon untuk dikonfirmasi</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('〜ご連絡いただければ')" title="クリックで発音">🔊 〜ご連絡いただければ</div>
-  <div style="font-size:.8rem;color:#777">go-renraku itadakereba</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">jika berkenan menghubungi kami</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('〜いかがでしょうか')" title="クリックで発音">🔊 〜いかがでしょうか</div>
-  <div style="font-size:.8rem;color:#777">ikaga deshō ka</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">bagaimana menurut Anda?</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('〜と存じます')" title="クリックで発音">🔊 〜と存じます</div>
-  <div style="font-size:.8rem;color:#777">to zonjimasu</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">saya pikir / menurut hemat saya</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('〜でございます')" title="クリックで発音">🔊 〜でございます</div>
-  <div style="font-size:.8rem;color:#777">de gozaimasu</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">bentuk paling sopan dari 'desu'</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('〜でしょうか')" title="クリックで発音">🔊 〜でしょうか</div>
-  <div style="font-size:.8rem;color:#777">deshō ka</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">apakah...? (sopan)</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('申し上げる')" title="クリックで発音">🔊 申し上げる</div>
-  <div style="font-size:.8rem;color:#777">mōshiageru</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">mengatakan (merendah)</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('伺う')" title="クリックで発音">🔊 伺う</div>
-  <div style="font-size:.8rem;color:#777">ukagau</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">berkunjung / mendengar (merendah)</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('頂く')" title="クリックで発音">🔊 頂く</div>
-  <div style="font-size:.8rem;color:#777">itadaku</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">menerima (merendah)</div>
-</div><div class="vocab-item" style="background:#fff;border-radius:8px;padding:10px;border-left:4px solid var(--accent,#00695c)">
-  <div style="font-size:1.05rem;font-weight:700;color:var(--accent,#00695c)" onclick="speak('いらっしゃる')" title="クリックで発音">🔊 いらっしゃる</div>
-  <div style="font-size:.8rem;color:#777">irassharu</div>
-  <div style="font-size:.85rem;color:#333;margin-top:3px">ada / pergi (meninggikan)</div>
+<div class="vocab-item">
+  <div class="vocab-term" onclick="speak('敬語の使い分け')" title="クリックで発音">🔊 敬語の使い分け</div>
+  <div class="vocab-romaji">keigo no tsukaiwake</div>
+  <div class="vocab-meaning">penggunaan tepat bahasa hormat</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('謙譲語')" title="クリックで発音">🔊 謙譲語</div>
+  <div class="vocab-romaji">kenjōgo</div>
+  <div class="vocab-meaning">bahasa merendah diri</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('尊敬語')" title="クリックで発音">🔊 尊敬語</div>
+  <div class="vocab-romaji">sonkeigo</div>
+  <div class="vocab-meaning">bahasa meninggikan lawan bicara</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('〜させていただく')" title="クリックで発音">🔊 〜させていただく</div>
+  <div class="vocab-romaji">sasete itadaku</div>
+  <div class="vocab-meaning">izinkan saya melakukan...</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('〜いただければ幸いです')" title="クリックで発音">🔊 〜いただければ幸いです</div>
+  <div class="vocab-romaji">itadakereba saiwai desu</div>
+  <div class="vocab-meaning">akan sangat berterima kasih jika...</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('〜ご確認ください')" title="クリックで発音">🔊 〜ご確認ください</div>
+  <div class="vocab-romaji">go-kakunin kudasai</div>
+  <div class="vocab-meaning">mohon untuk dikonfirmasi</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('〜ご連絡いただければ')" title="クリックで発音">🔊 〜ご連絡いただければ</div>
+  <div class="vocab-romaji">go-renraku itadakereba</div>
+  <div class="vocab-meaning">jika berkenan menghubungi kami</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('〜いかがでしょうか')" title="クリックで発音">🔊 〜いかがでしょうか</div>
+  <div class="vocab-romaji">ikaga deshō ka</div>
+  <div class="vocab-meaning">bagaimana menurut Anda?</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('〜と存じます')" title="クリックで発音">🔊 〜と存じます</div>
+  <div class="vocab-romaji">to zonjimasu</div>
+  <div class="vocab-meaning">saya pikir / menurut hemat saya</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('〜でございます')" title="クリックで発音">🔊 〜でございます</div>
+  <div class="vocab-romaji">de gozaimasu</div>
+  <div class="vocab-meaning">bentuk paling sopan dari 'desu'</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('〜でしょうか')" title="クリックで発音">🔊 〜でしょうか</div>
+  <div class="vocab-romaji">deshō ka</div>
+  <div class="vocab-meaning">apakah...? (sopan)</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('申し上げる')" title="クリックで発音">🔊 申し上げる</div>
+  <div class="vocab-romaji">mōshiageru</div>
+  <div class="vocab-meaning">mengatakan (merendah)</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('伺う')" title="クリックで発音">🔊 伺う</div>
+  <div class="vocab-romaji">ukagau</div>
+  <div class="vocab-meaning">berkunjung / mendengar (merendah)</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('頂く')" title="クリックで発音">🔊 頂く</div>
+  <div class="vocab-romaji">itadaku</div>
+  <div class="vocab-meaning">menerima (merendah)</div>
+</div><div class="vocab-item">
+  <div class="vocab-term" onclick="speak('いらっしゃる')" title="クリックで発音">🔊 いらっしゃる</div>
+  <div class="vocab-romaji">irassharu</div>
+  <div class="vocab-meaning">ada / pergi (meninggikan)</div>
 </div>
 </div></section></main>
 <script>
@@ -235,4 +236,6 @@ renderDialogs();renderPhrases();</script>
 <script>
 var QKZ=[{"q": "N2レベルの介護会話で「ご都合はいかがでしょうか？」の使い場面は？", "opts": ["怒っている時", "面会・打ち合わせの日程調整など相手の都合を確認する時", "食事の前", "記録する時"], "a": 1, "e": "ご都合はいかがでしょうか=bagaimana jadwal Anda?。予約・日程調整の際に使う丁寧な表現。「いつ来られますか？」より格上。家族・業者への連絡で使う。"}, {"q": "「状況が変わりましたのでご連絡いたしました」の意味は？", "opts": ["何もない", "状況に変化があったので連絡しています(報告の丁寧な導入)", "謝罪している", "確認を求めている"], "a": 1, "e": "「状況が変わりましたのでご連絡」=状態変化の報告フレーズ。家族・関係機関への変化報告で使う。続けて「〇〇様が〜でして」と具体的内容を伝える。"}, {"q": "「ご確認いただけますでしょうか」は何を求めている？", "opts": ["何もしなくていい", "相手に内容を確認してもらうよう、非常に丁寧に依頼している", "命令している", "批判している"], "a": 1, "e": "ご確認いただけますでしょうか=mohon untuk dikonfirmasi。「確認してください」の最丁寧版。ケアプラン・書類の確認をお願いする際に使う。"}, {"q": "「差し支えなければ」という前置きの役割は？", "opts": ["強制する", "相手が断りやすい雰囲気を作りながら依頼・質問する配慮の表現", "急がせる", "批判する"], "a": 1, "e": "差し支えなければ=kalau tidak keberatan=相手に断る余地を与えながら依頼する配慮の表現。「差し支えなければ、お名前をお教えいただけますか？」等。"}, {"q": "「ご不便をおかけして大変恐れ入ります」の意味は？", "opts": ["感謝している", "不便・ご迷惑をかけたことを非常に丁寧に詫びている", "確認を求めている", "急いでいる"], "a": 1, "e": "ご不便をおかけして=menyusahkan Anda。恐れ入ります=sangat minta maaf(最丁寧の謝罪)。施設の工事・行事変更など利用者・家族に不便をかける際に使う。"}, {"q": "「今後ともよろしくお願い申し上げます」の使い場面は？", "opts": ["初対面のみ", "手紙・メール・会話の締めくくり・継続的な関係への感謝と依頼", "謝罪の時", "緊急時"], "a": 1, "e": "今後ともよろしくお願い申し上げます=最も丁寧な締めの言葉。継続的な関係(家族・ケアマネ・医療機関等)への感謝と協力依頼を含む。文書・会話両方で使う。"}],qiZ=0,okZ=0,totZ=0;
 </script>
+
+<button aria-label="Ganti tema" class="theme-toggle" onclick="toggleTheme()" style="position:fixed;top:12px;right:12px;z-index:9999;background:var(--white,#fff);border:1px solid var(--border-mid,#ddd);border-radius:50%;width:40px;height:40px;font-size:18px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center">🌙</button>
 </body></html>
