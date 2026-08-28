@@ -1262,6 +1262,59 @@ def check_head_body_hygiene():
         ok('duplicate-button-id', 'No duplicate back-to-top ids')
 
 
+def check_precache_budget():
+    """Daftar precache service worker tidak boleh menggemuk diam-diam.
+
+    Precache diunduh saat SW dipasang — SEBELUM pengguna meminta apa pun.
+    Daftarnya pernah tumbuh sampai 4,66 MB karena entri terus ditambahkan satu
+    per satu tanpa ada yang melihat totalnya: 1,63 MB bank soal yang hanya
+    dipakai satu halaman, 23 halaman materi, dan '/' yang kembar dengan
+    '/index.html'.
+
+    Batas ini bukan angka keramat, melainkan pengingat: menambah entri
+    membebani SETIAP pengguna baru, dan fetch handler sudah menyimpan apa pun
+    yang pernah dibuka. Kalau memang perlu dinaikkan, naikkan sadar-sadar.
+    """
+    BUDGET_MB = 2.0
+
+    for fname in ('sw.js', 'service-worker.js'):
+        path = os.path.join(ROOT, fname)
+        if not os.path.exists(path):
+            continue
+
+        src = read(path)
+        start = src.find('PRECACHE = [')
+        if start < 0:
+            continue
+        end = src.find('];', start)
+
+        total, missing = 0, []
+        entries = re.findall(r"'([^']+)'", src[start:end])
+        for url in entries:
+            rel = (url.lstrip('/') or 'index.html').split('?')[0]
+            target = os.path.join(ROOT, rel)
+            if os.path.exists(target):
+                total += os.path.getsize(target)
+            else:
+                missing.append(url)
+
+        mb = total / (1024 * 1024)
+        if missing:
+            err('precache-budget',
+                f'{fname}: {len(missing)} entri precache menunjuk berkas yang tidak ada '
+                f'— {", ".join(missing[:3])}')
+
+        if mb > BUDGET_MB:
+            err('precache-budget',
+                f'{fname}: precache {mb:.2f} MB melebihi batas {BUDGET_MB:.1f} MB '
+                f'({len(entries)} entri). Setiap pengguna baru mengunduh ini sebelum '
+                f'meminta apa pun; fetch handler sudah menyimpan halaman yang dibuka.')
+        else:
+            ok('precache-budget',
+               f'{fname} precaches {mb:.2f} MB across {len(entries)} entries '
+               f'(budget {BUDGET_MB:.1f} MB)')
+
+
 def check_kaigo_catalog():
     """Katalog Kaigo ↔ file di disk ↔ kartu di Kaigo.html harus konsisten."""
     sys.path.insert(0, os.path.join(ROOT, 'scripts'))
@@ -1522,6 +1575,7 @@ def main():
         check_links_and_assets,
         check_anchor_structure,
         check_head_body_hygiene,
+        check_precache_budget,
         check_kaigo_catalog,
         check_kaigo_quiz_reachable,
         check_kaigo_durations,

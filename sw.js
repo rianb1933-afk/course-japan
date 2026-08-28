@@ -1,7 +1,23 @@
-const CACHE = 'eduma-kaigo-v323';
+const CACHE = 'eduma-kaigo-v324';
+// Precache = diunduh saat service worker dipasang, SEBELUM pengguna memintanya.
+// Isinya sengaja dibatasi pada kerangka aplikasi: halaman masuk, aset, dan
+// halaman cadangan offline.
+//
+// Yang TIDAK di sini bukan berarti tidak bisa dipakai offline. Fetch handler di
+// bawah bersifat cache-first dan menyimpan setiap respons same-origin yang
+// berhasil, jadi apa pun yang pernah dibuka tetap tersedia offline.
+//
+// Yang dikeluarkan (3,11 MB dari 4,66 MB):
+//   seed/*.json          1,63 MB, hanya dipakai Ujian.html — pengguna yang tak
+//                        pernah membuka ujian ikut menanggung unduhannya
+//   Materi/*.html        1,39 MB, 23 halaman materi; dicache saat dibuka
+//   '/'                  88 KB, kembar dengan '/index.html' — dua entri cache
+//                        untuk isi yang sama, keduanya ikut diunduh
+//
+// Menambah entri di sini membebani SETIAP pengguna baru. Pertimbangkan dulu
+// apakah caching saat dibuka sudah cukup.
 const PRECACHE = [
   '/offline.html',
-  '/',
   '/index.html',
   '/Ujian.html',
   '/Verify.html',
@@ -14,32 +30,7 @@ const PRECACHE = [
   '/assets/anime-background.js',
   '/assets/anime-clock.js',
   '/assets/anime-particles.js',
-  '/seed/kaigo_questions.json',
-  '/seed/jlpt_questions.json',
   // Materi pages (verified exist)
-  '/Materi/Kaigo.html',
-  '/Materi/Kaiwa-Restoran.html',
-  '/Materi/Kaiwa-Eki.html',
-  '/Materi/Kaiwa-Denwa.html',
-  '/Materi/Kaiwa-Michi-Annai.html',
-  '/Materi/Kaiwa-Kaimono.html',
-  '/Materi/Kaiwa-Jikoshoukai.html',
-  '/Materi/Kaiwa-Byouin.html',
-  '/Materi/Kaiwa-Konbini.html',
-  '/Materi/Kaiwa-Shokuba.html',
-  '/Materi/Kaiwa-Yakusoku.html',
-  '/Materi/JLPT-Lengkap.html',
-  '/Materi/Grammar-Lengkap.html',
-  '/Materi/Vocabulary-Lengkap.html',
-  '/Materi/Kana-Hiragana-Katakana.html',
-  '/Materi/Kanji-N5.html',
-  '/Materi/Flashcard-Kanji.html',
-  '/Materi/Listening-Speaking.html',
-  '/Materi/Grammar-N5.html',
-  '/Materi/Grammar-N4.html',
-  '/Materi/Grammar-N3.html',
-  '/Materi/Kosakata-N5.html',
-  '/Materi/Kosakata-N4.html',
   // Dashboard
   '/Dashboard/Dashboard.html',
   '/assets/dashboard-v86.css',
@@ -53,6 +44,8 @@ const PRECACHE = [
   '/AI-Kaiwa.html',
   '/AI-Sensei.html',
   '/AI-Writing-Practice.html',
+  '/Kelas-Report.html',
+  '/assets/live/live-class.css',
   '/Pronunciation.html',
   '/Kanji-Trainer-Pro.html',
   '/JLPT-CBT.html',
