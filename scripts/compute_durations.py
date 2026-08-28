@@ -54,6 +54,11 @@ def visible_text(html):
     """Buang boilerplate; sisakan materi yang benar-benar dibaca pelajar."""
     for tag in ('script', 'style', 'nav', 'footer', 'head', 'svg'):
         html = re.sub(rf'<{tag}\b.*?</{tag}>', ' ', html, flags=re.S | re.I)
+    # Isi komentar tidak pernah dirender, jadi tidak boleh dihitung sebagai
+    # waktu baca. Ini sempat luput: 32 halaman punya komentar yang tak ditutup
+    # dan menelan ribuan karakter markup, tapi perhitungan di sini tetap
+    # menghitungnya karena regex tag saja tidak mengenali komentar.
+    html = re.sub(r'<!--.*?-->', ' ', html, flags=re.S)
     return re.sub(r'<[^>]+>', ' ', html)
 
 
