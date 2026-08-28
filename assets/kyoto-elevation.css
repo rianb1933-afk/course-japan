@@ -237,3 +237,28 @@ table.kx-table, .kx-table table { border-collapse: separate; border-spacing: 0; 
   .side-nav a:hover, .side-nav a:active { transform: none; }
   .side-nav a:hover > span { transform: none; }
 }
+
+/* ── Tombol ganti tema mengambang ─────────────────────────────────────
+   294 halaman menuliskan gaya ini sebagai atribut style= pada tombolnya.
+   Sebagian deklarasi di sana sebenarnya MATI: kyoto-bundle.min.css sudah
+   menetapkan background, border, dan color dengan !important, termasuk
+   variannya untuk [data-theme="dark"]. Yang benar-benar berlaku dari inline
+   hanya posisi, ukuran, bentuk bulat, dan bayangan — itulah yang dipindahkan
+   ke sini.
+
+   Berkas ini dimuat tepat setelah kyoto-bundle.min.css, jadi width/height/
+   border-radius di bawah (yang di bundle tidak ber-!important) tetap menang.
+
+   Kelas terpisah, bukan .theme-toggle langsung, supaya tombol tema yang
+   menyatu di navbar halaman lain tidak ikut menjadi fixed. */
+.theme-toggle-float {
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  z-index: 9999;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 18px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+}
