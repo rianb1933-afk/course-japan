@@ -46,6 +46,14 @@ import glob
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# Berkas yang sedang dikerjakan di tempat lain dan belum di-commit. Menyunting
+# berkas begini mencampur perubahan codemod dengan pekerjaan orang lain di satu
+# berkas, sehingga keduanya tidak bisa lagi dipisah jadi commit tersendiri.
+SKIP = {
+    'Kelas-Online.html',
+    'Kelas-Report.html',
+}
+
 # (stylesheet pemilik kelas, {nilai style= persis: nama kelas})
 MAPPINGS = [
     ('kaigo-module.css', {
@@ -57,6 +65,21 @@ MAPPINGS = [
             'dlg-jp',
         'font-size:.79rem;color:var(--ink-mid);margin-top:2px':
             'dlg-id',
+    }),
+    ('kyoto-elevation.css', {
+        # Sel tabel materi. Tabelnya tidak punya kelas, jadi tidak ada aturan
+        # yang bisa menjangkaunya — kelas ini menyalin gaya inline apa adanya.
+        'padding:8px 12px;border-bottom:1px solid rgba(0,0,0,.06);'
+        'font-size:.85rem;vertical-align:top;line-height:1.6': 'tbl-cell',
+        'padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)': 'tbl-cell-sm',
+        'font-size:11px;color:var(--ink-soft)': 'tbl-cell-meta',
+
+        # Utilitas satu-properti. Kelasnya ber-!important supaya menyalin
+        # perilaku atribut style= yang digantikannya — lihat komentarnya di
+        # kyoto-elevation.css.
+        'margin-bottom:0': 'u-mb-0',
+        'margin-top:0': 'u-mt-0',
+        'flex:1': 'u-flex-1',
     }),
 ]
 
@@ -103,6 +126,8 @@ def main():
         for path in sorted(glob.glob(os.path.join(ROOT, '**', '*.html'),
                                      recursive=True)):
             if 'node_modules' in path:
+                continue
+            if os.path.relpath(path, ROOT) in SKIP:
                 continue
             with open(path, encoding='utf-8', errors='ignore') as f:
                 html = f.read()

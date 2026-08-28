@@ -295,3 +295,22 @@ table.kx-table, .kx-table table { border-collapse: separate; border-spacing: 0; 
 .ft-link-dim { color: rgba(255, 255, 255, .6); text-decoration: none; transition: color .15s; }
 .ft-link:hover,
 .ft-link-dim:hover { color: #fff; }
+
+/* ── Sel tabel materi ─────────────────────────────────────────────────
+   1.812 sel di seluruh situs menuliskan gaya ini sebagai atribut style=.
+   Tabelnya sendiri tidak punya kelas, jadi tidak ada aturan yang bisa
+   menjangkaunya — deklarasi di bawah menyalin yang inline PERSIS. */
+.tbl-cell      { padding: 8px 12px; border-bottom: 1px solid rgba(0, 0, 0, .06); font-size: .85rem; vertical-align: top; line-height: 1.6; }
+.tbl-cell-sm   { padding: 7px 10px; border-bottom: 1px solid rgba(0, 0, 0, .06); }
+.tbl-cell-meta { font-size: 11px; color: var(--ink-soft); }
+
+/* ── Utilitas satu-properti ───────────────────────────────────────────
+   Gaya seperti style="flex:1" atau style="margin-bottom:0" muncul ratusan
+   kali pada elemen yang beragam. !important dipakai DI SINI SAJA, dan
+   memang perlu: atribut style= mengalahkan setiap selektor, jadi tanpa
+   !important sebuah aturan lain yang lebih spesifik (mis. `.card p`) akan
+   diam-diam menghidupkan kembali margin yang tadinya sengaja dinolkan.
+   Ini menyalin perilaku yang digantikan, bukan menambah kekuatan baru. */
+.u-mb-0    { margin-bottom: 0 !important; }
+.u-mt-0    { margin-top: 0 !important; }
+.u-flex-1  { flex: 1 !important; }
