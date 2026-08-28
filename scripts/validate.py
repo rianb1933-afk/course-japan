@@ -1557,6 +1557,15 @@ def check_kaigo_catalog():
         ok('kaigo-catalog', f'Kaigo.html renders exactly {len(card_ids)} cards, one per module')
 
 
+def kaigo_modules():
+    """MODULES dari scripts/kaigo_catalog.py — sumber tunggal daftar modul."""
+    sys.path.insert(0, os.path.join(ROOT, 'scripts'))
+    import importlib
+    import kaigo_catalog
+    importlib.reload(kaigo_catalog)
+    return kaigo_catalog.MODULES
+
+
 def _quiz_engine():
     """Muat scripts/compute_durations.py — pemilik tunggal logika deteksi kuis.
 
@@ -1640,6 +1649,31 @@ def check_kaigo_quiz_reachable():
             f'{", ".join(empty[:4])}')
     else:
         ok('kaigo-quiz', 'Every Kaigo module with a quiz actually renders it')
+
+    # Modul yang KEHILANGAN arraynya sama sekali tidak tertangkap dua cek di
+    # atas: tanpa array, tidak ada yang bisa disebut mati maupun kosong.
+    # Itu justru yang terjadi — 292 soal lenyap dari 49 halaman saat penataan
+    # ulang CSS, dan Kaigo-Ujian-Nasional tinggal nol. Ambangnya rendah dengan
+    # sengaja: yang dijaga adalah "kuisnya hilang", bukan "kuisnya pendek".
+    MIN_QUESTIONS = 5
+    thin = []
+    for slug, module in sorted(kaigo_modules().items()):
+        path = os.path.join(ROOT, 'Materi', module['filename'])
+        if not os.path.exists(path):
+            continue
+        html = read(path)
+        live = sum(count for name, count, span in engine.quiz_arrays(html)
+                   if engine.is_rendered(html, name, span))
+        if live < MIN_QUESTIONS:
+            thin.append(f'{module["filename"]} ({live})')
+
+    if thin:
+        err('kaigo-quiz',
+            f'{len(thin)} modul Kaigo merender kurang dari {MIN_QUESTIONS} soal — '
+            f'kuisnya kemungkinan hilang, bukan sekadar pendek: {", ".join(thin[:4])}')
+    else:
+        ok('kaigo-quiz',
+           f'Every Kaigo module renders at least {MIN_QUESTIONS} questions')
 
 
 def check_kaigo_durations():
