@@ -1727,9 +1727,28 @@ def check_explanation_id_coverage():
     sini hanya arahnya — cakupan tidak boleh mundur dari yang sudah dicapai.
     """
     engine = _quiz_engine()
+    # Yang diukur: apakah pembaca Indonesia bisa memahami penjelasannya —
+    # bukan sekadar apakah ada kata Indonesia di dalamnya.
+    #
+    # Banyak penjelasan memuat glos singkat dalam kurung seperti
+    # "身体拘束は尊厳・身体の自由(kebebasan)を侵害する". Satu kata itu tidak
+    # membuat kalimatnya terbaca, jadi tidak dihitung sebagai terjemahan.
+    # Yang dihitung: rangkaian huruf Latin sepanjang minimal 40 karakter yang
+    # memuat penanda bahasa Indonesia — panjang satu klausa utuh.
+    MIN_RUN = 40
+    latin_run = re.compile(
+        r"[A-Za-z][A-Za-z0-9 ,.;:'\"()\-—/%\\]{" + str(MIN_RUN - 1) + ",}")
     indonesian = re.compile(
         r'\b(yang|dan|untuk|dengan|pada|dari|atau|tidak|adalah|bisa|agar|saat'
-        r'|oleh|dalam|secara|harus|dapat|perlu|karena)\b', re.I)
+        r'|oleh|dalam|secara|harus|dapat|perlu|karena|bukan|lewat|pun|juga'
+        r'|setiap|seperti|hingga|sampai|bila|maupun|berarti|menjadi|antara'
+        r'|tanpa|lebih|sendiri|orang|kerja|hidup|ini|itu|ia)\b'
+        r'|\b(?:me[mnl]?[a-z]{3,}|ber[a-z]{4,}|pe[mn]?[a-z]{4,}an|ke[a-z]{4,}an)\b',
+        re.I)
+
+    def has_indonesian_sentence(text):
+        return any(indonesian.search(run) for run in latin_run.findall(text))
+
     value = re.compile(r'["\']?(?:e|exp|explanation)["\']?\s*:\s*(["\'])'
                        r'((?:[^\\]|\\.)*?)\1', re.S)
 
@@ -1741,13 +1760,13 @@ def check_explanation_id_coverage():
                 continue
             for m in value.finditer(html[span[0]:span[1]]):
                 total += 1
-                if indonesian.search(m.group(2)):
+                if has_indonesian_sentence(m.group(2)):
                     covered += 1
 
     if not total:
         return
 
-    BASELINE = 367          # dicapai pada batch pertama; jangan turun
+    BASELINE = 431          # dicapai pada batch pertama; jangan turun
     pct = covered / total * 100
 
     if covered < BASELINE:
