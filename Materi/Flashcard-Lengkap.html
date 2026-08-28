@@ -154,14 +154,28 @@ function parseCsv(text){
   if(cell||row.length){row.push(cell);rows.push(row)}
   return rows;
 }
-function levelFromTags(tags){for(const n of [5,4,3,2,1]) if(tags.includes(`JLPT_N${n}`)||tags.includes(`JLPT_${n}`)) return `N${n}`; return 'N1'}
+/* Kolom tags memakai tiga format: 'JLPT_N4', 'JLPT_2', dan 'N5 JLPT'.
+   Bentuk ketiga tidak dikenali sebelumnya, sehingga ~3.400 entri jatuh ke
+   default N1 — level tersulit — padahal sebagian besar N5/N3. */
+function levelFromTags(tags){
+  const t=String(tags);
+  for(const n of [5,4,3,2,1])
+    if(t.includes(`JLPT_N${n}`)||t.includes(`JLPT_${n}`)||new RegExp(`\\bN${n}\\b`).test(t))
+      return `N${n}`;
+  return 'N1';
+}
 async function loadText(path){const r=await fetch(path); if(!r.ok) throw new Error(path); return r.text()}
 function between(text,start,end){const s=text.indexOf(start); if(s<0)return''; const e=text.indexOf(end,s+start.length); return e<0?'':text.slice(s+start.length,e)}
 function parseCompact(text, level){return [...text.matchAll(/([\u4e00-\u9fff])([^一-龯]+)/g)].map((m,i)=>({type:'kanji',level,front:m[1],word:m[1],reading:'',meaning:m[2].trim(),hint:'Latih sebagai compound vocabulary.',source:`Kanji ${level}`,id:`kanji-${level}-${i}`}))}
 
 async function loadVocab(){
   const csv = await loadText('../assets/vocab-all.csv');
-  return parseCsv(csv).slice(1).map((r,i)=>({type:'vocab',level:levelFromTags((r[3]||'')),front:r[0],word:r[0],reading:r[1],meaning:r[2],hint:'Buat satu kalimat pendek dengan kosakata ini.',source:'Vocabulary CSV',id:`vocab-${i}`})).filter(c=>c.front&&c.reading);
+  /* Kolom: expression, reading, romaji, meaning, meaning_id, tags.
+     Pemetaan sebelumnya bergeser satu kolom — sisi belakang kartu diisi romaji
+     (kosong di 67% baris) dan levelnya dibaca dari kolom meaning, sehingga
+     semua kartu berlabel N1. meaning_id dipakai lebih dulu: ini platform
+     berbahasa Indonesia. */
+  return parseCsv(csv).slice(1).map((r,i)=>({type:'vocab',level:levelFromTags((r[5]||'')),front:r[0],word:r[0],reading:r[1],romaji:r[2],meaning:(r[4]||'').trim()||r[3],hint:'Buat satu kalimat pendek dengan kosakata ini.',source:'Vocabulary CSV',id:`vocab-${i}`})).filter(c=>c.front&&c.reading);
 }
 async function loadKanji(){
   const cards = [];

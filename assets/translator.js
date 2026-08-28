@@ -42,11 +42,27 @@
     if(cell||row.length){row.push(cell);rows.push(row)}
     return rows;
   }
-  function levelFromTags(tags){for(const n of [5,4,3,2,1]) if(String(tags).includes(`JLPT_N${n}`)||String(tags).includes(`JLPT_${n}`)) return `N${n}`; return 'N1';}
+  /* Kolom tags memakai tiga format: 'JLPT_N4', 'JLPT_2', dan 'N5 JLPT'.
+     Bentuk ketiga tidak dikenali sebelumnya, sehingga ~3.400 entri jatuh ke
+     default N1 — level tersulit — padahal sebagian besar N5/N3. */
+  function levelFromTags(tags){
+    const t=String(tags);
+    for(const n of [5,4,3,2,1])
+      if(t.includes(`JLPT_N${n}`)||t.includes(`JLPT_${n}`)||new RegExp(`\\bN${n}\\b`).test(t))
+        return `N${n}`;
+    return 'N1';
+  }
   async function loadVocab(){
     if (vocabPromise) return vocabPromise;
     vocabPromise = fetch(`${rootPrefix}assets/vocab-all.csv`).then(r => r.text()).then(text => {
-      const parsed = parseCsv(text).slice(1).map((r,i)=>({expression:r[0],reading:r[1],meaning:r[2],level:levelFromTags(r[3] || ''),id:i})).filter(x=>x.expression&&x.meaning);
+      /* Kolom vocab-all.csv: expression, reading, romaji, meaning, meaning_id, tags
+         Pemetaan sebelumnya bergeser satu kolom — meaning diambil dari romaji
+         dan level dari meaning. Akibatnya kolom romaji yang kosong di 7.972
+         dari 11.843 baris membuat entri itu dibuang oleh filter di bawah,
+         3.871 sisanya menampilkan romaji sebagai arti (嗚呼 → "aa"), dan
+         semuanya berlabel N1 karena levelFromTags tidak pernah melihat tag.
+         meaning_id dipakai lebih dulu: ini platform berbahasa Indonesia. */
+      const parsed = parseCsv(text).slice(1).map((r,i)=>({expression:r[0],reading:r[1],romaji:r[2],meaning:(r[4]||'').trim()||r[3],level:levelFromTags(r[5] || ''),id:i})).filter(x=>x.expression&&x.meaning);
       entries = [...COMMON.map((x,i)=>({expression:x[0],reading:x[1],meaning:x[2],level:'Core',id:`core-${i}`})), ...parsed];
       byExpression = new Map();
       entries.forEach(item => {

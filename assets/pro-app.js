@@ -400,11 +400,16 @@
     try {
       const response = await fetch(`${rootPrefix}assets/vocab-all.csv`);
       const text = await response.text();
+      // Kolom: expression, reading, romaji, meaning, meaning_id, tags.
+      // Pemetaan sebelumnya bergeser satu kolom — meaning diambil dari romaji
+      // (kosong di 67% baris) dan tags menyerap meaning + meaning_id sekaligus.
+      // meaning_id dipakai lebih dulu karena ini platform berbahasa Indonesia.
       vocabLookupCache = parseSimpleCsv(text).slice(1).map((row) => ({
         expression: row[0] || '',
         reading: row[1] || '',
-        meaning: row[2] || '',
-        tags: row.slice(3).join(' ')
+        romaji: row[2] || '',
+        meaning: (row[4] || '').trim() || row[3] || '',
+        tags: row[5] || ''
       })).filter((item) => item.expression && item.reading);
     } catch (error) {
       vocabLookupCache = [];

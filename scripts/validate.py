@@ -959,6 +959,42 @@ def check_class_selector_crashers():
                 f'(akan melempar TypeError setiap load): {sample}{extra}')
 
 
+def check_vocab_csv_columns():
+    """Urutan kolom vocab-all.csv dibaca lewat indeks, jadi tidak boleh berubah.
+
+    Tiga berkas membaca kamus ini dengan indeks posisi — translator.js,
+    pro-app.js, dan Materi/Flashcard-Lengkap.html. Karena indeks tidak menyebut
+    nama kolom, pergeseran satu kolom tidak menimbulkan error apa pun; ia hanya
+    menampilkan isi yang salah.
+
+    Itu yang sempat terjadi: meaning dibaca dari kolom romaji. Romaji kosong di
+    7.972 dari 11.843 baris, sehingga entri itu dibuang filter, dan 3.871
+    sisanya menampilkan romaji sebagai arti (嗚呼 → "aa" alih-alih "Ah!; Oh!").
+    Kolom meaning_id — satu-satunya yang berbahasa Indonesia, terisi penuh —
+    tidak pernah dibaca siapa pun. Level pun ikut salah: semua entri berlabel
+    N1 karena levelFromTags menerima kolom meaning, bukan tags.
+    """
+    EXPECTED = ['expression', 'reading', 'romaji', 'meaning', 'meaning_id', 'tags']
+
+    path = os.path.join(ROOT, 'assets', 'vocab-all.csv')
+    if not os.path.exists(path):
+        err('vocab-csv', 'assets/vocab-all.csv tidak ada')
+        return
+
+    with open(path, encoding='utf-8-sig') as f:
+        header = [c.strip() for c in f.readline().strip().split(',')]
+
+    if header != EXPECTED:
+        err('vocab-csv',
+            f'Urutan kolom vocab-all.csv berubah: {header}. '
+            f'Tiga berkas membacanya lewat indeks posisi dan akan menampilkan '
+            f'isi yang salah tanpa error. Diharapkan: {EXPECTED}')
+        return
+
+    ok('vocab-csv',
+       f'vocab-all.csv column order unchanged ({", ".join(EXPECTED)})')
+
+
 def check_orphan_classes():
     """Kelas yang dipakai markup harus punya definisi yang bisa dijangkau.
 
@@ -1805,6 +1841,7 @@ def main():
         check_missing_dom_elements,
         check_class_selector_crashers,
         check_cross_script_function_calls,
+        check_vocab_csv_columns,
         check_orphan_classes,
         check_comment_balance,
         check_inline_handler_targets,
