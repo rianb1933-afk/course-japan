@@ -959,6 +959,71 @@ def check_class_selector_crashers():
                 f'(akan melempar TypeError setiap load): {sample}{extra}')
 
 
+def check_orphan_classes():
+    """Kelas yang dipakai markup harus punya definisi yang bisa dijangkau.
+
+    Bug nyata: penyeragaman CSS mengganti blok <style> inline dengan tautan ke
+    stylesheet bersama. Untuk 97 halaman itu benar; untuk 164 halaman lain
+    nama kelasnya berbeda (.page-hero vs .hero, .badge vs .bdg) sehingga 2.586
+    kelas kehilangan definisinya. Di Chromium, kartu modul di hub Kaigo
+    kehilangan seluruh gayanya — latar transparan, padding 0, flex jadi
+    inline — dan halaman Kana tingginya melonjak 3204 → 8620 piksel.
+
+    Tidak ada error, tidak ada tautan rusak, validator lama lolos sepenuhnya.
+    Yang hilang hanya tampilannya.
+
+    Check ini memeriksa tiap kelas di atribut class= terhadap gabungan semua
+    <style> inline halaman itu DAN semua stylesheet yang ditautkannya. Ambang
+    toleransi dipakai karena sebagian kelas memang hanya penanda untuk
+    JavaScript dan tidak pernah punya aturan CSS.
+    """
+    MAX_ORPHAN = 12
+
+    sheet_cache = {}
+
+    def sheet_classes(path):
+        if path not in sheet_cache:
+            sheet_cache[path] = set(re.findall(r'\.([a-zA-Z][\w-]*)', read(path)))
+        return sheet_cache[path]
+
+    worst = []
+    for path in all_html_files():
+        html = read(path)
+
+        available = set()
+        for block in re.findall(r'<style[^>]*>.*?</style>', html, re.S | re.I):
+            available |= set(re.findall(r'\.([a-zA-Z][\w-]*)', block))
+        for href in re.findall(r'<link[^>]+href="([^"?]+\.css)', html):
+            asset = os.path.normpath(os.path.join(os.path.dirname(path), href))
+            if os.path.exists(asset):
+                available |= sheet_classes(asset)
+
+        # Atribut class HANYA dari markup. Isi <script> memuat pola seperti
+        # class="${cls}" di dalam template literal; membacanya menghasilkan
+        # "nama kelas" seperti .${cls} atau .!== yang tidak pernah nyata.
+        markup = re.sub(r'<script(?:\s[^>]*)?>.*?</script>', ' ', html, flags=re.S | re.I)
+        used = set()
+        for attr in re.findall(r'class="([^"]+)"', markup):
+            used |= {c for c in attr.split() if re.fullmatch(r'[a-zA-Z][\w-]*', c)}
+
+        orphans = used - available
+        if len(orphans) > MAX_ORPHAN:
+            worst.append((len(orphans), os.path.relpath(path, ROOT),
+                          sorted(orphans)[:3]))
+
+    if worst:
+        worst.sort(reverse=True)
+        detail = '; '.join(f'{rel} ({n} kelas: {", ".join("." + c for c in ex)})'
+                           for n, rel, ex in worst[:3])
+        err('orphan-classes',
+            f'{len(worst)} halaman memakai kelas yang tidak terdefinisi di '
+            f'<style> maupun stylesheet manapun yang dimuatnya — elemennya '
+            f'tampil tanpa gaya. {detail}')
+    else:
+        ok('orphan-classes',
+           f'No page uses more than {MAX_ORPHAN} classes without a reachable definition')
+
+
 def check_comment_balance():
     """Komentar HTML harus ditutup. Yang tidak, menelan markup di bawahnya.
 
@@ -1706,6 +1771,7 @@ def main():
         check_missing_dom_elements,
         check_class_selector_crashers,
         check_cross_script_function_calls,
+        check_orphan_classes,
         check_comment_balance,
         check_inline_handler_targets,
         check_build_freshness,

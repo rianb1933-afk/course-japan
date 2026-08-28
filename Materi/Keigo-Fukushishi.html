@@ -49,6 +49,138 @@
 <meta name="twitter:description" content="Materi lengkap Keigo Fukushishi — 副詞 kata keterangan hormat bahasa Jepang. Meliputi sonkei-fukushi, kenjo-fukushi, teinei-fukushi, bisnis formal, dan percakapan sehari-hari dengan contoh kalimat lengkap.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:2px;list-style:none}
+
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+
+@media(max-width:768px){.nav-links{display:none!important}}
+
+/* HERO */
+.hero{padding:clamp(44px,7vw,72px) clamp(16px,5vw,72px) 44px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"副詞";position:absolute;right:-20px;bottom:-40px;font-family:"Noto Serif JP",serif;font-size:220px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(28px,5vw,52px);line-height:1.1;margin-bottom:.75rem}
+.hero-desc{color:rgba(255,255,255,.62);font-size:15px;line-height:1.85;max-width:620px;margin-bottom:1.5rem}
+.feat-chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{padding:4px 11px;border-radius:18px;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.12);font-size:12px;font-weight:600;color:rgba(255,255,255,.75)}
+
+/* BREADCRUMB */
+.breadcrumb{padding:.625rem clamp(16px,5vw,72px);background:var(--white);border-bottom:1px solid var(--border);font-size:12px;color:var(--ink-soft)}
+.breadcrumb a{color:var(--ink-soft);text-decoration:none}
+.breadcrumb a:hover{color:var(--red)}
+.breadcrumb span{margin:0 .4rem;color:var(--border-mid)}
+
+/* LAYOUT */
+.page-layout{display:grid;grid-template-columns:240px 1fr;gap:0;max-width:1300px;margin:0 auto;width:100%}
+@media(max-width:900px){.page-layout{grid-template-columns:1fr}.toc-sidebar{display:none}}
+
+/* TOC Sidebar */
+.toc-sidebar{position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;border-right:1px solid var(--border);background:var(--white);padding:1.25rem}
+.toc-title{font-size:11px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.875rem}
+.toc-item{display:block;padding:.35rem .5rem;border-radius:6px;font-size:13px;color:var(--ink-mid);text-decoration:none;transition:all .15s;border-left:2px solid transparent;margin-bottom:.15rem}
+.toc-item:hover{background:var(--red-pale);color:var(--red);border-left-color:var(--red)}
+.toc-item.active{background:var(--red-pale);color:var(--red);border-left-color:var(--red);font-weight:700}
+.toc-item.sub{padding-left:1.25rem;font-size:12px}
+
+/* CONTENT */
+.content{padding:2.5rem clamp(16px,4vw,52px) 5rem;min-width:0}
+
+/* Section */
+.section{margin-bottom:3.5rem;scroll-margin-top:88px}
+.section-header{margin-bottom:1.5rem}
+.section-num{font-size:11px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem}
+.section h2{font-family:"Noto Serif JP",serif;font-size:clamp(22px,3vw,30px);margin-bottom:.5rem}
+.section-desc{color:var(--ink-mid);font-size:15px;line-height:1.85}
+.section h3{font-family:"Noto Serif JP",serif;font-size:20px;margin:2rem 0 1rem;color:var(--ink);display:flex;align-items:center;gap:.5rem}
+.section h3::before{content:'';display:block;width:4px;height:20px;background:var(--red);border-radius:2px;flex-shrink:0}
+.section h4{font-size:15px;font-weight:800;margin:1.25rem 0 .625rem;color:var(--ink)}
+
+/* Entry cards */
+.entry-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1rem;margin-bottom:1.5rem}
+.entry-card{background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);transition:all .2s}
+.entry-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08);border-color:var(--red)}
+.entry-jp{font-family:"Noto Serif JP",serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:.2rem}
+.entry-rom{font-size:12px;color:var(--ink-soft);font-style:italic;margin-bottom:.4rem}
+.entry-id{font-size:14px;font-weight:700;color:var(--red);margin-bottom:.625rem}
+.entry-level{display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10px;font-weight:800;margin-bottom:.5rem;margin-right:.3rem}
+.lv-n3{background:rgba(185,137,47,.12);color:var(--gold)}
+.lv-n2{background:rgba(190,52,40,.1);color:var(--red)}
+.lv-n1{background:rgba(147,51,234,.1);color:#9333ea}
+.lv-all{background:var(--blue-pale);color:var(--blue)}
+.entry-examples{border-top:.5px solid var(--border);padding-top:.625rem;margin-top:.5rem;display:flex;flex-direction:column;gap:.5rem}
+.ex-item{}
+.ex-jp{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:600;color:var(--ink);margin-bottom:.15rem}
+.ex-rom{font-size:11px;color:var(--ink-faint);margin-bottom:.1rem}
+.ex-id{font-size:12px;color:var(--ink-mid);line-height:1.55}
+.ex-note{font-size:11px;color:var(--gold);font-weight:600;margin-top:.1rem}
+
+/* Table style */
+.compare-table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;background:var(--white);border-radius:12px;overflow:hidden;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
+.compare-table th{background:var(--ink);color:#fff;padding:.75rem 1rem;font-size:13px;font-weight:700;text-align:left}
+.compare-table td{padding:.75rem 1rem;font-size:13px;border-bottom:.5px solid var(--border);line-height:1.6;vertical-align:top}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:nth-child(even) td{background:var(--cream)}
+.td-jp{font-family:"Noto Serif JP",serif;font-size:15px;font-weight:600}
+.td-rom{font-size:11px;color:var(--ink-soft)}
+.td-badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-weight:800}
+
+/* Info box */
+.info-box{border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.25rem;border:.5px solid}
+.info-box.tip{background:var(--blue-pale);border-color:rgba(47,111,237,.2)}
+.info-box.warning{background:var(--gold-pale,rgba(185,137,47,.08));border-color:rgba(185,137,47,.2)}
+.info-box.important{background:var(--red-pale);border-color:rgba(190,52,40,.15)}
+.info-box.success{background:var(--green-pale);border-color:rgba(33,135,93,.2)}
+.info-box-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem}
+.info-box.tip .info-box-title{color:var(--blue)}
+.info-box.warning .info-box-title{color:var(--gold)}
+.info-box.important .info-box-title{color:var(--red)}
+.info-box.success .info-box-title{color:var(--green)}
+.info-box p{font-size:13px;line-height:1.75;color:var(--ink-mid)}
+
+/* Quick ref pill */
+.pill-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.25rem}
+.pill-item{display:flex;align-items:center;gap:.4rem;padding:.375rem .875rem;border-radius:8px;background:var(--white);border:.5px solid var(--border-mid);font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.pill-item:hover{border-color:var(--red);background:var(--red-pale);color:var(--red)}
+.pill-item .jp{font-family:"Noto Serif JP",serif;font-size:16px;font-weight:700}
+
+/* Quiz */
+.quiz-box{background:var(--ink);color:#fff;border-radius:14px;padding:1.5rem;margin-top:2rem}
+.quiz-title{font-size:14px;font-weight:800;margin-bottom:1rem;color:rgba(255,255,255,.8)}
+.quiz-q{font-family:"Noto Serif JP",serif;font-size:18px;margin-bottom:1rem;line-height:1.6}
+.quiz-opts{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1rem}
+.quiz-opt{padding:.75rem 1rem;border-radius:9px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;font-family:Outfit,sans-serif;font-size:14px;font-weight:600;transition:all .15s;text-align:left}
+.quiz-opt:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1)}
+.quiz-opt.correct{border-color:#22c55e;background:rgba(34,197,94,.2)}
+.quiz-opt.wrong{border-color:#ef4444;background:rgba(239,68,68,.2)}
+.quiz-feedback{font-size:13px;color:rgba(255,255,255,.7);line-height:1.65;padding:.75rem;background:rgba(255,255,255,.06);border-radius:8px;display:none}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:1rem}
+.quiz-btn{height:36px;padding:0 14px;border-radius:8px;border:none;font-family:Outfit,sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s}
+.quiz-btn.next{background:var(--red);color:#fff}
+.quiz-btn.reset{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)}
+.quiz-score{font-size:13px;color:rgba(255,255,255,.5)}
+
+/* Search */
+.search-bar{display:flex;gap:.5rem;margin-bottom:1.5rem}
+.search-input{flex:1;padding:.625rem 1rem;border-radius:9px;border:1.5px solid var(--border-mid);font-family:Outfit,sans-serif;font-size:14px;color:var(--ink);background:var(--white);outline:none;transition:border-color .15s}
+.search-input:focus{border-color:var(--red)}
+.search-results{font-size:13px;color:var(--ink-soft);margin-top:.3rem}
+
+/* Print */
+@media print{/* legacy nav hidden by kyoto-navbar.min.js */.content{padding:1rem}.entry-card{break-inside:avoid}}
+
+/* Focus */
+*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+</style>
 </head>
 <body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>

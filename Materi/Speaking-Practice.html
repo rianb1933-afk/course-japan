@@ -37,6 +37,57 @@
 <meta name="twitter:description" content="Latihan berbicara bahasa Jepang dengan Speech Recognition. Ucapkan kalimat, dapatkan feedback akurasi instan untuk persiapan JLPT dan percakapan sehari-hari.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8F3E9);color:var(--charcoal,#2D2D2D);min-height:100dvh;display:flex;flex-direction:column}
+.page{max-width:760px;margin:0 auto;padding:32px 20px 80px;flex:1}
+.back-nav{font-size:13px;margin-bottom:20px}
+.back-nav a{color:#6B4F3A;text-decoration:none;font-weight:600}
+[data-theme="dark"] .back-nav a{color:#C89B3C}
+.back-sep{color:#A0A0A0;margin:0 6px}
+.page-hero{margin-bottom:28px}
+.kicker{display:inline-block;padding:4px 12px;border-radius:16px;background:rgba(107,79,58,.08);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#6B4F3A;margin-bottom:10px}
+[data-theme="dark"] .kicker{background:rgba(200,155,60,.10);color:#C89B3C}
+.page-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(24px,4vw,34px);font-weight:700;color:#6B4F3A;margin-bottom:8px}
+[data-theme="dark"] .page-hero h1{color:#C89B3C}
+.page-hero p{font-size:14px;color:#6E6E6E}
+.level-tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
+.lv-btn{padding:7px 16px;border-radius:18px;border:1.5px solid rgba(107,79,58,.15);background:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;color:#6B4F3A;transition:all 130ms}
+.lv-btn.active{background:#6B4F3A;color:#FEF;border-color:#6B4F3A}
+[data-theme="dark"] .lv-btn{color:#C89B3C;border-color:rgba(200,155,60,.18)}
+[data-theme="dark"] .lv-btn.active{background:#C89B3C;color:#1A1209}
+.practice-card{background:#FEFCF8;border:1px solid rgba(107,79,58,.12);border-radius:18px;padding:32px;text-align:center}
+[data-theme="dark"] .practice-card{background:#1A1A1A;border-color:rgba(200,155,60,.12)}
+.target-jp{font-family:'Noto Serif JP',serif;font-size:32px;font-weight:700;color:#6B4F3A;line-height:1.4;margin-bottom:8px}
+[data-theme="dark"] .target-jp{color:#C89B3C}
+.target-read{font-size:14px;color:#8B6E56;margin-bottom:6px}
+[data-theme="dark"] .target-read{color:rgba(200,155,60,.6)}
+.target-mean{font-size:14px;color:#6E6E6E;margin-bottom:24px}
+.mic-btn{width:84px;height:84px;border-radius:50%;background:#6B4F3A;border:none;color:#FEF;font-size:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;transition:all 200ms;box-shadow:0 4px 16px rgba(107,79,58,.25)}
+.mic-btn:hover{transform:scale(1.05)}
+.mic-btn.recording{background:#A63A3A;animation:pulse-mic 1.2s ease-in-out infinite}
+@keyframes pulse-mic{0%,100%{box-shadow:0 0 0 0 rgba(166,58,58,.5)}50%{box-shadow:0 0 0 16px rgba(166,58,58,0)}}
+[data-theme="dark"] .mic-btn{background:#C89B3C;color:#1A1209}
+.mic-hint{font-size:12px;color:#A0A0A0;margin-bottom:20px}
+.result-box{min-height:60px;padding:14px 18px;border-radius:10px;font-size:14px;line-height:1.6;margin-bottom:16px;display:none}
+.result-box.show{display:block}
+.result-box.ok{background:#EAF2E8;color:#3A6A3A;border-left:4px solid #5B7C5B}
+.result-box.ng{background:#FAEAEA;color:#7A2A2A;border-left:4px solid #A63A3A}
+[data-theme="dark"] .result-box.ok{background:rgba(91,124,91,.15);color:#8FBF8F}
+[data-theme="dark"] .result-box.ng{background:rgba(166,58,58,.15);color:#E07070}
+.score-ring{width:50px;height:50px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-right:8px;vertical-align:middle}
+.action-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.a-btn{padding:10px 20px;border-radius:9px;border:1.5px solid rgba(107,79,58,.18);background:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;color:#6B4F3A;transition:all 130ms}
+.a-btn:hover{background:rgba(107,79,58,.07)}
+[data-theme="dark"] .a-btn{color:#C89B3C;border-color:rgba(200,155,60,.20)}
+.a-btn.primary{background:#6B4F3A;color:#FEF;border-color:#6B4F3A}
+[data-theme="dark"] .a-btn.primary{background:#C89B3C;color:#1A1209}
+.stats-row{display:flex;justify-content:center;gap:24px;margin-top:24px;font-size:12px;color:#A0A0A0}
+.stats-row b{color:#6B4F3A;font-size:16px;display:block}
+[data-theme="dark"] .stats-row b{color:#C89B3C}
+.browser-warn{background:#FBF4E3;border-left:4px solid #C89B3C;border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;color:#6E6E6E;margin-bottom:20px;display:none}
+.browser-warn.show{display:block}
+</style>
 </head>
 <body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>

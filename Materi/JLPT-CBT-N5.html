@@ -40,6 +40,73 @@
 <meta name="twitter:description" content="Simulasi ujian JLPT N5 mode komputer — 30 soal N5 grammar dan vocabulary dengan timer 25 menit dan pembahasan lengkap.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+.wrap{max-width:840px;margin:0 auto;padding:0 20px 40px}
+.hero{background:linear-gradient(135deg,var(--primary,#1b5e20),var(--primary-dark,#43a047));color:#fff;padding:48px 20px 32px;text-align:center}
+.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
+.bdg{display:inline-block;background:rgba(255,255,255,.2);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:12px}
+.start-box{background:#fff;border-radius:16px;padding:32px;text-align:center;margin:28px 0;border:2px solid rgba(0,0,0,.08);box-shadow:0 4px 20px rgba(0,0,0,.08)}
+.start-box h2{color:#2e7d32;margin:0 0 10px;font-family:'Noto Serif JP',serif}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}
+.info-item{background:#e8f5e9;border-radius:10px;padding:14px;text-align:center}
+.info-val{font-size:1.5rem;font-weight:700;color:#2e7d32;font-family:'Noto Serif JP',serif}
+.info-lbl{font-size:.75rem;color:#6a6a6a;margin-top:2px}
+.start-btn{background:linear-gradient(135deg,var(--primary,#1b5e20),var(--primary-dark,#43a047));color:#fff;border:none;border-radius:12px;padding:15px 44px;font-size:1rem;font-weight:700;cursor:pointer;margin-top:14px;transition:all .2s;box-shadow:0 4px 14px rgba(0,0,0,.2);font-family:inherit}
+.start-btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(0,0,0,.25)}
+.cbt-header{display:flex;justify-content:space-between;align-items:center;background:#fff;border-radius:12px;padding:12px 18px;margin-bottom:14px;border:1px solid rgba(0,0,0,.08)}
+.cbt-title{font-weight:700;color:#2e7d32;font-size:.95rem}
+.cbt-timer{font-size:1.3rem;font-weight:700;color:#2e7d32;font-family:'Noto Serif JP',serif}
+.cbt-timer.warn{color:#e53935;animation:blink .8s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
+.cbt-prog{font-size:.82rem;color:#888}
+.q-nav{display:grid;grid-template-columns:repeat(10,1fr);gap:5px;margin-bottom:14px}
+.qn-dot{width:30px;height:30px;border-radius:50%;border:2px solid rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;font-size:.72rem;cursor:pointer;font-weight:600;transition:all .2s;background:#fff}
+.qn-dot.current{border-color:#2e7d32;background:#2e7d32;color:#fff}
+.qn-dot.answered{background:#e8f5e9;border-color:var(--primary-dark,#43a047);color:#2e7d32}
+.qn-dot.flagged{background:#fff3e0;border-color:#fb8c00;color:#e65100}
+@media(max-width:480px){.q-nav{grid-template-columns:repeat(6,1fr)}}
+.q-box{background:#fff;border-radius:14px;padding:24px;border:1px solid rgba(0,0,0,.08);margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.q-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:6px}
+.q-num{font-size:.8rem;font-weight:700;color:#2e7d32;background:#e8f5e9;padding:3px 10px;border-radius:20px}
+.q-cat{font-size:.72rem;background:#e8f5e9;color:#2e7d32;padding:3px 10px;border-radius:20px;font-weight:600}
+.q-flag-btn{font-size:.75rem;background:none;border:1px solid #fb8c00;color:#fb8c00;border-radius:20px;padding:3px 10px;cursor:pointer}
+.q-flag-btn.flagged{background:#fb8c00;color:#fff}
+.q-text{font-size:1rem;font-weight:600;color:#111;margin-bottom:18px;line-height:1.65}
+.q-opts{display:grid;gap:10px}
+.q-opt{background:#fafafa;border:2px solid rgba(0,0,0,.1);border-radius:10px;padding:12px 16px;cursor:pointer;font-size:.9rem;transition:all .2s;text-align:left;font-family:inherit;color:#111;width:100%}
+.q-opt:hover{border-color:#2e7d32;background:#e8f5e9}
+.q-opt.selected{border-color:#2e7d32;background:#e8f5e9;font-weight:600}
+.q-opt.correct{border-color:#43a047;background:#e8f5e9;color:#2e7d32}
+.q-opt.wrong{border-color:#e53935;background:#ffebee;color:#c62828}
+.nav-btns{display:flex;gap:10px;flex-wrap:wrap}
+.nav-btn{padding:10px 20px;border:none;border-radius:10px;cursor:pointer;font-size:.88rem;font-weight:600;transition:all .2s;font-family:inherit}
+.btn-prev{background:#f5f5f5;border:1px solid rgba(0,0,0,.12);color:#2e7d32}
+.btn-next{background:#2e7d32;color:#fff;flex:1}
+.btn-submit{background:#2e7d32;color:#fff;flex:1}
+.result-box{background:#fff;border-radius:16px;padding:32px;text-align:center;margin:28px 0;border:2px solid rgba(0,0,0,.08)}
+.score-ring{width:130px;height:130px;border-radius:50%;margin:0 auto 18px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:6px solid #2e7d32;background:#e8f5e9}
+.score-num{font-size:2.2rem;font-weight:700;color:#2e7d32;font-family:'Noto Serif JP',serif;line-height:1}
+.score-lbl{font-size:.7rem;color:#888}
+.grade-badge{display:inline-block;font-size:.85rem;font-weight:700;padding:6px 20px;border-radius:100px;margin:12px 0}
+.grade-s{background:#fff3e0;color:#e65100}
+.grade-a{background:#e8f5e9;color:#2e7d32}
+.grade-b{background:#e3f2fd;color:var(--accent,#1565c0)}
+.grade-c{background:#fce4ec;color:var(--accent,#c62828)}
+.result-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.rst{background:#e8f5e9;border-radius:10px;padding:12px;text-align:center}
+.rst-num{font-size:1.4rem;font-weight:700;color:#2e7d32;font-family:'Noto Serif JP',serif}
+.rst-num.ok{color:#2e7d32}.rst-num.ng{color:var(--accent,#c62828)}
+.rst-lbl{font-size:.72rem;color:#888}
+.btn-retry{background:#2e7d32;color:#fff;border:none;border-radius:10px;padding:12px 32px;cursor:pointer;font-size:.95rem;font-weight:700;margin:14px 6px 0;font-family:inherit}
+.btn-review{background:#f5f5f5;border:1px solid rgba(0,0,0,.2);color:#2e7d32;border-radius:10px;padding:12px 24px;cursor:pointer;font-size:.9rem;font-weight:600;margin:14px 6px 0;font-family:inherit}
+.review-header{font-size:1.1rem;font-weight:700;color:#2e7d32;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e8f5e9;font-family:'Noto Serif JP',serif}
+.ans-item{background:#fff;border-radius:10px;padding:14px 16px;margin-bottom:10px;border-left:4px solid #ccc}
+.ans-item.ok{border-left-color:var(--primary-dark,#43a047)}
+.ans-item.ng{border-left-color:#e53935}
+.ans-q{font-size:.88rem;font-weight:600;margin-bottom:6px;line-height:1.5}
+.ans-exp{font-size:.8rem;color:#666;line-height:1.6;background:#f9f9f9;border-radius:6px;padding:8px 10px;margin-top:6px}
+</style>
 </head><body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>
 

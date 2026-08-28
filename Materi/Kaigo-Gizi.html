@@ -59,6 +59,40 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:description" content="Panduan gizi dan nutrisi dalam kaigo — kosakata nutrisi, jenis diet khusus, masalah menelan, dan perencanaan makan untuk lansia.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.page-hero{background:linear-gradient(135deg,var(--primary,#e65100),var(--primary-dark,#f57c00));color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.section{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
+.section h3{color:var(--primary,#e65100);margin:0 0 12px;font-size:1rem}
+.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.v-card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px;cursor:pointer;transition:all .2s}
+.v-card:hover{border-color:var(--primary,#e65100);box-shadow:0 2px 8px rgba(230,81,0,.1)}
+.v-card.open .v-det{display:block}
+.v-jp{font-size:.95rem;font-weight:700;color:var(--primary,#e65100)}
+.v-r{font-size:.75rem;color:var(--ink-mid);margin:2px 0}
+.v-id{font-size:.85rem;color:var(--ink);margin:4px 0}
+.v-det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.8rem;color:var(--ink-mid)}
+.table{width:100%;border-collapse:collapse;font-size:.85rem;margin:12px 0}
+.table th{background:#fff3e0;padding:8px 12px;text-align:left;font-size:.8rem;color:var(--primary,#e65100)}
+.table td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
+.table tr:hover td{background:#fff3e0}
+.tip{background:#fff3e0;border-left:3px solid var(--primary-dark,#f57c00);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:16px 0}
+.stitle{font-size:1.2rem;font-weight:700;color:var(--primary,#e65100);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #fff3e0}
+.qbox{background:#fff3e0;border-radius:14px;padding:20px;margin:20px 0}
+.qq{font-weight:600;margin-bottom:12px}
+.qopts{display:grid;gap:8px}
+.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
+.qopt:hover{background:#fff3e0}
+.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
 </head><body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>
 

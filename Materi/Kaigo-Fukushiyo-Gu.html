@@ -60,6 +60,48 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:description" content="Panduan lengkap福祉用具 (alat bantu perawatan) dalam kaigo: jenis alat, cara pakai, kosakata bahasa Jepang, dialog dengan residen, dan quiz persiapan ujian kaigo.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.page-hero{background:linear-gradient(135deg,var(--primary,#4a148c),var(--primary-dark,#6a1b9a));color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif}
+.badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
+.sec h3{color:var(--primary,#4a148c);margin:0 0 10px;font-size:1rem}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #f3e5f5}
+.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
+.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:#f3e5f5;color:var(--primary,#4a148c)}
+.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
+.tbl tr:hover td{background:#fdf8ff}
+.tip{background:#f3e5f5;border-left:3px solid var(--primary-dark,#6a1b9a);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
+.g3{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:12px 0}
+.equ-card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:14px;text-align:center}
+.equ-icon{font-size:2rem;margin-bottom:6px}
+.equ-jp{font-size:.95rem;font-weight:700;color:var(--primary,#4a148c)}
+.equ-id{font-size:.82rem;color:var(--ink-mid);margin-top:4px}
+.dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px}
+.dialog-title{font-size:.95rem;font-weight:700;color:var(--primary,#4a148c);margin-bottom:12px}
+.dl{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
+.spk{min-width:52px;font-size:.7rem;font-weight:700;padding:3px 7px;border-radius:6px;text-align:center;margin-top:2px}
+.sp-c{background:#f3e5f5;color:var(--primary,#4a148c)}
+.sp-r{background:#e8f5e9;color:#1b5e20}
+.sp-f{background:#fff3e0;color:#e65100}
+.jp{font-size:.92rem;font-weight:500;color:var(--ink)}
+.id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
+.tts-btn{border:none;background:var(--primary,#4a148c);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:4px}
+.qbox{background:#f3e5f5;border-radius:14px;padding:20px;margin:20px 0}
+.qq{font-weight:600;margin-bottom:12px}
+.qopts{display:grid;gap:8px}
+.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s;width:100%;text-align:left;font-family:inherit}
+.qopt:hover{background:#f3e5f5}
+.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
+.qexp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
 </head>
 <body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>

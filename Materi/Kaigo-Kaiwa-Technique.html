@@ -69,6 +69,55 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <meta name="twitter:description" content="Panduan profesional 介護コミュニケーション技術 dalam kaigo: teori mendalam, prosedur, tabel perbandingan, dialog situasional, kosakata TTS, dan quiz ujian nasional Kaigo Fukushishi.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+<style>
+.wrap{max-width:920px;margin:0 auto;padding:0 20px 48px}
+.hero{background:linear-gradient(135deg,var(--primary,#4527a0),var(--primary-dark,#512da8));color:#fff;padding:56px 20px 36px;text-align:center}
+.hero h1{font-size:clamp(1.5rem,3.5vw,2.2rem);margin:0 0 8px;font-family:'Noto Serif JP',serif;line-height:1.3}
+.badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:14px}
+.hero-sub{font-size:.9rem;opacity:.85;margin-top:6px}
+.st{font-size:1.2rem;font-weight:700;color:var(--primary,#4527a0);margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #ede7f6}
+.sec{background:var(--white);border:1px solid var(--border-light);border-radius:14px;padding:20px;margin:14px 0;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.sec h3{color:var(--primary,#4527a0);margin:0 0 12px;font-size:1rem;font-weight:700}
+.sec h4{color:var(--primary,#4527a0);margin:16px 0 8px;font-size:.95rem;font-weight:600}
+.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:10px 0}
+.tbl th{padding:10px 12px;text-align:left;font-size:.78rem;background:#ede7f6;color:var(--primary,#4527a0);font-weight:700}
+.tbl td{padding:9px 12px;border-bottom:1px solid var(--border-light);vertical-align:top;line-height:1.6}
+.tbl tr:nth-child(even) td{background:rgba(0,0,0,.015)}
+.tbl tr:hover td{background:#ede7f655}
+.tip{background:#ede7f6;border-left:4px solid var(--primary,#4527a0);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.87rem;margin:14px 0;line-height:1.7}
+.warn{background:#fff3e0;border-left:4px solid #fb8c00;padding:12px 16px;border-radius:0 10px 10px 0;font-size:.87rem;margin:14px 0;line-height:1.7}
+.danger{background:#ffebee;border-left:4px solid #e53935;padding:14px 16px;border-radius:0 10px 10px 0;font-size:.88rem;margin:14px 0;font-weight:500;line-height:1.7}
+.steps{counter-reset:step;list-style:none;padding:0;margin:12px 0}
+.steps li{counter-increment:step;display:flex;gap:14px;margin-bottom:12px;align-items:flex-start;font-size:.9rem;line-height:1.6}
+.steps li::before{content:counter(step);min-width:28px;height:28px;border-radius:50%;background:var(--primary,#4527a0);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;flex-shrink:0;margin-top:1px}
+.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;margin:14px 0}
+.card{background:var(--white);border:2px solid #ede7f6;border-radius:12px;padding:16px}
+.card-t{font-weight:700;color:var(--primary,#4527a0);font-size:.95rem;margin-bottom:8px}
+.card-b{font-size:.86rem;line-height:1.7;color:var(--ink)}
+.card-tag{display:inline-block;background:var(--primary,#4527a0);color:#fff;font-size:.72rem;padding:2px 8px;border-radius:10px;margin-bottom:8px}
+.dl{display:flex;gap:12px;margin:10px 0;align-items:flex-start}
+.spk{min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;margin-top:2px;flex-shrink:0}
+.jp{font-size:.92rem;font-weight:500;color:var(--ink);line-height:1.6}
+.id-txt{font-size:.8rem;color:var(--ink-mid);margin-top:3px}
+.tts-btn{border:none;background:var(--primary,#4527a0);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-left:6px;vertical-align:middle}
+.dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:20px;margin-bottom:16px;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.dialog-title{font-size:.95rem;font-weight:700;color:var(--primary,#4527a0);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid #ede7f6}
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:14px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:13px 15px}
+.pv-jp{font-size:.95rem;font-weight:600;color:var(--ink)}
+.pv-ro{font-size:.76rem;color:var(--ink-mid);margin:2px 0}
+.pv-id{font-size:.86rem;color:var(--primary,#4527a0)}
+.pv-btn{border:none;background:var(--primary,#4527a0);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:7px}
+.qbox{background:#ede7f6;border-radius:14px;padding:22px;margin:20px 0}
+.qq{font-weight:600;margin-bottom:14px;font-size:.95rem;line-height:1.6}
+.qopts{display:grid;gap:9px}
+.qopt{background:var(--white);border:1.5px solid var(--border-mid);border-radius:9px;padding:11px 15px;cursor:pointer;font-size:.9rem;transition:all .2s;width:100%;text-align:left;font-family:inherit;line-height:1.5}
+.qopt:hover{background:#ede7f6;border-color:var(--primary,#4527a0)}
+.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
+.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.qexp{margin-top:10px;padding:12px 14px;background:var(--white);border-radius:9px;font-size:.86rem;color:var(--ink-mid);display:none;line-height:1.7;border-left:3px solid var(--primary,#4527a0)}
+.qexp.show{display:block}
+</style>
 </head><body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>
 

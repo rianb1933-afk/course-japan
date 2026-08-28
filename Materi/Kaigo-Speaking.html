@@ -60,6 +60,47 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:description" content="Latihan percakapan bahasa Jepang untuk kaigo — dialog nyata dengan residen, keluarga, dan tim medis. Dilengkapi audio TTS dan latihan roleplay.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+<style>
+.wrap{max-width:900px;margin:0 auto;padding:0 20px}
+.page-hero{background:linear-gradient(135deg,var(--primary,#1b5e20),var(--primary-dark,#2e7d32));color:#fff;padding:48px 20px 32px;text-align:center}
+.page-hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
+.badge{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
+.cat-tabs{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0}
+.cat-tab{padding:7px 16px;border-radius:20px;border:1px solid var(--border-mid);background:var(--cream);cursor:pointer;font-size:.85rem;transition:all .2s}
+.cat-tab.active,.cat-tab:hover{background:var(--primary,#1b5e20);color:#fff;border-color:var(--primary,#1b5e20)}
+.dialog-card{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin-bottom:14px}
+.dialog-title{font-size:.95rem;font-weight:700;color:var(--primary,#1b5e20);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.dialog-line{display:flex;gap:10px;margin:8px 0;align-items:flex-start}
+.speaker{min-width:48px;font-size:.72rem;font-weight:700;padding:3px 8px;border-radius:6px;text-align:center;margin-top:2px}
+.sp-care{background:#e8f5e9;color:var(--primary,#1b5e20)}
+.sp-user{background:#e3f2fd;color:var(--accent,#1565c0)}
+.sp-family{background:#fff3e0;color:#e65100}
+.line-jp{font-size:.92rem;color:var(--ink);font-weight:500}
+.line-id{font-size:.8rem;color:var(--ink-mid);margin-top:2px}
+.speak-btn{border:none;background:var(--primary,#1b5e20);color:#fff;border-radius:8px;padding:4px 10px;cursor:pointer;font-size:.78rem;margin-top:4px}
+.speak-btn:hover{background:var(--primary-dark,#2e7d32)}
+.section-title{font-size:1.2rem;font-weight:700;color:var(--primary,#1b5e20);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #e8f5e9}
+.phrase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:10px;margin:12px 0}
+.phrase-card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px;cursor:pointer;transition:all .2s}
+.phrase-card:hover{border-color:var(--primary,#1b5e20);box-shadow:0 2px 8px rgba(27,94,32,.1)}
+.phrase-card.revealed .p-id{display:block}
+.p-jp{font-size:.95rem;font-weight:600;color:var(--ink)}
+.p-read{font-size:.78rem;color:var(--ink-mid);margin:2px 0}
+.p-id{display:none;font-size:.85rem;color:var(--primary,#1b5e20);margin-top:6px;padding-top:6px;border-top:1px dashed var(--border-light)}
+.p-ctx{font-size:.72rem;color:var(--ink-mid);margin-top:3px}
+.quiz-box{background:#e8f5e9;border-radius:14px;padding:20px;margin:20px 0}
+.quiz-q{font-weight:600;margin-bottom:12px}
+.quiz-opts{display:grid;gap:8px}
+.quiz-opt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
+.quiz-opt:hover{background:#e8f5e9}
+.quiz-opt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
+.quiz-opt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
+.quiz-exp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
+.quiz-exp.show{display:block}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
 </head>
 <body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>

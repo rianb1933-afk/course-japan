@@ -123,6 +123,65 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:description" content="Panduan lengkap 介護福祉士 untuk WNI: jalur EPA/SSW/magang, syarat bahasa, roadmap belajar dari N4 ke lisensi nasional.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+
+.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
+.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
+.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
+.nav-links{display:flex;gap:2px;list-style:none}
+
+.nav-right{display:flex;gap:8px;align-items:center}
+.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
+.btn-nav:hover{border-color:var(--red);color:var(--red)}
+
+@media(max-width:768px){.nav-links{display:none!important}}
+.hero{padding:clamp(44px,7vw,72px) clamp(16px,5vw,72px) 44px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"介護";position:absolute;right:-10px;bottom:-60px;font-family:"Noto Serif JP",serif;font-size:280px;color:rgba(255,255,255,.03);line-height:1;pointer-events:none;user-select:none}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative}
+.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:1.1;margin-bottom:.75rem}
+.hero-desc{color:rgba(255,255,255,.62);font-size:14px;line-height:1.85;max-width:640px;margin-bottom:1.5rem}
+.feat-chips{display:flex;flex-wrap:wrap;gap:.4rem}
+.chip{padding:4px 11px;border-radius:18px;background:rgba(255,255,255,.08);border:.5px solid rgba(255,255,255,.12);font-size:12px;font-weight:600;color:rgba(255,255,255,.75)}
+.breadcrumb{padding:.625rem clamp(16px,5vw,72px);background:var(--white);border-bottom:1px solid var(--border);font-size:12px;color:var(--ink-soft)}
+.breadcrumb a{color:var(--ink-soft);text-decoration:none}
+.breadcrumb a:hover{color:var(--red)}
+.breadcrumb span{margin:0 .4rem;color:var(--border-mid)}
+.main{max-width:1100px;margin:0 auto;padding:2.5rem clamp(16px,5vw,72px) 5rem;flex:1;width:100%}
+.section{margin-bottom:3rem;scroll-margin-top:88px}
+.snum{font-size:11px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.35rem}
+.section h2{font-family:"Noto Serif JP",serif;font-size:clamp(20px,3vw,28px);margin-bottom:.5rem}
+.sdesc{color:var(--ink-mid);font-size:14px;line-height:1.85;margin-bottom:1.25rem}
+.section h3{font-family:"Noto Serif JP",serif;font-size:17px;margin:1.75rem 0 .875rem;display:flex;align-items:center;gap:.5rem}
+.section h3::before{content:'';display:block;width:4px;height:17px;background:var(--red);border-radius:2px;flex-shrink:0}
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:1.25rem}
+.card{background:var(--white);border-radius:14px;padding:1.25rem 1.5rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);transition:all .2s}
+.card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.ib{border-radius:10px;padding:1rem 1.25rem;margin-bottom:1.25rem;border:.5px solid}
+.ib.tip{background:var(--blue-pale);border-color:rgba(47,111,237,.2)}
+.ib.warning{background:rgba(185,137,47,.07);border-color:rgba(185,137,47,.2)}
+.ib.important{background:var(--red-pale);border-color:rgba(190,52,40,.15)}
+.ib.success{background:var(--green-pale);border-color:rgba(33,135,93,.2)}
+.ib-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.4rem}
+.ib.tip .ib-title{color:var(--blue)}.ib.warning .ib-title{color:var(--gold)}.ib.important .ib-title{color:var(--red)}.ib.success .ib-title{color:var(--green)}
+.ib p,.ib li{font-size:13px;line-height:1.75;color:var(--ink-mid)}
+.ib ul{padding-left:1.2rem;margin-top:.3rem}
+.cmp-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:12px;overflow:hidden;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.5rem}
+.cmp-table th{background:var(--ink);color:#fff;padding:.75rem 1rem;font-size:12px;font-weight:700;text-align:left}
+.cmp-table td{padding:.7rem 1rem;font-size:13px;border-bottom:.5px solid var(--border);line-height:1.6;vertical-align:top}
+.cmp-table tr:last-child td{border-bottom:none}
+.cmp-table tr:nth-child(even) td{background:var(--cream)}
+.badge{display:inline-block;padding:2px 8px;border-radius:5px;font-size:10px;font-weight:800}
+.br{background:var(--red-pale);color:var(--red)}.bb{background:var(--blue-pale);color:var(--blue)}
+.bg{background:var(--green-pale);color:var(--green)}.bo{background:rgba(185,137,47,.12);color:var(--gold)}
+.bttBtn{position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
+*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
+
+.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
+.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
+</style>
 </head>
 <body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>
