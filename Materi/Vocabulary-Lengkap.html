@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Full Kosakata JLPT N5-N1 — Nihongo Pro Academy</title>
@@ -31,86 +32,7 @@
 <link rel="stylesheet" href="../assets/pro-style.css">
 <link rel="stylesheet" href="../assets/translator.css">
 
-    <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--cream);color:var(--ink);font-size:15px;line-height:1.65}
-a{text-decoration:none;color:inherit}
-
-.nav-logo{display:flex;align-items:baseline;gap:10px}
-.nav-logo-jp{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--red)}
-.nav-logo-id{font-size:12px;font-weight:600;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
-
-.theme-toggle{width:36px;height:36px;border:.5px solid var(--border-mid);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center;font-size:16px}
-.btn-sm{background:var(--red);color:#fff;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700}
-.page{padding-top:64px}
-.hero{min-height:auto!important;display:block!important;background:#17181d;color:#fff;padding:5rem 5vw 3.5rem!important;position:relative;overflow:hidden}
-.hero::before{content:'語彙';position:absolute;right:-35px;bottom:-75px;font-family:'Noto Serif JP',serif;font-size:270px;line-height:1;color:rgba(255,255,255,.04)}
-.hero-inner{max-width:1120px;margin:0 auto;position:relative;z-index:1}
-.kicker{display:inline-flex;gap:8px;align-items:center;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;margin-bottom:1rem}
-.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(32px,5vw,58px);line-height:1.12;font-weight:600;margin-bottom:1rem}
-.hero p{max-width:760px;color:rgba(255,255,255,.7);font-size:16px;line-height:1.9}
-.hero-actions{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
-.hero-actions a,.hero-actions button{display:inline-flex;align-items:center;justify-content:center;border-radius:8px;padding:11px 18px;font-size:13px;font-weight:800;border:1px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.84);font-family:inherit}
-.hero-actions .primary{background:var(--red);border-color:var(--red);color:#fff}
-.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-top:2rem}
-.stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:14px}
-.stat strong{display:block;font-family:'Noto Serif JP',serif;font-size:24px;color:#fff;line-height:1}
-.stat span{display:block;font-size:11px;color:rgba(255,255,255,.58);margin-top:4px}
-.wrap{max-width:1120px;margin:0 auto;padding:3rem 5vw}
-.panel{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1rem;box-shadow:var(--shadow-sm)}
-.toolbar{position:sticky;top:64px;z-index:50;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:.9rem 5vw}
-.toolbar-inner{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center}
-.search{display:flex;gap:.6rem;align-items:center;background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:7px 10px}
-.search input{width:100%;border:0;outline:0;background:transparent;color:var(--ink);font:inherit;font-size:14px}
-.level-tabs,.view-tabs{display:flex;gap:7px;flex-wrap:wrap}
-.level-tabs button,.view-tabs button,.tool{border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:800;font-family:inherit}
-.level-tabs button.active,.view-tabs button.active,.tool.primary{background:var(--red);border-color:var(--red);color:#fff}
-.layout{display:grid;grid-template-columns:280px 1fr;gap:1rem;align-items:start}
-.side{position:sticky;top:145px;display:grid;gap:1rem}
-.side h2{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:600;color:var(--ink)}
-.side p,.side li{font-size:13px;color:var(--ink-mid)}
-.side ul{padding-left:1.05rem;display:grid;gap:.35rem}
-.mini-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
-.mini{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:10px}
-.mini b{display:block;font-size:18px;color:var(--ink)}
-.mini span{font-size:10px;color:var(--ink-soft);font-weight:800;letter-spacing:.08em;text-transform:uppercase}
-.deck-tools{display:flex;flex-wrap:wrap;gap:8px}
-.vocab-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.vocab-card{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1rem;display:grid;grid-template-columns:1fr auto;gap:.8rem;align-items:start;transition:transform .18s,border-color .18s,box-shadow .18s}
-.vocab-card:hover{transform:translateY(-2px);border-color:var(--red);box-shadow:var(--shadow-sm)}
-.word{font-family:'Noto Serif JP',serif;font-size:25px;font-weight:600;color:var(--ink);line-height:1.2;word-break:break-word}
-.reading{font-family:'Noto Serif JP',serif;color:var(--red);font-size:14px;margin-top:3px;word-break:break-word}
-.meaning{color:var(--ink-mid);font-size:13px;margin-top:8px}
-.tag{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;background:var(--red-pale);color:var(--red);font-size:10px;font-weight:900;padding:4px 8px;white-space:nowrap}
-.meta-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
-.source-note{font-size:12px;color:var(--ink-soft);margin-top:1rem}
-.pager{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;gap:1rem}
-.pager-info{font-size:12px;color:var(--ink-soft)}
-.flash-stage{display:none}
-.flash-stage.active{display:block}
-.flash-card{min-height:330px;border:1px solid var(--border-mid);border-radius:8px;background:var(--white);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;box-shadow:var(--shadow-md);cursor:pointer}
-.flash-word{font-family:'Noto Serif JP',serif;font-size:clamp(44px,8vw,82px);font-weight:600;color:var(--ink);line-height:1.15}
-.flash-reading{font-family:'Noto Serif JP',serif;font-size:22px;color:var(--red);margin-top:.75rem}
-.flash-meaning{max-width:620px;margin:1rem auto 0;color:var(--ink-mid);font-size:16px}
-.flash-hint{font-size:12px;color:var(--ink-soft);margin-top:1rem}
-.rating{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:1rem}
-.rating button{border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);border-radius:8px;padding:10px 14px;font-size:12px;font-weight:800;font-family:inherit}
-.empty{background:var(--white);border:1px dashed var(--border-mid);border-radius:8px;padding:2rem;text-align:center;color:var(--ink-soft)}
-.source-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:1rem}
-.source-actions a{border:1px solid var(--border-mid);border-radius:8px;padding:8px 12px;font-size:12px;font-weight:800;color:var(--ink-mid);background:var(--white)}
-@media(max-width:920px){
-  .stats{grid-template-columns:repeat(3,1fr)}
-  .toolbar-inner,.layout{grid-template-columns:1fr}
-  .side{position:static}
-  .vocab-grid{grid-template-columns:1fr}
-}
-@media(max-width:600px){
-  .stats{grid-template-columns:repeat(2,1fr)}
-  
-  .pager{display:grid}
-}
-</style>
+    
 <link rel="stylesheet" href="../assets/neko-theme.css?v=3">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihongopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihongopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Full Kosakata JLPT N5-N1 — Nihongo Pro Academy","item":"https://nihongopro.id/Materi/Vocabulary-Lengkap.html"}]}</script>
@@ -124,32 +46,13 @@ a{text-decoration:none;color:inherit}
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
-<style>
-.jp-word{cursor:pointer;border-bottom:1px dotted var(--red,#be3428);transition:background .15s;border-radius:2px}
-.jp-word:hover{background:rgba(190,52,40,.08)}
-#dictPopup{position:fixed;z-index:500;background:white;border:1px solid rgba(0,0,0,.12);border-radius:12px;padding:.875rem 1rem;box-shadow:0 8px 32px rgba(0,0,0,.18);max-width:280px;display:none;pointer-events:none}
-#dictPopup.show{display:block}
-.dict-kana{font-family:"Noto Serif JP",serif;font-size:28px;font-weight:700;color:#15161a;line-height:1}
-.dict-rom{font-size:13px;color:#888;margin-top:2px}
-.dict-divider{height:1px;background:#f0f0f0;margin:.5rem 0}
-.dict-mean{font-size:14px;color:#333;line-height:1.6}
-.dict-tags{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.4rem}
-.dict-tag{font-size:10px;padding:1px 7px;border-radius:4px;background:#fef2f2;color:var(--red,#be3428);font-weight:700}
-</style>
 
-<style>
-@media(max-width:768px){
 
-}
 
-</style>
-<style>
-/* ── KEYBOARD ACCESSIBILITY ── */
-*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
-.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
-.skip-to-content:focus{top:0}
-</style>
+
+
+
+
 
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">

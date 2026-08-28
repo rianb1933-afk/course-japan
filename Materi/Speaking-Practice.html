@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Latihan Berbicara — Speaking Practice JLPT | Nihongo Pro Academy</title>
@@ -23,57 +24,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Speaking Practice Nihongo Pro Academy","url":"https://nihongopro.id/Materi/Speaking-Practice.html","description":"Latihan berbicara bahasa Jepang dengan speech recognition","inLanguage":"id"}</script>
 
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8F3E9);color:var(--charcoal,#2D2D2D);min-height:100dvh;display:flex;flex-direction:column}
-.page{max-width:760px;margin:0 auto;padding:32px 20px 80px;flex:1}
-.back-nav{font-size:13px;margin-bottom:20px}
-.back-nav a{color:#6B4F3A;text-decoration:none;font-weight:600}
-[data-theme="dark"] .back-nav a{color:#C89B3C}
-.back-sep{color:#A0A0A0;margin:0 6px}
-.page-hero{margin-bottom:28px}
-.kicker{display:inline-block;padding:4px 12px;border-radius:16px;background:rgba(107,79,58,.08);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#6B4F3A;margin-bottom:10px}
-[data-theme="dark"] .kicker{background:rgba(200,155,60,.10);color:#C89B3C}
-.page-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(24px,4vw,34px);font-weight:700;color:#6B4F3A;margin-bottom:8px}
-[data-theme="dark"] .page-hero h1{color:#C89B3C}
-.page-hero p{font-size:14px;color:#6E6E6E}
-.level-tabs{display:flex;gap:6px;margin-bottom:24px;flex-wrap:wrap}
-.lv-btn{padding:7px 16px;border-radius:18px;border:1.5px solid rgba(107,79,58,.15);background:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;color:#6B4F3A;transition:all 130ms}
-.lv-btn.active{background:#6B4F3A;color:#FEF;border-color:#6B4F3A}
-[data-theme="dark"] .lv-btn{color:#C89B3C;border-color:rgba(200,155,60,.18)}
-[data-theme="dark"] .lv-btn.active{background:#C89B3C;color:#1A1209}
-.practice-card{background:#FEFCF8;border:1px solid rgba(107,79,58,.12);border-radius:18px;padding:32px;text-align:center}
-[data-theme="dark"] .practice-card{background:#1A1A1A;border-color:rgba(200,155,60,.12)}
-.target-jp{font-family:'Noto Serif JP',serif;font-size:32px;font-weight:700;color:#6B4F3A;line-height:1.4;margin-bottom:8px}
-[data-theme="dark"] .target-jp{color:#C89B3C}
-.target-read{font-size:14px;color:#8B6E56;margin-bottom:6px}
-[data-theme="dark"] .target-read{color:rgba(200,155,60,.6)}
-.target-mean{font-size:14px;color:#6E6E6E;margin-bottom:24px}
-.mic-btn{width:84px;height:84px;border-radius:50%;background:#6B4F3A;border:none;color:#FEF;font-size:32px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:0 auto 16px;transition:all 200ms;box-shadow:0 4px 16px rgba(107,79,58,.25)}
-.mic-btn:hover{transform:scale(1.05)}
-.mic-btn.recording{background:#A63A3A;animation:pulse-mic 1.2s ease-in-out infinite}
-@keyframes pulse-mic{0%,100%{box-shadow:0 0 0 0 rgba(166,58,58,.5)}50%{box-shadow:0 0 0 16px rgba(166,58,58,0)}}
-[data-theme="dark"] .mic-btn{background:#C89B3C;color:#1A1209}
-.mic-hint{font-size:12px;color:#A0A0A0;margin-bottom:20px}
-.result-box{min-height:60px;padding:14px 18px;border-radius:10px;font-size:14px;line-height:1.6;margin-bottom:16px;display:none}
-.result-box.show{display:block}
-.result-box.ok{background:#EAF2E8;color:#3A6A3A;border-left:4px solid #5B7C5B}
-.result-box.ng{background:#FAEAEA;color:#7A2A2A;border-left:4px solid #A63A3A}
-[data-theme="dark"] .result-box.ok{background:rgba(91,124,91,.15);color:#8FBF8F}
-[data-theme="dark"] .result-box.ng{background:rgba(166,58,58,.15);color:#E07070}
-.score-ring{width:50px;height:50px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;margin-right:8px;vertical-align:middle}
-.action-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
-.a-btn{padding:10px 20px;border-radius:9px;border:1.5px solid rgba(107,79,58,.18);background:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;color:#6B4F3A;transition:all 130ms}
-.a-btn:hover{background:rgba(107,79,58,.07)}
-[data-theme="dark"] .a-btn{color:#C89B3C;border-color:rgba(200,155,60,.20)}
-.a-btn.primary{background:#6B4F3A;color:#FEF;border-color:#6B4F3A}
-[data-theme="dark"] .a-btn.primary{background:#C89B3C;color:#1A1209}
-.stats-row{display:flex;justify-content:center;gap:24px;margin-top:24px;font-size:12px;color:#A0A0A0}
-.stats-row b{color:#6B4F3A;font-size:16px;display:block}
-[data-theme="dark"] .stats-row b{color:#C89B3C}
-.browser-warn{background:#FBF4E3;border-left:4px solid #C89B3C;border-radius:0 8px 8px 0;padding:12px 16px;font-size:13px;color:#6E6E6E;margin-bottom:20px;display:none}
-.browser-warn.show{display:block}
-</style>
+
 <script src="../assets/np-xp.js" defer></script>
 <script src="../assets/np-materi-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -90,7 +41,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 <body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>
 
-<div id="main-content" class="page">
+<main id="main-content" class="page">
   <div class="back-nav"><a href="Materi.html">Semua Materi</a><span class="back-sep">›</span><span>Speaking Practice</span></div>
 
   <div class="page-hero">
@@ -133,7 +84,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
       <div><b id="statAvg">—</b>Rata-rata</div>
     </div>
   </div>
-</div>
+</main>
 
 <footer style="background:#15161a;color:rgba(255,255,255,.65);padding:1.5rem clamp(16px,5vw,48px);margin-top:auto">
   <div style="max-width:760px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.75rem;border-top:1px solid rgba(255,255,255,.08);padding-top:1.25rem">
@@ -340,11 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div style="max-width:900px;margin:0 auto;padding:0 20px 40px">
 <h2 style="font-size:1.2rem;font-weight:700;color:#7b1fa2;margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid #f3e5f5">🧠 Quiz — Speaking & Pronunciation</h2>
 <div id="qc"></div>
-<div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" class="btn btn-primary" style="flex:1">Soal Berikutnya →</button>
-<button onclick="rQ()" class="btn btn-outline">Reset</button>
-</div>
-<p id="qs" style="text-align:center;font-size:.85rem;color:#888;margin-top:8px">Skor: 0/0</p>
+
 </div>
 <script>
 var Q=[{"q": "Speaking Practice menggunakan teknologi apa untuk menilai pengucapan?", "opts": ["Keyboard input", "Web Speech API (Speech Recognition)", "Upload file audio", "Pilihan ganda saja"], "a": 1, "e": "Speaking Practice menggunakan Web Speech API yang tersedia di browser modern (Chrome/Edge). Browser mendengarkan ucapan pengguna dan membandingkan dengan target kalimat Jepang."}, {"q": "Apa yang dimaksud dengan 'shadow speaking' dalam latihan berbicara Jepang?", "opts": ["Berbicara di tempat gelap", "Meniru dan mengucapkan bersamaan dengan audio asli (native speaker)", "Hanya membaca teks", "Menulis ulang kalimat"], "a": 1, "e": "Shadowing=teknik latihan di mana pelajar meniru ucapan penutur asli secara hampir bersamaan. Melatih ritme, intonasi, dan pitch accent secara natural."}, {"q": "Mengapa latihan berbicara (speaking) penting bahkan untuk persiapan JLPT?", "opts": ["JLPT ada tes speaking", "Melatih Speaking memperkuat pemahaman grammar dan intonasi yang mendukung tes Listening", "Speaking tidak ada hubungannya dengan JLPT", "Hanya untuk kelas conversation"], "a": 1, "e": "JLPT tidak memiliki tes speaking, tapi latihan berbicara memperkuat pemrosesan bahasa secara aktif, meningkatkan pemahaman Listening, dan mempercepat internalisasi grammar."}, {"q": "Pitch accent (高低アクセント) paling berpengaruh di dialek mana?", "opts": ["Osaka/Kansai", "Tokyo/Standard Japanese", "Okinawa", "Hokkaido"], "a": 1, "e": "Tokyo/Standar Jepang (hyōjungo) paling sering dijadikan referensi pitch accent untuk JLPT dan komunikasi formal. Kansai memiliki sistem pitch accent yang berbeda dari Tokyo."}, {"q": "Untuk Speaking Practice berbasis Speech Recognition, browser apa yang direkomendasikan?", "opts": ["Internet Explorer", "Firefox", "Chrome atau Edge versi terbaru", "Safari versi lama"], "a": 2, "e": "Web Speech API paling baik didukung oleh Chrome dan Edge versi terbaru. Firefox dan Safari memiliki dukungan terbatas atau tidak mendukung Speech Recognition API secara penuh."}];var qi=0,ok=0,tot=0;

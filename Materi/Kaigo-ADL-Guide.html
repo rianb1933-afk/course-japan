@@ -19,7 +19,7 @@
      dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
-     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM -->
      
 <script>
 var PH_VOCAB=[["ADL", "ADL", "aktivitas harian"], ["食事", "shokuji", "makan"], ["排泄", "haisetsu", "toilet"], ["入浴", "nyuyoku", "mandi"], ["更衣", "koi", "ganti pakaian"], ["移動", "ido", "berpindah"], ["起居", "kigo", "bangkit/berbaring"], ["整容", "seiyou", "merawat penampilan"]];
@@ -40,55 +40,7 @@ renderVocabGrid('pg', PH_VOCAB);
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-*{box-sizing:border-box}
-.wrap{max-width:920px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,var(--primary,#1565c0),var(--primary-dark,#1976d2));color:#fff;padding:48px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 6px;font-family:"Noto Serif JP",serif;line-height:1.3}
-.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.78rem;margin-bottom:10px}
-.sub{font-size:.85rem;opacity:.85;margin-top:6px}
-.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:14px 0}
-.sec h2{font-size:1rem;font-weight:700;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
-.sec h3{font-size:.92rem;font-weight:700;margin:14px 0 8px;color:#555}
-.st{font-size:1.1rem;font-weight:700;margin:24px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
-.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
-.tbl th{padding:8px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05);font-weight:600}
-.tbl td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.06);vertical-align:top;line-height:1.5}
-.tbl tr:hover td{background:rgba(0,0,0,.02)}
-.tip{background:#f0faf0;border-left:3px solid #43a047;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0;line-height:1.6}
-.warn{background:#fff3e0;border-left:3px solid #ff9800;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
-.err{background:#fce4ec;border-left:3px solid #e91e63;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
-.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:box-shadow .2s}
-.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.card .det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.82rem;color:#555;line-height:1.7}
-.card.open .det{display:block}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-@media(max-width:600px){.g3{grid-template-columns:1fr}}
-.kv{background:#f5f5f5;border-radius:8px;padding:10px 12px;font-size:.84rem}
-.kv b{color:#333;display:block;margin-bottom:2px}
-.tag{display:inline-block;font-size:.7rem;padding:2px 8px;border-radius:10px;margin:2px}
-.dl-st{background:#e3f2fd;border-left:3px solid var(--primary-dark,#1976d2);padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:8px;font-size:.86rem;line-height:1.6}
-.dl-pt{background:#f5f5f5;border-left:3px solid #9e9e9e;padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:8px;font-size:.86rem;line-height:1.6}
-.spk{font-size:.7rem;font-weight:700;margin-bottom:3px;color:#555}
-.iid{font-size:.76rem;color:#666;margin-top:2px;font-style:italic}
-.tts{border:none;background:var(--primary,#1565c0);color:#fff;padding:2px 7px;border-radius:5px;cursor:pointer;font-size:.7rem;margin-top:3px}
-.qbox{background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:12px 0}
-.qnum{font-size:.72rem;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px;background:linear-gradient(135deg,var(--primary,#1565c0),var(--primary-dark,#1976d2))}
-.qq{font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5}
-.qopts{display:grid;gap:8px}
-.qopt{background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047}
-.qexp.show{display:block}
-.score-bar{background:#f5f5f5;border-radius:100px;height:8px;margin-top:8px;overflow:hidden}
-.score-fill{height:100%;border-radius:100px;background:linear-gradient(135deg,var(--primary,#1565c0),var(--primary-dark,#1976d2));transition:width .4s}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Panduan ADL Lengkap 日常生活動作完全ガイド | Nihongo Pro Academy", "description": "Makan · Mandi · Toileting · Berpakaian · Berpindah — teknik & vocabulary — Nihongo Pro Academy", "url": "https://nihongopro.id/Materi/Kaigo-ADL-Guide.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">

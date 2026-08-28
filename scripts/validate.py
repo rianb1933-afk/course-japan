@@ -959,6 +959,39 @@ def check_class_selector_crashers():
                 f'(akan melempar TypeError setiap load): {sample}{extra}')
 
 
+def check_comment_balance():
+    """Komentar HTML harus ditutup. Yang tidak, menelan markup di bawahnya.
+
+    Bug nyata: 32 halaman Kaigo membuka komentar penjelas dan lupa `-->`.
+    Browser lalu memperlakukan semua markup sesudahnya sebagai komentar sampai
+    menemukan `-->` milik komentar lain jauh di bawah. Diperiksa di Chromium,
+    Materi/Kaigo-Bahasa.html hanya menampilkan 1.566 karakter dari 16.380 —
+    judul halaman, paragraf pembuka, dan <link rel="manifest"> ikut tertelan.
+
+    Tidak ada error yang muncul. Halaman memuat dengan tenang, hanya isinya
+    berkurang — persis jenis kerusakan yang paling lama tidak ketahuan.
+
+    Isi <script> dan <style> dilewati: di sana `<!--` dan `-->` bisa muncul
+    sebagai bagian dari string atau operator, bukan penanda komentar.
+    """
+    broken = []
+    for path in all_html_files():
+        html = read(path)
+        stripped = re.sub(r'<script\b[^>]*>.*?</script>|<style[^>]*>.*?</style>',
+                          '', html, flags=re.S | re.I)
+        opens = len(re.findall(r'<!--', stripped))
+        closes = len(re.findall(r'-->', stripped))
+        if opens != closes:
+            broken.append(f'{os.path.relpath(path, ROOT)} ({opens} <!-- vs {closes} -->)')
+
+    if broken:
+        err('comment-balance',
+            f'{len(broken)} halaman punya komentar HTML tidak berpasangan — markup '
+            f'sesudahnya tertelan dan tidak pernah dirender. {"; ".join(broken[:3])}')
+    else:
+        ok('comment-balance', 'Every HTML comment is closed')
+
+
 def check_inline_handler_targets():
     """Fungsi yang dipanggil atribut on*= harus benar-benar ada.
 
@@ -1673,6 +1706,7 @@ def main():
         check_missing_dom_elements,
         check_class_selector_crashers,
         check_cross_script_function_calls,
+        check_comment_balance,
         check_inline_handler_targets,
         check_build_freshness,
         check_unit_tests,

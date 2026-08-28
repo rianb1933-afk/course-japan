@@ -10,6 +10,8 @@
 <meta property="og:title" content="Panduan Menulis Kanji 漢字筆順ガイド — Nihongo Pro Academy">
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kanji-module.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js"></script>
@@ -22,34 +24,7 @@
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,var(--primary,#1a237e),var(--primary-dark,#283593));color:#fff;padding:44px 20px 28px;text-align:center}
-.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 8px;font-family:"Noto Serif JP",serif}
-.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.8rem;margin-bottom:10px}
-.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#1a237e);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.1rem;font-weight:700;color:var(--primary,#1a237e);margin:24px 0 10px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08)}
-.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
-.tbl th{padding:7px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05)}
-.tbl td{padding:7px 10px;border-bottom:1px solid rgba(0,0,0,.06)}
-.tbl tr:hover td{background:rgba(0,0,0,.02)}
-.tip{background:#f0faf0;border-left:3px solid #43a047;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
-.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
-.card.open .det{display:block}
-.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.82rem;color:#666;line-height:1.7}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}
-.srch{width:100%;padding:9px 12px;border:1px solid #ddd;border-radius:8px;font-size:.88rem;margin-bottom:10px;box-sizing:border-box}
-.qbox{background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:16px 0}
-.qq{font-weight:600;margin-bottom:10px;font-size:.92rem}
-.qopts{display:grid;gap:7px}
-.qopt{background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:7px;padding:9px 12px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:7px;padding:8px;background:#fff;border-radius:6px;font-size:.82rem;color:#555;display:none}
-.qexp.show{display:block}
-</style>
+
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Panduan Menulis Kanji 漢字筆順ガイド | Nihongo Pro Academy", "description": "Panduan Menulis Kanji 漢字筆順ガイド — Nihongo Pro Academy", "url": "https://nihongopro.id/Materi/Kanji-Writing-Guide.html", "educationalLevel": "Beginner", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/np-xp.js" defer></script>
 <script src="../assets/np-materi-progress.js" defer></script>
@@ -86,11 +61,7 @@
 <div class="g2" id="skGrid"></div>
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
-<div style="display:flex;gap:10px;margin-top:10px">
-<button onclick="nQ()" class="btn btn-primary" style="flex:1">Soal Berikutnya →</button>
-<button onclick="rQ()" class="btn btn-outline">Reset</button>
-</div>
-<p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:7px">Skor: 0/0</p>
+
 </div></main>
 <script>
 var Q=[{"q": "漢字の筆順の基本「上から下へ」の例は？", "opts": ["川(左から右)", "三(上横→中横→下横)", "人(左払い→右払い)", "日(外枠から)"], "a": 1, "e": "上から下が基本. 三=上の横から順に. ただし例外も多い. 正しい筆順で書くと文字のバランスが取れる。"}, {"q": "「口」のような四角いかんじはどの順で書く？", "opts": ["中から外", "外枠(縦→上横)→中横→下横を閉じる", "右から左", "下から上"], "a": 1, "e": "囲む字=外から内へ. 口: 左縦→上横(右)→右縦→下横を閉じる. 田・国なども同じ原則. 内の画を入れてから下を閉じる。"}, {"q": "「八」のような左右払いの漢字はどの順？", "opts": ["右払いから", "左払い→右払いの順", "同時", "順序なし"], "a": 1, "e": "左右払い=左から右へ. 八: 左払い→右払い. 人・入・文なども同じ. 左右対称の字は中央から. 小: 中縦→左→右。"}, {"q": "「木」の筆順は？", "opts": ["縦→横→払い", "横→縦→左払い→右払い", "払い→横→縦", "左払い→右払い→横→縦"], "a": 1, "e": "木: ①横(中央)→②縦(中央)→③左払い→④右払い. 横が先で縦が後. 本・末・林など木を含む字も同じ原則。"}, {"q": "筆順を正しく知る最大の利点は？", "opts": ["テスト対策のみ", "文字のバランスが取れ・速く書け・覚えやすくなる", "関係ない", "伝統のため"], "a": 1, "e": "正しい筆順: バランスの良い文字になる+速く書ける+記憶に定着しやすい. 漢字検定(Kanji Kentei)でも筆順問題が出る。"}],qi=0,ok=0,tot=0;

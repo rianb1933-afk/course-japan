@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Flashcard Kanji N5 — Nihongo Pro Academy</title>
@@ -32,20 +33,7 @@
 <link rel="stylesheet" href="../assets/translator.css">
 <link rel="stylesheet" href="../assets/kanji-writing.css">
 
-    <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7;min-height:100vh}
-a{text-decoration:none;color:inherit}button{font-family:'Outfit',sans-serif;cursor:pointer}
-
-.nav-logo{display:flex;align-items:baseline;gap:10px}.nav-logo-jp{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--red)}.nav-logo-id{font-size:12px;font-weight:500;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}.nav-links a{font-size:13px;color:var(--ink-mid)}.nav-links a.active,.nav-links a:hover{color:var(--red)}.theme-toggle{width:36px;height:36px;border:.5px solid var(--border-mid);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center}.btn-sm{background:var(--red);color:#fff;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700}
-.page{padding-top:68px}.hero{display:block!important;min-height:auto!important;padding:4rem 5vw 2.25rem!important;background:#17181d;color:#fff;position:relative;overflow:hidden}.hero::before{content:'五級';position:absolute;right:-40px;bottom:-75px;font-family:'Noto Serif JP',serif;font-size:250px;color:rgba(255,255,255,.045);line-height:1}.hero-inner{max-width:1080px;margin:0 auto;position:relative;z-index:1}.kicker{display:inline-flex;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(32px,5vw,56px);line-height:1.1;margin-bottom:1rem}.hero p{max-width:720px;color:rgba(255,255,255,.68);font-size:16px;line-height:1.9}
-.wrap{max-width:1080px;margin:0 auto;padding:2rem 5vw}.topbar{display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center}.panel{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1rem;box-shadow:var(--shadow-sm)}.tools{display:flex;gap:8px;flex-wrap:wrap}.tool{border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);border-radius:8px;padding:9px 13px;font-size:12px;font-weight:800}.tool.primary{background:var(--red);border-color:var(--red);color:#fff}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.stat{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:.85rem;min-width:84px}.stat strong{font-family:'Noto Serif JP',serif;font-size:24px;display:block;line-height:1;color:var(--ink)}.stat span{font-size:10px;color:var(--ink-soft);font-weight:800;text-transform:uppercase;letter-spacing:.08em}
-.progress{height:8px;background:var(--border);border-radius:100px;overflow:hidden;margin-top:.85rem}.progress span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--gold));transition:width .25s}
-.arena{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:1rem;align-items:start}.scene{perspective:1200px}.card{position:relative;min-height:370px;transform-style:preserve-3d;transition:transform .5s cubic-bezier(.34,1.56,.64,1);cursor:pointer}.card.flipped{transform:rotateY(180deg)}.face{position:absolute;inset:0;border:.5px solid var(--border-mid);border-radius:8px;background:var(--white);box-shadow:var(--shadow-md);backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem}.back{transform:rotateY(180deg);background:#17181d;color:#fff}.kanji{font-family:'Noto Serif JP',serif;font-size:clamp(100px,18vw,160px);color:var(--red);line-height:1}.back .kanji{font-size:70px;color:var(--red-soft)}.meaning{font-size:25px;font-weight:800;margin-top:1rem}.hint{font-size:13px;color:var(--ink-soft);margin-top:.75rem;max-width:520px}.back .hint{color:rgba(255,255,255,.6)}.meta{position:absolute;top:1rem;left:1rem;right:1rem;display:flex;justify-content:space-between;gap:8px}.tag{border-radius:8px;background:var(--red-pale);color:var(--red);padding:4px 9px;font-size:11px;font-weight:800}.back .tag{background:rgba(255,255,255,.1);color:rgba(255,255,255,.75)}
-.ratings{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:1rem}.rate{border:none;border-radius:8px;padding:13px 8px;font-weight:900;color:#fff}.again{background:var(--red,#be3428)}.hard{background:#b9892f}.good{background:var(--green,#21875d)}.easy{background:var(--blue,#2f6fed)}
-.side{display:grid;gap:1rem}.queue{max-height:420px;overflow:auto}.queue-item{display:flex;align-items:center;gap:10px;padding:.6rem;border-bottom:1px solid var(--border);font-size:13px}.queue-item b{font-family:'Noto Serif JP',serif;font-size:22px;color:var(--red);width:34px}.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.18);border-radius:8px;padding:1rem;color:var(--ink-mid);font-size:13px}
-@media(max-width:900px){.topbar,.arena{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.card{min-height:330px}}@media(max-width:560px){.ratings{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:1fr}.kanji{font-size:100px}}
-</style>
+    
 <link rel="stylesheet" href="../assets/neko-theme.css?v=3">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihongopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihongopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Flashcard Kanji N5 — Nihongo Pro Academy","item":"https://nihongopro.id/Materi/Flashcard-Kanji-N5.html"}]}</script>
@@ -59,19 +47,10 @@ a{text-decoration:none;color:inherit}button{font-family:'Outfit',sans-serif;curs
 <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
-<style>
-@media(max-width:768px){
 
-}
 
-</style>
-<style>
-/* ── KEYBOARD ACCESSIBILITY ── */
-*:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
-button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
-.skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
-.skip-to-content:focus{top:0}
-</style>
+
+
 
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">

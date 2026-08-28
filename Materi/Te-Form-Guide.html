@@ -11,6 +11,7 @@
 <meta property="og:url" content="https://nihongopro.id/Materi/Te-Form-Guide.html">
 <meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="../assets/kaigo-module.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <script src="../assets/env.js" defer></script>
@@ -23,39 +24,7 @@
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-.wrap{max-width:900px;margin:0 auto;padding:0 20px}
-.hero{background:linear-gradient(135deg,var(--primary,#1a237e),var(--primary-dark,#283593));color:#fff;padding:48px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.4rem,3vw,2rem);margin:0 0 8px}
-.bdg{display:inline-block;background:rgba(255,255,255,.25);border-radius:20px;padding:4px 12px;font-size:.8rem;margin-bottom:12px}
-.sec{background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px;margin:12px 0}
-.sec h3{color:var(--primary,#1a237e);margin:0 0 10px;font-size:1rem}
-.st{font-size:1.2rem;font-weight:700;color:var(--primary,#1a237e);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)}
-.tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
-.tbl{width:100%;border-collapse:collapse;font-size:.85rem;margin:8px 0}
-.tbl th{padding:8px 12px;text-align:left;font-size:.8rem;background:rgba(0,0,0,.05)}
-.tbl td{padding:8px 12px;border-bottom:1px solid var(--border-light)}
-.tbl tr:hover td{background:rgba(0,0,0,.03)}
-.tip{background:var(--matcha-pale);border-left:3px solid var(--matcha);padding:12px 16px;border-radius:0 10px 10px 0;font-size:.85rem;margin:12px 0}
-.card{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer;transition:all .2s}
-.card:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
-.card.open .det{display:block}
-.det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed var(--border-light);font-size:.83rem;color:var(--ink-mid)}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px}
-.qbox{background:rgba(0,0,0,.04);border-radius:14px;padding:20px;margin:20px 0}
-.qq{font-weight:600;margin-bottom:12px}
-.qopts{display:grid;gap:8px}
-.qopt{background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.9rem;transition:all .2s}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#4caf50;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:var(--white);border-radius:8px;font-size:.85rem;color:var(--ink-mid);display:none}
-.qexp.show{display:block}
-.tab-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.tab{padding:7px 16px;border-radius:20px;border:1px solid var(--border-mid);background:var(--cream);cursor:pointer;font-size:.85rem;transition:all .2s}
-.tab.active,.tab:hover{background:var(--primary,#1a237e);color:#fff;border-color:var(--primary,#1a237e)}
-.srch{width:100%;padding:10px 14px;border:1px solid var(--border-mid);border-radius:10px;font-size:.9rem;margin-bottom:10px;box-sizing:border-box}
-</style>
+
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "Panduan Te-Form 〜て形 Lengkap | Nihongo Pro Academy", "description": "Panduan lengkap te-form bahasa Jepang — aturan perubahan Grup 1/2/3, fungsi, dan 12 pola penggunaan.", "url": "https://nihongopro.id/Materi/Te-Form-Guide.html", "educationalLevel": "Beginner", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/np-xp.js" defer></script>
 <script src="../assets/np-materi-progress.js" defer></script>
@@ -117,11 +86,7 @@
 </table></div></div>
 <h2 class="st">🧠 Quiz</h2>
 <div id="qc"></div>
-<div style="display:flex;gap:12px;margin-top:12px">
-<button onclick="nQ()" class="btn btn-primary" style="flex:1">Soal Berikutnya →</button>
-<button onclick="rQ()" class="btn btn-outline">Reset</button>
-</div>
-<p id="qs" style="text-align:center;font-size:.85rem;color:var(--ink-mid);margin-top:8px">Skor: 0/0</p>
+
 </div></main>
 <script>
 var Q=[{"q": "「書く」のて形は？", "opts": ["書いて", "書いで", "書きて", "書って"], "a": 0, "e": "書く(〜く→いて)=書いて. 〜く ending: く→いて. 例外: 行く→行って(促音化, NOT 行いて)。"}, {"q": "「飲む」のて形は？", "opts": ["飲みて", "飲んで", "飲いて", "飲って"], "a": 1, "e": "飲む(〜む→んで)=飲んで. 〜む・ぬ・ぶ ending → んで/んだ. 遊ぶ→遊んで、死ぬ→死んで。"}, {"q": "「食べる」のて形は？", "opts": ["食べって", "食べいて", "食べて", "食べんで"], "a": 2, "e": "食べる(Grup 2)=食べて. Grup 2: る取ってて. 見る→見て、起きる→起きて。"}, {"q": "「行く」のて形は？(注意!)", "opts": ["行いて", "行って(例外)", "行きて", "行んで"], "a": 1, "e": "行く=例外! 行く→行って(促音化). 通常くはいてだが行くだけはって。必ず暗記する。"}, {"q": "「〜ている」の2つの用法は？", "opts": ["進行中のみ", "進行中(食べている) + 結果の状態(結婚している)", "完了のみ", "意図の準備のみ"], "a": 1, "e": "〜ている: ①進行=今〜している ②状態=〜した結果が続く. 食べている(進行) vs 結婚している(状態)."}, {"q": "「〜てある」を使えるのは？", "opts": ["自動詞のみ", "他動詞のみ+意図的行為の結果", "どちらでも", "不規則動詞のみ"], "a": 1, "e": "てある=他動詞+意図的結果. 窓が開けてある=jendela sudah (sengaja) dibuka. ×窓が開いてある(NG)."}, {"q": "「〜ておく」の意味は？", "opts": ["今すぐする", "将来のための準備として〜する", "もう終わった", "やめる"], "a": 1, "e": "ておく=melakukan untuk persiapan ke depan. 明日のために準備しておく=mempersiapkan untuk besok."}, {"q": "「〜てしまう」のニュアンスは？", "opts": ["喜んで", "完了+後悔や残念な気持ち", "まだやっていない", "これからする"], "a": 1, "e": "てしまう=terlanjur; selesai (sering ada nuansa penyesalan). お金を使ってしまった=terlanjur habiskan uang."}, {"q": "「〜てくる」の意味の一つは？", "opts": ["〜して去る", "変化が話し手に向かってくる(〜になってきた)", "〜してあげる", "〜してもらう"], "a": 1, "e": "〜てくる=perubahan yang mendekat ke pembicara/sekarang. 暖かくなってきた=sudah mulai hangat (dari dulu sampai sekarang)."}, {"q": "「話す」のて形は？", "opts": ["話いて", "話して", "話って", "話んで"], "a": 1, "e": "話す(〜す→して)=話して. 〜す ending: す→して/した. 貸す→貸して、返す→返して。"}],qi=0,ok=0,tot=0;

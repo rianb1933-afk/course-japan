@@ -18,7 +18,7 @@
      dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
      tag script eksternal genuinely mengabaikan konten inline karena
      atribut src hadir. Dipisah ke tag terpisah, dibungkus
-     DOMContentLoaded untuk mengantisipasi masalah timing DOM
+     DOMContentLoaded untuk mengantisipasi masalah timing DOM -->
      
 <script>
 var PH_VOCAB=[["訪問介護", "homon kaigo", "kunjungan perawatan"], ["ホームヘルパー", "hoomu herupaa", "home helper"], ["身体介護", "shintai kaigo", "perawatan fisik"], ["生活援助", "seikatsu enjo", "bantuan kehidupan"], ["サービス提供責任者", "saabisu teikyou sekinin-sha", "koordinator layanan"], ["在宅ケア", "zaitaku kea", "perawatan di rumah"], ["ケアプラン", "kea puran", "rencana perawatan"], ["対象外", "taisho-gai", "di luar cakupan"]];
@@ -37,46 +37,7 @@ renderVocabGrid('pg', PH_VOCAB);
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-<style>
-*{box-sizing:border-box}.wrap{max-width:920px;margin:0 auto;padding:0 20px 40px}
-.hero{background:linear-gradient(135deg,var(--primary,#e65100),var(--primary-dark,#f57c00));color:#fff;padding:48px 20px 32px;text-align:center}
-.hero h1{font-size:clamp(1.3rem,3vw,1.9rem);margin:0 0 6px;font-family:"Noto Serif JP",serif;line-height:1.3}
-.bdg{display:inline-block;background:rgba(255,255,255,.22);border-radius:20px;padding:4px 14px;font-size:.78rem;margin-bottom:10px}
-.sub{font-size:.85rem;opacity:.85;margin-top:6px}
-.sec{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:12px;padding:18px;margin:14px 0}
-.sec h2{font-size:1rem;font-weight:700;margin:0 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08);color:var(--primary,#e65100)}
-.st{font-size:1.1rem;font-weight:700;margin:24px 0 12px;padding-bottom:6px;border-bottom:2px solid rgba(0,0,0,.08);color:var(--primary,#e65100)}
-.tbl{width:100%;border-collapse:collapse;font-size:.84rem;margin:8px 0}
-.tbl th{padding:8px 10px;text-align:left;font-size:.78rem;background:rgba(0,0,0,.05);font-weight:600}
-.tbl td{padding:8px 10px;border-bottom:1px solid rgba(0,0,0,.06);vertical-align:top;line-height:1.5}
-.tip{background:#f0faf0;border-left:3px solid #43a047;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0;line-height:1.6}
-.warn{background:#fff3e0;border-left:3px solid #ff9800;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
-.err{background:#fce4ec;border-left:3px solid #e91e63;padding:10px 14px;border-radius:0 8px 8px 0;font-size:.84rem;margin:10px 0}
-.card{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:10px;padding:14px;margin-bottom:10px;cursor:pointer}
-.card .det{display:none;margin-top:8px;padding-top:8px;border-top:1px dashed rgba(0,0,0,.1);font-size:.82rem;color:#555;line-height:1.7}
-.card.open .det{display:block}
-.g2{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
-.kv{background:#f5f5f5;border-radius:8px;padding:10px 12px;font-size:.84rem}
-.kv b{display:block;margin-bottom:3px}
-.dl-st{background:#e3f2fd;border-left:3px solid #1976d2;padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:8px;font-size:.86rem;line-height:1.6}
-.dl-pt{background:#f5f5f5;border-left:3px solid #9e9e9e;padding:10px 12px;border-radius:0 8px 8px 0;margin-bottom:8px;font-size:.86rem;line-height:1.6}
-.spk{font-size:.7rem;font-weight:700;margin-bottom:3px;color:#555}
-.iid{font-size:.76rem;color:#666;margin-top:2px;font-style:italic}
-.tts{border:none;background:var(--primary,#e65100);color:#fff;padding:2px 7px;border-radius:5px;cursor:pointer;font-size:.7rem;margin-top:3px}
-.qbox{background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:12px 0}
-.qnum{font-size:.72rem;color:#fff;display:inline-block;padding:2px 10px;border-radius:10px;margin-bottom:8px;background:var(--primary,#e65100)}
-.qq{font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5}
-.qopts{display:grid;gap:8px}
-.qopt{background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s}
-.qopt:hover{background:rgba(0,0,0,.04)}
-.qopt.correct{background:#e8f5e9;border-color:#43a047;color:#1b5e20}
-.qopt.wrong{background:#fce4ec;border-color:#e91e63;color:#880e4f}
-.qexp{margin-top:8px;padding:10px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047}
-.qexp.show{display:block}
 
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "LearningResource", "name": "訪問介護完全ガイド 在宅ケア | Nihongo Pro Academy", "description": "Perawatan di rumah ホームヘルパー. Jenis layanan, teknik perawatan khusus di lingkungan rumah, dan cara mendukung keluarga lansia untuk tenaga homecare Jepang.", "url": "https://nihongopro.id/Materi/Kaigo-Homecare.html", "educationalLevel": "Intermediate", "inLanguage": ["id", "ja"], "provider": {"@type": "Organization", "name": "Nihongo Pro Academy", "url": "https://nihongopro.id"}, "image": "https://nihongopro.id/assets/og-preview.svg"}</script>
 <script src="../assets/kaigo-progress.js" defer></script>
 <link rel="manifest" href="/manifest.json">
@@ -158,11 +119,7 @@ renderVocabGrid('pg', PH_VOCAB);
 <div style="max-width:920px;margin:0 auto;padding:0 20px"><h2 style="font-size:1.2rem;font-weight:700;color:var(--accent,#1565c0);margin:32px 0 14px;padding-bottom:8px;border-bottom:3px solid #e3f2fd">💬 訪問介護の実践</h2><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:var(--accent,#1565c0);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e3f2fd">🏠 Dialog 1 — 訪問開始時の確認</div><div class="dlg-row"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:var(--accent,#1565c0);margin-top:1px;flex-shrink:0">介護士</span><div><div class="dlg-jp">田中様、こんにちは。本日の訪問介護を担当する〇〇です。今日の体調はいかがですか？<button aria-label="Ucapkan: 田中様、こんにちは。本日の訪問介護を担当する〇〇です。今日の…" onclick="speak('田中様、こんにちは。本日の訪問介護を担当する〇〇です。今日の体調はいかがですか？')" style="border:none;background:var(--accent,#1565c0);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div class="dlg-id">Bu Tanaka, selamat siang. Saya 〇〇 yang bertugas kunjungan perawatan hari ini. Bagaimana kondisi hari ini?</div></div></div><div class="dlg-row"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:var(--accent,#1565c0);margin-top:1px;flex-shrink:0">田中さん</span><div><div class="dlg-jp">昨日は少し足がむくんでいましたが、今日は良くなった気がします。<button aria-label="Ucapkan: 昨日は少し足がむくんでいましたが、今日は良くなった気がします…" onclick="speak('昨日は少し足がむくんでいましたが、今日は良くなった気がします。')" style="border:none;background:var(--accent,#1565c0);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div class="dlg-id">Kemarin kaki agak bengkak, tapi hari ini sepertinya sudah lebih baik.</div></div></div><div class="dlg-row"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:var(--accent,#1565c0);margin-top:1px;flex-shrink:0">介護士</span><div><div class="dlg-jp">そうですか。確認させてください。（足首を観察）今日は問題ないですね。何か特別にご要望はありますか？<button aria-label="Ucapkan: そうですか。確認させてください。（足首を観察）今日は問題ない…" onclick="speak('そうですか。確認させてください。（足首を観察）今日は問題ないですね。何か特別にご要望はありますか？')" style="border:none;background:var(--accent,#1565c0);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div class="dlg-id">Begitu. Izin periksa. (Mengamati pergelangan kaki) Hari ini tidak ada masalah. Ada permintaan khusus?</div></div></div></div><div style="background:var(--white);border:1px solid var(--border-light);border-radius:12px;padding:18px 20px;margin-bottom:14px"><div style="font-size:.94rem;font-weight:700;color:var(--accent,#1565c0);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid #e3f2fd">📋 Dialog 2 — サービス記録の確認</div><div class="dlg-row"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:var(--accent,#1565c0);margin-top:1px;flex-shrink:0">介護士</span><div><div class="dlg-jp">本日の訪問介護を終わります。身体介護として入浴介助を行いました。バイタルは安定、皮膚に問題なし。特変なし。サービス提供記録にサインをお願いできますか？<button aria-label="Ucapkan: 本日の訪問介護を終わります。身体介護として入浴介助を行いまし…" onclick="speak('本日の訪問介護を終わります。身体介護として入浴介助を行いました。バイタルは安定、皮膚に問題なし。特変なし。サービス提供記録にサインをお願いできますか？')" style="border:none;background:var(--accent,#1565c0);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div class="dlg-id">Kunjungan perawatan hari ini selesai. Layanan fisik: bantu mandi. Vital stabil, kulit tidak ada masalah. Tidak ada perubahan. Bisa tanda tangan catatan layanan?</div></div></div><div class="dlg-row"><span style="min-width:56px;font-size:.7rem;font-weight:700;padding:4px 8px;border-radius:6px;text-align:center;background:#e3f2fd;color:var(--accent,#1565c0);margin-top:1px;flex-shrink:0">田中さん</span><div><div class="dlg-jp">はい（サインする）。今日もありがとうございました。<button aria-label="Ucapkan: はい（サインする）。今日もありがとうございました。" onclick="speak('はい（サインする）。今日もありがとうございました。')" style="border:none;background:var(--accent,#1565c0);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.7rem;margin-left:6px">🔊</button></div><div class="dlg-id">Ya. (Tanda tangan) Terima kasih hari ini juga.</div></div></div></div></div>
 <h2 class="st">🧠 Latihan Soal & Pembahasan</h2>
 <div id="qc"></div>
-<div style="display:flex;gap:10px;margin-top:12px">
-<button onclick="nQ()" class="btn btn-primary" style="flex:1">Soal Berikutnya →</button>
-<button onclick="rQ()" class="btn btn-outline">🔄 Reset</button>
-</div>
-<p id="qs" style="text-align:center;font-size:.82rem;color:#888;margin-top:8px">Skor: 0/0</p>
+
 </div><section style="padding:16px;max-width:860px;margin:20px auto">
 <h2 style="font-size:1rem;color:var(--accent,#004d40);border-bottom:3px solid var(--accent,#004d40);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 在宅介護</h2>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
