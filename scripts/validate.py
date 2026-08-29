@@ -1713,7 +1713,7 @@ def check_kaigo_quiz_reachable():
 
 
 def check_explanation_id_coverage():
-    """Lacak berapa penjelasan kuis Kaigo yang sudah punya bahasa Indonesia.
+    """Seluruh penjelasan kuis Kaigo harus terbaca pembaca Indonesia.
 
     Penjelasan adalah momen mengajarnya — yang membacanya justru orang yang
     baru saja salah menjawab. Saat check ini ditulis, 2.104 dari 2.183
@@ -1722,9 +1722,11 @@ def check_explanation_id_coverage():
     yang jadi sasaran platform ini, bagian yang paling dibutuhkan justru yang
     paling tidak terbaca.
 
-    Ini BUKAN error: melengkapinya adalah pekerjaan menulis konten yang
-    berjalan bertahap lewat seed/kaigo_explanation_id.json. Yang dijaga di
-    sini hanya arahnya — cakupan tidak boleh mundur dari yang sudah dicapai.
+    Kini 2.183 dari 2.183 sudah punya kalimat Indonesia, ditulis bertahap
+    lewat seed/kaigo_explanation_id.json. Karena itu check ini berubah sifat:
+    dulu ia melacak kemajuan dan hanya melarang kemunduran, sekarang ia
+    menjaga pekerjaan yang sudah selesai. Satu penjelasan yang kehilangan
+    glosnya = error, bukan peringatan.
     """
     engine = _quiz_engine()
     # Yang diukur: apakah pembaca Indonesia bisa memahami penjelasannya —
@@ -1738,11 +1740,18 @@ def check_explanation_id_coverage():
     MIN_RUN = 40
     latin_run = re.compile(
         r"[A-Za-z][A-Za-z0-9 ,.;:'\"()\-—/%\\]{" + str(MIN_RUN - 1) + ",}")
+    # Daftar ini SEMPAT KURANG. "sebagai" — salah satu kata paling umum dalam
+    # bahasa Indonesia — tidak ada di dalamnya, sehingga kalimat yang utuh
+    # seperti "penyandang demensia dihormati sebagai manusia utuh" dilaporkan
+    # belum diterjemahkan. Kata-kata pada baris terakhir ditambahkan untuk
+    # menutup celah itu; penambahannya menggeser hitungan tepat satu penjelasan.
     indonesian = re.compile(
         r'\b(yang|dan|untuk|dengan|pada|dari|atau|tidak|adalah|bisa|agar|saat'
         r'|oleh|dalam|secara|harus|dapat|perlu|karena|bukan|lewat|pun|juga'
         r'|setiap|seperti|hingga|sampai|bila|maupun|berarti|menjadi|antara'
-        r'|tanpa|lebih|sendiri|orang|kerja|hidup|ini|itu|ia)\b'
+        r'|tanpa|lebih|sendiri|orang|kerja|hidup|ini|itu|ia'
+        r'|sebagai|serta|sudah|masih|belum|hanya|akan|supaya|sehingga|namun'
+        r'|tetapi|atas|tiap|kepada|bagi|semua|banyak|kalau|justru)\b'
         r'|\b(?:me[mnl]?[a-z]{3,}|ber[a-z]{4,}|pe[mn]?[a-z]{4,}an|ke[a-z]{4,}an)\b',
         re.I)
 
@@ -1766,17 +1775,25 @@ def check_explanation_id_coverage():
     if not total:
         return
 
-    BASELINE = 1956          # dicapai pada batch pertama; jangan turun
     pct = covered / total * 100
 
-    if covered < BASELINE:
+    if covered < total:
         err('explanation-id',
-            f'Cakupan glos Indonesia turun ke {covered}/{total} ({pct:.0f}%), '
-            f'di bawah {BASELINE} yang sudah dicapai. Glos hilang, bukan bertambah.')
+            f'{total - covered} penjelasan kuis kehilangan kalimat Indonesianya '
+            f'({covered}/{total}, {pct:.0f}%). Cakupan sudah pernah penuh — '
+            f'ini kemunduran, bukan pekerjaan yang belum selesai.')
+        for path in sorted(glob.glob(os.path.join(ROOT, 'Materi', 'Kaigo-*.html'))):
+            html = read(path)
+            for name, _, span in engine.quiz_arrays(html):
+                if not engine.is_rendered(html, name, span):
+                    continue
+                for m in value.finditer(html[span[0]:span[1]]):
+                    if not has_indonesian_sentence(m.group(2)):
+                        err('explanation-id',
+                            f'    {os.path.basename(path)}  {m.group(2)[:70]}…')
     else:
         ok('explanation-id',
-           f'{covered}/{total} ({pct:.0f}%) penjelasan kuis memuat bahasa Indonesia '
-           f'— sisa {total - covered} menunggu penulisan')
+           f'{covered}/{total} penjelasan kuis punya kalimat Indonesia utuh.')
 
 
 def check_no_hangul():
