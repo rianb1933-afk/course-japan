@@ -1,3 +1,21 @@
+/* PITA HERO INI GELAP DI KEDUA MODE
+   ─────────────────────────────────
+   .page-hero berlatar rgb(45,45,45) baik pada mode terang maupun gelap —
+   diperiksa di Chromium pada kelima halaman Grammar. Judul dan paragraf di
+   atasnya memakai warna mode terang, sehingga gelap di atas gelap:
+
+       h1  #6B4F3A cokelat  rasio 1,84
+       p   #6E6E6E abu      rasio 2,70
+
+   Keduanya kini terang, dan tetap terang di mode gelap karena latarnya
+   memang tidak berubah. Ini BUKAN soal token yang tidak membalik —
+   warnanya memang salah sejak awal untuk latar segelap itu. */
+/* #6E6E6E adalah nilai --ink-soft pada mode TERANG. Ia dipaku di empat
+   tempat, jadi tidak ikut membalik saat mode gelap — abu gelap di atas latar
+   gelap, rasio 2,7 (diukur di Chromium, 38 temuan di 8 halaman).
+
+   Kini var(--ink-soft) dengan #6E6E6E sebagai cadangan: mode terang persis
+   sama seperti sebelumnya, mode gelap ikut menjadi #9A9890. */
 /* Grammar Module Shared Styles — shared by Grammar-N1..N5 */
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -6,9 +24,9 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 .page-hero{margin-bottom:32px}
 .kicker{display:inline-block;padding:4px 12px;border-radius:16px;background:rgba(107,79,58,.08);font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#6B4F3A;margin-bottom:10px}
 [data-theme="dark"] .kicker{background:rgba(200,155,60,.10);color:#C89B3C}
-.page-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(24px,4vw,36px);font-weight:700;color:#6B4F3A;margin-bottom:8px;line-height:1.25}
+.page-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(24px,4vw,36px);font-weight:700;color:#F0E9DC;margin-bottom:8px;line-height:1.25}
 [data-theme="dark"] .page-hero h1{color:#C89B3C}
-.page-hero p{font-size:14px;color:#6E6E6E;max-width:600px}
+.page-hero p{font-size:14px;color:rgba(255,255,255,.78);max-width:600px}
 /* controls */
 .controls{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px;align-items:center}
 .search-box{flex:1;min-width:200px;max-width:100%;box-sizing:border-box;padding:10px 14px;border:1.5px solid rgba(107,79,58,.15);border-radius:9px;font-family:inherit;font-size:14px;background:#FEFCF8;color:#2D2D2D;outline:none;transition:border-color 150ms}
@@ -49,7 +67,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 [data-theme="dark"] .g-example{background:rgba(200,155,60,.05)}
 .g-ex-jp{font-family:'Noto Serif JP',serif;font-size:16px;color:#2D2D2D}
 [data-theme="dark"] .g-ex-jp{color:#E8E5DF}
-.g-ex-id{font-size:13px;color:#6E6E6E;font-style:italic}
+.g-ex-id{font-size:13px;color:var(--ink-soft,#6E6E6E);font-style:italic}
 .g-audio{background:none;border:1px solid rgba(107,79,58,.15);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;color:#6B4F3A;margin-top:6px;display:inline-flex;align-items:center;gap:4px}
 [data-theme="dark"] .g-audio{border-color:rgba(200,155,60,.18);color:#C89B3C}
 /* vocab card */
@@ -73,7 +91,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 [data-theme="dark"] .quiz-wrap{background:#1A1A1A;border-color:rgba(200,155,60,.10)}
 .quiz-q{font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:#6B4F3A;text-align:center;margin-bottom:8px}
 [data-theme="dark"] .quiz-q{color:#C89B3C}
-.quiz-hint{font-size:13px;color:#6E6E6E;text-align:center;margin-bottom:20px}
+.quiz-hint{font-size:13px;color:var(--ink-soft,#6E6E6E);text-align:center;margin-bottom:20px}
 .quiz-choices{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px}
 @media(max-width:480px){.quiz-choices{grid-template-columns:1fr}.controls{flex-direction:column;align-items:stretch}.search-box{min-width:0;width:100%}}
 .qc-btn{padding:12px 14px;border-radius:9px;border:1.5px solid rgba(107,79,58,.14);background:#FEFCF8;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:all 130ms;color:#2D2D2D;text-align:left;line-height:1.4}
@@ -96,7 +114,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 /* section tabs */
 .section-tabs{display:flex;gap:4px;margin-bottom:24px;border-bottom:1px solid rgba(107,79,58,.10);overflow-x:auto}
 [data-theme="dark"] .section-tabs{border-bottom-color:rgba(200,155,60,.10)}
-.sec-tab{padding:10px 16px;border:none;background:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;color:#6E6E6E;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all 130ms}
+.sec-tab{padding:10px 16px;border:none;background:none;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-soft,#6E6E6E);border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:all 130ms}
 .sec-tab.active{color:#6B4F3A;border-bottom-color:#6B4F3A}
 [data-theme="dark"] .sec-tab{color:#9A9890}
 [data-theme="dark"] .sec-tab.active{color:#C89B3C;border-bottom-color:#C89B3C}

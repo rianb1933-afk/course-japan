@@ -127,12 +127,25 @@ nav.kn-nav {
 [data-theme="dark"] .kn-logo-jp { color: var(--gold, #C89B3C); }
 .kn-logo-sep { width:1px; height:16px; background:rgba(107,79,58,.25); flex-shrink:0; }
 [data-theme="dark"] .kn-logo-sep { background:rgba(200,155,60,.25); }
+/* Warnanya dulu dipaksa #E53935 lewat gaya INLINE di kyoto-navbar.js.
+   Gaya inline mengalahkan aturan di berkas ini, termasuk varian gelap di
+   bawah — sehingga aturan gelap itu TIDAK PERNAH berlaku. Diukur di
+   Chromium pada 47 halaman:
+
+       terang  #E53935 di krem     rasio 3,82
+       gelap   #E53935 di #1A1A1A  rasio 4,12
+
+   Keduanya di bawah ambang WCAG AA 4,5, dan teksnya kecil (10px, tebal).
+
+   Warna inline sudah dicabut. Merah kini lebih dalam agar lulus di krem,
+   dan mode gelap memakai emas penuh — warna aksen yang memang sudah
+   dipakai tema gelap di berkas lain. */
 .kn-logo-tag {
   font-size: 10px; font-weight: 700;
   letter-spacing: .10em; text-transform: uppercase;
-  color: #8B6E56; line-height: 1; white-space: nowrap;
+  color: #C62828; line-height: 1; white-space: nowrap;
 }
-[data-theme="dark"] .kn-logo-tag { color:rgba(200,155,60,.7); }
+[data-theme="dark"] .kn-logo-tag { color: #C89B3C; }
 
 /* ── CENTER NAV LINKS ────────────────────────────────────── */
 .kn-links {
