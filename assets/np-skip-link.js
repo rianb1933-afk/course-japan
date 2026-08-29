@@ -51,6 +51,18 @@
     var link = document.createElement('a');
     link.href = '#' + targetId;
     link.className = 'skip-link np-skip-injected';
+    // Warna dipasang sebagai gaya INLINE ber-!important, bukan lewat <style>.
+    //
+    // Tema situs memuat aturan color:#6B4F3A !important yang ikut mengenai
+    // tautan ini. Dua !important sama kuat, jadi pemenangnya kekhususan —
+    // dan menaikkan kekhususan selektor (bahkan .a.a) ternyata masih kalah.
+    // Inline + !important selalu menang, dan itu pantas di sini: tautan
+    // aksesibilitas harus terbaca apa pun tema yang dimuat halaman.
+    //
+    // Diukur di Chromium: cokelat di atas merah memberi rasio 1,17 — dan
+    // tautan ini justru MUNCUL saat difokus keyboard. Putih memberi 7,16.
+    link.style.setProperty('background', '#A63A3A', 'important');
+    link.style.setProperty('color', '#FFFFFF', 'important');
     link.textContent = 'Lewati ke konten utama';
     link.addEventListener('click', function () {
       // pastikan fokus benar-benar berpindah (beberapa browser butuh ini)
@@ -63,9 +75,22 @@
       var s = document.createElement('style');
       s.id = 'np-skip-style';
       s.textContent =
+        // !important pada warna: gaya ini disuntikkan lewat <style> tanpa
+        // prioritas, sehingga aturan tema bertanda !important di berkas lain
+        // menimpanya. Diukur di Chromium: warna teks berakhir cokelat
+        // #6B4F3A di atas merah #A63A3A — rasio kontras 1,17, dan tautan ini
+        // justru MUNCUL saat difokus keyboard. Putih di atas merah yang sama
+        // memberi 7,16.
+        // Kelas digandakan (.a.a) untuk menaikkan kekhususan. Tema situs punya
+        // aturan color:#6B4F3A !important yang ikut mengenai tautan ini;
+        // dengan !important sama kuat, pemenangnya ditentukan kekhususan.
+        // Sekali !important saja kalah, dan hasilnya cokelat di atas merah —
+        // rasio 1,17, padahal tautan ini justru MUNCUL saat difokus keyboard.
         '.np-skip-injected{position:absolute;left:-999px;top:0;z-index:10000;' +
-        'background:#A63A3A;color:#fff;padding:10px 18px;border-radius:0 0 8px 0;' +
+        'padding:10px 18px;border-radius:0 0 8px 0;' +
         'font:600 14px/1.2 system-ui,sans-serif;text-decoration:none;}' +
+        '.np-skip-injected.np-skip-injected{background:#A63A3A !important;' +
+        'color:#FFFFFF !important;}' +
         '.np-skip-injected:focus{left:0;outline:3px solid #C89B3C;outline-offset:2px;}';
       document.head.appendChild(s);
     }

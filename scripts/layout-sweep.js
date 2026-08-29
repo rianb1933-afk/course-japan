@@ -124,7 +124,12 @@ function ukur({ AMBANG, AMBANG_BESAR, SENTUH_MIN, mobile }) {
     const s = getComputedStyle(e);
     if (s.display === 'none' || s.visibility === 'hidden' || +s.opacity < 0.15) return false;
     const r = e.getBoundingClientRect();
-    return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight;
+    // Batas MENDATAR ikut diperiksa. Versi pertama hanya memeriksa batas
+    // tegak, sehingga elemen yang diparkir di luar layar secara mendatar
+    // (skip-link pada left:-999px) tetap terhitung terlihat.
+    return r.width > 0 && r.height > 0
+      && r.bottom > 0 && r.top < innerHeight
+      && r.right > 0 && r.left < innerWidth;
   };
 
   // ── 1. luber mendatar ──
