@@ -408,3 +408,37 @@ body:has(#knThemeBtn) .theme-toggle-float { display: none; }
   .pro-floating-actions { bottom: calc(92px + var(--np-bar)); }
   .translator-launch    { bottom: calc(252px + var(--np-bar)); }
 }
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   TEKS DI DALAM PANEL HERO GELAP
+   ══════════════════════════════════════════════════════════════════════
+   Aturan ini memberi latar gelap ke setiap elemen berkelas mengandung
+   "hero", dan ada di DUA tempat sekaligus:
+
+       assets/kyoto-theme.css        dimuat  91 halaman
+       assets/kyoto-bundle.min.css   dimuat 374 halaman  (tanpa berkas sumber)
+
+   Keduanya menyetel latar #2D2D2D tapi tidak pernah menyetel warna teks,
+   sehingga isinya mewarisi warna gelap halaman — gelap di atas gelap.
+
+   Diukur di Chromium pada halaman akar:
+
+       h1        #6B4F3A cokelat  rasio 1,84   7 halaman
+       p         #6E6E6E abu      rasio 2,70   6 halaman
+       .kicker   #6B4F3A          rasio 1,84   4 halaman
+       .eyebrow  #6B4F3A          rasio 1,84   2 halaman
+
+   Perbaikannya ditaruh DI SINI, bukan di kyoto-theme.css. Berkas itu hanya
+   menjangkau 91 halaman; kyoto-elevation.css dimuat 375 halaman dan berada
+   SESUDAH kyoto-bundle.min.css dalam urutan muat, jadi ia menang atas
+   salinan di bundel yang tidak punya berkas sumber untuk disunting.
+
+   Hanya empat jenis elemen yang disetel, bukan seluruh keturunannya:
+   lencana, pil, dan tombol di dalam hero sering memakai warna aksen yang
+   memang disengaja, dan `color: inherit` menyeluruh akan memucatkannya. */
+:is(.hero-bar, .prem-cta,
+    [class*="hero"]:not(.hero-chip):not(.hero-left):not(.hero-right))
+  :is(h1, h2, p, .kicker, .eyebrow) {
+  color: #EDE7DA !important;
+}
