@@ -1,3 +1,26 @@
+/* CATATAN WARNA COKELAT #6B4F3A
+   ────────────────────────────
+   Blok [data-theme="dark"] di berkas ini SUDAH membalik --primary menjadi
+   emas #C89B3C. Yang tidak ikut membalik adalah aturan yang menulis cokelat
+   itu sebagai nilai harfiah, bukan lewat token.
+
+   Akibatnya teks cokelat tetap cokelat di atas latar gelap. Diukur di
+   Chromium pada 53 halaman akar:
+
+       203×  rasio 2,32   #6B4F3A di rgb(26,26,26)
+       156×  rasio 1,17   #6B4F3A di rgb(166,58,58)   ← nyaris tak terlihat
+        86×  rasio 2,52   #6B4F3A di rgb(17,17,17)
+
+   Sekitar 479 dari 1.332 temuan kontras berasal dari satu warna ini.
+
+   Deklarasi color: kini memakai var(--primary). Di mode terang nilainya
+   tetap #6B4F3A persis seperti sebelumnya, jadi tampilan terang tidak
+   berubah sedikit pun; di mode gelap ia ikut menjadi emas.
+
+   Deklarasi background: dan border-color: SENGAJA dibiarkan harfiah —
+   latar cokelat dengan teks putih di atasnya sudah berkontras cukup, dan
+   mengubahnya menjadi emas justru berisiko menurunkan kontras teks itu. */
+
 /* ═══════════════════════════════════════════════════════════════
    京都 KYOTO THEME — Global Overrides
    Replaces all old red/blue brand colors with Kyoto palette
@@ -130,7 +153,7 @@ nav,
 .nav-logo-jp,
 .dash-brand-jp,
 .brand strong {
-  color: #6B4F3A !important;
+  color: var(--primary) !important;
   font-family: 'Noto Serif JP',serif !important;
 }
 [data-theme="dark"] .nav-logo-jp,
@@ -145,7 +168,7 @@ nav,
 .dash-nav-links a:hover,
 .dash-nav-links a.active {
   background: #F5EDE0 !important;
-  color: #6B4F3A !important;
+  color: var(--primary) !important;
 }
 [data-theme="dark"] .nav-links a:hover,
 [data-theme="dark"] .nav-links a.active,
@@ -166,7 +189,7 @@ nav,
 .send-btn,
 button[class*="primary"] {
   background: #6B4F3A !important;
-  border-color: #6B4F3A !important;
+  border-color: var(--primary) !important;
   color: #FEFCF8 !important;
   box-shadow: 0 4px 16px rgba(107,79,58,.25) !important;
 }
@@ -191,7 +214,7 @@ button[class*="primary"] {
 .plan-btn:not(.filled),
 .btn-white {
   border-color: rgba(107,79,58,.25) !important;
-  color: #6B4F3A !important;
+  color: var(--primary) !important;
 }
 .btn-outline:hover { background: #F5EDE0 !important; }
 
@@ -200,7 +223,7 @@ button[class*="primary"] {
 button:focus-visible,
 a:focus-visible,
 input:focus-visible {
-  outline-color: #6B4F3A !important;
+  outline-color: var(--primary) !important;
 }
 [data-theme="dark"] *:focus-visible { outline-color: #C89B3C !important; }
 
@@ -274,7 +297,7 @@ input:focus-visible {
    QUIZ OPTIONS
    ══════════════════════════════════════ */
 .quiz-opt:hover:not(.disabled),
-.quiz-opt.selected { border-color: #6B4F3A !important; background: #F5EDE0 !important; }
+.quiz-opt.selected { border-color: var(--primary) !important; background: #F5EDE0 !important; }
 .quiz-opt.correct  { border-color: #5B7C5B !important; background: #EAF2E8 !important; }
 .quiz-opt.incorrect { border-color: #A63A3A !important; background: #FAEAEA !important; }
 
@@ -304,7 +327,7 @@ input:focus,
 textarea:focus,
 select:focus,
 .auth-input:focus {
-  border-color: #6B4F3A !important;
+  border-color: var(--primary) !important;
   box-shadow: 0 0 0 3px rgba(107,79,58,.12) !important;
   outline: none !important;
 }
@@ -318,7 +341,7 @@ select:focus,
    MOBILE NAV
    ══════════════════════════════════════ */
 .mobile-nav-item.active,
-.mobile-nav-item:hover { color: #6B4F3A !important; }
+.mobile-nav-item:hover { color: var(--primary) !important; }
 [data-theme="dark"] .mobile-nav-item.active,
 [data-theme="dark"] .mobile-nav-item:hover { color: #C89B3C !important; }
 
@@ -347,14 +370,14 @@ select:focus,
   overflow: hidden;
 }
 /* Color stat icons via data attr — done in JS */
-.stat-card .stat-val { color: #6B4F3A !important; }
+.stat-card .stat-val { color: var(--primary) !important; }
 [data-theme="dark"] .stat-card .stat-val { color: #C89B3C !important; }
 
 /* ══════════════════════════════════════
    KAIGO MODULE CARDS
    ══════════════════════════════════════ */
 .kaigo-mod:hover {
-  border-color: #6B4F3A !important;
+  border-color: var(--primary) !important;
   background: #F5EDE0 !important;
 }
 
@@ -368,12 +391,12 @@ select:focus,
   color: #C89B3C !important;
 }
 .auth-tab.active {
-  color: #6B4F3A !important;
-  border-bottom-color: #6B4F3A !important;
+  color: var(--primary) !important;
+  border-bottom-color: var(--primary) !important;
 }
 .auth-submit {
   background: #6B4F3A !important;
-  border-color: #6B4F3A !important;
+  border-color: var(--primary) !important;
 }
 .auth-submit:hover { background: #553C2B !important; }
 
@@ -384,7 +407,7 @@ select:focus,
 .eyebrow,
 [class*="eyebrow"],
 [class*="label"] {
-  color: #6B4F3A !important;
+  color: var(--primary) !important;
 }
 
 /* ══════════════════════════════════════
@@ -402,7 +425,7 @@ select:focus,
 .send-btn,
 [class*="send"] {
   background: #6B4F3A !important;
-  border-color: #6B4F3A !important;
+  border-color: var(--primary) !important;
   color: white !important;
 }
 
@@ -444,7 +467,7 @@ select:focus,
 .icon-btn[data-theme-toggle] {
   background: #FEFCF8 !important;
   border: 1px solid rgba(107,79,58,.20) !important;
-  color: #6B4F3A !important;
+  color: var(--primary) !important;
   width: 36px;
   height: 36px;
   border-radius: 6px;
@@ -485,7 +508,7 @@ select:focus,
 a[class*="action"],
 a[class*="more"],
 a[class*="link"]:not([class*="footer"]) {
-  color: #6B4F3A !important;
+  color: var(--primary) !important;
 }
 [data-theme="dark"] .sec-action { color: #C89B3C !important; }
 

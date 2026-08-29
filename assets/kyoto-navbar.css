@@ -1,3 +1,24 @@
+/* EMPAT ATURAN MODE GELAP YANG JUSTRU MEMPERTAHANKAN WARNA TERANG
+   ────────────────────────────────────────────────────────────────
+   Keempat aturan [data-theme="dark"] di bawah menyetel color: #6B4F3A —
+   cokelat yang dipakai mode TERANG. Menulis aturan gelap yang menyalin
+   warna terang membatalkan seluruh gunanya.
+
+   Diukur di Chromium pada 53 halaman akar, mode gelap:
+
+       .kn-logo-jp     rasio 2,32   cokelat di rgb(26,26,26)
+       .kn-link        rasio 2,52   cokelat di rgb(17,17,17)
+       .kn-icon-btn    rasio 2,52
+       .kn-btn-ghost   rasio 2,32
+
+   Semuanya di bawah ambang WCAG AA 4,5 — logo, menu, tombol pencarian,
+   dan tombol Masuk di navbar sulit dibaca di seluruh situs saat gelap.
+
+   Warnanya kini emas #C89B3C, warna aksen yang memang sudah dipakai mode
+   gelap di berkas lain (--primary dibalik menjadi emas di kyoto-theme.css).
+   Latar dan garis tepinya ikut disesuaikan ke keluarga emas supaya tidak
+   ada sisa rona cokelat. */
+
 /* ═══════════════════════════════════════════════════════════════
    京都 KYOTO NAVBAR v5 — Production Ready
    Compact 64px, sticky, dropdown, mobile drawer
@@ -98,7 +119,7 @@ nav.kn-nav {
   line-height: 1;
   white-space: nowrap;
 }
-[data-theme="dark"] .kn-logo-jp { color: #6B4F3A; }
+[data-theme="dark"] .kn-logo-jp { color: var(--gold, #C89B3C); }
 .kn-logo-sep { width:1px; height:16px; background:rgba(107,79,58,.25); flex-shrink:0; }
 [data-theme="dark"] .kn-logo-sep { background:rgba(200,155,60,.25); }
 .kn-logo-tag {
@@ -146,9 +167,9 @@ nav.kn-nav {
   background: rgba(107,79,58,.07);
 }
 .kn-link.active { font-weight: 700; }
-[data-theme="dark"] .kn-link { color: #4A4A4A; }
+[data-theme="dark"] .kn-link { color: var(--ink-mid, #D0CFC9); }
 [data-theme="dark"] .kn-link:hover,
-[data-theme="dark"] .kn-link.active { color: #6B4F3A; background: rgba(107,79,58,.07); }
+[data-theme="dark"] .kn-link.active { color: var(--gold, #C89B3C); background: rgba(200,155,60,.10); }
 
 .kn-chevron { width:14px; height:14px; opacity:.5; transition:transform 200ms; flex-shrink:0; }
 .kn-item.open > .kn-link .kn-chevron { transform:rotate(180deg); opacity:.8; }
@@ -255,7 +276,7 @@ nav.kn-nav {
   transition:background 120ms, border-color 120ms; flex-shrink:0;
 }
 .kn-icon-btn:hover { background:rgba(107,79,58,.08); border-color:rgba(107,79,58,.30); }
-[data-theme="dark"] .kn-icon-btn { border-color:rgba(107,79,58,.18); color:#6B4F3A; }
+[data-theme="dark"] .kn-icon-btn { border-color:rgba(200,155,60,.20); color:var(--gold, #C89B3C); }
 [data-theme="dark"] .kn-icon-btn:hover { background:rgba(200,155,60,.10); border-color:rgba(200,155,60,.35); }
 
 .kn-btn-ghost {
@@ -267,7 +288,7 @@ nav.kn-nav {
   text-decoration:none; display:inline-flex; align-items:center; white-space:nowrap;
 }
 .kn-btn-ghost:hover { background:rgba(107,79,58,.07); border-color:rgba(107,79,58,.35); }
-[data-theme="dark"] .kn-btn-ghost { border-color:rgba(107,79,58,.22); color:#6B4F3A; }
+[data-theme="dark"] .kn-btn-ghost { border-color:rgba(200,155,60,.24); color:var(--gold, #C89B3C); }
 [data-theme="dark"] .kn-btn-ghost:hover { background:rgba(200,155,60,.08); border-color:rgba(200,155,60,.38); }
 
 .kn-btn-primary {
@@ -307,7 +328,7 @@ nav.kn-nav {
   font-size:12px; font-weight:600; color:#4A4A4A;
   max-width:80px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
 }
-[data-theme="dark"] .kn-user-name { color:#4A4A4A; }
+[data-theme="dark"] .kn-user-name { color:var(--ink-mid, #D0CFC9); }
 
 .kn-user-dropdown {
   position:absolute; top:calc(100% + 8px); right:0;
