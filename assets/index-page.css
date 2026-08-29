@@ -2048,7 +2048,12 @@ footer {
   position: fixed;
   bottom: 0; left: 0; right: 0;
   z-index: 90;
-  background: var(--ink);
+  /* Latarnya dulu var(--ink), yang MEMBALIK menjadi #F5F5F5 terang di mode
+     gelap — sementara teksnya dipaksa putih oleh aturan lain. Hasilnya putih
+     di atas nyaris-putih, rasio 1,09 (diukur di Chromium, 15 temuan di 6
+     halaman). Bilah ini panel gelap menurut rancangannya, jadi warnanya
+     dipatok gelap di kedua tema, sama seperti panel hero. */
+  background: #2D2D2D;
   border-top: 0.5px solid rgba(255,255,255,0.1);
   padding: 12px 5vw;
   display: flex;
@@ -3578,7 +3583,11 @@ footer {
 
 /* ── Sticky bar ── */
 .sticky-bar {
-  background: var(--ink) !important;
+  /* var(--ink) membalik menjadi #F5F5F5 terang di mode gelap, sedangkan teks
+     bilah ini dipaksa putih — rasio 1,09. Dipatok gelap, sama seperti aturan
+     dasarnya. Ada DUA deklarasi var(--ink) !important di berkas ini; hanya
+     yang di dalam .sticky-bar yang diubah. */
+  background: #2D2D2D !important;
   border-top: 1px solid rgba(255,255,255,0.08) !important;
   box-shadow: 0 -8px 32px rgba(0,0,0,0.15) !important;
 }
