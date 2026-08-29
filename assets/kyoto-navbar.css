@@ -1,3 +1,19 @@
+/* LABEL SEKSI DI DROPDOWN & DRAWER
+   .kn-dd-section, .kn-mega-head, .kn-drawer-section memakai #A0A0A0 — rasio
+   2,55 di atas krem, jauh di bawah ambang WCAG AA 4,5 untuk teks sekecil
+   itu (10-11px, huruf besar semua, berjarak lebar).
+
+   Label ini memang tak terlihat sampai dropdown dibuka, tapi begitu terbuka
+   ia teks biasa dan ambangnya berlaku penuh.
+
+   #6F6F6F adalah abu paling terang yang masih lulus di krem tergelap pada
+   palet ini (#F8F3E9 → 4,54). Tidak ada ruang untuk tingkat "lebih redup"
+   yang tetap terbaca: apa pun yang lebih terang dari ini gagal.
+
+   Ketiganya tidak punya varian mode gelap, sehingga abu gelap itu akan
+   duduk di atas dropdown gelap (rasio 3,46). Varian gelapnya ditambahkan
+   di bawah berkas ini. */
+
 /* EMPAT ATURAN MODE GELAP YANG JUSTRU MEMPERTAHANKAN WARNA TERANG
    ────────────────────────────────────────────────────────────────
    Keempat aturan [data-theme="dark"] di bawah menyetel color: #6B4F3A —
@@ -247,7 +263,7 @@ nav.kn-nav {
 [data-theme="dark"] .kn-dd-sep { background:rgba(200,155,60,.08); }
 .kn-dd-section {
   font-size:9px; font-weight:700; letter-spacing:.14em;
-  text-transform:uppercase; color:#A0A0A0; padding:6px 10px 2px;
+  text-transform:uppercase; color:#6F6F6F; padding:6px 10px 2px;
 }
 
 /* ── MEGA MENU ───────────────────────────────────────────── */
@@ -276,7 +292,7 @@ nav.kn-nav {
 .kn-mega-col { display:flex; flex-direction:column; gap:2px; }
 .kn-mega-head {
   font-size:9px; font-weight:700; letter-spacing:.14em;
-  text-transform:uppercase; color:#A0A0A0;
+  text-transform:uppercase; color:#6F6F6F;
   padding:4px 10px 6px; display:flex; align-items:center; gap:6px;
 }
 .kn-mega-head::after { content:''; flex:1; height:1px; background:rgba(107,79,58,.10); }
@@ -452,7 +468,7 @@ nav.kn-nav {
 .kn-drawer-body { flex:1; padding:12px 16px 24px; display:flex; flex-direction:column; gap:2px; }
 .kn-drawer-section {
   font-size:9px; font-weight:700; letter-spacing:.15em;
-  text-transform:uppercase; color:#A0A0A0; padding:12px 4px 4px;
+  text-transform:uppercase; color:#6F6F6F; padding:12px 4px 4px;
 }
 .kn-drawer-link {
   display:flex; align-items:center; gap:10px; padding:10px;
@@ -559,3 +575,10 @@ nav.kn-nav.scrolled {
 [data-theme="dark"] html body nav.kn-nav {
   background: #1A1A1A !important;
 }
+
+
+/* Varian mode gelap untuk label seksi — lihat catatan di awal berkas.
+   Tanpa ini, #6F6F6F duduk di atas latar dropdown gelap dengan rasio 3,46. */
+[data-theme="dark"] .kn-dd-section,
+[data-theme="dark"] .kn-mega-head,
+[data-theme="dark"] .kn-drawer-section { color: #A5A29B; }

@@ -60,7 +60,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 .p-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#6B4F3A,#C89B3C);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#FEF;flex-shrink:0}
 .p-name{font-size:13px;font-weight:700;color:#2D2D2D}
 [data-theme="dark"] .p-name{color:#E8E5DF}
-.p-time{font-size:11px;color:#A0A0A0}
+.p-time{font-size:11px;color:#6F6F6F}
 .p-tag{margin-left:auto;font-size:10px;font-weight:700;padding:3px 10px;border-radius:10px;background:rgba(107,79,58,.08);color:#6B4F3A;text-transform:uppercase;letter-spacing:.05em}
 [data-theme="dark"] .p-tag{background:rgba(200,155,60,.10);color:#C89B3C}
 .p-body{font-size:14px;line-height:1.7;color:#3D3D3D;margin-bottom:12px;white-space:pre-wrap}
@@ -72,7 +72,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 /* SIDEBAR */
 .side-card{background:#FEFCF8;border:1px solid rgba(107,79,58,.10);border-radius:14px;padding:16px;margin-bottom:14px}
 [data-theme="dark"] .side-card{background:#1A1A1A;border-color:rgba(200,155,60,.10)}
-.side-title{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#A0A0A0;margin-bottom:10px}
+.side-title{font-size:11px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#6F6F6F;margin-bottom:10px}
 .guideline-item{display:flex;gap:8px;font-size:12px;color:#6E6E6E;margin-bottom:8px;line-height:1.5}
 .member-row{display:flex;align-items:center;gap:8px;margin-bottom:8px;font-size:12px}
 .member-dot{width:6px;height:6px;border-radius:50%;background:#5B7C5B;flex-shrink:0}
@@ -248,7 +248,7 @@ function render(){
   const filtered = currentFilter==='all' ? posts : posts.filter(p=>p.tag===currentFilter);
   const list = document.getElementById('postList');
   if(!filtered.length){
-    list.innerHTML = '<div style="text-align:center;padding:40px;color:#A0A0A0">Belum ada postingan untuk kategori ini.</div>';
+    list.innerHTML = '<div style="text-align:center;padding:40px;color:#6F6F6F">Belum ada postingan untuk kategori ini.</div>';
     return;
   }
   list.innerHTML = filtered.map(p => `
