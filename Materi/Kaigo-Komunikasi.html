@@ -42,8 +42,6 @@ renderVocabGrid('pg', PH_VOCAB);
 <link rel="stylesheet" href="../assets/pro-style.css">
 <link rel="stylesheet" href="../assets/neko-theme.css?v=3">
 
-
-
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
@@ -61,111 +59,7 @@ renderVocabGrid('pg', PH_VOCAB);
 <meta name="twitter:description" content="Komunikasi dan psikologi perawatan 介護福祉士: teknik komunikasi efektif dengan lansia, keluarga, dan tim medis dalam bahasa Jepang.">
 <meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
 
-.brand{display:flex;align-items:baseline;gap:8px;text-decoration:none}
-.brand strong{font-family:"Noto Serif JP",serif;color:var(--red);font-size:21px}
-.brand span{font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.1em;text-transform:uppercase}
-.nav-links{display:flex;gap:2px;list-style:none}
-
-.nav-right{display:flex;gap:8px;align-items:center}
-.btn-nav{height:36px;padding:0 14px;border-radius:8px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;transition:all .15s}
-.btn-nav:hover{border-color:var(--red);color:var(--red)}
-.hamb{display:none;width:36px;height:36px;border-radius:8px;border:1px solid var(--border-mid);background:none;cursor:pointer;flex-direction:column;align-items:center;justify-content:center;gap:4px}
-.hamb span{display:block;width:16px;height:2px;background:var(--ink);border-radius:1px}
-@media(max-width:768px){.nav-links{display:none!important}.hamb{display:flex!important}}
-.hero{padding:clamp(40px,6vw,64px) clamp(16px,5vw,72px) 40px;background:var(--ink);color:#fff;position:relative;overflow:hidden}
-.hero::before{content:"心";position:absolute;right:-10px;bottom:-30px;font-family:"Noto Serif JP",serif;font-size:160px;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;user-select:none}
-.hero-inner{max-width:1100px;margin:0 auto;position:relative}
-.kicker{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8a80;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.875rem}
-h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,46px);line-height:1.1;margin-bottom:.625rem}
-.hero-desc{color:rgba(255,255,255,.62);font-size:14px;line-height:1.85;max-width:640px;margin-bottom:1.25rem}
-.breadcrumb{padding:.5rem clamp(16px,5vw,72px);background:var(--white);border-bottom:1px solid var(--border);font-size:12px;color:var(--ink-soft)}
-.breadcrumb a{color:var(--ink-soft);text-decoration:none}.breadcrumb a:hover{color:var(--red)}.breadcrumb span{margin:0 .35rem}
-/* Module 
-.mod-link{display:inline-flex;align-items:center;height:32px;padding:0 12px;border-radius:7px;font-size:12px;font-weight:700;color:var(--ink-mid);text-decoration:none;transition:all .15s;margin-right:.3rem}
-.mod-link:hover,.mod-link.active{background:var(--red-pale);color:var(--red)}
-/* Layout */
-.page-layout{display:grid;grid-template-columns:220px 1fr;flex:1}
-@media(max-width:860px){.page-layout{grid-template-columns:1fr}.toc-panel{display:none}}
-.toc-panel{position:sticky;top:68px;height:calc(100vh - 68px);overflow-y:auto;border-right:1px solid var(--border);background:var(--white);padding:1.25rem}
-.toc-title{font-size:10px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.75rem}
-.toc-a{display:block;padding:.3rem .5rem;border-radius:6px;font-size:12px;color:var(--ink-mid);text-decoration:none;transition:all .15s;border-left:2px solid transparent;margin-bottom:.1rem}
-.toc-a:hover,.toc-a.on{background:var(--red-pale);color:var(--red);border-left-color:var(--red);font-weight:700}
-.toc-a.sub{padding-left:1rem;font-size:11px}
-.content{padding:2rem clamp(16px,4vw,48px) 5rem;min-width:0;max-width:900px}
-/* Sections */
-.sec{margin-bottom:3rem;scroll-margin-top:88px}
-.sec-num{font-size:10px;font-weight:800;color:var(--red);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
-.sec h2{font-family:"Noto Serif JP",serif;font-size:clamp(20px,3vw,28px);margin-bottom:.5rem}
-.sec-desc{color:var(--ink-mid);font-size:14px;line-height:1.85;margin-bottom:1.25rem}
-.sec h3{font-family:"Noto Serif JP",serif;font-size:18px;margin:1.75rem 0 .875rem;display:flex;align-items:center;gap:.5rem}
-.sec h3::before{content:'';display:block;width:4px;height:18px;background:var(--red);border-radius:2px;flex-shrink:0}
-.sec h4{font-size:14px;font-weight:800;margin:1.25rem 0 .5rem}
-/* Info boxes */
-.box{border-radius:10px;padding:.875rem 1.125rem;margin-bottom:1rem;border:.5px solid;font-size:13px;line-height:1.75}
-.box.tip{background:var(--blue-pale);border-color:rgba(47,111,237,.2);color:var(--ink-mid)}
-.box.warn{background:var(--gold-pale,rgba(185,137,47,.08));border-color:rgba(185,137,47,.2)}
-.box.red{background:var(--red-pale);border-color:rgba(190,52,40,.15)}
-.box.green{background:var(--green-pale);border-color:rgba(33,135,93,.2)}
-.box-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem}
-.box.tip .box-title{color:var(--blue)}.box.warn .box-title{color:var(--gold)}.box.red .box-title{color:var(--red)}.box.green .box-title{color:var(--green)}
-/* Vocab cards */
-.vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.875rem;margin-bottom:1.5rem}
-.vc{background:var(--white);border-radius:12px;padding:1.125rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);transition:all .2s}
-.vc:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(0,0,0,.07);border-color:var(--red)}
-.vc-jp{font-family:"Noto Serif JP",serif;font-size:20px;font-weight:700;margin-bottom:.15rem}
-.vc-rom{font-size:11px;color:var(--ink-soft);font-style:italic;margin-bottom:.3rem}
-.vc-id{font-size:13px;font-weight:700;color:var(--red);margin-bottom:.4rem}
-.vc-ex{font-size:12px;color:var(--ink-mid);border-top:.5px solid var(--border);padding-top:.4rem;margin-top:.4rem;line-height:1.6}
-.vc-ex-jp{font-family:"Noto Serif JP",serif;font-weight:600;color:var(--ink)}
-.lv-badge{display:inline-block;padding:1px 7px;border-radius:4px;font-size:10px;font-weight:800;margin-bottom:.4rem}
-/* Table */
-.tbl{width:100%;border-collapse:collapse;margin-bottom:1.5rem;background:var(--white);border-radius:12px;overflow:hidden;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm)}
-.tbl th{background:var(--ink);color:#fff;padding:.625rem 1rem;font-size:12px;font-weight:700;text-align:left}
-.tbl td{padding:.625rem 1rem;font-size:13px;border-bottom:.5px solid var(--border);line-height:1.6;vertical-align:top}
-.tbl tr:last-child td{border-bottom:none}
-.tbl tr:nth-child(even) td{background:var(--cream)}
-.td-jp{font-family:"Noto Serif JP",serif;font-size:14px;font-weight:600}
-/* Procedure steps */
-.steps{display:flex;flex-direction:column;gap:.625rem;margin-bottom:1.5rem}
-.step{display:flex;gap:.875rem;align-items:flex-start;padding:.875rem 1rem;background:var(--white);border-radius:10px;border:.5px solid var(--border-mid)}
-.step-num{width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.step-body{flex:1}
-.step-title{font-size:14px;font-weight:700;margin-bottom:.2rem}
-.step-jp{font-family:"Noto Serif JP",serif;font-size:14px;color:var(--ink);margin-bottom:.15rem}
-.step-id{font-size:12px;color:var(--ink-soft)}
-.step-note{font-size:11px;color:var(--gold);font-weight:600;margin-top:.2rem}
-/* Dialog */
-.dialog{background:var(--white);border-radius:12px;padding:1.25rem;border:.5px solid var(--border-mid);box-shadow:var(--shadow-sm);margin-bottom:1.25rem}
-.dialog-title{font-size:13px;font-weight:800;margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem}
-.d-turn{display:flex;gap:.625rem;align-items:flex-start;margin-bottom:.5rem}
-.d-role{min-width:48px;padding:2px 6px;border-radius:5px;font-size:10px;font-weight:800;text-align:center;flex-shrink:0}
-.d-text .jp{font-family:"Noto Serif JP",serif;font-size:13px;font-weight:600;margin-bottom:.1rem}
-.d-text .id{font-size:11px;color:var(--ink-soft)}
-/* Quiz */
-.quiz-wrap{background:var(--ink);color:#fff;border-radius:14px;padding:1.5rem;margin-top:2rem}
-.q-title{font-size:13px;font-weight:800;color:rgba(255,255,255,.7);margin-bottom:1rem}
-.q-text{font-family:"Noto Serif JP",serif;font-size:17px;margin-bottom:1rem;line-height:1.65}
-.q-opts{display:flex;flex-direction:column;gap:.4rem;margin-bottom:.875rem}
-.q-opt{padding:.75rem 1rem;border-radius:8px;border:1.5px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05);color:#fff;cursor:pointer;font-family:Outfit,sans-serif;font-size:13px;font-weight:600;text-align:left;transition:all .15s}
-.q-opt:hover{border-color:rgba(255,255,255,.4)}
-.q-opt.ok{border-color:#22c55e;background:rgba(34,197,94,.2)}
-.q-opt.ng{border-color:#ef4444;background:rgba(239,68,68,.2)}
-.q-fb{font-size:12px;color:rgba(255,255,255,.65);padding:.625rem;background:rgba(255,255,255,.06);border-radius:7px;display:none;line-height:1.65}
-.q-nav{display:flex;justify-content:space-between;align-items:center;margin-top:.875rem}
-.q-btn{height:34px;padding:0 14px;border-radius:8px;border:none;font-family:Outfit,sans-serif;font-size:12px;font-weight:700;cursor:pointer}
-.q-btn.nxt{background:var(--red);color:#fff}
-.q-btn.rst{background:rgba(255,255,255,.1);color:rgba(255,255,255,.6)}
-/* btt */
-#bttBtn{position:fixed;bottom:5.5rem;right:1.5rem;width:42px;height:42px;border-radius:50%;background:var(--red);color:#fff;border:none;font-size:18px;cursor:pointer;opacity:0;transition:opacity .3s;z-index:150;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(190,52,40,.3)}
-*:focus-visible{outline:2px solid var(--red);outline-offset:2px;border-radius:4px}
-
-.pg-vocab{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0}
-.pv{background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px}
-</style>
 </head>
 <body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>
@@ -412,8 +306,6 @@ initQuiz(QUIZ_KOM);
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>
 <script src="../assets/anime-theme.js" defer></script>
-
-
 
 <button aria-label="Ganti tema" class="theme-toggle theme-toggle-float" onclick="toggleTheme()">🌙</button>
 </body>
