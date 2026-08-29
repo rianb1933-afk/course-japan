@@ -1842,6 +1842,70 @@ def check_explanation_id_coverage():
            f'Kaigo {kaigo_c}/{kaigo_t} penjelasan kuis punya kalimat Indonesia utuh.')
 
 
+def check_literal_bg_with_token_color():
+    """Latar harfiah terang tidak boleh dipasangkan dengan warna teks token.
+
+    Bug ini menghapus teks di mode gelap, dan bentuknya selalu sama:
+
+        .mascot-bubble, .study-mini-card {
+          background: #fff !important;      ← harfiah, tidak ikut tema
+          color: var(--ink) !important;     ← token, ikut tema
+        }
+
+    Di mode terang --ink gelap, jadi terbaca. Di mode gelap --ink menjadi
+    #F5F5F5 sementara latarnya tetap dipaksa putih — rasio kontras 1,09,
+    praktis tak terlihat. Diukur di Chromium pada index.html: tiga kartu
+    hero dan kartu testimoni semuanya hilang.
+
+    Perbaikannya satu kata: var(--white) membalik #FEFCF8 → #1A1A1A,
+    sehingga latar dan teks selalu berasal dari satu set token.
+
+    Yang dicari PASANGANNYA, bukan latar harfiahnya saja — latar putih
+    harfiah sah selama warna teksnya juga harfiah (.btn-white memang
+    begitu, dan kontrasnya 7,49).
+    """
+    terang = re.compile(
+        r'background(?:-color)?\s*:\s*[^;}]*?'
+        r'(?:\#fff\b|\#ffffff\b|\#fefcf8\b|\#f8f8f8\b|\#fafafa\b|'
+        r'rgba?\(\s*2[45][0-9]\s*,\s*2[45][0-9]\s*,\s*2[45][0-9])', re.I)
+    token = re.compile(r'\bcolor\s*:\s*var\(--', re.I)
+    aturan = re.compile(r'([^{}]+)\{([^{}]*)\}')
+
+    temuan = []
+    for path in sorted(glob.glob(os.path.join(ROOT, 'assets', '*.css'))):
+        if '.min.' in os.path.basename(path):
+            continue
+        src = read(path)
+        for m in aturan.finditer(src):
+            sel, body = m.group(1).strip(), m.group(2)
+            if not sel or sel.startswith('@'):
+                continue
+            if terang.search(body) and token.search(body):
+                temuan.append((os.path.relpath(path, ROOT),
+                               src[:m.start()].count('\n') + 1,
+                               ' '.join(sel.split())[:56]))
+
+    # Sudah ada sebelum check ini ditulis dan TERBUKTI aman lewat pengukuran
+    # kontras di Chromium — latar putih memang disengaja dan teksnya terbaca.
+    SAH = {
+        ('assets/index-page.css', '.level-card.featured .level-badge'),  # 9,46
+        ('assets/index-page.css', '.auth-close:hover'),                  # tanpa teks
+        ('assets/index-page.css', '.btn-white'),                         # 7,49
+        ('assets/neko-theme.css', 'body'),                               # ditimpa aturan gelap
+    }
+    nyata = [t for t in temuan if (t[0], t[2]) not in SAH]
+
+    if nyata:
+        err('literal-bg', f'{len(nyata)} aturan memasangkan latar terang harfiah '
+                          f'dengan warna teks token — teksnya hilang di mode gelap:')
+        for f, b, sel in nyata[:8]:
+            err('literal-bg', f'    {f}:{b}  {sel}')
+    else:
+        ok('literal-bg',
+           f'Tidak ada latar harfiah berpasangan dengan teks token '
+           f'({len(SAH)} pengecualian terukur aman).')
+
+
 def check_no_hangul():
     """Tidak boleh ada aksara Korea di materi.
 
@@ -1998,6 +2062,7 @@ def main():
         check_kaigo_quiz_reachable,
         check_explanation_id_coverage,
         check_no_hangul,
+        check_literal_bg_with_token_color,
         check_kaigo_durations,
         check_kaigo_seed_sync,
         check_js_syntax,

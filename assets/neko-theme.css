@@ -399,16 +399,25 @@ a:hover,
   box-shadow: var(--shadow-lg) !important;
 }
 
+/* Teks #252525 di atas var(--red) rgb(190,52,40) memberi rasio kontras 2,71 —
+   di bawah ambang WCAG AA 4,5 untuk teks biasa, dan pita ini bukan teks besar
+   (13px, tebal 800). Putih di atas merah yang sama memberi 5,65. */
 .photo-ribbon {
   background: var(--red) !important;
-  color: #252525 !important;
+  color: #fff !important;
   border-radius: 4px !important;
   font-weight: 800 !important;
 }
 
+/* Latarnya dulu #fff harfiah sementara teksnya var(--ink) yang ikut tema.
+   Di mode gelap --ink menjadi #F5F5F5, jadi teks nyaris putih duduk di atas
+   latar yang dipaksa putih — rasio kontras 1,09, praktis tak terbaca.
+
+   Latar kini memakai var(--white) yang ikut membalik (#FEFCF8 → #1A1A1A),
+   sehingga pasangan latar-teks selalu berasal dari satu set token. */
 .mascot-bubble,
 .study-mini-card {
-  background: #fff !important;
+  background: var(--white) !important;
   border-color: var(--border-mid) !important;
   border-radius: 4px !important;
   color: var(--ink) !important;
@@ -607,8 +616,10 @@ footer * {
   color: inherit !important;
 }
 
+/* Pola yang sama dengan .mascot-bubble: latar #fff harfiah dipasangkan
+   dengan teks var(--ink) yang ikut tema. Di mode gelap rasionya 1,09. */
 .testi-card {
-  background: #fff !important;
+  background: var(--white) !important;
   color: var(--ink) !important;
 }
 
