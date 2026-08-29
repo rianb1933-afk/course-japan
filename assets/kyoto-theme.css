@@ -36,7 +36,15 @@
   --ink:          #2D2D2D;
   --ink-mid:      #4A4A4A;
   --ink-soft:     #6E6E6E;
-  --ink-faint:    #A0A0A0;
+  /* #A0A0A0 cuma 2,55:1 di atas krem. Token ini bernama "faint" tapi 142 dari
+     145 pemakaiannya adalah WARNA TEKS — label sidebar, judul panel, cap waktu
+     pesan — bukan garis atau hiasan. Di atas krem #F8F3E9, AA 4,5:1 tidak
+     mengizinkan apa pun yang lebih terang dari ~#6E6E6E, jadi di mode terang
+     tingkat "faint" memang tidak punya ruang: nilainya menyatu dengan
+     --ink-soft. Hierarkinya tetap terbaca lewat ukuran, tebal, dan huruf
+     kapital — yang semua label itu sudah pakai. Di mode gelap ruangnya ada,
+     jadi di sana ia tetap lebih redup dari --ink-soft. */
+  --ink-faint:    #6E6E6E;
   --cream:        #F8F3E9;
   --white:        #FEFCF8;
   --surface:      #FEFCF8;
@@ -88,7 +96,7 @@
   --ink:          #F5F5F5;
   --ink-mid:      #D0CFC9;
   --ink-soft:     #9A9890;
-  --ink-faint:    #666460;
+  --ink-faint:    #8A8784;   /* #666460 hanya 3,07:1 di atas #1A1A1A */
   --cream:        #111111;
   --white:        #1A1A1A;
   --surface:      #1A1A1A;
