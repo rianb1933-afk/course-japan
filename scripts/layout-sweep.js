@@ -242,9 +242,22 @@ function ukur({ AMBANG, AMBANG_BESAR, SENTUH_MIN, mobile }) {
         try {
           await p.goto(`file://${ROOT}/${f}`, { waitUntil: 'load', timeout: 20000 });
           await p.waitForTimeout(700);
+          // TRANSISI DIMATIKAN SEBELUM MENGUKUR.
+          //
+          // .kn-link punya `transition: color 120ms`. Mengganti tema lalu
+          // membaca warna terlalu cepat menangkap NILAI ANTARA — warna mode
+          // terang yang belum selesai berpindah ke nilai mode gelap. Itu
+          // melahirkan puluhan temuan palsu yang tampak meyakinkan karena
+          // pasangan warnanya nyata, hanya saja tidak pernah benar-benar
+          // terlihat selama itu oleh siapa pun.
+          //
+          // Menunggu lebih lama menutupi gejalanya tapi tidak menghilangkan
+          // kemungkinannya; mematikan transisi menghilangkan kelasnya.
+          await p.addStyleTag({ content:
+            '*,*::before,*::after{transition:none!important;animation:none!important}' });
           if (mode === 'dark') {
             await p.evaluate(() => document.documentElement.setAttribute('data-theme', 'dark'));
-            await p.waitForTimeout(400);
+            await p.waitForTimeout(250);
           }
           const r = await p.evaluate(ukur,
             { AMBANG, AMBANG_BESAR, SENTUH_MIN, mobile: w <= 480 });
