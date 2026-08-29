@@ -1825,7 +1825,7 @@ def check_explanation_id_coverage():
                 err('explanation-id', f'    {nama}  {teks[:70]}…')
 
     # Sisa Materi masih digarap: yang dijaga arahnya, bukan kepenuhannya.
-    BASELINE_LAIN = 1000
+    BASELINE_LAIN = 1173
     if lain_c < BASELINE_LAIN:
         err('explanation-id',
             f'Cakupan non-Kaigo turun ke {lain_c}/{lain_t}, di bawah '
