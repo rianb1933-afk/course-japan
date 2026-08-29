@@ -1906,6 +1906,107 @@ def check_literal_bg_with_token_color():
            f'({len(SAH)} pengecualian terukur aman).')
 
 
+def check_literal_grey_without_dark_variant():
+    """Abu tengah harfiah harus punya varian mode gelap.
+
+    Abu di tengah rentang gelap sampai terang gagal di KEDUA arah bila ia
+    tidak membalik: #6E6E6E memberi 4,98 di atas krem tapi hanya 3,4 di atas
+    #1A1A1A. Karena itu warna semacam ini tidak boleh ditulis harfiah pada
+    berkas yang sudah sadar-tema — ia harus token, atau punya pasangan
+    [data-theme="dark"].
+
+    Kesalahan ini terjadi DUA KALI di repo ini, dan yang kedua kubuat sendiri:
+    commit 6a69ecc mengganti #A0A0A0 yang tak terbaca menjadi #6F6F6F yang
+    terbaca — di mode terang. Warnanya tetap harfiah, jadi masalahnya cuma
+    pindah tema. Mengganti warna harfiah dengan warna harfiah lain hanya
+    memindahkan kegagalan, tidak menghapusnya.
+
+    Yang disisir: berkas CSS DAN blok <style> di dalam HTML — regresi itu ada
+    di HTML, jadi memeriksa assets/ saja tidak akan menangkapnya.
+
+    Penyaringnya sengaja sempit supaya tidak berisik:
+      - hanya berkas yang memang punya aturan [data-theme="dark"]; berkas
+        tanpa mode gelap sama sekali bukan urusan check ini
+      - hanya ABU (selisih R/G/B <= 24); lencana berwarna jenuh punya alasan
+        sendiri dan kontrasnya diukur terhadap latar berwarna pula
+      - hanya luminansi 0,08-0,32, yaitu pita yang gagal di kedua tema
+      - selektor yang SUDAH punya aturan mode gelap dilewati
+    """
+    import glob as _glob
+
+    def _rgb(hx):
+        hx = hx.lstrip('#')
+        if len(hx) == 3:
+            hx = ''.join(c * 2 for c in hx)
+        return tuple(int(hx[i:i + 2], 16) for i in (0, 2, 4))
+
+    def _lum(c):
+        def f(x):
+            x /= 255
+            return x / 12.92 if x <= 0.03928 else ((x + 0.055) / 1.055) ** 2.4
+        return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2])
+
+    warna = re.compile(r'\bcolor\s*:\s*(#[0-9a-fA-F]{3,8})\b')
+    aturan = re.compile(r'([^{}]+)\{([^{}]*)\}')
+    style = re.compile(r'<style[^>]*>(.*?)</style>', re.S | re.I)
+
+    def sisir(src, nama):
+        if 'data-theme="dark"' not in src:
+            return []
+        punya_gelap = set()
+        for m in aturan.finditer(src):
+            sel = m.group(1).strip()
+            if 'data-theme="dark"' not in sel:
+                continue
+            for b in sel.split(','):
+                b = b.strip().replace('[data-theme="dark"]', '').strip()
+                if b:
+                    punya_gelap.add(b)
+        out = []
+        for m in aturan.finditer(src):
+            sel, body = m.group(1).strip(), m.group(2)
+            if sel.startswith('@') or 'data-theme' in sel:
+                continue
+            bagian = [x.strip() for x in sel.split(',') if x.strip()]
+            if bagian and all(x in punya_gelap for x in bagian):
+                continue
+            for hx in warna.findall(body):
+                try:
+                    c = _rgb(hx)
+                except ValueError:
+                    continue
+                if max(c) - min(c) > 24:
+                    continue
+                if 0.08 <= _lum(c) <= 0.32:
+                    out.append((nama, hx, ' '.join(sel.split())[:46]))
+        return out
+
+    temuan = []
+    for path in sorted(_glob.glob(os.path.join(ROOT, 'assets', '*.css'))):
+        if '.min.' in os.path.basename(path):
+            continue
+        temuan += sisir(read(path), os.path.relpath(path, ROOT))
+    for path in sorted(_glob.glob(os.path.join(ROOT, '*.html'))
+                       + _glob.glob(os.path.join(ROOT, 'Materi', '*.html'))):
+        src = read(path)
+        for blok in style.findall(src):
+            temuan += sisir(blok, os.path.relpath(path, ROOT))
+
+    # Sudah ada sebelum check ini ditulis dan diperiksa satu per satu.
+    SAH = {('assets/kyoto-navbar.css', '.kn-dd-section')}   # varian gelapnya
+    nyata = [t for t in temuan if (t[0], t[2]) not in SAH]  # ada, hanya beda bentuk selektor
+
+    if nyata:
+        err('literal-grey',
+            f'{len(nyata)} abu tengah harfiah tanpa varian mode gelap — '
+            f'ia akan gagal kontras di salah satu tema:')
+        for nama, hx, sel in nyata[:8]:
+            err('literal-grey', f'    {nama}  {hx}  {sel}')
+    else:
+        ok('literal-grey',
+           'Tidak ada abu tengah harfiah yang tak membalik di berkas sadar-tema.')
+
+
 def check_no_hangul():
     """Tidak boleh ada aksara Korea di materi.
 
@@ -2062,6 +2163,7 @@ def main():
         check_kaigo_quiz_reachable,
         check_explanation_id_coverage,
         check_no_hangul,
+        check_literal_grey_without_dark_variant,
         check_literal_bg_with_token_color,
         check_kaigo_durations,
         check_kaigo_seed_sync,

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Laporan Kelas Live — Nihongo Pro Academy</title>
+<meta name="description" content="Laporan dan analytics kelas live bahasa Jepang — rekap kehadiran, durasi, skor kuis, dan statistik pengajar.">
+<link rel="canonical" href="https://nihongopro.id/Kelas-Report.html">
+<meta property="og:title" content="Laporan Kelas Live — NihongoPro">
+<meta property="og:description" content="Rekap kehadiran, durasi, dan statistik kelas live bahasa Jepang.">
+<meta property="og:url" content="https://nihongopro.id/Kelas-Report.html">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Laporan Kelas Live">
+<meta name="twitter:description" content="Rekap kehadiran, durasi, dan statistik kelas live bahasa Jepang.">
+<meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Laporan Kelas Live","url":"https://nihongopro.id/Kelas-Report.html","description":"Rekap kehadiran, durasi, dan statistik kelas live bahasa Jepang","inLanguage":"id"}</script>
+<script src="assets/env.js"></script>
+<script src="assets/platform.min.js" defer></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Outfit,system-ui,sans-serif;background:var(--cream);color:var(--ink);min-height:100vh}
+a{text-decoration:none;color:inherit}
+.container{max-width:1100px;margin:0 auto;padding:2rem clamp(16px,5vw,48px)}
+.page-header{margin-bottom:2rem}
+.page-header h1{font-family:"Noto Serif JP",serif;font-size:clamp(24px,4vw,36px);margin-bottom:.35rem}
+.page-header p{color:var(--ink-soft);font-size:14px;line-height:1.7}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
+.stat-card{background:var(--white);border:1px solid var(--border-mid);border-radius:12px;padding:1.25rem;text-align:center;box-shadow:var(--shadow-xs)}
+.stat-card .icon{font-size:28px;margin-bottom:.5rem}
+.stat-card .value{font-family:"Noto Serif JP",serif;font-size:28px;font-weight:700;color:var(--red);line-height:1.1}
+.stat-card .label{font-size:12px;color:var(--ink-soft);margin-top:.25rem;font-weight:600}
+.filter-bar{display:flex;gap:.75rem;margin-bottom:1.5rem;flex-wrap:wrap}
+.filter-bar select,.filter-bar input{height:38px;padding:0 12px;border-radius:8px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink);font-family:Outfit,sans-serif;font-size:13px;outline:none}
+.filter-bar select:focus,.filter-bar input:focus{border-color:var(--red)}
+.report-table{width:100%;border-collapse:collapse;background:var(--white);border-radius:12px;overflow:hidden;border:1px solid var(--border-mid);box-shadow:var(--shadow-xs)}
+.report-table th{padding:12px 16px;text-align:left;font-size:11px;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.06em;border-bottom:2px solid var(--border-mid);background:var(--cream)}
+.report-table td{padding:10px 16px;font-size:13px;border-bottom:.5px solid var(--border)}
+.report-table tr:hover td{background:var(--cream)}
+.badge{display:inline-flex;align-items:center;padding:2px 8px;border-radius:5px;font-size:11px;font-weight:700}
+.badge-active{background:var(--green-pale);color:var(--green)}
+.badge-ended{background:var(--cream);color:var(--ink-soft)}
+.empty-state{text-align:center;padding:3rem;color:var(--ink-faint);font-size:14px}
+.empty-state .icon{font-size:48px;margin-bottom:1rem;opacity:.5}
+.btn-back{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;margin-bottom:1.5rem}
+.btn-back:hover{border-color:var(--red);color:var(--red)}
+@media(max-width:600px){.stats-grid{grid-template-columns:1fr 1fr}.report-table{font-size:12px}.report-table th,.report-table td{padding:8px 10px}}
+</style>
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+</head>
+<body>
+<div class="container">
+  <a href="Kelas-Online.html" class="btn-back">← Kembali ke Kelas Live</a>
+
+  <div class="page-header">
+    <h1>📊 Laporan Kelas Live</h1>
+    <p>Rekap kehadiran, durasi, dan statistik dari semua sesi kelas live yang sudah berakhir.</p>
+  </div>
+
+  <div class="stats-grid" id="statsGrid">
+    <div class="stat-card"><div class="icon">🏫</div><div class="value" id="totalRooms">-</div><div class="label">Total Kelas</div></div>
+    <div class="stat-card"><div class="icon">👥</div><div class="value" id="totalParticipants">-</div><div class="label">Total Peserta</div></div>
+    <div class="stat-card"><div class="icon">⏱️</div><div class="value" id="avgDuration">-</div><div class="label">Rata-rata Durasi</div></div>
+    <div class="stat-card"><div class="icon">🎯</div><div class="value" id="avgScore">-</div><div class="label">Rata-rata Skor Kuis</div></div>
+  </div>
+
+  <div class="filter-bar">
+    <select id="filterStatus">
+      <option value="all">Semua Status</option>
+      <option value="active">Sedang Berlangsung</option>
+      <option value="ended">Sudah Berakhir</option>
+    </select>
+    <input type="date" id="filterDate" placeholder="Tanggal">
+    <input type="text" id="filterSearch" placeholder="🔍 Cari nama kelas..." style="flex:1;min-width:200px">
+  </div>
+
+  <table class="report-table" id="reportTable">
+    <thead>
+      <tr>
+        <th>Kelas</th>
+        <th>Pengajar</th>
+        <th>Mulai</th>
+        <th>Durasi</th>
+        <th>Peserta</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody id="reportBody">
+      <tr><td colspan="6" class="empty-state"><div class="icon">📡</div>Memuat data...</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  var allRooms = [];
+
+  function getDb() {
+    try { return (window.NP && window.NP.db && window.NP.db._client) ? window.NP.db._client : null; }
+    catch(e) { return null; }
+  }
+
+  async function loadReport() {
+    var db = getDb();
+    if (!db) {
+      document.getElementById('reportBody').innerHTML = '<tr><td colspan="6" class="empty-state"><div class="icon">⚠️</div>Supabase belum terkonfigurasi.<br>Set env vars untuk melihat laporan.</td></tr>';
+      return;
+    }
+
+    try {
+      var { data: rooms, error } = await db
+        .from('live_rooms')
+        .select('*')
+        .order('started_at', { ascending: false })
+        .limit(100);
+
+      if (error) throw error;
+      allRooms = rooms || [];
+      updateStats();
+      renderTable(allRooms);
+    } catch(e) {
+      document.getElementById('reportBody').innerHTML = '<tr><td colspan="6" class="empty-state"><div class="icon">❌</div>Gagal memuat: ' + e.message + '</td></tr>';
+    }
+  }
+
+  function updateStats() {
+    var total = allRooms.length;
+    document.getElementById('totalRooms').textContent = total;
+
+    var ended = allRooms.filter(function(r) { return r.ended_at; });
+    document.getElementById('totalParticipants').textContent = allRooms.reduce(function(sum, r) { return sum + (r.participant_count || 0); }, 0);
+
+    if (ended.length > 0) {
+      var totalMin = ended.reduce(function(sum, r) {
+        var dur = (new Date(r.ended_at) - new Date(r.started_at)) / 60000;
+        return sum + (dur > 0 ? dur : 0);
+      }, 0);
+      document.getElementById('avgDuration').textContent = Math.round(totalMin / ended.length) + 'm';
+    }
+    document.getElementById('avgScore').textContent = '-';
+  }
+
+  function renderTable(rooms) {
+    var tbody = document.getElementById('reportBody');
+    if (!rooms.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty-state"><div class="icon">📭</div>Belum ada data kelas</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = rooms.map(function(r) {
+      var started = new Date(r.started_at);
+      var dateStr = started.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+      var timeStr = started.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+      var dur = '';
+      if (r.ended_at) {
+        var mins = Math.round((new Date(r.ended_at) - started) / 60000);
+        dur = mins >= 60 ? Math.floor(mins/60) + 'j ' + (mins%60) + 'm' : mins + 'm';
+      } else {
+        dur = '🟢 Berlangsung';
+      }
+      var isActive = !r.ended_at;
+      return '<tr>' +
+        '<td><strong>' + esc(r.room_name || 'Kelas Live') + '</strong><br><span style="font-size:11px;color:var(--ink-faint)">' + r.room_code + '</span></td>' +
+        '<td>' + esc(r.host_name || '-') + '</td>' +
+        '<td>' + dateStr + '<br><span style="font-size:11px;color:var(--ink-faint)">' + timeStr + '</span></td>' +
+        '<td>' + dur + '</td>' +
+        '<td>' + (r.participant_count || 0) + '</td>' +
+        '<td><span class="badge ' + (isActive ? 'badge-active' : 'badge-ended') + '">' + (isActive ? '🔴 Live' : '✓ Selesai') + '</span></td>' +
+        '</tr>';
+    }).join('');
+  }
+
+  function esc(s) { return String(s||'').replace(/[&<>"']/g, function(c) { return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]; }); }
+
+  // Filters
+  document.getElementById('filterStatus').addEventListener('change', applyFilters);
+  document.getElementById('filterDate').addEventListener('change', applyFilters);
+  document.getElementById('filterSearch').addEventListener('input', applyFilters);
+
+  function applyFilters() {
+    var status = document.getElementById('filterStatus').value;
+    var date = document.getElementById('filterDate').value;
+    var search = document.getElementById('filterSearch').value.toLowerCase();
+    var filtered = allRooms.filter(function(r) {
+      if (status === 'active' && r.ended_at) return false;
+      if (status === 'ended' && !r.ended_at) return false;
+      if (date) {
+        var d = new Date(r.started_at).toISOString().slice(0, 10);
+        if (d !== date) return false;
+      }
+      if (search && !(r.room_name || '').toLowerCase().includes(search) && !(r.host_name || '').toLowerCase().includes(search)) return false;
+      return true;
+    });
+    renderTable(filtered);
+  }
+
+  // Init
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadReport);
+  } else {
+    loadReport();
+  }
+})();
+</script>
+</body>
+</html>
