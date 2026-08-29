@@ -455,3 +455,33 @@ a.ft-link-dim.ft-link-dim,
   :is(h1, h2, p, .kicker, .eyebrow) {
   color: #EDE7DA !important;
 }
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   LABEL DI MODE GELAP
+   ══════════════════════════════════════════════════════════════════════
+   kyoto-bundle.min.css memuat aturan yang sangat luas:
+
+       .label,.eyebrow,[class*="eyebrow"],[class*="label"] {
+         color:#6B4F3A !important }
+
+   [class*="label"] mengenai APA PUN yang nama kelasnya memuat "label" —
+   .kn-bn-label pada navigasi bawah, .lv-label, .qr-label, .form-label,
+   .stat-label — tanpa peduli latar maupun tema. Warnanya cokelat mode
+   terang, jadi di mode gelap ia duduk di atas latar gelap:
+
+       48×  rasio 2,52  di rgb(17,17,17)   21 halaman
+       24×  rasio 2,32  di rgb(26,26,26)   13 halaman
+
+   Bundel itu TIDAK punya berkas sumber, jadi tidak bisa disunting dari
+   hulu. Penimpa ditaruh di sini — dimuat 375 halaman dan SESUDAH bundel.
+
+   Kekhususan: [data-theme="dark"] (0,1,0) + :is() yang mengambil argumen
+   paling spesifik [class*="label"] (0,1,0) = 0,2,0, mengalahkan aturan
+   bundel yang 0,1,0.
+
+   Emas #C89B3C adalah warna aksen yang memang sudah dipakai mode gelap di
+   berkas lain, jadi labelnya tetap terbaca sebagai label, bukan teks biasa. */
+[data-theme="dark"] :is(.label, .eyebrow, [class*="eyebrow"], [class*="label"]) {
+  color: #C89B3C !important;
+}
