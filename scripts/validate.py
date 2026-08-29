@@ -1824,16 +1824,18 @@ def check_explanation_id_coverage():
             if nama.startswith('Kaigo-'):
                 err('explanation-id', f'    {nama}  {teks[:70]}…')
 
-    # Sisa Materi masih digarap: yang dijaga arahnya, bukan kepenuhannya.
-    BASELINE_LAIN = 1173
-    if lain_c < BASELINE_LAIN:
+    # Sisa Materi kini juga penuh, jadi tuntutannya sama kerasnya dengan Kaigo.
+    if lain_c < lain_t:
         err('explanation-id',
-            f'Cakupan non-Kaigo turun ke {lain_c}/{lain_t}, di bawah '
-            f'{BASELINE_LAIN} yang sudah dicapai. Glos hilang, bukan bertambah.')
+            f'{lain_t - lain_c} penjelasan kuis non-Kaigo kehilangan kalimat '
+            f'Indonesianya ({lain_c}/{lain_t}). Cakupan sudah pernah penuh — '
+            f'ini kemunduran, bukan pekerjaan yang belum selesai.')
+        for nama, teks in belum:
+            if not nama.startswith('Kaigo-'):
+                err('explanation-id', f'    {nama}  {teks[:70]}…')
     else:
         ok('explanation-id',
-           f'non-Kaigo {lain_c}/{lain_t} ({lain_c / lain_t * 100:.0f}%) '
-           f'— sisa {lain_t - lain_c} menunggu penulisan')
+           f'non-Kaigo {lain_c}/{lain_t} penjelasan kuis punya kalimat Indonesia.')
 
     if kaigo_c >= kaigo_t:
         ok('explanation-id',

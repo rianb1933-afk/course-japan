@@ -69,12 +69,22 @@ const OPSI = '.qopt, .q-opt';
 const FEEDBACK = '.qexp, #qFb, .q-exp, .q-fb';
 
 // Sama persis dengan check_explanation_id_coverage di validate.py: sebuah
-// rangkaian Latin >= 40 karakter yang memuat penanda bahasa Indonesia.
-const LATIN = /[A-Za-z][A-Za-z0-9 ,.;:'"()\-—/%\\]{39,}/g;
+// rangkaian Latin yang memuat penanda bahasa Indonesia — DUA AMBANG, karena
+// bentuk isinya berbeda. Modul Kaigo memakai paragraf Jepang panjang yang
+// modus gagalnya satu kata dalam kurung, jadi ambangnya 40. Halaman non-Kaigo
+// berisi butir tata bahasa yang memang ringkas ("berapa umurmu?" adalah
+// terjemahan lengkap), jadi ambangnya 15.
+//
+// Kedua angka ini HARUS sama dengan validate.py. Sempat berbeda, dan skrip ini
+// lalu melaporkan 43 halaman gagal padahal semuanya sudah diterjemahkan —
+// alat ukur yang tidak sepakat dengan pagarnya hanya menyesatkan.
+const LATIN_KAIGO = /[A-Za-z][A-Za-z0-9 ,.;:'"()\-—/%\\]{39,}/g;
+const LATIN_LAIN = /[A-Za-z][A-Za-z0-9 ,.;:'"()\-—/%\\]{14,}/g;
 const IDN =
   /\b(yang|dan|untuk|dengan|pada|dari|atau|tidak|adalah|bisa|agar|saat|oleh|dalam|secara|harus|dapat|perlu|karena|bukan|lewat|pun|juga|setiap|seperti|hingga|sampai|bila|maupun|berarti|menjadi|antara|tanpa|lebih|sendiri|orang|kerja|hidup|ini|itu|ia|sebagai|serta|sudah|masih|belum|hanya|akan|supaya|sehingga|namun|tetapi|atas|tiap|kepada|bagi|semua|banyak|kalau|justru)\b|\b(?:me[mnl]?[a-z]{3,}|ber[a-z]{4,}|pe[mn]?[a-z]{4,}an|ke[a-z]{4,}an)\b/i;
 
-const punyaKalimatIndonesia = (t) => (t.match(LATIN) || []).some((r) => IDN.test(r));
+const punyaKalimatIndonesia = (t, kaigo) =>
+  (t.match(kaigo ? LATIN_KAIGO : LATIN_LAIN) || []).some((r) => IDN.test(r));
 
 function daftarModul(saring) {
   if (saring === '--all') {
@@ -129,7 +139,9 @@ function daftarModul(saring) {
           const e = document.querySelector(s);
           return e ? e.innerText.trim() : null;
         }, FEEDBACK);
-        r.idn = r.penjelasan ? punyaKalimatIndonesia(r.penjelasan) : false;
+        r.idn = r.penjelasan
+          ? punyaKalimatIndonesia(r.penjelasan, file.startsWith('Kaigo-'))
+          : false;
       }
     } catch (e) {
       r.errors.push('NAVIGASI: ' + e.message.split('\n')[0]);
@@ -144,9 +156,15 @@ function daftarModul(saring) {
   await browser.close();
   console.log('\n');
 
+  // Halaman tanpa kuis BUKAN kegagalan. Materi/ berisi 119 halaman rujukan —
+  // flashcard, lembar contekan, daftar kosakata — yang memang tidak punya
+  // kuis. Menghitungnya sebagai gagal membuat angka utama berbohong: pernah
+  // terbaca "200/327 lulus" padahal tidak satu pun halaman berkuis bermasalah.
+  const takBerkuis = hasil.filter((r) => !r.errors.length && !r.opsi);
+  const berkuis = hasil.filter((r) => r.opsi > 0);
+
   const golongan = [
     ['page error', hasil.filter((r) => r.errors.length)],
-    ['tanpa opsi kuis terender', hasil.filter((r) => !r.errors.length && !r.opsi)],
     ['diklik tapi penjelasan kosong', hasil.filter((r) => r.opsi && !r.penjelasan)],
     ['penjelasan tanpa kalimat Indonesia', hasil.filter((r) => r.penjelasan && !r.idn)],
     ['penjelasan bocor SEBELUM menjawab', hasil.filter((r) => r.bocor)],
@@ -162,9 +180,10 @@ function daftarModul(saring) {
     if (arr.length > 6) console.log(`       …dan ${arr.length - 6} lagi`);
   }
 
-  const lulus = hasil.filter(
-    (r) => !r.errors.length && r.opsi && r.penjelasan && r.idn && !r.bocor
+  const lulus = berkuis.filter(
+    (r) => !r.errors.length && r.penjelasan && r.idn && !r.bocor
   ).length;
-  console.log(`\n  ${lulus}/${hasil.length} modul lulus kelima-limanya`);
-  process.exit(lulus === hasil.length ? 0 : 1);
+  console.log(`\n  ${takBerkuis.length} halaman rujukan tanpa kuis (bukan kegagalan)`);
+  console.log(`  ${lulus}/${berkuis.length} halaman BERKUIS lulus semuanya`);
+  process.exit(lulus === berkuis.length && !hasil.some((r) => r.errors.length) ? 0 : 1);
 })();
