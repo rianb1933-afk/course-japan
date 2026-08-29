@@ -50,7 +50,18 @@
     { label: 'Admin', icon: '管', web: 'Admin-Login.html', match: ['/Admin-Login.html', '/Admin-Dashboard.html'] }
   ];
 
-  if (!document.querySelector('.pro-mobile-dock')) {
+  // Halaman yang memuat kyoto-bottom-nav.js sudah punya navigasi bawah sendiri.
+  // Menambah dock di sini menumpuk DUA navigasi di layar mobile — 62 halaman
+  // mengalaminya, termasuk index.html. Keduanya berfungsi dan tautannya hidup,
+  // jadi tidak ada yang error; yang salah cuma tampilannya bertindih.
+  //
+  // Yang diperiksa keberadaan SCRIPT-nya, bukan elemen .kn-bottom-nav — skrip
+  // kyoto membangun navnya pada DOMContentLoaded, jadi elemennya bisa saja
+  // belum ada saat baris ini dijalankan.
+  const adaKyotoNav = !!document.querySelector('script[src*="kyoto-bottom-nav"]')
+    || !!document.querySelector('.kn-bottom-nav');
+
+  if (!adaKyotoNav && !document.querySelector('.pro-mobile-dock')) {
     const dock = document.createElement('div');
     dock.className = 'pro-mobile-dock';
     dock.setAttribute('aria-label', 'Navigasi utama mobile');

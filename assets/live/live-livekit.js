@@ -56,11 +56,27 @@
     });
   }
 
+  function _getAuthToken() {
+    // Ambil Supabase JWT dari localStorage (sb-<project>-auth-token).
+    // Diperlukan agar host terverifikasi mendapat roomAdmin (moderasi LiveKit).
+    try {
+      for (var i = 0; i < localStorage.length; i++) {
+        var k = localStorage.key(i);
+        if (k && k.startsWith('sb-') && k.endsWith('-auth-token')) {
+          var stored = JSON.parse(localStorage.getItem(k));
+          if (stored && stored.access_token) return stored.access_token;
+        }
+      }
+    } catch (e) {}
+    return '';
+  }
+
   function fetchToken(roomName, identity, name, isHost) {
+    var authToken = _getAuthToken();
     return fetch('/api/livekit-token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ room: roomName, identity: identity, name: name, isHost: !!isHost })
+      body: JSON.stringify({ room: roomName, identity: identity, name: name, isHost: !!isHost, authToken: authToken })
     }).then(function (r) {
       if (!r.ok) return r.json().then(function (e) { throw new Error(e.error || 'Gagal mendapat token LiveKit'); });
       return r.json();

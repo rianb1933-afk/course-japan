@@ -263,6 +263,19 @@ table.kx-table, .kx-table table { border-collapse: separate; border-spacing: 0; 
   box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
 }
 
+/* Navbar kyoto SUDAH punya tombol tema (#knThemeBtn). Pada 332 halaman
+   keduanya tampil bersamaan — dan karena yang melayang dipatok top:12/right:12,
+   ia mendarat tepat di atas tombol CTA navbar di lebar desktop.
+
+   Keduanya berfungsi dan menghasilkan tema yang sama (data-theme="dark",
+   latar rgb(17,17,17)); ini diperiksa sebelum aturan ini ditulis, sebab
+   menyembunyikan tombol yang ternyata satu-satunya yang bekerja akan
+   mematikan mode gelap di 332 halaman.
+
+   Yang disembunyikan yang melayang, bukan yang di navbar: navbar selalu
+   terlihat, sedangkan tombol melayang menutupi isi halaman. */
+body:has(#knThemeBtn) .theme-toggle-float { display: none; }
+
 /* ── Footer situs ─────────────────────────────────────────────────────
    126 halaman menyalin markup footer yang sama beserta gayanya sebagai
    atribut style= — 3.397 atribut, ditambah 1.058 handler onmouseover/
@@ -314,3 +327,74 @@ table.kx-table, .kx-table table { border-collapse: separate; border-spacing: 0; 
 .u-mb-0    { margin-bottom: 0 !important; }
 .u-mt-0    { margin-top: 0 !important; }
 .u-flex-1  { flex: 1 !important; }
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   JALUR WIDGET MELAYANG
+   ══════════════════════════════════════════════════════════════════════
+   Lima benda melayang menaruh dirinya sendiri dengan offset tetap, tanpa
+   satu pun tahu yang lain ada:
+
+       kn-bottom-nav          bottom 0      navigasi utama, tinggi 62px
+       .np-wa-float           bottom 24     ← mendarat DI ATAS navigasi
+       .np-dark-toggle-btn    bottom 76
+       .pro-floating-actions  bottom 86     baris tombol menggulir
+       .nihongo-chat-launch   bottom 86     ← menimpa baris itu
+       .translator-launch     bottom 88     ← menimpa juga
+
+   Diukur di index.html pada 390px: LIMA tabrakan, dan gelembung WhatsApp
+   menutupi navigasi bawah sehingga tombolnya tidak bisa ditekan.
+
+   Penyebabnya bukan salah satu widget, melainkan tidak adanya kesepakatan
+   tentang ruang di bawah layar. Aturan di bawah membuat kesepakatan itu:
+   dua jalur bertingkat di atas navigasi, dengan tinggi navigasi sebagai
+   satu-satunya sumber angka.
+
+       jalur 1  baris tombol melayang (selebar layar)
+       jalur 2  chat (kiri) · penerjemah (tengah-kanan) · WhatsApp (kanan)
+
+   Lebar jalur 2 pada layar 390px: 12+90+8+132+8+52+12 = 314px — muat. */
+
+.np-wa-float {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 500;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --np-lane: calc(62px + env(safe-area-inset-bottom, 0px)); /* tinggi kn-bottom-nav */
+    --np-bar: 0px;                                            /* bilah promo, 0 saat tersembunyi */
+  }
+  /* Bilah promo (.sticky-bar) meluncur masuk dengan kelas .show dan dipatok
+     bottom:0 dengan z-index 90 — di BAWAH navigasi yang z-index 900. Isinya
+     jadi tertutup navigasi. Ia dinaikkan ke atas navigasi, dan selama ia
+     tampil seluruh jalur widget ikut naik setinggi bilahnya. */
+  body:has(.sticky-bar.show) { --np-bar: 96px; }
+
+  .sticky-bar { bottom: var(--np-lane) !important; }
+
+  .pro-floating-actions { bottom: calc(var(--np-lane) + var(--np-bar) + 10px) !important; }
+
+  .nihongo-chat-launch  { bottom: calc(var(--np-lane) + var(--np-bar) + 62px) !important; left: 12px !important; }
+  .translator-launch    { bottom: calc(var(--np-lane) + var(--np-bar) + 62px) !important; right: 72px !important; }
+  .np-wa-float          { bottom: calc(var(--np-lane) + var(--np-bar) + 62px) !important; right: 12px !important; }
+
+  /* Tombol tema melayang hanya tersisa di halaman tanpa navbar kyoto. */
+  .np-dark-toggle-btn   { bottom: calc(var(--np-lane) + var(--np-bar) + 114px) !important; }
+}
+
+/* Pada desktop tidak ada navigasi bawah, tapi bilah promo tetap ada dan
+   menabrak tombol WhatsApp serta tombol tema. Pil penerjemah juga menabrak
+   kolom tombol melayang (bottom 92, tinggi 148 → puncak 240). */
+@media (min-width: 769px) {
+  :root { --np-bar: 0px; }
+  body:has(.sticky-bar.show) { --np-bar: 88px; }
+
+  .np-wa-float          { bottom: calc(1.5rem + var(--np-bar)); }
+  .np-dark-toggle-btn   { bottom: calc(20px + var(--np-bar)) !important; }
+  .nihongo-chat-launch  { bottom: calc(92px + var(--np-bar)); }
+  .pro-floating-actions { bottom: calc(92px + var(--np-bar)); }
+  .translator-launch    { bottom: calc(252px + var(--np-bar)); }
+}
