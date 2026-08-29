@@ -1864,11 +1864,23 @@ def check_literal_bg_with_token_color():
     harfiah sah selama warna teksnya juga harfiah (.btn-white memang
     begitu, dan kontrasnya 7,49).
     """
+    # `white` sebagai KATA KUNCI ikut dihitung. Sempat tidak, dan celah itu
+    # melewatkan `.btn-white{background:white;color:var(--primary)}` di
+    # design-system.css serta `.billing-opt.active{background:white;
+    # color:var(--ink)}` di Pricing-Pro — tombol yang terukur 7,49 di mode
+    # terang dan 2,56 di gelap. Pengapitnya `(?<![-\w#])` wajib: tanpa itu
+    # \bwhite\b juga cocok di dalam `var(--white)`, dan tanda hubung dianggap
+    # batas kata — sekali dicoba, hasilnya 189 tuduhan yang hampir semuanya
+    # justru pemakaian token yang benar.
     terang = re.compile(
         r'background(?:-color)?\s*:\s*[^;}]*?'
-        r'(?:\#fff\b|\#ffffff\b|\#fefcf8\b|\#f8f8f8\b|\#fafafa\b|'
+        r'(?:\#fff\b|\#ffffff\b|\#fefcf8\b|\#f8f8f8\b|\#fafafa\b|(?<![-\w#])white\b|'
         r'rgba?\(\s*2[45][0-9]\s*,\s*2[45][0-9]\s*,\s*2[45][0-9])', re.I)
-    token = re.compile(r'\bcolor\s*:\s*var\(--', re.I)
+    # `(?<![-\w])` supaya `border-color:` dan `outline-color:` tidak terhitung
+    # sebagai warna teks. \b tidak cukup — ia cocok tepat sesudah tanda hubung,
+    # dan `.input:focus{border-color:var(--primary);background:white}` lalu
+    # tertuduh padahal aturan itu tidak menyetel warna teks sama sekali.
+    token = re.compile(r'(?<![-\w])color\s*:\s*var\(--', re.I)
     aturan = re.compile(r'([^{}]+)\{([^{}]*)\}')
 
     temuan = []

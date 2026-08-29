@@ -485,3 +485,31 @@ a.ft-link-dim.ft-link-dim,
 [data-theme="dark"] :is(.label, .eyebrow, [class*="eyebrow"], [class*="label"]) {
   color: #C89B3C !important;
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   Tautan-aksi cokelat harus jadi emas di mode gelap
+   ══════════════════════════════════════════════════════════════════════
+   kyoto-bundle.min.css memaksa `color:#6B4F3A !important` lewat selektor
+   yang sangat luas:
+
+       .sec-action, a[class*="action"], a[class*="more"],
+       a[class*="link"]:not([class*="footer"])
+
+   Cokelat itu benar di mode terang. Di mode gelap ia duduk di atas #1A1A1A
+   dengan rasio 2,32:1 — dan karena !important, tidak ada satu pun aturan
+   mode gelap di berkas lain yang bisa menyentuhnya.
+
+   Yang paling kelihatan: dua tautan terakhir di navbar utama, "試 Ujian" dan
+   "庭 Dasbor". Enam tautan navbar lainnya baik-baik saja karena mereka
+   sebenarnya <button class="kn-link">, bukan <a> — jadi a[class*="link"]
+   tidak menangkapnya. Hanya dua yang benar-benar <a> yang jadi cokelat,
+   yang membuatnya tampak seperti dua item nav yang redup sendiri.
+
+   Emas #C89B3C sudah jadi aksen mode gelap di seluruh situs: 6,7:1 di atas
+   #1A1A1A dan 7,4:1 di atas #111111. Selektornya sengaja dicerminkan persis
+   agar tepat menimpa yang itu dan bukan yang lain; kyoto-elevation.css dimuat
+   sesudah bundle, jadi pada kekhususan yang sama ia yang menang. */
+[data-theme="dark"] :is(.sec-action, a[class*="action"], a[class*="more"],
+                        a[class*="link"]:not([class*="footer"])) {
+  color: #C89B3C !important;
+}

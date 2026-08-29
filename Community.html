@@ -22,6 +22,12 @@
 <link rel="stylesheet" href="assets/kyoto-elevation.css">
 <link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
 <style>
+/* Tab ini berlatar #fff harfiah yang tidak ikut tema. showCommTab() dulu
+   menyetel color:'inherit' pada tab non-aktif, dan di mode gelap warisan itu
+   --ink #F5F5F5: putih di atas putih. Sekarang skripnya mengeja warna gelap;
+   aturan ini menjaga keadaan awal sebelum skrip sempat jalan. */
+.comm-tab{color:#1E293B}
+
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8F3E9);color:var(--charcoal,#2D2D2D);min-height:100dvh;display:flex;flex-direction:column}
 .page{max-width:920px;margin:0 auto;padding:32px 20px 80px;flex:1;width:100%}
@@ -351,7 +357,7 @@ function renderCommunityTabs() {
 
 function showCommTab(tab) {
   document.querySelectorAll('.comm-tab').forEach(b=>{
-    b.style.borderColor='#e2e8f0';b.style.background='#fff';b.style.color='inherit';
+    b.style.borderColor='#e2e8f0';b.style.background='#fff';b.style.color='#1E293B';
   });
   const active = document.getElementById('ct-'+tab);
   if (active) { active.style.borderColor='#2563eb';active.style.background='#eff6ff';active.style.color='#2563eb'; }

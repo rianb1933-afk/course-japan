@@ -44,6 +44,13 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 .cc-desc{font-size:13px;color:var(--ink-soft, #6E6E6E);line-height:1.6}
 .cc-link{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:9px;background:#6B4F3A;color:#FEF;text-decoration:none;font-size:13px;font-weight:600;transition:background 130ms;width:fit-content;margin-top:4px}
 .cc-link:hover{background:#553C2B}
+/* kyoto-bundle.min.css memaksa a[class*="link"]{color:#6B4F3A!important} ke
+   tombol ini, persis sewarna latarnya sendiri — teksnya lenyap di kedua
+   tema. (0,2,2) menang atas (0,2,1) tanpa bergantung urutan berkas. */
+html a.cc-link.cc-link{color:#FEFCF8!important}
+html[data-theme="dark"] a.cc-link.cc-link{color:#1A1209!important}
+html a.cc-link.ghost.ghost{color:#6B4F3A!important}
+html[data-theme="dark"] a.cc-link.ghost.ghost{color:#C89B3C!important}
 [data-theme="dark"] .cc-link{background:#C89B3C;color:#1A1209}
 [data-theme="dark"] .cc-link:hover{background:#D4AA56}
 .cc-link.ghost{background:rgba(107,79,58,.08);color:#6B4F3A;border:1px solid rgba(107,79,58,.18)}
