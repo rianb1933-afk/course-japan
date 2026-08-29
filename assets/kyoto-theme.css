@@ -462,10 +462,14 @@ select:focus,
 /* ══════════════════════════════════════
    THEME TOGGLE BUTTON
    ══════════════════════════════════════ */
+/* Latar ikut token karena warnanya sudah token: mengganti color: menjadi
+   var(--primary) tanpa mengganti latar ini membuat teks emas duduk di atas
+   krem yang dipaksa terang saat mode gelap. check_literal_bg_with_token_color
+   menangkapnya. */
 .theme-toggle,
 [data-theme-toggle],
 .icon-btn[data-theme-toggle] {
-  background: #FEFCF8 !important;
+  background: var(--white) !important;
   border: 1px solid rgba(107,79,58,.20) !important;
   color: var(--primary) !important;
   width: 36px;
