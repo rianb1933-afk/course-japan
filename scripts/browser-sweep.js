@@ -43,6 +43,20 @@
  * ---------
  *     node scripts/browser-sweep.js            # seluruh 100 modul Kaigo
  *     node scripts/browser-sweep.js Kaigo-CPR  # saring per nama
+ *     node scripts/browser-sweep.js --all      # SELURUH Materi/*.html
+ *
+ * --all menyisir 379 halaman, bukan hanya modul Kaigo. Mode itulah yang
+ * menemukan `rndZ is not defined` di empat halaman Kaiwa: sisa refactor, saat
+ * kode kuis dipindah ke kaigo-quiz.js dan definisi fungsinya ikut pergi tapi
+ * panggilannya tertinggal. Kuisnya tetap terender oleh mesin bersama, jadi
+ * tidak ada yang menyadarinya — hanya sebuah error diam di konsol setiap kali
+ * halaman dibuka.
+ *
+ * SATU DERAU YANG BUKAN BUG
+ * Halaman dibuka lewat file://, jadi rujukan path absolut seperti
+ * "/assets/logo-neko.svg" menunjuk akar filesystem dan gagal diambil —
+ * muncul sebagai "Failed to fetch". Di server sungguhan path itu benar.
+ * Abaikan; jangan menghabiskan waktu mengejarnya.
  */
 
 const { chromium } = require('playwright');
@@ -63,6 +77,12 @@ const IDN =
 const punyaKalimatIndonesia = (t) => (t.match(LATIN) || []).some((r) => IDN.test(r));
 
 function daftarModul(saring) {
+  if (saring === '--all') {
+    return require('fs')
+      .readdirSync(path.join(ROOT, 'Materi'))
+      .filter((f) => f.endsWith('.html'))
+      .sort();
+  }
   const out = execFileSync(
     'python3',
     ['-c',

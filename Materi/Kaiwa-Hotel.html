@@ -110,14 +110,14 @@ var PH_VOCAB=[
 </div></main>
 <script>
 var QKZ=[
-{"q": "ホテルのチェックインで最初に何と言うか。", "opts": ["すみません、チェックインお願いします", "おはようございます", "さようなら", "いただきます"], "a": 0, "e": "チェックインお願いします = tolong check-in. ホテル到着時の基本表現。"},
-{"q": "予約した名前を伝えるとき、自然なのはどれか。", "opts": ["予約した田中です", "田中ですけど", "田中だけど", "田中であります"], "a": 0, "e": "「予約した～です」が最も自然で丁寧。"},
-{"q": "WiFiのパスワードを聞くとき、正しいのはどれか。", "opts": ["WiFiのパスワードはありますか", "WiFiは", "パスワードはなんですか", "WiFi教えて"], "a": 0, "e": "「WiFiのパスワードはありますか」が丁寧。"},
-{"q": "部屋に問題があるとき、何と言うか。", "opts": ["すみません、～が動きません", "おかしいです", "直してください", "ダメです"], "a": 0, "e": "「すみません」から始め、具体的に問題を説明。"},
-{"q": "チェックアウトのとき、何と言うか。", "opts": ["チェックアウトお願いします", "お先に", "お疲れ様", "いただきます"], "a": 0, "e": "チェックアウトお願いします = tolong check-out."},
-{"q": "朝ごはんの時間を聞くとき、自然なのはどれか。", "opts": ["朝ごはんは何時からですか", "朝ごはんは", "朝ごはんいつ", "朝ごはんありますか"], "a": 0, "e": "「何時からですか」で具体的な時間を聞く。"},
-{"q": "客室清掃を頼むとき、正しいのはどれか。", "opts": ["客室清掃をお願いします", "部屋を掃除して", "きれいにして", "清掃しろ"], "a": 0, "e": "客室清掃 = room cleaning. 丁寧に依頼。"},
-{"q": "ホテルの Facilities を聞くとき、自然なのはどれか。", "opts": ["ジムやプールはありますか", "ジムは", "プールある", "施設教えて"], "a": 0, "e": "「～はありますか」で施設の有無を聞く。"}
+{"q": "ホテルのチェックインで最初に何と言うか。", "opts": ["すみません、チェックインお願いします", "おはようございます", "さようなら", "いただきます"], "a": 0, "e": "Ungkapan dasar yang diucapkan begitu tiba di hotel untuk mulai proses menginap. チェックインお願いします = tolong check-in. ホテル到着時の基本表現。"},
+{"q": "予約した名前を伝えるとき、自然なのはどれか。", "opts": ["予約した田中です", "田中ですけど", "田中だけど", "田中であります"], "a": 0, "e": "Menyebut bahwa kita sudah memesan atas nama tertentu adalah cara paling wajar memperkenalkan diri di meja resepsionis. 「予約した～です」が最も自然で丁寧。"},
+{"q": "WiFiのパスワードを聞くとき、正しいのはどれか。", "opts": ["WiFiのパスワードはありますか", "WiFiは", "パスワードはなんですか", "WiFi教えて"], "a": 0, "e": "Cara santun menanyakan apakah tersedia kata sandi WiFi. 「WiFiのパスワードはありますか」が丁寧。"},
+{"q": "部屋に問題があるとき、何と言うか。", "opts": ["すみません、～が動きません", "おかしいです", "直してください", "ダメです"], "a": 0, "e": "Mulailah dengan sumimasen lalu jelaskan masalahnya secara konkret, agar petugas bisa menanganinya. 「すみません」から始め、具体的に問題を説明。"},
+{"q": "チェックアウトのとき、何と言うか。", "opts": ["チェックアウトお願いします", "お先に", "お疲れ様", "いただきます"], "a": 0, "e": "Ungkapan yang diucapkan saat menyelesaikan masa menginap dan hendak meninggalkan hotel. チェックアウトお願いします = tolong check-out."},
+{"q": "朝ごはんの時間を聞くとき、自然なのはどれか。", "opts": ["朝ごはんは何時からですか", "朝ごはんは", "朝ごはんいつ", "朝ごはんありますか"], "a": 0, "e": "Nanji kara desu ka menanyakan mulai pukul berapa sesuatu berlaku, misalnya sarapan atau jam masuk kamar. 「何時からですか」で具体的な時間を聞く。"},
+{"q": "客室清掃を頼むとき、正しいのはどれか。", "opts": ["客室清掃をお願いします", "部屋を掃除して", "きれいにして", "清掃しろ"], "a": 0, "e": "Kyakushitsu seisou berarti pembersihan kamar, dan permintaannya disampaikan dengan santun. 客室清掃 = room cleaning. 丁寧に依頼。"},
+{"q": "ホテルの Facilities を聞くとき、自然なのはどれか。", "opts": ["ジムやプールはありますか", "ジムは", "プールある", "施設教えて"], "a": 0, "e": "Pola wa arimasu ka menanyakan apakah suatu fasilitas tersedia. 「～はありますか」で施設の有無を聞く。"}
 ];
 qiZ=0;okZ=0;totZ=0;
 function rndZ(){if(!QKZ.length)return;var q=QKZ[qiZ%QKZ.length],c=document.getElementById('qkZ');if(!c)return;var oo=document.createElement('div');oo.style.cssText='display:grid;gap:8px';q.opts.forEach(function(o,i){var b=document.createElement('button');b.style.cssText='background:#fff;border:1px solid rgba(0,0,0,.14);border-radius:8px;padding:10px 14px;cursor:pointer;font-size:.88rem;text-align:left;width:100%;font-family:inherit;transition:all .2s';b.textContent=(i===0?'A':i===1?'B':i===2?'C':'D')+'. '+o;b.onclick=function(){ansZ(b,i,q.a,q.e)};oo.appendChild(b)});var bx=document.createElement('div');bx.style.cssText='background:rgba(0,0,0,.04);border-radius:12px;padding:18px;margin:10px 0';var qq=document.createElement('div');qq.style.cssText='font-weight:600;margin-bottom:12px;font-size:.92rem;line-height:1.5';qq.textContent=q.q;var ex=document.createElement('div');ex.id='qeZ';ex.style.cssText='margin-top:8px;padding:10px 12px;background:#fff;border-radius:8px;font-size:.82rem;color:#444;line-height:1.6;display:none;border-left:3px solid #43a047';bx.appendChild(qq);bx.appendChild(oo);bx.appendChild(ex);c.innerHTML='';c.appendChild(bx);var s=document.getElementById('qsZ');if(s)s.textContent='Skor: '+okZ+'/'+totZ}

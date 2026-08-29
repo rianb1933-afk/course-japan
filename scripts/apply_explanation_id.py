@@ -31,6 +31,11 @@ kalimat sedikit berbeda.
 
 Aman diulang: penjelasan yang glosnya sudah terpasang dilewati.
 
+Menyisir SELURUH Materi/, bukan hanya Kaigo-*. Kalimat penjelasan yang sama
+dipakai ulang lintas rumpun — enam penjelasan Kaigo (asesmen, ICF, wali
+dewasa, ujian negara) muncul di setiap halaman Kaiwa. Selama skrip ini hanya
+melihat Kaigo-*, glos yang sudah ditulis tidak pernah sampai ke sana.
+
 Pemakaian
 ---------
     python3 scripts/apply_explanation_id.py --check
@@ -72,7 +77,7 @@ def main():
     glosses = load_glosses()
     touched, already, rows = 0, 0, {}
 
-    for page in sorted(glob.glob(os.path.join(ROOT, 'Materi', 'Kaigo-*.html'))):
+    for page in sorted(glob.glob(os.path.join(ROOT, 'Materi', '*.html'))):
         with open(page, encoding='utf-8', errors='ignore') as f:
             html = f.read()
 
