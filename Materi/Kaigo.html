@@ -750,8 +750,31 @@
 .kg-search-x.show { display: block; }
 
 .kg-row { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-bottom: .5rem; }
+/* Baris chip ini menggulir mendatar (isinya 1.445px pada wadah 1.145px) tapi
+   scrollbar-nya disembunyikan — enam kategori terakhir bisa dijangkau namun
+   tidak ada tanda apa pun bahwa ia bisa digulir. Diukur di Chromium: chip
+   "Hukum & Etika" berakhir di 1.512px, jauh di luar wadah.
+
+   DUA PERCOBAAN YANG GAGAL, DAN KENAPA
+
+   1. bayangan gulir CSS murni (background berlapis, attachment local/scroll)
+      Chip-nya buram dan menutupi latar wadahnya, jadi bayangannya tidak
+      pernah terlihat.
+   2. scrollbar tipis yang terlihat (scrollbar-width + scrollbar-color)
+      Lebih baik daripada disembunyikan, tapi macOS memakai overlay scrollbar
+      yang hanya muncul saat menggulir — jadi TIDAK BISA DIVERIFIKASI di sini.
+
+   Yang dipakai: mask-image pada wadahnya. Ia memudarkan CHIP-nya sendiri,
+   bukan latar di belakangnya, jadi pasti terlihat apa pun yang menimpanya —
+   dan bisa dibuktikan dengan tangkapan layar.
+
+   Pudarnya hanya di sisi kanan. Di sisi kiri pudar akan memotong chip
+   "Semua" yang aktif pada keadaan awal, padahal di sana tidak ada isi
+   tersembunyi. */
 .kg-chips { display: flex; gap: .45rem; overflow-x: auto; padding-bottom: .25rem;
-  scrollbar-width: none; flex: 1; min-width: 0; }
+  scrollbar-width: none; flex: 1; min-width: 0;
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 34px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 34px), transparent); }
 .kg-chips::-webkit-scrollbar { display: none; }
 .kg-chip { flex: 0 0 auto; display: inline-flex; align-items: center; gap: .35rem;
   padding: .5rem .8rem; font: inherit; font-size: 12.5px; font-weight: 600; white-space: nowrap;
