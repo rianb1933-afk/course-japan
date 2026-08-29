@@ -309,8 +309,21 @@ body:has(#knThemeBtn) .theme-toggle-float { display: none; }
    Diukur di Chromium pada 15 halaman. Padding tegak menaikkannya ke 25px
    tanpa menggeser posisi teksnya, sebab tautan ini berdiri sendiri dalam
    kolom daftar footer. */
+/* !important karena aturan tema `a[class*="link"]:not([class*="footer"])`
+   ikut mengenai kelas ini — "ft-link-dim" memuat "link" tapi tidak memuat
+   "footer" karena disingkat, jadi penjaganya meleset. Aturan itu ada juga
+   di kyoto-bundle.min.css yang TANPA berkas sumber, sehingga memperbaiki
+   kyoto-theme.css saja tidak menjangkau halaman yang memuat bundel.
+   Ditelusuri dengan CDP pada 404.html: cokelat --primary di atas footer
+   gelap memberi rasio 2,05.
+
+   !important saja TIDAK CUKUP: dua deklarasi sama-sama !important, jadi
+   pemenangnya kekhususan — dan .ft-link-dim (0,1,0) kalah dari
+   a[class*="link"]:not([class*="footer"]) (0,2,1). Kelasnya digandakan
+   supaya kekhususannya (0,3,1) menang telak. */
+a.ft-link-dim.ft-link-dim,
 .ft-link-dim {
-  color: rgba(255, 255, 255, .6);
+  color: rgba(255, 255, 255, .6) !important;
   text-decoration: none;
   transition: color .15s;
   display: inline-block;

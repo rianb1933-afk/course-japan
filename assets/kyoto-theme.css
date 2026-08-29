@@ -509,11 +509,24 @@ select:focus,
 /* ══════════════════════════════════════
    SECTION ACTION LINKS
    ══════════════════════════════════════ */
+/* :not([class*="footer"]) meleset untuk kelas footer yang DISINGKAT.
+   .ft-link-dim mengandung "link" tapi tidak mengandung "footer", sehingga
+   tautan footer ikut diwarnai cokelat --primary — di atas footer gelap
+   rasionya 2,05. Ditelusuri dengan CDP pada 404.html: aturan inilah yang
+   menang atas rgba(255,255,255,.6) milik kyoto-elevation.css.
+
+   Pengecualian ditambah untuk awalan ft-, dan seluruh isi <footer>
+   dikecualikan secara struktural supaya penamaan kelas apa pun aman. */
 .sec-action,
 a[class*="action"],
 a[class*="more"],
-a[class*="link"]:not([class*="footer"]) {
+a[class*="link"]:not([class*="footer"]):not([class*="ft-"]) {
   color: var(--primary) !important;
+}
+footer a[class*="link"],
+footer a[class*="action"],
+footer a[class*="more"] {
+  color: inherit !important;
 }
 [data-theme="dark"] .sec-action { color: #C89B3C !important; }
 
