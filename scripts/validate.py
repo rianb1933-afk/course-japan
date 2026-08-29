@@ -1737,9 +1737,29 @@ def check_explanation_id_coverage():
     # membuat kalimatnya terbaca, jadi tidak dihitung sebagai terjemahan.
     # Yang dihitung: rangkaian huruf Latin sepanjang minimal 40 karakter yang
     # memuat penanda bahasa Indonesia — panjang satu klausa utuh.
-    MIN_RUN = 40
-    latin_run = re.compile(
-        r"[A-Za-z][A-Za-z0-9 ,.;:'\"()\-—/%\\]{" + str(MIN_RUN - 1) + ",}")
+    # DUA AMBANG, KARENA BENTUK ISINYA BERBEDA
+    #
+    # Modul Kaigo: penjelasannya paragraf Jepang panjang, dan modus gagalnya
+    # adalah satu kata Indonesia dalam kurung — "身体拘束は…自由(kebebasan)を侵害".
+    # Ambang 40 karakter menolak itu, dan harus tetap 40 supaya entri Kaigo
+    # baru tidak bisa lolos dengan glos sekata.
+    #
+    # Halaman non-Kaigo (Grammar, Kaiwa, JLPT, Kosakata): penjelasannya MEMANG
+    # pendek, karena isinya satu butir tata bahasa. "berapa umurmu?" adalah
+    # terjemahan lengkap dari 何歳ですか, bukan glos setengah jadi. Ambang 40 di
+    # sana menuduh 518 penjelasan belum diterjemahkan padahal sudah — angka
+    # yang membuat pekerjaan tampak dua kali lebih besar dari sebenarnya.
+    #
+    # Diukur: pada ambang 15 maupun 40, cakupan Kaigo tetap 2228/2228 —
+    # menurunkannya tidak melonggarkan apa pun yang sudah dicapai.
+    AMBANG_KAIGO = 40
+    AMBANG_LAIN = 15
+
+    def _run(n):
+        return re.compile(
+            r"[A-Za-z][A-Za-z0-9 ,.;:'\"()\-—/%\\]{" + str(n - 1) + ",}")
+
+    run_kaigo, run_lain = _run(AMBANG_KAIGO), _run(AMBANG_LAIN)
     # Daftar ini SEMPAT KURANG. "sebagai" — salah satu kata paling umum dalam
     # bahasa Indonesia — tidak ada di dalamnya, sehingga kalimat yang utuh
     # seperti "penyandang demensia dihormati sebagai manusia utuh" dilaporkan
@@ -1755,45 +1775,69 @@ def check_explanation_id_coverage():
         r'|\b(?:me[mnl]?[a-z]{3,}|ber[a-z]{4,}|pe[mn]?[a-z]{4,}an|ke[a-z]{4,}an)\b',
         re.I)
 
-    def has_indonesian_sentence(text):
-        return any(indonesian.search(run) for run in latin_run.findall(text))
+    def has_indonesian_sentence(text, kaigo):
+        pola = run_kaigo if kaigo else run_lain
+        return any(indonesian.search(r) for r in pola.findall(text))
 
     value = re.compile(r'["\']?(?:e|exp|explanation)["\']?\s*:\s*(["\'])'
                        r'((?:[^\\]|\\.)*?)\1', re.S)
 
-    total = covered = 0
-    for path in sorted(glob.glob(os.path.join(ROOT, 'Materi', 'Kaigo-*.html'))):
+    # SELURUH Materi/, bukan hanya Kaigo-*.
+    #
+    # Check ini dulu hanya menyisir Kaigo-*.html lalu melaporkan "2.183/2.183
+    # penjelasan kuis" — kalimat yang terbaca seolah seluruh situs sudah
+    # tuntas. Padahal 176 halaman non-Kaigo (JLPT, Kaiwa, Grammar, Kosakata)
+    # memuat 1.388 penjelasan lagi yang tidak pernah masuk penyebut.
+    #
+    # Penyebut yang menyembunyikan lebih berbahaya daripada angka yang jelek:
+    # ia membuat pekerjaan tampak selesai padahal belum. Jadi keduanya dihitung,
+    # dengan dua tuntutan berbeda.
+    kaigo_t = kaigo_c = lain_t = lain_c = 0
+    belum = []
+    for path in sorted(glob.glob(os.path.join(ROOT, 'Materi', '*.html'))):
+        is_kaigo = os.path.basename(path).startswith('Kaigo-')
         html = read(path)
         for name, _, span in engine.quiz_arrays(html):
             if not engine.is_rendered(html, name, span):
                 continue
             for m in value.finditer(html[span[0]:span[1]]):
-                total += 1
-                if has_indonesian_sentence(m.group(2)):
-                    covered += 1
+                punya = has_indonesian_sentence(m.group(2), is_kaigo)
+                if is_kaigo:
+                    kaigo_t += 1
+                    kaigo_c += punya
+                else:
+                    lain_t += 1
+                    lain_c += punya
+                if not punya:
+                    belum.append((os.path.basename(path), m.group(2)))
 
-    if not total:
+    if not (kaigo_t + lain_t):
         return
 
-    pct = covered / total * 100
-
-    if covered < total:
+    # Kaigo sudah tuntas — apa pun di bawah penuh adalah kemunduran.
+    if kaigo_c < kaigo_t:
         err('explanation-id',
-            f'{total - covered} penjelasan kuis kehilangan kalimat Indonesianya '
-            f'({covered}/{total}, {pct:.0f}%). Cakupan sudah pernah penuh — '
-            f'ini kemunduran, bukan pekerjaan yang belum selesai.')
-        for path in sorted(glob.glob(os.path.join(ROOT, 'Materi', 'Kaigo-*.html'))):
-            html = read(path)
-            for name, _, span in engine.quiz_arrays(html):
-                if not engine.is_rendered(html, name, span):
-                    continue
-                for m in value.finditer(html[span[0]:span[1]]):
-                    if not has_indonesian_sentence(m.group(2)):
-                        err('explanation-id',
-                            f'    {os.path.basename(path)}  {m.group(2)[:70]}…')
+            f'{kaigo_t - kaigo_c} penjelasan kuis Kaigo kehilangan kalimat '
+            f'Indonesianya ({kaigo_c}/{kaigo_t}). Cakupan Kaigo sudah pernah '
+            f'penuh — ini kemunduran, bukan pekerjaan yang belum selesai.')
+        for nama, teks in belum:
+            if nama.startswith('Kaigo-'):
+                err('explanation-id', f'    {nama}  {teks[:70]}…')
+
+    # Sisa Materi masih digarap: yang dijaga arahnya, bukan kepenuhannya.
+    BASELINE_LAIN = 818
+    if lain_c < BASELINE_LAIN:
+        err('explanation-id',
+            f'Cakupan non-Kaigo turun ke {lain_c}/{lain_t}, di bawah '
+            f'{BASELINE_LAIN} yang sudah dicapai. Glos hilang, bukan bertambah.')
     else:
         ok('explanation-id',
-           f'{covered}/{total} penjelasan kuis punya kalimat Indonesia utuh.')
+           f'non-Kaigo {lain_c}/{lain_t} ({lain_c / lain_t * 100:.0f}%) '
+           f'— sisa {lain_t - lain_c} menunggu penulisan')
+
+    if kaigo_c >= kaigo_t:
+        ok('explanation-id',
+           f'Kaigo {kaigo_c}/{kaigo_t} penjelasan kuis punya kalimat Indonesia utuh.')
 
 
 def check_no_hangul():
