@@ -21,15 +21,21 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#0d0f12;color:#fff;min-height:100vh;display:flex;flex-direction:column;text-align:center;padding:24px}
+/* Halaman ini dulu dirancang gelap sendiri (#0d0f12 + teks putih), tapi
+   kyoto-theme memaksa `body{background:var(--cream)!important}` — jadi seluruh
+   teksnya putih di atas krem dan lenyap. Ini halaman yang muncul justru saat
+   pengguna TIDAK punya internet, jadi ia harus ikut tema, bukan melawannya. */
+body{color:var(--ink,#2D2D2D);min-height:100vh;display:flex;flex-direction:column;text-align:center;padding:24px}
 .w{max-width:440px;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto;width:100%}
 .ic{font-size:72px;margin-bottom:20px}
 h1{font-family:'Noto Serif JP',serif;font-size:28px;margin-bottom:10px}
-p{font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;margin-bottom:24px;max-width:340px;margin-left:auto;margin-right:auto}
-.btn{height:48px;padding:0 28px;border-radius:12px;background:var(--red,#be3428);color:#fff;font-size:15px;font-weight:800;border:none;cursor:pointer;font-family:Outfit,sans-serif}
-.tips{margin-top:28px;text-align:left;background:rgba(255,255,255,.06);border-radius:14px;padding:18px}
-.tips h3{font-size:11px;font-weight:800;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
-.tip{font-size:13px;color:rgba(255,255,255,.6);padding:5px 0;border-bottom:.5px solid rgba(255,255,255,.07)}
+p{font-size:14px;color:var(--ink-mid,#4A4A4A);line-height:1.8;margin-bottom:24px;max-width:340px;margin-left:auto;margin-right:auto}
+/* Merah tetap, bukan var(--red): di mode gelap --red berbalik jadi emas
+   #C89B3C, dan teks putih di atasnya cuma 2,6:1. */
+.btn{height:48px;padding:0 28px;border-radius:12px;background:#be3428;color:#fff;font-size:15px;font-weight:800;border:none;cursor:pointer;font-family:Outfit,sans-serif}
+.tips{margin-top:28px;text-align:left;background:var(--white,#FEFCF8);border:1px solid rgba(128,128,128,.22);border-radius:14px;padding:18px}
+.tips h3{font-size:11px;font-weight:800;color:var(--ink-soft,#6E6E6E);text-transform:uppercase;letter-spacing:.1em;margin-bottom:12px}
+.tip{font-size:13px;color:var(--ink-mid,#4A4A4A);padding:5px 0;border-bottom:1px solid rgba(128,128,128,.22)}
 .tip:last-child{border-bottom:none}
 </style>
 <link rel="stylesheet" href="assets/kyoto-bundle.min.css">

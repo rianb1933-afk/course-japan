@@ -32,21 +32,29 @@
 <link rel="stylesheet" href="assets/translator.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-body{min-height:100vh;background:#17181d;color:#fff;display:grid;place-items:center;padding:24px;position:relative;overflow:hidden}
-body::before{content:'管理';position:absolute;right:-40px;bottom:-80px;font-family:'Noto Serif JP',serif;font-size:320px;color:rgba(255,255,255,.045);line-height:1}
-.login{position:relative;z-index:1;width:min(440px,100%);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:2rem;box-shadow:0 24px 80px rgba(0,0,0,.32);backdrop-filter:blur(16px)}
-.brand{display:flex;align-items:baseline;gap:10px;margin-bottom:2rem}.brand-jp{font-family:'Noto Serif JP',serif;font-size:28px;color:var(--red-soft);font-weight:600}.brand-id{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.5);font-weight:800}
-.badge{display:inline-flex;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;margin-bottom:1rem}
-h1{font-family:'Noto Serif JP',serif;font-size:34px;line-height:1.15;margin-bottom:.5rem}p{color:rgba(255,255,255,.62);font-size:14px;line-height:1.8;margin-bottom:1.5rem}
-label{display:block;font-size:12px;font-weight:800;color:rgba(255,255,255,.58);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
-input{width:100%;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.08);color:#fff;border-radius:8px;padding:12px 14px;font-family:'Outfit',sans-serif;outline:none;margin-bottom:1rem}
-input:focus{border-color:var(--red-soft);background:rgba(255,255,255,.12)}
-.row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:.2rem 0 1.2rem}.remember{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.62);font-size:13px}.remember input{width:auto;margin:0}.hint{font-size:12px;color:rgba(255,255,255,.45)}
-button{width:100%;border:none;border-radius:8px;background:var(--red);color:#fff;padding:13px;font-size:14px;font-weight:900;font-family:'Outfit',sans-serif;cursor:pointer}button:hover{background:var(--red-soft)}
-.error{display:none;border-radius:8px;background:rgba(232,83,74,.16);border:1px solid rgba(232,83,74,.28);color:#ffb7b0;padding:10px 12px;font-size:13px;margin-bottom:1rem}.error.show{display:block}
-.links{display:flex;justify-content:space-between;gap:1rem;margin-top:1.25rem}.links a{color:rgba(255,255,255,.6);font-size:13px;text-decoration:none}.links a:hover{color:#fff}
-.demo{margin-top:1rem;border-top:1px solid rgba(255,255,255,.1);padding-top:1rem;font-size:12px;color:rgba(255,255,255,.45)}
-code{color:#fff;background:rgba(255,255,255,.1);border-radius:6px;padding:2px 5px}
+/* Layar ini dulu berdiri sendiri dengan latar gelap #17181d dan teks putih.
+   Lalu kyoto-theme datang membawa `body{background:var(--cream)!important}` —
+   latarnya jadi krem sementara teksnya tetap putih, dan seluruh label form
+   ("EMAIL ADMIN", "PASSWORD", "INGAT SESI") hilang dari layar. Sekarang ia
+   memakai token tema, jadi terbaca di mode terang maupun gelap. */
+body{min-height:100vh;color:var(--ink,#2D2D2D);display:grid;place-items:center;padding:24px;position:relative;overflow:hidden}
+body::before{content:'管理';position:absolute;right:-40px;bottom:-80px;font-family:'Noto Serif JP',serif;font-size:320px;color:rgba(128,128,128,.07);line-height:1}
+.login{position:relative;z-index:1;width:min(440px,100%);background:var(--white,#FEFCF8);border:1px solid rgba(128,128,128,.24);border-radius:8px;padding:2rem;box-shadow:0 24px 80px rgba(0,0,0,.32);backdrop-filter:blur(16px)}
+.brand{display:flex;align-items:baseline;gap:10px;margin-bottom:2rem}.brand-jp{font-family:'Noto Serif JP',serif;font-size:28px;color:#A63A3A;font-weight:600}.brand-id{font-size:12px;text-transform:uppercase;letter-spacing:.12em;color:var(--ink-soft,#6E6E6E);font-weight:800}
+.badge{display:inline-flex;border-radius:8px;background:rgba(232,83,74,.16);color:#8E2018;font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:5px 10px;margin-bottom:1rem}
+h1{font-family:'Noto Serif JP',serif;font-size:34px;line-height:1.15;margin-bottom:.5rem}p{color:var(--ink-mid,#4A4A4A);font-size:14px;line-height:1.8;margin-bottom:1.5rem}
+label{display:block;font-size:12px;font-weight:800;color:var(--ink-mid,#4A4A4A);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+input{width:100%;border:1px solid rgba(128,128,128,.32);background:var(--cream,#F8F3E9);color:var(--ink,#2D2D2D);border-radius:8px;padding:12px 14px;font-family:'Outfit',sans-serif;outline:none;margin-bottom:1rem}
+input:focus{border-color:#be3428;background:var(--white,#FEFCF8)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin:.2rem 0 1.2rem}.remember{display:flex;align-items:center;gap:8px;color:var(--ink-mid,#4A4A4A);font-size:13px}.remember input{width:auto;margin:0}.hint{font-size:12px;color:var(--ink-soft,#6E6E6E)}
+button{width:100%;border:none;border-radius:8px;background:#be3428;color:#fff;padding:13px;font-size:14px;font-weight:900;font-family:'Outfit',sans-serif;cursor:pointer}button:hover{background:#A63A3A}
+.error{display:none;border-radius:8px;background:rgba(232,83,74,.16);border:1px solid rgba(232,83,74,.45);color:#8E2018;padding:10px 12px;font-size:13px;margin-bottom:1rem}.error.show{display:block}
+.links{display:flex;justify-content:space-between;gap:1rem;margin-top:1.25rem}.links a{color:var(--ink-mid,#4A4A4A);font-size:13px;text-decoration:underline}.links a:hover{color:var(--ink,#2D2D2D)}
+.demo{margin-top:1rem;border-top:1px solid rgba(128,128,128,.24);padding-top:1rem;font-size:12px;color:var(--ink-soft,#6E6E6E)}
+code{color:var(--ink,#2D2D2D);background:rgba(128,128,128,.18);border-radius:6px;padding:2px 5px}
+[data-theme="dark"] .badge{color:#F0A79E}
+[data-theme="dark"] .brand-jp{color:#E58C80}
+[data-theme="dark"] .error{color:#FFB7B0;border-color:rgba(232,83,74,.38)}
 </style>
 <link rel="stylesheet" href="assets/neko-theme.css?v=3">
 

@@ -2007,6 +2007,65 @@ def check_literal_grey_without_dark_variant():
            'Tidak ada abu tengah harfiah yang tak membalik di berkas sadar-tema.')
 
 
+def check_dead_body_background():
+    """`body{background:...}` milik halaman sendiri selalu kode mati.
+
+    kyoto-theme.css memaksa `body { background: var(--cream) !important }`, dan
+    tak ada aturan biasa yang bisa menang melawan `!important` — sespesifik apa
+    pun selektornya. Jadi setiap halaman yang menuliskan latar body-nya sendiri
+    sebenarnya sedang menulis aturan yang tidak pernah berlaku.
+
+    Itu bukan sekadar kerapian. Dua halaman pernah dirancang GELAP dengan cara
+    ini — Admin-Login memakai #17181d dan offline.html memakai #0d0f12, lalu
+    seluruh teksnya diwarnai putih agar terbaca di atas latar itu. Latarnya
+    dibatalkan diam-diam oleh tema; warna teksnya tidak. Hasilnya putih di atas
+    krem: rasio 1,1:1. Di Admin-Login seluruh label form ("EMAIL ADMIN",
+    "PASSWORD", "INGAT SESI") lenyap dari layar, dan offline.html — halaman yang
+    justru muncul saat pengguna tidak punya internet — kehilangan seluruh
+    penjelasannya. Keduanya lolos setiap pemeriksaan sumber selama berbulan-bulan
+    karena sumbernya memang tampak benar; yang salah adalah anggapan bahwa
+    aturannya berlaku.
+
+    Isi <script> dilewati. Ujian.html membangun jendela cetak sertifikat lewat
+    string `'<style>body{...;background:#F8F3E9}'`, dan itu dokumen TERPISAH
+    yang tidak kena !important tema — aturannya sungguh berlaku di sana. Versi
+    pertama check ini menuduhnya, dan tuduhan itu keliru.
+    """
+    import re as _re
+    import glob as _glob
+
+    style = _re.compile(r'<style[^>]*>(.*?)</style>', _re.S)
+    skrip = _re.compile(r'<script[^>]*>.*?</script>', _re.S)
+    aturan = _re.compile(r'(?:^|[,\s>])body\s*\{([^}]*)\}')
+    latar = _re.compile(
+        r'background(?:-color)?\s*:\s*'
+        r'(#[0-9A-Fa-f]{3,8}|rgb|hsl|linear-gradient|radial-gradient)')
+
+    temuan = []
+    for path in sorted(_glob.glob(os.path.join(ROOT, '*.html'))
+                       + _glob.glob(os.path.join(ROOT, 'Materi', '*.html'))):
+        src = read(path)
+        if 'kyoto-theme.css' not in src and 'kyoto-bundle.min.css' not in src:
+            continue
+        for blok in style.findall(skrip.sub('', src)):
+            for m in aturan.finditer(blok):
+                isi = m.group(1)
+                g = latar.search(isi)
+                if g and '!important' not in isi:
+                    temuan.append((os.path.relpath(path, ROOT), g.group(1)[:24]))
+
+    if temuan:
+        err('dead-body-bg',
+            f'{len(temuan)} halaman menulis latar body sendiri — dibatalkan '
+            f'diam-diam oleh var(--cream)!important, sementara warna teks yang '
+            f'dirancang untuk latar itu tetap berlaku:')
+        for nama, nilai in temuan[:8]:
+            err('dead-body-bg', f'    {nama}  background:{nilai}')
+    else:
+        ok('dead-body-bg',
+           'Tidak ada halaman yang melawan latar body dari tema.')
+
+
 def check_no_hangul():
     """Tidak boleh ada aksara Korea di materi.
 
@@ -2163,6 +2222,7 @@ def main():
         check_kaigo_quiz_reachable,
         check_explanation_id_coverage,
         check_no_hangul,
+        check_dead_body_background,
         check_literal_grey_without_dark_variant,
         check_literal_bg_with_token_color,
         check_kaigo_durations,
