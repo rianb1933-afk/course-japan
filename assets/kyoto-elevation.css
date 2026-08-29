@@ -305,7 +305,17 @@ body:has(#knThemeBtn) .theme-toggle-float { display: none; }
 .ft-note    { font-size: 12px; color: rgba(255, 255, 255, .35); }
 
 .ft-link     { color: rgba(255, 255, 255, .65); font-size: 13px; text-decoration: none; transition: color .15s; }
-.ft-link-dim { color: rgba(255, 255, 255, .6); text-decoration: none; transition: color .15s; }
+/* Tinggi kotak kliknya hanya 21px — di bawah minimum WCAG 2.2 (24×24).
+   Diukur di Chromium pada 15 halaman. Padding tegak menaikkannya ke 25px
+   tanpa menggeser posisi teksnya, sebab tautan ini berdiri sendiri dalam
+   kolom daftar footer. */
+.ft-link-dim {
+  color: rgba(255, 255, 255, .6);
+  text-decoration: none;
+  transition: color .15s;
+  display: inline-block;
+  padding-block: 2px;
+}
 .ft-link:hover,
 .ft-link-dim:hover { color: #fff; }
 
