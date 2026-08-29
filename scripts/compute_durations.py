@@ -83,17 +83,31 @@ def quiz_arrays(html):
     hanya JUMLAH soal, penghitungan dilakukan dengan mencari kunci `q:` pada
     kedalaman kurung kurawal 1, bukan dengan mem-parse nilainya.
 
+    OBJEK, BUKAN HANYA ARRAY
+
+    Versi pertama hanya mencari `= [`. Kaigo-Ujian-Nasional menyimpan soalnya
+    dalam OBJEK berisi array — `const BANKS = { 1: [...], 2: [...] }` — dan
+    seluruh 45 soalnya lolos tanpa terhitung sekali pun. Ia baru ketahuan saat
+    modulnya dibuka di browser sungguhan: kuisnya jalan, tapi 13 penjelasannya
+    tak pernah masuk hitungan cakupan bahasa Indonesia karena validator tidak
+    tahu array itu ada.
+
+    Karena itu pembuka `{` ikut ditelusuri. Penjaganya tetap sama — harus ada
+    kunci `q:` DAN kata `opts` — supaya objek biasa tidak ikut tertangkap.
+
     Mengembalikan [(nama, jumlah_soal, (awal, akhir)), ...].
     """
+    PASANGAN = {'[': ']', '{': '}'}
     found = []
-    for m in re.finditer(r'(?:var|const|let)\s+(\w+)\s*=\s*\[', html):
-        name = m.group(1)
-        start = html.find('[', m.start())
+    for m in re.finditer(r'(?:var|const|let)\s+(\w+)\s*=\s*([\[{])', html):
+        name, buka = m.group(1), m.group(2)
+        tutup = PASANGAN[buka]
+        start = html.index(buka, m.start())
         depth = 0
         for i in range(start, len(html)):
-            if html[i] == '[':
+            if html[i] == buka:
                 depth += 1
-            elif html[i] == ']':
+            elif html[i] == tutup:
                 depth -= 1
                 if depth == 0:
                     body = html[start:i + 1]

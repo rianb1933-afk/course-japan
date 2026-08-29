@@ -1121,7 +1121,7 @@ MODULES = {
         "description": 'Latihan soal ujian nasional 国家試験 介護福祉士: bank soal pilihan ganda, materi prioritas, dan strategi lulus ujian kaigo Jepang.',
         "level": 'mahir',
         "order": 2,
-        "duration": 25,
+        "duration": 70,
         "prerequisite": 'Kaigo-Ujian-N2',
         "tags": ['ujian', 'latihan'],
         "recommended_next": 'Kaigo-Ujian-Kokoro-Karada',
