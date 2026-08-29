@@ -39,7 +39,10 @@
 body{font-family:var(--ff);background:var(--bg);color:var(--ink)}
 .topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
 .tb-brand{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800}
-.tb-nav{display:flex;gap:6px}
+/* Barisan tab ini melebar sampai 429px pada layar 390px, sehingga seluruh halaman bisa digeser ke samping (luber 39px). Diukur di Chromium; sudah ada sebelum penyuntingan ini. Kini menggulir sendiri dengan pudar di tepi kanan sebagai tandanya, sama seperti baris filter di hub Kaigo. */
+.tb-nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;-webkit-mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent);mask-image:linear-gradient(to right,#000 calc(100% - 28px),transparent)}
+.tb-nav::-webkit-scrollbar{display:none}
+.tb-nav>*{flex:0 0 auto}
 .tb-btn{font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:none;cursor:pointer;background:var(--surface);color:var(--ink2)}
 .tb-btn:hover{background:var(--blue-l);color:var(--blue)}
 .page{max-width:1100px;margin:0 auto;padding:28px 20px}
@@ -80,7 +83,7 @@ body{font-family:var(--ff);background:var(--bg);color:var(--ink)}
 .hm-1{background:#bbf7d0}.hm-2{background:#4ade80}.hm-3{background:#16a34a}.hm-4{background:#14532d}
 /* period selector */
 .period-btns{display:flex;gap:6px}
-.pbtn{font-size:11px;padding:4px 10px;border-radius:8px;border:1px solid var(--border);background:var(--white);cursor:pointer;font-weight:600}
+.pbtn{font-size:11px;padding:6px 10px;min-height:26px;border-radius:8px;border:1px solid var(--border);background:var(--white);cursor:pointer;font-weight:600}
 .pbtn.active{background:var(--blue);color:#fff;border-color:var(--blue)}
 /* activity timeline */
 .activity-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);align-items:flex-start}
