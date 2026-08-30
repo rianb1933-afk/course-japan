@@ -214,8 +214,22 @@ function ukur({ AMBANG, AMBANG_BESAR, SENTUH_MIN, mobile }) {
   // ── 4. sasaran sentuh (hanya mobile) ──
   const kecil = [];
   if (mobile) {
+    // Pengecualian "Inline" dari WCAG 2.5.8: sasaran yang berada DI DALAM
+    // kalimat dikecualikan, karena tingginya ditentukan line-height teks di
+    // sekitarnya dan memperbesarnya justru merusak paragraf. Tanpa ini, setiap
+    // tautan dalam kalimat — "hubungi kami di hello@nihongopro.id" — dilaporkan
+    // sebagai cacat yang tidak boleh diperbaiki.
+    const dalamKalimat = (e) => {
+      if (e.tagName !== 'A') return false;
+      const induk = e.parentElement;
+      if (!induk) return false;
+      return [...induk.childNodes].some(
+        (n) => n !== e && n.nodeType === 3 && n.textContent.trim().length > 1
+      );
+    };
     document.querySelectorAll('a,button,[role=button],input[type=checkbox],input[type=radio]').forEach((e) => {
       if (kecil.length > 5 || !tampak(e) || tersembunyiEfektif(e)) return;
+      if (dalamKalimat(e)) return;
       const r = e.getBoundingClientRect();
       if (r.width < SENTUH_MIN || r.height < SENTUH_MIN) {
         kecil.push({

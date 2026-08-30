@@ -638,3 +638,32 @@ html[data-theme="dark"] .stat-num { color: #EE8878 !important; }  /* neko-theme 
 .error-state code { color: var(--ink-mid); }
 .error-state h3 { color: #A63A3A; }
 html[data-theme="dark"] .error-state h3 { color: #EE8878; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   Sasaran sentuh tautan footer — WCAG 2.5.8 (24×24 px)
+   ══════════════════════════════════════════════════════════════════════
+   Footer bersama menyalin markup yang sama ke puluhan halaman, jadi tinggi
+   tautannya juga sama di mana-mana: 20–21px, ditentukan murni oleh
+   line-height. Di layar sentuh itu sasaran yang meleset.
+
+   Ini BUKAN kasus pengecualian "Inline" WCAG 2.5.8 — tautan ini berdiri
+   sendiri di dalam kolom dan baris meta, bukan di tengah kalimat, jadi
+   tidak ada teks sekitar yang membatasi tingginya. (Tautan yang memang di
+   dalam kalimat, seperti alamat surel di FAQ, sengaja tidak disentuh;
+   memperbesarnya justru merusak paragrafnya.)
+
+   inline-flex + align-items:center menaikkan tinggi tanpa menggeser garis
+   dasar teksnya, jadi tata letak footer tidak berubah selain sedikit lebih
+   lega. min-height, bukan padding, supaya tautan yang sudah cukup tinggi
+   tidak ikut membesar.
+
+   Daftar kelas sempat dipakai, tapi beberapa halaman lama (Privacy, Progress,
+   Blog-SEO) menulis tautan footernya sebagai <a> tanpa kelas sama sekali, jadi
+   13 tautan per halaman luput. `footer a` menangkap semuanya. Disisir di 53
+   halaman: tepat SATU tautan footer yang berada di dalam kalimat — alamat surel
+   di beranda — dan mailto: dikecualikan untuk itu. */
+footer a:not([href^="mailto:"]) {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+}
