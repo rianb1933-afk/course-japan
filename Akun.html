@@ -60,6 +60,11 @@ body{background:var(--cream);color:var(--ink);min-height:100vh}
 .social-btn:hover{border-color:var(--red);color:var(--red)}
 .auth-footer{text-align:center;font-size:13px;color:var(--ink-soft);margin-top:1.25rem}
 .auth-footer a{color:var(--red);font-weight:700;cursor:pointer;text-decoration:none}
+/* --red di neko-theme tidak membalik: #be3428 di kedua tema, dan di atas
+   kartu gelap #1A1A1A cuma 3,08:1. !important perlu karena salah satu
+   tautan menulis warnanya di atribut style. */
+html[data-theme="dark"] .auth-footer a,
+html[data-theme="dark"] .auth-links a{color:#EE8878!important}
 .msg{padding:.625rem .875rem;border-radius:8px;font-size:13px;font-weight:600;margin-bottom:1rem;display:none}
 .msg.error{background:#fef2f2;color:#ef4444;border:.5px solid #fca5a5;display:block}
 .msg.success{background:var(--green-pale);color:var(--green);border:.5px solid rgba(33,135,93,.2);display:block}
