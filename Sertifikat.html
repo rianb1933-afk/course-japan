@@ -207,11 +207,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 function toast(m,d=3000){const w=document.getElementById('toastWrap');const el=document.createElement('div');el.className='toast';el.textContent=m;w.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),350);},d);}
 
 let certLevel = 'N5';
+// Warna di sini digambar ke CANVAS, bukan ke CSS. Canvas tidak bisa mengurai
+// `var(--blue,#2f6fed)` — ia melempar "could not be parsed as a color" dan
+// seluruh penggambaran sertifikat berhenti di situ. N5, N4, dan N2 memakai
+// bentuk itu, jadi tiga dari lima level gagal digambar sama sekali; N3 dan N1
+// yang memakai warna harfiah selamat, yang membuat bugnya tampak sporadis.
+// Nilai di bawah adalah fallback yang sudah tertulis di ekspresi aslinya.
 const levelColors = {
-  N5: {bg:'#1a2744', accent:'var(--blue,#2f6fed)', light:'#7aa9ff', name:'Foundation'},
-  N4: {bg:'#1a2e24', accent:'var(--green,#21875d)', light:'#6fcf97', name:'Elementary'},
+  N5: {bg:'#1a2744', accent:'#2f6fed', light:'#7aa9ff', name:'Foundation'},
+  N4: {bg:'#1a2e24', accent:'#21875d', light:'#6fcf97', name:'Elementary'},
   N3: {bg:'#2a2010', accent:'#b9892f', light:'#f0c56e', name:'Intermediate'},
-  N2: {bg:'#2a1212', accent:'var(--red,#be3428)', light:'#fc8179', name:'Upper Intermediate'},
+  N2: {bg:'#2a1212', accent:'#be3428', light:'#fc8179', name:'Upper Intermediate'},
   N1: {bg:'#1e1235', accent:'#9333ea', light:'#c084fc', name:'Advanced'},
 };
 
