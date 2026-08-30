@@ -834,7 +834,8 @@ function speak(t, lang='ja-JP') { TTS.speak(t, lang); }
 <script>
 // ── THEME ──
 function toggleTheme(){const t=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',t);localStorage.setItem('nihongo-theme',t);const el=document.querySelector('.theme-toggle');if(el)el.textContent=t==='dark'?'☀️':'🌙';}
-(()=>{const t=localStorage.getItem('nihongo-theme')||'light';document.documentElement.setAttribute('data-theme',t);const el=document.querySelector('.theme-toggle');if(el)el.textContent=t==='dark'?'☀️':'🌙';})();
+(()=>{const t=localStorage.getItem('nihongo-theme');const dk=t==null?window.matchMedia('(prefers-color-scheme: dark)').matches:t==='dark';document.documentElement.setAttribute('data-theme',dk?'dark':'');const el=document.querySelector('.theme-toggle');if(el)el.textContent=dk?'☀️':'🌙';})();
+(()=>{try{window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){const t=localStorage.getItem('nihongo-theme');if(t==null){const dk=window.matchMedia('(prefers-color-scheme: dark)').matches;document.documentElement.setAttribute('data-theme',dk?'dark':'');const el=document.querySelector('.theme-toggle');if(el)el.textContent=dk?'☀️':'🌙';}});}catch(e){}})();
 
 // ── TOAST ──
 function toast(m,d=3000){const w=document.getElementById('toastWrap');const el=document.createElement('div');el.className='toast';el.textContent=m;w.appendChild(el);requestAnimationFrame(()=>requestAnimationFrame(()=>el.classList.add('show')));setTimeout(()=>{el.classList.remove('show');setTimeout(()=>el.remove(),350);},d);}

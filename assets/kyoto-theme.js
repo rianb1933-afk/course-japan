@@ -2,23 +2,42 @@
  * 京都 KYOTO THEME SCRIPT
  * Handles dark/light mode toggle, Kyoto UI enhancements
  * for NihongoPro platform.
+ *
+ * DARK MODE PRIORITY:
+ * 1. If dark-mode-toggle.js is loaded (window.NPDark exists), delegate to it
+ * 2. Otherwise use localStorage('kyoto-theme'):
+ *    - null/unset → follow system prefers-color-scheme
+ *    - 'dark' → force dark
+ *    - 'light' → force light
  */
 (function () {
   'use strict';
 
-  /* ── THEME INIT ──
-     Jika window.NPDark sudah ada (dark-mode-toggle.js dimuat lebih dulu
-     di halaman ini), sistem itu adalah sumber kebenaran tunggal —
-     script ini TIDAK BOLEH menimpa data-theme dengan key localStorage
-     berbeda ('kyoto-theme' vs 'np-dark'). Toggle di halaman ini akan
-     didelegasikan ke window.NPDark.toggle() supaya kedua sistem selalu
-     sinkron, bukan saling menimpa. Di halaman TANPA dark-mode-toggle.js,
-     perilaku lama (localStorage 'kyoto-theme') dipertahankan utuh. */
   const HAS_NPDARK = typeof window.NPDark === 'object' && window.NPDark !== null;
   const THEME_KEY = 'kyoto-theme';
+
+  /* ── System preference detection ── */
+  function systemPrefersDark() {
+    try {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  /* ── Apply theme ── */
+  function applyTheme(val) {
+    let dark;
+    if (val === 'dark') dark = true;
+    else if (val === 'light') dark = false;
+    else dark = systemPrefersDark(); // null → follow system
+    document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  }
+
+  /* ── Init: when NPDark is NOT available, use kyoto-theme key with system fallback ── */
   if (!HAS_NPDARK) {
-    const saved = localStorage.getItem(THEME_KEY) || 'light';
-    document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : '');
+    const saved = localStorage.getItem(THEME_KEY);
+    applyTheme(saved);
   }
 
   /* ── THEME TOGGLE ── */
@@ -29,9 +48,9 @@
       return;
     }
     const current = document.documentElement.getAttribute('data-theme');
-    const next = current === 'dark' ? '' : 'dark';
-    document.documentElement.setAttribute('data-theme', next);
-    localStorage.setItem(THEME_KEY, next === 'dark' ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', next === 'dark' ? 'dark' : '');
+    localStorage.setItem(THEME_KEY, next);
     updateToggleIcons();
   }
 
@@ -44,6 +63,17 @@
       btn.title = isDark ? 'Mode Terang' : 'Mode Gelap';
     });
   }
+
+  /* ── Listen for system preference changes ── */
+  try {
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+      // Only follow system if user hasn't set a manual preference
+      if (!HAS_NPDARK && localStorage.getItem(THEME_KEY) == null) {
+        applyTheme(null);
+        updateToggleIcons();
+      }
+    });
+  } catch (e) {}
 
   /* ── BIND TOGGLE BUTTONS ── */
   document.addEventListener('DOMContentLoaded', () => {
@@ -101,7 +131,7 @@
       btt.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
     }
 
-    /* ── ANIMATE STAT VALUES ON SCROLL (safe, dengan viewport check) ── */
+    /* ── ANIMATE STAT VALUES ON SCROLL ── */
     if ('IntersectionObserver' in window) {
       const kyObs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -116,7 +146,6 @@
       document.querySelectorAll('.stat-card, .card-hover').forEach(el => {
         const rect = el.getBoundingClientRect();
         if (rect.top < window.innerHeight && rect.bottom > 0) {
-          // Sudah di viewport → langsung tampil
           el.style.transform = 'translateY(0)';
           el.style.opacity = '1';
         } else {
