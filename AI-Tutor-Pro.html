@@ -277,6 +277,11 @@ body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 .limit-bar-wrap { background: var(--cream); border-radius: var(--r-md); padding: 10px; }
 .limit-track { height: 4px; background: var(--border); border-radius: 99px; overflow: hidden; margin: 6px 0 4px; }
 .limit-fill  { height: 100%; background: var(--primary); border-radius: 99px; transition: width .4s; }
+/* Warna alat dipakai rangkap: garis atas kartu, teks CTA, dan LATAR tombol
+   berteks putih. Yang cukup gelap untuk peran ketiga terlalu gelap untuk
+   jadi teks di kartu gelap, jadi CTA-nya diberi warna sendiri. */
+.tool-cta{color:#1D4FD8}
+[data-theme="dark"] .tool-cta{color:#7BA5F5}
 </style>
 
 <link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=20260623">
@@ -715,62 +720,62 @@ function toggleMic() {
 const AI_TOOLS = [
   {
     id:'planner', icon:'📅', title:'AI Study Planner',
-    color:'#3b82f6', desc:'Buat jadwal belajar personal berdasarkan target JLPT & waktu Anda',
+    color:'#326ED1', desc:'Buat jadwal belajar personal berdasarkan target JLPT & waktu Anda',
     prompt:'Buat jadwal belajar bahasa Jepang untuk target {target} dalam {weeks} minggu. Saya bisa belajar {hours} jam per hari. Sertakan materi Kaigo jika relevan. Format: tabel harian dengan topik, durasi, dan sumber belajar.',
     inputs:[{id:'target',label:'Target JLPT',default:'N4'},{id:'weeks',label:'Berapa minggu',default:'8'},{id:'hours',label:'Jam/hari',default:'1.5'}]
   },
   {
     id:'lesson', icon:'📖', title:'AI Lesson Generator',
-    color:'#8b5cf6', desc:'Generate materi pelajaran lengkap dengan penjelasan, contoh, dan latihan',
+    color:'#8055E2', desc:'Generate materi pelajaran lengkap dengan penjelasan, contoh, dan latihan',
     prompt:'Buat pelajaran bahasa Jepang yang komprehensif tentang topik: {topic} (level {level}). Format: 1) Penjelasan (ID+JP) 2) Contoh kalimat dengan furigana 3) Catatan penting 4) 5 soal latihan dengan jawaban 5) Vocab terkait.',
     inputs:[{id:'topic',label:'Topik',default:'て形 (te-form)'},{id:'level',label:'Level',default:'N4'}]
   },
   {
     id:'grammar', icon:'✅', title:'AI Grammar Checker',
-    color:'#10b981', desc:'Cek dan koreksi grammar Jepang Anda dengan penjelasan detail',
+    color:'#0B825A', desc:'Cek dan koreksi grammar Jepang Anda dengan penjelasan detail',
     prompt:'Cek grammar kalimat Jepang berikut dan koreksi jika ada kesalahan. Jelaskan aturan grammar yang digunakan dan kesalahan yang ada:\n\n{text}\n\nFormat: 1) ✅/❌ Status 2) Koreksi (jika perlu) 3) Penjelasan grammar 4) Contoh serupa.',
     inputs:[{id:'text',label:'Kalimat yang ingin dicek',default:'私は毎日日本語をべんきょうします。',multiline:true}]
   },
   {
     id:'speaking', icon:'🎙️', title:'AI Speaking Coach',
-    color:'#f59e0b', desc:'Latihan speaking dengan feedback pronunsiasi dan intonasi',
+    color:'#9D6507', desc:'Latihan speaking dengan feedback pronunsiasi dan intonasi',
     prompt:'Saya akan berlatih speaking bahasa Jepang tentang topik: {topic}. Berikan:\n1) Frasa-frasa kunci yang harus dipelajari (dengan furigana & arti)\n2) Contoh percakapan pendek (2-3 putaran)\n3) Tips pronunsiasi untuk kata-kata sulit\n4) Pola intonasi yang perlu diperhatikan\n5) Kesalahan umum yang harus dihindari.',
     inputs:[{id:'topic',label:'Topik percakapan',default:'Perkenalan diri di tempat kerja Kaigo'}]
   },
   {
     id:'writing', icon:'✍️', title:'AI Writing Coach',
-    color:'#ec4899', desc:'Tulis dan perbaiki teks Jepang dengan bantuan AI',
+    color:'#C43C7F', desc:'Tulis dan perbaiki teks Jepang dengan bantuan AI',
     prompt:'Bantu saya memperbaiki tulisan Jepang berikut untuk level {level}:\n\n{text}\n\nBerikan: 1) Versi yang diperbaiki 2) Daftar kesalahan dan koreksinya 3) Saran untuk membuat tulisan lebih alami 4) Vocab alternatif yang lebih tepat.',
     inputs:[{id:'text',label:'Tulisan Anda',default:'私は介護士です。毎日おじいさんをたすけています。',multiline:true},{id:'level',label:'Target level',default:'N4'}]
   },
   {
     id:'conversation', icon:'💬', title:'AI Conversation Partner',
-    color:'#06b6d4', desc:'Percakapan bebas dengan AI dalam bahasa Jepang',
+    color:'#047C90', desc:'Percakapan bebas dengan AI dalam bahasa Jepang',
     prompt:'Mari kita bercakap-cakap dalam bahasa Jepang tentang {topic}. Saya di level {level}. Mulai percakapan, setelah saya menjawab koreksi kesalahan saya dengan gentle, lanjutkan percakapan secara alami. Gunakan bahasa yang sesuai level saya.',
     inputs:[{id:'topic',label:'Topik percakapan',default:'Hari pertama kerja di fasilitas kaigo'},{id:'level',label:'Level saya',default:'N4'}]
   },
   {
     id:'jlpt', icon:'📋', title:'AI JLPT Level Test',
-    color:'#f43f5e', desc:'Tes level JLPT Anda dan dapatkan rekomendasi AI',
+    color:'#CF3650', desc:'Tes level JLPT Anda dan dapatkan rekomendasi AI',
     prompt:'Buat mini JLPT placement test untuk menentukan level saya. Buat 10 soal (vocab 4 soal, grammar 3 soal, reading 2 soal, kanji 1 soal) campuran N5-N2. Setelah dijawab, analisis level saya dan beri rekomendasi belajar.',
     inputs:[{id:'_start',label:'_start',default:'start'}],
     autoStart:true
   },
   {
     id:'weakness', icon:'🔍', title:'AI Weakness Detection',
-    color:'#6366f1', desc:'Analisis kelemahan belajar Anda dan buat rencana perbaikan',
+    color:'#5E61E5', desc:'Analisis kelemahan belajar Anda dan buat rencana perbaikan',
     prompt:'Berdasarkan profil belajar: Quiz benar {accuracy}%, Vocab dikuasai {vocab} kata, Level saat ini {level}, Durasi belajar {weeks} minggu — analisis kelemahan saya dan buat rencana remedial yang spesifik dengan timeline.',
     inputs:[{id:'accuracy',label:'Rata-rata quiz (%)',default:'65'},{id:'vocab',label:'Vocab dikuasai',default:'150'},{id:'level',label:'Level saat ini',default:'N4-'},{id:'weeks',label:'Sudah belajar (minggu)',default:'6'}]
   },
   {
     id:'vocab_builder', icon:'🈶', title:'AI Vocabulary Builder',
-    color:'#14b8a6', desc:'Bangun kosakata dengan konteks, contoh, dan mnemonik',
+    color:'#0E7F73', desc:'Bangun kosakata dengan konteks, contoh, dan mnemonik',
     prompt:'Ajarkan saya vocab bahasa Jepang bertema {theme} untuk level {level}. Berikan 10 kata dengan: furigana, arti ID, contoh kalimat Kaigo (JP+ID), mnemonik untuk mengingat, dan kata terkait. Buat dalam format tabel yang mudah dibaca.',
     inputs:[{id:'theme',label:'Tema vocab',default:'Fasilitas dan alat perawatan kaigo'},{id:'level',label:'Level',default:'N4'}]
   },
   {
     id:'kanji_builder', icon:'🈷️', title:'AI Kanji Generator',
-    color:'#d97706', desc:'Pelajari kanji dengan radicals, stroke order, dan konteks',
+    color:'#AB5E05', desc:'Pelajari kanji dengan radicals, stroke order, dan konteks',
     prompt:'Ajarkan kanji bertema {theme} (10 kanji, level {level}). Untuk setiap kanji berikan: karakter, on-yomi, kun-yomi, arti, contoh kata (2 kata), contoh kalimat Kaigo, cara mengingat (visual/story), dan radicals pembentuknya.',
     inputs:[{id:'theme',label:'Tema kanji',default:'Kesehatan dan tubuh manusia'},{id:'level',label:'Level',default:'N4'}]
   },
@@ -791,9 +796,9 @@ function initAIHub() {
     toolGrid.innerHTML = AI_TOOLS.map(t => `
       <div onclick="openAITool('${t.id}')" style="background:var(--white,#fff);border:1px solid #e2e8f0;border-radius:14px;padding:16px;cursor:pointer;transition:.15s;border-top:3px solid ${t.color}">
         <div style="font-size:28px;margin-bottom:8px">${t.icon}</div>
-        <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:#0f172a">${t.title}</div>
-        <div style="font-size:11px;color:#64748b;line-height:1.5">${t.desc}</div>
-        <div style="margin-top:10px;font-size:11px;font-weight:700;color:${t.color}">Mulai →</div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:var(--ink,#0f172a)">${t.title}</div>
+        <div style="font-size:11px;color:var(--ink-soft,#64748b);line-height:1.5">${t.desc}</div>
+        <div class="tool-cta" style="margin-top:10px;font-size:11px;font-weight:700">Mulai →</div>
       </div>`).join('');
   }
 }
@@ -815,11 +820,11 @@ function openAITool(id) {
           <div style="display:flex;align-items:center;gap:10px">
             <span id="aiToolIcon" style="font-size:24px"></span>
             <div>
-              <div id="aiToolTitle" style="font-size:15px;font-weight:800;color:#0f172a"></div>
-              <div id="aiToolDesc" style="font-size:11px;color:#64748b"></div>
+              <div id="aiToolTitle" style="font-size:15px;font-weight:800;color:var(--ink,#0f172a)"></div>
+              <div id="aiToolDesc" style="font-size:11px;color:var(--ink-soft,#64748b)"></div>
             </div>
           </div>
-          <button aria-label="Closeaitool" onclick="closeAITool()" style="background:none;border:none;font-size:20px;cursor:pointer;color:#94a3b8;width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center">✕</button>
+          <button aria-label="Closeaitool" onclick="closeAITool()" style="background:none;border:none;font-size:20px;cursor:pointer;color:var(--ink-soft,#64748b);width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center">✕</button>
         </div>
         <div id="aiToolInputs" style="padding:16px 20px;flex-shrink:0;border-bottom:1px solid #e2e8f0;background:#f8f9fb"></div>
         <div id="aiToolChat" style="flex:1;overflow-y:auto;padding:16px 20px;display:flex;flex-direction:column;gap:10px"></div>
@@ -844,7 +849,7 @@ function openAITool(id) {
   if (tool.inputs.some(i=>i.id!=='_start')) {
     inp.style.display = 'block';
     inp.innerHTML = `
-      <div style="font-size:11px;font-weight:700;color:#64748b;margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Parameter</div>
+      <div style="font-size:11px;font-weight:700;color:var(--ink-soft,#64748b);margin-bottom:10px;text-transform:uppercase;letter-spacing:.05em">Parameter</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px">
         ${tool.inputs.filter(i=>i.id!=='_start').map(i=>`
           <div>
@@ -977,7 +982,7 @@ function appendToolMsg(role, text, isLoading=false) {
   const html = escapeHtml(text).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>');
   el.innerHTML = isBot ?
     `<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">🤖</div>
-     <div style="background:#f1f5f9;border-radius:0 12px 12px 12px;padding:10px 14px;max-width:85%;font-size:13px;line-height:1.6;${isLoading?'color:#94a3b8':''}">${html}</div>` :
+     <div style="background:#f1f5f9;border-radius:0 12px 12px 12px;padding:10px 14px;max-width:85%;font-size:13px;line-height:1.6;${isLoading?'color:var(--ink-soft,#64748b)':''}">${html}</div>` :
     `<div style="background:#2563eb;color:#fff;border-radius:12px 0 12px 12px;padding:10px 14px;max-width:80%;font-size:13px;line-height:1.6">${html}</div>`;
   chat.appendChild(el);
   chat.scrollTop = chat.scrollHeight;
@@ -1003,7 +1008,7 @@ document.addEventListener('DOMContentLoaded', () => {
     },
     {
       id:'homework', icon:'📝', title:'AI Homework Generator',
-      color:'#059669', desc:'Generate PR dan latihan soal khusus sesuai kelemahan dan level Anda',
+      color:'#04825B', desc:'Generate PR dan latihan soal khusus sesuai kelemahan dan level Anda',
       prompt:'Buat PR (pekerjaan rumah) bahasa Jepang Kaigo untuk level {level}. Fokus pada topik: {topic}. Sertakan: 1) 5 soal latihan (pilihan ganda + esai singkat) 2) Latihan vocab (10 kata baru) 3) Tugas menulis kalimat (5 kalimat) 4) Latihan membaca pendek 5) Deadline saran dan cara pengerjaan.',
       inputs:[{id:'level',label:'Level',default:'N4'},{id:'topic',label:'Topik fokus',default:'介護語彙 + て形'}]
     },
@@ -1022,9 +1027,9 @@ document.addEventListener('DOMContentLoaded', () => {
       grid.innerHTML = window.AI_TOOLS.map(t => `
         <div onclick="openAITool('${t.id}')" style="background:var(--white,#fff);border:1px solid #e2e8f0;border-radius:14px;padding:16px;cursor:pointer;transition:.15s;border-top:3px solid ${t.color}">
           <div style="font-size:28px;margin-bottom:8px">${t.icon}</div>
-          <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:#0f172a">${t.title}</div>
-          <div style="font-size:11px;color:#64748b;line-height:1.5">${t.desc}</div>
-          <div style="margin-top:10px;font-size:11px;font-weight:700;color:${t.color}">Mulai →</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:4px;color:var(--ink,#0f172a)">${t.title}</div>
+          <div style="font-size:11px;color:var(--ink-soft,#64748b);line-height:1.5">${t.desc}</div>
+          <div class="tool-cta" style="margin-top:10px;font-size:11px;font-weight:700">Mulai →</div>
         </div>`).join('');
     }
   }
