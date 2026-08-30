@@ -2042,6 +2042,55 @@ def check_literal_grey_without_dark_variant():
            'Tidak ada abu tengah harfiah yang tak membalik di berkas sadar-tema.')
 
 
+def check_cbt_bank():
+    """Bank soal CBT harus ada dan mengisi kelima level.
+
+    JLPT-CBT.html mengambil assets/cbt-bank.json saat ujian dimulai, dan
+    KALAU GAGAL ia diam-diam memakai 20 soal bawaan yang ditulis di halaman.
+    Cadangan itu disengaja — simulator dengan 20 soal lebih baik daripada
+    layar kosong saat pengguna offline — tapi ia juga membuat bank yang hilang
+    tidak terlihat sama sekali. Halamannya tetap "berfungsi", cuma menyusut
+    dari 2.512 soal ke 20 tanpa satu pun pesan.
+
+    Itu persis keadaan yang baru saja diperbaiki: N2 dan N1 ditawarkan di UI,
+    lengkap dengan alokasi waktu sendiri di TIME, tapi nol soal. Memilih N1
+    memberi soal N5. Check ini menolak keadaan itu kembali.
+
+    Ambang 20 per level sengaja rendah: yang dijaga adalah "level ini punya
+    isi", bukan "isinya cukup banyak". Kalau suatu saat N1 perlu lebih dari 56
+    soal, itu keputusan produk, bukan sesuatu yang bisa diputuskan di sini.
+    """
+    path = os.path.join(ROOT, 'assets', 'cbt-bank.json')
+    if not os.path.exists(path):
+        err('cbt-bank', 'assets/cbt-bank.json tidak ada — simulator akan diam-diam '
+                        'menyusut ke 20 soal bawaan. Jalankan: '
+                        'python3 scripts/build_cbt_bank.py')
+        return
+
+    try:
+        bank = json.loads(read(path))
+    except ValueError as e:
+        err('cbt-bank', f'assets/cbt-bank.json tidak bisa dibaca: {e}')
+        return
+
+    per = {}
+    for q in bank:
+        per[q.get('lv', '?')] = per.get(q.get('lv', '?'), 0) + 1
+
+    AMBANG = 20
+    kurang = [f'{lv} ({per.get(lv, 0)})'
+              for lv in ('N5', 'N4', 'N3', 'N2', 'N1') if per.get(lv, 0) < AMBANG]
+    if kurang:
+        err('cbt-bank',
+            f'Level dengan kurang dari {AMBANG} soal: {", ".join(kurang)} — '
+            f'level itu ditawarkan di UI, jadi memilihnya akan menyajikan soal '
+            f'level lain. Jalankan: python3 scripts/build_cbt_bank.py')
+        return
+
+    ringkas = ' · '.join(f'{lv}:{per.get(lv, 0)}' for lv in ('N5', 'N4', 'N3', 'N2', 'N1'))
+    ok('cbt-bank', f'Bank CBT {len(bank)} soal, kelima level terisi — {ringkas}')
+
+
 def check_dead_body_background():
     """`body{background:...}` milik halaman sendiri selalu kode mati.
 
@@ -2257,6 +2306,7 @@ def main():
         check_kaigo_quiz_reachable,
         check_explanation_id_coverage,
         check_no_hangul,
+        check_cbt_bank,
         check_dead_body_background,
         check_literal_grey_without_dark_variant,
         check_literal_bg_with_token_color,

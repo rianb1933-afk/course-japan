@@ -349,6 +349,43 @@ let examFinished = false;
 const HIST_KEY = 'np-cbt-history';
 const TIME = { N5:3000,N4:4500,N3:4800,N2:6300,N1:6600 };
 
+// ── BANK SOAL PENUH ──────────────────────────────────────────────────
+// QBANK di bawah adalah 20 soal bawaan yang ditulis di halaman ini. Selama
+// bertahun-tahun itulah SATU-SATUNYA isi simulator — N5:10 N4:4 N3:2, dan
+// nol untuk N2 maupun N1, padahal kedua level itu ditawarkan di UI dan punya
+// alokasi waktu sendiri di TIME. Memilih N1 memberi soal N5.
+//
+// assets/cbt-bank.json berisi 2.512 soal dari seed/, dibangun oleh
+// scripts/build_cbt_bank.py. Diambil sekali, malas — hanya saat ujian
+// pertama dimulai, bukan saat halaman dibuka, supaya halaman tetap ringan
+// bagi yang cuma melihat-lihat.
+//
+// Kalau pengambilan gagal (offline, atau dibuka lewat file://), QBANK bawaan
+// tetap dipakai. Simulator yang jalan dengan 20 soal lebih baik daripada
+// simulator yang tidak jalan sama sekali.
+let BANK_PENUH = null, bankSedangDimuat = null;
+const SOAL_PER_UJIAN = 40;
+
+async function muatBank() {
+  if (BANK_PENUH) return BANK_PENUH;
+  if (bankSedangDimuat) return bankSedangDimuat;
+  bankSedangDimuat = fetch('assets/cbt-bank.json')
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(d => { BANK_PENUH = d; return d; })
+    .catch(() => { BANK_PENUH = null; return null; })
+    .finally(() => { bankSedangDimuat = null; });
+  return bankSedangDimuat;
+}
+
+// Saring per level, acak, lalu potong. QBANK bawaan tidak punya cukup soal
+// untuk disaring — kalau hasilnya kosong, pakai apa adanya supaya ujian tetap
+// bisa jalan alih-alih menampilkan layar kosong.
+function pilihSoal(bank, level) {
+  const cocok = bank.filter(q => q.lv === level);
+  const dipakai = cocok.length ? cocok : bank;
+  return [...dipakai].sort(() => Math.random() - .5).slice(0, SOAL_PER_UJIAN);
+}
+
 // ── QUESTION BANK ────────────────────────────────────────────────────
 const QBANK = [
   // N5 Grammar
@@ -396,9 +433,10 @@ function selMode(m, el) {
 }
 
 // ── EXAM ─────────────────────────────────────────────────────────────
-function startExam() {
+async function startExam() {
   examFinished = false; // genuinely reset guard untuk ujian baru
-  questions = [...QBANK].sort(() => Math.random() - .5);
+  const bank = (await muatBank()) || QBANK;
+  questions = pilihSoal(bank, selLevel);
   curQ = 0; answers = {}; flagged = new Set();
   document.getElementById('examLvBadge').textContent = selLevel;
   document.getElementById('examModeBadge').textContent = currentMode === 'exam' ? '⏱ Exam' : currentMode === 'practice' ? '📚 Practice' : '🔍 Review';
