@@ -406,7 +406,7 @@ let cq=0,ca=new Array(Q.length).fill(false);
 function rQ(){
   const c=document.getElementById('q-body');if(!c)return;
   const q=Q[cq];
-  c.innerHTML=`<div class="qq">${q.q}</div><div class="qo">${q.o.map((o,i)=>`<button class="qb" onclick="selA(${i})" id="o${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div><div class="qe" id="qe"><strong>💡 Penjelasan:</strong> ${q.e}</div>`;
+  c.innerHTML=`<div class="qq">${q.q}</div><div class="qo">${q.opts.map((o,i)=>`<button class="qb" onclick="selA(${i})" id="o${i}">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div><div class="qe" id="qe"><strong>💡 Penjelasan:</strong> ${q.e}</div>`;
   document.getElementById('qc-num').textContent=`${cq+1}/${Q.length}`;
   document.getElementById('qc-fill').style.width=`${((cq+1)/Q.length)*100}%`;
   document.getElementById('q-prev').style.visibility=cq===0?'hidden':'visible';
