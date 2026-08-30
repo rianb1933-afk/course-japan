@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
 var PH_VOCAB=[["障害者総合支援法", "shogaisha sogo shien ho", "UU Dukungan Disabilitas"], ["障害支援区分", "shogai shien kubun", "klasifikasi dukungan (1-6)"], ["居宅介護", "kyotaku kaigo", "perawatan di rumah"], ["就労継続支援", "shuro keizoku shien", "dukungan kelanjutan kerja"], ["合理的配慮", "gori-teki hairyo", "reasonable accommodation"], ["社会モデル", "shakai moderu", "model sosial disabilitas"], ["身体障害者手帳", "shintai shogaisha techo", "buku disabilitas fisik"], ["難病", "nan-byo", "penyakit intractable"]];
 (function(){var pg=document.getElementById('pgv');if(!pg)return;PH_VOCAB.forEach(function(p){
 var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.76rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.86rem;color:var(--primary,#33691e)">🇮🇩 '+p[2]+'</div>';
+d.innerHTML='<div>'+p[0]+'</div><div>'+p[1]+'</div><div>🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:var(--primary,#33691e);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});})();
 });
@@ -126,14 +126,14 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <div class="hero">
   <span class="badge">♿ 社会の理解</span>
   <h1>障害者支援制度</h1>
-  <p style="font-size:.95rem;opacity:.9;margin:4px 0 0">Sistem Dukungan Penyandang Disabilitas</p>
+  <p>Sistem Dukungan Penyandang Disabilitas</p>
   <p class="hero-sub">障害者総合支援法 · 障害支援区分 · サービス体系 · ICF · Quiz 国家試験</p>
 </div>
-<div class="wrap" style="padding-top:28px">
+<div class="wrap">
 
 <div class="sec">
 <h3>📖 障害者総合支援法とは</h3>
-<p style="font-size:.9rem;line-height:1.8">
+<p>
 2013年施行の「障害者の日常生活及び社会生活を総合的に支援するための法律（障害者総合支援法）」は、
 身体・知的・精神・難病の障害者を一元的に支援する法律です。
 「自立と社会参加」を基本理念とし、「共生社会の実現」を目指します。
@@ -149,7 +149,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 
 <div class="sec">
 <h3>📊 障害支援区分</h3>
-<p style="font-size:.9rem;line-height:1.8">障害支援区分（区分1〜6）は、障害者に必要な支援の度合いを示す指標です。認定調査（80項目）と医師意見書をもとに審査会が決定します。</p>
+<p>障害支援区分（区分1〜6）は、障害者に必要な支援の度合いを示す指標です。認定調査（80項目）と医師意見書をもとに審査会が決定します。</p>
 <table class="tbl"><tr><th>区分</th><th>支援の度合い</th><th>主なサービス例</th></tr>
 <tr><td>区分1</td><td>最も低い</td><td>移動支援・地域活動支援センター</td></tr>
 <tr><td>区分2〜3</td><td>中程度</td><td>居宅介護・短期入所</td></tr>
@@ -195,32 +195,32 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 </div>
 <h2 class="st">💬 Dialog 障害者支援制度</h2>
 <div class="dialog-card"><div class="dialog-title">♿ Dialog 1 — 障害者支援サービスの説明</div><div class="dl">
-  <span class="spk" style="background:#f1f8e9;color:var(--primary,#33691e)">相談支援員</span>
+  <span class="spk">相談支援員</span>
   <div><div class="jp">田中さん、今後の生活について一緒に考えたいと思います。今はどんなことが困っていますか？ <button aria-label="Ucapkan: 田中さん、今後の生活について一緒に考えたいと思います。今はど…" class="tts-btn" onclick="speak('田中さん、今後の生活について一緒に考えたいと思います。今はどんなことが困っていますか？')">🔊</button></div><div class="id-txt">Pak Tanaka, saya ingin memikirkan kehidupan ke depan bersama. Saat ini apa yang menjadi kesulitan?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f1f8e9;color:var(--primary,#33691e)">田中さん</span>
+  <span class="spk">田中さん</span>
   <div><div class="jp">一人での入浴と、週に何日か外出したいんですが、なかなか難しくて。 <button aria-label="Ucapkan: 一人での入浴と、週に何日か外出したいんですが、なかなか難しく…" class="tts-btn" onclick="speak('一人での入浴と、週に何日か外出したいんですが、なかなか難しくて。')">🔊</button></div><div class="id-txt">Mandi sendiri, dan ingin keluar beberapa hari seminggu, tapi sulit.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f1f8e9;color:var(--primary,#33691e)">相談支援員</span>
+  <span class="spk">相談支援員</span>
   <div><div class="jp">わかりました。障害福祉サービスの「居宅介護」で入浴のお手伝いができます。外出については「移動支援」が使えますよ。 <button aria-label="Ucapkan: わかりました。障害福祉サービスの「居宅介護」で入浴のお手伝い…" class="tts-btn" onclick="speak('わかりました。障害福祉サービスの「居宅介護」で入浴のお手伝いができます。外出については「移動支援」が使えますよ。')">🔊</button></div><div class="id-txt">Mengerti. Layanan perawatan di rumah bisa bantu mandi. Untuk keluar bisa menggunakan dukungan mobilitas.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f1f8e9;color:var(--primary,#33691e)">田中さん</span>
+  <span class="spk">田中さん</span>
   <div><div class="jp">そういうサービスがあるんですね。どうすれば使えますか？ <button aria-label="Ucapkan: そういうサービスがあるんですね。どうすれば使えますか？" class="tts-btn" onclick="speak('そういうサービスがあるんですね。どうすれば使えますか？')">🔊</button></div><div class="id-txt">Ada layanan seperti itu ya. Bagaimana cara menggunakannya?</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">👩‍⚕️ Dialog 2 — 65歳到達時の介護保険移行説明</div><div class="dl">
-  <span class="spk" style="background:#f1f8e9;color:var(--primary,#33691e)">相談支援員</span>
+  <span class="spk">相談支援員</span>
   <div><div class="jp">山田さん、来月65歳になられますね。65歳になると介護保険が優先的に適用されます。 <button aria-label="Ucapkan: 山田さん、来月65歳になられますね。65歳になると介護保険が…" class="tts-btn" onclick="speak('山田さん、来月65歳になられますね。65歳になると介護保険が優先的に適用されます。')">🔊</button></div><div class="id-txt">Pak Yamada, bulan depan genap 65 tahun ya. Saat 65 tahun, asuransi perawatan menjadi prioritas.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f1f8e9;color:var(--primary,#33691e)">山田さん</span>
+  <span class="spk">山田さん</span>
   <div><div class="jp">今まで使っていた障害福祉サービスはどうなりますか？ <button aria-label="Ucapkan: 今まで使っていた障害福祉サービスはどうなりますか？" class="tts-btn" onclick="speak('今まで使っていた障害福祉サービスはどうなりますか？')">🔊</button></div><div class="id-txt">Layanan disabilitas yang selama ini digunakan bagaimana?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f1f8e9;color:var(--primary,#33691e)">相談支援員</span>
+  <span class="spk">相談支援員</span>
   <div><div class="jp">介護保険で対応できるサービスは移行しますが、同行援護など介護保険にないサービスは引き続き障害福祉で利用できます。手続きのお手伝いをします。 <button aria-label="Ucapkan: 介護保険で対応できるサービスは移行しますが、同行援護など介護…" class="tts-btn" onclick="speak('介護保険で対応できるサービスは移行しますが、同行援護など介護保険にないサービスは引き続き障害福祉で利用できます。手続きのお手伝いをします。')">🔊</button></div><div class="id-txt">Layanan yang bisa ditangani asuransi perawatan akan dialihkan, tapi layanan seperti pendampingan yang tidak ada di asuransi perawatan tetap bisa menggunakan layanan disabilitas. Saya bantu prosesnya.</div></div>
 </div></div>
 
 <h2 class="st">📚 Kosakata 障害者支援制度</h2>
 <div class="pg-vocab" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#33691e);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pgv"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>

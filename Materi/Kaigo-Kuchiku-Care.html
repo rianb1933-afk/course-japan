@@ -72,8 +72,8 @@ renderVocabGrid('pg', PH_VOCAB);
 <main id="main-content">
 <div class="page-hero">
   <span class="badge">🦷 口腔ケア</span>
-  <h1>口腔ケア<br><small style="font-size:.65em;opacity:.9">Perawatan Mulut dalam Kaigo</small></h1>
-  <p style="font-size:.88rem;opacity:.85;margin-top:6px">Prosedur · Kosakata · Dialog · Pencegahan Pneumonia Aspirasi</p>
+  <h1>口腔ケア<br><small>Perawatan Mulut dalam Kaigo</small></h1>
+  <p>Prosedur · Kosakata · Dialog · Pencegahan Pneumonia Aspirasi</p>
 </div>
 <div class="km-illustration" role="img" aria-label="Ilustrasi Kuchiku-Care">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
@@ -124,16 +124,16 @@ renderVocabGrid('pg', PH_VOCAB);
 
 </div>
 
-<div class="wrap" style="padding-top:24px">
+<div class="wrap">
 
 <div class="warn">⚠️ 口腔ケアは介護福祉士試験でほぼ毎年出題される重要トピック。誤嚥性肺炎の予防として位置づけられているため、手順と根拠をセットで覚えること。</div>
 
 <div class="sec">
 <h3>📌 口腔ケアとは？ (Apa itu 口腔ケア?)</h3>
-<p style="font-size:.9rem;line-height:1.8;color:var(--ink)">
+<p>
 口腔ケア (kuchiku kea) adalah perawatan kebersihan mulut untuk lansia yang meliputi menyikat gigi, membersihkan gigi palsu (義歯/gishi), membersihkan lidah, dan menjaga kelembaban mulut. Tujuan utamanya adalah mencegah <b>誤嚥性肺炎 (goen-sei haien)</b> — pneumonia aspirasi yang sering menjadi penyebab kematian utama pada lansia Jepang.
 </p>
-<table class="tbl" style="margin-top:12px">
+<table class="tbl">
 <tr><th>Tujuan</th><th>Penjelasan</th></tr>
 <tr><td>🦠 Pencegahan infeksi</td><td>Bakteri mulut yang masuk ke paru-paru menyebabkan誤嚥性肺炎</td></tr>
 <tr><td>😋 Kemampuan makan</td><td>Mulut bersih meningkatkan nafsu makan dan kemampuan mengunyah</td></tr>
@@ -232,14 +232,14 @@ renderVocabGrid('pg', PH_VOCAB);
 <h2 class="st">📚 Kosakata 口腔ケア</h2>
 <div class="phrase-grid" id="phraseGrid"></div>
 
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#0d47a1);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 <h2 class="st">🧠 Quiz 口腔ケア</h2>
 <div id="qc"></div>
 
-</div><section style="padding:16px;max-width:860px;margin:20px auto">
-<h2 style="font-size:1rem;color:#1b5e20;border-bottom:3px solid #1b5e20;padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 口腔ケア</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+</div><section>
+<h2>📚 重要語彙 — 口腔ケア</h2>
+<div id="vocab-grid">
 <div class="vocab-item">
   <div class="vocab-term" onclick="speak('口腔ケア')" title="クリックで発音">🔊 口腔ケア</div>
   <div class="vocab-romaji">kōkū kea</div>
@@ -327,7 +327,7 @@ var pg=document.getElementById('phraseGrid');
 if(pg)PHRASES.forEach(function(p){
   var d=document.createElement('div');d.className='phrase-card';
   d.innerHTML='<div class="p-jp">'+p[0]+'</div>'
-    +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
+    +'<div>'+p[1]+'</div>'
     +'<div class="p-id">🇮🇩 '+p[2]+'</div>';
   var btn=document.createElement('button');btn.textContent='🔊';btn.className='tts-btn';
   var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);

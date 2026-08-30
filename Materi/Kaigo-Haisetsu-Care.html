@@ -72,8 +72,8 @@ renderVocabGrid('pg', PH_VOCAB);
 <main id="main-content">
 <div class="page-hero">
   <span class="badge">🚽 排泄介護</span>
-  <h1>排泄介護<br><small style="font-size:.65em;opacity:.9">Bantuan Toilet & Higiene dalam Kaigo</small></h1>
-  <p style="font-size:.88rem;opacity:.85;margin-top:6px">Prosedur · Observasi · Martabat Residen · Quiz 国家試験</p>
+  <h1>排泄介護<br><small>Bantuan Toilet & Higiene dalam Kaigo</small></h1>
+  <p>Prosedur · Observasi · Martabat Residen · Quiz 国家試験</p>
 </div>
 <div class="km-illustration" role="img" aria-label="Ilustrasi Haisetsu-Care">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
@@ -124,14 +124,14 @@ renderVocabGrid('pg', PH_VOCAB);
 
 </div>
 
-<div class="wrap" style="padding-top:24px">
+<div class="wrap">
 
 <div class="important">🔴 排泄介護は介護福祉士国家試験で最頻出トピックの一つ。生活の根幹に関わる行為であり「尊厳の保持（そんげんのほじ）」と直結している。手順・観察・声かけをセットで覚えること。</div>
 
 <div class="sec">
 <h3>📌 排泄介護の基本理念</h3>
-<p style="font-size:.9rem;line-height:1.8">排泄介護 (haisetsu kaigo) adalah bantuan dalam kegiatan buang air kecil (排尿/hainyo) dan buang air besar (排便/haiben). Ini adalah salah satu dari enam kategori ADL (Activities of Daily Living) paling mendasar, dan sangat berkaitan dengan <b>尊厳 (songen — martabat)</b> residen karena bersifat sangat privat.</p>
-<table class="tbl" style="margin-top:12px">
+<p>排泄介護 (haisetsu kaigo) adalah bantuan dalam kegiatan buang air kecil (排尿/hainyo) dan buang air besar (排便/haiben). Ini adalah salah satu dari enam kategori ADL (Activities of Daily Living) paling mendasar, dan sangat berkaitan dengan <b>尊厳 (songen — martabat)</b> residen karena bersifat sangat privat.</p>
+<table class="tbl">
 <tr><th>Prinsip Utama</th><th>Penjelasan Praktis</th></tr>
 <tr><td>🏅 尊厳の保持 (martabat)</td><td>Selalu ketuk pintu, minta izin, tutup tirai/pintu selama prosedur</td></tr>
 <tr><td>🌿 自立支援 (kemandirian)</td><td>Dukung apa yang masih bisa dilakukan sendiri, hanya bantu bagian yang diperlukan</td></tr>
@@ -258,16 +258,16 @@ renderVocabGrid('pg', PH_VOCAB);
 </div>
 
 <h2 class="st">📚 Kosakata 排泄介護</h2>
-<div id="phraseGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:12px 0"></div>
+<div id="phraseGrid"></div>
 
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#4e342e);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 <h2 class="st">🧠 Quiz 排泄介護 — 国家試験対策</h2>
 <div id="qc"></div>
 
-</div><section style="padding:16px;max-width:860px;margin:20px auto">
-<h2 style="font-size:1rem;color:var(--accent,#37474f);border-bottom:3px solid var(--accent,#37474f);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 排泄ケア</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+</div><section>
+<h2>📚 重要語彙 — 排泄ケア</h2>
+<div id="vocab-grid">
 <div class="vocab-item">
   <div class="vocab-term" onclick="speak('排泄')" title="クリックで発音">🔊 排泄</div>
   <div class="vocab-romaji">haisetsu</div>
@@ -359,9 +359,9 @@ var pg=document.getElementById('phraseGrid');
 if(pg)PHRASES.forEach(function(p){
   var d=document.createElement('div');
   d.style.cssText='background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px';
-  d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-    +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-    +'<div style="font-size:.85rem;color:var(--primary-dark,#6d4c41)">🇮🇩 '+p[2]+'</div>';
+  d.innerHTML='<div>'+p[0]+'</div>'
+    +'<div>'+p[1]+'</div>'
+    +'<div>🇮🇩 '+p[2]+'</div>';
   var btn=document.createElement('button');btn.textContent='🔊';
   btn.style.cssText='border:none;background:var(--primary-dark,#6d4c41);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:6px';
   var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);

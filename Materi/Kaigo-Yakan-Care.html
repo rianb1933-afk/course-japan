@@ -72,8 +72,8 @@ renderVocabGrid('pg', PH_VOCAB);
 <main id="main-content">
 <div class="page-hero">
   <span class="badge">🌙 夜間ケア・夜勤</span>
-  <h1>夜間ケア・夜勤<br><small style="font-size:.65em;opacity:.9">Perawatan Shift Malam dalam Kaigo</small></h1>
-  <p style="font-size:.88rem;opacity:.85;margin-top:6px">Prosedur · Pengecekan Berkala · Penanganan Insiden · Dialog</p>
+  <h1>夜間ケア・夜勤<br><small>Perawatan Shift Malam dalam Kaigo</small></h1>
+  <p>Prosedur · Pengecekan Berkala · Penanganan Insiden · Dialog</p>
 </div>
 <div class="km-illustration" role="img" aria-label="Ilustrasi Yakan-Care">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
@@ -114,14 +114,14 @@ renderVocabGrid('pg', PH_VOCAB);
 
 </div>
 
-<div class="wrap" style="padding-top:24px">
+<div class="wrap">
 
 <div class="warn">⚠️ 夜勤は介護施設で最も事故が起きやすい時間帯。転倒、誤嚥、急変など緊急事態への対応を熟知しておく必要がある。夜間は少人数スタッフで対応するため、優先順位と迅速な判断力が求められる。</div>
 
 <div class="sec">
 <h3>🌙 夜間ケアとは？</h3>
-<p style="font-size:.9rem;line-height:1.8">夜間ケア (yakan kea) adalah layanan perawatan yang dilakukan selama shift malam (夜勤/yakin), biasanya mulai pukul 16.00 hingga 09.00 keesokan harinya di fasilitas kaigo Jepang. Karena jumlah staf terbatas dan lansia rentan mengalami insiden malam hari, pemahaman prosedur malam sangat krusial dan sering diuji di ujian Kaigo Fukushishi.</p>
-<table class="tbl" style="margin-top:12px">
+<p>夜間ケア (yakan kea) adalah layanan perawatan yang dilakukan selama shift malam (夜勤/yakin), biasanya mulai pukul 16.00 hingga 09.00 keesokan harinya di fasilitas kaigo Jepang. Karena jumlah staf terbatas dan lansia rentan mengalami insiden malam hari, pemahaman prosedur malam sangat krusial dan sering diuji di ujian Kaigo Fukushishi.</p>
+<table class="tbl">
 <tr><th>Risiko Utama Malam Hari</th><th>Penyebab</th><th>Pencegahan</th></tr>
 <tr><td>転倒 (jatuh)</td><td>Ke toilet tengah malam, orientasi buruk</td><td>Pencahayaan lorong, sensor gerak, pegangan dinding</td></tr>
 <tr><td>誤嚥 (aspirasi)</td><td>Posisi tidur salah, mulut kering</td><td>Posisi lateral/semi-fowler, 口腔ケア malam</td></tr>
@@ -205,14 +205,14 @@ renderVocabGrid('pg', PH_VOCAB);
 <h2 class="st">📚 Kosakata 夜間ケア・夜勤</h2>
 <div class="phrase-grid" id="phraseGrid"></div>
 
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#1a237e);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 <h2 class="st">🧠 Quiz 夜間ケア</h2>
 <div id="qc"></div>
 
-</div><section style="padding:16px;max-width:860px;margin:20px auto">
-<h2 style="font-size:1rem;color:var(--accent,#37474f);border-bottom:3px solid var(--accent,#37474f);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 夜間介護</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+</div><section>
+<h2>📚 重要語彙 — 夜間介護</h2>
+<div id="vocab-grid">
 <div class="vocab-item">
   <div class="vocab-term" onclick="speak('夜間')" title="クリックで発音">🔊 夜間</div>
   <div class="vocab-romaji">yakan</div>
@@ -300,7 +300,7 @@ var pg=document.getElementById('phraseGrid');
 if(pg)PHRASES.forEach(function(p){
   var d=document.createElement('div');d.className='phrase-card';
   d.innerHTML='<div class="p-jp">'+p[0]+'</div>'
-    +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
+    +'<div>'+p[1]+'</div>'
     +'<div class="p-id">🇮🇩 '+p[2]+'</div>';
   var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:var(--primary,#1a237e);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:6px';
   var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);

@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
 var PH_VOCAB=[["倫理", "rinri", "etika"], ["善行", "zenkou", "beneficence"], ["無危害", "mukigai", "non-maleficence"], ["自律尊重", "jiritsu soncho", "menghormati otonomi"], ["身体拘束", "shintai kosoku", "restriksi fisik"], ["守秘義務", "shuhi gimu", "kewajiban kerahasiaan"], ["倫理的ジレンマ", "rinri-teki jirenma", "dilema etis"], ["虐待", "gyak-tai", "kekerasan / penganiayaan"]];
 (function(){var pg=document.getElementById('pgv');if(!pg)return;PH_VOCAB.forEach(function(p){
 var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.76rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.86rem;color:var(--primary,#880e4f)">🇮🇩 '+p[2]+'</div>';
+d.innerHTML='<div>'+p[0]+'</div><div>'+p[1]+'</div><div>🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:var(--primary,#880e4f);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});})();
 });
@@ -121,14 +121,14 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <div class="hero">
   <span class="badge">⚖️ 介護倫理</span>
   <h1>介護の倫理</h1>
-  <p style="font-size:.95rem;opacity:.9;margin:4px 0 0">Etika Perawatan Profesional</p>
+  <p>Etika Perawatan Profesional</p>
   <p class="hero-sub">倫理原則 · 身体拘束 · 虐待防止 · 権利侵害 · SNS · Quiz 国家試験</p>
 </div>
-<div class="wrap" style="padding-top:28px">
+<div class="wrap">
 
 <div class="sec">
 <h3>📖 介護倫理の基本原則</h3>
-<p style="font-size:.9rem;line-height:1.9">
+<p>
 介護倫理とは、介護実践における「何が正しいか」「何をすべきか」を判断するための原則体系です。
 生命倫理学の4原則（Beauchamp & Childress）が介護にも適用されます。
 </p>
@@ -148,8 +148,8 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <tr><td><b>② 非代替性</b></td><td>拘束以外に代替手段がない</td><td>低床ベッド・センサーマット・見守り強化を先に試みた記録</td></tr>
 <tr><td><b>③ 一時性</b></td><td>必要最小限の時間にとどめる</td><td>定期的な見直し記録。長期化の防止</td></tr>
 </table>
-<p style="font-size:.85rem;margin-top:10px">+ 家族への説明と同意書 + ケア記録への記載が必須</p>
-<div class="g2" style="margin-top:14px">
+<p>+ 家族への説明と同意書 + ケア記録への記載が必須</p>
+<div class="g2">
 <div class="card"><div class="card-t">身体拘束に相当する行為</div><div class="card-b">ミトン型手袋 / 四肢をひもで縛る / 車椅子安全ベルト(外せない) / ベッド柵4点 / 向精神薬の過剰投与</div></div>
 <div class="card"><div class="card-t">身体拘束に相当しない工夫</div><div class="card-b">低床ベッド / 離床センサー / 床マット / 見守り強化 / ロッキングチェア / 環境整備</div></div>
 </div>
@@ -179,7 +179,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 
 <div class="sec">
 <h3>🔄 倫理的ジレンマへの対処</h3>
-<p style="font-size:.9rem;line-height:1.8">倫理的ジレンマとは、2つ以上の倫理原則が対立する状況です。</p>
+<p>倫理的ジレンマとは、2つ以上の倫理原則が対立する状況です。</p>
 <table class="tbl"><tr><th>ジレンマの例</th><th>対立する原則</th><th>対処の方向性</th></tr>
 <tr><td>「外出したい」認知症の利用者</td><td>自律尊重 vs 安全(無危害)</td><td>リスク評価→代替案→チームで検討→本人・家族と合意形成</td></tr>
 <tr><td>家族が「本人に病名を告知しないで」</td><td>自律尊重 vs 家族意向</td><td>本人の知る権利確認→チーム判断→医師・SWが対応</td></tr>
@@ -188,32 +188,32 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 </div>
 <h2 class="st">💬 Dialog 介護の倫理</h2>
 <div class="dialog-card"><div class="dialog-title">⚠️ Dialog 1 — 身体拘束の検討と代替手段</div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">主任、田中様が夜中に何度も起き上がって転倒しそうになります。ミトンをつけてもいいでしょうか。 <button aria-label="Ucapkan: 主任、田中様が夜中に何度も起き上がって転倒しそうになります。…" class="tts-btn" onclick="speak('主任、田中様が夜中に何度も起き上がって転倒しそうになります。ミトンをつけてもいいでしょうか。')">🔊</button></div><div class="id-txt">Kepala, Bu Tanaka sering duduk malam dan hampir jatuh. Boleh pasang mitten?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">主任</span>
+  <span class="spk">主任</span>
   <div><div class="jp">まず代替手段を全て試してからですね。低床ベッドに変えましたか？センサーマットは？ <button aria-label="Ucapkan: まず代替手段を全て試してからですね。低床ベッドに変えましたか…" class="tts-btn" onclick="speak('まず代替手段を全て試してからですね。低床ベッドに変えましたか？センサーマットは？')">🔊</button></div><div class="id-txt">Pertama coba semua alternatif. Sudah ganti ke tempat tidur rendah? Matras sensor sudah?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">低床ベッドはまだです。センサーマットも試していませんでした。 <button aria-label="Ucapkan: 低床ベッドはまだです。センサーマットも試していませんでした。" class="tts-btn" onclick="speak('低床ベッドはまだです。センサーマットも試していませんでした。')">🔊</button></div><div class="id-txt">Tempat tidur rendah belum. Matras sensor juga belum dicoba.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">主任</span>
+  <span class="spk">主任</span>
   <div><div class="jp">では先にそちらを試しましょう。記録も残してください。それでも危険が続く場合は、切迫性・非代替性・一時性の3要件を確認して家族へ説明します。 <button aria-label="Ucapkan: では先にそちらを試しましょう。記録も残してください。それでも…" class="tts-btn" onclick="speak('では先にそちらを試しましょう。記録も残してください。それでも危険が続く場合は、切迫性・非代替性・一時性の3要件を確認して家族へ説明します。')">🔊</button></div><div class="id-txt">Coba dulu itu. Catat juga hasilnya. Jika masih berbahaya, kita verifikasi 3 syarat dan jelaskan ke keluarga.</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">🚨 Dialog 2 — 虐待発見時の対応</div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">介護士B</span>
+  <span class="spk">介護士B</span>
   <div><div class="jp">Aさん、田中様の腕に何か青いあざがあります。いつからかわかりますか？ <button aria-label="Ucapkan: Aさん、田中様の腕に何か青いあざがあります。いつからかわかり…" class="tts-btn" onclick="speak('Aさん、田中様の腕に何か青いあざがあります。いつからかわかりますか？')">🔊</button></div><div class="id-txt">A-san, di lengan Bu Tanaka ada memar biru. Tahu sejak kapan?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">介護士A</span>
+  <span class="spk">介護士A</span>
   <div><div class="jp">昨日はなかったと思います。誰かが強くつかんだのかも… <button aria-label="Ucapkan: 昨日はなかったと思います。誰かが強くつかんだのかも…" class="tts-btn" onclick="speak('昨日はなかったと思います。誰かが強くつかんだのかも…')">🔊</button></div><div class="id-txt">Kemarin kayaknya tidak ada. Mungkin seseorang memegang dengan keras...</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">介護士B</span>
+  <span class="spk">介護士B</span>
   <div><div class="jp">これはすぐに上司に報告しなければなりません。虐待の可能性があります。あざの写真も記録として撮っておきましょう。 <button aria-label="Ucapkan: これはすぐに上司に報告しなければなりません。虐待の可能性があ…" class="tts-btn" onclick="speak('これはすぐに上司に報告しなければなりません。虐待の可能性があります。あざの写真も記録として撮っておきましょう。')">🔊</button></div><div class="id-txt">Ini harus segera dilaporkan ke atasan. Ada kemungkinan kekerasan. Foto memarnya juga sebagai dokumentasi.</div></div>
 </div></div>
 
 <h2 class="st">📚 Kosakata 介護の倫理</h2>
 <div class="pg-vocab" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#880e4f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pgv"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>

@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
 var PH_VOCAB=[["家族介護者", "kazoku kaigo-sha", "pengasuh keluarga"], ["介護負担", "kaigo futan", "beban pengasuhan"], ["レスパイトケア", "resupitto kea", "respite care"], ["グリーフ", "guriifu", "grief / duka cita"], ["ACP", "ACP", "advance care planning"], ["看取り", "mimitori", "mendampingi kematian"], ["介護離職", "kaigo rrishoku", "berhenti kerja karena merawat"], ["ダブルケア", "daburu kea", "merawat anak dan orang tua sekaligus"]];
 (function(){var pg=document.getElementById('pgv');if(!pg)return;PH_VOCAB.forEach(function(p){
 var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.76rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.86rem;color:var(--primary,#6a1b9a)">🇮🇩 '+p[2]+'</div>';
+d.innerHTML='<div>'+p[0]+'</div><div>'+p[1]+'</div><div>🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:var(--primary,#6a1b9a);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});})();
 });
@@ -127,13 +127,13 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <div class="hero">
   <span class="badge">🏠 家族支援</span>
   <h1>家族支援とコミュニケーション</h1>
-  <p style="font-size:.95rem;opacity:.9;margin:4px 0 0">Dukungan Keluarga & Komunikasi</p>
+  <p>Dukungan Keluarga & Komunikasi</p>
   <p class="hero-sub">家族介護者 · 介護負担 · グリーフ · ACP · Quiz 国家試験</p>
 </div>
-<div class="wrap" style="padding-top:28px">
+<div class="wrap">
 
 <div class="sec"><h3>📖 家族介護者とは</h3>
-<p style="font-size:.9rem;line-height:1.8">家族介護者（かぞくかいごしゃ）とは、要介護状態の家族を在宅または施設で介護・支援する家族構成員のことです。日本では約628万人（2022年推計）が家族介護者とされており、その大半は女性・高齢配偶者・単独介護者です。</p>
+<p>家族介護者（かぞくかいごしゃ）とは、要介護状態の家族を在宅または施設で介護・支援する家族構成員のことです。日本では約628万人（2022年推計）が家族介護者とされており、その大半は女性・高齢配偶者・単独介護者です。</p>
 <div class="danger">🔴 ダブルケア問題: 子育てと親の介護を同時に担う状況。8ポイントケア: 高齢配偶者が高齢配偶者を介護する状況。家族介護者自身の健康・生活への影響が深刻な社会問題。</div></div>
 <div class="sec"><h3>⚠️ 家族介護者の負担（介護負担）</h3>
 <table class="tbl"><tr><th>負担の種類</th><th>内容</th><th>支援のポイント</th></tr>
@@ -152,36 +152,36 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <li><b>終末期・看取りへの準備支援</b>: ACPの推進・看取りの場所の選択への支援</li>
 </ol></div>
 <div class="sec"><h3>🌸 グリーフ（悲嘆）ケア</h3>
-<p style="font-size:.9rem;line-height:1.8">グリーフとは、大切な人を失った時の深い悲しみ・喪失感のことです。家族介護者は利用者の死後、予期悲嘆(死前からの悲嘆)と死後の悲嘆を経験します。</p>
+<p>グリーフとは、大切な人を失った時の深い悲しみ・喪失感のことです。家族介護者は利用者の死後、予期悲嘆(死前からの悲嘆)と死後の悲嘆を経験します。</p>
 <div class="g2">
 <div class="card"><div class="card-t">グリーフの段階（Kübler-Ross）</div><div class="card-b">① 否認「そんな事実を認めたくない」<br>② 怒り「なぜこんなことに」<br>③ 交渉「もし〜なら助かるかも」<br>④ 抑うつ「もう何もできない」<br>⑤ 受容「受け入れて前に進む」</div></div>
 <div class="card"><div class="card-t">介護士のグリーフサポート</div><div class="card-b">死後も家族への連絡・お悔やみ。家族からの電話への対応。家族会・グリーフケアグループの紹介。「よく頑張ってくれた」という肯定的な振り返り支援。</div></div>
 </div></div>
 <h2 class="st">💬 Dialog 家族支援とコミュニケーション</h2>
 <div class="dialog-card"><div class="dialog-title">🏠 Dialog 1 — 家族の疲弊へのサポート</div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#6a1b9a)">家族</span>
+  <span class="spk">家族</span>
   <div><div class="jp">もう限界です。毎日夜中に起こされて、仕事も辞めて…これ以上続けられない気がして。 <button aria-label="Ucapkan: もう限界です。毎日夜中に起こされて、仕事も辞めて…これ以上続…" class="tts-btn" onclick="speak('もう限界です。毎日夜中に起こされて、仕事も辞めて…これ以上続けられない気がして。')">🔊</button></div><div class="id-txt">Sudah mencapai batas. Dibangunkan tiap malam, sudah berhenti kerja... Rasanya tidak bisa terus begini.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#6a1b9a)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">毎日本当によく頑張っていらっしゃいますね。それは辛いです。これだけ頑張っていることを、まずちゃんと受け止めてください。 <button aria-label="Ucapkan: 毎日本当によく頑張っていらっしゃいますね。それは辛いです。こ…" class="tts-btn" onclick="speak('毎日本当によく頑張っていらっしゃいますね。それは辛いです。これだけ頑張っていることを、まずちゃんと受け止めてください。')">🔊</button></div><div class="id-txt">Setiap hari sungguh bekerja keras ya. Itu berat sekali. Tolong akui dulu bahwa Anda sudah sangat berusaha.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#6a1b9a)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">少し休むためのショートステイというサービスがあります。1週間ほどお母様に施設に泊まっていただいて、その間ゆっくり休めます。どうでしょうか？ <button aria-label="Ucapkan: 少し休むためのショートステイというサービスがあります。1週間…" class="tts-btn" onclick="speak('少し休むためのショートステイというサービスがあります。1週間ほどお母様に施設に泊まっていただいて、その間ゆっくり休めます。どうでしょうか？')">🔊</button></div><div class="id-txt">Ada layanan short stay untuk beristirahat sejenak. Ibu menginap di fasilitas sekitar seminggu, selama itu Anda bisa istirahat. Bagaimana?</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">🌸 Dialog 2 — 看取り後の家族へのケア</div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#6a1b9a)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">（電話で）田中様のご逝去、誠に残念です。最期まで本当によくお付き添いくださいましたね。 <button aria-label="Ucapkan: （電話で）田中様のご逝去、誠に残念です。最期まで本当によくお…" class="tts-btn" onclick="speak('（電話で）田中様のご逝去、誠に残念です。最期まで本当によくお付き添いくださいましたね。')">🔊</button></div><div class="id-txt">(Melalui telepon) Sungguh berduka atas wafatnya Bu Tanaka. Anda sudah menemani hingga akhir ya.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#6a1b9a)">家族</span>
+  <span class="spk">家族</span>
   <div><div class="jp">ありがとうございます。後悔はないですが、やっぱり寂しくて。 <button aria-label="Ucapkan: ありがとうございます。後悔はないですが、やっぱり寂しくて。" class="tts-btn" onclick="speak('ありがとうございます。後悔はないですが、やっぱり寂しくて。')">🔊</button></div><div class="id-txt">Terima kasih. Tidak ada penyesalan, tapi tetap saja sedih.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#6a1b9a)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">そうですよね。長い間、本当に一生懸命お世話されましたね。その想いはお母様にも十分伝わっていたと思います。 <button aria-label="Ucapkan: そうですよね。長い間、本当に一生懸命お世話されましたね。その…" class="tts-btn" onclick="speak('そうですよね。長い間、本当に一生懸命お世話されましたね。その想いはお母様にも十分伝わっていたと思います。')">🔊</button></div><div class="id-txt">Memang ya. Selama ini sungguh merawat dengan sepenuh hati. Saya yakin perasaan itu tersampaikan dengan baik ke ibu.</div></div>
 </div></div>
 
 <h2 class="st">📚 Kosakata 家族支援とコミュニケーション</h2>
 <div class="pg-vocab" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#6a1b9a);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pgv"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>

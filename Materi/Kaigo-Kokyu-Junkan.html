@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
 var PH_VOCAB=[["呼吸", "kokyu", "pernapasan"], ["脈拍", "myakuhaku", "denyut nadi"], ["血圧", "ketsuatsu", "tekanan darah"], ["SpO₂", "SpO2", "saturasi oksigen"], ["起立性低血圧", "kiritsu-sei teiketsuatsu", "hipotensi ortostatik"], ["ヒートショック", "hiito shokku", "heat shock"], ["不整脈", "fuseimyaku", "aritmia"], ["下顎呼吸", "kagaku kokyu", "pernapasan mandibula"]];
 (function(){var pg=document.getElementById('pgv');if(!pg)return;PH_VOCAB.forEach(function(p){
 var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.76rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.86rem;color:var(--primary,#880e4f)">🇮🇩 '+p[2]+'</div>';
+d.innerHTML='<div>'+p[0]+'</div><div>'+p[1]+'</div><div>🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:var(--primary,#880e4f);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});})();
 });
@@ -121,10 +121,10 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <div class="hero">
   <span class="badge">🫀 こころとからだ</span>
   <h1>呼吸・循環のしくみと介護</h1>
-  <p style="font-size:.95rem;opacity:.9;margin:4px 0 0">Fisiologi Pernapasan & Sirkulasi dalam Kaigo</p>
+  <p>Fisiologi Pernapasan & Sirkulasi dalam Kaigo</p>
   <p class="hero-sub">呼吸のしくみ · 心臓・循環 · バイタル測定 · 異常と対応 · Quiz 国家試験</p>
 </div>
-<div class="wrap" style="padding-top:28px">
+<div class="wrap">
 
 <div class="sec"><h3>🫁 呼吸のしくみ</h3>
 <table class="tbl"><tr><th>項目</th><th>内容</th><th>正常値</th></tr>
@@ -140,7 +140,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <tr><td>体温</td><td>36.0〜37.0°C</td><td>37.5°C以上: 発熱。35.0°C未満: 低体温。入浴時のヒートショックに注意</td></tr>
 </table></div>
 <div class="sec"><h3>⬆️ 起立性低血圧の予防</h3>
-<p style="font-size:.9rem;line-height:1.8">起立性低血圧とは、急に立ち上がった時に血圧が低下してめまい・失神が起きる状態です。高齢者・降圧薬服用者に多い。</p>
+<p>起立性低血圧とは、急に立ち上がった時に血圧が低下してめまい・失神が起きる状態です。高齢者・降圧薬服用者に多い。</p>
 <ol class="steps">
 <li>臥位のまま足首を上下に動かして血液を末梢から戻す</li>
 <li>ゆっくり端坐位(ベッドサイドに座った状態)になり、数分待つ</li>
@@ -148,7 +148,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <li>立位になったら少し手すりを持って安定を確認してから移動する</li>
 </ol></div>
 <div class="sec"><h3>🚨 ヒートショックと入浴ケア</h3>
-<p style="font-size:.9rem;line-height:1.8">ヒートショックとは、温度の急激な変化で血圧が急激に変動し、心臓発作・脳卒中・失神が起きる現象です。</p>
+<p>ヒートショックとは、温度の急激な変化で血圧が急激に変動し、心臓発作・脳卒中・失神が起きる現象です。</p>
 <table class="tbl"><tr><th>場面</th><th>血圧変化</th><th>リスク</th></tr>
 <tr><td>脱衣所(寒い)</td><td>血圧上昇</td><td>血管への負荷</td></tr>
 <tr><td>浴槽(熱い湯)</td><td>急激な血圧低下</td><td>意識喪失・溺水</td></tr>
@@ -157,26 +157,26 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <div class="tip">💡 ヒートショック予防: ①脱衣室を暖める②かけ湯で体を慣らす③湯温は38〜40°C(熱すぎない)④浸かる時間は10分以内⑤浴槽から出る時はゆっくり</div></div>
 <h2 class="st">💬 Dialog 呼吸・循環のしくみと介護</h2>
 <div class="dialog-card"><div class="dialog-title">🌡️ Dialog 1 — バイタル測定と報告</div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">田中さん、朝のバイタルを測りますね。体温計を脇に挟んでいただけますか？ <button aria-label="Ucapkan: 田中さん、朝のバイタルを測りますね。体温計を脇に挟んでいただ…" class="tts-btn" onclick="speak('田中さん、朝のバイタルを測りますね。体温計を脇に挟んでいただけますか？')">🔊</button></div><div class="id-txt">Bu Tanaka, saya ukur vital pagi ya. Boleh masukkan termometer ke ketiak?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">36.8度ですね。次に血圧を測ります。（測定後）158/92ですね。少し高めです。（看護師へ）田中様のバイタルです。体温36.8度、血圧158/92、脈拍88回/分、SpO₂98%です。血圧が高めです。 <button aria-label="Ucapkan: 36.8度ですね。次に血圧を測ります。（測定後）158/92…" class="tts-btn" onclick="speak('36.8度ですね。次に血圧を測ります。（測定後）158/92ですね。少し高めです。（看護師へ）田中様のバイタルです。体温36.8度、血圧158/92、脈拍88回/分、SpO₂98%')">🔊</button></div><div class="id-txt">36.8°C ya. Selanjutnya ukur tekanan darah. (Setelah ukur) 158/92 ya. Agak tinggi. (ke perawat) Vital Bu Tanaka: suhu 36.8°C, TD 158/92, nadi 88x/mnt, SpO2 98%. Tekanan darah agak tinggi.</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">🚨 Dialog 2 — 起立性低血圧への対応</div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">田中さん、ゆっくり起き上がりましょう。まず足首をゆっくり動かしてください。（数回）次に、ゆっくりベッドサイドに座りましょうね。 <button aria-label="Ucapkan: 田中さん、ゆっくり起き上がりましょう。まず足首をゆっくり動か…" class="tts-btn" onclick="speak('田中さん、ゆっくり起き上がりましょう。まず足首をゆっくり動かしてください。（数回）次に、ゆっくりベッドサイドに座りましょうね。')">🔊</button></div><div class="id-txt">Bu Tanaka, ayo bangun pelan-pelan. Pertama gerakkan pergelangan kaki pelan-pelan. (Beberapa kali) Selanjutnya, pelan-pelan duduk di tepi tempat tidur ya.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">田中さん</span>
+  <span class="spk">田中さん</span>
   <div><div class="jp">少しクラっとします… <button aria-label="Ucapkan: 少しクラっとします…" class="tts-btn" onclick="speak('少しクラっとします…')">🔊</button></div><div class="id-txt">Sedikit pusing...</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fce4ec;color:var(--primary,#880e4f)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">クラっとしましたか。そのまま少し座って待ちましょう。急がなくていいですよ。（1〜2分後）どうですか、ましになりましたか？ <button aria-label="Ucapkan: クラっとしましたか。そのまま少し座って待ちましょう。急がなく…" class="tts-btn" onclick="speak('クラっとしましたか。そのまま少し座って待ちましょう。急がなくていいですよ。（1〜2分後）どうですか、ましになりましたか？')">🔊</button></div><div class="id-txt">Pusing ya. Tetap duduk dulu dan tunggu sebentar. Tidak perlu terburu-buru. (1-2 menit kemudian) Bagaimana, sudah mendingan?</div></div>
 </div></div>
 
 <h2 class="st">📚 Kosakata 呼吸・循環のしくみと介護</h2>
 <div class="pg-vocab" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#880e4f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pgv"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>

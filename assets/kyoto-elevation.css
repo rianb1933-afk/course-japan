@@ -540,3 +540,28 @@ a.ft-link-dim.ft-link-dim,
   color: #F2705C !important;
   -webkit-text-fill-color: #F2705C !important;
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   --ink-faint: satu nilai yang lolos di keempat lapisan token
+   ══════════════════════════════════════════════════════════════════════
+   Repo ini punya EMPAT lapisan token yang saling menimpa, dua di antaranya
+   tanpa berkas sumber:
+
+       kyoto-theme.css        #6E6E6E / #8A8784   (sudah diperbaiki)
+       neko-theme.css         #6B6F75 / #888E96   (sudah diperbaiki)
+       kyoto-bundle.min.css   tanpa sumber
+       legacy-bundle.min.css  tanpa sumber — memuat SALINAN neko-theme,
+                              lengkap dengan `--ink-faint:#b8c0ca !important`
+
+   Karena salinan itu, memperbaiki neko-theme.css tidak menyentuh halaman yang
+   memuat legacy-bundle: 404, AI-Sensei, Blog, dan Akun tetap memakai #b8c0ca —
+   1,66:1 di atas krem. Praktis tak terbaca, dan di 404.html yang kena adalah
+   satu-satunya baris identitas di kaki halaman.
+
+   Satu pasang nilai cukup untuk semua lapisan, karena permukaan terangnya
+   berkisar #f5f7fa–#FEFCF8 dan gelapnya #111111–#1f232b:
+       #6E6E6E  4,85:1 di #f5f7fa   ·  5,14:1 di #FEFCF8
+       #8A8784  4,67:1 di #1a1d23   ·  5,27:1 di #111111
+   kyoto-elevation.css dimuat paling akhir di setiap halaman, jadi ia menang. */
+:root { --ink-faint: #6E6E6E !important; }
+html[data-theme="dark"] { --ink-faint: #8A8784 !important; }

@@ -72,8 +72,8 @@ renderVocabGrid('pg', PH_VOCAB);
 <main id="main-content">
 <div class="page-hero">
   <span class="badge">🛁 入浴介護</span>
-  <h1>入浴介護<br><small style="font-size:.65em;opacity:.9">Bantuan Mandi dalam Kaigo</small></h1>
-  <p style="font-size:.88rem;opacity:.85;margin-top:6px">全身浴 · シャワー浴 · 清拭 · Keamanan · Observasi Kulit</p>
+  <h1>入浴介護<br><small>Bantuan Mandi dalam Kaigo</small></h1>
+  <p>全身浴 · シャワー浴 · 清拭 · Keamanan · Observasi Kulit</p>
 </div>
 <div class="km-illustration" role="img" aria-label="Ilustrasi Nyuyoku-Care">
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
@@ -124,14 +124,14 @@ renderVocabGrid('pg', PH_VOCAB);
 
 </div>
 
-<div class="wrap" style="padding-top:24px">
+<div class="wrap">
 
 <div class="danger">🔴 入浴中の事故は高齢者の死亡原因の上位。ヒートショック（急激な温度変化による心臓発作）・転倒・溺水が主リスク。入浴介護は最も丁寧な観察と準備が必要な介護行為の一つ。</div>
 
 <div class="sec">
 <h3>📌 入浴介護の目的と意義</h3>
-<p style="font-size:.9rem;line-height:1.8">入浴介護 (nyuyoku kaigo) adalah bantuan mandi yang memiliki banyak manfaat: kebersihan tubuh, sirkulasi darah, relaksasi, stimulasi kulit, dan kesempatan observasi kondisi tubuh secara menyeluruh. Namun karena risiko tinggi, perlu protokol keamanan ketat.</p>
-<table class="tbl" style="margin-top:12px">
+<p>入浴介護 (nyuyoku kaigo) adalah bantuan mandi yang memiliki banyak manfaat: kebersihan tubuh, sirkulasi darah, relaksasi, stimulasi kulit, dan kesempatan observasi kondisi tubuh secara menyeluruh. Namun karena risiko tinggi, perlu protokol keamanan ketat.</p>
+<table class="tbl">
 <tr><th>Manfaat</th><th>Risiko yang Harus Diantisipasi</th></tr>
 <tr><td>🧼 Kebersihan tubuh & kulit</td><td>🌡️ ヒートショック (heat shock) — perubahan suhu ekstrem</td></tr>
 <tr><td>🩸 Meningkatkan sirkulasi darah</td><td>💧 溺水 (tenggelam) — khususnya saat mengantuk</td></tr>
@@ -271,16 +271,16 @@ renderVocabGrid('pg', PH_VOCAB);
 </div>
 
 <h2 class="st">📚 Kosakata 入浴介護</h2>
-<div id="phraseGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:10px;margin:12px 0"></div>
+<div id="phraseGrid"></div>
 
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#006064);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pg"></div>
 <h2 class="st">🧠 Quiz 入浴介護 — 国家試験対策</h2>
 <div id="qc"></div>
 
-</div><section style="padding:16px;max-width:860px;margin:20px auto">
-<h2 style="font-size:1rem;color:var(--accent,#1565c0);border-bottom:3px solid var(--accent,#1565c0);padding-bottom:6px;margin-bottom:12px">📚 重要語彙 — 入浴・清潔ケア</h2>
-<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px" id="vocab-grid">
+</div><section>
+<h2>📚 重要語彙 — 入浴・清潔ケア</h2>
+<div id="vocab-grid">
 <div class="vocab-item">
   <div class="vocab-term" onclick="speak('入浴')" title="クリックで発音">🔊 入浴</div>
   <div class="vocab-romaji">nyūyoku</div>
@@ -370,9 +370,9 @@ var pg=document.getElementById('phraseGrid');
 if(pg)PHRASES.forEach(function(p){
   var d=document.createElement('div');
   d.style.cssText='background:var(--white);border:1px solid var(--border-light);border-radius:10px;padding:12px 14px';
-  d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div>'
-    +'<div style="font-size:.75rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div>'
-    +'<div style="font-size:.85rem;color:var(--primary,#006064)">🇮🇩 '+p[2]+'</div>';
+  d.innerHTML='<div>'+p[0]+'</div>'
+    +'<div>'+p[1]+'</div>'
+    +'<div>🇮🇩 '+p[2]+'</div>';
   var btn=document.createElement('button');btn.textContent='🔊';
   btn.style.cssText='border:none;background:var(--primary,#006064);color:#fff;border-radius:6px;padding:3px 9px;cursor:pointer;font-size:.72rem;margin-top:6px';
   var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);

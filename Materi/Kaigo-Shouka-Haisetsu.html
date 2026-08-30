@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
 var PH_VOCAB=[["排泄介護", "haisetsu kaigo", "bantuan buang air"], ["便秘", "benpi", "konstipasi"], ["下痢", "geri", "diare"], ["括約筋", "katsu-yaku-kin", "sfingter"], ["夜間頻尿", "yakan hinnyo", "nokturia"], ["おむつ", "omutsu", "popok"], ["蠕動運動", "jyudo undo", "peristaltik"], ["ポータブルトイレ", "portaburu toire", "toilet portabel"]];
 (function(){var pg=document.getElementById('pgv');if(!pg)return;PH_VOCAB.forEach(function(p){
 var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.76rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.86rem;color:var(--primary,#37474f)">🇮🇩 '+p[2]+'</div>';
+d.innerHTML='<div>'+p[0]+'</div><div>'+p[1]+'</div><div>🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:var(--primary,#37474f);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});})();
 });
@@ -130,10 +130,10 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <div class="hero">
   <span class="badge">🫃 こころとからだ</span>
   <h1>消化・排泄のしくみと介護</h1>
-  <p style="font-size:.95rem;opacity:.9;margin:4px 0 0">Fisiologi Pencernaan & Ekskresi</p>
+  <p>Fisiologi Pencernaan & Ekskresi</p>
   <p class="hero-sub">消化管の構造 · 排泄のしくみ · 便秘・下痢 · 排泄介護 · Quiz 国家試験</p>
 </div>
-<div class="wrap" style="padding-top:28px">
+<div class="wrap">
 
 <div class="sec"><h3>🔬 消化管の構造とはたらき</h3>
 <table class="tbl"><tr><th>消化器官</th><th>機能</th><th>加齢変化・介護との関連</th></tr>
@@ -167,32 +167,32 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 </table></div>
 <h2 class="st">💬 Dialog 消化・排泄のしくみと介護</h2>
 <div class="dialog-card"><div class="dialog-title">🚽 Dialog 1 — 排泄誘導の声かけ</div><div class="dl">
-  <span class="spk" style="background:#eceff1;color:var(--primary,#37474f)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">田中さん、食後少し経ちましたね。トイレはいかがですか？よろしければご一緒します。 <button aria-label="Ucapkan: 田中さん、食後少し経ちましたね。トイレはいかがですか？よろし…" class="tts-btn" onclick="speak('田中さん、食後少し経ちましたね。トイレはいかがですか？よろしければご一緒します。')">🔊</button></div><div class="id-txt">Bu Tanaka, sudah agak lama setelah makan ya. Bagaimana kalau ke toilet? Kalau mau saya temani.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#eceff1;color:var(--primary,#37474f)">田中さん</span>
+  <span class="spk">田中さん</span>
   <div><div class="jp">そうですね、行っておこうかしら。 <button aria-label="Ucapkan: そうですね、行っておこうかしら。" class="tts-btn" onclick="speak('そうですね、行っておこうかしら。')">🔊</button></div><div class="id-txt">Iya ya, coba pergi dulu.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#eceff1;color:var(--primary,#37474f)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">では手すりを持ってゆっくり歩きましょう。（トイレの前で）ゆっくりどうぞ。終わったら呼んでくださいね。 <button aria-label="Ucapkan: では手すりを持ってゆっくり歩きましょう。（トイレの前で）ゆっ…" class="tts-btn" onclick="speak('では手すりを持ってゆっくり歩きましょう。（トイレの前で）ゆっくりどうぞ。終わったら呼んでくださいね。')">🔊</button></div><div class="id-txt">Mari pegang pegangan dan jalan pelan-pelan. (Di depan toilet) Pelan-pelan ya. Kalau sudah selesai panggil saya.</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">💊 Dialog 2 — 便秘の観察と報告</div><div class="dl">
-  <span class="spk" style="background:#eceff1;color:var(--primary,#37474f)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">看護師さん、山田様が3日間排便がありません。腹部が少し張っているようです。食欲も低下しています。 <button aria-label="Ucapkan: 看護師さん、山田様が3日間排便がありません。腹部が少し張って…" class="tts-btn" onclick="speak('看護師さん、山田様が3日間排便がありません。腹部が少し張っているようです。食欲も低下しています。')">🔊</button></div><div class="id-txt">Suster, Pak Yamada sudah 3 hari tidak BAB. Perutnya tampak sedikit kembung. Nafsu makan juga menurun.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#eceff1;color:var(--primary,#37474f)">看護師</span>
+  <span class="spk">看護師</span>
   <div><div class="jp">ありがとうございます。お腹の様子や、水分摂取量はいつもと比べてどうですか？ <button aria-label="Ucapkan: ありがとうございます。お腹の様子や、水分摂取量はいつもと比べ…" class="tts-btn" onclick="speak('ありがとうございます。お腹の様子や、水分摂取量はいつもと比べてどうですか？')">🔊</button></div><div class="id-txt">Terima kasih. Kondisi perut dan asupan cairan dibanding biasanya bagaimana?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#eceff1;color:var(--primary,#37474f)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">水分量が昨日から少し減っています。腸マッサージを続けていますが、改善がありません。 <button aria-label="Ucapkan: 水分量が昨日から少し減っています。腸マッサージを続けています…" class="tts-btn" onclick="speak('水分量が昨日から少し減っています。腸マッサージを続けていますが、改善がありません。')">🔊</button></div><div class="id-txt">Cairan sejak kemarin agak berkurang. Sudah terus dilakukan pijat perut, tapi belum ada perbaikan.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#eceff1;color:var(--primary,#37474f)">看護師</span>
+  <span class="spk">看護師</span>
   <div><div class="jp">わかりました。先生に相談して下剤の使用を検討します。今日の水分摂取を意識的に増やすようにしてください。 <button aria-label="Ucapkan: わかりました。先生に相談して下剤の使用を検討します。今日の水…" class="tts-btn" onclick="speak('わかりました。先生に相談して下剤の使用を検討します。今日の水分摂取を意識的に増やすようにしてください。')">🔊</button></div><div class="id-txt">Mengerti. Saya konsultasikan ke dokter untuk pertimbangkan laksatif. Tolong tingkatkan asupan cairan hari ini secara sadar.</div></div>
 </div></div>
 
 <h2 class="st">📚 Kosakata 消化・排泄のしくみと介護</h2>
 <div class="pg-vocab" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#37474f);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pgv"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>

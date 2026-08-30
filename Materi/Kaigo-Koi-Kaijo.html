@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
 var PH_VOCAB=[["更衣介助", "koi kaijo", "bantuan ganti pakaian"], ["脱健着患", "dakken chakkan", "lepas dari sehat, pakai dari lemah"], ["健側", "kensoku", "sisi sehat"], ["患側", "kansoku", "sisi lemah / lumpuh"], ["片麻痺", "hen-mahi", "hemiplegia"], ["羞恥心", "shuchi-shin", "rasa malu"], ["前開き", "mae-biraki", "bukaan depan"], ["自助具", "jijo-gu", "alat bantu mandiri"]];
 (function(){var pg=document.getElementById('pgv');if(!pg)return;PH_VOCAB.forEach(function(p){
 var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.76rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.86rem;color:var(--primary,#4a148c)">🇮🇩 '+p[2]+'</div>';
+d.innerHTML='<div>'+p[0]+'</div><div>'+p[1]+'</div><div>🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:var(--primary,#4a148c);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});})();
 });
@@ -127,14 +127,14 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <div class="hero">
   <span class="badge">👕 生活支援技術</span>
   <h1>更衣介助</h1>
-  <p style="font-size:.95rem;opacity:.9;margin:4px 0 0">Bantuan Ganti Pakaian</p>
+  <p>Bantuan Ganti Pakaian</p>
   <p class="hero-sub">脱健着患 · 片麻痺 · 臥位更衣 · 座位更衣 · 自立支援 · Quiz 国家試験</p>
 </div>
-<div class="wrap" style="padding-top:28px">
+<div class="wrap">
 
 <div class="sec">
 <h3>📖 更衣介助の基本原則</h3>
-<p style="font-size:.9rem;line-height:1.8">更衣介助は単なる着替えの補助ではなく、自立支援・尊厳保持・身体観察の機会でもあります。</p>
+<p>更衣介助は単なる着替えの補助ではなく、自立支援・尊厳保持・身体観察の機会でもあります。</p>
 <div class="tip">💡 <b>脱健着患（だっけんちゃっかん）の原則</b><br>
 脱ぐ時 → 健側（良い方）から先に脱ぐ<br>
 着る時 → 患側（麻痺・障害のある方）から先に着る<br>
@@ -185,38 +185,38 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 </div>
 <h2 class="st">💬 Dialog 更衣介助</h2>
 <div class="dialog-card"><div class="dialog-title">👕 Dialog 1 — 脱健着患の実践（片麻痺）</div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#4a148c)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">田中さん、着替えのお手伝いをしますね。まず右腕（健側）から袖を抜きましょう。右腕を少し持ち上げてもらえますか？ <button aria-label="Ucapkan: 田中さん、着替えのお手伝いをしますね。まず右腕（健側）から袖…" class="tts-btn" onclick="speak('田中さん、着替えのお手伝いをしますね。まず右腕（健側）から袖を抜きましょう。右腕を少し持ち上げてもらえますか？')">🔊</button></div><div class="id-txt">Bu Tanaka, saya bantu ganti pakaian ya. Pertama lepas lengan kanan (sisi sehat) dulu. Bisa angkat sedikit tangan kanannya?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#4a148c)">田中さん</span>
+  <span class="spk">田中さん</span>
   <div><div class="jp">こうですか？ <button aria-label="Ucapkan: こうですか？" class="tts-btn" onclick="speak('こうですか？')">🔊</button></div><div class="id-txt">Begini?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#4a148c)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">はい、そのままです。次に頭を通します。（頭を通した後）では左腕（患側）の袖を抜きますね。ゆっくりですよ。 <button aria-label="Ucapkan: はい、そのままです。次に頭を通します。（頭を通した後）では左…" class="tts-btn" onclick="speak('はい、そのままです。次に頭を通します。（頭を通した後）では左腕（患側）の袖を抜きますね。ゆっくりですよ。')">🔊</button></div><div class="id-txt">Ya, begitu. Selanjutnya keluarkan kepala. (Setelah kepala keluar) Sekarang lepas lengan kiri (sisi lemah) ya. Pelan-pelan.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#4a148c)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">（着る時）では着ましょう。今度は左腕から袖を通します。患側から先ですよ。上手にできましたね！ <button aria-label="Ucapkan: （着る時）では着ましょう。今度は左腕から袖を通します。患側か…" class="tts-btn" onclick="speak('（着る時）では着ましょう。今度は左腕から袖を通します。患側から先ですよ。上手にできましたね！')">🔊</button></div><div class="id-txt">(Saat pakai) Sekarang pakai baju. Kali ini masukkan lengan kiri dulu. Dari sisi lemah ya. Bagus sekali!</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">🌸 Dialog 2 — 自立支援の声かけ</div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#4a148c)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">山田さん、今日はシャツのボタンを自分で留めてみますか？時間がかかっても大丈夫ですよ。 <button aria-label="Ucapkan: 山田さん、今日はシャツのボタンを自分で留めてみますか？時間が…" class="tts-btn" onclick="speak('山田さん、今日はシャツのボタンを自分で留めてみますか？時間がかかっても大丈夫ですよ。')">🔊</button></div><div class="id-txt">Pak Yamada, hari ini coba kancing bajunya sendiri? Tidak apa-apa kalau lama.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#4a148c)">山田さん</span>
+  <span class="spk">山田さん</span>
   <div><div class="jp">でも上手くできるかどうか… <button aria-label="Ucapkan: でも上手くできるかどうか…" class="tts-btn" onclick="speak('でも上手くできるかどうか…')">🔊</button></div><div class="id-txt">Tapi apakah bisa dengan baik...</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#4a148c)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">失敗しても大丈夫です。私がそばにいますから。できるところまで自分でやってみましょう。 <button aria-label="Ucapkan: 失敗しても大丈夫です。私がそばにいますから。できるところまで…" class="tts-btn" onclick="speak('失敗しても大丈夫です。私がそばにいますから。できるところまで自分でやってみましょう。')">🔊</button></div><div class="id-txt">Tidak apa-apa kalau tidak sempurna. Saya ada di sini. Coba sampai yang bisa sendiri.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#4a148c)">山田さん</span>
+  <span class="spk">山田さん</span>
   <div><div class="jp">（一つ留めた）あ、できた！ <button aria-label="Ucapkan: （一つ留めた）あ、できた！" class="tts-btn" onclick="speak('（一つ留めた）あ、できた！')">🔊</button></div><div class="id-txt">(Berhasil satu kancing) Oh, bisa!</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#f3e5f5;color:var(--primary,#4a148c)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">すごい！自分でできましたね。残りは一緒にやりましょうか。 <button aria-label="Ucapkan: すごい！自分でできましたね。残りは一緒にやりましょうか。" class="tts-btn" onclick="speak('すごい！自分でできましたね。残りは一緒にやりましょうか。')">🔊</button></div><div class="id-txt">Hebat! Berhasil sendiri ya. Yang tersisa kita kerjakan bersama ya.</div></div>
 </div></div>
 
 <h2 class="st">📚 Kosakata 更衣介助</h2>
 <div class="pg-vocab" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#4a148c);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pgv"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>

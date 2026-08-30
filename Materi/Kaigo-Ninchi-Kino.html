@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
 var PH_VOCAB=[["高次脳機能障害", "koji no kino shogai", "gangguan fungsi otak tinggi"], ["失語症", "shitsugo-sho", "afasia"], ["失行症", "shikko-sho", "apraksia"], ["失認症", "shitsunin-sho", "agnosia"], ["半側空間無視", "hansoku kukan mushi", "hemineglect"], ["記憶障害", "kioku shogai", "gangguan memori"], ["遂行機能", "suiko kino", "fungsi eksekutif"], ["ブローカ失語", "Buroka shitsugo", "afasia Broca"]];
 (function(){var pg=document.getElementById('pgv');if(!pg)return;PH_VOCAB.forEach(function(p){
 var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.76rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.86rem;color:var(--primary,#1a237e)">🇮🇩 '+p[2]+'</div>';
+d.innerHTML='<div>'+p[0]+'</div><div>'+p[1]+'</div><div>🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:var(--primary,#1a237e);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});})();
 });
@@ -121,14 +121,14 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <div class="hero">
   <span class="badge">🧠 こころとからだ</span>
   <h1>認知機能と高次脳機能障害</h1>
-  <p style="font-size:.95rem;opacity:.9;margin:4px 0 0">Fungsi Kognitif & Gangguan Fungsi Otak Tinggi</p>
+  <p>Fungsi Kognitif & Gangguan Fungsi Otak Tinggi</p>
   <p class="hero-sub">記憶 · 注意 · 失語 · 失行 · 失認 · 半側空間無視 · Quiz 国家試験</p>
 </div>
-<div class="wrap" style="padding-top:28px">
+<div class="wrap">
 
 <div class="sec">
 <h3>📖 認知機能とは</h3>
-<p style="font-size:.9rem;line-height:1.8">認知機能とは、情報を受け取り、処理し、記憶し、判断・行動に活かす脳の機能の総称です。
+<p>認知機能とは、情報を受け取り、処理し、記憶し、判断・行動に活かす脳の機能の総称です。
 記憶・注意・言語・遂行機能・空間認識などが含まれます。</p>
 <table class="tbl"><tr><th>認知機能の種類</th><th>内容</th><th>低下した時の問題</th></tr>
 <tr><td><b>記憶</b></td><td>近時記憶(新しいことを覚える)・遠隔記憶(昔の記憶)</td><td>「さっきごはんを食べた」を忘れる</td></tr>
@@ -141,7 +141,7 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 
 <div class="sec">
 <h3>🔴 高次脳機能障害（こうじのうきのうしょうがい）</h3>
-<p style="font-size:.9rem;line-height:1.8">脳卒中・脳外傷・脳炎などの後遺症として認知機能が障害された状態。
+<p>脳卒中・脳外傷・脳炎などの後遺症として認知機能が障害された状態。
 外見からはわかりにくく「見えない障害」とも言われます。</p>
 <table class="tbl"><tr><th>障害名</th><th>読み方</th><th>内容</th><th>介護対応</th></tr>
 <tr><td><b>失語症</b></td><td>しつごしょう</td><td>言語機能の障害。話す・聞く・読む・書くのどれかまたは全部が障害される</td><td>ゆっくり短く話す。絵・文字・ジェスチャーを活用。「はい/いいえ」で答えられる質問</td></tr>
@@ -175,29 +175,29 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 </div>
 <h2 class="st">💬 Dialog 認知機能と高次脳機能障害</h2>
 <div class="dialog-card"><div class="dialog-title">🗣️ Dialog 1 — 失語症の利用者へのコミュニケーション</div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">田中さん、今日は調子はどうですか？（ゆっくり、はっきりと）お腹は痛いですか？（はい/いいえで答えられる質問） <button aria-label="Ucapkan: 田中さん、今日は調子はどうですか？（ゆっくり、はっきりと）お…" class="tts-btn" onclick="speak('田中さん、今日は調子はどうですか？（ゆっくり、はっきりと）お腹は痛いですか？（はい/いいえで答えられる質問）')">🔊</button></div><div class="id-txt">Bu Tanaka, hari ini bagaimana kondisinya? (Pelan dan jelas) Perut sakit? (Pertanyaan yang bisa dijawab ya/tidak)</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">田中さん</span>
+  <span class="spk">田中さん</span>
   <div><div class="jp">（首を振る）…（言葉が出ない様子） <button aria-label="Ucapkan: （首を振る）…（言葉が出ない様子）" class="tts-btn" onclick="speak('（首を振る）…（言葉が出ない様子）')">🔊</button></div><div class="id-txt">(Menggeleng kepala) ... (Tampak tidak bisa berkata-kata)</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">痛くないんですね。では食欲はありますか？（頷きを待つ）そうですか、食欲がある。良かったです。ゆっくりで大丈夫ですよ。 <button aria-label="Ucapkan: 痛くないんですね。では食欲はありますか？（頷きを待つ）そうで…" class="tts-btn" onclick="speak('痛くないんですね。では食欲はありますか？（頷きを待つ）そうですか、食欲がある。良かったです。ゆっくりで大丈夫ですよ。')">🔊</button></div><div class="id-txt">Tidak sakit ya. Kalau begitu ada nafsu makan? (Menunggu anggukan) Begitu, ada nafsu makan. Syukurlah. Pelan-pelan tidak apa-apa.</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">🍽️ Dialog 2 — 半側空間無視への対応</div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">山田さん、食事はいかがですか？あれ、左側にお魚とお漬物が残っていますよ。 <button aria-label="Ucapkan: 山田さん、食事はいかがですか？あれ、左側にお魚とお漬物が残っ…" class="tts-btn" onclick="speak('山田さん、食事はいかがですか？あれ、左側にお魚とお漬物が残っていますよ。')">🔊</button></div><div class="id-txt">Pak Yamada, bagaimana makannya? Oh, di sisi kiri masih ada ikan dan acar loh.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">山田さん</span>
+  <span class="spk">山田さん</span>
   <div><div class="jp">あ、そうですか…見えませんでした。 <button aria-label="Ucapkan: あ、そうですか…見えませんでした。" class="tts-btn" onclick="speak('あ、そうですか…見えませんでした。')">🔊</button></div><div class="id-txt">Oh ya... tidak kelihatan tadi.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#e8eaf6;color:var(--primary,#1a237e)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">（トレイを少し回転させて）こちらに移しましょうか。今度は見えますか？おいしそうですよ。 <button aria-label="Ucapkan: （トレイを少し回転させて）こちらに移しましょうか。今度は見え…" class="tts-btn" onclick="speak('（トレイを少し回転させて）こちらに移しましょうか。今度は見えますか？おいしそうですよ。')">🔊</button></div><div class="id-txt">(Sedikit memutar nampan) Saya pindahkan ke sini. Sekarang kelihatan? Keliatan enak ya.</div></div>
 </div></div>
 
 <h2 class="st">📚 Kosakata 認知機能と高次脳機能障害</h2>
 <div class="pg-vocab" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#1a237e);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pgv"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>

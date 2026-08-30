@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function(){
 var PH_VOCAB=[["嚥下", "enge", "menelan"], ["誤嚥", "goen", "aspirasi"], ["誤嚥性肺炎", "goen-sei haien", "pneumonia aspirasi"], ["不顕性誤嚥", "fuken-sei goen", "silent aspiration"], ["とろみ", "toromi", "thickener / pengental"], ["口腔ケア", "kuchiku kea", "perawatan mulut"], ["頭部前傾", "tobu zenkkei", "kepala menunduk"], ["食形態", "shoku-keitai", "tekstur makanan"]];
 (function(){var pg=document.getElementById('pgv');if(!pg)return;PH_VOCAB.forEach(function(p){
 var d=document.createElement('div');d.className='pv';
-d.innerHTML='<div style="font-size:.95rem;font-weight:600;color:var(--ink)">'+p[0]+'</div><div style="font-size:.76rem;color:var(--ink-mid);margin:2px 0">'+p[1]+'</div><div style="font-size:.86rem;color:var(--primary,#e65100)">🇮🇩 '+p[2]+'</div>';
+d.innerHTML='<div>'+p[0]+'</div><div>'+p[1]+'</div><div>🇮🇩 '+p[2]+'</div>';
 var btn=document.createElement('button');btn.textContent='🔊';btn.style.cssText='border:none;background:var(--primary,#e65100);color:#fff;border-radius:6px;padding:2px 8px;cursor:pointer;font-size:.72rem;margin-top:6px';
 var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChild(d);});})();
 });
@@ -114,14 +114,14 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 <div class="hero">
   <span class="badge">🍚 生活支援技術</span>
   <h1>食事介助と嚥下ケア</h1>
-  <p style="font-size:.95rem;opacity:.9;margin:4px 0 0">Bantuan Makan & Perawatan Menelan</p>
+  <p>Bantuan Makan & Perawatan Menelan</p>
   <p class="hero-sub">嚥下のメカニズム · 誤嚥予防 · 食形態 · 体位 · 観察 · Quiz 国家試験</p>
 </div>
-<div class="wrap" style="padding-top:28px">
+<div class="wrap">
 
 <div class="sec">
 <h3>🫁 嚥下（えんげ）のメカニズム</h3>
-<p style="font-size:.9rem;line-height:1.8">嚥下とは食物・水分を口から食道へ安全に送り込む過程です。5つのステージに分けられます。</p>
+<p>嚥下とは食物・水分を口から食道へ安全に送り込む過程です。5つのステージに分けられます。</p>
 <table class="tbl"><tr><th>ステージ</th><th>名称</th><th>内容</th><th>障害時の問題</th></tr>
 <tr><td>1</td><td>先行期</td><td>食物を見て認識し、食べる準備をする</td><td>認知症で食物と認識できない</td></tr>
 <tr><td>2</td><td>準備期</td><td>口腔内で咀嚼し食塊を形成する</td><td>歯・咀嚼筋の問題で食塊形成困難</td></tr>
@@ -183,36 +183,36 @@ var txt=p[0];btn.onclick=function(){speak(txt);};d.appendChild(btn);pg.appendChi
 </div>
 <h2 class="st">💬 Dialog 食事介助と嚥下ケア</h2>
 <div class="dialog-card"><div class="dialog-title">🥣 Dialog 1 — 食事形態の変更提案</div><div class="dl">
-  <span class="spk" style="background:#fbe9e7;color:var(--primary,#e65100)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">看護師さん、田中様が最近食事中に何度もむせています。今日は食後に少しガラガラ声になっていました。 <button aria-label="Ucapkan: 看護師さん、田中様が最近食事中に何度もむせています。今日は食…" class="tts-btn" onclick="speak('看護師さん、田中様が最近食事中に何度もむせています。今日は食後に少しガラガラ声になっていました。')">🔊</button></div><div class="id-txt">Suster, Bu Tanaka belakangan sering tersedak saat makan. Hari ini setelah makan suaranya sedikit serak basah.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fbe9e7;color:var(--primary,#e65100)">看護師</span>
+  <span class="spk">看護師</span>
   <div><div class="jp">それは気になりますね。STに嚥下評価を依頼しましょう。それまでの間、食形態をソフト食に変えて、とろみをつけた水分に変更しましょうか。 <button aria-label="Ucapkan: それは気になりますね。STに嚥下評価を依頼しましょう。それま…" class="tts-btn" onclick="speak('それは気になりますね。STに嚥下評価を依頼しましょう。それまでの間、食形態をソフト食に変えて、とろみをつけた水分に変更しましょうか。')">🔊</button></div><div class="id-txt">Itu perlu diperhatikan. Kami minta ST untuk evaluasi menelan. Sementara itu, ubah ke makanan lunak dan air dengan pengental.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fbe9e7;color:var(--primary,#e65100)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">わかりました。体位は頭部前傾の座位90°を継続しますね。食後は口腔ケアを徹底します。 <button aria-label="Ucapkan: わかりました。体位は頭部前傾の座位90°を継続しますね。食後…" class="tts-btn" onclick="speak('わかりました。体位は頭部前傾の座位90°を継続しますね。食後は口腔ケアを徹底します。')">🔊</button></div><div class="id-txt">Mengerti. Posisi tetap duduk 90° kepala menunduk. Setelah makan perawatan mulut akan lebih ketat.</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">🍽️ Dialog 2 — 食事介助の声かけ実践</div><div class="dl">
-  <span class="spk" style="background:#fbe9e7;color:var(--primary,#e65100)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">山田さん、今日のお昼ごはんですよ。鮭の照り焼きと豆腐のお味噌汁です。好きなものはありますか？ <button aria-label="Ucapkan: 山田さん、今日のお昼ごはんですよ。鮭の照り焼きと豆腐のお味噌…" class="tts-btn" onclick="speak('山田さん、今日のお昼ごはんですよ。鮭の照り焼きと豆腐のお味噌汁です。好きなものはありますか？')">🔊</button></div><div class="id-txt">Pak Yamada, ini makan siang. Ada salmon teriyaki dan sup tahu miso. Ada yang disukai?</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fbe9e7;color:var(--primary,#e65100)">山田さん</span>
+  <span class="spk">山田さん</span>
   <div><div class="jp">鮭は好きです。でも最近喉に引っかかる感じがして… <button aria-label="Ucapkan: 鮭は好きです。でも最近喉に引っかかる感じがして…" class="tts-btn" onclick="speak('鮭は好きです。でも最近喉に引っかかる感じがして…')">🔊</button></div><div class="id-txt">Salmon suka. Tapi belakangan terasa nyangkut di tenggorokan...</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fbe9e7;color:var(--primary,#e65100)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">そうですか。今日は少しとろみをつけてお出しします。ゆっくり一口ずつ食べましょうね。飲み込んだのを確認してから次を食べましょう。 <button aria-label="Ucapkan: そうですか。今日は少しとろみをつけてお出しします。ゆっくり一…" class="tts-btn" onclick="speak('そうですか。今日は少しとろみをつけてお出しします。ゆっくり一口ずつ食べましょうね。飲み込んだのを確認してから次を食べましょう。')">🔊</button></div><div class="id-txt">Begitu. Hari ini ditambahkan sedikit pengental. Makan pelan-pelan satu suap ya. Pastikan sudah ditelan sebelum suap berikutnya.</div></div>
 </div></div>
 <div class="dialog-card"><div class="dialog-title">🚨 Dialog 3 — 誤嚥発生時の対応</div><div class="dl">
-  <span class="spk" style="background:#fbe9e7;color:var(--primary,#e65100)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">（田中様が食事中に突然激しく咳き込む）田中さん！大丈夫ですか？背中を叩きますね。 <button aria-label="Ucapkan: （田中様が食事中に突然激しく咳き込む）田中さん！大丈夫ですか…" class="tts-btn" onclick="speak('（田中様が食事中に突然激しく咳き込む）田中さん！大丈夫ですか？背中を叩きますね。')">🔊</button></div><div class="id-txt">(Bu Tanaka tiba-tiba batuk keras saat makan) Bu Tanaka! Anda baik-baik saja? Saya tepuk punggungnya ya.</div></div>
 </div><div class="dl">
-  <span class="spk" style="background:#fbe9e7;color:var(--primary,#e65100)">介護士</span>
+  <span class="spk">介護士</span>
   <div><div class="jp">（咳が止まらない場合）食事を止めて、前傾座位のまま口の中を確認します。ナースコールを押します！ <button aria-label="Ucapkan: （咳が止まらない場合）食事を止めて、前傾座位のまま口の中を確…" class="tts-btn" onclick="speak('（咳が止まらない場合）食事を止めて、前傾座位のまま口の中を確認します。ナースコールを押します！')">🔊</button></div><div class="id-txt">(Jika batuk tidak berhenti) Hentikan makan, tetap dalam posisi condong ke depan, periksa mulutnya. Saya tekan bel perawat!</div></div>
 </div></div>
 
 <h2 class="st">📚 Kosakata 食事介助と嚥下ケア</h2>
 <div class="pg-vocab" id="pg"></div>
-<h2 style="font-size:1.2rem;font-weight:700;color:var(--primary,#e65100);margin:28px 0 12px;padding-bottom:8px;border-bottom:2px solid rgba(0,0,0,.08)">📚 Kosakata Penting</h2>
+<h2>📚 Kosakata Penting</h2>
 <div class="pg-vocab" id="pgv"></div>
 <h2 class="st">🧠 Quiz — 国家試験対策</h2>
 <div id="qc"></div>
