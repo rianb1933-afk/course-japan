@@ -1,76 +1,61 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#F8FAFC"/>
-      <stop offset="100%" stop-color="#E2E8F0"/>
-    </linearGradient>
-    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
-      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.1"/>
-    </filter>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350">
+  <!-- Clean medical textbook style -->
+  <rect width="600" height="350" rx="12" fill="#FAFAFA" stroke="#E5E7EB" stroke-width="1"/>
   
-  <rect width="600" height="400" rx="20" fill="url(#bg)"/>
+  <!-- Title bar -->
+  <rect x="0" y="0" width="600" height="40" rx="12" fill="#1E40AF"/>
+  <rect x="0" y="20" width="600" height="20" fill="#1E40AF"/>
+  <text x="300" y="27" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#FFF">CPR · 心肺蘇生 · Kompresi Dada</text>
   
-  <!-- Person lying down -->
-  <ellipse cx="300" cy="260" rx="150" ry="20" fill="#CBD5E1" opacity="0.3"/>
+  <!-- Patient (flat, simple) -->
+  <rect x="150" y="180" width="250" height="25" rx="4" fill="#FDE68A" stroke="#D97706" stroke-width="1.5"/>
+  <circle cx="140" cy="192" r="18" fill="#FDE68A" stroke="#D97706" stroke-width="1.5"/>
+  <circle cx="135" cy="189" r="2" fill="#92400E"/>
+  <circle cx="145" cy="189" r="2" fill="#92400E"/>
+  <path d="M133 197 Q140 201 147 197" fill="none" stroke="#92400E" stroke-width="1.2"/>
   
-  <!-- Body -->
-  <rect x="180" y="230" width="240" height="40" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
-  
-  <!-- Head -->
-  <circle cx="160" cy="240" r="25" fill="#FDE68A" stroke="#F59E0B" stroke-width="2"/>
-  <circle cx="155" cy="237" r="3" fill="#92400E"/>
-  <circle cx="168" cy="237" r="3" fill="#92400E"/>
-  <path d="M155 248 Q160 252 165 248" fill="none" stroke="#92400E" stroke-width="1.5"/>
-  
-  <!-- Rescuer kneeling -->
-  <circle cx="280" cy="170" r="20" fill="#FDE68A" stroke="#1E40AF" stroke-width="2"/>
-  <circle cx="276" cy="167" r="2.5" fill="#1E3A8A"/>
-  <circle cx="286" cy="167" r="2.5" fill="#1E3A8A"/>
-  <path d="M276 176 Q280 180 284 176" fill="none" stroke="#1E3A8A" stroke-width="1.5"/>
-  
-  <!-- Rescuer body -->
-  <rect x="265" y="190" width="30" height="40" rx="6" fill="#DBEAFE" stroke="#1E40AF" stroke-width="2"/>
-  
-  <!-- Arms extending to chest -->
-  <line x1="270" y1="200" x2="290" y2="220" stroke="#1E40AF" stroke-width="3" stroke-linecap="round"/>
-  <line x1="290" y1="200" x2="310" y2="220" stroke="#1E40AF" stroke-width="3" stroke-linecap="round"/>
-  
-  <!-- Hands on chest (compression position) -->
-  <ellipse cx="300" cy="225" rx="20" ry="10" fill="#FDE68A" stroke="#1E40AF" stroke-width="2"/>
+  <!-- Rescuer (simple stick figure) -->
+  <circle cx="280" cy="130" r="15" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
+  <line x1="280" y1="145" x2="280" y2="175" stroke="#2563EB" stroke-width="2"/>
+  <line x1="280" y1="155" x2="260" y2="170" stroke="#2563EB" stroke-width="2"/>
+  <line x1="280" y1="155" x2="300" y2="170" stroke="#2563EB" stroke-width="2"/>
   
   <!-- Compression arrows -->
-  <path d="M300 195 L300 215" stroke="#DC2626" stroke-width="3" marker-end="url(#arrow-down)"/>
-  <path d="M300 235 L300 255" stroke="#DC2626" stroke-width="3" marker-end="url(#arrow-down)"/>
-  <defs>
-    <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="8" markerHeight="8" orient="auto">
-      <path d="M0 0 L5 10 L10 0Z" fill="#DC2626"/>
-    </marker>
-  </defs>
+  <line x1="280" y1="105" x2="280" y2="125" stroke="#DC2626" stroke-width="2" marker-end="url(#arr)"/>
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L5 10 L10 0Z" fill="#DC2626"/></marker></defs>
   
-  <!-- Heart with pulse -->
-  <path d="M480 120 C480 100, 510 80, 530 100 C550 80, 580 100, 580 120 C580 160, 530 190, 530 190 C530 190, 480 160, 480 120Z" fill="#EF4444" opacity="0.9"/>
-  <text x="530" y="145" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#FFF">72</text>
-  <text x="530" y="160" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FEE2E2">bpm</text>
+  <!-- Key metrics (left side) -->
+  <rect x="20" y="55" width="120" height="85" rx="8" fill="#FFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="80" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1E40AF">胸骨圧迫</text>
+  <line x1="30" y1="82" x2="130" y2="82" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="80" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#DC2626">100-120</text>
+  <text x="80" y="115" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">回/分 · Kecepatan</text>
+  <text x="80" y="132" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#6B7280">5-6cm · Kedalaman</text>
   
-  <!-- ECG line -->
-  <path d="M450 200 L480 200 L490 180 L500 220 L510 190 L520 200 L550 200 L560 180 L570 220 L580 190 L590 200" fill="none" stroke="#EF4444" stroke-width="2"/>
+  <!-- Ratio box (right side) -->
+  <rect x="460" y="55" width="120" height="60" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="1.5"/>
+  <text x="520" y="80" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" font-weight="bold" fill="#92400E">30 : 2</text>
+  <text x="520" y="100" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" fill="#B45309">Kompresi : Napas</text>
   
-  <!-- Labels -->
-  <rect x="40" y="40" width="160" height="50" rx="10" fill="#FFF" filter="url(#shadow)"/>
-  <text x="120" y="60" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">胸骨圧迫</text>
-  <text x="120" y="78" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#64748B">Kompresi Dada</text>
+  <!-- ECG line (bottom) -->
+  <path d="M460 140 L490 140 L500 120 L510 160 L520 130 L530 140 L560 140" fill="none" stroke="#DC2626" stroke-width="1.5"/>
   
-  <rect x="40" y="100" width="160" height="50" rx="10" fill="#FFF" filter="url(#shadow)"/>
-  <text x="120" y="120" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">100-120回/分</text>
-  <text x="120" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#64748B">Kecepatan</text>
+  <!-- Heart icon -->
+  <path d="M490 155 C490 148, 505 140, 510 150 C515 140, 530 148, 530 155 C530 170, 510 182, 510 182 C510 182, 490 170, 490 155Z" fill="#FCA5A5" stroke="#DC2626" stroke-width="1"/>
   
-  <rect x="40" y="160" width="160" height="50" rx="10" fill="#FFF" filter="url(#shadow)"/>
-  <text x="120" y="180" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">5-6cm 深さ</text>
-  <text x="120" y="198" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#64748B">Kedalaman</text>
+  <!-- Bottom info -->
+  <rect x="20" y="230" width="560" height="100" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="300" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#374151">C-A-B 手順</text>
   
-  <!-- 30:2 ratio badge -->
-  <rect x="430" y="40" width="120" height="45" rx="10" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
-  <text x="490" y="58" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#92400E">30 : 2</text>
-  <text x="490" y="75" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#B45309">Kompresi : Napas</text>
+  <rect x="40" y="265" width="160" height="50" rx="6" fill="#FFF" stroke="#E5E7EB"/>
+  <text x="120" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1E40AF">C · Compression</text>
+  <text x="120" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">胸骨圧迫 30回</text>
+  
+  <rect x="220" y="265" width="160" height="50" rx="6" fill="#FFF" stroke="#E5E7EB"/>
+  <text x="300" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1E40AF">A · Airway</text>
+  <text x="300" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">気道確保</text>
+  
+  <rect x="400" y="265" width="160" height="50" rx="6" fill="#FFF" stroke="#E5E7EB"/>
+  <text x="480" y="285" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#1E40AF">B · Breathing</text>
+  <text x="480" y="300" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#6B7280">人工呼吸 2回</text>
 </svg>
