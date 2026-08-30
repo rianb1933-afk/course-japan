@@ -23,6 +23,7 @@
 <script src="assets/np-skip-link.js" defer></script>
 <script src="assets/site-motion.js" defer></script>
 <script src="assets/anime-theme.js" defer></script>
+<script src="assets/progress-dashboard.js" defer></script>
 <style>
 .wrap{max-width:900px;margin:0 auto;padding:40px 20px}
 .hero{background:linear-gradient(135deg,var(--primary,#1a0a2e),var(--primary-dark,#2d1b69));color:#fff;padding:60px 20px 40px;text-align:center}
@@ -61,11 +62,12 @@
   <p style="opacity:.85;font-size:.95rem;margin-top:8px">Track pencapaian · XP · Streak · Level JLPT</p>
 </div>
 <div class="wrap">
-  <div class="sec" id="progressLogin" style="text-align:center;padding:32px">
-    <div style="font-size:2.5rem;margin-bottom:12px">📊</div>
-    <h3>Login untuk Lihat Progress</h3>
-    <p style="color:var(--ink-soft, #666);margin:10px 0 18px">Login untuk melihat XP, streak, dan progress belajar kamu.</p>
-    <a href="Akun.html" class="btn">Login / Daftar</a>
+  <div class="sec" id="progressDashboard" style="padding:0">
+    <div id="dashboard-container" style="padding:24px"></div>
+  </div>
+  <div class="sec" style="text-align:center;padding:24px">
+    <p style="color:var(--ink-soft, #666);font-size:14px">Data progress disimpan di browser kamu. Login untuk sinkronisasi lintas perangkat.</p>
+    <a href="Akun.html" class="btn" style="margin-top:12px">Login / Daftar</a>
   </div>
   <div class="grid">
     <div class="card">
@@ -160,5 +162,14 @@ if('serviceWorker' in navigator){
     }).catch(function(){});
   });
 }
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  if (window.Progress) {
+    var container = document.getElementById('dashboard-container');
+    if (container) Progress.renderDashboard(container);
+  }
+});
 </script>
 </body></html>
