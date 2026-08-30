@@ -1962,7 +1962,16 @@ def check_literal_grey_without_dark_variant():
     aturan = re.compile(r'([^{}]+)\{([^{}]*)\}')
     style = re.compile(r'<style[^>]*>(.*?)</style>', re.S | re.I)
 
+    # Komentar HARUS dibuang sebelum aturan dipecah. Regexnya menangkap segala
+    # sesuatu sebelum '{' sebagai selektor, jadi komentar yang mendahului sebuah
+    # aturan ikut terbawa: `/* penjelasan */ [data-theme="dark"] .empty-hint`
+    # tidak sama dengan `.empty-hint`, dan varian gelap yang sebenarnya ADA jadi
+    # tidak terlihat. Check ini lalu menuduh aturan yang sudah benar — persis
+    # yang terjadi begitu penjelasan ditulis di atas aturannya sendiri.
+    komentar = re.compile(r'/\*.*?\*/', re.S)
+
     def sisir(src, nama):
+        src = komentar.sub(' ', src)
         if 'data-theme="dark"' not in src:
             return []
         punya_gelap = set()
@@ -2005,7 +2014,11 @@ def check_literal_grey_without_dark_variant():
             temuan += sisir(blok, os.path.relpath(path, ROOT))
 
     # Sudah ada sebelum check ini ditulis dan diperiksa satu per satu.
-    SAH = {('assets/kyoto-navbar.css', '.kn-dd-section')}   # varian gelapnya
+    SAH = {('assets/kyoto-navbar.css', '.kn-dd-section'),   # varian gelapnya
+           # Footer ini duduk di slab yang gelap di KEDUA tema (#2D2D2D terang,
+           # #0A0A0A gelap), jadi warnanya memang tidak boleh membalik. Diukur
+           # di Chromium: 4,77:1 di mode terang dan 6,85:1 di mode gelap.
+           ('AI-Kaiwa.html', '.kaiwa-page-footer')}
     nyata = [t for t in temuan if (t[0], t[2]) not in SAH]  # ada, hanya beda bentuk selektor
 
     if nyata:
