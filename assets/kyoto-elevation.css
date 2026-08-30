@@ -565,3 +565,30 @@ a.ft-link-dim.ft-link-dim,
    kyoto-elevation.css dimuat paling akhir di setiap halaman, jadi ia menang. */
 :root { --ink-faint: #6E6E6E !important; }
 html[data-theme="dark"] { --ink-faint: #8A8784 !important; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   --red sebagai TEKS di mode gelap
+   ══════════════════════════════════════════════════════════════════════
+   neko-theme.css (dan salinannya di legacy-bundle.min.css) menyetel
+   `--red: #be3428 !important` di blok terang DAN di blok gelap — nilainya
+   tidak pernah membalik. Di atas kartu #1A1A1A rasionya 3,08:1, dan di atas
+   lencana bertint emas rgba(255,182,6,.14) cuma 2,19:1.
+
+   Tokennya tidak bisa sekadar dilunturkan, karena --red juga dipakai sebagai
+   LATAR 18 tombol yang teksnya putih. Angkanya menutup pintu itu rapat-rapat:
+
+       teks di atas #1A1A1A butuh luminans ≥ 0,293
+       putih di atasnya sebagai latar butuh luminans ≤ 0,183
+
+   Tidak ada satu warna yang memenuhi keduanya, jadi pemisahannya wajib —
+   bukan pilihan gaya. Yang didaftar di sini hanya sembilan pemakaian
+   sebagai-teks yang benar-benar terukur gagal; sisanya latar tombol dan
+   sengaja dibiarkan.
+
+   #E8796B: 4,80:1 di atas #1A1A1A dan 5,42:1 di atas #111111. Daftar ini
+   memang bisa basi kalau kelas baru ditambahkan — layout-sweep akan
+   menangkapnya, karena begitulah kesembilan ini ditemukan. */
+html[data-theme="dark"] :is(.lv-btn, .num, .scenario-btn, .chat-level,
+                            .social-icon, .jp) {
+  color: #E8796B !important;
+}
