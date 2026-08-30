@@ -299,12 +299,35 @@ exports.handler = async (event) => {
   }
 
   // Select provider
-  const prov = PROVIDERS[provider] || PROVIDERS.openai;
-  const apiKey = process.env[prov.keyEnv];
+  //
+  // Kalau provider yang diminta tidak punya kunci, JATUH KE provider lain yang
+  // punya — bukan langsung gagal. Sebelumnya tidak begitu, dan akibatnya halus:
+  // request default-nya `provider = 'openai'` (lihat destructuring di atas) dan
+  // tidak ada satu halaman pun yang mengirim provider lain. Jadi siapa pun yang
+  // mengikuti netlify.toml — yang mendokumentasikan ANTHROPIC_API_KEY sebagai
+  // kunci utama — mengisi kunci Anthropic dengan benar, lalu SETIAP fitur AI
+  // tetap membalas 501 "API key untuk openai belum dikonfigurasi". Kunci sudah
+  // benar, dokumentasi sudah benar, hasilnya tetap mati.
+  let namaProvider = PROVIDERS[provider] ? provider : 'openai';
+  let prov = PROVIDERS[namaProvider];
+  let apiKey = process.env[prov.keyEnv];
   if (!apiKey) {
+    const tersedia = Object.keys(PROVIDERS).find((n) => process.env[PROVIDERS[n].keyEnv]);
+    if (tersedia) {
+      namaProvider = tersedia;
+      prov = PROVIDERS[tersedia];
+      apiKey = process.env[prov.keyEnv];
+    }
+  }
+  if (!apiKey) {
+    const daftar = Object.values(PROVIDERS).map((p) => p.keyEnv).join(', ');
     return {
       statusCode: 501, headers: CORS,
-      body: JSON.stringify({ error: `API key untuk ${provider} belum dikonfigurasi.` }),
+      body: JSON.stringify({
+        error: 'Fitur AI belum aktif: tidak ada kunci API yang terpasang. '
+             + `Set salah satu di Netlify (Site settings → Environment variables): ${daftar}.`,
+        code: 'NO_API_KEY',
+      }),
     };
   }
 
@@ -367,7 +390,7 @@ exports.handler = async (event) => {
       statusCode: 200, headers: CORS,
       body: JSON.stringify({
         text,
-        provider,
+        provider: namaProvider,   // yang BENAR-BENAR dipakai, bukan yang diminta
         model: body.model || prov.defaultModel,
         remaining: rate.limit - rate.count,
         usage: data.usage || null,
