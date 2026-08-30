@@ -513,3 +513,30 @@ a.ft-link-dim.ft-link-dim,
                         a[class*="link"]:not([class*="footer"])) {
   color: #C89B3C !important;
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   Aksen merah di slab hero gelap beranda
+   ══════════════════════════════════════════════════════════════════════
+   Hero kiri index.html adalah slab #2D2D2D di KEDUA tema. --red #BE3428 di
+   atasnya hanya 2,43:1 — lencana "✨ Platform Belajar Bahasa Jepang · Gratis"
+   dan judul "Bahasa Jepang". Terbukti bukan cuma dari hitungan: potongan
+   layar 2× memperlihatkan teks merah gelap yang tenggelam di arang.
+
+   Diperbaiki di sini, bukan di sumbernya, karena dua alasan:
+
+   1. neko-theme.css menyetel `color: var(--red) !important` lewat daftar
+      selektor panjang yang juga memuat .section-label, .kicker, .tag,
+      .plan-badge, .level-badge — komponen yang di halaman lain duduk di atas
+      krem, dan #F2705C di sana justru cuma 2,56:1. Menyentuh aturan itu
+      memindahkan bug, bukan menghapusnya.
+   2. --red juga jadi LATAR tombol hero yang teksnya putih; melunturkan
+      tokennya akan merusak tombol yang sekarang benar.
+
+   kyoto-elevation.css dimuat sesudah neko-theme.css, jadi pada kekhususan
+   yang sama ia yang menang. -webkit-text-fill-color ikut disetel karena
+   neko-theme menyetelnya juga; tanpa itu warnanya tidak berubah. */
+.hero-badge,
+.hero-left h1 .accent {
+  color: #F2705C !important;
+  -webkit-text-fill-color: #F2705C !important;
+}
