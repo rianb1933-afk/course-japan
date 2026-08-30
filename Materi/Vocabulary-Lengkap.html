@@ -363,19 +363,44 @@ async function loadWords(){
   try{
     const res = await fetch('../assets/vocab-all.csv');
     const csv = await res.text();
-    const rows = parseCsv(csv).slice(1);
-    allWords = rows.map((r,i)=>{
-      // New format: expression,reading,romaji,meaning,meaning_id,tags
-      // Old format: expression,reading,meaning,tags
-      const hasRomaji = r.length >= 5 && r[2] && !/^JLPT|^N[1-5]|^Genki|^Intermediate/.test(r[2]);
+    // Format dibaca dari BARIS JUDUL, bukan ditebak dari isi.
+    //
+    // Versi sebelumnya menebak: `hasRomaji = r.length >= 5 && r[2] && ...`
+    // — anggapannya "kalau kolom ketiga terisi, berarti format baru". Tapi di
+    // assets/vocab-all.csv kolom romaji KOSONG di hampir semua baris (memang
+    // belum pernah diisi), sehingga tebakannya selalu jatuh ke format lama dan
+    // kolomnya bergeser satu: arti Indonesia terbaca sebagai `tags`, dan
+    // `meaning` mengambil kolom romaji yang kosong.
+    //
+    // Akibatnya 173.955 dari 177.826 entri (98%) tampil TANPA ARTI sama sekali.
+    // Kartunya tetap terlihat normal — kata, cara baca, lencana level, nomor —
+    // jadi tidak ada yang terlihat rusak; yang hilang justru satu-satunya hal
+    // yang membuat kamus berguna. Baris judulnya sendiri sudah menyebutkan nama
+    // kolomnya sejak awal, tinggal dibaca.
+    const semua = parseCsv(csv);
+    const judul = (semua[0] || []).map(h => String(h || '').trim().toLowerCase());
+    const kolom = (nama) => judul.indexOf(nama);
+    const iEks = kolom('expression'), iBaca = kolom('reading'), iRom = kolom('romaji');
+    const iArti = kolom('meaning'), iArtiId = kolom('meaning_id'), iTag = kolom('tags');
+    // Berjudul lengkap? Ambil per nama. Kalau tidak, mundur ke format lama
+    // berposisi (expression,reading,meaning,tags) yang dipakai berkas lawas.
+    const berjudul = iEks >= 0 && iBaca >= 0 && iArti >= 0;
+    const ambil = (r, i) => (i >= 0 ? (r[i] || '') : '');
+    allWords = semua.slice(1).map((r,i)=>{
+      if (berjudul) return {
+        id:i+1,
+        expression: ambil(r, iEks),
+        reading:    ambil(r, iBaca),
+        romaji:     ambil(r, iRom),
+        meaning:    ambil(r, iArti),
+        meaning_id: ambil(r, iArtiId),
+        tags:       ambil(r, iTag),
+      };
       return {
         id:i+1,
-        expression:r[0] || '',
-        reading:r[1] || '',
-        romaji: hasRomaji ? (r[2] || '') : '',
-        meaning: hasRomaji ? (r[3] || '') : (r[2] || ''),
-        meaning_id: hasRomaji ? (r[4] || '') : '',
-        tags: hasRomaji ? (r[5] || r[3] || '') : (r.slice(3).join(',') || ''),
+        expression:r[0] || '', reading:r[1] || '', romaji:'',
+        meaning:r[2] || '', meaning_id:'',
+        tags:(r.slice(3).join(',') || ''),
       };
     }).filter(w=>w.expression && w.reading);
     allWords.forEach(w=>{ w.level = levelFromTags(w.tags); w.category = categoryFor(w); });
