@@ -1,33 +1,68 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
   <defs>
     <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E3F2FD"/>
-      <stop offset="100%" stop-color="#BBDEFB"/>
+      <stop offset="0%" stop-color="#F0F9FF"/>
+      <stop offset="100%" stop-color="#E0F2FE"/>
     </linearGradient>
+    <filter id="sh2" x="-3%" y="-3%" width="106%" height="106%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-opacity="0.1"/>
+    </filter>
   </defs>
-  <rect width="400" height="300" rx="16" fill="url(#bg2)"/>
+  <rect width="600" height="400" rx="20" fill="url(#bg2)"/>
   
-  <!-- AED Device -->
-  <rect x="130" y="60" width="140" height="100" rx="12" fill="#FFF" stroke="#1565C0" stroke-width="3"/>
-  <rect x="150" y="80" width="100" height="40" rx="6" fill="#E3F2FD" stroke="#1565C0" stroke-width="2"/>
-  <circle cx="200" cy="100" r="8" fill="#4CAF50"/>
-  <text x="200" y="135" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1565C0">AED</text>
+  <!-- Body outline for pad placement -->
+  <ellipse cx="300" cy="300" rx="100" ry="50" fill="#F1F5F9" stroke="#94A3B8" stroke-width="1.5"/>
+  <ellipse cx="300" cy="180" rx="20" ry="22" fill="#FDE68A" stroke="#D97706" stroke-width="1.5"/>
+  <line x1="300" y1="202" x2="300" y2="260" stroke="#94A3B8" stroke-width="2"/>
+  <line x1="300" y1="220" x2="260" y2="250" stroke="#94A3B8" stroke-width="2"/>
+  <line x1="300" y1="220" x2="340" y2="250" stroke="#94A3B8" stroke-width="2"/>
   
-  <!-- Pads -->
-  <ellipse cx="120" cy="200" rx="30" ry="20" fill="#FFF" stroke="#E53935" stroke-width="2"/>
-  <text x="120" y="205" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#E53935">右上</text>
-  <ellipse cx="280" cy="200" rx="30" ry="20" fill="#FFF" stroke="#E53935" stroke-width="2"/>
-  <text x="280" y="205" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#E53935">左下</text>
+  <!-- AED device -->
+  <rect x="400" y="60" width="160" height="110" rx="12" fill="#FFF" stroke="#0284C7" stroke-width="2.5" filter="url(#sh2)"/>
+  <rect x="415" y="75" width="130" height="50" rx="6" fill="#F0F9FF" stroke="#BAE6FD" stroke-width="1.5"/>
+  <circle cx="480" cy="100" r="10" fill="#22C55E"/>
+  <text x="480" y="104" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="bold" fill="#FFF">ON</text>
+  <text x="480" y="145" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#0369A1">AED</text>
+  <text x="480" y="160" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#64748B">自動体外式除細動器</text>
   
-  <!-- Wire -->
-  <path d="M150 160 Q120 180 120 185" fill="none" stroke="#666" stroke-width="2"/>
-  <path d="M250 160 Q280 180 280 185" fill="none" stroke="#666" stroke-width="2"/>
+  <!-- Right pad (upper right chest) -->
+  <ellipse cx="330" cy="240" rx="25" ry="18" fill="#FFF" stroke="#EF4444" stroke-width="2.5" filter="url(#sh2)"/>
+  <text x="330" y="238" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#DC2626">PAD 1</text>
+  <text x="330" y="250" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#64748B">右上</text>
+  
+  <!-- Left pad (left side, below armpit) -->
+  <ellipse cx="250" cy="270" rx="25" ry="18" fill="#FFF" stroke="#EF4444" stroke-width="2.5" filter="url(#sh2)"/>
+  <text x="250" y="268" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="bold" fill="#DC2626">PAD 2</text>
+  <text x="250" y="280" text-anchor="middle" font-family="sans-serif" font-size="7" fill="#64748B">左下</text>
+  
+  <!-- Wires -->
+  <path d="M400 120 Q370 130 350 220" fill="none" stroke="#94A3B8" stroke-width="2"/>
+  <path d="M400 140 Q340 160 270 255" fill="none" stroke="#94A3B8" stroke-width="2"/>
   
   <!-- Lightning bolt -->
-  <polygon points="195,155 205,155 200,170 210,170 195,190 200,175 190,175" fill="#FFC107" stroke="#FF8F00" stroke-width="1"/>
+  <polygon points="475,125 485,125 480,140 490,140 475,160 480,145 470,145" fill="#FBBF24" stroke="#D97706" stroke-width="1"/>
   
-  <!-- Body outline -->
-  <ellipse cx="200" cy="240" rx="60" ry="35" fill="none" stroke="#90A4AE" stroke-width="2" stroke-dasharray="6,3"/>
+  <!-- Steps -->
+  <rect x="40" y="40" width="320" height="140" rx="12" fill="#FFF" filter="url(#sh2)"/>
+  <text x="55" y="65" font-family="sans-serif" font-size="13" font-weight="bold" fill="#0369A1">手順 (Steps):</text>
   
-  <text x="200" y="290" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1565C0">自動体外式除細動器 (AED)</text>
+  <circle cx="60" cy="90" r="12" fill="#0284C7"/>
+  <text x="60" y="94" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#FFF">1</text>
+  <text x="80" y="94" font-family="sans-serif" font-size="11" fill="#334155">AEDの電源を入れる → 音声ガイドに従う</text>
+  
+  <circle cx="60" cy="115" r="12" fill="#0284C7"/>
+  <text x="60" y="119" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#FFF">2</text>
+  <text x="80" y="119" font-family="sans-serif" font-size="11" fill="#334155">パッドを.d胸に貼る (図の位置に)</text>
+  
+  <circle cx="60" cy="140" r="12" fill="#0284C7"/>
+  <text x="60" y="144" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#FFF">3</text>
+  <text x="80" y="144" font-family="sans-serif" font-size="11" fill="#334155">心電図解析 → 皆離れる</text>
+  
+  <circle cx="60" cy="165" r="12" fill="#DC2626"/>
+  <text x="60" y="169" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="bold" fill="#FFF">4</text>
+  <text x="80" y="169" font-family="sans-serif" font-size="11" fill="#334155">ショック必要なら「離れて！」→ 放電ボタン</text>
+  
+  <!-- Warning -->
+  <rect x="40" y="200" width="320" height="35" rx="8" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5"/>
+  <text x="170" y="222" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#DC2626">⚠️ 解析・ショック時は誰も触れないこと！</text>
 </svg>

@@ -54,34 +54,81 @@
 </header>
 
 <div class="km-illustration" role="img" aria-label="Ilustrasi CPR">
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300">
-  <!-- CPR Illustration -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400">
   <defs>
-    <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#E8F5E9"/>
-      <stop offset="100%" stop-color="#C8E6C9"/>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#E2E8F0"/>
     </linearGradient>
+    <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.1"/>
+    </filter>
   </defs>
-  <rect width="400" height="300" rx="16" fill="url(#bg1)"/>
   
-  <!-- Heart -->
-  <path d="M200 120 C200 100, 230 80, 250 100 C270 80, 300 100, 300 120 C300 160, 200 200, 200 200 C200 200, 100 160, 100 120 C100 100, 130 80, 150 100 C170 80, 200 100, 200 120Z" fill="#E53935" opacity="0.9"/>
+  <rect width="600" height="400" rx="20" fill="url(#bg)"/>
   
-  <!-- Heartbeat line -->
-  <path d="M80 250 L140 250 L160 220 L180 270 L200 230 L220 250 L240 240 L260 260 L280 230 L300 250 L320 250" fill="none" stroke="#1B5E20" stroke-width="3" stroke-linecap="round"/>
+  <!-- Person lying down -->
+  <ellipse cx="300" cy="260" rx="150" ry="20" fill="#CBD5E1" opacity="0.3"/>
   
-  <!-- Hands compressing -->
-  <ellipse cx="200" cy="140" rx="40" ry="25" fill="none" stroke="#FFA726" stroke-width="3" stroke-dasharray="8,4"/>
-  <path d="M180 135 L220 135" stroke="#FFA726" stroke-width="4" stroke-linecap="round"/>
-  <path d="M185 145 L215 145" stroke="#FFA726" stroke-width="4" stroke-linecap="round"/>
+  <!-- Body -->
+  <rect x="180" y="230" width="240" height="40" rx="8" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
   
-  <!-- Arrows showing compression -->
-  <path d="M200 105 L200 125" stroke="#1B5E20" stroke-width="2.5" marker-end="url(#arrow1)"/>
-  <path d="M200 175 L200 195" stroke="#1B5E20" stroke-width="2.5" marker-end="url(#arrow1)"/>
-  <defs><marker id="arrow1" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1B5E20"/></marker></defs>
+  <!-- Head -->
+  <circle cx="160" cy="240" r="25" fill="#FDE68A" stroke="#F59E0B" stroke-width="2"/>
+  <circle cx="155" cy="237" r="3" fill="#92400E"/>
+  <circle cx="168" cy="237" r="3" fill="#92400E"/>
+  <path d="M155 248 Q160 252 165 248" fill="none" stroke="#92400E" stroke-width="1.5"/>
   
-  <!-- Label -->
-  <text x="200" y="285" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#1B5E20">心肺蘇生 (CPR) — Kompresi Dada</text>
+  <!-- Rescuer kneeling -->
+  <circle cx="280" cy="170" r="20" fill="#FDE68A" stroke="#1E40AF" stroke-width="2"/>
+  <circle cx="276" cy="167" r="2.5" fill="#1E3A8A"/>
+  <circle cx="286" cy="167" r="2.5" fill="#1E3A8A"/>
+  <path d="M276 176 Q280 180 284 176" fill="none" stroke="#1E3A8A" stroke-width="1.5"/>
+  
+  <!-- Rescuer body -->
+  <rect x="265" y="190" width="30" height="40" rx="6" fill="#DBEAFE" stroke="#1E40AF" stroke-width="2"/>
+  
+  <!-- Arms extending to chest -->
+  <line x1="270" y1="200" x2="290" y2="220" stroke="#1E40AF" stroke-width="3" stroke-linecap="round"/>
+  <line x1="290" y1="200" x2="310" y2="220" stroke="#1E40AF" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Hands on chest (compression position) -->
+  <ellipse cx="300" cy="225" rx="20" ry="10" fill="#FDE68A" stroke="#1E40AF" stroke-width="2"/>
+  
+  <!-- Compression arrows -->
+  <path d="M300 195 L300 215" stroke="#DC2626" stroke-width="3" marker-end="url(#arrow-down)"/>
+  <path d="M300 235 L300 255" stroke="#DC2626" stroke-width="3" marker-end="url(#arrow-down)"/>
+  <defs>
+    <marker id="arrow-down" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="8" markerHeight="8" orient="auto">
+      <path d="M0 0 L5 10 L10 0Z" fill="#DC2626"/>
+    </marker>
+  </defs>
+  
+  <!-- Heart with pulse -->
+  <path d="M480 120 C480 100, 510 80, 530 100 C550 80, 580 100, 580 120 C580 160, 530 190, 530 190 C530 190, 480 160, 480 120Z" fill="#EF4444" opacity="0.9"/>
+  <text x="530" y="145" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="bold" fill="#FFF">72</text>
+  <text x="530" y="160" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#FEE2E2">bpm</text>
+  
+  <!-- ECG line -->
+  <path d="M450 200 L480 200 L490 180 L500 220 L510 190 L520 200 L550 200 L560 180 L570 220 L580 190 L590 200" fill="none" stroke="#EF4444" stroke-width="2"/>
+  
+  <!-- Labels -->
+  <rect x="40" y="40" width="160" height="50" rx="10" fill="#FFF" filter="url(#shadow)"/>
+  <text x="120" y="60" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">胸骨圧迫</text>
+  <text x="120" y="78" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#64748B">Kompresi Dada</text>
+  
+  <rect x="40" y="100" width="160" height="50" rx="10" fill="#FFF" filter="url(#shadow)"/>
+  <text x="120" y="120" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">100-120回/分</text>
+  <text x="120" y="138" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#64748B">Kecepatan</text>
+  
+  <rect x="40" y="160" width="160" height="50" rx="10" fill="#FFF" filter="url(#shadow)"/>
+  <text x="120" y="180" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="bold" fill="#1E40AF">5-6cm 深さ</text>
+  <text x="120" y="198" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#64748B">Kedalaman</text>
+  
+  <!-- 30:2 ratio badge -->
+  <rect x="430" y="40" width="120" height="45" rx="10" fill="#FEF3C7" stroke="#F59E0B" stroke-width="2"/>
+  <text x="490" y="58" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="bold" fill="#92400E">30 : 2</text>
+  <text x="490" y="75" text-anchor="middle" font-family="sans-serif" font-size="9" fill="#B45309">Kompresi : Napas</text>
 </svg>
 
 </div>
