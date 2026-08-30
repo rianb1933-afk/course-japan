@@ -58,9 +58,14 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,44px);line-height:
 .table th,.table td{padding:10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px}
 .table th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft)}
 .status{display:inline-flex;border-radius:8px;padding:3px 8px;font-size:11px;font-weight:800}
-.ok{background:var(--green-pale);color:var(--green)}
+/* Latar pucat ini tetap terang di kedua tema, tapi --green membalik jadi
+   #7A9E7A di mode gelap: 4,36 turun ke 2,79. Warnanya dibuat tetap juga. */
+.ok{background:var(--green-pale);color:#567656}
 .warn{background:var(--gold-pale);color:var(--gold)}
-.bad{background:var(--red-pale);color:var(--red)}
+/* Berbeda dari .ok yang latarnya tetap terang, --red-pale DI SINI ikut
+   membalik (#FFE8EF → #3F2C30), jadi warnanya perlu pasangan. */
+.bad{background:var(--red-pale);color:#AC4659}
+[data-theme="dark"] .bad{color:#CB8A96}
 .mini-bar{height:7px;background:var(--border-light);border-radius:999px;overflow:hidden;min-width:80px}
 .mini-bar>i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--matcha,#5B7C5B),var(--matcha-soft,#7A9E7A))}
 .form{display:grid;gap:8px}

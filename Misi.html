@@ -75,8 +75,10 @@ html .xp-lbl{color:rgba(255,255,255,.78)!important}
 .xp-reward{display:flex;align-items:center;gap:.3rem;font-size:13px;font-weight:700;color:var(--gold)}
 /* [class*="xp"]{color:#C89B3C!important} dari bundle ikut menangkap ini;
    emas di kartu terang cuma 2,50:1, jadi !important harus dibalas. */
-.xp-reward{color:#866828!important}
-[data-theme="dark"] .xp-reward{color:var(--gold)!important}
+/* Kekhususan (0,1,1), bukan (0,1,0): bundle memakai [class*="xp"] yang
+   kekhususannya SAMA dan dimuat belakangan, jadi !important saja kalah. */
+html .xp-reward{color:#866828!important}
+html[data-theme="dark"] .xp-reward{color:var(--gold)!important}
 .claim-btn{height:34px;padding:0 14px;border-radius:8px;border:none;background:var(--red);color:#fff;font-family:Outfit,sans-serif;font-size:12px;font-weight:800;cursor:pointer;transition:all .2s}
 .claim-btn:hover{background:#a02d23;transform:scale(1.03)}
 .claim-btn:disabled{background:var(--green);cursor:not-allowed}

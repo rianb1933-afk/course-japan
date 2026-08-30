@@ -32,8 +32,14 @@ a{text-decoration:none;color:inherit}button{font-family:Outfit,sans-serif}
 .lobby-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
 .card{background:var(--white);border:.5px solid var(--border-mid);border-radius:14px;padding:1.875rem;box-shadow:var(--shadow-sm)}
 .card-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.875rem}
+/* Tint pucatnya menumpuk jadi #301F1F di mode gelap, dan --red di atasnya
+   cuma 2,45:1. Latar dan teks membalik ke arah yang sama. */
 .badge-red{background:var(--red-pale);color:var(--red)}
-.badge-blue{background:var(--blue-pale);color:var(--blue)}
+[data-theme="dark"] .badge-red{color:#EE8878}
+/* --blue #4A7FA5 gagal di KEDUA arah: 3,87:1 di atas tint terang #EBF4FB
+   dan 3,46:1 di atas tint gelap #21282D. */
+.badge-blue{background:var(--blue-pale);color:#417091}
+[data-theme="dark"] .badge-blue{color:#6B96B5}
 .card h2{font-family:"Noto Serif JP",serif;font-size:22px;margin-bottom:.4rem}
 .card p{color:var(--ink-soft);font-size:14px;line-height:1.7;margin-bottom:1.25rem}
 .frow{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.875rem}
