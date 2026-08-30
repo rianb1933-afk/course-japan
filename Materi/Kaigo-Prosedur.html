@@ -2,68 +2,52 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
-
-<script src="../assets/env.js"></script>
-<!-- GENUINELY DIPERBAIKI (Fase Audit Website Putaran Keempat, Fase N):
-     dikonfirmasi pola bug identik dengan Kaigo-Alzheimer-Lanjut.html --
-     tag script eksternal genuinely mengabaikan konten inline karena
-     atribut src hadir. Dipisah ke tag terpisah, dibungkus
-     DOMContentLoaded untuk mengantisipasi masalah timing DOM -->
-
-<script>
-var PH_VOCAB=[["更衣介助", "koi kaijo", "bantuan ganti pakaian"], ["脱健着患", "dakken-chakkan", "prinsip melepas sisi sehat"], ["食事介助", "shokuji kaijo", "bantuan makan"], ["体位変換", "tai-i henkan", "ubah posisi"], ["移乗", "iijo", "transfer"], ["口腔ケア", "kuchiku kea", "perawatan mulut"], ["排泄介助", "haisetsu kaijo", "bantuan toilet"], ["ボディメカニクス", "bodi mekkanikusu", "body mechanics"]];
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-renderVocabGrid('pg', PH_VOCAB);
-});
-</script>
-<script src="../assets/supabase-client.js"></script>
-<script src="../assets/analytics-loader.js" defer></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
-
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>手順書 — Prosedur Perawatan Standar — 介護福祉士 | Nihongo Pro Academy</title>
-<meta name="description" content="Prosedur perawatan kaigo 介護手順. Panduan SOP standar Jepang untuk memandikan, mobilisasi, makan, dan prosedur perawatan sehari-hari di fasilitas kaigo.">>
-<meta property="og:title" content="Kosakata Klinis & Medis 介護 — NihongoPro">
-<meta property="og:type" content="website">
-<meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="canonical" href="https://nihongopro.id/Materi/Kaigo-Prosedur.html">
-<link rel="manifest" href="../manifest.json">
-<meta name="theme-color" content="#6B4F3A">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "手順書 — Prosedur Perawatan Standar — 介護福祉士", "description": "Prosedur perawatan kaigo 介護手順. Panduan SOP standar Jepang untuk memandikan, mobilisasi, makan, dan prosedur perawatan sehari-hari di fasilitas kaigo.", "url": "https://nihongopro.id/Materi/Kaigo-Prosedur.html", "provider": {"@type": "Organization", "name": "NihongoPro"}, "educationalLevel": "N4", "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://nihongopro.id/"}, {"@type": "ListItem", "position": 2, "name": "Materi", "item": "https://nihongopro.id/Materi/Materi.html"}, {"@type": "ListItem", "position": 3, "name": "介護福祉士", "item": "https://nihongopro.id/Materi/Kaigo-Fukushishi-Overview.html"}, {"@type": "ListItem", "position": 4, "name": "手順書 — Prosedur Perawatan Standar — 介護福祉士", "item": "https://nihongopro.id/Materi/Kaigo-Prosedur.html"}]}</script>
-
-<link rel="stylesheet" href="../assets/pro-style.css">
-<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
-
-<link rel="stylesheet" href="../assets/kyoto-design-system.css">
-<link rel="stylesheet" href="../assets/kyoto-theme.css">
+<meta name="description" content="width=device-width,initial-scale=1.0">
+<meta property="og:title" content="手順書 — Prosedur Perawatan Standar — 介護福祉士">
+<meta property="og:type" content="article">
+<link rel="icon" type="image/svg+xml" href="../assets/icon-192.svg">
+<link rel="stylesheet" href="../assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
 <link rel="stylesheet" href="../assets/kaigo-module.css">
-
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
-<script src="../assets/kaigo-progress.js" defer></script>
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="NihongoPro">
-<meta property="og:site_name" content="Nihongo Pro Academy">
-<meta property="og:description" content="Prosedur perawatan kaigo 介護手順. Panduan SOP standar Jepang untuk memandikan, mobilisasi, makan, dan prosedur perawatan sehari-hari di fasilitas kaigo.">
-<meta property="og:url" content="https://nihongopro.id/Materi/Kaigo-Prosedur.html">
-<meta name="twitter:title" content="手順書 — Prosedur Perawatan Standar — 介護福祉士">
-<meta name="twitter:description" content="Prosedur perawatan kaigo 介護手順. Panduan SOP standar Jepang untuk memandikan, mobilisasi, makan, dan prosedur perawatan sehari-hari di fasilitas kaigo.">
-<meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
-
-
+<script src="../assets/env.js" defer></script>
+<script src="../assets/supabase-client.js" defer></script>
+<script src="../assets/analytics-loader.js" defer></script>
+<script src="../assets/platform.min.js" defer></script>
+<script src="../assets/kyoto-theme.js" defer></script>
+<script src="../assets/kaigo-quiz.js" defer></script>
+<script src="../assets/kaigo-progress.js" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=20260623" defer></script>
+<script src="../assets/kyoto-bottom-nav.js" defer></script>
+<script src="../assets/np-skip-link.js" defer></script>
+<script src="../assets/site-motion.js" defer></script>
+<script src="../assets/anime-theme.js" defer></script>
+<link rel="manifest" href="../manifest.json">
 </head>
 <body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>
+
+<header class="ch">
+  <div class="ch-badge">📋 介護·記録 · Level N2</div>
+  <h1 class="ch-title">手順書</h1>
+  <p class="ch-sub">手順書 — Prosedur Perawatan Standar — 介護福祉士</p>
+  <div class="ch-meta">
+    <div class="meta-i"><div class="meta-ic">📝</div><span>0 Soal</span></div>
+    <div class="meta-i"><div class="meta-ic">💬</div><span>4 Dialog</span></div>
+    <div class="meta-i"><div class="meta-ic">📖</div><span>9 Kosakata</span></div>
+    <div class="meta-i"><div class="meta-ic">⏱️</div><span>~15 Menit</span></div>
+  </div>
+</header>
+
+<div class="km-illustration illu-comm" role="img" aria-label="Ilustrasi 手順書">
+<img src="../assets/illustrations/medical-care.svg" alt="Ilustrasi Prosedur" loading="lazy" width="800" height="450">
+</div>
+
+<main id="main-content">
+<div class="book">
 <div class="breadcrumb">
   <a href="../index.html">Beranda</a><span>›</span>
   <a href="Materi.html">Materi</a><span>›</span>
@@ -83,7 +67,7 @@ renderVocabGrid('pg', PH_VOCAB);
   <a href="Kaigo-Ujian-Nasional.html" class="mod-link ">🎯 Ujian Nasional</a>
 </div>
 
-<main id="main-content" class="hero">
+
 <div class="km-illustration illu-care" role="img" aria-label="Ilustrasi Prosedur">
 <img src="../assets/illustrations/care-process.svg" alt="Ilustrasi Prosedur" loading="lazy" width="600" height="350">
 </div>
@@ -493,5 +477,18 @@ initQuiz(QUIZ_PROS);
 <script src="../assets/anime-theme.js" defer></script>
 
 <button aria-label="Ganti tema" class="theme-toggle theme-toggle-float" onclick="toggleTheme()">🌙</button>
+
+</div><!-- /book -->
+</main>
+
+<div class="bmn">
+  <a class="bmn-a" href="Kaigo.html">
+    <div class="bmn-al">← Kembali</div>
+    <div class="bmn-at">Daftar Modul</div>
+  </a>
+</div>
+
+<button class="bttBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Ke atas">↑</button>
+
 </body>
 </html>
