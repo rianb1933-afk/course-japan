@@ -26,7 +26,11 @@
    menyetel color:'inherit' pada tab non-aktif, dan di mode gelap warisan itu
    --ink #F5F5F5: putih di atas putih. Sekarang skripnya mengeja warna gelap;
    aturan ini menjaga keadaan awal sebelum skrip sempat jalan. */
-.comm-tab{color:#1E293B}
+.comm-tab{color:var(--ink)}
+/* #2563eb hanya 3,37:1 di atas kartu gelap. Kartunya kini ikut tema,
+   jadi lencananya diberi pasangan biru terang untuk mode gelap. */
+.pinned-tag{color:#1D4FD8}
+html[data-theme="dark"] .pinned-tag{color:#7BA5F5}
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8F3E9);color:var(--charcoal,#2D2D2D);min-height:100dvh;display:flex;flex-direction:column}
@@ -341,13 +345,13 @@ function renderCommunityTabs() {
     div.innerHTML = `
       <div style="margin-bottom:20px">
         <h2 style="font-size:20px;font-weight:800;margin-bottom:4px">👥 Komunitas NihongoPro</h2>
-        <p style="font-size:13px;color:#64748b">Diskusi, cari partner belajar, dan temukan tutor terbaik</p>
+        <p style="font-size:13px;color:var(--ink-soft)">Diskusi, cari partner belajar, dan temukan tutor terbaik</p>
       </div>
       <div style="display:flex;gap:8px;margin-bottom:20px;flex-wrap:wrap">
         <button class="comm-tab active" onclick="showCommTab('forum')" id="ct-forum" style="padding:8px 16px;border-radius:8px;border:1.5px solid #2563eb;background:#eff6ff;color:#2563eb;cursor:pointer;font-size:13px;font-weight:700">💬 Forum</button>
-        <button class="comm-tab" onclick="showCommTab('qa')" id="ct-qa" style="padding:8px 16px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700">❓ Q&A</button>
-        <button class="comm-tab" onclick="showCommTab('partner')" id="ct-partner" style="padding:8px 16px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700">🤝 Study Partner</button>
-        <button class="comm-tab" onclick="showCommTab('tutor')" id="ct-tutor" style="padding:8px 16px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;cursor:pointer;font-size:13px;font-weight:700">👩‍🏫 Tutor Marketplace</button>
+        <button class="comm-tab" onclick="showCommTab('qa')" id="ct-qa" style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--border-mid);background:var(--white);cursor:pointer;font-size:13px;font-weight:700">❓ Q&A</button>
+        <button class="comm-tab" onclick="showCommTab('partner')" id="ct-partner" style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--border-mid);background:var(--white);cursor:pointer;font-size:13px;font-weight:700">🤝 Study Partner</button>
+        <button class="comm-tab" onclick="showCommTab('tutor')" id="ct-tutor" style="padding:8px 16px;border-radius:8px;border:1.5px solid var(--border-mid);background:var(--white);cursor:pointer;font-size:13px;font-weight:700">👩‍🏫 Tutor Marketplace</button>
       </div>
       <div id="commContent"></div>`;
     main.insertBefore(div, main.firstChild);
@@ -357,7 +361,7 @@ function renderCommunityTabs() {
 
 function showCommTab(tab) {
   document.querySelectorAll('.comm-tab').forEach(b=>{
-    b.style.borderColor='#e2e8f0';b.style.background='#fff';b.style.color='#1E293B';
+    b.style.borderColor='var(--border-mid)';b.style.background='var(--white)';b.style.color='var(--ink)';
   });
   const active = document.getElementById('ct-'+tab);
   if (active) { active.style.borderColor='#2563eb';active.style.background='#eff6ff';active.style.color='#2563eb'; }
@@ -370,19 +374,19 @@ function showCommTab(tab) {
       <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
         <div style="display:flex;gap:6px;flex-wrap:wrap">
           ${['Semua','Tips','Vocab','Q&A','Review','Study Partner'].map(cat=>
-            `<button onclick="filterForum('${cat}')" style="padding:4px 10px;border-radius:20px;border:1px solid #e2e8f0;background:#fff;font-size:11px;cursor:pointer">${cat}</button>`
+            `<button onclick="filterForum('${cat}')" style="padding:4px 10px;border-radius:20px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink);font-size:11px;cursor:pointer">${cat}</button>`
           ).join('')}
         </div>
         <button onclick="newPost()" style="padding:7px 14px;border:none;background:#2563eb;color:#fff;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700">✍️ Buat Post</button>
       </div>
       ${COMMUNITY_DATA.forumPosts.map(p=>`
-        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:.15s" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='#e2e8f0'">
-          ${p.pinned?'<div style="font-size:10px;font-weight:700;color:#2563eb;margin-bottom:6px">📌 PINNED</div>':''}
+        <div style="background:var(--white);border:1px solid var(--border-mid);border-radius:12px;padding:16px;margin-bottom:10px;cursor:pointer;transition:.15s" onmouseenter="this.style.borderColor='#2563eb'" onmouseleave="this.style.borderColor='var(--border-mid)'">
+          ${p.pinned?'<div class="pinned-tag" style="font-size:10px;font-weight:700;margin-bottom:6px">📌 PINNED</div>':''}
           <div style="display:flex;align-items:flex-start;gap:10px">
             <div style="font-size:24px">${p.avatar}</div>
             <div style="flex:1">
               <div style="font-size:14px;font-weight:700;margin-bottom:4px">${p.title}</div>
-              <div style="display:flex;gap:10px;font-size:11px;color:#64748b;flex-wrap:wrap">
+              <div style="display:flex;gap:10px;font-size:11px;color:var(--ink-soft);flex-wrap:wrap">
                 <span>${p.author}</span>
                 <span style="background:#eff6ff;color:#2563eb;padding:1px 8px;border-radius:99px;font-weight:700">${p.category}</span>
                 <span>💬 ${p.replies}</span>
@@ -393,7 +397,7 @@ function showCommTab(tab) {
           </div>
         </div>`).join('')}
       <div style="text-align:center;padding:20px">
-        <button onclick="loadMorePosts()" style="padding:8px 24px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;cursor:pointer;font-size:13px">Muat lebih banyak</button>
+        <button onclick="loadMorePosts()" style="padding:8px 24px;border:1px solid var(--border-mid);border-radius:8px;background:var(--white);color:var(--ink);cursor:pointer;font-size:13px">Muat lebih banyak</button>
       </div>`;
   }
 
@@ -409,9 +413,9 @@ function showCommTab(tab) {
         </div>
         <div id="qaResult" style="margin-top:12px;font-size:13px;line-height:1.7;min-height:20px"></div>
       </div>
-      <div style="font-size:13px;font-weight:700;color:#64748b;margin-bottom:10px">Pertanyaan Populer</div>
+      <div style="font-size:13px;font-weight:700;color:var(--ink-soft);margin-bottom:10px">Pertanyaan Populer</div>
       ${['Apa perbedaan 介護 vs 看護?','Bagaimana cara menjawab OSCE speaking?','Berapa lama untuk lulus N4?','Apa itu 褥瘡 dan bagaimana mencegahnya?','Apakah N4 cukup untuk kerja di Jepang?'].map(q=>
-        `<div onclick="document.getElementById('qaInput').value='${q}';submitQA()" style="background:#fff;border:1px solid #e2e8f0;border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;font-size:13px;font-weight:600">❓ ${q}</div>`
+        `<div onclick="document.getElementById('qaInput').value='${q}';submitQA()" style="background:var(--white);border:1px solid var(--border-mid);border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;font-size:13px;font-weight:600">❓ ${q}</div>`
       ).join('')}`;
   }
 
@@ -420,21 +424,21 @@ function showCommTab(tab) {
       <div style="background:#f0fdf4;border:1px solid #86efac;border-radius:12px;padding:16px;margin-bottom:16px">
         <div style="font-size:13px;font-weight:700;color:#16a34a;margin-bottom:8px">🤝 Cari Study Partner</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-          <select style="padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
+          <select style="padding:7px 10px;border:1px solid var(--border-mid);border-radius:8px;font-size:12px">
             <option>Level saya: N4</option><option>N5</option><option>N3</option><option>N2</option>
           </select>
-          <select style="padding:7px 10px;border:1px solid #e2e8f0;border-radius:8px;font-size:12px">
+          <select style="padding:7px 10px;border:1px solid var(--border-mid);border-radius:8px;font-size:12px">
             <option>Waktu: Flexible</option><option>Pagi</option><option>Siang</option><option>Malam</option>
           </select>
         </div>
         <button onclick="findPartner()" style="width:100%;padding:8px;border:none;background:#16a34a;color:#fff;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700">🔍 Temukan Partner</button>
       </div>
       ${COMMUNITY_DATA.studyPartners.map(p=>`
-        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:12px;padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
+        <div style="background:var(--white);border:1px solid var(--border-mid);border-radius:12px;padding:14px;margin-bottom:8px;display:flex;align-items:center;gap:12px">
           <div style="font-size:28px">👤</div>
           <div style="flex:1">
             <div style="font-size:14px;font-weight:700">${esc(p.user)}</div>
-            <div style="font-size:11px;color:#64748b">Level ${esc(p.level)} · Goal: ${esc(p.goal)} · ${esc(p.study)}</div>
+            <div style="font-size:11px;color:var(--ink-soft)">Level ${esc(p.level)} · Goal: ${esc(p.goal)} · ${esc(p.study)}</div>
           </div>
           <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px">
             <div style="font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;background:${p.active?'#dcfce7':'#f1f5f9'};color:${p.active?'#16a34a':'#94a3b8'}">${p.active?'● Aktif':'Offline'}</div>
@@ -448,9 +452,9 @@ function showCommTab(tab) {
 
   else if (tab==='tutor') {
     content.innerHTML = `
-      <div style="font-size:13px;color:#64748b;margin-bottom:14px">Tutor profesional terverifikasi — sesi 1-on-1 via video call</div>
+      <div style="font-size:13px;color:var(--ink-soft);margin-bottom:14px">Tutor profesional terverifikasi — sesi 1-on-1 via video call</div>
       ${COMMUNITY_DATA.tutors.map(t=>`
-        <div style="background:#fff;border:1px solid #e2e8f0;border-radius:14px;padding:18px;margin-bottom:12px">
+        <div style="background:var(--white);border:1px solid var(--border-mid);border-radius:14px;padding:18px;margin-bottom:12px">
           <div style="display:flex;gap:12px;align-items:flex-start">
             <div style="font-size:36px">${esc(t.avatar)}</div>
             <div style="flex:1">
@@ -459,7 +463,7 @@ function showCommTab(tab) {
                 <div style="font-size:10px">${esc(t.lang)}</div>
                 ${t.badge?`<div style="font-size:10px;font-weight:700;background:#fef3c7;color:#d97706;padding:2px 8px;border-radius:99px">${esc(t.badge)}</div>`:''}
               </div>
-              <div style="font-size:12px;color:#64748b;margin-bottom:6px">${esc(t.spec)}</div>
+              <div style="font-size:12px;color:var(--ink-soft);margin-bottom:6px">${esc(t.spec)}</div>
               <div style="display:flex;gap:12px;font-size:12px;flex-wrap:wrap">
                 <span>⭐ ${esc(t.rating)} (${esc(t.reviews)} ulasan)</span>
                 <span style="font-weight:700;color:#059669">${esc(t.price)}</span>
@@ -467,14 +471,14 @@ function showCommTab(tab) {
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:6px">
-              <button class="book-tutor-btn" data-name="${esc(t.name)}" ${!t.available?'disabled':''} style="padding:7px 16px;border:none;background:${t.available?'#2563eb':'#e2e8f0'};color:${t.available?'#fff':'#94a3b8'};border-radius:8px;cursor:${t.available?'pointer':'not-allowed'};font-size:12px;font-weight:700">Booking</button>
-              <button style="padding:7px 16px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;cursor:pointer;font-size:12px">Profil</button>
+              <button class="book-tutor-btn" data-name="${esc(t.name)}" ${!t.available?'disabled':''} style="padding:7px 16px;border:none;background:${t.available?'#2563eb':'#e2e8f0'};color:${t.available?'#fff':'#5A6577'};border-radius:8px;cursor:${t.available?'pointer':'not-allowed'};font-size:12px;font-weight:700">Booking</button>
+              <button style="padding:7px 16px;border:1px solid var(--border-mid);border-radius:8px;background:var(--white);cursor:pointer;font-size:12px">Profil</button>
             </div>
           </div>
         </div>`).join('')}
       <div style="text-align:center;padding:16px;background:#f8f9fb;border-radius:12px;margin-top:8px">
         <div style="font-size:13px;font-weight:700;margin-bottom:6px">Ingin menjadi Tutor NihongoPro?</div>
-        <div style="font-size:12px;color:#64748b;margin-bottom:10px">Berbagi pengalaman dan penghasilan tambahan Rp 150-500rb/jam</div>
+        <div style="font-size:12px;color:var(--ink-soft);margin-bottom:10px">Berbagi pengalaman dan penghasilan tambahan Rp 150-500rb/jam</div>
         <button onclick="applyTutor()" style="padding:8px 20px;border:none;background:#059669;color:#fff;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700">Daftar sebagai Tutor</button>
       </div>`;
     content.querySelectorAll('.book-tutor-btn').forEach(function(btn){
