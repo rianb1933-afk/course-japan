@@ -133,11 +133,32 @@ function ukur({ AMBANG, AMBANG_BESAR, SENTUH_MIN, mobile }) {
   };
 
   // ── 1. luber mendatar ──
+  //
+  // Laci off-canvas yang TERTUTUP diparkir di luar viewport — itu memang cara
+  // kerjanya, bukan isi yang terpotong. .kn-drawer menaruh panelnya tepat di
+  // tepi kanan dengan transform, dan tanpa saringan ini Pricing-Pro dilaporkan
+  // luber 9px oleh laci yang bahkan tidak bisa disentuh (aria-hidden="true",
+  // pointer-events:none). Pengecualian yang sama sudah berlaku untuk deteksi
+  // tabrakan; di sini alasannya sama persis.
+  const offCanvas = (e) => {
+    let n = e;
+    while (n && n !== document.documentElement) {
+      if (n.getAttribute && n.getAttribute('aria-hidden') === 'true') return true;
+      n = n.parentElement;
+    }
+    return false;
+  };
+  // scrollWidth, BUKAN penjumlahan kotak elemen. Sempat diganti dengan
+  // "cari elemen paling kanan", dan temuannya melonjak dari 3 ke 25: toast
+  // yang diparkir di luar layar dan glow dekoratif ikut terhitung, padahal
+  // browser sudah mengkliping keduanya lewat overflow:hidden di leluhurnya.
+  // scrollWidth memperhitungkan kliping itu; menghitung kotak sendiri tidak.
   const luber = document.documentElement.scrollWidth - innerWidth;
   let pelakuLuber = null;
   if (luber > 1) {
     let terjauh = 0;
     document.querySelectorAll('body *').forEach((e) => {
+      if (offCanvas(e)) return;
       const r = e.getBoundingClientRect();
       if (r.width > 0 && r.right > terjauh && getComputedStyle(e).position !== 'fixed') {
         terjauh = r.right;

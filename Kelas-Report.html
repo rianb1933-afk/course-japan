@@ -46,7 +46,10 @@ a{text-decoration:none;color:inherit}
 .empty-state .icon{font-size:48px;margin-bottom:1rem;opacity:.5}
 .btn-back{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;border:1.5px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;margin-bottom:1.5rem}
 .btn-back:hover{border-color:var(--red);color:var(--red)}
-@media(max-width:600px){.stats-grid{grid-template-columns:1fr 1fr}.report-table{font-size:12px}.report-table th,.report-table td{padding:8px 10px}}
+@media(max-width:600px){.stats-grid{grid-template-columns:1fr 1fr}/* Tabel data 404px di layar 390px: 14px terakhir terpotong dan TIDAK bisa
+   dijangkau — halaman tidak menggulir ke samping. display:block membuatnya
+   jadi wadah gulir sendiri; barisnya tetap membentuk tabel di dalamnya. */
+.report-table{font-size:12px;display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}.report-table th,.report-table td{padding:8px 10px}}
 </style>
 <link rel="stylesheet" href="assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="assets/kyoto-elevation.css">

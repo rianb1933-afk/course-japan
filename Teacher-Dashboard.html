@@ -55,6 +55,8 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,44px);line-height:
 .panel h2{font-size:18px;margin-bottom:.2rem}
 .panel .sub{font-size:12px;color:var(--ink-soft);margin-bottom:.9rem}
 .table{width:100%;border-collapse:collapse}
+/* Sama seperti .report-table: terpotong, bukan menggulir. */
+@media(max-width:640px){.table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}}
 .table th,.table td{padding:10px;border-bottom:1px solid var(--border);text-align:left;font-size:13px}
 .table th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft)}
 .status{display:inline-flex;border-radius:8px;padding:3px 8px;font-size:11px;font-weight:800}
@@ -79,7 +81,11 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,44px);line-height:
 .class-item b{font-size:14px;display:block}
 .class-item span{font-size:12px;color:var(--ink-soft)}
 .notice{background:var(--gold-pale);border:1px solid var(--gold-soft);border-radius:8px;padding:12px 14px;font-size:13px;color:#7a5a12;margin-bottom:1rem}
-@media(max-width:900px){.stats,.grid{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){/* minmax(0,1fr), bukan 1fr: minimum implisit `1fr` adalah min-content, dan
+   min-content kolom ini adalah lebar tabel di dalamnya (404px). Gridnya
+   sendiri cuma 351px, jadi kolomnya melebar melewati layar dan 33px
+   terakhir terpotong tanpa bisa digulir. */
+.stats,.grid{grid-template-columns:minmax(0,1fr)}.stats{grid-template-columns:1fr 1fr}}
 /* Tautan kembali, tinggi 22px. */
 .back-link,a[href$="index.html"]{display:inline-flex;align-items:center;min-height:24px}
 </style>
