@@ -610,3 +610,19 @@ html[data-theme="dark"] :is(.btn-outline, .plan-btn:not(.filled)) {
    berbobot 400, yang belum terhitung "teks besar" (butuh ≥24px, atau ≥18,66px
    dan tebal). #EE8878 mencapai 6,99:1. */
 html[data-theme="dark"] .stat-num { color: #EE8878 !important; }  /* neko-theme memaksanya dengan !important */
+
+/* Panel .error-state: latarnya --red-pale yang menggelap di mode gelap
+   ══════════════════════════════════════════════════════════════════════
+   kyoto-design-system.css memberi panel ini `background: var(--red-pale)`
+   dengan `h3 { color: var(--kyoto-red) }` dan `p { color: var(--ink-soft) }`.
+   Di mode terang tint merahnya pucat (#FAEAEA) dan --ink-soft tinggal 4,38:1;
+   di mode gelap tint yang sama menumpuk jadi #291818 dan --kyoto-red #A63A3A
+   jatuh ke 2,66:1. Latar dan teks membalik ke arah yang sama, jadi jaraknya
+   menyempit dari dua sisi sekaligus.
+
+   --ink-mid lebih pekat di terang (7,5:1) dan tetap terang di gelap, sehingga
+   satu nilai cukup untuk paragrafnya. Judulnya perlu pasangan. */
+.error-state p,
+.error-state code { color: var(--ink-mid); }
+.error-state h3 { color: #A63A3A; }
+html[data-theme="dark"] .error-state h3 { color: #EE8878; }

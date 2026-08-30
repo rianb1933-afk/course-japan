@@ -2018,7 +2018,11 @@ def check_literal_grey_without_dark_variant():
            # Footer ini duduk di slab yang gelap di KEDUA tema (#2D2D2D terang,
            # #0A0A0A gelap), jadi warnanya memang tidak boleh membalik. Diukur
            # di Chromium: 4,77:1 di mode terang dan 6,85:1 di mode gelap.
-           ('AI-Kaiwa.html', '.kaiwa-page-footer')}
+           ('AI-Kaiwa.html', '.kaiwa-page-footer'),
+           # .tcard adalah kartu PRATINJAU tema — ia memperagakan mode terang,
+           # jadi latarnya memang putih tetap di kedua mode dan teks gelap di
+           # atasnya benar. Diukur: 5,10:1 di mode terang maupun gelap.
+           ('Theme-Settings.html', '.tbody p')}
     nyata = [t for t in temuan if (t[0], t[2]) not in SAH]  # ada, hanya beda bentuk selektor
 
     if nyata:
