@@ -1,53 +1,96 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350">
-  <!-- Ultra clean flat vector style -->
-  <rect width="600" height="350" fill="#FFF"/>
+  <defs>
+    <linearGradient id="bg-cpr" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FEF2F2"/>
+      <stop offset="100%" stop-color="#FFF"/>
+    </linearGradient>
+    <linearGradient id="monitor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1F2937"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
   
-  <!-- Title -->
-  <rect x="0" y="0" width="600" height="36" fill="#1E40AF"/>
-  <text x="300" y="24" text-anchor="middle" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#FFF">CPR · 心肺蘇生 · Kompresi Dada</text>
+  <!-- Background -->
+  <rect width="600" height="350" fill="url(#bg-cpr)" rx="12"/>
   
-  <!-- Left: Info cards -->
-  <rect x="24" y="52" width="140" height="44" rx="6" fill="#F3F4F6"/>
-  <text x="36" y="70" font-family="system-ui, sans-serif" font-size="10" fill="#6B7280">胸骨圧迫</text>
-  <text x="36" y="86" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#DC2626">100-120 回/分</text>
+  <!-- Title Bar -->
+  <rect x="0" y="0" width="600" height="40" fill="#DC2626" rx="12"/>
+  <rect x="0" y="28" width="600" height="12" fill="#DC2626"/>
+  <text x="300" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#FFF">CPR · 心肺蘇生 · Kompresi Dada</text>
   
-  <rect x="24" y="104" width="140" height="44" rx="6" fill="#F3F4F6"/>
-  <text x="36" y="122" font-family="system-ui, sans-serif" font-size="10" fill="#6B7280">深さ</text>
-  <text x="36" y="138" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#1E40AF">5 - 6 cm</text>
+  <!-- Left: Info Cards -->
+  <rect x="20" y="52" width="150" height="50" rx="8" fill="#FFF" stroke="#FECACA" stroke-width="1"/>
+  <text x="32" y="70" font-family="system-ui,sans-serif" font-size="10" fill="#9CA3AF">胸骨圧迫 (Compressions)</text>
+  <text x="32" y="88" font-family="system-ui,sans-serif" font-size="18" font-weight="800" fill="#DC2626">100–120回/分</text>
   
-  <!-- Right: Ratio -->
-  <rect x="436" y="52" width="140" height="56" rx="6" fill="#FEF3C7"/>
-  <text x="506" y="78" text-anchor="middle" font-family="system-ui, sans-serif" font-size="24" font-weight="700" fill="#92400E">30 : 2</text>
-  <text x="506" y="96" text-anchor="middle" font-family="system-ui, sans-serif" font-size="10" fill="#B45309">圧迫 : 呼吸</text>
+  <rect x="20" y="110" width="150" height="50" rx="8" fill="#FFF" stroke="#BFDBFE" stroke-width="1"/>
+  <text x="32" y="128" font-family="system-ui,sans-serif" font-size="10" fill="#9CA3AF">深さ (Depth)</text>
+  <text x="32" y="146" font-family="system-ui,sans-serif" font-size="18" font-weight="800" fill="#2563EB">5–6 cm</text>
   
-  <!-- Center: Simple person diagram -->
+  <rect x="20" y="168" width="150" height="50" rx="8" fill="#FFF" stroke="#FEF3C7" stroke-width="1"/>
+  <text x="32" y="186" font-family="system-ui,sans-serif" font-size="10" fill="#9CA3AF">圧迫:呼吸 Ratio</text>
+  <text x="32" y="204" font-family="system-ui,sans-serif" font-size="22" font-weight="800" fill="#D97706">30 : 2</text>
+  
+  <!-- Right: Monitor -->
+  <rect x="420" y="52" width="160" height="90" rx="10" fill="url(#monitor)"/>
+  <text x="432" y="72" font-family="system-ui,sans-serif" font-size="9" fill="#4ADE80">Heart Rate</text>
+  <text x="560" y="72" text-anchor="end" font-family="system-ui,sans-serif" font-size="22" font-weight="800" fill="#4ADE80">72</text>
+  <text x="560" y="84" text-anchor="end" font-family="system-ui,sans-serif" font-size="9" fill="#6B7280">bpm</text>
+  <!-- ECG Line -->
+  <polyline points="432,95 450,95 460,80 470,110 480,70 490,105 500,90 520,95 540,95 550,85 560,100 570,95" fill="none" stroke="#4ADE80" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  
+  <!-- Right: Steps -->
+  <rect x="420" y="152" width="160" height="50" rx="8" fill="#FFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="500" y="174" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#374151">C-A-B 手順</text>
+  <text x="500" y="192" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" fill="#6B7280">圧迫 → 気道 → 呼吸</text>
+  
+  <!-- Center: CPR Diagram -->
+  <!-- Bed/Ground -->
+  <rect x="195" y="230" width="210" height="8" rx="4" fill="#E5E7EB"/>
+  
   <!-- Patient lying -->
-  <rect x="200" y="190" width="200" height="20" rx="4" fill="#FDE68A" stroke="#D97706" stroke-width="1.5"/>
-  <circle cx="190" cy="200" r="14" fill="#FDE68A" stroke="#D97706" stroke-width="1.5"/>
+  <ellipse cx="300" cy="228" rx="14" ry="12" fill="#FDE68A" stroke="#D97706" stroke-width="1.5"/>
+  <rect x="210" y="218" width="180" height="14" rx="6" fill="#FDE68A" stroke="#D97706" stroke-width="1.5"/>
   
-  <!-- Rescuer above -->
-  <circle cx="300" cy="155" r="12" fill="#DBEAFE" stroke="#2563EB" stroke-width="1.5"/>
-  <line x1="300" y1="167" x2="300" y2="185" stroke="#2563EB" stroke-width="2"/>
-  <line x1="300" y1="175" x2="280" y2="185" stroke="#2563EB" stroke-width="2"/>
-  <line x1="300" y1="175" x2="320" y2="185" stroke="#2563EB" stroke-width="2"/>
+  <!-- Rescuer -->
+  <circle cx="300" cy="175" r="14" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+  <line x1="300" y1="189" x2="300" y2="210" stroke="#2563EB" stroke-width="2.5"/>
+  <!-- Arms pushing -->
+  <line x1="300" y1="198" x2="280" y2="218" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="300" y1="198" x2="320" y2="218" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Legs -->
+  <line x1="300" y1="210" x2="285" y2="228" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+  <line x1="300" y1="210" x2="315" y2="228" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
   
-  <!-- Compression arrow -->
-  <path d="M300 130 L300 150" stroke="#DC2626" stroke-width="2" marker-end="url(#a1)"/>
-  <defs><marker id="a1" viewBox="0 0 10 10" refX="5" refY="10" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L5 10 L10 0Z" fill="#DC2626"/></marker></defs>
+  <!-- Compression arrows -->
+  <path d="M280 155 L280 170" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="276,170 280,180 284,170" fill="#DC2626"/>
+  <path d="M320 155 L320 170" stroke="#DC2626" stroke-width="2.5" stroke-linecap="round"/>
+  <polygon points="316,170 320,180 324,170" fill="#DC2626"/>
+  <text x="300" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#DC2626">↓ 圧迫 ↓</text>
   
-  <!-- Bottom: C-A-B -->
-  <rect x="24" y="240" width="552" height="90" rx="8" fill="#F9FAFB" stroke="#E5E7EB" stroke-width="1"/>
-  <text x="300" y="262" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#374151">C-A-B 手順</text>
+  <!-- Bottom: C-A-B Steps -->
+  <rect x="20" y="250" width="560" height="85" rx="10" fill="#FFF" stroke="#E5E7EB" stroke-width="1"/>
+  <text x="300" y="272" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#374151">C-A-B 手順 (手順)</text>
   
-  <rect x="44" y="272" width="160" height="44" rx="6" fill="#FFF" stroke="#E5E7EB"/>
-  <text x="124" y="290" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#1E40AF">C · Compression</text>
-  <text x="124" y="306" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#6B7280">胸骨圧迫 30回</text>
+  <!-- Step C -->
+  <rect x="40" y="280" width="160" height="44" rx="8" fill="#FEF2F2" stroke="#FECACA" stroke-width="1"/>
+  <circle cx="56" cy="302" r="12" fill="#DC2626"/>
+  <text x="56" y="306" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="800" fill="#FFF">C</text>
+  <text x="80" y="298" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#DC2626">Compression</text>
+  <text x="80" y="314" font-family="system-ui,sans-serif" font-size="9" fill="#6B7280">胸骨圧迫 30回</text>
   
-  <rect x="220" y="272" width="160" height="44" rx="6" fill="#FFF" stroke="#E5E7EB"/>
-  <text x="300" y="290" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#1E40AF">A · Airway</text>
-  <text x="300" y="306" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#6B7280">気道確保</text>
+  <!-- Step A -->
+  <rect x="220" y="280" width="160" height="44" rx="8" fill="#EFF6FF" stroke="#BFDBFE" stroke-width="1"/>
+  <circle cx="236" cy="302" r="12" fill="#2563EB"/>
+  <text x="236" y="306" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="800" fill="#FFF">A</text>
+  <text x="260" y="298" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#2563EB">Airway</text>
+  <text x="260" y="314" font-family="system-ui,sans-serif" font-size="9" fill="#6B7280">気道確保</text>
   
-  <rect x="396" y="272" width="160" height="44" rx="6" fill="#FFF" stroke="#E5E7EB"/>
-  <text x="476" y="290" text-anchor="middle" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#1E40AF">B · Breathing</text>
-  <text x="476" y="306" text-anchor="middle" font-family="system-ui, sans-serif" font-size="9" fill="#6B7280">人工呼吸 2回</text>
+  <!-- Step B -->
+  <rect x="400" y="280" width="160" height="44" rx="8" fill="#F0FDF4" stroke="#BBF7D0" stroke-width="1"/>
+  <circle cx="416" cy="302" r="12" fill="#16A34A"/>
+  <text x="416" y="306" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="800" fill="#FFF">B</text>
+  <text x="440" y="298" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#16A34A">Breathing</text>
+  <text x="440" y="314" font-family="system-ui,sans-serif" font-size="9" fill="#6B7280">人工呼吸 2回</text>
 </svg>
