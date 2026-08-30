@@ -172,7 +172,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     <div class="hero-inner">
       <div class="kicker">Kosakata JLPT Lengkap</div>
       <h1>Kosakata Lengkap<br>N5 sampai N1</h1>
-      <p>Daftar 7.970 kosakata JLPT lokal dengan kanji/kana, reading, arti Inggris, filter level, pencarian cepat, pagination, dan mode flashcard. Cocok untuk membangun fondasi N5 sampai vocabulary abstrak N1.</p>
+      <p>Daftar 177.834 kosakata lokal dengan kanji/kana, reading, arti Indonesia, filter level, pencarian cepat, pagination, dan mode flashcard. Cocok untuk membangun fondasi N5 sampai vocabulary abstrak N1.</p>
       <div class="hero-actions">
         <a class="primary" href="#vocabApp">Buka Daftar</a>
         <button type="button" onclick="setView('flash')">Mode Kartu Flash</button>
@@ -344,10 +344,21 @@ function parseCsv(text){
 }
 
 function levelFromTags(tags){
-  for(const n of [5,4,3,2,1]){
-    if(tags.includes(`JLPT_N${n}`) || tags.includes(`JLPT_${n}`)) return `N${n}`;
-  }
-  return 'N1';
+  // Dua hal yang salah di versi sebelumnya.
+  //
+  // Pertama, ia hanya mengenali bentuk "JLPT_N5"/"JLPT_5". Tapi 2.964 entri
+  // menuliskannya sebagai "N5 JLPT" — levelnya ADA di tag, cuma tidak terbaca,
+  // lalu ikut jatuh ke nilai bawaan.
+  //
+  // Kedua, nilai bawaannya 'N1'. 172.590 entri tidak punya keterangan level
+  // sama sekali (tag-nya cuma "JMdict"), dan semuanya diberi lencana N1 —
+  // artinya kamus memberi tahu pelajar bahwa 97% isinya level tersulit.
+  // Itu bukan perkiraan yang meleset, itu keterangan yang dikarang.
+  //
+  // Sekarang: tidak tahu = tidak mengaku tahu. Lencananya disembunyikan, dan
+  // entrinya tetap muncul di filter "Semua".
+  const m = String(tags || '').match(/\b(?:JLPT[_ ]?)?N([1-5])\b/);
+  return m ? `N${m[1]}` : '';
 }
 
 function categoryFor(word){
@@ -584,7 +595,7 @@ function renderList(){
         <div class="reading">${escapeHtml(w.reading)}${w.romaji ? ` <span style="color:var(--ink-faint);font-size:11px">[${escapeHtml(w.romaji)}]</span>` : ''}</div>
         <div class="meaning">${escapeHtml(w.meaning)}</div>
         ${w.meaning_id ? `<div class="meaning-id" style="font-size:12px;color:var(--red-soft);margin-top:2px;font-weight:600">🇮🇩 ${escapeHtml(w.meaning_id)}</div>` : `<div class="meaning-id" style="font-size:11px;color:var(--ink-faint);margin-top:2px">${getIdHint(w.meaning)}</div>`}
-        <div class="meta-row"><span class="tag">${w.level}</span><span class="tag">${w.category}</span><span class="tag">#${w.id}</span></div>
+        <div class="meta-row">${w.level ? `<span class="tag">${w.level}</span>` : ''}<span class="tag">${w.category}</span><span class="tag">#${w.id}</span></div>
       </div>
       <div style="display:flex;gap:4px;margin-top:4px">
         <button class="tool" type="button" onclick="openAsFlash(${w.id})" style="flex:1">Latih</button>
