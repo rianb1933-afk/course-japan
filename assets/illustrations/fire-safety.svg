@@ -1,72 +1,92 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 350">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
   <defs>
-    <linearGradient id="bg-fire" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#FEF3C7"/>
-      <stop offset="100%" stop-color="#FFF"/>
+    <linearGradient id="bg-fire" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F8FAFC"/>
+      <stop offset="100%" stop-color="#FEF9C3"/>
     </linearGradient>
+    <filter id="shadow-md" x="-4%" y="-4%" width="108%" height="108%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-opacity="0.12"/>
+    </filter>
   </defs>
-  <rect width="600" height="350" fill="url(#bg-fire)" rx="12"/>
   
-  <rect x="0" y="0" width="600" height="40" fill="#D97706" rx="12"/>
-  <rect x="0" y="28" width="600" height="12" fill="#D97706"/>
-  <text x="300" y="26" text-anchor="middle" font-family="system-ui,sans-serif" font-size="14" font-weight="700" fill="#FFF">火災時の対応 · Keselamatan Kebakaran · Fire Safety</text>
+  <rect width="800" height="450" fill="url(#bg-fire)" rx="16"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="800" height="56" fill="#D97706" rx="16"/>
+  <rect x="0" y="40" width="800" height="16" fill="#D97706"/>
+  <circle cx="40" cy="28" r="18" fill="rgba(255,255,255,0.15)"/>
+  <text x="40" y="33" text-anchor="middle" font-family="system-ui,sans-serif" font-size="16">🔥</text>
+  <text x="70" y="34" font-family="system-ui,sans-serif" font-size="16" font-weight="700" fill="#FFF">火災時の対応 · Keselamatan Kebakaran · Fire Safety</text>
   
   <!-- Left: Building with evacuation -->
-  <rect x="20" y="52" width="260" height="180" rx="10" fill="#FFF" stroke="#FEF3C7" stroke-width="1"/>
-  <text x="150" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#374151">避難マップ (Evakuasi)</text>
+  <rect x="24" y="72" width="370" height="350" rx="12" fill="#FFF" filter="url(#shadow-md)"/>
+  <rect x="24" y="72" width="370" height="44" rx="12" fill="#FEF9C3"/>
+  <rect x="24" y="104" width="370" height="12" fill="#FEF9C3"/>
+  <text x="209" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#D97706">避難マップ (Evakuasi)</text>
   
   <!-- Building -->
-  <rect x="60" y="85" width="80" height="120" rx="4" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="1.5"/>
-  <rect x="70" y="95" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#60A5FA"/>
-  <rect x="100" y="95" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#60A5FA"/>
-  <rect x="70" y="125" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#60A5FA"/>
-  <rect x="100" y="125" width="20" height="20" rx="2" fill="#FECACA" stroke="#EF4444"/>
-  <rect x="70" y="155" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#60A5FA"/>
-  <rect x="100" y="155" width="20" height="20" rx="2" fill="#BFDBFE" stroke="#60A5FA"/>
-  
-  <!-- Exit arrow -->
-  <path d="M140 190 L180 190 L180 170 L210 195 L180 220 L180 200 L140 200" fill="#16A34A" stroke="#16A34A" stroke-width="1"/>
-  <text x="190" y="215" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="700" fill="#16A34A">出口</text>
+  <rect x="80" y="130" width="120" height="180" rx="6" fill="#F3F4F6" stroke="#9CA3AF" stroke-width="2"/>
+  <!-- Windows -->
+  <rect x="95" y="145" width="30" height="25" rx="3" fill="#BFDBFE" stroke="#60A5FA" stroke-width="1"/>
+  <rect x="155" y="145" width="30" height="25" rx="3" fill="#BFDBFE" stroke="#60A5FA" stroke-width="1"/>
+  <rect x="95" y="180" width="30" height="25" rx="3" fill="#FECACA" stroke="#EF4444" stroke-width="1"/>
+  <rect x="155" y="180" width="30" height="25" rx="3" fill="#BFDBFE" stroke="#60A5FA" stroke-width="1"/>
+  <rect x="95" y="215" width="30" height="25" rx="3" fill="#BFDBFE" stroke="#60A5FA" stroke-width="1"/>
+  <rect x="155" y="215" width="30" height="25" rx="3" fill="#BFDBFE" stroke="#60A5FA" stroke-width="1"/>
+  <rect x="95" y="250" width="30" height="25" rx="3" fill="#BFDBFE" stroke="#60A5FA" stroke-width="1"/>
+  <rect x="155" y="250" width="30" height="25" rx="3" fill="#BFDBFE" stroke="#60A5FA" stroke-width="1"/>
+  <!-- Door -->
+  <rect x="125" y="280" width="30" height="30" rx="2" fill="#16A34A" stroke="#15803D" stroke-width="1.5"/>
+  <text x="140" y="298" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" font-weight="700" fill="#FFF">出口</text>
   
   <!-- Fire symbol -->
-  <text x="145" y="145" font-family="system-ui,sans-serif" font-size="20">🔥</text>
+  <text x="190" y="195" font-family="system-ui,sans-serif" font-size="28">🔥</text>
+  
+  <!-- Evacuation arrow -->
+  <path d="M170 290 L220 290 L220 270 L250 295 L220 320 L220 300 L170 300" fill="#16A34A" stroke="#16A34A" stroke-width="1.5"/>
+  
+  <!-- Labels -->
+  <text x="209" y="340" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="600" fill="#374151">避難経路を確認</text>
+  <text x="209" y="356" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#6B7280">Pastikan jalur evakuasi</text>
   
   <!-- Right: Evacuation Steps -->
-  <rect x="310" y="52" width="270" height="180" rx="10" fill="#FFF" stroke="#FEF3C7" stroke-width="1"/>
-  <text x="445" y="72" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#374151">避難手順 (Langkah Evakuasi)</text>
+  <rect x="406" y="72" width="370" height="350" rx="12" fill="#FFF" filter="url(#shadow-md)"/>
+  <rect x="406" y="72" width="370" height="44" rx="12" fill="#FEF9C3"/>
+  <rect x="406" y="104" width="370" height="12" fill="#FEF9C3"/>
+  <text x="591" y="100" text-anchor="middle" font-family="system-ui,sans-serif" font-size="12" font-weight="700" fill="#D97706">火災時の手順 (Langkah)</text>
   
-  <rect x="325" y="82" width="240" height="35" rx="6" fill="#FEF2F2" stroke="#FECACA"/>
-  <circle cx="345" cy="100" r="12" fill="#DC2626"/><text x="345" y="104" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="800" fill="#FFF">1</text>
-  <text x="365" y="104" font-family="system-ui,sans-serif" font-size="10" fill="#374151">通報 (Houkoku)</text>
+  <!-- Step 1 -->
+  <rect x="422" y="120" width="338" height="52" rx="8" fill="#FFF" stroke="#FEE2E2" stroke-width="1.5"/>
+  <circle cx="446" cy="146" r="14" fill="#DC2626"/>
+  <text x="446" y="150" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="800" fill="#FFF">1</text>
+  <text x="470" y="140" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#DC2626">① 発見 → 通報 (Houkoku)</text>
+  <text x="470" y="156" font-family="system-ui,sans-serif" font-size="8" fill="#6B7280">119番通報・上司に報告</text>
   
-  <rect x="325" y="122" width="240" height="35" rx="6" fill="#FFF7ED" stroke="#FED7AA"/>
-  <circle cx="345" cy="140" r="12" fill="#D97706"/><text x="345" y="144" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="800" fill="#FFF">2</text>
-  <text x="365" y="144" font-family="system-ui,sans-serif" font-size="10" fill="#374151">消火 (Shouka)</text>
+  <!-- Step 2 -->
+  <rect x="422" y="180" width="338" height="52" rx="8" fill="#FFF" stroke="#FFF7ED" stroke-width="1.5"/>
+  <circle cx="446" cy="206" r="14" fill="#EA580C"/>
+  <text x="446" y="210" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="800" fill="#FFF">2</text>
+  <text x="470" y="200" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#EA580C">② 消火 (Shouka)</text>
+  <text x="470" y="216" font-family="system-ui,sans-serif" font-size="8" fill="#6B7280">消火器で初期消火</text>
   
-  <rect x="325" y="162" width="240" height="35" rx="6" fill="#F0FDF4" stroke="#BBF7D0"/>
-  <circle cx="345" cy="180" r="12" fill="#16A34A"/><text x="345" y="184" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="800" fill="#FFF">3</text>
-  <text x="365" y="184" font-family="system-ui,sans-serif" font-size="10" fill="#374151">避難 (Hinan)</text>
+  <!-- Step 3 -->
+  <rect x="422" y="240" width="338" height="52" rx="8" fill="#FFF" stroke="#FEF3C7" stroke-width="1.5"/>
+  <circle cx="446" cy="266" r="14" fill="#D97706"/>
+  <text x="446" y="270" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="800" fill="#FFF">3</text>
+  <text x="470" y="260" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#D97706">③ 避難 (Hinan)</text>
+  <text x="470" y="276" font-family="system-ui,sans-serif" font-size="8" fill="#6B7280">利用者を安全な場所へ</text>
   
-  <rect x="325" y="202" width="240" height="20" rx="4" fill="#EFF6FF" stroke="#BFDBFE"/>
-  <text x="445" y="216" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" fill="#2563EB">→ 利用者の安否確認</text>
+  <!-- Step 4 -->
+  <rect x="422" y="300" width="338" height="52" rx="8" fill="#FFF" stroke="#D1FAE5" stroke-width="1.5"/>
+  <circle cx="446" cy="326" r="14" fill="#16A34A"/>
+  <text x="446" y="330" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="800" fill="#FFF">4</text>
+  <text x="470" y="320" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#16A34A">④ 安否確認 (Anpi)</text>
+  <text x="470" y="336" font-family="system-ui,sans-serif" font-size="8" fill="#6B7280">全員の安否を確認</text>
   
-  <!-- Bottom: Fire Equipment -->
-  <rect x="20" y="250" width="560" height="85" rx="10" fill="#FFF" stroke="#E5E7EB" stroke-width="1"/>
-  <text x="300" y="272" text-anchor="middle" font-family="system-ui,sans-serif" font-size="11" font-weight="700" fill="#374151">消防用具 (Alat Pemadam)</text>
-  
-  <rect x="40" y="282" width="120" height="42" rx="6" fill="#FFF" stroke="#FECACA"/>
-  <text x="100" y="300" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#DC2626">消火器</text>
-  <text x="100" y="316" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#6B7280">APAR</text>
-  
-  <rect x="175" y="282" width="120" height="42" rx="6" fill="#FFF" stroke="#BFDBFE"/>
-  <text x="235" y="300" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#2563EB">消火栓</text>
-  <text x="235" y="316" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#6B7280">Hydrant</text>
-  
-  <rect x="310" y="282" width="120" height="42" rx="6" fill="#FFF" stroke="#D1FAE5"/>
-  <text x="370" y="300" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#16A34A">避難階段</text>
-  <text x="370" y="316" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#6B7280">Tangga Evakuasi</text>
-  
-  <rect x="445" y="282" width="120" height="42" rx="6" fill="#FFF" stroke="#FEF3C7"/>
-  <text x="505" y="300" text-anchor="middle" font-family="system-ui,sans-serif" font-size="9" font-weight="600" fill="#D97706">非常口</text>
-  <text x="505" y="316" text-anchor="middle" font-family="system-ui,sans-serif" font-size="8" fill="#6B7280">Pintu Darurat</text>
+  <!-- Step 5 -->
+  <rect x="422" y="360" width="338" height="52" rx="8" fill="#FFF" stroke="#BFDBFE" stroke-width="1.5"/>
+  <circle cx="446" cy="386" r="14" fill="#2563EB"/>
+  <text x="446" y="390" text-anchor="middle" font-family="system-ui,sans-serif" font-size="10" font-weight="800" fill="#FFF">5</text>
+  <text x="470" y="380" font-family="system-ui,sans-serif" font-size="10" font-weight="700" fill="#2563EB">⑤ 集合 (Shuugou)</text>
+  <text x="470" y="396" font-family="system-ui,sans-serif" font-size="8" fill="#6B7280">指定の集合場所へ</text>
 </svg>
