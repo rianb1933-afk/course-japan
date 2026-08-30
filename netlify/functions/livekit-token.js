@@ -2,10 +2,8 @@
  * Netlify Function: /api/livekit-token
  * Membuat access token JWT untuk peserta Live Classroom via LiveKit (SFU).
  *
- * Kenapa SFU? PeerJS mesh membuat tiap peserta upload video ke SEMUA peserta
- * lain — di 8 orang jadi 7 stream upload per orang. LiveKit (SFU) membuat tiap
- * peserta upload 1 stream ke server, server mendistribusikan. Skalabel ke
- * puluhan peserta.
+ * KEAMANAN: roomAdmin hanya diberikan jika host terverifikasi via Supabase JWT.
+ * Verifikasi dilakukan server-side: JWT → Supabase Auth → live_rooms.host_id.
  *
  * SETUP:
  *   1. Deploy LiveKit — LiveKit Cloud (cloud.livekit.io, gratis untuk mulai)
@@ -13,10 +11,8 @@
  *   2. Dari LiveKit dapatkan: API Key + API Secret + WS URL.
  *   3. Set env di Netlify:
  *        LIVEKIT_API_KEY, LIVEKIT_API_SECRET, LIVEKIT_URL (wss://xxx.livekit.cloud)
+ *        SUPABASE_URL, SUPABASE_SERVICE_KEY (atau SUPABASE_KEY)
  *   4. npm install livekit-server-sdk (di package.json fungsi).
- *
- * KEAMANAN: API Secret RAHASIA — hanya di sini, tidak pernah ke frontend.
- * Frontend hanya menerima token JWT untuk room tertentu.
  */
 
 // ── ORIGIN VALIDATION ────────────────────────────────────────────────
@@ -62,28 +58,46 @@ exports.handler = async (event) => {
   const roomName = String(body.room || '').trim().slice(0, 64);
   const identity = String(body.identity || '').trim().slice(0, 64);
   const displayName = String(body.name || identity).slice(0, 40);
-  // GENUINELY DIPERBAIKI (Fase HH, Audit Database): dikonfirmasi flag
-  // `isHost` dari body request client GENUINELY TIDAK PERNAH diverifikasi
-  // terhadap kepemilikan/otorisasi room yang nyata -- siapa pun yang
-  // memanggil endpoint ini langsung (tanpa melalui UI mana pun, mengingat
-  // genuinely 0 halaman di proyek ini yang memanggil endpoint ini saat
-  // ini) genuinely BISA mengklaim `isHost: true` dan mendapat `roomAdmin`
-  // (hak moderasi: mute/kick peserta lain) di room MANAPUN. Karena
-  // genuinely belum ada mekanisme otorisasi kepemilikan room yang aman di
-  // proyek ini (implementasi video call yang genuinely aktif, PeerJS mesh
-  // di Kelas-Online.html, juga menentukan host secara client-side tanpa
-  // verifikasi server), grant `roomAdmin` dinonaktifkan sepenuhnya untuk
-  // mencegah eskalasi hak akses yang tidak sah -- lebih aman fitur
-  // moderasi LiveKit belum berfungsi daripada memberi hak admin ke
-  // sembarang pemanggil endpoint publik ini. Variabel `isHost` genuinely
-  // tidak lagi dipakai untuk otorisasi, dihapus untuk kejelasan kode.
 
   if (!roomName || !identity) {
     return { statusCode: 400, headers, body: JSON.stringify({ error: 'room dan identity wajib diisi' }) };
   }
 
+  // ── ROOM OWNERSHIP VERIFICATION ─────────────────────────────────────────
+  // Client mengirim `authToken` (Supabase JWT). Server verifikasi JWT via
+  // Supabase Auth REST API, lalu cek apakah user_id = host_id di live_rooms.
+  // Hanya host terverifikasi yang mendapat roomAdmin: true (moderasi LiveKit).
+  let isVerifiedHost = false;
+  const authToken = String(body.authToken || '').trim();
+  const supabaseUrl = process.env.SUPABASE_URL;
+  const supabaseKey = process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY;
+
+  if (authToken && supabaseUrl && supabaseKey) {
+    try {
+      const authRes = await fetch(supabaseUrl + '/auth/v1/user', {
+        headers: { Authorization: 'Bearer ' + authToken },
+      });
+      if (authRes.ok) {
+        const userData = await authRes.json();
+        const userId = userData.id;
+        if (userId) {
+          const roomRes = await fetch(
+            supabaseUrl + '/rest/v1/live_rooms?room_code=eq.' + encodeURIComponent(roomName) + '&host_id=eq.' + userId + '&select=room_code',
+            { headers: { apikey: supabaseKey, Authorization: 'Bearer ' + supabaseKey } }
+          );
+          if (roomRes.ok) {
+            const rows = await roomRes.json();
+            isVerifiedHost = Array.isArray(rows) && rows.length > 0;
+          }
+        }
+      }
+    } catch (e) {
+      // Verification failed — safe fallback: non-host
+      console.warn('[livekit-token] Room ownership verification failed:', e.message);
+    }
+  }
+
   try {
-    // Perlu: npm install livekit-server-sdk
     const { AccessToken } = require('livekit-server-sdk');
 
     const at = new AccessToken(apiKey, apiSecret, { identity, name: displayName });
@@ -93,7 +107,7 @@ exports.handler = async (event) => {
       canPublish: true,       // boleh kirim kamera/mic
       canSubscribe: true,     // boleh terima peserta lain
       canPublishData: true,   // untuk chat/data channel
-      roomAdmin: false,       // GENUINELY DINONAKTIFKAN: lihat komentar di atas -- isHost dari client tidak dapat dipercaya untuk hak moderasi tanpa verifikasi kepemilikan room server-side yang genuinely belum ada
+      roomAdmin: isVerifiedHost,  // HANYA true jika JWT terverifikasi + host_id cocok
     });
 
     const token = await at.toJwt();
