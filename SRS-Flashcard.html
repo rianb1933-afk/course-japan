@@ -703,19 +703,19 @@ function renderSRSStats() {
     <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
       <div style="background:#eff6ff;border-radius:10px;padding:10px;text-align:center">
         <div style="font-size:20px;font-weight:800;color:#2563eb">${stats.new||0}</div>
-        <div style="font-size:10px;color:#64748b">Baru</div>
+        <div style="font-size:10px;color:#5F6E84">Baru</div>
       </div>
       <div style="background:#fff7ed;border-radius:10px;padding:10px;text-align:center">
         <div style="font-size:20px;font-weight:800;color:#ea580c">${stats.learning||0}</div>
-        <div style="font-size:10px;color:#64748b">Learning</div>
+        <div style="font-size:10px;color:#5F6E84">Learning</div>
       </div>
       <div style="background:#f0fdf4;border-radius:10px;padding:10px;text-align:center">
         <div style="font-size:20px;font-weight:800;color:#16a34a">${stats.review||0}</div>
-        <div style="font-size:10px;color:#64748b">Review</div>
+        <div style="font-size:10px;color:#5F6E84">Review</div>
       </div>
       <div style="background:#fdf4ff;border-radius:10px;padding:10px;text-align:center">
         <div style="font-size:20px;font-weight:800;color:#7c3aed">${stats.mature||0}</div>
-        <div style="font-size:10px;color:#64748b">Mature</div>
+        <div style="font-size:10px;color:#5F6E84">Mature</div>
       </div>
     </div>`;
 }
@@ -733,9 +733,9 @@ function renderSRSHeatmap() {
     cells.push(`<div class="srs-hm-cell ${cls}" title="${dt.toLocaleDateString('id-ID')}: ${n} kartu"></div>`);
   }
   el.innerHTML = `
-    <div style="font-size:11px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">📅 Kalender Review</div>
+    <div style="font-size:11px;font-weight:700;color:#5F6E84;text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">📅 Kalender Review</div>
     <div style="display:grid;grid-template-columns:repeat(52,1fr);gap:2px">${cells.join('')}</div>
-    <div style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:10px;color:#94a3b8">
+    <div style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:10px;color:#636D7B">
       <span>Kurang</span>
       <div style="width:10px;height:10px;background:#bbf7d0;border-radius:2px"></div>
       <div style="width:10px;height:10px;background:#4ade80;border-radius:2px"></div>
@@ -777,25 +777,25 @@ function showFSRSCard() {
       <div style="text-align:center;padding:40px 20px">
         <div style="font-size:48px;margin-bottom:16px">🎉</div>
         <div style="font-size:20px;font-weight:800;margin-bottom:8px">Sesi Selesai!</div>
-        <div style="font-size:13px;color:#64748b;margin-bottom:20px">
+        <div style="font-size:13px;color:#5F6E84;margin-bottom:20px">
           ${_srsSession.reviewed} kartu direview · ${_srsSession.easy} mudah · ${_srsSession.again} terlewat
         </div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px">
           <div style="background:#fee2e2;border-radius:8px;padding:8px;text-align:center">
             <div style="font-size:18px;font-weight:800;color:#dc2626">${_srsSession.again}</div>
-            <div style="font-size:10px;color:#94a3b8">Again</div>
+            <div style="font-size:10px;color:#636D7B">Again</div>
           </div>
           <div style="background:#fff7ed;border-radius:8px;padding:8px;text-align:center">
             <div style="font-size:18px;font-weight:800;color:#ea580c">${_srsSession.hard}</div>
-            <div style="font-size:10px;color:#94a3b8">Hard</div>
+            <div style="font-size:10px;color:#636D7B">Hard</div>
           </div>
           <div style="background:#f0fdf4;border-radius:8px;padding:8px;text-align:center">
             <div style="font-size:18px;font-weight:800;color:#16a34a">${_srsSession.good}</div>
-            <div style="font-size:10px;color:#94a3b8">Good</div>
+            <div style="font-size:10px;color:#636D7B">Good</div>
           </div>
           <div style="background:#eff6ff;border-radius:8px;padding:8px;text-align:center">
             <div style="font-size:18px;font-weight:800;color:#2563eb">${_srsSession.easy}</div>
-            <div style="font-size:10px;color:#94a3b8">Easy</div>
+            <div style="font-size:10px;color:#636D7B">Easy</div>
           </div>
         </div>
         <button onclick="renderSRSQueue()" style="padding:10px 24px;background:#2563eb;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700">🔄 Review Lagi</button>
@@ -813,7 +813,7 @@ function showFSRSCard() {
 
   el.innerHTML = `
     <div style="text-align:center">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#94a3b8;margin-bottom:16px">
+      <div style="display:flex;justify-content:space-between;font-size:11px;color:#636D7B;margin-bottom:16px">
         <span>${_srsIdx+1}/${_srsQueue.length} kartu</span>
         <span style="background:${isNew?'#eff6ff':'#f0fdf4'};color:${isNew?'#2563eb':'#16a34a'};padding:2px 8px;border-radius:20px;font-weight:700">${isNew?'🆕 Baru':'🔄 Review'}</span>
         <span>R: ${R}%</span>
@@ -823,13 +823,13 @@ function showFSRSCard() {
         <div style="font-size:52px;font-family:'Noto Serif JP',serif;color:#fff;margin-bottom:8px">${card.jp||card.front||'?'}</div>
         ${_srsFlipped ? `
           <div style="border-top:1px solid rgba(255,255,255,.2);padding-top:12px;margin-top:4px;width:100%">
-            <div style="font-size:16px;color:#94a3b8;font-style:italic;margin-bottom:4px">${card.rom||card.reading||''}</div>
+            <div style="font-size:16px;color:#636D7B;font-style:italic;margin-bottom:4px">${card.rom||card.reading||''}</div>
             <div style="font-size:18px;font-weight:700;color:#38bdf8">${card.id2||card.id||card.meaning||''}</div>
-            ${card.example ? `<div style="font-size:12px;color:#64748b;margin-top:8px;font-style:italic">${card.example}</div>` : ''}
+            ${card.example ? `<div style="font-size:12px;color:#5F6E84;margin-top:8px;font-style:italic">${card.example}</div>` : ''}
           </div>
           <button onclick="event.stopPropagation();if(typeof speak==='function')speak('${(card.jp||'').replace(/'/g,'`')}')"
             style="margin-top:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 14px;border-radius:20px;cursor:pointer;font-size:12px">🔊 Dengar</button>
-        ` : `<div style="font-size:13px;color:#64748b;margin-top:8px">Klik untuk balik kartu</div>`}
+        ` : `<div style="font-size:13px;color:#5F6E84;margin-top:8px">Klik untuk balik kartu</div>`}
       </div>
 
       ${_srsFlipped ? `
@@ -908,14 +908,14 @@ document.addEventListener('DOMContentLoaded', () => {
     fsrsUI.style.cssText = 'max-width:480px;margin:0 auto;padding:16px';
     fsrsUI.innerHTML = `
       <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;margin-bottom:16px">
-        <div style="font-size:13px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">📊 Statistik FSRS</div>
+        <div style="font-size:13px;font-weight:700;color:#5F6E84;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px">📊 Statistik FSRS</div>
         <div id="fsrsStats"></div>
       </div>
       <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;margin-bottom:16px">
         <div id="srsHeatmap"></div>
       </div>
       <div style="background:#fff;border:1px solid #e2e8f0;border-radius:16px;padding:16px">
-        <div style="font-size:13px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px">🃏 Kartu Review (FSRS)</div>
+        <div style="font-size:13px;font-weight:700;color:#5F6E84;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px">🃏 Kartu Review (FSRS)</div>
         <div id="fsrsCard"></div>
       </div>`;
     main.insertBefore(fsrsUI, main.firstChild);
