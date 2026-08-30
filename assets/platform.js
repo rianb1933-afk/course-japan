@@ -393,6 +393,17 @@ Akhiri dengan pertanyaan atau prompt untuk lanjut belajar.`;
       { icon: '📊', label: 'Dashboard', url: 'Dashboard/Dashboard.html',match: ['Dashboard'] },
     ],
     init(prefix = '') {
+      // Mengalah kalau kyoto-bottom-nav ada. Tanpa ini kedua bilah berdiri di
+      // tempat yang sama: .kn-bottom-nav (z 900, tinggi 62) menutupi
+      // .mobile-nav (z 100, tinggi 68), tapi yang lawas tetap 5px lebih tinggi
+      // sehingga tepinya mengintip di bawah — dua navigasi bawah bertumpuk di
+      // tujuh halaman. Pola penjaganya sama dengan .pro-mobile-dock di
+      // pro-app.js: kyoto membangun navnya pada DOMContentLoaded, jadi
+      // elemennya bisa belum ada, maka tag <script>-nya ikut diperiksa.
+      const adaKyotoNav = !!document.querySelector('script[src*="kyoto-bottom-nav"]')
+        || !!document.querySelector('.kn-bottom-nav');
+      if (adaKyotoNav) return;
+
       const nav = document.createElement('nav');
       nav.className = 'mobile-nav';
       nav.setAttribute('aria-label', 'Navigasi utama');

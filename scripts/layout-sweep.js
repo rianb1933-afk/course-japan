@@ -149,9 +149,18 @@ function ukur({ AMBANG, AMBANG_BESAR, SENTUH_MIN, mobile }) {
   }
 
   // ── 2. tabrakan elemen melayang yang bisa diklik ──
+  //
+  // Lapisan yang menutupi hampir seluruh viewport DILEWATI. Itu modal, backdrop,
+  // atau layar pembuka — menutupi yang di bawahnya memang tugasnya, jadi
+  // "tabrakan" dengan navbar bukan cacat. Akun.html punya #lampOverlay, layar
+  // "tarik tali untuk menyalakan lampu" yang sengaja menutup halaman sampai
+  // ditekan; tanpa saringan ini ia dilaporkan menabrak setiap tombol melayang
+  // di halaman, empat temuan yang semuanya salah.
+  const AMBANG_MODAL = 0.85;
   const melayang = [...document.querySelectorAll('body *')].filter((e) => {
     const s = getComputedStyle(e);
     const r = e.getBoundingClientRect();
+    if (r.width * r.height >= innerWidth * innerHeight * AMBANG_MODAL) return false;
     return s.position === 'fixed' && s.pointerEvents !== 'none' && tampak(e)
       && r.width > 20 && r.height > 20 && r.bottom <= innerHeight + 2 && r.top >= -2;
   }).map((e) => {

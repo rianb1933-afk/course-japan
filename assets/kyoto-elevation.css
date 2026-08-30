@@ -276,6 +276,18 @@ table.kx-table, .kx-table table { border-collapse: separate; border-spacing: 0; 
    terlihat, sedangkan tombol melayang menutupi isi halaman. */
 body:has(#knThemeBtn) .theme-toggle-float { display: none; }
 
+/* Dua halaman (404 dan Kelas-Online) menaruh .theme-toggle telanjang —
+   tanpa kelas -float — sebagai anak langsung <body> dengan position:fixed
+   di pojok kanan atas, tepat menimpa tombol tema milik navbar. Dua tombol
+   dengan fungsi sama, saling tumpang tindih.
+
+   Kombinator ANAK dipakai dengan sengaja: diperiksa di seluruh 53 halaman
+   akar, tidak ada satu pun .theme-toggle yang bukan anak langsung <body>,
+   jadi aturan ini tidak mungkin mengenai tombol tema yang menyatu di dalam
+   navbar. Itu risiko yang membuat aturan -float di atas ditulis sesempit
+   itu sejak awal. */
+body:has(#knThemeBtn) > .theme-toggle { display: none; }
+
 /* ── Footer situs ─────────────────────────────────────────────────────
    126 halaman menyalin markup footer yang sama beserta gayanya sebagai
    atribut style= — 3.397 atribut, ditambah 1.058 handler onmouseover/
