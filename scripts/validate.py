@@ -1757,7 +1757,13 @@ def check_explanation_id_coverage():
 
     def _run(n):
         return re.compile(
-            r"[A-Za-z][A-Za-z0-9 ,.;:'\"()\-—/%\\]{" + str(n - 1) + ",}")
+            # → · × ikut dihitung sebagai bagian kalimat. Ketiganya tanda baca
+            # biasa di teks Indonesia — "asesmen → rencana → pelaksanaan" adalah
+            # satu kalimat utuh — tapi tanpa masuk kelas karakter ini, panahnya
+            # MEMOTONG rentang Latin jadi potongan pendek dan kalimat yang sudah
+            # diterjemahkan tertuduh belum diterjemahkan. Diukur di 3.134
+            # penjelasan: tepat SATU yang berubah status, dan itu memang sah.
+            r"[A-Za-z][A-Za-z0-9 ,.;:'\"()\-—/%\\→·×]{" + str(n - 1) + ",}")
 
     run_kaigo, run_lain = _run(AMBANG_KAIGO), _run(AMBANG_LAIN)
     # Daftar ini SEMPAT KURANG. "sebagai" — salah satu kata paling umum dalam

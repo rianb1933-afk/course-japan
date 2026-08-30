@@ -59,7 +59,7 @@ MODULES = {
         "description": 'Panduan lengkap 介護福祉士 untuk WNI: jalur EPA/SSW/magang, syarat bahasa, roadmap belajar dari N4 ke lisensi nasional.',
         "level": 'pemula',
         "order": 1,
-        "duration": 5,
+        "duration": 15,
         "prerequisite": None,
         "tags": ['dasar', 'fondasi', 'ujian', 'n4'],
         "recommended_next": 'Kaigo-Ningen-Songen',

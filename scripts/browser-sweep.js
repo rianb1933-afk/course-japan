@@ -78,8 +78,8 @@ const FEEDBACK = '.qexp, #qFb, .q-exp, .q-fb';
 // Kedua angka ini HARUS sama dengan validate.py. Sempat berbeda, dan skrip ini
 // lalu melaporkan 43 halaman gagal padahal semuanya sudah diterjemahkan —
 // alat ukur yang tidak sepakat dengan pagarnya hanya menyesatkan.
-const LATIN_KAIGO = /[A-Za-z][A-Za-z0-9 ,.;:'"()\-—/%\\]{39,}/g;
-const LATIN_LAIN = /[A-Za-z][A-Za-z0-9 ,.;:'"()\-—/%\\]{14,}/g;
+const LATIN_KAIGO = /[A-Za-z][A-Za-z0-9 ,.;:'"()\-—/%\\→·×]{39,}/g;
+const LATIN_LAIN = /[A-Za-z][A-Za-z0-9 ,.;:'"()\-—/%\\→·×]{14,}/g;
 const IDN =
   /\b(yang|dan|untuk|dengan|pada|dari|atau|tidak|adalah|bisa|agar|saat|oleh|dalam|secara|harus|dapat|perlu|karena|bukan|lewat|pun|juga|setiap|seperti|hingga|sampai|bila|maupun|berarti|menjadi|antara|tanpa|lebih|sendiri|orang|kerja|hidup|ini|itu|ia|sebagai|serta|sudah|masih|belum|hanya|akan|supaya|sehingga|namun|tetapi|atas|tiap|kepada|bagi|semua|banyak|kalau|justru)\b|\b(?:me[mnl]?[a-z]{3,}|ber[a-z]{4,}|pe[mn]?[a-z]{4,}an|ke[a-z]{4,}an)\b/i;
 
