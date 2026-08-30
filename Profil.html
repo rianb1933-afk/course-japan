@@ -36,11 +36,11 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
 @media(max-width:500px){.form-row{grid-template-columns:1fr}}
 .form-group{display:flex;flex-direction:column;gap:6px}
-.form-label{font-size:12px;font-weight:600;color:#6B4F3A;text-transform:uppercase;letter-spacing:.05em}
+.form-label{font-size:12px;font-weight:600;color:var(--primary,#6B4F3A);text-transform:uppercase;letter-spacing:.05em}
 [data-theme="dark"] .form-label{color:#C89B3C}
 .form-input,.form-select{width:100%;padding:11px 14px;border:1.5px solid rgba(107,79,58,.15);border-radius:9px;background:var(--kyoto-cream,#F8F3E9);font-family:inherit;font-size:14px;color:#2D2D2D;outline:none;transition:border-color 150ms}
 [data-theme="dark"] .form-input,[data-theme="dark"] .form-select{background:#111;color:#E8E5DF;border-color:rgba(200,155,60,.15)}
-.form-input:focus,.form-select:focus{border-color:#6B4F3A}
+.form-input:focus,.form-select:focus{border-color:var(--primary,#6B4F3A)}
 .save-btn{padding:11px 24px;border-radius:9px;background:#6B4F3A;color:#FEF;border:none;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;transition:background 130ms}
 .save-btn:hover{background:#553C2B}
 [data-theme="dark"] .save-btn{background:#C89B3C;color:#1A1209}
@@ -48,7 +48,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 @media(max-width:400px){.stat-grid{grid-template-columns:1fr 1fr}}
 .s-box{background:rgba(107,79,58,.05);border-radius:10px;padding:14px;text-align:center}
 [data-theme="dark"] .s-box{background:rgba(200,155,60,.06)}
-.s-num{font-size:22px;font-weight:700;color:#6B4F3A;display:block}
+.s-num{font-size:22px;font-weight:700;color:var(--primary,#6B4F3A);display:block}
 [data-theme="dark"] .s-num{color:#C89B3C}
 .s-lbl{font-size:10px;color:var(--ink-soft, #6F6F6F);text-transform:uppercase;letter-spacing:.05em}
 .danger-zone{border-color:rgba(166,58,58,.20)!important}
@@ -72,7 +72,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 </head>
 <body>
 <div class="page">
-  <h1 style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:#6B4F3A;margin-bottom:24px">👤 Profil Saya</h1>
+  <h1 style="font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:var(--primary,#6B4F3A);margin-bottom:24px">👤 Profil Saya</h1>
 
   <!-- Avatar & Info -->
   <div class="card">
@@ -81,7 +81,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
       <div class="avatar-big" id="avatarEl" onclick="changeAvatar()" title="Klik untuk ganti">?</div>
       <div class="avatar-info">
         <h2 id="displayName">Nama Pengguna</h2>
-        <p id="displayEmail" style="color:#6E6E6E">email@example.com</p>
+        <p id="displayEmail" style="color:var(--ink-soft,#6E6E6E)">email@example.com</p>
         <p id="displayJoined" style="font-size:12px;color:var(--ink-soft, #6F6F6F);margin-top:4px">Bergabung: —</p>
       </div>
     </div>
@@ -137,10 +137,10 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
   <!-- Export Data -->
   <div class="card">
     <div class="card-title">Data & Ekspor</div>
-    <p style="font-size:13px;color:#6E6E6E;margin-bottom:14px">Ekspor semua data belajar kamu dalam format JSON untuk backup atau migrasi.</p>
+    <p style="font-size:13px;color:var(--ink-soft,#6E6E6E);margin-bottom:14px">Ekspor semua data belajar kamu dalam format JSON untuk backup atau migrasi.</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button class="save-btn" onclick="exportData()">📥 Ekspor Data</button>
-      <button class="save-btn" style="background:rgba(107,79,58,.08);color:#6B4F3A;border:1px solid rgba(107,79,58,.20)" onclick="importData()">📤 Impor Data</button>
+      <button class="save-btn" style="background:rgba(107,79,58,.08);color:var(--primary,#6B4F3A);border:1px solid rgba(107,79,58,.20)" onclick="importData()">📤 Impor Data</button>
       <input type="file" id="importFile" accept=".json" aria-label="Import data profil" style="display:none" onchange="doImport(this)">
     </div>
   </div>
@@ -148,7 +148,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
   <!-- Danger Zone -->
   <div class="card danger-zone">
     <div class="card-title" style="color:#A63A3A">Zona Bahaya</div>
-    <p style="font-size:13px;color:#6E6E6E;margin-bottom:14px">Tindakan ini tidak dapat dibatalkan.</p>
+    <p style="font-size:13px;color:var(--ink-soft,#6E6E6E);margin-bottom:14px">Tindakan ini tidak dapat dibatalkan.</p>
     <div style="display:flex;gap:10px;flex-wrap:wrap">
       <button class="danger-btn" onclick="resetProgress()">🗑️ Reset Progress</button>
       <button class="danger-btn" onclick="deleteAccount()">❌ Hapus Akun</button>
