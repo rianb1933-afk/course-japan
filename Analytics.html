@@ -342,10 +342,10 @@ function renderAll() {
   if (_srcEntries.length > 0) {
     // Peta nama sumber → label ramah + warna
     const _srcMeta = {
-      grammar:['Grammar','#7c3aed'], kanji:['Kanji','#ea580c'], kosakata:['Kosakata','#2563eb'],
-      kana:['Kana','#0891b2'], jlpt:['JLPT','#16a34a'], srs:['Flashcard','#db2777'],
+      grammar:['Grammar','#7c3aed'], kanji:['Kanji','#C0480A'], kosakata:['Kosakata','#2563eb'],
+      kana:['Kana','#0891b2'], jlpt:['JLPT','#117E39'], srs:['Flashcard','#db2777'],
       speaking:['Speaking','#f59e0b'], game:['Game','#8b5cf6'], materi:['Materi','#64748b'],
-      quiz:['Quiz','#16a34a'], vocab:['Vocab','#2563eb'], lain:['Lainnya','#94a3b8']
+      quiz:['Quiz','#117E39'], vocab:['Vocab','#2563eb'], lain:['Lainnya','#94a3b8']
     };
     const _labels = _srcEntries.map(([k])=> (_srcMeta[k]||[k])[0]);
     const _colors = _srcEntries.map(([k])=> (_srcMeta[k]||[k,'#94a3b8'])[1]);
@@ -432,7 +432,7 @@ function renderActivityChart(range) {
 
 function renderPieChart(data, customLabels, customColors) {
   const labels = customLabels || ['Vocab','Grammar','Kanji','Quiz'];
-  const colors = customColors || ['#2563eb','#7c3aed','#ea580c','#16a34a'];
+  const colors = customColors || ['#2563eb','#7c3aed','#C0480A','#117E39'];
   const ctx = document.getElementById('pieChart').getContext('2d');
   if (_pieChart) _pieChart.destroy();
   const total = data.reduce((a,v)=>a+v,0)||1;
@@ -460,10 +460,10 @@ function renderSkillBars(dash, srs, spk) {
   const skills = [
     {label:'Vocabulary (SRS)', pct:Math.min(Math.round(matureCards/totalCards*100),100)||42, color:'#2563eb'},
     {label:'Grammar (Quiz)', pct:dash.quizAccuracy||67, color:'#7c3aed'},
-    {label:'Kanji (Kaigo)', pct:Math.round((dash.xp||247)/20)||38, color:'#ea580c'},
-    {label:'Speaking (AI)', pct:spkAvg||55, color:'#16a34a'},
-    {label:'Listening', pct:72, color:'#d97706'},
-    {label:'Reading', pct:58, color:'#06b6d4'},
+    {label:'Kanji (Kaigo)', pct:Math.round((dash.xp||247)/20)||38, color:'#C0480A'},
+    {label:'Speaking (AI)', pct:spkAvg||55, color:'#117E39'},
+    {label:'Listening', pct:72, color:'#A35904'},
+    {label:'Reading', pct:58, color:'#0E7490'},
   ];
 
   const el = document.getElementById('skillBars');
