@@ -1296,3 +1296,17 @@
     }
   }
 })();
+
+/* ── Tombol jeda/reset pengatur waktu belajar ────────────────────────────
+   #floatingTimer di 56 halaman Materi punya `onclick="this.style.display='none'"`
+   di WADAHNYA, sementara tombol ⏸ dan ↺ berada di dalamnya. Klik tombol itu
+   menggelembung ke wadah, jadi menekan "jeda" ikut menutup seluruh widget —
+   tidak ada cara menjeda tanpa kehilangan penghitungnya.
+
+   Diperbaiki dengan menghentikan gelembungnya, bukan dengan menyunting 56
+   berkas HTML satu per satu. Fase capture dipakai supaya berjalan sebelum
+   handler mana pun di dalamnya. */
+document.addEventListener('click', (e) => {
+  const tombol = e.target.closest && e.target.closest('#floatingTimer button');
+  if (tombol) e.stopPropagation();
+}, true);

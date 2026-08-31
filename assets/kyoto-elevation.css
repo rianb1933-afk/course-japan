@@ -667,3 +667,50 @@ footer a:not([href^="mailto:"]) {
   align-items: center;
   min-height: 24px;
 }
+
+/* ══════════════════════════════════════════════════════════════════════
+   #floatingTimer — pengatur waktu belajar di 56 halaman Materi
+   ══════════════════════════════════════════════════════════════════════
+   Widget ini ditulis sebagai gaya inline di tiap halaman:
+
+       position:fixed; bottom:5.5rem; left:1rem; z-index:150
+
+   Angka 5.5rem itu dipilih tanpa menghitung widget lain, jadi ia tidak ikut
+   sistem lajur di atas. Hasilnya di 1280px: timer menempati [16,679,240×133]
+   dan tombol AI Chat [18,767,94×41] — keduanya bertumpuk. Lebih dari itu,
+   karena `pointer-events` normal dan z-index 150, ia MENUTUPI tautan halaman
+   di bawahnya: di Materi.html ia menelan "Mulai Nol" dan "Kana", tombol aksi
+   kartu pertama; di Flashcard-Kanji ia menelan "Acak" dan "Reset Progres".
+
+   Dinaikkan ke atas tombol chat (bottom 92 + tinggi 41 + jarak 12 = 145),
+   memakai --np-bar yang sama supaya ikut bergeser saat bilah promo muncul.
+
+   WARNA. Labelnya memakai color:var(--red,#be3428) inline. neko-theme tidak
+   pernah membalik --red, jadi di mode gelap ia tetap #be3428 di atas kartu
+   #1C1E22 — rasio 2,95. !important diperlukan justru karena gaya inline. */
+#floatingTimer { bottom: calc(145px + var(--np-bar)) !important; }
+
+@media (max-width: 768px) {
+  #floatingTimer { bottom: calc(var(--np-lane) + var(--np-bar) + 114px) !important; }
+}
+
+html[data-theme="dark"] #floatingTimer > div:first-child { color: #EE8878 !important; }
+
+/* Menaikkannya ke lajur widget menghentikan tumpukan dengan tombol chat, tapi
+   tidak menghentikan penutupan isi halaman: panel 240×133 memang akan selalu
+   menumpang di atas sesuatu. Dipindah ke lajur kanan justru lebih buruk —
+   menutupi empat tautan dan menabrak dua widget lain.
+
+   Yang bisa dijamin adalah ia tidak pernah MEMBLOKIR. Diukur dengan uji-tembak
+   (document.elementFromPoint di titik tengah tiap kontrol), bukan perbandingan
+   kotak:
+
+       Flashcard-Kanji   4 kontrol terblokir → 0    (N5, N4, Acak, N1 Sumber…)
+
+   Aturan ini sempat saya buang karena diuji di Materi.html, di mana satu-satunya
+   yang terblokir justru tertutup TOMBOL timer sendiri — yang memang harus tetap
+   bisa ditekan. Di sana angkanya 1 → 1, jadi tampak tak berguna. Halaman itu
+   kebetulan kasus yang salah untuk mengujinya. */
+#floatingTimer { pointer-events: none !important; }
+#floatingTimer button { pointer-events: auto !important; }
+
