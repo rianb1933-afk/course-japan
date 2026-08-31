@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nihongo-pro-v213';
+const CACHE_NAME = 'nihongo-pro-v214';
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -61,6 +61,12 @@ const CORE_ASSETS = [
   './assets/kanji-writing.js?v=2',
   './assets/translator.css',
   './assets/translator.min.js',
+'./Kaiwa.html',
+  './Grammar.html',
+  './assets/srs-engine.js',
+  './assets/progress-dashboard.js',
+  './assets/speaking-ai.js',
+  './assets/fuzzy-search.js',
   './assets/vocab-all.csv',
   
   './assets/og-preview.svg',

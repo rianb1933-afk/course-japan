@@ -42,6 +42,40 @@
       + '</svg>';
   }
 
+
+  // --- SRS Review Badge ---
+  function getDueCount() {
+    try {
+      var data = JSON.parse(localStorage.getItem('srs_cards') || '{}');
+      var now = Date.now();
+      var due = 0;
+      for (var id in data) {
+        var card = data[id];
+        if (card.nextReview && card.nextReview <= now) due++;
+      }
+      return due;
+    } catch(e) { return 0; }
+  }
+
+  function trackVisit() {
+    try {
+      var file = (location.pathname || '').split('/').pop();
+      if (!file || file === 'index.html') return;
+      var visited = JSON.parse(localStorage.getItem('modules_visited') || '[]');
+      if (visited.indexOf(file) === -1) {
+        visited.push(file);
+        localStorage.setItem('modules_visited', JSON.stringify(visited));
+      }
+    } catch(e) {}
+  }
+
+  function getProgress() {
+    try {
+      var visited = JSON.parse(localStorage.getItem('modules_visited') || '[]');
+      return Math.round((visited.length / 100) * 100);
+    } catch(e) { return 0; }
+  }
+
   function build() {
     if (document.getElementById('knBottomNav')) return; // idempoten
     var nav = document.createElement('nav');
@@ -58,13 +92,31 @@
       if (isActive(it.href)) a.setAttribute('aria-current', 'page');
       a.innerHTML = '<span class="kn-bn-ic">' + iconSvg(it.icon, it.jp) + '</span>'
         + '<span class="kn-bn-label">' + it.label + '</span>';
+      // Add review badge to 介護 item
+      if (it.jp) {
+        var due = getDueCount();
+        if (due > 0) {
+          var badge = document.createElement('span');
+          badge.className = 'kn-bn-badge';
+          badge.textContent = due;
+          badge.style.cssText = 'position:absolute;top:-4px;right:-4px;background:#E85D4A;color:#fff;font-size:.6rem;font-weight:700;min-width:1.1rem;height:1.1rem;border-radius:50%;display:flex;align-items:center;justify-content:center;animation:kn-badge-pulse 2s infinite';
+          a.style.position = 'relative';
+          a.appendChild(badge);
+        }
+      }
       nav.appendChild(a);
     });
 
+    // Inject badge animation
+    var s = document.createElement('style');
+    s.textContent = '@keyframes kn-badge-pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}';
+    document.head.appendChild(s);
     document.body.appendChild(nav);
     // beri ruang agar konten tidak tertutup bilah (hanya mobile via class)
     document.body.classList.add('has-bottom-nav');
   }
+
+  trackVisit();
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', build);
