@@ -20,7 +20,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kanji Trainer Pro — Latihan Kanji JLPT N5–N1 | Nihongo Pro Academy">
 <meta name="twitter:description" content="Latih kanji JLPT N5–N1 dengan SRS adaptif, flashcard, dan quiz interaktif. 2000+ kanji dengan contoh kalimat.">
-<meta name="description" content="Latih kanji JLPT N5 sampai N1 dengan metode SRS, flashcard interaktif, quiz kanji, dan pelacak progres. Lebih dari 2000 kanji dengan contoh kalimat.">
+<meta name="description" content="Latih kanji JLPT N5 sampai N1 dengan metode SRS, flashcard interaktif, quiz kanji, dan pelacak progres. 685 kanji N5-N2 dengan arti Indonesia.">
 <link rel="canonical" href="https://nihongopro.id/Kanji-Trainer-Pro.html">
 <link rel="stylesheet" href="assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="assets/kyoto-elevation.css">
@@ -133,16 +133,16 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
   <div class="hero">
     <div class="kicker">漢 Kanji Trainer Pro</div>
     <h1>Kuasai Kanji JLPT<br>N5 sampai N1</h1>
-    <p>Lebih dari 2.000 kanji dengan SRS adaptif, quiz, dan pelacak progres. Belajar efisien, ingat lebih lama.</p>
+    <p>685 kanji N5–N2 dengan SRS adaptif, quiz, dan pelacak progres. Belajar efisien, ingat lebih lama.</p>
   </div>
 
   <!-- LEVEL SELECTOR -->
   <div class="level-tabs" id="levelTabs">
-    <button class="ltab active" data-lv="N5" onclick="setLevel(this,'N5')">N5 · 80 kanji</button>
-    <button class="ltab" data-lv="N4" onclick="setLevel(this,'N4')">N4 · 166 kanji</button>
-    <button class="ltab" data-lv="N3" onclick="setLevel(this,'N3')">N3 · 367 kanji</button>
-    <button class="ltab" data-lv="N2" onclick="setLevel(this,'N2')">N2 · 367 kanji</button>
-    <button class="ltab" data-lv="N1" onclick="setLevel(this,'N1')">N1 · 1000+ kanji</button>
+    <button class="ltab active" data-lv="N5" onclick="setLevel(this,'N5')">N5 · 107 kanji</button>
+    <button class="ltab" data-lv="N4" onclick="setLevel(this,'N4')">N4 · 124 kanji</button>
+    <button class="ltab" data-lv="N3" onclick="setLevel(this,'N3')">N3 · 168 kanji</button>
+    <button class="ltab" data-lv="N2" onclick="setLevel(this,'N2')">N2 · 286 kanji</button>
+    <button class="ltab" data-lv="N1" onclick="setLevel(this,'N1')">N1 · belum tersedia</button>
   </div>
 
   <!-- MODE TABS -->
@@ -217,6 +217,43 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
 <script src="assets/anime-theme.js" defer></script>
 <script>
 /* ── KANJI DATA N5 (80 kanji) ── */
+// ── BANK KANJI BERSAMA ───────────────────────────────────────────────
+// KANJI_DB di bawah adalah 92 entri bawaan (N5:82, N4:10) yang ditulis di
+// halaman ini. Selama ini itulah SATU-SATUNYA isinya, sementara halaman ini
+// mengiklankan "lebih dari 2.000 kanji" dengan rincian N5·80 N4·166 N3·367
+// N2·367 N1·1000+.
+//
+// Yang membuatnya tidak terlihat rusak: getKanjiList() dulu berbunyi
+// `return KANJI_DB[lv] || KANJI_DB.N5`. Memilih N3 tidak menghasilkan layar
+// kosong — ia diam-diam menyajikan kanji N5. Lencana levelnya berganti,
+// isinya tidak.
+//
+// assets/kanji-bank.json berisi 685 kanji yang diekstrak dari halaman
+// Materi/Kanji-N*.html oleh scripts/build-kanji-bank.js. Diambil malas, dan
+// kalau gagal (offline / file://) yang bawaan tetap dipakai.
+let BANK_KANJI = null, bankKanjiDimuat = null;
+
+async function muatBankKanji() {
+  if (BANK_KANJI) return BANK_KANJI;
+  if (bankKanjiDimuat) return bankKanjiDimuat;
+  bankKanjiDimuat = fetch('assets/kanji-bank.json')
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(rows => {
+      const db = {};
+      for (const r of rows) {
+        (db[r.lv] = db[r.lv] || []).push({
+          k: r.k, on: r.on || '', kun: r.kun || '', mean: r.arti, ex: '',
+        });
+      }
+      BANK_KANJI = db;
+      return db;
+    })
+    .catch(() => { BANK_KANJI = null; return null; })
+    .finally(() => { bankKanjiDimuat = null; });
+  return bankKanjiDimuat;
+}
+
+/* ── KANJI DATA bawaan (cadangan bila bank gagal diambil) ── */
 const KANJI_DB = {
   N5: [
     {k:'山',on:'サン・ザン',kun:'やま',mean:'Gunung',ex:'富士山 (Fujisan)'},
@@ -316,10 +353,15 @@ let quizScore = 0;
 let quizTotal = 0;
 
 function getKanjiList(lv) {
-  return KANJI_DB[lv] || KANJI_DB.N5;
+  // Kembalikan daftar level yang DIMINTA, atau kosong. Jangan
+  // menggantinya dengan N5 diam-diam: pengguna yang memilih N3 lalu
+  // diberi kanji N5 tidak punya cara tahu bahwa yang dilihatnya salah.
+  const db = BANK_KANJI || KANJI_DB;
+  return db[lv] || [];
 }
 
-function setLevel(btn, lv) {
+async function setLevel(btn, lv) {
+  await muatBankKanji();   // pengguna bisa menekan tab sebelum bank selesai diambil
   document.querySelectorAll('.ltab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   currentLevel = lv;
@@ -346,7 +388,20 @@ function setMode(btn, mode) {
 
 // ── FLASHCARD ──
 function renderFlashcard() {
-  if (!deck.length) return;
+  // `return` diam saat deck kosong meninggalkan kartu level SEBELUMNYA di
+  // layar — pengguna yang memilih N1 melihat kanji N2 dan tidak punya cara
+  // tahu bahwa levelnya tidak punya isi. Katakan apa adanya.
+  if (!deck.length) {
+    const el = document.getElementById('fcKanji');
+    if (el) el.textContent = '—';
+    const badge = document.getElementById('fcBadge');
+    if (badge) { badge.textContent = currentLevel; badge.className = `fc-badge ${currentLevel.toLowerCase()}`; }
+    const arti = document.getElementById('fcMeaning') || document.getElementById('fcReading');
+    if (arti) arti.textContent = `Kanji ${currentLevel} belum tersedia di bank lokal.`;
+    const total = document.getElementById('statTotal');
+    if (total) total.textContent = '0';
+    return;
+  }
   const k = deck[deckIdx % deck.length];
   document.getElementById('fcKanji').textContent = k.k;
   document.getElementById('fcBadge').textContent = currentLevel;
@@ -486,7 +541,8 @@ function updateStats() {
 }
 
 // Init
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+  await muatBankKanji();
   deck = [...getKanjiList('N5')].sort(() => Math.random() - 0.5);
   loadProgress();
   renderFlashcard();

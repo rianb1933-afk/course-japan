@@ -2042,6 +2042,56 @@ def check_literal_grey_without_dark_variant():
            'Tidak ada abu tengah harfiah yang tak membalik di berkas sadar-tema.')
 
 
+def check_kanji_bank():
+    """Bank kanji harus ada dan mengisi level yang diiklankan halamannya.
+
+    Kanji-Trainer-Pro.html mengambil assets/kanji-bank.json, dan kalau gagal
+    ia memakai 92 entri bawaan yang ditulis di halaman. Cadangan itu berguna
+    saat offline, tapi juga membuat bank yang hilang tidak terlihat.
+
+    Sebelumnya halaman itu mengiklankan "lebih dari 2.000 kanji" — N5·80
+    N4·166 N3·367 N2·367 N1·1000+ — dengan isi sebenarnya 92 (N5:82, N4:10).
+    Yang menyembunyikannya adalah `getKanjiList` yang berbunyi
+    `KANJI_DB[lv] || KANJI_DB.N5`: memilih N3 tidak memberi layar kosong,
+    melainkan diam-diam menyajikan kanji N5. Lencana levelnya berganti,
+    isinya tidak — jadi tidak ada yang tampak salah.
+
+    Ambang 50 per level sengaja rendah: yang dijaga adalah "level ini punya
+    isi", bukan "isinya lengkap". N1 memang belum ada datanya dan TIDAK
+    diperiksa di sini — halamannya sudah menyatakan itu terang-terangan
+    alih-alih menyajikan level lain.
+    """
+    path = os.path.join(ROOT, 'assets', 'kanji-bank.json')
+    if not os.path.exists(path):
+        err('kanji-bank', 'assets/kanji-bank.json tidak ada — Kanji Trainer Pro '
+                          'akan diam-diam menyusut ke 92 entri bawaan. Jalankan: '
+                          'node scripts/build-kanji-bank.js')
+        return
+
+    try:
+        bank = json.loads(read(path))
+    except ValueError as e:
+        err('kanji-bank', f'assets/kanji-bank.json tidak bisa dibaca: {e}')
+        return
+
+    per = {}
+    for k in bank:
+        per[k.get('lv', '?')] = per.get(k.get('lv', '?'), 0) + 1
+
+    AMBANG = 50
+    kurang = [f'{lv} ({per.get(lv, 0)})'
+              for lv in ('N5', 'N4', 'N3', 'N2') if per.get(lv, 0) < AMBANG]
+    if kurang:
+        err('kanji-bank',
+            f'Level dengan kurang dari {AMBANG} kanji: {", ".join(kurang)} — '
+            f'level itu ditawarkan di Kanji Trainer Pro. Jalankan: '
+            f'node scripts/build-kanji-bank.js')
+        return
+
+    ringkas = ' · '.join(f'{lv}:{per.get(lv, 0)}' for lv in ('N5', 'N4', 'N3', 'N2'))
+    ok('kanji-bank', f'Bank kanji {len(bank)} entri — {ringkas}')
+
+
 def check_cbt_bank():
     """Bank soal CBT harus ada dan mengisi kelima level.
 
@@ -2306,6 +2356,7 @@ def main():
         check_kaigo_quiz_reachable,
         check_explanation_id_coverage,
         check_no_hangul,
+        check_kanji_bank,
         check_cbt_bank,
         check_dead_body_background,
         check_literal_grey_without_dark_variant,
