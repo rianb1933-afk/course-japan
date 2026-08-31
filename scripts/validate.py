@@ -2057,9 +2057,9 @@ def check_kanji_bank():
     isinya tidak — jadi tidak ada yang tampak salah.
 
     Ambang 50 per level sengaja rendah: yang dijaga adalah "level ini punya
-    isi", bukan "isinya lengkap". N1 memang belum ada datanya dan TIDAK
-    diperiksa di sini — halamannya sudah menyatakan itu terang-terangan
-    alih-alih menyajikan level lain.
+    isi", bukan "isinya lengkap". N1 kini ikut diperiksa: 926 kanji jōyō
+    tingkat lanjut dari KANJIDIC2, dengan arti Inggris yang ditandai `artiEn`
+    supaya tidak menyamar sebagai arti Indonesia.
     """
     path = os.path.join(ROOT, 'assets', 'kanji-bank.json')
     if not os.path.exists(path):
@@ -2080,7 +2080,7 @@ def check_kanji_bank():
 
     AMBANG = 50
     kurang = [f'{lv} ({per.get(lv, 0)})'
-              for lv in ('N5', 'N4', 'N3', 'N2') if per.get(lv, 0) < AMBANG]
+              for lv in ('N5', 'N4', 'N3', 'N2', 'N1') if per.get(lv, 0) < AMBANG]
     if kurang:
         err('kanji-bank',
             f'Level dengan kurang dari {AMBANG} kanji: {", ".join(kurang)} — '
@@ -2088,7 +2088,7 @@ def check_kanji_bank():
             f'node scripts/build-kanji-bank.js')
         return
 
-    ringkas = ' · '.join(f'{lv}:{per.get(lv, 0)}' for lv in ('N5', 'N4', 'N3', 'N2'))
+    ringkas = ' · '.join(f'{lv}:{per.get(lv, 0)}' for lv in ('N5', 'N4', 'N3', 'N2', 'N1'))
     ok('kanji-bank', f'Bank kanji {len(bank)} entri — {ringkas}')
 
 

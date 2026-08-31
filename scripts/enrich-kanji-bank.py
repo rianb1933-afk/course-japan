@@ -80,13 +80,64 @@ def baca_kanjidic(path):
                 on = re.findall(r'<reading r_type="ja_on">([^<]+)</reading>', e)
                 kun = re.findall(r'<reading r_type="ja_kun">([^<]+)</reading>', e)
                 gores = re.search(r'<stroke_count>(\d+)</stroke_count>', e)
+                grade = re.search(r'<grade>(\d+)</grade>', e)
+                # <meaning> tanpa atribut m_lang = Inggris; yang lain fr/es/pt.
+                arti_en = re.findall(r'<meaning>([^<]+)</meaning>', e)
                 peta[lit.group(1)] = {
                     'on': ', '.join(on[:4]),
                     'kun': ', '.join(kun[:4]),
                     'gores': int(gores.group(1)) if gores else 0,
+                    'grade': int(grade.group(1)) if grade else 0,
+                    'arti_en': arti_en,
                 }
             buf = ''
     return peta
+
+
+
+def tambah_n1(bank, kd_mentah):
+    """Tambahkan kanji jōyō tingkat lanjut sebagai N1.
+
+    Bank hanya mencakup N5–N2. Kanji-Trainer-Pro menawarkan N1 tapi tidak
+    punya isinya, dan Materi/Kanji-N1.html bukan menyimpan data sendiri
+    melainkan MENYEMATKAN situs pihak ketiga (kanji.tools) lewat iframe —
+    bergantung pada layanan luar, mati saat luring, dan tidak berbahasa
+    Indonesia.
+
+    Yang dipakai di sini: kanji <grade>8</grade> — jōyō yang tidak diajarkan
+    di sekolah dasar — yang belum ada di bank. Itu padanan paling dekat untuk
+    "sisa jōyō setelah N2", definisi umum wilayah N1.
+
+    Kanji grade 1–6 yang belum tercakup (542 buah) SENGAJA TIDAK dimasukkan
+    ke sini. Itu kanji sekolah dasar; kalau ditumpuk ke N1 mereka akan
+    membuat level tersulit berisi karakter termudah. Kekurangannya nyata,
+    tapi tempatnya di N5–N3, dan menempatkannya butuh keputusan kurikulum,
+    bukan tebakan script.
+
+    ARTI. KANJIDIC2 hanya menyediakan arti dalam Inggris, Prancis, Spanyol,
+    dan Portugis — diperiksa, tidak ada Indonesia. Arti Inggrisnya dipakai
+    apa adanya dan ditandai `artiEn`, sehingga antarmuka bisa
+    membedakannya dari arti Indonesia alih-alih menyamarkannya. Alternatifnya
+    adalah memungut arti dari vocab-all.csv, dan itu sudah dibuktikan salah
+    (亜 "detik", 偉 "makan") — Inggris yang benar lebih berguna daripada
+    Indonesia yang keliru.
+    """
+    punya = {b['k'] for b in bank}
+    baru = 0
+    for k, info in kd_mentah.items():
+        if k in punya or info['grade'] != 8:
+            continue
+        if not info['arti_en']:
+            continue
+        bank.append({
+            'k': k, 'lv': 'N1',
+            'arti': '; '.join(info['arti_en'][:3]),
+            'artiEn': True,
+            'on': info['on'], 'kun': info['kun'],
+            'kat': '', 'gores': info['gores'],
+        })
+        baru += 1
+    return baru
 
 
 def main():
@@ -110,6 +161,8 @@ def main():
             b['gores'] = info['gores']
             digores += 1
 
+    n1_baru = tambah_n1(bank, kd)
+
     kosong_akhir = sum(1 for b in bank if not b.get('on') and not b.get('kun'))
     json.dump(bank, io.open(BANK, 'w', encoding='utf-8'), ensure_ascii=False)
 
@@ -117,6 +170,11 @@ def main():
     print(f'  bacaan dilengkapi  : {diisi}')
     print(f'  goresan ditambahkan: {digores}')
     print(f'  arti Indonesia      : tidak disentuh sama sekali')
+    print(f'  N1 ditambahkan      : {n1_baru} (arti Inggris, ditandai artiEn)')
+    per = {}
+    for b in bank:
+        per[b['lv']] = per.get(b['lv'], 0) + 1
+    print('  bank akhir          : ' + ' · '.join(f'{l}:{per.get(l,0)}' for l in ('N5','N4','N3','N2','N1')))
 
 
 if __name__ == '__main__':

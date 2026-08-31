@@ -20,7 +20,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Kanji Trainer Pro — Latihan Kanji JLPT N5–N1 | Nihongo Pro Academy">
 <meta name="twitter:description" content="Latih kanji JLPT N5–N1 dengan SRS adaptif, flashcard, dan quiz interaktif. 2000+ kanji dengan contoh kalimat.">
-<meta name="description" content="Latih kanji JLPT N5 sampai N1 dengan metode SRS, flashcard interaktif, quiz kanji, dan pelacak progres. 685 kanji N5-N2 dengan arti Indonesia.">
+<meta name="description" content="Latih kanji JLPT N5 sampai N1 dengan metode SRS, flashcard interaktif, quiz kanji, dan pelacak progres. 1611 kanji N5-N1; arti Indonesia untuk N5-N2.">
 <link rel="canonical" href="https://nihongopro.id/Kanji-Trainer-Pro.html">
 <link rel="stylesheet" href="assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="assets/kyoto-elevation.css">
@@ -133,7 +133,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
   <div class="hero">
     <div class="kicker">漢 Kanji Trainer Pro</div>
     <h1>Kuasai Kanji JLPT<br>N5 sampai N1</h1>
-    <p>685 kanji N5–N2 dengan SRS adaptif, quiz, dan pelacak progres. Belajar efisien, ingat lebih lama.</p>
+    <p>1611 kanji N5–N1 dengan SRS adaptif, quiz, dan pelacak progres. Belajar efisien, ingat lebih lama.</p>
   </div>
 
   <!-- LEVEL SELECTOR -->
@@ -142,7 +142,7 @@ body{font-family:'DM Sans',system-ui,sans-serif;background:var(--kyoto-cream,#F8
     <button class="ltab" data-lv="N4" onclick="setLevel(this,'N4')">N4 · 124 kanji</button>
     <button class="ltab" data-lv="N3" onclick="setLevel(this,'N3')">N3 · 168 kanji</button>
     <button class="ltab" data-lv="N2" onclick="setLevel(this,'N2')">N2 · 286 kanji</button>
-    <button class="ltab" data-lv="N1" onclick="setLevel(this,'N1')">N1 · belum tersedia</button>
+    <button class="ltab" data-lv="N1" onclick="setLevel(this,'N1')">N1 · 926 kanji</button>
   </div>
 
   <!-- MODE TABS -->
@@ -246,7 +246,10 @@ async function muatBankKanji() {
           // 121 entri N2 di halaman sumbernya mencantumkan BACAAN di kolom
           // arti (促 → "うながす"). Menampilkannya sebagai arti terlihat seperti
           // jawaban padahal bukan — lebih menyesatkan daripada mengaku belum ada.
+          // artiEn = arti dari KANJIDIC2, masih Inggris. Ditandai supaya
+          // pelajar tahu ini belum diterjemahkan, bukan disamarkan.
           mean: r.arti || (r.artiKurang ? 'arti belum tersedia' : ''),
+          en: !!r.artiEn,
           ex: '',
         });
       }
@@ -412,7 +415,10 @@ function renderFlashcard() {
   document.getElementById('fcBadge').textContent = currentLevel;
   document.getElementById('fcBadge').className = `fc-badge ${currentLevel.toLowerCase()}`;
   document.getElementById('fcReading').textContent = `${k.on} / ${k.kun}`;
-  document.getElementById('fcMeaning').textContent = k.mean;
+  // Arti N1 berasal dari KANJIDIC2 dan masih Inggris. Ditandai terang-terangan
+  // supaya pelajar tahu ia belum diterjemahkan — bukan disamarkan sebagai
+  // arti Indonesia seperti entri level lain.
+  document.getElementById('fcMeaning').textContent = k.en ? `${k.mean}  (EN)` : k.mean;
   document.getElementById('fcExample').textContent = k.ex || '';
   // Reset flip
   const fc = document.getElementById('flashcard');
