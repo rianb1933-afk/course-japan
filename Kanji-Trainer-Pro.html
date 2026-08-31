@@ -242,7 +242,12 @@ async function muatBankKanji() {
       const db = {};
       for (const r of rows) {
         (db[r.lv] = db[r.lv] || []).push({
-          k: r.k, on: r.on || '', kun: r.kun || '', mean: r.arti, ex: '',
+          k: r.k, on: r.on || '', kun: r.kun || '',
+          // 121 entri N2 di halaman sumbernya mencantumkan BACAAN di kolom
+          // arti (促 → "うながす"). Menampilkannya sebagai arti terlihat seperti
+          // jawaban padahal bukan — lebih menyesatkan daripada mengaku belum ada.
+          mean: r.arti || (r.artiKurang ? 'arti belum tersedia' : ''),
+          ex: '',
         });
       }
       BANK_KANJI = db;
