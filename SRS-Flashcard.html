@@ -25,7 +25,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="SRS Flashcard — Spaced Repetition System | Nihongo Pro Academy">
 <meta name="twitter:description" content="Hafal kosakata dan kanji Jepang efisien dengan algoritma SM-2. Review tepat waktu, ingat lebih lama.">
-<meta name="description" content="Flashcard SRS algoritma SM-2: Again, Hard, Good, Easy. Kuasai vocab, kanji, grammar, dan kosakata kaigo dengan metode paling efektif.">
+<meta name="description" content="Flashcard SRS algoritma SM-2: Ulangi, Sulit, Baik, Mudah. Kuasai vocab, kanji, grammar, dan kosakata kaigo dengan metode paling efektif.">
 <link rel="canonical" href="https://nihongopro.id/SRS-Flashcard.html">
 
 <link rel="stylesheet" href="assets/design-system.css">
@@ -331,16 +331,16 @@ body { min-height: 100vh; }
     <button class="filter-btn" onclick="setFilter('jlpt',this)">🎯 JLPT</button>
     <button class="filter-btn" onclick="setFilter('kaigo',this)">🏥 Kaigo</button>
     <button class="filter-btn" onclick="setFilter('kanji',this)">🈶 Kanji</button>
-    <button class="filter-btn" onclick="setFilter('grammar',this)">📝 Grammar</button>
-    <button class="filter-btn" onclick="setFilter('due',this)">⏰ Due Today</button>
+    <button class="filter-btn" onclick="setFilter('grammar',this)">📝 Tata Bahasa</button>
+    <button class="filter-btn" onclick="setFilter('due',this)">⏰ Jatuh Tempo</button>
   </div>
 
   <div class="stats-bar">
-    <div class="stat-pill"><div class="sp-val" id="stDue">0</div><div class="sp-lbl">Due</div></div>
+    <div class="stat-pill"><div class="sp-val" id="stDue">0</div><div class="sp-lbl">Jatuh Tempo</div></div>
     <div class="stat-pill"><div class="sp-val" id="stNew">0</div><div class="sp-lbl">Baru</div></div>
-    <div class="stat-pill"><div class="sp-val" id="stLearned">0</div><div class="sp-lbl">Learned</div></div>
-    <div class="stat-pill"><div class="sp-val" id="stRetention">—</div><div class="sp-lbl">Retention</div></div>
-    <div class="stat-pill"><div class="sp-val" id="stStreak">0</div><div class="sp-lbl">Streak 🔥</div></div>
+    <div class="stat-pill"><div class="sp-val" id="stLearned">0</div><div class="sp-lbl">Dipelajari</div></div>
+    <div class="stat-pill"><div class="sp-val" id="stRetention">—</div><div class="sp-lbl">Retensi</div></div>
+    <div class="stat-pill"><div class="sp-val" id="stStreak">0</div><div class="sp-lbl">Runtutan 🔥</div></div>
   </div>
 
   <div id="mainArea">
@@ -351,7 +351,7 @@ body { min-height: 100vh; }
           <div class="fc-jp" id="cardJP">尊厳</div>
           <div class="fc-reading" id="cardReading">そんげん</div>
           <button class="card-audio-btn" onclick="event.stopPropagation();speakCard(document.getElementById('cardJP').textContent, this)" id="audioBtn">🔊 Dengarkan</button>
-          <div class="fc-hint">Tap kartu atau tekan Spasi</div>
+          <div class="fc-hint">Ketuk kartu atau tekan Spasi</div>
           <div class="fc-dots" id="cardDots"></div>
         </div>
         <div class="fc-side fc-back">
@@ -363,16 +363,16 @@ body { min-height: 100vh; }
       </div>
     </div>
 
-    <div class="flip-hint" id="flipHint">👆 Tap kartu atau tekan <b>Spasi</b> untuk membalik</div>
+    <div class="flip-hint" id="flipHint">👆 Ketuk kartu atau tekan <b>Spasi</b> untuk membalik</div>
 
     <div class="ans-area" id="ansArea">
       <div class="srs-grid">
-        <button class="srs-btn again" onclick="rate(0)"><div class="srs-lbl">Again</div><div class="srs-ivl" id="ivl0">&lt;1m</div></button>
-        <button class="srs-btn hard"  onclick="rate(1)"><div class="srs-lbl">Hard</div><div class="srs-ivl" id="ivl1">6m</div></button>
-        <button class="srs-btn good"  onclick="rate(2)"><div class="srs-lbl">Good</div><div class="srs-ivl" id="ivl2">10m</div></button>
-        <button class="srs-btn easy"  onclick="rate(3)"><div class="srs-lbl">Easy</div><div class="srs-ivl" id="ivl3">4d</div></button>
+        <button class="srs-btn again" onclick="rate(0)"><div class="srs-lbl">Ulangi</div><div class="srs-ivl" id="ivl0">&lt;1m</div></button>
+        <button class="srs-btn hard"  onclick="rate(1)"><div class="srs-lbl">Sulit</div><div class="srs-ivl" id="ivl1">6m</div></button>
+        <button class="srs-btn good"  onclick="rate(2)"><div class="srs-lbl">Baik</div><div class="srs-ivl" id="ivl2">10m</div></button>
+        <button class="srs-btn easy"  onclick="rate(3)"><div class="srs-lbl">Mudah</div><div class="srs-ivl" id="ivl3">4d</div></button>
       </div>
-      <div class="kb-hint"><kbd>1</kbd> Again &nbsp;<kbd>2</kbd> Hard &nbsp;<kbd>3</kbd> Good &nbsp;<kbd>4</kbd> Easy &nbsp;|&nbsp; <kbd>Space</kbd> Flip</div>
+      <div class="kb-hint"><kbd>1</kbd> Ulangi &nbsp;<kbd>2</kbd> Sulit &nbsp;<kbd>3</kbd> Baik &nbsp;<kbd>4</kbd> Mudah &nbsp;|&nbsp; <kbd>Space</kbd> Balik</div>
     </div>
   </div>
 
@@ -380,10 +380,10 @@ body { min-height: 100vh; }
     <div class="complete-wrap">
       <div class="complete-icon">🎉</div>
       <div class="complete-title">Sesi Selesai!</div>
-      <p style="font-size:14px;color:var(--ink-soft);margin-bottom:4px">Semua kartu sudah direview. Bagus!</p>
+      <p style="font-size:14px;color:var(--ink-soft);margin-bottom:4px">Semua kartu sudah diulas. Bagus!</p>
       <div class="complete-grid">
-        <div class="cg-item"><div class="cg-val" id="cAgain">0</div><div class="cg-lbl">Again</div></div>
-        <div class="cg-item"><div class="cg-val" id="cGood">0</div><div class="cg-lbl">Good+</div></div>
+        <div class="cg-item"><div class="cg-val" id="cAgain">0</div><div class="cg-lbl">Ulangi</div></div>
+        <div class="cg-item"><div class="cg-val" id="cGood">0</div><div class="cg-lbl">Baik+</div></div>
         <div class="cg-item"><div class="cg-val" id="cXP">0</div><div class="cg-lbl">XP</div></div>
       </div>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
@@ -1028,7 +1028,7 @@ function rate(r) {
   localStorage.setItem('np-srs-v2', JSON.stringify(stored));
   if (r===0) sessAgain++; else sessGood++;
   const xp=[0,5,10,15][r]; sessXP+=xp;
-  if (xp>0) State.addXP(xp, ['','Hard','Good ✓','Easy ✓'][r]);
+  if (xp>0) State.addXP(xp, ['','Sulit','Baik ✓','Mudah ✓'][r]);
   try{ if(window.NPXP){ NPXP.recordVocab('srs',1); if(xp>0) NPXP.award('srs',xp); } }catch(e){}
   curIdx++; flipped=false; renderCard(); updateStats();
 }
@@ -1434,7 +1434,7 @@ function showFSRSCard() {
         <div style="font-size:48px;margin-bottom:16px">🎉</div>
         <div style="font-size:20px;font-weight:800;margin-bottom:8px">Sesi Selesai!</div>
         <div style="font-size:13px;color:var(--ink-soft,#6E6E6E);margin-bottom:20px">
-          ${_srsSession.reviewed} kartu direview · ${_srsSession.easy} mudah · ${_srsSession.again} terlewat
+          ${_srsSession.reviewed} kartu diulas · ${_srsSession.easy} mudah · ${_srsSession.again} terlewat
         </div>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px">
           <div style="background:#fee2e2;border-radius:8px;padding:8px;text-align:center">
@@ -1454,7 +1454,7 @@ function showFSRSCard() {
             <div style="font-size:10px;color:#5F6E84">Easy</div>
           </div>
         </div>
-        <button onclick="renderSRSQueue()" style="padding:10px 24px;background:#2563eb;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700">🔄 Review Lagi</button>
+        <button onclick="renderSRSQueue()" style="padding:10px 24px;background:#2563eb;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700">🔄 Ulasan Lagi</button>
       </div>`;
     renderSRSStats();
     renderSRSHeatmap();
@@ -1564,7 +1564,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fsrsUI.style.cssText = 'max-width:480px;margin:0 auto;padding:16px';
     fsrsUI.innerHTML = `
       <details style="background:var(--white,#fff);border:1px solid var(--border,#e2e8f0);border-radius:16px;padding:16px;margin-bottom:16px" open>
-        <summary style="font-size:13px;font-weight:700;color:var(--ink-mid,#5F6E84);text-transform:uppercase;letter-spacing:.05em;cursor:pointer;margin-bottom:10px">📊 Statistik FSRS & Review</summary>
+        <summary style="font-size:13px;font-weight:700;color:var(--ink-mid,#5F6E84);text-transform:uppercase;letter-spacing:.05em;cursor:pointer;margin-bottom:10px">📊 Statistik FSRS & Ulasan</summary>
         <div id="fsrsStats"></div>
         <div id="srsHeatmap" style="margin-top:12px"></div>
         <div style="margin-top:12px">
