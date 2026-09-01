@@ -336,6 +336,8 @@ body { min-height: 100vh; }
     <button class="filter-btn" onclick="setFilter('kaigo',this)">🏥 Kaigo</button>
     <button class="filter-btn" onclick="setFilter('kanji',this)">🈶 Kanji</button>
     <button class="filter-btn" onclick="setFilter('grammar',this)">📝 Tata Bahasa</button>
+    <button class="filter-btn" onclick="setFilter('jmdict',this)">📖 JMdict</button>
+    <button class="filter-btn" onclick="setFilter('vocab',this)">📝 Kosakata</button>
     <button class="filter-btn" onclick="setFilter('due',this)">⏰ Jatuh Tempo</button>
   </div>
 
@@ -401,6 +403,7 @@ body { min-height: 100vh; }
 
 <script src="assets/np-xp.js" defer></script>
 <script src="assets/platform.min.js" defer></script>
+<script src="assets/srs-cards-data.js"></script>
 <script>
 // Catatan: State/SRS/Toast diisi di dalam DOMContentLoaded di bawah, karena
 // platform.min.js dimuat dengan `defer` sehingga window.NP belum tentu ada
@@ -408,7 +411,7 @@ body { min-height: 100vh; }
 let State, SRS, Toast;
 
 // ── CARD DATA ────────────────────────────────────────────────────────
-const CARDS = [
+const CARDS_ORIGINAL = [
   {id:'kv001',type:'VOCAB',jp:'尊厳',reading:'そんげん',meaning:'martabat / dignity',example:'利用者の尊厳を守ります。\n(Menjaga martabat residen.)',cat:'kaigo',jlpt:'N3'},
   {id:'kv002',type:'VOCAB',jp:'見守り',reading:'みまもり',meaning:'pemantauan',example:'転倒しないように見守ります。\n(Memantau agar tidak jatuh.)',cat:'kaigo',jlpt:'N3'},
   {id:'kv003',type:'VOCAB',jp:'申し送り',reading:'もうしおくり',meaning:'serah terima shift',example:'夜勤者へ申し送りします。\n(Serah terima ke shift malam.)',cat:'kaigo',jlpt:'N3'},
@@ -931,6 +934,14 @@ const CARDS = [
   {id:'kk104',type:'KANJI',jp:'力',reading:'リョク / ちから',meaning:'power (力強)',example:'力が入りません。',cat:'kanji',jlpt:'N5'}
 ];
 
+// Merge original curated cards with external database
+var CARDS;
+if (typeof SRS_CARDS_DATA !== 'undefined' && SRS_CARDS_DATA.length > 0) {
+  CARDS = CARDS_ORIGINAL.concat(SRS_CARDS_DATA);
+} else {
+  CARDS = CARDS_ORIGINAL;
+}
+
 // ── STATE ────────────────────────────────────────────────────────────
 let deck = [], curIdx = 0, flipped = false, curFilter = 'all';
 let sessAgain = 0, sessGood = 0, sessXP = 0;
@@ -946,6 +957,8 @@ function buildDeck(f) {
   else if (f === 'n3')      cards = cards.filter(c => c.jlpt === 'N3');
   else if (f === 'n2')      cards = cards.filter(c => c.jlpt === 'N2');
   else if (f === 'n1')      cards = cards.filter(c => c.jlpt === 'N1');
+  else if (f === 'jmdict')  cards = cards.filter(c => c.cat === 'jmdict');
+  else if (f === 'vocab')   cards = cards.filter(c => c.cat === 'vocab');
   else if (f === 'kaigo')   cards = cards.filter(c => c.cat === 'kaigo');
   else if (f === 'kanji')   cards = cards.filter(c => c.type === 'KANJI');
   else if (f === 'grammar') cards = cards.filter(c => c.type === 'GRAMMAR');
