@@ -285,10 +285,7 @@ body { min-height: 100vh; }
 [data-theme="dark"] .card-audio-btn { border-color: rgba(200,155,60,.20); color: #C89B3C; }
 [data-theme="dark"] .card-audio-btn:hover { background: rgba(200,155,60,.08); }
 
-/* DARK MODE FSRS */
-[data-theme="dark"] #fsrsWrap details,
-[data-theme="dark"] #fsrsWrap > div { background: var(--white, #1c1e22) !important; border-color: var(--border, #333) !important; }
-[data-theme="dark"] #fsrsWrap summary { color: var(--ink-mid, #d0cfc9) !important; }
+
 
 @media (max-width: 380px) {
   .srs-grid { gap: 6px; }
@@ -1577,30 +1574,7 @@ srsStyle.textContent = `.srs-hm-cell{aspect-ratio:1;border-radius:2px;cursor:poi
 document.head.appendChild(srsStyle);
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Inject FSRS UI
-  const main = document.querySelector('main, .container, #flashcardWrap, body');
-  if (main && !document.getElementById('fsrsStats')) {
-    const fsrsUI = document.createElement('div');
-    fsrsUI.id = 'fsrsWrap';
-    fsrsUI.style.cssText = 'max-width:480px;margin:0 auto;padding:16px';
-    fsrsUI.innerHTML = `
-      <details style="background:var(--white,#fff);border:1px solid var(--border,#e2e8f0);border-radius:16px;padding:16px;margin-bottom:16px" open>
-        <summary style="font-size:13px;font-weight:700;color:var(--ink-mid,#5F6E84);text-transform:uppercase;letter-spacing:.05em;cursor:pointer;margin-bottom:10px">📊 Statistik FSRS & Ulasan</summary>
-        <div id="fsrsStats"></div>
-        <div id="srsHeatmap" style="margin-top:12px"></div>
-        <div style="margin-top:12px">
-          <div id="fsrsCard"></div>
-        </div>
-      </details>`;
-    // Insert FSRS after the flashcard deck, not before it
-    const srsMain = document.querySelector('.srs-main');
-    if (srsMain && srsMain.nextSibling) {
-      main.insertBefore(fsrsUI, srsMain.nextSibling);
-    } else {
-      main.appendChild(fsrsUI);
-    }
-  }
-  initFSRS();
+  // FSRS removed for cleaner UI
 });
 </script>
 
