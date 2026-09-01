@@ -1297,16 +1297,46 @@
   }
 })();
 
-/* ── Tombol jeda/reset pengatur waktu belajar ────────────────────────────
+/* ── Pengatur waktu belajar: tombol, dan cara menutupnya ─────────────────
    #floatingTimer di 56 halaman Materi punya `onclick="this.style.display='none'"`
-   di WADAHNYA, sementara tombol ⏸ dan ↺ berada di dalamnya. Klik tombol itu
-   menggelembung ke wadah, jadi menekan "jeda" ikut menutup seluruh widget —
-   tidak ada cara menjeda tanpa kehilangan penghitungnya.
+   di WADAHNYA, sementara tombol jeda (⏸) dan reset (↺) ada di dalamnya. Klik
+   tombol menggelembung ke wadah, jadi menekan jeda ikut menutup widget — tidak
+   ada cara menjeda tanpa kehilangan penghitungnya.
 
-   Diperbaiki dengan menghentikan gelembungnya, bukan dengan menyunting 56
-   berkas HTML satu per satu. Fase capture dipakai supaya berjalan sebelum
-   handler mana pun di dalamnya. */
-document.addEventListener('click', (e) => {
-  const tombol = e.target.closest && e.target.closest('#floatingTimer button');
-  if (tombol) e.stopPropagation();
-}, true);
+   PERCOBAAN PERTAMA SAYA SALAH, dan salahnya mendasar: saya memasang
+   stopPropagation di fase CAPTURE pada document. Fase capture berjalan dari
+   document MENUJU target, jadi menghentikannya di sana membuat event tidak
+   pernah sampai ke tombolnya sama sekali — kedua tombol jadi mati total.
+   Diukur: handler tombol terpanggil 0 kali.
+
+   Menambahkan listener di fase bubble pada wadah juga tidak cukup: handler
+   dari atribut onclick sudah terdaftar lebih dulu saat HTML diurai, jadi ia
+   selalu berjalan duluan dan widget terlanjur tertutup.
+
+   Jadi atribut onclick-nya dilepas dan diganti handler yang tahu bedanya
+   antara badan panel dan tombol di dalamnya.
+
+   Ada satu hal lagi. Wadahnya diberi pointer-events:none di
+   kyoto-elevation.css supaya tidak memblokir tautan halaman di bawahnya —
+   tapi itu juga berarti badan panel tidak bisa lagi menerima klik penutup.
+   Karena itu tombol tutup kecil ditambahkan, satu-satunya bagian panel selain
+   ⏸/↺ yang menangkap klik. */
+document.addEventListener('DOMContentLoaded', () => {
+  const timer = document.getElementById('floatingTimer');
+  if (!timer) return;
+
+  timer.removeAttribute('onclick');
+
+  if (!timer.querySelector('.np-timer-close')) {
+    const tutup = document.createElement('button');
+    tutup.className = 'np-timer-close';
+    tutup.type = 'button';
+    tutup.setAttribute('aria-label', 'Tutup pengatur waktu belajar');
+    tutup.textContent = '✕';
+    tutup.addEventListener('click', (e) => {
+      e.stopPropagation();
+      timer.style.display = 'none';
+    });
+    timer.appendChild(tutup);
+  }
+});

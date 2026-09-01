@@ -714,3 +714,70 @@ html[data-theme="dark"] #floatingTimer > div:first-child { color: #EE8878 !impor
 #floatingTimer { pointer-events: none !important; }
 #floatingTimer button { pointer-events: auto !important; }
 
+/* Tombol tutup, ditambahkan pro-app.js. Wadahnya pointer-events:none supaya
+   tidak memblokir tautan halaman, jadi badan panel tidak bisa lagi menerima
+   klik penutup seperti dulu — tombol ini menggantikannya. 24×24 memenuhi
+   WCAG 2.5.8, dan warnanya memakai token supaya ikut kedua tema. */
+#floatingTimer { position: fixed; }
+.np-timer-close {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 24px;
+  height: 24px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ink-soft, #6E6E6E);
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+.np-timer-close:hover { background: rgba(128, 128, 128, .18); }
+
+/* Tombol jeda & reset dipindah ke BARIS ATAS panel.
+   ═══════════════════════════════════════════════
+   Wadahnya sudah pointer-events:none, jadi badan panel meneruskan klik. Yang
+   tersisa memblokir hanyalah tombol-tombolnya sendiri — dan letak bawaannya
+   persis di atas baris tautan kartu pertama, sehingga "Mulai Nol" tidak bisa
+   ditekan sama sekali.
+
+   Menyempitkan panel atau membatasinya ke layar lebar tidak menolong: diukur
+   di 1024–1920px, kontrol paling kiri halaman selalu ada di x=51–72. Tata
+   letaknya tidak punya margin kiri, jadi panel berlabuh kiri SELALU menumpang
+   isi. Yang bisa diatur hanyalah BAGIAN MANA dari panel yang menangkap klik.
+
+   Dipindah ke atas, ketiga tombol berkumpul di baris yang sama dengan tombol
+   tutup — jauh di atas baris tautan kartu — dan seluruh separuh bawah panel
+   menjadi tembus klik. */
+/* !important di sini bukan kemalasan: tombolnya dirender oleh skrip halaman
+   dengan gaya INLINE (width, padding, background), dan gaya inline mengalahkan
+   selektor apa pun tanpa !important. Tanpa ini ukurannya tetap 32×32 dan
+   posisinya cuma setengah berpindah. */
+#floatingTimer button:not(.np-timer-close) {
+  position: absolute !important;
+  top: 4px !important;
+  bottom: auto !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  color: var(--ink-soft, #6E6E6E) !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  cursor: pointer;
+}
+#floatingTimer button:not(.np-timer-close):hover { background: rgba(128, 128, 128, .18) !important; }
+#floatingTimer button:not(.np-timer-close):nth-of-type(1) { right: 60px !important; }
+#floatingTimer button:not(.np-timer-close):nth-of-type(2) { right: 32px !important; }
+
