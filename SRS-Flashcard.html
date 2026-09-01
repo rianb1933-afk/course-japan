@@ -328,7 +328,11 @@ body { min-height: 100vh; }
 
   <div class="filter-row">
     <button class="filter-btn active" onclick="setFilter('all',this)">📚 Semua</button>
-    <button class="filter-btn" onclick="setFilter('jlpt',this)">🎯 JLPT</button>
+    <button class="filter-btn" onclick="setFilter('n5',this)">🟢 N5</button>
+    <button class="filter-btn" onclick="setFilter('n4',this)">🔵 N4</button>
+    <button class="filter-btn" onclick="setFilter('n3',this)">🟡 N3</button>
+    <button class="filter-btn" onclick="setFilter('n2',this)">🟠 N2</button>
+    <button class="filter-btn" onclick="setFilter('n1',this)">🔴 N1</button>
     <button class="filter-btn" onclick="setFilter('kaigo',this)">🏥 Kaigo</button>
     <button class="filter-btn" onclick="setFilter('kanji',this)">🈶 Kanji</button>
     <button class="filter-btn" onclick="setFilter('grammar',this)">📝 Tata Bahasa</button>
@@ -937,7 +941,11 @@ function buildDeck(f) {
   let cards = [...CARDS];
   const now = Date.now();
   if (f === 'due')    cards = cards.filter(c => { const s = stored[c.id]; return !s || s.nextReview <= now; });
-  else if (f === 'jlpt')    cards = cards.filter(c => c.cat === 'jlpt');
+  else if (f === 'n5')      cards = cards.filter(c => c.jlpt === 'N5');
+  else if (f === 'n4')      cards = cards.filter(c => c.jlpt === 'N4');
+  else if (f === 'n3')      cards = cards.filter(c => c.jlpt === 'N3');
+  else if (f === 'n2')      cards = cards.filter(c => c.jlpt === 'N2');
+  else if (f === 'n1')      cards = cards.filter(c => c.jlpt === 'N1');
   else if (f === 'kaigo')   cards = cards.filter(c => c.cat === 'kaigo');
   else if (f === 'kanji')   cards = cards.filter(c => c.type === 'KANJI');
   else if (f === 'grammar') cards = cards.filter(c => c.type === 'GRAMMAR');
