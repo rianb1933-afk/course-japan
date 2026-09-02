@@ -322,7 +322,39 @@ body { min-height: 100vh; }
   border-radius: 4px; padding: 2px 8px; font-size: 11px;
   font-weight: 600; color: var(--ink-faint); pointer-events: none;
 }
+.sort-row { display: flex; align-items: center; gap: 6px; justify-content: center; margin: 6px 0; flex-wrap: wrap; }
+.sort-label { font-size: 11px; font-weight: 700; color: var(--ink-mid); }
+.sort-btn { font-size: 10px; padding: 3px 10px; border-radius: 12px; border: 1px solid var(--ink-faint); background: transparent; color: var(--ink-mid); cursor: pointer; transition: .2s; }
+.sort-btn:hover { border-color: var(--primary); color: var(--primary); }
+.sort-btn.active { background: var(--primary); color: #fff; border-color: transparent; }
+[data-theme="dark"] .sort-btn { border-color: rgba(255,255,255,.1); color: rgba(255,255,255,.5); }
+.search-highlight { background: rgba(255,215,0,.25); color: #C89B3C; padding: 0 2px; border-radius: 2px; font-weight: 700; }
+[data-theme="dark"] .search-highlight { background: rgba(200,155,60,.2); color: #F5D572; }
 .search-count {
+
+/* Session Summary */
+.session-summary { display: none; margin: 20px 0; padding: 24px; border-radius: 16px; background: var(--card-bg, #fff); border: 1px solid var(--border, #eee); text-align: center; }
+.session-summary.show { display: block; }
+.session-summary h3 { font-size: 18px; margin: 0 0 12px; }
+.session-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0; }
+.session-summary-stat { padding: 12px; border-radius: 10px; background: rgba(107,79,58,.04); }
+.session-summary-val { font-size: 24px; font-weight: 800; color: var(--primary); }
+.session-summary-lbl { font-size: 10px; color: var(--ink-mid); margin-top: 2px; }
+.session-summary-btn { margin-top: 12px; padding: 10px 24px; border-radius: 10px; background: var(--primary); color: #fff; border: none; font-weight: 700; cursor: pointer; font-size: 13px; }
+
+/* Loading Skeleton */
+.skeleton-card { width: 320px; max-width: 90vw; height: 320px; border-radius: 20px; background: var(--card-bg, #fff); border: 1px solid var(--border, #eee); position: relative; overflow: hidden; margin: 0 auto; }
+.skeleton-line { height: 16px; border-radius: 8px; background: var(--ink-faint, #ddd); opacity: .12; position: absolute; }
+.skeleton-line.l1 { width: 40%; top: 40px; left: 30%; }
+.skeleton-line.l2 { width: 60%; top: 75px; left: 20%; }
+.skeleton-line.l3 { width: 80%; top: 110px; left: 10%; }
+.skeleton-line.l4 { width: 50%; top: 150px; left: 25%; }
+.skeleton-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,.4), transparent); animation: shimmer 1.5s infinite; }
+[data-theme="dark"] .skeleton-card::after { background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent); }
+
+/* Pull to refresh */
+.ptr-indicator { display: none; text-align: center; padding: 8px; font-size: 12px; color: var(--ink-mid); }
+.ptr-indicator.show { display: block; }
   font-size: 11px; color: var(--ink-soft); font-weight: 600;
   text-align: center; margin-top: 6px; display: none;
 }
@@ -515,6 +547,221 @@ body { min-height: 100vh; }
 [data-theme="dark"] .srs-btn.good:hover { background: rgba(37,99,235,.1); }
 [data-theme="dark"] .srs-btn.easy:hover { background: rgba(34,197,94,.1); }
 
+/* ═══════════════════════════════════════════════════
+   SWIPE GESTURES
+   ═══════════════════════════════════════════════════ */
+.swipe-overlay {
+  position: absolute; inset: 0; border-radius: 20px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 48px; pointer-events: none; opacity: 0;
+  transition: opacity .15s; z-index: 20;
+}
+.swipe-overlay.right { background: rgba(34,197,94,.15); color: #22c55e; }
+.swipe-overlay.left { background: rgba(239,68,68,.15); color: #ef4444; }
+.swipe-overlay.up { background: rgba(245,158,11,.15); color: #f59e0b; }
+.swipe-hint {
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%);
+  background: rgba(0,0,0,.8); color: #fff; padding: 8px 16px;
+  border-radius: 20px; font-size: 12px; font-weight: 600;
+  display: none; z-index: 100; white-space: nowrap;
+}
+@media (hover: none) and (pointer: coarse) { .swipe-hint { display: block; } }
+
+/* ═══════════════════════════════════════════════════
+   CARD STATS PANEL
+   ═══════════════════════════════════════════════════ */
+.card-stats-panel {
+  background: var(--white); border-radius: 14px; padding: 14px 16px;
+  border: 1px solid var(--border); margin-bottom: 14px;
+  display: none; gap: 12px;
+}
+.card-stats-panel.show { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.cs-item { text-align: center; }
+.cs-val { font-family: var(--font-jp); font-size: 16px; font-weight: 700; color: var(--ink-deep); }
+.cs-lbl { font-size: 9px; color: var(--ink-soft); text-transform: uppercase; letter-spacing: .05em; margin-top: 2px; }
+.cs-bar { height: 4px; background: rgba(107,79,58,.08); border-radius: 2px; margin-top: 4px; overflow: hidden; }
+.cs-bar-fill { height: 100%; border-radius: 2px; transition: width .3s; }
+[data-theme="dark"] .card-stats-panel { background: #1c1e22; border-color: rgba(255,255,255,.06); }
+[data-theme="dark"] .cs-val { color: rgba(255,255,255,.85); }
+.stats-toggle { display: flex; justify-content: center; margin-bottom: 8px; }
+.stats-toggle-btn {
+  background: none; border: 1px solid var(--border); border-radius: 8px;
+  padding: 4px 10px; font-size: 11px; color: var(--ink-soft); cursor: pointer;
+  font-weight: 600; transition: all .2s;
+}
+.stats-toggle-btn:hover { border-color: var(--primary); color: var(--primary); }
+.stats-toggle-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+/* ═══════════════════════════════════════════════════
+   WEAK CARDS BADGE
+   ═══════════════════════════════════════════════════ */
+.weak-badge {
+  position: absolute; top: 12px; right: 44px; z-index: 10;
+  background: rgba(239,68,68,.1); color: #ef4444;
+  font-size: 10px; font-weight: 800; padding: 3px 8px;
+  border-radius: 10px; display: none;
+}
+.weak-badge.show { display: block; }
+
+/* ═══════════════════════════════════════════════════
+   DAILY GOAL & TIMER
+   ═══════════════════════════════════════════════════ */
+.daily-goal-wrap {
+  background: var(--white); border-radius: 14px; padding: 14px 16px;
+  border: 1px solid var(--border); margin-bottom: 14px;
+}
+.daily-goal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.daily-goal-label { font-size: 12px; font-weight: 700; color: var(--ink-mid); }
+.daily-goal-count { font-size: 12px; font-weight: 800; color: var(--primary); }
+.daily-goal-bar { height: 8px; background: rgba(107,79,58,.08); border-radius: 4px; overflow: hidden; }
+.daily-goal-fill { height: 100%; background: linear-gradient(90deg, #22c55e, #16a34a); border-radius: 4px; transition: width .5s; }
+.daily-goal-settings { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap; }
+.goal-opt {
+  padding: 4px 10px; border-radius: 12px; border: 1px solid var(--border);
+  background: var(--white); font-size: 11px; font-weight: 600; cursor: pointer;
+  color: var(--ink-mid); transition: all .2s;
+}
+.goal-opt:hover { border-color: var(--primary); }
+.goal-opt.active { background: var(--primary); color: #fff; border-color: transparent; }
+.timer-display {
+  display: flex; align-items: center; gap: 8px; margin-top: 8px;
+  font-size: 13px; color: var(--ink-mid); font-weight: 600;
+}
+.timer-btn {
+  padding: 4px 12px; border-radius: 8px; border: 1px solid var(--border);
+  background: var(--white); font-size: 11px; font-weight: 600; cursor: pointer;
+  transition: all .2s;
+}
+.timer-btn:hover { border-color: var(--primary); }
+.timer-btn.active { background: #ef4444; color: #fff; border-color: transparent; }
+[data-theme="dark"] .daily-goal-wrap { background: #1c1e22; border-color: rgba(255,255,255,.06); }
+[data-theme="dark"] .goal-opt { background: #1c1e22; border-color: rgba(255,255,255,.08); color: rgba(255,255,255,.6); }
+[data-theme="dark"] .timer-btn { background: #1c1e22; border-color: rgba(255,255,255,.08); color: rgba(255,255,255,.6); }
+
+/* ═══ WEEKLY STREAK CALENDAR ═══ */
+.weekly-streak { display: flex; gap: 4px; justify-content: center; margin: 10px 0 6px; }
+.ws-day { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 6px; border-radius: 6px; background: rgba(107,79,58,.04); min-width: 32px; transition: .2s; }
+.ws-day.today { outline: 2px solid var(--primary); outline-offset: 1px; }
+.ws-label { font-size: 8px; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; }
+.ws-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--ink-faint); opacity: .15; transition: .2s; }
+.ws-day.low .ws-dot { background: #A8D8A8; opacity: .7; }
+.ws-day.mild .ws-dot { background: #7CC47C; opacity: .85; }
+.ws-day.warm .ws-dot { background: #F5A623; opacity: .9; }
+.ws-day.hot .ws-dot { background: #E74C3C; opacity: 1; box-shadow: 0 0 6px rgba(231,76,60,.4); }
+.ws-count { font-size: 7px; color: var(--ink-faint); font-weight: 600; }
+[data-theme="dark"] .ws-day { background: rgba(255,255,255,.04); }
+[data-theme="dark"] .ws-day.low .ws-dot { background: #5a8a5a; }
+[data-theme="dark"] .ws-day.mild .ws-dot { background: #4caf50; }
+[data-theme="dark"] .ws-day.warm .ws-dot { background: #f5a623; }
+[data-theme="dark"] .ws-day.hot .ws-dot { background: #e74c3c; }
+.ws-day {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  width: 36px; padding: 6px 0; border-radius: 10px;
+  background: rgba(107,79,58,.04); border: 1px solid var(--border);
+  font-size: 10px; font-weight: 700; color: var(--ink-soft);
+  transition: all .2s;
+}
+.ws-day.met { background: rgba(34,197,94,.1); border-color: rgba(34,197,94,.3); color: #16a34a; }
+.ws-day.today { border-color: var(--primary); }
+.ws-day .ws-label { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; }
+.ws-day .ws-icon { font-size: 14px; }
+[data-theme="dark"] .ws-day { background: rgba(255,255,255,.03); border-color: rgba(255,255,255,.06); }
+[data-theme="dark"] .ws-day.met { background: rgba(34,197,94,.12); }
+
+/* ═══ POMODORO ENHANCEMENTS ═══ */
+.pomodoro-wrap { margin-top: 8px; }
+.timer-display { display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--ink-mid); font-weight: 600; }
+.timer-sessions { display: flex; gap: 3px; margin-left: auto; margin-right: 8px; }
+.timer-session-dot { font-size: 8px; color: var(--ink-faint); opacity: .3; transition: .2s; }
+.timer-session-dot.done { color: #4caf50; opacity: .9; }
+.timer-pomodoro { font-size: 14px; opacity: .3; }
+.timer-pomodoro.done { opacity: 1; }
+.timer-presets { display: flex; gap: 4px; margin-top: 6px; }
+.timer-preset {
+  padding: 3px 10px; border-radius: 12px; border: 1px solid var(--border);
+  background: var(--white); font-size: 11px; font-weight: 600; cursor: pointer;
+  color: var(--ink-mid); transition: all .2s;
+}
+.timer-preset:hover { border-color: var(--primary); }
+.timer-preset.active { background: var(--primary); color: #fff; border-color: transparent; }
+[data-theme="dark"] .timer-preset { background: #1c1e22; border-color: rgba(255,255,255,.08); color: rgba(255,255,255,.6); }
+.goal-complete-msg {
+  text-align: center; padding: 12px; background: rgba(34,197,94,.08);
+  border-radius: 10px; font-size: 14px; font-weight: 700; color: #16a34a;
+  margin-top: 8px; display: none;
+}
+.goal-complete-msg.show { display: block; animation: correctPulse .5s ease; }
+
+/* ═══════════════════════════════════════════════════
+   ACHIEVEMENT BADGES
+   ═══════════════════════════════════════════════════ */
+.badges-wrap {
+  background: var(--white); border-radius: 14px; padding: 14px 16px;
+  border: 1px solid var(--border); margin-bottom: 14px;
+}
+.badges-header { font-size: 12px; font-weight: 700; color: var(--ink-mid); margin-bottom: 10px; }
+.badges-grid { display: flex; gap: 8px; flex-wrap: wrap; }
+.badge-item {
+  width: 52px; height: 52px; border-radius: 12px;
+  border: 2px solid var(--border); display: flex; flex-direction: column;
+  align-items: center; justify-content: center; font-size: 20px;
+  position: relative; transition: all .2s; background: var(--white);
+}
+.badge-item.unlocked { border-color: #C89B3C; background: rgba(200,155,60,.05); }
+.badge-item.locked { filter: grayscale(1); opacity: .4; }
+.badge-label { font-size: 7px; font-weight: 700; color: var(--ink-faint); margin-top: 2px; }
+.badge-progress { width: 80%; height: 3px; background: var(--ink-faint); opacity: .15; border-radius: 2px; margin-top: 2px; overflow: hidden; }
+.badge-progress-fill { height: 100%; background: linear-gradient(90deg, #C89B3C, #F5D572); border-radius: 2px; transition: width .4s ease; }
+.badge-item.unlocked .badge-progress-fill { background: #4caf50; }
+.badge-toast {
+  position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+  background: linear-gradient(135deg, #C89B3C, #8B6914); color: #fff;
+  padding: 12px 24px; border-radius: 16px; font-size: 14px; font-weight: 700;
+  box-shadow: 0 8px 32px rgba(200,155,60,.4); z-index: 200;
+  display: none; animation: badgeIn .5s ease;
+}
+.badge-toast.show { display: flex; align-items: center; gap: 10px; }
+@keyframes badgeIn { from { opacity: 0; transform: translateX(-50%) translateY(-20px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+[data-theme="dark"] .badges-wrap { background: #1c1e22; border-color: rgba(255,255,255,.06); }
+[data-theme="dark"] .badge-item { background: #1c1e22; border-color: rgba(255,255,255,.08); }
+[data-theme="dark"] .badge-item.unlocked { border-color: #C89B3C; background: rgba(200,155,60,.1); }
+
+/* ═══════════════════════════════════════════════════
+   CARD BACK REDESIGN
+   ═══════════════════════════════════════════════════ */
+.fc-back-jlpt {
+  position: absolute; top: 12px; left: 12px; z-index: 1;
+  font-size: 10px; font-weight: 800; padding: 3px 8px;
+  border-radius: 8px; color: #fff;
+}
+.fc-back-jlpt.n5 { background: #16a34a; }
+.fc-back-jlpt.n4 { background: #2563eb; }
+.fc-back-jlpt.n3 { background: #9333ea; }
+.fc-back-jlpt.n2 { background: #ea580c; }
+.fc-back-jlpt.n1 { background: #dc2626; }
+.fc-back-jlpt.kaigo { background: #0891b2; }
+.fc-back-jlpt.kanji { background: #d946ef; }
+.fc-back-jlpt.grammar { background: #6366f1; }
+.fc-back-jlpt.jmdict { background: #64748b; }
+.fc-back-jlpt.vocab { background: #84cc16; }
+.fc-back-cat {
+  position: absolute; top: 12px; right: 12px; z-index: 1;
+  font-size: 9px; font-weight: 700; padding: 3px 8px;
+  border-radius: 8px; background: rgba(255,255,255,.1);
+  color: rgba(255,255,255,.5); text-transform: uppercase;
+}
+.fc-back-actions {
+  display: flex; gap: 8px; position: absolute; bottom: 16px; left: 0; right: 0;
+  justify-content: center; z-index: 1;
+}
+.fc-back-btn {
+  padding: 6px 14px; border-radius: 8px; border: 1px solid rgba(255,255,255,.15);
+  background: rgba(255,255,255,.06); color: rgba(255,255,255,.6);
+  font-size: 11px; font-weight: 600; cursor: pointer; transition: all .2s;
+  display: flex; align-items: center; gap: 4px;
+}
+.fc-back-btn:hover { background: rgba(255,255,255,.12); color: #fff; }
+
 /* ═══ MOBILE RESPONSIVE ═══ */
 @media (max-width: 380px) {
   .quiz-options { grid-template-columns: 1fr; }
@@ -522,6 +769,9 @@ body { min-height: 100vh; }
   .session-info { gap: 8px; }
   .filter-row { gap: 4px; }
   .filter-btn { padding: 6px 12px; font-size: 11px; }
+  .badges-grid { gap: 6px; }
+  .badge-item { width: 44px; height: 44px; font-size: 18px; }
+  .card-stats-panel.show { grid-template-columns: repeat(2, 1fr); }
 }
 
 </style>
@@ -538,6 +788,12 @@ body { min-height: 100vh; }
 <link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
 </head>
 <body>
+<!-- Badge Toast -->
+<div class="badge-toast" id="badgeToast"></div>
+
+<!-- Swipe Hint -->
+<div class="swipe-hint" id="swipeHint">← Ulangi | Baik → | Bookmark ↑</div>
+
 <h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">SRS Flashcard — Spaced Repetition</h1>
 
 <nav class="srs-nav">
@@ -564,6 +820,15 @@ body { min-height: 100vh; }
     <kbd class="search-kbd">/</kbd>
   </div>
   <div class="search-count" id="searchCount"></div>
+
+  <!-- Sort Options -->
+  <div class="sort-row" id="sortRow" style="display:none;">
+    <span class="sort-label">Urutkan:</span>
+    <button class="sort-btn active" onclick="sortDeck('default',this)">Default</button>
+    <button class="sort-btn" onclick="sortDeck('alpha',this)">A→Z</button>
+    <button class="sort-btn" onclick="sortDeck('difficulty',this)">🎯 Sulit</button>
+    <button class="sort-btn" onclick="sortDeck('newest',this)">🆕 Baru</button>
+  </div>
 
   <div class="filter-row">
     <button class="filter-btn active" onclick="setFilter('all',this)" data-filter="all">📚 Semua <span class="f-count" id="fc-all"></span></button>
@@ -607,24 +872,91 @@ body { min-height: 100vh; }
     </div>
   </div>
 
+  <!-- Daily Goal -->
+  <div class="daily-goal-wrap" id="dailyGoalWrap">
+    <div class="daily-goal-header">
+      <span class="daily-goal-label">🎯 Target Harian</span>
+      <span class="daily-goal-count" id="goalCount">0 / 50</span>
+    </div>
+    <div class="daily-goal-bar">
+      <div class="daily-goal-fill" id="goalFill" style="width:0%"></div>
+    </div>
+    <div class="daily-goal-settings">
+      <button class="goal-opt" onclick="setGoal(20)">20</button>
+      <button class="goal-opt active" onclick="setGoal(50)">50</button>
+      <button class="goal-opt" onclick="setGoal(100)">100</button>
+      <button class="goal-opt" onclick="setGoal(200)">200</button>
+    </div>
+    <!-- Weekly Streak Calendar -->
+    <div class="weekly-streak" id="weeklyStreak"></div>
+    <!-- Pomodoro Timer -->
+    <div class="pomodoro-wrap">
+      <div class="timer-display" id="timerDisplay">
+        <span>⏱️</span>
+        <span id="timerText">25:00</span>
+        <div class="timer-sessions" id="timerSessions"></div>
+        <button class="timer-btn" onclick="toggleTimer()" id="timerBtn">Mulai</button>
+        <button class="timer-btn" onclick="resetTimer()">↺</button>
+      </div>
+      <div class="timer-presets">
+        <button class="timer-preset" onclick="setPomodoro(15)">15m</button>
+        <button class="timer-preset active" onclick="setPomodoro(25)">25m</button>
+        <button class="timer-preset" onclick="setPomodoro(45)">45m</button>
+      </div>
+    </div>
+    <div class="goal-complete-msg" id="goalComplete">🎉 Target tercapai! +50 XP bonus!</div>
+  </div>
+
+  <!-- Badges -->
+  <div class="badges-wrap" id="badgesWrap">
+    <div class="badges-header">🏆 Pencapaian</div>
+    <div class="badges-grid" id="badgesGrid"></div>
+  </div>
+
   <div id="mainArea">
+    <div class="stats-toggle">
+      <button class="stats-toggle-btn" onclick="toggleCardStats()" id="statsToggleBtn">📊 Info Kartu</button>
+    </div>
+
+    <!-- Card Stats Panel -->
+    <div class="card-stats-panel" id="cardStatsPanel">
+      <div class="cs-item"><div class="cs-val" id="csEF">2.50</div><div class="cs-lbl">Ease Factor</div><div class="cs-bar"><div class="cs-bar-fill" id="csEFBar" style="width:100%;background:#22c55e"></div></div></div>
+      <div class="cs-item"><div class="cs-val" id="csInterval">0</div><div class="cs-lbl">Interval</div></div>
+      <div class="cs-item"><div class="cs-val" id="csReps">0</div><div class="cs-lbl">Revisi</div></div>
+      <div class="cs-item"><div class="cs-val" id="csLastReview">—</div><div class="cs-lbl">Terakhir</div></div>
+      <div class="cs-item"><div class="cs-val" id="csRetrievability">—</div><div class="cs-lbl">Retensi</div><div class="cs-bar"><div class="cs-bar-fill" id="csRetBar" style="width:0%;background:#2563eb"></div></div></div>
+      <div class="cs-item"><div class="cs-val" id="csNextReview" style="font-size:13px">—</div><div class="cs-lbl">Review Berikutnya</div></div>
+      <div class="cs-item" style="grid-column:span 2"><div class="cs-val" style="font-size:13px" id="csReviewHistory">—</div><div class="cs-lbl">Riwayat 7 Review Terakhir</div></div>
+    </div>
+
     <div class="card-area">
       <div class="flip-card" id="flipCard" onclick="doFlipCard()">
         <div class="fc-side fc-front">
           <button class="bookmark-btn" id="bookmarkBtn" onclick="event.stopPropagation();toggleBookmark()">☆</button>
           <div class="card-indicators" id="cardIndicators"></div>
+          <div class="weak-badge" id="weakBadge">⚠️ Lemah</div>
           <div class="fc-badge" id="cardBadge">VOCAB · N3</div>
           <div class="fc-jp" id="cardJP">尊厳</div>
           <div class="fc-reading" id="cardReading">そんげん</div>
           <button class="card-audio-btn" onclick="event.stopPropagation();speakCard(document.getElementById('cardJP').textContent, this)" id="audioBtn">🔊 Dengarkan</button>
           <div class="fc-hint">Ketuk kartu atau tekan Spasi</div>
           <div class="fc-dots" id="cardDots"></div>
+          <!-- Swipe overlays -->
+          <div class="swipe-overlay right" id="swipeRight">✓</div>
+          <div class="swipe-overlay left" id="swipeLeft">✗</div>
+          <div class="swipe-overlay up" id="swipeUp">⭐</div>
         </div>
         <div class="fc-side fc-back">
+          <div class="fc-back-jlpt" id="fcBackJlpt">N3</div>
+          <div class="fc-back-cat" id="fcBackCat">VOCAB</div>
           <div class="fc-badge">✨ ARTI</div>
           <div class="fc-meaning" id="cardMeaning">martabat / dignity</div>
           <div class="fc-reading" id="cardJPBack" style="font-family:var(--font-jp);font-size:18px;margin-bottom:10px"></div>
           <div class="fc-example" id="cardExample"></div>
+          <div class="fc-back-actions">
+            <button class="fc-back-btn" onclick="event.stopPropagation();copyCard()">📋 Salin</button>
+            <button class="fc-back-btn" onclick="event.stopPropagation();shareCard()">📤 Bagikan</button>
+          </div>
         </div>
       </div>
     </div>
@@ -656,6 +988,14 @@ body { min-height: 100vh; }
         <div class="cg-item"><div class="cg-val" id="cAgain">0</div><div class="cg-lbl">Ulangi</div></div>
         <div class="cg-item"><div class="cg-val" id="cGood">0</div><div class="cg-lbl">Baik+</div></div>
         <div class="cg-item"><div class="cg-val" id="cXP">0</div><div class="cg-lbl">XP</div></div>
+      </div>
+      <div class="session-summary" id="sessionSummary">
+        <h3 style="font-size:14px;margin:0 0 8px;color:var(--ink-mid)">📊 Ringkasan Sesi</h3>
+        <div class="session-summary-grid">
+          <div class="session-summary-stat"><div class="session-summary-val" id="sumTotal">0</div><div class="session-summary-lbl">Total Diulas</div></div>
+          <div class="session-summary-stat"><div class="session-summary-val" id="sumAccuracy">0%</div><div class="session-summary-lbl">Akurasi</div></div>
+          <div class="session-summary-stat"><div class="session-summary-val" id="sumTime">0m</div><div class="session-summary-lbl">Waktu</div></div>
+        </div>
       </div>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
         <button class="btn btn-outline" onclick="restart()">↺ Ulangi</button>
@@ -1284,6 +1624,7 @@ function answerQuiz(btn) {
   if (isCorrect) {
     btn.classList.add('correct');
     quizCorrect++;
+    localStorage.setItem('np-srs-quiz-correct', String(quizCorrect));
   } else {
     btn.classList.add('wrong');
     quizWrong++;
@@ -1445,7 +1786,20 @@ function buildDeck(f) {
       (c.example && c.example.toLowerCase().includes(q))
     );
   }
-  deck = cards.sort(() => Math.random() - .5);
+  // Apply sort
+  if (curSort === 'alpha') cards.sort((a, b) => (a.jp || '').localeCompare(b.jp || '', 'ja'));
+  else if (curSort === 'difficulty') cards.sort((a, b) => {
+    const sa = stored[a.id] || { ef: 2.5 };
+    const sb = stored[b.id] || { ef: 2.5 };
+    return (sa.ef || 2.5) - (sb.ef || 2.5);
+  });
+  else if (curSort === 'newest') cards.sort((a, b) => {
+    const sa = stored[a.id] || {};
+    const sb = stored[b.id] || {};
+    return (sb.lastReviewed || 0) - (sa.lastReviewed || 0);
+  });
+  else cards = cards.sort(() => Math.random() - .5);
+  deck = cards;
   curIdx = 0; flipped = false; sessAgain = 0; sessGood = 0; sessXP = 0;
   updateStats(); updateProgress();
   // Show search count
@@ -1461,6 +1815,22 @@ function buildDeck(f) {
 function searchCards(q) {
   searchQuery = q.trim();
   buildDeck(curFilter);
+  // Show sort row when searching
+  const sortRow = document.getElementById('sortRow');
+  if (sortRow) sortRow.style.display = searchQuery ? 'flex' : 'none';
+}
+let curSort = 'default';
+function sortDeck(mode, btn) {
+  curSort = mode;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  buildDeck(curFilter);
+}
+function highlightText(text, query) {
+  if (!query || !text) return text || '';
+  const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const regex = new RegExp('(' + escaped + ')', 'gi');
+  return String(text).replace(regex, '<span class="search-highlight">$1</span>');
 }
 
 function setFilter(f, btn) {
@@ -1516,10 +1886,10 @@ function renderCard() {
   document.getElementById('ansArea').classList.remove('show');
   document.getElementById('flipHint').style.display = 'block';
   document.getElementById('cardBadge').textContent = `${c.type}${c.jlpt ? ' · ' + c.jlpt : ''}`;
-  document.getElementById('cardJP').textContent = c.jp;
-  document.getElementById('cardReading').textContent = c.reading || '　';
+  document.getElementById('cardJP').innerHTML = highlightText(c.jp, searchQuery);
+  document.getElementById('cardReading').innerHTML = highlightText(c.reading || '　', searchQuery);
   document.getElementById('cardJPBack').textContent  = c.jp + (c.reading ? ` (${c.reading})` : '');
-  document.getElementById('cardMeaning').textContent = c.meaning;
+  document.getElementById('cardMeaning').innerHTML = highlightText(c.meaning, searchQuery);
   document.getElementById('cardExample').innerHTML   = c.example ? c.example.replace('\n','<br>') : '';
   // Progress dots
   const dots = document.getElementById('cardDots');
@@ -1531,6 +1901,15 @@ function renderCard() {
   [0,1,2,3].forEach(r => {
     document.getElementById('ivl'+r).textContent = getIvl(card, r);
   });
+  // Back card JLPT & category badges
+  const jlptEl = document.getElementById('fcBackJlpt');
+  const catEl = document.getElementById('fcBackCat');
+  if (jlptEl) { jlptEl.textContent = c.jlpt || c.type; jlptEl.className = 'fc-back-jlpt ' + (c.jlpt || c.type).toLowerCase(); }
+  if (catEl) { catEl.textContent = c.type; }
+  // Phase 2: Stats panel
+  if (statsPanelOpen) updateCardStats();
+  // Phase 3: Weak badge
+  updateWeakBadge();
 }
 
 function getIvl(c, r) {
@@ -1565,6 +1944,9 @@ function rate(r) {
   card.reps=r===0?0:(card.reps||0)+1;
   card.nextReview=Date.now()+card.interval*60*1000;
   card.lastRating=r; card.lastReviewed=Date.now();
+  if (!card.history) card.history = [];
+  card.history.push(r);
+  if (card.history.length > 20) card.history = card.history.slice(-20);
   stored[c.id]=card;
   localStorage.setItem('np-srs-v2', JSON.stringify(stored));
   if (r===0) sessAgain++; else sessGood++; trackReview(deck[curIdx].id, !stored[deck[curIdx].id] || !stored[deck[curIdx].id].reps);
@@ -1572,19 +1954,419 @@ function rate(r) {
   if (xp>0) State.addXP(xp, ['','Sulit','Baik ✓','Mudah ✓'][r]);
   try{ if(window.NPXP){ NPXP.recordVocab('srs',1); if(xp>0) NPXP.award('srs',xp); } }catch(e){}
   curIdx++; flipped=false; renderCard(); updateStats();
+  // Phase 4: Daily goal
+  incrementDailyGoal();
+  renderWeeklyStreak();
+  // Night owl badge tracking
+  const h = new Date().getHours();
+  if (h >= 21 || h < 5) {
+    localStorage.setItem('np-srs-night-reviews', String(parseInt(localStorage.getItem('np-srs-night-reviews') || '0') + 1));
+  }
+  // Phase 5: Badges
+  renderBadges();
 }
 
+let sessStartTime = Date.now();
 function showComplete() {
   document.getElementById('mainArea').style.display = 'none';
   document.getElementById('completeArea').style.display = 'block';
   document.getElementById('cAgain').textContent = sessAgain;
   document.getElementById('cGood').textContent  = sessGood;
   document.getElementById('cXP').textContent    = sessXP;
+  // Session summary
+  const elapsed = Math.round((Date.now() - sessStartTime) / 60000);
+  const total = sessAgain + sessGood;
+  const accuracy = total > 0 ? Math.round(sessGood / total * 100) : 0;
+  document.getElementById('sumTotal').textContent = total;
+  document.getElementById('sumAccuracy').textContent = accuracy + '%';
+  document.getElementById('sumTime').textContent = elapsed < 1 ? '<1m' : elapsed + 'm';
+  const ss = document.getElementById('sessionSummary');
+  if (ss) ss.classList.add('show');
 }
 
-function restart() { buildDeck(curFilter); }
+function restart() { sessStartTime = Date.now(); buildDeck(curFilter); }
 
-// Keyboard
+// ═══════════════════════════════════════════════════
+// PHASE 1: SWIPE GESTURES
+// ═══════════════════════════════════════════════════
+let touchStartX = 0, touchStartY = 0, touchStartTime = 0;
+const SWIPE_THRESHOLD = 80, SWIPE_MAX_Y = 100;
+const cardEl = document.getElementById('flipCard');
+
+if (cardEl && 'ontouchstart' in window) {
+  cardEl.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    touchStartTime = Date.now();
+  }, { passive: true });
+
+  cardEl.addEventListener('touchmove', e => {
+    if (!touchStartX) return;
+    const dx = e.touches[0].clientX - touchStartX;
+    const dy = e.touches[0].clientY - touchStartY;
+    if (Math.abs(dy) > SWIPE_MAX_Y && Math.abs(dx) < 50) return;
+    const rot = Math.max(-15, Math.min(15, dx * 0.1));
+    cardEl.style.transform = `rotateY(${flipped ? 180 + rot : rot}deg) translateX(${dx * 0.5}px)`;
+    cardEl.style.transition = 'none';
+    // Show swipe overlay
+    const sr = document.getElementById('swipeRight');
+    const sl = document.getElementById('swipeLeft');
+    const su = document.getElementById('swipeUp');
+    sr.style.opacity = dx > 40 ? Math.min(1, (dx - 40) / 60) : 0;
+    sl.style.opacity = dx < -40 ? Math.min(1, (-dx - 40) / 60) : 0;
+    su.style.opacity = dy < -40 && Math.abs(dx) < 40 ? Math.min(1, (-dy - 40) / 60) : 0;
+  }, { passive: true });
+
+  cardEl.addEventListener('touchend', e => {
+    if (!touchStartX) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    const dt = Date.now() - touchStartTime;
+    cardEl.style.transition = 'transform .3s ease';
+    document.getElementById('swipeRight').style.opacity = 0;
+    document.getElementById('swipeLeft').style.opacity = 0;
+    document.getElementById('swipeUp').style.opacity = 0;
+    // Quick tap = flip
+    if (Math.abs(dx) < 15 && Math.abs(dy) < 15 && dt < 300) {
+      if (!flipped) doFlipCard();
+      touchStartX = 0; return;
+    }
+    // Swipe right = Good
+    if (dx > SWIPE_THRESHOLD && Math.abs(dy) < SWIPE_MAX_Y && flipped) {
+      rate(2); touchStartX = 0; return;
+    }
+    // Swipe left = Again
+    if (dx < -SWIPE_THRESHOLD && Math.abs(dy) < SWIPE_MAX_Y && flipped) {
+      rate(0); touchStartX = 0; return;
+    }
+    // Swipe up = Bookmark
+    if (dy < -SWIPE_THRESHOLD && Math.abs(dx) < 50) {
+      toggleBookmark(); touchStartX = 0; return;
+    }
+    // Reset
+    cardEl.style.transform = flipped ? 'rotateY(180deg)' : '';
+    touchStartX = 0;
+  }, { passive: true });
+}
+
+// ═══════════════════════════════════════════════════
+// PHASE 2: CARD STATS PANEL
+// ═══════════════════════════════════════════════════
+let statsPanelOpen = false;
+function toggleCardStats() {
+  statsPanelOpen = !statsPanelOpen;
+  document.getElementById('cardStatsPanel').classList.toggle('show', statsPanelOpen);
+  document.getElementById('statsToggleBtn').classList.toggle('active', statsPanelOpen);
+  if (statsPanelOpen) updateCardStats();
+}
+function updateCardStats() {
+  const card = deck[curIdx];
+  if (!card) return;
+  const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+  const s = stored[card.id] || {};
+  const ef = s.ef || s.easeFactor || 2.5;
+  const interval = s.interval || 0;
+  const reps = s.reps || 0;
+  const lastReview = s.lastReview;
+  document.getElementById('csEF').textContent = ef.toFixed(2);
+  // Retrievability (R%)
+  let retrievability = 0;
+  if (s.nextReview && s.interval > 0) {
+    const elapsed = Math.max(0, (Date.now() - (s.nextReview - s.interval * 60000)) / (s.interval * 60000));
+    retrievability = Math.max(0, Math.min(100, Math.round(100 * Math.exp(-0.1 * elapsed))));
+  } else if (reps === 0) {
+    retrievability = 100; // New card = full retention
+  }
+  const retEl = document.getElementById('csRetrievability');
+  retEl.textContent = retrievability + '%';
+  retEl.style.color = retrievability >= 80 ? '#22c55e' : retrievability >= 50 ? '#f59e0b' : '#ef4444';
+  const retBar = document.getElementById('csRetBar');
+  retBar.style.width = retrievability + '%';
+  retBar.style.background = retrievability >= 80 ? '#22c55e' : retrievability >= 50 ? '#f59e0b' : '#ef4444';
+  // Next review
+  const nextEl = document.getElementById('csNextReview');
+  if (s.nextReview) {
+    const diff = s.nextReview - Date.now();
+    if (diff <= 0) nextEl.textContent = 'Sekarang';
+    else if (diff < 3600000) nextEl.textContent = Math.ceil(diff / 60000) + 'm lagi';
+    else if (diff < 86400000) nextEl.textContent = Math.ceil(diff / 3600000) + 'j lagi';
+    else nextEl.textContent = Math.ceil(diff / 86400000) + 'hari lagi';
+  } else {
+    nextEl.textContent = reps === 0 ? 'Baru' : '—';
+  }
+  // Review history dots (last 7 ratings)
+  const hist = s.history || [];
+  const histEl = document.getElementById('csReviewHistory');
+  if (hist.length > 0) {
+    const last7 = hist.slice(-7);
+    const colors = ['#ef4444', '#f97316', '#2563eb', '#22c55e'];
+    const labels = ['U', 'S', 'B', 'M'];
+    histEl.innerHTML = last7.map((r, i) => `<span style="display:inline-flex;align-items:center;gap:2px;margin-right:6px"><span style="width:12px;height:12px;border-radius:50%;background:${colors[r]};display:inline-block;opacity:${i === last7.length - 1 ? 1 : 0.5 + i * 0.07}"></span><span style="font-size:10px;color:var(--ink-faint)">${labels[r]}</span></span>`).join('');
+  } else {
+    histEl.textContent = reps === 0 ? 'Belum ada riwayat' : '—';
+  }
+  document.getElementById('csInterval').textContent = interval < 1 ? '<1h' : interval < 24 ? Math.round(interval) + 'j' : Math.round(interval / 24) + 'h';
+  document.getElementById('csReps').textContent = reps;
+  document.getElementById('csLastReview').textContent = lastReview ? timeAgo(lastReview) : '—';
+  const efPct = Math.min(100, ((ef - 1.3) / (3.0 - 1.3)) * 100);
+  const efBar = document.getElementById('csEFBar');
+  efBar.style.width = efPct + '%';
+  efBar.style.background = ef >= 2.5 ? '#22c55e' : ef >= 2.0 ? '#f59e0b' : '#ef4444';
+}
+function timeAgo(ts) {
+  const diff = Date.now() - ts;
+  const mins = Math.floor(diff / 60000);
+  if (mins < 1) return 'Baru';
+  if (mins < 60) return mins + 'm';
+  const hrs = Math.floor(mins / 60);
+  if (hrs < 24) return hrs + 'j';
+  return Math.floor(hrs / 24) + 'h';
+}
+
+// ═══════════════════════════════════════════════════
+// PHASE 3: WEAK CARDS FOCUS
+// ═══════════════════════════════════════════════════
+function isWeakCard(cardId) {
+  const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+  const s = stored[cardId];
+  if (!s) return false;
+  return ((s.ef || s.easeFactor) && (s.ef || s.easeFactor) < 2.0) || (s.lastRating !== undefined && s.lastRating < 2);
+}
+function updateWeakBadge() {
+  const card = deck[curIdx];
+  if (!card) return;
+  const badge = document.getElementById('weakBadge');
+  badge.classList.toggle('show', isWeakCard(card.id));
+}
+
+// ═══════════════════════════════════════════════════
+// PHASE 4: DAILY GOAL & TIMER
+// ═══════════════════════════════════════════════════
+let dailyGoal = parseInt(localStorage.getItem('np-srs-daily-goal') || '50');
+let dailyReviewed = 0; // initialized in updateGoalProgress()
+let pomodoroTimer = null;
+let pomodoroSeconds = 25 * 60;
+let pomodoroRunning = false;
+
+function setGoal(n) {
+  dailyGoal = n;
+  localStorage.setItem('np-srs-daily-goal', n);
+  document.querySelectorAll('.goal-opt').forEach(b => {
+    b.classList.toggle('active', parseInt(b.textContent) === n);
+  });
+  updateGoalProgress();
+}
+function updateGoalProgress() {
+  const todayKey = 'np-srs-today-count-' + new Date().toDateString();
+  const stored = localStorage.getItem(todayKey);
+  dailyReviewed = stored ? parseInt(stored) || 0 : 0;
+  document.getElementById('goalCount').textContent = dailyReviewed + ' / ' + dailyGoal;
+  const pct = Math.min(100, (dailyReviewed / dailyGoal) * 100);
+  document.getElementById('goalFill').style.width = pct + '%';
+  const goalMsg = document.getElementById('goalComplete');
+  if (dailyReviewed >= dailyGoal) {
+    goalMsg.classList.add('show');
+  } else {
+    goalMsg.classList.remove('show');
+  }
+  // Activate correct goal button
+  document.querySelectorAll('.goal-opt').forEach(b => {
+    b.classList.toggle('active', parseInt(b.textContent) === dailyGoal);
+  });
+}
+function incrementDailyGoal() {
+  const todayKey = 'np-srs-today-count-' + new Date().toDateString();
+  let count = parseInt(localStorage.getItem(todayKey) || '0');
+  count++;
+  localStorage.setItem(todayKey, String(count));
+  dailyReviewed = count;
+  updateGoalProgress();
+  // Bonus XP if goal reached
+  if (count === dailyGoal && typeof State !== 'undefined') {
+    State.addXP(50, '🎯 Target harian tercapai!');
+  }
+}
+
+// Pomodoro Timer
+function toggleTimer() {
+  if (pomodoroRunning) {
+    clearInterval(pomodoroTimer);
+    pomodoroRunning = false;
+    document.getElementById('timerBtn').textContent = 'Mulai';
+    document.getElementById('timerBtn').classList.remove('active');
+  } else {
+    pomodoroRunning = true;
+    document.getElementById('timerBtn').textContent = 'Jeda';
+    document.getElementById('timerBtn').classList.add('active');
+    document.getElementById('timerDisplay').style.display = 'flex';
+    pomodoroTimer = setInterval(() => {
+      pomodoroSeconds--;
+      if (pomodoroSeconds <= 0) {
+        clearInterval(pomodoroTimer);
+        pomodoroRunning = false;
+        document.getElementById('timerBtn').textContent = 'Mulai';
+        document.getElementById('timerBtn').classList.remove('active');
+        if (typeof Toast !== 'undefined') Toast.show('⏰ Waktu istirahat! 5 menit', 'info');
+        pomodoroSeconds = 25 * 60;
+      }
+      const m = Math.floor(pomodoroSeconds / 60);
+      const s = pomodoroSeconds % 60;
+      document.getElementById('timerText').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }, 1000);
+  }
+}
+function resetTimer() {
+  clearInterval(pomodoroTimer);
+  pomodoroRunning = false;
+  pomodoroSeconds = 25 * 60;
+  document.getElementById('timerText').textContent = '25:00';
+  document.getElementById('timerBtn').textContent = 'Mulai';
+  document.getElementById('timerBtn').classList.remove('active');
+}
+function setPomodoro(min) {
+  clearInterval(pomodoroTimer);
+  pomodoroRunning = false;
+  pomodoroSeconds = min * 60;
+  const m = Math.floor(pomodoroSeconds / 60);
+  document.getElementById('timerText').textContent = String(m).padStart(2, '0') + ':00';
+  document.getElementById('timerBtn').textContent = 'Mulai';
+  document.getElementById('timerBtn').classList.remove('active');
+  localStorage.setItem('np-srs-pomodoro-min', min);
+  document.querySelectorAll('.timer-preset').forEach(b => {
+    b.classList.toggle('active', parseInt(b.textContent) === min);
+  });
+  updateTimerSessions();
+}
+function updateTimerSessions() {
+  const el = document.getElementById('timerSessions');
+  if (!el) return;
+  const sessions = JSON.parse(localStorage.getItem('np-srs-pomodoro-sessions') || '[]');
+  const today = new Date().toDateString();
+  const todaySessions = sessions.filter(s => s.date === today);
+  el.innerHTML = todaySessions.map((s, i) => `<span class="timer-session-dot ${s.completed ? 'done' : ''}" title="Sesi ${i + 1}">●</span>`).join('');
+}
+function addPomodoroSession(completed) {
+  const sessions = JSON.parse(localStorage.getItem('np-srs-pomodoro-sessions') || '[]');
+  sessions.push({ date: new Date().toDateString(), completed, duration: parseInt(localStorage.getItem('np-srs-pomodoro-min') || '25') });
+  localStorage.setItem('np-srs-pomodoro-sessions', JSON.stringify(sessions));
+  updateTimerSessions();
+}
+
+// Weekly Streak Calendar
+function renderWeeklyStreak() {
+  const el = document.getElementById('weeklyStreak');
+  if (!el) return;
+  const days = ['Sn', 'Sl', 'Rb', 'Km', 'Jm', 'Sb', 'Mg'];
+  const today = new Date();
+  const todayKey = 'np-srs-today-count-' + today.toDateString();
+  let html = '';
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const key = 'np-srs-today-count-' + d.toDateString();
+    const count = parseInt(localStorage.getItem(key) || '0');
+    const isToday = i === 0;
+    const isDone = count > 0;
+    const level = count >= 200 ? 'hot' : count >= 100 ? 'warm' : count >= 50 ? 'mild' : count > 0 ? 'low' : '';
+    html += `<div class="ws-day ${isToday ? 'today' : ''} ${isDone ? level : ''}" title="${d.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric' })}: ${count} kartu">
+      <span class="ws-label">${days[d.getDay()]}</span>
+      <span class="ws-dot"></span>
+      <span class="ws-count">${count}</span>
+    </div>`;
+  }
+  el.innerHTML = html;
+}
+
+// ═══════════════════════════════════════════════════
+// PHASE 5: ACHIEVEMENT BADGES
+// ═══════════════════════════════════════════════════
+const BADGES = [
+  { id: 'pemula', icon: '🌱', label: 'Pemula', check: s => s.totalReviews >= 10, progress: s => Math.min(1, s.totalReviews / 10) },
+  { id: 'seratus', icon: '💯', label: '100 Kartu', check: s => s.totalReviews >= 100, progress: s => Math.min(1, s.totalReviews / 100) },
+  { id: 'seribu', icon: '🎯', label: '1K Kartu', check: s => s.totalReviews >= 1000, progress: s => Math.min(1, s.totalReviews / 1000) },
+  { id: 'semangat', icon: '🔥', label: 'Semangat', check: s => s.streak >= 3, progress: s => Math.min(1, s.streak / 3) },
+  { id: 'konsisten', icon: '⭐', label: 'Konsisten', check: s => s.streak >= 7, progress: s => Math.min(1, s.streak / 7) },
+  { id: 'legendaris', icon: '👑', label: 'Legendaris', check: s => s.streak >= 30, progress: s => Math.min(1, s.streak / 30) },
+  { id: 'master-n5', icon: '🟢', label: 'N5 Master', check: s => s.masteredN5 >= 700, progress: s => Math.min(1, s.masteredN5 / 700) },
+  { id: 'master-n4', icon: '🔵', label: 'N4 Master', check: s => s.masteredN4 >= 70, progress: s => Math.min(1, s.masteredN4 / 70) },
+  { id: 'master-n3', icon: '🟡', label: 'N3 Master', check: s => s.masteredN3 >= 280, progress: s => Math.min(1, s.masteredN3 / 280) },
+  { id: 'master-n2', icon: '🟠', label: 'N2 Master', check: s => s.masteredN2 >= 3500, progress: s => Math.min(1, s.masteredN2 / 3500) },
+  { id: 'master-n1', icon: '🔴', label: 'N1 Master', check: s => s.masteredN1 >= 2800, progress: s => Math.min(1, s.masteredN1 / 2800) },
+  { id: 'kaigo', icon: '🏥', label: 'Kaigo Pro', check: s => s.masteredKaigo >= 65, progress: s => Math.min(1, s.masteredKaigo / 65) },
+  { id: 'quiz-king', icon: '🧠', label: 'Quiz King', check: s => s.quizCorrect >= 50, progress: s => Math.min(1, (s.quizCorrect || 0) / 50) },
+  { id: 'night-owl', icon: '🦉', label: 'Burung Hantu', check: s => s.nightReviews >= 10, progress: s => Math.min(1, (s.nightReviews || 0) / 10) },
+  { id: 'club', icon: '💎', label: '100K Club', check: s => s.totalReviews >= 100000, progress: s => Math.min(1, s.totalReviews / 100000) },
+];
+function getBadgeStats() {
+  const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+  const streak = (typeof State !== 'undefined' && State.getUser()) ? (State.getUser().streak || 0) : 0;
+  const totalReviews = Object.values(stored).reduce((sum, c) => sum + (c.reps || 0), 0);
+  const countMastered = (jlpt, threshold) => CARDS.filter(c => c.jlpt === jlpt && stored[c.id] && stored[c.id].reps >= threshold).length;
+  const quizCorrect = parseInt(localStorage.getItem('np-srs-quiz-correct') || '0');
+  const hour = new Date().getHours();
+  const nightReviews = parseInt(localStorage.getItem('np-srs-night-reviews') || '0');
+  return {
+    streak, totalReviews, quizCorrect, nightReviews,
+    masteredN5: countMastered('N5', 3), masteredN4: countMastered('N4', 3),
+    masteredN3: countMastered('N3', 3), masteredN2: countMastered('N2', 3),
+    masteredN1: countMastered('N1', 3), masteredKaigo: CARDS.filter(c => c.cat === 'kaigo' && stored[c.id] && stored[c.id].reps >= 3).length,
+  };
+}
+function renderBadges() {
+  const stats = getBadgeStats();
+  const unlocked = JSON.parse(localStorage.getItem('np-srs-badges') || '[]');
+  const grid = document.getElementById('badgesGrid');
+  grid.innerHTML = BADGES.map(b => {
+    const isUnlocked = b.check(stats) || unlocked.includes(b.id);
+    const pct = b.progress ? Math.round(b.progress(stats) * 100) : (isUnlocked ? 100 : 0);
+    return `<div class="badge-item ${isUnlocked ? 'unlocked' : 'locked'}" title="${b.label}${!isUnlocked ? ' (' + pct + '%)' : ' ✓'}">
+      ${b.icon}
+      <div class="badge-progress"><div class="badge-progress-fill" style="width:${pct}%"></div></div>
+      <div class="badge-label">${b.label}</div>
+    </div>`;
+  }).join('');
+  // Check for new unlocks
+  BADGES.forEach(b => {
+    if (b.check(stats) && !unlocked.includes(b.id)) {
+      unlocked.push(b.id);
+      localStorage.setItem('np-srs-badges', JSON.stringify(unlocked));
+      showBadgeToast(b);
+    }
+  });
+}
+function showBadgeToast(badge) {
+  const toast = document.getElementById('badgeToast');
+  toast.innerHTML = `${badge.icon} ${badge.label} terbuka!`;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// ═══════════════════════════════════════════════════
+// PHASE 6: CARD BACK ACTIONS
+// ═══════════════════════════════════════════════════
+function copyCard() {
+  const card = deck[curIdx];
+  if (!card) return;
+  const text = `${card.jp} (${card.reading}) = ${card.meaning}`;
+  navigator.clipboard.writeText(text).then(() => {
+    if (typeof Toast !== 'undefined') Toast.show('📋 Disalin ke clipboard!', 'success');
+  }).catch(() => {});
+}
+function shareCard() {
+  const card = deck[curIdx];
+  if (!card) return;
+  const text = `${card.jp} (${card.reading}) = ${card.meaning}\nbelajar di Nihongo Pro Academy`;
+  if (navigator.share) {
+    navigator.share({ title: card.jp, text: text }).catch(() => {});
+  } else {
+    navigator.clipboard.writeText(text).then(() => {
+      if (typeof Toast !== 'undefined') Toast.show('📤 Disalin! Bagikan ke teman.', 'success');
+    }).catch(() => {});
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// KEYBOARD
 document.addEventListener('keydown', e => {
   const tag = e.target.tagName;
   // Search shortcuts
@@ -1621,6 +2403,13 @@ document.addEventListener('DOMContentLoaded', function () {
   State = NP.State; SRS = NP.SRS; Toast = NP.Toast;
   buildDeck('all');
   updateFilterCounts();
+  updateGoalProgress();
+  renderBadges();
+  renderWeeklyStreak();
+  updateTimerSessions();
+  // Load saved pomodoro preset
+  const savedMin = parseInt(localStorage.getItem('np-srs-pomodoro-min') || '25');
+  setPomodoro(savedMin);
   NP.Nav.init('');
 });
 </script>
@@ -1756,374 +2545,7 @@ document.addEventListener('DOMContentLoaded', function () {
 })();
 </script>
 
-<script>
-// ── FSRS ALGORITHM (Free Spaced Repetition Scheduler) ──────────────────────
-// Based on FSRS-4.5 by Jarrett Ye (open source)
-const FSRS = {
-  // Default parameters
-  w: [0.4, 0.6, 2.4, 5.8, 4.93, 0.94, 0.86, 0.01, 1.49, 0.14, 0.94, 2.18, 0.05, 0.34, 1.26, 0.29, 2.61],
-  DECAY: -0.5,
-  FACTOR: 0.9 ** (1 / -0.5) - 1,
 
-  // Stability after first review
-  initStability(rating) {
-    // rating: 1=Again, 2=Hard, 3=Good, 4=Easy
-    return Math.max(this.w[rating - 1], 0.1);
-  },
-
-  // Initial difficulty
-  initDifficulty(rating) {
-    return Math.min(Math.max(this.w[4] - this.w[5] * (rating - 3), 1), 10);
-  },
-
-  // Retrievability (probability of recall)
-  forgettingCurve(elapsed, stability) {
-    return (1 + this.FACTOR * elapsed / stability) ** this.DECAY;
-  },
-
-  // Next interval based on desired retention
-  nextInterval(stability, desiredRetention = 0.9) {
-    const interval = stability / this.FACTOR * (desiredRetention ** (1 / this.DECAY) - 1);
-    return Math.max(Math.round(interval), 1);
-  },
-
-  // Next stability after review
-  nextStability(difficulty, stability, retrievability, rating) {
-    if (rating === 1) { // Again
-      return this.w[11] * (11 - difficulty) ** (-this.w[12]) * ((Math.E ** (this.w[13] * (1 - retrievability))) - 1);
-    }
-    const hardPenalty = rating === 2 ? this.w[15] : 1;
-    const easyBonus   = rating === 4 ? this.w[16] : 1;
-    return stability * (Math.E ** (this.w[8]) * (11 - difficulty) * stability ** (-this.w[9]) *
-      (Math.E ** (this.w[10] * (1 - retrievability)) - 1) * hardPenalty * easyBonus + 1);
-  },
-
-  // Next difficulty after review
-  nextDifficulty(difficulty, rating) {
-    const delta = this.w[6] * (rating - 3);
-    // Mean reversion
-    return Math.min(Math.max(difficulty - delta + this.w[7] * (this.w[4] - difficulty), 1), 10);
-  },
-
-  // Schedule a card
-  schedule(card, rating, now = Date.now()) {
-    const todayMs = now;
-    let { stability, difficulty, reps, lapses, state } = card;
-
-    if (state === 'new') {
-      stability  = this.initStability(rating);
-      difficulty = this.initDifficulty(rating);
-      state = rating === 1 ? 'learning' : 'review';
-    } else {
-      const elapsed = (todayMs - card.lastReview) / 86400000; // days
-      const R = this.forgettingCurve(elapsed, stability);
-      stability  = this.nextStability(difficulty, stability, R, rating);
-      difficulty = this.nextDifficulty(difficulty, rating);
-      if (rating === 1) { lapses++; state = 'relearning'; }
-      else { state = 'review'; }
-    }
-
-    reps++;
-    const interval = rating === 1 ? 0 :
-                     state === 'learning' ? 1 :
-                     this.nextInterval(stability);
-
-    const dueDate = new Date(todayMs + interval * 86400000);
-
-    return {
-      ...card,
-      stability: parseFloat(stability.toFixed(4)),
-      difficulty: parseFloat(difficulty.toFixed(4)),
-      reps, lapses, state,
-      lastReview: todayMs,
-      interval,
-      due: dueDate.toDateString(),
-      retrievability: parseFloat(this.forgettingCurve(0, stability).toFixed(4)),
-    };
-  },
-};
-
-// ── SRS STORE ───────────────────────────────────────────────────────────────
-const SRSStore = {
-  KEY: 'np-srs-v3',
-  _cards: null,
-  _history: null,
-
-  load() {
-    try {
-      const raw = localStorage.getItem(this.KEY);
-      const parsed = raw ? JSON.parse(raw) : {};
-      this._cards   = parsed.cards   || {};
-      this._history = parsed.history || {};
-    } catch(e) { this._cards={}; this._history={}; }
-    return this;
-  },
-
-  save() {
-    try { localStorage.setItem(this.KEY, JSON.stringify({cards:this._cards, history:this._history})); } catch(e){}
-  },
-
-  getCard(id) {
-    return this._cards[id] || {
-      id, stability:0, difficulty:5, reps:0, lapses:0,
-      state:'new', lastReview:0, interval:0,
-      due: new Date().toDateString(), retrievability:0,
-    };
-  },
-
-  saveCard(card) {
-    this._cards[card.id] = card;
-    // Log history
-    const today = new Date().toDateString();
-    if (!this._history[today]) this._history[today] = {reviewed:0, new:0, lapses:0};
-    this._history[today].reviewed++;
-    if (card.state === 'new') this._history[today].new++;
-    if (card.lapses > (this._cards[card.id]?.lapses||0)) this._history[today].lapses++;
-    this.save();
-  },
-
-  getDueCards(deck) {
-    const today = new Date().toDateString();
-    return deck.filter(card => {
-      const saved = this._cards[card.id];
-      if (!saved || saved.state === 'new') return true;
-      return saved.due === today || new Date(saved.due) <= new Date();
-    });
-  },
-
-  getStats() {
-    const all = Object.values(this._cards);
-    return {
-      total:   all.length,
-      new:     all.filter(c=>c.state==='new').length,
-      learning:all.filter(c=>c.state==='learning'||c.state==='relearning').length,
-      review:  all.filter(c=>c.state==='review').length,
-      mature:  all.filter(c=>c.interval>=21).length,
-    };
-  },
-};
-
-// ── SRS UI ───────────────────────────────────────────────────────────────────
-let _srsQueue   = [];
-let _srsIdx     = 0;
-let _srsFlipped = false;
-let _srsSession = { reviewed:0, again:0, hard:0, good:0, easy:0 };
-
-function initFSRS() {
-  SRSStore.load();
-  renderSRSStats();
-  renderSRSHeatmap();
-  renderSRSQueue();
-}
-
-function renderSRSStats() {
-  const stats = SRSStore.getStats();
-  const el = document.getElementById('fsrsStats');
-  if (!el) return;
-  el.innerHTML = `
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px">
-      <div style="background:#eff6ff;border-radius:10px;padding:10px;text-align:center">
-        <div style="font-size:20px;font-weight:800;color:#2563eb">${stats.new||0}</div>
-        <div style="font-size:10px;color:#5F6E84">Baru</div>
-      </div>
-      <div style="background:#fff7ed;border-radius:10px;padding:10px;text-align:center">
-        <div style="font-size:20px;font-weight:800;color:#ea580c">${stats.learning||0}</div>
-        <div style="font-size:10px;color:#5F6E84">Learning</div>
-      </div>
-      <div style="background:#f0fdf4;border-radius:10px;padding:10px;text-align:center">
-        <div style="font-size:20px;font-weight:800;color:#16a34a">${stats.review||0}</div>
-        <div style="font-size:10px;color:#5F6E84">Review</div>
-      </div>
-      <div style="background:#fdf4ff;border-radius:10px;padding:10px;text-align:center">
-        <div style="font-size:20px;font-weight:800;color:#7c3aed">${stats.mature||0}</div>
-        <div style="font-size:10px;color:#5F6E84">Mature</div>
-      </div>
-    </div>`;
-}
-
-function renderSRSHeatmap() {
-  const el = document.getElementById('srsHeatmap');
-  if (!el) return;
-  const hist = SRSStore._history || {};
-  const cells = [];
-  for (let i=363; i>=0; i--) {
-    const dt = new Date(); dt.setDate(dt.getDate()-i);
-    const key = dt.toDateString();
-    const n = hist[key]?.reviewed||0;
-    const cls = n===0?'hm-0':n<5?'hm-1':n<15?'hm-2':n<30?'hm-3':'hm-4';
-    cells.push(`<div class="srs-hm-cell ${cls}" title="${dt.toLocaleDateString('id-ID')}: ${n} kartu"></div>`);
-  }
-  el.innerHTML = `
-    <div style="font-size:11px;font-weight:700;color:var(--ink-soft,#6E6E6E);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px">📅 Kalender Review</div>
-    <div style="display:grid;grid-template-columns:repeat(52,1fr);gap:2px">${cells.join('')}</div>
-    <div style="display:flex;align-items:center;gap:6px;margin-top:8px;font-size:10px;color:var(--ink-soft,#6E6E6E)">
-      <span>Kurang</span>
-      <div style="width:10px;height:10px;background:#bbf7d0;border-radius:2px"></div>
-      <div style="width:10px;height:10px;background:#4ade80;border-radius:2px"></div>
-      <div style="width:10px;height:10px;background:#16a34a;border-radius:2px"></div>
-      <div style="width:10px;height:10px;background:#14532d;border-radius:2px"></div>
-      <span>Banyak</span>
-    </div>`;
-}
-
-function renderSRSQueue() {
-  // Get due cards from current deck
-  const deckEl = document.getElementById('vocabLvSel') || document.querySelector('select[id*="filter"]');
-  const level = deckEl?.value || 'N5';
-
-  // Use existing vocabDB or fallback
-  const deck = (window.vocabDB && window.vocabDB[level]) ? window.vocabDB[level] :
-    [{id:'k1',jp:'介護',rom:'kaigo',id2:'perawatan'},
-     {id:'k2',jp:'利用者',rom:'riyōsha',id2:'pengguna layanan'},
-     {id:'k3',jp:'尊厳',rom:'songen',id2:'martabat'},
-     {id:'k4',jp:'嚥下',rom:'enge',id2:'menelan'},
-     {id:'k5',jp:'褥瘡',rom:'jokusō',id2:'luka tekan'}];
-
-  const cardObjs = deck.map((v,i) => ({...v, id: v.id||`${level}_${i}`}));
-  _srsQueue = SRSStore.getDueCards(cardObjs);
-  _srsIdx = 0;
-  _srsFlipped = false;
-  _srsSession = {reviewed:0,again:0,hard:0,good:0,easy:0};
-
-  showFSRSCard();
-}
-
-function showFSRSCard() {
-  const el = document.getElementById('fsrsCard');
-  if (!el) return;
-
-  if (_srsIdx >= _srsQueue.length) {
-    // Session complete
-    el.innerHTML = `
-      <div style="text-align:center;padding:40px 20px">
-        <div style="font-size:48px;margin-bottom:16px">🎉</div>
-        <div style="font-size:20px;font-weight:800;margin-bottom:8px">Sesi Selesai!</div>
-        <div style="font-size:13px;color:var(--ink-soft,#6E6E6E);margin-bottom:20px">
-          ${_srsSession.reviewed} kartu diulas · ${_srsSession.easy} mudah · ${_srsSession.again} terlewat
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:20px">
-          <div style="background:#fee2e2;border-radius:8px;padding:8px;text-align:center">
-            <div style="font-size:18px;font-weight:800;color:#dc2626">${_srsSession.again}</div>
-            <div style="font-size:10px;color:var(--ink-soft,#6E6E6E)">Again</div>
-          </div>
-          <div style="background:#fff7ed;border-radius:8px;padding:8px;text-align:center">
-            <div style="font-size:18px;font-weight:800;color:#ea580c">${_srsSession.hard}</div>
-            <div style="font-size:10px;color:#5F6E84">Hard</div>
-          </div>
-          <div style="background:#f0fdf4;border-radius:8px;padding:8px;text-align:center">
-            <div style="font-size:18px;font-weight:800;color:#16a34a">${_srsSession.good}</div>
-            <div style="font-size:10px;color:#5F6E84">Good</div>
-          </div>
-          <div style="background:#eff6ff;border-radius:8px;padding:8px;text-align:center">
-            <div style="font-size:18px;font-weight:800;color:#2563eb">${_srsSession.easy}</div>
-            <div style="font-size:10px;color:#5F6E84">Easy</div>
-          </div>
-        </div>
-        <button onclick="renderSRSQueue()" style="padding:10px 24px;background:#2563eb;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700">🔄 Ulasan Lagi</button>
-      </div>`;
-    renderSRSStats();
-    renderSRSHeatmap();
-    return;
-  }
-
-  const card = _srsQueue[_srsIdx];
-  const saved = SRSStore.getCard(card.id);
-  const isNew = saved.reps === 0;
-  const stability = saved.stability || 0;
-  const R = stability > 0 ? Math.round(FSRS.forgettingCurve(0, stability) * 100) : '—';
-
-  el.innerHTML = `
-    <div style="text-align:center">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:var(--ink-soft,#6E6E6E);margin-bottom:16px">
-        <span>${_srsIdx+1}/${_srsQueue.length} kartu</span>
-        <span style="background:${isNew?'#eff6ff':'#f0fdf4'};color:${isNew?'#2563eb':'#16a34a'};padding:2px 8px;border-radius:20px;font-weight:700">${isNew?'🆕 Baru':'🔄 Review'}</span>
-        <span>R: ${R}%</span>
-      </div>
-
-      <div style="background:linear-gradient(135deg,#1e293b,#334155);border-radius:16px;padding:32px 24px;margin-bottom:16px;cursor:pointer;min-height:140px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:.2s" onclick="flipFSRS()">
-        <div style="font-size:52px;font-family:'Noto Serif JP',serif;color:#fff;margin-bottom:8px">${card.jp||card.front||'?'}</div>
-        ${_srsFlipped ? `
-          <div style="border-top:1px solid rgba(255,255,255,.2);padding-top:12px;margin-top:4px;width:100%">
-            <div style="font-size:16px;color:var(--ink-soft,#6E6E6E);font-style:italic;margin-bottom:4px">${card.rom||card.reading||''}</div>
-            <div style="font-size:18px;font-weight:700;color:#38bdf8">${card.id2||card.id||card.meaning||''}</div>
-            ${card.example ? `<div style="font-size:12px;color:var(--ink-soft,#6E6E6E);margin-top:8px;font-style:italic">${card.example}</div>` : ''}
-          </div>
-          <button onclick="event.stopPropagation();if(typeof speak==='function')speak('${(card.jp||'').replace(/'/g,'`')}')"
-            style="margin-top:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;padding:5px 14px;border-radius:20px;cursor:pointer;font-size:12px">🔊 Dengar</button>
-        ` : `<div style="font-size:13px;color:var(--ink-soft,#6E6E6E);margin-top:8px">Klik untuk balik kartu</div>`}
-      </div>
-
-      ${_srsFlipped ? `
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
-          <button onclick="rateFSRS(1)" style="padding:10px;border-radius:10px;border:2px solid #dc2626;background:#fee2e2;color:#dc2626;cursor:pointer;font-weight:800;font-size:12px">
-            ❌ Again<br><span style="font-size:10px;font-weight:400">&lt;1 hari</span>
-          </button>
-          <button onclick="rateFSRS(2)" style="padding:10px;border-radius:10px;border:2px solid #ea580c;background:#fff7ed;color:#ea580c;cursor:pointer;font-weight:800;font-size:12px">
-            😓 Hard<br><span style="font-size:10px;font-weight:400">${Math.max(1,Math.round((saved.interval||1)*0.5))} hari</span>
-          </button>
-          <button onclick="rateFSRS(3)" style="padding:10px;border-radius:10px;border:2px solid #16a34a;background:#f0fdf4;color:#16a34a;cursor:pointer;font-weight:800;font-size:12px">
-            😊 Good<br><span style="font-size:10px;font-weight:400">${Math.max(1,saved.interval||1)} hari</span>
-          </button>
-          <button onclick="rateFSRS(4)" style="padding:10px;border-radius:10px;border:2px solid #2563eb;background:#eff6ff;color:#2563eb;cursor:pointer;font-weight:800;font-size:12px">
-            😄 Easy<br><span style="font-size:10px;font-weight:400">${Math.max(1,Math.round((saved.interval||1)*2))} hari</span>
-          </button>
-        </div>
-      ` : `
-        <button onclick="flipFSRS()" style="width:100%;padding:12px;background:#2563eb;color:#fff;border:none;border-radius:10px;cursor:pointer;font-size:14px;font-weight:700">
-          👀 Tampilkan Jawaban
-        </button>
-      `}
-    </div>`;
-}
-
-function flipFSRS() {
-  _srsFlipped = true;
-  showFSRSCard();
-  // Auto TTS
-  const card = _srsQueue[_srsIdx];
-  if (card && typeof speak === 'function') setTimeout(() => speak(card.jp||card.front||''), 300);
-}
-
-function rateFSRS(rating) {
-  const card = _srsQueue[_srsIdx];
-  const saved = SRSStore.getCard(card.id);
-  const updated = FSRS.schedule(saved, rating);
-  SRSStore.saveCard(updated);
-  try{ if(window.NPXP){ NPXP.recordVocab('srs',1); var _x=[0,5,10,15][rating-1]||5; NPXP.award('srs',_x); } }catch(e){}
-
-  _srsSession.reviewed++;
-  ['again','hard','good','easy'][rating-1] && _srsSession[['again','hard','good','easy'][rating-1]]++;
-
-  // XP
-  if (typeof LiveXP !== 'undefined') LiveXP.add(rating >= 3 ? 5 : 2, '(flashcard)');
-
-  // GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Ketiga, Fase J):
-  // dikonfirmasi via pengujian genuine bahwa `renderSRSStats()` GENUINELY
-  // hanya dipanggil di `initFSRS()` (awal sesi) dan saat antrean kosong
-  // (akhir sesi) -- TIDAK PERNAH dipanggil di sini, di tengah sesi
-  // penilaian kartu. Dibuktikan konkret: setelah menilai 1 kartu, UI
-  // genuinely TETAP menampilkan "0 Baru/0 Learning/0 Review/0 Mature"
-  // meski data sesungguhnya (`SRSStore.getStats()`) genuinely sudah
-  // berubah menjadi `review:1`. Pengguna genuinely tidak melihat
-  // progress mereka bertambah secara real-time selama sesi berlangsung.
-  renderSRSStats();
-
-  _srsIdx++;
-  _srsFlipped = false;
-  showFSRSCard();
-}
-
-// CSS for heatmap cells
-const srsStyle = document.createElement('style');
-srsStyle.textContent = `.srs-hm-cell{aspect-ratio:1;border-radius:2px;cursor:pointer;transition:.1s}
-.srs-hm-cell:hover{transform:scale(1.3)}
-.hm-0{background:#f1f5f9}.hm-1{background:#bbf7d0}.hm-2{background:#4ade80}.hm-3{background:#16a34a}.hm-4{background:#14532d}`;
-document.head.appendChild(srsStyle);
-
-document.addEventListener('DOMContentLoaded', () => {
-  // FSRS removed for cleaner UI
-});
-</script>
 
 <script>
 if('serviceWorker' in navigator){
