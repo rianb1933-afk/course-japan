@@ -296,6 +296,20 @@ body { min-height: 100vh; }
   .fc-jp { font-size: 48px; }
 }
 
+/* FILTER COUNT BADGES */
+.f-count {
+  display: inline-block; font-size: 10px; font-weight: 800;
+  background: rgba(107,79,58,.08); color: var(--ink-mid);
+  padding: 1px 6px; border-radius: 10px; margin-left: 3px;
+  vertical-align: middle; min-width: 18px; text-align: center;
+  line-height: 1.4;
+}
+.filter-btn.active .f-count {
+  background: rgba(255,255,255,.25); color: #fff;
+}
+[data-theme="dark"] .f-count { background: rgba(255,255,255,.08); color: rgba(255,255,255,.6); }
+[data-theme="dark"] .filter-btn.active .f-count { background: rgba(255,255,255,.2); color: #fff; }
+
 /* ═══════════════════════════════════════════════════
    PROGRESS BAR & STUDY STATS
    ═══════════════════════════════════════════════════ */
@@ -510,19 +524,19 @@ body { min-height: 100vh; }
   </div>
 
   <div class="filter-row">
-    <button class="filter-btn active" onclick="setFilter('all',this)">📚 Semua</button>
-    <button class="filter-btn" onclick="setFilter('n5',this)">🟢 N5</button>
-    <button class="filter-btn" onclick="setFilter('n4',this)">🔵 N4</button>
-    <button class="filter-btn" onclick="setFilter('n3',this)">🟡 N3</button>
-    <button class="filter-btn" onclick="setFilter('n2',this)">🟠 N2</button>
-    <button class="filter-btn" onclick="setFilter('n1',this)">🔴 N1</button>
-    <button class="filter-btn" onclick="setFilter('kaigo',this)">🏥 Kaigo</button>
-    <button class="filter-btn" onclick="setFilter('kanji',this)">🈶 Kanji</button>
-    <button class="filter-btn" onclick="setFilter('grammar',this)">📝 Tata Bahasa</button>
-    <button class="filter-btn" onclick="setFilter('jmdict',this)">📖 JMdict</button>
-    <button class="filter-btn" onclick="setFilter('vocab',this)">📝 Kosakata</button>
-    <button class="filter-btn" onclick="setFilter('bookmark',this)">⭐ Bookmark</button>
-    <button class="filter-btn" onclick="setFilter('due',this)">⏰ Jatuh Tempo</button>
+    <button class="filter-btn active" onclick="setFilter('all',this)" data-filter="all">📚 Semua <span class="f-count" id="fc-all"></span></button>
+    <button class="filter-btn" onclick="setFilter('n5',this)" data-filter="n5">🟢 N5 <span class="f-count" id="fc-n5"></span></button>
+    <button class="filter-btn" onclick="setFilter('n4',this)" data-filter="n4">🔵 N4 <span class="f-count" id="fc-n4"></span></button>
+    <button class="filter-btn" onclick="setFilter('n3',this)" data-filter="n3">🟡 N3 <span class="f-count" id="fc-n3"></span></button>
+    <button class="filter-btn" onclick="setFilter('n2',this)" data-filter="n2">🟠 N2 <span class="f-count" id="fc-n2"></span></button>
+    <button class="filter-btn" onclick="setFilter('n1',this)" data-filter="n1">🔴 N1 <span class="f-count" id="fc-n1"></span></button>
+    <button class="filter-btn" onclick="setFilter('kaigo',this)" data-filter="kaigo">🏥 Kaigo <span class="f-count" id="fc-kaigo"></span></button>
+    <button class="filter-btn" onclick="setFilter('kanji',this)" data-filter="kanji">🈶 Kanji <span class="f-count" id="fc-kanji"></span></button>
+    <button class="filter-btn" onclick="setFilter('grammar',this)" data-filter="grammar">📝 Tata Bahasa <span class="f-count" id="fc-grammar"></span></button>
+    <button class="filter-btn" onclick="setFilter('jmdict',this)" data-filter="jmdict">📖 JMdict <span class="f-count" id="fc-jmdict"></span></button>
+    <button class="filter-btn" onclick="setFilter('vocab',this)" data-filter="vocab">📝 Kosakata <span class="f-count" id="fc-vocab"></span></button>
+    <button class="filter-btn" onclick="setFilter('bookmark',this)" data-filter="bookmark">⭐ Bookmark <span class="f-count" id="fc-bookmark"></span></button>
+    <button class="filter-btn" onclick="setFilter('due',this)" data-filter="due">⏰ Jatuh Tempo <span class="f-count" id="fc-due"></span></button>
   </div>
 
   <div class="stats-bar">
@@ -1401,6 +1415,32 @@ function updateStats() {
   const good  = rated.filter(id => stored[id].lastRating >= 2).length;
   document.getElementById('stRetention').textContent = rated.length ? Math.round(good/rated.length*100) + '%' : '—';
   document.getElementById('stStreak').textContent = State.getUser().streak || 0;
+  updateFilterCounts();
+}
+
+function updateFilterCounts() {
+  const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+  const now = Date.now();
+  const counts = {
+    all: CARDS.length,
+    n5: CARDS.filter(c => c.jlpt === 'N5').length,
+    n4: CARDS.filter(c => c.jlpt === 'N4').length,
+    n3: CARDS.filter(c => c.jlpt === 'N3').length,
+    n2: CARDS.filter(c => c.jlpt === 'N2').length,
+    n1: CARDS.filter(c => c.jlpt === 'N1').length,
+    kaigo: CARDS.filter(c => c.cat === 'kaigo').length,
+    kanji: CARDS.filter(c => c.type === 'KANJI').length,
+    grammar: CARDS.filter(c => c.type === 'GRAMMAR').length,
+    jmdict: CARDS.filter(c => c.cat === 'jmdict').length,
+    vocab: CARDS.filter(c => c.cat === 'vocab').length,
+    bookmark: JSON.parse(localStorage.getItem('np-srs-bookmarks') || '[]').length,
+    due: CARDS.filter(c => { const s = stored[c.id]; return !s || s.nextReview <= now; }).length
+  };
+  const fmt = n => n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'k' : n;
+  Object.entries(counts).forEach(([k,v]) => {
+    const el = document.getElementById('fc-' + k);
+    if (el) el.textContent = fmt(v);
+  });
 }
 
 function renderCard() {
@@ -1492,6 +1532,7 @@ document.addEventListener('keydown', e => {
 document.addEventListener('DOMContentLoaded', function () {
   State = NP.State; SRS = NP.SRS; Toast = NP.Toast;
   buildDeck('all');
+  updateFilterCounts();
   NP.Nav.init('');
 });
 </script>
