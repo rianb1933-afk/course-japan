@@ -172,6 +172,43 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
       transform: none !important;
       visibility: visible !important;
     }
+    /* ── WORD OF THE DAY ── */
+    .wotd-section { padding: 32px 5vw; background: linear-gradient(135deg, #fdf6e3, #fff9ef); border-top: 1px solid rgba(200,155,60,.1); }
+    [data-theme="dark"] .wotd-section { background: linear-gradient(135deg, #1a1c20, #1c1e22); }
+    .wotd-inner { max-width: 600px; margin: 0 auto; }
+    .wotd-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+    .wotd-label { font-size: 14px; font-weight: 800; color: #8B6914; letter-spacing: .02em; }
+    [data-theme="dark"] .wotd-label { color: #C89B3C; }
+    .wotd-date { font-size: 11px; color: #b8a47c; font-weight: 600; }
+    .wotd-card { background: #fff; border-radius: 20px; border: 1px solid rgba(200,155,60,.15); box-shadow: 0 4px 24px rgba(139,105,20,.08); padding: 40px 24px; text-align: center; cursor: pointer; position: relative; min-height: 180px; perspective: 800px; transition: transform .2s, box-shadow .2s; }
+    .wotd-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(139,105,20,.12); }
+    [data-theme="dark"] .wotd-card { background: #1c1e22; border-color: rgba(200,155,60,.12); box-shadow: 0 4px 24px rgba(0,0,0,.3); }
+    .wotd-front, .wotd-back { transition: opacity .3s; }
+    .wotd-card.flipped .wotd-front { display: none; }
+    .wotd-card.flipped .wotd-back { display: block; }
+    .wotd-back { display: none; }
+    .wotd-kanji { font-family: 'Noto Serif JP', serif; font-size: 56px; font-weight: 900; background: linear-gradient(135deg, #8B6914, #C89B3C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 8px; }
+    [data-theme="dark"] .wotd-kanji { background: linear-gradient(135deg, #C89B3C, #F5D572); -webkit-background-clip: text; background-clip: text; }
+    .wotd-reading { font-size: 18px; color: #8B6914; font-weight: 600; margin-bottom: 8px; }
+    [data-theme="dark"] .wotd-reading { color: #C89B3C; }
+    .wotd-hint { font-size: 11px; color: #b8a47c; }
+    .wotd-meaning { font-size: 22px; font-weight: 800; color: #2d2d2d; margin-bottom: 12px; }
+    [data-theme="dark"] .wotd-meaning { color: #f0ead6; }
+    .wotd-example { font-size: 14px; color: #666; line-height: 1.6; padding: 12px 16px; background: rgba(200,155,60,.05); border-radius: 10px; margin-bottom: 8px; }
+    [data-theme="dark"] .wotd-example { color: rgba(255,255,255,.6); background: rgba(200,155,60,.08); }
+    .wotd-level { display: inline-block; font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 8px; background: rgba(200,155,60,.08); color: #8B6914; margin-top: 8px; }
+    [data-theme="dark"] .wotd-level { background: rgba(200,155,60,.12); color: #C89B3C; }
+    .wotd-actions { display: flex; gap: 8px; justify-content: center; margin-top: 16px; }
+    .wotd-btn { font-size: 12px; font-weight: 700; padding: 8px 16px; border-radius: 10px; border: 1px solid rgba(200,155,60,.2); background: rgba(200,155,60,.05); color: #8B6914; cursor: pointer; text-decoration: none; transition: .2s; }
+    .wotd-btn:hover { background: #8B6914; color: #fff; border-color: #8B6914; }
+    .wotd-link { background: #8B6914; color: #fff; border-color: #8B6914; }
+    .wotd-link:hover { background: #6d5310; }
+    @media (max-width: 768px) {
+      .wotd-card { padding: 28px 16px; }
+      .wotd-kanji { font-size: 44px; }
+      .wotd-meaning { font-size: 18px; }
+    }
+
     /* ── DAILY MISSION — selalu tampil, no whitespace ── */
     .daily-mission-section {
       min-height: auto !important;
@@ -440,6 +477,33 @@ nav.kn-nav { z-index: 9999 !important; }
       <div class="countdown-unit"><span class="countdown-num" id="cd-s">09</span><span class="countdown-label">Detik</span></div>
     </div>
     <a href="Akun.html" class="live-cta">Daftar Sekarang →</a>
+  </div>
+</div>
+
+<!-- WORD OF THE DAY -->
+<div class="wotd-section" id="word-of-the-day">
+  <div class="wotd-inner">
+    <div class="wotd-header">
+      <span class="wotd-label">📖 Kosakata Hari Ini</span>
+      <span class="wotd-date" id="wotdDate"></span>
+    </div>
+    <div class="wotd-card" id="wotdCard" onclick="flipWOTD()">
+      <div class="wotd-front">
+        <div class="wotd-kanji" id="wotdKanji">—</div>
+        <div class="wotd-reading" id="wotdReading"></div>
+        <div class="wotd-hint">Ketuk untuk melihat arti</div>
+      </div>
+      <div class="wotd-back">
+        <div class="wotd-meaning" id="wotdMeaning"></div>
+        <div class="wotd-example" id="wotdExample"></div>
+        <div class="wotd-level" id="wotdLevel"></div>
+      </div>
+    </div>
+    <div class="wotd-actions">
+      <button class="wotd-btn" onclick="speakWOTD()" title="Dengarkan">🔊 Dengarkan</button>
+      <button class="wotd-btn" onclick="bookmarkWOTD()" title="Simpan">⭐ Simpan</button>
+      <a href="SRS-Flashcard.html" class="wotd-btn wotd-link">🃏 Latih Sekarang</a>
+    </div>
   </div>
 </div>
 
@@ -1735,6 +1799,117 @@ if('serviceWorker' in navigator && !/^(127\.0\.0\.1|localhost|::1)$/.test(locati
 <button id="npDarkToggle" aria-label="Ganti mode gelap/terang" title="Mode gelap/terang" class="np-dark-toggle-btn" style="position:fixed;bottom:20px;left:20px;z-index:900;width:48px;height:48px;border-radius:50%;border:1.5px solid var(--border-mid,rgba(107,79,58,.18));background:var(--surface,#fff);color:var(--ink,#2d2d2d);font-size:20px;cursor:pointer;box-shadow:var(--shadow-md,0 8px 28px rgba(0,0,0,.1));transition:transform .2s"
   onmouseover="this.style.transform='scale(1.08)'" onmouseout="this.style.transform='scale(1)'"
   onclick="window.NPDark && window.NPDark.toggle(); this.textContent = (window.NPDark.isDarkActive()?'☀️':'🌙');">🌙</button>
+<script>
+// Word of the Day — pulls from SRS deck
+(function(){
+  var WOTD_CARDS = [
+    {jp:'桜',reading:'さくら',meaning:'Bunga sakura',example:'桜がきれいに咲いています。',level:'N5'},
+    {jp:'勉強',reading:'べんきょう',meaning:'Belajar',example:'毎日日本語を勉強します。',level:'N5'},
+    {jp:'天気',reading:'てんき',meaning:'Cuaca',example:'今日はいい天気ですね。',level:'N5'},
+    {jp:'家族',reading:'かぞく',meaning:'Keluarga',example:'家族で旅行します。',level:'N4'},
+    {jp:'経験',reading:'けいけん',meaning:'Pengalaman',example:'貴重な経験をしました。',level:'N3'},
+    {jp:'挑戦',reading:'ちょうせん',meaning:'Tantangan',example:'新しいことに挑戦しましょう。',level:'N2'},
+    {jp:'環境',reading:'かんきょう',meaning:'Lingkungan',example:'環境を守ることが大切です。',level:'N2'},
+    {jp:'影響',reading:'えいきょう',meaning:'Pengaruh',example:'天気は気分に影響します。',level:'N3'},
+    {jp:'伝統',reading:'でんとう',meaning:'Tradisi',example:'日本の伝統文化を学びましょう。',level:'N2'},
+    {jp:'感動',reading:'かんどう',meaning:'Terharu',example:'その映画に感動しました。',level:'N2'},
+    {jp:'実現',reading:'じつげん',meaning:'Realisasi',example:'夢を実現するために努力します。',level:'N1'},
+    {jp:'優先',reading:'ゆうせん',meaning:'Prioritas',example:'安全を優先してください。',level:'N2'},
+    {jp:'約束',reading:'やくそく',meaning:'Janji',example:'友達と約束しました。',level:'N4'},
+    {jp:'冒険',reading:'ぼうけん',meaning:'Petualangan',example:'新しい世界で冒険しましょう。',level:'N3'},
+    {jp:'発見',reading:'はっけん',meaning:'Penemuan',example:'新しい方法を発見しました。',level:'N3'},
+    {jp:'努力',reading:'どりょく',meaning:'Usaha keras',example:'努力は必ず報われます。',level:'N3'},
+    {jp:'成功',reading:'せいこう',meaning:'Keberhasilan',example:'プロジェクトが成功しました。',level:'N3'},
+    {jp:'挑戦',reading:'ちょうせん',meaning:'Tantangan',example:'困難に挑戦します。',level:'N2'},
+    {jp:'創造',reading:'そうぞう',meaning:'Penciptaan',example:'新しい価値を創造する。',level:'N2'},
+    {jp:'感謝',reading:'かんしゃ',meaning:'Rasa terima kasih',example:'いつも感謝しています。',level:'N3'},
+    {jp:'集中',reading:'しゅうちゅう',meaning:'Konsentrasi',example:'勉強に集中してください。',level:'N3'},
+    {jp:'計画',reading:'けいかく',meaning:'Perencanaan',example:'来月の計画を立てましょう。',level:'N3'},
+    {jp:'未来',reading:'みらい',meaning:'Masa depan',example:'未来のために今頑張ります。',level:'N3'},
+    {jp:'感情',reading:'かんじょう',meaning:'Emosi',example:'自分の感情をコントロールする。',level:'N2'},
+    {jp:'独立',reading:'どくりつ',meaning:'Kemerdekaan',example:'独立して自分の道を歩む。',level:'N2'},
+    {jp:'勇気',reading:'ゆうき',meaning:'Keberanian',example:'勇気を持って前に進みましょう。',level:'N3'},
+    {jp:'希望',reading:'きぼう',meaning:'Harapan',example:'未来に希望を持ちましょう。',level:'N3'},
+    {jp:'記憶',reading:'きおく',meaning:'Ingatan',example:'楽しい記憶が残っています。',level:'N2'},
+    {jp:'文化',reading:'ぶんか',meaning:'Budaya',example:'日本の文化を学びましょう。',level:'N4'},
+    {jp:'自然',reading:'しぜん',meaning:'Alam',example:'自然の中で散歩します。',level:'N4'},
+    {jp:'挑戦',reading:'ちょうせん',meaning:'Tantangan',example:'人生は挑戦の連続です。',level:'N2'},
+    {jp:'成長',reading:'せいちょう',meaning:'Pertumbuhan',example:'毎日少しずつ成長しています。',level:'N3'},
+    {jp:'愛情',reading:'あいじょう',meaning:'Kasih sayang',example:'家族への愛情が深い。',level:'N3'},
+    {jp:'覚悟',reading:'かくご',meaning:'Tekad',example:'覚悟を決めて挑みます。',level:'N1'},
+    {jp:'工夫',reading:'くふう',meaning:'Ide kreatif',example:'もっと効率よくする工夫をする。',level:'N3'},
+    {jp:'感謝',reading:'かんしゃ',meaning:'Penghargaan',example:'先生に感謝します。',level:'N3'},
+    {jp:'冒険',reading:'ぼうけん',meaning:'Petualangan',example:'世界は大きな冒険の場です。',level:'N3'},
+    {jp:'心',reading:'こころ',meaning:'Hati / Jiwa',example:'温かい心を持ちましょう。',level:'N5'},
+    {jp:'夢',reading:'ゆめ',meaning:'Mimpi',example:'大きな夢を持っています。',level:'N5'},
+    {jp:'友情',reading:'ゆうじょう',meaning:'Persahabatan',example:'友情は一生ものです。',level:'N3'},
+  ];
+  var flipped = false;
+
+  function initWOTD() {
+    var today = new Date();
+    var seed = today.getFullYear() * 10000 + (today.getMonth()+1) * 100 + today.getDate();
+    var idx = seed % WOTD_CARDS.length;
+    var card = WOTD_CARDS[idx];
+
+    var dateEl = document.getElementById('wotdDate');
+    if (dateEl) dateEl.textContent = today.toLocaleDateString('id-ID', {day:'numeric', month:'long', year:'numeric'});
+
+    var kanjiEl = document.getElementById('wotdKanji');
+    if (kanjiEl) kanjiEl.textContent = card.jp;
+
+    var readingEl = document.getElementById('wotdReading');
+    if (readingEl) readingEl.textContent = card.reading;
+
+    var meaningEl = document.getElementById('wotdMeaning');
+    if (meaningEl) meaningEl.textContent = card.meaning;
+
+    var exampleEl = document.getElementById('wotdExample');
+    if (exampleEl) exampleEl.textContent = '例文: ' + card.example;
+
+    var levelEl = document.getElementById('wotdLevel');
+    if (levelEl) levelEl.textContent = ' JLPT ' + card.level;
+
+    // Store current card for TTS/bookmark
+    window._wotdCard = card;
+  }
+
+  window.flipWOTD = function() {
+    var card = document.getElementById('wotdCard');
+    if (!card) return;
+    flipped = !flipped;
+    card.classList.toggle('flipped', flipped);
+  };
+
+  window.speakWOTD = function() {
+    var c = window._wotdCard;
+    if (!c || !window.speechSynthesis) return;
+    var u = new SpeechSynthesisUtterance(c.jp);
+    u.lang = 'ja-JP';
+    u.rate = 0.8;
+    speechSynthesis.speak(u);
+  };
+
+  window.bookmarkWOTD = function() {
+    var c = window._wotdCard;
+    if (!c) return;
+    var bm = JSON.parse(localStorage.getItem('np-srs-bookmarks') || '[]');
+    var key = 'wotd-' + c.jp;
+    if (bm.indexOf(key) === -1) {
+      bm.push(key);
+      localStorage.setItem('np-srs-bookmarks', JSON.stringify(bm));
+      alert('⭐ "' + c.jp + '" disimpan ke bookmark!');
+    } else {
+      alert('Sudah ada di bookmark.');
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', initWOTD);
+  // Also run immediately if DOM is ready
+  if (document.readyState !== 'loading') initWOTD();
+})();
+</script>
+
 <script>
 (function(){
   var b=document.getElementById('npDarkToggle');
