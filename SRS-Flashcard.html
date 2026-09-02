@@ -296,6 +296,40 @@ body { min-height: 100vh; }
   .fc-jp { font-size: 48px; }
 }
 
+/* SEARCH BAR */
+.search-wrap {
+  position: relative; margin-bottom: 14px;
+}
+.search-icon {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  font-size: 15px; pointer-events: none; z-index: 1;
+}
+.search-input {
+  width: 100%; padding: 12px 50px 12px 42px;
+  border-radius: 14px; border: 2px solid var(--border);
+  background: var(--white); font-family: var(--font-sans);
+  font-size: 14px; color: var(--ink-deep); outline: none;
+  transition: all .2s ease;
+}
+.search-input::placeholder { color: var(--ink-faint); }
+.search-input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(107,79,58,.1);
+}
+.search-kbd {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: var(--raised); border: 1px solid var(--border-mid);
+  border-radius: 4px; padding: 2px 8px; font-size: 11px;
+  font-weight: 600; color: var(--ink-faint); pointer-events: none;
+}
+.search-count {
+  font-size: 11px; color: var(--ink-soft); font-weight: 600;
+  text-align: center; margin-top: 6px; display: none;
+}
+[data-theme="dark"] .search-input { background: #1c1e22; border-color: rgba(255,255,255,.08); color: rgba(255,255,255,.85); }
+[data-theme="dark"] .search-input:focus { border-color: #C89B3C; box-shadow: 0 0 0 3px rgba(200,155,60,.15); }
+[data-theme="dark"] .search-kbd { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.1); color: rgba(255,255,255,.4); }
+
 /* FILTER COUNT BADGES */
 .f-count {
   display: inline-block; font-size: 10px; font-weight: 800;
@@ -522,6 +556,14 @@ body { min-height: 100vh; }
   <div class="quiz-toggle">
     <button class="quiz-toggle-btn" id="quizToggle" onclick="toggleQuizMode()">🎯 Mode Kuis</button>
   </div>
+
+  <!-- Search Bar -->
+  <div class="search-wrap">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="cardSearch" class="search-input" placeholder="Cari kartu (kanji, arti, bacaan...)" oninput="searchCards(this.value)">
+    <kbd class="search-kbd">/</kbd>
+  </div>
+  <div class="search-count" id="searchCount"></div>
 
   <div class="filter-row">
     <button class="filter-btn active" onclick="setFilter('all',this)" data-filter="all">📚 Semua <span class="f-count" id="fc-all"></span></button>
@@ -1374,6 +1416,8 @@ function calculateStreak() {
   return streak;
 }
 
+let searchQuery = '';
+
 function buildDeck(f) {
   curFilter = f;
   const stored = SRS.loadCards ? SRS.loadCards() : JSON.parse(localStorage.getItem('np-srs-v2')||'{}');
@@ -1391,11 +1435,32 @@ function buildDeck(f) {
   else if (f === 'kaigo')   cards = cards.filter(c => c.cat === 'kaigo');
   else if (f === 'kanji')   cards = cards.filter(c => c.type === 'KANJI');
   else if (f === 'grammar') cards = cards.filter(c => c.type === 'GRAMMAR');
+  // Apply search filter
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    cards = cards.filter(c =>
+      (c.jp && c.jp.toLowerCase().includes(q)) ||
+      (c.reading && c.reading.toLowerCase().includes(q)) ||
+      (c.meaning && c.meaning.toLowerCase().includes(q)) ||
+      (c.example && c.example.toLowerCase().includes(q))
+    );
+  }
   deck = cards.sort(() => Math.random() - .5);
   curIdx = 0; flipped = false; sessAgain = 0; sessGood = 0; sessXP = 0;
   updateStats(); updateProgress();
+  // Show search count
+  const sc = document.getElementById('searchCount');
+  if (sc) {
+    if (searchQuery) { sc.style.display = 'block'; sc.textContent = deck.length + ' hasil ditemukan'; }
+    else { sc.style.display = 'none'; }
+  }
   if (!deck.length) { showComplete(); }
   else { document.getElementById('mainArea').style.display = 'block'; document.getElementById('completeArea').style.display = 'none'; renderCard(); }
+}
+
+function searchCards(q) {
+  searchQuery = q.trim();
+  buildDeck(curFilter);
 }
 
 function setFilter(f, btn) {
@@ -1521,12 +1586,35 @@ function restart() { buildDeck(curFilter); }
 
 // Keyboard
 document.addEventListener('keydown', e => {
-  if (e.target.tagName==='INPUT'||e.target.tagName==='TEXTAREA') return;
+  const tag = e.target.tagName;
+  // Search shortcuts
+  if (e.key === '/' && tag !== 'INPUT' && tag !== 'TEXTAREA') {
+    e.preventDefault();
+    document.getElementById('cardSearch').focus();
+    return;
+  }
+  if (e.key === 'Escape' && tag === 'INPUT') {
+    e.target.value = ''; searchCards(''); e.target.blur(); return;
+  }
+  if (tag==='INPUT'||tag==='TEXTAREA') return;
+  // Filter shortcuts (only when card is NOT flipped)
+  if (!flipped) {
+    const filterKeys = { q:'all', '1':'n5', '2':'n4', '3':'n3', '4':'n2', '5':'n1', '6':'kaigo', '7':'kanji', '8':'grammar', '9':'bookmark' };
+    const f = filterKeys[e.key.toLowerCase()];
+    if (f) {
+      const btn = document.querySelector(`.filter-btn[data-filter="${f}"]`);
+      if (btn) setFilter(f, btn);
+      return;
+    }
+    if (e.key==='/' ) { toggleQuizMode(); return; }
+  }
+  // Card actions
   if (e.key===' '||e.key==='Enter') { e.preventDefault(); if (!flipped) doFlipCard(); }
   if (e.key==='1'&&flipped) rate(0);
   if (e.key==='2'&&flipped) rate(1);
   if (e.key==='3'&&flipped) rate(2);
   if (e.key==='4'&&flipped) rate(3);
+  if (e.key==='b') { toggleBookmark(); }
 });
 
 document.addEventListener('DOMContentLoaded', function () {
