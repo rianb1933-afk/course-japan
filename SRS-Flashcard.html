@@ -295,6 +295,187 @@ body { min-height: 100vh; }
   .card-area { height: 280px; }
   .fc-jp { font-size: 48px; }
 }
+
+/* ═══════════════════════════════════════════════════
+   PROGRESS BAR & STUDY STATS
+   ═══════════════════════════════════════════════════ */
+.progress-wrap {
+  background: var(--white); border-radius: 14px; padding: 14px 16px;
+  border: 1px solid var(--border); margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.03);
+}
+.progress-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: 8px;
+}
+.progress-label { font-size: 12px; font-weight: 700; color: var(--ink-mid); }
+.progress-count { font-size: 12px; font-weight: 800; color: var(--primary); }
+.progress-bar {
+  height: 8px; background: rgba(107,79,58,.08); border-radius: 4px;
+  overflow: hidden; position: relative;
+}
+.progress-fill {
+  height: 100%; background: linear-gradient(90deg, var(--primary), #C89B3C);
+  border-radius: 4px; transition: width .5s cubic-bezier(.4,0,.2,1);
+  position: relative;
+}
+.progress-fill::after {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.3), transparent);
+  animation: shimmer 2s infinite;
+}
+@keyframes shimmer { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+/* Streak Badge */
+.streak-badge {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #fff; font-size: 12px; font-weight: 800;
+  padding: 4px 10px; border-radius: 20px;
+  box-shadow: 0 2px 8px rgba(245,158,11,.3);
+}
+.streak-badge .fire { font-size: 14px; }
+
+/* Study Session Info */
+.session-info {
+  display: flex; gap: 12px; margin-top: 8px; flex-wrap: wrap;
+}
+.session-stat {
+  font-size: 11px; color: var(--ink-soft); font-weight: 600;
+  display: flex; align-items: center; gap: 4px;
+}
+.session-stat .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+.session-stat .dot.new { background: #f97316; }
+.session-stat .dot.review { background: #2563eb; }
+.session-stat .dot.done { background: #22c55e; }
+
+[data-theme="dark"] .progress-wrap { background: #1c1e22; border-color: rgba(255,255,255,.06); }
+[data-theme="dark"] .progress-bar { background: rgba(255,255,255,.06); }
+
+
+/* ═══ BOOKMARK BUTTON ═══ */
+.bookmark-btn {
+  position: absolute; top: 12px; right: 12px; z-index: 10;
+  background: none; border: none; cursor: pointer;
+  font-size: 22px; opacity: .3; transition: all .2s;
+  filter: grayscale(1);
+}
+.bookmark-btn:hover { opacity: .7; transform: scale(1.2); }
+.bookmark-btn.active { opacity: 1; filter: grayscale(0); animation: popIn .3s ease; }
+@keyframes popIn { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
+
+/* ═══ CARD BADGE INDICATORS ═══ */
+.card-indicators {
+  position: absolute; top: 12px; left: 12px; z-index: 10;
+  display: flex; gap: 4px;
+}
+.indicator {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.indicator.new { background: #f97316; }
+.indicator.reviewed { background: #22c55e; }
+.indicator.bookmarked { background: #f59e0b; }
+
+/* ═══ BOOKMARK FILTER ═══ */
+.filter-btn.bookmark-filter {
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  color: #fff; border-color: transparent;
+}
+
+[data-theme="dark"] .bookmark-btn { color: #C89B3C; }
+
+
+/* ═══════════════════════════════════════════════════
+   QUIZ MODE
+   ═══════════════════════════════════════════════════ */
+.quiz-toggle {
+  display: flex; justify-content: center; margin-bottom: 16px;
+}
+.quiz-toggle-btn {
+  padding: 8px 20px; border-radius: 24px; border: 2px solid var(--border);
+  background: var(--white); font-family: var(--font-sans); font-size: 13px;
+  font-weight: 700; cursor: pointer; color: var(--ink-mid);
+  transition: all .2s; display: flex; align-items: center; gap: 6px;
+}
+.quiz-toggle-btn:hover { border-color: var(--primary); }
+.quiz-toggle-btn.active {
+  background: linear-gradient(135deg, #8b5cf6, #6366f1);
+  color: #fff; border-color: transparent;
+  box-shadow: 0 4px 12px rgba(139,92,246,.3);
+}
+
+/* Quiz Options */
+.quiz-options {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  margin-top: 12px;
+}
+.quiz-opt {
+  padding: 14px 12px; border-radius: 12px; border: 2px solid var(--border);
+  background: var(--white); font-family: var(--font-sans); font-size: 14px;
+  font-weight: 600; cursor: pointer; text-align: center;
+  transition: all .2s; min-height: 50px;
+  display: flex; align-items: center; justify-content: center;
+}
+.quiz-opt:hover { border-color: var(--primary); transform: translateY(-2px); }
+.quiz-opt.correct {
+  background: rgba(34,197,94,.1); border-color: #22c55e; color: #16a34a;
+  animation: correctPulse .5s ease;
+}
+.quiz-opt.wrong {
+  background: rgba(239,68,68,.1); border-color: #ef4444; color: #dc2626;
+  animation: wrongShake .4s ease;
+}
+@keyframes correctPulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.03); } }
+@keyframes wrongShake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+
+.quiz-score {
+  display: flex; justify-content: center; gap: 20px; margin-top: 12px;
+}
+.quiz-score-item {
+  text-align: center;
+}
+.quiz-score-val { font-size: 24px; font-weight: 800; }
+.quiz-score-lbl { font-size: 10px; color: var(--ink-soft); text-transform: uppercase; }
+
+[data-theme="dark"] .quiz-opt { background: #1c1e22; border-color: rgba(255,255,255,.08); }
+[data-theme="dark"] .quiz-opt:hover { border-color: #C89B3C; }
+[data-theme="dark"] .quiz-toggle-btn { background: #1c1e22; border-color: rgba(255,255,255,.1); color: rgba(255,255,255,.6); }
+
+
+/* ═══ DARK MODE POLISH ═══ */
+[data-theme="dark"] .srs-main { color: rgba(255,255,255,.85); }
+[data-theme="dark"] .fc-hint { color: rgba(255,255,255,.4); }
+[data-theme="dark"] .fc-dots .fc-dot { background: rgba(255,255,255,.15); }
+[data-theme="dark"] .fc-dots .fc-dot.cur { background: #C89B3C; }
+[data-theme="dark"] .fc-dots .fc-dot.done { background: #22c55e; }
+[data-theme="dark"] .flip-hint { color: rgba(255,255,255,.5); }
+[data-theme="dark"] .kb-hint { color: rgba(255,255,255,.4); }
+[data-theme="dark"] .kb-hint kbd { background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.1); color: rgba(255,255,255,.6); }
+[data-theme="dark"] .quiz-opt { background: #1c1e22; border-color: rgba(255,255,255,.08); color: rgba(255,255,255,.8); }
+[data-theme="dark"] .quiz-opt:hover { border-color: #C89B3C; }
+[data-theme="dark"] .quiz-toggle-btn { background: #1c1e22; border-color: rgba(255,255,255,.1); color: rgba(255,255,255,.6); }
+[data-theme="dark"] .progress-wrap { background: #1c1e22; border-color: rgba(255,255,255,.06); }
+[data-theme="dark"] .progress-label { color: rgba(255,255,255,.7); }
+[data-theme="dark"] .progress-bar { background: rgba(255,255,255,.06); }
+[data-theme="dark"] .session-stat { color: rgba(255,255,255,.5); }
+[data-theme="dark"] .bookmark-btn { color: #C89B3C; }
+[data-theme="dark"] .srs-btn { background: #1c1e22; }
+[data-theme="dark"] .srs-btn.again:hover { background: rgba(239,68,68,.1); }
+[data-theme="dark"] .srs-btn.hard:hover { background: rgba(249,115,22,.1); }
+[data-theme="dark"] .srs-btn.good:hover { background: rgba(37,99,235,.1); }
+[data-theme="dark"] .srs-btn.easy:hover { background: rgba(34,197,94,.1); }
+
+/* ═══ MOBILE RESPONSIVE ═══ */
+@media (max-width: 380px) {
+  .quiz-options { grid-template-columns: 1fr; }
+  .quiz-opt { min-height: 44px; font-size: 13px; }
+  .session-info { gap: 8px; }
+  .filter-row { gap: 4px; }
+  .filter-btn { padding: 6px 12px; font-size: 11px; }
+}
+
 </style>
 
 <link rel="stylesheet" href="assets/kyoto-bundle.min.css">
@@ -323,6 +504,11 @@ body { min-height: 100vh; }
 <div class="srs-main">
   <h2 style="font-family:var(--font-jp);font-size:22px;font-weight:700;margin-bottom:16px">🃏 SRS Flashcard</h2>
 
+  <!-- Quiz Mode Toggle -->
+  <div class="quiz-toggle">
+    <button class="quiz-toggle-btn" id="quizToggle" onclick="toggleQuizMode()">🎯 Mode Kuis</button>
+  </div>
+
   <div class="filter-row">
     <button class="filter-btn active" onclick="setFilter('all',this)">📚 Semua</button>
     <button class="filter-btn" onclick="setFilter('n5',this)">🟢 N5</button>
@@ -335,6 +521,7 @@ body { min-height: 100vh; }
     <button class="filter-btn" onclick="setFilter('grammar',this)">📝 Tata Bahasa</button>
     <button class="filter-btn" onclick="setFilter('jmdict',this)">📖 JMdict</button>
     <button class="filter-btn" onclick="setFilter('vocab',this)">📝 Kosakata</button>
+    <button class="filter-btn" onclick="setFilter('bookmark',this)">⭐ Bookmark</button>
     <button class="filter-btn" onclick="setFilter('due',this)">⏰ Jatuh Tempo</button>
   </div>
 
@@ -346,10 +533,30 @@ body { min-height: 100vh; }
     <div class="stat-pill"><div class="sp-val" id="stStreak">0</div><div class="sp-lbl">Runtutan 🔥</div></div>
   </div>
 
+
+  <!-- Progress Bar -->
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-header">
+      <span class="progress-label">📊 Progres Hari Ini</span>
+      <span class="progress-count" id="progressCount">0 / 0</span>
+    </div>
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressFill" style="width:0%"></div>
+    </div>
+    <div class="session-info">
+      <span class="session-stat"><span class="dot new"></span> <span id="sNew">0</span> Baru</span>
+      <span class="session-stat"><span class="dot review"></span> <span id="sReview">0</span> Review</span>
+      <span class="session-stat"><span class="dot done"></span> <span id="sDone">0</span> Selesai</span>
+      <span class="session-stat" id="streakBadge"></span>
+    </div>
+  </div>
+
   <div id="mainArea">
     <div class="card-area">
       <div class="flip-card" id="flipCard" onclick="doFlipCard()">
         <div class="fc-side fc-front">
+          <button class="bookmark-btn" id="bookmarkBtn" onclick="event.stopPropagation();toggleBookmark()">☆</button>
+          <div class="card-indicators" id="cardIndicators"></div>
           <div class="fc-badge" id="cardBadge">VOCAB · N3</div>
           <div class="fc-jp" id="cardJP">尊厳</div>
           <div class="fc-reading" id="cardReading">そんげん</div>
@@ -367,6 +574,11 @@ body { min-height: 100vh; }
     </div>
 
     <div class="flip-hint" id="flipHint">👆 Ketuk kartu atau tekan <b>Spasi</b> untuk membalik</div>
+
+    <div id="quizArea" style="display:none">
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-score" id="quizScore"></div>
+    </div>
 
     <div class="ans-area" id="ansArea">
       <div class="srs-grid">
@@ -943,6 +1155,211 @@ if (typeof SRS_CARDS_DATA !== 'undefined' && SRS_CARDS_DATA.length > 0) {
 let deck = [], curIdx = 0, flipped = false, curFilter = 'all';
 let sessAgain = 0, sessGood = 0, sessXP = 0;
 
+
+
+
+// ═══ QUIZ MODE ═══
+let quizMode = false;
+let quizCorrect = 0;
+let quizWrong = 0;
+let quizAnswered = false;
+
+function toggleQuizMode() {
+  quizMode = !quizMode;
+  const btn = document.getElementById('quizToggle');
+  const ansArea = document.getElementById('ansArea');
+  const quizArea = document.getElementById('quizArea');
+  
+  btn.classList.toggle('active', quizMode);
+  
+  if (quizMode) {
+    ansArea.style.display = 'none';
+    quizArea.style.display = 'block';
+    quizCorrect = 0;
+    quizWrong = 0;
+    showQuizOptions();
+  } else {
+    ansArea.style.display = 'block';
+    quizArea.style.display = 'none';
+  }
+}
+
+function showQuizOptions() {
+  if (quizAnswered) return;
+  const current = deck[curIdx];
+  if (!current) return;
+  
+  // Get 3 random wrong answers
+  const wrongAnswers = [];
+  const usedIds = new Set([current.id]);
+  while (wrongAnswers.length < 3 && wrongAnswers.length < CARDS.length - 1) {
+    const rand = CARDS[Math.floor(Math.random() * CARDS.length)];
+    if (!usedIds.has(rand.id) && rand.meaning !== current.meaning) {
+      wrongAnswers.push(rand.meaning);
+      usedIds.add(rand.id);
+    }
+  }
+  
+  // Combine and shuffle
+  const options = [current.meaning, ...wrongAnswers].sort(() => Math.random() - 0.5);
+  
+  const container = document.getElementById("quizOptions");
+  container.innerHTML = options.map((opt, i) => {
+    const safeOpt = opt.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    const safeCorrect = current.meaning.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    return '<button class="quiz-opt" onclick="answerQuiz(this)" data-answer="'+safeOpt+'" data-correct="'+safeCorrect+'">' + safeOpt + '</button>';
+  }).join("");
+  
+  // Show score
+  const scoreEl = document.getElementById('quizScore');
+  scoreEl.innerHTML = '<div class="quiz-score-item"><div class="quiz-score-val" style="color:#22c55e">' + quizCorrect + '</div><div class="quiz-score-lbl">Benar</div></div>' +
+    '<div class="quiz-score-item"><div class="quiz-score-val" style="color:#ef4444">' + quizWrong + '</div><div class="quiz-score-lbl">Salah</div></div>';
+  
+  quizAnswered = false;
+}
+
+function answerQuiz(btn) {
+  if (quizAnswered) return;
+  const selected = btn.getAttribute('data-answer');
+  const correct = btn.getAttribute('data-correct');
+  quizAnswered = true;
+  
+  const isCorrect = selected === correct;
+  if (isCorrect) {
+    btn.classList.add('correct');
+    quizCorrect++;
+  } else {
+    btn.classList.add('wrong');
+    quizWrong++;
+    // Highlight correct answer
+    document.querySelectorAll('.quiz-opt').forEach(opt => {
+      if (opt.textContent === correct) opt.classList.add('correct');
+    });
+  }
+  
+  // Update score
+  const scoreEl = document.getElementById('quizScore');
+  scoreEl.innerHTML = '<div class="quiz-score-item"><div class="quiz-score-val" style="color:#22c55e">' + quizCorrect + '</div><div class="quiz-score-lbl">Benar</div></div>' +
+    '<div class="quiz-score-item"><div class="quiz-score-val" style="color:#ef4444">' + quizWrong + '</div><div class="quiz-score-lbl">Salah</div></div>';
+  
+  // Auto advance after 1s
+  setTimeout(() => {
+    quizAnswered = false;
+    if (curIdx < deck.length - 1) {
+      curIdx++;
+      renderCard();
+      if (quizMode) showQuizOptions();
+    }
+  }, 1200);
+}
+
+// ═══ BOOKMARK SYSTEM ═══
+function toggleBookmark() {
+  const card = deck[curIdx];
+  if (!card) return;
+  let bookmarks = JSON.parse(localStorage.getItem('np-srs-bookmarks') || '[]');
+  const idx = bookmarks.indexOf(card.id);
+  if (idx >= 0) {
+    bookmarks.splice(idx, 1);
+  } else {
+    bookmarks.push(card.id);
+  }
+  localStorage.setItem('np-srs-bookmarks', JSON.stringify(bookmarks));
+  updateBookmarkBtn();
+}
+
+function updateBookmarkBtn() {
+  const card = deck[curIdx];
+  if (!card) return;
+  const bookmarks = JSON.parse(localStorage.getItem('np-srs-bookmarks') || '[]');
+  const btn = document.getElementById('bookmarkBtn');
+  const isBookmarked = bookmarks.includes(card.id);
+  btn.textContent = isBookmarked ? '★' : '☆';
+  btn.classList.toggle('active', isBookmarked);
+  
+  // Update indicators
+  const indicators = document.getElementById('cardIndicators');
+  const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+  const todayKey = 'np-srs-today-' + new Date().toDateString();
+  const todayData = JSON.parse(localStorage.getItem(todayKey) || '{"reviewed":[]}');
+  
+  let html = '';
+  if (todayData.reviewed.includes(card.id)) {
+    html += '<span class="indicator reviewed" title="Sudah diulas hari ini"></span>';
+  } else if (!stored[card.id] || !stored[card.id].reps) {
+    html += '<span class="indicator new" title="Kartu baru"></span>';
+  }
+  if (isBookmarked) {
+    html += '<span class="indicator bookmarkmarked" title="Di-bookmark"></span>';
+  }
+  indicators.innerHTML = html;
+}
+
+// ═══ PROGRESS BAR & STREAK ═══
+function updateProgress() {
+  const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+  const today = new Date().toDateString();
+  const todayKey = 'np-srs-today-' + today;
+  const todayData = JSON.parse(localStorage.getItem(todayKey) || '{"reviewed":[],"new":0,"review":0}');
+  
+  const totalDue = CARDS.filter(c => {
+    const s = stored[c.id];
+    return !s || s.nextReview <= Date.now();
+  }).length;
+  
+  const reviewed = todayData.reviewed.length;
+  const pct = totalDue > 0 ? Math.min(100, Math.round(reviewed / totalDue * 100)) : 0;
+  
+  document.getElementById('progressCount').textContent = reviewed + ' / ' + totalDue;
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('sNew').textContent = todayData.new;
+  document.getElementById('sReview').textContent = todayData.review;
+  document.getElementById('sDone').textContent = reviewed;
+  
+  // Update streak
+  updateStreak();
+}
+
+function trackReview(cardId, isNew) {
+  const today = new Date().toDateString();
+  const todayKey = 'np-srs-today-' + today;
+  const data = JSON.parse(localStorage.getItem(todayKey) || '{"reviewed":[],"new":0,"review":0}');
+  
+  if (!data.reviewed.includes(cardId)) {
+    data.reviewed.push(cardId);
+    if (isNew) data.new++; else data.review++;
+    localStorage.setItem(todayKey, JSON.stringify(data));
+  }
+  updateProgress();
+}
+
+function updateStreak() {
+  const streak = calculateStreak();
+  const badge = document.getElementById('streakBadge');
+  if (streak > 0) {
+    badge.innerHTML = '<span class="streak-badge"><span class="fire">🔥</span> ' + streak + ' hari</span>';
+  } else {
+    badge.innerHTML = '';
+  }
+}
+
+function calculateStreak() {
+  let streak = 0;
+  const today = new Date();
+  for (let i = 0; i < 365; i++) {
+    const d = new Date(today);
+    d.setDate(d.getDate() - i);
+    const key = 'np-srs-today-' + d.toDateString();
+    const data = JSON.parse(localStorage.getItem(key) || '{}');
+    if (data.reviewed && data.reviewed.length > 0) {
+      streak++;
+    } else if (i > 0) {
+      break;
+    }
+  }
+  return streak;
+}
+
 function buildDeck(f) {
   curFilter = f;
   const stored = SRS.loadCards ? SRS.loadCards() : JSON.parse(localStorage.getItem('np-srs-v2')||'{}');
@@ -956,12 +1373,13 @@ function buildDeck(f) {
   else if (f === 'n1')      cards = cards.filter(c => c.jlpt === 'N1');
   else if (f === 'jmdict')  cards = cards.filter(c => c.cat === 'jmdict');
   else if (f === 'vocab')   cards = cards.filter(c => c.cat === 'vocab');
+  else if (f === 'bookmark') cards = cards.filter(c => { const b = JSON.parse(localStorage.getItem('np-srs-bookmarks')||'[]'); return b.includes(c.id); });
   else if (f === 'kaigo')   cards = cards.filter(c => c.cat === 'kaigo');
   else if (f === 'kanji')   cards = cards.filter(c => c.type === 'KANJI');
   else if (f === 'grammar') cards = cards.filter(c => c.type === 'GRAMMAR');
   deck = cards.sort(() => Math.random() - .5);
   curIdx = 0; flipped = false; sessAgain = 0; sessGood = 0; sessXP = 0;
-  updateStats();
+  updateStats(); updateProgress();
   if (!deck.length) { showComplete(); }
   else { document.getElementById('mainArea').style.display = 'block'; document.getElementById('completeArea').style.display = 'none'; renderCard(); }
 }
@@ -1044,7 +1462,7 @@ function rate(r) {
   card.lastRating=r; card.lastReviewed=Date.now();
   stored[c.id]=card;
   localStorage.setItem('np-srs-v2', JSON.stringify(stored));
-  if (r===0) sessAgain++; else sessGood++;
+  if (r===0) sessAgain++; else sessGood++; trackReview(deck[curIdx].id, !stored[deck[curIdx].id] || !stored[deck[curIdx].id].reps);
   const xp=[0,5,10,15][r]; sessXP+=xp;
   if (xp>0) State.addXP(xp, ['','Sulit','Baik ✓','Mudah ✓'][r]);
   try{ if(window.NPXP){ NPXP.recordVocab('srs',1); if(xp>0) NPXP.award('srs',xp); } }catch(e){}
