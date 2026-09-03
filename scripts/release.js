@@ -11,7 +11,8 @@
  *   1) Bump cache service worker  eduma-kaigo-vN  ->  vN+1  (sw.js)
  *   2) Sisip entri "## vN+1 — <judul>" di puncak CHANGELOG.md
  *   3) Regenerasi penanda versi terbaru di Changelog.html (meta np-latest-version).
- *      Isi daftar rilis di Changelog.html dirender otomatis dari CHANGELOG.md.
+ *   4) Regenerasi aset publik assets/changelog-releases.json (maks. 40 rilis terbaru)
+ *      — CHANGELOG.md dipangkas sebelum deploy, jadi Changelog.html memuat JSON ini.
  */
 'use strict';
 const fs = require('fs');
@@ -123,7 +124,32 @@ function fail(msg) {
     console.log('3) Changelog.html: dilewati (berkas tidak ada)');
   }
 
+  // ── 4) Regenerasi aset publik changelog ──
+  const jsonPath = 'assets/changelog-releases.json';
+  const MAX_ENTRIES = 40;
+  if (dry) {
+    console.log('4) ' + jsonPath + ': ' + MAX_ENTRIES + ' rilis terbaru (direncanakan)');
+  } else {
+    const clText = fs.readFileSync(clPath, 'utf8');
+    const idxs = [];
+    const re = /^## .*$/gm;
+    let mm;
+    while ((mm = re.exec(clText)) !== null) idxs.push(mm.index);
+    if (!idxs.length) fail('Tidak menemukan entri rilis untuk aset publik');
+    const start = idxs[0];
+    const end = idxs.length > MAX_ENTRIES ? idxs[MAX_ENTRIES] : clText.length;
+    const payload = {
+      latest: 'v' + nextNum,
+      generatedAt: new Date().toISOString(),
+      count: Math.min(idxs.length, MAX_ENTRIES),
+      markdown: clText.slice(start, end)
+    };
+    const json = JSON.stringify(payload);
+    fs.writeFileSync(jsonPath, json);
+    console.log('4) ' + jsonPath + ': ditulis (' + Math.round(json.length / 1024) + ' KB, ' + payload.count + ' rilis terbaru)');
+  }
+
   console.log(dry
     ? '\n✔ Dry-run selesai — tidak ada berkas yang diubah.'
-    : '\n✔ Rilis v' + nextNum + ' siap. Daftar rilis di Changelog.html dirender otomatis dari CHANGELOG.md.');
+    : '\n✔ Rilis v' + nextNum + ' siap. sw.js, CHANGELOG.md, Changelog.html, dan ' + jsonPath + ' sudah diperbarui.');
 })();

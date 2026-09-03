@@ -64,9 +64,10 @@ footer{margin-top:18px;font-size:12px;color:var(--ink3);text-align:center}
     <div class="hd">
       <h1>📋 Catatan Rilis</h1>
       <p>Riwayat fitur dan perbaikan NihongoPro Academy. Nomor versi mengikuti cache service worker (sw.js).</p>
+      <div class="muted" id="latestRilis" style="margin-top:6px;font-size:12px"></div>
     </div>
     <div id="log" class="md-err">Memuat catatan rilis…</div>
-    <div class="muted" style="margin-top:14px">Sumber: <a href="CHANGELOG.md" style="color:var(--blue)">CHANGELOG.md</a></div>
+    <div class="muted" style="margin-top:14px">Data publik: <code style="color:var(--blue)">assets/changelog-releases.json</code></div>
   </div>
   <footer>NihongoPro Academy · halaman catatan rilis</footer>
 </div>
@@ -104,10 +105,12 @@ function render(md){
   return out.join('')
 }
 const host=document.getElementById('log');
-fetch('CHANGELOG.md',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.text()}).then(function(t){
+const latestEl=document.getElementById('latestRilis');
+fetch('assets/changelog-releases.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.json()}).then(function(j){
   host.className='';
-  host.innerHTML=render(t);
-}).catch(function(){host.className='md-err';host.innerHTML='Gagal memuat CHANGELOG.md. Buka langsung: <a href="CHANGELOG.md">CHANGELOG.md</a>.'});
+  host.innerHTML=render(j.markdown||'');
+  if(j.latest) latestEl.textContent='✨ Rilis terbaru: '+j.latest;
+}).catch(function(){host.className='md-err';host.innerHTML='Gagal memuat catatan rilis. Coba lagi sebentar lagi — jika terus terjadi, muat ulang halaman ini.';});
 </script>
 </body>
 </html>

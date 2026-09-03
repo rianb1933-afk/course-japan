@@ -1,0 +1,41 @@
+name: Release Check (tag)
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  release-check:
+    name: Validate release metadata for tag
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Pratinjau apa yang akan ditulis rilis ini (sw.js -> vN+1, entri CHANGELOG,
+      # meta Changelog.html, aset publik). Tidak menulis apa pun — cukup verifikasi.
+      - name: Run release dry-run
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          TITLE="$(git log -1 --format='%s' "$TAG" 2>/dev/null | sed 's/^release[[:space:]:]*//I')"
+          : "${TITLE:=$TAG}"
+          node scripts/release.js --dry-run "$TITLE"
+
+      - name: Write summary
+        if: always()
+        run: |
+          {
+            echo '### Release check — `${{ github.ref_name }}`'
+            echo ''
+            echo '- Commit: `${{ github.sha }}`'
+            echo '- Hasil dry-run di atas menentukan versi berikutnya (sw.js) dan entri CHANGELOG yang akan dibuat.'
+            echo "- Jalankan npm run release -- \"Judul Rilis\" ... secara lokal, lalu commit — alur tag tidak menulis ke repo."
+          } >> "$GITHUB_STEP_SUMMARY"
