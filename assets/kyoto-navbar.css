@@ -111,10 +111,29 @@ nav.kn-nav {
   box-sizing: border-box !important;
   overflow: visible !important;
   margin: 0 !important;
+  animation: kn-enter .45s cubic-bezier(.22,1,.36,1) both !important;
 }
 [data-theme="dark"] nav.kn-nav {
   background: #1A1A1A !important;
   border-bottom-color: rgba(200,155,60,.12) !important;
+}
+
+/* ── ENTRANCE — animasi "masuk situs", berlaku di 376 halaman yang
+   memuat navbar ini. kyoto-navbar.min.js MEMBANGUN <nav class="kn-nav">
+   lewat JS (elemen ini tidak ada di HTML mentah), jadi tidak ada risiko
+   FOUC: momen pertama nav.kn-nav muncul di DOM adalah momen animasi ini
+   mulai, tidak ada jeda "sudah ter-render lalu tiba-tiba disembunyikan"
+   seperti yang membuat #reveal-fallback perlu dibuat untuk sistem
+   .reveal berbasis JS (lihat index.html). `both` membuat status akhir
+   (100%) sama persis dengan tampilan normal nav.kn-nav di atas, jadi
+   browser yang entah bagaimana tidak menjalankan animasi ini tetap
+   menampilkan navbar apa adanya, bukan tersembunyi. */
+@keyframes kn-enter {
+  from { opacity: 0; transform: translateY(-14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  nav.kn-nav { animation: none !important; }
 }
 
 /* ── LOGO ─────────────────────────────────────────────────── */
