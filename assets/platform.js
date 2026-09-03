@@ -94,14 +94,36 @@
     addXP(amount, reason) {
       const u = _state.user;
       const oldLevel = u.level;
+      const oldXP = u.xp;
       u.xp += amount;
       u.level = XP.levelFromXP(u.xp);
       saveState(_state);
-      Toast.show(`+${amount} XP ${reason ? '— ' + reason : ''}`, 'gold');
-      if (u.level > oldLevel) {
-        setTimeout(() => Toast.show(`🎉 Level Up! Sekarang Level ${u.level}`, 'success'), 600);
+
+      /* Presentasi XP punya DUA jalur, dan hanya satu yang boleh aktif.
+
+         np-celebrate.js — bila dimuat — menampilkan perolehan XP sebagai chip
+         dan naik level sebagai overlay beranimasi. Toast di bawah menyampaikan
+         pesan yang sama persis, jadi menjalankan keduanya berarti pengguna
+         membaca "+50 XP" dua kali di dua tempat berbeda.
+
+         Modul itu menandai dirinya lewat global.NPCelebrate saat mendaftar.
+         Ia sengaja TIDAK mendaftar pada prefers-reduced-motion, sehingga
+         pengguna yang meminta kurangi-gerakan otomatis jatuh kembali ke toast
+         di sini — begitu pula halaman yang tidak memuat modulnya sama sekali.
+         Tidak ada halaman yang kehilangan umpan balik XP. */
+      if (!global.NPCelebrate) {
+        Toast.show(`+${amount} XP ${reason ? '— ' + reason : ''}`, 'gold');
+        if (u.level > oldLevel) {
+          setTimeout(() => Toast.show(`🎉 Level Up! Sekarang Level ${u.level}`, 'success'), 600);
+        }
       }
-      global.dispatchEvent(new CustomEvent('np:xpAdded', { detail: { amount, reason, total: u.xp, level: u.level } }));
+
+      global.dispatchEvent(new CustomEvent('np:xpAdded', {
+        detail: {
+          amount, reason, total: u.xp, level: u.level,
+          oldXP, oldLevel, leveledUp: u.level > oldLevel,
+        },
+      }));
       return u.xp;
     },
 
@@ -450,7 +472,12 @@ Akhiri dengan pertanyaan atau prompt untuk lanjut belajar.`;
       if (newly.length) {
         State.updateUser({ achievements: [...already] });
         newly.forEach(a => {
-          setTimeout(() => Toast.show(`🏅 Achievement: ${a.title}!`, 'success', 4000), 800);
+          // Sama seperti addXP: np-celebrate.js yang memegang presentasi bila
+          // dimuat; event tetap dikirim agar halaman lain bisa ikut menyimak.
+          global.dispatchEvent(new CustomEvent('np:achievement', { detail: a }));
+          if (!global.NPCelebrate) {
+            setTimeout(() => Toast.show(`🏅 Achievement: ${a.title}!`, 'success', 4000), 800);
+          }
         });
       }
     },
