@@ -4,87 +4,31 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
-## v346 — Perbaiki garis jatah & label yang tidak tergambar di rekap mingguan
+## v338–v346 — Kuota kartu baru per level JLPT + rekap mingguan
 
-### Perubahan
+Rangkaian sembilan rilis yang mengubah batas kartu baru harian dari satu angka global menjadi kuota per level JLPT, lengkap dengan panel reset, rekap mingguan, overlay sisa kuota, dan KPI pencapaian di Statistik SRS. Logika kuota yang murni dipisah ke modul baru `assets/srs-cap.js` (namespace `NPCap`) dan diuji oleh 128 unit test.
 
-- Overlay kini membawa total kartu per hari; garis putus-putus jatah, label sisa N / cap ceklis, dan label ↑ jatah N untuk markah yang melewati batas sumbu benar-benar tergambar
-
----
-
-## v345 — Batas sumbu grafik rekap mingguan agar tetap terbaca saat kuota besar
-
-### Perubahan
-
-- Sumbu-y rekap 7 hari kini dibatasi ±2× hari terpadat; markah jatah di atas batas diklem ke tepi atas dengan label ↑ jatah N
-
----
-
-## v344 — KPI pencapaian kuota kartu baru mingguan di Statistik SRS
-
-### Perubahan
-
-- NPCap.weekAttainment: persentase jatah kartu baru yang terpakai minggu ini dari data weekRecap (hanya level yang dipelajari; hari legacy atau tanpa batas dilewati)
-- KPI header baru di SRS-Statistics (Pencapaian Kuota Baru) berisi persen terpakai dengan tooltip rincian used/allowed; 2 unit test baru (total 128)
-
----
-
-## v343 — Overlay sisa kuota harian di grafik rekap mingguan
-
-### Perubahan
-
-- weekRecap kini melaporkan per hari: sisa kuota level yang dipelajari (quotaLeft), level yang jatahnya penuh terpakai (hit), penanda hari data lama (legacy), dan kuota aktif (caps)
-- Grafik 7 hari di SRS-Statistics: garis putus-putus batas jatah dan label sisa N per kolom hari (cap penuh jadi cap ceklis); tooltip per level X/Y sisa Z; ringkasan minggu menampilkan level yang cap-nya penuh
-- 2 unit test baru untuk field kuota rekap (total 126)
-
----
-
-## v342 — Rekap kartu baru mingguan per level di Statistik SRS
-
-### Perubahan
-
-- NPCap.weekRecap: rangkum kartu baru per level per hari dari np-srs-today-*
-- Grafik stacked 7 hari di SRS-Statistics.html (N5-N1 + Lainnya) + ringkasan mingguan
-- 4 unit test baru untuk weekRecap (total 124)
-
----
-
-## v341 — Konfirmasi inline dua-langkah untuk reset kuota
-
-### Perubahan
-
-- Dialog konfirmasi asli diganti konfirmasi inline: saat Target Harian sudah tercapai, klik pertama mengubah tombol menjadi peringatan Yakin? (merah), klik kedua yang mengeksekusi reset
-- Keadaan Yakin? batal otomatis dalam 4 detik atau saat klik di luar tombol; bila target belum tercapai reset tetap sekali klik tanpa konfirmasi
-
----
-
-## v340 — Peringatan reset kuota saat Target Harian tercapai
-
-### Perubahan
-
-- Reset kuota kini meminta konfirmasi bila Target Harian hari ini sudah tercapai - pesan menjelaskan bahwa kartu baru yang tadi diulas bisa masuk antrean lagi sehingga Target Harian dan statistik Baru bertambah lagi
-- Bila target belum tercapai reset tetap langsung tanpa dialog; penghitung Target Harian tidak pernah dikurangi oleh reset
-
----
-
-## v339 — Tombol reset kuota kartu baru harian
-
-### Perubahan
-
-- Tombol Reset kuota di panel Target Harian mengosongkan pemakaian kartu baru per level (newByLevel) sehingga jatah N5-N1 & Lainnya langsung penuh lagi di hari yang sama
-- Reset hanya memulihkan jatah kartu baru - penghitung kartu diulas (new/reviewed/review) tidak diubah, streak dan statistik harian tetap utuh
-- Tombol aktif hanya jika ada pemakaian kuota hari ini; logika reset murni ditambahkan ke assets/srs-cap.js (NPCap.resetUsage) dengan 12 test unit
-
----
-
-## v338 — Kuota kartu baru per level JLPT
-
-### Perubahan
+### Kuota kartu baru per level (v338–v341)
 
 - Batas kartu baru per hari kini diatur per level: N5 20, N4 15, N3 10, N2 5, N1 3 (default) — N5 boleh lebih banyak dari N1
 - Kartu non-JLPT (Kaigo, Kanji tanpa level, Grammar, JMdict, kustom) memakai kuota terpisah Lainnya
 - Pengguna lama dengan satu angka kuota dimigrasi otomatis ke semua level; key np-srs-new-cap tetap dibaca
-- Pemakaian harian kini dicatat per level (newByLevel) dan panel pengaturan menampilkan sisa kuota tiap level
+- Pemakaian harian dicatat per level (newByLevel); antrean deck dipotong per level di buildDeck, ulasan jatuh tempo tidak terpengaruh, dan panel pengaturan menampilkan sisa kuota tiap level
+- Tombol Reset kuota mengosongkan pemakaian hari ini sehingga jatah per level langsung penuh lagi; penghitung kartu diulas (new/reviewed/review) tidak diubah agar streak dan statistik harian tetap utuh
+- Saat Target Harian sudah tercapai, reset memakai konfirmasi inline dua-langkah (klik pertama mengubah tombol jadi peringatan Yakin? merah, klik kedua mengeksekusi; batal otomatis dalam 4 detik atau saat klik di luar tombol). Bila target belum tercapai reset tetap sekali klik tanpa dialog
+- Modul baru `assets/srs-cap.js`: NPCap.bucketOf/readCaps/saveCaps (migrasi legacy), readToday/usedToday/left/totalLeft, accountNew, trim, resetUsage — murni, storage di-injeksi sehingga bisa diuji lintas tanggal
+
+### Rekap & analisis kuota mingguan (v342–v344)
+
+- NPCap.weekRecap: rangkum kartu baru per level per hari dari key np-srs-today-* (7 hari); hari data lama tanpa rincian per level memakai penghitung new sebagai cadangan agar tidak ada yang hilang
+- Grafik stacked 7 hari di SRS-Statistics.html (N5–N1 + Lainnya) + ringkasan mingguan, dan KPI header Pencapaian Kuota Baru (persen jatah terpakai minggu ini dari level yang dipelajari, dengan tooltip rincian used/allowed)
+- Overlay per kolom hari: garis putus-putus batas jatah dengan label sisa N (cap penuh jadi cap ceklis), tooltip per level X/Y sisa Z, dan ringkasan level yang cap-nya penuh
+
+### Perbaikan keterbacaan grafik (v345–v346)
+
+- Sumbu-y rekap 7 hari dibatasi ±2× hari terpadat agar kolom studi tidak jadi sliver saat kuota per level besar
+- Markah jatah di atas batas sumbu diklem ke tepi atas dengan label "↑ jatah N" supaya informasinya tidak hilang
+- Perbaikan regresi diam-diam: objek overlay kini membawa total kartu per hari sehingga garis jatah dan label sisa N / cap ceklis benar-benar tergambar (sebelumnya field yang diharapkan plugin tidak pernah diisi)
 
 ---
 
