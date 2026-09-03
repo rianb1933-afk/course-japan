@@ -173,6 +173,31 @@ table.kx-table, .kx-table table { border-collapse: separate; border-spacing: 0; 
 #main-content { animation: kx-rise var(--kx-dur-slow) var(--kx-ease) both; }
 
 /* ══════════════════════════════════════
+   PAGE TRANSITION — cross-fade antar halaman (View Transitions API)
+   ──────────────────────────────────────
+   `navigation: auto` mengaktifkan cross-document view transition BAWAAN
+   browser untuk navigasi sesama origin -- klik link ke halaman lain
+   memudar keluar/masuk alih-alih hard-reload putih polos. Progressive
+   enhancement murni: browser yang belum mendukung `@view-transition`
+   cuma mengabaikan at-rule yang tak dikenal dan bernavigasi normal
+   seperti sekarang -- TIDAK ADA jalur gagal, tidak butuh deteksi fitur,
+   tidak butuh JS. Spesifikasinya mensyaratkan KEDUA sisi navigasi (halaman
+   asal & tujuan) sama-sama mendeklarasikan aturan ini -- karena 377/388
+   halaman memuat berkas ini, transisi otomatis terjadi di hampir semua
+   perpindahan antar halaman situs; berpindah dari/ke salah satu dari 11
+   halaman yang tidak memuatnya cukup jatuh kembali ke navigasi biasa,
+   bukan gagal. Timing dipetakan ke token kx-dur-slow/kx-ease yang sama dipakai
+   .kx-rise, supaya terasa satu bahasa gerak dengan entrance konten. */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--kx-dur-slow);
+  animation-timing-function: var(--kx-ease);
+}
+
+/* ══════════════════════════════════════
    ACCESSIBILITY — honor reduced motion (celah yg ditemukan)
    ══════════════════════════════════════ */
 @media (prefers-reduced-motion: reduce) {
@@ -180,6 +205,11 @@ table.kx-table, .kx-table table { border-collapse: separate; border-spacing: 0; 
   .kx-progress > i, .kx-ring-progress, .kx-xp-bar > i,
   .kx-badge-earn, .kx-table tbody tr, a.card::before, .card-link::before {
     transition: none !important;
+    animation: none !important;
+  }
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
     animation: none !important;
   }
   .card:hover { transform: none; }
