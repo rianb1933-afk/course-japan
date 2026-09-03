@@ -281,6 +281,29 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
         animation: none !important;
       }
     }
+
+    /* ── PEMBATAS GELOMBANG — motif 〰 khas Jepang di satu titik transisi
+       (hero/countdown gelap → konten terang), bukan diulang di tiap
+       section (blueprint sendiri minta jangan berlebihan). Garis dibuat
+       lewat SVG data-URI diulang horizontal, digeser pelan lewat
+       background-position -- bukan elemen DOM berulang, jadi ringan. */
+    .jp-wave-divider {
+      height: 26px;
+      background-color: var(--cream);
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='26' viewBox='0 0 60 26'%3E%3Cpath d='M0 13 C 10 3, 20 3, 30 13 C 40 23, 50 23, 60 13' stroke='%23C0392B' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: repeat-x;
+      background-size: 60px 26px;
+      background-position: 0 0;
+      opacity: .3;
+      animation: jp-wave-drift 16s linear infinite;
+    }
+    @keyframes jp-wave-drift {
+      from { background-position-x: 0; }
+      to   { background-position-x: -60px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .jp-wave-divider { animation: none; }
+    }
   </style>
 <meta property="og:site_name" content="Nihongo Pro Academy">
 <link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
@@ -586,6 +609,8 @@ nav.kn-nav { z-index: 9999 !important; }
     </div>
   </div>
 </div>
+
+<div class="jp-wave-divider" role="presentation" aria-hidden="true"></div>
 
 <!-- DAILY LMS MISSION -->
 <section class="daily-mission-section" id="daily-mission">
