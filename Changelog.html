@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){var k=['kyoto-theme','nihongo-theme','theme','np-dark'],s=null;for(var i=0;i<k.length;i++){s=localStorage.getItem(k[i]);if(s)break}var d=(s==='dark')||(s==='on');if(d){document.documentElement.setAttribute('data-dark','');document.documentElement.setAttribute('data-theme','dark')}})();</script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catatan Rilis – NihongoPro Academy</title>
+<meta name="description" content="Catatan perubahan (changelog) NihongoPro Academy — fitur baru dan perbaikan tiap versi.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Noto+Serif+JP:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f9fb;--white:#fff;--ink:#0f172a;--ink2:#475569;--ink3:#5b6b7f;
+  --border:#e2e8f0;--surface:#f1f5f9;--blue:#2563eb;--blue-l:#eff6ff;
+  --green:#117E39;--green-l:#dcfce7;--red:#C62222;--gold:#A35904;--gold-l:#fef3c7;
+  --r:12px;--r-lg:20px;--ff:'Outfit',system-ui,sans-serif;--sh:0 2px 12px rgba(0,0,0,.07);
+}
+[data-dark],[data-theme="dark"]{--bg:#0f172a;--white:#1e293b;--ink:#f1f5f9;--ink2:#94a3b8;--ink3:#64748b;--border:#334155;--surface:#24324a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);background:var(--bg);color:var(--ink);line-height:1.6}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.tb-brand{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800;white-space:nowrap}
+.tb-brand a{color:inherit;text-decoration:none;font-size:13px;font-weight:700;background:var(--surface);padding:5px 10px;border-radius:8px}
+.tb-brand a:hover{background:var(--blue-l);color:var(--blue)}
+.tb-btn{font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:none;cursor:pointer;background:var(--surface);color:var(--ink2);white-space:nowrap}
+.tb-btn:hover{background:var(--blue-l);color:var(--blue)}
+.page{max-width:860px;margin:0 auto;padding:28px 20px 70px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:26px;box-shadow:var(--sh)}
+.hd h1{font-size:24px;font-weight:900}
+.hd p{font-size:13px;color:var(--ink2);margin-top:4px}
+.ver{display:inline-block;font-size:11px;font-weight:800;background:var(--green-l);color:var(--green);padding:3px 10px;border-radius:99px;margin:14px 0 6px}
+.md-h1{font-size:20px;font-weight:900;margin:22px 0 6px;padding-bottom:6px;border-bottom:1px solid var(--border)}
+.md-h2{font-size:16px;font-weight:800;margin:16px 0 4px;color:var(--ink)}
+.md-h3{font-size:14px;font-weight:800;margin:14px 0 4px;color:var(--blue)}
+.md-h4{font-size:13px;font-weight:700;margin:12px 0 4px}
+.md-h1 .pill{background:var(--gold-l);color:var(--gold);border-radius:8px;padding:1px 8px;font-size:12px;margin-right:8px;vertical-align:2px}
+.md-p{margin:8px 0;font-size:14px;color:var(--ink2)}
+.md-ul{list-style:none;margin:6px 0 10px;padding:0}
+.md-ul li{position:relative;padding:2px 0 2px 22px;font-size:13.5px;color:var(--ink2)}
+.md-ul li:before{content:'▸';position:absolute;left:6px;color:var(--blue);font-weight:900}
+.md-ul .md-ul{margin:4px 0 4px 4px}
+.md-ul .md-ul li:before{content:'–';color:var(--ink3)}
+b{color:var(--ink)}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:1px 5px;color:var(--red)}
+pre{background:#0b1220;color:#dbeafe;border-radius:12px;padding:14px 16px;overflow-x:auto;font-size:12px;line-height:1.5;margin:10px 0}
+pre code{background:none;border:none;color:inherit;padding:0}
+.md-hr{border:none;border-top:1px dashed var(--border);margin:18px 0}
+.md-err{padding:24px;text-align:center;color:var(--ink3);font-size:14px}
+.md-err a{color:var(--blue);font-weight:700}
+.muted{color:var(--ink3);font-size:12px}
+footer{margin-top:18px;font-size:12px;color:var(--ink3);text-align:center}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-brand"><a href="index.html">← Beranda</a> 📋 Catatan Rilis</div>
+  <button class="tb-btn" onclick="var on=document.documentElement.getAttribute('data-theme')==='dark';on=!on;if(on){document.documentElement.setAttribute('data-theme','dark');document.documentElement.setAttribute('data-dark','')}else{document.documentElement.removeAttribute('data-theme');document.documentElement.removeAttribute('data-dark')}['kyoto-theme','nihongo-theme','theme'].forEach(function(k){localStorage.setItem(k,on?'dark':'light')});localStorage.setItem('np-dark',on?'on':'off');this.textContent=on?'☀️':'🌙'">🌙</button>
+</div>
+<div class="page">
+  <div class="card">
+    <div class="hd">
+      <h1>📋 Catatan Rilis</h1>
+      <p>Riwayat fitur dan perbaikan NihongoPro Academy. Nomor versi mengikuti cache service worker (sw.js).</p>
+    </div>
+    <div id="log" class="md-err">Memuat catatan rilis…</div>
+    <div class="muted" style="margin-top:14px">Sumber: <a href="CHANGELOG.md" style="color:var(--blue)">CHANGELOG.md</a></div>
+  </div>
+  <footer>NihongoPro Academy · halaman catatan rilis</footer>
+</div>
+<script>
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function inline(s){return esc(s).replace(/\*\*([^*]+)\*\*/g,'<b>$1</b>').replace(/`([^`]+)`/g,'<code>$1</code>')}
+function render(md){
+  const out=[];let inCode=false,buf=[],ul=0;
+  function closeUl(){if(ul){out.push('<ul class="md-ul">'+buf.map(function(x){return '<li>'+inline(x)+'</li>'}).join('')+'</ul>');buf=[];ul=0}}
+  md.split(/\r?\n/).forEach(function(line){
+    if(/^```/.test(line.trim())){if(inCode){out.push('<pre>'+esc(buf.join('\n'))+'</pre>');buf=[]}inCode=!inCode;return}
+    if(inCode){buf.push(line);return}
+    const t=line.trim();
+    if(!t){closeUl();return}
+    if(/^#{1,4} /.test(t)){
+      closeUl();
+      const m=t.match(/^(#{1,4})\s+(.*)$/);
+      const lv=Math.min(m[1].length,4);
+      const pill=m[2].match(/^(v?\d[\w.\-]*)/);
+      const body2=pill&&lv===2?m[2].slice(pill[1].length).trim():m[2];
+      out.push('<h'+lv+' class="md-h md-h'+lv+'">'+(pill&&lv===2?'<span class="pill">'+esc(pill[1])+'</span>':'')+inline(body2)+'</h'+lv+'>');
+      return
+    }
+    if(/^[-*] /.test(t)||/^\d+\. /.test(t)){
+      const dm=t.match(/^[-*]\s+(.*)$/);const nm=t.match(/^\d+\.\s+(.*)$/);
+      const body=nm?nm[1]:(dm?dm[1]:t);
+      if(!ul){ul=1;closeUl();out.push('<ul class="md-ul">')}
+      buf.push(body);return
+    }
+    if(/^---+$/.test(t)){closeUl();out.push('<hr class="md-hr">');return}
+    closeUl();out.push('<p class="md-p">'+inline(t)+'</p>');
+  });
+  closeUl();
+  if(inCode){out.push('<pre>'+esc(buf.join('\n'))+'</pre>')}
+  return out.join('')
+}
+const host=document.getElementById('log');
+fetch('CHANGELOG.md',{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error(r.status);return r.text()}).then(function(t){
+  host.className='';
+  host.innerHTML=render(t);
+}).catch(function(){host.className='md-err';host.innerHTML='Gagal memuat CHANGELOG.md. Buka langsung: <a href="CHANGELOG.md">CHANGELOG.md</a>.'});
+</script>
+</body>
+</html>

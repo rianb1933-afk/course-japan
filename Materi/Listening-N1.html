@@ -135,13 +135,14 @@ if('serviceWorker' in navigator){
         var w=r.installing;
         w.addEventListener('statechange',function(){
           if(w.state==='installed'&&navigator.serviceWorker.controller){
-            w.postMessage({type:'SKIP_WAITING'});setTimeout(function(){location.reload()},1500);
+            sessionStorage.setItem('np-sw-refresh','1');w.postMessage({type:'SKIP_WAITING'});setTimeout(function(){location.reload()},1500);
           }
         });
       });
     }).catch(function(){});
   });
 }
+;(function(){try{if(sessionStorage.getItem('np-sw-refresh')){sessionStorage.removeItem('np-sw-refresh');var t=document.createElement('div');t.id='np-update-toast';t.setAttribute('role','status');t.setAttribute('aria-live','polite');t.style.cssText='position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:2147483000;background:#117E39;color:#fff;padding:11px 18px;border-radius:12px;font:600 13px/1.45 -apple-system,\'Segoe UI\',system-ui,sans-serif;box-shadow:0 10px 34px rgba(0,0,0,.28);max-width:min(92vw,430px);text-align:center;opacity:0;transition:opacity .35s ease';var wn=true;try{wn=!localStorage.getItem('np-sw-wn-seen')}catch(e){}if(wn){try{localStorage.setItem('np-sw-wn-seen','1')}catch(e){}}t.innerHTML='\u2705 Versi baru diterapkan \u2014 konten diperbarui otomatis'+(wn?'<br><a href=\"Changelog.html\" style=\"display:inline-block;margin-top:6px;color:#e6fff0;text-decoration:underline;font-size:12px;font-weight:700\">\u2728 Apa yang baru?</a>':'');var sh=function(){document.body.appendChild(t);requestAnimationFrame(function(){t.style.opacity='1'})};if(document.body)sh();else document.addEventListener('DOMContentLoaded',sh);setTimeout(function(){t.style.opacity='0'},4600);setTimeout(function(){if(t.parentNode)t.parentNode.removeChild(t)},5100)}}catch(e){}})();
 </script>
 <script>
 // TTS untuk latihan mendengar — baca kalimat Jepang di setiap dialog

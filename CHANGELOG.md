@@ -4,6 +4,36 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v335 — Riwayat ulasan SRS, drill-down level & auto-update
+
+### Fitur baru
+
+- `SRS-Statistics.html` — tabel "Kartu yang Perlu Diulang" kini bisa diklik: setiap baris membuka popup riwayat ulasan per kartu yang menampilkan penilaian (`🔄 Ulangi`/`😓 Sulit`/`👍 Baik`/`⭐ Mudah`), perubahan EF (▼/▲), jarak berikutnya, dan waktu ulasan; panel juga menampilkan EF/interval/beruntun/ulasan berikutnya saat ini.
+- Riwayat ulasan SRS diperkaya: `rate()` di `SRS-Flashcard.html` kini menyimpan rekaman lengkap `{r, t, ef, ivl, reps}` per ulasan (sebelumnya hanya nilai mentah 0–3); entri lama tanpa tanggal tetap terbaca dan dihitung ulang dengan algoritma SM-2 agar popup konsisten.
+- Rincian penguasaan per level di `SRS-Statistics.html` menjadi drill-down: bar N5–N1 (plus "Lainnya" untuk kartu non-JLPT yang sudah dipelajari) dapat diklik untuk membuka daftar kartu dipelajari level tersebut (urut EF terendah, maks. 200), lalu klik kartu mana pun untuk melihat popup riwayat ulasannya, dengan tombol kembali ke daftar.
+- Pemasangan versi baru kini otomatis: dialog `confirm` dihapus dari 272 halaman (semua `.html` + template `scripts/templates/tail.tpl`) dan diganti alur `SKIP_WAITING` + reload otomatis ±1,5 detik; tidak ada lagi dialog yang memblokir halaman.
+- Toast non-blocking muncul setelah auto-update: "✅ Versi baru diterapkan — konten diperbarui otomatis", hilang sendiri ±4,6 detik; pada pembaruan pertama per perangkat toast menyertakan tautan satu kali "✨ Apa yang baru?" menuju halaman catatan rilis.
+- Halaman `Changelog.html` baru yang me-render `CHANGELOG.md` langsung (pill versi, judul, daftar, kode) dengan dukungan mode terang/gelap dan fallback bila berkas gagal dimuat.
+
+### File baru
+
+- `Changelog.html` — halaman Catatan Rilis NihongoPro Academy (render markdown dari `CHANGELOG.md`).
+
+### File diubah
+
+- `SRS-Statistics.html` — popup riwayat ulasan per kartu, baris kartu lemah dapat diklik, drill-down level ke daftar kartu per level, normalisasi riwayat campuran (angka lama + rekaman baru), dan alur auto-update.
+- `SRS-Flashcard.html` — rekaman riwayat ulasan kaya `{r,t,ef,ivl,reps}` + normalisasi konsumen riwayat (titik riwayat di panel statistik kartu).
+- `sw.js` — cache dinaikkan ke `eduma-kaigo-v335`; handler pesan `SKIP_WAITING` (skipWaiting otomatis) dan pembersihan cache versi lama saat aktivasi.
+- 271 file `.html` lain + `scripts/templates/tail.tpl` — blok registrasi service worker memakai alur auto-update dan modul toast (alur ini juga dipakai halaman hasil generate template).
+- `index.html` — alur auto-update + toast di host produksi (registrasi service worker tetap dinonaktifkan di localhost).
+
+### Catatan migrasi
+
+- Pengguna yang masih menyimpan HTML lama di cache service worker mungkin melihat satu dialog konfirmasi terakhir pada kunjungan pertama setelah rilis ini; setelah versi baru aktif, seluruh pembaruan berikutnya berjalan otomatis tanpa dialog.
+- Flag `np-sw-wn-seen` (localStorage) mengontrol penampilan tautan "Apa yang baru?" sekali saja per perangkat; hapus flag tersebut untuk memunculkannya kembali.
+
+---
+
 ## v86 — Smart Learning Dashboard
 
 ### Hotfix homepage 86.1
