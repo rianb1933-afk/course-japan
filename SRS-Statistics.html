@@ -167,6 +167,8 @@ canvas{max-width:100%}
     <div class="kpi b-red"><div class="kpi-ic">🔥</div><div class="kpi-num" id="kStreak">–</div><div class="kpi-lbl">Streak Terpanjang</div></div>
     <div class="kpi b-blue"><div class="kpi-ic">⭐</div><div class="kpi-num" id="kBookmark">–</div><div class="kpi-lbl">Kartu Tersimpan</div></div>
     <div class="kpi b-green"><div class="kpi-ic">🎯</div><div class="kpi-num" id="kQuiz">–</div><div class="kpi-lbl">Skor Kuis</div></div>
+    <div class="kpi b-purple"><div class="kpi-ic">🧠</div><div class="kpi-num" id="kPredRet">–</div><div class="kpi-lbl">Retensi Diprediksi</div></div>
+    <div class="kpi b-red"><div class="kpi-ic">💔</div><div class="kpi-num" id="kLapses">–</div><div class="kpi-lbl">Total Lupa (Lapses)</div></div>
   </div>
 
   <div id="noData" style="display:none;margin-bottom:16px" class="card big-empty">
@@ -271,6 +273,7 @@ canvas{max-width:100%}
 
 <script src="assets/srs-cards-data.js"></script>
 <script src="assets/srs-curated.js"></script>
+<script src="assets/srs-fsrs.js"></script>
 <script>
 /* ===== data helpers ===== */
 function ls(k, d){ try { const v = localStorage.getItem(k); return v===null ? d : JSON.parse(v); } catch(e){ return d; } }
@@ -301,6 +304,38 @@ function catName(cat){ return CAT_LABEL[cat] || (cat || 'Lainnya'); }
 function isMastered(card){ return (card.reps||0) >= 6; }
 function isLearned(card){ return (card.reps||0) >= 1; }
 
+/* ── Aksesor sadar-FSRS ──
+   Kartu yang diulas memakai FSRS-5 (assets/srs-fsrs.js) menyimpan state
+   { stability, difficulty, lapses, due } di `card.fsrs`. Kartu lama SM-2
+   hanya punya `ef`/`interval`. Semua tampilan memakai nilai FSRS bila ada,
+   dan jatuh kembali ke SM-2 bila tidak. */
+function hasFSRS(st){ return !!(st && st.fsrs && typeof st.fsrs.stability === 'number' && typeof st.fsrs.difficulty === 'number'); }
+function srsMode(){ try { return localStorage.getItem('np-srs-algo') !== 'sm2'; } catch(e){ return true; } }
+function cardDifficulty(st){ return hasFSRS(st) ? st.fsrs.difficulty : (((st.ef||2.5) - 1.3) / 1.7 * 9 + 1); }
+function cardLapses(st){ return hasFSRS(st) ? (st.fsrs.lapses||0) : 0; }
+function cardStabilityDays(st){ return hasFSRS(st) ? (st.fsrs.stability||0) : ((st.interval||0)/1440); }
+function cardWeakScore(st){
+  if (!st || (st.reps||0) <= 0) return Infinity;
+  // FSRS: sulit + sering lupa → lemah. SM-2: EF rendah.
+  if (hasFSRS(st)) return (st.fsrs.difficulty||5) + (st.fsrs.lapses||0) * 1.5;
+  return (st.ef||2.5);
+}
+function fmtDiff(d){ return (d||5).toFixed(1); }
+function fmtStab(days){
+  if (!days || days <= 0) return '–';
+  if (days < 1) return Math.round(days*24) + 'j';
+  if (days < 31) return Math.round(days) + 'h';
+  if (days < 365) return Math.round(days/30) + 'bln';
+  return Math.round(days/365*10)/10 + 'thn';
+}
+/* Nilai tampilan tunggal per kartu: FSRS → "D 5.3", SM-2 → "EF 2.50" */
+function cardMetricLabel(st){
+  return hasFSRS(st) ? 'D ' + fmtDiff(st.fsrs.difficulty) : 'EF ' + (st.ef||2.5).toFixed(2);
+}
+function cardMetricTitle(st){
+  return hasFSRS(st) ? ('Difficulty (FSRS-5) · lapses ' + (st.fsrs.lapses||0)) : 'Ease Factor (SM-2)';
+}
+
 let _state = {}, _lookup = {}, _period = 30;
 let charts = {};
 
@@ -315,8 +350,9 @@ function loadAll(){
   const kpi = document.getElementById('kpiRow');
   kpi.style.display = ids.length ? 'grid' : 'none';
   const sub = document.getElementById('subTitle');
+  const algo = srsMode() ? 'FSRS-5' : 'SM-2';
   sub.textContent = ids.length
-    ? ids.length + ' kartu punya riwayat belajar · total pustaka ' + fmt(Object.keys(_lookup).length) + ' kartu'
+    ? ids.length + ' kartu punya riwayat belajar · total pustaka ' + fmt(Object.keys(_lookup).length) + ' kartu · 🧠 ' + algo
     : 'Belum ada kartu yang dipelajari';
 }
 
@@ -344,6 +380,23 @@ function renderKpi(){
   document.getElementById('kMastered').textContent = fmt(mastered);
   document.getElementById('kRetention').textContent = ratings.length ? retention + '%' : '–';
   document.getElementById('kDue').textContent = fmt(due);
+  // Prediksi retensi FSRS-5 + total lapses (hanya kartu dengan state FSRS)
+  let predSum = 0, predN = 0, lapses = 0;
+  ids.forEach(id => {
+    const st = _state[id];
+    if (!st || (st.reps||0) <= 0) return;
+    if (st.fsrs && typeof st.fsrs.stability === 'number') {
+      lapses += (st.fsrs.lapses||0);
+      if (isLearned(st)) {
+        predSum += (window.NPFSRS ? window.NPFSRS.currentRetention(st, now) : 1);
+        predN++;
+      }
+    } else {
+      lapses += 0; // kartu SM-2 lama tidak punya pencatat lapses
+    }
+  });
+  document.getElementById('kPredRet').textContent = predN ? Math.round(predSum / predN * 100) + '%' : '–';
+  document.getElementById('kLapses').textContent = lapses ? fmt(lapses) : (Object.keys(_state).some(id => hasFSRS(_state[id])) ? '0' : '–');
   // streak from count keys
   let streak = 0;
   const d = new Date();
@@ -508,20 +561,34 @@ function escHtml(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/
 
 function renderWeak(){
   const el = document.getElementById('weakList');
+  const hasF = Object.keys(_state).some(id => hasFSRS(_state[id]));
+  // Ambang "lemah": FSRS → difficulty >= 6 atau pernah lupa (lapses >= 1);
+  // SM-2 → EF < 2.2. Kartu tanpa indikator jelas dikeluarkan.
   const entries = Object.entries(_state)
-    .filter(([id,st]) => st.reps > 0 && st.ef && st.ef < 2.2)
-    .sort((a,b) => a[1].ef - b[1].ef)
+    .filter(([id,st]) => st.reps > 0 && (
+      hasFSRS(st) ? ((st.fsrs.difficulty||5) >= 6 || (st.fsrs.lapses||0) >= 1) : (st.ef && st.ef < 2.2)
+    ))
+    .sort((a,b) => cardWeakScore(a[1]) - cardWeakScore(b[1]))
     .slice(0, 12);
-  if (!entries.length) { el.innerHTML = '<span style="color:#22c55e">✅ Tidak ada kartu lemah (EF &lt; 2.2). Kerja bagus!</span>'; return; }
-  el.innerHTML = '<table class="tbl"><tr><th>Kartu</th><th>Arti</th><th style="text-align:right">EF · Riwayat</th></tr>' +
+  if (!entries.length) {
+    el.innerHTML = hasF
+      ? '<span style="color:#22c55e">✅ Tidak ada kartu lemah (FSRS-5: D &lt; 6 dan tanpa lapses). Kerja bagus!</span>'
+      : '<span style="color:#22c55e">✅ Tidak ada kartu lemah (EF &lt; 2.2). Kerja bagus!</span>';
+    return;
+  }
+  const hdr = hasF ? 'D · Riwayat' : 'EF · Riwayat';
+  el.innerHTML = '<table class="tbl"><tr><th>Kartu</th><th>Arti</th><th style="text-align:right">' + hdr + '</th></tr>' +
     entries.map(([id,st]) => {
       const c = _lookup[id] || {};
       const lv = (c.jlpt && LEVEL_ORDER.indexOf(c.jlpt)!==-1) ? c.jlpt : '';
       const n = (st.history && st.history.length) || 0;
-      return '<tr data-id="' + escHtml(id) + '" title="Klik untuk melihat riwayat ulasan kartu ini">' +
+      const metric = hasFSRS(st)
+        ? 'D ' + fmtDiff(st.fsrs.difficulty) + (st.fsrs.lapses ? ' <span style="color:#ef4444">💔'+st.fsrs.lapses+'</span>' : '')
+        : st.ef.toFixed(2);
+      return '<tr data-id="' + escHtml(id) + '" title="' + escHtml(cardMetricTitle(st)) + ' — klik untuk melihat riwayat ulasan">' +
         '<td><b>' + escHtml(c.jp||id) + '</b>' + (c.reading?' <span class="muted">'+escHtml(c.reading)+'</span>':'') + '</td>' +
         '<td>' + escHtml(c.meaning||'') + '</td>' +
-        '<td style="text-align:right;white-space:nowrap"><span class="pill '+(lv?'jlpt-'+lv.toLowerCase():'jlpt-0')+'">'+ (lv||catName(c.cat)) +'</span> <b>'+ st.ef.toFixed(2) +'</b>' + (n? ' <span class="hist-ic" title="'+n+' ulasan tersimpan">📜</span>' : '') + '</td></tr>';
+        '<td style="text-align:right;white-space:nowrap"><span class="pill '+(lv?'jlpt-'+lv.toLowerCase():'jlpt-0')+'">'+ (lv||catName(c.cat)) +'</span> <b>'+ metric +'</b>' + (n? ' <span class="hist-ic" title="'+n+' ulasan tersimpan">📜</span>' : '') + '</td></tr>';
     }).join('') + '</table>';
 }
 
@@ -584,11 +651,16 @@ function openCardHistory(id){
   const dueLbl = st.nextReview
     ? (st.nextReview <= Date.now() ? 'Sekarang' : fmtWhen(st.nextReview))
     : ((st.reps||0) ? '—' : 'Belum pernah');
-  document.getElementById('chStats').innerHTML =
-    '<div class="ch-stat"><b>EF</b><span>' + (st.ef||2.5).toFixed(2) + '</span></div>' +
-    '<div class="ch-stat"><b>Interval</b><span>' + fmtIvl(st.interval||0) + '</span></div>' +
+  const isF = hasFSRS(st);
+  const firstStat = isF
+    ? '<div class="ch-stat"><b>S (stabilitas)</b><span>' + fmtStab(cardStabilityDays(st)) + '</span></div>' +
+      '<div class="ch-stat"><b>D (kesulitan)</b><span>' + fmtDiff(st.fsrs.difficulty) + '</span></div>'
+    : '<div class="ch-stat"><b>EF</b><span>' + (st.ef||2.5).toFixed(2) + '</span></div>' +
+      '<div class="ch-stat"><b>Interval</b><span>' + fmtIvl(st.interval||0) + '</span></div>';
+  document.getElementById('chStats').innerHTML = firstStat +
     '<div class="ch-stat"><b>Ulasan</b><span>' + hist.length + '×</span></div>' +
     '<div class="ch-stat"><b>Beruntun</b><span>' + (st.reps||0) + '</span></div>' +
+    (isF ? '<div class="ch-stat"><b>Lupa</b><span>💔 ' + (st.fsrs.lapses||0) + '</span></div>' : '') +
     '<div class="ch-stat"><b>Ulangi lagi</b><span>' + dueLbl + '</span></div>';
   document.getElementById('chCount').textContent = hist.length ? '(' + hist.length + '×)' : '';
   const rows = buildReviewRows(st);
@@ -677,29 +749,31 @@ function openLevelCards(lv){
   _backLv = lv; _curListLv = lv;
   const label = lv || 'Lainnya';
   document.getElementById('lstTitle').textContent = 'Kartu Dipelajari — ' + label;
-  const list = stateCardsOfLevel(lv).sort((a,b) => ((b.st.ef||2.5) - (a.st.ef||2.5)) * -1);
+  const hasF = Object.keys(_state).some(id => hasFSRS(_state[id]));
+  const list = stateCardsOfLevel(lv).sort((a,b) => cardWeakScore(a.st) - cardWeakScore(b.st));
   const totalN = list.length;
   const MAX = 200;
   const shown = list.slice(0, MAX);
   const sub = document.getElementById('lstSub');
+  const weakestLbl = hasF ? 'paling sulit' : 'ber-EF terendah';
   sub.textContent = shown.length
     ? (shown.length < totalN
-        ? 'Menampilkan ' + shown.length + ' kartu ber-EF terendah dari ' + totalN + ' dipelajari — klik kartu untuk lihat riwayat'
+        ? 'Menampilkan ' + shown.length + ' kartu ' + weakestLbl + ' dari ' + totalN + ' dipelajari — klik kartu untuk lihat riwayat'
         : totalN + ' kartu dipelajari — klik kartu untuk lihat riwayat')
     : '';
   const wrap = document.getElementById('lstWrap');
   if (!shown.length) {
     wrap.innerHTML = '<div class="muted" style="padding:14px 2px">Belum ada kartu dipelajari di level ini.</div>';
   } else {
-    wrap.innerHTML = '<table class="tbl"><tr><th>Kartu</th><th>Arti</th><th style="text-align:right">EF · Status</th></tr>' +
+    wrap.innerHTML = '<table class="tbl"><tr><th>Kartu</th><th>Arti</th><th style="text-align:right">' + (hasF ? 'D · Status' : 'EF · Status') + '</th></tr>' +
       shown.map(({ id, st, c }) => {
-        const eff = st.ef || 2.5;
+        const metric = cardMetricLabel(st);
         const status = isMastered(st) ? '<span class="pill ok">🏆 Dikuasai</span>' : '<span class="pill none">Belajar</span>';
         const meaning = escHtml(c.meaning || '');
-        return '<tr data-id="' + escHtml(id) + '" title="Klik untuk lihat riwayat ulasan kartu ini">' +
+        return '<tr data-id="' + escHtml(id) + '" title="' + escHtml(cardMetricTitle(st)) + ' — klik untuk lihat riwayat ulasan kartu ini">' +
           '<td><b>' + escHtml(c.jp || id) + '</b>' + (c.reading ? ' <span class="muted">' + escHtml(c.reading) + '</span>' : '') + '</td>' +
           '<td class="muted">' + (meaning.length > 70 ? meaning.slice(0, 70) + '…' : meaning) + '</td>' +
-          '<td style="text-align:right;white-space:nowrap"><b>' + eff.toFixed(2) + '</b> ' + status + '</td></tr>';
+          '<td style="text-align:right;white-space:nowrap"><b>' + metric + '</b> ' + status + '</td></tr>';
       }).join('') + '</table>';
   }
   document.getElementById('histPane').style.display = 'none';

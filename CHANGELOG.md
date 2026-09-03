@@ -4,6 +4,18 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v336 — Scheduler FSRS-5 untuk SRS Flashcard
+
+### Perubahan
+
+- Mesin scheduler FSRS-5 (standar Anki) baru di assets/srs-fsrs.js: stabilitas & kesulitan per kartu, interval adaptif, prediksi retensi
+- Sakelar algoritma SM-2 ↔ FSRS-5 di halaman flashcard — bebas pilih, preferensi tersimpan
+- Kartu lama dimigrasi konservatif (jadwal tidak digeser); ulasan baru menyimpan S/D/lapses
+- Statistik SRS kini sadar FSRS: KPI retensi diprediksi & total lapses, kartu lemah & drill-down memakai Difficulty
+- Ulasan pertama-tama lewat tahap belajar 1 mnt/10 mnt lalu lulus ke model penuh
+
+---
+
 ## v335 — Riwayat ulasan SRS, drill-down level & auto-update
 
 ### Fitur baru
