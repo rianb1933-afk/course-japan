@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>(function(){var k=['kyoto-theme','nihongo-theme','theme','np-dark'],s=null;for(var i=0;i<k.length;i++){s=localStorage.getItem(k[i]);if(s)break}var d=(s==='dark')||(s==='on');if(d){document.documentElement.setAttribute('data-dark','');document.documentElement.setAttribute('data-theme','dark')}})();</script>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Statistik SRS Flashcard – NihongoPro</title>
+<meta name="description" content="Dashboard statistik SRS Flashcard: penguasaan kosakata per level JLPT, retensi, jadwal pengulangan, dan aktivitas belajar.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<script src="assets/env.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#f8f9fb;--white:#fff;--ink:#0f172a;--ink2:#475569;--ink3:#5b6b7f;
+  --border:#e2e8f0;--surface:#f1f5f9;
+  --blue:#2563eb;--blue-l:#eff6ff;
+  --green:#117E39;--green-l:#dcfce7;
+  --red:#C62222;--red-l:#fee2e2;
+  --orange:#C0480A;--orange-l:#fff7ed;
+  --purple:#7c3aed;--purple-l:#f5f3ff;
+  --gold:#A35904;--gold-l:#fef3c7;
+  --r:12px;--r-lg:20px;--ff:'Outfit',sans-serif;
+  --sh:0 2px 12px rgba(0,0,0,.07);
+}
+[data-dark],[data-theme="dark"]{--bg:#0f172a;--white:#1e293b;--ink:#f1f5f9;--ink2:#94a3b8;--ink3:#64748b;--border:#334155;--surface:#24324a}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--ff);background:var(--bg);color:var(--ink);line-height:1.5}
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;gap:10px}
+.tb-brand{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:800;white-space:nowrap}
+.tb-brand a{color:inherit;text-decoration:none;font-size:13px;font-weight:700;background:var(--surface);padding:5px 10px;border-radius:8px}
+.tb-brand a:hover{background:var(--blue-l);color:var(--blue)}
+.tb-nav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.tb-nav::-webkit-scrollbar{display:none}
+.tb-btn{font-size:12px;font-weight:600;padding:6px 14px;border-radius:8px;border:none;cursor:pointer;background:var(--surface);color:var(--ink2);white-space:nowrap}
+.tb-btn:hover{background:var(--blue-l);color:var(--blue)}
+.page{max-width:1120px;margin:0 auto;padding:28px 20px 60px}
+.page-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+.page-hd h1{font-size:22px;font-weight:900}
+.page-hd p{font-size:13px;color:var(--ink2);margin-top:4px}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);padding:20px;box-shadow:var(--sh)}
+.card-title{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+@media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.g2{grid-template-columns:1fr}.g4{grid-template-columns:repeat(2,1fr)}}
+.kpi{border-radius:var(--r);padding:16px 18px;position:relative;overflow:hidden}
+.kpi-num{font-size:30px;font-weight:900;line-height:1.1}
+.kpi-lbl{font-size:11px;font-weight:600;color:var(--ink3);margin-top:4px;letter-spacing:.03em}
+.kpi-ic{position:absolute;right:14px;top:14px;font-size:22px;opacity:.85}
+.b-blue{background:var(--blue-l);color:var(--blue)}
+.b-green{background:var(--green-l);color:var(--green)}
+.b-gold{background:var(--gold-l);color:var(--gold)}
+.b-orange{background:var(--orange-l);color:var(--orange)}
+.b-purple{background:var(--purple-l);color:var(--purple)}
+.b-red{background:var(--red-l);color:var(--red)}
+.pbtn{font-size:11px;font-weight:700;padding:5px 10px;border-radius:7px;border:1px solid var(--border);background:var(--white);color:var(--ink2);cursor:pointer}
+.pbtn.active{background:var(--blue);border-color:var(--blue);color:#fff}
+.legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--ink2)}
+.legend span{display:flex;align-items:center;gap:5px}
+.dot{width:10px;height:10px;border-radius:3px;display:inline-block}
+canvas{max-width:100%}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:9px;font-size:12.5px}
+.bar-lbl{width:110px;flex:0 0 auto;font-weight:700;color:var(--ink2);font-size:12px}
+.bar-track{flex:1;background:var(--surface);border-radius:6px;height:20px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:6px;display:flex;align-items:center;justify-content:flex-end;padding-right:6px;font-size:10px;font-weight:800;color:#fff;min-width:0}
+.bar-pct{width:52px;text-align:right;font-weight:800;color:var(--ink3);font-size:11px;flex:0 0 auto}
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl th{font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--ink3);text-align:left;padding:6px 8px;border-bottom:1px solid var(--border)}
+.tbl td{padding:8px;border-bottom:1px solid var(--surface);vertical-align:top}
+.tbl tr:last-child td{border-bottom:none}
+.pill{display:inline-block;font-size:10px;font-weight:800;padding:2px 8px;border-radius:99px;letter-spacing:.03em}
+.jlpt-n5{background:#e6f9ee;color:#117E39}
+.jlpt-n4{background:#e0f2fe;color:#0369a1}
+.jlpt-n3{background:#fef3c7;color:#a16207}
+.jlpt-n2{background:#ffedd5;color:#c2410c}
+.jlpt-n1{background:#fee2e2;color:#b91c1c}
+.jlpt-0{background:var(--surface);color:var(--ink3)}
+.muted{color:var(--ink3);font-size:12px}
+.big-empty{text-align:center;padding:34px 10px;color:var(--ink3)}
+.big-empty .em{font-size:40px;margin-bottom:8px}
+.big-empty p{font-size:13px;max-width:380px;margin:0 auto 12px}
+.big-empty a{display:inline-block;background:var(--blue);color:#fff;padding:9px 18px;border-radius:10px;font-weight:700;font-size:13px;text-decoration:none}
+.heat-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:8px}
+.h-cell{border-radius:4px;height:26px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;background:var(--surface)}
+.h-dow{font-size:10px;color:var(--ink3);text-align:center;font-weight:700}
+.week-lbl{font-size:10.5px;color:var(--ink3);font-weight:700;margin-bottom:6px}
+@media(max-width:640px){.h-cell{height:20px;font-size:8px}.bar-lbl{width:86px;font-size:11px}}
+</style>
+</head>
+<body>
+<div class="topbar">
+  <div class="tb-brand"><a href="SRS-Flashcard.html">← Flashcard</a> 📊 Statistik SRS</div>
+  <div class="tb-nav">
+    <button class="tb-btn" onclick="exportStats()">📤 Export</button>
+    <button aria-label="Ganti mode terang/gelap" class="tb-btn" onclick="var on=document.documentElement.getAttribute('data-theme')==='dark';on=!on;if(on){document.documentElement.setAttribute('data-theme','dark');document.documentElement.setAttribute('data-dark','')}else{document.documentElement.removeAttribute('data-theme');document.documentElement.removeAttribute('data-dark')}['kyoto-theme','nihongo-theme','theme'].forEach(function(k){localStorage.setItem(k,on?'dark':'light')});localStorage.setItem('np-dark',on?'on':'off');this.textContent=on?'☀️':'🌙';if(window.renderAll){try{renderAll()}catch(e){}}">🌙</button>
+  </div>
+  <script>document.querySelector('.tb-btn[aria-label="Ganti mode terang/gelap"]').textContent=document.documentElement.getAttribute('data-theme')==='dark'?'☀️':'🌙';</script>
+</div>
+
+<div class="page">
+  <div class="page-hd">
+    <div>
+      <h1>📊 Statistik SRS Flashcard</h1>
+      <p id="subTitle">Memuat data dari perangkatmu…</p>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <a href="SRS-Flashcard.html" style="padding:9px 18px;border:1px solid var(--border);border-radius:var(--r);background:var(--white);color:var(--ink);cursor:pointer;font-size:13px;font-weight:700;text-decoration:none">🃏 Buka Flashcard</a>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="g4" id="kpiRow">
+    <div class="kpi b-blue"><div class="kpi-ic">🗂️</div><div class="kpi-num" id="kTotal">–</div><div class="kpi-lbl">Total Kartu</div></div>
+    <div class="kpi b-green"><div class="kpi-ic">📚</div><div class="kpi-num" id="kLearned">–</div><div class="kpi-lbl">Sedang Dipelajari</div></div>
+    <div class="kpi b-gold"><div class="kpi-ic">🏆</div><div class="kpi-num" id="kMastered">–</div><div class="kpi-lbl">Dikuasai</div></div>
+    <div class="kpi b-purple"><div class="kpi-ic">📈</div><div class="kpi-num" id="kRetention">–</div><div class="kpi-lbl">Retensi Rata-rata</div></div>
+    <div class="kpi b-orange"><div class="kpi-ic">⏰</div><div class="kpi-num" id="kDue">–</div><div class="kpi-lbl">Jatuh Tempo Hari Ini</div></div>
+    <div class="kpi b-red"><div class="kpi-ic">🔥</div><div class="kpi-num" id="kStreak">–</div><div class="kpi-lbl">Streak Terpanjang</div></div>
+    <div class="kpi b-blue"><div class="kpi-ic">⭐</div><div class="kpi-num" id="kBookmark">–</div><div class="kpi-lbl">Kartu Tersimpan</div></div>
+    <div class="kpi b-green"><div class="kpi-ic">🎯</div><div class="kpi-num" id="kQuiz">–</div><div class="kpi-lbl">Skor Kuis</div></div>
+  </div>
+
+  <div id="noData" style="display:none;margin-bottom:16px" class="card big-empty">
+    <div class="em">🃏</div>
+    <p>Belum ada data SRS di perangkat ini. Mulai belajar dengan flashcard dulu agar statistik muncul di sini.</p>
+    <a href="SRS-Flashcard.html">Mulai Belajar Sekarang</a>
+  </div>
+
+  <div class="g2">
+    <!-- Mastery per JLPT -->
+    <div class="card">
+      <div class="card-title"><span>🎓 Penguasaan per Level JLPT</span></div>
+      <div style="height:250px"><canvas id="chartJlpt"></canvas></div>
+      <div class="legend" style="margin-top:10px;justify-content:center">
+        <span><i class="dot" style="background:#cbd5e1"></i> Total Kartu</span>
+        <span><i class="dot" style="background:#60a5fa"></i> Dipelajari</span>
+        <span><i class="dot" style="background:#22c55e"></i> Dikuasai</span>
+      </div>
+    </div>
+    <!-- Kategori -->
+    <div class="card">
+      <div class="card-title"><span>🧩 Sebaran Kategori</span></div>
+      <div style="height:250px"><canvas id="chartCat"></canvas></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <!-- Aktivitas -->
+    <div class="card">
+      <div class="card-title">
+        <span>⚡ Aktivitas Belajar</span>
+        <div style="display:flex;gap:6px">
+          <button class="pbtn" onclick="setPeriod(7)" id="p7">7 hari</button>
+          <button class="pbtn active" onclick="setPeriod(30)" id="p30">30 hari</button>
+          <button class="pbtn" onclick="setPeriod(90)" id="p90">90 hari</button>
+        </div>
+      </div>
+      <div style="height:230px"><canvas id="chartActivity"></canvas></div>
+    </div>
+    <!-- Jadwal pengulangan -->
+    <div class="card">
+      <div class="card-title"><span>🗓️ Jadwal Pengulangan 14 Hari</span></div>
+      <div style="height:230px"><canvas id="chartDue"></canvas></div>
+    </div>
+  </div>
+
+  <div class="g2">
+    <!-- Progress mingguan -->
+    <div class="card">
+      <div class="card-title"><span>📅 Aktivitas 12 Minggu Terakhir</span></div>
+      <div class="week-lbl" id="heatLbl"></div>
+      <div class="heat-grid" id="heatGrid"></div>
+      <div class="muted" id="heatStats"></div>
+    </div>
+    <!-- Kartu lemah -->
+    <div class="card">
+      <div class="card-title"><span>🩹 Kartu yang Perlu Diulang</span></div>
+      <div id="weakList" class="muted">Memuat…</div>
+    </div>
+  </div>
+
+  <!-- Level detail -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title"><span>📖 Rincian Penguasaan per Level</span></div>
+    <div id="levelDetail"></div>
+  </div>
+</div>
+
+<script src="assets/srs-cards-data.js"></script>
+<script src="assets/srs-curated.js"></script>
+<script>
+/* ===== data helpers ===== */
+function ls(k, d){ try { const v = localStorage.getItem(k); return v===null ? d : JSON.parse(v); } catch(e){ return d; } }
+
+/* Build lookup: id -> card info from curated + raw bulk data */
+function buildLookup(){
+  const map = {};
+  const curated = (typeof window.SRS_CURATED !== 'undefined') ? window.SRS_CURATED : [];
+  curated.forEach(c => { map[c.id] = { jp:c.jp, reading:c.reading, meaning:c.meaning, cat:c.cat, jlpt:c.jlpt||'' }; });
+  if (typeof SRS_CARDS_DATA !== 'undefined') {
+    SRS_CARDS_DATA.forEach(c => {
+      if (!map[c.id]) map[c.id] = { jp:c.jp, reading:c.reading, meaning:c.meaning, cat:c.cat, jlpt:c.jlpt||'' };
+    });
+  }
+  try {
+    (JSON.parse(localStorage.getItem('np-srs-custom')||'[]')).forEach(c => {
+      map[c.id] = { jp:c.jp, reading:c.reading, meaning:c.meaning, cat:c.cat||'custom', jlpt:c.jlpt||'' };
+    });
+  } catch(e){}
+  return map;
+}
+
+const LEVEL_ORDER = ['N5','N4','N3','N2','N1'];
+const CAT_LABEL = { jlpt:'JLPT Umum', jmdict:'JMdict', vocab:'Kosakata', kaigo:'Kaigo', kanji:'Kanji', grammar:'Tata Bahasa', custom:'Kartu Sendiri' };
+function catName(cat){ return CAT_LABEL[cat] || (cat || 'Lainnya'); }
+
+/* Mastery rules: reps>=6 → dikuasai, reps>=1 → dipelajari */
+function isMastered(card){ return (card.reps||0) >= 6; }
+function isLearned(card){ return (card.reps||0) >= 1; }
+
+let _state = {}, _lookup = {}, _period = 30;
+let charts = {};
+
+function fmt(n){ return n >= 1000 ? (n/1000).toFixed(n>=100000?0:1).replace('.0','') + 'k' : String(n); }
+
+/* ===== main ===== */
+function loadAll(){
+  _state = ls('np-srs-v2', {});
+  _lookup = buildLookup();
+  const ids = Object.keys(_state);
+  if (!ids.length) { document.getElementById('noData').style.display = 'block'; }
+  const kpi = document.getElementById('kpiRow');
+  kpi.style.display = ids.length ? 'grid' : 'none';
+  const sub = document.getElementById('subTitle');
+  sub.textContent = ids.length
+    ? ids.length + ' kartu punya riwayat belajar · total pustaka ' + fmt(Object.keys(_lookup).length) + ' kartu'
+    : 'Belum ada kartu yang dipelajari';
+}
+
+function levelOf(id){
+  const c = _lookup[id];
+  if (c && c.jlpt && LEVEL_ORDER.indexOf(c.jlpt) !== -1) return c.jlpt;
+  return '';
+}
+
+function renderKpi(){
+  const ids = Object.keys(_state);
+  let learned = 0, mastered = 0, due = 0, ratings = [];
+  const now = Date.now();
+  const dayStart = new Date(); dayStart.setHours(0,0,0,0);
+  ids.forEach(id => {
+    const st = _state[id];
+    if (isLearned(st)) learned++;
+    if (isMastered(st)) mastered++;
+    if (st.nextReview && st.nextReview <= now && !isMastered(st)) due++;
+    if (st.history && st.history.length) ratings = ratings.concat(st.history.slice(-6));
+  });
+  const retention = ratings.length ? Math.round(ratings.filter(r=>r>=2).length / ratings.length * 100) : 0;
+  document.getElementById('kTotal').textContent = fmt(Object.keys(_lookup).length || 0);
+  document.getElementById('kLearned').textContent = fmt(learned);
+  document.getElementById('kMastered').textContent = fmt(mastered);
+  document.getElementById('kRetention').textContent = ratings.length ? retention + '%' : '–';
+  document.getElementById('kDue').textContent = fmt(due);
+  // streak from count keys
+  let streak = 0;
+  const d = new Date();
+  while (true) {
+    const key = 'np-srs-today-count-' + d.toDateString();
+    const v = localStorage.getItem(key);
+    if (v === null || Number(v) === 0) break;
+    streak++; d.setDate(d.getDate()-1);
+  }
+  document.getElementById('kStreak').textContent = streak || '–';
+  document.getElementById('kBookmark').textContent = fmt(ls('np-srs-bookmarks', []).length);
+  const qc = parseInt(localStorage.getItem('np-srs-quiz-correct') || '0', 10);
+  const totalQ = qc + parseInt(localStorage.getItem('np-srs-quiz-wrong') || '0', 10);
+  document.getElementById('kQuiz').textContent = totalQ ? Math.round(qc/totalQ*100) + '%' : '–';
+}
+
+function renderJlptChart(){
+  const ctx = document.getElementById('chartJlpt');
+  const g = {};
+  LEVEL_ORDER.forEach(l => g[l] = { total:0, learned:0, mastered:0 });
+  Object.keys(_lookup).forEach(id => {
+    const lv = levelOf(id); if (lv) g[lv].total++;
+  });
+  Object.keys(_state).forEach(id => {
+    const lv = levelOf(id); if (!lv) return;
+    const st = _state[id];
+    if (isLearned(st)) g[lv].learned++;
+    if (isMastered(st)) g[lv].mastered++;
+  });
+  const labels = LEVEL_ORDER.map(l => l);
+  const mk = v => v.map(x=>Math.max(0,x));
+  charts.jlpt = new Chart(ctx, {
+    type: 'bar',
+    data: { labels,
+      datasets: [
+        { label:'Total', data: mk(LEVEL_ORDER.map(l=>g[l].total)), backgroundColor:'#cbd5e1', borderRadius:4 },
+        { label:'Dipelajari', data: mk(LEVEL_ORDER.map(l=>g[l].learned)), backgroundColor:'#60a5fa', borderRadius:4 },
+        { label:'Dikuasai', data: mk(LEVEL_ORDER.map(l=>g[l].mastered)), backgroundColor:'#22c55e', borderRadius:4 },
+      ]},
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      scales:{ x:{ grid:{display:false}, ticks:{color: getCss('--ink3')} }, y:{ beginAtZero:true, ticks:{ color: getCss('--ink3'), callback:v=>fmt(v) }, grid:{ color: getCss('--border') } } },
+      plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label:c => c.dataset.label + ': ' + c.parsed.y.toLocaleString('id-ID') } } }
+    }
+  });
+}
+
+function renderCatChart(){
+  const ctx = document.getElementById('chartCat');
+  const g = {};
+  Object.keys(_state).forEach(id => {
+    const c = _lookup[id];
+    const cat = (c && c.cat) ? c.cat : 'jlpt';
+    g[cat] = (g[cat]||0) + 1;
+  });
+  const colors = ['#6366f1','#22c55e','#f59e0b','#ef4444','#0ea5e9','#ec4899','#8b5cf6','#64748b'];
+  const entries = Object.entries(g).sort((a,b)=>b[1]-a[1]);
+  charts.cat = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels: entries.map(e=>catName(e[0])),
+      datasets: [{ data: entries.map(e=>e[1]), backgroundColor: colors, borderWidth: 2, borderColor: getCss('--white') }]},
+    options: {
+      responsive:true, maintainAspectRatio:false, cutout:'62%',
+      plugins:{ legend:{ position:'right', labels:{ color:getCss('--ink2'), boxWidth:10, font:{size:11} } } }
+    }
+  });
+}
+
+function renderActivityChart(){
+  const ctx = document.getElementById('chartActivity');
+  const labels = [], data = [];
+  for (let i=_period-1;i>=0;i--) {
+    const dt = new Date(); dt.setDate(dt.getDate()-i);
+    const k1 = 'np-srs-today-count-' + dt.toDateString();
+    const k2 = 'np-srs-today-' + dt.toDateString();
+    let n = parseInt(localStorage.getItem(k1)||'0',10);
+    const o = ls(k2, null);
+    if (o && Array.isArray(o.reviewed)) n = o.reviewed.length;
+    else if (o && typeof o === 'object') n = (o.reviewed||[]).length;
+    labels.push(dt.getDate() + '/' + (dt.getMonth()+1));
+    data.push(n||0);
+  }
+  const grad = ctx.getContext('2d').createLinearGradient(0,0,0,230);
+  grad.addColorStop(0, 'rgba(99,102,241,.35)'); grad.addColorStop(1, 'rgba(99,102,241,0)');
+  const c = Chart.getChart('chartActivity');
+  if (c) c.destroy();
+  charts.activity = new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets: [{ data, borderColor:'#6366f1', backgroundColor: grad, fill:true, tension:.35, pointRadius:0, borderWidth:2 }]},
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      scales:{ x:{ grid:{display:false}, ticks:{ color:getCss('--ink3'), maxTicksLimit:10, font:{size:10} } },
+        y:{ beginAtZero:true, ticks:{ color:getCss('--ink3'), precision:0 }, grid:{ color:getCss('--border') } } },
+      plugins:{ legend:{display:false} }
+    }
+  });
+}
+
+function renderDueChart(){
+  const ctx = document.getElementById('chartDue');
+  const labels = [], data = [];
+  const now = Date.now();
+  for (let i=0;i<14;i++) {
+    const start = new Date(); start.setHours(0,0,0,0); start.setDate(start.getDate()+i);
+    const end = new Date(start); end.setDate(end.getDate()+1);
+    const day = new Date(start);
+    let n = 0;
+    Object.keys(_state).forEach(id => {
+      const st = _state[id];
+      if (isMastered(st)) return;
+      const nx = st.nextReview;
+      if (nx && nx >= start.getTime() && nx < end.getTime()) n++;
+    });
+    const dname = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'][day.getDay()];
+    labels.push(i===0 ? 'Hari ini' : dname + ' ' + day.getDate());
+    data.push(n);
+  }
+  const isDark = !!document.documentElement.getAttribute('data-dark');
+  charts.due = new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets: [{ data, backgroundColor: data.map((v,i)=> i===0 ? '#ef4444' : (isDark?'#334155':'#93c5fd')), borderRadius:4 }]},
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      scales:{ x:{ grid:{display:false}, ticks:{ color:getCss('--ink3'), font:{size:10}, maxRotation:0 } }, y:{ beginAtZero:true, ticks:{ color:getCss('--ink3'), precision:0 }, grid:{ color:getCss('--border') } } },
+      plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label:c => c.parsed.y + ' kartu jatuh tempo' } } }
+    }
+  });
+}
+
+/* weekly heatmap from np-srs-today-count-* */
+function renderHeatmap(){
+  const grid = document.getElementById('heatGrid');
+  const stats = document.getElementById('heatStats');
+  const now = new Date();
+  const d = new Date(now);
+  d.setDate(d.getDate() - 83); // start 12 weeks back (84 days)
+  const dowStart = d.getDay();
+  const days = [];
+  let total = 0;
+  for (let i=0;i<84;i++) {
+    const k = 'np-srs-today-count-' + d.toDateString();
+    let n = parseInt(localStorage.getItem(k)||'0',10);
+    const o = ls('np-srs-today-' + d.toDateString(), null);
+    if (o && Array.isArray(o.reviewed)) n = o.reviewed.length;
+    days.push({ date:new Date(d), n });
+    total += n; d.setDate(d.getDate()+1);
+  }
+  const max = Math.max(1, ...days.map(x=>x.n));
+  const dows = ['M','S','S','R','K','J','S'];
+  const cells = days.map(x => {
+    const t = x.n/max;
+    const bg = x.n===0 ? 'var(--surface)' : t>.75?'#14532d':t>.5?'#16a34a':t>.25?'#4ade80':'#bbf7d0';
+    return '<div class="h-cell" style="background:'+bg+'" title="'+x.date.toDateString()+': '+x.n+' kartu">'+ (x.n||'') +'</div>';
+  });
+  document.getElementById('heatLbl').textContent = now.toLocaleDateString('id-ID',{month:'long',year:'numeric'});
+  grid.innerHTML = cells.join('');
+  stats.textContent = total + ' kartu diulas dalam 12 minggu terakhir';
+}
+
+/* weak cards list */
+function renderWeak(){
+  const el = document.getElementById('weakList');
+  const entries = Object.entries(_state)
+    .filter(([id,st]) => st.reps > 0 && st.ef && st.ef < 2.2)
+    .sort((a,b) => a[1].ef - b[1].ef)
+    .slice(0, 12);
+  if (!entries.length) { el.innerHTML = '<span style="color:#22c55e">✅ Tidak ada kartu lemah (EF &lt; 2.2). Kerja bagus!</span>'; return; }
+  el.innerHTML = '<table class="tbl"><tr><th>Kartu</th><th>Arti</th><th style="text-align:right">EF</th></tr>' +
+    entries.map(([id,st]) => {
+      const c = _lookup[id] || {};
+      const lv = (c.jlpt && LEVEL_ORDER.indexOf(c.jlpt)!==-1) ? c.jlpt : '';
+      return '<tr><td><b>' + (c.jp||id) + '</b>' + (c.reading?' <span class="muted">'+c.reading+'</span>':'') + '</td>' +
+        '<td>' + (c.meaning||'') + '</td>' +
+        '<td style="text-align:right"><span class="pill '+(lv?'jlpt-'+lv.toLowerCase():'jlpt-0')+'">'+ (lv||catName(c.cat)) +'</span> ' + st.ef.toFixed(2) + '</td></tr>';
+    }).join('') + '</table>';
+}
+
+/* level detail table */
+function renderLevelDetail(){
+  const el = document.getElementById('levelDetail');
+  const rows = [];
+  LEVEL_ORDER.forEach(lv => {
+    let total = 0, learned = 0, mastered = 0;
+    Object.keys(_lookup).forEach(id => { if (levelOf(id)===lv) total++; });
+    Object.keys(_state).forEach(id => {
+      if (levelOf(id)!==lv) return;
+      const st = _state[id];
+      if (isLearned(st)) learned++;
+      if (isMastered(st)) mastered++;
+    });
+    const pct = total ? Math.round(learned/total*100) : 0;
+    rows.push({ lv, total, learned, mastered, pct });
+  });
+  el.innerHTML = rows.map(r => {
+    const color = r.pct>=60?'#22c55e':r.pct>=25?'#f59e0b':'#ef4444';
+    return '<div class="bar-row">' +
+      '<div class="bar-lbl"><span class="pill jlpt-'+r.lv.toLowerCase()+'">'+r.lv+'</span></div>' +
+      '<div class="bar-track"><div class="bar-fill" style="width:'+Math.max(r.pct,2)+'%;background:'+color+'"></div></div>' +
+      '<div class="bar-pct">'+r.pct+'%</div></div>' +
+      '<div class="muted" style="margin:-3px 0 10px 118px">'+r.learned.toLocaleString('id-ID')+' / '+r.total.toLocaleString('id-ID')+' dipelajari · '+r.mastered.toLocaleString('id-ID')+' dikuasai</div>';
+  }).join('');
+}
+
+/* ===== chart re-theming ===== */
+function getCss(v){ return getComputedStyle(document.documentElement).getPropertyValue(v).trim() || '#64748b'; }
+
+function setPeriod(p){
+  _period = p;
+  ['7','30','90'].forEach(x => { const b = document.getElementById('p'+x); if (b) b.classList.toggle('active', parseInt(x)===p); });
+  renderActivityChart();
+}
+
+/* ===== render all ===== */
+function renderAll(){
+  loadAll();
+  renderKpi();
+  ['jlpt','cat','activity','due'].forEach(k => { const c = Chart.getChart('chart'+k[0].toUpperCase()+k.slice(1)); if (c) c.destroy(); });
+  renderJlptChart();
+  renderCatChart();
+  renderActivityChart();
+  renderDueChart();
+  renderHeatmap();
+  renderWeak();
+  renderLevelDetail();
+}
+
+function exportStats(){
+  const out = {
+    exportedAt: new Date().toISOString(),
+    totals: {
+      totalCards: Object.keys(_lookup).length,
+      stateCards: Object.keys(_state).length
+    },
+    state: _state,
+    bookmarks: ls('np-srs-bookmarks', []),
+    custom: ls('np-srs-custom', []),
+    daily: {}
+  };
+  for (let i=0;i<localStorage.length;i++) {
+    const k = localStorage.key(i);
+    if (k && k.indexOf('np-srs-today')===0) out.daily[k] = localStorage.getItem(k);
+  }
+  const a = document.createElement('a');
+  a.href = 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(out,null,1));
+  a.download = 'srs-stats-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+}
+
+document.addEventListener('DOMContentLoaded', () => { try { renderAll(); } catch(e) { console.error(e); } });
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('/sw.js').then(function(r){
+      r.addEventListener('updatefound',function(){
+        var w=r.installing;
+        w.addEventListener('statechange',function(){
+          if(w.state==='installed'&&navigator.serviceWorker.controller){
+            if(confirm('Versi baru NihongoPro tersedia! Muat ulang?'))location.reload();
+          }
+        });
+      });
+    }).catch(function(){});
+  });
+}
+</script>
+<script src="assets/anime-theme.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+</body>
+</html>

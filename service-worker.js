@@ -1,4 +1,4 @@
-const CACHE_NAME = 'nihongo-pro-v218';
+const CACHE_NAME = 'nihongo-pro-v219';
 const CORE_ASSETS = [
   './',
   './index.html',
