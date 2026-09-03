@@ -4,6 +4,45 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v341 — Konfirmasi inline dua-langkah untuk reset kuota
+
+### Perubahan
+
+- Dialog konfirmasi asli diganti konfirmasi inline: saat Target Harian sudah tercapai, klik pertama mengubah tombol menjadi peringatan Yakin? (merah), klik kedua yang mengeksekusi reset
+- Keadaan Yakin? batal otomatis dalam 4 detik atau saat klik di luar tombol; bila target belum tercapai reset tetap sekali klik tanpa konfirmasi
+
+---
+
+## v340 — Peringatan reset kuota saat Target Harian tercapai
+
+### Perubahan
+
+- Reset kuota kini meminta konfirmasi bila Target Harian hari ini sudah tercapai - pesan menjelaskan bahwa kartu baru yang tadi diulas bisa masuk antrean lagi sehingga Target Harian dan statistik Baru bertambah lagi
+- Bila target belum tercapai reset tetap langsung tanpa dialog; penghitung Target Harian tidak pernah dikurangi oleh reset
+
+---
+
+## v339 — Tombol reset kuota kartu baru harian
+
+### Perubahan
+
+- Tombol Reset kuota di panel Target Harian mengosongkan pemakaian kartu baru per level (newByLevel) sehingga jatah N5-N1 & Lainnya langsung penuh lagi di hari yang sama
+- Reset hanya memulihkan jatah kartu baru - penghitung kartu diulas (new/reviewed/review) tidak diubah, streak dan statistik harian tetap utuh
+- Tombol aktif hanya jika ada pemakaian kuota hari ini; logika reset murni ditambahkan ke assets/srs-cap.js (NPCap.resetUsage) dengan 12 test unit
+
+---
+
+## v338 — Kuota kartu baru per level JLPT
+
+### Perubahan
+
+- Batas kartu baru per hari kini diatur per level: N5 20, N4 15, N3 10, N2 5, N1 3 (default) — N5 boleh lebih banyak dari N1
+- Kartu non-JLPT (Kaigo, Kanji tanpa level, Grammar, JMdict, kustom) memakai kuota terpisah Lainnya
+- Pengguna lama dengan satu angka kuota dimigrasi otomatis ke semua level; key np-srs-new-cap tetap dibaca
+- Pemakaian harian kini dicatat per level (newByLevel) dan panel pengaturan menampilkan sisa kuota tiap level
+
+---
+
 ## v337 — Pengaturan SRS: retensi target, batas kartu baru, & optimizer FSRS
 
 ### Perubahan

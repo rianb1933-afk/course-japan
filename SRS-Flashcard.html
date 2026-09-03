@@ -669,9 +669,40 @@ body { min-height: 100vh; }
 }
 .cap-btn:hover { border-color: var(--primary); color: var(--primary); }
 .cap-btn.active { background: var(--primary); color: #fff; border-color: transparent; }
+.cap-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; }
+.cap-head-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.cap-sum { font-size: 11px; font-weight: 800; color: var(--primary); }
+.cap-reset {
+  padding: 3px 10px; min-width: 96px; text-align: center; border-radius: 12px; border: 1px solid var(--border);
+  background: var(--white); font-size: 10px; font-weight: 700; cursor: pointer;
+  color: var(--ink-mid); transition: all .2s;
+}
+.cap-reset:hover:not(:disabled) { border-color: var(--primary); color: var(--primary); }
+.cap-reset:disabled { opacity: .45; cursor: not-allowed; }
+.cap-reset.armed, .cap-reset.armed:hover:not(:disabled) {
+  background: #e11d48; border-color: #e11d48; color: #fff;
+}
+.cap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 6px; width: 100%; margin-top: 8px; }
+.cap-cell {
+  display: flex; flex-direction: column; gap: 4px; padding: 7px 8px;
+  border: 1px solid var(--border); border-radius: 10px; background: rgba(107,79,58,.04);
+  font-size: 11px; line-height: 1.35;
+}
+.cap-lv { font-weight: 800; color: var(--ink-mid); white-space: nowrap; }
+.cap-cell select {
+  width: 100%; font-size: 12px; font-weight: 700; padding: 3px 4px;
+  border-radius: 8px; border: 1px solid var(--border); background: var(--white); color: var(--ink-mid); cursor: pointer;
+}
+.cap-left { font-size: 10px; font-weight: 700; color: var(--ink-faint); }
+.cap-left.cap-empty { color: #e11d48; font-weight: 800; }
 .opt-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); flex-wrap: wrap; }
 .opt-status { font-size: 11px; color: var(--ink-faint); line-height: 1.5; max-width: 240px; }
 [data-theme="dark"] .cap-btn { background: #1c1e22; border-color: rgba(255,255,255,.08); color: rgba(255,255,255,.65); }
+[data-theme="dark"] .cap-cell { background: #1c1e22; border-color: rgba(255,255,255,.08); }
+[data-theme="dark"] .cap-cell select { background: #1c1e22; color: rgba(255,255,255,.9); border-color: rgba(255,255,255,.12); }
+[data-theme="dark"] .cap-left.cap-empty { color: #f87171; }
+[data-theme="dark"] .cap-reset { background: #1c1e22; border-color: rgba(255,255,255,.1); color: rgba(255,255,255,.7); }
+[data-theme="dark"] .cap-reset.armed, [data-theme="dark"] .cap-reset.armed:hover:not(:disabled) { background: #e11d48; border-color: #e11d48; color: #fff; }
 
 /* ═══ WEEKLY STREAK CALENDAR ═══ */
 .weekly-streak { display: flex; gap: 4px; justify-content: center; margin: 10px 0 6px; }
@@ -1036,19 +1067,17 @@ body { min-height: 100vh; }
       <input type="range" class="ret-slider" id="retSlider" min="80" max="95" step="1" value="90"
              oninput="setRetention(this.value)" aria-label="Retensi target">
     </div>
-    <!-- Daily new-card limit -->
-    <div class="cap-row" title="Jumlah kartu BARU yang boleh dipelajari per hari">
-      <div class="cap-info">
-        <span class="cap-name">🆕 Kartu Baru / Hari</span><br>
-        <span id="newCapLeft">0 tersisa hari ini</span>
+    <!-- Daily new-card limit (per JLPT level: N5 boleh lebih banyak dari N1) -->
+    <div class="cap-row" title="Jumlah kartu BARU yang boleh dipelajari per hari, diatur per level JLPT — N5 bisa lebih banyak dari N1; ulasan jatuh tempo tidak terpengaruh">
+      <div class="cap-head">
+        <span class="cap-name">🆕 Kartu Baru / Hari</span>
+        <span class="cap-head-right">
+          <span class="cap-sum" id="newCapLeft"></span>
+          <button class="cap-reset" id="capResetBtn" onclick="resetTodayQuota()" disabled
+                  title="Belum ada pemakaian kuota hari ini">↺ Reset kuota</button>
+        </span>
       </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap">
-        <button class="cap-btn" onclick="setNewCap(0)">∞</button>
-        <button class="cap-btn" onclick="setNewCap(10)">10</button>
-        <button class="cap-btn active" onclick="setNewCap(20)">20</button>
-        <button class="cap-btn" onclick="setNewCap(50)">50</button>
-        <button class="cap-btn" onclick="setNewCap(100)">100</button>
-      </div>
+      <div class="cap-grid" id="capGrid"></div>
     </div>
     <!-- FSRS optimizer -->
     <div class="opt-row">
@@ -1186,6 +1215,7 @@ body { min-height: 100vh; }
 <script src="assets/srs-cards-data.js"></script>
 <script src="assets/srs-curated.js"></script>
 <script src="assets/srs-fsrs.js"></script>
+<script src="assets/srs-cap.js"></script>
 <script>
 // Catatan: State/SRS/Toast diisi di dalam DOMContentLoaded di bawah, karena
 // platform.min.js dimuat dengan `defer` sehingga window.NP belum tentu ada
@@ -1377,14 +1407,18 @@ function updateProgress() {
   updateStreak();
 }
 
-function trackReview(cardId, isNew) {
-  const today = new Date().toDateString();
-  const todayKey = 'np-srs-today-' + today;
-  const data = JSON.parse(localStorage.getItem(todayKey) || '{"reviewed":[],"new":0,"review":0}');
+function trackReview(cardId, isNew, bucket) {
+  const todayKey = todayKeyNow();
+  const data = window.NPCap.readToday(localStorage, todayKey);
   
-  if (!data.reviewed.includes(cardId)) {
+  if (data.reviewed.indexOf(cardId) < 0) {
     data.reviewed.push(cardId);
-    if (isNew) data.new++; else data.review++;
+    if (isNew) {
+      // catat pemakaian kuota per level (N5–N1 / lainnya) — di assets/srs-cap.js
+      window.NPCap.accountNew(data, bucket);
+    } else {
+      data.review++;
+    }
     localStorage.setItem(todayKey, JSON.stringify(data));
   }
   updateProgress();
@@ -1424,22 +1458,11 @@ function buildDeck(f) {
   const stored = SRS.loadCards ? SRS.loadCards() : JSON.parse(localStorage.getItem('np-srs-v2')||'{}');
   let cards = [...CARDS];
   const now = Date.now();
-  // Batas kartu baru/hari (filter "all"): potong kartu yang belum pernah
-  // dipelajari setelah kuota harian habis — ulasan jatuh tempo tidak kena.
+  // Batas kartu baru/hari per level JLPT (filter "all"): N5 boleh lebih banyak
+  // daripada N1. Kartu baru level yang kuotanya habis hari ini dipotong;
+  // ulasan jatuh tempo tidak kena. Logika murni di assets/srs-cap.js.
   if (f === 'all') {
-    const left = newCapLeft();
-    if (isFinite(left)) {
-      let seen = 0;
-      cards = cards.filter(c => {
-        const s = stored[c.id];
-        const isNew = !s || !s.reps;
-        if (isNew) {
-          if (seen >= left) return false;
-          seen++;
-        }
-        return true;
-      });
-    }
+    cards = window.NPCap.trim(cards, stored, newCaps(), todayData());
   }
   _sessionNew.clear();
   newCardsToday = 0;
@@ -1703,43 +1726,162 @@ function updateRetentionUI() {
   if (valEl) valEl.textContent = v + '%';
 }
 
-/* ── Batas kartu baru per hari ── */
+/* ── Batas kartu baru per hari (per level JLPT) ── */
 let newCardsToday = 0;            // kartu baru yang sudah diulas hari ini (sesi)
 const _sessionNew = new Set();    // id kartu baru dalam sesi ini
-function newCap() {
-  try { const v = parseInt(localStorage.getItem('np-srs-new-cap'), 10); return isNaN(v) || v < 0 ? 20 : v; } catch (e) { return 20; }
+// Logika murni (baca/tulis kuota, pemakaian per level, pemotongan deck)
+// berada di assets/srs-cap.js → window.NPCap agar bisa diuji unit.
+const CAP_BUCKETS = window.NPCap.BUCKETS;
+const CAP_DEFAULTS = window.NPCap.DEFAULTS;
+const CAP_LABELS = { n5: '🟢 N5', n4: '🔵 N4', n3: '🟡 N3', n2: '🟠 N2', n1: '🔴 N1', lain: '📦 Lainnya' };
+const CAP_OPTIONS = window.NPCap.OPTIONS;
+const NP_TODAY_PREFIX = 'np-srs-today-';
+
+function todayKeyNow() { return NP_TODAY_PREFIX + new Date().toDateString(); }
+function todayData() { return window.NPCap.readToday(localStorage, todayKeyNow()); }
+// Level kartu untuk kuota harian: N1–N5 sesuai jlpt, selainnya masuk "lain"
+function cardBucket(c) { return window.NPCap.bucketOf(c); }
+// Baca kuota per level (dgn migrasi key lama) & simpan sebagai JSON
+function newCaps() { return window.NPCap.readCaps(localStorage); }
+function saveCaps(caps) { window.NPCap.saveCaps(localStorage, caps); }
+function newUsedToday(b) { return window.NPCap.usedToday(todayData(), b); }
+function newCapLeft(b) { return window.NPCap.left(todayData(), newCaps(), b); }
+function newTotalLeft() { return window.NPCap.totalLeft(todayData(), newCaps()); }
+function dailyCountToday() {
+  try { return parseInt(localStorage.getItem('np-srs-today-count-' + new Date().toDateString()) || '0', 10) || 0; } catch (e) { return 0; }
 }
-function newCapLeft() {
-  const todayKey = 'np-srs-today-' + new Date().toDateString();
-  let done = 0;
-  try {
-    const d = JSON.parse(localStorage.getItem(todayKey) || '{}');
-    done = (typeof d.new === 'number') ? d.new : 0;
-  } catch (e) {}
-  const cap = newCap();
-  return cap === 0 ? Infinity : Math.max(0, cap - done);
+// Target harian hari ini sudah tercapai? (dipakai utk peringatan reset kuota)
+function goalReachedToday() {
+  return dailyCountToday() >= dailyGoal;
 }
-function setNewCap(n) {
-  n = Math.max(0, parseInt(n, 10) || 0);
-  try { localStorage.setItem('np-srs-new-cap', String(n)); } catch (e) {}
-  document.querySelectorAll('.cap-btn').forEach(b => {
-    const v = b.textContent === '∞' ? 0 : parseInt(b.textContent, 10);
-    b.classList.toggle('active', v === n);
-  });
-  updateGoalProgress();
+
+// ── Konfirmasi inline dua-langkah (pengganti window.confirm) ──
+let resetArmed = false;      // tombol sedang dalam keadaan "Yakin?"
+let resetArmTimer = null;
+function armResetConfirm() {
+  const btn = document.getElementById('capResetBtn');
+  resetArmed = true;
+  if (btn) {
+    btn.classList.add('armed');
+    btn.textContent = '⚠️ Yakin?';
+    btn.title = 'Klik sekali lagi untuk mereset kuota hari ini — otomatis batal dalam 4 detik';
+  }
+  clearTimeout(resetArmTimer);
+  resetArmTimer = setTimeout(disarmResetConfirm, 4000);
+}
+function disarmResetConfirm() {
+  resetArmed = false;
+  clearTimeout(resetArmTimer);
+  const btn = document.getElementById('capResetBtn');
+  if (btn) {
+    btn.classList.remove('armed');
+    btn.textContent = '↺ Reset kuota';
+    // sinkronkan ulang title/disabled (bisa berubah karena pemakaian)
+  }
+  updateNewCapUI();
+}
+// Eksekusi reset sesungguhnya (tanpa dialog)
+function executeQuotaReset() {
+  const key = todayKeyNow();
+  const data = window.NPCap.readToday(localStorage, key);
+  window.NPCap.resetUsage(data);
+  localStorage.setItem(key, JSON.stringify(data));
+  updateNewCapUI();
   buildDeck(curFilter);
-  if (Toast) Toast.show(n === 0 ? '🆕 Kartu baru: tanpa batas' : '🆕 Maks ' + n + ' kartu baru per hari', 'success');
+  if (Toast) Toast.show('↺ Kuota kartu baru hari ini direset', 'success');
+}
+// Kosongkan pemakaian kuota kartu baru hari ini (newByLevel) supaya jatah
+// tiap level penuh lagi. Penghitung new/reviewed dibiarkan — kartu memang
+// sudah diulas hari ini, hanya jatah kartu barunya yang dipulihkan.
+// Bila Target Harian sudah tercapai, klik pertama hanya mempersenjatai tombol
+// ("⚠️ Yakin?"), klik kedua yang mengeksekusi — menghindari reset tak sengaja.
+function resetTodayQuota() {
+  const data = window.NPCap.readToday(localStorage, todayKeyNow());
+  const hadUsage = CAP_BUCKETS.some(function (b) { return window.NPCap.usedToday(data, b) > 0; });
+  if (!hadUsage) {
+    disarmResetConfirm();
+    if (Toast) Toast.show('Belum ada pemakaian kuota hari ini', 'info');
+    return;
+  }
+  if (goalReachedToday() && !resetArmed) {
+    armResetConfirm();
+    return;
+  }
+  disarmResetConfirm();
+  executeQuotaReset();
+}
+// Klik di luar tombol → batalkan keadaan "Yakin?"
+document.addEventListener('click', function (e) {
+  if (!resetArmed) return;
+  const btn = document.getElementById('capResetBtn');
+  if (btn && !btn.contains(e.target)) disarmResetConfirm();
+}, true);
+function setBucketCap(b, n) {
+  if (CAP_BUCKETS.indexOf(b) < 0) return;
+  const caps = newCaps();
+  caps[b] = Math.max(0, parseInt(n, 10) || 0);
+  saveCaps(caps);
+  const sel = document.getElementById('capSel-' + b);
+  if (sel) sel.value = String(caps[b]);
+  updateNewCapUI();
+  buildDeck(curFilter);
+  if (Toast) Toast.show(caps[b] === 0
+    ? '🆕 ' + CAP_LABELS[b] + ': tanpa batas'
+    : '🆕 ' + CAP_LABELS[b] + ': maks ' + caps[b] + ' kartu baru/hari', 'success');
+}
+// Render 6 kartu pengaturan (N5–N1 + Lainnya)
+function renderCapGrid() {
+  const grid = document.getElementById('capGrid');
+  if (!grid) return;
+  const caps = newCaps();
+  let html = '';
+  for (let i = 0; i < CAP_BUCKETS.length; i++) {
+    const b = CAP_BUCKETS[i];
+    const v = caps[b];
+    const values = CAP_OPTIONS.slice();
+    if (values.indexOf(v) < 0) values.push(v);
+    values.sort(function (a, z) { return a - z; });
+    let opts = '';
+    for (let k = 0; k < values.length; k++) {
+      const val = values[k];
+      opts += '<option value="' + val + '"' + (val === v ? ' selected' : '') + '>'
+            + (val === 0 ? '∞' : val + '/hari') + '</option>';
+    }
+    html += '<label class="cap-cell" title="Batas kartu baru per hari — ' + CAP_LABELS[b] + '">'
+          + '<span class="cap-lv">' + CAP_LABELS[b] + '</span>'
+          + '<select id="capSel-' + b + '" onchange="setBucketCap(\'' + b + '\', this.value)" aria-label="Batas kartu baru ' + b + '">' + opts + '</select>'
+          + '<span class="cap-left" id="capLeft-' + b + '"></span></label>';
+  }
+  grid.innerHTML = html;
 }
 function updateNewCapUI() {
-  const left = newCapLeft();
+  const grid = document.getElementById('capGrid');
+  if (grid && !grid.innerHTML.trim()) renderCapGrid();
+  const total = newTotalLeft();
   const el = document.getElementById('newCapLeft');
-  if (!el) return;
-  const cap = newCap();
-  if (cap === 0) {
-    el.textContent = 'Tanpa batas';
-  } else {
-    const used = cap - (isFinite(left) ? left : 0);
-    el.textContent = left + ' tersisa hari ini (' + Math.min(used, cap) + '/' + cap + ' dipakai)';
+  if (el) el.textContent = isFinite(total) ? total + ' tersisa hari ini' : 'Tanpa batas';
+  const caps = newCaps();
+  for (let i = 0; i < CAP_BUCKETS.length; i++) {
+    const b = CAP_BUCKETS[i];
+    const sel = document.getElementById('capSel-' + b);
+    if (sel && String(sel.value) !== String(caps[b])) sel.value = String(caps[b]);
+    const leftEl = document.getElementById('capLeft-' + b);
+    if (!leftEl) continue;
+    const left = newCapLeft(b);
+    leftEl.textContent = isFinite(left) ? left + ' sisa' : '∞';
+    leftEl.classList.toggle('cap-empty', isFinite(left) && left === 0);
+  }
+  // Tombol reset aktif hanya bila ada pemakaian kuota hari ini; jangan
+  // mengganggu tampilan "Yakin?" saat tombol sedang bersenjata
+  const resetBtn = document.getElementById('capResetBtn');
+  if (resetBtn) {
+    const hasUsage = CAP_BUCKETS.some(function (b) { return newUsedToday(b) > 0; });
+    if (resetArmed) {
+      if (!hasUsage) disarmResetConfirm();
+    } else {
+      resetBtn.disabled = !hasUsage;
+      resetBtn.title = hasUsage ? 'Kosongkan pemakaian kuota kartu baru hari ini' : 'Belum ada pemakaian kuota hari ini';
+    }
   }
 }
 
@@ -1830,7 +1972,7 @@ function rate(r) {
   stored[c.id]=card;
   localStorage.setItem('np-srs-v2', JSON.stringify(stored));
   if (wasNew) { _sessionNew.add(c.id); newCardsToday = _sessionNew.size; }
-  if (r===0) sessAgain++; else sessGood++; trackReview(deck[curIdx].id, !stored[deck[curIdx].id] || !stored[deck[curIdx].id].reps);
+  if (r===0) sessAgain++; else sessGood++; trackReview(deck[curIdx].id, wasNew, cardBucket(deck[curIdx]));
   const xp=[0,5,10,15][r]; sessXP+=xp;
   if (xp>0) State.addXP(xp, ['','Sulit','Baik ✓','Mudah ✓'][r]);
   try{ if(window.NPXP){ NPXP.recordVocab('srs',1); if(xp>0) NPXP.award('srs',xp); } }catch(e){}
