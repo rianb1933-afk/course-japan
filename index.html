@@ -304,6 +304,54 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
     @media (prefers-reduced-motion: reduce) {
       .jp-wave-divider { animation: none; }
     }
+
+    /* ── ROADMAP CONNECTOR — garis menghubungkan 4 kartu level (jalur
+       belajar N5 -> Bisnis). Desktop-only (>900px, mengikuti breakpoint
+       yang sudah dipakai file ini): .levels-grid TIDAK punya override
+       grid-template-columns di mana pun di index-page.css, jadi di
+       mobile 4 kartu tetap 4 kolom sempit -- celah pra-ada, di luar
+       cakupan pekerjaan ini.
+
+       TIDAK memakai IntersectionObserver sendiri. Baris ~111 di bawah
+       sudah mendefinisikan sistem motion-ready/motion-stagger khusus
+       index.html (skrip inline dekat </body>), dan skrip itu SUDAH
+       menambahkan class motion-stagger ke .levels-grid -- ditemukan
+       genuinely lewat instrumentasi CSS matched-rules setelah percobaan
+       PERTAMA (observer sendiri di home-animations.js) menyebabkan garis
+       ini "tumbuh" sebelum gambar hero selesai dimuat, karena tinggi
+       halaman belum final saat observer itu mulai mengukur. Solusinya:
+       reuse trigger yang sudah ada & sudah benar, bukan bikin punya
+       sendiri. .jp-roadmap-line ADALAH anak langsung .motion-stagger,
+       jadi sudah otomatis kena aturan generik `.motion-stagger > *`;
+       override di bawah ini menggantinya dengan scaleX lewat selector
+       yang lebih spesifik (bukan !important, menang murni dari
+       spesifisitas), dipicu event yang SAMA dengan .level-card di
+       sebelahnya. Baseline .jp-roadmap-line sendiri (scaleX(1), selalu
+       utuh) tetap berlaku bila body TIDAK dapat class motion-ready sama
+       sekali (reduced-motion atau browser tanpa IntersectionObserver --
+       skrip itu berhenti sebelum menambah class itu). ── */
+    @media (min-width: 901px) {
+      .levels-grid { position: relative; }
+      .jp-roadmap-line {
+        position: absolute;
+        left: 12.5%;
+        right: 12.5%;
+        height: 3px;
+        border-radius: 2px;
+        z-index: 0;
+        background: linear-gradient(90deg, var(--red) 0%, var(--gold, #D4A042) 50%, var(--red) 100%);
+        transform: scaleX(1);
+        transform-origin: left center;
+      }
+      body.motion-ready .motion-stagger > .jp-roadmap-line {
+        opacity: 1;
+        transform: scaleX(0);
+        transition: transform 1.1s cubic-bezier(.22, 1, .36, 1);
+      }
+      body.motion-ready .motion-stagger.motion-visible > .jp-roadmap-line {
+        transform: scaleX(1);
+      }
+    }
   </style>
 <meta property="og:site_name" content="Nihongo Pro Academy">
 <link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
@@ -721,6 +769,7 @@ nav.kn-nav { z-index: 9999 !important; }
     <div class="section-title">Pilih level Anda</div>
     <p class="section-sub">Mulai dari nol atau lanjutkan dari level yang sesuai kemampuan Anda saat ini.</p>
     <div class="levels-grid">
+      <div class="jp-roadmap-line" aria-hidden="true"></div>
       <div class="level-card reveal" data-jp="初">
         <div class="level-badge">N5</div>
         <div class="level-num">Pemula</div>
