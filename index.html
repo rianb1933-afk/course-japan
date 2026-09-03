@@ -250,6 +250,37 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
       transform: none !important;
       visibility: visible !important;
     }
+
+    /* ── MASKOT — goyang singkat begitu muncul, lalu kartu target harian
+       muncul menyusul.
+       assets/index-page.css SUDAH memberi .mascot-img float kontinu
+       (mascotFloat, !important) dan .mascot-bubble--top/--bottom pop-in
+       sendiri (bubblePop) -- ditemukan lewat pengecekan ulang sebelum
+       ditulis di sini, supaya tidak menduplikasi/menimpa keduanya secara
+       diam-diam. Goyang sapaan karena itu dipasang di .mascot-wrap (elemen
+       PEMBUNGKUS, bukan .mascot-img), supaya tidak berebut properti
+       `animation` yang sama dengan float !important milik gambar --
+       gambar tetap mengambang dengan floatnya sendiri, PEMBUNGKUSNYA yang
+       goyang sekali saat tiba. Hanya .study-mini-card yang genuinely
+       belum punya animasi apa pun sebelum ini. ── */
+    @keyframes mascot-wiggle {
+      0%, 100% { transform: rotate(0deg); }
+      20% { transform: rotate(-2.5deg); }
+      40% { transform: rotate(2.5deg); }
+      60% { transform: rotate(-1.5deg); }
+      80% { transform: rotate(1.5deg); }
+    }
+    @keyframes mascot-pop {
+      from { opacity: 0; transform: scale(.7) translateY(6px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .mascot-wrap { animation: mascot-wiggle .9s ease .6s 1 both; transform-origin: bottom center; }
+    .study-mini-card { animation: mascot-pop .4s cubic-bezier(.34,1.56,.64,1) 1.3s both; }
+    @media (prefers-reduced-motion: reduce) {
+      .mascot-wrap, .study-mini-card {
+        animation: none !important;
+      }
+    }
   </style>
 <meta property="og:site_name" content="Nihongo Pro Academy">
 <link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
