@@ -209,6 +209,32 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
       .wotd-meaning { font-size: 18px; }
     }
 
+
+    /* ── STUDY STREAK WIDGET ── */
+    .streak-widget { background: var(--card-bg, #fff); border-radius: 20px; border: 1px solid rgba(200,155,60,.15); box-shadow: 0 4px 24px rgba(139,105,20,.08); padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+    [data-theme="dark"] .streak-widget { background: #1c1e22; border-color: rgba(200,155,60,.12); box-shadow: 0 4px 24px rgba(0,0,0,.3); }
+    .streak-top { display: flex; align-items: center; gap: 12px; }
+    .streak-fire { font-size: 42px; line-height: 1; filter: drop-shadow(0 2px 8px rgba(255,100,0,.3)); animation: fireGlow 2s ease-in-out infinite; }
+    @keyframes fireGlow { 0%,100% { filter: drop-shadow(0 2px 8px rgba(255,100,0,.3)); } 50% { filter: drop-shadow(0 2px 14px rgba(255,100,0,.5)); } }
+    .streak-count { font-size: 36px; font-weight: 900; background: linear-gradient(135deg, #e74c3c, #f39c12); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1.1; }
+    .streak-label { font-size: 12px; color: var(--ink-mid); font-weight: 700; }
+    .streak-sub { font-size: 11px; color: var(--ink-faint); }
+    .streak-week { display: flex; gap: 4px; justify-content: space-between; }
+    .streak-day { display: flex; flex-direction: column; align-items: center; gap: 3px; flex: 1; }
+    .streak-day-dot { width: 28px; height: 28px; border-radius: 50%; background: rgba(200,155,60,.06); display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; transition: .3s; }
+    [data-theme="dark"] .streak-day-dot { background: rgba(255,255,255,.04); }
+    .streak-day.done .streak-day-dot { background: #4caf50; color: #fff; box-shadow: 0 2px 8px rgba(76,175,80,.3); }
+    .streak-day.today .streak-day-dot { outline: 2px solid #C89B3C; outline-offset: 2px; }
+    .streak-day.today.done .streak-day-dot { background: #C89B3C; color: #fff; box-shadow: 0 2px 8px rgba(200,155,60,.4); }
+    .streak-day-label { font-size: 8px; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .05em; }
+    .streak-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .streak-stat { padding: 10px; border-radius: 10px; background: rgba(200,155,60,.04); text-align: center; }
+    [data-theme="dark"] .streak-stat { background: rgba(255,255,255,.03); }
+    .streak-stat-val { font-size: 18px; font-weight: 800; color: var(--primary); }
+    .streak-stat-lbl { font-size: 9px; color: var(--ink-faint); font-weight: 700; text-transform: uppercase; margin-top: 2px; }
+    @media (min-width: 768px) { .wotd-grid { display: grid; grid-template-columns: 1fr 320px; gap: 24px; align-items: start; } }
+    @media (max-width: 767px) { .wotd-grid { display: flex; flex-direction: column; gap: 16px; } }
+
     /* ── DAILY MISSION — selalu tampil, no whitespace ── */
     .daily-mission-section {
       min-height: auto !important;
@@ -483,26 +509,49 @@ nav.kn-nav { z-index: 9999 !important; }
 <!-- WORD OF THE DAY -->
 <div class="wotd-section" id="word-of-the-day">
   <div class="wotd-inner">
-    <div class="wotd-header">
-      <span class="wotd-label">📖 Kosakata Hari Ini</span>
-      <span class="wotd-date" id="wotdDate"></span>
-    </div>
-    <div class="wotd-card" id="wotdCard" onclick="flipWOTD()">
-      <div class="wotd-front">
-        <div class="wotd-kanji" id="wotdKanji">—</div>
-        <div class="wotd-reading" id="wotdReading"></div>
-        <div class="wotd-hint">Ketuk untuk melihat arti</div>
+    <div class="wotd-grid">
+      <!-- Left: Word of the Day -->
+      <div class="wotd-col">
+        <div class="wotd-header">
+          <span class="wotd-label">📖 Kosakata Hari Ini</span>
+          <span class="wotd-date" id="wotdDate"></span>
+        </div>
+        <div class="wotd-card" id="wotdCard" onclick="flipWOTD()">
+          <div class="wotd-front">
+            <div class="wotd-kanji" id="wotdKanji">—</div>
+            <div class="wotd-reading" id="wotdReading"></div>
+            <div class="wotd-hint">Ketuk untuk melihat arti</div>
+          </div>
+          <div class="wotd-back">
+            <div class="wotd-meaning" id="wotdMeaning"></div>
+            <div class="wotd-example" id="wotdExample"></div>
+            <div class="wotd-level" id="wotdLevel"></div>
+          </div>
+        </div>
+        <div class="wotd-actions">
+          <button class="wotd-btn" onclick="speakWOTD()" title="Dengarkan">🔊 Dengarkan</button>
+          <button class="wotd-btn" onclick="bookmarkWOTD()" title="Simpan">⭐ Simpan</button>
+          <a href="SRS-Flashcard.html" class="wotd-btn wotd-link">🃏 Latih Sekarang</a>
+        </div>
       </div>
-      <div class="wotd-back">
-        <div class="wotd-meaning" id="wotdMeaning"></div>
-        <div class="wotd-example" id="wotdExample"></div>
-        <div class="wotd-level" id="wotdLevel"></div>
+      <!-- Right: Study Streak -->
+      <div class="streak-widget" id="streakWidget">
+        <div class="streak-top">
+          <span class="streak-fire">🔥</span>
+          <div>
+            <div class="streak-count" id="streakCount">0</div>
+            <div class="streak-label">Hari Berturut</div>
+            <div class="streak-sub" id="streakBest">Terbaik: 0 hari</div>
+          </div>
+        </div>
+        <div class="streak-week" id="streakWeek"></div>
+        <div class="streak-stats">
+          <div class="streak-stat"><div class="streak-stat-val" id="streakToday">0</div><div class="streak-stat-lbl">Hari Ini</div></div>
+          <div class="streak-stat"><div class="streak-stat-val" id="streakWeekTotal">0</div><div class="streak-stat-lbl">Minggu Ini</div></div>
+          <div class="streak-stat"><div class="streak-stat-val" id="streakTotal">0</div><div class="streak-stat-lbl">Total Hari</div></div>
+          <div class="streak-stat"><div class="streak-stat-val" id="streakCards">0</div><div class="streak-stat-lbl">Kartu Diulas</div></div>
+        </div>
       </div>
-    </div>
-    <div class="wotd-actions">
-      <button class="wotd-btn" onclick="speakWOTD()" title="Dengarkan">🔊 Dengarkan</button>
-      <button class="wotd-btn" onclick="bookmarkWOTD()" title="Simpan">⭐ Simpan</button>
-      <a href="SRS-Flashcard.html" class="wotd-btn wotd-link">🃏 Latih Sekarang</a>
     </div>
   </div>
 </div>
@@ -1907,6 +1956,76 @@ if('serviceWorker' in navigator && !/^(127\.0\.0\.1|localhost|::1)$/.test(locati
   document.addEventListener('DOMContentLoaded', initWOTD);
   // Also run immediately if DOM is ready
   if (document.readyState !== 'loading') initWOTD();
+})();
+</script>
+
+<script>
+// Study Streak Counter
+(function(){
+  function getStudyDays() {
+    var days = [];
+    for (var i = 0; i < 365; i++) {
+      var d = new Date(); d.setDate(d.getDate() - i);
+      var key = 'np-srs-today-count-' + d.toDateString();
+      var count = parseInt(localStorage.getItem(key) || '0');
+      if (count > 0) {
+        days.push({ date: d.toDateString(), count: count, day: d });
+      } else if (i > 0) {
+        break; // streak broken
+      }
+    }
+    return days;
+  }
+
+  function initStreak() {
+    var studyDays = getStudyDays();
+    var streak = studyDays.length;
+    var todayCount = parseInt(localStorage.getItem('np-srs-today-count-' + new Date().toDateString()) || '0');
+    var best = parseInt(localStorage.getItem('np-srs-best-streak') || '0');
+    if (streak > best) { best = streak; localStorage.setItem('np-srs-best-streak', best); }
+
+    document.getElementById('streakCount').textContent = streak;
+    document.getElementById('streakBest').textContent = 'Terbaik: ' + best + ' hari';
+    document.getElementById('streakToday').textContent = todayCount;
+
+    // Weekly heatmap
+    var weekEl = document.getElementById('streakWeek');
+    var dayNames = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+    var weekTotal = 0;
+    var html = '';
+    for (var i = 6; i >= 0; i--) {
+      var d = new Date(); d.setDate(d.getDate() - i);
+      var key = 'np-srs-today-count-' + d.toDateString();
+      var count = parseInt(localStorage.getItem(key) || '0');
+      var isToday = i === 0;
+      var isDone = count > 0;
+      if (count > 0 && i > 0) weekTotal += count;
+      if (isToday) weekTotal += todayCount;
+      html += '<div class="streak-day ' + (isDone ? 'done' : '') + ' ' + (isToday ? 'today' : '') + '">'
+        + '<div class="streak-day-dot">' + (isDone ? count : d.getDate()) + '</div>'
+        + '<span class="streak-day-label">' + dayNames[d.getDay()] + '</span>'
+        + '</div>';
+    }
+    weekEl.innerHTML = html;
+    document.getElementById('streakWeekTotal').textContent = weekTotal;
+
+    // Total unique study days
+    var totalDays = 0;
+    for (var i = 0; i < 365; i++) {
+      var d = new Date(); d.setDate(d.getDate() - i);
+      var key = 'np-srs-today-count-' + d.toDateString();
+      if (parseInt(localStorage.getItem(key) || '0') > 0) totalDays++;
+    }
+    document.getElementById('streakTotal').textContent = totalDays;
+
+    // Total cards reviewed
+    var stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+    var totalCards = Object.values(stored).reduce(function(s, c) { return s + (c.reps || 0); }, 0);
+    document.getElementById('streakCards').textContent = totalCards > 999 ? Math.round(totalCards/1000) + 'k' : totalCards;
+  }
+
+  document.addEventListener('DOMContentLoaded', initStreak);
+  if (document.readyState !== 'loading') initStreak();
 })();
 </script>
 
