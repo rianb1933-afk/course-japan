@@ -579,8 +579,10 @@ const WEEK_B = ['n5','n4','n3','n2','n1','lain'];
 const WEEK_COL = { n5:'#22c55e', n4:'#60a5fa', n3:'#f59e0b', n2:'#f97316', n1:'#ef4444', lain:'#94a3b8' };
 const WEEK_LBL = { n5:'N5', n4:'N4', n3:'N3', n2:'N2', n1:'N1', lain:'Lainnya' };
 /* Overlay kuota per kolom hari: garis putus-putus tipis dari puncak kartu yang
-   dipelajari sampai batas jatah level yang dipelajari hari itu + label sisa. */
-function buildCapOverlay(overlay){
+   dipelajari sampai batas jatah level yang dipelajari hari itu + label sisa.
+   capBound = batas atas sumbu-y yang dipakai; markah jatah di atasnya diklem
+   ke tepi atas dan diberi label "↑ jatah N" agar kolom studi tetap terbaca. */
+function buildCapOverlay(overlay, capBound){
   return {
     id: 'capOverlay',
     afterDatasetsDraw(chart){
@@ -597,19 +599,26 @@ function buildCapOverlay(overlay){
         const x = bar.x;
         const yTop = ya.getPixelForValue(o.total);
         const yCap = ya.getPixelForValue(o.total + o.sisa);
+        const clamped = o.sisa > 0 && (o.total + o.sisa) > capBound; // jatah melebihi batas sumbu
+        const yCapDraw = clamped ? ya.top : yCap;
         ctx.strokeStyle = getCss('--ink3');
         ctx.fillStyle = ctx.strokeStyle;
-        if (o.sisa > 0 && yCap < yTop - 2) {
+        if (o.sisa > 0 && yCapDraw < yTop - 2) {
           ctx.lineWidth = 1;
           ctx.setLineDash([2, 3]);
           ctx.beginPath();
           ctx.moveTo(x, yTop);
-          ctx.lineTo(x, yCap + 1);
+          ctx.lineTo(x, yCapDraw + 1);
           ctx.stroke();
           ctx.setLineDash([]);
         }
         if (o.sisa === 0) ctx.fillStyle = '#f59e0b'; // jatah penuh terpakai
-        ctx.fillText(o.sisa > 0 ? 'sisa ' + o.sisa : 'cap ✓', x, yCap - 3);
+        if (clamped) {
+          ctx.fillStyle = '#f59e0b'; // sorot kuning: jatah tak muat di skala
+          ctx.fillText('↑ jatah ' + (o.total + o.sisa), x, yCapDraw - 3);
+        } else {
+          ctx.fillText(o.sisa > 0 ? 'sisa ' + o.sisa : 'cap ✓', x, yCapDraw - 3);
+        }
       });
       ctx.restore();
     }
@@ -631,7 +640,7 @@ function renderWeekRecap(){
     return dows[d.date.getDay()] + ' ' + d.date.getDate();
   });
   // overlay: sisa kuota (level yang dipelajari hari itu) per kolom hari
-  const overlay = rec.days.map(d => ({ sisa: d.quotaLeft, legacy: !!d.legacy, hit: d.hit || [] }));
+  const overlay = rec.days.map(d => ({ total: d.total, sisa: d.quotaLeft, legacy: !!d.legacy, hit: d.hit || [] }));
   const anyQuota = overlay.some(o => o.sisa != null);
   const datasets = WEEK_B.map(b => ({
     label: WEEK_LBL[b],
@@ -642,7 +651,11 @@ function renderWeekRecap(){
   }));
   const maxDay = Math.max(1, ...rec.days.map(d => d.total));
   const capTop = Math.max(1, ...overlay.map((o, i) => (o.sisa == null ? 0 : o.sisa + rec.days[i].total)));
-  const axisMax = Math.max(maxDay, anyQuota ? capTop : 0);
+  // Batasi sumbu-y: naik sampai ±2× hari terpadat (atau puncak jatah bila lebih
+  // rendah) supaya kolom studi tidak jadi sliver saat kuota per level besar.
+  // Markah jatah di atas batas diklem ke tepi atas + label "↑ jatah N" (lih. buildCapOverlay).
+  const axisMax = anyQuota ? Math.min(capTop, Math.ceil(maxDay * 2)) : maxDay;
+  const yAxisMax = Math.ceil(axisMax * 1.15);
   charts.week = new Chart(ctx, {
     type: 'bar',
     data: { labels, datasets },
@@ -650,7 +663,7 @@ function renderWeekRecap(){
       responsive:true, maintainAspectRatio:false,
       scales:{
         x:{ stacked:true, grid:{display:false}, ticks:{ color:getCss('--ink3'), font:{size:10}, maxRotation:0 } },
-        y:{ stacked:true, beginAtZero:true, suggestedMax: anyQuota ? Math.ceil(axisMax * 1.15) : undefined, ticks:{ color:getCss('--ink3'), precision:0 }, grid:{ color:getCss('--border') } }
+        y:{ stacked:true, beginAtZero:true, suggestedMax: anyQuota ? yAxisMax : undefined, ticks:{ color:getCss('--ink3'), precision:0 }, grid:{ color:getCss('--border') } }
       },
       plugins:{ legend:{ display:false }, tooltip:{ callbacks:{
         label: t => (t.parsed.y ? t.dataset.label + ': ' + t.parsed.y + ' kartu baru' : null),
@@ -675,7 +688,7 @@ function renderWeekRecap(){
         }
       } } }
     },
-    plugins: [buildCapOverlay(overlay)]
+    plugins: [buildCapOverlay(overlay, yAxisMax)]
   });
   const parts = WEEK_B.filter(b => rec.totals[b]).map(b => WEEK_LBL[b] + ' ' + rec.totals[b]);
   // ringkasan hari di mana jatah harian penuh terpakai
@@ -687,7 +700,7 @@ function renderWeekRecap(){
     : 'Belum ada kartu baru yang diperkenalkan dalam 7 hari terakhir.';
   if (hint) {
     hint.style.display = anyQuota ? '' : 'none';
-    if (anyQuota) hint.textContent = 'Garis putus-putus di atas kolom = batas jatah level yang dipelajari hari itu — label "sisa N" = jatah yang belum terpakai, "cap ✓" = jatah habis.';
+    if (anyQuota) hint.textContent = 'Garis putus-putus di atas kolom = batas jatah level yang dipelajari hari itu — label "sisa N" = jatah yang belum terpakai, "cap ✓" = jatah habis. "↑ jatah N" = batas jatah melebihi skala sumbu (diklem agar kolom tetap terbaca).';
   }
   // KPI header: pencapaian jatah mingguan (dari data rekap yang sama)
   const qEl = document.getElementById('kQuota');

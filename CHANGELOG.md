@@ -4,6 +4,22 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v346 — Perbaiki garis jatah & label yang tidak tergambar di rekap mingguan
+
+### Perubahan
+
+- Overlay kini membawa total kartu per hari; garis putus-putus jatah, label sisa N / cap ceklis, dan label ↑ jatah N untuk markah yang melewati batas sumbu benar-benar tergambar
+
+---
+
+## v345 — Batas sumbu grafik rekap mingguan agar tetap terbaca saat kuota besar
+
+### Perubahan
+
+- Sumbu-y rekap 7 hari kini dibatasi ±2× hari terpadat; markah jatah di atas batas diklem ke tepi atas dengan label ↑ jatah N
+
+---
+
 ## v344 — KPI pencapaian kuota kartu baru mingguan di Statistik SRS
 
 ### Perubahan
