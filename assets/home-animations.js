@@ -6,7 +6,7 @@
  *   1. Counter animation — angka statistik berputar saat muncul
  *   2. Hero parallax — efek kedalaman halus pada hero section
  *   3. Typing effect — teks subtitle muncul character-by-character
- *   4. Floating particles — partikel melayang di background hero
+ *   4. Sakura petals — kelopak jatuh pelan di background hero
  *   5. Card 3D tilt — kartu fitur bergerak mengikuti mouse
  *   6. Section reveal — section muncul dengan scale+fade saat discroll
  *   7. Gradient shift — gradient hero bergerak perlahan
@@ -39,14 +39,16 @@
     // Typing
     + '.ha-typing::after{content:"|";animation:ha-blink .8s step-end infinite;color:var(--red);font-weight:300}\n'
     + '@keyframes ha-blink{50%{opacity:0}}\n'
-    // Particles
+    // Sakura petals — bentuk kelopak lewat border-radius asimetris (bukan
+    // gambar/SVG, jadi tetap ringan), jatuh + berputar pelan, TIDAK naik
+    // seperti partikel debu versi lama.
     + '.ha-particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}\n'
-    + '.ha-particle{position:absolute;border-radius:50%;opacity:0;animation:ha-float linear infinite}\n'
+    + '.ha-particle{position:absolute;top:-10px;border-radius:100% 0 100% 0;opacity:0;animation:ha-float linear infinite}\n'
     + '@keyframes ha-float{\n'
-    + '  0%{transform:translateY(0) translateX(0) scale(0);opacity:0}\n'
-    + '  10%{opacity:1;transform:scale(1)}\n'
-    + '  90%{opacity:1}\n'
-    + '  100%{transform:translateY(-100vh) translateX(var(--drift)) scale(0);opacity:0}\n'
+    + '  0%{transform:translateY(0) translateX(0) rotate(0deg) scale(0);opacity:0}\n'
+    + '  10%{opacity:.9;transform:translateY(8vh) translateX(calc(var(--drift) * .2)) rotate(calc(var(--spin) * .15)) scale(1)}\n'
+    + '  90%{opacity:.9}\n'
+    + '  100%{transform:translateY(100vh) translateX(var(--drift)) rotate(var(--spin)) scale(1);opacity:0}\n'
     + '}\n'
     // Card tilt
     + '.ha-tilt{transition:transform .15s ease-out,box-shadow .15s ease-out}\n'
@@ -191,7 +193,7 @@
     io.observe(target);
   }
 
-  // ── 4. Floating Particles ──
+  // ── 4. Sakura Petals ──
   function initParticles() {
     var hero = document.querySelector('.hero');
     if (!hero) return;
@@ -200,22 +202,25 @@
     container.className = 'ha-particles';
     hero.prepend(container);
 
-    var colors = ['rgba(190,52,40,.3)', 'rgba(47,111,237,.25)', 'rgba(185,137,47,.2)', 'rgba(255,255,255,.15)'];
-    var count = 18;
+    // Palet merah muda sakura — bukan warna aksen brand seperti versi
+    // debu sebelumnya, supaya genuinely terbaca sebagai kelopak bunga.
+    var colors = ['rgba(255,183,197,.75)', 'rgba(255,201,222,.65)', 'rgba(255,255,255,.55)', 'rgba(255,158,187,.7)'];
+    var count = 16; // cukup untuk terasa hidup, jauh dari "ratusan elemen DOM"
 
     for (var i = 0; i < count; i++) {
       var p = document.createElement('div');
       p.className = 'ha-particle';
-      var size = 3 + Math.random() * 6;
+      var size = 6 + Math.random() * 8;
       var left = Math.random() * 100;
-      var duration = 8 + Math.random() * 12;
+      var duration = 9 + Math.random() * 10;
       var delay = Math.random() * 10;
-      var drift = (Math.random() - 0.5) * 80;
+      var drift = (Math.random() - 0.5) * 100;
+      var spin = (Math.random() < 0.5 ? -1 : 1) * (180 + Math.random() * 360);
 
-      p.style.cssText = 'width:' + size + 'px;height:' + size + 'px;'
-        + 'left:' + left + '%;bottom:-10px;'
+      p.style.cssText = 'width:' + size + 'px;height:' + (size * 0.85) + 'px;'
+        + 'left:' + left + '%;'
         + 'background:' + colors[i % colors.length] + ';'
-        + '--drift:' + drift + 'px;'
+        + '--drift:' + drift + 'px;--spin:' + spin + 'deg;'
         + 'animation-duration:' + duration + 's;'
         + 'animation-delay:' + delay + 's;';
 
