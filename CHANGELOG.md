@@ -4,6 +4,34 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v350 — Tune anggaran payload changelog publik ke 64 KB markdown
+
+### Perubahan
+
+- Payload halaman Catatan Rilis turun dari 245 KB menjadi ~73 KB (26 seksi terbaru, hingga v162) setelah anggaran diturunkan dari 80 KB ke 64 KB markdown
+- Granularitas seksi membuat satu era besar (v163-v174, ~22 KB) jatuh di bawah publik - seluruh isinya tetap utuh di arsip CHANGELOG.md
+
+---
+
+## v349 — Batasi ukuran payload changelog publik (~80 KB)
+
+### Perubahan
+
+- assets/changelog-releases.json kini dibatasi rilis terbaru: maks. 40 seksi dan anggaran markdown (64 KB sejak v350), dipotong dari seksi tertua agar halaman Catatan Rilis tetap ringan
+- Seksi yang lewat anggaran ukuran tidak hilang - tetap utuh di CHANGELOG.md sebagai arsip; scripts/release.js memakai logika anggaran yang sama untuk rilis berikutnya
+
+---
+
+## v348 — Konsolidasi arsip changelog menjadi era tematik (batch dalam)
+
+### Perubahan
+
+- Rangkaian v143-v155 (pendalaman pembahasan bank Kaigo, batch D-O) diringkas jadi satu era tematik
+- Era anatomi dirapikan jadi empat bagian: v163-v174 Anatomi Dasar, v186-v201 halaman organ 11 sistem & visualisasi, v202-v213 integrasi model 3D nyata, dan v214-v231 kurikulum trilogi 3-level + audit penutup
+- Isi tiap rilis dipertahankan utuh sebagai sub-bagian (hanya penanda judul yang diturunkan tingkatnya) - 64 judul berkurang; aset JSON publik diperbarui
+
+---
+
 ## v347 — Perbaikan kontras subjudul h3 di mode gelap (halaman Catatan Rilis)
 
 ### Perubahan
@@ -615,7 +643,11 @@ Saat investigasi untuk konsolidasi 4 halaman AI (AI-Sensei, AI-Tutor-Page, AI-Tu
 **Prioritas #1 (Design System) dan #4 (LiveKit)**: belum dikerjakan sesi ini — #1 tetap ditunda karena skala 333 halaman berisiko tinggi tanpa fase pilot lebih matang; #4 tetap butuh akun LiveKit nyata dari pemilik situs untuk pengujian sebelum penyambungan penuh.
 
 
-## v143 — Pembahasan Kaigo batch D tuntas (6 modul, 120 soal)
+## v143–v155 — Pendalaman pembahasan soal Kaigo tuntas (batch D–O)
+
+Sesi pendalaman bertahap yang menuntaskan pembahasan soal seluruh bank Kaigo: batch D sampai O menaikkan cakupan dari lewat separuh bank menjadi 100%, dengan persentase kumulatif dicatat di tiap rilis (v146 lewat 50%, v150 mendekati 70%, v154 91,4%) hingga milestone v155: 2002/2002 soal tuntas.
+
+### v143 — Pembahasan Kaigo batch D tuntas (6 modul, 120 soal)
 
 Melanjutkan pendalaman pembahasan (dipilih sendiri sebagai prioritas, mengikuti keluhan Anda yang paling sering ditekankan). 6 modul dituntaskan sepenuhnya:
 
@@ -628,7 +660,7 @@ Alzheimer-Lanjut, Alzheimer, Dementia-Communication, Diabetes-Care, Dokumentasi,
 Sisa: 79 modul (dari 85 semula) masih perlu pendalaman pembahasan serupa.
 
 
-## v144 — Pembahasan Kaigo batch E tuntas (6 modul, 84 soal)
+### v144 — Pembahasan Kaigo batch E tuntas (6 modul, 84 soal)
 
 Melanjutkan pendalaman pembahasan. 6 modul dituntaskan sepenuhnya (0 soal tersisa pendek):
 
@@ -641,7 +673,7 @@ Pola "2 struktural" html5lib pra-existing (`</head><body>`, dikonfirmasi tak ber
 Sisa: 73 modul.
 
 
-## v145 — Pembahasan Kaigo batch F tuntas (6 modul, 94 soal)
+### v145 — Pembahasan Kaigo batch F tuntas (6 modul, 94 soal)
 
 6 modul dituntaskan: Fukushiyo-Gu (alat bantu), Gizi (nutrisi), Gyakutai-Boshi (pencegahan kekerasan), Haisetsu-Care (perawatan eliminasi), Higeongo-Comm (komunikasi non-verbal), Homecare (perawatan rumah) — 94 soal diperdalam.
 
@@ -652,7 +684,7 @@ Sisa: 73 modul.
 Sisa: 67 modul.
 
 
-## v146 — Pembahasan Kaigo batch G tuntas (6 modul, 96 soal) — LEWAT SEPARUH BANK
+### v146 — Pembahasan Kaigo batch G tuntas (6 modul, 96 soal) — LEWAT SEPARUH BANK
 
 6 modul dituntaskan: Hukum-Lanjut, Hukum, ICF-Assessment, Iijo-Ido (perpindahan/移乗), Infection-Control, Jinken-Fukushi (hak asasi & kesejahteraan) — 96 soal diperdalam.
 
@@ -661,7 +693,7 @@ Sisa: 67 modul.
 Sisa: 61 modul.
 
 
-## v147 — Pembahasan Kaigo batch H tuntas (6 modul, 90 soal)
+### v147 — Pembahasan Kaigo batch H tuntas (6 modul, 90 soal)
 
 6 modul dituntaskan: Jiritsu-Shien (dukungan kemandirian), Juukankyo-Seibi (penataan lingkungan rumah), Kaigo-Hoken-Detail (detail asuransi perawatan), Kaigo-Katei (proses perawatan), Kaigo-Rinri (etika perawatan), Katan-Kyuin (penyedotan dahak) — 90 soal diperdalam.
 
@@ -672,7 +704,7 @@ Sisa: 61 modul.
 Sisa: 55 modul.
 
 
-## v148 — Pembahasan Kaigo batch I tuntas (6 modul, 82 soal) — Lewat 60%
+### v148 — Pembahasan Kaigo batch I tuntas (6 modul, 82 soal) — Lewat 60%
 
 6 modul dituntaskan: Kazoku-Shien (dukungan keluarga), Keikan-Eiyo (nutrisi enteral), Koi-Kaijo (bantuan berpakaian), Kojin-Joho (data pribadi), Kokyu-Junkan (pernapasan-sirkulasi), Komunikasi — 82 soal diperdalam.
 
@@ -683,7 +715,7 @@ Sisa: 55 modul.
 Sisa: 49 modul.
 
 
-## v149 — Pembahasan Kaigo batch J tuntas (6 modul, 116 soal)
+### v149 — Pembahasan Kaigo batch J tuntas (6 modul, 116 soal)
 
 6 modul dituntaskan: Kosakata-Klinik (istilah klinis), Kuchiku-Care (perawatan mulut), Kyoshuku-Yobo (pencegahan kontraktur), Medis-Advanced, Medis-Lanjut (perawatan medis lanjutan: HOT, dialisis, stoma, trakeostomi), Mental-Health — 116 soal diperdalam.
 
@@ -692,7 +724,7 @@ Sisa: 49 modul.
 Sisa: 43 modul.
 
 
-## v150 — Pembahasan Kaigo batch K tuntas (6 modul, 89 soal) — Mendekati 70%
+### v150 — Pembahasan Kaigo batch K tuntas (6 modul, 89 soal) — Mendekati 70%
 
 6 modul dituntaskan: N5 (bahasa dasar), Nihongo-N4, Ninchi-Kino (fungsi kognitif), Ningen-Songen (martabat manusia), Nutrition, Osteoporosis — 89 soal diperdalam.
 
@@ -701,7 +733,7 @@ Sisa: 43 modul.
 Sisa: 37 modul.
 
 
-## v151 — Pembahasan Kaigo batch L tuntas (6 modul, 102 soal) — 74.5%
+### v151 — Pembahasan Kaigo batch L tuntas (6 modul, 102 soal) — 74.5%
 
 6 modul dituntaskan: Parkinson, Penyakit (penyakit lansia umum), Prosedur-Lanjut, Prosedur (prosedur standar), Rehabilitasi, Rekod-Lanjut (SOAP & dokumentasi lanjutan) — 102 soal diperdalam.
 
@@ -710,7 +742,7 @@ Sisa: 37 modul.
 Sisa: 31 modul.
 
 
-## v152 — Pembahasan Kaigo batch M tuntas (6 modul, 101 soal) — Mendekati 80%
+### v152 — Pembahasan Kaigo batch M tuntas (6 modul, 101 soal) — Mendekati 80%
 
 6 modul dituntaskan: Rekod (dokumentasi dasar), Risk-Management (manajemen risiko), Roka-Shikumi (mekanisme penuaan), Setsugu (pelayanan/接遇), Shakai-Hosho (jaminan sosial), Shogaisha-Shien (dukungan disabilitas) — 101 soal diperdalam.
 
@@ -719,7 +751,7 @@ Sisa: 31 modul.
 Sisa: 25 modul.
 
 
-## v153 — Pembahasan Kaigo batch N tuntas (5 modul, 49 soal) — 85.8%
+### v153 — Pembahasan Kaigo batch N tuntas (5 modul, 49 soal) — 85.8%
 
 5 modul dituntaskan: Shouka-Haisetsu (pencernaan-eliminasi), Speaking-Advanced, Speaking-Lanjut, Speaking-N2, Speaking (keigo & komunikasi profesional di tempat kerja) — 49 soal diperdalam.
 
@@ -730,7 +762,7 @@ Catatan: Kaigo-Shokuji-Guide dicek dan ternyata **sudah tuntas** dari batch sebe
 Sisa: 20 modul.
 
 
-## v154 — Pembahasan Kaigo batch O tuntas (6 modul, 122 soal) — 91.4%
+### v154 — Pembahasan Kaigo batch O tuntas (6 modul, 122 soal) — 91.4%
 
 6 modul dituntaskan: Ujian-Kihon (dasar ujian nasional), Ujian-Songen (martabat & hak), Yakan-Care (perawatan malam), Ujian-Iryo-Care (perawatan medis), Ujian-Shakai (sistem sosial), Ujian-Shogai (dukungan disabilitas) — 122 soal diperdalam.
 
@@ -739,11 +771,11 @@ Sisa: 20 modul.
 Sisa: 10 modul.
 
 
-## v155 — 🎯 MILESTONE: 100% pembahasan Kaigo tuntas (2002/2002 soal)
+### v155 — 🎯 MILESTONE: 100% pembahasan Kaigo tuntas (2002/2002 soal)
 
 **Batch P (final)** — 10 modul terakhir dituntaskan: Ujian-Comm-Gijutsu, Ujian-N2, Ujian-Nasional, Kaiwa-Technique, Nyuyoku-Care, Safety-Guide, Terminal-Care, Ujian-Hattatsu-Roka, Ujian-Kokoro-Karada, Ujian-Ningen-Kankei — plus penuntasan 10 soal sisa di Stroke-Lanjut, Taino-Kanri, dan Taju-Renkei.
 
-### 🏆 Pencapaian akhir proyek pendalaman pembahasan
+#### 🏆 Pencapaian akhir proyek pendalaman pembahasan
 
 | | Awal (v136) | Akhir (v155) |
 |---|---|---|
@@ -857,7 +889,11 @@ Saat verifikasi menyeluruh alur pembayaran Midtrans (persiapan sebelum user meng
 **Verifikasi teknis**: HTML utuh, JS valid, validator PASSED, 46 test. Breakdown hasil dibersihkan otomatis saat mengulang ujian (tak menumpuk).
 
 
-## v163 — Halaman baru: Anatomi Dasar Tubuh Manusia (解剖学)
+## v163–v174 — Anatomi Dasar: halaman baru & pendalaman istilah bertahap
+
+Pembuatan halaman Anatomi Dasar Tubuh Manusia (解剖学) lalu pendalaman isinya berulang: dari +14 soal Panca Indera dan beberapa istilah klinis per putaran (v164–v168) hingga pendalaman besar 94–123 istilah lintas sistem (v169–v171), diselingi perbaikan bug fungsional yang ditemukan di tengah jalan (v172), rebuild halaman sesuai spesifikasi 10-tahap (v173), dan pelengkapan field kaigoExample/aliases untuk seluruh 123 istilah (v174).
+
+### v163 — Halaman baru: Anatomi Dasar Tubuh Manusia (解剖学)
 
 **Konteks**: diminta halaman baru di navbar tentang "pembelajaran anatomi dasar". Dicek dulu — belum ada halaman serupa (hanya kosakata dasar 10 soal di JLPT bank), jadi ini genuinely halaman baru, bukan duplikasi.
 
@@ -873,7 +909,7 @@ Saat verifikasi menyeluruh alur pembayaran Midtrans (persiapan sebelum user meng
 **Verifikasi menyeluruh**: HTML utuh, JS valid, CSS seimbang, kuis tervalidasi (4 opsi, jawaban benar, tanpa duplikat), `minified-drift` PASSED, tak ada broken-src, validator resmi PASSED, 46 test.
 
 
-## v164 — Pendalaman halaman Anatomi Dasar: +sistem Panca Indera, +14 soal
+### v164 — Pendalaman halaman Anatomi Dasar: +sistem Panca Indera, +14 soal
 
 Melanjutkan halaman `Anatomi-Dasar.html` (v163) sesuai permintaan lanjutan:
 
@@ -888,7 +924,7 @@ Melanjutkan halaman `Anatomi-Dasar.html` (v163) sesuai permintaan lanjutan:
 **Verifikasi**: HTML utuh, JS valid, kuis tervalidasi tanpa duplikat, validator PASSED, 46 test.
 
 
-## v165 — Pendalaman materi Anatomi Dasar (lanjutan) — fokus istilah, bukan soal
+### v165 — Pendalaman materi Anatomi Dasar (lanjutan) — fokus istilah, bukan soal
 
 Sesuai arahan "soal nanti saja, perbanyak materi saja" — sesi ini fokus murni memperluas istilah tanpa menambah kuis.
 
@@ -903,7 +939,7 @@ Sesuai arahan "soal nanti saja, perbanyak materi saja" — sesi ini fokus murni 
 **Verifikasi**: struktur data `SYSTEMS` diverifikasi dapat di-parse penuh via Node (bukan cuma dicek sintaks) — 58 istilah tersebar 20/8/8/10/6/6 di 6 sistem. HTML utuh, JS valid, validator PASSED, 46 test.
 
 
-## v166 — Pendalaman materi Anatomi Dasar (lanjutan 2) — 5 istilah klinis penting
+### v166 — Pendalaman materi Anatomi Dasar (lanjutan 2) — 5 istilah klinis penting
 
 Melanjutkan perluasan materi (soal tetap tak disentuh).
 
@@ -916,7 +952,7 @@ Melanjutkan perluasan materi (soal tetap tak disentuh).
 **Verifikasi**: struktur `SYSTEMS` diverifikasi utuh via Node — total 63 istilah terkonfirmasi tersebar benar di 6 kategori. HTML utuh, JS valid, validator PASSED, 46 test.
 
 
-## v167 — Pendalaman materi Anatomi Dasar (lanjutan 3) — 5 istilah terkait topik besar Kaigo
+### v167 — Pendalaman materi Anatomi Dasar (lanjutan 3) — 5 istilah terkait topik besar Kaigo
 
 Melanjutkan perluasan materi, kali ini fokus pada istilah yang terhubung langsung ke topik-topik besar kurikulum Kaigo yang sudah ada:
 
@@ -931,7 +967,7 @@ Melanjutkan perluasan materi, kali ini fokus pada istilah yang terhubung langsun
 **Verifikasi**: struktur `SYSTEMS` diverifikasi utuh via Node — 68 istilah terkonfirmasi tersebar benar. HTML utuh, JS valid, validator PASSED, 46 test.
 
 
-## v168 — Pendalaman materi Anatomi Dasar (lanjutan 4) — 3 istilah, mendekati titik jenuh
+### v168 — Pendalaman materi Anatomi Dasar (lanjutan 4) — 3 istilah, mendekati titik jenuh
 
 **Sirkulasi & Saraf +3**: 自律神経(じりつしんけい/saraf otonom — menjelaskan KENAPA lansia mudah pusing saat berdiri/起立性低血圧, karena fungsi pengaturan otomatis ini melemah seiring usia), 赤血球(sel darah merah — terkait anemia), 白血球(sel darah putih — terkait deteksi infeksi).
 
@@ -942,7 +978,7 @@ Melanjutkan perluasan materi, kali ini fokus pada istilah yang terhubung langsun
 **Catatan jujur soal skala**: setelah 4 putaran pendalaman berturut-turut (v164→v168, total +26 istilah dari 45 awal), cakupan istilah anatomi dasar untuk konteks Kaigo sudah mendekati komprehensif. Penambahan lebih lanjut mulai memerlukan istilah yang jauh lebih spesifik/jarang dipakai (misal otot per-nama spesifik, tulang pergelangan detail) — nilai tambahnya menurun dibanding 4 putaran sebelumnya yang masing-masing mengisi celah jelas.
 
 
-## v169 — Pendalaman besar Anatomi Dasar: 4 area sekaligus (94 istilah, 8 sistem)
+### v169 — Pendalaman besar Anatomi Dasar: 4 area sekaligus (94 istilah, 8 sistem)
 
 Menindaklanjuti pilihan "semuanya" dari 4 opsi area pendalaman yang ditawarkan:
 
@@ -959,7 +995,7 @@ Menindaklanjuti pilihan "semuanya" dari 4 opsi area pendalaman yang ditawarkan:
 **Verifikasi**: struktur `SYSTEMS` diverifikasi utuh via Node — 94 istilah terkonfirmasi tersebar benar di 8 kategori (20/15/12/18/9/8/5/7). Logika toggle `organLayer` dicek tetap benar (tak terpengaruh tab baru). HTML utuh, JS valid, validator PASSED, 46 test.
 
 
-## v170 — Pendalaman Anatomi Dasar (lanjutan 6) — 103 istilah
+### v170 — Pendalaman Anatomi Dasar (lanjutan 6) — 103 istilah
 
 9 istilah baru mengisi celah nyata yang masih tersisa:
 
@@ -978,7 +1014,7 @@ Menindaklanjuti pilihan "semuanya" dari 4 opsi area pendalaman yang ditawarkan:
 **Verifikasi**: struktur `SYSTEMS` diverifikasi utuh via Node — 103 istilah terkonfirmasi. HTML utuh, JS valid, validator PASSED, 46 test.
 
 
-## v171 — Pendalaman besar sesuai arahan: Otak, Jantung, Pencernaan, Otot, Mata&Telinga (123 istilah)
+### v171 — Pendalaman besar sesuai arahan: Otak, Jantung, Pencernaan, Otot, Mata&Telinga (123 istilah)
 
 Menindaklanjuti arahan spesifik "sistem pencernaan, otak, otot-otot, jantung, mata telinga" — 5 area diperdalam sungguhan (bukan sekadar tambah 1-2 istilah, tapi transformasi dari istilah tunggal jadi sub-struktur nyata):
 
@@ -999,11 +1035,11 @@ Menindaklanjuti arahan spesifik "sistem pencernaan, otak, otot-otot, jantung, ma
 **Verifikasi**: struktur `SYSTEMS` diverifikasi utuh via Node — 123 istilah terkonfirmasi. HTML utuh, JS valid, validator PASSED, 46 test.
 
 
-## v172 — 🔴 Bug fatal sistemik ditemukan & diperbaiki: 5 halaman fitur inti mati total sejak load
+### v172 — 🔴 Bug fatal sistemik ditemukan & diperbaiki: 5 halaman fitur inti mati total sejak load
 
 **Konteks**: user melaporkan "Kaigo Simulator masih tidak bisa dipakai". Investigasi mendalam (bukan tebakan) menemukan akar masalah, lalu ditemukan bug **identik menyebar ke 4 halaman fitur inti lain**.
 
-### Akar masalah (dikonfirmasi via riset + pengujian statis)
+#### Akar masalah (dikonfirmasi via riset + pengujian statis)
 
 ```html
 <script src="assets/platform.min.js" defer></script>
@@ -1015,7 +1051,7 @@ const { State, Toast } = NP;   ← CRASH di sini
 
 Diverifikasi via riset independen (DebugBear, cylab.be, dev.to) — bug klasik yang sudah terdokumentasi luas dengan solusi standar yang sama.
 
-### Halaman yang terkena (5 dari 5 halaman dengan pola ini di seluruh proyek)
+#### Halaman yang terkena (5 dari 5 halaman dengan pola ini di seluruh proyek)
 
 | Halaman | Sifat masalah |
 |---|---|
@@ -1025,18 +1061,18 @@ Diverifikasi via riset independen (DebugBear, cylab.be, dev.to) — bug klasik y
 | **SRS-Flashcard.html** | `buildDeck('all')`/`NP.Nav.init()` di top-level, 3 variabel (`State,SRS,Toast`). Fix sama. |
 | **AI-Tutor-Pro.html** | Tidak ada pemanggilan top-level lain — fix paling sederhana. |
 
-### Metode perbaikan (aman, tidak mengubah scope fungsi)
+#### Metode perbaikan (aman, tidak mengubah scope fungsi)
 
 Fungsi-fungsi di semua halaman ini dipanggil via `onclick="..."` inline di HTML, sehingga **harus tetap di scope global**. Solusi "bungkus semua dengan DOMContentLoaded" akan merusak ini. Solusi yang diterapkan: ganti `const {State,Toast}=NP` → `let State,Toast;` (deklarasi tanpa nilai, aman), lalu isi nilainya di dalam `document.addEventListener('DOMContentLoaded', ...)` bersama pemanggilan top-level lain yang sebelumnya juga rentan — sementara semua `function xxx(){}` tetap di scope global seperti semula.
 
 **Verifikasi per file**: JS valid (`node --check`), nol akses `NP`/`State`/`Toast` tersisa di luar `DOMContentLoaded`/function body (diverifikasi via analisis statis, bukan asumsi), quality gate PASSED di setiap langkah, dan pencarian ulang di seluruh 336 halaman mengonfirmasi **tidak ada halaman ke-6** dengan pola berbahaya yang sama tersisa.
 
 
-## v173 — Rebuild besar Anatomi-Dasar.html sesuai spesifikasi 10-tahap (Tahap 1-6 & 9 selesai, 7-8 sebagian, jujur soal batasan)
+### v173 — Rebuild besar Anatomi-Dasar.html sesuai spesifikasi 10-tahap (Tahap 1-6 & 9 selesai, 7-8 sebagian, jujur soal batasan)
 
 Menindaklanjuti dokumen spesifikasi rebuild anatomi 10-tahap. Dikerjakan sesuai instruksi dokumen sendiri ("implementasikan secara bertahap"), dengan verifikasi fungsional nyata di tiap langkah (jsdom, bukan cuma cek sintaks).
 
-### ✅ TAHAP 1 — Refactor Struktur (SELESAI PENUH)
+#### ✅ TAHAP 1 — Refactor Struktur (SELESAI PENUH)
 Kode dipisah ke 4 file baru di `assets/anatomy/`:
 - `anatomy-data.js` — 123 istilah, diekstrak **terprogram** dari HTML lama (bukan ketik ulang manual, menghindari salah transkripsi), ditransformasi ke skema 15-field (id, system, japanese, furigana, romaji, indonesian, **english** [baru ditulis akurat untuk semua 123], location, function, kaigoNote, kaigoExample, imageHotspot, modelHotspot, aliases, audioText, bodyId). Terverifikasi 123/123 id unik, 0 bentrok.
 - `anatomy-viewer.css` — seluruh style dipindah + style baru (toolbar, hotspot, panel info, progress bar)
@@ -1045,37 +1081,37 @@ Kode dipisah ke 4 file baru di `assets/anatomy/`:
 
 Tidak memakai `innerHTML` untuk data — seluruh konten teks via `textContent`/element creation manual (sesuai instruksi keamanan DOM).
 
-### ✅ TAHAP 2 — Viewer 2D (kontrol SELESAI, gambar masih placeholder — dicatat jujur)
+#### ✅ TAHAP 2 — Viewer 2D (kontrol SELESAI, gambar masih placeholder — dicatat jujur)
 Zoom in/out/reset/fullscreen, mouse wheel zoom, drag-pan, pinch-to-zoom & double-tap (touch), Escape keluar fullscreen — semua berfungsi. **Batasan jujur**: diagram masih SVG stylized sederhana (bukan 9 tampilan anatomi fotorealistik depan/belakang/rangka/otot/organ/saraf/sirkulasi/pernapasan/pencernaan terpisah). Ini pekerjaan aset visual besar di luar kemampuan kode murni — dicatat sebagai komentar jelas di kode, struktur `imageHotspot` sudah disiapkan agar migrasi ke gambar final tidak perlu ubah skema.
 
-### ✅ TAHAP 3 — Hotspot Interaktif (SELESAI PENUH)
+#### ✅ TAHAP 3 — Hotspot Interaktif (SELESAI PENUH)
 Hotspot kini `<button>` sungguhan (bukan cuma elemen SVG diklik) — aksesibel Tab/Enter, `aria-label`, animasi pulse (hormat `prefers-reduced-motion`), tooltip hover/focus, sinkron 2 arah dengan daftar istilah, URL hash (`#atama`) yang langsung membuka istilah saat halaman dimuat dengan hash tsb.
 
-### ✅ TAHAP 4 — Panel Informasi (SELESAI PENUH)
+#### ✅ TAHAP 4 — Panel Informasi (SELESAI PENUH)
 Side panel desktop / bottom sheet mobile. Semua field: jepang, furigana, romaji, Indonesia, Inggris, lokasi, fungsi, catatan Kaigo, tombol audio (Web Speech API, `lang=ja-JP`, cegah tumpuk), tombol simpan flashcard, tombol mulai kuis, sebelumnya/berikutnya, tutup. Focus kembali ke elemen semula saat ditutup.
 
-### ✅ TAHAP 5 — Mode Belajar (SELESAI, 1 bug ditemukan & diperbaiki sendiri)
+#### ✅ TAHAP 5 — Mode Belajar (SELESAI, 1 bug ditemukan & diperbaiki sendiri)
 3 mode (Belajar/Eksplorasi/Kuis Visual), tersimpan di localStorage. **Bug ditemukan sendiri saat testing**: mode Eksplorasi awalnya menyimpan state tapi nol efek visual (CSS penyembunyi label terlupa). Ditemukan & diperbaiki sebelum dianggap selesai — diverifikasi ulang via jsdom bahwa label benar-benar ter-blur dan ter-reveal saat diklik.
 
-### ✅ TAHAP 6 — Gamifikasi (SELESAI, integrasi aman)
+#### ✅ TAHAP 6 — Gamifikasi (SELESAI, integrasi aman)
 Terintegrasi ke `assets/np-xp.js` yang **sudah ada** — tidak membuat sistem XP duplikat, no-op aman jika modul tak tersedia. +5 (5 hotspot), +20 (selesai 1 sistem), +10 (jawaban benar), +25 (5 beruntun), +50 (selesai kuis). Progress bar per total istilah, toast reward, hormat `prefers-reduced-motion`.
 
-### ⚠️ TAHAP 7 — Model 3D (fallback jujur, bukan simulasi palsu)
+#### ⚠️ TAHAP 7 — Model 3D (fallback jujur, bukan simulasi palsu)
 Tab 2D/3D ada dan berfungsi. **Tidak ada file `human-body.glb`** — tidak dibuat/disimulasikan asal ada. Fallback ditampilkan: "Model 3D belum tersedia. Gunakan mode anatomi 2D." Library `<model-viewer>` **tidak dimuat sama sekali** saat ini (bukan cuma "lazy" — karena tak ada model untuk dirender, memuatnya akan sia-sia). Kode fallback sudah siap menerima aset GLB kapan pun tersedia.
 
-### ⚠️ TAHAP 8 — Performa (sebagian)
+#### ⚠️ TAHAP 8 — Performa (sebagian)
 Model 3D tidak dimuat di awal (genuinely tak dimuat sama sekali, bukan cuma "lazy"). SW precache ditambah 4 file baru; mekanisme stale-while-revalidate **generik yang sudah ada** otomatis berfungsi sebagai runtime-cache untuk model GLB nanti tanpa perlu kode tambahan. Belum: skeleton loading dedicated, audit Core Web Vitals formal.
 
-### ✅ TAHAP 9 — Responsif & Aksesibilitas (sebagian besar)
+#### ✅ TAHAP 9 — Responsif & Aksesibilitas (sebagian besar)
 Target sentuh ≥44×44px di semua tombol/kartu, keyboard nav (Tab/Enter), `focus-visible` states, Escape menutup panel/fullscreen, focus kembali ke elemen semula, `prefers-reduced-motion` dihormati di animasi & toast, tanpa overflow horizontal di 320px (diverifikasi CSS). Belum diverifikasi dengan pembaca layar sungguhan (NVDA/VoiceOver) karena tak tersedia di lingkungan ini.
 
-### ✅ TAHAP 10 — Validasi (dilakukan dengan cara terbaik yang tersedia)
+#### ✅ TAHAP 10 — Validasi (dilakukan dengan cara terbaik yang tersedia)
 Bukan cuma `node --check` — dibangun **test fungsional nyata via jsdom**: memuat HTML lengkap, menjalankan ketiga script bersamaan, mensimulasikan klik tab/kartu/pilihan kuis, dan memverifikasi hasil DOM yang benar terjadi (term-card berubah jumlah sesuai sistem, panel info benar-benar terbuka dengan data benar, tombol next kuis ter-enable, mode eksplorasi benar-benar mem-blur lalu reveal label). Nol runtime error terkonfirmasi.
 
 Validator resmi proyek PASSED, 46 test, 123 istilah & 34 soal terverifikasi utuh, 0 fitur lama dihapus (navbar/dark-mode/footer/quiz semua dipertahankan).
 
 
-## v174 — Lengkapi field kaigoExample & aliases untuk seluruh 123 istilah anatomi
+### v174 — Lengkapi field kaigoExample & aliases untuk seluruh 123 istilah anatomi
 
 Menindaklanjuti field yang sengaja dikosongkan di v173 (`kaigoExample`, `aliases`) — kini diisi penuh untuk semua 123 istilah, ditulis manual per-istilah (bukan template generik) untuk menjaga akurasi medis-linguistik.
 
@@ -1460,29 +1496,33 @@ Setelah deploy: `sw.js` versi baru otomatis menghapus cache lama (`eduma-kaigo-v
 **Verifikasi akhir sesi**: validator PASSED 0 error 0 warning, 94 test unit lulus, 20/20 test browser lulus, 6/6 breakpoint responsive lulus, `npm ci` bersih (tanpa Playwright ikut ter-install).
 
 
-## v186 — Advanced Anatomy System: audit + perluasan data terverifikasi, TIDAK membangun aset visual fiktif
+## v186–v201 — Anatomi lanjutan: halaman organ 11 sistem & visualisasi
+
+Era anatomi kedua: Advanced Anatomy System dengan kurikulum 4-level dan halaman organ berpola 11-tab beranimasi fisiologi (sirkulasi darah, impuls saraf, filtrasi ginjal, kontraksi otot, penyembuhan luka tekan, dst.) — satu per satu hingga seluruh 11 sistem tubuh tuntas di v201; termasuk penolakan spesifikasi engine 3D yang belum waktunya (v189) serta integrasi perdana model 3D jantung dan konsistensi placeholder-nya (v190–v192).
+
+### v186 — Advanced Anatomy System: audit + perluasan data terverifikasi, TIDAK membangun aset visual fiktif
 
 **Konteks**: menerima spesifikasi sangat ambisius (13 sistem tubuh, 3D body explorer 7-layer, ilustrasi resolusi tinggi profesional, model GLB, AI tutor, sertifikat) untuk modul Anatomi. Sebelum menulis kode apa pun, ditanyakan dan disepakati batasan jujur dengan pengguna: sebagian besar permintaan butuh ASET VISUAL (gambar medis presisi tinggi, model 3D anatomis) yang tidak bisa dibuat — Claude tidak bisa menggambar ilustrasi medis atau membuat model 3D. Disepakati fokus ke 2 hal yang genuinely bisa dikerjakan: (1) perluasan data, (2) perbaikan/verifikasi viewer 2D yang sudah ada.
 
-### Audit awal: modul yang ada TERNYATA sudah cukup matang
+#### Audit awal: modul yang ada TERNYATA sudah cukup matang
 123 istilah anatomi lengkap (Jepang/furigana/romaji/Indonesia/Inggris/lokasi/fungsi/catatan Kaigo/contoh kalimat), 8 kategori sistem tubuh, viewer SVG 2D stylized dengan zoom/pan/drag/pinch-to-zoom/fullscreen, 9 hotspot interaktif, dan 34 soal kuis tulisan + mode kuis visual hotspot. **Diverifikasi fungsional (Playwright) sebelum menyentuh apa pun**: hotspot klik genuinely membuka panel info, zoom genuinely mengubah state (1→1.2), 0 error di seluruh alur — modul ini TIDAK rusak, hanya perlu diperluas.
 
-### Data ditambah: Sistem Imun (menekiei) — kategori baru
+#### Data ditambah: Sistem Imun (menekiei) — kategori baru
 10 istilah imunologi yang genuinely relevan untuk konteks Kaigo/keperawatan (bukan istilah imunologi molekuler rumit yang jarang dipakai perawat): sistem kekebalan tubuh, antibodi, kelenjar getah bening, kelenjar timus, penyakit infeksi, alergi, vaksinasi, penyakit autoimun, demam, penurunan daya tahan tubuh — masing-masing dengan `kaigoNote` yang menjelaskan relevansi praktis (mis. imunosenesensi lansia, pentingnya vaksin influenza tahunan, alergi makanan yang wajib dicatat di profil penerima layanan). Total istilah naik dari 123 → **133**.
 
 Tab UI baru ditambahkan (`data-sys="menekiei"`) mengikuti pola HTML manual yang sudah ada (bukan digenerate otomatis dari data) — **diverifikasi**: 10 kartu istilah dirender benar saat tab diklik, teks Jepang+furigana tampil tepat.
 
-### Data diperkaya: `aliases` diisi untuk 20 istilah dengan sinonim/singkatan yang PASTI akurat
+#### Data diperkaya: `aliases` diisi untuk 20 istilah dengan sinonim/singkatan yang PASTI akurat
 Field `aliases` sebelumnya kosong di 116/123 istilah (dicatat jujur di komentar kode sesi sebelumnya sebagai "diisi bertahap"). Diisi untuk 20 istilah medis dengan singkatan/sinonim baku yang genuinely diyakini benar: `shinzou`→jantung/cor/cardiac, `hakkekkyuu`→WBC/leukosit/leukocyte, `noukousoku`→stroke/CVA, `tounyoubyou`→DM/diabetes mellitus, dst.
 
 **Keputusan penting**: 96 istilah dasar bagian tubuh (kepala, leher, bahu, dst) SENGAJA TIDAK diisi — sinonim/istilah alternatif untuk kosakata dasar ini tidak cukup jelas/baku untuk diisi dengan yakin tanpa risiko menambahkan informasi yang salah atau menyesatkan. Lebih baik kosong dan jujur daripada terisi tapi berpotensi keliru.
 
-### Verifikasi regresi menyeluruh
+#### Verifikasi regresi menyeluruh
 - Playwright: **semua 9 tab (8 lama + 1 baru) diverifikasi jumlah kartu tepat** — luar:20, indera:20, rangka:13, organ:31, sirkulasi:10, otot:14, gerakan:5, byoumei:10, menekiei:10 (baru). 0 error di seluruh pengujian.
 - **34 soal kuis tulisan dikonfirmasi tetap utuh** ("Soal 1 / 34" — tidak ada yang hilang/rusak akibat perubahan data).
 - Validator resmi PASSED 0 error 0 warning, 94 test unit tetap lulus (tidak ada regresi ke fitur lain).
 
-### FINAL REPORT (sesuai 10 poin yang diminta spesifikasi)
+#### FINAL REPORT (sesuai 10 poin yang diminta spesifikasi)
 1. **Architecture Report**: tidak ada perubahan arsitektur — data tetap format JS array/object di `anatomy-data.js`, viewer tetap SVG 2D di `anatomy-viewer.js`. Additive murni.
 2. **New Features**: kategori Sistem Imun (10 istilah) + tab UI baru.
 3. **Educational Improvements**: `aliases` untuk 20 istilah kunci membantu pencarian dengan sinonim/singkatan medis umum.
@@ -1494,104 +1534,104 @@ Field `aliases` sebelumnya kosong di 116/123 istilah (dicatat jujur di komentar 
 9. **Production Readiness Checklist**: ✅ validator PASSED, ✅ 94 test lulus, ✅ 0 regresi terverifikasi Playwright, ✅ `npm ci` bersih, ✅ tidak ada breaking change.
 10. Packaged sebagai `nihongopro-DEPLOY-v186-ADVANCED-ANATOMY-SYSTEM.zip`.
 
-### Kejujuran soal scope yang TIDAK dikerjakan (disepakati eksplisit dengan pengguna sebelum mulai)
+#### Kejujuran soal scope yang TIDAK dikerjakan (disepakati eksplisit dengan pengguna sebelum mulai)
 3D body explorer, model GLB, ilustrasi resolusi tinggi profesional, multi-layer anatomy (7 layer), AI Anatomy Tutor generatif, sertifikat, CMS admin untuk anatomi, quiz types baru (drag-drop/matching/case simulation), 12 sistem tubuh sisa dengan atribut lengkap per spesifikasi (blood supply/innervation/age-related changes/dll) — semua TIDAK dikerjakan sesi ini. Sebagian butuh aset visual yang tidak bisa dibuat AI teks, sebagian adalah proyek besar terpisah yang butuh sesi/keputusan sendiri.
 
 **Verifikasi**: `node --check` anatomy-data.js valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 9/9 tab + 34 soal kuis dikonfirmasi utuh via Playwright.
 
 
-## v187 — Kurikulum 4-Level Anatomi: prototipe halaman organ 11-tab (Sistem Kardiovaskular/Jantung)
+### v187 — Kurikulum 4-Level Anatomi: prototipe halaman organ 11-tab (Sistem Kardiovaskular/Jantung)
 
 **Konteks**: menerima rencana kurikulum terstruktur 4-level (Anatomi Dasar → Sistem Organ → Fisiologi → Anatomi Klinis/Kaigo) dengan struktur 11-tab per halaman organ. Disepakati dengan pengguna: mulai dari SATU organ (Jantung, karena alur sirkulasi sudah dijelaskan detail) sebagai prototipe lengkap, baru jadi template untuk organ lain di sesi berikutnya — bukan membangun 11 sistem organ sekaligus dengan risiko dangkal/tidak terverifikasi.
 
-### Halaman baru: `Materi/Sistem-Kardiovaskular.html`
+#### Halaman baru: `Materi/Sistem-Kardiovaskular.html`
 11 tab lengkap sesuai spesifikasi: 概要 (ringkasan), 解剖 (anatomi 4 ruang jantung + katup + arteri koroner), 生理 (fisiologi — diagram alur sirkulasi pulmonal & sistemik persis seperti dicontohkan: ventrikel kanan→paru-paru→atrium kiri, dan ventrikel kiri→tubuh→atrium kanan), 加齢変化 (perubahan penuaan: arteriosklerosis, elastisitas otot jantung menurun, dst), 疾患 (4 penyakit umum: hipertensi, gagal jantung, infark miokard, aritmia), 症状 (7 gejala + kondisi darurat), 観察 (6 poin observasi caregiver), 介護 (tindakan perawatan + kapan harus melapor), 用語 (tabel kosakata + 3 kalimat klinis), クイズ (mini kuis 3 soal dengan proteksi double-answer), 症例 (Clinical Case Simulator: skenario lansia dengan gejala gagal jantung, 3 pertanyaan interaktif, penjelasan lengkap).
 
-### 🐛 Bug kritis ditemukan & diperbaiki via verifikasi fungsional
+#### 🐛 Bug kritis ditemukan & diperbaiki via verifikasi fungsional
 Uji Playwright pertama menunjukkan **0 dari 11 tab terdeteksi** — investigasi mengungkap: `kyoto-navbar.js` punya mekanisme yang SENGAJA menghapus semua tag `<nav>` di halaman (`document.querySelectorAll('nav:not(.dash-nav):not(.ai-nav)').forEach(el => el.remove())`) sebagai pembersihan navbar lama sebelum migrasi — perilaku ini benar untuk file lain, tapi kontainer tab baru ini juga ditulis sebagai `<nav id="organTabs">`, sehingga IKUT TERHAPUS sebagai korban tak sengaja. Diperbaiki: diganti ke `<div role="tablist">` (tetap aksesibel, tidak butuh tag semantik `<nav>` karena bukan navigasi situs). **Pelajaran dicatat untuk halaman organ berikutnya**: selalu pakai `<div>`, tidak pernah `<nav>`, untuk elemen non-navbar-utama di halaman NihongoPro.
 
-### Bug lain ditemukan validator otomatis, diperbaiki
+#### Bug lain ditemukan validator otomatis, diperbaiki
 - Path asset salah (`assets/env.js` seharusnya `../assets/env.js` — file berada di `Materi/`, bukan root).
 - Halaman baru belum terindeks di Search.html — diperbaiki dengan menjalankan `scripts/build_search_index.py` (skrip idempoten yang sudah ada, bukan penambahan manual).
 
-### Update data usang yang ditemukan tak sengaja
+#### Update data usang yang ditemukan tak sengaja
 Statistik hero di `Anatomi-Dasar.html` masih menampilkan "123 istilah, 8 sistem" — usang sejak penambahan Sistem Imun di v186 (yang sebenarnya 133/9). Diperbaiki, dan ditambahkan section link ke halaman detail Sistem Kardiovaskular baru.
 
-### Verifikasi fungsional menyeluruh
+#### Verifikasi fungsional menyeluruh
 - Playwright: **11/11 tab terverifikasi genuinely menampilkan panel masing-masing** setelah fix nav→div.
 - Mini quiz dan Case Simulator dikonfirmasi bekerja end-to-end (case simulator: 3 jawaban benar → pesan "✅ Tepat!" dengan penjelasan lengkap).
 - Navigasi dari `Anatomi-Dasar.html` → `Sistem-Kardiovaskular.html` dikonfirmasi berfungsi (klik link genuinely membuka halaman, 11 tab termuat).
 - Validator resmi PASSED 0 error 0 warning (termasuk broken-links, SEO, a11y — semua otomatis lolos tanpa perlu ditulis manual berkat mengikuti pola halaman existing).
 
-### Roadmap: 10 sistem organ tersisa
+#### Roadmap: 10 sistem organ tersisa
 Struktur/pola halaman ini (11-tab, mini quiz, case simulator, kaigoNote per bagian) siap dipakai sebagai template untuk: sistem rangka, otot, saraf, pernapasan, pencernaan, urinaria, endokrin, reproduksi, limfatik & imun, kulit & indra — masing-masing butuh sesi/waktu tersendiri untuk konten yang genuinely akurat (bukan sekadar copy-paste template dengan istilah medis yang belum tervalidasi).
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + navigasi antar-halaman dikonfirmasi via Playwright.
 
 
-## v188 — Visualisasi interaktif sirkulasi darah pada siluet tubuh (tab 生理 Sistem Kardiovaskular)
+### v188 — Visualisasi interaktif sirkulasi darah pada siluet tubuh (tab 生理 Sistem Kardiovaskular)
 
 **Konteks**: pengguna menunjukkan referensi visual (screenshot dari sesi ChatGPT lain) — ilustrasi tubuh manusia fotorealistis semi-transparan dengan panah animasi mengalir menunjukkan sirkulasi darah. Diklarifikasi jujur di awal: ilustrasi tubuh 3D-rendered fotorealistis adalah aset gambar profesional yang tidak bisa dibuat — disepakati bersama pengguna untuk membangun versi fungsional setara memakai siluet SVG sederhana + animasi, bukan mengklaim replikasi visual yang sama persis.
 
-### Diganti: diagram flow-step teks → visualisasi SVG siluet tubuh beranimasi
+#### Diganti: diagram flow-step teks → visualisasi SVG siluet tubuh beranimasi
 Tab 生理 (Fisiologi) sebelumnya menampilkan alur sirkulasi sebagai rangkaian kotak teks berurutan (`Ventrikel Kiri → Aorta → Jaringan Tubuh → ...`). Diganti dengan siluet tubuh SVG (garis outline sederhana, bukan ilustrasi detail) dengan 3 titik bernomor (ventrikel kiri, jaringan tubuh, atrium kanan) dan 2 jalur panah beranimasi: merah (kaya oksigen, path dash bergerak `stroke-dashoffset`) dari jantung ke tubuh, biru (miskin oksigen) kembali ke jantung. Titik-titik berdenyut halus (`bf-dot` pulse) untuk menekankan lokasi. Legend warna di bawah SVG.
 
 **Aksesibilitas & performa**: seluruh animasi dibungkus `@media (prefers-reduced-motion: reduce)` — nonaktif otomatis untuk pengguna yang memilih preferensi tersebut di OS. SVG punya `role="img"` + `aria-label` deskriptif untuk screen reader.
 
-### Verifikasi fungsional
+#### Verifikasi fungsional
 - Playwright: SVG genuinely dirender (bukan placeholder kosong), 2 path animasi alur dan 3 titik berdenyut terkonfirmasi ada di DOM, legend menampilkan teks yang benar.
 - **Regresi nol terhadap bug v187**: 11/11 tab tetap utuh setelah perubahan — dikonfirmasi tidak ada tag `<nav>` baru ditambahkan yang berisiko terhapus `kyoto-navbar.js` (pelajaran dari v187 diterapkan: seluruh markup baru pakai `<div>`).
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Kejujuran soal cakupan
+#### Kejujuran soal cakupan
 Ini HANYA mengganti visualisasi sirkulasi SISTEMIK di tab Fisiologi halaman Jantung. Sirkulasi PULMONAL (paru-paru) masih dijelaskan sebagai teks prosa di `info-card tip` — tidak dibuatkan visualisasi animasi terpisah di sesi ini (bisa jadi pekerjaan lanjutan kalau diminta). Style visual (siluet outline sederhana) BUKAN pengganti 1:1 dari ilustrasi medis fotorealistis yang ditunjukkan sebagai referensi — fungsinya setara (animasi arah aliran + kode warna oksigenasi + label bernomor), gaya visualnya berbeda karena keterbatasan teknis yang sudah dikomunikasikan sebelum eksekusi.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, SVG + animasi + regresi 11-tab dikonfirmasi via Playwright.
 
 
-## v189 — Spesifikasi "Medical Animation Engine" (Three.js/WebGL) ditolak dengan penjelasan; Sistem Pernapasan dibangun sebagai gantinya
+### v189 — Spesifikasi "Medical Animation Engine" (Three.js/WebGL) ditolak dengan penjelasan; Sistem Pernapasan dibangun sebagai gantinya
 
 **Konteks**: menerima spesifikasi 15-fase untuk "Interactive Medical Animation Engine" — Three.js, WebGL, model GLB/GLTF, Lottie, `CameraController`/`LightingManager`, animasi jantung/paru/ginjal "realistic" berbasis model 3D untuk 10 sistem tubuh.
 
-### Kenapa spesifikasi ini ditolak (bukan dikerjakan dangkal)
+#### Kenapa spesifikasi ini ditolak (bukan dikerjakan dangkal)
 Ini secara eksplisit berbeda kelas dari permintaan v184-v188 sebelumnya. Model 3D GLB/GLTF butuh dibuat oleh artis 3D di software seperti Blender — Claude tidak bisa membuat aset semacam itu. Engine Three.js/WebGL penuh dengan kamera, lighting, LOD adalah proyek rendering real-time yang jauh melampaui kapasitas satu sesi kerja teks. Dijelaskan ke pengguna sebelum menulis kode apa pun: memaksakan "membangun" ini akan menghasilkan kerangka kode dengan nama fungsi mentereng (`CameraController`, `LightingManager`) yang tidak genuinely melakukan apa pun — fabrikasi yang sudah berulang kali dihindari sepanjang proyek ini.
 
 Disepakati bersama: ekstrak KONSEP yang genuinely bisa dikerjakan dengan SVG 2D (bukan 3D) — animasi timeline, hotspot, mode belajar — dan terapkan dengan memperluas pola yang sudah terbukti bekerja di v188 (animasi sirkulasi Jantung) ke organ berikutnya.
 
-### Halaman baru: `Materi/Sistem-Pernapasan.html`
+#### Halaman baru: `Materi/Sistem-Pernapasan.html`
 Mengikuti struktur 11-tab yang sama persis dengan `Sistem-Kardiovaskular.html` (v187), dengan tema warna biru (bukan merah) untuk membedakan sistem. Konten: anatomi (trakea, bronkus, alveolus, diafragma), fisiologi (mekanika inhalasi/ekshalasi, pertukaran gas O₂/CO₂ di alveolus), perubahan penuaan (elastisitas paru menurun, refleks batuk melemah — DIHUBUNGKAN eksplisit ke risiko pneumonia aspirasi, sesuai penekanan Kaigo di prompt v186), 4 penyakit (pneumonia, pneumonia aspirasi, COPD, bronkitis), gejala + kondisi darurat, observasi caregiver, tindakan perawatan (pencegahan aspirasi saat makan), kosakata + kalimat klinis, mini kuis, dan Clinical Case Simulator (skenario lansia disfagia dengan tanda pneumonia aspirasi).
 
-### Animasi SVG baru: inhalasi-ekshalasi paru-paru
+#### Animasi SVG baru: inhalasi-ekshalasi paru-paru
 Diterapkan pola animasi dari v188 (CSS `@keyframes` pada elemen SVG) untuk konteks berbeda — bukan alur darah, tapi **gerakan mengembang-mengempis** paru-paru (`transform: scale()` berosilasi) + **diafragma bergerak naik-turun** (`translateY`) + partikel O₂/CO₂ yang muncul-hilang menandakan pertukaran gas di alveolus. Ditambahkan **tombol jeda/lanjutkan animasi** (kontrol timeline sederhana — konsep "Play/Pause" dari spesifikasi yang ditolak, diterapkan dalam bentuk yang genuinely bisa dibangun).
 
-### Verifikasi fungsional menyeluruh
+#### Verifikasi fungsional menyeluruh
 - Playwright: **11/11 tab terverifikasi**, SVG animasi napas genuinely ada di DOM (2 elemen paru + partikel gas), tombol jeda animasi genuinely mengubah state (teks berubah dari "⏸ Jeda" ke "▶ Lanjutkan"), mini quiz dan Case Simulator bekerja end-to-end.
 - **0 regresi dari bug v187** (tag `<nav>` yang terhapus navbar) — dikonfirmasi tidak ada `<nav>` liar ditambahkan di halaman baru ini.
 - Halaman baru diindeks otomatis ke Search (`build_search_index.py`, 283→284 materi) dan ditautkan dari `Anatomi-Dasar.html`.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Kejujuran soal cakupan
+#### Kejujuran soal cakupan
 Ini genuinely 2 sistem organ dari 10+ yang diminta prompt asli (Kardiovaskular v188, Pernapasan v189). 8 sistem tubuh sisanya (pencernaan, urinaria, saraf, endokrin, otot, rangka, limfatik/imun, indra) dari spesifikasi Three.js masih memakai pola SVG 2D yang sama — TIDAK ADA rencana membangun versi 3D/WebGL kecuali pengguna menyediakan aset model 3D dari sumber lain (artis 3D, library model medis berlisensi) yang bisa diintegrasikan.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + animasi + navigasi antar-halaman dikonfirmasi via Playwright.
 
 
-## v190 — Fondasi model 3D disiapkan (belum ada model): `<model-viewer>` + placeholder di Jantung & Paru-paru
+### v190 — Fondasi model 3D disiapkan (belum ada model): `<model-viewer>` + placeholder di Jantung & Paru-paru
 
 **Konteks**: pengguna mengonfirmasi belum punya file model 3D, akan mencari/membeli dari sumber lain nanti (artis 3D atau library model medis berlisensi). Disepakati: siapkan fondasi integrasinya SEKARANG supaya begitu file `.glb`/`.gltf` tersedia, tinggal drop-in tanpa perlu restrukturisasi halaman.
 
-### Kenapa `<model-viewer>` (bukan Three.js manual)
+#### Kenapa `<model-viewer>` (bukan Three.js manual)
 `<model-viewer>` (web component resmi dari Google, Apache-2.0) memberi `camera-controls`/`auto-rotate` bawaan — mencakup kebutuhan "rotate/zoom" dari spesifikasi v187 yang ditolak, tanpa perlu menulis kode Three.js/WebGL manual (kamera, lighting, render loop) yang jauh lebih rawan bug dan sudah dijelaskan di luar kapasitas sesi ini. Dikonfirmasi tersedia via `cdn.jsdelivr.net` yang SUDAH ADA di whitelist CSP `script-src` proyek sejak v180 — tidak perlu perubahan `netlify.toml`.
 
-### Yang ditambahkan (Jantung & Paru-paru)
+#### Yang ditambahkan (Jantung & Paru-paru)
 - `<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer/...">` di `<head>` kedua halaman.
 - CSS `.model3d-wrap`/`.model3d-placeholder` (border dashed, jelas menandakan "belum tersedia").
 - Section baru di tab 解剖 (Anatomi): placeholder teks jujur ("Model 3D jantung/paru-paru belum tersedia") + **komentar HTML instruksi lengkap** cara mengaktifkan (path file yang diharapkan `assets/models/heart.glb` / `assets/models/lungs.glb`, markup `<model-viewer>` siap-pakai yang tinggal di-uncomment, konfirmasi tidak perlu ubah apa pun lagi karena script sudah dimuat).
 
-### Kejujuran soal verifikasi — batasan yang jujur diakui
+#### Kejujuran soal verifikasi — batasan yang jujur diakui
 Domain `cdn.jsdelivr.net` **tidak ter-whitelist** di sandbox bash_tool milik sesi Claude ini (beda dari CSP proyek, yang SUDAH mengizinkannya) — sehingga loading script `<model-viewer>` di test Playwright lokal gagal dengan CORS/403. **Dikonfirmasi terpisah via `web_fetch`** bahwa URL tersebut valid dan mengembalikan file JS asli (bukan link mati/salah). Yang genuinely diverifikasi Playwright: struktur HTML tetap utuh (11/11 tab kedua halaman, placeholder tampil benar, 0 regresi) — TAPI loading `<model-viewer>` itu sendiri di browser produksi nyata TIDAK bisa diverifikasi dari sesi ini karena keterbatasan sandbox, bukan diklaim "sudah terverifikasi bekerja".
 
-### Roadmap saat model 3D tersedia
+#### Roadmap saat model 3D tersedia
 1. Simpan file di `assets/models/heart.glb` dan `assets/models/lungs.glb`.
 2. Ikuti instruksi di komentar HTML masing-masing halaman (hapus placeholder, uncomment `<model-viewer>`).
 3. Verifikasi ulang di browser nyata (bukan sandbox) sebelum deploy — terutama ukuran file (model 3D medis detail bisa besar, perlu cek dampak performa mobile) dan lisensi penggunaan.
@@ -1599,272 +1639,272 @@ Domain `cdn.jsdelivr.net` **tidak ter-whitelist** di sandbox bash_tool milik ses
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, struktur 11-tab kedua halaman dikonfirmasi utuh via Playwright (loading script eksternal TIDAK diverifikasi karena keterbatasan sandbox, dicatat jujur di atas).
 
 
-## v191 — Model 3D jantung NYATA diintegrasikan (pengguna menyediakan file GLB) — 3 bug ditemukan & diperbaiki lewat pengujian mendalam
+### v191 — Model 3D jantung NYATA diintegrasikan (pengguna menyediakan file GLB) — 3 bug ditemukan & diperbaiki lewat pengujian mendalam
 
 **Konteks**: pengguna menyediakan `nihongopro-full-heart-glb-gltf.zip` — model jantung glTF 2.0 (222KB, valid, dikonfirmasi via parsing header binary) dengan 23 bagian anatomis bernama (mesh name konsisten dengan node gltf), metadata Jepang/furigana/Indonesia/Inggris lengkap per bagian, dan contoh viewer Three.js.
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/heart/nihongopro_full_heart.glb` (222KB) + `heart_metadata.json` (23 bagian) disalin ke proyek. Placeholder "belum tersedia" dari v190 diganti dengan viewer Three.js nyata di tab 解剖 (Anatomi): kanvas WebGL, panel info yang menampilkan Jepang/furigana/Indonesia/Inggris saat bagian diklik, tombol toggle denyut jantung (animasi scale berosilasi), tombol reset kamera, disclaimer "model edukatif, bukan untuk diagnosis/operasi".
 
-### 🔴 Bug #1 (kritis, ditemukan sebelum deploy): bare module specifier tanpa import map
+#### 🔴 Bug #1 (kritis, ditemukan sebelum deploy): bare module specifier tanpa import map
 Contoh `threejs_full_viewer.html` yang disertakan pengguna memakai `import { OrbitControls } from 'https://cdn.jsdelivr.net/.../OrbitControls.js'` langsung — TAPI `OrbitControls.js`/`GLTFLoader.js` itu sendiri meng-import puluhan simbol dari bare specifier `'three'` di dalamnya. Browser TIDAK BISA resolve bare specifier tanpa `<script type="importmap">` — dikonfirmasi lewat dokumentasi resmi threejs.org/manual DAN pengujian lokal terisolasi (Three.js di-install via `npm install three@0.180.0` untuk testing tanpa bergantung CDN eksternal yang diblokir sandbox). Kode contoh yang diberikan berisiko gagal di banyak kondisi/versi browser. **Diperbaiki**: ditambahkan `<script type="importmap">` yang memetakan `"three"` dan `"three/addons/"` ke jsDelivr, mengganti dynamic `import()` dengan static `import` sesuai standar resmi.
 
-### 🔴 Bug #2 (ditemukan lewat screenshot): kanvas WebGL berukuran 0×0
+#### 🔴 Bug #2 (ditemukan lewat screenshot): kanvas WebGL berukuran 0×0
 Verifikasi visual (screenshot Playwright) menunjukkan kanvas 3D tidak terlihat sama sekali. Investigasi: script module dieksekusi SEGERA saat halaman load, SEBELUM user membuka tab Anatomi (CSS `.organ-panel{display:none}` default kecuali tab pertama) — `container.clientWidth/clientHeight` bernilai 0 di titik itu, dan `renderer.setSize(0,0)` dipanggil sekali lalu TIDAK PERNAH dihitung ulang meski tab dibuka nanti. **Diperbaiki**: ukuran fallback (560×360) dipakai saat inisialisasi + `ResizeObserver` yang mengoreksi ukuran renderer/kamera begitu container genuinely mendapat dimensi nyata (saat tab dibuka). Window resize listener lama (berpotensi bug sama) dihapus, digantikan `ResizeObserver` yang mengamati elemen langsung.
 
-### 🟡 Bug #3 (ditemukan lewat pengujian silang): metodologi test Playwright salah, BUKAN bug kode
+#### 🟡 Bug #3 (ditemukan lewat pengujian silang): metodologi test Playwright salah, BUKAN bug kode
 Setelah bug #2 diperbaiki, klik hotspot di banyak titik tetap gagal terdeteksi. Investigasi mendalam (grid-scan 81 titik, perbandingan `page.mouse.click()` vs `dispatchEvent()` manual, expose debug hook ke scene Three.js, raycasting manual dengan 7 koordinat NDC) mengungkap: raycasting logic GENUINELY BENAR (7/7 titik NDC manual berhasil kena mesh yang tepat) — masalahnya adalah test Playwright mengklik koordinat yang secara piksel absolut berada DI LUAR viewport (elemen di `y:958` saat viewport standar), sehingga `elementFromPoint` mengembalikan `null`. Setelah `scrollIntoView()` ditambahkan sebelum klik di test, hotspot terdeteksi sempurna. **Tidak ada perubahan kode produksi untuk bug ini** — murni koreksi metodologi pengujian, dicatat di sini untuk transparansi proses debugging.
 
-### Perbaikan tambahan: validator proyek sendiri (`scripts/validate.py`)
+#### Perbaikan tambahan: validator proyek sendiri (`scripts/validate.py`)
 Ditemukan bug DI VALIDATOR RESMI PROYEK saat menjalankannya terhadap halaman baru: `check_inline_js_syntax` memakai `vm.Script` (non-module) untuk SEMUA blok `<script>`, termasuk yang `type="module"` — melaporkan `import * as THREE from 'three'` sebagai "Cannot use import statement outside a module", padahal itu genuinely valid ES module. **Diperbaiki**: regex parser sekarang menangkap atribut tag untuk deteksi `type="module"`, dan blok module diverifikasi lewat `vm.SourceTextModule` (Node `--experimental-vm-modules`) alih-alih `vm.Script`. Perbaikan ini juga bermanfaat untuk halaman lain di masa depan yang butuh ES module.
 
-### Verifikasi menyeluruh (dengan Three.js di-vendor lokal, TANPA bergantung CDN)
+#### Verifikasi menyeluruh (dengan Three.js di-vendor lokal, TANPA bergantung CDN)
 Karena `cdn.jsdelivr.net` diblokir di sandbox `bash_tool` milik sesi ini (beda dari CSP produksi yang mengizinkannya), Three.js di-install via `npm install three@0.180.0` untuk pengujian genuinely nyata tanpa dependency eksternal: **model 3D genuinely ter-render (dikonfirmasi screenshot visual)**, **klik hotspot genuinely mengembalikan label Jepang yang benar** ("左心室（さしんしつ）Ventrikel kiri" dst — dikonfirmasi di titik NDC yang presisi), **tombol denyut/reset genuinely mengubah state**, **regresi nol** — 11/11 tab dan quiz/case simulator tetap berfungsi. Setelah verifikasi, seluruh file test dan Three.js lokal dihapus (tidak masuk ke deployment) — CDN jsDelivr production tetap dipakai di file final.
 
-### Kejujuran soal batas verifikasi
+#### Kejujuran soal batas verifikasi
 Karena keterbatasan sandbox, loading Three.js dari CDN jsDelivr production TIDAK bisa diverifikasi end-to-end langsung di sesi ini (persis seperti dicatat di v190) — TAPI kali ini logika kodenya SUDAH diverifikasi identik-berfungsi dengan library yang sama (Three.js versi sama, API sama) di lingkungan lokal terisolasi, jauh lebih kuat dari sekadar "seharusnya berfungsi". Rekomendasi: setelah deploy, verifikasi sekali secara manual di browser sungguhan (bukan sandbox) untuk memastikan CDN jsDelivr genuinely dapat diakses dari jaringan production.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning (termasuk perbaikan validator module), 94 test lulus, `npm ci` bersih dari nol, model 3D + hotspot + kontrol + regresi 11-tab dikonfirmasi bekerja via Three.js ter-vendor lokal (metodologi test terdokumentasi lengkap di atas untuk auditability).
 
 
-## v192 — Konsistensi placeholder model 3D (Jantung vs Paru-paru) + bug validator ditemukan & diperbaiki sendiri
+### v192 — Konsistensi placeholder model 3D (Jantung vs Paru-paru) + bug validator ditemukan & diperbaiki sendiri
 
 **Konteks**: audit konsistensi setelah v191 mengganti pendekatan halaman Jantung dari `<model-viewer>` (v190) ke Three.js. Ditemukan halaman `Sistem-Pernapasan.html` masih memakai instruksi placeholder `<model-viewer>` yang sudah usang — kalau dibiarkan, instruksi di sana akan menyesatkan sesi kerja berikutnya untuk mengikuti pola yang sudah ditinggalkan.
 
-### Placeholder paru-paru diperbarui
+#### Placeholder paru-paru diperbarui
 Instruksi diganti mengikuti pola Three.js dari Jantung (v191), termasuk mencantumkan EKSPLISIT 2 pelajaran penting yang ditemukan lewat debugging panjang di v191: (1) wajib pakai import map untuk resolve bare specifier `'three'`, (2) wajib pakai `ResizeObserver` karena tab default `display:none` menyebabkan kanvas 0×0. Script `<model-viewer>` yang sudah tidak dipakai dihapus dari `<head>`.
 
-### 🐛 Bug ditemukan SENDIRI saat proses ini (self-inflicted, langsung diperbaiki)
+#### 🐛 Bug ditemukan SENDIRI saat proses ini (self-inflicted, langsung diperbaiki)
 Menulis instruksi tersebut sempat menyertakan literal `<script type="importmap">` di dalam komentar HTML dokumentasi — validator (`check_inline_js_syntax`, regex-based, bukan full HTML parser) salah mengira ini pembuka tag `<script>` sungguhan dan mencari `</script>` penutup berikutnya (yang jaraknya ratusan baris, milik blok script lain), melaporkan `"Unexpected identifier 'resolve'"` sebagai error sintaks. Ini BUKAN bug lama yang baru ketahuan, tapi bug baru yang saya buat sendiri di tulisan komentar — validator yang sudah diperbaiki di v191 (deteksi ES module) langsung menangkapnya sebelum sempat masuk ke deployment. **Diperbaiki**: komentar ditulis ulang tanpa literal tag `<script>`, memakai deskripsi kata biasa.
 
 **Pelajaran untuk penulisan komentar dokumentasi ke depan**: hindari menulis contoh tag HTML/script secara literal di dalam komentar `<!-- -->` — parser regex sederhana proyek ini (sengaja ringan demi kecepatan, bukan full HTML/DOM parser) bisa salah tangkap batas tag. Gunakan deskripsi kata atau ganti `<script` dengan format lain saat perlu merujuk contoh kode di komentar.
 
-### Verifikasi
+#### Verifikasi
 Playwright: 11/11 tab tetap utuh, placeholder menampilkan label yang benar, animasi napas (2 elemen paru beranimasi) tetap ada, quiz tetap berfungsi — 0 error. Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
 **Verifikasi**: validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, regresi nol dikonfirmasi via Playwright.
 
 
-## v193 — Sistem Pencernaan: organ ketiga dengan pola 11-tab, animasi peristaltik/menelan
+### v193 — Sistem Pencernaan: organ ketiga dengan pola 11-tab, animasi peristaltik/menelan
 
 **Konteks**: melanjutkan pembangunan kurikulum 4-level per sistem organ (Jantung v187/191, Paru-paru v189/192, sekarang Pencernaan) sesuai rencana kurikulum awal pengguna.
 
-### Halaman baru: `Materi/Sistem-Pencernaan.html`
+#### Halaman baru: `Materi/Sistem-Pencernaan.html`
 11 tab lengkap dengan tema warna hijau (beda dari merah Jantung, biru Paru-paru): anatomi (esofagus, lambung, usus halus/besar, organ pendukung hati/kantong empedu/pankreas), fisiologi (tahapan menelan: fase oral/faring/esofagus — DIHUBUNGKAN eksplisit ke risiko aspirasi yang sudah dibahas di Sistem Pernapasan), perubahan penuaan (refleks menelan melemah, peristaltik melambat → sembelit, produksi asam lambung menurun), 4 penyakit (sembelit, disfagia, GERD, tukak lambung), gejala + kondisi darurat (feses berdarah/hitam sebagai tanda krusial), observasi, perawatan (bantuan makan aman + pencegahan sembelit), kosakata, mini kuis, Clinical Case Simulator (skenario sembelit lansia).
 
-### Animasi SVG baru: proses menelan &amp; peristaltik
+#### Animasi SVG baru: proses menelan &amp; peristaltik
 Bolus makanan (partikel coklat) bergerak mengikuti jalur `offset-path` dari mulut → esofagus → lambung, dengan gelombang peristaltik (`scaleX` berosilasi) pada dinding esofagus dan lambung. Tombol jeda/lanjutkan animasi, mengikuti pola yang sama seperti Jantung/Paru-paru.
 
-### Konsistensi diterapkan sejak awal (menghindari pengulangan bug lama)
+#### Konsistensi diterapkan sejak awal (menghindari pengulangan bug lama)
 Placeholder model 3D langsung ditulis mengikuti pola Three.js dari v191 (bukan pola `<model-viewer>` v190 yang sudah ditinggalkan) — instruksi komentar HTML ditulis dengan hati-hati TANPA literal tag `<script>` (menghindari bug parser validator yang ditemukan sendiri di v192). Tidak ada tag `<nav>` dipakai untuk elemen non-navbar (pelajaran v187).
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **11/11 tab terverifikasi**, animasi peristaltik genuinely ada di DOM (elemen bolus + dinding beranimasi), tombol jeda animasi genuinely mengubah state, mini quiz dan Case Simulator bekerja end-to-end.
 - Navigasi dari `Anatomi-Dasar.html` → `Sistem-Pencernaan.html` dikonfirmasi berfungsi (klik link genuinely membuka halaman, 11 tab termuat).
 - Halaman diindeks otomatis ke Search (`build_search_index.py`, 284→285 materi) dan ditautkan dari `Anatomi-Dasar.html`.
 - Validator resmi PASSED 0 error 0 warning (termasuk tidak terjebak bug literal-script-dalam-komentar dari v192), 94 test tetap lulus.
 
-### Status kurikulum sejauh ini
+#### Status kurikulum sejauh ini
 3 dari 11 sistem organ selesai dengan pola 11-tab: Kardiovaskular (dengan model 3D nyata), Pernapasan, Pencernaan. 8 sistem tersisa (urinaria, saraf, endokrin, otot, rangka, limfatik/imun, reproduksi, kulit/indra) mengikuti pola dan template yang sama.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + animasi + navigasi antar-halaman dikonfirmasi via Playwright.
 
 
-## v194 — Sistem Saraf: organ keempat, animasi impuls saraf, skenario stroke FAST
+### v194 — Sistem Saraf: organ keempat, animasi impuls saraf, skenario stroke FAST
 
 **Konteks**: melanjutkan kurikulum 4-level per sistem organ. Sistem Saraf dipilih karena keterkaitan langsung dengan stroke dan demensia — dua kondisi paling krusial untuk Kaigo lansia, dan skenario yang eksplisit dicontohkan di kurikulum awal pengguna (kelemahan lengan + bicara cadel + wajah turun).
 
-### Halaman baru: `Materi/Sistem-Saraf.html`
+#### Halaman baru: `Materi/Sistem-Saraf.html`
 11 tab dengan tema warna ungu: anatomi (cerebrum, cerebellum, batang otak, hipokampus — dihubungkan ke demensia; sistem saraf otonom), fisiologi (transmisi impuls: potensial aksi → sinapsis → neurotransmitter, DIHUBUNGKAN eksplisit ke mekanisme stroke — kenapa gejala muncul sesuai area otak yang kehilangan aliran darah), perubahan penuaan (transmisi melambat, keseimbangan terganggu → risiko jatuh), 4 penyakit (stroke iskemik, demensia, Parkinson, epilepsi), gejala (termasuk mnemonic **FAST** — Face/Arm/Speech/Time — untuk pengenalan stroke), observasi, perawatan (pencegahan jatuh + pendampingan demensia), kosakata, mini kuis, Clinical Case Simulator (skenario stroke identik dengan contoh di kurikulum awal pengguna).
 
-### Animasi SVG baru: transmisi impuls saraf
+#### Animasi SVG baru: transmisi impuls saraf
 Partikel impuls listrik (kuning) bergerak sepanjang path neuron via `offset-path`, dengan sinapsis (titik ungu) yang berkedip saat impuls melewatinya (`opacity` animasi). Tombol jeda/lanjutkan, konsisten dengan pola 3 halaman sebelumnya.
 
-### Konsistensi dijaga (tidak mengulang bug lama)
+#### Konsistensi dijaga (tidak mengulang bug lama)
 Placeholder model 3D otak mengikuti pola Three.js v191, komentar HTML tanpa literal `<script>` (pelajaran v192), tidak ada tag `<nav>` liar (pelajaran v187).
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **11/11 tab terverifikasi**, animasi impuls saraf genuinely ada di DOM, tombol jeda genuinely mengubah state, mini quiz dan Case Simulator (skenario stroke) bekerja end-to-end dengan jawaban benar mengembalikan penjelasan FAST yang lengkap.
 - Navigasi dari `Anatomi-Dasar.html` dikonfirmasi berfungsi.
 - Halaman diindeks otomatis ke Search (285→286 materi).
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Status kurikulum sejauh ini
+#### Status kurikulum sejauh ini
 4 dari 11 sistem organ selesai: Kardiovaskular (model 3D nyata), Pernapasan, Pencernaan, Saraf. 7 sistem tersisa: urinaria, endokrin, otot, rangka, limfatik/imun, reproduksi, kulit/indra.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + animasi + navigasi antar-halaman dikonfirmasi via Playwright.
 
-## v195 — Sistem Urinaria: organ kelima, animasi filtrasi ginjal, fokus inkontinensia & ISK
+### v195 — Sistem Urinaria: organ kelima, animasi filtrasi ginjal, fokus inkontinensia & ISK
 
 **Konteks**: melanjutkan kurikulum 4-level per sistem organ. Sistem Urinaria dipilih karena keterkaitan langsung dengan perawatan toileting — salah satu tugas Kaigo paling sering dan paling sensitif untuk martabat lansia.
 
-### Halaman baru: `Materi/Sistem-Urinaria.html`
+#### Halaman baru: `Materi/Sistem-Urinaria.html`
 11 tab dengan tema warna kuning/amber: anatomi (ginjal, glomerulus/nefron, ureter, kandung kemih, uretra), fisiologi (filtrasi → reabsorpsi → sekresi, pembentukan urine), perubahan penuaan (kapasitas kandung kemih menurun, otot dasar panggul melemah → inkontinensia, nokturia), 4 penyakit (inkontinensia, ISK, BPH, gagal ginjal), gejala (termasuk poin krusial: kebingungan mendadak pada lansia bisa jadi SATU-SATUNYA tanda ISK, bukan otomatis demensia), observasi, perawatan (toileting dengan martabat, pencegahan ISK), kosakata, mini kuis, Clinical Case Simulator (skenario ISK-menyamar-jadi-kebingungan — kasus penting yang sering salah didiagnosis sebagai "hanya tanda penuaan").
 
-### Animasi SVG baru: filtrasi ginjal
+#### Animasi SVG baru: filtrasi ginjal
 Partikel darah (merah) bergerak ke glomerulus yang berdenyut, lalu partikel urine (kuning) terbentuk dan mengalir ke kandung kemih via `offset-path` dengan timing animasi yang saling melengkapi (darah masuk → filtrasi → urine keluar sebagai proses berurutan, bukan simultan tanpa makna).
 
-### Konsistensi dijaga
+#### Konsistensi dijaga
 Placeholder model 3D ginjal mengikuti pola Three.js v191, komentar HTML aman (pelajaran v192), tidak ada tag `<nav>` liar (pelajaran v187).
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **11/11 tab terverifikasi**, animasi filtrasi genuinely ada di DOM, tombol jeda genuinely mengubah state, mini quiz dan Case Simulator bekerja end-to-end.
 - Navigasi dari `Anatomi-Dasar.html` dikonfirmasi berfungsi.
 - Halaman diindeks otomatis ke Search (286→287 materi).
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Status kurikulum sejauh ini
+#### Status kurikulum sejauh ini
 5 dari 11 sistem organ selesai: Kardiovaskular (model 3D nyata), Pernapasan, Pencernaan, Saraf, Urinaria. 6 sistem tersisa: endokrin, otot, rangka, limfatik/imun, reproduksi, kulit/indra.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + animasi + navigasi antar-halaman dikonfirmasi via Playwright.
 
-## v196 — Sistem Endokrin: organ keenam, animasi sekresi insulin, fokus diabetes & hipoglikemia
+### v196 — Sistem Endokrin: organ keenam, animasi sekresi insulin, fokus diabetes & hipoglikemia
 
 **Konteks**: melanjutkan kurikulum 4-level per sistem organ. Sistem Endokrin dipilih karena diabetes (糖尿病) — penyakit yang eksplisit disebut di kurikulum awal pengguna — adalah kondisi endokrin yang sangat umum pada lansia Jepang.
 
-### Halaman baru: `Materi/Sistem-Endokrin.html`
+#### Halaman baru: `Materi/Sistem-Endokrin.html`
 11 tab dengan tema warna teal/cyan: anatomi (pankreas, tiroid, adrenal, pituitari), fisiologi (regulasi gula darah: pankreas mendeteksi glukosa naik → insulin dilepas → gula darah turun), perubahan penuaan (sensitivitas insulin menurun → risiko diabetes tipe 2; gejala tiroid sering disalahartikan "tanda penuaan biasa"), 4 penyakit (diabetes, hipotiroidisme, hipertiroidisme, osteoporosis), gejala (termasuk tanda darurat hipoglikemia), observasi, perawatan (dukungan diabetes: cek kaki rutin, kenali tanda gula darah rendah), kosakata, mini kuis, Clinical Case Simulator (skenario hipoglikemia pasca-insulin-tanpa-makan — kesalahan umum yang bisa fatal jika caregiver salah memberi insulin tambahan alih-alih gula cepat).
 
-### Animasi SVG baru: sekresi insulin
+#### Animasi SVG baru: sekresi insulin
 Pankreas berdenyut mendeteksi gula darah naik, partikel insulin (cyan) dilepas mengikuti `offset-path` menuju batang indikator gula darah yang menyusut (`height` animasi) — memvisualisasikan hubungan sebab-akibat hormon-ke-efek, bukan sekadar dekorasi.
 
-### Konsistensi dijaga
+#### Konsistensi dijaga
 Placeholder model 3D kelenjar endokrin mengikuti pola Three.js v191, komentar HTML aman (pelajaran v192), tidak ada tag `<nav>` liar (pelajaran v187).
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **11/11 tab terverifikasi**, animasi sekresi insulin genuinely ada di DOM, tombol jeda genuinely mengubah state, mini quiz dan Case Simulator (skenario hipoglikemia) bekerja end-to-end.
 - Navigasi dari `Anatomi-Dasar.html` dikonfirmasi berfungsi.
 - Halaman diindeks otomatis ke Search (287→288 materi).
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Status kurikulum sejauh ini
+#### Status kurikulum sejauh ini
 6 dari 11 sistem organ selesai: Kardiovaskular (model 3D nyata), Pernapasan, Pencernaan, Saraf, Urinaria, Endokrin. 5 sistem tersisa: otot, rangka, limfatik/imun, reproduksi, kulit/indra.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + animasi + navigasi antar-halaman dikonfirmasi via Playwright.
 
-## v197 — Sistem Otot: organ ketujuh, animasi kontraksi aktin-miosin, fokus sarkopenia & sindrom disuse
+### v197 — Sistem Otot: organ ketujuh, animasi kontraksi aktin-miosin, fokus sarkopenia & sindrom disuse
 
 **Konteks**: melanjutkan kurikulum 4-level per sistem organ. Sistem Otot dipilih karena keterkaitan langsung dengan mobilitas, transfer, dan sarkopenia — kondisi yang sangat menentukan tingkat kemandirian lansia sehari-hari.
 
-### Halaman baru: `Materi/Sistem-Otot.html`
+#### Halaman baru: `Materi/Sistem-Otot.html`
 11 tab dengan tema warna merah bata: anatomi (quadriceps, gluteus, otot perut/punggung penting untuk mobilitas; tendon vs ligamen), fisiologi (mekanisme kontraksi: aktin-miosin saling meluncur dibantu ATP), perubahan penuaan (sarkopenia — kehilangan massa DAN kekuatan otot, dimulai sejak usia 30-an), 4 kondisi (sarkopenia, sindrom disuse, kram otot, rheumatoid arthritis), gejala (dengan pembeda penting: kelemahan SATU SISI mendadak = curiga stroke, bukan sekadar kelemahan otot), observasi, perawatan (dukungan transfer + pencegahan sindrom disuse), kosakata, mini kuis, Clinical Case Simulator (skenario sindrom disuse pasca rawat inap — sengaja dirancang untuk melatih PEMBEDA dari stroke: kelemahan menyeluruh dua sisi vs satu sisi mendadak).
 
-### Animasi SVG baru: kontraksi otot aktin-miosin
+#### Animasi SVG baru: kontraksi otot aktin-miosin
 Filamen aktin (dua balok oranye tua) memendek dari kedua sisi via `scaleX`, filamen miosin (balok tengah) bergeser via `translateX`, partikel ATP (hijau) berkedip menandakan sumber energi — memvisualisasikan mekanisme molekuler yang biasanya hanya dijelaskan lewat diagram statis di buku teks.
 
-### Konsistensi dijaga
+#### Konsistensi dijaga
 Placeholder model 3D otot mengikuti pola Three.js v191, komentar HTML aman (pelajaran v192), tidak ada tag `<nav>` liar (pelajaran v187).
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **11/11 tab terverifikasi**, animasi kontraksi genuinely ada di DOM, tombol jeda genuinely mengubah state, mini quiz dan Case Simulator (skenario sindrom disuse) bekerja end-to-end.
 - Navigasi dari `Anatomi-Dasar.html` dikonfirmasi berfungsi.
 - Halaman diindeks otomatis ke Search (288→289 materi).
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Status kurikulum sejauh ini
+#### Status kurikulum sejauh ini
 7 dari 11 sistem organ selesai: Kardiovaskular (model 3D nyata), Pernapasan, Pencernaan, Saraf, Urinaria, Endokrin, Otot. 4 sistem tersisa: rangka, limfatik/imun, reproduksi, kulit/indra.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + animasi + navigasi antar-halaman dikonfirmasi via Playwright.
 
-## v198 — Sistem Rangka: organ kedelapan, animasi remodeling tulang, fokus osteoporosis & patah femur
+### v198 — Sistem Rangka: organ kedelapan, animasi remodeling tulang, fokus osteoporosis & patah femur
 
 **Konteks**: melanjutkan kurikulum 4-level per sistem organ. Sistem Rangka dipilih karena osteoporosis dan patah tulang leher femur — dua kondisi yang sudah disinggung berulang di halaman-halaman sebelumnya (Saraf, Otot) tapi belum dibahas mendalam secara khusus.
 
-### Halaman baru: `Materi/Sistem-Rangka.html`
+#### Halaman baru: `Materi/Sistem-Rangka.html`
 11 tab dengan tema warna abu-abu/slate: anatomi (femur, tulang belakang, pergelangan tangan — 3 tulang paling berisiko patah pada lansia; jenis sendi), fisiologi (remodeling tulang: osteoklas memecah vs osteoblas membentuk, keseimbangan yang bergeser seiring usia), perubahan penuaan (kepadatan tulang menurun pasca-menopause, kompresi tulang belakang → postur membungkuk), 4 kondisi (osteoporosis, patah leher femur, osteoartritis, patah kompresi tulang belakang), gejala (dengan tanda spesifik patah femur: kaki memendek dan memutar), observasi, perawatan (pencegahan patah tulang + protokol PENTING saat terjadi jatuh — jangan gerakkan korban), kosakata, mini kuis, Clinical Case Simulator (skenario patah tulang leher femur klasik pada lansia dengan osteoporosis).
 
-### Animasi SVG baru: remodeling tulang
+#### Animasi SVG baru: remodeling tulang
 Osteoklas (merah) dan osteoblas (cyan) berdenyut bergantian dengan timing yang saling melengkapi (osteoklas aktif dulu, osteoblas menyusul) di atas balok tulang yang kepadatannya berosilasi (`opacity`) — memvisualisasikan siklus pemecahan-pembentukan yang terus berlangsung sepanjang hidup, bukan proses statis.
 
-### Konsistensi dijaga
+#### Konsistensi dijaga
 Placeholder model 3D rangka mengikuti pola Three.js v191, komentar HTML aman (pelajaran v192), tidak ada tag `<nav>` liar (pelajaran v187).
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **11/11 tab terverifikasi**, animasi remodeling genuinely ada di DOM, tombol jeda genuinely mengubah state, mini quiz dan Case Simulator (skenario patah femur) bekerja end-to-end.
 - Navigasi dari `Anatomi-Dasar.html` dikonfirmasi berfungsi.
 - Halaman diindeks otomatis ke Search (289→290 materi).
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Catatan proses: sesi sempat terinterupsi saat menautkan halaman
+#### Catatan proses: sesi sempat terinterupsi saat menautkan halaman
 Beberapa tool call sempat gagal ditengah proses linking (aborted tanpa hasil) — sebelum melanjutkan, dilakukan audit ulang menyeluruh: cek file genuinely tersimpan, cek tidak ada duplikasi link di `Anatomi-Dasar.html` (dikonfirmasi tepat 1 kemunculan per 7 halaman sistem organ), dan validasi sintaks ulang kedua file sebelum melanjutkan proses. Tidak ditemukan kerusakan dari interupsi tersebut.
 
-### Status kurikulum sejauh ini
+#### Status kurikulum sejauh ini
 8 dari 11 sistem organ selesai: Kardiovaskular (model 3D nyata), Pernapasan, Pencernaan, Saraf, Urinaria, Endokrin, Otot, Rangka. 3 sistem tersisa: limfatik/imun, reproduksi, kulit/indra.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + animasi + navigasi antar-halaman dikonfirmasi via Playwright.
 
-## v199 — Sistem Limfatik & Imun: organ kesembilan, animasi respons imun, fokus imunosenesensi
+### v199 — Sistem Limfatik & Imun: organ kesembilan, animasi respons imun, fokus imunosenesensi
 
 **Konteks**: melanjutkan kurikulum 4-level per sistem organ. Sistem Limfatik & Imun melengkapi data sistem imun dasar yang sudah dibuat di modul Anatomi Dasar (v186), sekarang dengan struktur 11-tab lengkap seperti organ-organ lainnya.
 
-### Halaman baru: `Materi/Sistem-Limfatik-Imun.html`
+#### Halaman baru: `Materi/Sistem-Limfatik-Imun.html`
 11 tab dengan tema warna hijau limun: anatomi (kelenjar getah bening, timus, limpa, amandel), fisiologi (respons imun: pertahanan fisik → imunitas bawaan → imunitas adaptif, prinsip vaksinasi), perubahan penuaan (imunosenesensi — involusi timus, respons infeksi melambat, respons vaksin melemah), 4 kondisi (infeksi umum, herpes zoster, limfedema, alergi), gejala (dengan poin krusial: pada lansia demam BISA TIDAK setinggi biasanya meski infeksi serius), observasi, perawatan (pencegahan infeksi + kewaspadaan ekstra terhadap tanda infeksi tidak khas), kosakata, mini kuis, Clinical Case Simulator (skenario infeksi dengan suhu hanya 37.3°C — mengajarkan untuk TIDAK menunggu demam tinggi sebelum melapor).
 
-### Animasi SVG baru: respons imun terhadap infeksi
+#### Animasi SVG baru: respons imun terhadap infeksi
 Partikel patogen (merah) bergerak masuk lalu mengecil-menghilang saat "dihancurkan", sel darah putih (hijau, berdenyut) mengejar dan menyusul via `offset-path` dengan timing yang saling melengkapi — memvisualisasikan proses deteksi-dan-eliminasi, bukan sekadar dua bentuk bergerak tanpa makna naratif.
 
-### Konsistensi dijaga
+#### Konsistensi dijaga
 Placeholder model 3D sistem limfatik mengikuti pola Three.js v191, komentar HTML aman (pelajaran v192), tidak ada tag `<nav>` liar (pelajaran v187).
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **11/11 tab terverifikasi**, animasi respons imun genuinely ada di DOM, tombol jeda genuinely mengubah state, mini quiz dan Case Simulator bekerja end-to-end.
 - Navigasi dari `Anatomi-Dasar.html` dikonfirmasi berfungsi.
 - Halaman diindeks otomatis ke Search (290→291 materi).
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Status kurikulum sejauh ini
+#### Status kurikulum sejauh ini
 9 dari 11 sistem organ selesai: Kardiovaskular (model 3D nyata), Pernapasan, Pencernaan, Saraf, Urinaria, Endokrin, Otot, Rangka, Limfatik/Imun. 2 sistem tersisa: reproduksi, kulit/indra.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + animasi + navigasi antar-halaman dikonfirmasi via Playwright.
 
-## v200 — Kulit & Indra: organ kesepuluh, animasi pembentukan luka tekan, fokus pencegahan decubitus
+### v200 — Kulit & Indra: organ kesepuluh, animasi pembentukan luka tekan, fokus pencegahan decubitus
 
 **Konteks**: melanjutkan kurikulum 4-level per sistem organ. Kulit & Indra dipilih karena luka tekan (褥瘡/decubitus) — komplikasi yang eksplisit disebut di kurikulum awal pengguna ("Pressure Ulcer Prevention") — adalah salah satu tugas pencegahan Kaigo paling penting dan sering terjadi pada lansia yang kurang bergerak.
 
-### Halaman baru: `Materi/Sistem-Kulit-Indra.html`
+#### Halaman baru: `Materi/Sistem-Kulit-Indra.html`
 11 tab dengan tema warna pink/rose: anatomi (3 lapisan kulit: epidermis, dermis, subkutan; 4 organ indra utama), fisiologi (proses pembentukan luka tekan: tekanan berkelanjutan → aliran darah terhambat → kerusakan jaringan, dengan fakta krusial bahwa luka tekan bisa mulai terbentuk hanya dalam 1-2 jam), perubahan penuaan (kulit menipis, sensitivitas nyeri menurun — kombinasi berbahaya karena lansia mungkin TIDAK merasakan tekanan berbahaya), 4 kondisi (luka tekan, katarak, gangguan pendengaran, kulit kering), gejala (dengan tanda krusial: kemerahan yang TIDAK memudar setelah ditekan = tanda bahaya), observasi, perawatan (perubahan posisi rutin setiap 2 jam + protokol saat menemukan tanda awal), kosakata, mini kuis, Clinical Case Simulator (skenario deteksi dini luka tekan saat memandikan — mengajarkan tindakan yang benar: hindari tekanan lebih lanjut + laporkan, BUKAN menggosok area yang justru memperparah).
 
-### Animasi SVG baru: pembentukan luka tekan
+#### Animasi SVG baru: pembentukan luka tekan
 Jaringan (lingkaran) berubah warna secara bertahap dari merah muda sehat ke merah gelap rusak (`fill` animasi 4 tahap), pembuluh darah (garis) meredup menandakan aliran darah terhambat (`opacity` animasi dengan timing yang saling melengkapi dengan perubahan warna jaringan) — memvisualisasikan hubungan sebab-akibat tekanan-ke-kerusakan yang biasanya sulit dibayangkan tanpa visual.
 
-### Konsistensi dijaga
+#### Konsistensi dijaga
 Placeholder model 3D lapisan kulit mengikuti pola Three.js v191, komentar HTML aman (pelajaran v192), tidak ada tag `<nav>` liar (pelajaran v187).
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **11/11 tab terverifikasi**, animasi luka tekan genuinely ada di DOM, tombol jeda genuinely mengubah state, mini quiz dan Case Simulator bekerja end-to-end.
 - Navigasi dari `Anatomi-Dasar.html` dikonfirmasi berfungsi.
 - Halaman diindeks otomatis ke Search (291→292 materi).
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Status kurikulum: 10 dari 11 sistem organ selesai
+#### Status kurikulum: 10 dari 11 sistem organ selesai
 Kardiovaskular (model 3D nyata), Pernapasan, Pencernaan, Saraf, Urinaria, Endokrin, Otot, Rangka, Limfatik/Imun, Kulit & Indra. **1 sistem tersisa: Reproduksi** — akan melengkapi seluruh kurikulum 11 sistem tubuh yang direncanakan sejak awal.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + animasi + navigasi antar-halaman dikonfirmasi via Playwright.
 
-## v201 — Sistem Reproduksi: organ kesebelas (TERAKHIR), kurikulum 11 sistem tubuh SELESAI
+### v201 — Sistem Reproduksi: organ kesebelas (TERAKHIR), kurikulum 11 sistem tubuh SELESAI
 
 **Konteks**: melengkapi kurikulum 4-level per sistem organ yang direncanakan sejak awal. Sistem Reproduksi difokuskan pada perubahan hormonal terkait usia (bukan aspek reproduksi usia muda) — pendekatan yang paling relevan dan bermartabat untuk konteks perawatan Kaigo lansia.
 
-### Halaman baru: `Materi/Sistem-Reproduksi.html`
+#### Halaman baru: `Materi/Sistem-Reproduksi.html`
 11 tab dengan tema warna ungu tua/plum: anatomi (ovarium, testis, prostat sebagai penghasil hormon dengan dampak luas ke tubuh), fisiologi (perbedaan pola penurunan hormon: menopause CEPAT dalam beberapa tahun vs andropause BERTAHAP sepanjang usia dewasa), perubahan penuaan (koneksi eksplisit ke Sistem Rangka — osteoporosis pasca-menopause; ke Sistem Urinaria — BPH), 3 kondisi (BPH, osteoporosis pasca-menopause, gejala menopause), gejala, observasi, perawatan (dengan penekanan KUAT pada martabat dan privasi — bukan sekadar instruksi teknis), kosakata (termasuk istilah "プライバシー" dan "尊厳/martabat" sebagai kosakata inti, bukan sekadar istilah medis), mini kuis, Clinical Case Simulator (skenario BPH dengan pendekatan caregiver yang tenang dan bermartabat, bukan menghindari topik atau meremehkan).
 
-### Pendekatan konten yang disengaja: sensitif dan relevan-usia
+#### Pendekatan konten yang disengaja: sensitif dan relevan-usia
 Berbeda dari pola 10 halaman sebelumnya yang membahas anatomi organ secara mendalam, halaman ini SENGAJA membatasi cakupan ke topik yang genuinely relevan untuk perawatan lansia — model 3D placeholder bahkan menyertakan catatan eksplisit bahwa diagram hormon lebih prioritas daripada model anatomi detail untuk materi ini. Tab 介護 (Perawatan) diberi judul "yang Bermartabat" secara eksplisit, mencerminkan sensitivitas topik.
 
-### Animasi SVG baru: penurunan hormon seiring usia
+#### Animasi SVG baru: penurunan hormon seiring usia
 Dua batang (estrogen ungu terang, testosteron ungu tua) menyusut dari tinggi ke rendah secara bergantian (`height` + `opacity` animasi dengan delay berbeda), memvisualisasikan pola penurunan hormon reproduksi yang mendasari banyak perubahan tubuh lain yang sudah dibahas di halaman-halaman sebelumnya.
 
-### Konsistensi dijaga
+#### Konsistensi dijaga
 Komentar HTML aman (pelajaran v192), tidak ada tag `<nav>` liar (pelajaran v187). Placeholder model 3D disesuaikan dengan catatan bahwa untuk materi ini prioritas visual berbeda dari organ lain.
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **11/11 tab terverifikasi**, animasi penurunan hormon genuinely ada di DOM (2 batang terkonfirmasi), tombol jeda genuinely mengubah state, mini quiz dan Case Simulator bekerja end-to-end.
 - Navigasi dari `Anatomi-Dasar.html` dikonfirmasi berfungsi.
 - **Dikonfirmasi tepat 10 halaman sistem organ unik** ter-link dari halaman utama (dicek via `grep -o` untuk menghindari salah hitung regex) — ditambah halaman Anatomi Dasar sendiri sebagai hub, genap 11 sistem tubuh.
 - Halaman diindeks otomatis ke Search (292→293 materi).
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### 🎉 KURIKULUM 11 SISTEM TUBUH SELESAI
+#### 🎉 KURIKULUM 11 SISTEM TUBUH SELESAI
 Seluruh kurikulum 4-level (Anatomi Dasar → Sistem Organ → Fisiologi → Anatomi Klinis/Kaigo) yang direncanakan sejak permintaan awal pengguna kini lengkap:
 1. Kardiovaskular (dengan model 3D nyata dari file pengguna, v191)
 2. Pernapasan (v189, v192)
@@ -1882,121 +1922,125 @@ Setiap halaman: 11 tab (概要/解剖/生理/加齢変化/疾患/症状/観察/�
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 11/11 tab + animasi + navigasi + konfirmasi 10 halaman sistem organ unik dikonfirmasi via Playwright.
 
-## v202 — Model 3D Otak (dari file pengguna) diintegrasikan + bug baru GLTFLoader ditemukan & diperbaiki
+## v202–v213 — Integrasi model 3D nyata ke 11 sistem organ
+
+Gelombang integrasi model 3D dari file GLB pengguna, satu organ per rilis: Otak, Paru-paru, Panggul & Femur, Ginjal, Otot, Endokrin, Pencernaan, Kulit & Luka Tekan, dan Limfatik — hingga milestone seluruh 11 sistem organ punya model 3D nyata (v211), ditutup pembaruan model Jantung (v212) dan penambahan Mata & Telinga (v213). Pola normalisasi 2-tahap untuk instance bernomor dan perbaikan bug GLTFLoader matang dari tiap integrasi.
+
+### v202 — Model 3D Otak (dari file pengguna) diintegrasikan + bug baru GLTFLoader ditemukan & diperbaiki
 
 **Konteks**: pengguna menyediakan `brain_3d_kaigo_package.zip` — model otak edukatif (dibuat via `trimesh` Python, bukan AI berbayar/artis 3D) dengan 11 bagian otak (8 lobus kiri-kanan, cerebellum, batang otak, korpus kalosum), metadata Indonesia/Jepang/Inggris + poin observasi Kaigo lengkap, dan viewer contoh dengan fitur unik: **Simulasi Stroke** yang menyorot lobus terdampak.
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/brain/brain_educational.glb` (130KB, glTF 2.0 valid) + `brain-data.json` (11 bagian) disalin ke proyek. Placeholder di `Materi/Sistem-Saraf.html` tab Anatomi diganti dengan viewer Three.js nyata: kanvas WebGL, panel info Jepang/furigana/Indonesia/Inggris + poin Kaigo, tombol reset kamera, dan **tombol Simulasi Stroke** yang menghubungkan visual 3D dengan mnemonic FAST yang sudah dijelaskan di tab 症状 halaman yang sama.
 
-### Perbaikan dari v191 diterapkan LANGSUNG sejak awal (tidak perlu debug ulang)
+#### Perbaikan dari v191 diterapkan LANGSUNG sejak awal (tidak perlu debug ulang)
 Import map untuk `'three'`/`'three/addons/'` dan `ResizeObserver` untuk mengatasi kanvas 0×0 akibat tab `display:none` default — keduanya langsung ditulis benar sejak kode pertama kali dibuat, bukan ditemukan lewat trial-and-error seperti di integrasi Jantung.
 
-### 🔴 Bug BARU ditemukan (kelas berbeda dari v191): GLTFLoader mengubah spasi jadi underscore di nama node
+#### 🔴 Bug BARU ditemukan (kelas berbeda dari v191): GLTFLoader mengubah spasi jadi underscore di nama node
 Contoh `viewer.js` yang disertakan pengguna melakukan lookup metadata langsung pakai `data[name]` di mana `name` diambil dari `object.name` hasil parsing GLTFLoader. Pengujian lokal (dengan Three.js di-vendor, sama seperti v191) menunjukkan hotspot genuinely terklik tapi **Detail dan Kaigo kosong** — investigasi mengungkap: Three.js `GLTFLoader` men-sanitize nama node lewat `PropertyBinding.sanitizeNodeName()`, yang **mengubah semua spasi jadi underscore** (dikonfirmasi lewat GitHub issue resmi Three.js `mrdoob/three.js#17832`). Nama asli `"Lobus Frontal Kiri"` di file GLB/JSON menjadi `"Lobus_Frontal_Kiri"` setelah diparsing browser — sehingga lookup ke `brain-data.json` (yang key-nya masih pakai spasi) selalu gagal secara diam-diam.
 
 **Diperbaiki**: `labelFor()` menormalisasi nama (`replace(/_/g, ' ')`) sebelum lookup metadata; logika deteksi lobus kiri di fitur Simulasi Stroke disesuaikan untuk mencocokkan nama ber-underscore. Ini bug kelas baru dibanding v191 (bukan soal import map/ResizeObserver, tapi soal karakteristik parsing GLTFLoader terhadap nama yang mengandung spasi) — dicatat di sini untuk integrasi model 3D berikutnya, karena kemungkinan besar akan muncul lagi jika nama mesh/node di file lain juga mengandung spasi.
 
-### Verifikasi menyeluruh (dengan Three.js di-vendor lokal, sama seperti v191)
+#### Verifikasi menyeluruh (dengan Three.js di-vendor lokal, sama seperti v191)
 - **Sebelum perbaikan**: klik hotspot mengembalikan nama ber-underscore, Detail dan Kaigo kosong (dikonfirmasi via log test).
 - **Setelah perbaikan**: klik hotspot mengembalikan `"Lobus Frontal Kiri（左前頭葉） Left frontal lobe"` dengan Detail ("Perencanaan, perhatian, kontrol gerak sisi kanan...") dan Kaigo ("Perhatikan kelemahan sisi kanan, perubahan perilaku...") terisi tepat — dikonfirmasi lewat log DAN screenshot visual.
 - **Simulasi Stroke dikonfirmasi visual**: screenshot menunjukkan dua area otak (lobus frontal & parietal kiri) berubah warna jadi merah gelap saat tombol diaktifkan, disertai teks Kaigo yang merujuk balik ke FAST (Face/Arm/Speech/Time).
 - Regresi nol: 11/11 tab tetap utuh, mini quiz dan Case Simulator tidak terpengaruh.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Kejujuran soal batas verifikasi
+#### Kejujuran soal batas verifikasi
 Sama seperti v191: loading dari CDN jsDelivr production tidak bisa diverifikasi langsung dari sandbox sesi ini (domain diblokir untuk `bash_tool`). Verifikasi dilakukan dengan Three.js versi identik (0.164.1) di-vendor lokal — bukti fungsional genuinely kuat meski bukan pengujian end-to-end di jaringan production yang sesungguhnya.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D + hotspot + simulasi stroke + regresi 11-tab dikonfirmasi bekerja via Three.js ter-vendor lokal (screenshot visual disertakan sebagai bukti selama proses debugging, tidak disimpan permanen di repo).
 
-## v203 — Model 3D Paru-paru (dari file pengguna) diintegrasikan — perbaikan v202 langsung diterapkan, 0 debugging ulang
+### v203 — Model 3D Paru-paru (dari file pengguna) diintegrasikan — perbaikan v202 langsung diterapkan, 0 debugging ulang
 
 **Konteks**: pengguna menyediakan `lung_3d_kaigo_package.zip` — model paru-paru edukatif (dibuat via `trimesh`, konsisten dengan pola file Otak) dengan 14 bagian (5 lobus paru, trakea, 2 bronkus utama, 6 cabang bronkus, diafragma), metadata Indonesia/Jepang/Inggris + poin observasi Kaigo, dan fitur unik: **Simulasi Aspirasi** yang menyorot lobus bawah kanan.
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/lungs/lung_educational.glb` (87KB, glTF 2.0 valid) + `lung-data.json` (14 bagian) disalin ke proyek. Placeholder di `Materi/Sistem-Pernapasan.html` tab Anatomi diganti dengan viewer Three.js: kanvas WebGL, panel info lengkap, tombol reset kamera, dan **tombol Simulasi Aspirasi** yang menghubungkan visual 3D dengan protokol 4-langkah "saat dicurigai aspirasi" yang sudah ada di paket pengguna (hentikan makan/minum → pertahankan posisi aman → lapor perawat → jangan beri oral bila kesadaran menurun).
 
-### Semua perbaikan dari sesi sebelumnya diterapkan LANGSUNG sejak kode pertama ditulis
+#### Semua perbaikan dari sesi sebelumnya diterapkan LANGSUNG sejak kode pertama ditulis
 Berbeda dari integrasi Jantung (v191, bug ditemukan lewat debugging) dan Otak (v202, bug underscore ditemukan lewat debugging), integrasi Paru-paru ini **langsung benar di percobaan pertama** karena tiga pelajaran diterapkan sejak awal:
 1. Import map untuk `'three'`/`'three/addons/'` (pelajaran v191)
 2. `ResizeObserver` untuk kanvas 0×0 akibat tab `display:none` (pelajaran v191)
 3. Normalisasi underscore→spasi pada nama node GLTFLoader sebelum lookup metadata, DAN logika deteksi lobus bawah kanan di fitur Simulasi Aspirasi disesuaikan ke format underscore (`'Paru_Kanan_Lobus_Bawah'`) sejak awal (pelajaran v202, dikonfirmasi ulang berlaku sama di file ini karena nama bagian juga mengandung spasi seperti "Paru Kanan Lobus Bawah")
 
-### Verifikasi fakta medis sebelum digunakan
+#### Verifikasi fakta medis sebelum digunakan
 Klaim "lobus bawah kanan paling rentan aspirasi karena bronkus kanan lebih lurus dan lebar" yang tercantum di teks simulasi DIVERIFIKASI lewat pencarian eksternal sebelum disertakan sebagai fakta — dikonfirmasi oleh beberapa sumber medis kredibel (AMBOSS, Medscape, textbook anatomi: bronkus utama kanan memang lebih lebar, lebih pendek, dan lebih vertikal dibanding kiri, membuat lobus bawah kanan lokasi paling umum infiltrat aspirasi pneumonia).
 
-### Verifikasi menyeluruh (Three.js di-vendor lokal, sama seperti v191/v202)
+#### Verifikasi menyeluruh (Three.js di-vendor lokal, sama seperti v191/v202)
 - **Klik hotspot langsung berhasil**: `"Paru Kanan Lobus Atas（右肺上葉）Right upper lobe"` dengan Detail ("Bagian atas paru kanan untuk pertukaran oksigen...") dan Kaigo ("Amati napas cepat, penggunaan otot bantu napas, pucat atau sianosis") terisi tepat sejak percobaan pertama.
 - **Simulasi Aspirasi dikonfirmasi visual**: screenshot menunjukkan area lobus bawah kanan berubah warna merah gelap, disertai panduan 4-langkah yang tampil dan teks Kaigo yang menjelaskan alasan anatomis.
 - Regresi nol: 11/11 tab tetap utuh, animasi napas SVG (dari v189) tidak terpengaruh, mini quiz dan Case Simulator tetap berfungsi.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Signifikansi: pola integrasi model 3D sudah matang
+#### Signifikansi: pola integrasi model 3D sudah matang
 Ini adalah bukti bahwa proses integrasi model 3D dari file pengguna sudah matang — 3 model berturut-turut (Jantung, Otak, Paru-paru) menunjukkan tren jumlah bug yang ditemukan menurun (banyak → 1 kelas baru → 0), karena setiap pelajaran dari sesi sebelumnya dicatat eksplisit di komentar kode dan diterapkan konsisten di integrasi berikutnya.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D + hotspot + simulasi aspirasi + regresi 11-tab dikonfirmasi bekerja langsung di percobaan pertama via Three.js ter-vendor lokal.
 
-## v204 — Model 3D Panggul & Femur (dari file pengguna) diintegrasikan — objek fraktur dinamis berhasil ditangani
+### v204 — Model 3D Panggul & Femur (dari file pengguna) diintegrasikan — objek fraktur dinamis berhasil ditangani
 
 **Konteks**: pengguna menyediakan `skeleton_hip_3d_kaigo_package.zip` — model panggul-femur edukatif (konsisten dengan pola trimesh sebelumnya) dengan 19 bagian anatomis detail (ilium, sakrum, asetabulum, dan femur terbagi per-segmen di kedua sisi: kepala, leher, trokanter, batang, kondilus), metadata Kaigo lengkap, dan fitur paling canggih sejauh ini: **objek "Garis Fraktur Leher Femur" yang tersembunyi secara default dan hanya muncul saat simulasi diaktifkan**.
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/skeleton/hip_femur_educational.glb` (155KB, glTF 2.0 valid, 19 mesh) + `hip-data.json` disalin ke proyek. Placeholder di `Materi/Sistem-Rangka.html` tab Anatomi diganti dengan viewer Three.js: kanvas WebGL, panel info lengkap, tombol reset kamera, dan **tombol Simulasi Fraktur** yang menghubungkan visual 3D dengan skenario patah tulang leher femur yang sudah ada di tab 症例 halaman ini (kaki memendek dan memutar keluar — istilah yang PERSIS SAMA antara teks pengguna dan materi yang sudah ditulis sebelumnya).
 
-### Kompleksitas baru: objek dinamis show/hide berhasil ditangani tanpa bug baru
+#### Kompleksitas baru: objek dinamis show/hide berhasil ditangani tanpa bug baru
 Berbeda dari Otak (highlight warna saja) dan Paru-paru (highlight warna + teks), model ini punya **mesh terpisah yang disembunyikan** (`visible = false`) sampai simulasi diaktifkan, lalu **muncul dan otomatis terseleksi**. Fungsi `rawNameOf()` ditambahkan untuk mengonversi nama metadata (spasi) ke format node GLTFLoader (underscore) secara konsisten dua arah — dipakai baik untuk mencari `fractureMesh` maupun untuk mengecek keanggotaan array `affectedRaw` di 3 bagian femur kanan yang tersorot merah saat fraktur.
 
-### Perbaikan dari sesi-sesi sebelumnya diterapkan LANGSUNG (0 bug baru ditemukan, percobaan pertama langsung berhasil)
+#### Perbaikan dari sesi-sesi sebelumnya diterapkan LANGSUNG (0 bug baru ditemukan, percobaan pertama langsung berhasil)
 Import map, ResizeObserver, dan normalisasi underscore diterapkan sejak kode pertama ditulis. Ini adalah **model 3D keempat berturut-turut** (setelah Jantung, Otak, Paru-paru) yang terintegrasi tanpa perlu proses debugging tambahan — menunjukkan pola integrasi sudah benar-benar matang.
 
-### Verifikasi menyeluruh (Three.js di-vendor lokal, sama seperti sesi sebelumnya)
+#### Verifikasi menyeluruh (Three.js di-vendor lokal, sama seperti sesi sebelumnya)
 - **Hotspot langsung berhasil**: `"Ilium Kanan（右腸骨）Right ilium"` dengan Detail dan Kaigo terisi tepat.
 - **Objek tersembunyi dikonfirmasi bekerja sempurna**: sebelum simulasi, panduan fraktur `display:none`; setelah tombol diklik, panduan 4-langkah tampil DAN nama panel otomatis berubah jadi `"Garis Fraktur Leher Femur（大腿骨頸部骨折線）Femoral neck fracture line"` (mesh yang tadinya `visible:false` kini genuinely muncul dan langsung terseleksi); setelah tombol dimatikan lagi, panduan kembali tersembunyi.
 - **Verifikasi visual via screenshot**: area femur kanan (leher, kepala, trokanter) berubah warna kemerahan saat simulasi aktif.
 - Regresi nol: 11/11 tab tetap utuh, animasi remodeling tulang SVG (dari v198) tidak terpengaruh, mini quiz dan Case Simulator tetap berfungsi.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Signifikansi: 4 model 3D terintegrasi, pola matang teruji pada kasus paling kompleks
+#### Signifikansi: 4 model 3D terintegrasi, pola matang teruji pada kasus paling kompleks
 Model panggul-femur ini adalah yang paling kompleks strukturnya (19 bagian, objek dinamis show/hide, 2 sisi tubuh simetris) dari semua yang diintegrasikan sejauh ini, dan berhasil tanpa bug baru — bukti kuat bahwa 3 pelajaran inti (import map, ResizeObserver, normalisasi underscore) sudah mencakup hampir semua kelas masalah yang mungkin muncul dari pola pembuatan model serupa (trimesh Python + Three.js viewer).
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D + hotspot + simulasi fraktur (termasuk objek dinamis tersembunyi) + regresi 11-tab dikonfirmasi bekerja langsung di percobaan pertama via Three.js ter-vendor lokal, dengan bukti visual screenshot.
 
-## v205 — Model 3D Ginjal & Saluran Kemih (dari file pengguna) diintegrasikan — pola normalisasi 2-tahap baru ditemukan & ditangani
+### v205 — Model 3D Ginjal & Saluran Kemih (dari file pengguna) diintegrasikan — pola normalisasi 2-tahap baru ditemukan & ditangani
 
 **Konteks**: pengguna menyediakan `kidney_urinary_3d_kaigo_package.zip` — model ginjal dan saluran kemih edukatif dengan 15 bagian metadata (ginjal, pelvis renalis, arteri/vena renalis, ureter, kandung kemih, uretra) plus 3 mesh infeksi tersembunyi untuk simulasi ISK asendens (Infeksi Kandung Kemih → Ureter → Pelvis Ginjal), dan fitur **Mode Alur Urine** terpisah dari simulasi infeksi.
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/kidney/kidney_urinary_educational.glb` (94KB, glTF 2.0, 19 mesh) + `urinary-data.json` (15 entri metadata) disalin ke proyek. Placeholder di `Materi/Sistem-Urinaria.html` tab Anatomi diganti dengan viewer Three.js: kanvas WebGL, panel info, tombol reset, **tombol Mode Alur Urine** (emissive lembut pada saluran), dan **tombol Simulasi ISK** yang menghubungkan visual 3D dengan kasus ISK-menyamar-kebingungan yang sudah ada di tab 症例 halaman ini.
 
-### 🆕 Pola baru ditemukan: nama mesh tersegmentasi butuh normalisasi 2-TAHAP
+#### 🆕 Pola baru ditemukan: nama mesh tersegmentasi butuh normalisasi 2-TAHAP
 Berbeda dari 4 model sebelumnya (nama 1:1 dengan metadata setelah normalisasi underscore→spasi), model ini memecah "Ureter Kanan" dan "Ureter Kiri" masing-masing jadi 3 mesh segmen terpisah (`Ureter Kanan_1`, `_2`, `_3`) untuk kemungkinan kebutuhan animasi bertahap di masa depan. Setelah GLTFLoader mengubah spasi jadi underscore, nama asli `"Ureter Kanan_1"` menjadi `"Ureter_Kanan_1"` -- **urutan proses normalisasi jadi krusial**: suffix angka (`_1`) HARUS dihapus SEBELUM underscore lain diubah jadi spasi, kalau tidak `"Kanan_1"` akan salah jadi `"Kanan 1"` (dengan angka literal di nama) alih-alih `"Kanan"` yang bersih. Fungsi `cleanName()` diimplementasikan dengan urutan yang benar: `replace(/_\d+$/, '')` dulu, baru `replace(/_/g, ' ')`.
 
-### 🆕 Pola baru: warna infeksi sudah di-bake ke material, bukan lewat emissive runtime
+#### 🆕 Pola baru: warna infeksi sudah di-bake ke material, bukan lewat emissive runtime
 Berbeda dari simulasi Stroke (Otak, v202) dan Fraktur (Rangka, v204) yang mewarnai ulang material saat simulasi diaktifkan, model ini punya 3 mesh infeksi dengan **warna kuning yang sudah menjadi bagian material asli mesh itu sendiri** (dikonfirmasi: tidak ada definisi warna eksplisit di GLB yang perlu diubah runtime). Viewer HANYA perlu toggle `visible` -- lebih sederhana dari pola sebelumnya, dan dicatat di komentar kode agar tidak salah menduplikasi logic pewarnaan yang tidak diperlukan di integrasi berikutnya.
 
-### Verifikasi menyeluruh (Three.js di-vendor lokal, grid-scan menyeluruh)
+#### Verifikasi menyeluruh (Three.js di-vendor lokal, grid-scan menyeluruh)
 - **Grid-scan sistematis 8 hotspot unik ditemukan**, SEMUA nama bersih tanpa sisa angka suffix (`"Ureter Kanan"` bukan `"Ureter Kanan 1"` atau serupa) -- dikonfirmasi lewat regex check otomatis `/_\d|Kanan \d|Kiri \d/` yang mengembalikan kosong.
 - **Simulasi ISK dikonfirmasi bekerja end-to-end**: mesh infeksi tersembunyi default, muncul + otomatis terseleksi saat diaktifkan (`"Infeksi Kandung Kemih（膀胱炎の例）Example of cystitis"`) dengan Kaigo text yang PERSIS merujuk pola "jangan anggap kebingungan mendadak hanya sebagai demensia" dari kasus yang sudah ada di halaman ini, lalu tersembunyi lagi saat dimatikan.
 - **Mode Alur Urine dikonfirmasi toggle dengan benar** (class `active` berubah, dikonfirmasi visual via screenshot).
 - Regresi nol: 11/11 tab tetap utuh, animasi filtrasi ginjal SVG (dari v195) tidak terpengaruh, mini quiz dan Case Simulator tetap berfungsi.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Signifikansi: model kelima, pola integrasi terus disempurnakan untuk kasus tepi baru
+#### Signifikansi: model kelima, pola integrasi terus disempurnakan untuk kasus tepi baru
 Model ginjal ini adalah yang pertama dengan struktur mesh tersegmentasi (butuh normalisasi 2-tahap) dan yang pertama dengan warna ter-bake (bukan runtime). Kedua pola baru ini langsung ditangani dengan benar di percobaan pertama karena kebiasaan yang sudah terbentuk: SELALU membaca `viewer.js` referensi pengguna secara detail dan mengecek struktur node GLB secara eksplisit sebelum menulis kode integrasi, bukan mengasumsikan pola dari model sebelumnya otomatis berlaku sama.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D + hotspot (grid-scan 8 unik, 0 nama salah format) + mode alur urine + simulasi ISK + regresi 11-tab dikonfirmasi bekerja langsung di percobaan pertama via Three.js ter-vendor lokal, dengan bukti visual screenshot.
 
-## v206 — Model 3D Otot & Mobilitas (dari file pengguna) diintegrasikan — bug UI-stale ditemukan & diperbaiki
+### v206 — Model 3D Otot & Mobilitas (dari file pengguna) diintegrasikan — bug UI-stale ditemukan & diperbaiki
 
 **Konteks**: pengguna menyediakan `muscle_mobility_3d_kaigo_package.zip` — model otot dan mobilitas tungkai bawah edukatif dengan 20 entri metadata (panggul, femur, sendi lutut, otot utama penopang berdiri: quadriceps/hamstring/gluteus/betis/tendon Achilles/otot inti) dan **dua fitur simulasi independen**: Simulasi Berdiri (highlight otot utama) dan Simulasi Sarkopenia/Disuse (3 area highlight tersembunyi).
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/muscle/muscle_mobility_educational.glb` (160KB, glTF 2.0, 24 mesh) + `muscle-data.json` (20 entri) disalin ke proyek. Placeholder di `Materi/Sistem-Otot.html` tab Anatomi diganti dengan viewer Three.js: kanvas WebGL, panel info, tombol reset, **tombol Simulasi Berdiri** dan **tombol Simulasi Sarkopenia** yang menghubungkan visual 3D dengan pembeda sindrom disuse vs stroke yang sudah ada di tab 症例 halaman ini.
 
-### 🐛 Bug ditemukan di viewer.js referensi pengguna: UI menampilkan info basi (stale) untuk bagian tanpa metadata
+#### 🐛 Bug ditemukan di viewer.js referensi pengguna: UI menampilkan info basi (stale) untuk bagian tanpa metadata
 GLB berisi **24 mesh** tapi metadata hanya **20 entri** — 4 bagian (Tibia Kanan/Kiri, Pergelangan Kaki Kanan/Kiri) ada secara visual tapi tidak punya deskripsi Kaigo. Fungsi `select()` di `viewer.js` referensi pengguna melakukan `if(!d)return` saat `data[n]` undefined — artinya **UI tidak diperbarui sama sekali**, dan info dari klik sebelumnya tetap menempel di layar, membuat pengguna salah kira info itu berlaku untuk bagian yang baru diklik. **Diperbaiki**: `labelFor()` selalu mengembalikan objek lengkap dengan fallback eksplisit `"Metadata belum tersedia untuk bagian ini."` alih-alih membiarkan UI diam-diam tidak berubah.
 
-### Verifikasi menyeluruh (Three.js di-vendor lokal)
+#### Verifikasi menyeluruh (Three.js di-vendor lokal)
 - **Grid-scan menemukan 11 hotspot unik**, termasuk **"Pergelangan Kaki Kanan"** yang genuinely menampilkan fallback yang benar ("Metadata belum tersedia untuk bagian ini.") alih-alih info basi dari klik sebelumnya -- mengonfirmasi perbaikan bug UI-stale bekerja seperti dimaksud.
 - **Dua simulasi dikonfirmasi independen**: Simulasi Berdiri diaktifkan lebih dulu, lalu Simulasi Sarkopenia diaktifkan di atasnya -- dikonfirmasi Simulasi Berdiri TETAP aktif (`class="active"` masih ada) setelah Simulasi Sarkopenia dinyalakan, sesuai desain aslinya (dua toggle terpisah, bukan mode eksklusif).
 - Simulasi Sarkopenia mengembalikan `"Area Sarkopenia Quadriceps（サルコペニアの例）"` dengan Kaigo text yang tepat ("berjalan melambat, sulit berdiri dari kursi, sering jatuh, dan kekuatan genggam menurun").
@@ -2004,106 +2048,106 @@ GLB berisi **24 mesh** tapi metadata hanya **20 entri** — 4 bagian (Tibia Kana
 - Regresi nol: 11/11 tab tetap utuh, animasi kontraksi otot SVG (dari v197) tidak terpengaruh, mini quiz dan Case Simulator tetap berfungsi.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Poin konten baru yang berharga dari paket ini
+#### Poin konten baru yang berharga dari paket ini
 Metadata "Area Disuse Gluteus" menyertakan poin yang belum eksplisit ada di materi Otot sebelumnya: **"Over-care dapat mempercepat disuse. Bantu hanya pada bagian yang benar-benar diperlukan."** — pengingat penting bahwa caregiver yang terlalu banyak membantu justru bisa mempercepat kemunduran otot penerima layanan.
 
-### Signifikansi: model keenam, kelas bug baru (UI-stale) ditambahkan ke daftar pelajaran
+#### Signifikansi: model keenam, kelas bug baru (UI-stale) ditambahkan ke daftar pelajaran
 Berbeda dari bug-bug sebelumnya (import map, ResizeObserver, normalisasi underscore, urutan normalisasi 2-tahap), bug kali ini murni soal **UI state management** -- tidak terkait Three.js/GLTFLoader sama sekali, melainkan kebiasaan menulis fallback yang eksplisit untuk setiap kemungkinan hasil lookup data, bukan diam-diam `return` saat data tidak ditemukan.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D + hotspot (grid-scan 11 unik, termasuk fallback UI yang benar untuk bagian tanpa metadata) + dua simulasi independen + regresi 11-tab dikonfirmasi bekerja langsung di percobaan pertama via Three.js ter-vendor lokal, dengan bukti visual 3 screenshot.
 
-## v207 — Model 3D Kelenjar Endokrin (dari file pengguna) diintegrasikan — pola instance bernomor ditangani dengan normalisasi 2-tahap
+### v207 — Model 3D Kelenjar Endokrin (dari file pengguna) diintegrasikan — pola instance bernomor ditangani dengan normalisasi 2-tahap
 
 **Konteks**: pengguna menyediakan `endocrine_3d_kaigo_package.zip` — model kelenjar endokrin edukatif dengan 18 entri metadata (pituitari, tiroid 2 lobus + isthmus, 4 kelenjar paratiroid, 2 adrenal, pankreas, pulau Langerhans) dan **partikel individual** untuk representasi visual: 7 instance "Glukosa" dan 5 instance "Insulin", plus 3 mesh peringatan tersembunyi untuk **Simulasi Hipoglikemia**.
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/endocrine/endocrine_educational.glb` (136KB, glTF 2.0, 29 mesh) + `endocrine-data.json` (18 entri) disalin ke proyek. Placeholder di `Materi/Sistem-Endokrin.html` tab Anatomi diganti dengan viewer Three.js: kanvas WebGL, panel info, tombol reset, **tombol Alur Insulin–Glukosa** (emissive pada pankreas/pulau Langerhans/pembuluh darah/SEMUA partikel glukosa-insulin), dan **tombol Simulasi Hipoglikemia** yang menghubungkan visual 3D dengan Clinical Case Simulator hipoglikemia yang sudah ada di tab 症例 halaman ini.
 
-### 🆕 Pola baru: instance bernomor sebagai BAGIAN SAH dari nama (bukan suffix segmen teknis)
+#### 🆕 Pola baru: instance bernomor sebagai BAGIAN SAH dari nama (bukan suffix segmen teknis)
 Berbeda dari kasus ureter (v205, segmen `_1/_2/_3` untuk SATU objek yang dipecah teknis), model ini punya **"Kelenjar Paratiroid 1/2/3/4"** (4 kelenjar berbeda secara anatomis, semua real) dan **"Glukosa 1..7"**/**"Insulin 1..5"** (partikel individual identik secara konsep, direpresentasikan sebagai banyak instance untuk kesan visual "sebaran"). Fungsi `cleanName()` = `replace(/_/g,' ').replace(/ \d+$/,'')` -- normalisasi underscore dulu, BARU strip suffix " angka" -- dikonfirmasi identik dengan pendekatan `viewer.js` referensi pengguna, dan diverifikasi lewat grid-scan bahwa SEMUA partikel Glukosa (7) dan Insulin (5) tergabung ke label group tunggal ("Glukosa", "Insulin"), bukan tersebar sebagai entitas terpisah yang membingungkan pengguna.
 
-### Perbaikan dari v206 (fallback UI-stale) diterapkan ulang
+#### Perbaikan dari v206 (fallback UI-stale) diterapkan ulang
 `labelFor()` tetap mengembalikan objek lengkap dengan fallback eksplisit untuk bagian tanpa metadata ("Siluet Tubuh" ada di GLB tapi tidak di JSON) -- dikonfirmasi bekerja: mesh itu genuinely terklik dan menampilkan nama mentahnya tanpa UI macet di info sebelumnya.
 
-### Verifikasi menyeluruh (Three.js di-vendor lokal, grid-scan sistematis)
+#### Verifikasi menyeluruh (Three.js di-vendor lokal, grid-scan sistematis)
 - **Grid-scan menemukan 4 hotspot unik** (Siluet Tubuh, Glukosa, Insulin, Pembuluh Darah tampil di area yang diuji) -- dikonfirmasi lewat regex check otomatis `/Paratiroid \d|Glukosa \d|Insulin \d/` bahwa TIDAK ADA nama yang salah tersebar per-instance; semua partikel bernomor genuinely tergabung ke 1 label per grup.
 - **Simulasi Hipoglikemia dikonfirmasi bekerja end-to-end**: mesh peringatan tersembunyi default, muncul + otomatis terseleksi (`"Peringatan Hipoglikemia Otak（低血糖による意識障害）Brain warning in hypoglycemia"`) dengan Kaigo text yang tepat ("Kebingungan, bicara tidak jelas, mengantuk, kejang, atau tidak sadar adalah tanda darurat").
 - **Mode Alur Insulin-Glukosa dikonfirmasi toggle dengan benar**, verifikasi visual via screenshot menunjukkan 12 partikel individual (7 glukosa + 5 insulin) berubah warna emissive bersamaan.
 - Regresi nol: 11/11 tab tetap utuh, animasi sekresi insulin SVG (dari v196) tidak terpengaruh, mini quiz dan Case Simulator tetap berfungsi.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Signifikansi: model ketujuh, konsistensi pola normalisasi terus terjaga lintas kasus tepi
+#### Signifikansi: model ketujuh, konsistensi pola normalisasi terus terjaga lintas kasus tepi
 Model ini melengkapi katalog pola normalisasi nama node yang sudah ditemui: (1) 1:1 sederhana (Otak, Paru-paru), (2) segmen teknis suffix underscore+angka untuk SATU objek (Ginjal/ureter), (3) instance bernomor sebagai entitas SAH terpisah yang perlu dikelompokkan (Endokrin ini). Ketiganya kini tercatat sebagai referensi untuk integrasi model 3D berikutnya.
 
 **Verifikasi**: `node --check` valid, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D + hotspot (grid-scan, 0 nama salah tersebar per-instance) + alur insulin-glukosa + simulasi hipoglikemia + regresi 11-tab dikonfirmasi bekerja langsung di percobaan pertama via Three.js ter-vendor lokal, dengan bukti visual screenshot.
 
-## v208 — Model 3D Sistem Pencernaan (dari file pengguna) diintegrasikan — div ganda ditemukan & diperbaiki
+### v208 — Model 3D Sistem Pencernaan (dari file pengguna) diintegrasikan — div ganda ditemukan & diperbaiki
 
 **Konteks**: pengguna menyediakan `digestive_3d_kaigo_package.zip` — model sistem pencernaan edukatif dengan 13 entri metadata (rongga mulut, faring, esofagus, lambung, hati, kandung empedu, pankreas, usus halus, usus besar, rektum) dan **dua simulasi independen**: Simulasi Disfagia (area risiko aspirasi) dan Simulasi Sembelit (feses keras + fecal impaction).
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/digestive/digestive_educational.glb` (123KB, glTF 2.0, 33 mesh) + `digestive-data.json` (13 entri) disalin ke proyek. Placeholder di `Materi/Sistem-Pencernaan.html` tab Anatomi diganti dengan viewer Three.js: kanvas WebGL, panel info, tombol reset, **tombol Simulasi Disfagia** dan **tombol Simulasi Sembelit** yang menghubungkan visual 3D dengan materi disfagia/aspirasi dan sembelit/fecal impaction yang sudah ada di tab 疾患/介護 halaman ini.
 
-### Pola nama: segmen usus (mirip ureter v205, BUKAN grup instans seperti Endokrin v207)
+#### Pola nama: segmen usus (mirip ureter v205, BUKAN grup instans seperti Endokrin v207)
 "Usus Halus" dipecah jadi **11 segmen** (`_1`..`_11`) dan "Usus Besar" jadi **10 segmen** (`_1`..`_10`) untuk membentuk bentuk berliku -- ini kasus SATU organ yang dipecah teknis (seperti ureter), bukan instans semantik terpisah (seperti paratiroid/glukosa). Normalisasi 1-tahap (`replace(/_/g,' ').replace(/ \d+$/,'')`) sudah cukup dan tepat di sini, dikonfirmasi tidak ada nama segmen yang bocor tersebar (`/Usus Halus \d|Usus Besar \d|_\d/` kosong di hasil grid-scan).
 
-### 🐛 Bug ditemukan SENDIRI saat proses integrasi (self-inflicted, sama kelas dengan v192): `</div>` ganda
+#### 🐛 Bug ditemukan SENDIRI saat proses integrasi (self-inflicted, sama kelas dengan v192): `</div>` ganda
 Saat mengganti blok placeholder HTML, sisa struktur closing tag lama tertinggal, menghasilkan `</div>` duplikat yang membuat total div opens (53) tidak seimbang dengan div closes (54). **Terdeteksi lewat pengecekan otomatis** (`grep -c '<div\\b'` vs `grep -c '</div>'`) sebelum sempat masuk verifikasi fungsional — dicek ulang setiap kali mengganti blok HTML besar sejak insiden serupa di v192/v206. Diperbaiki dengan menghapus satu `</div>` berlebih.
 
-### Verifikasi menyeluruh (Three.js di-vendor lokal)
+#### Verifikasi menyeluruh (Three.js di-vendor lokal)
 - **Grid-scan mengonfirmasi 0 nama segmen usus yang bocor tersebar** -- regex check `/Usus Halus \d|Usus Besar \d|_\d/` kosong, menandakan seluruh 11+10 mesh segmen tergabung benar ke label "Usus Halus"/"Usus Besar" tunggal.
 - **Kedua simulasi dikonfirmasi independen**: Simulasi Disfagia diaktifkan lebih dulu (mengembalikan `"Area Risiko Aspirasi（誤嚥リスク部位）"`), lalu Simulasi Sembelit diaktifkan di atasnya (mengembalikan `"Feses Keras Kolon（硬便）"` dengan Kaigo yang tepat) -- dikonfirmasi Simulasi Disfagia TETAP aktif setelah Simulasi Sembelit dinyalakan, keduanya bisa tampil bersamaan sesuai desain aslinya.
 - Verifikasi visual via 2 screenshot: model normal dan kedua simulasi aktif bersamaan.
 - Regresi nol: 11/11 tab tetap utuh, animasi peristaltik SVG (dari v193) tidak terpengaruh, mini quiz dan Case Simulator tetap berfungsi.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Signifikansi: model kedelapan, kebiasaan pengecekan div balance terbukti menangkap bug sebelum eskalasi
+#### Signifikansi: model kedelapan, kebiasaan pengecekan div balance terbukti menangkap bug sebelum eskalasi
 Kebiasaan mengecek keseimbangan tag `<div>`/`</div>` secara otomatis setiap kali mengganti blok HTML besar (bukan hanya mengandalkan validator sintaks JS) terbukti kembali bermanfaat -- bug ini murni kesalahan manual saat replace teks, bukan terkait Three.js/GLTFLoader sama sekali, dan tertangkap SEBELUM sempat menjalankan test fungsional yang mahal waktu.
 
 **Verifikasi**: `node --check` valid, `<div>` balance dikonfirmasi (53=53), validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D + hotspot (0 segmen usus bocor) + dua simulasi independen + regresi 11-tab dikonfirmasi bekerja langsung di percobaan pertama (setelah perbaikan div) via Three.js ter-vendor lokal, dengan bukti visual screenshot.
 
-## v209 — Model 3D Kulit & Luka Tekan (dari file pengguna) diintegrasikan — bug normalisasi-angka-yang-salah-dihapus ditemukan & diperbaiki
+### v209 — Model 3D Kulit & Luka Tekan (dari file pengguna) diintegrasikan — bug normalisasi-angka-yang-salah-dihapus ditemukan & diperbaiki
 
 **Konteks**: pengguna menyediakan `skin_pressure_injury_3d_kaigo_package.zip` — model lapisan kulit edukatif dengan 15 entri metadata (epidermis, dermis, jaringan lemak, otot, tonjolan tulang, pembuluh darah) dan **tiga fitur independen**: Mode Distribusi Tekanan, **Siklus Tahapan Luka Tekan 1-3** (fitur baru: satu tombol yang bersiklus 4-state, bukan toggle biner), dan Simulasi Kelembapan/Inkontinensia.
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/skin/skin_pressure_injury_educational.glb` (63KB, glTF 2.0, 17 mesh -- file terkecil sejauh ini) + `skin-data.json` (15 entri) disalin ke proyek. Placeholder di `Materi/Sistem-Kulit-Indra.html` tab Anatomi diganti dengan viewer Three.js: kanvas WebGL, panel info, tombol reset, **tombol Distribusi Tekanan**, **tombol Tahapan Luka Tekan** (siklus `stageIndex = (stageIndex+1) % 4`, teks tombol berubah dinamis "Tahap 1"/"Tahap 2"/"Tahap 3"/kembali ke label awal), dan **tombol Simulasi Kelembapan** -- ketiganya independen dan bisa aktif bersamaan.
 
-### 🔴 Bug ditemukan lewat pengujian: normalisasi angka yang SALAH diterapkan secara membabi-buta
+#### 🔴 Bug ditemukan lewat pengujian: normalisasi angka yang SALAH diterapkan secara membabi-buta
 Fungsi `cleanName()` yang dipakai konsisten sejak v207/v208 (`replace(/_/g,' ').replace(/ \d+$/,'')`) diterapkan LANGSUNG tanpa verifikasi ulang bahwa pola itu cocok untuk kasus ini. **Ternyata SALAH**: metadata `skin-data.json` menyimpan key `"Luka Tekan Tahap 1"`, `"Tahap 2"`, `"Tahap 3"` DENGAN angka sebagai bagian sah dari identitas (beda dari kasus Glukosa/Insulin di v207 yang angkanya memang harus dibuang untuk digabung ke 1 grup). Strip-angka membuat SEMUA tahap menampilkan label sama: `"Luka Tekan Tahap"` tanpa angka, sehingga pengguna tidak bisa membedakan Tahap 1 dari Tahap 3 -- dikonfirmasi lewat pengujian siklus eksplisit (test khusus mengklik tombol 5x berturut-turut dan mencatat nama yang muncul di setiap klik).
 
-### Perbaikan: coba lookup SPESIFIK dulu, baru fallback ke GRUP
+#### Perbaikan: coba lookup SPESIFIK dulu, baru fallback ke GRUP
 `labelFor()` diperbaiki untuk mencoba `metadata[nameWithNumber]` (nama lengkap dengan angka) TERLEBIH DAHULU, baru fallback ke `metadata[nameGrouped]` (nama tanpa angka) kalau tidak ditemukan. Pendekatan ini otomatis benar untuk KEDUA kasus tanpa perlu tahu sebelumnya mana yang berlaku: kasus Endokrin (v207, "Glukosa 1" tidak ada di metadata → fallback ke "Glukosa") dan kasus Kulit ini ("Luka Tekan Tahap 1" ADA di metadata → dipakai langsung, tidak pernah sampai fallback). **Pelajaran untuk integrasi berikutnya**: jangan mengasumsikan pola normalisasi dari model sebelumnya otomatis berlaku sama -- selalu verifikasi dengan mengecek isi metadata JSON secara eksplisit, dan pertimbangkan pendekatan "spesifik-dulu-baru-general" sebagai default yang lebih aman.
 
-### Fitur baru: siklus 4-state dengan pengurutan eksplisit
+#### Fitur baru: siklus 4-state dengan pengurutan eksplisit
 `stageMeshes` diurutkan (`sort()`) berdasarkan angka yang diekstrak dari nama asli SEBELUM disimpan ke array, memastikan klik pertama selalu menampilkan Tahap 1 (bukan urutan sembarang sesuai urutan traversal Three.js yang tidak dijamin berurutan).
 
-### Verifikasi menyeluruh (Three.js di-vendor lokal)
+#### Verifikasi menyeluruh (Three.js di-vendor lokal)
 - **Sebelum perbaikan**: siklus tombol bekerja benar (teks tombol "Tahap 1"→"Tahap 2"→"Tahap 3"→reset), tapi nama panel SELALU "Luka Tekan Tahap" tanpa angka pembeda.
 - **Setelah perbaikan**: dikonfirmasi via test eksplisit bahwa urutan 3 klik berturut menghasilkan `"Luka Tekan Tahap 1（褥瘡ステージ1）Stage 1 pressure injury"` → `"...Tahap 2..."` → `"...Tahap 3..."` secara BERURUTAN dan BENAR (`correctOrder: true`).
 - **Tiga mode dikonfirmasi independen**: Distribusi Tekanan dan Simulasi Kelembapan diaktifkan bersamaan, dikonfirmasi keduanya tetap aktif simultan (`class="active"` pada keduanya), verifikasi visual via screenshot menunjukkan highlight kuning DAN biru muncul bersamaan.
 - Regresi nol: 11/11 tab tetap utuh, animasi pembentukan luka tekan SVG (dari v200) tidak terpengaruh, mini quiz dan Case Simulator tetap berfungsi.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Signifikansi: model kesembilan, bug ini mengingatkan untuk TIDAK generalisasi pola tanpa verifikasi ulang
+#### Signifikansi: model kesembilan, bug ini mengingatkan untuk TIDAK generalisasi pola tanpa verifikasi ulang
 Ini bug paling instruktif dari seluruh rangkaian integrasi model 3D -- bukan karena kompleks, tapi karena mengungkap kebiasaan buruk yang nyaris terjadi: menerapkan solusi lama secara otomatis tanpa mengecek ulang apakah asumsinya masih berlaku di konteks baru. Metadata JSON SELALU jadi sumber kebenaran yang harus dicek eksplisit, bukan diasumsikan dari nama file/pola sebelumnya.
 
 **Verifikasi**: `node --check` valid, `<div>` balance dikonfirmasi (51=51) segera setelah penggantian HTML, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D + siklus 3-tahap (urutan benar dikonfirmasi eksplisit) + 3 mode independen + regresi 11-tab dikonfirmasi bekerja via Three.js ter-vendor lokal, dengan bukti visual screenshot.
 
-## v210 — Model 3D Sistem Limfatik & Imun (dari file pengguna) diintegrasikan — verifikasi metadata eksplisit sebelum kode terbukti mencegah bug berulang
+### v210 — Model 3D Sistem Limfatik & Imun (dari file pengguna) diintegrasikan — verifikasi metadata eksplisit sebelum kode terbukti mencegah bug berulang
 
 **Konteks**: pengguna menyediakan `lymphatic_immune_3d_kaigo_package.zip` — model sistem limfatik edukatif dengan 21 entri metadata (timus, limpa, amandel, sumsum tulang, duktus torasikus, pembuluh limfa 6 area tubuh, kelenjar getah bening 7 lokasi) dan **Simulasi Infeksi Tanpa Demam Tinggi** yang menampilkan 3 mesh sekaligus (infeksi + peringatan delirium + peringatan penurunan aktivitas).
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/lymphatic/lymphatic_immune_educational.glb` (109KB, glTF 2.0, 31 mesh) + `lymphatic-data.json` (21 entri) disalin ke proyek. Placeholder di `Materi/Sistem-Limfatik-Imun.html` tab Anatomi diganti dengan viewer Three.js: kanvas WebGL, panel info, tombol reset, **tombol Alur Limfa** (emissive pada duktus torasikus + semua pembuluh limfa), dan **tombol Simulasi Infeksi Tanpa Demam** yang menghubungkan visual 3D dengan materi infeksi-tanpa-demam-tinggi yang sudah ada di tab 症例 halaman ini.
 
-### Metodologi diperketat: verifikasi metadata SEBELUM menulis kode (pelajaran langsung dari bug v209)
+#### Metodologi diperketat: verifikasi metadata SEBELUM menulis kode (pelajaran langsung dari bug v209)
 Sebelum menulis satu baris kode integrasi, metadata `lymphatic-data.json` **dicek secara eksplisit** untuk memastikan tidak ada key yang mengandung angka sebagai identitas sah (`grep`/print semua key, verifikasi manual) -- dikonfirmasi SEMUA 21 key genuinely tanpa angka (hanya kata "Kanan"/"Kiri"). Ini mengonfirmasi aman menerapkan normalisasi strip-angka standar TANPA risiko mengulang bug v209 (di mana "Tahap 1/2/3" salah digabung jadi satu label). `labelFor()` tetap memakai pendekatan "coba nama lengkap dulu, baru fallback ke nama tergabung" sebagai jaring pengaman tambahan, meski di sini seharusnya selalu cocok di percobaan pertama.
 
-### Struktur segmen: underscore literal di nama asli (bukan spasi+angka)
+#### Struktur segmen: underscore literal di nama asli (bukan spasi+angka)
 Pembuluh limfa dan duktus torasikus dipecah pakai suffix `_1`, `_2`, dst LANGSUNG di nama node asli (`"Duktus Torasikus_1"` bukan `"Duktus Torasikus 1"`) -- pola serupa ureter (v205) dan usus (v208), ditangani dengan normalisasi standar `replace(/_/g,' ').replace(/ \d+$/,'')`.
 
-### Verifikasi menyeluruh (Three.js di-vendor lokal, grid-scan sistematis)
+#### Verifikasi menyeluruh (Three.js di-vendor lokal, grid-scan sistematis)
 - **Grid-scan mengonfirmasi 0 nama segmen yang bocor tersebar** -- regex check otomatis `/_\d|Torasikus \d|Limfa \w+ \d/` kosong, menandakan seluruh mesh segmen tergabung benar ke label organ tunggal.
 - **Simulasi Infeksi Tanpa Demam dikonfirmasi menampilkan 3 mesh SEKALIGUS** (bukan siklus seperti Kulit v209) -- mengembalikan `"Infeksi Tanpa Demam Tinggi（高熱を伴わない感染症）"` dengan Kaigo yang tepat ("Waspadai penurunan nafsu makan, mengantuk, kebingungan, napas cepat, atau kemampuan berjalan menurun").
 - **Kedua mode dikonfirmasi independen**: Mode Alur Limfa diaktifkan lebih dulu, lalu Simulasi Infeksi diaktifkan di atasnya -- dikonfirmasi Mode Alur TETAP aktif setelah Simulasi Infeksi dinyalakan.
@@ -2111,25 +2155,25 @@ Pembuluh limfa dan duktus torasikus dipecah pakai suffix `_1`, `_2`, dst LANGSUN
 - Regresi nol: 11/11 tab tetap utuh, animasi respons imun SVG (dari v199) tidak terpengaruh, mini quiz dan Case Simulator tetap berfungsi.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Signifikansi: model kesepuluh, disiplin verifikasi-sebelum-kode terbukti efektif
+#### Signifikansi: model kesepuluh, disiplin verifikasi-sebelum-kode terbukti efektif
 Ini integrasi PERTAMA sejak bug v209 di mana verifikasi metadata dilakukan secara eksplisit dan terdokumentasi SEBELUM menulis kode (bukan setelah menemukan bug lewat testing) -- hasilnya: 0 bug baru ditemukan, langsung benar di percobaan pertama. Ini mengonfirmasi bahwa pelajaran dari v209 (jangan asumsikan pola normalisasi berlaku otomatis) berhasil diinternalisasi menjadi kebiasaan kerja yang genuinely mencegah pengulangan kesalahan, bukan sekadar catatan di changelog.
 
 **Verifikasi**: `node --check` valid, `<div>` balance dikonfirmasi (52=52) segera setelah penggantian HTML, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D + hotspot (0 segmen bocor) + mode alur + simulasi infeksi 3-mesh + regresi 11-tab dikonfirmasi bekerja langsung di percobaan pertama via Three.js ter-vendor lokal, dengan bukti visual 3 screenshot.
 
-## v211 — Model 3D Sistem Reproduksi & Privasi (dari file pengguna) diintegrasikan — SEMUA 11 SISTEM ORGAN KINI PUNYA MODEL 3D NYATA
+### v211 — Model 3D Sistem Reproduksi & Privasi (dari file pengguna) diintegrasikan — SEMUA 11 SISTEM ORGAN KINI PUNYA MODEL 3D NYATA
 
 **Konteks**: pengguna menyediakan `reproductive_privacy_3d_kaigo_package.zip` — organ KESEBELAS dan TERAKHIR dari kurikulum 11 sistem tubuh. Model ini secara sengaja dirancang dengan gaya sangat abstrak/sederhana (dua siluet oval, bukan detail anatomi eksplisit) dan menyertakan fitur **Mode Privasi & Martabat** yang ditempatkan setara dengan fitur simulasi medis lainnya.
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/reproductive/reproductive_privacy_educational.glb` (155KB, glTF 2.0, 24 mesh) + `reproductive-data.json` (20 entri: anatomi dasar perempuan/laki-laki, plus 4 mesh simulasi) disalin ke proyek. Placeholder di `Materi/Sistem-Reproduksi.html` tab Anatomi -- yang SEBELUMNYA (v201) secara eksplisit menyatakan model 3D bukan prioritas untuk materi ini -- kini diganti dengan viewer Three.js nyata: kanvas WebGL, panel info, tombol reset, **tombol Mode Privasi & Martabat**, **tombol Simulasi Perdarahan/Prostat**, dan **tombol Simulasi Dermatitis** -- ketiganya independen.
 
-### Perubahan sikap terhadap model 3D untuk materi ini: bukan kontradiksi, tapi konfirmasi
+#### Perubahan sikap terhadap model 3D untuk materi ini: bukan kontradiksi, tapi konfirmasi
 Catatan v201 menyebut "diagram hormon lebih prioritas daripada model anatomi detail" -- ini TETAP benar untuk model anatomi eksplisit. Namun file yang disediakan pengguna genuinely BUKAN model anatomi detail: bentuknya abstrak (siluet oval sederhana, dikonfirmasi via screenshot), dan fitur utamanya adalah **Mode Privasi** yang mengajarkan prinsip perawatan bermartabat (tutup tirai, minta persetujuan, minimalkan paparan) -- bukan eksplorasi anatomi. Model ini MEMPERKUAT pendekatan materi, bukan bertentangan dengannya.
 
-### Metodologi verifikasi-sebelum-kode (dari v210) diterapkan lagi
+#### Metodologi verifikasi-sebelum-kode (dari v210) diterapkan lagi
 Metadata `reproductive-data.json` dicek eksplisit sebelum menulis kode: dikonfirmasi tidak ada key dengan angka sebagai identitas sah (semua "Kanan"/"Kiri"/"Perempuan"/"Laki-laki" adalah kata). Segmen underscore pada Tuba Falopi ("_1"/"_2") aman digabung dengan normalisasi standar.
 
-### Verifikasi menyeluruh (Three.js di-vendor lokal, dengan perhatian khusus pada kesesuaian visual-topik)
+#### Verifikasi menyeluruh (Three.js di-vendor lokal, dengan perhatian khusus pada kesesuaian visual-topik)
 - **Grid-scan mengonfirmasi 0 nama segmen yang bocor tersebar**.
 - **Mode Privasi & Martabat dikonfirmasi sebagai inti fungsional**: mengembalikan `"Zona Privasi（プライバシー保護）Privacy zone"` dengan Kaigo text yang PERSIS merujuk prinsip privasi ("Tutup tirai atau pintu, gunakan handuk penutup, jelaskan tindakan, minta persetujuan, dan minimalkan paparan tubuh").
 - **Verifikasi visual KHUSUS dilakukan untuk memastikan kesesuaian topik**: 3 screenshot (model normal, mode privasi aktif, semua mode aktif) SEMUA menunjukkan bentuk abstrak (dua oval putih dengan penanda warna lembut) TANPA representasi anatomi eksplisit apa pun -- dikonfirmasi visual, bukan hanya diasumsikan dari nama file.
@@ -2139,7 +2183,7 @@ Metadata `reproductive-data.json` dicek eksplisit sebelum menulis kode: dikonfir
 
 ---
 
-### 🎉🎉 SELURUH 11 SISTEM ORGAN KINI PUNYA MODEL 3D NYATA DARI PENGGUNA
+#### 🎉🎉 SELURUH 11 SISTEM ORGAN KINI PUNYA MODEL 3D NYATA DARI PENGGUNA
 
 Sejak integrasi model Jantung pertama (v191) hingga model Reproduksi ini (v211), pengguna secara bertahap menyediakan file model 3D untuk SELURUH 11 sistem tubuh dalam kurikulum:
 
@@ -2159,20 +2203,20 @@ Sejak integrasi model Jantung pertama (v191) hingga model Reproduksi ini (v211),
 
 **Verifikasi**: `node --check` valid, `<div>` balance dikonfirmasi (51=51) segera setelah penggantian HTML, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D + hotspot (0 segmen bocor) + Mode Privasi (dikonfirmasi sebagai fitur inti, bukan sekunder) + 2 mode simulasi tambahan + regresi 11-tab dikonfirmasi bekerja langsung di percobaan pertama via Three.js ter-vendor lokal, dengan verifikasi visual khusus untuk kesesuaian topik sensitif.
 
-## v212 — Model 3D Jantung DIPERBARUI: model lama (v191) diganti versi baru yang jauh lebih lengkap
+### v212 — Model 3D Jantung DIPERBARUI: model lama (v191) diganti versi baru yang jauh lebih lengkap
 
 **Konteks**: pengguna menyediakan `cardiovascular_3d_kaigo_package.zip` -- versi model kardiovaskular yang JAUH lebih lengkap dari model lama (v191): 18 entri metadata dan 34 mesh (vs 5 entri lama), dengan **tiga mode independen**: Alur Darah, Simulasi Gagal Jantung (edema tungkai), dan Simulasi Syok/Sumbatan Arteri Koroner. Pengguna secara eksplisit mengonfirmasi permintaan mengganti model lama dengan versi baru ini.
 
-### File diganti sepenuhnya
+#### File diganti sepenuhnya
 File lama `assets/models/heart/nihongopro_full_heart.glb` dan `heart_metadata.json` DIHAPUS, digantikan `cardiovascular_educational.glb` (106KB, glTF 2.0, 34 mesh) dan `cardiovascular-data.json` (18 entri: atrium/ventrikel kanan-kiri, aorta, vena kava superior/inferior, arteri/vena pulmonalis kanan-kiri, arteri/vena tungkai kanan-kiri, plus 3 mesh simulasi).
 
-### Kode viewer ditulis ulang sepenuhnya (bukan sekadar ganti path file)
+#### Kode viewer ditulis ulang sepenuhnya (bukan sekadar ganti path file)
 HTML kontrol diperluas dari 2 tombol (Denyut, Reset) menjadi 4 tombol (Reset, Alur Darah, Simulasi Gagal Jantung, Simulasi Syok/Sumbatan). Seluruh blok `<script type="module">` (175 baris kode lama v191) diganti dengan implementasi baru yang menerapkan SEMUA pelajaran integrasi model 3D dari v191 hingga v211: import map, ResizeObserver, normalisasi underscore, `labelFor()` versi "coba nama lengkap dulu baru fallback", dan penanganan mesh tersembunyi untuk 3 skenario klinis.
 
-### 🔍 Ditemukan: versi Three.js berbeda dari model-model lain (0.180.0, bukan 0.164.1)
+#### 🔍 Ditemukan: versi Three.js berbeda dari model-model lain (0.180.0, bukan 0.164.1)
 Sebelum testing, dikonfirmasi bahwa import map file produksi ini memakai `three@0.180.0` (dari integrasi original v191), BUKAN `0.164.1` yang dipakai di 10 integrasi model lain (v202-v211). Test lokal SEMPAT disiapkan dengan Three.js 0.164.1 (pola default), kemudian dikoreksi setelah pemeriksaan eksplisit path import map file produksi -- Three.js 0.180.0 diinstal ulang untuk memastikan versi API yang diuji GENUINELY identik dengan yang akan dipakai production, bukan diasumsikan sama dengan integrasi lain. **Pelajaran untuk integrasi/pembaruan model berikutnya**: selalu cek versi Three.js yang tertulis di import map file yang akan dimodifikasi, jangan asumsikan seragam di semua halaman.
 
-### Verifikasi menyeluruh (Three.js 0.180.0 di-vendor lokal, versi dikonfirmasi cocok)
+#### Verifikasi menyeluruh (Three.js 0.180.0 di-vendor lokal, versi dikonfirmasi cocok)
 - **Grid-scan mengonfirmasi 0 nama segmen yang bocor tersebar** dari 34 mesh (banyak di antaranya tersegmentasi underscore).
 - **Simulasi Gagal Jantung dikonfirmasi**: mengembalikan `"Edema Tungkai（下肢浮腫）Leg edema"` dengan Kaigo tepat ("Catat lokasi, simetri, waktu muncul, berat badan, sesak, dan kemampuan berjalan").
 - **Simulasi Syok/Sumbatan dikonfirmasi menampilkan mesh yang benar**: `"Peringatan Syok（ショックの警告）Shock warning"` dengan tanda klinis lengkap (pucat, dingin, keringat, nadi cepat, tekanan darah turun, bingung/kesadaran menurun).
@@ -2181,25 +2225,25 @@ Sebelum testing, dikonfirmasi bahwa import map file produksi ini memakai `three@
 - **Regresi struktural menyeluruh**: 11/11 tab tetap utuh, KHUSUS diverifikasi tab Fisiologi (animasi sirkulasi SVG dari v188 yang TIDAK disentuh selama edit ini) tetap punya 12 elemen path SVG, tab Kuis tetap dapat diakses.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Signifikansi: pembaruan model yang sudah ada, bukan integrasi baru -- disiplin regresi ekstra diterapkan
+#### Signifikansi: pembaruan model yang sudah ada, bukan integrasi baru -- disiplin regresi ekstra diterapkan
 Ini bukan penambahan halaman baru, melainkan PENGGANTIAN model yang sudah berjalan di production sejak v191 -- risiko regresi lebih tinggi karena menyentuh halaman yang sudah lama stabil. Verifikasi ekstra dilakukan khusus untuk memastikan konten yang TIDAK diubah (tab Fisiologi dengan animasi sirkulasi SVG) genuinely tidak terpengaruh, bukan hanya mengandalkan validator sintaks umum.
 
 **Verifikasi**: `node --check` valid, `<div>` balance dikonfirmasi (50=50) setelah penggantian HTML dan penggantian blok script penuh, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D BARU + hotspot (0 segmen bocor) + 3 mode independen + regresi 11-tab (termasuk verifikasi eksplisit konten Fisiologi yang tidak disentuh) dikonfirmasi bekerja langsung di percobaan pertama via Three.js 0.180.0 ter-vendor lokal (versi dikonfirmasi cocok dengan file produksi), dengan bukti visual 3 screenshot.
 
-## v213 — Model 3D Mata & Telinga (dari file pengguna) ditambahkan — dua viewer 3D independen di satu halaman
+### v213 — Model 3D Mata & Telinga (dari file pengguna) ditambahkan — dua viewer 3D independen di satu halaman
 
 **Konteks**: pengguna menyediakan `sensory_eye_ear_3d_kaigo_package.zip` -- model mata dan telinga edukatif dengan 19 entri metadata (bola mata, lensa, retina, saraf optik, daun telinga, liang telinga, koklea, kanalis semisirkularis -- masing-masing kanan-kiri) dan **tiga simulasi independen**: Katarak, Gangguan Pendengaran, dan Peringatan Vertigo. Ini MELENGKAPI halaman `Sistem-Kulit-Indra.html` yang sejak v209 sudah punya viewer 3D kulit/luka tekan -- kini halaman ini punya DUA viewer 3D independen dalam satu tab Anatomi.
 
-### File diintegrasikan
+#### File diintegrasikan
 `assets/models/sensory/sensory_eye_ear_educational.glb` (101KB, glTF 2.0, 28 mesh) + `sensory-data.json` (19 entri) disalin ke proyek. Viewer baru ditambahkan SETELAH viewer kulit yang sudah ada (bukan menggantikan) dalam tab Anatomi yang sama, dengan ID elemen berbeda (`sensory3d*` vs `skin3d*`) untuk menghindari konflik. Kontrol: reset kamera, **Simulasi Katarak**, **Simulasi Gangguan Dengar**, **Peringatan Vertigo** -- ketiganya independen.
 
-### Import map digunakan bersama (tidak duplikat)
+#### Import map digunakan bersama (tidak duplikat)
 Karena halaman ini sudah punya `<script type="importmap">` dari integrasi kulit (v209, Three.js 0.164.1), script viewer baru CUKUP menambahkan `<script type="module">` kedua tanpa import map baru -- satu import map berlaku untuk seluruh halaman. Dikonfirmasi tidak ada konflik dengan menjalankan kedua viewer bersamaan dalam pengujian.
 
-### Verifikasi metadata eksplisit sebelum kode (metodologi v210-v212 dipertahankan)
+#### Verifikasi metadata eksplisit sebelum kode (metodologi v210-v212 dipertahankan)
 Dicek: 28 mesh vs 19 entri metadata -- 9 bagian (Siluet Kepala, Iris Kanan/Kiri, Pupil Kanan/Kiri, Gendang Telinga Kanan/Kiri, Tulang Pendengaran Kanan/Kiri) TIDAK punya deskripsi, ditangani via fallback `labelFor()` standar. Tidak ada key dengan angka sebagai identitas sah (aman dari bug v209).
 
-### Verifikasi menyeluruh (Three.js di-vendor lokal, KEDUA viewer diuji bersamaan)
+#### Verifikasi menyeluruh (Three.js di-vendor lokal, KEDUA viewer diuji bersamaan)
 - **Kedua canvas (kulit + mata-telinga) dikonfirmasi load bersamaan tanpa saling mengganggu** -- pengujian eksplisit menunjukkan viewer kulit (mode tekanan) tetap berfungsi independen setelah viewer mata-telinga selesai dimuat dan diuji.
 - **Grid-scan mengonfirmasi hotspot bekerja**: `"Bola Mata Kiri（左眼球）Left eyeball"` dengan metadata lengkap; fallback "Metadata belum tersedia" muncul wajar untuk bagian yang memang tidak punya deskripsi (Siluet Kepala).
 - **Ketiga simulasi dikonfirmasi bekerja dengan Kaigo tepat**: Katarak (`"Tingkatkan pencahayaan, kurangi silau"`), Gangguan Dengar (`"Jangan berteriak; bicara perlahan, jelas, dari depan"`), Vertigo (`"Dudukkan pengguna dan jangan biarkan berjalan sendiri"`).
@@ -2208,70 +2252,74 @@ Dicek: 28 mesh vs 19 entri metadata -- 9 bagian (Siluet Kepala, Iris Kanan/Kiri,
 - Regresi nol: 11/11 tab tetap utuh, viewer kulit yang sudah ada TIDAK terpengaruh, mini quiz dan Case Simulator tetap berfungsi.
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Signifikansi: pola dua-viewer-per-halaman pertama kali diterapkan
+#### Signifikansi: pola dua-viewer-per-halaman pertama kali diterapkan
 Ini adalah kasus pertama satu halaman punya lebih dari satu viewer 3D independen -- pola yang mungkin berguna untuk halaman lain di masa depan yang membahas beberapa organ terkait dalam satu materi (seperti Kulit & Indra yang mencakup topik kulit DAN organ indra sekaligus). Verifikasi khusus dilakukan untuk memastikan kedua Three.js scene/renderer terpisah tidak saling mengganggu resource atau event listener.
 
 **Verifikasi**: `node --check` valid, `<div>` balance dikonfirmasi (59=59) setelah penyisipan HTML, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, model 3D BARU + hotspot + 3 simulasi independen + KEDUA viewer bekerja bersamaan tanpa konflik + regresi 11-tab dikonfirmasi bekerja langsung di percobaan pertama via Three.js ter-vendor lokal, dengan bukti visual 2 screenshot.
 
-## v214 — Kurikulum 3-Level: Prototipe "Kardiovaskular Menengah" — bug href kosong ditemukan & diperbaiki
+## v214–v231 — Kurikulum trilogi 3-level per sistem organ + audit penutup
+
+Perluasan kurikulum per sistem organ menjadi trilogi Dasar → Menengah → Lanjutan: dimulai prototipe dan trilogi Kardiovaskular (v214–v217), diselingi audit Papan Tulis Digital (v220), lalu trilogi sepuluh sistem organ tersisa hingga MILESTONE seluruh 11 organ trilogi selesai (v230), dan ditutup audit fase penutup Trilogi Anatomi (v231).
+
+### v214 — Kurikulum 3-Level: Prototipe "Kardiovaskular Menengah" — bug href kosong ditemukan & diperbaiki
 
 **Konteks**: pengguna meminta pengembangan materi anatomi ke level Menengah dan Lanjutan (target: caregiver Kaigo lanjut, calon perawat, DAN pelajar bahasa Jepang tingkat lanjut sekaligus). Disepakati: pendekatan halaman TERPISAH per level (bukan selector dalam satu file, demi keamanan teknis dan kemudahan pemeliharaan), dimulai dari 1 organ prioritas (Kardiovaskular) sebagai prototipe sebelum diperluas ke organ lain.
 
-### Halaman baru: `Materi/Sistem-Kardiovaskular-Menengah.html`
+#### Halaman baru: `Materi/Sistem-Kardiovaskular-Menengah.html`
 8 tab dengan tema warna merah tua (beda dari merah cerah halaman Dasar): Siklus Jantung (fase sistol/diastol detail, bunyi jantung S1-S4, curah jantung), Regulasi (Hukum Frank-Starling, preload/afterload/kontraktilitas, regulasi saraf otonom), EKG Dasar (animasi gelombang P-QRS-T, pola ritme yang perlu dikenali seperti fibrilasi atrium), Farmakologi (beta-blocker, ACE inhibitor, diuretik, antikoagulan — dengan efek samping yang perlu diwaspadai), Patofisiologi (mekanisme kompensasi gagal jantung, sindrom koroner akut), Istilah Rumah Sakit (kosakata カルテ tingkat lanjut + contoh kalimat klinis rumah sakit), mini kuis, dan Clinical Case Simulator (skenario antikoagulan + jatuh + benturan kepala — kasus yang butuh pemahaman farmakologi DAN observasi klinis sekaligus).
 
-### Navigasi level ditambahkan ke kedua halaman
+#### Navigasi level ditambahkan ke kedua halaman
 Komponen `.level-nav` (① Dasar / ② Menengah / ③ Lanjutan-segera) ditambahkan di hero section BAIK halaman Dasar maupun Menengah, saling bertaut dua arah. Level "Lanjutan" ditandai sebagai placeholder tidak aktif.
 
-### 🐛 Bug ditemukan SENDIRI dan langsung tertangkap validator: href kosong untuk placeholder
+#### 🐛 Bug ditemukan SENDIRI dan langsung tertangkap validator: href kosong untuk placeholder
 Percobaan pertama memakai `<a href="#" style="opacity:.4;pointer-events:none">` untuk menandai level Lanjutan yang belum ada -- validator resmi proyek (`malformed-href` check) LANGSUNG menangkap ini sebagai "link mati" di KEDUA file. **Diperbaiki**: placeholder diganti dari elemen `<a>` menjadi `<span>` biasa (non-link, styling serupa tapi genuinely bukan link kosong) -- pendekatan yang lebih benar secara semantik HTML untuk item yang belum bisa diklik, dan akan dipakai sebagai pola standar untuk placeholder level Lanjutan di organ-organ lain nanti.
 
-### Animasi baru: gelombang EKG
+#### Animasi baru: gelombang EKG
 Path SVG kompleks (P-QRS-T) dianimasikan dengan teknik `stroke-dasharray`/`stroke-dashoffset` yang sama seperti animasi sirkulasi darah (v188) -- menciptakan efek gelombang EKG "berjalan" dari kiri ke kanan secara berulang, dengan tombol jeda/lanjutkan.
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **8/8 tab halaman Menengah terverifikasi**, animasi EKG genuinely ada di DOM dan tombol jeda genuinely mengubah state, mini quiz dan Case Simulator bekerja end-to-end.
 - **Navigasi DUA ARAH dikonfirmasi berfungsi**: dari Menengah ke Dasar (11 tab termuat) dan sebaliknya dari Dasar ke Menengah -- keduanya diverifikasi via `page.evaluate().click()` (bukan `page.click()` biasa, karena navbar global proyek yang sticky sempat menghalangi klik fisik simulasi Playwright pada link level-nav -- bug metodologi test, bukan bug produk, diperbaiki dengan trigger click via JS langsung).
 - Halaman diindeks otomatis ke Search (293→294 materi).
 - Validator resmi PASSED 0 error 0 warning (setelah perbaikan href), 94 test tetap lulus.
 
-### Signifikansi: fondasi kurikulum 3-level dimulai, pola siap direplikasi
+#### Signifikansi: fondasi kurikulum 3-level dimulai, pola siap direplikasi
 Ini prototipe PERTAMA dari rencana ekspansi kurikulum 3-level (Dasar/Menengah/Lanjutan) untuk seluruh 11 sistem organ. Pola halaman terpisah + navigasi level + placeholder non-link untuk level yang belum ada kini siap dijadikan template untuk organ-organ lain dan level Lanjutan berikutnya.
 
 **Verifikasi**: `node --check` valid, `<div>` balance dikonfirmasi (51=51 Dasar, 39=39 Menengah), validator PASSED 0 error 0 warning (setelah perbaikan href kosong), 94 test lulus, `npm ci` bersih dari nol, 8/8 tab + animasi EKG + navigasi 2-arah antar level dikonfirmasi bekerja via Playwright.
 
-## v215 — Kurikulum 3-Level: Trilogi Kardiovaskular SELESAI (Dasar → Menengah → Lanjutan)
+### v215 — Kurikulum 3-Level: Trilogi Kardiovaskular SELESAI (Dasar → Menengah → Lanjutan)
 
 **Konteks**: melengkapi trilogi 3-level yang dimulai di v214 (Dasar + Menengah) dengan level Lanjutan -- ditargetkan untuk calon perawat/tenaga medis dan pelajar bahasa Jepang tingkat teknis tertinggi, mendekati kurikulum keperawatan sesungguhnya tapi TETAP sebagai materi edukatif konseptual, bukan pengganti pendidikan formal.
 
-### Halaman baru: `Materi/Sistem-Kardiovaskular-Lanjutan.html`
+#### Halaman baru: `Materi/Sistem-Kardiovaskular-Lanjutan.html`
 8 tab dengan tema warna merah gelap (beda dari merah cerah Dasar dan merah tua Menengah): Hemodinamik (MAP/CVP/SVR/PCWP, kurva tekanan-volume ventrikel, fraksi ejeksi HFrEF vs HFpEF), Aritmia (klasifikasi supraventrikular vs ventrikular, mekanisme reentry, blok konduksi derajat 1-3), Farmakologi Mendalam (klasifikasi Vaughan Williams untuk antiaritmia, vasopresor vs inotropik, interaksi obat beta-blocker+CCB), Syok Kardiogenik (pembeda dari syok hipovolemik/distributif, tanda klinis kunci), Prosedur & Alat (defibrilasi, pacemaker, PCI, IABP), Istilah ICU/CCU (kosakata tingkat rumah sakit intensif + kalimat klinis), mini kuis, Clinical Case Simulator (skenario syok kardiogenik pasca infark -- membedakan dari syok hipovolemik lewat pola respons terhadap cairan).
 
-### Batasan konten dinyatakan eksplisit sejak awal halaman
+#### Batasan konten dinyatakan eksplisit sejak awal halaman
 Kotak info khusus di bagian atas halaman (`info-card scope`) menyatakan TEGAS bahwa materi ini untuk edukasi bahasa dan konsep, BUKAN pengganti pendidikan keperawatan formal atau panduan dosis -- angka/dosis obat spesifik SENGAJA tidak dicantumkan karena bervariasi menurut kondisi pasien dan kebijakan institusi. Ini batasan yang dipegang konsisten sepanjang penulisan konten level ini.
 
-### Navigasi 3-arah lengkap diaktifkan
+#### Navigasi 3-arah lengkap diaktifkan
 `.level-nav` di KETIGA halaman (Dasar, Menengah, Lanjutan) diperbarui -- placeholder `<span>` "Lanjutan (segera)" dari v214 diganti `<a href="Sistem-Kardiovaskular-Lanjutan.html">` yang genuinely aktif. Trilogi sekarang saling bertaut penuh: dari halaman mana pun bisa langsung berpindah ke kedua level lainnya.
 
-### Pelajaran v214 (bug href kosong) diterapkan preventif sejak awal
+#### Pelajaran v214 (bug href kosong) diterapkan preventif sejak awal
 Halaman baru ini LANGSUNG memakai `<a href="...">` yang benar untuk semua 3 link level-nav (tidak ada placeholder `href="#"` sama sekali) -- dicek eksplisit sebelum validasi bahwa tidak ada `href="#"` di file baru ini. Validator PASSED tanpa perlu perbaikan tambahan, berbeda dari v214 yang sempat gagal di percobaan pertama.
 
-### Verifikasi menyeluruh
+#### Verifikasi menyeluruh
 - Playwright: **8/8 tab halaman Lanjutan terverifikasi**, mini quiz dan Case Simulator (skenario syok kardiogenik) bekerja end-to-end dengan penjelasan yang membedakan syok kardiogenik dari hipovolemik.
 - **Navigasi SIKLUS PENUH 3-arah dikonfirmasi**: Lanjutan→Dasar (11 tab)→Menengah (8 tab)→Lanjutan (8 tab), seluruh rotasi berhasil tanpa kehilangan konten di halaman mana pun.
 - Halaman diindeks otomatis ke Search (294→295 materi).
 - Validator resmi PASSED 0 error 0 warning (tanpa perlu perbaikan, berbeda dari v214), 94 test tetap lulus.
 
-### Signifikansi: trilogi pertama selesai, pola siap direplikasi ke 10 organ lain
+#### Signifikansi: trilogi pertama selesai, pola siap direplikasi ke 10 organ lain
 Ini adalah BUKTI KONSEP lengkap kurikulum 3-level yang diminta pengguna -- Kardiovaskular kini punya materi Dasar (Kaigo), Menengah (Kaigo-lanjut/calon perawat), dan Lanjutan (calon perawat/tenaga medis/pelajar bahasa teknis) dalam satu ekosistem yang saling terhubung. Pola CSS (warna bertingkat per level), struktur navigasi, kotak batasan-konten eksplisit, dan pendekatan tab yang genuinely berbeda konten (bukan pengulangan dengan kosakata lebih sulit) siap dijadikan template untuk 10 sistem organ lainnya.
 
 **Verifikasi**: `node --check` valid, `<div>` balance dikonfirmasi (51/39/39 untuk Dasar/Menengah/Lanjutan) di ketiga file, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, 8/8 tab + quiz + case simulator + navigasi SIKLUS PENUH 3-arah dikonfirmasi bekerja via Playwright.
 
-## v216 — Pendalaman Konten Trilogi Kardiovaskular Menengah & Lanjutan — bug hitung kosakata & metodologi test ditemukan
+### v216 — Pendalaman Konten Trilogi Kardiovaskular Menengah & Lanjutan — bug hitung kosakata & metodologi test ditemukan
 
 **Konteks**: pengguna meminta konten trilogi (v214-v215) diperdalam karena "masih sangat sedikit di bagian-bagiannya" -- audit menunjukkan tab konten di halaman Menengah dan Lanjutan berkisar 1400-2500 karakter per tab dengan hanya 10 entri kosakata dan 3 soal mini kuis, jauh lebih tipis dibanding halaman Dasar.
 
-### Halaman Menengah diperdalam
+#### Halaman Menengah diperdalam
 - **Siklus Jantung**: ditambah sistem konduksi listrik lengkap (nodus SA/AV, berkas His, serat Purkinje) dan diagram Wiggers yang menghubungkan EKG-tekanan-bunyi jantung, plus indeks jantung
 - **Regulasi**: ditambah regulasi hormonal jangka panjang (RAAS, ANP, vasopresin) dengan penjelasan kenapa RAAS "salah membaca" kondisi pada gagal jantung
 - **EKG Dasar**: ditambah interval QT/segmen ST, cara sederhana menghitung denyut jantung dari kertas EKG, dan konsep 12-lead EKG
@@ -2279,7 +2327,7 @@ Ini adalah BUKTI KONSEP lengkap kurikulum 3-level yang diminta pengguna -- Kardi
 - **Patofisiologi**: ditambah aterosklerosis (4 tahap) dan klasifikasi hipertensi primer vs sekunder
 - Kosakata diperluas dari 10 → **20 entri**, mini kuis dari 3 → **8 soal**, 2 kalimat klinis baru ditambahkan
 
-### Halaman Lanjutan diperdalam
+#### Halaman Lanjutan diperdalam
 - **Hemodinamik**: ditambah formula MAP, konsep monitoring invasif (arterial line, CVC, kateter Swan-Ganz), parameter SvO2
 - **Aritmia**: ditambah blok AV derajat 1/2 Tipe I & II/3 secara detail, dan prinsip evaluasi stabil-vs-tidak-stabil dalam manajemen akut
 - **Farmakologi Mendalam**: ditambah inodilator, prinsip titrasi obat vasoaktif, terapi trombolitik/reperfusi ("time is muscle")
@@ -2287,53 +2335,53 @@ Ini adalah BUKTI KONSEP lengkap kurikulum 3-level yang diminta pengguna -- Kardi
 - **Prosedur & Alat**: ditambah kardioversi, ICD, CRT, CPR
 - Kosakata diperluas dari 10 → **20 entri**, mini kuis dari 3 → **8 soal**, 2 kalimat klinis baru ditambahkan
 
-### 🐛 Bug ditemukan: kosakata Menengah cuma 19 baris, bukan 20
+#### 🐛 Bug ditemukan: kosakata Menengah cuma 19 baris, bukan 20
 Setelah penambahan 9 entri baru (target 10) ke 10 entri asli, dikonfirmasi lewat penghitungan regex eksplisit bahwa totalnya 19 bukan 20 -- satu entri kurang dari rencana. **Diperbaiki**: ditambahkan entri "心音 (bunyi jantung)" untuk genap 20, dikonfirmasi ulang via regex count.
 
-### 🔍 Ditemukan: bug metodologi test sendiri, BUKAN bug produk
+#### 🔍 Ditemukan: bug metodologi test sendiri, BUKAN bug produk
 Pengujian awal pasca-perluasan memakai `page.click('.mini-quiz-choice:first-child')` yang GAGAL setelah soal ke-5 (timeout). Investigasi lewat test debug step-by-step (log per iterasi) mengonfirmasi kuis PRODUK genuinely benar (8/8 soal tampil berurutan, skor akhir muncul) -- masalahnya murni sintaks locator Playwright yang salah (`:first-child` menyeleksi elemen pertama dalam parent, bukan elemen `.mini-quiz-choice` pertama, setelah render ulang DOM). Diperbaiki dengan `page.evaluate(() => document.querySelector('.mini-quiz-choice').click())` yang lebih eksplisit -- pelajaran ini akan diterapkan untuk semua test mini-quiz berikutnya.
 
-### 🔍 Ditemukan: false-positive validator dari node_modules yang belum dibersihkan
+#### 🔍 Ditemukan: false-positive validator dari node_modules yang belum dibersihkan
 Satu kali proses `npm ci` sempat dijalankan tanpa `rm -rf node_modules` sebelum `validate.py`, menyebabkan validator menangkap file dokumentasi HTML dari dependency `tslib` sebagai "halaman materi tanpa SEO tags" -- FAILED dengan 4 error palsu. Dikonfirmasi bukan bug konten dengan menghapus `node_modules` dan menjalankan ulang validator (PASSED bersih). Pengingat metodologi: SELALU `rm -rf node_modules` sebelum `validate.py`, bahkan di tengah sesi kerja yang sama.
 
-### Verifikasi menyeluruh (Playwright, metodologi klik diperbaiki)
+#### Verifikasi menyeluruh (Playwright, metodologi klik diperbaiki)
 - **Kedua halaman**: 8/8 tab terbuka benar, **20/20 baris kosakata** terkonfirmasi, **8/8 soal mini kuis** terjawab sampai skor akhir tampil, Case Simulator bekerja dengan hasil benar.
 - Validator resmi PASSED 0 error 0 warning (dikonfirmasi ulang setelah pembersihan node_modules), 94 test tetap lulus.
 - Pertumbuhan konten: Menengah 444→551 baris (+24%), Lanjutan 431→533 baris (+24%).
 
-### Signifikansi: kedalaman konten meningkat signifikan, dua pelajaran metodologi baru dicatat
+#### Signifikansi: kedalaman konten meningkat signifikan, dua pelajaran metodologi baru dicatat
 Selain memperdalam substansi (bukan pengulangan dangkal), sesi ini menghasilkan dua pelajaran metodologi test yang akan diterapkan konsisten ke depan: (1) locator Playwright untuk elemen yang re-render harus eksplisit lewat `document.querySelector`, bukan pseudo-class posisional yang rapuh; (2) `node_modules` harus dibersihkan SETIAP KALI sebelum validator dijalankan, tidak cukup sekali di awal sesi.
 
 **Verifikasi**: `node --check` valid, `<div>` balance dikonfirmasi seimbang di kedua file, validator PASSED 0 error 0 warning (setelah pembersihan node_modules yang benar), 94 test lulus, `npm ci` bersih dari nol, 8/8 tab + 20/20 kosakata + 8/8 kuis selesai + case simulator dikonfirmasi bekerja di KEDUA halaman via Playwright dengan metodologi klik yang diperbaiki.
 
-## v217 — Pendalaman Konten Trilogi Kardiovaskular PUTARAN KEDUA — kosakata & mini kuis dilipatgandakan lagi
+### v217 — Pendalaman Konten Trilogi Kardiovaskular PUTARAN KEDUA — kosakata & mini kuis dilipatgandakan lagi
 
 **Konteks**: pengguna meminta seluruh materi diperdalam lagi setelah putaran pertama (v216) -- kali ini setiap tab konten pada halaman Menengah dan Lanjutan mendapat SATU subbagian besar tambahan lagi, kosakata dilipatgandakan dari 20→30 entri per halaman, dan mini kuis dari 8→12 soal.
 
-### Halaman Menengah — subbagian baru per tab
+#### Halaman Menengah — subbagian baru per tab
 - **Siklus Jantung**: variabilitas denyut jantung (心拍変動) dan aritmia sinus respiratorik, perbedaan tekanan kerja jantung kanan vs kiri (kaitan dengan gejala gagal jantung kiri vs kanan yang berbeda)
 - **Regulasi**: mekanisme refleks baroreseptor secara detail (siklus umpan balik naik/turun tekanan), pengaruh penuaan terhadap regulasi kardiovaskular (baroreseptor, kekakuan arteri, respons β-adrenergik)
 - **EKG Dasar**: hipertrofi ventrikel kiri pada EKG, pengaruh elektrolit (kalium/kalsium) terhadap bentuk gelombang
 - **Farmakologi**: farmakokinetik obat pada lansia (fungsi ginjal, distribusi obat, metabolisme hati), polifarmasi (多剤併用)
 - **Patofisiologi**: dislipidemia (LDL/HDL/trigliserida), penyakit arteri perifer dan klaudikasio intermiten
 
-### Halaman Lanjutan — subbagian baru per tab
+#### Halaman Lanjutan — subbagian baru per tab
 - **Hemodinamik**: keseimbangan suplai-kebutuhan oksigen jaringan (DO2/VO2), laktat sebagai penanda perfusi dan pentingnya TREN bukan angka tunggal
 - **Aritmia**: Torsades de Pointes dan kaitannya dengan QT memanjang, sindrom pre-eksitasi Wolff-Parkinson-White
 - **Farmakologi Mendalam**: antikoagulan oral generasi baru (DOAC) vs warfarin, manajemen antikoagulan perioperatif
 - **Syok Kardiogenik**: penilaian respons terhadap terapi (status mental, urine, kulit, tren laktat), prinsip bahwa MAP normal tidak otomatis berarti perfusi organ adekuat
 - **Prosedur & Alat**: CABG (operasi bypass koroner), ekokardiografi (transtorakal dan transesofageal)
 
-### 🐛 Pola bug berulang: kesalahan hitung kosakata (3 kali dalam sesi ini)
+#### 🐛 Pola bug berulang: kesalahan hitung kosakata (3 kali dalam sesi ini)
 Setiap kali menambahkan "10 entri baru" ke kosakata, hasil aktual konsisten hanya 9 -- terjadi di halaman Menengah (19 bukan 20) DAN dua kali di halaman Lanjutan (29 lalu masih 29 setelah percobaan pertama perbaikan). **Pola bug ini akhirnya diatasi dengan disiplin baru**: setiap penambahan blok kosakata SEKARANG diikuti verifikasi hitung eksplisit (`grep -c`) SEBELUM melanjutkan ke langkah berikutnya, bukan berasumsi jumlah yang ditulis sudah benar. Baik halaman Menengah maupun Lanjutan akhirnya dikonfirmasi genuinely 30/30 lewat penghitungan langsung, bukan estimasi.
 
-### Verifikasi menyeluruh (Playwright, mencakup regresi navigasi 3-arah)
+#### Verifikasi menyeluruh (Playwright, mencakup regresi navigasi 3-arah)
 - **Kedua halaman**: 8/8 tab, **30/30 baris kosakata** (dikonfirmasi count persis, bukan perkiraan), **12/12 soal mini kuis** terjawab sampai skor akhir tampil, Case Simulator bekerja dengan hasil benar.
 - **Navigasi 3-arah dikonfirmasi TIDAK regresi** meski konten bertambah signifikan: Lanjutan→Dasar (11 tab)→Menengah (8 tab), keduanya utuh.
 - Validator resmi PASSED 0 error 0 warning (dengan `node_modules` dibersihkan dulu sesuai pelajaran v216), 94 test tetap lulus.
 - Pertumbuhan konten total sejak trilogi dimulai: Menengah 444→637 baris (+43%), Lanjutan 431→597 baris (+38%).
 
-### Signifikansi: kedalaman konten kini menyerupai referensi materi kelas menengah-lanjut sesungguhnya
+#### Signifikansi: kedalaman konten kini menyerupai referensi materi kelas menengah-lanjut sesungguhnya
 Dua putaran pendalaman berturut telah membawa kedua halaman dari kerangka dasar (v214) menjadi materi yang genuinely padat dengan mekanisme fisiologis detail, farmakologi bertingkat, dan konteks klinis nyata -- sambil tetap mempertahankan batasan konten yang sudah dinyatakan sejak awal (tidak ada dosis obat spesifik, kotak peringatan "bukan pengganti pendidikan formal" tetap dipertahankan).
 
 **Verifikasi**: `node --check` valid, `<div>` balance dikonfirmasi seimbang di kedua file (56/56 dan 62/62), 30/30 kosakata dan 12/12 kuis dikonfirmasi via penghitungan eksplisit, validator PASSED 0 error 0 warning, 94 test lulus, `npm ci` bersih dari nol, navigasi 3-arah tanpa regresi dikonfirmasi via Playwright.
@@ -2346,22 +2394,22 @@ Dua putaran pendalaman berturut telah membawa kedua halaman dari kerangka dasar 
 - Menambahkan template Kana, Kanji, Kaigo, Anatomi, Genkō yōshi, Cornell Notes, garis, titik, dan kotak kanji.
 - Menambahkan cache offline baru agar aset papan tulis v219 tidak tertahan oleh versi lama.
 
-## v220 — Audit & Perbaikan Papan Tulis Digital (v219) — 4 kekurangan genuine ditemukan dan diperbaiki
+### v220 — Audit & Perbaikan Papan Tulis Digital (v219) — 4 kekurangan genuine ditemukan dan diperbaiki
 
 **Konteks**: pengguna mengunggah paket v219 berisi fitur baru Papan Tulis Digital (`Papan-Tulis.html`, `assets/whiteboard.js`, `assets/whiteboard.css`) dari sesi kerja lain, meminta review lalu perbaikan atas kekurangan yang ditemukan. Audit dilakukan dengan membandingkan pola infrastruktur halaman ini terhadap 51 halaman lain di proyek (bukan sekadar menguji apakah fitur "jalan").
 
-### 4 kekurangan genuine ditemukan lewat investigasi eksplisit (bukan asumsi)
+#### 4 kekurangan genuine ditemukan lewat investigasi eksplisit (bukan asumsi)
 1. **Dark mode tidak terhubung**: `whiteboard.css` tidak punya satu pun aturan `[data-theme="dark"]`, dan `Papan-Tulis.html` tidak memuat `dark-mode-toggle.js` -- padahal 26/51 halaman root proyek sudah memakainya.
 2. **Tidak ada skip-link aksesibilitas**: berlawanan dengan 45/51 halaman lain yang WCAG 2.4.1-compliant (Bypass Blocks) -- signifikan karena toolbar whiteboard punya banyak tombol berurutan.
 3. **Tidak terdaftar di Search.html**: pengguna yang mencari "papan tulis", "genkou", "cornell notes", atau "latihan kanji" lewat pencarian utama proyek tidak akan menemukan tool ini, meski sudah tertaut dari `Platform-App.html`.
 4. **Klaim "mendukung sentuhan" tidak sepenuhnya akurat**: meta description menyebut dukungan sentuhan, tapi pinch-zoom dua jari tidak berfungsi -- `touch-action:none` diterapkan tanpa logic deteksi multi-pointer.
 
-### Perbaikan #1-3: dark mode, skip-link, search index
+#### Perbaikan #1-3: dark mode, skip-link, search index
 - `Papan-Tulis.html`: ditambahkan `<script src="assets/dark-mode-toggle.js">` (sinkron, posisi awal `<head>`, sesuai pola 26 halaman lain agar tidak ada flash warna salah) dan `<script src="assets/np-skip-link.js" defer>` sebelum `</body>`.
 - `assets/whiteboard.css`: ditambahkan blok `[data-theme="dark"]` komprehensif -- override token warna root (`--ink`,`--muted`,`--cream`,`--wine`,`--line`,`--shadow`) plus override eksplisit untuk 5 selector yang sebelumnya hardcode `#fff`/warna terang (`.toolbar`,`.board-shell`,`.tool`,`.select`,`.action-file`,`.text-editor`,`.page-tab`,`.canvas-wrap`,`.zoom button`,`.pagebar`,dll). **Keputusan desain disengaja**: variabel `--paper` (warna kertas gambar) TIDAK ikut berubah gelap -- kertas tetap terang di kedua mode, konsisten dengan pola aplikasi menggambar profesional lain, supaya tinta/goresan pengguna tetap kontras dan terbaca.
 - `Search.html`: ditambahkan entri `{cat:'tools',icon:'✏️',title:'Papan Tulis Digital',...}` dengan tags pencarian lengkap (papan tulis, whiteboard, kana, kanji, genkou yoshi, cornell notes, catatan kaigo, gambar, sketsa).
 
-### Perbaikan #4: multi-touch pinch-zoom (paling kompleks, melalui 3 iterasi debugging)
+#### Perbaikan #4: multi-touch pinch-zoom (paling kompleks, melalui 3 iterasi debugging)
 Ditambahkan tracking pointer ganda (`activePointers` Map, terpisah dari `app` state supaya tidak ikut ter-JSON-stringify saat disimpan/undo) di `assets/whiteboard.js`:
 - `down()`: saat pointer kedua terdeteksi (`activePointers.size>=2`), goresan yang sedang berjalan dibatalkan dengan aman dan mode pinch diaktifkan (menyimpan jarak awal, zoom awal, posisi pan awal antar dua jari).
 - `move()`: selama mode pinch aktif, zoom dihitung proporsional terhadap perubahan jarak antar dua jari (`app.zoom=pinch.zoom*factor`, dibatasi 25%-250% sesuai batas zoom yang sudah ada).
@@ -2369,26 +2417,26 @@ Ditambahkan tracking pointer ganda (`activePointers` Map, terpisah dari `app` st
 
 **Perbaikan tambahan yang lahir dari debugging**: goresan sentuhan (`pointerType==='touch'`) sekarang menunggu jendela deteksi 60ms sebelum genuinely di-commit ke `current().objects` -- mencegah kondisi balapan (race condition) di mana jari PERTAMA yang turun langsung memulai goresan sebelum jari KEDUA sempat terdeteksi turun. Titik-titik gerakan selama jendela deteksi ditampung di `pendingObj` supaya goresan awal tidak terpotong pada gerakan cepat. Kondisi commit akhirnya disederhanakan menjadi bergantung pada variabel state `pinch` secara langsung (`!pinch`) alih-alih menghitung `activePointers.size`, karena terbukti lebih tepat secara semantik dan tahan terhadap urutan event yang tidak terduga.
 
-### Verifikasi menyeluruh (Playwright + CDP touch simulation)
+#### Verifikasi menyeluruh (Playwright + CDP touch simulation)
 - **Regresi dasar**: menggambar dengan pena tetap berfungsi normal setelah seluruh perubahan (dikonfirmasi berulang di setiap iterasi perbaikan).
 - **Skip-link**: dikonfirmasi Tab pertama pada halaman jatuh ke "Lewati ke konten utama".
 - **Dark mode**: dikonfirmasi lewat pembacaan `getComputedStyle` genuinely -- background board-shell, tombol tool, dan canvas-wrap berubah warna gelap saat `data-theme="dark"` diaktifkan; kertas/stage dikonfirmasi TETAP terang (`rgb(255,254,250)`) sesuai keputusan desain, setelah satu kali salah implementasi sempat membuat kertas ikut gelap (ditemukan dan diperbaiki dalam sesi yang sama).
 - **Pinch-zoom**: dikonfirmasi via simulasi CDP `Input.dispatchTouchEvent` dua jari, zoom membesar dari 56% menjadi 113% saat jari direnggangkan.
 - **Tidak ada goresan hantu**: dikonfirmasi jumlah objek TETAP 1 (bukan bertambah) setelah gestur pinch selesai -- goresan yang dibatalkan saat pointer kedua terdeteksi genuinely tidak meninggalkan sisa di state.
 
-### Batasan pengujian yang ditemukan dan didokumentasikan secara jujur
+#### Batasan pengujian yang ditemukan dan didokumentasikan secara jujur
 Satu skenario spesifik -- menggambar dengan MOUSE segera setelah simulasi CDP touch dua-jari dalam sesi Playwright/Chromium headless yang sama -- tidak berhasil diverifikasi lulus meski logika kode telah ditelusuri benar. Investigasi mendalam (6 iterasi test terisolasi, termasuk `dispatchEvent` manual yang bypass Playwright API sepenuhnya) mengonfirmasi Chromium headless melaporkan event mouse pasca-CDP-touch dengan `pointerType:"touch"` dan `pointerId` yang tumpang tindih dengan sesi touch sebelumnya -- yang kemudian secara BENAR memicu logika pembatalan-gambar yang memang dirancang untuk mendeteksi pointer kedua. Ini disimpulkan sebagai artifact lingkungan pengujian (CDP+Playwright+Chromium headless), bukan cacat logika aplikasi, berdasarkan: (1) menggambar mouse murni tanpa pinch sebelumnya bekerja sempurna, (2) pinch murni tanpa mouse sesudahnya bekerja sempurna, (3) `dispatchEvent` manual langsung ke elemen kanvas (bypass total Playwright input API) tetap menunjukkan pola pointerType yang sama. Skenario mouse-fisik-murni atau touch-device-fisik-murni (tanpa pencampuran CDP simulation) diperkirakan tidak akan mengalami masalah ini, tapi TIDAK dapat diverifikasi mutlak tanpa perangkat fisik -- dicatat sebagai batasan jujur, bukan diklaim sebagai "100% terverifikasi".
 
-### Kode debug dibersihkan
+#### Kode debug dibersihkan
 Seluruh instrumentasi sementara (`window.__wbDebug`, `window.__wbLastDown`, `window.__wbTO2`, listener logging tambahan) yang disuntikkan selama investigasi akar masalah DIHAPUS TOTAL dari kode final -- dikonfirmasi lewat `grep -c "__wb"` mengembalikan 0 sebelum file dianggap siap produksi.
 
 **Verifikasi**: `node --check` valid untuk `whiteboard.js`, `<div>` balance dikonfirmasi seimbang di `Papan-Tulis.html` (15=15) dan `Search.html` (15=15), validator resmi proyek PASSED 0 error 0 warning (295 materi, 94 test), `npm ci` bersih dari nol, 6/8 skenario Playwright terverifikasi lulus penuh dengan bukti computed-style dan penghitungan objek eksplisit, 1 skenario (multi-touch murni real-device) tidak dapat diuji tanpa perangkat fisik namun logika ditelusuri benar, 1 skenario (mouse-pasca-CDP-touch dalam sesi headless yang sama) dikonfirmasi sebagai artifact lingkungan pengujian lewat 6 iterasi investigasi terisolasi.
 
-## v221 — Trilogi Sistem Saraf LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ kedua setelah Kardiovaskular
+### v221 — Trilogi Sistem Saraf LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ kedua setelah Kardiovaskular
 
 **Konteks**: pengguna meminta pendalaman menyeluruh kurikulum anatomi mencakup SELURUH 11 organ (3 level tiap organ, dikerjakan berurutan dan sistematis), termasuk memperdalam level Dasar yang sudah ada. Sesi ini adalah organ KEDUA (setelah Kardiovaskular) yang mencapai trilogi 3-level lengkap.
 
-### Level Dasar (`Sistem-Saraf.html`) diperdalam
+#### Level Dasar (`Sistem-Saraf.html`) diperdalam
 - **Tab Penyakit**: keempat penyakit (stroke iskemik, demensia, Parkinson, epilepsi) diperkaya dengan subtipe dan pembeda penting -- stroke hemoragik vs iskemik, 3 jenis demensia (Alzheimer/vaskular/Lewy body) dan pembeda dari delirium, gejala non-motorik Parkinson yang muncul sebelum gejala motorik, epilepsi baru pada lansia.
 - **Tab Observasi**: dari 6 poin datar tanpa struktur, dikelompokkan jadi 2 kategori jelas (deteksi dini perubahan mendadak vs pemantauan progresi bertahap) dengan konteks kenapa masing-masing penting, plus prinsip pencatatan "kapan mulai dan seberapa cepat" yang paling membantu tenaga medis.
 - **Tab Penuaan**: ditambah pembeda eksplisit "penuaan normal" vs "tanda yang perlu dilaporkan" -- menjawab kebingungan paling umum caregiver.
@@ -2396,16 +2444,16 @@ Seluruh instrumentasi sementara (`window.__wbDebug`, `window.__wbLastDown`, `win
 - Mini kuis: 3 → 8 soal.
 - Navigasi level (`.level-nav`) ditambahkan ke hero section untuk pertama kali di halaman ini.
 
-### Halaman baru: `Sistem-Saraf-Menengah.html`
+#### Halaman baru: `Sistem-Saraf-Menengah.html`
 8 tab: Impuls Saraf (potensial aksi, selubung mielin, neurotransmiter utama), Klasifikasi Stroke (trombotik/embolik/TIA, teritori vaskular dan gejala terkait lokasi -- termasuk stroke sirkulasi posterior yang sering terlewat), Tahapan Demensia (**fitur interaktif baru**: bar 3-tahap yang bisa diklik, menampilkan karakteristik tiap tahap), Farmakologi (antiplatelet, obat anti-demensia, Levodopa dengan penekanan konsistensi jadwal, antiepilepsi), Penilaian Neurologis (konsep GCS dan MMSE), Istilah Rumah Sakit (20 kosakata + kalimat klinis), mini kuis (8 soal), Case Simulator (skenario TIA sirkulasi posterior yang ditolak pasien -- menguji pemahaman kenapa gejala yang sudah membaik tetap butuh evaluasi).
 
-### Halaman baru: `Sistem-Saraf-Lanjutan.html`
+#### Halaman baru: `Sistem-Saraf-Lanjutan.html`
 8 tab: Neuroimaging (CT vs MRI, prinsip kenapa CT tanpa kontras dilakukan pertama), Klasifikasi Kejang (fokal vs umum, status epileptikus), Farmakologi Mendalam (trombolitik dan "time is brain", golongan antiepilepsi berdasar mekanisme), Manajemen Stroke Akut (konsep jendela waktu, trombektomi mekanis, pemantauan pasca-terapi termasuk evaluasi menelan), Prosedur & Alat (pungsi lumbal, EEG, monitoring ICP), Istilah Neuro-ICU (20 kosakata termasuk vasospasme serebral, perdarahan subarakhnoid, herniasi otak), mini kuis (8 soal), Case Simulator (skenario onset stroke tidak diketahui pasti -- menguji pemahaman pentingnya waktu "terakhir terlihat normal").
 
-### Kotak batasan konten dipertahankan konsisten
+#### Kotak batasan konten dipertahankan konsisten
 Sama seperti Kardiovaskular Lanjutan, halaman ini menyatakan eksplisit di awal bahwa materi untuk edukasi konsep, bukan pengganti pendidikan formal, dan tidak mencantumkan dosis obat spesifik.
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - **Regresi Dasar**: 0 error, 11/11 tab tetap terbuka benar setelah pendalaman konten, subbagian baru (脳出血, dll) dikonfirmasi genuinely ada di DOM, tab Observasi sekarang punya 2 subbagian h3 (sebelumnya 0).
 - **Menengah**: 8/8 tab, **fitur tahapan demensia interaktif dikonfirmasi bekerja** (klik tahap berat mengubah label jadi "Tahap Berat（高度）"), 20/20 kosakata.
 - **Lanjutan**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi mengembalikan hasil benar untuk skenario TIA sirkulasi posterior.
@@ -2413,16 +2461,16 @@ Sama seperti Kardiovaskular Lanjutan, halaman ini menyatakan eksplisit di awal b
 - Halaman baru diindeks otomatis ke Search (295→297 materi).
 - Validator resmi PASSED 0 error 0 warning -- termasuk `[materi-parity]` check yang mengonfirmasi seluruh 297 materi (bukan hanya yang baru) punya service worker, progress tracking, JSON-LD, dan konten Jepang cukup. 94 test tetap lulus.
 
-### Catatan metodologi: kesalahan test sendiri terdeteksi dan diperbaiki
+#### Catatan metodologi: kesalahan test sendiri terdeteksi dan diperbaiki
 Percobaan pertama skrip verifikasi salah menghitung jumlah tab halaman Dasar (menulis "expected 10", padahal genuinely 11 termasuk tab Ringkasan) -- dikonfirmasi ini murni kesalahan penulisan skrip test, bukan regresi produk, dengan mengecek ulang struktur asli halaman. Skrip diperbaiki dan dijalankan ulang untuk hasil bersih.
 
 **Verifikasi**: `node --check` valid untuk kedua halaman baru, `<div>` balance dikonfirmasi seimbang (55 Dasar setelah edit, 44 Menengah, 35 Lanjutan), 20/20 kosakata dan 8/8 kuis dikonfirmasi via `grep -c` di kedua halaman baru (bukan asumsi), tidak ada `href="#"` kosong, validator resmi PASSED 0 error 0 warning (297 materi), 94 test lulus, `npm ci` bersih dari nol, seluruh trilogi + navigasi 3-arah + fitur interaktif dikonfirmasi bekerja via Playwright.
 
-## v222 — Trilogi Sistem Pernapasan LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ ketiga
+### v222 — Trilogi Sistem Pernapasan LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ ketiga
 
 **Konteks**: melanjutkan pendalaman menyeluruh kurikulum anatomi (11 organ × 3 level, dikerjakan berurutan). Sesi ini adalah organ KETIGA (setelah Kardiovaskular dan Saraf) yang mencapai trilogi 3-level lengkap.
 
-### Level Dasar (`Sistem-Pernapasan.html`) diperdalam
+#### Level Dasar (`Sistem-Pernapasan.html`) diperdalam
 - **Tab Penyakit**: keempat penyakit (pneumonia, pneumonia aspirasi, COPD, bronkitis) diperkaya -- ciri khas pneumonia pada lansia (gejala klasik sering TIDAK muncul, bisa hanya kebingungan mendadak/nafsu makan menurun), konsep aspirasi diam-diam (silent aspiration) tanpa tersedak terlihat, eksaserbasi akut COPD, pembeda bronkitis akut vs kronis berdasar durasi.
 - **Tab Observasi**: dari 6 poin datar, dikelompokkan jadi parameter terukur (frekuensi napas dihitung 1 menit penuh, SpO2) vs observasi visual/perilaku, plus prinsip "bandingkan dengan kondisi biasa/baseline individu pasien" -- penting khusus untuk pasien COPD lama yang nilai normalnya berbeda dari orang sehat.
 - **Tab Penuaan**: ditambah dampak praktis pada aktivitas sehari-hari dan pembeda sesak napas WAJAR (membaik dengan istirahat) vs PATOLOGIS (tidak membaik, muncul mendadak).
@@ -2430,16 +2478,16 @@ Percobaan pertama skrip verifikasi salah menghitung jumlah tab halaman Dasar (me
 - Mini kuis: 3 → 8 soal.
 - Navigasi level (`.level-nav`) ditambahkan untuk pertama kali di halaman ini.
 
-### Halaman baru: `Sistem-Pernapasan-Menengah.html`
+#### Halaman baru: `Sistem-Pernapasan-Menengah.html`
 8 tab: Mekanika Napas (prinsip tekanan inspirasi/ekspirasi, kenapa ekspirasi COPD butuh usaha aktif, volume/kapasitas paru, otot bantu napas), Gagal Napas (klasifikasi Tipe 1 hipoksemik vs Tipe 2 hiperkapnik, PRINSIP PENTING risiko oksigen berlebihan pada COPD kronis), Analisis Gas Darah (parameter pH/PaO2/PaCO2/HCO3, asidosis/alkalosis respiratorik, kecepatan kompensasi ginjal vs paru), Farmakologi (bronkodilator, steroid inhalasi, mukolitik, antibiotik -- dengan penekanan teknik inhalasi yang benar), Terapi Oksigen (kanul vs masker, prinsip "oksigen adalah obat"), Istilah Rumah Sakit (20 kosakata + kalimat klinis), mini kuis (8 soal), Case Simulator (skenario keluarga menaikkan oksigen sendiri pada pasien COPD -- menguji pemahaman risiko oksigen berlebihan).
 
-### Halaman baru: `Sistem-Pernapasan-Lanjutan.html`
+#### Halaman baru: `Sistem-Pernapasan-Lanjutan.html`
 8 tab: Ventilasi Mekanis (invasif vs non-invasif/NPPV, mode kontrol penuh vs bantuan), ARDS (penyebab, kenapa berbeda dari gagal napas biasa -- masalah membran pertukaran gas, bukan sekadar "pompa"), Farmakologi Mendalam (prinsip modern minimalkan sedasi, vasodilator paru khusus, interaksi opioid-depresi napas), Weaning & Ekstubasi (kriteria kesiapan menyeluruh, keseimbangan risiko ekstubasi dini vs penundaan), Prosedur & Alat (bronkoskopi, trakeostomi, drainase pleura, drainase postural), Istilah RICU (20 kosakata termasuk lung-protective ventilation, ventilation-perfusion ratio), mini kuis (8 soal), Case Simulator (skenario weaning dengan kesadaran fluktuatif -- menguji pemahaman evaluasi menyeluruh, bukan satu parameter saja).
 
-### 🔍 Investigasi menyeluruh: hasil test mencurigakan dikonfirmasi BUKAN regresi
+#### 🔍 Investigasi menyeluruh: hasil test mencurigakan dikonfirmasi BUKAN regresi
 Test awal melaporkan "canvas model 3D paru-paru tidak ada" setelah pendalaman konten -- diselidiki lewat test isolasi dengan logging console detail, ditemukan CDN `cdn.jsdelivr.net` diblokir kebijakan CORS/jaringan SANDBOX PENGUJIAN (`ERR_FAILED`, status 403), BUKAN kerusakan dari edit konten. Dikonfirmasi eksplisit: (1) kode viewer 3D (GLTFLoader, OrbitControls, elemen UI) genuinely UTUH 100% dan tidak tersentuh sama sekali selama sesi pendalaman konten ini -- hanya tab konten TEKS lain yang diedit, (2) kriteria verifikasi test diperbaiki dari "canvas WebGL termuat" (bergantung akses CDN eksternal yang tidak tersedia di sandbox) menjadi "integritas struktural kode" (elemen UI + referensi GLTFLoader/model GLB genuinely ada di HTML) -- kriteria yang lebih tepat untuk lingkungan pengujian ini. Setelah perbaikan kriteria, seluruh verifikasi PASSED.
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - **Regresi Dasar**: 0 error, 11/11 tab tetap terbuka benar, subbagian baru (aspirasi diam-diam, dll) dikonfirmasi genuinely ada di DOM, tab Observasi sekarang punya 2 subbagian h3 (sebelumnya 0), model 3D paru-paru dikonfirmasi TIDAK regresi (kode struktural utuh).
 - **Menengah**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi.
 - **Lanjutan**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi mengembalikan hasil benar untuk skenario weaning.
@@ -2449,11 +2497,11 @@ Test awal melaporkan "canvas model 3D paru-paru tidak ada" setelah pendalaman ko
 
 **Verifikasi**: `node --check` valid untuk kedua halaman baru, `<div>` balance dikonfirmasi seimbang (55 Dasar setelah edit, 38 Menengah, 36 Lanjutan), 20/20 kosakata dan 8/8 kuis dikonfirmasi via `grep -c` di kedua halaman baru, tidak ada `href="#"` kosong, validator resmi PASSED 0 error 0 warning (299 materi), 94 test lulus, `npm ci` bersih dari nol, seluruh trilogi + navigasi 3-arah + integritas model 3D dikonfirmasi via Playwright dengan investigasi mendalam atas satu temuan mencurigakan yang terbukti keterbatasan lingkungan pengujian, bukan regresi produk.
 
-## v223 — Trilogi Sistem Pencernaan LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ keempat
+### v223 — Trilogi Sistem Pencernaan LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ keempat
 
 **Konteks**: melanjutkan pendalaman menyeluruh kurikulum anatomi (11 organ x 3 level, dikerjakan berurutan). Sesi ini adalah organ KEEMPAT (setelah Kardiovaskular, Saraf, Pernapasan) yang mencapai trilogi 3-level lengkap.
 
-### Level Dasar (`Sistem-Pencernaan.html`) diperdalam
+#### Level Dasar (`Sistem-Pencernaan.html`) diperdalam
 - **Tab Penyakit**: keempat penyakit (sembelit, disfagia, GERD, tukak lambung) diperkaya -- fecal impaction (便塞栓) sebagai komplikasi sembelit kronis termasuk peringatan "diare merembes" yang menyesatkan, tingkatan keparahan disfagia, pembeda nyeri GERD vs nyeri jantung, tanda bahaya perdarahan (melena/hematemesis) pada tukak lambung.
 - **Tab Observasi**: dikelompokkan jadi observasi saat makan (risiko tersedak/aspirasi) vs observasi eliminasi-nutrisi (pemantauan bertahap), dengan prinsip pencatatan pola BAB yang lebih detail.
 - **Tab Penuaan**: ditambah subbagian kenapa "menunggu pasien merasa haus/lapar" tidak cukup pada lansia (sensasi berkurang seiring usia) dan tanda tersembunyi dehidrasi/malnutrisi.
@@ -2461,13 +2509,13 @@ Test awal melaporkan "canvas model 3D paru-paru tidak ada" setelah pendalaman ko
 - Mini kuis: 3 -> 8 soal.
 - Navigasi level (`.level-nav`) ditambahkan untuk pertama kali di halaman ini.
 
-### Halaman baru: `Sistem-Pencernaan-Menengah.html`
+#### Halaman baru: `Sistem-Pencernaan-Menengah.html`
 8 tab: Enzim Pencernaan (amilase/pepsin/lipase/tripsin dan target nutrisinya, peran empedu mengemulsi lemak), Klasifikasi Disfagia (tiga fase menelan -- oral/faringeal/esofageal, fase faringeal sebagai yang paling berisiko aspirasi karena kaitan neurologis), Nutrisi Enteral (NGT vs PEG, prinsip keputusan medis-etis, perawatan dasar akses enteral), Farmakologi (PPI, laksatif, antiemetik, prinsip obat-waktu makan), Penilaian Nutrisi (keterbatasan BMI pada lansia), Istilah Rumah Sakit (20 kosakata + kalimat klinis), mini kuis (8 soal), Case Simulator (skenario batuk saat minum cairan pasca-stroke -- menguji pemahaman fase faringeal dan urgensi evaluasi).
 
-### Halaman baru: `Sistem-Pencernaan-Lanjutan.html`
+#### Halaman baru: `Sistem-Pencernaan-Lanjutan.html`
 8 tab: Obstruksi Usus (mekanis vs ileus fungsional, pembeda pola nyeri kolik vs konstan), Perdarahan GI Akut (GI atas vs bawah, tanda syok hipovolemik), Farmakologi Mendalam (terapi supresi asam pra-endoskopi, prokinetik, interaksi NSAID-antikoagulan), Bedah & Stoma (reseksi usus, kolostomi vs ileostomi, perawatan kulit peristoma), Prosedur & Alat (endoskopi GI atas, kolonoskopi, NG tube dekompresi), Istilah ICU GI (20 kosakata termasuk iskemia, anastomosis, peritonitis), mini kuis (8 soal), Case Simulator (skenario obstruksi usus pasca-operasi dengan rencana pemberian pencahar -- menguji pemahaman kenapa pencahar berisiko pada kecurigaan obstruksi mekanis).
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - **Regresi Dasar**: 0 error, 11/11 tab tetap terbuka benar, subbagian baru (便塞栓 fecal impaction, dll) dikonfirmasi genuinely ada di DOM, tab Observasi sekarang punya 2 subbagian h3 (sebelumnya 0).
 - **Menengah**: 8/8 tab, 20/20 kosakata.
 - **Lanjutan**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi mengembalikan hasil benar untuk skenario obstruksi usus.
@@ -2477,11 +2525,11 @@ Test awal melaporkan "canvas model 3D paru-paru tidak ada" setelah pendalaman ko
 
 **Verifikasi**: `node --check` valid untuk kedua halaman baru, `<div>` balance dikonfirmasi seimbang (56 Dasar setelah edit, 35 Menengah, 36 Lanjutan), 20/20 kosakata dan 8/8 kuis dikonfirmasi via `grep -c` di ketiga halaman, tidak ada `href="#"` kosong, validator resmi PASSED 0 error 0 warning (301 materi), 94 test lulus, `npm ci` bersih dari nol, seluruh trilogi + navigasi 3-arah dikonfirmasi via Playwright.
 
-## v224 — Trilogi Sistem Urinaria LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ kelima
+### v224 — Trilogi Sistem Urinaria LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ kelima
 
 **Konteks**: melanjutkan pendalaman menyeluruh kurikulum anatomi (11 organ x 3 level, dikerjakan berurutan). Sesi ini adalah organ KELIMA (setelah Kardiovaskular, Saraf, Pernapasan, Pencernaan) yang mencapai trilogi 3-level lengkap.
 
-### Level Dasar (`Sistem-Urinaria.html`) diperdalam
+#### Level Dasar (`Sistem-Urinaria.html`) diperdalam
 - **Tab Penyakit**: keempat penyakit (inkontinensia, ISK, BPH, gagal ginjal) diperkaya -- tiga jenis inkontinensia (stres/urgensi/campuran) dijelaskan lebih rinci, gejala ISK atipikal pada lansia dan risiko salah dicurigai sebagai masalah kognitif, tahapan gejala BPH hingga retensi urine akut, pembeda gagal ginjal akut (berpotensi pulih) vs kronis (progresif).
 - **Tab Observasi**: dikelompokkan jadi observasi pola/karakter urine vs observasi kondisi umum-kulit, dengan penekanan bahwa perubahan kognitif MENDADAK pada lansia sebaiknya selalu memicu pertanyaan tentang kemungkinan ISK.
 - **Tab Penuaan**: ditambah subbagian kenapa penurunan filtrasi ginjal memengaruhi pemberian obat, dan kaitan nokturia dengan risiko jatuh malam hari.
@@ -2489,13 +2537,13 @@ Test awal melaporkan "canvas model 3D paru-paru tidak ada" setelah pendalaman ko
 - Mini kuis: 3 -> 8 soal.
 - Navigasi level (`.level-nav`) ditambahkan untuk pertama kali di halaman ini.
 
-### Halaman baru: `Sistem-Urinaria-Menengah.html`
+#### Halaman baru: `Sistem-Urinaria-Menengah.html`
 8 tab: Fisiologi Nefron (tiga tahap pembentukan urine -- filtrasi/reabsorpsi/sekresi, kaitan RAAS dengan Kardiovaskular), Klasifikasi Inkontinensia (inkontinensia fungsional dan overflow sebagai jenis tambahan, latihan dasar panggul), Urinalisis (protein/glukosa/sel darah putih/berat jenis urine), Farmakologi (antikolinergik, alpha-blocker, prinsip diuretik dan waktu pemberian), Penilaian Fungsi Ginjal (eGFR, keterbatasan interpretasi kreatinin pada lansia), Istilah Rumah Sakit (20 kosakata + kalimat klinis), mini kuis (8 soal), Case Simulator (skenario inkontinensia overflow yang keliru diberi obat antikolinergik -- menguji pemahaman pembeda mekanisme jenis inkontinensia).
 
-### Halaman baru: `Sistem-Urinaria-Lanjutan.html`
+#### Halaman baru: `Sistem-Urinaria-Lanjutan.html`
 8 tab: Dialisis (hemodialisis vs peritoneal, kapan dipertimbangkan), Urosepsis (kenapa ISK bisa berkembang jadi sepsis, tanda peringatan termasuk suhu rendah pada lansia), Farmakologi Mendalam (penyesuaian dosis obat pada gangguan ginjal, obat nefrotoksik, eritropoietin dan anemia ginjal), Gangguan Elektrolit (hiperkalemia dan kaitan aritmia jantung, kelebihan cairan), Prosedur & Alat (kateter urine, TURP, biopsi ginjal), Istilah Nefro-ICU (20 kosakata termasuk syok septik, terapi pengganti ginjal), mini kuis (8 soal), Case Simulator (skenario urosepsis dengan suhu rendah bukan demam -- menguji pemahaman presentasi atipikal infeksi berat pada lansia).
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - **Regresi Dasar**: 0 error, 11/11 tab tetap terbuka benar, subbagian baru (慢性腎臓病, dll) dikonfirmasi genuinely ada di DOM, tab Observasi sekarang punya 2 subbagian h3 (sebelumnya 0).
 - **Menengah**: 8/8 tab, 20/20 kosakata.
 - **Lanjutan**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi mengembalikan hasil benar untuk skenario urosepsis.
@@ -2505,11 +2553,11 @@ Test awal melaporkan "canvas model 3D paru-paru tidak ada" setelah pendalaman ko
 
 **Verifikasi**: `node --check` valid untuk kedua halaman baru, `<div>` balance dikonfirmasi seimbang (54 Dasar setelah edit, 35 Menengah, 35 Lanjutan), 20/20 kosakata dan 8/8 kuis dikonfirmasi via `grep -c` di ketiga halaman, tidak ada `href="#"` kosong, validator resmi PASSED 0 error 0 warning (303 materi), 94 test lulus, `npm ci` bersih dari nol, seluruh trilogi + navigasi 3-arah dikonfirmasi via Playwright.
 
-## v225 — Trilogi Sistem Endokrin LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ keenam
+### v225 — Trilogi Sistem Endokrin LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ keenam
 
 **Konteks**: melanjutkan pendalaman menyeluruh kurikulum anatomi (11 organ x 3 level, dikerjakan berurutan). Sesi ini adalah organ KEENAM (setelah Kardiovaskular, Saraf, Pernapasan, Pencernaan, Urinaria) yang mencapai trilogi 3-level lengkap.
 
-### Level Dasar (`Sistem-Endokrin.html`) diperdalam
+#### Level Dasar (`Sistem-Endokrin.html`) diperdalam
 - **Tab Penyakit**: keempat penyakit (diabetes, hipotiroidisme, hipertiroidisme, osteoporosis) diperkaya -- dua kondisi darurat gula darah yang berlawanan (hipoglikemia vs hiperglikemia berat), hipertiroidisme "apatis" pada lansia yang gejalanya tidak khas, osteoporosis sebagai "penyakit diam-diam" (silent disease).
 - **Tab Observasi**: dikelompokkan jadi deteksi cepat darurat gula darah vs pemantauan bertahap, dengan penekanan pemeriksaan kaki rutin pada diabetes meski tanpa keluhan nyeri.
 - **Tab Penuaan**: ditambah subbagian kaitan penurunan hormon reproduksi (estrogen/testosteron) dengan kesehatan tulang, menjelaskan kenapa osteoporosis lebih umum pada wanita pasca-menopause.
@@ -2517,13 +2565,13 @@ Test awal melaporkan "canvas model 3D paru-paru tidak ada" setelah pendalaman ko
 - Mini kuis: 3 -> 8 soal.
 - Navigasi level (`.level-nav`) ditambahkan untuk pertama kali di halaman ini.
 
-### Halaman baru: `Sistem-Endokrin-Menengah.html`
+#### Halaman baru: `Sistem-Endokrin-Menengah.html`
 8 tab: Umpan Balik Hormon (prinsip negative feedback, sumbu hipotalamus-hipofisis-kelenjar target, kenapa TSH jadi indikator sensitif fungsi tiroid), Klasifikasi Diabetes (tipe 1 vs tipe 2, konsep pradiabetes), Tes Fungsi Hormon (HbA1c sebagai gambaran 2-3 bulan, TSH dan T4 bebas), Farmakologi (obat antidiabetes oral, sediaan insulin, terapi pengganti tiroid), Komplikasi Kronis (neuropati/retinopati/nefropati diabetik), Istilah Rumah Sakit (20 kosakata + kalimat klinis), mini kuis (8 soal), Case Simulator (skenario luka kaki diabetes tanpa nyeri -- menguji pemahaman neuropati diabetik dan bahaya anggapan "tidak sakit berarti tidak parah").
 
-### Halaman baru: `Sistem-Endokrin-Lanjutan.html`
+#### Halaman baru: `Sistem-Endokrin-Lanjutan.html`
 8 tab: Ketoasidosis Diabetik/DKA (mekanisme pembentukan keton, napas Kussmaul), Krisis Tiroid/Thyroid Storm (bentuk ekstrem hipertiroidisme), Insufisiensi Adrenal Akut (penghentian mendadak kortikosteroid sebagai penyebab penting, prinsip tapering), Farmakologi Mendalam (koreksi bertahap DKA, beta-blocker pada krisis tiroid), Prosedur & Pemantauan (continuous glucose monitoring), Istilah Endokrin-ICU (20 kosakata termasuk sindrom hiperglikemia hiperosmolar), mini kuis (8 soal), Case Simulator (skenario krisis Addison akibat penghentian mendadak steroid -- menguji pemahaman prinsip tapering).
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - **Regresi Dasar**: 0 error, 11/11 tab tetap terbuka benar, subbagian baru (高血糖, dll) dikonfirmasi genuinely ada di DOM, tab Observasi sekarang punya 2 subbagian h3 (sebelumnya 0).
 - **Menengah**: 8/8 tab, 20/20 kosakata.
 - **Lanjutan**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi mengembalikan hasil benar untuk skenario krisis Addison.
@@ -2533,23 +2581,23 @@ Test awal melaporkan "canvas model 3D paru-paru tidak ada" setelah pendalaman ko
 
 **Verifikasi**: `node --check` valid untuk kedua halaman baru, `<div>` balance dikonfirmasi seimbang (53 Dasar setelah edit, 34 Menengah, 35 Lanjutan), 20/20 kosakata dan 8/8 kuis dikonfirmasi via `grep -c` di ketiga halaman, tidak ada `href="#"` kosong, validator resmi PASSED 0 error 0 warning (305 materi), 94 test lulus, `npm ci` bersih dari nol, seluruh trilogi + navigasi 3-arah dikonfirmasi via Playwright.
 
-## v226 — Trilogi Sistem Otot LENGKAP (Dasar dilengkapi + Menengah + Lanjutan baru) — organ ketujuh
+### v226 — Trilogi Sistem Otot LENGKAP (Dasar dilengkapi + Menengah + Lanjutan baru) — organ ketujuh
 
 **Konteks**: melanjutkan pendalaman menyeluruh kurikulum anatomi (11 organ x 3 level, dikerjakan berurutan). Sesi ini adalah organ KETUJUH (setelah Kardiovaskular, Saraf, Pernapasan, Pencernaan, Urinaria, Endokrin) yang mencapai trilogi 3-level lengkap.
 
-### Level Dasar (`Sistem-Otot.html`) — audit menunjukkan konten sudah lebih matang dari sesi sebelumnya
+#### Level Dasar (`Sistem-Otot.html`) — audit menunjukkan konten sudah lebih matang dari sesi sebelumnya
 Berbeda dari organ-organ sebelumnya, audit awal menemukan tab Penyakit, Observasi, dan Penuaan pada halaman ini SUDAH diperdalam dengan baik pada sesi kerja terdahulu (lingkaran setan sarkopenia-inaktivitas, pembeda kelemahan simetris vs asimetris, prinsip mobilisasi dini vs sindrom disuse). Yang genuinely masih perlu diselesaikan:
 - Kosakata: 19 -> 20 entri (dikonfirmasi via `grep -c` -- hanya kekurangan 1 entri, ditambahkan `筋萎縮` atrofi otot).
 - Mini kuis: 3 -> 8 soal, mencakup konten yang sudah ada di tab Penyakit/Observasi/Penuaan (sindrom disuse, ciri RA vs nyeri sendi biasa, tanda darurat kram, prinsip mobilisasi dini).
 - Navigasi level (`.level-nav`) ditambahkan untuk pertama kali di halaman ini.
 
-### Halaman baru: `Sistem-Otot-Menengah.html`
+#### Halaman baru: `Sistem-Otot-Menengah.html`
 8 tab: Mekanisme Kontraksi (peran kalsium dan sinyal saraf, kenapa kelemahan otot bisa berasal dari masalah saraf bukan otot itu sendiri, ATP sebagai energi kontraksi), Jenis Serat Otot (serat lambat Tipe I vs cepat Tipe II, kaitan penurunan serat cepat dengan risiko jatuh lansia), Penilaian Kekuatan Otot (skala kekuatan manual, tes bangkit dari kursi, kecepatan berjalan), Farmakologi (relaksan otot dan risiko jatuh, NSAID, imunosupresan RA), Prinsip Latihan Terapeutik (progressive overload, pentingnya periode pemulihan), Istilah Rumah Sakit (20 kosakata + kalimat klinis), mini kuis (8 soal), Case Simulator (skenario efek samping relaksan otot yang diabaikan -- menguji pemahaman risiko jatuh terkait obat).
 
-### Halaman baru: `Sistem-Otot-Lanjutan.html`
+#### Halaman baru: `Sistem-Otot-Lanjutan.html`
 8 tab: Rhabdomiolisis (mekanisme kerusakan sel otot, bahaya mioglobin pada ginjal dan hiperkalemia, skenario lansia jatuh tergeletak lama), Miopati Kritis (ICU-acquired weakness, faktor risiko, pentingnya mobilisasi dini di ICU), Farmakologi Mendalam (obat pelumpuh otot, miopati akibat statin), Elektrolit & Fungsi Otot (kalium/kalsium/magnesium), Prosedur Diagnostik (EMG, biopsi otot, kreatin kinase), Istilah Orto-ICU (20 kosakata termasuk sindrom kompartemen, kelemahan terkait sepsis), mini kuis (8 soal), Case Simulator (skenario lansia tergeletak 10 jam -- menguji pemahaman risiko rhabdomiolisis meski kesadaran normal).
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - **Regresi Dasar**: 0 error, 11/11 tab tetap terbuka benar, kosakata dikonfirmasi genuinely 20/20.
 - **Menengah**: 8/8 tab, 20/20 kosakata.
 - **Lanjutan**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi mengembalikan hasil benar untuk skenario rhabdomiolisis.
@@ -2559,11 +2607,11 @@ Berbeda dari organ-organ sebelumnya, audit awal menemukan tab Penyakit, Observas
 
 **Verifikasi**: `node --check` valid untuk kedua halaman baru, `<div>` balance dikonfirmasi seimbang (55 Dasar setelah edit, 35 Menengah, 35 Lanjutan), 20/20 kosakata dan 8/8 kuis dikonfirmasi via `grep -c` di ketiga halaman, tidak ada `href="#"` kosong, validator resmi PASSED 0 error 0 warning (307 materi), 94 test lulus, `npm ci` bersih dari nol, seluruh trilogi + navigasi 3-arah dikonfirmasi via Playwright.
 
-## v227 — Trilogi Sistem Rangka LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ kedelapan
+### v227 — Trilogi Sistem Rangka LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ kedelapan
 
 **Konteks**: melanjutkan pendalaman menyeluruh kurikulum anatomi (11 organ x 3 level, dikerjakan berurutan). Sesi ini adalah organ KEDELAPAN (setelah Kardiovaskular, Saraf, Pernapasan, Pencernaan, Urinaria, Endokrin, Otot) yang mencapai trilogi 3-level lengkap.
 
-### Level Dasar (`Sistem-Rangka.html`) diperdalam
+#### Level Dasar (`Sistem-Rangka.html`) diperdalam
 - **Tab Penyakit**: keempat kondisi (osteoporosis, patah femur, osteoartritis, patah kompresi tulang belakang) diperkaya -- osteoporosis sebagai "penyakit diam-diam", risiko komplikasi pasca-patah femur (bukan hanya patahnya sendiri), pembeda pola nyeri osteoartritis vs RA, bahaya patah kompresi yang bisa terjadi tanpa jatuh sama sekali.
 - **Tab Observasi**: dikelompokkan jadi perubahan bertahap (risiko osteoporosis) vs observasi terkait kejadian jatuh, dengan penekanan mencatat durasi tergeletak (kaitan rhabdomiolisis, materi Otot Lanjutan).
 - **Tab Penuaan**: ditambah subbagian modifikasi lingkungan rumah sebagai pencegahan konkret (pencahayaan, pegangan, area licin).
@@ -2571,13 +2619,13 @@ Berbeda dari organ-organ sebelumnya, audit awal menemukan tab Penyakit, Observas
 - Mini kuis: 3 -> 8 soal.
 - Navigasi level (`.level-nav`) ditambahkan untuk pertama kali di halaman ini.
 
-### Halaman baru: `Sistem-Rangka-Menengah.html`
+#### Halaman baru: `Sistem-Rangka-Menengah.html`
 8 tab: Remodeling Tulang (siklus osteoklas-osteoblas, peran estrogen mengerem osteoklas, konsep puncak massa tulang), Klasifikasi Patah Tulang (tertutup vs terbuka, fragility fracture sebagai tanda kuat osteoporosis mendasar), Penilaian Kepadatan Tulang (DXA scan, konsep osteopenia sebagai tahap peringatan), Farmakologi Osteoporosis (bisfosfonat, kalsium-vitamin D, SERM), Prinsip Pencegahan Jatuh (faktor risiko multifaktorial, skrining risiko jatuh), Istilah Rumah Sakit (20 kosakata + kalimat klinis), mini kuis (8 soal), Case Simulator (skenario patah pergelangan tangan dari trauma minimal -- menguji pemahaman fragility fracture sebagai tanda osteoporosis).
 
-### Halaman baru: `Sistem-Rangka-Lanjutan.html`
+#### Halaman baru: `Sistem-Rangka-Lanjutan.html`
 8 tab: Bedah Ortopedi (ORIF vs artroplasti, pentingnya timing operasi cepat pada patah femur lansia), Sindrom Emboli Lemak (mekanisme, tanda klasik termasuk ruam petekie, timing 24-72 jam pasca-cedera), Osteoporosis Sekunder (penyebab dari kondisi/obat lain -- kortikosteroid, hipertiroidisme, CKD), Farmakologi Mendalam (terapi lini lanjut, analgesia multimoda, profilaksis pembekuan darah), Prosedur & Pemantauan (fiksasi eksternal, pemeriksaan neurovaskular, tekanan kompartemen), Istilah Orto-ICU (20 kosakata termasuk tromboemboli vena, delirium pasca-operasi), mini kuis (8 soal), Case Simulator (skenario sindrom emboli lemak pasca-operasi femur -- menguji pemahaman kombinasi tiga tanda klasik dan timing khasnya).
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - **Regresi Dasar**: 0 error, 11/11 tab tetap terbuka benar, tab Observasi sekarang punya 2 subbagian h3 (sebelumnya 0), kosakata dikonfirmasi genuinely 20/20.
 - **Menengah**: 8/8 tab, 20/20 kosakata.
 - **Lanjutan**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi mengembalikan hasil benar untuk skenario sindrom emboli lemak.
@@ -2587,11 +2635,11 @@ Berbeda dari organ-organ sebelumnya, audit awal menemukan tab Penyakit, Observas
 
 **Verifikasi**: `node --check` valid untuk kedua halaman baru, `<div>` balance dikonfirmasi seimbang (55 Dasar setelah edit, 33 Menengah, 36 Lanjutan), 20/20 kosakata dan 8/8 kuis dikonfirmasi via `grep -c` di ketiga halaman, tidak ada `href="#"` kosong, validator resmi PASSED 0 error 0 warning (309 materi), 94 test lulus, `npm ci` bersih dari nol, seluruh trilogi + navigasi 3-arah dikonfirmasi via Playwright.
 
-## v228 — Trilogi Sistem Limfatik & Imun LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ kesembilan
+### v228 — Trilogi Sistem Limfatik & Imun LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ kesembilan
 
 **Konteks**: melanjutkan pendalaman menyeluruh kurikulum anatomi (11 organ x 3 level, dikerjakan berurutan). Sesi ini adalah organ KESEMBILAN (setelah Kardiovaskular, Saraf, Pernapasan, Pencernaan, Urinaria, Endokrin, Otot, Rangka) yang mencapai trilogi 3-level lengkap.
 
-### Level Dasar (`Sistem-Limfatik-Imun.html`) — audit menunjukkan tab Penyakit sudah matang dari sesi sebelumnya
+#### Level Dasar (`Sistem-Limfatik-Imun.html`) — audit menunjukkan tab Penyakit sudah matang dari sesi sebelumnya
 Audit awal menemukan tab Penyakit SUDAH diperdalam dengan baik pada sesi kerja terdahulu (infeksi tersamar pada lansia, postherpetic neuralgia, deteksi dini limfedema, pembeda alergi vs anafilaksis). Yang genuinely masih perlu diperdalam:
 - **Tab Observasi**: dikelompokkan jadi deteksi cepat infeksi vs observasi bertahap limfedema/penyembuhan, dengan penekanan mencatat suhu DASAR individu.
 - **Tab Penuaan**: ditambah subbagian elaborasi konsep "peradangan tingkat rendah kronis" (inflammaging) yang sebelumnya hanya disebut sekilas tanpa penjelasan mekanisme.
@@ -2599,13 +2647,13 @@ Audit awal menemukan tab Penyakit SUDAH diperdalam dengan baik pada sesi kerja t
 - Mini kuis: 3 -> 8 soal, mencakup konten yang sudah ada di tab Penyakit (postherpetic neuralgia, anafilaksis, deteksi dini limfedema) dan subbagian baru.
 - Navigasi level (`.level-nav`) ditambahkan untuk pertama kali di halaman ini.
 
-### Halaman baru: `Sistem-Limfatik-Imun-Menengah.html`
+#### Halaman baru: `Sistem-Limfatik-Imun-Menengah.html`
 8 tab: Respons Imun (imunitas bawaan vs adaptif, peran sel B dan sel T, konsep memori imun sebagai dasar vaksinasi), Klasifikasi Vaksin (vaksin inaktif, hidup dilemahkan, mRNA), Hitung Darah Lengkap (hitung sel darah putih, diferensial), Farmakologi (imunosupresan, antihistamin, epinefrin untuk anafilaksis), Konsep Autoimun (mekanisme dasar, kenapa penanganannya berlawanan arah dari infeksi), Istilah Rumah Sakit (20 kosakata + kalimat klinis), mini kuis (8 soal), Case Simulator (skenario pasien imunosupresan dengan gejala tersamar -- menguji pemahaman tanda infeksi yang tidak klasik).
 
-### Halaman baru: `Sistem-Limfatik-Imun-Lanjutan.html`
+#### Halaman baru: `Sistem-Limfatik-Imun-Lanjutan.html`
 8 tab: Sepsis dari Perspektif Imun (kenapa respons imun bisa "berbalik" merugikan tubuh, kerentanan lansia), Neutropenia Febris (kenapa demam pada kondisi ini harus dianggap darurat), Kegagalan Imun Berat (imunodefisiensi primer vs sekunder), Farmakologi Mendalam (prinsip antibiotik dini pada sepsis, G-CSF, tapering imunosupresan), Prosedur & Pemantauan (kultur darah, pencarian sumber infeksi, isolasi protektif), Istilah Imuno-ICU (20 kosakata termasuk DIC, syok septik), mini kuis (8 soal), Case Simulator (skenario demam pasca-kemoterapi -- menguji pemahaman urgensi neutropenia febris terlepas dari derajat demam).
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - **Regresi Dasar**: 0 error, 11/11 tab tetap terbuka benar, tab Observasi sekarang punya 2 subbagian h3 (sebelumnya 0), kosakata dikonfirmasi genuinely 20/20.
 - **Menengah**: 8/8 tab, 20/20 kosakata.
 - **Lanjutan**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi mengembalikan hasil benar untuk skenario neutropenia febris.
@@ -2615,11 +2663,11 @@ Audit awal menemukan tab Penyakit SUDAH diperdalam dengan baik pada sesi kerja t
 
 **Verifikasi**: `node --check` valid untuk kedua halaman baru, `<div>` balance dikonfirmasi seimbang (54 Dasar setelah edit, 34 Menengah, 35 Lanjutan), 20/20 kosakata dan 8/8 kuis dikonfirmasi via `grep -c` di ketiga halaman, tidak ada `href="#"` kosong, validator resmi PASSED 0 error 0 warning (311 materi), 94 test lulus, `npm ci` bersih dari nol, seluruh trilogi + navigasi 3-arah dikonfirmasi via Playwright.
 
-## v229 — Trilogi Sistem Kulit & Indra LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ kesepuluh
+### v229 — Trilogi Sistem Kulit & Indra LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ kesepuluh
 
 **Konteks**: melanjutkan pendalaman menyeluruh kurikulum anatomi (11 organ x 3 level, dikerjakan berurutan). Sesi ini adalah organ KESEPULUH (setelah Kardiovaskular, Saraf, Pernapasan, Pencernaan, Urinaria, Endokrin, Otot, Rangka, Limfatik/Imun) yang mencapai trilogi 3-level lengkap.
 
-### Level Dasar (`Sistem-Kulit-Indra.html`) diperdalam
+#### Level Dasar (`Sistem-Kulit-Indra.html`) diperdalam
 - **Tab Penyakit**: keempat kondisi (luka tekan, katarak, gangguan pendengaran, kulit kering) diperkaya -- stadium luka tekan dan kenapa deteksi paling awal krusial, pembeda penglihatan kabur BERTAHAP (katarak) vs MENDADAK (perlu evaluasi segera), dampak gangguan pendengaran yang sering diremehkan (disalahartikan sebagai masalah kognitif, risiko keselamatan), lingkaran gatal-garuk pada kulit kering.
 - **Tab Observasi**: dikelompokkan jadi observasi kulit (deteksi dini luka tekan) vs observasi fungsi indra dan mobilitas, dengan pembeda perubahan bertahap vs mendadak pada penglihatan/pendengaran.
 - **Tab Penuaan**: ditambah subbagian dampak GABUNGAN penurunan penglihatan dan pendengaran bersamaan (risiko jatuh, komunikasi, respons darurat) dan pertimbangan lingkungan multi-indra.
@@ -2628,13 +2676,13 @@ Audit awal menemukan tab Penyakit SUDAH diperdalam dengan baik pada sesi kerja t
 - Navigasi level (`.level-nav`) ditambahkan untuk pertama kali di halaman ini.
 - **Verifikasi khusus**: halaman ini memiliki DUA viewer model 3D (kulit dan salah satu organ indra) -- dikonfirmasi via pengecekan referensi `GLTFLoader` di kode bahwa integritas struktural kedua viewer tidak terganggu sama sekali selama sesi pendalaman konten (hanya tab teks yang diedit, kode viewer tidak disentuh).
 
-### Halaman baru: `Sistem-Kulit-Indra-Menengah.html`
+#### Halaman baru: `Sistem-Kulit-Indra-Menengah.html`
 8 tab: Lapisan Kulit & Sensorik (epidermis/dermis/subkutan, reseptor sensorik, kaitan dengan klasifikasi stadium luka tekan), Stadium Luka Tekan (klasifikasi Stadium I-IV), Penilaian Risiko (skala penilaian terstandardisasi, faktor risiko yang saling berkaitan), Farmakologi (balutan luka, obat tetes mata, pelembap sebagai pencegahan), Gangguan Sensorik Lanjut (pembeda presbiopia vs katarak, konsep tinnitus), Istilah Rumah Sakit (20 kosakata + kalimat klinis), mini kuis (8 soal), Case Simulator (skenario kemerahan tidak hilang + hanya diberi pelembap tanpa ubah posisi -- menguji pemahaman sumber masalah adalah tekanan, bukan kekeringan).
 
-### Halaman baru: `Sistem-Kulit-Indra-Lanjutan.html`
+#### Halaman baru: `Sistem-Kulit-Indra-Lanjutan.html`
 8 tab: Luka Kompleks (debridement, terapi tekanan negatif/wound vac), Kegawatan Mata (glaukoma akut sudut tertutup, ablasi retina dengan gejala klasik kilatan cahaya dan "tirai" gelap), Infeksi Kulit Berat (selulitis, pembeda dari peradangan luka tekan biasa), Farmakologi Mendalam (antibiotik topikal vs sistemik, obat darurat glaukoma), Prosedur & Alat (kultur luka, kasur anti-dekubitus, pengukuran tekanan mata), Istilah Wound Care-ICU (20 kosakata), mini kuis (8 soal), Case Simulator (skenario ablasi retina tanpa nyeri -- menguji pemahaman bahwa ketiadaan nyeri tidak menyingkirkan kegawatan).
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - **Regresi Dasar**: 0 error, 11/11 tab tetap terbuka benar, tab Observasi sekarang punya 2 subbagian h3 (sebelumnya 0), kosakata dikonfirmasi genuinely 20/20, DUA viewer model 3D dikonfirmasi tidak regresi (6 referensi GLTFLoader di kode, konsisten dengan sebelum edit).
 - **Menengah**: 8/8 tab, 20/20 kosakata.
 - **Lanjutan**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi mengembalikan hasil benar untuk skenario ablasi retina.
@@ -2644,11 +2692,11 @@ Audit awal menemukan tab Penyakit SUDAH diperdalam dengan baik pada sesi kerja t
 
 **Verifikasi**: `node --check` valid untuk kedua halaman baru, `<div>` balance dikonfirmasi seimbang (62 Dasar setelah edit, 34 Menengah, 34 Lanjutan), 20/20 kosakata dan 8/8 kuis dikonfirmasi via `grep -c` di ketiga halaman, tidak ada `href="#"` kosong, validator resmi PASSED 0 error 0 warning (313 materi), 94 test lulus, `npm ci` bersih dari nol, seluruh trilogi + navigasi 3-arah + integritas dual model 3D dikonfirmasi via Playwright.
 
-## v230 — Trilogi Sistem Reproduksi LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ KESEBELAS DAN TERAKHIR — MILESTONE: SELURUH 11 ORGAN TRILOGI SELESAI
+### v230 — Trilogi Sistem Reproduksi LENGKAP (Dasar diperdalam + Menengah + Lanjutan baru) — organ KESEBELAS DAN TERAKHIR — MILESTONE: SELURUH 11 ORGAN TRILOGI SELESAI
 
 **Konteks**: menyelesaikan pendalaman menyeluruh kurikulum anatomi (11 organ x 3 level). Sesi ini adalah organ KESEBELAS DAN TERAKHIR (setelah Kardiovaskular, Saraf, Pernapasan, Pencernaan, Urinaria, Endokrin, Otot, Rangka, Limfatik/Imun, Kulit/Indra) yang mencapai trilogi 3-level lengkap — menandai **penyelesaian seluruh proyek pendalaman anatomi 33 halaman (11 organ x 3 level)**.
 
-### Level Dasar (`Sistem-Reproduksi.html`) diperdalam
+#### Level Dasar (`Sistem-Reproduksi.html`) diperdalam
 - **Tab Penyakit**: ketiga kondisi (BPH, osteoporosis pasca-menopause, gejala menopause) diperkaya, DAN ditambah kondisi keempat -- vaginitis atrofi. Pembeda BPH (jinak) vs kanker prostat, jendela waktu kritis kehilangan kepadatan tulang pasca-menopause, normalisasi gejala menopause sebagai kondisi fisiologis, dan pentingnya ruang aman bagi penerima layanan melaporkan keluhan sensitif.
 - **Tab Observasi**: dikelompokkan jadi observasi terkait BPH (pria) vs observasi terkait perubahan hormon (wanita pasca-menopause), dengan prinsip pencatatan yang bermartabat dan menghormati privasi.
 - **Tab Penuaan**: ditambah subbagian kenapa hormon reproduksi memengaruhi banyak sistem tubuh sekaligus (tulang, kulit, kardiovaskular) -- menghubungkan balik ke materi Rangka, Kulit-Indra, dan Kardiovaskular.
@@ -2656,13 +2704,13 @@ Audit awal menemukan tab Penyakit SUDAH diperdalam dengan baik pada sesi kerja t
 - Mini kuis: 3 -> 8 soal.
 - Navigasi level (`.level-nav`) ditambahkan untuk pertama kali di halaman ini.
 
-### Halaman baru: `Sistem-Reproduksi-Menengah.html`
+#### Halaman baru: `Sistem-Reproduksi-Menengah.html`
 8 tab: Aksis Hormon Reproduksi (sumbu hipotalamus-hipofisis-gonad, kenapa penurunan estrogen menopause lebih cepat dari testosteron), Andropause vs Menopause (perbedaan pola penurunan hormon, kenapa andropause sering tidak dikaitkan dengan gejala), Skrining Dasar (skrining kanker prostat, kaitan skrining kepadatan tulang pasca-menopause), Farmakologi Hormon (HRT, obat BPH, estrogen topikal), Dampak Psikososial (citra diri, variasi individual, prinsip tidak menyamaratakan), Istilah Rumah Sakit (20 kosakata + kalimat klinis), mini kuis (8 soal), Case Simulator (skenario gejala andropause disalahartikan sebagai penuaan biasa -- menguji pemahaman bahwa pria juga mengalami perubahan hormon terkait usia).
 
-### Halaman baru: `Sistem-Reproduksi-Lanjutan.html`
+#### Halaman baru: `Sistem-Reproduksi-Lanjutan.html`
 8 tab: Komplikasi Bedah Prostat (perdarahan pasca-TURP, sindrom TURP), Dasar Onkologi Terkait Usia (kanker prostat indolent, kanker endometrium dan pentingnya perdarahan pasca-menopause dievaluasi), Retensi Urine Akut (kateter sementara pasca-TURP), Farmakologi Hormon Mendalam (terapi deprivasi androgen, efek samping jangka panjang), Prinsip Perawatan Paliatif (kualitas hidup, pengambilan keputusan berbasis nilai), Istilah Onkologi-Geriatri (20 kosakata), mini kuis (8 soal), Case Simulator (skenario perdarahan pasca-menopause dianggap "hal kecil" -- menguji pemahaman urgensi evaluasi medis).
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - **Regresi Dasar**: 0 error, 11/11 tab tetap terbuka benar, tab Observasi sekarang punya 2 subbagian h3 (sebelumnya 0), kosakata dikonfirmasi genuinely 20/20.
 - **Menengah**: 8/8 tab, 20/20 kosakata.
 - **Lanjutan**: 8/8 tab, 20/20 kosakata, Case Simulator dikonfirmasi mengembalikan hasil benar untuk skenario perdarahan pasca-menopause.
@@ -2674,7 +2722,7 @@ Audit awal menemukan tab Penyakit SUDAH diperdalam dengan baik pada sesi kerja t
 
 ---
 
-### 🎉 MILESTONE PROYEK: SELURUH 11 ORGAN TRILOGI ANATOMI SELESAI
+#### 🎉 MILESTONE PROYEK: SELURUH 11 ORGAN TRILOGI ANATOMI SELESAI
 
 Dengan selesainya Sistem Reproduksi, seluruh 11 organ tubuh manusia kini memiliki trilogi 3-level lengkap (Dasar, Menengah, Lanjutan) di NihongoPro:
 
@@ -2692,35 +2740,35 @@ Dengan selesainya Sistem Reproduksi, seluruh 11 organ tubuh manusia kini memilik
 
 **Total: 33 halaman materi trilogi anatomi**, masing-masing dengan 20 kosakata level Dasar + 20 kosakata level Menengah + 20 kosakata level Lanjutan (660 entri kosakata anatomi total), 8 soal kuis per level Menengah/Lanjutan, Case Simulator interaktif di setiap level Menengah dan Lanjutan, dan konsistensi pola verifikasi (div balance, node --check, Playwright functional test, validator resmi) di setiap halaman yang dibangun.
 
-## v231 — Audit Penutup Trilogi Anatomi (Fase B): Kardiovaskular Dasar diperdalam ke standar penuh — celah genuine ditemukan pasca-milestone 11 organ
+### v231 — Audit Penutup Trilogi Anatomi (Fase B): Kardiovaskular Dasar diperdalam ke standar penuh — celah genuine ditemukan pasca-milestone 11 organ
 
 **Konteks**: setelah v230 menandai selesainya seluruh 11 organ trilogi, dilakukan audit penutup lintas-organ untuk memastikan tidak ada regresi dan konsistensi pola terjaga di seluruh 33 halaman. Audit ini BUKAN pengulangan pekerjaan per-organ, melainkan pemeriksaan sekali di akhir proyek.
 
-### Audit yang dilakukan (semua PASSED)
+#### Audit yang dilakukan (semua PASSED)
 1. **Integritas 33 file trilogi**: dikonfirmasi seluruh 11 organ x 3 level ada dan lengkap, tidak ada file hilang.
 2. **Level-nav lintas 33 halaman**: setiap halaman divalidasi punya tepat 3 link navigasi, semua mengarah ke file yang genuinely ada (tidak ada broken link), tepat 1 kelas `current` per halaman.
 3. **Referensi silang "materi X" antar organ**: 21 istilah unik penyebutan organ lain diekstrak dan diperiksa — seluruhnya valid, tidak ada salah nama organ atau referensi ke file yang tidak ada.
 4. **Ukuran file**: diperiksa wajar (44-60KB), tidak ada anomali mencurigakan.
 5. **Div-balance seluruh 33 file**: dikonfirmasi seimbang di semua halaman tanpa kecuali.
 
-### 🔍 Temuan genuine: Kardiovaskular Dasar tertinggal dari standar 10 organ lain
+#### 🔍 Temuan genuine: Kardiovaskular Dasar tertinggal dari standar 10 organ lain
 Spot-check regresi pada organ-organ awal proyek (dilakukan dengan Playwright, membandingkan jumlah kosakata antar level) menemukan bahwa `Sistem-Kardiovaskular.html` (Dasar) -- organ PERTAMA yang dikerjakan sebelum pola standar 20-kosakata/8-kuis ditetapkan di v221 -- ternyata **belum pernah diperdalam** ke standar yang sama seperti 10 organ lainnya. Riwayat CHANGELOG (v214-v217) menunjukkan pendalaman waktu itu hanya menyasar halaman Menengah dan Lanjutan (dilipatgandakan ekstra jadi 30 kosakata/12 kuis lewat dua putaran pendalaman terpisah), sementara Dasar-nya dibiarkan di kondisi awal v187: 10 kosakata, tab Penyakit/Observasi/Penuaan tanpa struktur mendalam.
 
 **Verifikasi silang ke 10 organ lain** mengonfirmasi ini adalah KASUS UNIK Kardiovaskular saja -- seluruh Saraf, Pernapasan, Pencernaan, Urinaria, Endokrin, Otot, Rangka, Limfatik-Imun, Kulit-Indra, dan Reproduksi genuinely konsisten 20/20/20 kosakata di ketiga levelnya masing-masing.
 
-### Perbaikan: `Sistem-Kardiovaskular.html` (Dasar) diperdalam ke standar penuh
+#### Perbaikan: `Sistem-Kardiovaskular.html` (Dasar) diperdalam ke standar penuh
 - **Tab Penyakit**: keempat kondisi (hipertensi, gagal jantung, serangan jantung, aritmia) diperkaya -- pembeda gagal jantung KIRI (sesak napas) vs KANAN (bengkak tungkai/perut), gejala serangan jantung yang TIDAK KLASIK pada lansia terutama wanita, kaitan aritmia (fibrilasi atrium) dengan risiko stroke lewat pembentukan gumpalan darah.
 - **Tab Observasi**: dikelompokkan jadi tanda yang butuh perhatian segera vs tanda bertahap yang butuh pemantauan tren, dengan prinsip mencatat TREN (perubahan dari kondisi biasanya) bukan angka tunggal sesaat.
 - **Tab Penuaan**: ditambah subbagian elaborasi hipotensi ortostatik -- mekanisme kenapa terjadi DAN langkah praktis pencegahan konkret (perubahan posisi bertahap, pencahayaan, mendampingi beberapa detik pertama setelah berdiri) yang sebelumnya hanya disebut sekilas sebagai istilah tanpa penjelasan.
 - Kosakata: 10 -> 20 entri (dikonfirmasi via `grep -c` setelah sempat 19 di percobaan pertama -- pola kesalahan hitung yang sama juga muncul di organ pertama ini, konsisten dengan 10 organ lain, langsung diperbaiki).
 - Mini kuis: 3 -> 8 soal.
 
-### Verifikasi khusus: integritas model 3D (satu-satunya di proyek dengan model 3D asli, bukan SVG)
+#### Verifikasi khusus: integritas model 3D (satu-satunya di proyek dengan model 3D asli, bukan SVG)
 `Sistem-Kardiovaskular.html` adalah SATU-SATUNYA halaman di seluruh proyek dengan model 3D nyata (Three.js dari file pengguna, bukan placeholder SVG seperti organ lain). Karena edit hanya menyentuh tab Penyakit/Observasi/Penuaan/Kosakata/Kuis (bukan tab Anatomi/Fisiologi tempat viewer berada), dilakukan verifikasi eksplisit bahwa viewer tidak terganggu:
 - Referensi `GLTFLoader`/`THREE.` di kode dikonfirmasi tetap ada (13 referensi, konsisten dengan sebelum edit).
 - **Investigasi root-cause via network-request tracing**: awalnya test Playwright melaporkan `<canvas>` count = 0 di tab Anatomi. Diselidiki lebih lanjut (bukan langsung diasumsikan sebagai regresi) -- ditemukan `cdn.jsdelivr.net` (sumber Three.js/GLTFLoader/OrbitControls) mengembalikan `net::ERR_FAILED`, dikonfirmasi domain tersebut TIDAK ADA dalam daftar domain yang diizinkan konfigurasi jaringan sandbox. Struktur kode viewer (`importmap`, referensi `GLTFLoader`) dikonfirmasi tetap utuh secara statis -- kesimpulan: canvas kosong adalah keterbatasan lingkungan pengujian (CDN diblokir), BUKAN kerusakan kode dari edit yang dilakukan, konsisten dengan pola yang sudah didokumentasikan untuk model 3D di organ Otot/Rangka/Kulit-Indra pada sesi-sesi sebelumnya.
 
-### Verifikasi menyeluruh (Playwright)
+#### Verifikasi menyeluruh (Playwright)
 - 11/11 tab tetap terbuka benar, 0 error JavaScript.
 - Subbagian baru dikonfirmasi: tab Observasi sekarang punya 2 subbagian h3 (sebelumnya 0), tab Penuaan punya 2 subbagian h3 (sebelumnya 1).
 - Kosakata Dasar dikonfirmasi genuinely 20/20.
@@ -2729,7 +2777,7 @@ Spot-check regresi pada organ-organ awal proyek (dilakukan dengan Playwright, me
 - Search index di-rebuild: 315 materi (stabil, sesuai ekspektasi -- ini pendalaman konten pada halaman yang sudah ada, bukan halaman baru).
 - Validator resmi PASSED 0 error 0 warning, 94 test tetap lulus.
 
-### Signifikansi: audit penutup terbukti bernilai, bukan sekadar formalitas
+#### Signifikansi: audit penutup terbukti bernilai, bukan sekadar formalitas
 Temuan ini menunjukkan pentingnya audit menyeluruh di akhir proyek besar -- asumsi "11 organ selesai berarti seluruh 33 halaman konsisten" TIDAK sepenuhnya benar tanpa verifikasi eksplisit. Organ pertama yang dikerjakan sebelum pola standar matang berisiko tertinggal dari organ-organ berikutnya yang sudah mengikuti proses lebih matang -- pola ini kini sudah diperbaiki dan seluruh 33 halaman genuinely konsisten pada baseline kualitas yang sama.
 
 **Verifikasi**: `<div>` balance dikonfirmasi seimbang di seluruh 33 file trilogi (bukan hanya file yang diedit), 20/20 kosakata dan 8/8 kuis dikonfirmasi via `grep -c` untuk Kardiovaskular Dasar, tidak ada `href="#"` kosong, `node --check` valid, referensi model 3D dikonfirmasi utuh dan root-cause canvas kosong ditelusuri hingga CDN sandbox (bukan kerusakan kode), validator resmi PASSED 0 error 0 warning (315 materi), 94 test lulus, `npm ci` bersih dari nol, navigasi 3-arah + kosakata Menengah/Lanjutan (tidak berubah) dikonfirmasi via Playwright.

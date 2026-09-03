@@ -11,7 +11,8 @@
  *   1) Bump cache service worker  eduma-kaigo-vN  ->  vN+1  (sw.js)
  *   2) Sisip entri "## vN+1 — <judul>" di puncak CHANGELOG.md
  *   3) Regenerasi penanda versi terbaru di Changelog.html (meta np-latest-version).
- *   4) Regenerasi aset publik assets/changelog-releases.json (maks. 40 rilis terbaru)
+ *   4) Regenerasi aset publik assets/changelog-releases.json (rilis terbaru,
+ *      maks. 40 seksi DAN maks. 64 KB markdown — halaman catatan rilis tetap ringan)
  *      — CHANGELOG.md dipangkas sebelum deploy, jadi Changelog.html memuat JSON ini.
  */
 'use strict';
@@ -126,9 +127,11 @@ function fail(msg) {
 
   // ── 4) Regenerasi aset publik changelog ──
   const jsonPath = 'assets/changelog-releases.json';
-  const MAX_ENTRIES = 40;
+  const MAX_ENTRIES = 40;       // maks. jumlah seksi (rilis/era)
+  const MIN_ENTRIES = 8;        // jaring pengaman: selalu sertakan beberapa terbaru
+  const MAX_BYTES = 64 * 1024;  // maks. markdown (~70-75 KB JSON) agar halaman publik ringan
   if (dry) {
-    console.log('4) ' + jsonPath + ': ' + MAX_ENTRIES + ' rilis terbaru (direncanakan)');
+    console.log('4) ' + jsonPath + ': rilis terbaru, maks. ' + MAX_ENTRIES + ' seksi / ' + Math.round(MAX_BYTES / 1024) + ' KB (direncanakan)');
   } else {
     const clText = fs.readFileSync(clPath, 'utf8');
     const idxs = [];
@@ -137,16 +140,24 @@ function fail(msg) {
     while ((mm = re.exec(clText)) !== null) idxs.push(mm.index);
     if (!idxs.length) fail('Tidak menemukan entri rilis untuk aset publik');
     const start = idxs[0];
-    const end = idxs.length > MAX_ENTRIES ? idxs[MAX_ENTRIES] : clText.length;
+    // Pilih seksi terbaru (dari atas) selama muat dalam batas jumlah & ukuran.
+    // Batas ukuran menangani seksi raksasa: yang lewat anggaran tetap ada di
+    // CHANGELOG.md (arsip), hanya tidak ikut ke payload publik.
+    let cap = idxs.length;
+    for (let i = Math.min(MIN_ENTRIES, idxs.length); i < idxs.length; i++) {
+      if (Buffer.byteLength(clText.slice(start, idxs[i]), 'utf8') > MAX_BYTES) { cap = i; break; }
+    }
+    cap = Math.min(cap, MAX_ENTRIES);
+    const end = idxs[cap];
     const payload = {
       latest: 'v' + nextNum,
       generatedAt: new Date().toISOString(),
-      count: Math.min(idxs.length, MAX_ENTRIES),
+      count: cap,
       markdown: clText.slice(start, end)
     };
     const json = JSON.stringify(payload);
     fs.writeFileSync(jsonPath, json);
-    console.log('4) ' + jsonPath + ': ditulis (' + Math.round(json.length / 1024) + ' KB, ' + payload.count + ' rilis terbaru)');
+    console.log('4) ' + jsonPath + ': ditulis (' + Math.round(json.length / 1024) + ' KB, ' + payload.count + ' seksi terbaru)');
   }
 
   console.log(dry

@@ -38,7 +38,7 @@ Skrip melakukan 4 langkah secara berurutan:
 | 1 | `sw.js` | Cache `eduma-kaigo-vN` → `vN+1` |
 | 2 | `CHANGELOG.md` | Entri `## vN+1 — <judul>` disisipkan di puncak, lengkap dengan bullet (`### Perubahan`) |
 | 3 | `Changelog.html` | Meta `np-latest-version` diperbarui ke `vN+1` (disisipkan otomatis bila belum ada) |
-| 4 | `assets/changelog-releases.json` | Diregenerasi: 40 rilis terbaru + `latest` = `vN+1` (data publik untuk halaman Catatan Rilis) |
+| 4 | `assets/changelog-releases.json` | Diregenerasi: rilis terbaru, maks. 40 seksi & maks. 64 KB markdown, + `latest` = `vN+1` (data publik untuk halaman Catatan Rilis) |
 
 Setelah skrip selesai, commit empat berkas tersebut bersama perubahan lain rilis ini.
 Skrip **tidak** melakukan commit — itu keputusan Anda.
@@ -67,6 +67,6 @@ tersebut agar tag berisi catatan rilisnya.
   ditulis manual. Periksa `sw.js` dan puncak `CHANGELOG.md`.
 - `Versi cache tidak ditemukan di sw.js` — pola `eduma-kaigo-v<angka>` hilang/berubah; jangan ganti
   formatnya.
-- `assets/changelog-releases.json` ikut berubah besar — normal, isinya markdown 40 rilis teratas.
+- `assets/changelog-releases.json` ikut berubah besar — normal bila ada seksi baru; isinya markdown rilis terbaru (maks. 40 seksi / 64 KB). Seksi yang lewat anggaran ukuran tetap utuh di `CHANGELOG.md` (arsip), hanya tidak ikut ke payload publik.
 - Toast "Apa yang baru?" hanya muncul sekali per perangkat (flag `np-sw-wn-seen` di localStorage);
   hapus flag itu bila perlu mengujinya lagi.

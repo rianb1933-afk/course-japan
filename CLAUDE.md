@@ -92,7 +92,7 @@ CSP terduplikasi di `netlify.toml` dan `vercel.json` — ubah keduanya bersamaan
 
 ## Rilis & versioning
 
-Nomor versi proyek = **nomor cache service worker** (`eduma-kaigo-vN` di `sw.js`), saat ini v335. `npm run release` melakukan satu alur atomik: bump `sw.js` → sisipkan entri `## vN — judul` di puncak `CHANGELOG.md` → perbarui meta `np-latest-version` di `Changelog.html` → regenerasi `assets/changelog-releases.json` (40 rilis terakhir). Jangan bump `sw.js` manual.
+Nomor versi proyek = **nomor cache service worker** (`eduma-kaigo-vN` di `sw.js`), saat ini v335. `npm run release` melakukan satu alur atomik: bump `sw.js` → sisipkan entri `## vN — judul` di puncak `CHANGELOG.md` → perbarui meta `np-latest-version` di `Changelog.html` → regenerasi `assets/changelog-releases.json` (rilis terbaru, maks. 40 seksi dan 64 KB markdown; yang lewat anggaran tetap utuh di arsip `CHANGELOG.md`). Jangan bump `sw.js` manual.
 
 ## Sebelum commit
 
