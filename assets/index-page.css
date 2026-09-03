@@ -4064,6 +4064,17 @@ nav:not(.kn-nav):not(.kn-bottom-nav) {
   animation: mascotFloat 5s ease-in-out infinite !important;
 }
 
+/* pro-style.css punya override reduced-motion universal (*{animation-duration:
+   .001ms!important}), tapi itu longhand animation-duration -- kalah lawan
+   `animation` shorthand !important di atas pada specificity yang sama
+   (.mascot-img vs *), diverifikasi lewat browser sungguhan (Playwright,
+   reducedMotion:'reduce') mascotFloat MASIH berjalan tanpa baris ini.
+   Ditaruh SETELAH kedua rule .mascot-img (baris ~273 & di atas) supaya
+   menang lewat urutan sumber pada specificity+!important yang sama. */
+@media (prefers-reduced-motion: reduce) {
+  .mascot-img { animation: none !important; }
+}
+
 .photo-ribbon {
   position: absolute;
   top: 22px;
