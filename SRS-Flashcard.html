@@ -652,6 +652,27 @@ body { min-height: 100vh; }
 .algo-btn:hover { border-color: var(--primary); color: var(--primary); }
 [data-theme="dark"] .algo-btn { background: #1c1e22; border-color: rgba(255,255,255,.08); color: rgba(255,255,255,.65); }
 
+/* ═══════════════════════════════════════════════════
+   RETENTION SLIDER · NEW-CARD CAP · FSRS OPTIMIZER
+   ═══════════════════════════════════════════════════ */
+.ret-row { margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); }
+.ret-head { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--ink-faint); margin-bottom: 4px; }
+.ret-val { font-weight: 800; color: var(--primary); font-size: 12px; }
+.ret-slider { width: 100%; accent-color: var(--primary); height: 18px; cursor: pointer; }
+.cap-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); flex-wrap: wrap; }
+.cap-info { font-size: 11px; color: var(--ink-faint); line-height: 1.5; }
+.cap-name { font-weight: 800; color: var(--ink-mid); }
+.cap-btn {
+  padding: 4px 10px; border-radius: 12px; border: 1px solid var(--border);
+  background: var(--white); font-size: 11px; font-weight: 700; cursor: pointer;
+  color: var(--ink-mid); transition: all .2s;
+}
+.cap-btn:hover { border-color: var(--primary); color: var(--primary); }
+.cap-btn.active { background: var(--primary); color: #fff; border-color: transparent; }
+.opt-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; padding-top: 10px; border-top: 1px dashed var(--border); flex-wrap: wrap; }
+.opt-status { font-size: 11px; color: var(--ink-faint); line-height: 1.5; max-width: 240px; }
+[data-theme="dark"] .cap-btn { background: #1c1e22; border-color: rgba(255,255,255,.08); color: rgba(255,255,255,.65); }
+
 /* ═══ WEEKLY STREAK CALENDAR ═══ */
 .weekly-streak { display: flex; gap: 4px; justify-content: center; margin: 10px 0 6px; }
 .ws-day { display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 4px 6px; border-radius: 6px; background: rgba(107,79,58,.04); min-width: 32px; transition: .2s; }
@@ -1008,6 +1029,34 @@ body { min-height: 100vh; }
         <span id="algoDesc">Jadwal adaptif per kartu (S &amp; D)</span>
       </div>
       <button class="algo-btn" onclick="toggleAlgorithm()" id="algoToggleBtn">Ganti Algoritma</button>
+    </div>
+    <!-- Retention target (FSRS) -->
+    <div class="ret-row">
+      <div class="ret-head"><span>🎯 Retensi target (FSRS)</span><span class="ret-val" id="retVal">90%</span></div>
+      <input type="range" class="ret-slider" id="retSlider" min="80" max="95" step="1" value="90"
+             oninput="setRetention(this.value)" aria-label="Retensi target">
+    </div>
+    <!-- Daily new-card limit -->
+    <div class="cap-row" title="Jumlah kartu BARU yang boleh dipelajari per hari">
+      <div class="cap-info">
+        <span class="cap-name">🆕 Kartu Baru / Hari</span><br>
+        <span id="newCapLeft">0 tersisa hari ini</span>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <button class="cap-btn" onclick="setNewCap(0)">∞</button>
+        <button class="cap-btn" onclick="setNewCap(10)">10</button>
+        <button class="cap-btn active" onclick="setNewCap(20)">20</button>
+        <button class="cap-btn" onclick="setNewCap(50)">50</button>
+        <button class="cap-btn" onclick="setNewCap(100)">100</button>
+      </div>
+    </div>
+    <!-- FSRS optimizer -->
+    <div class="opt-row">
+      <div class="opt-status" id="optStatus">🧠 Bobot FSRS standar (Anki). Optimalkan dari riwayat ulasanmu agar jadwal makin akurat.</div>
+      <div style="display:flex;gap:6px">
+        <button class="algo-btn" onclick="runOptimizer()" id="optBtn">⚡ Optimalkan</button>
+        <button class="algo-btn" onclick="resetOptimizer()" id="optResetBtn" style="display:none">↺ Default</button>
+      </div>
     </div>
     <!-- Weekly Streak Calendar -->
     <div class="weekly-streak" id="weeklyStreak"></div>
@@ -1375,6 +1424,25 @@ function buildDeck(f) {
   const stored = SRS.loadCards ? SRS.loadCards() : JSON.parse(localStorage.getItem('np-srs-v2')||'{}');
   let cards = [...CARDS];
   const now = Date.now();
+  // Batas kartu baru/hari (filter "all"): potong kartu yang belum pernah
+  // dipelajari setelah kuota harian habis — ulasan jatuh tempo tidak kena.
+  if (f === 'all') {
+    const left = newCapLeft();
+    if (isFinite(left)) {
+      let seen = 0;
+      cards = cards.filter(c => {
+        const s = stored[c.id];
+        const isNew = !s || !s.reps;
+        if (isNew) {
+          if (seen >= left) return false;
+          seen++;
+        }
+        return true;
+      });
+    }
+  }
+  _sessionNew.clear();
+  newCardsToday = 0;
   if (f === 'due')    cards = cards.filter(c => { const s = stored[c.id]; return !s || s.nextReview <= now; });
   else if (f === 'n5')      cards = cards.filter(c => c.jlpt === 'N5');
   else if (f === 'n4')      cards = cards.filter(c => c.jlpt === 'N4');
@@ -1551,13 +1619,12 @@ function getIvlFSRS(c, r) {
   if (learning) {
     mins = (g === 1) ? 1 : (g === 2 ? 1 : 10);
   } else {
-    const f = F.ensureState(base);
-    const effG = (g === 1) ? 2 : g; // preview lupa: asumsi akan lulus lagi
+    F.ensureState(base); // pastikan state FSRS lengkap (mutasi in-place)
     const t0 = Date.now();
     const tElapsed = (base.fsrs && base.fsrs.lastDate) ? Math.max(0, (t0 - base.fsrs.lastDate * 1000) / 86400000) : 0;
-    const R = F.retention(f.stability, tElapsed);
-    const D = f.difficulty;
-    const S = f.stability;
+    const R = F.retention(base.fsrs.stability, tElapsed);
+    const D = base.fsrs.difficulty;
+    const S = base.fsrs.stability;
     let Snew;
     if (g === 1) {
       // post-lapse stability utk preview "Ulangi"
@@ -1572,7 +1639,7 @@ function getIvlFSRS(c, r) {
       Snew = Math.max(S * Sinc, 0.01);
       mins = Math.max(1440, Math.round(F.nextIntervalDays(Snew, F.desiredRetention()) * 1440));
     }
-    if (reps <= 1 && (typeof f.firstReviewDone === 'boolean' ? !f.firstReviewDone : false)) {
+    if (reps <= 1 && (typeof base.fsrs.firstReviewDone === 'boolean' ? !base.fsrs.firstReviewDone : false)) {
       // preview state awal utk ulasan pertama di tahap ulasan
       if (g === 1) { Snew = F.weights[0]; mins = 1; }
       else {
@@ -1613,6 +1680,120 @@ function toggleAlgorithm() {
   buildDeck(curFilter);
 }
 
+/* ── Retensi target FSRS (80-95%) ── */
+function setRetention(v) {
+  const pct = Math.max(80, Math.min(95, parseInt(v, 10) || 90));
+  try { localStorage.setItem('np-srs-retention', String(pct)); } catch (e) {}
+  const valEl = document.getElementById('retVal');
+  if (valEl) valEl.textContent = pct + '%';
+  const c = deck[curIdx];
+  if (c) {
+    const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+    const card = stored[c.id] || { ef: 2.5, interval: 0, reps: 0 };
+    [0,1,2,3].forEach(r => { const el = document.getElementById('ivl'+r); if (el) el.textContent = getIvl(card, r); });
+  }
+  if (Toast) Toast.show('🎯 Retensi target: ' + pct + '%', 'success');
+}
+function updateRetentionUI() {
+  let v = 90;
+  try { const s = localStorage.getItem('np-srs-retention'); if (s) v = parseInt(s, 10) || 90; } catch (e) {}
+  const sl = document.getElementById('retSlider');
+  const valEl = document.getElementById('retVal');
+  if (sl) sl.value = v;
+  if (valEl) valEl.textContent = v + '%';
+}
+
+/* ── Batas kartu baru per hari ── */
+let newCardsToday = 0;            // kartu baru yang sudah diulas hari ini (sesi)
+const _sessionNew = new Set();    // id kartu baru dalam sesi ini
+function newCap() {
+  try { const v = parseInt(localStorage.getItem('np-srs-new-cap'), 10); return isNaN(v) || v < 0 ? 20 : v; } catch (e) { return 20; }
+}
+function newCapLeft() {
+  const todayKey = 'np-srs-today-' + new Date().toDateString();
+  let done = 0;
+  try {
+    const d = JSON.parse(localStorage.getItem(todayKey) || '{}');
+    done = (typeof d.new === 'number') ? d.new : 0;
+  } catch (e) {}
+  const cap = newCap();
+  return cap === 0 ? Infinity : Math.max(0, cap - done);
+}
+function setNewCap(n) {
+  n = Math.max(0, parseInt(n, 10) || 0);
+  try { localStorage.setItem('np-srs-new-cap', String(n)); } catch (e) {}
+  document.querySelectorAll('.cap-btn').forEach(b => {
+    const v = b.textContent === '∞' ? 0 : parseInt(b.textContent, 10);
+    b.classList.toggle('active', v === n);
+  });
+  updateGoalProgress();
+  buildDeck(curFilter);
+  if (Toast) Toast.show(n === 0 ? '🆕 Kartu baru: tanpa batas' : '🆕 Maks ' + n + ' kartu baru per hari', 'success');
+}
+function updateNewCapUI() {
+  const left = newCapLeft();
+  const el = document.getElementById('newCapLeft');
+  if (!el) return;
+  const cap = newCap();
+  if (cap === 0) {
+    el.textContent = 'Tanpa batas';
+  } else {
+    const used = cap - (isFinite(left) ? left : 0);
+    el.textContent = left + ' tersisa hari ini (' + Math.min(used, cap) + '/' + cap + ' dipakai)';
+  }
+}
+
+/* ── Optimizer FSRS (bobot personal dari riwayat ulasan) ── */
+let _optRunning = false;
+function runOptimizer() {
+  if (!window.NPFSRS) return;
+  if (_optRunning) return;
+  const btn = document.getElementById('optBtn');
+  const status = document.getElementById('optStatus');
+  const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+  _optRunning = true;
+  if (btn) { btn.disabled = true; btn.textContent = '⏳ Mengoptimalkan…'; }
+  if (status) status.textContent = 'Menganalisis riwayat ulasan…';
+  setTimeout(function () {
+    const res = window.NPFSRS.optimizeWeights(stored, 500, function (k, it) {
+      if (status) status.textContent = 'Mengoptimalkan bobot… ' + Math.round(k / it * 100) + '%';
+    });
+    _optRunning = false;
+    if (btn) { btn.disabled = false; btn.textContent = '⚡ Optimalkan'; }
+    if (!res.ok) {
+      if (status) status.textContent = '⚠️ ' + (res.reason || 'Data belum cukup.');
+      return;
+    }
+    window.NPFSRS.setWeights(res.weights);
+    const resetBtn = document.getElementById('optResetBtn');
+    if (resetBtn) resetBtn.style.display = 'inline-block';
+    if (status) status.textContent = '✅ Bobot dioptimalkan dari ' + res.samples + ' ulasan (log-likelihood ' + res.logLikelihood.toFixed(1) + '). Interval kini mengikuti polamu.';
+    // Preview interval ikut diperbarui
+    const c = deck[curIdx];
+    if (c) {
+      const st2 = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+      const card = st2[c.id] || { ef: 2.5, interval: 0, reps: 0 };
+      [0,1,2,3].forEach(r => { const el = document.getElementById('ivl'+r); if (el) el.textContent = getIvl(card, r); });
+    }
+    if (Toast) Toast.show('⚡ Bobot FSRS dioptimalkan!', 'success');
+  }, 30);
+}
+function resetOptimizer() {
+  if (!window.NPFSRS) return;
+  window.NPFSRS.resetWeights();
+  const resetBtn = document.getElementById('optResetBtn');
+  if (resetBtn) resetBtn.style.display = 'none';
+  const status = document.getElementById('optStatus');
+  if (status) status.textContent = '🧠 Bobot FSRS kembali ke standar (Anki).';
+  if (Toast) Toast.show('↺ Bobot FSRS direset ke default', 'success');
+  const c = deck[curIdx];
+  if (c) {
+    const st2 = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
+    const card = st2[c.id] || { ef: 2.5, interval: 0, reps: 0 };
+    [0,1,2,3].forEach(r => { const el = document.getElementById('ivl'+r); if (el) el.textContent = getIvl(card, r); });
+  }
+}
+
 function doFlipCard() {
   if (flipped) return;
   flipped = true;
@@ -1625,6 +1806,7 @@ function rate(r) {
   const c = deck[curIdx];
   const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
   const card = stored[c.id] || { ef: 2.5, interval: 0, reps: 0 };
+  const wasNew = !card.reps || card.reps <= 0; // dihitung SEBELUM scheduler menulis reps
   if (usingFSRS() && window.NPFSRS) {
     // ── FSRS-5: state lengkap (S, D, due, lapses) disimpan di card.fsrs,
     // field SM-2 lama ikut disinkronkan utk kompatibilitas halaman lain. ──
@@ -1647,6 +1829,7 @@ function rate(r) {
   }
   stored[c.id]=card;
   localStorage.setItem('np-srs-v2', JSON.stringify(stored));
+  if (wasNew) { _sessionNew.add(c.id); newCardsToday = _sessionNew.size; }
   if (r===0) sessAgain++; else sessGood++; trackReview(deck[curIdx].id, !stored[deck[curIdx].id] || !stored[deck[curIdx].id].reps);
   const xp=[0,5,10,15][r]; sessXP+=xp;
   if (xp>0) State.addXP(xp, ['','Sulit','Baik ✓','Mudah ✓'][r]);
@@ -1904,6 +2087,7 @@ function updateGoalProgress() {
   document.querySelectorAll('.goal-opt').forEach(b => {
     b.classList.toggle('active', parseInt(b.textContent) === dailyGoal);
   });
+  updateNewCapUI();
 }
 function incrementDailyGoal() {
   const todayKey = 'np-srs-today-count-' + new Date().toDateString();
@@ -2299,6 +2483,12 @@ document.addEventListener('keydown', function(e) {
 document.addEventListener('DOMContentLoaded', function () {
   State = NP.State; SRS = NP.SRS; Toast = NP.Toast;
   updateAlgoUI();
+  updateRetentionUI();
+  updateNewCapUI();
+  const opt = document.getElementById('optResetBtn');
+  if (opt && window.NPFSRS) {
+    try { if (localStorage.getItem('np-srs-fsrs-weights')) opt.style.display = 'inline-block'; } catch (e) {}
+  }
   buildDeck('all');
   updateFilterCounts();
   updateGoalProgress();

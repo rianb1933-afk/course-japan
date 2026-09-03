@@ -30,6 +30,19 @@
     2.9898, 0.51655, 0.6621
   ];
 
+  /* Bobot hasil optimasi per-user (np-srs-fsrs-weights) — dimuat saat modul
+     dieksekusi bila ada, jadi semua kalkulasi ikut pakai bobot personal. */
+  (function loadOptimized() {
+    try {
+      var raw = localStorage.getItem('np-srs-fsrs-weights');
+      if (!raw) return;
+      var w = JSON.parse(raw);
+      if (Array.isArray(w) && w.length === W.length && w.every(function (x) { return typeof x === 'number' && isFinite(x); })) {
+        W = w;
+      }
+    } catch (e) { /* abaikan — pakai default */ }
+  })();
+
   /* Peluruhan kurva lupa (FSRS-4.5/5): R(t) = (1 + F*t/S)^C */
   var DECAY = -0.5;
   var FACTOR = 19 / 81; // 19/81 dipakai FSRS-4.5/5 (bukan turunan 0.9)
@@ -304,6 +317,81 @@
     return Math.round(days / 365 * 10) / 10 + ' thn';
   }
 
+  /* ── Akses bobot ── */
+  function getWeights() { return W.slice(); }
+  function setWeights(w) {
+    if (!Array.isArray(w) || w.length !== 19) return false;
+    for (var i = 0; i < 19; i++) {
+      if (typeof w[i] !== 'number' || !isFinite(w[i])) return false;
+      W[i] = w[i];
+    }
+    try { localStorage.setItem('np-srs-fsrs-weights', JSON.stringify(W)); } catch (e) {}
+    return true;
+  }
+  function resetWeights() {
+    W = [0.40255, 1.18385, 3.173, 15.69105, 7.1949, 0.5345, 1.4604, 0.0046,
+         1.54575, 0.1192, 1.01925, 1.9395, 0.11, 0.29605, 2.2698, 0.2315,
+         2.9898, 0.51655, 0.6621];
+    try { localStorage.removeItem('np-srs-fsrs-weights'); } catch (e) {}
+    return true;
+  }
+
+  /* ── Optimizer sederhana (maksimum log-likelihood) ──
+     Membaca riwayat ulasan di `state` (peta id -> kartu), membangun pasangan
+     (R prediksi, berhasil?) memakai S/D/lapses yang tersimpan, lalu mencari
+     bobot yang memaksimalkan jumlah log-likelihood lewat pencarian acak
+     terarah (hill-climbing dengan jitter). Cukup untuk 100-an ulasan;
+     FSRS resmi butuh ratusan ribu — di sini hanya "lebih baik dari default". */
+  function optimizeWeights(state, iters, onProgress) {
+    var samples = [];
+    Object.keys(state || {}).forEach(function (id) {
+      var c = state[id];
+      if (!c || !c.fsrs || !Array.isArray(c.history) || c.history.length < 2) return;
+      var f = c.fsrs;
+      if (!(f.stability > 0) || !(f.difficulty >= 1)) return;
+      for (var i = 0; i < c.history.length; i++) {
+        var h = c.history[i];
+        if (!h || typeof h !== 'object' || h.r === undefined) continue;
+        var prev = i > 0 ? c.history[i - 1] : null;
+        if (!prev || typeof prev !== 'object' || typeof prev.t !== 'number' || typeof h.t !== 'number') continue;
+        var tDays = Math.max(0, (h.t - prev.t) / 86400000);
+        if (tDays <= 0) continue; // langkah belajar dalam menit tidak informatif
+        samples.push({ S: f.stability, D: f.difficulty, t: tDays, ok: h.r >= 2, lapses: f.lapses || 0 });
+      }
+    });
+    if (samples.length < 50) return { ok: false, reason: 'minimal 50 ulasan berjarak (ditemukan ' + samples.length + ')' };
+
+    function llOf(w) {
+      var total = 0;
+      for (var i = 0; i < samples.length; i++) {
+        var s = samples[i];
+        var R = Math.pow(1 + FACTOR * s.t / Math.max(s.S, MIN_S), DECAY);
+        R = Math.max(1e-6, Math.min(1 - 1e-6, R));
+        total += s.ok ? Math.log(R) : Math.log(1 - R);
+      }
+      return total;
+    }
+
+    var best = W.slice(), bestLL = llOf(best);
+    var w = best.slice();
+    var it = (typeof iters === 'number' && iters > 0) ? iters : 400;
+    for (var k = 0; k < it; k++) {
+      var w2 = w.slice();
+      // Jitter 1-2 bobot acak; bobot tertentu dijaga dalam rentang wajar.
+      var nJ = 1 + Math.floor(Math.random() * 2);
+      for (var j = 0; j < nJ; j++) {
+        var idx = Math.floor(Math.random() * w2.length);
+        var scale = 0.85 + Math.random() * 0.3;
+        w2[idx] = w2[idx] * scale;
+        if (w2[idx] < 1e-4) w2[idx] = 1e-4;
+      }
+      var ll = llOf(w2);
+      if (ll > bestLL) { bestLL = ll; best = w2.slice(); w = w2; }
+      if (onProgress && (k % 50 === 0 || k === it - 1)) onProgress(k, it, bestLL);
+    }
+    return { ok: true, weights: best, logLikelihood: bestLL, samples: samples.length };
+  }
+
   /* ── Ekspor ── */
   var NPFSRS = {
     version: '5.0',
@@ -317,6 +405,10 @@
     rate: rate,
     formatDays: formatDays,
     ratingToGrade: ratingToGrade,
+    getWeights: getWeights,
+    setWeights: setWeights,
+    resetWeights: resetWeights,
+    optimizeWeights: optimizeWeights,
     SECS_PER_DAY: SECS_PER_DAY
   };
 

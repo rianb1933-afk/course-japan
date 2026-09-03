@@ -141,4 +141,58 @@ test('currentRetention: 1 sebelum jatuh tempo, turun setelahnya', () => {
   assert.ok(F.currentRetention(c, d + 10 * DAY) < 0.9, 'lewat due → R turun');
 });
 
+test('bobot hasil optimasi termuat ulang saat modul dieksekusi', () => {
+  const custom = [0.9, 1.2, 3.2, 15.7, 7.2, 0.53, 1.46, 0.005, 1.55, 0.12,
+                  1.02, 1.94, 0.11, 0.3, 2.27, 0.23, 2.99, 0.52, 0.66];
+  const store = {};
+  store['np-srs-fsrs-weights'] = JSON.stringify(custom);
+  const { F } = loadFSRS({ localStorage: { getItem: (k) => store[k] || null } });
+  assert.strictEqual(F.getWeights()[0], 0.9, 'bobot kustom harus dimuat');
+  // reset mengembalikan default & menghapus penyimpanan
+  const saved = store['np-srs-fsrs-weights'];
+  F.resetWeights();
+  assert.ok(Math.abs(F.getWeights()[0] - 0.40255) < 1e-9, 'reset → default');
+});
+
+test('optimizeWeights menolak data terlalu sedikit dan menerima riwayat cukup', () => {
+  const { F } = loadFSRS();
+  const t0 = Date.now();
+  // < 50 sampel → ditolak
+  const small = {};
+  for (let i = 0; i < 5; i++) {
+    small['x' + i] = {
+      id: 'x' + i, fsrs: { stability: 3, difficulty: 5, lapses: 0 },
+      history: [{ r: 2, t: t0 }, { r: 2, t: t0 + 3 * DAY }]
+    };
+  }
+  const rSmall = F.optimizeWeights(small, 50);
+  assert.strictEqual(rSmall.ok, false, 'harus menolak data minim');
+  // 60 kartu x 3 ulasan berjarak → diterima
+  const big = {};
+  for (let i = 0; i < 60; i++) {
+    const h = [];
+    let t = t0;
+    for (let s = 0; s < 3; s++) {
+      t += (2 + i % 5) * DAY;
+      h.push({ r: (s % 2 === 0) ? 2 : 0, t: t });
+    }
+    big['y' + i] = { id: 'y' + i, fsrs: { stability: 3 + (i % 5), difficulty: 4 + (i % 4), lapses: 1 }, history: h };
+  }
+  const rBig = F.optimizeWeights(big, 150);
+  assert.strictEqual(rBig.ok, true, 'harus menerima riwayat cukup: ' + rBig.reason);
+  assert.strictEqual(rBig.weights.length, 19);
+  assert.ok(rBig.samples >= 50);
+});
+
+test('desiredRetention menghormati preferensi np-srs-retention (80-95%)', () => {
+  const store = {};
+  store['np-srs-retention'] = '0.85';
+  const { F } = loadFSRS({ localStorage: { getItem: (k) => store[k] || null } });
+  assert.ok(Math.abs(F.desiredRetention() - 0.85) < 1e-9);
+  // nilai di luar rentang → default 0.9
+  store['np-srs-retention'] = '0.5';
+  const { F: F2 } = loadFSRS({ localStorage: { getItem: (k) => store[k] || null } });
+  assert.strictEqual(F2.desiredRetention(), 0.9);
+});
+
 module.exports = { tests };

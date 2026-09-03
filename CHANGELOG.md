@@ -4,6 +4,17 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v337 — Pengaturan SRS: retensi target, batas kartu baru, & optimizer FSRS
+
+### Perubahan
+
+- Slider retensi target 80-95% — interval FSRS menyesuaikan target ingatan (makin tinggi target, makin sering diulas)
+- Batas kartu baru per hari (∞/10/20/50/100) dengan sisa kuota harian; ulasan jatuh tempo tidak terpengaruh
+- Optimizer bobot FSRS: analisis riwayat ulasanmu dan sesuaikan 19 parameter (butuh 50+ ulasan berjarak), bisa direset ke default Anki
+- Perbaikan preview interval FSRS pada kartu yang sudah lulus (sebelumnya selalu jatuh ke minimum 1 hari)
+
+---
+
 ## v336 — Scheduler FSRS-5 untuk SRS Flashcard
 
 ### Perubahan
