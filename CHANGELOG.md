@@ -85,9 +85,13 @@ Rangkaian sembilan rilis yang mengubah batas kartu baru harian dari satu angka g
 
 ---
 
-## v86 — Smart Learning Dashboard
+## v70–v86 — Era fondasi: materi, dashboard, dan sapuan audit bug (arsip)
 
-### Hotfix homepage 86.1
+Entri arsip era fondasi yang didokumentasikan secara retrospektif, tersusun mundur (terbaru di atas): Smart Learning Dashboard (v86), sapuan audit dan perbaikan bug halaman inti (v81–v79), pengayaan materi beserta indeks pencarian dan generator materi (v78–v77), pengerasan quality gate dan pencegahan regresi (v76–v75), lalu materi dasar tata bahasa dan kosakata (v70–v74) — ditutup ringkasan angka era dan daftar perkakas pelindung.
+
+### v86 — Smart Learning Dashboard
+
+#### Hotfix homepage 86.1
 
 - Memperbaiki homepage yang menampilkan breadcrumbs, chatbot, dan alat aksesibilitas sebagai HTML polos.
 - Penyebab: `assets/pro-style.css` hanya dipreload tetapi tidak diterapkan sebagai stylesheet, sementara `pro-app.min.js` bergantung pada file tersebut.
@@ -96,7 +100,7 @@ Rangkaian sembilan rilis yang mengubah batas kartu baru harian dari satu angka g
 - Hotfix kedua menambahkan critical CSS untuk menutup panel `pro-app` sebelum dibuka, membersihkan registrasi/cache PWA lama khusus pada localhost, dan menonaktifkan registrasi Service Worker saat pengembangan lokal.
 - Cache produksi selanjutnya dinaikkan ke `eduma-kaigo-v86-homepage-fix-2` dan `nihongo-pro-v124`.
 
-### Fitur baru
+#### Fitur baru
 
 - Dashboard aktif `Dashboard/Dashboard.html` dibangun ulang menjadi pusat belajar responsif dengan header profil, daily goal yang dapat diubah, streak tujuh hari, XP/level, progress JLPT N5–N1, continue learning, smart review, rekomendasi lokal, statistik mingguan, heatmap 90 hari, quick actions, dan jadwal kelas nyata.
 - Adapter data terpusat membaca profil Supabase, sesi akun lama, `np-state-v3`, `np-dash-v3`, `np-materi-progress-v1`, progress Kaigo, SRS v2/v3, jadwal kelas, dan localStorage namespaced v86.
@@ -104,13 +108,13 @@ Rangkaian sembilan rilis yang mengubah batas kartu baru harian dari satu angka g
 - Mesin rekomendasi lokal memprioritaskan SRS jatuh tempo, akurasi rendah, kategori JLPT terlemah, kategori lama tidak dipelajari, dan daily goal yang belum selesai.
 - Empty state, error state, skeleton awal, keyboard focus, dialog target, reduced-motion, noindex untuk dashboard privat, dan fallback offline ditambahkan.
 
-### File baru
+#### File baru
 
 - `assets/dashboard-v86.css` — sistem layout, komponen, breakpoint 320 px hingga desktop, dark theme, dan aksesibilitas visual.
 - `assets/dashboard-v86.js` — adapter data, migrasi, kalkulasi, rendering aman, rekomendasi, grafik, heatmap, dan interaksi dashboard.
 - `assets/dashboard-catalog-v86.js` — inventaris jumlah materi JLPT berdasarkan file yang benar-benar tersedia serta jumlah kartu SRS bawaan.
 
-### File diubah
+#### File diubah
 
 - `Dashboard/Dashboard.html` — markup dashboard semantik dan pemuatan modul v86.
 - `assets/np-xp.js` — activity tracking terpusat tanpa mengubah sumber kebenaran XP `np-dash-v3`.
@@ -119,13 +123,13 @@ Rangkaian sembilan rilis yang mengubah batas kartu baru harian dari satu angka g
 - `service-worker.js` — cache `nihongo-pro-v121` dinaikkan ke `nihongo-pro-v122` dan aset dashboard baru diprecache.
 - `Blog.html` — 13 tautan JavaScript-only diberi URL/fragment nyata agar tetap berfungsi sebagai progressive enhancement dan validator strict bersih.
 
-### Migrasi data
+#### Migrasi data
 
 - Migrasi satu kali memakai penanda `nihongopro.dashboard.v86.migration`.
 - Key baru: `nihongopro.user.preferences`, `nihongopro.dailyGoals`, `nihongopro.activityLog`, dan `nihongopro.dashboard.v86`.
 - Key lama tetap dibaca dan tidak dihapus. JSON rusak ditangani dengan fallback; data baru tidak ditimpa; data aktivitas lokal dibatasi 500 entri.
 
-### Bug diperbaiki
+#### Bug diperbaiki
 
 - Data demo kelemahan yang sebelumnya ditulis permanen ke localStorage dihapus.
 - Prediksi level/tanggal berbasis angka buatan dihapus; dashboard hanya menampilkan metrik terukur atau empty state.
@@ -134,7 +138,7 @@ Rangkaian sembilan rilis yang mengubah batas kartu baru harian dari satu angka g
 - Kartu SRS baru yang belum pernah direview kini ikut dihitung sebagai jatuh tempo berdasarkan inventaris deck bawaan.
 - Tautan Kanji Trainer dashboard diarahkan ke file aktif `Kanji-Trainer-Pro.html`.
 
-### Validasi
+#### Validasi
 
 - Validator awal: 46 kategori lulus, 0 error, 1 warning lama (`Blog.html`).
 - Validator akhir reguler dan strict: 46 kategori lulus, 0 error, 0 warning.
@@ -142,7 +146,7 @@ Rangkaian sembilan rilis yang mengubah batas kartu baru harian dari satu angka g
 - Tes NPXP tambahan: 9 assertion lulus, termasuk JSON rusak, streak satu kali per hari, quiz/SRS, dan batas 500 aktivitas.
 - Struktur dashboard: 60 ID unik, semua referensi file lokal valid, serta breakpoint dan reduced-motion terdeteksi.
 
-### Risiko dan keterbatasan
+#### Risiko dan keterbatasan
 
 - Progress JLPT hanya dapat menghitung materi yang sudah menulis status ke `np-materi-progress-v1`; materi tanpa kuis tidak dinyatakan selesai secara otomatis.
 - Pengajar jadwal hanya ditampilkan bila memang tersimpan pada data kelas; tidak ada data pengajar atau kelas buatan.
@@ -150,11 +154,11 @@ Rangkaian sembilan rilis yang mengubah batas kartu baru harian dari satu angka g
 
 ---
 
-## v81 — Bug produksi: crash halaman depan & drift file (terbaru)
+### v81 — Bug produksi: crash halaman depan & drift file (terbaru)
 
 Sapu menyeluruh pola "fitur mati senyap" ke seluruh basis kode. Menemukan masalah yang **lebih serius dari semua bug sebelumnya**.
 
-### 🔴 Bug kritis diperbaiki
+#### 🔴 Bug kritis diperbaiki
 
 | # | Bug | Dampak ke pengguna |
 |---|-----|--------------------|
@@ -162,48 +166,48 @@ Sapu menyeluruh pola "fitur mati senyap" ke seluruh basis kode. Menemukan masala
 | 2 | **4 crash lain di level top-level** (`logoutBtn.addEventListener`, `navUser.addEventListener`, `userDropdown.className`, `authOverlay.addEventListener`) | Crash terjadi **saat file dimuat** — menghentikan sisa skrip index sepenuhnya. |
 | 3 | **`platform.min.js` tertinggal dari `platform.js`** | **Ini yang paling berbahaya.** Unit test memuat `platform.js`, tapi **190 halaman memuat `platform.min.js`**. Perbaikan yang ada di sumber — clamp `levelProgress` (0–100%) dan validasi rating SRS — **tidak ada di file yang benar-benar dijalankan pengguna**. **46 unit test lulus terhadap kode yang tidak dipakai siapa pun.** |
 
-### ✅ Ditambahkan
+#### ✅ Ditambahkan
 - Null-guard di `updateNavUI()` + optional chaining pada 4 akses top-level — di **kedua** file (`.js` dan `.min.js`). Uji fungsional: login/logout/muat-sesi **tidak crash lagi**.
 - `platform.min.js` disinkronkan dari sumber — clamp & validasi rating kini **sampai ke 190 halaman**.
 - **Validator: `check_minified_drift()`** — memperingatkan bila `<name>.js` dan `<name>.min.js` menyimpang, karena halaman memuat versi `.min` sementara perbaikan & test menyasar sumber.
 
-### ⚠️ Utang teknis didokumentasikan (3 warning)
+#### ⚠️ Utang teknis didokumentasikan (3 warning)
 `index-page`, `kyoto-navbar`, `pro-app` masih menyimpang. **Sengaja tidak ditimpa** — pemeriksaan menunjukkan versi `.min` punya kode sah yang tidak ada di sumber (logo navbar, IntersectionObserver, menu Quiz). Menimpa akan **menghapus fitur**. Ditandai warning agar terlihat, bukan error yang memblokir deploy.
 
 Perbaikan crash di `index-page.min.js` diterapkan **selektif** (hanya guard), memastikan IntersectionObserver & animasi reveal tetap utuh.
 
-### ✓ Diverifikasi aman (tidak diubah)
+#### ✓ Diverifikasi aman (tidak diubah)
 - `backToTop` di `kyoto-theme.js` — dimuat 297 halaman, tombolnya ada di 45; guard `if (btt)` menangani sisanya. Desain sah, bukan bug.
 - `hambSmall`, `vocabLvSel`, `imgPreviewModal` — sudah diverifikasi aman di v80.
 
 ---
 
-## v80 — Audit halaman non-materi
+### v80 — Audit halaman non-materi
 
 Audit 47 halaman non-materi (Dashboard, Analytics, Profil, AI Tutor, tools). Pola bug yang sama seperti di Kelas Online muncul lagi: **fitur mati senyap**.
 
-### 🔴 Bug diperbaiki
+#### 🔴 Bug diperbaiki
 
 | # | Bug | Dampak ke pengguna |
 |---|-----|--------------------|
 | 1 | **`#aiHubContainer` tidak ada di HTML** — `initAIHub()` dipanggil saat `DOMContentLoaded` tapi langsung `return` karena container-nya tak ada | **10 AI Tools tidak bisa diakses sama sekali**: Study Planner, Lesson Generator, Grammar Checker, Speaking Coach, Writing Coach, Conversation Partner, JLPT Level Test, Weakness Detection, Vocabulary Builder, Kanji Generator. Grid kartu tak pernah dirender — tidak crash, jadi tidak pernah ketahuan. |
 | 2 | **`exportData()` di Profil mengekspor data yang salah** | Backup pengguna mengekspor 2 kunci yang **tidak pernah ditulis siapa pun** (`grammar_n4_mastered`, `vocab_N5_mastered` — selalu kosong), sekaligus **melewatkan data nyata**: XP & misi (`np-dash-v3`), rekap sumber XP, progress materi, progress Kaigo, dan kanji mastered. Pengguna yang backup lalu restore akan **kehilangan seluruh progres XP-nya**. |
 
-### ✅ Ditambahkan
+#### ✅ Ditambahkan
 - Container AI Tools di sidebar `AI-Tutor-Pro.html`. Uji fungsional: **10/10 kartu dirender dan bisa diklik**.
 - `exportData()` v2 — mengekspor `np-dash-v3` (XP/streak/misi), `np-xp-sources-v1`, progress materi (prefix-scan), progress Kaigo, kanji mastered, level JLPT. Uji fungsional membuktikan backup kini lengkap.
 - **Validator: deteksi `dead-feature`** — menangkap fungsi `init*`/`render*`/`setup*` yang dipanggil tapi langsung `return` karena container-nya tak ada di DOM. Diuji negatif: sengaja hapus container → tertangkap.
 
-### ✓ Diverifikasi aman (tidak diubah)
+#### ✓ Diverifikasi aman (tidak diubah)
 - `hambSmall` di 5 halaman — sisa navbar lama; navbar sekarang pakai `knHamburger` dengan handler sendiri. Menu mobile berfungsi normal.
 - `vocabLvSel` di SRS-Flashcard — punya fallback `querySelector` + default `'N5'`.
 - `imgPreviewModal` di Kelas-Online — dibuat dinamis (lazy-create) dengan benar.
 
 ---
 
-## v79 — Audit Kelas Online
+### v79 — Audit Kelas Online
 
-### 🔴 Bug kritis diperbaiki
+#### 🔴 Bug kritis diperbaiki
 
 | # | Bug | Dampak ke pengguna |
 |---|-----|--------------------|
@@ -211,22 +215,22 @@ Audit 47 halaman non-materi (Dashboard, Analytics, Profil, AI Tutor, tools). Pol
 | 2 | **Panel AI Sensei tidak ada di HTML** (`#aiSenseiPanel`, `#aiMsgs`, `#aiInput`, `#aiSuggestBox`) | Klik tombol AI Sensei atau tekan shortcut `A` → **TypeError, JavaScript crash**. Fitur AI sama sekali tidak bisa dipakai. |
 | 3 | **`#liveToolBar` diakses tanpa null-guard di dalam `enterRoom()`** | **Crash saat pengguna masuk ruang kelas.** Ironisnya ada patch kedua untuk hal yang sama yang sudah pakai guard — patch pertama yang buggy. |
 
-### ✅ Ditambahkan
+#### ✅ Ditambahkan
 - Markup toast notifikasi (`#liveToast`) + `aria-live="polite"` untuk pembaca layar.
 - Markup panel AI Sensei lengkap: header, area pesan, input, tombol suara/kuis — cocok dengan CSS & fungsi (`toggleAiPanel`, `sendAiMsg`, `AiSensei.send`) yang sudah ada.
 - Null-guard di `toggleAiPanel()` dan patch `enterRoom()` (pertahanan berlapis).
 - **Validator: `check_missing_dom_elements()`** — mendeteksi `getElementById(...).sesuatu` yang elemennya tidak ada di DOM dan diakses tanpa guard. Sudah diuji negatif (sengaja dirusak → tertangkap).
 
-### ✓ Diverifikasi aman (tidak diubah)
+#### ✓ Diverifikasi aman (tidak diubah)
 - XSS: `esc()` dipakai 39×; nama peserta & waktu bicara sudah di-escape; `@mention` hanya cocokkan `\w+` sehingga tak bisa menyuntik tag.
 - `#imgPreviewModal` — dibuat dinamis dengan pola lazy-create yang benar (bukan bug).
 - Memory: `setInterval` 12 / `clearInterval` 13 — seimbang.
 
 ---
 
-## v78 — Materi lengkap + bug pencarian
+### v78 — Materi lengkap + bug pencarian
 
-### 📚 Ditambahkan — 8 materi (semua celah tuntas)
+#### 📚 Ditambahkan — 8 materi (semua celah tuntas)
 | Materi | Isi penting |
 |--------|-------------|
 | `Grammar-Tsumori` | ～つもり (niat). Tingkat kepastian: たい < つもり < 予定 |
@@ -238,7 +242,7 @@ Audit 47 halaman non-materi (Dashboard, Analytics, Profil, AI Tutor, tools). Pol
 | `Kata-Sifat-Dasar` | Sifat-い vs sifat-な, konjugasi, jebakan 綺麗/嫌い |
 | `Kata-Kerja-Dasar` | Tiga kelompok, bentuk ます, pengecualian 帰る/入る |
 
-### 🔴 Bug diperbaiki
+#### 🔴 Bug diperbaiki
 - **205 dari 254 materi tidak bisa dicari.** `INDEX` di `Search.html` ditulis manual — hanya 65 entri. Pengguna mengetik "Kanji Writing" → tidak ketemu, padahal materinya ada.
   - Solusi: **`scripts/build_search_index.py`** — indeks dibangun otomatis dari file materi.
   - Hasil: **269 entri** (253 materi + 16 lainnya); 15 entri manual usang yang menyebabkan hasil ganda dibuang.
@@ -247,31 +251,31 @@ Audit 47 halaman non-materi (Dashboard, Analytics, Profil, AI Tutor, tools). Pol
 
 ---
 
-## v77 — Generator materi + bug SEO
+### v77 — Generator materi + bug SEO
 
-### ✅ Ditambahkan — perkakas
+#### ✅ Ditambahkan — perkakas
 - **`scripts/new_materi.py`** — generator materi. Merakit halaman dari template terverifikasi, sehingga **service worker, footer, study timer, progress hook, JSON-LD selalu ikut otomatis**. Materi baru tidak bisa "lupa" komponen wajib. Juga memvalidasi indeks jawaban kuis (jawaban di luar jangkauan opsi = error, bukan lolos diam-diam).
 - **`scripts/extract_templates.py`** — template diambil dari materi nyata yang lolos validator, bukan ditulis manual.
 
-### 🔴 Bug SEO diperbaiki
+#### 🔴 Bug SEO diperbaiki
 - **10 materi punya JSON-LD `Course.name` yang salah** (warisan copy-paste):
   - 7 materi v70–v74 → semuanya tertulis *"Partikel Dasar Bahasa Jepang"*
   - 3 materi Kaigo lama → semuanya tertulis *"Kosakata Klinis & Medis"*
   - Dampak: Google mengindeks materi berbeda dengan nama identik yang salah.
 - **Validator: check JSON-LD** ditambahkan ke `check_materi_parity()`.
 
-### 📚 Ditambahkan — 3 materi
+#### 📚 Ditambahkan — 3 materi
 - `Grammar-Sugiru` — ～すぎる (terlalu), nuansa negatif vs とても
 - `Grammar-Nagara` — ～ながら (sambil), aturan subjek sama
 - `Kosakata-Cuaca-Musim` — 四季, beda 暑い/熱い dan 寒い/冷たい
 
 ---
 
-## v76 — Pengerasan quality gate
+### v76 — Pengerasan quality gate
 
 Prinsip: **pagar pengaman yang tidak diuji = pagar yang tidak bisa dipercaya.**
 
-### ✅ Ditambahkan
+#### ✅ Ditambahkan
 - **`scripts/tests/test-npxp.js` — 16 test baru** (total 30 → **46 test**). Menjalankan kode produksi asli (`np-xp.js`, `np-materi-progress.js`) di sandbox, bukan duplikat logika. Mengunci:
   - Perhitungan XP (10/benar, bonus 20 sempurna, 2/kata)
   - Semua fitur mengalir ke **satu** dashboard
@@ -279,37 +283,37 @@ Prinsip: **pagar pengaman yang tidak diuji = pagar yang tidak bisa dipercaya.**
   - Auto-hook mencatat kuis selesai, dan **tidak** mencatat kuis yang belum selesai
   - Data localStorage korup tidak bikin crash
 
-### ✓ Diverifikasi
+#### ✓ Diverifikasi
 - Uji negatif validator: materi cacat sengaja dibuat → tertangkap.
 - Uji fungsional perbaikan v75: 108 soal → 840 XP, semua tercatat dengan sumber benar.
 - Uji negatif test suite: logika reset misi sengaja dihapus → test gagal (artinya melindungi).
 
 ---
 
-## v75 — QA & pencegahan regresi
+### v75 — QA & pencegahan regresi
 
-### 🔴 Regresi saya sendiri (v70–v74) diperbaiki
+#### 🔴 Regresi saya sendiri (v70–v74) diperbaiki
 - **7 materi baru tidak punya service worker** → tidak bisa diakses offline. Penyebab: template head yang disalin tidak menyertakan blok SW (letaknya di `<body>`).
 - **7 materi baru kurang footer & study timer** → tidak setara materi lama.
 
-### 🔴 Bug lama ditemukan
+#### 🔴 Bug lama ditemukan
 - `Kosakata-Kaigo-N3` & `Video-Kaigo` — terlewat dapat `kaigo-progress.js` sejak v52.
 - `kaigo-progress.js` — fungsi `ansT` tidak ada di daftar auto-hook.
 - `JLPT-CBT-N3` (30 soal) & `Partikel-Dasar-Jepang` (55 soal) — punya kuis tapi hasilnya **tidak pernah masuk dashboard**.
 - Hasil: **242/242 materi dengan kuis kini mencatat progress.**
 
-### ✅ Ditambahkan
+#### ✅ Ditambahkan
 - **Validator: `check_materi_parity()`** — memeriksa setiap materi punya service worker dan progress hook.
 
-### ✓ Verifikasi mencegah "perbaikan" salah
+#### ✓ Verifikasi mencegah "perbaikan" salah
 - Study timer tampak dead code (`initStudyTimer()` tak pernah dipanggil) — ternyata **IIFE**, berfungsi normal.
 - Footer tampak wajib — ternyata **173/242 materi lama tak punya**, jadi bukan standar. Diturunkan dari error jadi catatan.
 
 ---
 
-## v70–v74 — Materi fondasi & tata bahasa
+### v70–v74 — Materi fondasi & tata bahasa
 
-### 📚 Ditambahkan — 7 materi
+#### 📚 Ditambahkan — 7 materi
 - `Salam-Sapaan-Jepang` — aisatsu (ohayou, konnichiwa, arigatou, sumimasen)
 - `Frasa-Praktis-Harian` — restoran, belanja, transportasi, perkenalan, darurat
 - `Grammar-Perbandingan` — より・ほど・一番
@@ -318,12 +322,12 @@ Prinsip: **pagar pengaman yang tidak diuji = pagar yang tidak bisa dipercaya.**
 - `Grammar-Teiru` — tiga makna ～ている (berlangsung / keadaan / kebiasaan)
 - `Grammar-Izin-Kewajiban` — てもいい・てはいけない・なければならない・なくてもいい
 
-### 🔴 Bug diperbaiki
+#### 🔴 Bug diperbaiki
 - **v70:** Regex pendaftaran merusak fungsi highlight di `Search.html` (validator menangkapnya). Dipulihkan; sejak itu pendaftaran memakai metode per-file yang aman, bukan regex umum pada seluruh HTML.
 
 ---
 
-## Ringkasan angka
+### Ringkasan angka
 
 | | Sebelum (v69) | Sekarang (v81) |
 |---|---|---|
@@ -334,7 +338,7 @@ Prinsip: **pagar pengaman yang tidak diuji = pagar yang tidak bisa dipercaya.**
 | Materi dgn progress tracking | ~238 | **253 (semua)** |
 | Materi dgn service worker | 235 | **253 (semua)** |
 
-## Perkakas yang kini melindungi repo
+### Perkakas yang kini melindungi repo
 
 | Perkakas | Fungsi |
 |---|---|
@@ -352,13 +356,17 @@ node scripts/tests/run-all.js     # harus 46 passed
 
 ---
 
-## Catatan celah v82–v116
+## v117–v129 — Ekspansi Kaigo, bank soal, halaman Ujian, tema & animasi
+
+Ekspansi besar konten Kaigo yang dicatat langsung dari sesi pengerjaan: 10 modul dedicated baru (90 → 100), pendalaman bank soal berlapis (643 → 1185), infrastruktur Question Bank Supabase, modul Kaiwa umum, halaman Ujian + bank JLPT + sertifikat QR, perbaikan Kelas Online dan dark mode, tema Anime Classroom, serta animasi ringan di seluruh halaman.
+
+### Catatan celah v82–v116
 
 Versi v82 sampai v116 dikerjakan di sesi-sesi sebelumnya (transkrip tersimpan di `/mnt/transcripts/`, katalog lengkap di `journal.txt`). Entri di bawah ini (v117 dst.) adalah yang saya catat langsung dari pekerjaan pada sesi saat ini — akurat dan terverifikasi terhadap file. Untuk detail v82–v116 saya rujuk ke transkrip, bukan menulis ulang dari ingatan yang tidak pasti.
 
 ---
 
-## v117 — 10 modul Kaigo dedicated baru (90 → 100 modul)
+### v117 — 10 modul Kaigo dedicated baru (90 → 100 modul)
 
 Audit brief 50-lesson menemukan 10 topik tanpa modul dedicated. Dibuat & didaftarkan ke katalog:
 
@@ -369,69 +377,69 @@ Audit brief 50-lesson menemukan 10 topik tanpa modul dedicated. Dibuat & didafta
 
 Masing-masing 8 soal + 10 kosakata dwibahasa. Terintegrasi ke hub Kaigo.html, Search, katalog. **Bug ditemukan & diperbaiki sendiri**: sisipan entri katalog sempat merusak `LEVEL_ORDER` (salah posisi penutup dict) — terdeteksi lewat error Python, diperbaiki sebelum lanjut.
 
-## v118 — Infrastruktur Question Bank (Supabase)
+### v118 — Infrastruktur Question Bank (Supabase)
 
 - Tabel `kaigo_questions` di `supabase-schema.sql` (RLS, 5 index: kategori/difficulty/JLPT/tags/seed)
 - Pipeline `scripts/build_question_bank.py`: ekstrak semua soal `var Q` dari modul Kaigo → `seed/kaigo_questions.sql` + `.json`
 - Hasil awal: **643 soal** terekstrak dari 59 modul yang sudah punya bank soal
 
-## v119 — Pendalaman soal Kaigo batch 1 (+72 soal)
+### v119 — Pendalaman soal Kaigo batch 1 (+72 soal)
 
 6 modul dari 8→20 soal: 入浴 (mandi), 食事 (makan), 排泄 (ekskresi), 介護過程 (proses perawatan), 老化 (penuaan), 認知機能 (fungsi kognitif). Bank soal 643→841.
 
-## v120 — Kaiwa percakapan umum (celah 0 file → 3 modul)
+### v120 — Kaiwa percakapan umum (celah 0 file → 3 modul)
 
 Audit menemukan bahasa Jepang umum tidak punya modul percakapan (Kaiwa) mandiri. Dibuat 3: 自己紹介 (perkenalan), 買い物 (belanja), レストラン (restoran) — masing-masing 10 soal pilih-respons + 10 kosakata. Terdaftar di Materi.html & Search.
 
-## v121 — Pendalaman soal Kaigo batch 2 (+72 soal, klinis)
+### v121 — Pendalaman soal Kaigo batch 2 (+72 soal, klinis)
 
 6 modul klinis 8→20: 喀痰吸引 (penyedotan dahak), 経管栄養 (nutrisi enteral), 更衣介助 (bantuan berpakaian), 呼吸循環 (pernapasan-sirkulasi), 口腔ケア (perawatan mulut), 拘縮予防 (pencegahan kontraktur). Bank 841→981.
 
-## v122 — Perbaikan Kelas Online (WebRTC)
+### v122 — Perbaikan Kelas Online (WebRTC)
 
 **Diagnosis:** server sinyal PeerJS default jatuh ke server publik gratis `0.peerjs.com` (sering down) saat `PEERJS_HOST` kosong; error inisialisasi ditelan diam-diam.
 **Perbaikan:** handler init kini memberi notifikasi jelas ke user saat server sinyal gagal dijangkau (bukan gagal diam-diam). Logika WebRTC inti (kamera/mic/reconnect) **tidak diubah**.
 **Dokumen baru:** `PANDUAN-KELAS-ONLINE-SERVER.md` — cara deploy PeerServer sendiri, opsi LiveKit, catatan HTTPS/TURN.
 
-## v123 — Pendalaman Kaigo batch 3 + Kaiwa lanjutan
+### v123 — Pendalaman Kaigo batch 3 + Kaiwa lanjutan
 
 - 6 modul sosial/etika 8→20 (+72): 地域社会, 人権と福祉, 介護倫理, 家族支援, 個人情報, 人間の尊厳. Bank 981→1053.
 - 3 Kaiwa lanjutan: 道案内 (bertanya arah), 電話 (telepon), 駅 (stasiun). Total Kaiwa umum: 6 modul.
 
-## v124 — Halaman "Ujian" baru di navbar
+### v124 — Halaman "Ujian" baru di navbar
 
 - Link **試 Ujian** ditambahkan ke navbar (desktop `.js`/`.min.js` disinkronkan — sempat kena `minified-drift` validator, diperbaiki dengan menyamakan pola concat)
 - Halaman `Ujian.html` dibuat: pusat tryout, pilih kategori/jumlah/difficulty, mode tryout (timer) & latihan (pembahasan langsung), score ring, tinjauan jawaban lengkap
 
-## v125 — Bank JLPT + riwayat ujian + sertifikat QR
+### v125 — Bank JLPT + riwayat ujian + sertifikat QR
 
 - `scripts/build_jlpt_question_bank.py`: 277 soal dari 30 materi non-Kaigo (grammar/kosakata/percakapan/umum) → `seed/jlpt_questions.sql/json`
 - Tabel `jlpt_questions` + `exam_history` di skema Supabase
 - Ujian.html: pilihan bank 🏥 Kaigo / 🎌 JLPT, panel riwayat + grafik 15 ujian terakhir, sertifikat QR untuk skor ≥80%
 
-## v126 — Tema Anime Classroom (opt-in) + milestone bank soal
+### v126 — Tema Anime Classroom (opt-in) + milestone bank soal
 
 - 6 file tema (`anime-theme.js/css`, `anime-animation.css`, `anime-background.js`, `anime-clock.js`, `anime-particles.js`) + `Theme-Settings.html`, diinjeksi ke 335 halaman (opt-in via localStorage, nol biaya saat nonaktif)
 - Batch pendalaman 4-5 menuntaskan **SEMUA 100 modul Kaigo ≥20 soal** (termasuk Speaking-Advanced 4→20). Bank 1053→1185.
 
-## v127 — Audit UI/UX + fondasi design system (dengan revisi)
+### v127 — Audit UI/UX + fondasi design system (dengan revisi)
 
 - Audit data nyata: CSS terduplikasi (1,4 juta karakter di 333 halaman), breakpoint tak konsisten (15+ nilai), dark mode 0% (metode audit ini KELIRU — lihat v128)
 - Ditambah: komponen `.empty-state`/`.error-state` reusable
 - **Kesalahan yang terjadi:** membangun sistem dark mode paralel (`data-np-dark`) karena audit tak mendeteksi sistem `[data-theme="dark"]` yang sudah ada
 
-## v128 — Perbaikan dark mode (audit v127 diperbaiki)
+### v128 — Perbaikan dark mode (audit v127 diperbaiki)
 
 **Temuan:** proyek sudah punya dark mode lengkap (`[data-theme="dark"]`, palet charcoal+emas) di 25+ halaman & hampir semua CSS utama — cuma tak pernah tersambung ke toggle. Sistem paralel v127 **dibuang**. Toggle ditulis ulang menyambung ke konvensi asli. `Ujian.html`: `.panel`/`.stat-box`/`.choice` yang hardcode `#fff` diganti `var(--surface)`. Dashboard.html (`dashboard-v86.css`) otomatis ikut aktif.
 
-## v129 — Animasi ringan di semua 335 halaman
+### v129 — Animasi ringan di semua 335 halaman
 
 `assets/site-motion.js` (mandiri, menyuntik CSS sendiri): scroll-reveal (fade+slide 14px) untuk card/panel/section, hover micro-interaction (lift -2px, tekan scale .99), durasi 180-220ms. **Menghormati `prefers-reduced-motion`** (mati total jika user pilih kurangi gerakan). Diinjeksi ke 335/335 halaman, 0 duplikat.
 **Ditemukan (bukan disebabkan oleh v129):** bug HTML pra-existing di `Kelas-Online.html` baris 1030 (atribut `style=` dobel) — dilaporkan, belum diperbaiki (di luar cakupan tugas).
 
 ---
 
-## Ringkasan angka (v117 → v129)
+### Ringkasan angka (v117 → v129)
 
 | | v117 (awal) | v129 (sekarang) |
 |---|---|---|
