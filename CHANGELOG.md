@@ -4,6 +4,14 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v347 — Perbaikan kontras subjudul h3 di mode gelap (halaman Catatan Rilis)
+
+### Perubahan
+
+- Subjudul biru (h3) di Changelog.html kini memakai biru terang #93c5fd saat mode gelap aktif - kontras naik dari 2.83:1 menjadi ~8:1 (WCAG AA/AAA), sebelumnya biru #2563eb terlalu gelap di atas latar kartu gelap
+
+---
+
 ## v338–v346 — Kuota kartu baru per level JLPT + rekap mingguan
 
 Rangkaian sembilan rilis yang mengubah batas kartu baru harian dari satu angka global menjadi kuota per level JLPT, lengkap dengan panel reset, rekap mingguan, overlay sisa kuota, dan KPI pencapaian di Statistik SRS. Logika kuota yang murni dipisah ke modul baru `assets/srs-cap.js` (namespace `NPCap`) dan diuji oleh 128 unit test.
