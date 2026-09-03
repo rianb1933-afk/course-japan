@@ -89,6 +89,35 @@ canvas{max-width:100%}
 .h-dow{font-size:10px;color:var(--ink3);text-align:center;font-weight:700}
 .week-lbl{font-size:10.5px;color:var(--ink3);font-weight:700;margin-bottom:6px}
 @media(max-width:640px){.h-cell{height:20px;font-size:8px}.bar-lbl{width:86px;font-size:11px}}
+
+/* ===== per-card review history popup ===== */
+.pop{position:fixed;inset:0;background:rgba(2,6,23,.55);backdrop-filter:blur(3px);z-index:200;display:flex;align-items:center;justify-content:center;padding:16px}
+.pop-card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-lg);width:min(640px,100%);max-height:86vh;overflow:auto;padding:22px;box-shadow:0 24px 70px rgba(0,0,0,.3)}
+.pop-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.ph-jp{font-size:26px;font-weight:900;line-height:1.2}
+.ph-read{font-size:13px;color:var(--ink2);margin-top:2px}
+.pop-x{width:30px;height:30px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--ink2);font-size:14px;cursor:pointer;flex:0 0 auto}
+.pop-x:hover{color:var(--red);border-color:var(--red)}
+.ph-meaning{font-size:14px;color:var(--ink2);margin-top:6px}
+.ph-tags{display:flex;gap:6px;margin:10px 0 4px}
+.ch-stats{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.ch-stat{flex:1 1 90px;background:var(--surface);border-radius:10px;padding:7px 10px;text-align:center}
+.ch-stat b{display:block;font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:2px}
+.ch-stat span{font-size:13px;font-weight:800}
+.ch-title{font-size:11px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.06em;margin:14px 0 6px;display:flex;align-items:center;justify-content:space-between}
+.ch-row{display:grid;grid-template-columns:120px 1fr 110px 150px;gap:8px;align-items:center;padding:8px 2px;border-bottom:1px solid var(--surface)}
+.ch-row:last-child{border-bottom:none}
+.ch-rating{font-size:11.5px;font-weight:800;padding:3px 9px;border-radius:99px;text-align:center;white-space:nowrap}
+.ch-cell{font-size:13px}
+.ch-cell .muted{font-size:10.5px}
+.ch-delta{font-size:10.5px;font-weight:800;margin-left:3px}
+.ch-delta.down{color:#ef4444}.ch-delta.up{color:#22c55e}.ch-delta.flat{color:var(--ink3)}
+.ch-when{text-align:right;font-size:11px;white-space:nowrap}
+.ch-note{margin-top:12px;font-size:11.5px;line-height:1.55;padding:9px 11px;background:var(--surface);border-radius:9px}
+.tbl tr[data-id]{cursor:pointer}
+.tbl tr[data-id]:hover td{background:var(--surface)}
+.hist-ic{opacity:.55;font-size:12px}
+@media(max-width:640px){.ch-row{grid-template-columns:1fr;gap:3px;padding:8px 0}.ch-when{text-align:left}.ch-stat{flex:1 1 42%}}
 </style>
 </head>
 <body>
@@ -190,6 +219,26 @@ canvas{max-width:100%}
   </div>
 </div>
 
+
+<!-- Per-card review history popup -->
+<div id="histModal" class="pop" style="display:none" role="dialog" aria-modal="true" aria-label="Riwayat ulasan kartu">
+  <div class="pop-card">
+    <div class="pop-head">
+      <div>
+        <div class="ph-jp" id="chKanji"></div>
+        <div class="ph-read" id="chReading"></div>
+      </div>
+      <button class="pop-x" onclick="closeCardHistory()" aria-label="Tutup riwayat">✕</button>
+    </div>
+    <div class="ph-meaning" id="chMeaning"></div>
+    <div class="ph-tags"><span class="pill jlpt-0" id="chLvl"></span> <span class="pill jlpt-0" id="chCat"></span></div>
+    <div class="ch-stats" id="chStats"></div>
+    <div class="ch-title"><span>📜 Riwayat Ulasan</span><span class="muted" id="chCount"></span></div>
+    <div id="chRows"></div>
+    <div class="ch-note muted" id="chNote" style="display:none"></div>
+  </div>
+</div>
+
 <script src="assets/srs-cards-data.js"></script>
 <script src="assets/srs-curated.js"></script>
 <script>
@@ -257,7 +306,7 @@ function renderKpi(){
     if (isLearned(st)) learned++;
     if (isMastered(st)) mastered++;
     if (st.nextReview && st.nextReview <= now && !isMastered(st)) due++;
-    if (st.history && st.history.length) ratings = ratings.concat(st.history.slice(-6));
+    if (st.history && st.history.length) ratings = ratings.concat(st.history.slice(-6).map(v => (v && typeof v === 'object') ? (v.r != null ? v.r : 0) : v));
   });
   const retention = ratings.length ? Math.round(ratings.filter(r=>r>=2).length / ratings.length * 100) : 0;
   document.getElementById('kTotal').textContent = fmt(Object.keys(_lookup).length || 0);
@@ -425,6 +474,8 @@ function renderHeatmap(){
 }
 
 /* weak cards list */
+function escHtml(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+
 function renderWeak(){
   const el = document.getElementById('weakList');
   const entries = Object.entries(_state)
@@ -432,15 +483,124 @@ function renderWeak(){
     .sort((a,b) => a[1].ef - b[1].ef)
     .slice(0, 12);
   if (!entries.length) { el.innerHTML = '<span style="color:#22c55e">✅ Tidak ada kartu lemah (EF &lt; 2.2). Kerja bagus!</span>'; return; }
-  el.innerHTML = '<table class="tbl"><tr><th>Kartu</th><th>Arti</th><th style="text-align:right">EF</th></tr>' +
+  el.innerHTML = '<table class="tbl"><tr><th>Kartu</th><th>Arti</th><th style="text-align:right">EF · Riwayat</th></tr>' +
     entries.map(([id,st]) => {
       const c = _lookup[id] || {};
       const lv = (c.jlpt && LEVEL_ORDER.indexOf(c.jlpt)!==-1) ? c.jlpt : '';
-      return '<tr><td><b>' + (c.jp||id) + '</b>' + (c.reading?' <span class="muted">'+c.reading+'</span>':'') + '</td>' +
-        '<td>' + (c.meaning||'') + '</td>' +
-        '<td style="text-align:right"><span class="pill '+(lv?'jlpt-'+lv.toLowerCase():'jlpt-0')+'">'+ (lv||catName(c.cat)) +'</span> ' + st.ef.toFixed(2) + '</td></tr>';
+      const n = (st.history && st.history.length) || 0;
+      return '<tr data-id="' + escHtml(id) + '" title="Klik untuk melihat riwayat ulasan kartu ini">' +
+        '<td><b>' + escHtml(c.jp||id) + '</b>' + (c.reading?' <span class="muted">'+escHtml(c.reading)+'</span>':'') + '</td>' +
+        '<td>' + escHtml(c.meaning||'') + '</td>' +
+        '<td style="text-align:right;white-space:nowrap"><span class="pill '+(lv?'jlpt-'+lv.toLowerCase():'jlpt-0')+'">'+ (lv||catName(c.cat)) +'</span> <b>'+ st.ef.toFixed(2) +'</b>' + (n? ' <span class="hist-ic" title="'+n+' ulasan tersimpan">📜</span>' : '') + '</td></tr>';
     }).join('') + '</table>';
 }
+
+/* ===== per-card review history popup ===== */
+const RATE_META = {
+  0: { lbl:'Ulangi', ic:'🔄', color:'#ef4444' },
+  1: { lbl:'Sulit',  ic:'😓', color:'#f97316' },
+  2: { lbl:'Baik',   ic:'👍', color:'#2563eb' },
+  3: { lbl:'Mudah',  ic:'⭐', color:'#22c55e' }
+};
+function fmtIvl(m){
+  if (!m || m < 1) return 'Baru';
+  if (m < 60) return m + ' mnt';
+  if (m < 1440) return Math.round(m/60) + ' jam';
+  return Math.round(m/1440) + ' hari';
+}
+function fmtWhen(t){
+  if (!t) return '';
+  const d = new Date(t), now = new Date();
+  const hm = d.toLocaleTimeString('id-ID',{hour:'2-digit',minute:'2-digit'});
+  if (d.toDateString() === now.toDateString()) return 'Hari ini, ' + hm;
+  return d.toLocaleDateString('id-ID',{day:'numeric',month:'short'}) + ', ' + hm;
+}
+/* Rebuild per-review state: exact for recorded entries; SM-2 replay for legacy numeric entries */
+function buildReviewRows(st){
+  const hist = st.history || [];
+  if (!hist.length) return [];
+  let ef = 2.5, ivl = 0, reps = 0;
+  const rows = [];
+  hist.forEach(h => {
+    const obj = (h && typeof h === 'object');
+    const r = obj ? (h.r != null ? h.r : 0) : h;
+    if (obj) {
+      ef = (h.ef != null) ? h.ef : ef;
+      ivl = (h.ivl != null) ? h.ivl : ivl;
+      reps = (h.reps != null) ? h.reps : reps;
+    } else {
+      if (r===0){ ivl=1; ef=Math.max(1.3,ef-.2); reps=0; }
+      else if (r===1){ ivl=reps===0?6:Math.round((ivl||1)*1.2); ef=Math.max(1.3,ef-.15); reps=(reps||0)+1; }
+      else if (r===2){ ivl=reps===0?10:reps===1?1440:Math.round((ivl||10)*ef); reps=(reps||0)+1; }
+      else { ivl=reps===0?5760:Math.round((ivl||10)*ef*1.3); ef=Math.min(3,ef+.1); reps=(reps||0)+1; }
+    }
+    rows.push({ r: r, ef: ef, ivl: ivl, reps: reps, t: obj ? h.t : null, est: !obj });
+  });
+  return rows;
+}
+function openCardHistory(id){
+  const st = _state[id];
+  if (!st) return;
+  const c = _lookup[id] || {};
+  const lv = (c.jlpt && LEVEL_ORDER.indexOf(c.jlpt)!==-1) ? c.jlpt : '';
+  const hist = st.history || [];
+  document.getElementById('chKanji').textContent = c.jp || id;
+  document.getElementById('chReading').textContent = c.reading ? '（' + c.reading + '）' : '';
+  document.getElementById('chMeaning').textContent = c.meaning || '';
+  const lvlEl = document.getElementById('chLvl');
+  lvlEl.textContent = lv || '—';
+  lvlEl.className = 'pill ' + (lv ? 'jlpt-' + lv.toLowerCase() : 'jlpt-0');
+  document.getElementById('chCat').textContent = catName(c.cat);
+  const dueLbl = st.nextReview
+    ? (st.nextReview <= Date.now() ? 'Sekarang' : fmtWhen(st.nextReview))
+    : ((st.reps||0) ? '—' : 'Belum pernah');
+  document.getElementById('chStats').innerHTML =
+    '<div class="ch-stat"><b>EF</b><span>' + (st.ef||2.5).toFixed(2) + '</span></div>' +
+    '<div class="ch-stat"><b>Interval</b><span>' + fmtIvl(st.interval||0) + '</span></div>' +
+    '<div class="ch-stat"><b>Ulasan</b><span>' + hist.length + '×</span></div>' +
+    '<div class="ch-stat"><b>Beruntun</b><span>' + (st.reps||0) + '</span></div>' +
+    '<div class="ch-stat"><b>Ulangi lagi</b><span>' + dueLbl + '</span></div>';
+  document.getElementById('chCount').textContent = hist.length ? '(' + hist.length + '×)' : '';
+  const rows = buildReviewRows(st);
+  const newest = rows.slice().reverse();
+  const el = document.getElementById('chRows');
+  if (!rows.length) {
+    el.innerHTML = '<div class="muted" style="padding:12px 0">Belum ada ulasan tersimpan untuk kartu ini.</div>';
+  } else {
+    el.innerHTML = newest.map((row, ri) => {
+      const chrono = rows.length - 1 - ri;
+      const prev = chrono > 0 ? rows[chrono-1] : null;
+      const m = RATE_META[row.r] || { lbl:'?', ic:'?', color:'#64748b' };
+      const d = prev ? row.ef - prev.ef : 0;
+      const dTxt = prev ? (d < -0.001 ? '▼' + Math.abs(d).toFixed(2) : d > 0.001 ? '▲' + d.toFixed(2) : '–') : '–';
+      const dCls = d < -0.001 ? 'down' : d > 0.001 ? 'up' : 'flat';
+      return '<div class="ch-row">' +
+        '<div class="ch-rating" style="background:'+m.color+'1c;color:'+m.color+'">'+m.ic+' '+m.lbl+'</div>' +
+        '<div class="ch-cell"><span class="muted">EF sesudah</span> <b>'+row.ef.toFixed(2)+'</b> <span class="ch-delta '+dCls+'">'+dTxt+'</span></div>' +
+        '<div class="ch-cell"><span class="muted">Jarak berikut</span> <b>'+fmtIvl(row.ivl)+'</b></div>' +
+        '<div class="ch-cell ch-when muted">'+(row.t ? fmtWhen(row.t) : (row.est ? 'Ulasan #'+(chrono+1) : ''))+'</div>' +
+        '</div>';
+    }).join('');
+  }
+  const estN = rows.filter(x=>x.est).length;
+  const note = document.getElementById('chNote');
+  note.style.display = 'none';
+  if (rows.length >= 20 || estN > 0) {
+    const parts = [];
+    if (rows.length >= 20) parts.push('Menampilkan 20 ulasan terakhir (batas maksimum yang tersimpan).');
+    if (estN > 0) parts.push('Baris tanpa tanggal adalah riwayat lama yang tersimpan sebagai nilai mentah — EF &amp; jaraknya dihitung ulang memakai algoritma SM-2.');
+    note.innerHTML = parts.join(' ');
+    note.style.display = 'block';
+  }
+  document.getElementById('histModal').style.display = 'flex';
+}
+function closeCardHistory(){ document.getElementById('histModal').style.display = 'none'; }
+document.getElementById('weakList').addEventListener('click', function(e){
+  const tr = e.target.closest ? e.target.closest('tr[data-id]') : null;
+  if (tr) openCardHistory(tr.getAttribute('data-id'));
+});
+document.getElementById('histModal').addEventListener('click', function(e){ if (e.target === this) closeCardHistory(); });
+document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeCardHistory(); });
 
 /* level detail table */
 function renderLevelDetail(){

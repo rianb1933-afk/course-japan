@@ -1534,7 +1534,7 @@ function rate(r) {
   card.nextReview=Date.now()+card.interval*60*1000;
   card.lastRating=r; card.lastReviewed=Date.now();
   if (!card.history) card.history = [];
-  card.history.push(r);
+  card.history.push({ r: r, t: Date.now(), ef: ef, ivl: interval, reps: card.reps });
   if (card.history.length > 20) card.history = card.history.slice(-20);
   stored[c.id]=card;
   localStorage.setItem('np-srs-v2', JSON.stringify(stored));
@@ -1687,7 +1687,7 @@ function updateCardStats() {
   const hist = s.history || [];
   const histEl = document.getElementById('csReviewHistory');
   if (hist.length > 0) {
-    const last7 = hist.slice(-7);
+    const last7 = hist.slice(-7).map(v => (v && typeof v === 'object') ? (v.r != null ? v.r : 0) : v);
     const colors = ['#ef4444', '#f97316', '#2563eb', '#22c55e'];
     const labels = ['U', 'S', 'B', 'M'];
     histEl.innerHTML = last7.map((r, i) => `<span style="display:inline-flex;align-items:center;gap:2px;margin-right:6px"><span style="width:12px;height:12px;border-radius:50%;background:${colors[r]};display:inline-block;opacity:${i === last7.length - 1 ? 1 : 0.5 + i * 0.07}"></span><span style="font-size:10px;color:var(--ink-faint)">${labels[r]}</span></span>`).join('');
