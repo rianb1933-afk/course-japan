@@ -162,6 +162,16 @@ table.kx-table, .kx-table table { border-collapse: separate; border-spacing: 0; 
 .kx-rise-2 { animation-delay: .12s; }
 .kx-rise-3 { animation-delay: .19s; }
 
+/* #main-content — dipakai 347/377 halaman yang memuat berkas ini sebagai
+   target skip-link (id yang sama dipakai audit aksesibilitas), jadi ini
+   satu-satunya wrapper konten yang genuinely nyaris universal di seluruh
+   situs. Dipasang di sini (bukan ditambahkan class="kx-rise" ke tiap
+   halaman) supaya "animasi keseluruhan" berlaku situs-lebar dari SATU
+   baris, sama seperti .kx-rise sendiri: markup statis, tidak butuh JS
+   untuk mengungkapnya, jadi tidak bisa berakhir tersembunyi permanen
+   walau skrip halaman gagal. */
+#main-content { animation: kx-rise var(--kx-dur-slow) var(--kx-ease) both; }
+
 /* ══════════════════════════════════════
    ACCESSIBILITY — honor reduced motion (celah yg ditemukan)
    ══════════════════════════════════════ */
@@ -173,7 +183,7 @@ table.kx-table, .kx-table table { border-collapse: separate; border-spacing: 0; 
     animation: none !important;
   }
   .card:hover { transform: none; }
-  .kx-rise { animation: none; opacity: 1; transform: none; }
+  .kx-rise, #main-content { animation: none; opacity: 1; transform: none; }
   .kx-progress > i::after { display: none; }
 }
 
