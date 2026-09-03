@@ -233,4 +233,147 @@ test('trim tidak menulis kuota maupun data harian (murni baca)', () => {
   assert.strictEqual(localStorage.getItem('np-srs-new-caps'), beforeCaps, 'np-srs-new-caps tidak berubah');
 });
 
+/* ===== weekRecap — rekap mingguan kartu baru per level ===== */
+
+// Seeder hari dengan shape persis yang ditulis halaman (reviewed + new + newByLevel)
+function seedDay(localStorage, dateStr, byLevel) {
+  const sum = Object.values(byLevel).reduce((a, b) => a + b, 0);
+  localStorage.setItem('np-srs-today-' + dateStr, JSON.stringify({
+    reviewed: [], new: sum, review: 0, newByLevel: byLevel
+  }));
+}
+
+test('weekRecap default: 7 hari urut kronologis berakhir di tanggal end', () => {
+  const { C, localStorage } = loadCap();
+  // endDate adalah Date realm host — di-inject lintas realm, duck-type harus menerimanya
+  const end = new Date(2026, 8, 5); // 5 Sep 2026
+  const rec = C.weekRecap(localStorage, end);
+  assert.strictEqual(rec.days.length, 7, 'default 7 hari');
+  const t0 = rec.days[0].date.getTime();
+  const tLast = rec.days[6].date.getTime();
+  assert.strictEqual(t0, new Date(2026, 8, 5 - 6).setHours(0, 0, 0, 0), 'hari pertama = 30 Agu');
+  assert.strictEqual(tLast, end.setHours(0, 0, 0, 0), 'hari terakhir = endDate');
+  // tanpa endDate → berakhir hari ini (hanya panjangnya yang diuji)
+  assert.strictEqual(C.weekRecap(localStorage).days.length, 7);
+  // parameter days disesuaikan
+  assert.strictEqual(C.weekRecap(localStorage, end, 3).days.length, 3);
+  assert.strictEqual(C.weekRecap(localStorage, end, 0).days.length, 7, 'days tidak valid → default');
+  // setiap hari punya byLevel untuk semua bucket
+  const b = plain(rec.days[0].byLevel);
+  assert.deepStrictEqual(Object.keys(b).sort(), ['lain', 'n1', 'n2', 'n3', 'n4', 'n5']);
+  assert.ok(Object.values(b).every((v) => v === 0), 'storage kosong → semua nol');
+  assert.strictEqual(rec.grandTotal, 0);
+});
+
+test('weekRecap menjumlahkan newByLevel per hari dan per level', () => {
+  const { C, localStorage } = loadCap();
+  seedDay(localStorage, 'Mon Aug 31 2026', { n5: 5, n4: 2 });      // total 7
+  seedDay(localStorage, 'Tue Sep 01 2026', { n3: 4, n1: 1 });      // total 5
+  seedDay(localStorage, 'Sat Sep 05 2026', { n5: 3, lain: 7 });    // total 10
+  const rec = C.weekRecap(localStorage, new Date(2026, 8, 5), 7); // jendela 30 Agu – 5 Sep
+  // hari Senin 31 Agu = indeks 1 (30 Agu indeks 0)
+  assert.deepStrictEqual(plain(rec.days[1].byLevel), { n5: 5, n4: 2, n3: 0, n2: 0, n1: 0, lain: 0 });
+  assert.strictEqual(rec.days[1].total, 7, 'total hari = jumlah newByLevel');
+  assert.strictEqual(rec.days[2].total, 5);
+  assert.strictEqual(rec.days[6].total, 10);
+  assert.strictEqual(rec.days[0].total, 0, 'hari tanpa data = 0');
+  // total seminggu per level
+  assert.strictEqual(rec.totals.n5, 8);
+  assert.strictEqual(rec.totals.n4, 2);
+  assert.strictEqual(rec.totals.n3, 4);
+  assert.strictEqual(rec.totals.n1, 1);
+  assert.strictEqual(rec.totals.lain, 7);
+  assert.strictEqual(rec.totals.n2, undefined, 'bucket tanpa kartu tidak muncul');
+  assert.strictEqual(rec.grandTotal, 22);
+});
+
+test('weekRecap: hari lama tanpa newByLevel jatuh ke penghitung new; murni baca', () => {
+  const { C, localStorage } = loadCap();
+  // era sebelum pencatatan per level: hanya reviewed + new (tanpa newByLevel)
+  localStorage.setItem('np-srs-today-Mon Aug 31 2026', JSON.stringify({ reviewed: ['a'], new: 4, review: 1 }));
+  const snap = Object.keys(localStorage.store).map((k) => [k, localStorage.getItem(k)]);
+  const rec = C.weekRecap(localStorage, new Date(2026, 8, 5), 7);
+  assert.strictEqual(rec.days[1].total, 4, 'total memakai penghitung new saat byLevel kosong');
+  assert.deepStrictEqual(plain(rec.days[1].byLevel), { n5: 0, n4: 0, n3: 0, n2: 0, n1: 0, lain: 0 });
+  assert.strictEqual(rec.grandTotal, 4, 'grandTotal ikut menghitung hari legacy');
+  // weekRecap tidak menulis apa pun ke storage
+  const after = Object.keys(localStorage.store).map((k) => [k, localStorage.getItem(k)]);
+  assert.deepStrictEqual(after, snap, 'weekRecap murni baca — tidak ada key berubah');
+});
+
+test('weekRecap: jendela pendek (days=3) hanya mencakup hari-hari yang diminta', () => {
+  const { C, localStorage } = loadCap();
+  seedDay(localStorage, 'Tue Sep 01 2026', { n5: 9 }); // di luar jendela 3–5 Sep
+  seedDay(localStorage, 'Fri Sep 04 2026', { n5: 2 });
+  seedDay(localStorage, 'Sat Sep 05 2026', { n1: 6 });
+  const rec = C.weekRecap(localStorage, new Date(2026, 8, 5), 3); // 3–5 Sep
+  assert.strictEqual(rec.days.length, 3);
+  assert.strictEqual(rec.days[0].date.getDate(), 3, 'hari pertama = 3 Sep');
+  assert.deepStrictEqual(plain(rec.days[0].byLevel), { n5: 0, n4: 0, n3: 0, n2: 0, n1: 0, lain: 0 }, '1 Sep di luar jendela → 3 Sep kosong');
+  assert.strictEqual(rec.days[1].byLevel.n5, 2);
+  assert.strictEqual(rec.days[2].byLevel.n1, 6);
+  assert.strictEqual(rec.totals.n5, 2, '9 kartu 1 Sep tidak ikut (di luar jendela)');
+  assert.strictEqual(rec.totals.n1, 6);
+  assert.strictEqual(rec.grandTotal, 8);
+});
+
+test('weekRecap: quotaLeft & hit per hari — sisa hanya level yang dipelajari', () => {
+  const { C, localStorage } = loadCap(); // default 20/15/10/5/3/20
+  seedDay(localStorage, 'Thu Sep 03 2026', { n5: 18, n4: 15, n1: 3 }); // n4 & n1 tepat di cap
+  seedDay(localStorage, 'Fri Sep 04 2026', { n5: 2 });
+  const rec = C.weekRecap(localStorage, new Date(2026, 8, 5), 7);
+  const d3 = rec.days.find((x) => x.date.getDate() === 3);
+  assert.strictEqual(d3.total, 36);
+  assert.strictEqual(d3.quotaLeft, 2, '(20-18)+(15-15)+(3-3) — level yang tidak dipelajari tak ikut');
+  assert.deepStrictEqual(plain(d3.hit), ['n4', 'n1'], 'level yang jatahnya penuh terpakai ditandai');
+  assert.strictEqual(d3.legacy, false);
+  const d4 = rec.days.find((x) => x.date.getDate() === 4);
+  assert.strictEqual(d4.quotaLeft, 18, 'N5 hanya 2 dari 20 → sisa 18');
+  assert.deepStrictEqual(plain(d4.hit), []);
+  assert.deepStrictEqual(plain(rec.caps), EXPECT_DEFAULTS, 'rec.caps = kuota aktif (readCaps)');
+});
+
+test('weekRecap: hari legacy & level tanpa batas tidak punya quotaLeft', () => {
+  const { C, localStorage } = loadCap();
+  C.saveCaps(localStorage, { n5: 0, n4: 15, n3: 0, n2: 0, n1: 0, lain: 0 });
+  // era lama: tanpa newByLevel, hanya reviewed + new
+  localStorage.setItem('np-srs-today-Thu Sep 03 2026', JSON.stringify({ reviewed: ['k'], new: 4, review: 1 }));
+  seedDay(localStorage, 'Fri Sep 04 2026', { n5: 2 });  // n5 tanpa batas
+  seedDay(localStorage, 'Sat Sep 05 2026', { n5: 2, n4: 5 }); // n5 ∞ + n4 berkuota
+  const rec = C.weekRecap(localStorage, new Date(2026, 8, 5), 7);
+  const d3 = rec.days.find((x) => x.date.getDate() === 3);
+  assert.strictEqual(d3.total, 4, 'total jatuh ke `new` untuk hari lama');
+  assert.strictEqual(d3.legacy, true);
+  assert.strictEqual(d3.quotaLeft, null, 'hari legacy tak punya rincian level → tanpa sisa');
+  assert.deepStrictEqual(plain(d3.hit), []);
+  const d4 = rec.days.find((x) => x.date.getDate() === 4);
+  assert.strictEqual(d4.quotaLeft, null, 'semua level yang dipelajari tanpa batas → tanpa sisa');
+  const d5 = rec.days.find((x) => x.date.getDate() === 5);
+  assert.strictEqual(d5.quotaLeft, 10, 'n4: 15-5 — n5 tanpa batas dilewati');
+  assert.deepStrictEqual(plain(rec.caps), { n5: 0, n4: 15, n3: 0, n2: 0, n1: 0, lain: 0 });
+});
+
+test('weekAttainment: persentase jatah mingguan yang benar-benar terpakai', () => {
+  const { C, localStorage } = loadCap(); // default 20/15/10/5/3/20
+  seedDay(localStorage, 'Thu Sep 03 2026', { n5: 20, n4: 15 }); // tepat di cap → sisa 0
+  seedDay(localStorage, 'Fri Sep 04 2026', { n5: 3 });          // sisa 17
+  seedDay(localStorage, 'Sat Sep 05 2026', { n1: 1 });          // sisa 2
+  const rec = C.weekRecap(localStorage, new Date(2026, 8, 5), 7);
+  const a = plain(C.weekAttainment(rec));
+  assert.strictEqual(a.used, 39, '35 + 3 + 1 kartu baru');
+  assert.strictEqual(a.allowed, 20 + 15 + 20 + 3, 'jatah = cap level yang dipelajari per hari (35+20+3)');
+  assert.strictEqual(a.pct, Math.round(39 / 58 * 100), '67 — dihitung dari used/allowed');
+});
+
+test('weekAttainment: tanpa hari berkuota (kosong / legacy) → pct null', () => {
+  const { C, localStorage } = loadCap();
+  assert.strictEqual(plain(C.weekAttainment(C.weekRecap(localStorage, new Date(2026, 8, 5), 7))).pct, null);
+  // hari legacy (hanya `new`, tanpa rincian per level) juga dilewati
+  localStorage.setItem('np-srs-today-Fri Sep 04 2026', JSON.stringify({ reviewed: ['a'], new: 5, review: 1 }));
+  const a = plain(C.weekAttainment(C.weekRecap(localStorage, new Date(2026, 8, 5), 7)));
+  assert.strictEqual(a.pct, null);
+  assert.strictEqual(a.used, 0);
+  assert.strictEqual(a.allowed, 0);
+});
+
 module.exports = { tests };

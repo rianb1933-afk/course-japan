@@ -14,6 +14,8 @@
  *  - Nilai 0 = tanpa batas.
  *  - Pemakaian harian dicatat per level pada key `np-srs-today-<tanggal>`
  *    → objek `newByLevel`, selaras dengan penghitung lama `new`/`review`.
+ *  - `weekRecap()` merangkum N hari terakhir dari key harian itu (kartu
+ *    baru per level per hari) untuk halaman statistik SRS.
  *
  * Semua fungsi murni: storage & data hari ini di-inject agar pengujian
  * lintas hari (day boundary) tidak bergantung pada Date sungguhan.
@@ -112,6 +114,88 @@
     return today;
   }
 
+  // Batas awal hari (00:00) dari objek Date apa pun. Duck-type, bukan
+  // `instanceof`, supaya Date dari realm lain (host vm di unit test) tetap
+  // diterima. Tanpa argumen → hari ini.
+  function toDayStart(x) {
+    var d = (x && typeof x.getTime === 'function' && !isNaN(x.getTime()))
+      ? new Date(x.getTime()) : new Date();
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
+
+  // Rekap N hari terakhir (default 7): kartu baru yang diperkenalkan per level
+  // per hari, dijumlah dari key `np-srs-today-<tanggal>` (newByLevel) persis
+  // seperti yang ditulis halaman. Murni baca — tidak menulis storage.
+  //
+  // Hasil: { days: [{ date, total, byLevel, quotaLeft, hit, legacy }], totals,
+  //         grandTotal, caps }
+  //  - days urut kronologis (terlama dulu), hari terakhir = `endDate`.
+  //  - byLevel: {n5..n1, lain} = pemakaian kuota kartu baru hari itu.
+  //  - total: jumlah byLevel; untuk hari lama yang belum punya newByLevel
+  //    (era sebelum pencatatan per level), jatuh ke penghitung `new` bila ada.
+  //  - quotaLeft: jumlah sisa kuota level yang BENAR-BENAR dipelajari hari itu
+  //    (kuota 0 = tanpa batas dilewati); null bila tak ada level berkuota yang
+  //    dipelajari atau hari itu data lama tanpa rincian per level.
+  //  - hit: level yang kuota hariannya penuh terpakai hari itu (digunakan >= cap).
+  //  - legacy: true bila total berasal dari `new` (tanpa newByLevel).
+  //  - caps: kuota per level yang aktif (hasil readCaps) — dipakai grafik untuk
+  //    menggambar batas jatah; totals/grandTotal selama N hari.
+  function weekRecap(storage, endDate, days) {
+    var n = (typeof days === 'number' && days >= 1) ? Math.floor(days) : 7;
+    var end = toDayStart(endDate);
+    var caps = readCaps(storage);
+    var totals = {};
+    var out = [];
+    var grand = 0;
+    for (var i = n - 1; i >= 0; i--) {
+      var d = new Date(end.getTime());
+      d.setDate(d.getDate() - i);
+      var today = readToday(storage, 'np-srs-today-' + d.toDateString());
+      var byLevel = {};
+      var sum = 0;
+      var quotaLeft = null; // sisa jatah level berkuota yang dipelajari hari itu
+      var hit = [];         // level yang jatahnya penuh terpakai hari itu
+      for (var b = 0; b < BUCKETS.length; b++) {
+        var bucket = BUCKETS[b];
+        var v = usedToday(today, bucket);
+        byLevel[bucket] = v;
+        sum += v;
+        if (v > 0) totals[bucket] = (totals[bucket] || 0) + v;
+        if (v > 0 && caps[bucket] > 0) {
+          quotaLeft = (quotaLeft === null) ? Math.max(0, caps[bucket] - v) : quotaLeft + Math.max(0, caps[bucket] - v);
+          if (v >= caps[bucket]) hit.push(bucket);
+        }
+      }
+      var total = (sum === 0 && typeof today.new === 'number') ? today.new : sum;
+      var legacy = sum === 0 && total > 0; // era lama: hanya ada `new`, tanpa per level
+      if (legacy) quotaLeft = null;
+      grand += total;
+      out.push({ date: d, total: total, byLevel: byLevel, quotaLeft: quotaLeft, hit: hit, legacy: legacy });
+    }
+    return { days: out, totals: totals, grandTotal: grand, caps: caps };
+  }
+
+  // Pencapaian jatah mingguan: dari hasil weekRecap(), berapa persen jatah
+  // kartu baru yang benar-benar terpakai selama N hari. Hanya hari yang punya
+  // rincian kuota (quotaLeft != null) yang ikut dihitung — konsisten dengan
+  // overlay grafik: jatah hari itu = total dipelajari + sisa (level yang
+  // dipelajari saja). Hari legacy / tanpa batas dilewati dari kedua sisi.
+  // Bila tak ada hari berkuota → { used:0, allowed:0, pct:null }.
+  function weekAttainment(rec) {
+    var used = 0;
+    var allowed = 0;
+    var days = (rec && rec.days) || [];
+    for (var i = 0; i < days.length; i++) {
+      var d = days[i];
+      if (d.quotaLeft == null) continue;
+      used += d.total;
+      allowed += d.total + d.quotaLeft;
+    }
+    if (!allowed) return { used: 0, allowed: 0, pct: null };
+    return { used: used, allowed: allowed, pct: Math.round(used / allowed * 100) };
+  }
+
   // Potong kartu baru yang levelnya sudah kehabisan kuota hari ini.
   // Kartu yang sudah pernah dipelajari (s.reps > 0) dan bucket tanpa batas
   // tidak disentuh. Kartu yang lolos menghabiskan jatahnya hanya di memori
@@ -146,6 +230,8 @@
     left: left,
     totalLeft: totalLeft,
     accountNew: accountNew,
-    trim: trim
+    trim: trim,
+    weekRecap: weekRecap,
+    weekAttainment: weekAttainment
   };
 })();

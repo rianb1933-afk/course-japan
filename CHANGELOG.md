@@ -4,6 +4,35 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v344 — KPI pencapaian kuota kartu baru mingguan di Statistik SRS
+
+### Perubahan
+
+- NPCap.weekAttainment: persentase jatah kartu baru yang terpakai minggu ini dari data weekRecap (hanya level yang dipelajari; hari legacy atau tanpa batas dilewati)
+- KPI header baru di SRS-Statistics (Pencapaian Kuota Baru) berisi persen terpakai dengan tooltip rincian used/allowed; 2 unit test baru (total 128)
+
+---
+
+## v343 — Overlay sisa kuota harian di grafik rekap mingguan
+
+### Perubahan
+
+- weekRecap kini melaporkan per hari: sisa kuota level yang dipelajari (quotaLeft), level yang jatahnya penuh terpakai (hit), penanda hari data lama (legacy), dan kuota aktif (caps)
+- Grafik 7 hari di SRS-Statistics: garis putus-putus batas jatah dan label sisa N per kolom hari (cap penuh jadi cap ceklis); tooltip per level X/Y sisa Z; ringkasan minggu menampilkan level yang cap-nya penuh
+- 2 unit test baru untuk field kuota rekap (total 126)
+
+---
+
+## v342 — Rekap kartu baru mingguan per level di Statistik SRS
+
+### Perubahan
+
+- NPCap.weekRecap: rangkum kartu baru per level per hari dari np-srs-today-*
+- Grafik stacked 7 hari di SRS-Statistics.html (N5-N1 + Lainnya) + ringkasan mingguan
+- 4 unit test baru untuk weekRecap (total 124)
+
+---
+
 ## v341 — Konfirmasi inline dua-langkah untuk reset kuota
 
 ### Perubahan

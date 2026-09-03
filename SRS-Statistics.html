@@ -169,6 +169,7 @@ canvas{max-width:100%}
     <div class="kpi b-green"><div class="kpi-ic">🎯</div><div class="kpi-num" id="kQuiz">–</div><div class="kpi-lbl">Skor Kuis</div></div>
     <div class="kpi b-purple"><div class="kpi-ic">🧠</div><div class="kpi-num" id="kPredRet">–</div><div class="kpi-lbl">Retensi Diprediksi</div></div>
     <div class="kpi b-red"><div class="kpi-ic">💔</div><div class="kpi-num" id="kLapses">–</div><div class="kpi-lbl">Total Lupa (Lapses)</div></div>
+    <div class="kpi b-gold"><div class="kpi-ic">📊</div><div class="kpi-num" id="kQuota">–</div><div class="kpi-lbl">Pencapaian Kuota Baru</div></div>
   </div>
 
   <div id="noData" style="display:none;margin-bottom:16px" class="card big-empty">
@@ -230,6 +231,22 @@ canvas{max-width:100%}
     </div>
   </div>
 
+  <!-- Rekap mingguan kartu baru per level -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title"><span>🆕 Kartu Baru per Level — 7 Hari Terakhir</span></div>
+    <div class="muted" id="weekHint" style="font-size:11px;margin:-6px 0 8px"></div>
+    <div style="height:210px"><canvas id="chartWeek"></canvas></div>
+    <div class="legend" style="margin-top:12px;justify-content:center">
+      <span><i class="dot" style="background:#22c55e"></i> N5</span>
+      <span><i class="dot" style="background:#60a5fa"></i> N4</span>
+      <span><i class="dot" style="background:#f59e0b"></i> N3</span>
+      <span><i class="dot" style="background:#f97316"></i> N2</span>
+      <span><i class="dot" style="background:#ef4444"></i> N1</span>
+      <span><i class="dot" style="background:#94a3b8"></i> Lainnya</span>
+    </div>
+    <div class="muted" id="weekSub" style="text-align:center;margin-top:10px"></div>
+  </div>
+
   <!-- Level detail -->
   <div class="card" style="margin-bottom:16px">
     <div class="card-title"><span>📖 Rincian Penguasaan per Level</span></div>
@@ -274,6 +291,7 @@ canvas{max-width:100%}
 <script src="assets/srs-cards-data.js"></script>
 <script src="assets/srs-curated.js"></script>
 <script src="assets/srs-fsrs.js"></script>
+<script src="assets/srs-cap.js"></script>
 <script>
 /* ===== data helpers ===== */
 function ls(k, d){ try { const v = localStorage.getItem(k); return v===null ? d : JSON.parse(v); } catch(e){ return d; } }
@@ -556,6 +574,135 @@ function renderHeatmap(){
   stats.textContent = total + ' kartu diulas dalam 12 minggu terakhir';
 }
 
+/* rekap mingguan kartu baru per level — window.NPCap.weekRecap (assets/srs-cap.js) */
+const WEEK_B = ['n5','n4','n3','n2','n1','lain'];
+const WEEK_COL = { n5:'#22c55e', n4:'#60a5fa', n3:'#f59e0b', n2:'#f97316', n1:'#ef4444', lain:'#94a3b8' };
+const WEEK_LBL = { n5:'N5', n4:'N4', n3:'N3', n2:'N2', n1:'N1', lain:'Lainnya' };
+/* Overlay kuota per kolom hari: garis putus-putus tipis dari puncak kartu yang
+   dipelajari sampai batas jatah level yang dipelajari hari itu + label sisa. */
+function buildCapOverlay(overlay){
+  return {
+    id: 'capOverlay',
+    afterDatasetsDraw(chart){
+      const meta = chart.getDatasetMeta(0);
+      if (!meta || !meta.data || !chart.scales.y) return;
+      const ctx = chart.ctx, ya = chart.scales.y;
+      ctx.save();
+      ctx.font = '600 10px -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'bottom';
+      overlay.forEach((o, i) => {
+        const bar = meta.data[i];
+        if (!bar || !o || o.sisa == null || !o.total) return;
+        const x = bar.x;
+        const yTop = ya.getPixelForValue(o.total);
+        const yCap = ya.getPixelForValue(o.total + o.sisa);
+        ctx.strokeStyle = getCss('--ink3');
+        ctx.fillStyle = ctx.strokeStyle;
+        if (o.sisa > 0 && yCap < yTop - 2) {
+          ctx.lineWidth = 1;
+          ctx.setLineDash([2, 3]);
+          ctx.beginPath();
+          ctx.moveTo(x, yTop);
+          ctx.lineTo(x, yCap + 1);
+          ctx.stroke();
+          ctx.setLineDash([]);
+        }
+        if (o.sisa === 0) ctx.fillStyle = '#f59e0b'; // jatah penuh terpakai
+        ctx.fillText(o.sisa > 0 ? 'sisa ' + o.sisa : 'cap ✓', x, yCap - 3);
+      });
+      ctx.restore();
+    }
+  };
+}
+function renderWeekRecap(){
+  const sub = document.getElementById('weekSub');
+  const hint = document.getElementById('weekHint');
+  const ctx = document.getElementById('chartWeek');
+  const c = Chart.getChart('chartWeek');
+  if (c) c.destroy();
+  if (!window.NPCap || !ctx) { if (sub) sub.textContent = 'Rekap mingguan belum tersedia (modul kuota tidak termuat).'; return; }
+  const rec = window.NPCap.weekRecap(localStorage, new Date(), 7);
+  const capsAll = rec.caps || window.NPCap.readCaps(localStorage);
+  const dows = ['Min','Sen','Sel','Rab','Kam','Jum','Sab'];
+  const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+  const labels = rec.days.map(d => {
+    if (d.date.getTime() === todayStart.getTime()) return 'Hari ini';
+    return dows[d.date.getDay()] + ' ' + d.date.getDate();
+  });
+  // overlay: sisa kuota (level yang dipelajari hari itu) per kolom hari
+  const overlay = rec.days.map(d => ({ sisa: d.quotaLeft, legacy: !!d.legacy, hit: d.hit || [] }));
+  const anyQuota = overlay.some(o => o.sisa != null);
+  const datasets = WEEK_B.map(b => ({
+    label: WEEK_LBL[b],
+    data: rec.days.map(x => x.byLevel[b] || 0),
+    backgroundColor: WEEK_COL[b],
+    borderRadius: 3,
+    stack: 'week'
+  }));
+  const maxDay = Math.max(1, ...rec.days.map(d => d.total));
+  const capTop = Math.max(1, ...overlay.map((o, i) => (o.sisa == null ? 0 : o.sisa + rec.days[i].total)));
+  const axisMax = Math.max(maxDay, anyQuota ? capTop : 0);
+  charts.week = new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      scales:{
+        x:{ stacked:true, grid:{display:false}, ticks:{ color:getCss('--ink3'), font:{size:10}, maxRotation:0 } },
+        y:{ stacked:true, beginAtZero:true, suggestedMax: anyQuota ? Math.ceil(axisMax * 1.15) : undefined, ticks:{ color:getCss('--ink3'), precision:0 }, grid:{ color:getCss('--border') } }
+      },
+      plugins:{ legend:{ display:false }, tooltip:{ callbacks:{
+        label: t => (t.parsed.y ? t.dataset.label + ': ' + t.parsed.y + ' kartu baru' : null),
+        footer: (items) => {
+          if (!items.length) return '';
+          const d = rec.days[items[0].dataIndex];
+          const lines = [];
+          if (d.legacy) lines.push('Data lama (sebelum pencatatan per level): ' + d.total + ' kartu');
+          WEEK_B.forEach(b => {
+            const used = d.byLevel[b] || 0;
+            if (!used) return;
+            const cap = capsAll[b];
+            if (cap > 0) {
+              const rem = Math.max(0, cap - used);
+              lines.push(WEEK_LBL[b] + ': ' + used + '/' + cap + ' · sisa ' + rem + (rem === 0 ? ' 🎯' : ''));
+            } else {
+              lines.push(WEEK_LBL[b] + ': ' + used + ' · tanpa batas');
+            }
+          });
+          if (d.quotaLeft != null) lines.push('Total sisa kuota: ' + d.quotaLeft);
+          return lines;
+        }
+      } } }
+    },
+    plugins: [buildCapOverlay(overlay)]
+  });
+  const parts = WEEK_B.filter(b => rec.totals[b]).map(b => WEEK_LBL[b] + ' ' + rec.totals[b]);
+  // ringkasan hari di mana jatah harian penuh terpakai
+  const hitDays = {};
+  rec.days.forEach(d => (d.hit || []).forEach(b => { hitDays[b] = (hitDays[b] || 0) + 1; }));
+  const hitParts = Object.keys(hitDays).map(b => WEEK_LBL[b] + ' cap penuh ' + hitDays[b] + ' hari');
+  sub.textContent = rec.grandTotal
+    ? 'Minggu ini ' + rec.grandTotal + ' kartu baru' + (parts.length ? ' · ' + parts.join(' · ') : '') + (hitParts.length ? ' · 🎯 ' + hitParts.join(' · ') : '')
+    : 'Belum ada kartu baru yang diperkenalkan dalam 7 hari terakhir.';
+  if (hint) {
+    hint.style.display = anyQuota ? '' : 'none';
+    if (anyQuota) hint.textContent = 'Garis putus-putus di atas kolom = batas jatah level yang dipelajari hari itu — label "sisa N" = jatah yang belum terpakai, "cap ✓" = jatah habis.';
+  }
+  // KPI header: pencapaian jatah mingguan (dari data rekap yang sama)
+  const qEl = document.getElementById('kQuota');
+  if (qEl) {
+    const att = window.NPCap.weekAttainment(rec);
+    if (att && att.pct != null) {
+      qEl.textContent = att.pct + '%';
+      qEl.title = att.used + ' dari ' + att.allowed + ' jatah kartu baru terpakai minggu ini (level yang dipelajari) — sisanya ' + (att.allowed - att.used) + ' tidak terpakai';
+    } else {
+      qEl.textContent = '–';
+      qEl.title = 'Tidak ada aktivitas kuota dalam 7 hari terakhir';
+    }
+  }
+}
+
 /* weak cards list */
 function escHtml(s){ return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
 
@@ -813,6 +960,7 @@ function renderAll(){
   renderActivityChart();
   renderDueChart();
   renderHeatmap();
+  renderWeekRecap();
   renderWeak();
   renderLevelDetail();
 }

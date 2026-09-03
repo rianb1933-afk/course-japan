@@ -1,4 +1,4 @@
-const CACHE = 'eduma-kaigo-v341';
+const CACHE = 'eduma-kaigo-v344';
 // Precache = diunduh saat service worker dipasang, SEBELUM pengguna memintanya.
 // Isinya sengaja dibatasi pada kerangka aplikasi: halaman masuk, aset, dan
 // halaman cadangan offline.
