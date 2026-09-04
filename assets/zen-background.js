@@ -1,13 +1,13 @@
 /* Nihongo Pro Academy — Zen Background Builder (zen-background.js)
-   Membangun taman zen: pegunungan berlapis, pasir bergaris rake, batu,
-   lumut, gerbang torii, lentera batu, dan ranting maple.
+   Membangun taman zen: pegunungan berlapis, pasir bergaris rake,
+   pendar vermilion & lumut, dan ranting maple.
 
    STATIS — tanpa animasi sama sekali, sesuai janji kartu temanya di
    Theme-Settings ("latar statis dan tenang"). Daun maple pun hanya
    ditempatkan, tidak jatuh.
 
-   Urutan elemen menentukan kedalaman: gunung → pasir → lumut → batu →
-   bangunan (torii/lentera) → ranting. Jangan diacak.
+   Urutan elemen menentukan kedalaman: gunung → pasir → pendar → ranting.
+   Jangan diacak.
    Idempoten & ringan: seluruhnya div, tanpa gambar. */
 (function () {
   'use strict';
@@ -22,17 +22,7 @@
       '<div class="zen-mountain back"></div>' +
       '<div class="zen-mountain front"></div>' +
       '<div class="zen-sand"></div>' +
-      '<div class="zen-moss m1"></div><div class="zen-moss m2"></div>' +
-      '<div class="zen-stone s1"></div><div class="zen-stone s2"></div>' +
-      '<div class="zen-stone s3"></div><div class="zen-stone s4"></div>' +
-      '<div class="zen-torii">' +
-        '<div class="bar top"></div><div class="bar mid"></div>' +
-        '<div class="leg l"></div><div class="leg r"></div>' +
-      '</div>' +
-      '<div class="zen-lantern">' +
-        '<span class="base"></span><span class="post"></span>' +
-        '<span class="body"></span><span class="roof"></span><span class="top"></span>' +
-      '</div>' +
+      '<div class="zen-glow"></div><div class="zen-glow g2"></div>' +
       '<div class="zen-branch"></div>';
 
     /* Beberapa helai daun di sekitar ranting. Ditulis di JS supaya posisinya

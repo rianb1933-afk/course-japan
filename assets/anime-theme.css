@@ -104,6 +104,13 @@ body[data-np-theme="anime"] {
     linear-gradient(90deg, transparent calc(66% - 5px), rgba(139,94,60,.5) calc(66% - 5px), rgba(139,94,60,.5) calc(66% + 5px), transparent calc(66% + 5px)),
     linear-gradient(0deg, transparent calc(50% - 5px), rgba(139,94,60,.5) calc(50% - 5px), rgba(139,94,60,.5) calc(50% + 5px), transparent calc(50% + 5px));
   opacity: .35;
+  /* Ketiga palang ini bertepi tegas dan membentang penuh layar. Karena layer
+     tema position:fixed, mereka diam sementara konten bergulir lewat, jadi
+     terbaca sebagai GARIS yang memotong halaman — bukan sebagai kusen.
+     Mask memudarkan mereka sebelum masuk area kartu, sehingga kusennya tetap
+     terasa di bagian atas tanpa pernah memotong konten. */
+  -webkit-mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.35) 26%, transparent 46%);
+          mask-image: linear-gradient(180deg, #000 0%, rgba(0,0,0,.35) 26%, transparent 46%);
 }
 /* Tirai kiri & kanan */
 #npAnimeBg .an-curtain {
@@ -114,13 +121,22 @@ body[data-np-theme="anime"] {
 }
 #npAnimeBg .an-curtain.left { left: 0; border-radius: 0 0 60% 0; }
 #npAnimeBg .an-curtain.right { right: 0; border-radius: 0 0 0 60%; box-shadow: inset 12px 0 18px rgba(0,0,0,.05); }
+/* Tepi bawah tirai juga membentuk garis; dipudarkan. */
+#npAnimeBg .an-curtain {
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+}
 /* L5: meja kayu di bawah */
 #npAnimeBg .an-desk {
   position: absolute; left: 0; right: 0; bottom: 0; height: 88px;
   background:
     repeating-linear-gradient(90deg, rgba(0,0,0,.045) 0 2px, transparent 2px 90px),
     linear-gradient(180deg, var(--an-wood-light), var(--an-wood));
-  border-top: 4px solid rgba(0,0,0,.12);
+  /* border-top solid 4px = garis keras selebar layar. Dibuang; tepi atas
+     meja dipudarkan lewat mask supaya peralihannya tidak punya tepi sama
+     sekali. */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 42%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 42%);
 }
 #npAnimeBg .an-desk .an-props {
   position: absolute; right: 4%; bottom: 14px; font-size: 30px;

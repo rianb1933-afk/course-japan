@@ -91,13 +91,21 @@ body[data-np-theme="zen"] {
 #npZenBg {
   position: fixed; inset: 0; z-index: -2; overflow: hidden;
   pointer-events: none;
+  /* DULU dua perhentian warna di posisi sama (38% lalu 38%) = batas langit
+     ke pasir jadi GARIS horizontal tegas selebar layar. Karena layer ini
+     fixed, garis itu diam sementara konten lewat, jadi terbaca sebagai seam.
+     Sekarang peralihannya bertahap 30%->54% sehingga tidak ada tepi. */
   background: linear-gradient(180deg,
-    var(--zen-sky-top) 0%, var(--zen-sky-bot) 38%, var(--zen-sand) 38%);
+    var(--zen-sky-top) 0%, var(--zen-sky-bot) 30%, var(--zen-sand) 54%);
 }
 
 /* ── Pegunungan berlapis ── */
 #npZenBg .zen-mountain {
   position: absolute; left: 0; right: 0; height: 15vh;
+  /* clip-path berakhir rata di 100%, jadi dasar gunung membentuk garis
+     horizontal selebar layar. Dipudarkan supaya menyatu ke pasir. */
+  -webkit-mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
+          mask-image: linear-gradient(180deg, #000 55%, transparent 100%);
   clip-path: polygon(0% 100%, 8% 55%, 18% 78%, 30% 40%, 42% 70%, 55% 30%, 68% 65%, 80% 45%, 92% 72%, 100% 55%, 100% 100%);
 }
 #npZenBg .zen-mountain.back {
@@ -114,7 +122,9 @@ body[data-np-theme="zen"] {
    Dua lapis: lingkaran konsentris (mengelilingi batu di kiri) dan garis
    lurus panjang, seperti taman karesansui sungguhan. */
 #npZenBg .zen-sand {
-  position: absolute; left: 0; right: 0; bottom: 0; top: 38%;
+  position: absolute; left: 0; right: 0; bottom: 0; top: 30%;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 26%);
+          mask-image: linear-gradient(180deg, transparent 0%, #000 26%);
   background:
     repeating-radial-gradient(circle at 13% 62%,
       var(--zen-sand-line) 0 1.5px, transparent 1.5px 19px),
@@ -124,71 +134,28 @@ body[data-np-theme="zen"] {
       var(--zen-sand-line) 0 1px, transparent 1px 26px);
 }
 
-/* ── Batu ── */
-#npZenBg .zen-stone {
-  position: absolute; border-radius: 50% 45% 48% 42%;
-  background: var(--zen-stone);
-  box-shadow: 0 5px 12px rgba(60, 58, 48, .22);
-}
-#npZenBg .zen-stone.s1 { width: 74px; height: 48px; left: 9%;  bottom: 24%; }
-#npZenBg .zen-stone.s2 { width: 42px; height: 30px; left: 15%; bottom: 33%; background: var(--zen-stone-light); }
-#npZenBg .zen-stone.s3 { width: 96px; height: 58px; right: 7%; bottom: 12%; }
-#npZenBg .zen-stone.s4 { width: 36px; height: 26px; right: 15%; bottom: 22%; background: var(--zen-stone-light); }
+/* ── Pendar vermilion ──
+   DULU di sini ada torii, lentera batu, dan empat batu taman. Setelah kolom
+   konten desktop melebar (kini ~1180px dari 1280px), ketiganya cuma
+   menyisakan ~50px di tiap sisi — hasilnya torii terpotong jadi PALANG MERAH
+   melayang di belakang baris chip, dan batunya jadi gumpalan abu-abu yang
+   muncul di sela kartu. Persis cacat "meja abu-abu" yang dulu diperbaiki,
+   kembali dalam bentuk lain.
 
-/* ── Lumut ── */
-#npZenBg .zen-moss {
-  position: absolute; border-radius: 50%;
-  background: radial-gradient(circle, var(--zen-moss) 0%, transparent 70%);
-  opacity: .42;
+   Objek bertepi keras memang tidak bisa hidup di ruang selebar 50px. Yang
+   menggantikannya: pendar vermilion besar tanpa tepi, membawa warna khas
+   torii tanpa pernah bisa terpotong. */
+#npZenBg .zen-glow {
+  position: absolute; left: -12%; bottom: -18%;
+  width: 62%; height: 72%;
+  background: radial-gradient(ellipse at 40% 60%,
+    rgba(156, 74, 60, .22) 0%, rgba(156, 74, 60, .09) 42%, transparent 70%);
 }
-#npZenBg .zen-moss.m1 { width: 130px; height: 62px; left: 6%;  bottom: 19%; }
-#npZenBg .zen-moss.m2 { width: 150px; height: 72px; right: 4%; bottom: 8%; }
-
-/* ── Torii (pita kiri, vermilion) ──
-   Dibangun dari 4 anak: 2 tiang + 2 palang. Palang atas dibuat menonjol
-   melebihi tiang (kasagi) supaya bentuknya terbaca sebagai gerbang. */
-#npZenBg .zen-torii {
-  position: absolute; left: 5%; bottom: 34%;
-  width: 132px; height: 118px; opacity: .85;
-}
-#npZenBg .zen-torii .leg {
-  position: absolute; top: 26px; width: 12px; height: 92px;
-  background: var(--zen-torii); border-radius: 2px;
-}
-#npZenBg .zen-torii .leg.l { left: 22px; }
-#npZenBg .zen-torii .leg.r { right: 22px; }
-#npZenBg .zen-torii .bar {
-  position: absolute; background: var(--zen-torii); border-radius: 3px;
-}
-/* kasagi — melengkung sedikit lewat border-radius asimetris, melebar penuh */
-#npZenBg .zen-torii .bar.top {
-  top: 0; left: 0; width: 132px; height: 13px;
-  border-radius: 6px 6px 3px 3px;
-}
-/* nuki — palang kedua, lebih pendek */
-#npZenBg .zen-torii .bar.mid {
-  top: 30px; left: 14px; width: 104px; height: 8px;
-}
-
-/* ── Lentera batu (tōrō) di pita kanan ── */
-#npZenBg .zen-lantern {
-  position: absolute; right: 9%; bottom: 26%;
-  width: 54px; height: 96px;
-}
-#npZenBg .zen-lantern span {
-  position: absolute; left: 50%; transform: translateX(-50%);
-  background: var(--zen-lantern); border-radius: 2px;
-}
-#npZenBg .zen-lantern .base  { bottom: 0;    width: 40px; height: 10px; }
-#npZenBg .zen-lantern .post  { bottom: 10px; width: 12px; height: 30px; }
-#npZenBg .zen-lantern .body  { bottom: 40px; width: 34px; height: 26px; border-radius: 3px; }
-#npZenBg .zen-lantern .roof  { bottom: 66px; width: 52px; height: 12px; border-radius: 6px 6px 2px 2px; }
-#npZenBg .zen-lantern .top   { bottom: 78px; width: 12px; height: 12px; border-radius: 50%; }
-/* rongga cahaya lentera */
-#npZenBg .zen-lantern .body::after {
-  content: ""; position: absolute; left: 50%; top: 6px; margin-left: -7px;
-  width: 14px; height: 14px; border-radius: 2px;
-  background: rgba(244, 233, 205, .75);
+#npZenBg .zen-glow.g2 {
+  left: auto; right: -14%; bottom: 4%;
+  width: 54%; height: 60%;
+  background: radial-gradient(ellipse at 60% 50%,
+    rgba(94, 115, 85, .20) 0%, transparent 68%);
 }
 
 /* ── Ranting maple di sudut atas kanan ── */
@@ -204,8 +171,6 @@ body[data-np-theme="zen"] {
 }
 
 @media (max-width: 640px) {
-  #npZenBg .zen-torii   { transform: scale(.66); transform-origin: bottom left; left: 2%; }
-  #npZenBg .zen-lantern { transform: scale(.72); transform-origin: bottom right; right: 3%; }
   #npZenBg .zen-mountain { height: 11vh; }
   #npZenBg .zen-branch, #npZenBg .zen-leaf { display: none; }
 }
