@@ -39,7 +39,13 @@
 
    Juga menangani balapan pemuatan: getVoices() kerap masih kosong saat
    halaman baru dibuka. Bila itu terjadi, ucapan ditunda sampai event
-   voiceschanged, bukan diucapkan dengan voice yang salah. */
+   voiceschanged, bukan diucapkan dengan voice yang salah.
+
+   Kecepatan & nada ikut diseragamkan di sini, sebab nilainya tersebar tidak
+   konsisten akibat copy-paste (rate 0.85/0.8/0.82/0.88 tanpa pola).
+
+   NPSpeech.speakRich() menyediakan jalur TTS awan untuk kalimat panjang,
+   dengan cache dan fallback otomatis ke Web Speech. */
 (function () {
   'use strict';
 
@@ -47,6 +53,16 @@
   window.__npSpeechPatched = true;
 
   var synth = window.speechSynthesis;
+
+  /* Kecepatan & nada baku untuk ucapan Jepang.
+     Nilai di situs sekarang tidak konsisten karena copy-paste: rate 0.85
+     (98x), 0.8 (6x), 0.82 (3x), 0.88 (1x) — variasinya tidak mengikuti pola
+     apa pun, jadi ini drift, bukan pilihan sengaja per halaman. Diseragamkan
+     di sini supaya satu tempat saja yang perlu diubah kalau mau disetel lagi.
+     0.9 sedikit di bawah kecepatan alami: masih terdengar wajar tapi tiap
+     mora masih terpisah jelas untuk pemula. */
+  var RATE = 0.9;
+  var PITCH = 1.1;
 
   /* Voice Jepang standar, diurutkan dari yang paling layak dipakai untuk
      belajar. Dicocokkan sebagai substring, tidak case-sensitive. */
@@ -115,6 +131,8 @@
     try {
       if (u && needsJapanese(u)) {
         if (!u.lang) u.lang = 'ja-JP';
+        u.rate = RATE;
+        u.pitch = PITCH;
         if (!u.voice || isNovelty(u.voice)) {
           var best = bestJapaneseVoice();
           if (best) {
@@ -149,5 +167,73 @@
 
   /* Dibuka supaya halaman yang ingin memilih sendiri tidak perlu mengulang
      logika daftar preferensi di atas. */
-  window.NPSpeech = { bestJapaneseVoice: bestJapaneseVoice };
+  /* ── TTS awan untuk kalimat panjang ──────────────────────────────
+     Web Speech tetap dipakai untuk kata/kartu: gratis, instan, dan sejak
+     voice-nya benar sudah memadai. speakRich() dipakai HANYA bila kalimatnya
+     cukup panjang sehingga suara natural benar-benar terasa bedanya —
+     lihat alasan biaya di netlify/functions/tts.js.
+
+     Hasilnya disimpan di Cache API, jadi kalimat yang sama tidak pernah
+     dibayar dua kali di perangkat itu. Bila apa pun gagal (endpoint mati,
+     kunci belum diisi, offline), otomatis jatuh kembali ke Web Speech —
+     pengguna tidak boleh kehilangan suaranya hanya karena TTS awan bermasalah. */
+  var CLOUD_MIN_CHARS = 12;
+  var CACHE_NAME = 'np-tts-v1';
+
+  function webSpeechFallback(text) {
+    var u = new SpeechSynthesisUtterance(text);
+    u.lang = 'ja-JP';
+    synth.cancel();
+    synth.speak(u);          // shim di atas yang mengurus voice/rate/pitch
+  }
+
+  function speakRich(text, opts) {
+    text = String(text || '').trim();
+    if (!text) return Promise.resolve(false);
+    if (text.length < CLOUD_MIN_CHARS || !window.fetch || !window.caches) {
+      webSpeechFallback(text);
+      return Promise.resolve(false);
+    }
+    var voice = (opts && opts.voice) || 'sensei';
+    var req = new Request('/api/tts?v=' + encodeURIComponent(voice) +
+                          '&t=' + encodeURIComponent(text.slice(0, 400)));
+
+    return caches.open(CACHE_NAME).then(function (cache) {
+      return cache.match(req).then(function (hit) {
+        if (hit) return hit.blob();
+        return fetch('/api/tts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: text, voice: voice })
+        }).then(function (r) {
+          if (!r.ok) throw new Error('tts ' + r.status);
+          return r.blob().then(function (blob) {
+            // Disimpan memakai kunci GET buatan sendiri; Cache API tidak
+            // bisa menyimpan respons dari permintaan POST.
+            try { cache.put(req, new Response(blob.slice(0), { headers: { 'Content-Type': 'audio/mpeg' } })); } catch (e) {}
+            return blob;
+          });
+        });
+      });
+    }).then(function (blob) {
+      synth.cancel();
+      var url = URL.createObjectURL(blob);
+      var audio = new Audio(url);
+      audio.addEventListener('ended', function () { URL.revokeObjectURL(url); });
+      return audio.play().then(function () { return true; });
+    }).catch(function () {
+      webSpeechFallback(text);
+      return false;
+    });
+  }
+
+  window.NPSpeech = {
+    bestJapaneseVoice: bestJapaneseVoice,
+    speakRich: speakRich,
+    /* Supaya nilainya bisa disetel tanpa mengedit berkas ini. */
+    setProsody: function (rate, pitch) {
+      if (typeof rate === 'number') RATE = rate;
+      if (typeof pitch === 'number') PITCH = pitch;
+    }
+  };
 })();

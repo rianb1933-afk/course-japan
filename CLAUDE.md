@@ -56,7 +56,7 @@ Namespace `localStorage` di repo ini campur (`np-*`, `nihongo*`, `eduma-*`) kare
 
 ### Serverless — dua target hosting paralel
 
-- `netlify/functions/*.js` — jalur utama (ai-chat, create-payment, payment-webhook, livekit-token, admin-login, blog-cms, jlpt-cms).
+- `netlify/functions/*.js` — jalur utama (ai-chat, create-payment, payment-webhook, livekit-token, admin-login, blog-cms, jlpt-cms, tts).
 - `api/ai-chat.js` — varian Vercel dari fungsi AI saja.
 
 Netlify **tidak** otomatis mengekspos `/api/<nama>`. Setiap function baru wajib punya entri `[[redirects]]` eksplisit di `netlify.toml`, kalau tidak akan 404 di production.
