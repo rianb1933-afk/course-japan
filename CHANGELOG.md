@@ -4,6 +4,72 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v363 — Kosakata Indonesia menyeluruh N5–N1
+
+### Perubahan
+
+- 7.980 kosakata N5–N1 dikurasi ke Bahasa Indonesia (hapus 1.141 entri kontaminasi salah tingkat)
+- Arti Indonesia jadi glos utama di kartu daftar & flashcard Kosakata Lengkap; Inggris jadi hint kecil
+- Kalimat contoh & arti terverifikasi; pipeline kurasi scripts/translate-kosakata.js
+
+---
+
+## v362 — Hapus tombol unduh vocab-all.csv (data tetap dipakai)
+
+### Perubahan
+
+- Tombol 'Unduh CSV' di hero dan 'Unduh Data Lokal' di panel sumber halaman Kosakata Lengkap dihapus — dataset assets/vocab-all.csv tetap utuh dan terus dipakai kamus, flashcard, dan halaman kosakata
+
+---
+
+## v361 — Hapus seksi Full Grammar List eksternal (jlptsensei/jlptglobal)
+
+### Perubahan
+
+- Seksi 'Sumber Lengkap' di Grammar-Lengkap.html dihapus seluruhnya: tautan 'Buka Full Grammar List' (jlptsensei.com) dan 'Contoh N2 197 Grammar' (jlptglobal.com) beserta iframe embed yang tidak bisa dimuat offline; CSS dan handler JS iframe ikut dibersihkan — database grammar lokal N5-N1 tetap utuh
+
+---
+
+## v360 — Hapus tautan eksternal dari modal Cara Tulis Kanji
+
+### Perubahan
+
+- Tautan 'Detail Stroke Order' (kanji.sljfaq.org) dan 'Kamus Kanji' (jisho.org) dihapus dari modal — data goresan KanjiVG dan kamus lokal sudah tersedia di dalam aplikasi; pesan fallback kanji langka diperbarui agar tidak merujuk tautan luar
+
+---
+
+## v359 — Navigasi tingkat kanji (N5-N1) di semua halaman Kanji
+
+### Perubahan
+
+- Setiap halaman Kanji-N5..N1 kini punya baris penghubung level di hero: tombol pill N5/N4/N3/N2/N1 dengan halaman aktif disorot merah (aria-current), gaya mengikuti design system (tema terang/gelap) — sebelumnya tidak ada tautan antar level sama sekali
+
+---
+
+## v358 — Hub Materi: bagian Kanji lengkap (20+ halaman kanji)
+
+### Perubahan
+
+- Kartu 'Kanji Per Tingkat' di Materi.html kini memuat semua sumber kanji dalam 4 kelompok: Daftar Kanji (N5-N1 + Radikal), Review Per Level (N5-N1), Kartu Flash Kanji (per level + semua), dan Panduan & Alat (Trainer Goresan, Panduan Menulis, Latihan Tulis, Angka & Bilangan) — sebelumnya hanya 6 tautan dari 20+ halaman kanji yang ada
+
+---
+
+## v357 — Kuis urutan goresan kanji (tap di pad latihan)
+
+### Perubahan
+
+- Mode kuis baru di modal Cara Tulis: kanji tampil samar di pad seperti buku mewarnai, lalu pengguna mengetuk goresan yang benar secara urut — jawaban benar mengisi goresan solid, jawaban salah dihitung sebagai kesalahan dengan umpan balik getar/shake, dan skor ditampilkan di akhir; tombol Bersihkan Pad me-restart progres kuis dan keluar kuis mengembalikan pad ke mode hantu
+
+---
+
+## v356 — Sembunyikan tombol Kamus saat modal Cara Tulis terbuka
+
+### Perubahan
+
+- Tombol & panel Kamus (translator) kini disembunyikan selama modal Cara Tulis Kanji terbuka — sebelumnya z-index-nya sama (10000) dan menimpa panggung goresan; posisi hasil geser tetap tersimpan dan pulih otomatis setelah modal ditutup
+
+---
+
 ## v355 — Hapus latihan tulis lama (kotak trace & grid contoh) dari modal Cara Tulis
 
 ### Perubahan
