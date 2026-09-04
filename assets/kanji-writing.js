@@ -1,5 +1,12 @@
 (function(){
+  'use strict';
   const CJK_RE = /[\u3400-\u9fff]/u;
+  // Basis URL aset — dihitung dari lokasi skrip ini supaya jalan baik dari
+  // halaman root maupun Materi/ (mis. ../assets/kanji-writing.js?v=3).
+  const BASE = (document.currentScript && document.currentScript.src)
+    ? document.currentScript.src.replace(/[^/]*$/, '')
+    : 'assets/';
+
   const RULES = [
     'Tulis dari atas ke bawah.',
     'Tulis dari kiri ke kanan.',
@@ -13,16 +20,215 @@
   const STEPS = [
     'Lihat bentuk utuh dan pusatkan kanji di kotak.',
     'Ikuti aturan dasar gores sambil menyebut arti/reading.',
-    'Trace kotak contoh yang opacity-nya tebal.',
-    'Tulis ulang di kotak kosong tanpa melihat.',
+    'Tonton animasi urutan gores, lalu tiru di panggung.',
+    'Tiru goresan hantu di pad latihan tulis (bisa dimatikan).',
+    'Tulis ulang di pad tanpa bantuan hantu.',
     'Bandingkan proporsi, lalu ulangi 3 kali untuk memori otot.'
   ];
+
+  // ── Data goresan (KanjiVG) — dimuat on-demand ──────────────────────────
+  let strokesData = null;
+  let strokesLoaded = false;
+  let strokesPromise = null;
+  function loadStrokes(){
+    if (strokesLoaded) return Promise.resolve(strokesData);
+    if (strokesPromise) return strokesPromise;
+    strokesPromise = new Promise((resolve) => {
+      if (window.KANJI_STROKES) {
+        strokesData = window.KANJI_STROKES;
+        strokesLoaded = true;
+        resolve(strokesData);
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = BASE + 'kanji-strokes.js';
+      script.onload = () => {
+        strokesData = window.KANJI_STROKES || {};
+        strokesLoaded = true;
+        resolve(strokesData);
+      };
+      script.onerror = () => {
+        strokesData = {};
+        strokesLoaded = true;
+        resolve(strokesData);
+      };
+      document.head.appendChild(script);
+    });
+    return strokesPromise;
+  }
+
+  // ── Pemutar goresan ─────────────────────────────────────────────────────
+  const player = {
+    data: null,      // { n, s } untuk kanji aktif
+    idx: -1,         // gores terakhir yang selesai digambar
+    playing: false,
+    timer: null,
+    speed: 1000,     // ms per gores (1x)
+    animTimer: null,
+    kanji: ''
+  };
+  function stopPlayback(){
+    player.playing = false;
+    if (player.timer) { clearInterval(player.timer); player.timer = null; }
+    if (player.animTimer) { clearTimeout(player.animTimer); player.animTimer = null; }
+    // gores yang setengah jalan diselesaikan (dipindah ke grup solid),
+    // supaya tidak menghilang saat dijeda.
+    finishCurrentStroke();
+    const btn = document.getElementById('kanjiPlayPause');
+    if (btn) btn.textContent = '▶';
+  }
+  function finishCurrentStroke(){
+    const el = document.getElementById('kanjiStrokeCurrent');
+    if (!el || !el.getAttribute('d')) return;
+    const d = el.getAttribute('d');
+    const done = document.getElementById('kanjiStrokeDone');
+    if (done) {
+      const clone = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      clone.setAttribute('d', d);
+      clone.setAttribute('class', 'kanji-stroke-done');
+      done.appendChild(clone);
+    }
+    el.removeAttribute('d');
+    el.style.strokeDasharray = '';
+    el.style.strokeDashoffset = '';
+  }
+  function progressText(){
+    const el = document.getElementById('kanjiStrokeProgress');
+    if (!el || !player.data) return;
+    el.textContent = player.idx < 0
+      ? `Gores 0/${player.data.n}`
+      : player.idx >= player.data.n
+        ? `Selesai ✓ (${player.data.n} gores)`
+        : `Gores ${player.idx + 1}/${player.data.n}`;
+  }
+  function strokePathElement(){
+    const svg = document.getElementById('kanjiStrokeSvg');
+    let el = document.getElementById('kanjiStrokeCurrent');
+    if (!el) {
+      el = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      el.id = 'kanjiStrokeCurrent';
+      el.setAttribute('class', 'kanji-stroke-current');
+      svg.appendChild(el);
+    }
+    return el;
+  }
+  function drawStrokeAnimated(i, onDone){
+    const el = strokePathElement();
+    const d = player.data.s[i];
+    el.setAttribute('d', d);
+    let len = 0;
+    try { len = el.getTotalLength(); } catch (err) { len = 200; }
+    el.style.transition = 'none';
+    el.style.strokeDasharray = String(len);
+    el.style.strokeDashoffset = String(len);
+    // paksa reflow supaya transisi berikutnya benar-benar berjalan
+    void el.getBoundingClientRect();
+    el.style.transition = `stroke-dashoffset ${player.speed * 0.85}ms linear`;
+    el.style.strokeDashoffset = '0';
+    player.animTimer = setTimeout(() => {
+      // gores selesai → pindah ke grup "sudah jadi" (solid),
+      // kecuali sudah dipindah duluan oleh finishCurrentStroke().
+      if (el.getAttribute('d') === d) {
+        const done = document.getElementById('kanjiStrokeDone');
+        if (done) {
+          const clone = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+          clone.setAttribute('d', d);
+          clone.setAttribute('class', 'kanji-stroke-done');
+          done.appendChild(clone);
+        }
+        el.removeAttribute('d');
+        el.style.strokeDasharray = '';
+        el.style.strokeDashoffset = '';
+      }
+      if (onDone) onDone();
+    }, player.speed * 0.85 + 30);
+  }
+  function stepForward(){
+    stopPlayback();
+    if (!player.data) return;
+    if (player.idx >= player.data.n - 1) return;
+    player.idx++;
+    drawStrokeAnimated(player.idx, progressText);
+    progressText();
+  }
+  function stepBack(){
+    stopPlayback();
+    if (!player.data) return;
+    if (player.idx < 0) return;
+    const done = document.getElementById('kanjiStrokeDone');
+    if (done.lastChild) done.removeChild(done.lastChild);
+    player.idx--;
+    progressText();
+  }
+  function restart(){
+    stopPlayback();
+    const done = document.getElementById('kanjiStrokeDone');
+    if (done) done.innerHTML = '';
+    const cur = document.getElementById('kanjiStrokeCurrent');
+    if (cur) { cur.removeAttribute('d'); cur.style.strokeDasharray = ''; cur.style.strokeDashoffset = ''; }
+    player.idx = -1;
+    progressText();
+  }
+  function togglePlay(){
+    if (!player.data) return;
+    if (player.playing) { stopPlayback(); return; }
+    if (player.idx >= player.data.n - 1) restart();
+    player.playing = true;
+    const btn = document.getElementById('kanjiPlayPause');
+    if (btn) btn.textContent = '⏸';
+    player.timer = setInterval(() => {
+      if (!player.playing) return;
+      if (player.idx >= player.data.n - 1) { stopPlayback(); return; }
+      player.idx++;
+      drawStrokeAnimated(player.idx, progressText);
+      progressText();
+    }, player.speed);
+    // gores pertama langsung digambar tanpa menunggu interval pertama
+    if (player.idx < 0) {
+      player.idx++;
+      drawStrokeAnimated(player.idx, progressText);
+      progressText();
+    }
+  }
+  function renderStage(){
+    const ghost = document.getElementById('kanjiStrokeGhost');
+    const done = document.getElementById('kanjiStrokeDone');
+    const status = document.getElementById('kanjiStrokeStatus');
+    const controls = document.getElementById('kanjiStrokeControls');
+    const badge = document.getElementById('kanjiStrokeBadge');
+    restart();
+    if (!ghost || !player.data) return;
+    ghost.innerHTML = '';
+    player.data.s.forEach((d, i) => {
+      const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      p.setAttribute('d', d);
+      p.setAttribute('class', 'kanji-stroke-ghost');
+      ghost.appendChild(p);
+    });
+    // nomor gores dihitung dari bounding box (selalu pas di posisi gores)
+    const svg = document.getElementById('kanjiStrokeSvg');
+    const ns = 'http://www.w3.org/2000/svg';
+    ghost.querySelectorAll('path').forEach((p, i) => {
+      let box;
+      try { box = p.getBBox(); } catch (err) { return; }
+      const t = document.createElementNS(ns, 'text');
+      t.setAttribute('x', String(box.x + box.width / 2 + 1.5));
+      t.setAttribute('y', String(box.y + box.height / 2 + 2.5));
+      t.setAttribute('class', 'kanji-stroke-num');
+      t.textContent = String(i + 1);
+      ghost.appendChild(t);
+    });
+    if (status) status.hidden = true;
+    if (controls) controls.hidden = false;
+    if (badge) { badge.textContent = `${player.data.n} goresan`; badge.hidden = false; }
+    progressText();
+    void svg;
+  }
+
+  // ── Modal ───────────────────────────────────────────────────────────────
   function findKanji(text){
     const match = String(text || '').match(CJK_RE);
     return match ? match[0] : '';
-  }
-  function esc(value){
-    return String(value || '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[ch]));
   }
   function ensureModal(){
     if (document.getElementById('kanjiWritingModal')) return;
@@ -32,13 +238,30 @@
     modal.innerHTML = `
       <div class="kanji-writing-dialog" role="dialog" aria-modal="true" aria-labelledby="kanjiWritingTitle">
         <div class="kanji-writing-head">
-          <div class="kanji-writing-title"><strong id="kanjiWritingChar">字</strong><span id="kanjiWritingTitle">Cara Menulis Kanji</span></div>
+          <div class="kanji-writing-title"><strong id="kanjiWritingChar">字</strong><span id="kanjiWritingTitle">Cara Menulis Kanji</span><span class="kanji-stroke-badge" id="kanjiStrokeBadge" hidden></span></div>
           <button class="kanji-writing-close" type="button" aria-label="Tutup">&times;</button>
         </div>
         <div class="kanji-writing-body">
           <div class="kanji-writing-preview">
-            <div class="kanji-practice-grid"><span id="kanjiWritingPreview">字</span></div>
-            <div class="kanji-writing-sheets" id="kanjiWritingSheets"></div>
+            <div class="kanji-stage">
+              <svg class="kanji-stage-svg" id="kanjiStrokeSvg" viewBox="0 0 109 109" role="img" aria-label="Animasi urutan goresan kanji">
+                <g id="kanjiStrokeGhost"></g>
+                <g id="kanjiStrokeDone"></g>
+              </svg>
+              <div class="kanji-stage-status" id="kanjiStrokeStatus">Memuat data goresan…</div>
+              <div class="kanji-stage-controls" id="kanjiStrokeControls" hidden>
+                <button class="kanji-ctl" id="kanjiStepBack" type="button" aria-label="Gores sebelumnya" title="Gores sebelumnya (←)">⏮</button>
+                <button class="kanji-ctl kanji-ctl-play" id="kanjiPlayPause" type="button" aria-label="Putar / jeda" title="Putar / jeda (spasi)">▶</button>
+                <button class="kanji-ctl" id="kanjiStepFwd" type="button" aria-label="Gores berikutnya" title="Gores berikutnya (→)">⏭</button>
+                <button class="kanji-ctl" id="kanjiRestart" type="button" aria-label="Ulang dari awal" title="Ulang dari awal">↺</button>
+                <span class="kanji-speed" role="group" aria-label="Kecepatan animasi">
+                  <button class="kanji-speed-btn" data-speed="0.5" type="button">0,5×</button>
+                  <button class="kanji-speed-btn active" data-speed="1" type="button">1×</button>
+                  <button class="kanji-speed-btn" data-speed="2" type="button">2×</button>
+                </span>
+                <span class="kanji-stage-progress" id="kanjiStrokeProgress">Gores 0/0</span>
+              </div>
+            </div>
           </div>
           <div class="kanji-writing-preview">
             <div class="kanji-writing-meta">
@@ -53,7 +276,10 @@
             </div>
             <div class="kanji-writing-panel">
               <h3>Pad Latihan Tulis</h3>
-              <p>Tulis kanji dengan mouse atau sentuhan. Gunakan grid besar di kiri sebagai panduan proporsi.</p>
+              <div class="kanji-pad-toolbar">
+                <button class="kanji-ghost-toggle on" id="kanjiGhostToggle" type="button" aria-pressed="true">Hantu: Nyala</button>
+                <span class="kanji-pad-hint">Tiru goresan hantu, lalu tulis bebas.</span>
+              </div>
               <canvas class="kanji-draw-pad" id="kanjiDrawPad" width="900" height="600"></canvas>
               <div class="kanji-writing-actions">
                 <button class="primary" type="button" id="kanjiClearPad">Bersihkan Pad</button>
@@ -69,32 +295,91 @@
       if (event.target === modal || event.target.closest('.kanji-writing-close')) closeModal();
     });
     document.addEventListener('keydown', (event) => {
-      if (event.key === 'Escape') closeModal();
+      if (!modal.classList.contains('open')) return;
+      if (event.key === 'Escape') { closeModal(); return; }
+      if (event.target && /^(INPUT|TEXTAREA|SELECT)$/.test(event.target.tagName)) return;
+      if (event.key === ' ') { event.preventDefault(); togglePlay(); }
+      else if (event.key === 'ArrowRight') stepForward();
+      else if (event.key === 'ArrowLeft') stepBack();
+    });
+    const wire = (id, fn) => {
+      const el = document.getElementById(id);
+      if (el) el.addEventListener('click', fn);
+    };
+    wire('kanjiPlayPause', togglePlay);
+    wire('kanjiStepFwd', stepForward);
+    wire('kanjiStepBack', stepBack);
+    wire('kanjiRestart', restart);
+    document.querySelectorAll('.kanji-speed-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        player.speed = parseFloat(btn.dataset.speed) * 1000;
+        document.querySelectorAll('.kanji-speed-btn').forEach(b => b.classList.toggle('active', b === btn));
+      });
+    });
+    wire('kanjiGhostToggle', () => {
+      ghostOn = !ghostOn;
+      const btn = document.getElementById('kanjiGhostToggle');
+      if (btn) {
+        btn.textContent = ghostOn ? 'Hantu: Nyala' : 'Hantu: Mati';
+        btn.classList.toggle('on', ghostOn);
+        btn.setAttribute('aria-pressed', String(ghostOn));
+      }
+      redrawPad();
     });
     setupCanvas();
   }
+  let ghostOn = true;
+
   function openModal(kanji){
     if (!kanji) return;
     ensureModal();
     document.getElementById('kanjiWritingChar').textContent = kanji;
-    document.getElementById('kanjiWritingPreview').textContent = kanji;
-    document.getElementById('kanjiWritingSheets').innerHTML = [0.75,0.55,0.35,0.18,0.08,0,0,0].map((opacity) => `<div class="kanji-writing-box"><span style="opacity:${opacity}">${opacity ? esc(kanji) : ''}</span></div>`).join('');
     document.getElementById('kanjiWritingRules').innerHTML = RULES.map(rule => `<li>${rule}</li>`).join('');
     document.getElementById('kanjiWritingSteps').innerHTML = STEPS.map(step => `<li>${step}</li>`).join('');
     document.getElementById('kanjiStrokeLink').href = `https://kanji.sljfaq.org/kanjivg.html?kanji=${encodeURIComponent(kanji)}`;
     document.getElementById('kanjiJishoLink').href = `https://jisho.org/search/${encodeURIComponent(kanji)}%20%23kanji`;
     clearCanvas();
     document.getElementById('kanjiWritingModal').classList.add('open');
+
+    // status awal panggung
+    player.kanji = kanji;
+    player.data = null;
+    const status = document.getElementById('kanjiStrokeStatus');
+    const controls = document.getElementById('kanjiStrokeControls');
+    const badge = document.getElementById('kanjiStrokeBadge');
+    const ghostEl = document.getElementById('kanjiStrokeGhost');
+    if (ghostEl) ghostEl.innerHTML = '';
+    if (status) status.hidden = false;
+    if (controls) controls.hidden = true;
+    if (badge) badge.hidden = true;
+
+    loadStrokes().then(data => {
+      const entry = data[kanji];
+      if (!entry || !entry.s || !entry.s.length) {
+        if (status) {
+          status.textContent = 'Data goresan belum tersedia untuk kanji ini — gunakan tautan "Detail Stroke Order" di bawah.';
+          status.hidden = false;
+        }
+        return;
+      }
+      player.data = { n: entry.n || entry.s.length, s: entry.s };
+      renderStage();
+      redrawPad();
+    });
   }
   function closeModal(){
+    stopPlayback();
     const modal = document.getElementById('kanjiWritingModal');
     if (modal) modal.classList.remove('open');
   }
+
+  // ── Pad latihan (canvas) ────────────────────────────────────────────────
+  let padCtx = null;
   function setupCanvas(){
     const canvas = document.getElementById('kanjiDrawPad');
     const clear = document.getElementById('kanjiClearPad');
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    padCtx = canvas.getContext('2d');
     let drawing = false;
     function point(event){
       const rect = canvas.getBoundingClientRect();
@@ -104,22 +389,27 @@
         y: (source.clientY - rect.top) * (canvas.height / rect.height)
       };
     }
+    function inkColor(){
+      // ikut tema: baca token CSS kalau ada, fallback warna gelap
+      const probe = getComputedStyle(document.documentElement).getPropertyValue('--ink').trim();
+      return (probe && probe.startsWith('#')) ? probe : '#17181d';
+    }
     function start(event){
       drawing = true;
       const p = point(event);
-      ctx.beginPath();
-      ctx.moveTo(p.x, p.y);
+      padCtx.beginPath();
+      padCtx.moveTo(p.x, p.y);
       event.preventDefault();
     }
     function move(event){
       if (!drawing) return;
       const p = point(event);
-      ctx.lineWidth = 18;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
-      ctx.strokeStyle = '#17181d';
-      ctx.lineTo(p.x, p.y);
-      ctx.stroke();
+      padCtx.lineWidth = 18;
+      padCtx.lineCap = 'round';
+      padCtx.lineJoin = 'round';
+      padCtx.strokeStyle = inkColor();
+      padCtx.lineTo(p.x, p.y);
+      padCtx.stroke();
       event.preventDefault();
     }
     function end(){ drawing = false; }
@@ -128,10 +418,30 @@
     ['mouseup','mouseleave','touchend','touchcancel'].forEach(name => canvas.addEventListener(name, end));
     if (clear) clear.addEventListener('click', clearCanvas);
   }
+  function drawPadGhost(){
+    if (!padCtx || !ghostOn || !player.data) return;
+    const scale = 600 / 109;
+    padCtx.save();
+    padCtx.translate((900 - 600) / 2, 0);
+    padCtx.scale(scale, scale);
+    padCtx.strokeStyle = 'rgba(150,150,150,.5)';
+    padCtx.lineWidth = 3;
+    padCtx.lineCap = 'round';
+    padCtx.lineJoin = 'round';
+    try {
+      for (const d of player.data.s) {
+        padCtx.stroke(new Path2D(d));
+      }
+    } catch (err) { /* Path2D tak didukung — biarkan pad kosong */ }
+    padCtx.restore();
+  }
+  function redrawPad(){
+    clearCanvas();
+  }
   function clearCanvas(){
     const canvas = document.getElementById('kanjiDrawPad');
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = padCtx || canvas.getContext('2d');
     ctx.clearRect(0,0,canvas.width,canvas.height);
     ctx.save();
     ctx.strokeStyle = 'rgba(232,83,74,.18)';
@@ -142,7 +452,10 @@
     ctx.moveTo(0, canvas.height / 2); ctx.lineTo(canvas.width, canvas.height / 2);
     ctx.stroke();
     ctx.restore();
+    drawPadGhost();
   }
+
+  // ── Pasang tombol "Cara Tulis" di kartu kanji ───────────────────────────
   function addButton(target, kanji){
     if (!target || !kanji || target.querySelector(':scope > .kanji-write-btn')) return;
     const button = document.createElement('button');

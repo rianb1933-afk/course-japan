@@ -302,7 +302,22 @@ const KANJI_DB = [
 ];
 
 // ── STROKE ANIMATION ─────────────────────────────────────────────────────────
-// Simplified stroke paths (in real app: use KanjiVG SVG data)
+// Data asli urutan gores dari assets/kanji-strokes.js (KanjiVG), dimuat
+// on-demand. STROKE_PATHS di bawah hanya fallback untuk kanji langka yang
+// tidak ada di dataset.
+let kvStrokes = null, kvLoaded = false;
+function loadKV(){
+  if (kvLoaded) return Promise.resolve(kvStrokes);
+  return new Promise(resolve => {
+    if (window.KANJI_STROKES) { kvStrokes = window.KANJI_STROKES; kvLoaded = true; resolve(kvStrokes); return; }
+    const s = document.createElement('script');
+    s.src = 'assets/kanji-strokes.js';
+    s.onload = () => { kvStrokes = window.KANJI_STROKES || {}; kvLoaded = true; resolve(kvStrokes); };
+    s.onerror = () => { kvStrokes = {}; kvLoaded = true; resolve(kvStrokes); };
+    document.head.appendChild(s);
+  });
+}
+
 const STROKE_PATHS = {
   '介': [
     [[100,20],[100,180]],  // vertical stroke
@@ -411,8 +426,9 @@ function showKanji(k) {
     </div>`;
   }).join('');
 
-  // Reset stroke
+  // Reset stroke & siapkan data goresan asli (KanjiVG)
   resetStroke();
+  loadKV();
   // Update write mode
   document.getElementById('writeTarget').textContent = k.char;
   document.getElementById('writeMeaning').textContent = k.mean;
@@ -450,7 +466,10 @@ function playKanjiAudio() {
 function animateStroke() {
   const canvas = document.getElementById('strokeCanvas');
   const ctx = canvas.getContext('2d');
-  const paths = STROKE_PATHS[currentKanji.char] || generateSimplePaths(currentKanji.stroke);
+  const entry = (kvStrokes && kvStrokes[currentKanji.char]) || null;
+  const paths = entry ? entry.s : (STROKE_PATHS[currentKanji.char] || generateSimplePaths(currentKanji.stroke));
+  const total = entry ? entry.n : paths.length;
+  const real = Boolean(entry);
   strokeIdx = 0;
   clearInterval(strokeInterval);
   ctx.clearRect(0,0,200,200);
@@ -461,9 +480,12 @@ function animateStroke() {
   ctx.fillText(currentKanji.char, 30, 165);
 
   strokeInterval = setInterval(()=>{
-    if (strokeIdx >= paths.length) { clearInterval(strokeInterval); return; }
-    drawStroke(ctx, paths[strokeIdx]);
-    document.getElementById('strokeInfo').textContent = `Stroke ${strokeIdx+1}/${paths.length}`;
+    if (strokeIdx >= total) { clearInterval(strokeInterval); return; }
+    ctx.save();
+    if (real) ctx.scale(200/109, 200/109); // KanjiVG viewBox 109×109 → canvas 200×200
+    drawStroke(ctx, paths[strokeIdx], real);
+    ctx.restore();
+    document.getElementById('strokeInfo').textContent = `Stroke ${strokeIdx+1}/${total}`;
     strokeIdx++;
   }, strokeSpeed);
 }
@@ -477,12 +499,18 @@ function generateSimplePaths(n) {
   });
 }
 
-function drawStroke(ctx, path) {
+function drawStroke(ctx, path, real) {
   ctx.beginPath();
   ctx.strokeStyle = '#2563eb';
-  ctx.lineWidth = 4;
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
+  if (real) {
+    // path asli KanjiVG (string SVG) — gambar lewat Path2D
+    ctx.lineWidth = 3;
+    try { ctx.stroke(new Path2D(path)); } catch (err) {}
+    return;
+  }
+  ctx.lineWidth = 4;
   ctx.moveTo(path[0][0], path[0][1]);
   for (let i=1;i<path.length;i++) ctx.lineTo(path[i][0],path[i][1]);
   ctx.stroke();
@@ -503,7 +531,9 @@ function resetStroke() {
   ctx.font = '140px "Noto Serif JP"';
   ctx.fillStyle = 'rgba(0,0,0,.08)';
   ctx.fillText(currentKanji.char, 30, 165);
-  document.getElementById('strokeInfo').textContent = `${currentKanji.stroke} strokes`;
+  const entry = (kvStrokes && kvStrokes[currentKanji.char]) || null;
+  const total = entry ? entry.n : currentKanji.stroke;
+  document.getElementById('strokeInfo').textContent = `${total} goresan`;
 }
 function slowStroke() { strokeSpeed = strokeSpeed===800?1600:800; }
 

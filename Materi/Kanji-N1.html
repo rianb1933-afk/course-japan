@@ -62,15 +62,38 @@
 <link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
 <meta property="og:site_name" content="Nihongo Pro Academy">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
+<style>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}
+
+.nav-logo{display:flex;align-items:baseline;gap:10px}.nav-logo-jp{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;color:var(--red)}.nav-logo-id{font-size:12px;font-weight:500;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+.nav-links a.active,.nav-links a:hover{color:var(--red)}
+.theme-toggle{width:36px;height:36px;border:.5px solid var(--border-mid);border-radius:50%;background:var(--white);display:flex;align-items:center;justify-content:center}.btn-sm{background:var(--red);color:#fff;padding:8px 18px;border-radius:100px;font-size:13px;font-weight:700}
+.hero{display:block!important;min-height:auto!important;padding:5rem 5vw 3rem!important;background:#17181d;color:#fff;position:relative;overflow:hidden}.hero::before{content:'四級';position:absolute;right:-40px;bottom:-80px;font-family:'Noto Serif JP',serif;font-size:280px;color:rgba(255,255,255,.045);line-height:1}
+.hero-inner{max-width:1160px;margin:0 auto;position:relative;z-index:1}.kicker{display:inline-flex;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(34px,5vw,62px);line-height:1.1;margin-bottom:1rem}.hero p{max-width:780px;color:rgba(255,255,255,.68);font-size:16px;line-height:1.9}
+.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:2rem}.hero-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:1rem}.hero-stat strong{font-family:'Noto Serif JP',serif;font-size:30px;display:block;line-height:1}.hero-stat span{font-size:12px;color:rgba(255,255,255,.58)}
+.toolbar{position:sticky;top:68px;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:1rem 5vw}.toolbar-inner{max-width:1160px;margin:0 auto;display:flex;gap:10px;align-items:center;justify-content:space-between}.search{flex:1;min-width:180px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink);border-radius:8px;padding:11px 13px;font-family:'Outfit',sans-serif}.filter{display:flex;gap:7px;flex-wrap:wrap}.filter button{border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);border-radius:8px;padding:9px 12px;font-weight:800;font-size:12px}.filter button.active{background:var(--red);color:#fff;border-color:var(--red)}
+.wrap{max-width:1160px;margin:0 auto;padding:2.5rem 5vw}.section-head{display:flex;justify-content:space-between;gap:1rem;align-items:flex-end;margin-bottom:1.25rem}.section-label{font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--red);margin-bottom:.4rem}.section-title{font-family:'Noto Serif JP',serif;font-size:clamp(24px,3vw,36px);line-height:1.2}.section-sub{color:var(--ink-soft);font-size:14px;max-width:620px}
+.kanji-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:1rem}.kanji-card{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1rem;box-shadow:var(--shadow-sm);display:grid;grid-template-columns:72px 1fr;gap:1rem;min-height:172px}.char{font-family:'Noto Serif JP',serif;font-size:58px;color:var(--red);line-height:1;text-align:center}.meta{display:flex;gap:5px;flex-wrap:wrap;margin:.3rem 0}.tag{font-size:10px;font-weight:800;padding:2px 7px;border-radius:8px;background:var(--red-pale);color:var(--red)}.meaning{font-size:15px;font-weight:800;color:var(--ink);margin-bottom:.35rem}.reading{font-size:12px;color:var(--ink-mid);line-height:1.55}.reading b{color:var(--ink);font-weight:800}.example{grid-column:1/-1;background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:.7rem;font-size:13px;color:var(--ink-mid)}.example .jp{font-family:'Noto Serif JP',serif;font-size:16px;color:var(--ink);font-weight:600}
+.study{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.study-card{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.25rem;box-shadow:var(--shadow-sm)}.study-card h3{font-size:16px;margin-bottom:.5rem}.study-card ul{padding-left:1.1rem;color:var(--ink-mid);font-size:13px;display:grid;gap:.35rem}.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.18);border-radius:8px;padding:1rem;color:var(--ink-mid);font-size:13px;margin-top:1rem}
+@media(max-width:900px){.hero-stats,.study{grid-template-columns:1fr 1fr}.toolbar-inner,.section-head{display:block}.filter{margin-top:.75rem}.search{width:100%}}
+@media(max-width:560px){.hero-stats,.study{grid-template-columns:1fr}.kanji-card{grid-template-columns:62px 1fr}.char{font-size:48px}}
+
+.hero::before{content:'一級'}
+</style>
 </head>
 <body>
-<main id="main-content" class="hero" role="main">
+<section class="hero" role="banner">
   <div class="hero-inner">
     <div class="kicker">Daftar Kanji N1 Lengkap</div>
     <h1>Kanji N1 Lengkap<br>常用漢字の頂点</h1>
-    <p>Halaman persiapan Kanji N1 untuk membaca editorial, akademik, kontrak, esai abstrak, dan teks profesional. Sumber full list di-embed dari Kanji Tools yang menampilkan 1.235 karakter N1; beberapa sumber lain memakai angka berbeda karena JLPT modern tidak menerbitkan daftar resmi final.</p>
+    <p>Deck lokal 277 kanji N1 prioritas untuk membaca editorial, akademik, kontrak, dan teks profesional — lengkap dengan cara baca on&#39;yomi/kun&#39;yomi, arti Indonesia, dan contoh kata. Sumber eksternal Kanji Tools di bawah menampilkan 1.235 karakter untuk eksplorasi lebih jauh.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><strong>1,235</strong><span>daftar kanji N1</span></div>
+      <div class="hero-stat"><strong>277</strong><span>kartu kanji N1 lokal</span></div>
       <div class="hero-stat"><strong>2,000+</strong><span>target total N1</span></div>
       <div class="hero-stat"><strong>論説</strong><span>editorial & abstrak N1</span></div>
       <div class="hero-stat"><strong>N1</strong><span>tingkat penguasaan N1</span></div>
@@ -80,7 +103,30 @@
 <div style="margin-top:2rem;padding:0 1rem">
   <button onclick="startKanjiQuizN1()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:13px;font-weight:700;cursor:pointer">🎯 Mulai Kuis Kanji N1</button>
   <div id="kqArea1" style="display:none;margin-top:1rem"></div>
-</div></main>
+</div></section>
+
+<div class="toolbar"><div class="toolbar-inner">
+  <input class="search" id="search" placeholder="Cari kanji, arti, reading, contoh..." aria-label="Cari">
+  <div class="filter" id="filters">
+    <button class="active" data-cat="all">Semua</button>
+    <button data-cat="people">Orang</button>
+    <button data-cat="place">Tempat</button>
+    <button data-cat="time">Waktu</button>
+    <button data-cat="nature">Alam</button>
+    <button data-cat="business">Bisnis</button>
+    <button data-cat="action">Aksi</button>
+    <button data-cat="abstract">Abstrak</button>
+  </div>
+</div></div>
+<main id="main-content" class="wrap" role="main">
+  <div class="section-head">
+    <div><div class="section-label">Tabel Kanji</div><h2 class="section-title">Daftar Kanji N1 — Deck Utama</h2></div>
+    <p class="section-sub">Deck lokal 277 kanji N1 prioritas: cara baca, arti Indonesia, dan contoh kata ber-furigana. Gunakan search untuk mencari kanji/arti/reading.</p>
+  </div>
+  <div class="kanji-grid" id="kanjiGrid"></div>
+  <div class="note" id="countNote"></div>
+</main>
+
 
 <section class="wrap">
   <div class="section-head">
@@ -95,17 +141,11 @@
   <div class="note">Catatan: N1 tidak bisa dipelajari efektif hanya dari daftar. Gunakan daftar ini sebagai checklist recognition, lalu kuatkan melalui vocabulary dan reading practice.</div>
 </section>
 
-<section class="wrap">
-  <div class="section-head">
-    <div><div class="section-label">Pratinjau Cepat</div><h2 class="section-title">Contoh Kanji N1 Prioritas</h2></div>
-    <p class="section-sub">Preview lokal ini memuat kanji N1 yang sering muncul di daftar lanjutan. Full list ada di panel sumber di bawah.</p>
-  </div>
-  <div class="quick" id="quickGrid"></div>
-</section>
+
 
 <section class="wrap">
   <div class="section-head">
-    <div><div class="section-label">Sumber Lengkap</div><h2 class="section-title">Full Kanji N1 1.235 Karakter</h2></div>
+    <div><div class="section-label">Sumber Lengkap</div><h2 class="section-title">Daftar Lengkap Eksternal — 1.235 Karakter</h2></div>
     <p class="section-sub">Panel ini memuat daftar lengkap dari Kanji Tools. Jika browser memblokir iframe atau sedang offline, buka tombol sumber langsung.</p>
   </div>
   <div class="source-actions">
@@ -122,85 +162,337 @@ const catLabel = {
   'verb':'Aksi','nature':'Alam','action':'Aksi','feeling':'Perasaan',
   'business':'Bisnis','abstract':'Abstrak','body':'Tubuh','other':'Lainnya'
 };
-const preview = [
-  // 頻出 N1 — Politik & Sosial
-  ['氏','surname'],['統','govern'],['基','foundation'],['価','value'],['提','propose'],
-  ['挙','raise'],['応','respond'],['企','plan'],['検','inspect'],['証','proof'],
-  ['援','support'],['施','perform'],['護','protect'],['展','expand'],['態','condition'],
-  ['視','inspect'],['裁','judge'],['志','aspire'],['載','publish'],['密','secret'],
-  ['撤','withdraw'],['措','set aside'],['救','rescue'],['執','grasp'],['削','shave'],
-  ['維','maintain'],['獄','prison'],['誘','invite'],['魂','soul'],['徳','virtue'],
-  ['障','obstacle'],['慮','consider'],['憂','anxiety'],['衝','collide'],['監','supervise'],
-  ['賠','compensate'],['遵','obey'],['隷','servitude'],['凝','congeal'],['壊','break'],
-  ['懐','nostalgia'],['獲','capture'],['謀','scheme'],['錯','confused'],['還','return'],
-  ['憲','constitution'],['衛','defense'],['償','reparation'],['謙','humility'],['購','purchase'],
-  ['縮','shrink'],['鑑','model'],
-  // 頻出 N1 — 経済・ビジネス
-  ['概','outline'],['論','argue'],['批','criticize'],['根','root'],['拠','basis'],
-  ['制','system'],['規','standard'],['権','right'],['義','justice'],['務','duty'],
-  ['促','urge'],['推','push'],['奨','encourage'],['影','shadow'],['響','echo'],
-  ['構','construct'],['造','create'],['領','territory'],['域','area'],['範','model'],
-  ['原','original'],['則','rule'],['策','plan'],['拒','refuse'],['実','reality'],
-  ['効','effect'],['率','ratio'],['益','benefit'],['損','loss'],['収','income'],
-  ['費','expense'],['投','invest'],['資','capital'],['産','property'],['需','demand'],
-  ['供','supply'],['競','compete'],['争','contend'],['勝','win'],['敗','fail'],
-  ['優','excel'],['劣','inferior'],['格','status'],['差','difference'],['均','equal'],
-  // 頻出 N1 — 抽象・学術
-  ['衆','masses'],['念','idea'],['識','discern'],['認','acknowledge'],['判','judge'],
-  ['評','evaluate'],['紛','dispute'],['察','guess'],['悟','realize'],['覚','feel'],
-  ['感','feeling'],['情','emotion'],['欲','desire'],['望','hope'],['憧','yearn'],
-  ['懸','hang'],['懲','punish'],['戒','admonish'],['慎','prudence'],['謹','discreet'],
-  ['丁','even'],['丑','twelfth'],['乃','from'],['之','of'],['亦','also'],['互','mutually'],
-  ['亀','turtle'],['亡','deceased'],['仁','humanity'],['仙','hermit'],['伐','fell'],
-  ['侍','samurai'],['俳','haiku'],['倣','imitate'],['傲','arrogant'],['僅','merely'],
-  // 頻出 N1 — 自然・身体
-  ['霧','fog'],['霜','frost'],['霰','hail'],['雷','thunder'],['雹','hail stones'],
-  ['嵐','storm'],['澄','clear'],['濁','muddy'],['枯','wither'],['芽','bud'],
-  ['苔','moss'],['藻','seaweed'],['繁','flourish'],['茂','dense'],['肝','liver'],
-  ['脾','spleen'],['膵','pancreas'],['脈','pulse'],['腫','tumor'],['腰','waist'],
-  ['膝','knee'],['肘','elbow'],['踵','heel'],['咽','throat'],['喉','throat'],
-  // 頻出 N1 — 動作・状態
-  ['滞','stagnate'],['遅','slow'],['滑','slide'],['速','fast'],['鈍','dull'],
-  ['鋭','sharp'],['乾','dry'],['湿','moist'],['柔','soft'],['硬','hard'],
-  ['砕','smash'],['彫','carve'],['刻','engrave'],['織','weave'],['染','dye'],
-  ['漂','drift'],['沈','sink'],['浮','float'],['揺','sway'],['震','shake'],
-  ['轟','rumble'],['叫','shout'],['囁','whisper'],['咆','roar'],['唸','groan'],
-  // 頻出 N1 — 法律・行政
-  ['訴','sue/accuse'],['却','reject'],['棄','abandon'],['覆','overturn'],['侵','invade'],
-  ['陥','fall into'],['逮','arrest'],['訟','litigation'],['慰','console'],['譲','concede'],
-  ['貫','pierce/consistent'],['徹','penetrate'],['賜','bestow'],['赦','pardon'],['糾','investigate'],
-  ['弾','impeach/bullet'],['劾','impeach'],['勅','imperial edict'],['審','examine/judge'],
-  // 頻出 N1 — 経済・産業
-  ['融','melt/finance'],['潤','moisten/profit'],['弊','detriment'],['窮','destitute'],['蓄','store up'],
-  ['培','cultivate'],['醸','brew'],['繰','reel/repeat'],['繕','mend'],['賦','installment'],
-  ['賄','provide/bribe'],['膨','swell'],['脹','swell'],['騰','soar'],['暴','violent/expose'],
-  ['穫','harvest'],['潜','submerge'],['浸','soak'],['漬','pickle'],
-  // 頻出 N1 — 心理・行動
-  ['惧','fear'],['畏','awe'],['脅','threaten'],['威','authority'],['嚇','intimidate'],
-  ['唆','instigate'],['奪','rob'],['剥','peel/strip'],['奔','rush'],['狂','crazy'],
-  ['妄','reckless'],['盲','blind'],['朽','decay'],['腐','rot'],['潔','clean/pure'],
-  ['汚','dirty/corrupt'],
-];
+const rawKanji = `氏|シ|うじ|gelar/klan/marga|氏名|しめい|nama lengkap
+統|トウ|す.べる|memerintah/menyatukan|伝統|でんとう|tradisi
+基|キ|もと, もとい|dasar|基準|きじゅん|standar
+価|カ, ケ|あたい|harga|価値|かち|nilai
+提|テイ, チョウ, ダイ|さ.げる|mengajukan/menyodorkan|提案|ていあん|proposal
+挙|キョ|あ.げる, あ.がる|mengangkat/mengajukan|選挙|せんきょ|election
+応|オウ|こた.える|merespons/mengikuti|応急|おうきゅう|emergency fix; tentative measure; temporary solution
+検|ケン|しら.べる|memeriksa|検討|けんとう|pertimbangan
+証|ショウ|あかし|bukti/kesaksian|証明|しょうめい|pembuktian
+援|エン||bantuan/dukungan|支援|しえん|dukungan
+施|シ, セ|ほどこ.す|melaksanakan/mengurus|施設|しせつ|fasilitas
+護|ゴ|まも.る|melindungi|保護|ほご|perlindungan
+展|テン||membentang/mengembangkan|発展|はってん|perkembangan
+態|タイ||kondisi/sikap|状態|じょうたい|keadaan
+視|シ|み.る|melihat/memandang|視点|してん|sudut pandang
+裁|サイ|た.つ, さば.く|mengadili/memotong|裁判|さいばん|pengadilan
+志|シ|シリング, こころざ.す, こころざし|tekad|志望|しぼう|aspirasi
+密|ミツ|ひそ.か|rapat/rahasia|秘密|ひみつ|rahasia
+措|ソ|お.く|menyisihkan/mengatur|措置|そち|tindakan
+救|キュウ|すく.う|menyelamatkan|救助|きゅうじょ|penyelamatan
+執|シツ, シュウ|と.る|memegang teguh/menjalankan|執行|しっこう|eksekusi
+削|サク|けず.る, はつ.る, そ.ぐ|mengikis/memotong|削減|さくげん|pengurangan
+維|イ||mempertahankan|維持|いじ|pemeliharaan
+誓|セイ|ちか.う|bersumpah|誓約|せいやく|sumpah
+獲|カク|え.る|menangkap/memperoleh|獲得|かくとく|perolehan
+謀|ボウ, ム|はか.る, たばか.る, はかりごと|merencanakan/berkonspirasi|謀略|ぼうりゃく|tipu daya
+憲|ケン||konstitusi/hukum|憲法|けんぽう|konstitusi
+衛|エイ||mempertahankan/menjaga|防衛|ぼうえい|pertahanan
+償|ショウ|つぐな.う|membayar/mengganti|補償|ほしょう|kompensasi
+謙|ケン|へりくだ.る|rendah hati|謙遜|けんそん|kerendahhatian
+凌|リョウ|しの.ぐ|melampaui/bertahan|凌雲|りょううん|skyscraping; very high; above the clouds
+斡|アツ, カン|めぐ.る|menengahi/berputar|斡旋|あっせん|good offices; kind offices; services
+嘱|ショク|しょく.する, たの.む|mempercayakan|委嘱|いしょく|commissioning; entrusting (with); request
+憤|フン|いきどお.る|marah/amarah|憤慨|ふんがい|kemarahan
+策|サク||rencana/strategi|政策|せいさく|kebijakan
+勢|セイ, ゼイ|いきお.い, はずみ|kekuatan|勢力|せいりょく|kekuatan
+機|キ|はた|mesin|機会|きかい|kesempatan
+治|ジ, チ|おさ.める, なお.る|memerintah/mengobati|政治|せいじ|politik
+域|イキ||wilayah|地域|ちいき|wilayah
+断|ダン|た.つ, ことわ.る, さだ.める|memutuskan|判断|はんだん|penilaian
+率|ソツ, リツ|ひき.いる|rasio/memimpin|効率|こうりつ|efisiensi
+革|カク|あらた.める|perubahan/kulit|改革|かいかく|reformasi
+縮|シュク|ちぢ.む, ちぢ.まる, ちぢ.める, ちぢ.れる|menyusut|縮小|しゅくしょう|pengecilan
+拡|カク, コウ|ひろ.がる, ひろ.げる, ひろ.める|memperluas|拡大|かくだい|perluasan
+促|ソク|うなが.す|mendorong/mempercepat|促進|そくしん|promosi
+掲|ケイ|かか.げる|memajang/mengibarkan|掲示|けいじ|pengumuman
+抑|ヨク|おさ.える|menahan/menekan|抑制|よくせい|pengendalian
+廃|ハイ|すた.れる, すた.る|menghapus/membuang|廃止|はいし|penghapusan
+衰|スイ|おとろ.える|melemah/merosot|衰退|すいたい|kemunduran
+繁|ハン|しげ.る, しげ.く|ramai|繁栄|はんえい|kemakmuran
+振|シン|ふ.る, ふ.れる, ふ.るう|mendorong/mengayun|振興|しんこう|promosi
+誠|セイ|まこと|kejujuran/tulus|誠実|せいじつ|tulus
+廉|レン||bersih/adil|廉潔|れんけつ|bersih jujur
+奉|ホウ, ブ|たてまつ.る, まつ.る, ほう.ずる|mengabdi|奉仕|ほうし|pengabdian
+拝|ハイ|おが.む, おろが.む|bersembah|崇拝|すうはい|pemujaan
+崇|スウ|あが.める|memuja|崇拝|すうはい|pemujaan
+誉|ヨ|ほま.れ, ほ.める|kehormatan|名誉|めいよ|kehormatan
+賞|ショウ|ほ.める|penghargaan|賞賛|しょうさん|pujian
+罰|バツ, バチ, ハツ|ばっ.する|hukuman|罰則|ばっそく|sanksi hukum
+欺|ギ|あざむ.く|menipu|欺瞞|ぎまん|penipuan
+脅|キョウ|おびや.かす, おど.す, おど.かす|mengancam|脅迫|きょうはく|ancaman
+柔|ジュウ, ニュウ|やわ.らか, やわ.らかい, やわ, やわ.ら|lembut/fleksibel|柔軟|じゅうなん|fleksibel
+腐|フ|くさ.る, -くさ.る, くさ.れる, くさ.れ|busuk/korupsi|腐敗|ふはい|korupsi
+滅|メツ|ほろ.びる, ほろ.ぶ, ほろ.ぼす|hancur/musnah|滅亡|めつぼう|kehancuran
+枯|コ|か.れる, か.らす|layu/kering|枯渇|こかつ|kehabisan
+噴|フン|ふ.く|menyembur|噴火|ふんか|letusan gunung
+湧|ユウ, ヨウ, ユ|わ.く|memancar/muncul|湧出|ゆうしゅつ|mengalir
+磨|マ|みが.く, す.る|mengasah/menggosok|研磨|けんま|pengasahan
+塗|ト|ぬ.る, ぬ.り, まみ.れる|mengecat/melabur|塗装|とそう|pengecatan
+染|セン|そ.める, そ.まる, し.みる, し.み|mewarnai/mencelup|染色|せんしょく|pewarnaan
+崩|ホウ|くず.れる, -くず.れ, くず.す|runtuh/hancur|崩壊|ほうかい|keruntuhan
+傾|ケイ|かたむ.く, かたむ.ける, かたぶ.く, かた.げる|miring|傾向|けいこう|kecenderungan
+揺|ヨウ|ゆ.れる, ゆ.る, ゆ.らぐ, ゆ.るぐ|bergoyang|動揺|どうよう|guncangan hati
+混|コン|ま.じる, -ま.じり, ま.ざる, ま.ぜる|bercampur|混合|こんごう|campuran
+固|コ|かた.める, かた.まる, かた.まり, かた.い|keras/menetap|固定|こてい|penetapan
+均|キン|なら.す|merata/seimbang|均等|きんとう|kesetaraan
+純|ジュン||murni|純粋|じゅんすい|murni
+励|レイ|はげ.む, はげ.ます|menyemangati|激励|げきれい|encouragement; spurring (on); cheering (on)
+諭|ユ|さと.す|menasehati/menjelaskan|説諭|せつゆ|penasehatan
+褒|ホウ|ほ.める|memuji|褒美|ほうび|reward; prize
+慈|ジ|いつく.しむ|welas asih|慈悲|じひ|belas kasih
+嘆|タン|なげ.く, なげ.かわしい|meratap|感嘆|かんたん|admiration; wonder; astonishment
+奪|ダツ|うば.う|merampas|剥奪|はくだつ|pencabutan
+誘|ユウ|さそ.う, いざな.う|menggoda/mengundang|誘惑|ゆうわく|godaan
+義|ギ||keadilan/moral|正義|せいぎ|keadilan
+企|キ|くわだ.てる, たくら.む|merencanakan|企画|きかく|planning; plan; project
+載|サイ|の.せる, の.る|menerbitkan|記載|きさい|mention (in a document); record; entry
+撤|テツ||menarik mundur|軍備撤廃|ぐんびてっぱい|complete disarmament
+獄|ゴク||penjara|地獄|じごく|hell realm; Naraka; Hell
+魂|コン|たましい, たま|jiwa|魂胆|こんたん|ulterior motive; plot; scheme
+徳|トク||kebajikan|道徳|どうとく|morals; morality
+障|ショウ|さわ.る|hambatan|気障|きざ|affected; smug; pompous
+慮|リョ|おもんぱく.る, おもんぱか.る|mempertimbangkan|配慮|はいりょ|consideration; concern; attention
+憂|ユウ|うれ.える, うれ.い, う.い, う.き|kecemasan|憂鬱|ゆううつ|depression; melancholy; dejection
+衝|ショウ|つ.く|bertabrakan|衝撃|しょうげき|impact; shock; impulse
+監|カン||mengawasi|監視|かんし|monitoring; watching; observation
+賠|バイ||mengganti rugi|賠償|ばいしょう|compensation; reparations; indemnity
+遵|ジュン||mematuhi|遵行|じゅんこう|obedience; observance; adherence
+隷|レイ|したが.う, しもべ|perbudakan|奴隷|どれい|slave; servant; slavery
+凝|ギョウ|こ.る, こ.らす, こご.らす, こご.らせる|membeku|凝固|ぎょうこ|coagulation; freezing; solidification
+壊|カイ, エ|こわ.す, こわ.れる, やぶ.る|merusak|崩壊|ほうかい|keruntuhan
+懐|カイ, エ|ふところ, なつ.かしい, なつ.かしむ, なつ.く|kerinduan|懐疑|かいぎ|doubt; skepticism; scepticism
+錯|サク, シャク||bingung|錯誤|さくご|mistake; error; discrepancy
+還|カン|かえ.る|kembali|還元|かんげん|restoration; return; reduction
+購|コウ||membeli|購読|こうどく|buying and reading (book, magazine, etc.); subscribing (incl. free subscriptions); taking (e.g. newspaper)
+鑑|カン|かんが.みる, かがみ|teladan|印鑑|いんかん|stamp; seal
+概|ガイ|おおむ.ね|gambaran umum|概説|がいせつ|overview; outline; rough summary
+論|ロン||berdebat|議論|ぎろん|perdebatan
+批|ヒ||mengkritik|批判|ひはん|kritik
+根|コン|ね|akar|根気|こんき|patience; perseverance; persistence
+拠|キョ, コ|よ.る|dasar|証拠|しょうこ|bukti
+制|セイ||sistem|抑制|よくせい|pengendalian
+規|キ||standar|規格|きかく|standard; norm
+権|ケン, ゴン||hak|権力|けんりょく|(political) power; authority; influence
+務|ム|つと.める|tugas|業務|ぎょうむ|pekerjaan
+推|スイ|お.す|mendorong|推進|すいしん|propulsion; drive; promotion (of a policy, project, movement, etc.)
+奨|ショウ, ソウ|すす.める|menumbuhkan|奨励|しょうれい|encouragement; promotion; inducement
+影|エイ|かげ|bayangan|人影|ひとかげ|figure of a person; figures of people; shadow of a person
+響|キョウ|ひび.く|gema|反響|はんきょう|echo; reverberation; response
+構|コウ|かま.える|membangun|構想|こうそう|plan; plot; idea
+造|ゾウ|つく.る|menciptakan|偽造|ぎぞう|forgery; counterfeiting; fabrication
+領|リョウ||wilayah|占領|せんりょう|occupying; having (an area) all to oneself; military occupation
+範|ハン||teladan|規範|きはん|model; standard; pattern
+原|ゲン|はら|asli|草原|くさはら|padang rumput
+則|ソク|のっと.る|aturan|罰則|ばっそく|sanksi hukum
+拒|キョ, ゴ|こば.む|menolak|拒絶|きょぜつ|refusal; rejection
+実|ジツ, シツ|み, みの.る, まこと, みの|nyata|実際|じっさい|kenyataan
+効|コウ|き.く, ききめ, なら.う|efektif|効率|こうりつ|efisiensi
+益|エキ, ヤク|ま.す|manfaat|利益|りえき|keuntungan
+損|ソン|そこ.なう|kerugian|損害|そんがい|kerugian
+収|シュウ|おさ.める, おさ.まる|mengumpulkan|収入|しゅうにゅう|pendapatan
+費|ヒ|つい.やす|biaya|費用|ひよう|biaya
+投|トウ|な.げる, -な.げ|melempar|投入|とうにゅう|throwing in; inserting; depositing (e.g. a ballot)
+資|シ||modal|投資|とうし|investment
+産|サン|う.む|kekayaan|国産|こくさん|domestically produced; domestic; Japanese-made
+需|ジュ||permintaan|必需品|ひつじゅひん|necessities; necessary article; requisite
+供|キョウ, ク, クウ, グ|そな.える, とも, -ども|menyajikan|供給|きょうきゅう|pasokan
+競|キョウ, ケイ|きそ.う|bersaing|競馬|けいば|horse racing
+争|ソウ|あらそ.う, いか.でか|bertarung|抗争|こうそう|rivalry; feud; conflict
+勝|ショウ|か.つ, -が.ち, まさ.る, すぐ.れる|menang|決勝|けっしょう|decision of a contest; finals
+敗|ハイ|やぶ.れる|kalah|腐敗|ふはい|korupsi
+優|ユウ|すぐ.れる, やさ.しい|unggul|声優|せいゆう|pengisi suara
+劣|レツ|おと.る|rendahan|下劣|げれつ|base; mean; vulgar
+格|カク||status|格差|かくさ|qualitative difference; disparity; gap
+差|サ|さ.す|perbedaan|誤差|ごさ|measurement error; calculation error; discrepancy
+衆|シュウ|おお.い|rakyat banyak|観衆|かんしゅう|spectators; onlookers; members of the audience
+念|ネン||ingatan|念願|ねんがん|one's heart's desire; one's dearest wish
+識|シキ|し.る|membedakan|知識|ちしき|pengetahuan
+認|ニン|みと.める|mengakui|確認|かくにん|konfirmasi
+判|ハン|わか.る|menilai|批判|ひはん|kritik
+評|ヒョウ||mengevaluasi|批評|ひひょう|ulasan
+紛|フン|まぎ.れる, -まぎ.れ, まぎ.らす, まぎ.らわす|sengketa|紛失|ふんしつ|loss; going missing
+察|サツ||memeriksa|視察|しさつ|inspection; observation
+悟|ゴ|さと.る|menyadari|覚悟|かくご|readiness; (mental) preparedness; resolution
+覚|カク|おぼ.える, さ.ます|merasakan|自覚|じかく|self-awareness; awareness (of one's position, abilities, duty, etc.); consciousness
+感|カン||perasaan|感謝|かんしゃ|terima kasih
+情|ジョウ, セイ|なさ.け|emosi|同情|どうじょう|sympathy; compassion; pity
+欲|ヨク|ほっ.する, ほ.しい|nafsu|意欲|いよく|will; desire; eagerness
+望|ボウ|のぞ.む|harapan|志望|しぼう|aspirasi
+憧|ショウ, トウ, ドウ|あこが.れる|mendambakan|憧憬|どうけい|longing; yearning; aspiration
+懸|ケン, ケ|か.ける, か.かる|menggantung|懸賞|けんしょう|offering a prize; prize competition; prize
+懲|チョウ|こ.りる, こ.らす, こ.らしめる|menghukum|勧善懲悪|かんぜんちょうあく|rewarding good and punishing evil; poetic justice
+戒|カイ|いまし.める|menasihati|警戒|けいかい|vigilance; caution; alertness
+慎|シン|つつし.む, つつ.ましい, つつし, つつし.み|kehati-hatian|慎重|しんちょう|careful; cautious; prudent
+謹|キン|つつし.む|sopan|謹賀新年|きんがしんねん|Happy New Year
+丁|チョウ, テイ||genap|包丁|ほうちょう|kitchen knife; cooking; food
+丑|チュウ|うし|zodiak ke-12|丑年|うしどし|year of the Ox
+乃|ナイ, ダイ|の|dari|乃至|ないし|from ... to; between ... and; or
+之|シ|の, これ|milik|之繞|しんにょう|kanji "road" or "advance" radical (radical 162)
+亦|エキ, ヤク|また|juga|||
+互|ゴ|たが.い, かたみ.に|saling|交互|こうご|alternate; alternating
+亀|キ, キュウ, キン|かめ|kura-kura|亀裂|きれつ|crack; crevice; fissure
+亡|ボウ, モウ|な.い, な.き-, ほろ.びる, ほろ.ぶ|almarhum|滅亡|めつぼう|kehancuran
+仁|ジン, ニ, ニン||kemanusiaan|亜麻仁|あまに|flaxseed; linseed
+仙|セン, セント||pertapa|黄水仙|きずいせん|jonquil (Narcissus jonquilla)
+伐|バツ, ハツ, カ, ボチ|き.る, そむ.く, う.つ|menebang|間伐|かんばつ|periodic thinning (e.g. forest)
+侍|ジ, シ|さむらい, はべ.る|samurai|侍医|じい|court physician
+俳|ハイ||haiku|俳句|はいく|haiku
+倣|ホウ|なら.う|meniru|模倣|もほう|imitation; copying
+傲|ゴウ|おご.る, あなど.る|sombong|傲慢|ごうまん|haughty; arrogant; insolent
+僅|キン, ゴン|わず.か|hanya|僅差|きんさ|narrow margin; slim margin
+霧|ム, ボウ, ブ|きり|kabut|霧雨|きりさめ|drizzle; light rain
+霜|ソウ|しも|embun beku|降霜|こうそう|frost formation; frost
+霰|サン|あられ|hujan es|霰粒腫|さんりゅうしゅ|chalazion; meibomian cyst
+雷|ライ|かみなり, いかずち, いかづち|guntur|機雷|きらい|(sea) mine
+雹|ハク|ひょう|butiran es|雹害|ひょうがい|hail damage
+嵐|ラン|あらし|badai|砂嵐|すなあらし|sandstorm; noise (video); snow
+澄|チョウ|す.む, す.ます, -す.ます|jernih|清澄|せいちょう|clear; serene
+濁|ダク, ジョク|にご.る, にご.す|keruh|清濁|せいだく|good and evil; purity and impurity; voiced and unvoiced consonants
+芽|ガ|め|tunas|発芽|はつが|germination; sprouting; budding
+苔|タイ|こけ|lumut|海苔|のり|nori; laver
+藻|ソウ|も|rumput laut|海藻|かいそう|seaweed
+茂|モ|しげ.る|rimbun|逆茂木|さかもぎ|abatis
+肝|カン|きも|hati|肝心|かんじん|essential; important; crucial
+脾|ヒ||limpa|脾腫|ひしゅ|splenomegaly; enlarged spleen
+膵|スイ||pankreas|膵臓|すいぞう|pancreas
+脈|ミャク|すじ|nadi|山脈|さんみゃく|mountain range; mountain belt
+腫|シュ, ショウ|は.れる, は.れ, は.らす, はれもの|bengkak|浮腫|ふしゅ|swelling; edema; oedema
+腰|ヨウ|こし|pinggang|足腰|あしこし|legs and loins; lower body; foundations
+膝|シツ|ひざ|lutut|膝蓋骨|しつがいこつ|kneecap; patella
+肘|チュウ|ひじ|siku|肘鉄|ひじてつ|elbowing (someone); rejection; rebuff
+踵|ショウ|かかと|tumit|踵骨|しょうこつ|calcaneus; calcaneum; heel bone
+咽|イン, エン, エツ|むせ.ぶ, むせ.る, のど, の.む|tenggorokan|咽喉|いんこう|throat; vital passage; key position
+喉|コウ|のど|tenggorokan|咽喉|いんこう|throat; vital passage; key position
+滞|タイ, テイ|とどこお.る|mandek|滞納|たいのう|falling behind (with a payment); being in arrears; non-payment
+遅|チ|おそ.い|lambat|遅い|おそい|lambat
+滑|カツ, コツ|すべ.る, なめ.らか|licin|滑稽|こっけい|funny; comical; humorous
+速|ソク|はや.い, はや-, はや.める, すみ.やか|cepat|迅速|じんそく|(very) quick; rapid; swift
+鈍|ドン|にぶ.い, にぶ.る, にぶ-, なま.る|tumpul|鈍感|どんかん|thickheaded; insensitive; dull
+鋭|エイ|するど.い|tajam|気鋭|きえい|spirited; energetic
+乾|カン, ケン|かわ.く, かわ.かす, ほ.す, ひ.る|kering|乾電池|かんでんち|dry cell battery
+湿|シツ, シュウ|しめ.る, しめ.す, うるお.う, うるお.す|lembab|湿気|しっけ|moisture; humidity; dampness
+硬|コウ|かた.い|keras|強硬|きょうこう|firm; strong; unbending
+砕|サイ|くだ.く, くだ.ける|menghancurkan|火砕流|かさいりゅう|pyroclastic flow
+彫|チョウ|ほ.る, -ぼ.り|memahat|彫刻|ちょうこく|carving; engraving; sculpture
+刻|コク|きざ.む, きざ.み|mengukir|時刻表|じこくひょう|timetable; schedule
+織|ショク, シキ|お.る|menenun|織物|おりもの|textile; fabric
+漂|ヒョウ|ただよ.う|mengapung|漂着|ひょうちゃく|drifting ashore
+沈|チン, ジン|しず.む, しず.める|tenggelam|沈殿|ちんでん|precipitation; deposition; settlement (e.g. of sediment)
+浮|フ|う.く, う.かれる, う.かぶ, う.かべる|mengapung|浮気|うわき|extramarital sex; affair; fooling around
+震|シン|ふる.う, ふる.える, ふる.わせる, ふる.わす|bergetar|地震|じしん|earthquake
+轟|ゴウ|とどろ.く|menggemuruh|轟然|ごうぜん|roaring; thundering; thunderous
+叫|キョウ|さけ.ぶ|berteriak|阿鼻叫喚|あびきょうかん|agonizing cries; pandemonium; two of Buddhism's hells
+囁|ショウ|ささや.く|berbisik|||
+咆|ホウ|ほ.える|mengaum|咆哮|ほうこう|roar; howl; yell
+唸|ネン|うな.る|mengerang|||
+訴|ソ|うった.える|menuntut/menuduh|訴訟|そしょう|lawsuit; suit; (legal) action
+却|キャク|かえ.って, しりぞ.く, しりぞ.ける|menolak|棄却|ききゃく|rejection; dismissal; turning down
+棄|キ|す.てる|meninggalkan|廃棄|はいき|disposal; abandonment; scrapping
+覆|フク|おお.う, くつがえ.す, くつがえ.る|membalik|覆面|ふくめん|mask; veil; disguise
+侵|シン|おか.す|menyerbu|侵略|しんりゃく|invasion (e.g. of a country); raid; aggression
+陥|カン|おちい.る, おとしい.れる|terjerumus|欠陥|けっかん|defect; fault; flaw
+逮|タイ||menangkap|逮捕|たいほ|arrest; apprehension; capture
+訟|ショウ||litigasi|訴訟|そしょう|lawsuit; suit; (legal) action
+慰|イ|なぐさ.める, なぐさ.む|menghibur|慰安|いあん|solace; relaxation
+譲|ジョウ|ゆず.る|mengalah|譲歩|じょうほ|concession; conciliation; compromise
+貫|カン|つらぬ.く, ぬ.く, ぬき|menembus/konsisten|貫禄|かんろく|presence; dignity; corpulence
+徹|テツ||menembus|徹底|てってい|thoroughness; completeness; consistency
+賜|シ|たまわ.る, たま.う, たも.う|menganugerahkan|一時賜金|いちじしきん|lump-sum grant
+赦|シャ|ゆる.す|mengampuni|恩赦|おんしゃ|amnesty; pardon
+糾|キュウ|ただ.す|menyelidiki|糾合|きゅうごう|rally; muster
+弾|ダン, タン|ひ.く, -ひ.き, はず.む, たま|mendakwa/peluru|弾力|だんりょく|elasticity; flexibility
+劾|ガイ||mendakwa|劾奏|がいそう|report of an official's offence to the emperor (offense)
+勅|チョク|いまし.める, みことのり|titah kekaisaran|詔勅|しょうちょく|imperial edict; decree
+審|シン|つまび.らか, つぶさ.に|memeriksa|審議|しんぎ|deliberation; discussion; consideration
+融|ユウ|と.ける, と.かす|melebur/keuangan|融資|ゆうし|financing; loan
+潤|ジュン|うるお.う, うるお.す, うる.む|membasahi/laba|利潤|りじゅん|profit; returns
+弊|ヘイ||kerugian|悪弊|あくへい|corrupt practice; evil practice; bad custom
+窮|キュウ, キョウ|きわ.める, きわ.まる, きわ.まり, きわ.み|miskin|窮屈|きゅうくつ|narrow; tight; cramped
+蓄|チク|たくわ.える|menimbun|蓄積|ちくせき|accumulation; accumulate; store
+培|バイ|つちか.う|membudidayakan|栽培|さいばい|cultivation
+醸|ジョウ|かも.す|membuat (sake)|佳醸|かじょう|sweet sake; good wine
+繰|ソウ|く.る|menggulung/mengulang|繰入|くりいれ|inward transfer (of money); carry over (money from previous period)
+繕|ゼン|つくろ.う|memperbaiki|修繕|しゅうぜん|repair; mending
+賦|フ, ブ||cicilan|月賦|げっぷ|monthly installment (instalment); monthly payment
+賄|ワイ|まかな.う|menyuapi/menyuap|収賄|しゅうわい|accepting a bribe
+膨|ボウ|ふく.らむ, ふく.れる|membengkak|膨張|ぼうちょう|expansion; swelling; increase
+脹|チョウ|は.れる|membengkak|腫脹|しゅちょう|swelling
+騰|トウ|あが.る, のぼ.る|melonjak|沸騰|ふっとう|boiling; seething; becoming heated (e.g. of a debate)
+暴|ボウ, バク|あば.れる|keras/membuka|暴露|ばくろ|disclosure; exposure; revelation
+穫|カク||memanen|収穫|しゅうかく|harvest; crop; ingathering
+潜|セン|ひそ.む, もぐ.る, かく.れる, くぐ.る|membenamkan|潜水|せんすい|diving; submerging; going underwater
+浸|シン|ひた.す, ひた.る, つ.かる|merendam|再受浸|さいじゅしん|rebaptism by immersion
+漬|シ|つ.ける, つ.かる, -づ.け, -づけ|mengasinkan|浸漬|しんし|dipping; soaking; immersing
+惧|ク, グ|おそ.れる|takut|危惧|きぐ|apprehension; misgivings; uneasiness
+畏|イ|おそ.れる, かしこま.る, かしこ, かしこ.し|kagum|畏敬|いけい|reverence; awe; respect
+威|イ|おど.す, おど.し, おど.かす|otoritas|権威|けんい|authority; power; influence
+嚇|カク|おど.す|mengintimidasi|威嚇|いかく|threat; intimidation; menace
+唆|サ|そそ.る, そそのか.す|menghasut|教唆|きょうさ|instigation; incitement
+剥|ハク|は.がす, む.く|mengupas/melucuti|剥奪|はくだつ|pencabutan
+奔|ホン|はし.る|terburu-buru|淫奔|いんぽん|lewdness; lasciviousness
+狂|キョウ|くる.う, くる.おしい, くるお.しい|gila|狂気|きょうき|madness; insanity
+妄|モウ, ボウ|みだ.りに|nekat|虚妄|きょもう|falsehood; untruth; lie
+盲|モウ|めくら|buta|盲点|もうてん|blind spot (on the retina); blind spot; weak point
+朽|キュウ|く.ちる|membusuk|乾燥腐朽|かんそうふきゅう|dry rot
+潔|ケツ|いさぎよ.い|bersih/murni|廉潔|れんけつ|bersih jujur
+汚|オ|けが.す, けが.れる, けが.らわしい, よご.す|kotor|汚染|おせん|pollution; contamination`;
 
-// Filter/search
-let filteredPreview = [...preview];
-function renderGrid(data) {
-  document.getElementById('quickGrid').innerHTML = data.map(([k,m]) =>
-    `<div class="qcard" title="${m}"><div class="qchar">${k}</div><div class="qmean">${m}</div></div>`
-  ).join('');
+const kanjiN1 = rawKanji.trim().split('\n').map((line, index) => {
+  const [kanji, on, kun, meaning, word, reading, example] = line.split('|');
+  return { index: index + 1, kanji, on, kun, meaning, word, reading, example, category: categorize(meaning, word, example) };
+});
+function categorize(meaning, word, example) {
+  const t = `${meaning} ${word || ''} ${example || ''}`.toLowerCase();
+  if (/orang|guru|dokter|teman|keluarga|ibu|ayah|anak|pria|wanita|murid|anggota|karyawan|manusia|tuan|pemimpin|saudara|suami|istri|bayi|tamu/.test(t)) return 'people';
+  if (/tempat|kota|negara|sekolah|rumah|toko|stasiun|jalan|kantor|gedung|ruang|pulau|pantai|danau|gunung|universitas|desa|wilayah|daerah|pasar|pelabuhan|istana|kuil/.test(t)) return 'place';
+  if (/waktu|hari|bulan|tahun|minggu|pagi|malam|siang|sore|musim|kemarin|besok|sekarang|masa|awal|akhir|zaman|jam|menit|detik|sejarah/.test(t)) return 'time';
+  if (/air|api|laut|langit|bumi|sungai|pohon|bunga|alam|hujan|salju|angin|kayu|tanah|hutan|bintang|matahari|awan|es |salju|pasir|tumbuhan|hewan|ikan|burung|cuaca/.test(t)) return 'nature';
+  if (/bisnis|usaha|kerja|dagang|pajak|uang|gaji|harga|bank|perusahaan|modal|investasi|ekonomi|biaya|keuntungan|perdagangan|industri|jual|beli|upah|sewa/.test(t)) return 'business';
+  if (/^me|^men|^mem|^meng|^meny|^ber|^ter|^di|^pe|^per|mel|menjadi|menaruh|membuat/.test(t)) return 'action';
+  return 'abstract';
 }
-function searchKanji(q) {
-  if (!q) { filteredPreview = [...preview]; }
-  else { filteredPreview = preview.filter(([k,m]) => k.includes(q) || m.toLowerCase().includes(q.toLowerCase())); }
-  const kc = document.getElementById('kcount');
-  if (kc) kc.textContent = filteredPreview.length;
-  renderGrid(filteredPreview);
+
+const grid = document.getElementById('kanjiGrid');
+const search = document.getElementById('search');
+const countNote = document.getElementById('countNote');
+let activeCat = 'all';
+
+function render(){
+  const q = search.value.trim().toLowerCase();
+  const rows = kanjiN1.filter(k => {
+    const catOk = activeCat === 'all' || k.category === activeCat;
+    const text = `${k.kanji} ${k.on} ${k.kun} ${k.meaning} ${k.word} ${k.reading} ${k.example}`.toLowerCase();
+    return catOk && text.includes(q);
+  });
+  grid.innerHTML = rows.map(k => `
+    <article class="kanji-card">
+      <div class="char">${k.kanji}</div>
+      <div>
+        <div class="meta"><span class="tag">N1</span><span class="tag">${catLabel[k.category] || k.category}</span><span class="tag">#${String(k.index).padStart(3,'0')}</span></div>
+        <div class="meaning">${k.meaning || '—'}</div>
+        <div class="reading"><b>On:</b> ${k.on || '-'}</div>
+        <div class="reading"><b>Kun:</b> ${k.kun || '-'}</div>
+      </div>
+      ${k.word ? `<div class="example"><span class="jp">${k.word}</span> ・ ${k.reading || ''}<br>${k.example || ''}</div>` : ''}
+    </article>
+  `).join('');
+  countNote.textContent = `Menampilkan ${rows.length} dari ${kanjiN1.length} kartu kanji N1.`;
 }
-const kc0 = document.getElementById('kcount');
-if (kc0) kc0.textContent = preview.length;
-renderGrid(preview);
+
+document.getElementById('filters').addEventListener('click', e => {
+  if(e.target.tagName !== 'BUTTON') return;
+  document.querySelectorAll('#filters button').forEach(b => b.classList.remove('active'));
+  e.target.classList.add('active');
+  activeCat = e.target.dataset.cat;
+  render();
+});
+search.addEventListener('input', render);
+render();
 </script>
-<script src="../assets/kanji-writing.js?v=2" defer></script>
+<script src="../assets/kanji-writing.js?v=4" defer></script>
 <script src="../assets/translator.min.js" defer></script>
 
 <section class="section" id="kanjiQuizN1">
@@ -354,6 +646,7 @@ function ckn1(c,a){
 renderKQN1();
 </script>
 <script src="../assets/pro-app.min.js" defer></script>
+<script src="../assets/draggable-floats.js" defer></script>
 <script>
 let kqIdx1=0;
 function startKanjiQuizN1(){document.getElementById('kqArea1').style.display='block';kqIdx1=0;renderKQ1();}

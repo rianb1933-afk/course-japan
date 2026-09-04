@@ -4,6 +4,56 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v355 — Hapus latihan tulis lama (kotak trace & grid contoh) dari modal Cara Tulis
+
+### Perubahan
+
+- Modal kini fokus: panggung animasi goresan + pad latihan dengan hantu; langkah latihan disesuaikan
+
+---
+
+## v354 — Animasi goresan kanji asli (KanjiVG) + pad latihan jejak
+
+### Perubahan
+
+- Pemutar urutan goresan dalam aplikasi: play/pause, langkah per gores, kecepatan 0,5×/1×/2×, gores bernomor ala buku teks (data KanjiVG r20250816, 1.918 kanji, CC-BY-SA)
+- Badge jumlah goresan di modal Cara Tulis + mode hantu (ghost) untuk meniru goresan di pad latihan, adaptif light/dark
+- Kanji-Trainer kini memakai data goresan asli — fallback path buatan tangan hanya untuk kanji langka
+- Aset data goresan dimuat on-demand (assets/kanji-strokes.js) supaya budget precache tetap aman dan offline setelah kunjungan pertama
+
+---
+
+## v353 — Perbaikan glos kamus + refresh halaman Kanji
+
+### Perubahan
+
+- Audit acak membuktikan ~65% glos Indonesia baris JLPT (11.802 entri) salah-sense (急ぐ='ada; menjadi', 書類='disclosure', 閉じる='buku', 手紙='karakter', 電話='sebuah; suatu')
+- Mengikuti konvensi repo: glos salah diganti glos Inggris asli JMdict dan ditandai 'belum diterjemahkan' (10.988 entri); Indonesia dipertahankan hanya untuk kata yang terverifikasi kurasi (448 entri)
+- scripts/fix-jlpt-glosses.js baru: replay-deterministik, meaning_id dikosongkan sebagai penanda, tag level JLPT tetap utuh
+- Halaman Kanji-N1/N2/N3 di-regenerasi dari kamus bersih: contoh kata kini akurat (kurasi Indonesia, Inggris JMdict sebagai cadangan)
+
+---
+
+## v352 — Kanji N1-N3: kartu kaya + arti Indonesia
+
+### Perubahan
+
+- Halaman Kanji-N3 (190) & Kanji-N2 (377): tiap kartu kini memuat on'yomi, kun'yomi, arti Indonesia, dan contoh kata ber-furigana (sebelumnya hanya kanji + arti singkat)
+- Kanji-N1: deck lokal 277 kanji prioritas lengkap dengan cara baca & arti Indonesia (menggantikan pratinjau 237 kartu ber-arti Inggris + iframe 1.235 yang tidak offline)
+- Ribuan celah data ditutup dari kanji-bank, vocab-all, dan kurasi kqPool; ekor daftar N2 yang tadinya hanya bacaan kana kini punya arti
+
+---
+
+## v351 — Widget melayang bisa digeser di semua halaman
+
+### Perubahan
+
+- Sistem seret (draggable-floats.js) kini dimuat 63 halaman yang memuat pro-app: dock FAB, pilin AI Chat, Kamus, dan panel timer bisa dipindah; posisi tersimpan per elemen, klik dua kali mengembalikan ke tempat semula
+- Tombol kembali-ke-atas lama (#bttBtn) disembunyikan bila dock FAB aktif — dock sudah punya tombol ↑ sendiri, sebelumnya keduanya bertumpuk di pojok kanan
+- Panel ⏱ Belajar hari ini menyusut jadi chip ringkas di viewport pendek (<=680px) supaya tidak menutupi kartu materi; klik chip untuk membuka penuh
+
+---
+
 ## v350 — Tune anggaran payload changelog publik ke 64 KB markdown
 
 ### Perubahan
