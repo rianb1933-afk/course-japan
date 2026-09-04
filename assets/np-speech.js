@@ -156,6 +156,18 @@
           }
         }
       }
+      /* Kalimat panjang dialihkan ke TTS awan. Ini yang membuat /api/tts
+         benar-benar terpakai: tanpa pengalihan di sini, endpoint-nya cuma
+         infrastruktur tanpa pemanggil. speakRich() sendiri yang mengurus
+         cache dan jatuh balik ke Web Speech bila gagal, jadi kegagalan
+         apa pun tetap berujung ada suara. */
+      if (u && !u.__npRich && !cloudDown &&
+          needsJapanese(u) && (u.text || '').trim().length >= AUTO_CLOUD_CHARS &&
+          window.fetch && window.caches) {
+        u.__npRich = true;
+        speakRich(u.text, { viaWrapper: true });
+        return;
+      }
     } catch (e) { /* jangan sampai perbaikan ini malah membuat suara gagal */ }
     return nativeSpeak(u);
   };
@@ -178,13 +190,28 @@
      kunci belum diisi, offline), otomatis jatuh kembali ke Web Speech —
      pengguna tidak boleh kehilangan suaranya hanya karena TTS awan bermasalah. */
   var CLOUD_MIN_CHARS = 12;
+  /* Ambang untuk PENGALIHAN OTOMATIS dari speechSynthesis.speak(). Lebih
+     tinggi dari CLOUD_MIN_CHARS: kata & frasa pendek harus tetap instan dan
+     gratis, sedangkan kalimat penuh (dialog Kaigo, contoh percakapan) yang
+     benar-benar terasa bedanya dengan suara natural. */
+  var AUTO_CLOUD_CHARS = 24;
   var CACHE_NAME = 'np-tts-v1';
+  /* Sekali endpoint terbukti tidak tersedia (mis. OPENAI_API_KEY belum diisi
+     sehingga balas 503), berhenti mencobanya untuk sisa sesi ini — kalau
+     tidak, tiap kalimat panjang membayar satu permintaan gagal dan menunda
+     suaranya. */
+  var cloudDown = false;
 
   function webSpeechFallback(text) {
     var u = new SpeechSynthesisUtterance(text);
     u.lang = 'ja-JP';
+    u.rate = RATE;
+    u.pitch = PITCH;
+    var v = bestJapaneseVoice();
+    if (v) u.voice = v;
+    u.__npRich = true;       // tandai supaya tidak dialihkan balik ke awan
     synth.cancel();
-    synth.speak(u);          // shim di atas yang mengurus voice/rate/pitch
+    nativeSpeak(u);          // langsung ke engine: mencegah rekursi wrapper
   }
 
   function speakRich(text, opts) {
@@ -206,6 +233,12 @@
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text: text, voice: voice })
         }).then(function (r) {
+          /* Status yang berarti endpointnya memang tidak bisa dipakai:
+             belum dikonfigurasi (503), tidak terdaftar (404), atau server
+             tidak mendukung POST sama sekali (501 — persis yang terjadi
+             saat situs dilayani sebagai berkas statis tanpa Netlify).
+             Selain itu dianggap gangguan sementara dan boleh dicoba lagi. */
+          if (r.status === 404 || r.status === 501 || r.status === 503) cloudDown = true;
           if (!r.ok) throw new Error('tts ' + r.status);
           return r.blob().then(function (blob) {
             // Disimpan memakai kunci GET buatan sendiri; Cache API tidak
@@ -221,7 +254,9 @@
       var audio = new Audio(url);
       audio.addEventListener('ended', function () { URL.revokeObjectURL(url); });
       return audio.play().then(function () { return true; });
-    }).catch(function () {
+    }).catch(function (e) {
+      // fetch yang gagal di level jaringan juga berarti percuma dicoba lagi
+      if (e && e.name === 'TypeError') cloudDown = true;
       webSpeechFallback(text);
       return false;
     });
