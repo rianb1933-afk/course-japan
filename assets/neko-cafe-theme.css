@@ -1,0 +1,201 @@
+/* Nihongo Pro Academy — Neko Café Theme (neko-cafe-theme.css)
+   ───────────────────────────────────────────────────────────────────
+   CATATAN NAMA: berkas ini SENGAJA tidak bernama "neko-theme.css".
+   assets/neko-theme.css sudah dipakai untuk hal yang sama sekali berbeda —
+   ia lapisan palet dasar global ("Eduma LMS global theme layer") yang dimuat
+   tanpa syarat di ~66 halaman dan menimpa token :root dengan !important.
+   Menumpanginya akan mengubah seluruh situs, bukan satu tema.
+
+   Semua rule di sini di-scope ke [data-np-theme="neko"] supaya tema default
+   (Kyoto) tidak tersentuh sama sekali. Mengikuti pola aman zen/tokyo:
+   kartu, teks, dan tombol situs TIDAK diubah — hanya latar halaman yang
+   diganti jadi suasana kafe kucing: dinding hangat, rak kayu, tanaman
+   gantung, secangkir kopi beruap, dan kucing tidur di tepi bawah.
+
+   Semua animasi memakai transform/opacity saja dan mati total pada
+   prefers-reduced-motion. */
+
+[data-np-theme="neko"] {
+  --neko-wall-top: #FBF1E4;
+  --neko-wall-bot: #F3E2CE;
+  --neko-wood: #B98A5E;
+  --neko-wood-dark: #9A6E48;
+  --neko-cat: #6B5544;
+  --neko-cat-light: #8A7160;
+  --neko-plant: #6E9668;
+  --neko-plant-dark: #567A51;
+  --neko-pink: #E9A7B4;
+  --neko-steam: rgba(255, 255, 255, .55);
+}
+
+body[data-np-theme="neko"] {
+  background: transparent !important;
+}
+
+#npNekoBg {
+  position: fixed; inset: 0; z-index: -2; overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--neko-wall-top) 0%, var(--neko-wall-bot) 100%);
+}
+
+/* ── Dinding: garis wallpaper vertikal sangat halus ── */
+#npNekoBg .neko-wall {
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(185, 138, 94, .05) 0 2px,
+    transparent 2px 46px
+  );
+}
+
+/* ── Rak kayu ── */
+#npNekoBg .neko-shelf {
+  position: absolute; left: 0; right: 0; height: 10px;
+  background: linear-gradient(180deg, var(--neko-wood) 0%, var(--neko-wood-dark) 100%);
+  box-shadow: 0 6px 14px rgba(154, 110, 72, .18);
+}
+#npNekoBg .neko-shelf.s1 { top: 22%; }
+#npNekoBg .neko-shelf.s2 { top: 58%; opacity: .75; }
+
+/* Toples & cangkir di rak — bentuk sederhana, bukan gambar */
+#npNekoBg .neko-jar {
+  position: absolute; width: 34px; height: 44px;
+  border-radius: 6px 6px 10px 10px;
+  background: rgba(255, 255, 255, .5);
+  border: 2px solid rgba(154, 110, 72, .25);
+  border-bottom: none;
+}
+#npNekoBg .neko-jar::before {
+  content: ""; position: absolute; left: -4px; right: -4px; top: -7px; height: 7px;
+  border-radius: 3px; background: var(--neko-wood-dark); opacity: .55;
+}
+#npNekoBg .neko-jar.j1 { top: calc(22% - 44px); left: 14%; }
+#npNekoBg .neko-jar.j2 { top: calc(22% - 44px); left: 21%; height: 34px; }
+#npNekoBg .neko-jar.j3 { top: calc(58% - 40px); right: 18%; height: 40px; opacity: .8; }
+
+/* ── Tanaman gantung ── */
+#npNekoBg .neko-plant {
+  position: absolute; top: 0; width: 60px;
+}
+#npNekoBg .neko-plant .pot {
+  position: absolute; top: 96px; left: 12px;
+  width: 36px; height: 26px; border-radius: 0 0 12px 12px;
+  background: var(--neko-wood);
+}
+#npNekoBg .neko-plant .vine {
+  position: absolute; top: 0; width: 3px; border-radius: 2px;
+  background: var(--neko-plant);
+  transform-origin: top center;
+}
+#npNekoBg .neko-plant .vine::after {
+  content: ""; position: absolute; bottom: -6px; left: -5px;
+  width: 13px; height: 13px; border-radius: 50% 0 50% 50%;
+  background: var(--neko-plant-dark);
+}
+#npNekoBg .neko-plant .v1 { left: 16px; height: 96px; }
+#npNekoBg .neko-plant .v2 { left: 26px; height: 118px; }
+#npNekoBg .neko-plant .v3 { left: 36px; height: 82px; }
+#npNekoBg .neko-plant.p1 { left: 8%; }
+#npNekoBg .neko-plant.p2 { right: 11%; }
+
+/* ── Cangkir kopi + uap ── */
+#npNekoBg .neko-cup {
+  position: absolute; bottom: 8%; left: 26%;
+  width: 54px; height: 38px; border-radius: 4px 4px 20px 20px;
+  background: #FFF9F2;
+  border: 2px solid rgba(154, 110, 72, .3);
+}
+#npNekoBg .neko-cup::after {
+  content: ""; position: absolute; right: -16px; top: 8px;
+  width: 16px; height: 18px; border-radius: 0 50% 50% 0;
+  border: 3px solid rgba(154, 110, 72, .3); border-left: none;
+}
+#npNekoBg .neko-steam {
+  position: absolute; bottom: calc(8% + 40px); width: 4px; height: 26px;
+  border-radius: 3px; background: var(--neko-steam);
+  opacity: 0;
+  animation: nekoSteam 4.2s ease-in-out infinite;
+}
+#npNekoBg .neko-steam.st1 { left: calc(26% + 12px); animation-delay: 0s; }
+#npNekoBg .neko-steam.st2 { left: calc(26% + 25px); animation-delay: 1.4s; height: 32px; }
+#npNekoBg .neko-steam.st3 { left: calc(26% + 38px); animation-delay: 2.6s; }
+@keyframes nekoSteam {
+  0%   { opacity: 0; transform: translateY(0) scaleY(.6); }
+  25%  { opacity: .8; }
+  100% { opacity: 0; transform: translateY(-42px) scaleY(1.25); }
+}
+
+/* ── Kucing tidur (siluet) ── */
+#npNekoBg .neko-cat {
+  position: absolute; bottom: 6%; right: 16%;
+  width: 132px; height: 54px;
+  border-radius: 50% 50% 46% 46% / 70% 70% 30% 30%;
+  background: var(--neko-cat);
+}
+/* kepala */
+#npNekoBg .neko-cat::before {
+  content: ""; position: absolute; left: -30px; bottom: 0;
+  width: 52px; height: 46px; border-radius: 50%;
+  background: var(--neko-cat);
+}
+/* ekor — bergoyang pelan */
+#npNekoBg .neko-cat::after {
+  content: ""; position: absolute; right: -34px; bottom: 6px;
+  width: 46px; height: 12px; border-radius: 8px;
+  background: var(--neko-cat-light);
+  transform-origin: left center;
+  animation: nekoTail 5s ease-in-out infinite;
+}
+@keyframes nekoTail {
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(-16deg); }
+}
+/* telinga */
+#npNekoBg .neko-ear {
+  position: absolute; bottom: 6%; right: calc(16% + 118px);
+  width: 0; height: 0;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 18px solid var(--neko-cat);
+}
+#npNekoBg .neko-ear.e1 { margin-bottom: 40px; margin-right: 26px; }
+#npNekoBg .neko-ear.e2 { margin-bottom: 40px; margin-right: 4px; }
+
+/* ── Jejak kaki melayang ── */
+#npNekoBg .neko-paw {
+  position: absolute; width: 14px; height: 12px; border-radius: 50%;
+  background: var(--neko-pink); opacity: 0;
+  animation: nekoPaw linear infinite;
+}
+#npNekoBg .neko-paw::before,
+#npNekoBg .neko-paw::after {
+  content: ""; position: absolute; top: -6px;
+  width: 5px; height: 6px; border-radius: 50%;
+  background: var(--neko-pink);
+}
+#npNekoBg .neko-paw::before { left: 1px; }
+#npNekoBg .neko-paw::after  { right: 1px; }
+@keyframes nekoPaw {
+  0%   { opacity: 0; transform: translateY(0) rotate(0deg); }
+  12%  { opacity: .5; }
+  88%  { opacity: .5; }
+  100% { opacity: 0; transform: translateY(-70vh) rotate(24deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #npNekoBg .neko-steam,
+  #npNekoBg .neko-cat::after,
+  #npNekoBg .neko-paw { animation: none !important; }
+  #npNekoBg .neko-paw { opacity: .35; }
+  #npNekoBg .neko-steam { opacity: .5; }
+}
+
+/* Layar sempit: sembunyikan pernik yang menumpuk, sisakan suasananya */
+@media (max-width: 720px) {
+  #npNekoBg .neko-jar,
+  #npNekoBg .neko-plant.p2,
+  #npNekoBg .neko-cup,
+  #npNekoBg .neko-steam { display: none; }
+  #npNekoBg .neko-cat { right: 6%; transform: scale(.8); transform-origin: bottom right; }
+  #npNekoBg .neko-ear { display: none; }
+}

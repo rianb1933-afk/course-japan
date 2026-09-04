@@ -1,0 +1,137 @@
+/* Nihongo Pro Academy — Bushidō / Samurai Theme (samurai-theme.css)
+   ───────────────────────────────────────────────────────────────────
+   Suasana sumi-e: kertas washi gelap, matahari merah besar, siluet gunung
+   berlapis, bambu, dan satu lambang keluarga (mon) bergaris emas.
+
+   Ini satu-satunya tema gelap selain Tokyo Night, tapi wataknya berbeda:
+   Tokyo Night itu kota & neon, yang ini kertas & tinta — tanpa cahaya
+   buatan, warnanya cuma sumi (hitam), ai (indigo), aka (merah), kin (emas).
+
+   Semua rule di-scope ke [data-np-theme="samurai"]; kartu/teks/tombol situs
+   tidak diubah, hanya latar. Animasi hanya kabut yang hanyut sangat lambat
+   dan denyut halus pada mon — keduanya mati pada reduce-motion. */
+
+[data-np-theme="samurai"] {
+  --sam-paper-top: #14161C;
+  --sam-paper-bot: #1E2130;
+  --sam-indigo: #22304F;
+  --sam-indigo-deep: #182238;
+  --sam-sun: #B3312C;
+  --sam-sun-glow: rgba(179, 49, 44, .30);
+  --sam-gold: #C9A227;
+  --sam-ink: #0C0E13;
+  --sam-mist: rgba(214, 220, 235, .05);
+}
+
+body[data-np-theme="samurai"] {
+  background: transparent !important;
+}
+
+#npSamuraiBg {
+  position: fixed; inset: 0; z-index: -2; overflow: hidden;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--sam-paper-top) 0%, var(--sam-paper-bot) 100%);
+}
+
+/* ── Tekstur serat washi ── */
+#npSamuraiBg .sam-paper {
+  position: absolute; inset: 0;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.014) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(0deg,  rgba(255,255,255,.010) 0 1px, transparent 1px 7px);
+}
+
+/* ── Matahari merah (hinomaru) ── */
+#npSamuraiBg .sam-sun {
+  position: absolute; top: 12%; left: 50%;
+  width: 300px; height: 300px; margin-left: -150px;
+  border-radius: 50%;
+  background: var(--sam-sun);
+  box-shadow: 0 0 90px 30px var(--sam-sun-glow);
+  opacity: .88;
+}
+
+/* ── Gunung berlapis: makin depan makin gelap ── */
+#npSamuraiBg .sam-mount {
+  position: absolute; bottom: 0; left: 50%;
+  width: 150%; height: 46%;
+  transform: translateX(-50%);
+  /* segitiga tumpul lewat clip-path — lebih ringan daripada SVG/gambar */
+  clip-path: polygon(0% 100%, 18% 46%, 32% 72%, 50% 26%, 68% 70%, 84% 44%, 100% 100%);
+}
+#npSamuraiBg .sam-mount.m1 { background: var(--sam-indigo); opacity: .85; height: 44%; }
+#npSamuraiBg .sam-mount.m2 {
+  background: var(--sam-indigo-deep); height: 34%;
+  clip-path: polygon(0% 100%, 12% 58%, 30% 30%, 46% 66%, 64% 34%, 82% 62%, 100% 100%);
+}
+#npSamuraiBg .sam-mount.m3 {
+  background: var(--sam-ink); height: 22%;
+  clip-path: polygon(0% 100%, 22% 40%, 44% 74%, 62% 38%, 88% 68%, 100% 100%);
+}
+
+/* ── Bambu di tepi ── */
+#npSamuraiBg .sam-bamboo {
+  position: absolute; bottom: 0; width: 12px;
+  background: linear-gradient(180deg, rgba(90,110,80,.5), rgba(50,66,48,.65));
+  border-radius: 3px;
+}
+/* ruas bambu */
+#npSamuraiBg .sam-bamboo::before,
+#npSamuraiBg .sam-bamboo::after {
+  content: ""; position: absolute; left: -3px; right: -3px; height: 3px;
+  background: rgba(20, 28, 20, .55); border-radius: 2px;
+}
+#npSamuraiBg .sam-bamboo::before { top: 26%; }
+#npSamuraiBg .sam-bamboo::after  { top: 62%; }
+#npSamuraiBg .sam-bamboo.b1 { left: 5%;  height: 62%; }
+#npSamuraiBg .sam-bamboo.b2 { left: 9%;  height: 48%; opacity: .8; }
+#npSamuraiBg .sam-bamboo.b3 { right: 7%; height: 56%; }
+#npSamuraiBg .sam-bamboo.b4 { right: 12%; height: 40%; opacity: .75; }
+
+/* ── Mon (lambang keluarga) bergaris emas ── */
+#npSamuraiBg .sam-mon {
+  position: absolute; top: 12%; left: 50%; margin-left: -60px;
+  width: 120px; height: 120px; margin-top: 90px;
+  border: 2px solid var(--sam-gold);
+  border-radius: 50%;
+  opacity: .5;
+  animation: samMon 7s ease-in-out infinite;
+}
+#npSamuraiBg .sam-mon::before,
+#npSamuraiBg .sam-mon::after {
+  content: ""; position: absolute; inset: 16px;
+  border: 2px solid var(--sam-gold); border-radius: 50%;
+}
+#npSamuraiBg .sam-mon::after { inset: 34px; }
+@keyframes samMon {
+  0%, 100% { opacity: .34; }
+  50%      { opacity: .62; }
+}
+
+/* ── Kabut hanyut ── */
+#npSamuraiBg .sam-mist {
+  position: absolute; left: -30%; right: -30%; height: 120px;
+  background: linear-gradient(90deg, transparent, var(--sam-mist), transparent);
+  animation: samMist linear infinite;
+}
+#npSamuraiBg .sam-mist.f1 { bottom: 26%; animation-duration: 52s; }
+#npSamuraiBg .sam-mist.f2 { bottom: 14%; animation-duration: 76s; animation-direction: reverse; opacity: .7; }
+@keyframes samMist {
+  from { transform: translateX(-18%); }
+  to   { transform: translateX(18%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #npSamuraiBg .sam-mon,
+  #npSamuraiBg .sam-mist { animation: none !important; }
+  #npSamuraiBg .sam-mon { opacity: .48; }
+}
+
+@media (max-width: 720px) {
+  #npSamuraiBg .sam-sun { width: 200px; height: 200px; margin-left: -100px; }
+  #npSamuraiBg .sam-mon { width: 84px; height: 84px; margin-left: -42px; margin-top: 62px; }
+  #npSamuraiBg .sam-mon::before { inset: 11px; }
+  #npSamuraiBg .sam-mon::after  { inset: 24px; }
+  #npSamuraiBg .sam-bamboo.b2,
+  #npSamuraiBg .sam-bamboo.b4 { display: none; }
+}

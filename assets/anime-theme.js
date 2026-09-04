@@ -75,12 +75,23 @@
     } else if (theme === 'tokyo') {
       loadCss(p + 'tokyo-theme.css');
       loadJs(p + 'tokyo-background.js');
+    } else if (theme === 'neko') {
+      // Berkasnya bernama neko-cafe-* , BUKAN neko-theme.css: nama itu sudah
+      // dipakai lapisan palet dasar global yang dimuat di ~66 halaman.
+      loadCss(p + 'neko-cafe-theme.css');
+      loadJs(p + 'neko-cafe-background.js');
+    } else if (theme === 'modern') {
+      loadCss(p + 'modern-theme.css');
+      loadJs(p + 'modern-background.js');
+    } else if (theme === 'samurai') {
+      loadCss(p + 'samurai-theme.css');
+      loadJs(p + 'samurai-background.js');
     }
   }
 
   window.NPTheme = { get: get, set: set };
 
-  var THEMES = ['anime', 'zen', 'tokyo'];
+  var THEMES = ['anime', 'zen', 'tokyo', 'neko', 'modern', 'samurai'];
   var current = get();
   if (THEMES.indexOf(current) !== -1) {
     if (document.body) activate(current);
