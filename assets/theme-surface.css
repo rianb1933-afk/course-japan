@@ -1,0 +1,58 @@
+/* Nihongo Pro Academy — Theme Surface (theme-surface.css)
+   ───────────────────────────────────────────────────────────────────
+   Lapisan bersama yang dimuat anime-theme.js untuk SETIAP tema dekoratif
+   (anime/zen/tokyo/neko/modern/samurai), bukan per-tema. Tugasnya satu:
+   menembuskan permukaan hero yang opaque supaya latar tema benar-benar
+   terlihat, tanpa membuat teksnya jadi tak terbaca.
+
+   APA YANG MENUTUPI TEMA
+   Bukan neko-theme.css seperti dugaan awal, melainkan kyoto-theme.css
+   (dan kembarannya di kyoto-bundle.min.css) baris 262-266:
+
+       .hero-bar, .prem-cta,
+       [class*="hero"]:not(.hero-chip):not(.hero-left):not(.hero-right)
+         { background: #2D2D2D !important; }
+
+   Itu warna DATAR yang opaque, dan spesifisitasnya (0,4,0) + !important
+   mengalahkan percobaan pertama di berkas ini yang cuma (0,2,0) — hero
+   tetap gelap pekat walau berkas ini sudah termuat. Karena itu tiap
+   selector di bawah mengulang rantai :not() yang sama supaya mencapai
+   (0,5,0) dan benar-benar menang.
+
+   KENAPA ISI HERO IKUT DITRANSPARANKAN
+   Selector [class*="hero"] milik kyoto juga mengenai .hero-badge,
+   .hero-desc, .hero-actions, dan .hero-stats — diperiksa langsung di
+   index.html (6 elemen kena) dan Premium.html (2 elemen). Percobaan
+   pertama membiarkan mereka tetap #2D2D2D, dan hasilnya salah secara
+   visual: begitu hero-nya tembus, kotak-kotak pekat itu jadi persegi
+   gelap yang mengambang di tengah hero. Sebelumnya tak terlihat cuma
+   karena warnanya kebetulan sama persis dengan hero.
+
+   Jadi urutannya: aturan pertama menetralkan warna datar kyoto untuk
+   SEMUA yang kena selectornya, lalu aturan kedua mengembalikan scrim
+   hanya pada KONTAINER hero. Keduanya (0,5,0); yang belakangan menang.
+   Isi hero tidak perlu latar sendiri — scrim kontainer sudah menjamin
+   kontrasnya.
+
+   KENAPA .78/.70 DAN TIDAK LEBIH TEMBUS
+   Hero memakai color:#fff, jadi scrim harus tetap cukup gelap bahkan di
+   atas tema TERANG (Neko Café #FBF1E4, Nihon Modern #F7F6F3). Pada .70 di
+   atas #F7F6F3 campurannya ≈ #646464 → kontras teks putih ≈ 5,6:1, masih
+   lolos WCAG AA (4,5:1). Di bawah itu mulai gagal — ini batas bawah yang
+   dihitung, bukan angka selera. */
+
+/* 1) Netralkan warna datar #2D2D2D milik kyoto pada semua yang kena. */
+[data-np-theme] [class*="hero"]:not(.hero-chip):not(.hero-left):not(.hero-right) {
+  background: transparent !important;
+}
+
+/* 2) Kembalikan scrim HANYA pada kontainer hero. */
+[data-np-theme] .hero:not(.hero-chip):not(.hero-left):not(.hero-right),
+[data-np-theme] .hero-section:not(.hero-chip):not(.hero-left):not(.hero-right),
+[data-np-theme] .page-hero:not(.hero-chip):not(.hero-left):not(.hero-right),
+[data-np-theme] .dash-hero:not(.hero-chip):not(.hero-left):not(.hero-right),
+[data-np-theme] .course-hero:not(.hero-chip):not(.hero-left):not(.hero-right),
+[data-np-theme] .video-hero:not(.hero-chip):not(.hero-left):not(.hero-right),
+[data-np-theme] .premium-hero:not(.hero-chip):not(.hero-left):not(.hero-right) {
+  background: linear-gradient(110deg, rgba(37, 37, 37, .78), rgba(37, 37, 37, .70)) !important;
+}

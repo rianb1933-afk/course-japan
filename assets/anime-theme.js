@@ -57,10 +57,60 @@
     document.documentElement.setAttribute('data-np-tod', todClass());
   }
 
+  /* Tema dekoratif yang latarnya GELAP.
+     ────────────────────────────────────────────────────────────────
+     Situs ini punya DUA sistem yang selama ini tidak saling tahu:
+
+       [data-theme="dark"]     → mode gelap; seluruh chrome situs punya
+                                 varian untuk ini (mis. `[data-theme="dark"]
+                                 .cat-btn` di grammar-module.css)
+       [data-np-theme="..."]   → tema dekoratif; HANYA mengganti latar
+
+     Akibatnya memilih tema gelap membuat halaman jadi gelap tapi chrome-nya
+     tetap bergaya terang: tombol filter `.cat-btn` transparan berteks cokelat
+     #6B4F3A duduk di atas latar indigo/hitam dan praktis tak terbaca.
+     Dikonfirmasi lewat tangkapan layar: tema `tokyo` yang sudah lama ada pun
+     mengalaminya, jadi ini cacat lama, bukan bawaan tema baru.
+
+     Perbaikannya memakai ulang seluruh CSS mode gelap yang SUDAH ada dan sudah
+     teruji, bukan menulis aturan kontras baru untuk 388 halaman. */
+  var DARK_THEMES = { tokyo: 1, samurai: 1 };
+
+  /* Menyalakan mode gelap SAAT ITU JUGA saja — sengaja TIDAK menulis ke
+     localStorage. Preferensi terang/gelap milik pengguna tidak boleh
+     diam-diam ditimpa; begitu ia kembali ke tema terang, pilihannya utuh.
+
+     Perlu ditegaskan ulang beberapa kali karena platform.js `Theme.init()`
+     berjalan di DOMContentLoaded dan membaca kunci localStorage YANG SAMA
+     ('np-theme') — kunci itu dipakai berbarengan oleh dua sistem di atas.
+     Karena isinya nama tema (mis. 'samurai') dan bukan 'dark', platform.js
+     menyimpulkan "terang" lalu mengosongkan data-theme. Dibuktikan di
+     Kaigo-Simulator.html: atribut berubah jadi "" sesudah load. Ada 236
+     halaman yang memuat platform.min.js tanpa dark-mode-toggle.js.
+
+     Penegasan ulang sengaja DIBATASI pada fase pemuatan (bukan
+     MutationObserver permanen) supaya pengguna tetap bisa menekan tombol
+     mode terang/gelap sesudahnya tanpa dipaksa balik. */
+  function applyDarkPolarity(theme) {
+    if (!DARK_THEMES[theme]) return;
+    var set = function () {
+      var el = document.documentElement;
+      if (el.getAttribute('data-theme') !== 'dark') el.setAttribute('data-theme', 'dark');
+    };
+    set();
+    document.addEventListener('DOMContentLoaded', function () { setTimeout(set, 0); });
+    window.addEventListener('load', set);
+  }
+
   function activate(theme) {
     var p = prefix();
     document.documentElement.setAttribute('data-np-theme', theme);
     if (document.body) document.body.setAttribute('data-np-theme', theme);
+    applyDarkPolarity(theme);
+    // Berlaku untuk SEMUA tema: menembuskan permukaan halaman yang opaque
+    // (terutama .hero) supaya latar tema benar-benar terlihat. Lihat
+    // theme-surface.css untuk alasan angka scrim-nya.
+    loadCss(p + 'theme-surface.css');
     if (theme === 'anime') {
       applyTod();
       setInterval(applyTod, 60000); // cek tiap menit
