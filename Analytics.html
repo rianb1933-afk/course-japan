@@ -20,7 +20,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <script src="assets/env.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<!-- `defer`: _barChart/_pieChart hanya dibuat di dalam fungsi yang dipanggil
+     dari DOMContentLoaded (renderAll), dan skrip defer dijamin selesai
+     sebelum event itu — jadi ~200 KB ini aman dikeluarkan dari jalur render. -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js" defer></script>
 <style>
 :root{
   --bg:#f8f9fb;--white:#fff;--ink:#0f172a;--ink2:#475569;--ink3:#5b6b7f;
