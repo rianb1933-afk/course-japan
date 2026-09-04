@@ -17,6 +17,50 @@
   --an-chalk: #F4F1E6;        /* putih kapur */
   --an-sky-top: #9CCBEF;
   --an-sky-bot: #DDEFFA;
+
+  /* ── Warna UI tema ──────────────────────────────────────────────
+     Sampai sini tema hanya mengganti LATAR; kartu, tombol, chip, dan
+     tautan tetap cokelat Kyoto apa pun temanya, jadi "berganti tema"
+     terasa cuma seperti berganti wallpaper.
+
+     Menyetel ulang token design system membuat seluruh antarmuka ikut
+     bertema tanpa menyentuh satu komponen pun di 388 halaman — alias
+     semantik (--primary/--accent/--success) mengikuti otomatis lewat
+     var().
+
+     ATURANNYA: GANTI RONA, PERTAHANKAN TERANG. Tiap nilai di bawah
+     dihitung agar luminansinya mendekati warna aslinya (selisih < 0,055),
+     sehingga rasio kontras yang sudah dirancang tetap berlaku di mana-mana.
+     Varian -soft/-pale diturunkan dengan mempertahankan terang & saturasi
+     varian ASLINYA, cuma ronanya yang diganti; tiap -pale diverifikasi
+     masih >= 10,9:1 terhadap teks gelap.
+
+     --ink-*, --surface, --border SENGAJA TIDAK disentuh: itu tulang
+     punggung keterbacaan, dan justru di situ kontras paling mudah rusak. */
+  --kyoto-brown: #4F5F75;
+  --kyoto-brown-soft: #566C8B;
+  --kyoto-brown-pale: #E0E9F5;
+  --kyoto-red: #AE4747;
+  --kyoto-red-soft: #C04444;
+  --kyoto-red-pale: #FAEAEA;
+  --gold: #C6A34F;
+  --gold-soft: #D4AF56;
+  --gold-pale: #FBF4E3;
+  --matcha: #5F8A66;
+  --matcha-soft: #7A9E80;
+  --matcha-pale: #E8F2EA;
+
+  /* --primary TIDAK bisa diwariskan dari --kyoto-brown di atas.
+     kyoto-bundle.min.css (dimuat 376 halaman) menyimpannya sebagai NILAI
+     LITERAL "--primary:#6B4F3A", bukan var(--kyoto-brown) seperti di
+     kyoto-design-system.css — jadi meretint brown saja tidak pernah sampai
+     ke sana. Dibuktikan: --kyoto-brown ikut berubah, --primary tidak.
+     kyoto-theme.css bahkan mendeklarasikannya dengan !important sebagai
+     "otoritas visual terakhir", karena itu di sini juga !important. */
+  --primary: #4F5F75 !important;
+  --primary-soft: #566C8B !important;
+  --primary-pale: #E0E9F5 !important;
+  --primary-dark: #3D4A5C;
 }
 
 /* Waktu hari mengubah langit (data-np-tod di <html>) */

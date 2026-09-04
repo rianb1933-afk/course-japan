@@ -8,8 +8,8 @@
 
    Semua rule di sini di-scope ke [data-np-theme="neko"] supaya tema default
    (Kyoto) tidak tersentuh sama sekali. Mengikuti pola aman zen/tokyo:
-   kartu, teks, dan tombol situs TIDAK diubah — hanya latar halaman yang
-   diganti jadi suasana kafe kucing: dinding hangat, rak kayu, tanaman
+   selain latar, token warna UI juga disetel ulang sehingga tombol/chip/
+   aksen ikut bertema; latar halaman jadi suasana kafe kucing: dinding hangat, rak kayu, tanaman
    gantung, secangkir kopi beruap, dan kucing tidur di tepi bawah.
 
    Semua animasi memakai transform/opacity saja dan mati total pada
@@ -26,6 +26,50 @@
   --neko-plant-dark: #567A51;
   --neko-pink: #E9A7B4;
   --neko-steam: rgba(255, 255, 255, .55);
+
+  /* ── Warna UI tema ──────────────────────────────────────────────
+     Sampai sini tema hanya mengganti LATAR; kartu, tombol, chip, dan
+     tautan tetap cokelat Kyoto apa pun temanya, jadi "berganti tema"
+     terasa cuma seperti berganti wallpaper.
+
+     Menyetel ulang token design system membuat seluruh antarmuka ikut
+     bertema tanpa menyentuh satu komponen pun di 388 halaman — alias
+     semantik (--primary/--accent/--success) mengikuti otomatis lewat
+     var().
+
+     ATURANNYA: GANTI RONA, PERTAHANKAN TERANG. Tiap nilai di bawah
+     dihitung agar luminansinya mendekati warna aslinya (selisih < 0,055),
+     sehingga rasio kontras yang sudah dirancang tetap berlaku di mana-mana.
+     Varian -soft/-pale diturunkan dengan mempertahankan terang & saturasi
+     varian ASLINYA, cuma ronanya yang diganti; tiap -pale diverifikasi
+     masih >= 10,9:1 terhadap teks gelap.
+
+     --ink-*, --surface, --border SENGAJA TIDAK disentuh: itu tulang
+     punggung keterbacaan, dan justru di situ kontras paling mudah rusak. */
+  --kyoto-brown: #7A4C44;
+  --kyoto-brown-soft: #8B5E56;
+  --kyoto-brown-pale: #F5E3E0;
+  --kyoto-red: #B14A5E;
+  --kyoto-red-soft: #C0445C;
+  --kyoto-red-pale: #FAEAED;
+  --gold: #C9925C;
+  --gold-soft: #D49456;
+  --gold-pale: #FBEFE3;
+  --matcha: #6E8465;
+  --matcha-soft: #849E7A;
+  --matcha-pale: #EBF2E8;
+
+  /* --primary TIDAK bisa diwariskan dari --kyoto-brown di atas.
+     kyoto-bundle.min.css (dimuat 376 halaman) menyimpannya sebagai NILAI
+     LITERAL "--primary:#6B4F3A", bukan var(--kyoto-brown) seperti di
+     kyoto-design-system.css — jadi meretint brown saja tidak pernah sampai
+     ke sana. Dibuktikan: --kyoto-brown ikut berubah, --primary tidak.
+     kyoto-theme.css bahkan mendeklarasikannya dengan !important sebagai
+     "otoritas visual terakhir", karena itu di sini juga !important. */
+  --primary: #7A4C44 !important;
+  --primary-soft: #8B5E56 !important;
+  --primary-pale: #F5E3E0 !important;
+  --primary-dark: #5E3A34;
 }
 
 body[data-np-theme="neko"] {

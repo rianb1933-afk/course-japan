@@ -1,8 +1,8 @@
 /* Nihongo Pro Academy — Tokyo Night Theme (tokyo-theme.css)
    ───────────────────────────────────────────────────────────────────
    Semua rule di-scope ke [data-np-theme="tokyo"] agar tema default (Kyoto)
-   tidak terpengaruh sama sekali. Layer dekoratif murni CSS: kartu/teks/
-   tombol situs TIDAK diubah, hanya latar halaman.
+   tidak terpengaruh sama sekali. Layer dekoratif murni CSS, plus penyetelan
+   ulang token warna UI sehingga tombol/chip/aksen ikut bertema.
 
    DITULIS ULANG (versi 2). Versi lama punya tiga kelemahan yang terlihat
    jelas saat dipotret:
@@ -36,6 +36,50 @@
   --tokyo-star: #E8E5F0;
   --tokyo-moon: #F3EEDC;
   --tokyo-tower: #C4483F;
+
+  /* ── Warna UI tema ──────────────────────────────────────────────
+     Sampai sini tema hanya mengganti LATAR; kartu, tombol, chip, dan
+     tautan tetap cokelat Kyoto apa pun temanya, jadi "berganti tema"
+     terasa cuma seperti berganti wallpaper.
+
+     Menyetel ulang token design system membuat seluruh antarmuka ikut
+     bertema tanpa menyentuh satu komponen pun di 388 halaman — alias
+     semantik (--primary/--accent/--success) mengikuti otomatis lewat
+     var().
+
+     ATURANNYA: GANTI RONA, PERTAHANKAN TERANG. Tiap nilai di bawah
+     dihitung agar luminansinya mendekati warna aslinya (selisih < 0,055),
+     sehingga rasio kontras yang sudah dirancang tetap berlaku di mana-mana.
+     Varian -soft/-pale diturunkan dengan mempertahankan terang & saturasi
+     varian ASLINYA, cuma ronanya yang diganti; tiap -pale diverifikasi
+     masih >= 10,9:1 terhadap teks gelap.
+
+     --ink-*, --surface, --border SENGAJA TIDAK disentuh: itu tulang
+     punggung keterbacaan, dan justru di situ kontras paling mudah rusak. */
+  --kyoto-brown: #4E5878;
+  --kyoto-brown-soft: #56638B;
+  --kyoto-brown-pale: #E0E5F5;
+  --kyoto-red: #A83A6C;
+  --kyoto-red-soft: #C0447C;
+  --kyoto-red-pale: #FAEAF1;
+  --gold: #4FA9B8;
+  --gold-soft: #56C2D4;
+  --gold-pale: #E3F8FB;
+  --matcha: #4E8B86;
+  --matcha-soft: #7A9E9B;
+  --matcha-pale: #E8F2F1;
+
+  /* --primary TIDAK bisa diwariskan dari --kyoto-brown di atas.
+     kyoto-bundle.min.css (dimuat 376 halaman) menyimpannya sebagai NILAI
+     LITERAL "--primary:#6B4F3A", bukan var(--kyoto-brown) seperti di
+     kyoto-design-system.css — jadi meretint brown saja tidak pernah sampai
+     ke sana. Dibuktikan: --kyoto-brown ikut berubah, --primary tidak.
+     kyoto-theme.css bahkan mendeklarasikannya dengan !important sebagai
+     "otoritas visual terakhir", karena itu di sini juga !important. */
+  --primary: #4FA9B8 !important;
+  --primary-soft: #56C2D4 !important;
+  --primary-pale: #E3F8FB !important;
+  --primary-dark: #3B4360;
 }
 
 body[data-np-theme="tokyo"] {
