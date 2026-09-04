@@ -34,6 +34,13 @@ body { min-height: 100vh; }
 .srs-nav { height: 60px; display: flex; align-items: center; justify-content: space-between; padding: 0 clamp(16px,4vw,40px); background: var(--nav-bg); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; backdrop-filter: blur(16px); }
 .srs-brand { font-family: var(--font-jp); font-size: 19px; font-weight: 700; color: var(--primary); text-decoration: none; }
 .srs-main { display: block; max-width: 480px; margin: 0 auto; padding: 20px 16px 100px; }
+/* Desktop: 480px dirancang untuk ponsel dan tidak pernah dinaikkan, jadi di
+   layar 1920px isinya cuma membentang 448px (23% layar) — chip filter
+   terpaksa membungkus jadi 7 baris padahal ruang kosong di kiri-kanan
+   masing-masing ~740px. Dilebarkan bertahap supaya chip & panel bernapas,
+   tanpa membuat baris teks jadi terlalu panjang untuk dibaca. */
+@media (min-width: 1100px) { .srs-main { max-width: 900px; } }
+@media (min-width: 1600px) { .srs-main { max-width: 1180px; } }
 
 /* FILTER */
 .filter-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; justify-content: center; }
