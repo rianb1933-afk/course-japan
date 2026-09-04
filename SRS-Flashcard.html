@@ -171,6 +171,12 @@ body { min-height: 100vh; }
   text-align: center; margin-bottom: 8px; position: relative; z-index: 1;
   line-height: 1.2;
 }
+/* Glos Inggris sebagai hint kecil di bawah arti Indonesia (lihat Vocabulary-Lengkap). */
+.fc-meaning-en {
+  font-size: 14px; font-weight: 500; color: rgba(255,255,255,.55);
+  text-align: center; margin: -2px 0 10px; position: relative; z-index: 1;
+  line-height: 1.4; max-width: 92%;
+}
 .fc-back .fc-reading {
   color: rgba(255,255,255,.4); font-size: 16px;
   margin-bottom: 12px; position: relative; z-index: 1;
@@ -1172,6 +1178,7 @@ body { min-height: 100vh; }
           <div class="fc-back-cat" id="fcBackCat">VOCAB</div>
           <div class="fc-badge">✨ ARTI</div>
           <div class="fc-meaning" id="cardMeaning">martabat / dignity</div>
+          <div class="fc-meaning-en" id="cardMeaningEn" style="display:none"></div>
           <div class="fc-reading" id="cardJPBack" style="font-family:var(--font-jp);font-size:18px;margin-bottom:10px"></div>
           <div class="fc-example" id="cardExample"></div>
           <div class="fc-back-actions">
@@ -1680,6 +1687,13 @@ function renderCard() {
   document.getElementById('cardReading').innerHTML = highlightText(c.reading || '　', searchQuery);
   document.getElementById('cardJPBack').textContent  = c.jp + (c.reading ? ` (${c.reading})` : '');
   document.getElementById('cardMeaning').innerHTML = highlightText(c.meaning, searchQuery);
+  // Arti Indonesia sebagai baris utama; glos Inggris jadi hint kecil di bawahnya.
+  const enEl = document.getElementById('cardMeaningEn');
+  const en = (c.en || '').trim();
+  if (enEl) {
+    enEl.style.display = en ? 'block' : 'none';
+    enEl.innerHTML = en ? highlightText(en, searchQuery) : '';
+  }
   document.getElementById('cardExample').innerHTML   = c.example ? c.example.replace('\n','<br>') : '';
   // Progress dots
   const dots = document.getElementById('cardDots');
@@ -2504,7 +2518,8 @@ function showBadgeToast(badge) {
 function copyCard() {
   const card = deck[curIdx];
   if (!card) return;
-  const text = `${card.jp} (${card.reading}) = ${card.meaning}`;
+  const hint = card.en ? ` (${card.en})` : '';
+  const text = `${card.jp} (${card.reading}) = ${card.meaning}${hint}`;
   navigator.clipboard.writeText(text).then(() => {
     if (typeof Toast !== 'undefined') Toast.show('📋 Disalin ke clipboard!', 'success');
   }).catch(() => {});
@@ -2512,7 +2527,8 @@ function copyCard() {
 function shareCard() {
   const card = deck[curIdx];
   if (!card) return;
-  const text = `${card.jp} (${card.reading}) = ${card.meaning}\nbelajar di Nihongo Pro Academy`;
+  const hint = card.en ? ` (${card.en})` : '';
+  const text = `${card.jp} (${card.reading}) = ${card.meaning}${hint}\nbelajar di Nihongo Pro Academy`;
   if (navigator.share) {
     navigator.share({ title: card.jp, text: text }).catch(() => {});
   } else {

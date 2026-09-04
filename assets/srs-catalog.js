@@ -59,7 +59,9 @@
       meaning: row[3],
       example: row[1] + EXAMPLE_SUFFIX,
       cat: row[4],
-      jlpt: row[5]
+      jlpt: row[5],
+      // Kolom 7 opsional: glos Inggris utk kartu yg meaning-nya Indonesia.
+      en: row.length > 6 ? row[6] : ''
     };
   }
 
@@ -74,7 +76,8 @@
       meaning: row[2],
       example: jp + EXAMPLE_SUFFIX,
       cat: meta.tail.cat,
-      jlpt: meta.tail.jlpt
+      jlpt: meta.tail.jlpt,
+      en: ''
     };
   }
 

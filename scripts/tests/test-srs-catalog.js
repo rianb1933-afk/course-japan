@@ -42,7 +42,8 @@ function oldFullCards() {
   // .map() yang sama persis dengan srs-cards-data.js
   const bulk = raw.map(c => ({
     id: c[0], type: 'VOCAB', jp: c[1], reading: c[2], meaning: c[3],
-    example: c[1] + EXAMPLE_SUFFIX, cat: c[4], jlpt: c[5]
+    example: c[1] + EXAMPLE_SUFFIX, cat: c[4], jlpt: c[5],
+    en: c.length > 6 ? c[6] : ''
   }));
   _oldCards = { raw, bulk, curated: loadCurated() };
   return _oldCards;

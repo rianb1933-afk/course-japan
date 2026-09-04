@@ -169,7 +169,7 @@ function between(text,start,end){const s=text.indexOf(start); if(s<0)return''; c
 function parseCompact(text, level){return [...text.matchAll(/([\u4e00-\u9fff])([^一-龯]+)/g)].map((m,i)=>({type:'kanji',level,front:m[1],word:m[1],reading:'',meaning:m[2].trim(),hint:'Latih sebagai compound vocabulary.',source:`Kanji ${level}`,id:`kanji-${level}-${i}`}))}
 
 async function loadVocab(){
-  const csv = await loadText('../assets/vocab-all.csv');
+  const csv = await loadText('../assets/vocab-all.csv?v=4');
   /* Kolom: expression, reading, romaji, meaning, meaning_id, tags.
      Pemetaan sebelumnya bergeser satu kolom — sisi belakang kartu diisi romaji
      (kosong di 67% baris) dan levelnya dibaca dari kolom meaning, sehingga

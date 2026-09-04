@@ -151,7 +151,7 @@
 
   async function loadVocab() {
     if (vocabPromise) return vocabPromise;
-    vocabPromise = fetch(`${rootPrefix}assets/vocab-all.csv?v=3`).then(r => r.text()).then(text => {
+    vocabPromise = fetch(`${rootPrefix}assets/vocab-all.csv?v=4`).then(r => r.text()).then(text => {
       const parsed = parseCsv(text).slice(1).map((r, i) => ({
         expression: r[0], reading: r[1], romaji: r[2],
         meaning: (r[4] || '').trim() || r[3],
