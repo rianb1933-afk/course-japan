@@ -73,8 +73,8 @@ a{text-decoration:none;color:inherit}button,input{font-family:'Outfit',sans-seri
 .grammar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}.grammar-card{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1rem;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:.7rem}.meta{display:flex;gap:6px;flex-wrap:wrap}.tag{display:inline-flex;border-radius:8px;background:var(--red-pale);color:var(--red);padding:3px 8px;font-size:10px;font-weight:800}.pattern{font-family:'Noto Serif JP',serif;font-size:24px;font-weight:700;color:var(--ink);line-height:1.25}.meaning{font-size:14px;font-weight:800;color:var(--ink-mid)}.structure{background:var(--cream);border:1px solid var(--border);border-radius:8px;padding:.65rem;font-size:12px;color:var(--ink-mid)}.example{border-left:3px solid var(--red);padding-left:.75rem}.jp{font-family:'Noto Serif JP',serif;color:var(--ink);font-weight:600}.id{font-size:12px;color:var(--ink-soft);margin-top:.15rem}
 .grammar-pagination{display:flex;align-items:center;justify-content:center;gap:.75rem;margin:1.25rem 0}.grammar-pagination button{border:1px solid var(--border-mid);border-radius:8px;background:var(--white);color:var(--ink);padding:.55rem .85rem;font:700 12px Outfit,sans-serif;cursor:pointer}.grammar-pagination button:disabled{opacity:.45;cursor:not-allowed}.grammar-page-label{font-size:12px;color:var(--ink-soft);min-width:110px;text-align:center}
 .guide{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.guide-card{background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:1.25rem;box-shadow:var(--shadow-sm)}.guide-card h3{font-size:16px;margin-bottom:.5rem}.guide-card ul{padding-left:1.1rem;color:var(--ink-mid);font-size:13px;display:grid;gap:.35rem}
-.source-actions{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:1rem}.source-actions a,.source-actions button{display:inline-flex;align-items:center;justify-content:center;padding:10px 14px;border-radius:8px;background:var(--red);color:#fff;font-size:13px;font-weight:800;border:0;font-family:inherit;cursor:pointer}.source-actions a.secondary,.source-actions button.secondary{background:var(--white);color:var(--ink);border:1px solid var(--border-mid)}.source-frame-wrap{position:relative}.source-frame{width:100%;height:760px;border:1px solid var(--border-mid);border-radius:8px;background:var(--white);box-shadow:var(--shadow-md)}.source-frame-fallback{display:none;margin-top:.75rem;background:var(--gold-pale);border:1px solid rgba(185,137,47,.2);border-radius:8px;padding:.75rem 1rem;color:var(--ink-mid);font-size:13px}.source-frame-fallback.show{display:block}.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.18);border-radius:8px;padding:1rem;color:var(--ink-mid);font-size:13px;margin-top:1rem}
-@media(max-width:900px){.hero-stats,.guide{grid-template-columns:1fr 1fr}.toolbar-inner,.section-head{display:block}.filters{margin-top:.75rem}.search{width:100%}.source-frame{height:620px}}@media(max-width:560px){.hero-stats,.guide{grid-template-columns:1fr}.grammar-grid{grid-template-columns:1fr}.source-frame{height:520px}}
+.note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.18);border-radius:8px;padding:1rem;color:var(--ink-mid);font-size:13px;margin-top:1rem}
+@media(max-width:900px){.hero-stats,.guide{grid-template-columns:1fr 1fr}.toolbar-inner,.section-head{display:block}.filters{margin-top:.75rem}.search{width:100%}}@media(max-width:560px){.hero-stats,.guide{grid-template-columns:1fr}.grammar-grid{grid-template-columns:1fr}}
 </style>
 <style>
 .jp-word{cursor:pointer;border-bottom:1px dotted var(--red,#be3428);transition:background .15s;border-radius:2px}
@@ -162,22 +162,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
       <div class="guide-card"><h3>2. Contoh Kalimat</h3><ul><li>Baca contoh Jepang keras-keras.</li><li>Ganti noun/verb dengan kata sendiri.</li><li>Buat 3 kalimat aktif per pola.</li></ul></div>
       <div class="guide-card"><h3>3. Review JLPT</h3><ul><li>N5-N4: bentuk dasar dan partikel.</li><li>N3: hubungan ide dan nuansa.</li><li>N2-N1: formal, abstrak, dan idiomatik.</li></ul></div>
     </div>
-  </section>
-
-  <section class="wrap">
-    <div class="section-head">
-      <div><div class="section-label">Sumber Lengkap</div><h2 class="section-title">Full Grammar Database N5-N1</h2></div>
-      <p class="section-sub">JLPT Sensei menampilkan database grammar lengkap dari N5 sampai N1 dengan total 848 lessons. Panel ini membutuhkan internet.</p>
-    </div>
-    <div class="source-actions">
-      <a href="https://jlptsensei.com/complete-jlpt-grammar-list/" target="_blank" rel="noopener">Buka Full Grammar List</a>
-      <a class="secondary" href="https://www.jlptglobal.com/jlpt-n2-grammar-list/" target="_blank" rel="noopener">Contoh N2 197 Grammar</a>
-    </div>
-    <div class="source-frame-wrap">
-      <iframe loading="lazy" class="source-frame" id="grammarSourceFrame" src="https://jlptsensei.com/complete-jlpt-grammar-list/" title="Daftar Lengkap Tata Bahasa JLPT N5-N1"></iframe>
-      <div class="source-frame-fallback" id="grammarSourceFallback" role="status">Sumber eksternal tidak dapat dimuat di dalam halaman. Gunakan tombol “Buka Full Grammar List” untuk membukanya di tab baru.</div>
-    </div>
-    <div class="note">Catatan: penyelenggara JLPT tidak menerbitkan daftar grammar resmi final. Daftar di halaman ini adalah kurikulum belajar dari resource JLPT populer, bukan jaminan soal ujian.</div>
   </section>
 
   <!-- Navigation per level — Grammar -->
@@ -1286,11 +1270,10 @@ search.addEventListener('input', () => { grammarPage = 1; render(); });
 document.getElementById('grammarPrev').addEventListener('click', () => { if (grammarPage > 1) { grammarPage--; render(); } });
 document.getElementById('grammarNext').addEventListener('click', () => { grammarPage++; render(); });
 render();
-const grammarSourceFrame = document.getElementById('grammarSourceFrame');
-if (grammarSourceFrame) grammarSourceFrame.addEventListener('error', () => document.getElementById('grammarSourceFallback').classList.add('show'));
 </script>
 <script src="../assets/translator.min.js" defer></script>
 <script src="../assets/pro-app.min.js" defer></script>
+<script src="../assets/draggable-floats.js" defer></script>
 
 <script>
 function exportGrammarDeck() {

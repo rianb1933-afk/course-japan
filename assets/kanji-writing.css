@@ -16,6 +16,10 @@
 .queue-item .kanji-write-btn{margin-left:auto;white-space:nowrap}
 .kanji-writing-modal{position:fixed;inset:0;z-index:10000;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(18,19,24,.58);backdrop-filter:blur(10px)}
 .kanji-writing-modal.open{display:flex}
+/* Saat modal Cara Tulis terbuka, sembunyikan widget melayang lain (tombol & panel Kamus)
+   yang z-index-nya setara (10000) dan bisa menutupi panggung goresan. */
+body.kanji-writing-open .translator-launch,
+body.kanji-writing-open .translator-panel{visibility:hidden}
 .kanji-writing-dialog{width:min(1040px,100%);max-height:92vh;overflow:auto;background:var(--white);border:1px solid var(--border-mid);border-radius:8px;box-shadow:var(--shadow-lg);color:var(--ink)}
 .kanji-writing-head{position:sticky;top:0;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;background:var(--white);border-bottom:1px solid var(--border)}
 .kanji-writing-title{display:flex;align-items:baseline;gap:10px;font-weight:900}
@@ -52,7 +56,11 @@
 .kanji-pad-toolbar{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
 .kanji-ghost-toggle{border:1px solid var(--border-mid);background:var(--white);border-radius:8px;padding:6px 10px;font-size:11.5px;font-weight:900;cursor:pointer;color:var(--ink-mid)}
 .kanji-ghost-toggle.on{background:var(--red-pale);color:var(--red);border-color:var(--red)}
+.kanji-ghost-toggle:disabled{opacity:.45;cursor:not-allowed}
 .kanji-pad-hint{font-size:11px;color:var(--ink-soft)}
+.kanji-quiz-status{margin-bottom:8px;padding:8px 10px;border:1px solid var(--border-mid);border-radius:8px;background:var(--white);color:var(--ink-mid);font-size:12px;font-weight:800;line-height:1.5}
+.kanji-quiz-status.wrong{border-color:var(--red);color:var(--red);animation:kanjiShake .35s}
+@keyframes kanjiShake{25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
 .kanji-writing-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .kanji-writing-actions a,.kanji-writing-actions button{border:1px solid var(--border-mid);background:var(--white);border-radius:8px;padding:8px 10px;color:var(--ink-soft);font-size:12px;font-weight:900;cursor:pointer}
 .kanji-writing-actions a.primary,.kanji-writing-actions button.primary{background:var(--red);border-color:var(--red);color:#fff}

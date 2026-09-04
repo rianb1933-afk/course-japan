@@ -278,13 +278,13 @@
               <h3>Pad Latihan Tulis</h3>
               <div class="kanji-pad-toolbar">
                 <button class="kanji-ghost-toggle on" id="kanjiGhostToggle" type="button" aria-pressed="true">Hantu: Nyala</button>
-                <span class="kanji-pad-hint">Tiru goresan hantu, lalu tulis bebas.</span>
+                <button class="kanji-ghost-toggle" id="kanjiQuizBtn" type="button">🎯 Kuis Urutan Gores</button>
+                <span class="kanji-pad-hint" id="kanjiPadHint">Tiru goresan hantu, lalu tulis bebas.</span>
               </div>
+              <div class="kanji-quiz-status" id="kanjiQuizStatus" hidden></div>
               <canvas class="kanji-draw-pad" id="kanjiDrawPad" width="900" height="600"></canvas>
               <div class="kanji-writing-actions">
                 <button class="primary" type="button" id="kanjiClearPad">Bersihkan Pad</button>
-                <a id="kanjiStrokeLink" target="_blank" rel="noopener">Detail Stroke Order</a>
-                <a id="kanjiJishoLink" target="_blank" rel="noopener">Kamus Kanji</a>
               </div>
             </div>
           </div>
@@ -326,20 +326,167 @@
       }
       redrawPad();
     });
+    wire('kanjiQuizBtn', toggleQuiz);
     setupCanvas();
   }
   let ghostOn = true;
 
+  // ── Kuis urutan goresan (tap gores berikutnya di pad) ────────────────
+  let quizActive = false;
+  let quizNext = 0;
+  let quizMistakes = 0;
+  let quizBoxes = [];
+  const QUIZ_PAD = 7; // toleransi tap di sekitar gores (satuan viewBox 109)
+  function tokenColor(name, fallback){
+    const probe = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return probe ? probe : fallback;
+  }
+  function quizStatus(msg, wrong){
+    const el = document.getElementById('kanjiQuizStatus');
+    if (!el) return;
+    el.hidden = false;
+    el.textContent = msg;
+    el.classList.remove('wrong');
+    if (wrong) {
+      void el.offsetWidth; // restart animasi shake
+      el.classList.add('wrong');
+      setTimeout(() => el.classList.remove('wrong'), 400);
+    }
+  }
+  function quizHint(text){
+    const el = document.getElementById('kanjiPadHint');
+    if (el) el.textContent = text;
+  }
+  function quizSetButton(active){
+    const btn = document.getElementById('kanjiQuizBtn');
+    if (!btn) return;
+    btn.textContent = active ? '✕ Keluar Kuis' : '🎯 Kuis Urutan Gores';
+    btn.classList.toggle('on', active);
+    const ghost = document.getElementById('kanjiGhostToggle');
+    if (ghost) ghost.disabled = active;
+  }
+  function quizBoxesFor(){
+    // bbox tiap gores dari panggung SVG (viewBox 109×109) + toleransi tap
+    const out = [];
+    document.querySelectorAll('#kanjiStrokeGhost path').forEach(p => {
+      try {
+        const b = p.getBBox();
+        out.push({ x: b.x - QUIZ_PAD, y: b.y - QUIZ_PAD, w: b.width + QUIZ_PAD * 2, h: b.height + QUIZ_PAD * 2 });
+      } catch (err) { out.push(null); }
+    });
+    return out;
+  }
+  function quizRedraw(){
+    if (!padCtx || !player.data) return;
+    const scale = 600 / 109;
+    padCtx.clearRect(0, 0, 900, 600);
+    // garis panduan tengah
+    padCtx.save();
+    padCtx.strokeStyle = 'rgba(128,128,128,.18)';
+    padCtx.lineWidth = 2;
+    padCtx.setLineDash([12, 12]);
+    padCtx.beginPath();
+    padCtx.moveTo(450, 0); padCtx.lineTo(450, 600);
+    padCtx.moveTo(0, 300); padCtx.lineTo(900, 300);
+    padCtx.stroke();
+    padCtx.restore();
+    // target: goresan yang sudah benar solid, sisanya samar (warna buku mewarnai)
+    const ink = tokenColor('--red', '#be3428');
+    padCtx.save();
+    padCtx.translate((900 - 600) / 2, 0);
+    padCtx.scale(scale, scale);
+    padCtx.lineCap = 'round';
+    padCtx.lineJoin = 'round';
+    try {
+      player.data.s.forEach((d, i) => {
+        padCtx.strokeStyle = i < quizNext ? ink : 'rgba(150,150,150,.55)';
+        padCtx.lineWidth = i < quizNext ? 4.2 : 3;
+        padCtx.stroke(new Path2D(d));
+      });
+    } catch (err) { /* Path2D tak didukung */ }
+    padCtx.restore();
+  }
+  function quizTap(p){
+    if (!player.data || !quizBoxes.length || quizNext >= player.data.n) return;
+    const scale = 600 / 109;
+    const vx = (p.x - (900 - 600) / 2) / scale;
+    const vy = p.y / scale;
+    const box = quizBoxes[quizNext];
+    const hit = box && vx >= box.x && vx <= box.x + box.w && vy >= box.y && vy <= box.y + box.h;
+    if (!hit) {
+      quizMistakes++;
+      quizStatus(`❌ Bukan goresan itu — coba lagi. Kesalahan: ${quizMistakes}`, true);
+      return;
+    }
+    quizNext++;
+    quizRedraw();
+    if (quizNext >= player.data.n) {
+      quizStatus(quizMistakes
+        ? `🎉 Selesai! Kesalahan: ${quizMistakes}`
+        : '🏆 Sempurna! Tanpa kesalahan');
+      quizSetButton(false);
+      quizHint('Kuis selesai — tulis ulang bebas di pad, atau klik kuis untuk mencoba lagi.');
+    } else {
+      quizStatus(`✅ Benar! Tap goresan ke-${quizNext + 1} dari ${player.data.n}.`);
+    }
+  }
+  function startQuiz(){
+    if (!player.data || !player.data.s || !player.data.s.length) {
+      quizStatus('Data goresan belum tersedia untuk kanji ini.', true);
+      return;
+    }
+    quizActive = true;
+    quizNext = 0;
+    quizMistakes = 0;
+    quizBoxes = quizBoxesFor();
+    quizSetButton(true);
+    quizHint('Kuis aktif — tap goresan yang benar secara urut.');
+    quizRedraw();
+    quizStatus(`🎯 Tap goresan ke-1 dari ${player.data.n}.`);
+  }
+  function resetQuizUI(){
+    quizActive = false;
+    quizNext = 0;
+    quizMistakes = 0;
+    quizBoxes = [];
+    quizSetButton(false);
+    quizHint('Tiru goresan hantu, lalu tulis bebas.');
+    const st = document.getElementById('kanjiQuizStatus');
+    if (st) st.hidden = true;
+  }
+  function exitQuiz(){
+    resetQuizUI();
+    redrawPad();
+  }
+  function toggleQuiz(){
+    if (!quizActive) { startQuiz(); return; }
+    // selesai semua → tombol memulai kuis baru; tengah jalan → keluar kuis
+    if (player.data && quizNext >= player.data.n) startQuiz();
+    else exitQuiz();
+  }
+  function onClearPad(){
+    if (quizActive) {
+      // restart progres kuis (goresan salah tetap masuk hitungan)
+      quizNext = 0;
+      quizMistakes = 0;
+      quizRedraw();
+      quizStatus(`🎯 Tap goresan ke-1 dari ${player.data.n}.`);
+      return;
+    }
+    clearCanvas();
+  }
+
   function openModal(kanji){
     if (!kanji) return;
     ensureModal();
+    resetQuizUI();
     document.getElementById('kanjiWritingChar').textContent = kanji;
     document.getElementById('kanjiWritingRules').innerHTML = RULES.map(rule => `<li>${rule}</li>`).join('');
     document.getElementById('kanjiWritingSteps').innerHTML = STEPS.map(step => `<li>${step}</li>`).join('');
-    document.getElementById('kanjiStrokeLink').href = `https://kanji.sljfaq.org/kanjivg.html?kanji=${encodeURIComponent(kanji)}`;
-    document.getElementById('kanjiJishoLink').href = `https://jisho.org/search/${encodeURIComponent(kanji)}%20%23kanji`;
     clearCanvas();
     document.getElementById('kanjiWritingModal').classList.add('open');
+    // Sembunyikan widget melayang lain (Kamus/translator) selama modal terbuka
+    document.body.classList.add('kanji-writing-open');
 
     // status awal panggung
     player.kanji = kanji;
@@ -353,15 +500,19 @@
     if (controls) controls.hidden = true;
     if (badge) badge.hidden = true;
 
+    const quizBtn = document.getElementById('kanjiQuizBtn');
+    if (quizBtn) quizBtn.disabled = true;
     loadStrokes().then(data => {
       const entry = data[kanji];
       if (!entry || !entry.s || !entry.s.length) {
         if (status) {
-          status.textContent = 'Data goresan belum tersedia untuk kanji ini — gunakan tautan "Detail Stroke Order" di bawah.';
+          status.textContent = 'Data goresan belum tersedia untuk kanji ini — coba kanji lain.';
           status.hidden = false;
         }
+        if (quizBtn) quizBtn.disabled = true;
         return;
       }
+      if (quizBtn) quizBtn.disabled = false;
       player.data = { n: entry.n || entry.s.length, s: entry.s };
       renderStage();
       redrawPad();
@@ -369,8 +520,10 @@
   }
   function closeModal(){
     stopPlayback();
+    resetQuizUI();
     const modal = document.getElementById('kanjiWritingModal');
     if (modal) modal.classList.remove('open');
+    document.body.classList.remove('kanji-writing-open');
   }
 
   // ── Pad latihan (canvas) ────────────────────────────────────────────────
@@ -395,11 +548,12 @@
       return (probe && probe.startsWith('#')) ? probe : '#17181d';
     }
     function start(event){
-      drawing = true;
       const p = point(event);
+      event.preventDefault();
+      if (quizActive) { quizTap(p); return; }
+      drawing = true;
       padCtx.beginPath();
       padCtx.moveTo(p.x, p.y);
-      event.preventDefault();
     }
     function move(event){
       if (!drawing) return;
@@ -416,7 +570,7 @@
     ['mousedown','touchstart'].forEach(name => canvas.addEventListener(name, start, { passive:false }));
     ['mousemove','touchmove'].forEach(name => canvas.addEventListener(name, move, { passive:false }));
     ['mouseup','mouseleave','touchend','touchcancel'].forEach(name => canvas.addEventListener(name, end));
-    if (clear) clear.addEventListener('click', clearCanvas);
+    if (clear) clear.addEventListener('click', onClearPad);
   }
   function drawPadGhost(){
     if (!padCtx || !ghostOn || !player.data) return;

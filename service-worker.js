@@ -58,7 +58,7 @@ const CORE_ASSETS = [
   './assets/pro-style.css',
   './assets/neko-theme.css?v=3',
   './assets/kanji-writing.css',
-  './assets/kanji-writing.js?v=4',
+  './assets/kanji-writing.js?v=7',
   './assets/translator.css',
   './assets/translator.min.js',
 './Kaiwa.html',

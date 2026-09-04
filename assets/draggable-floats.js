@@ -7,6 +7,13 @@
  *   - .np-wa-float (WhatsApp)
  *   - .nihongo-chat-launch (AI Chat)
  *   - .translator-launch (Translator)
+ *   - #floatingTimer (⏱ Belajar hari ini) — digeser lewat bagian panel
+ *     yang pointer-events:auto (tombol ⏸/↺/✕ saat terbuka, judul saat
+ *     chip .np-timer-mini)
+ *
+ * Juga mengelola chip #floatingTimer pada viewport pendek (lihat CSS
+ * .np-timer-mini di kyoto-elevation.css): otomatis menyusut menjadi
+ * judul saja saat innerHeight <= 680px, diklik untuk membuka kembali.
  * 
  * How it works:
  *   - Click = normal action (toggle, open, etc.)
@@ -204,12 +211,50 @@
       { selector: '.np-wa-float', id: 'wa-float' },
       { selector: '.nihongo-chat-launch', id: 'ai-chat' },
       { selector: '.translator-launch', id: 'translator' },
+      { selector: '#floatingTimer', id: 'study-timer' },
     ];
 
     targets.forEach(({ selector, id }) => {
       const el = document.querySelector(selector);
       if (el) makeDraggable(el, id);
     });
+
+    setupTimerChip();
+  }
+
+  // ═══════════════════════════════════════════════════════════════════
+  // Chip #floatingTimer pada viewport pendek
+  // ═══════════════════════════════════════════════════════════════════
+  const SHORT_VIEWPORT_PX = 680;
+  function setupTimerChip() {
+    const timer = document.getElementById('floatingTimer');
+    if (!timer || timer.dataset.chipInit) return;
+    timer.dataset.chipInit = '1';
+
+    const label = timer.querySelector(':scope > div:first-child');
+    let userExpanded = false; // dibuka manual pengguna; menang sampai resize
+
+    function apply() {
+      const mini = !userExpanded && window.innerHeight <= SHORT_VIEWPORT_PX;
+      timer.classList.toggle('np-timer-mini', mini);
+      if (label) label.setAttribute('title', mini ? 'Klik untuk buka panel penuh' : '');
+    }
+
+    if (label) {
+      label.addEventListener('click', () => {
+        if (timer.classList.contains('np-timer-mini')) {
+          userExpanded = true;
+          apply();
+        }
+      });
+    }
+
+    window.addEventListener('resize', () => {
+      if (window.innerHeight > SHORT_VIEWPORT_PX) userExpanded = false;
+      apply();
+    });
+
+    apply();
   }
 
   // Wait for DOM + deferred scripts

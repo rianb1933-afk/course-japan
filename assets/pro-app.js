@@ -208,7 +208,7 @@
     { title: 'Materi Lengkap', sub: 'Kana, kanji, grammar, vocab', icon: '語', web: 'Materi/Materi.html', keys: 'M' },
     { title: 'Pembelajaran Lain', sub: 'English, Japanese business, Korean, Mandarin, coding, matematika, desain, bisnis', icon: '学', web: 'Pembelajaran-Lain.html', keys: 'B' },
     { title: 'Roadmap JLPT N5-N1', sub: 'Kurikulum lengkap semua level', icon: '試', web: 'Materi/JLPT-Lengkap.html', keys: 'J' },
-    { title: 'Kosakata N5-N1', sub: '7.970 vocabulary dan flashcard', icon: '彙', web: 'Materi/Vocabulary-Lengkap.html', keys: 'V' },
+    { title: 'Kosakata N5-N1', sub: '181.500+ kosakata dan flashcard', icon: '彙', web: 'Materi/Vocabulary-Lengkap.html', keys: 'V' },
     { title: 'Grammar N5-N1', sub: 'Pola grammar lengkap', icon: '文', web: 'Materi/Grammar-Lengkap.html', keys: 'G' },
     { title: 'Flashcard Lengkap', sub: '9.000+ kartu vocab, kanji, grammar', icon: '暗', web: 'Materi/Flashcard-Lengkap.html', keys: 'F' },
     { title: 'Flashcard Kanji', sub: 'Latihan kanji N5 sampai N1', icon: '漢', web: 'Materi/Flashcard-Kanji.html', keys: 'H' },

@@ -79,6 +79,7 @@ a{text-decoration:none;color:inherit}
 .hero{display:block!important;min-height:auto!important;padding:5rem 5vw 3rem!important;background:#17181d;color:#fff;position:relative;overflow:hidden}
 .hero::before{content:'漢字';position:absolute;right:-30px;bottom:-80px;font-family:'Noto Serif JP',serif;font-size:280px;color:rgba(255,255,255,.045);line-height:1}
 .hero-inner{max-width:1160px;margin:0 auto;position:relative;z-index:1}.kicker{display:inline-flex;padding:5px 12px;border-radius:8px;background:rgba(232,83,74,.18);color:var(--red-soft);font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:1rem}
+.level-switch{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1.25rem}.level-switch a{font-size:12px;font-weight:800;color:var(--ink-mid);background:var(--white);border:1px solid var(--border-mid);border-radius:8px;padding:7px 14px;text-decoration:none;transition:all .18s}.level-switch a:hover{color:var(--red);background:var(--red-pale);border-color:rgba(190,52,40,.35)}.level-switch a.active{background:var(--red);border-color:var(--red);color:#fff}
 .hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(34px,5vw,62px);line-height:1.1;margin-bottom:1rem}.hero p{max-width:760px;color:rgba(255,255,255,.68);font-size:16px;line-height:1.9}
 .hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:2rem}.hero-stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;padding:1rem}.hero-stat strong{font-family:'Noto Serif JP',serif;font-size:30px;display:block;line-height:1}.hero-stat span{font-size:12px;color:rgba(255,255,255,.58)}
 .wrap{max-width:1160px;margin:0 auto;padding:2.5rem 5vw}.toolbar{position:sticky;top:68px;z-index:40;background:var(--nav-bg);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);padding:1rem 5vw}.toolbar-inner{max-width:1160px;margin:0 auto;display:flex;gap:10px;align-items:center;justify-content:space-between}
@@ -143,6 +144,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <section class="hero">
   <div class="hero-inner">
     <div class="kicker">Daftar Kanji N5 Lengkap</div>
+    <div class="level-switch" role="navigation" aria-label="Pilih tingkat kanji"><a href="Kanji-N5.html" class="active" aria-current="page">N5</a><a href="Kanji-N4.html">N4</a><a href="Kanji-N3.html">N3</a><a href="Kanji-N2.html">N2</a><a href="Kanji-N1.html">N1</a></div>
     <h1>Kanji N5 Lengkap<br>漢字マスター</h1>
     <p>Daftar belajar 107 kanji N5 paling umum, lengkap dengan arti Indonesia, onyomi, kunyomi, contoh vocabulary, dan panduan latihan. JLPT resmi tidak menerbitkan daftar kanji tetap, jadi halaman ini memakai daftar standar yang lazim digunakan untuk persiapan N5.</p>
     <div class="hero-stats">
@@ -408,7 +410,7 @@ function checkKQ5(btn, chosen, correct){
   setTimeout(()=>{kqIdx5++; renderKQ5();},1800);
 }
 </script>
-<script src="../assets/kanji-writing.js?v=4" defer></script>
+<script src="../assets/kanji-writing.js?v=7" defer></script>
 <script src="../assets/translator.min.js" defer></script>
 
 <section class="section" id="kanjiQuizN5">

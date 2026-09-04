@@ -777,7 +777,7 @@
     // Lazy load vocab
     loadVocab().then(() => {
       const meta = document.getElementById('translatorMeta');
-      if (meta) meta.textContent = `Kamus lokal siap.\nDictionary: ${entries.length.toLocaleString('id-ID')} entries\nMode: AI Tanaka Sensei (fallback: kamus lokal 11.843 kata)`;
+      if (meta) meta.textContent = `Kamus lokal siap.\nDictionary: ${entries.length.toLocaleString('id-ID')} entries\nMode: AI Tanaka Sensei (fallback: kamus lokal 181.500+ kata)`;
     });
     if (text) {
       document.getElementById('translatorInput').value = text;

@@ -821,3 +821,45 @@ html[data-theme="dark"] #floatingTimer > div:first-child { color: #EE8878 !impor
 #floatingTimer button:not(.np-timer-close):nth-of-type(1) { right: 60px !important; }
 #floatingTimer button:not(.np-timer-close):nth-of-type(2) { right: 32px !important; }
 
+/* ══════════════════════════════════════════════════════════════════════
+   #bttBtn (↑ kembali ke atas lama) — redundan bila dock FAB ada
+   ══════════════════════════════════════════════════════════════════════
+   pro-app.min.js membangun .pro-floating-actions yang SUDAH memuat
+   tombol ↑ (data-pro-top, "Kembali ke atas"). Tombol statis #bttBtn di
+   43 halaman (inline bottom:5rem;right:1.5rem) ternyata mendarat PERSIS
+   di pojok yang sama dengan dock: diukur 766px ia bertumpuk 42×34px
+   dengan strip FAB selebar layar (z 150 < z 520, jadi tertutup dan tidak
+   bisa ditekan), dan di desktop ia menabrak dasar kolom FAB kanan.
+   Dua tombol kembali-ke-atas di satu halaman = kekacauan visual.
+   Disembunyikan hanya bila dock benar-benar ada (:has), supaya halaman
+   tanpa pro-app tetap punya tombolnya. */
+body:has(.pro-floating-actions) #bttBtn { display: none !important; }
+
+/* ══════════════════════════════════════════════════════════════════════
+   #floatingTimer — chip ringkas untuk layar pendek
+   ══════════════════════════════════════════════════════════════════════
+   Di viewport pendek (mis. panel pratinjau setinggi ponsel) panel timer
+   240×94 melayang tepat di atas kartu statistik/isi dan terbaca seperti
+   tata letak rusak. Kelas .np-timer-mini (dikelola draggable-floats.js
+   saat innerHeight <= 680px) menyisakan judul saja — chip selebar
+   168px — yang diklik untuk membuka panel penuh kembali. Tombol ⏸/↺/✕
+   disembunyikan karena tidak berguna di chip; labelnya yang menangkap
+   klik (satu-satunya bagian yang boleh pointer-events:auto saat mini,
+   persis seperti perilaku pilin lain). */
+#floatingTimer.np-timer-mini {
+  min-width: 168px !important;
+  max-width: 168px !important;
+  padding: .45rem .8rem !important;
+}
+#floatingTimer.np-timer-mini #studyTimerWidget,
+#floatingTimer.np-timer-mini button { display: none !important; }
+#floatingTimer.np-timer-mini > div:first-child {
+  pointer-events: auto !important;
+  cursor: pointer;
+  margin-bottom: 0 !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#floatingTimer.np-timer-mini > div:first-child:hover { opacity: .8; }
+
