@@ -1,10 +1,11 @@
 /* Nihongo Pro Academy — Theme Manager (anime-theme.js)
    ───────────────────────────────────────────────────────────────────
-   Mengelola tema situs via localStorage('np-theme'):
+   Mengelola tema situs via localStorage('np-decor-theme'):
      'default' → Kyoto (design system existing, tak tersentuh)
      'anime'   → Anime Classroom (memuat CSS/JS tema secara dinamis)
      'zen'     → Zen Temple (taman zen statis, memuat CSS/JS tema secara dinamis)
      'tokyo'   → Tokyo Night (langit malam kota, memuat CSS/JS tema secara dinamis)
+     'neko' / 'modern' / 'samurai' → Neko Café, Nihon Modern, Bushidō
 
    Hanya file ini yang dimuat di semua halaman. Aset tema lain (mis.
    anime-theme.css, zen-theme.css, tokyo-theme.css, dan background
@@ -12,7 +13,49 @@
    pengguna tema default tidak membayar biaya apa pun. Idempoten. */
 (function () {
   'use strict';
-  var KEY = 'np-theme';
+  /* Daftar tema dipindah ke atas karena migrasi kunci di bawah perlu tahu
+     nama-nama yang sah sebelum apa pun dibaca. */
+  var THEMES = ['anime', 'zen', 'tokyo', 'neko', 'modern', 'samurai'];
+
+  /* KUNCI TERPISAH — jangan pakai 'np-theme' lagi.
+     ────────────────────────────────────────────────────────────────
+     Dulu berkas ini menyimpan nama tema dekoratif ke 'np-theme', kunci
+     localStorage yang SAMA dipakai platform.js untuk mode terang/gelap:
+
+         platform.js:382  baca  np-theme  -> harap 'light' | 'dark'
+         platform.js:394  tulis np-theme  <- 'light' | 'dark'
+
+     Keduanya saling menimpa. Menekan tombol mode gelap menghapus pilihan
+     tema pengguna, dan sebaliknya memilih tema membuat platform.js membaca
+     setelan mode sebagai 'light'. Terpapar di 243 halaman yang memuat
+     platform.min.js tanpa dark-mode-toggle.js.
+
+     platform.js sengaja TIDAK diubah: kuncinya juga menyimpan preferensi
+     terang/gelap milik pengguna, dan menggesernya akan mereset preferensi
+     itu. Yang dipindah adalah konsep yang lebih baru & lebih spesifik. */
+  var KEY = 'np-decor-theme';
+  var LEGACY_KEY = 'np-theme';
+
+  function read(k) {
+    try { return localStorage.getItem(k); } catch (e) { return null; }
+  }
+
+  /* Migrasi sekali jalan. Tanpa ini, semua pengguna yang sudah memilih tema
+     akan terlempar balik ke Kyoto begitu versi ini dirilis.
+     Nilai lama HANYA dipindah bila ia benar-benar nama tema — kalau isinya
+     'light'/'dark', itu milik platform.js dan tidak boleh disentuh. */
+  (function migrate() {
+    if (read(KEY)) return;                       // sudah pernah migrasi
+    var old = read(LEGACY_KEY);
+    if (!old || THEMES.indexOf(old) === -1) return;
+    try {
+      localStorage.setItem(KEY, old);
+      /* Kunci lama dibersihkan supaya platform.js berhenti membaca nama tema
+         sebagai mode. Ia akan jatuh ke default 'light', yang memang perilaku
+         semula bagi pengguna yang belum pernah menyetel mode. */
+      localStorage.removeItem(LEGACY_KEY);
+    } catch (e) {}
+  })();
 
   function get() {
     try { return localStorage.getItem(KEY) || 'default'; } catch (e) { return 'default'; }
@@ -141,7 +184,6 @@
 
   window.NPTheme = { get: get, set: set };
 
-  var THEMES = ['anime', 'zen', 'tokyo', 'neko', 'modern', 'samurai'];
   var current = get();
   if (THEMES.indexOf(current) !== -1) {
     if (document.body) activate(current);
