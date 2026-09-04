@@ -92,30 +92,20 @@ body[data-np-theme="neko"] {
   );
 }
 
-/* ── Rak kayu ── */
+/* ── Cahaya jendela kafe ──
+   DULU: dua rak kayu setinggi 10px membentang penuh kiri-ke-kanan. Karena
+   layer tema position:fixed, rak itu diam di posisi layar sementara konten
+   bergulir melewatinya — hasilnya terbaca sebagai GARIS KERAS yang memotong
+   halaman, persis seperti seam render, bukan sebagai perabot. Diganti pita
+   cahaya bertepi lembut yang tidak pernah membentuk garis. */
 #npNekoBg .neko-shelf {
-  position: absolute; left: 0; right: 0; height: 10px;
-  background: linear-gradient(180deg, var(--neko-wood) 0%, var(--neko-wood-dark) 100%);
-  box-shadow: 0 6px 14px rgba(154, 110, 72, .18);
+  position: absolute; left: -10%; right: -10%; height: 38vh;
+  background: radial-gradient(ellipse at 50% 50%,
+    rgba(255, 236, 205, .55) 0%, rgba(255, 236, 205, .18) 45%, transparent 72%);
 }
-#npNekoBg .neko-shelf.s1 { top: 22%; }
-#npNekoBg .neko-shelf.s2 { top: 58%; opacity: .75; }
+#npNekoBg .neko-shelf.s1 { top: -6%; }
+#npNekoBg .neko-shelf.s2 { top: 46%; opacity: .6; }
 
-/* Toples & cangkir di rak — bentuk sederhana, bukan gambar */
-#npNekoBg .neko-jar {
-  position: absolute; width: 34px; height: 44px;
-  border-radius: 6px 6px 10px 10px;
-  background: rgba(255, 255, 255, .5);
-  border: 2px solid rgba(154, 110, 72, .25);
-  border-bottom: none;
-}
-#npNekoBg .neko-jar::before {
-  content: ""; position: absolute; left: -4px; right: -4px; top: -7px; height: 7px;
-  border-radius: 3px; background: var(--neko-wood-dark); opacity: .55;
-}
-#npNekoBg .neko-jar.j1 { top: calc(22% - 44px); left: 14%; }
-#npNekoBg .neko-jar.j2 { top: calc(22% - 44px); left: 21%; height: 34px; }
-#npNekoBg .neko-jar.j3 { top: calc(58% - 40px); right: 18%; height: 40px; opacity: .8; }
 
 /* ── Tanaman gantung ── */
 #npNekoBg .neko-plant {

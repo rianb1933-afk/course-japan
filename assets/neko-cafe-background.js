@@ -22,9 +22,6 @@
       '<div class="neko-wall"></div>' +
       '<div class="neko-shelf s1"></div>' +
       '<div class="neko-shelf s2"></div>' +
-      '<div class="neko-jar j1"></div>' +
-      '<div class="neko-jar j2"></div>' +
-      '<div class="neko-jar j3"></div>' +
       '<div class="neko-plant p1"><span class="vine v1"></span><span class="vine v2"></span>' +
         '<span class="vine v3"></span><span class="pot"></span></div>' +
       '<div class="neko-plant p2"><span class="vine v1"></span><span class="vine v2"></span>' +

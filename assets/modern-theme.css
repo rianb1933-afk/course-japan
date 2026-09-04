@@ -77,10 +77,11 @@ body[data-np-theme="modern"] {
 }
 
 /* ── Bidang beton besar di kanan, memberi kedalaman tanpa ramai ── */
+/* Tepi kiri slab beton dulu berupa garis vertikal tegas yang memotong grid
+   kartu. Sekarang memudar ke kiri sehingga tidak punya tepi sama sekali. */
 #npModernBg .mod-slab {
-  position: absolute; top: 0; bottom: 0; right: 0; width: 38%;
-  background: var(--mod-concrete);
-  opacity: .55;
+  position: absolute; top: 0; bottom: 0; right: 0; width: 52%;
+  background: linear-gradient(90deg, transparent 0%, rgba(226, 223, 217, .75) 62%);
 }
 #npModernBg .mod-slab::after {
   content: ""; position: absolute; inset: 0;
@@ -91,12 +92,16 @@ body[data-np-theme="modern"] {
 }
 
 /* ── Kisi shoji: garis tipis, bukan pola penuh ── */
+/* Border + kisi yang berhenti mendadak membentuk persegi bertepi tegas di
+   tengah halaman. Border dibuang dan kisinya dipudarkan ke segala arah
+   lewat mask, sehingga polanya hadir tanpa pernah punya tepi. */
 #npModernBg .mod-grid {
-  position: absolute; top: 8%; left: 6%; width: 30%; height: 46%;
-  border: 1px solid var(--mod-line);
+  position: absolute; top: 4%; left: 0; width: 44%; height: 58%;
   background-image:
-    repeating-linear-gradient(90deg, var(--mod-line) 0 1px, transparent 1px 25%),
-    repeating-linear-gradient(0deg, var(--mod-line) 0 1px, transparent 1px 33.33%);
+    repeating-linear-gradient(90deg, var(--mod-line) 0 1px, transparent 1px 74px),
+    repeating-linear-gradient(0deg, var(--mod-line) 0 1px, transparent 1px 74px);
+  -webkit-mask-image: radial-gradient(ellipse at 30% 40%, #000 0%, transparent 72%);
+          mask-image: radial-gradient(ellipse at 30% 40%, #000 0%, transparent 72%);
 }
 
 /* ── Lingkaran besar pucat: matahari / motif maru ── */
@@ -108,10 +113,12 @@ body[data-np-theme="modern"] {
 }
 
 /* ── Pita kayu horizontal di bawah ── */
+/* DULU pita kayu solid setinggi 16% di dasar viewport: karena layer ini
+   fixed, ia diam sementara konten lewat, jadi terbaca sebagai garis keras
+   yang membelah halaman. Sekarang gradasi hangat yang memudar habis. */
 #npModernBg .mod-wood {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 16%;
-  background: linear-gradient(180deg, var(--mod-wood) 0%, var(--mod-wood-dark) 100%);
-  opacity: .5;
+  position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
+  background: linear-gradient(180deg, transparent 0%, rgba(201, 169, 129, .30) 100%);
 }
 #npModernBg .mod-wood::before {
   content: ""; position: absolute; inset: 0;
@@ -120,9 +127,12 @@ body[data-np-theme="modern"] {
 }
 
 /* ── Satu garis aksen merah — satu-satunya warna kuat ── */
+/* Garis merah setebal 2px dari atas ke bawah terbaca sebagai artefak, bukan
+   aksen — apalagi ia jatuh di tengah kolom konten. Diganti pendar merah
+   sangat halus di tepi kiri. */
 #npModernBg .mod-accent {
-  position: absolute; top: 0; bottom: 0; left: 46%;
-  width: 2px; background: var(--mod-accent); opacity: .22;
+  position: absolute; top: 0; bottom: 0; left: 0; width: 26%;
+  background: linear-gradient(90deg, rgba(179, 66, 58, .10), transparent 70%);
 }
 
 /* ── Sapuan cahaya, sangat lambat & nyaris tak terlihat ── */

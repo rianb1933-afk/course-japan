@@ -87,13 +87,16 @@ body[data-np-theme="samurai"] {
 }
 
 /* ── Matahari merah (hinomaru) ── */
+/* Dulu cakram merah pekat 300px: begitu kolom konten desktop melebar
+   (kini sampai ~1180px), cakram itu tertutup kartu hampir seluruhnya dan
+   yang tersisa cuma potongan lengkung yang aneh. Sekarang pendar besar
+   TANPA tepi — ia terbaca sebagai cahaya di balik konten, bukan objek yang
+   terpotong, dan tetap hadir berapa pun lebar kontennya. */
 #npSamuraiBg .sam-sun {
-  position: absolute; top: 12%; left: 50%;
-  width: 300px; height: 300px; margin-left: -150px;
-  border-radius: 50%;
-  background: var(--sam-sun);
-  box-shadow: 0 0 90px 30px var(--sam-sun-glow);
-  opacity: .88;
+  position: absolute; top: -12%; left: 50%;
+  width: 1100px; height: 780px; margin-left: -550px;
+  background: radial-gradient(ellipse at center,
+    rgba(179, 49, 44, .55) 0%, rgba(179, 49, 44, .26) 34%, rgba(179, 49, 44, .08) 58%, transparent 76%);
 }
 
 /* ── Gunung berlapis: makin depan makin gelap ── */
@@ -135,8 +138,8 @@ body[data-np-theme="samurai"] {
 
 /* ── Mon (lambang keluarga) bergaris emas ── */
 #npSamuraiBg .sam-mon {
-  position: absolute; top: 12%; left: 50%; margin-left: -60px;
-  width: 120px; height: 120px; margin-top: 90px;
+  position: absolute; top: 2%; left: 50%; margin-left: -110px;
+  width: 220px; height: 220px; margin-top: 0;
   border: 2px solid var(--sam-gold);
   border-radius: 50%;
   opacity: .5;
@@ -144,10 +147,10 @@ body[data-np-theme="samurai"] {
 }
 #npSamuraiBg .sam-mon::before,
 #npSamuraiBg .sam-mon::after {
-  content: ""; position: absolute; inset: 16px;
+  content: ""; position: absolute; inset: 30px;
   border: 2px solid var(--sam-gold); border-radius: 50%;
 }
-#npSamuraiBg .sam-mon::after { inset: 34px; }
+#npSamuraiBg .sam-mon::after { inset: 64px; }
 @keyframes samMon {
   0%, 100% { opacity: .34; }
   50%      { opacity: .62; }
