@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pengaturan Tema — Nihongo Pro Academy</title>
-<meta name="description" content="Pilih tema tampilan Nihongo Pro Academy: Kyoto klasik, Anime Classroom, Zen Temple, atau Tokyo Night. Pilihan tersimpan otomatis dan berlaku di semua halaman.">
+<meta name="description" content="Pilih tema tampilan Nihongo Pro Academy: Kyoto, Anime Classroom, Zen Temple, Tokyo Night, Neko Café, Nihon Modern, atau Bushidō. Pilihan tersimpan otomatis dan berlaku di semua halaman.">
 <meta data-seo="nihongo-static" rel="canonical" href="https://nihongopro.id/Theme-Settings.html">
 <meta data-seo="nihongo-static" property="og:title" content="Pengaturan Tema — Nihongo Pro Academy">
 <meta data-seo="nihongo-static" property="og:description" content="Pilih tema tampilan belajar Anda.">
@@ -40,13 +40,27 @@ body{background:var(--cream,#F8F3E9);color:var(--ink,#2d2d2d);line-height:1.7}
 .tcard.active{border-color:#5B7C5B;box-shadow:0 0 0 3px rgba(91,124,91,.25)}
 .tcard.soon{opacity:.55;cursor:not-allowed}
 .tprev{height:120px;position:relative}
+/* Swatch pratinjau.
+   Nilai dasar disalin dari token latar tiap berkas tema, JANGAN dikarang:
+     anime   --an-sky-top/bot     #9CCBEF -> #DDEFFA
+     zen     --zen-sky-top/bot    #DFDCCC -> #CFCBB6
+     tokyo   --tokyo-sky-top/bot  #0B1022 -> #3A2E5C
+     neko    --neko-wall-top/bot  #FBF1E4 -> #F3E2CE
+     modern  --mod-bg-top/bot     #F7F6F3 -> #ECEAE5
+     samurai --sam-paper-top/bot  #14161C -> #1E2130
+   Versi sebelumnya ditulis tangan untuk desain LAMA dan jadi menyesatkan
+   setelah latar dirancang ulang: swatch neko masih memperlihatkan pita rak
+   kayu yang sudah dihapus, modern masih memperlihatkan pita kayu di dasar,
+   dan zen masih terbelah keras padahal batasnya sudah dilunakkan. Karena
+   tema kini berupa ATMOSFER (gradasi + satu pendar aksen), swatch mengikuti
+   bentuk itu: gradasi dasar + satu pendar radial berwarna aksen temanya. */
 .tprev.kyoto{background:linear-gradient(135deg,#F8F3E9 40%,#5B7C5B 40% 55%,#A63A3A 55% 70%,#C89B3C 70%)}
-.tprev.anime{background:linear-gradient(180deg,#9CCBEF 55%,#2F5D50 55% 82%,#8B5E3C 82%)}
-.tprev.zen{background:linear-gradient(180deg,#E8E4DA 60%,#6E7F6E 60%)}
-.tprev.tokyo{background:linear-gradient(180deg,#1C2A44,#3A2E5C)}
-.tprev.neko{background:linear-gradient(180deg,#FBF1E4 62%,#B98A5E 62% 70%,#F3E2CE 70%)}
-.tprev.modern{background:linear-gradient(160deg,#F7F6F3 55%,#E2DFD9 55% 84%,#C9A981 84%)}
-.tprev.samurai{background:linear-gradient(180deg,#14161C 45%,#B3312C 45% 58%,#22304F 58%)}
+.tprev.anime{background:radial-gradient(circle at 22% 26%,rgba(255,217,138,.85),transparent 46%),linear-gradient(180deg,#9CCBEF,#DDEFFA)}
+.tprev.zen{background:radial-gradient(ellipse at 24% 78%,rgba(156,74,60,.42),transparent 62%),linear-gradient(180deg,#DFDCCC,#CFCBB6)}
+.tprev.tokyo{background:radial-gradient(ellipse at 50% 96%,rgba(232,91,160,.42),transparent 66%),radial-gradient(circle at 82% 20%,rgba(243,238,220,.75),transparent 26%),linear-gradient(180deg,#0B1022,#3A2E5C)}
+.tprev.neko{background:radial-gradient(ellipse at 50% 22%,rgba(255,236,205,.9),transparent 58%),linear-gradient(180deg,#FBF1E4,#F3E2CE)}
+.tprev.modern{background:linear-gradient(90deg,transparent 48%,rgba(226,223,217,.9)),linear-gradient(170deg,#F7F6F3,#ECEAE5)}
+.tprev.samurai{background:radial-gradient(ellipse at 50% 30%,rgba(179,49,44,.62),transparent 60%),linear-gradient(180deg,#14161C,#1E2130)}
 .tbody{padding:1rem 1.2rem 1.2rem}
 .tbody h2{font-size:17px;display:flex;align-items:center;gap:.5rem}
 .tbody p{font-size:13px;color:#6e6e6e;margin-top:.3rem}
@@ -89,39 +103,39 @@ body{background:var(--cream,#F8F3E9);color:var(--ink,#2d2d2d);line-height:1.7}
       <div class="tprev zen"></div>
       <div class="tbody">
         <h2>⛩️ Zen Temple <span class="tag on" data-tag style="display:none">Aktif</span></h2>
-        <p>Ketenangan kuil zen — pegunungan jauh, pasir bergaris rake, batu, lumut, dan gerbang torii. Latar statis dan tenang.</p>
+        <p>Ketenangan taman kering — pegunungan berlapis, pasir bergaris rake, ranting maple, dan pendar vermilion. Sepenuhnya statis, tanpa animasi.</p>
       </div>
     </button>
     <button class="tcard" data-theme="tokyo" aria-pressed="false">
       <div class="tprev tokyo"></div>
       <div class="tbody">
         <h2>🌃 Tokyo Night <span class="tag on" data-tag style="display:none">Aktif</span></h2>
-        <p>Malam kota Tokyo — langit gradasi gelap, bintang berkelip lembut, dan siluet gedung dengan jendela menyala.</p>
+        <p>Malam kota Tokyo — tiga lapis siluet gedung berjendela, bulan berhalo, siluet menara, papan neon, dan kabut yang hanyut.</p>
       </div>
     </button>
     <button class="tcard" data-theme="neko" aria-pressed="false">
       <div class="tprev neko"></div>
       <div class="tbody">
         <h2>🐱 Neko Café <span class="tag on" data-tag style="display:none">Aktif</span></h2>
-        <p>Kafe kucing yang hangat — dinding krem, rak kayu berisi toples, tanaman gantung, kopi beruap, dan seekor kucing tidur dengan ekor bergoyang pelan.</p>
+        <p>Kafe kucing yang hangat — dinding krem, cahaya jendela lembut, tanaman gantung, kopi beruap, dan seekor kucing tidur dengan ekor bergoyang pelan.</p>
       </div>
     </button>
     <button class="tcard" data-theme="modern" aria-pressed="false">
       <div class="tprev modern"></div>
       <div class="tbody">
         <h2>🏙️ Nihon Modern <span class="tag on" data-tag style="display:none">Aktif</span></h2>
-        <p>Arsitektur Jepang masa kini di siang hari — beton halus, kisi shoji, kayu terang, dan satu aksen merah. Tenang dan lapang; kebalikan dari Tokyo Night.</p>
+        <p>Arsitektur Jepang masa kini di siang hari — beton halus, kisi shoji yang memudar, dan sapuan cahaya sangat lambat. Tenang dan lapang; kebalikan dari Tokyo Night.</p>
       </div>
     </button>
     <button class="tcard" data-theme="samurai" aria-pressed="false">
       <div class="tprev samurai"></div>
       <div class="tbody">
         <h2>⚔️ Bushidō <span class="tag on" data-tag style="display:none">Aktif</span></h2>
-        <p>Lukisan sumi-e — kertas washi gelap, matahari merah besar, lambang keluarga emas, gunung berlapis indigo, bambu, dan kabut yang hanyut.</p>
+        <p>Lukisan sumi-e — kertas washi gelap, pendar matahari merah, lambang keluarga emas, gunung berlapis indigo, bambu, dan kabut yang hanyut.</p>
       </div>
     </button>
   </div>
-  <div class="note">💡 Tema Anime Classroom memuat animasi latar (tirai, partikel cahaya, jam). Semua animasi otomatis mati bila perangkat Anda menyetel <b>reduce motion</b>, dan tidak membebani halaman saat tema tidak aktif.</div>
+  <div class="note">💡 Sebagian tema memuat animasi latar yang sangat lambat — Anime Classroom (tirai, partikel cahaya, jam), Tokyo Night (bintang &amp; kabut), Neko Café (uap kopi, kelopak), Nihon Modern (sapuan cahaya), dan Bushidō (kabut). Zen Temple sepenuhnya statis. Semua animasi otomatis mati bila perangkat Anda menyetel <b>reduce motion</b>, dan aset tema tidak dimuat sama sekali saat temanya tidak aktif.</div>
 </main>
 <script src="assets/kyoto-navbar.min.js?v=20260623" defer></script>
 <script src="assets/kyoto-bottom-nav.js" defer></script>
