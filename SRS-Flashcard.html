@@ -1183,6 +1183,20 @@ body { min-height: 100vh; }
     </div>
   </div>
 
+  <!-- Kamus JMdict (87.217 kartu) dimuat sesuai kebutuhan, bukan di awal.
+       Blok ini muncul hanya saat filter yang memerlukannya diklik. -->
+  <div id="catalogLoading" style="display:none">
+    <div class="complete-wrap">
+      <div class="complete-icon">📖</div>
+      <div class="complete-title">Memuat kamus JMdict…</div>
+      <p style="font-size:14px;color:var(--ink-soft);margin-bottom:10px" id="catalogLoadingMsg">Menyiapkan kartu…</p>
+      <div style="height:8px;border-radius:999px;background:var(--border-light,rgba(0,0,0,.08));overflow:hidden;max-width:320px;margin:0 auto">
+        <div id="catalogLoadingBar" style="height:100%;width:0%;border-radius:999px;background:linear-gradient(90deg,var(--kyoto-red,#A63A3A),var(--gold,#C89B3C));transition:width .2s ease"></div>
+      </div>
+      <button class="btn" type="button" id="catalogRetryBtn" style="display:none;margin-top:14px" onclick="retryCatalog()">↺ Coba lagi</button>
+    </div>
+  </div>
+
   <div id="completeArea" style="display:none">
     <div class="complete-wrap">
       <div class="complete-icon">🎉</div>
@@ -1212,7 +1226,8 @@ body { min-height: 100vh; }
 
 <script src="assets/np-xp.js" defer></script>
 <script src="assets/platform.min.js" defer></script><script src="assets/np-celebrate.js" defer></script>
-<script src="assets/srs-cards-data.js"></script>
+<script src="assets/srs-catalog.js"></script>
+<script src="assets/srs/core.js" defer></script>
 <script src="assets/srs-curated.js"></script>
 <script src="assets/srs-fsrs.js"></script>
 <script src="assets/srs-cap.js"></script>
@@ -1223,19 +1238,20 @@ body { min-height: 100vh; }
 let State, SRS, Toast;
 
 // ── CARD DATA ────────────────────────────────────────────────────────
-const CARDS_ORIGINAL = (typeof window.SRS_CURATED !== 'undefined' && Array.isArray(window.SRS_CURATED)) ? window.SRS_CURATED : [];
-
-// Merge original curated cards with external database + custom cards
-var CARDS;
-if (typeof SRS_CARDS_DATA !== 'undefined' && SRS_CARDS_DATA.length > 0) {
-  CARDS = CARDS_ORIGINAL.concat(SRS_CARDS_DATA);
-} else {
-  CARDS = CARDS_ORIGINAL;
+// Dulu di sini dimuat assets/srs-cards-data.js (7,14 MB, <script> SINKRON
+// sehingga memblokir render) lalu di-concat seluruhnya. Sekarang katalog
+// (assets/srs-catalog.js) memegang kartu kurasi + 12.783 kartu inti secara
+// eager, dan 87.217 kartu JMdict hanya di-fetch saat filter benar-benar
+// membutuhkannya. CARDS tetap array biasa dengan isi & urutan yang sama,
+// jadi seluruh pemakaian di bawah tidak berubah.
+var CARDS = [];
+function initCards() {
+  window.NPCatalog.init();
+  CARDS = window.NPCatalog.cards();   // objek array yang sama selamanya
 }
-try {
-  var CUSTOM_CARDS = JSON.parse(localStorage.getItem('np-srs-custom') || '[]');
-  CARDS = CARDS.concat(CUSTOM_CARDS);
-} catch (e) {}
+// Shard yang gagal dimuat tidak boleh membuat deck kosong: sekali gagal,
+// filter yang butuh ekor dilayani seadanya dari kartu yang sudah ada.
+var catalogDegraded = false;
 
 // ── STATE ────────────────────────────────────────────────────────────
 let deck = [], curIdx = 0, flipped = false, curFilter = 'all';
@@ -1389,10 +1405,7 @@ function updateProgress() {
   const todayKey = 'np-srs-today-' + today;
   const todayData = JSON.parse(localStorage.getItem(todayKey) || '{"reviewed":[],"new":0,"review":0}');
   
-  const totalDue = CARDS.filter(c => {
-    const s = stored[c.id];
-    return !s || s.nextReview <= Date.now();
-  }).length;
+  const totalDue = window.NPCatalog.dueCount(stored, Date.now());
   
   const reviewed = todayData.reviewed.length;
   const pct = totalDue > 0 ? Math.min(100, Math.round(reviewed / totalDue * 100)) : 0;
@@ -1453,9 +1466,72 @@ function calculateStreak() {
 
 let searchQuery = '';
 
+/**
+ * Shard ekor mana yang dibutuhkan filter ini. Selain jawaban katalog, ada
+ * dua kasus yang hanya diketahui halaman:
+ *  - `bookmark`: id bookmark bisa menunjuk kartu ekor;
+ *  - pencarian: dulu mencari ke seluruh 100.520 kartu, jadi kueri apa pun
+ *    harus tetap melihat kamus penuh — kalau tidak, hasil pencarian diam-diam
+ *    menyusut dibanding sebelumnya.
+ */
+function shardsNeeded(f, stored) {
+  if (catalogDegraded) return [];
+  let need = window.NPCatalog.shardsNeededFor(f, stored, newCaps());
+  if (!need.length && searchQuery) need = window.NPCatalog.shardsNeededFor('jmdict', stored, newCaps());
+  if (!need.length && f === 'bookmark') {
+    let bm = [];
+    try { bm = JSON.parse(localStorage.getItem('np-srs-bookmarks') || '[]'); } catch (e) {}
+    need = window.NPCatalog.shardsFor(bm);
+  }
+  return need;
+}
+
+function showCatalogLoading(show) {
+  const el = document.getElementById('catalogLoading');
+  if (el) el.style.display = show ? 'block' : 'none';
+  if (show) {
+    document.getElementById('mainArea').style.display = 'none';
+    document.getElementById('completeArea').style.display = 'none';
+  }
+}
+
+function retryCatalog() {
+  catalogDegraded = false;
+  document.getElementById('catalogRetryBtn').style.display = 'none';
+  buildDeck(curFilter);
+}
+
+/** Ambil shard yang kurang, lalu bangun ulang deck lewat jalur sinkron biasa. */
+function buildDeckLazily(f, need) {
+  showCatalogLoading(true);
+  const bar = document.getElementById('catalogLoadingBar');
+  const msg = document.getElementById('catalogLoadingMsg');
+  const retry = document.getElementById('catalogRetryBtn');
+  retry.style.display = 'none';
+  if (msg) msg.textContent = 'Menyiapkan kartu… (0/' + need.length + ')';
+
+  window.NPCatalog.loadShards(need, function (done, tot) {
+    if (bar) bar.style.width = Math.round(done / tot * 100) + '%';
+    if (msg) msg.textContent = 'Menyiapkan kartu… (' + done + '/' + tot + ')';
+  }).then(function () {
+    showCatalogLoading(false);
+    buildDeck(f);
+  }).catch(function () {
+    // Jangan pernah tinggalkan deck kosong: tandai degraded supaya klik
+    // berikutnya tidak mencoba lagi, lalu bangun deck dari kartu yang ada.
+    catalogDegraded = true;
+    showCatalogLoading(false);
+    if (retry) retry.style.display = 'inline-block';
+    if (Toast) Toast.show('⚠️ Kamus JMdict gagal dimuat — memakai kartu yang tersedia', 'error', 4000);
+    buildDeck(f);
+  });
+}
+
 function buildDeck(f) {
   curFilter = f;
   const stored = SRS.loadCards ? SRS.loadCards() : JSON.parse(localStorage.getItem('np-srs-v2')||'{}');
+  const need = shardsNeeded(f, stored);
+  if (need.length) { buildDeckLazily(f, need); return; }
   let cards = [...CARDS];
   const now = Date.now();
   // Batas kartu baru/hari per level JLPT (filter "all"): N5 boleh lebih banyak
@@ -1545,13 +1621,15 @@ function setFilter(f, btn) {
 function updateStats() {
   const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
   const now = Date.now();
-  const ids = CARDS.map(c => c.id);
-  document.getElementById('stDue').textContent     = ids.filter(id => { const s = stored[id]; return !s || s.nextReview <= now; }).length;
-  document.getElementById('stNew').textContent     = ids.filter(id => !stored[id] || !stored[id].reps).length;
-  document.getElementById('stLearned').textContent = ids.filter(id => stored[id] && stored[id].reps > 0).length;
-  const rated = ids.filter(id => stored[id] && stored[id].lastRating !== null);
-  const good  = rated.filter(id => stored[id].lastRating >= 2).length;
-  document.getElementById('stRetention').textContent = rated.length ? Math.round(good/rated.length*100) + '%' : '—';
+  // Dihitung dari peta `stored` (kecil) + total katalog, bukan dengan
+  // memindai 100.520 kartu. NPCatalog menyalin persis ekspresi lamanya,
+  // termasuk kuirk `undefined` pada nextReview/reps/lastRating.
+  const C = window.NPCatalog;
+  document.getElementById('stDue').textContent     = C.dueCount(stored, now);
+  document.getElementById('stNew').textContent     = C.newCount(stored);
+  document.getElementById('stLearned').textContent = C.learnedCount(stored);
+  const ret = C.retention(stored);
+  document.getElementById('stRetention').textContent = ret === null ? '—' : ret + '%';
   document.getElementById('stStreak').textContent = State.getUser().streak || 0;
   updateFilterCounts();
 }
@@ -1559,22 +1637,13 @@ function updateStats() {
 function updateFilterCounts() {
   const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
   const now = Date.now();
-  const counts = {
-    all: CARDS.length,
-    n5: CARDS.filter(c => c.jlpt === 'N5').length,
-    n4: CARDS.filter(c => c.jlpt === 'N4').length,
-    n3: CARDS.filter(c => c.jlpt === 'N3').length,
-    n2: CARDS.filter(c => c.jlpt === 'N2').length,
-    n1: CARDS.filter(c => c.jlpt === 'N1').length,
-    kaigo: CARDS.filter(c => c.cat === 'kaigo').length,
-    kanji: CARDS.filter(c => c.type === 'KANJI').length,
-    grammar: CARDS.filter(c => c.type === 'GRAMMAR').length,
-    jmdict: CARDS.filter(c => c.cat === 'jmdict').length,
-    vocab: CARDS.filter(c => c.cat === 'vocab').length,
+  // Semua angka statis diambil dari manifest katalog — hitungannya sama
+  // persis dengan pemindaian lama, tapi tidak perlu kartu ekor termuat.
+  const base = window.NPCatalog.counts();
+  const counts = Object.assign({}, base, {
     bookmark: JSON.parse(localStorage.getItem('np-srs-bookmarks') || '[]').length,
-    kustom: CARDS.filter(c => c.id.indexOf('cust') === 0).length,
-    due: CARDS.filter(c => { const s = stored[c.id]; return !s || s.nextReview <= now; }).length
-  };
+    due: window.NPCatalog.dueCount(stored, now)
+  });
   const fmt = n => n >= 1000 ? (n/1000).toFixed(1).replace(/\.0$/,'') + 'k' : n;
   Object.entries(counts).forEach(([k,v]) => {
     const el = document.getElementById('fc-' + k);
@@ -2359,7 +2428,20 @@ function getBadgeStats() {
   const stored = JSON.parse(localStorage.getItem('np-srs-v2') || '{}');
   const streak = (typeof State !== 'undefined' && State.getUser()) ? (State.getUser().streak || 0) : 0;
   const totalReviews = Object.values(stored).reduce((sum, c) => sum + (c.reps || 0), 0);
-  const countMastered = (jlpt, threshold) => CARDS.filter(c => c.jlpt === jlpt && stored[c.id] && stored[c.id].reps >= threshold).length;
+  // Diiterasi dari `stored` (kecil) memakai metaOf() yang O(1), bukan dengan
+  // memindai seluruh katalog enam kali. Hasilnya identik: kartu yang belum
+  // pernah diulas tidak mungkin memenuhi `reps >= threshold`.
+  const countBy = (pred, threshold) => {
+    let n = 0;
+    for (const id in stored) {
+      const s = stored[id];
+      if (!s || !(s.reps >= threshold)) continue;
+      const m = window.NPCatalog.metaOf(id);
+      if (m && pred(m)) n++;
+    }
+    return n;
+  };
+  const countMastered = (jlpt, threshold) => countBy(m => m.jlpt === jlpt, threshold);
   const quizCorrect = parseInt(localStorage.getItem('np-srs-quiz-correct') || '0');
   const hour = new Date().getHours();
   const nightReviews = parseInt(localStorage.getItem('np-srs-night-reviews') || '0');
@@ -2367,7 +2449,7 @@ function getBadgeStats() {
     streak, totalReviews, quizCorrect, nightReviews,
     masteredN5: countMastered('N5', 3), masteredN4: countMastered('N4', 3),
     masteredN3: countMastered('N3', 3), masteredN2: countMastered('N2', 3),
-    masteredN1: countMastered('N1', 3), masteredKaigo: CARDS.filter(c => c.cat === 'kaigo' && stored[c.id] && stored[c.id].reps >= 3).length,
+    masteredN1: countMastered('N1', 3), masteredKaigo: countBy(m => m.cat === 'kaigo', 3),
   };
 }
 function renderBadges() {
@@ -2497,7 +2579,7 @@ function saveCustomCard() {
   };
   custom.push(card);
   localStorage.setItem('np-srs-custom', JSON.stringify(custom));
-  CARDS.push(card);
+  window.NPCatalog.addCustom(card);   // menjaga urutan kanonis + hitungan
   closeAddCardModal();
   if (typeof Toast !== 'undefined') Toast.show('✅ Kartu tersimpan: ' + jp, 'success');
   buildDeck(curFilter);
@@ -2624,6 +2706,9 @@ document.addEventListener('keydown', function(e) {
 
 document.addEventListener('DOMContentLoaded', function () {
   State = NP.State; SRS = NP.SRS; Toast = NP.Toast;
+  // Wajib pertama: assets/srs/core.js dimuat `defer`, jadi datanya baru
+  // dijamin ada di sini — dan semua yang di bawah membaca CARDS.
+  initCards();
   updateAlgoUI();
   updateRetentionUI();
   updateNewCapUI();

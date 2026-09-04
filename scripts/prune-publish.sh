@@ -44,6 +44,13 @@ find seed -name '*.sql' -delete 2>/dev/null || true
 # Contoh konfigurasi
 rm -f .env.example CNAME.example
 
+# Sumber katalog SRS (7,1 MB). Sejak dipecah jadi assets/srs/core.js + shard,
+# TIDAK ADA halaman yang memuatnya — tapi publish-dir "." tetap mengunggahnya
+# ke CDN. Berkasnya sengaja dipertahankan di repo sebagai masukan yang bisa
+# diproduksi ulang oleh scripts/build-srs-catalog.js dan sebagai pembanding
+# di scripts/tests/test-srs-catalog.js; yang dihentikan hanya pengirimannya.
+rm -f assets/srs-cards-data.js
+
 after=$(du -sk . 2>/dev/null | cut -f1)
 echo "prune-publish: $(( (before - after) / 1024 )) MB dipangkas sebelum upload."
 

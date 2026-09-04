@@ -288,7 +288,8 @@ canvas{max-width:100%}
   </div>
 </div>
 
-<script src="assets/srs-cards-data.js"></script>
+<script src="assets/srs-catalog.js"></script>
+<script src="assets/srs/core.js" defer></script>
 <script src="assets/srs-curated.js"></script>
 <script src="assets/srs-fsrs.js"></script>
 <script src="assets/srs-cap.js"></script>
@@ -296,22 +297,12 @@ canvas{max-width:100%}
 /* ===== data helpers ===== */
 function ls(k, d){ try { const v = localStorage.getItem(k); return v===null ? d : JSON.parse(v); } catch(e){ return d; } }
 
-/* Build lookup: id -> card info from curated + raw bulk data */
+/* Peta id -> info kartu. Dulu ini memaksa materialisasi seluruh 100.000
+   kartu JMdict, padahal yang pernah dipakai hanya kartu yang benar-benar
+   ada di riwayat pengguna. Katalog menyediakan kurasi + inti sejak awal;
+   kartu ekor menyusul lewat renderAll() bila memang pernah diulas. */
 function buildLookup(){
-  const map = {};
-  const curated = (typeof window.SRS_CURATED !== 'undefined') ? window.SRS_CURATED : [];
-  curated.forEach(c => { map[c.id] = { jp:c.jp, reading:c.reading, meaning:c.meaning, cat:c.cat, jlpt:c.jlpt||'' }; });
-  if (typeof SRS_CARDS_DATA !== 'undefined') {
-    SRS_CARDS_DATA.forEach(c => {
-      if (!map[c.id]) map[c.id] = { jp:c.jp, reading:c.reading, meaning:c.meaning, cat:c.cat, jlpt:c.jlpt||'' };
-    });
-  }
-  try {
-    (JSON.parse(localStorage.getItem('np-srs-custom')||'[]')).forEach(c => {
-      map[c.id] = { jp:c.jp, reading:c.reading, meaning:c.meaning, cat:c.cat||'custom', jlpt:c.jlpt||'' };
-    });
-  } catch(e){}
-  return map;
+  return window.NPCatalog.lookup();
 }
 
 const LEVEL_ORDER = ['N5','N4','N3','N2','N1'];
@@ -361,6 +352,7 @@ function fmt(n){ return n >= 1000 ? (n/1000).toFixed(n>=100000?0:1).replace('.0'
 
 /* ===== main ===== */
 function loadAll(){
+  window.NPCatalog.init();
   _state = ls('np-srs-v2', {});
   _lookup = buildLookup();
   const ids = Object.keys(_state);
@@ -369,14 +361,19 @@ function loadAll(){
   kpi.style.display = ids.length ? 'grid' : 'none';
   const sub = document.getElementById('subTitle');
   const algo = srsMode() ? 'FSRS-5' : 'SM-2';
+  // Total pustaka dari manifest katalog, bukan dari jumlah kunci _lookup —
+  // _lookup kini hanya memuat kartu yang sudah termuat, sedangkan angka ini
+  // harus tetap berarti "seluruh pustaka" seperti sebelumnya.
   sub.textContent = ids.length
-    ? ids.length + ' kartu punya riwayat belajar · total pustaka ' + fmt(Object.keys(_lookup).length) + ' kartu · 🧠 ' + algo
+    ? ids.length + ' kartu punya riwayat belajar · total pustaka ' + fmt(window.NPCatalog.total()) + ' kartu · 🧠 ' + algo
     : 'Belum ada kartu yang dipelajari';
 }
 
+/* Level kartu: metaOf() menjawab untuk id APA PUN — termasuk kartu ekor
+   JMdict yang shard-nya belum dimuat — karena id-nya posisional. */
 function levelOf(id){
-  const c = _lookup[id];
-  if (c && c.jlpt && LEVEL_ORDER.indexOf(c.jlpt) !== -1) return c.jlpt;
+  const m = window.NPCatalog.metaOf(id);
+  if (m && m.jlpt && LEVEL_ORDER.indexOf(m.jlpt) !== -1) return m.jlpt;
   return '';
 }
 
@@ -393,7 +390,7 @@ function renderKpi(){
     if (st.history && st.history.length) ratings = ratings.concat(st.history.slice(-6).map(v => (v && typeof v === 'object') ? (v.r != null ? v.r : 0) : v));
   });
   const retention = ratings.length ? Math.round(ratings.filter(r=>r>=2).length / ratings.length * 100) : 0;
-  document.getElementById('kTotal').textContent = fmt(Object.keys(_lookup).length || 0);
+  document.getElementById('kTotal').textContent = fmt(window.NPCatalog.total() || 0);
   document.getElementById('kLearned').textContent = fmt(learned);
   document.getElementById('kMastered').textContent = fmt(mastered);
   document.getElementById('kRetention').textContent = ratings.length ? retention + '%' : '–';
@@ -434,10 +431,10 @@ function renderKpi(){
 function renderJlptChart(){
   const ctx = document.getElementById('chartJlpt');
   const g = {};
-  LEVEL_ORDER.forEach(l => g[l] = { total:0, learned:0, mastered:0 });
-  Object.keys(_lookup).forEach(id => {
-    const lv = levelOf(id); if (lv) g[lv].total++;
-  });
+  // Total per level dari manifest: SEMUA kartu ber-level ada di inti+kurasi,
+  // jadi angkanya lengkap tanpa perlu memuat satu shard pun.
+  const lvTot = window.NPCatalog.levelTotals();
+  LEVEL_ORDER.forEach(l => g[l] = { total: lvTot[l] || 0, learned:0, mastered:0 });
   Object.keys(_state).forEach(id => {
     const lv = levelOf(id); if (!lv) return;
     const st = _state[id];
@@ -466,8 +463,10 @@ function renderCatChart(){
   const ctx = document.getElementById('chartCat');
   const g = {};
   Object.keys(_state).forEach(id => {
-    const c = _lookup[id];
-    const cat = (c && c.cat) ? c.cat : 'jlpt';
+    // metaOf() menjawab O(1) untuk kartu ekor juga, jadi diagram kategori
+    // sudah benar pada render pertama tanpa menunggu shard.
+    const m = window.NPCatalog.metaOf(id);
+    const cat = (m && m.cat) ? m.cat : 'jlpt';
     g[cat] = (g[cat]||0) + 1;
   });
   const colors = ['#6366f1','#22c55e','#f59e0b','#ef4444','#0ea5e9','#ec4899','#8b5cf6','#64748b'];
@@ -874,9 +873,13 @@ let _backLv = null, _curListLv = null;
 function renderLevelDetail(){
   const el = document.getElementById('levelDetail');
   const rows = [];
+  const lvTot = window.NPCatalog.levelTotals();
+  const leveledTotal = LEVEL_ORDER.reduce((n, l) => n + (lvTot[l] || 0), 0);
   [...LEVEL_ORDER, ''].forEach(lv => {
-    let total = 0, learned = 0, mastered = 0;
-    Object.keys(_lookup).forEach(id => { if (levelOf(id)===lv) total++; });
+    let learned = 0, mastered = 0;
+    // Baris '' = kartu tanpa level (mayoritas: seluruh ekor JMdict). Diambil
+    // dari manifest sebagai sisa, jadi tidak perlu memuat shard apa pun.
+    const total = lv ? (lvTot[lv] || 0) : (window.NPCatalog.total() - leveledTotal);
     Object.keys(_state).forEach(id => {
       if (levelOf(id)!==lv) return;
       const st = _state[id];
@@ -963,7 +966,13 @@ function setPeriod(p){
   renderActivityChart();
 }
 
-/* ===== render all ===== */
+/* ===== render all =====
+   Seluruh chart & KPI sudah benar pada render pertama: angkanya berasal dari
+   _state + manifest katalog + metaOf(), yang semuanya tersedia tanpa shard.
+   Yang bisa datang terlambat HANYA teks kartu (jp/reading/meaning) untuk
+   kartu ekor JMdict yang pernah diulas — dipakai daftar "kartu lemah" dan
+   daftar per level. Untuk mayoritas pengguna daftarnya kosong, jadi tidak
+   ada permintaan jaringan tambahan sama sekali. */
 function renderAll(){
   loadAll();
   renderKpi();
@@ -976,13 +985,27 @@ function renderAll(){
   renderWeekRecap();
   renderWeak();
   renderLevelDetail();
+  hydrateTailLabels();
+}
+
+function hydrateTailLabels(){
+  const need = window.NPCatalog.shardsFor(Object.keys(_state));
+  if (!need.length) return;
+  window.NPCatalog.loadShards(need).then(function(){
+    _lookup = buildLookup();
+    renderWeak();
+    renderLevelDetail();
+  }).catch(function(){
+    /* Gagal memuat: tabel tetap tampil memakai fallback `c.jp || id`,
+       bukan kosong. Tidak perlu mengganggu pengguna dengan galat. */
+  });
 }
 
 function exportStats(){
   const out = {
     exportedAt: new Date().toISOString(),
     totals: {
-      totalCards: Object.keys(_lookup).length,
+      totalCards: window.NPCatalog.total(),
       stateCards: Object.keys(_state).length
     },
     state: _state,

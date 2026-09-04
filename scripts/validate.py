@@ -2042,6 +2042,97 @@ def check_literal_grey_without_dark_variant():
            'Tidak ada abu tengah harfiah yang tak membalik di berkas sadar-tema.')
 
 
+def check_srs_catalog():
+    """Katalog SRS harus lengkap, konsisten, dan benar-benar dipakai halaman.
+
+    assets/srs-cards-data.js (7,14 MB) dulu dimuat SINKRON oleh dua halaman
+    SRS sehingga memblokir render. Sekarang dipecah generator
+    scripts/build-srs-catalog.js menjadi assets/srs/core.js (eager, `defer`)
+    + 18 shard JMdict yang di-fetch sesuai kebutuhan.
+
+    Ada dua cara pemecahan ini rusak diam-diam:
+
+      1. Shard hilang atau jumlahnya tidak cocok dengan manifest — halaman
+         tetap tampil (deck inti jalan), tapi filter JMdict gagal memuat dan
+         hanya menyisakan toast. Tidak ada error yang terlihat di CI.
+      2. Halaman kembali menunjuk srs-cards-data.js — 7 MB pemblokir render
+         kembali tanpa ada yang menyadarinya, karena semua tes tetap lulus.
+
+    Karena itu di sini diperiksa keduanya: keutuhan berkas terhadap manifest,
+    dan tautan kedua halaman.
+    """
+    core_path = os.path.join(ROOT, 'assets', 'srs', 'core.js')
+    if not os.path.exists(core_path):
+        err('srs-catalog', 'assets/srs/core.js tidak ada — halaman SRS akan '
+                           'menyusut ke kartu kurasi saja. Jalankan: npm run build:srs')
+        return
+
+    src = read(core_path)
+    m = re.search(r'window\.SRS_CORE_META\s*=\s*(\{.*?\});', src, re.S)
+    if not m:
+        err('srs-catalog', 'SRS_CORE_META tidak ditemukan di assets/srs/core.js')
+        return
+    try:
+        meta = json.loads(m.group(1))
+    except ValueError as e:
+        err('srs-catalog', f'SRS_CORE_META bukan JSON valid: {e}')
+        return
+
+    tail = meta.get('tail', {})
+    missing = []
+    tail_rows = 0
+    for i in range(tail.get('files', 0)):
+        name = f'tail-{i:02d}.json'
+        p = os.path.join(ROOT, 'assets', 'srs', name)
+        if not os.path.exists(p):
+            missing.append(name)
+            continue
+        try:
+            body = json.loads(read(p))
+        except ValueError as e:
+            err('srs-catalog', f'assets/srs/{name} tidak bisa dibaca: {e}')
+            return
+        expect_start = tail.get('start', 0) + i * tail.get('shard', 0)
+        if body.get('start') != expect_start:
+            err('srs-catalog', f'assets/srs/{name} punya start={body.get("start")}, '
+                               f'diharapkan {expect_start} — kartu akan bergeser id-nya')
+            return
+        tail_rows += len(body.get('rows', []))
+
+    if missing:
+        err('srs-catalog', f'{len(missing)} shard katalog hilang: {", ".join(missing[:4])}'
+                           f'{" …" if len(missing) > 4 else ""}. Jalankan: npm run build:srs')
+        return
+
+    total = meta.get('coreCount', 0) + tail_rows
+    if total != meta.get('total'):
+        err('srs-catalog', f'jumlah kartu tidak cocok: inti {meta.get("coreCount")} + '
+                           f'ekor {tail_rows} = {total}, manifest menyebut {meta.get("total")}')
+        return
+
+    # Kedua halaman harus memakai katalog, bukan berkas 7 MB lama.
+    for page in ('SRS-Flashcard.html', 'SRS-Statistics.html'):
+        p = os.path.join(ROOT, page)
+        if not os.path.exists(p):
+            continue
+        c = read(p)
+        if 'srs-cards-data.js' in c and '<script src="assets/srs-cards-data.js"' in c:
+            err('srs-catalog', f'{page} masih memuat assets/srs-cards-data.js — '
+                               '7,14 MB pemblokir render kembali')
+        if 'assets/srs/core.js' not in c:
+            err('srs-catalog', f'{page} tidak memuat assets/srs/core.js')
+        if 'assets/srs-catalog.js' not in c:
+            err('srs-catalog', f'{page} tidak memuat assets/srs-catalog.js')
+
+    # Pemisah ribuan gaya Indonesia — diterapkan per-angka, bukan ke seluruh
+    # kalimat (mengganti koma global juga akan merusak tanda baca kalimatnya).
+    def rb(n):
+        return f'{n:,}'.replace(',', '.')
+
+    ok('srs-catalog', f'katalog SRS utuh — inti {rb(meta.get("coreCount", 0))} + ekor '
+                      f'{rb(tail_rows)} dalam {tail.get("files")} shard, dipakai kedua halaman')
+
+
 def check_kanji_bank():
     """Bank kanji harus ada dan mengisi level yang diiklankan halamannya.
 
@@ -2356,6 +2447,7 @@ def main():
         check_kaigo_quiz_reachable,
         check_explanation_id_coverage,
         check_no_hangul,
+        check_srs_catalog,
         check_kanji_bank,
         check_cbt_bank,
         check_dead_body_background,
