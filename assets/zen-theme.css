@@ -1,22 +1,43 @@
 /* Nihongo Pro Academy — Zen Temple Theme (zen-theme.css)
    ───────────────────────────────────────────────────────────────────
    Semua rule di-scope ke [data-np-theme="zen"] agar tema default (Kyoto)
-   tidak terpengaruh sama sekali. Layer dekoratif murni CSS (gradient +
-   clip-path), tanpa JS/gambar berat, mengikuti pola aman anime-theme.css:
-   kartu/teks/tombol situs TIDAK diubah, hanya latar halaman diganti jadi
-   pemandangan taman zen (batu, pasir, lumut, gerbang torii) yang tenang
-   dan statis (tanpa animasi -- sesuai suasana "ketenangan"). */
+   tidak terpengaruh sama sekali. Kartu/teks/tombol situs TIDAK diubah,
+   hanya latar halaman.
+
+   TETAP STATIS. Kartu temanya di Theme-Settings menjanjikan "latar statis
+   dan tenang", jadi versi ini sengaja tidak menambah animasi apa pun —
+   janji itu bagian dari watak temanya, bukan kekurangan yang perlu
+   ditambal.
+
+   DITULIS ULANG (versi 2). Tiga hal yang salah di versi lama, terlihat
+   saat dipotret:
+     1. Torii dipasang di left:50% — tepat di belakang kolom konten situs
+        (kira-kira 20%-80% lebar layar). Yang tersisa cuma potongan palang
+        atasnya, sehingga terbaca seperti meja abu-abu melayang, bukan
+        gerbang. Sekarang dipindah ke pita kiri.
+     2. Semuanya nyaris tak terlihat: palet sudah mendekati putih
+        (#EDEAE0/#E8E4DA) lalu tiap elemen masih diberi opacity .2-.55,
+        dan garis rake cuma rgba(...,.14). Hasilnya layar kosong pucat.
+     3. Tidak ada satu pun titik warna. Torii asli berwarna vermilion;
+        versi lama membuatnya hijau lumut dan samar, jadi taman itu tidak
+        punya pusat perhatian sama sekali. */
 
 [data-np-theme="zen"] {
-  --zen-sky-top: #EDEAE0;
-  --zen-sky-bot: #DDD6C4;
-  --zen-mountain: #A7AE9C;
-  --zen-moss: #6E7F6E;
-  --zen-moss-dark: #566356;
-  --zen-sand: #E8E4DA;
-  --zen-sand-line: rgba(110,127,110,.14);
-  --zen-stone: #9B9488;
-  --zen-torii: #6E7F6E;
+  --zen-sky-top: #DFDCCC;
+  --zen-sky-bot: #CFCBB6;
+  --zen-mountain: #8D9686;
+  --zen-mountain-far: #A9B0A0;
+  --zen-sand: #D8D2BE;
+  /* .22 terlalu ramai: pola konsentrisnya jadi tekstur bergetar di
+     belakang kartu teks, dan tema ini wataknya tenang. .15 dengan
+     jarak lebih renggang membuat garisnya tetap terbaca tanpa berisik. */
+  --zen-sand-line: rgba(94, 106, 90, .15);
+  --zen-stone: #7C776B;
+  --zen-stone-light: #918B7D;
+  --zen-moss: #5E7355;
+  --zen-torii: #9C4A3C;      /* vermilion — warna torii sebenarnya */
+  --zen-lantern: #85806F;
+  --zen-maple: #A8543C;
 }
 
 body[data-np-theme="zen"] {
@@ -26,69 +47,121 @@ body[data-np-theme="zen"] {
 #npZenBg {
   position: fixed; inset: 0; z-index: -2; overflow: hidden;
   pointer-events: none;
-  background: linear-gradient(180deg, var(--zen-sky-top) 0%, var(--zen-sky-top) 38%, var(--zen-sand) 38%);
+  background: linear-gradient(180deg,
+    var(--zen-sky-top) 0%, var(--zen-sky-bot) 38%, var(--zen-sand) 38%);
 }
 
-/* Pegunungan jauh, siluet berlapis */
+/* ── Pegunungan berlapis ── */
 #npZenBg .zen-mountain {
-  position: absolute; left: 0; right: 0; bottom: 58%; height: 14vh;
-  background: var(--zen-mountain);
-  opacity: .35;
+  position: absolute; left: 0; right: 0; height: 15vh;
   clip-path: polygon(0% 100%, 8% 55%, 18% 78%, 30% 40%, 42% 70%, 55% 30%, 68% 65%, 80% 45%, 92% 72%, 100% 55%, 100% 100%);
 }
 #npZenBg .zen-mountain.back {
-  bottom: 60%; height: 16vh; opacity: .2;
+  bottom: 60%; height: 17vh;
+  background: var(--zen-mountain-far); opacity: .55;
   clip-path: polygon(0% 100%, 12% 50%, 25% 75%, 38% 35%, 52% 68%, 65% 42%, 78% 70%, 90% 48%, 100% 62%, 100% 100%);
 }
+#npZenBg .zen-mountain.front {
+  bottom: 58%;
+  background: var(--zen-mountain); opacity: .8;
+}
 
-/* Pasir taman zen dengan garis rake konsentris (murni CSS, tanpa gambar) */
+/* ── Pasir dengan garis rake ──
+   Dua lapis: lingkaran konsentris (mengelilingi batu di kiri) dan garis
+   lurus panjang, seperti taman karesansui sungguhan. */
 #npZenBg .zen-sand {
   position: absolute; left: 0; right: 0; bottom: 0; top: 38%;
   background:
-    repeating-radial-gradient(circle at 22% 30%, var(--zen-sand-line) 0px, var(--zen-sand-line) 1.5px, transparent 1.5px, transparent 13px),
-    repeating-linear-gradient(100deg, var(--zen-sand-line) 0px, var(--zen-sand-line) 1px, transparent 1px, transparent 16px);
+    repeating-radial-gradient(circle at 13% 62%,
+      var(--zen-sand-line) 0 1.5px, transparent 1.5px 19px),
+    repeating-radial-gradient(circle at 88% 78%,
+      var(--zen-sand-line) 0 1.5px, transparent 1.5px 21px),
+    repeating-linear-gradient(96deg,
+      var(--zen-sand-line) 0 1px, transparent 1px 26px);
 }
 
-/* Batu taman (lingkaran dengan bayangan lembut) */
+/* ── Batu ── */
 #npZenBg .zen-stone {
   position: absolute; border-radius: 50% 45% 48% 42%;
   background: var(--zen-stone);
-  box-shadow: 0 6px 14px rgba(45,45,45,.18);
-  opacity: .55;
+  box-shadow: 0 5px 12px rgba(60, 58, 48, .22);
 }
-#npZenBg .zen-stone.s1 { width: 68px; height: 44px; left: 12%; bottom: 16%; }
-#npZenBg .zen-stone.s2 { width: 40px; height: 28px; left: 16.5%; bottom: 24%; opacity: .45; }
-#npZenBg .zen-stone.s3 { width: 90px; height: 54px; right: 10%; bottom: 10%; }
-#npZenBg .zen-stone.s4 { width: 34px; height: 24px; right: 18%; bottom: 20%; opacity: .4; }
+#npZenBg .zen-stone.s1 { width: 74px; height: 48px; left: 9%;  bottom: 24%; }
+#npZenBg .zen-stone.s2 { width: 42px; height: 30px; left: 15%; bottom: 33%; background: var(--zen-stone-light); }
+#npZenBg .zen-stone.s3 { width: 96px; height: 58px; right: 7%; bottom: 12%; }
+#npZenBg .zen-stone.s4 { width: 36px; height: 26px; right: 15%; bottom: 22%; background: var(--zen-stone-light); }
 
-/* Lumut di kaki batu */
+/* ── Lumut ── */
 #npZenBg .zen-moss {
   position: absolute; border-radius: 50%;
   background: radial-gradient(circle, var(--zen-moss) 0%, transparent 70%);
-  opacity: .3;
+  opacity: .42;
 }
-#npZenBg .zen-moss.m1 { width: 120px; height: 60px; left: 8%; bottom: 8%; }
-#npZenBg .zen-moss.m2 { width: 140px; height: 70px; right: 6%; bottom: 4%; }
+#npZenBg .zen-moss.m1 { width: 130px; height: 62px; left: 6%;  bottom: 19%; }
+#npZenBg .zen-moss.m2 { width: 150px; height: 72px; right: 4%; bottom: 8%; }
 
-/* Gerbang torii, siluet sederhana dari 4 elemen anak (2 tiang + 2 palang) */
+/* ── Torii (pita kiri, vermilion) ──
+   Dibangun dari 4 anak: 2 tiang + 2 palang. Palang atas dibuat menonjol
+   melebihi tiang (kasagi) supaya bentuknya terbaca sebagai gerbang. */
 #npZenBg .zen-torii {
-  position: absolute; left: 50%; bottom: 40%; transform: translateX(-50%);
-  width: 130px; height: 90px; opacity: .32;
+  position: absolute; left: 5%; bottom: 34%;
+  width: 132px; height: 118px; opacity: .85;
 }
 #npZenBg .zen-torii .leg {
-  position: absolute; top: 22px; width: 11px; height: 68px;
+  position: absolute; top: 26px; width: 12px; height: 92px;
   background: var(--zen-torii); border-radius: 2px;
 }
-#npZenBg .zen-torii .leg.l { left: 16px; }
-#npZenBg .zen-torii .leg.r { right: 16px; }
+#npZenBg .zen-torii .leg.l { left: 22px; }
+#npZenBg .zen-torii .leg.r { right: 22px; }
 #npZenBg .zen-torii .bar {
-  position: absolute; left: 0; width: 130px;
-  background: var(--zen-torii); border-radius: 3px;
+  position: absolute; background: var(--zen-torii); border-radius: 3px;
 }
-#npZenBg .zen-torii .bar.top { top: 0; height: 13px; }
-#npZenBg .zen-torii .bar.mid { top: 24px; height: 8px; width: 108px; left: 11px; }
+/* kasagi — melengkung sedikit lewat border-radius asimetris, melebar penuh */
+#npZenBg .zen-torii .bar.top {
+  top: 0; left: 0; width: 132px; height: 13px;
+  border-radius: 6px 6px 3px 3px;
+}
+/* nuki — palang kedua, lebih pendek */
+#npZenBg .zen-torii .bar.mid {
+  top: 30px; left: 14px; width: 104px; height: 8px;
+}
+
+/* ── Lentera batu (tōrō) di pita kanan ── */
+#npZenBg .zen-lantern {
+  position: absolute; right: 9%; bottom: 26%;
+  width: 54px; height: 96px;
+}
+#npZenBg .zen-lantern span {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  background: var(--zen-lantern); border-radius: 2px;
+}
+#npZenBg .zen-lantern .base  { bottom: 0;    width: 40px; height: 10px; }
+#npZenBg .zen-lantern .post  { bottom: 10px; width: 12px; height: 30px; }
+#npZenBg .zen-lantern .body  { bottom: 40px; width: 34px; height: 26px; border-radius: 3px; }
+#npZenBg .zen-lantern .roof  { bottom: 66px; width: 52px; height: 12px; border-radius: 6px 6px 2px 2px; }
+#npZenBg .zen-lantern .top   { bottom: 78px; width: 12px; height: 12px; border-radius: 50%; }
+/* rongga cahaya lentera */
+#npZenBg .zen-lantern .body::after {
+  content: ""; position: absolute; left: 50%; top: 6px; margin-left: -7px;
+  width: 14px; height: 14px; border-radius: 2px;
+  background: rgba(244, 233, 205, .75);
+}
+
+/* ── Ranting maple di sudut atas kanan ── */
+#npZenBg .zen-branch {
+  position: absolute; top: 0; right: 4%;
+  width: 3px; height: 128px; background: #6B5A4A; opacity: .55;
+  transform: rotate(9deg); transform-origin: top center;
+}
+#npZenBg .zen-leaf {
+  position: absolute; width: 13px; height: 13px;
+  background: var(--zen-maple); opacity: .6;
+  clip-path: polygon(50% 0, 62% 34%, 100% 40%, 72% 62%, 82% 100%, 50% 78%, 18% 100%, 28% 62%, 0 40%, 38% 34%);
+}
 
 @media (max-width: 640px) {
-  #npZenBg .zen-torii { transform: translateX(-50%) scale(.7); bottom: 42%; }
-  #npZenBg .zen-mountain { height: 10vh; }
+  #npZenBg .zen-torii   { transform: scale(.66); transform-origin: bottom left; left: 2%; }
+  #npZenBg .zen-lantern { transform: scale(.72); transform-origin: bottom right; right: 3%; }
+  #npZenBg .zen-mountain { height: 11vh; }
+  #npZenBg .zen-branch, #npZenBg .zen-leaf { display: none; }
 }

@@ -1,21 +1,41 @@
 /* Nihongo Pro Academy — Tokyo Night Theme (tokyo-theme.css)
    ───────────────────────────────────────────────────────────────────
    Semua rule di-scope ke [data-np-theme="tokyo"] agar tema default (Kyoto)
-   tidak terpengaruh sama sekali. Layer dekoratif murni CSS, mengikuti
-   pola aman anime-theme.css/zen-theme.css: kartu/teks/tombol situs TIDAK
-   diubah, hanya latar halaman diganti jadi langit malam kota Tokyo --
-   gradasi gelap, siluet gedung dengan jendela menyala, dan bintang
-   berkelip lembut (animasi dimatikan otomatis bila reduce-motion aktif). */
+   tidak terpengaruh sama sekali. Layer dekoratif murni CSS: kartu/teks/
+   tombol situs TIDAK diubah, hanya latar halaman.
+
+   DITULIS ULANG (versi 2). Versi lama punya tiga kelemahan yang terlihat
+   jelas saat dipotret:
+     1. Cuma SATU lapis gedung, jadi tidak ada kedalaman — kota terlihat
+        seperti deretan kotak datar di tepi bawah.
+     2. Skyline memakai flex dengan lebar gedung dalam satuan vw; 14 gedung
+        × 5-11vw menembus 100vw sehingga sebagian gedung terpotong keluar
+        layar dan sisi kanan-kiri terlihat kosong tak sengaja.
+     3. Tidak ada titik fokus apa pun di langit — 2/3 layar cuma gradasi
+        kosong dengan bintang yang sangat jarang.
+
+   Versi ini memakai tiga lapis kedalaman (jauh/tengah/dekat) yang tiap
+   gedungnya diposisikan absolut dengan left/width dalam persen, jadi tidak
+   mungkin meluber. Ditambah bulan berhalo, siluet menara, papan neon
+   vertikal, dan kabut kota yang hanyut.
+
+   Semua animasi memakai transform/opacity saja dan mati pada
+   prefers-reduced-motion. */
 
 [data-np-theme="tokyo"] {
-  --tokyo-sky-top: #1C2A44;
+  --tokyo-sky-top: #0B1022;
+  --tokyo-sky-mid: #1C2A44;
   --tokyo-sky-bot: #3A2E5C;
-  --tokyo-building: #14192B;
-  --tokyo-building-2: #1B2038;
+  --tokyo-far: #232A44;
+  --tokyo-mid: #171D33;
+  --tokyo-near: #0D1120;
   --tokyo-window: #F4C97A;
-  --tokyo-window-neon: #6FE7DD;
+  --tokyo-window-cool: #6FE7DD;
   --tokyo-neon-pink: #E85BA0;
+  --tokyo-neon-cyan: #57D8E8;
   --tokyo-star: #E8E5F0;
+  --tokyo-moon: #F3EEDC;
+  --tokyo-tower: #C4483F;
 }
 
 body[data-np-theme="tokyo"] {
@@ -25,45 +45,138 @@ body[data-np-theme="tokyo"] {
 #npTokyoBg {
   position: fixed; inset: 0; z-index: -2; overflow: hidden;
   pointer-events: none;
-  background: linear-gradient(180deg, var(--tokyo-sky-top) 0%, var(--tokyo-sky-bot) 100%);
+  background: linear-gradient(180deg,
+    var(--tokyo-sky-top) 0%, var(--tokyo-sky-mid) 48%, var(--tokyo-sky-bot) 100%);
 }
 
-/* Bintang berkelip lembut */
+/* ── Bulan + halo ── */
+/* Ditaruh di MARGIN KANAN, bukan 16% dari tepi: kolom konten situs
+   menempati kira-kira 20%-80% lebar layar, jadi apa pun yang jadi titik
+   fokus harus hidup di pita sisi supaya tidak tertutup kartu. */
+#npTokyoBg .tokyo-moon {
+  position: absolute; top: 5%; right: 4.5%;
+  width: 76px; height: 76px; border-radius: 50%;
+  background: var(--tokyo-moon);
+  box-shadow: 0 0 46px 14px rgba(243, 238, 220, .16);
+  opacity: .92;
+}
+/* kawah samar supaya tidak terlihat seperti lingkaran polos */
+#npTokyoBg .tokyo-moon::before,
+#npTokyoBg .tokyo-moon::after {
+  content: ""; position: absolute; border-radius: 50%;
+  background: rgba(190, 184, 165, .32);
+}
+#npTokyoBg .tokyo-moon::before { width: 17px; height: 17px; top: 22%; left: 26%; }
+#npTokyoBg .tokyo-moon::after  { width: 11px; height: 11px; top: 55%; left: 58%; }
+
+/* ── Bintang ── */
 #npTokyoBg .tokyo-star {
   position: absolute; border-radius: 50%;
   background: var(--tokyo-star);
   animation: tokyoTwinkle 3.4s ease-in-out infinite;
 }
 @keyframes tokyoTwinkle {
-  0%, 100% { opacity: .25; }
-  50% { opacity: .9; }
-}
-@media (prefers-reduced-motion: reduce) {
-  #npTokyoBg .tokyo-star { animation: none; opacity: .55; }
+  0%, 100% { opacity: .22; }
+  50%      { opacity: .92; }
 }
 
-/* Cahaya neon ambient lembut di cakrawala */
+/* ── Cahaya kota di cakrawala ── */
 #npTokyoBg .tokyo-glow {
-  position: absolute; bottom: 22%; left: 50%; transform: translateX(-50%);
-  width: 70vw; height: 30vh; border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(232,91,160,.16) 0%, transparent 70%);
+  position: absolute; bottom: 14%; left: 50%; transform: translateX(-50%);
+  width: 86vw; height: 34vh; border-radius: 50%;
+  background: radial-gradient(ellipse at center,
+    rgba(232, 91, 160, .20) 0%, rgba(87, 216, 232, .07) 45%, transparent 72%);
 }
 
-/* Siluet gedung, tinggi bervariasi, dengan jendela kecil menyala */
-#npTokyoBg .tokyo-skyline {
-  position: absolute; left: 0; right: 0; bottom: 0; height: 32vh;
-  display: flex; align-items: flex-end; gap: 2px;
+/* ── Kabut kota yang hanyut ── */
+#npTokyoBg .tokyo-haze {
+  position: absolute; left: -25%; right: -25%; height: 150px;
+  background: linear-gradient(90deg, transparent, rgba(180, 200, 235, .045), transparent);
+  animation: tokyoHaze linear infinite;
 }
-#npTokyoBg .tokyo-bldg {
-  position: relative; background: var(--tokyo-building); flex: none;
+#npTokyoBg .tokyo-haze.h1 { bottom: 24%; animation-duration: 58s; }
+#npTokyoBg .tokyo-haze.h2 { bottom: 11%; animation-duration: 84s; animation-direction: reverse; }
+@keyframes tokyoHaze {
+  from { transform: translateX(-14%); }
+  to   { transform: translateX(14%); }
 }
-#npTokyoBg .tokyo-bldg:nth-child(odd) { background: var(--tokyo-building-2); }
-#npTokyoBg .tokyo-bldg .win {
-  position: absolute; width: 4px; height: 6px;
-  background: var(--tokyo-window);
+
+/* ── Tiga lapis gedung ──
+   Tiap gedung diposisikan absolut (left/width persen) supaya tidak pernah
+   meluber seperti versi flex sebelumnya. */
+#npTokyoBg .tokyo-layer {
+  position: absolute; left: 0; right: 0; bottom: 0;
 }
-#npTokyoBg .tokyo-bldg .win.neon { background: var(--tokyo-window-neon); }
+#npTokyoBg .tokyo-layer.l1 { height: 26vh; opacity: .55; }   /* jauh  */
+#npTokyoBg .tokyo-layer.l2 { height: 34vh; opacity: .85; }   /* tengah */
+#npTokyoBg .tokyo-layer.l3 { height: 44vh; }                 /* dekat */
+
+#npTokyoBg .tokyo-bldg { position: absolute; bottom: 0; }
+#npTokyoBg .l1 .tokyo-bldg { background: var(--tokyo-far); }
+#npTokyoBg .l2 .tokyo-bldg { background: var(--tokyo-mid); }
+#npTokyoBg .l3 .tokyo-bldg { background: var(--tokyo-near); }
+
+/* tangki air / antena kecil di puncak sebagian gedung */
+#npTokyoBg .tokyo-bldg.cap::before {
+  content: ""; position: absolute; top: -9px; left: 50%;
+  width: 2px; height: 9px; margin-left: -1px;
+  background: inherit;
+}
+
+#npTokyoBg .win {
+  position: absolute; width: 3px; height: 5px;
+  background: var(--tokyo-window); opacity: .85;
+}
+#npTokyoBg .win.cool { background: var(--tokyo-window-cool); }
+#npTokyoBg .win.blink { animation: tokyoWin 5.5s steps(1, end) infinite; }
+@keyframes tokyoWin {
+  0%, 62%  { opacity: .85; }
+  64%, 72% { opacity: .12; }
+  74%, 100%{ opacity: .85; }
+}
+
+/* ── Siluet menara (mercusuar kota) ── */
+/* Sama alasannya dengan bulan: digeser ke pita kiri. */
+#npTokyoBg .tokyo-tower {
+  position: absolute; bottom: 34vh; left: 4%;
+  width: 46px; height: 128px;
+  background: var(--tokyo-tower); opacity: .5;
+  clip-path: polygon(46% 0, 54% 0, 62% 42%, 76% 100%, 60% 100%, 50% 62%, 40% 100%, 24% 100%, 38% 42%);
+}
+#npTokyoBg .tokyo-tower::after {
+  content: ""; position: absolute; top: -7px; left: 50%; margin-left: -2px;
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--tokyo-neon-pink);
+  box-shadow: 0 0 8px 2px rgba(232, 91, 160, .7);
+  animation: tokyoBeacon 2.6s ease-in-out infinite;
+}
+@keyframes tokyoBeacon {
+  0%, 100% { opacity: .35; }
+  50%      { opacity: 1; }
+}
+
+/* ── Papan neon vertikal ── */
+#npTokyoBg .tokyo-neon {
+  position: absolute; width: 9px; border-radius: 2px;
+  box-shadow: 0 0 10px 1px currentColor;
+  opacity: .5;
+}
+#npTokyoBg .tokyo-neon.pink { background: var(--tokyo-neon-pink); color: var(--tokyo-neon-pink); }
+#npTokyoBg .tokyo-neon.cyan { background: var(--tokyo-neon-cyan); color: var(--tokyo-neon-cyan); }
+
+@media (prefers-reduced-motion: reduce) {
+  #npTokyoBg .tokyo-star,
+  #npTokyoBg .tokyo-haze,
+  #npTokyoBg .win.blink,
+  #npTokyoBg .tokyo-tower::after { animation: none !important; }
+  #npTokyoBg .tokyo-star { opacity: .55; }
+  #npTokyoBg .tokyo-tower::after { opacity: .8; }
+}
 
 @media (max-width: 640px) {
-  #npTokyoBg .tokyo-skyline { height: 24vh; }
+  #npTokyoBg .tokyo-layer.l1 { height: 18vh; }
+  #npTokyoBg .tokyo-layer.l2 { height: 24vh; }
+  #npTokyoBg .tokyo-layer.l3 { height: 32vh; }
+  #npTokyoBg .tokyo-tower { bottom: 24vh; left: 8%; transform: scale(.78); transform-origin: bottom left; }
+  #npTokyoBg .tokyo-moon { width: 54px; height: 54px; right: 10%; }
 }
