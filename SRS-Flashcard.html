@@ -53,7 +53,17 @@ body { min-height: 100vh; }
 .filter-btn.active { background: linear-gradient(135deg, var(--primary), #8B6914); color: #fff; border-color: transparent; box-shadow: 0 4px 12px rgba(107,79,58,.2); }
 
 /* STATS BAR */
-.stats-bar { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px; }
+/* minmax(0,1fr), bukan 1fr: grid-item punya min-width:auto sehingga TIDAK
+   bisa menyusut di bawah lebar min-content-nya. Label "JATUH TEMPO" (huruf
+   besar + letter-spacing) lebih lebar dari jatah kolom di layar 390px, jadi
+   grid-nya meluber dan membuat SELURUH halaman bisa digeser ke samping —
+   dibuktikan dengan menyembunyikan .stat-pill: scrollWidth 433 -> 390.
+   Di bawah 520px lima kolom memang terlalu sempit untuk labelnya, jadi
+   dipecah jadi 3+2 baris supaya tetap terbaca, bukan sekadar dipepetkan. */
+.stats-bar { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; margin-bottom: 20px; }
+@media (max-width: 520px) {
+  .stats-bar { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
 .stat-pill {
   background: var(--white); border-radius: 12px; padding: 12px 8px;
   border: 1px solid var(--border); text-align: center; transition: transform .2s;
