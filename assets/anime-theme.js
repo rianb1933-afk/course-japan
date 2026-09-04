@@ -75,6 +75,9 @@
     return 'assets/';
   }
 
+  /* Memuat versi .min: seluruh aset tema kini dibangun scripts/build-assets.mjs
+     (aset tema turun ~74,6 KB -> ~37,5 KB). Tidak ada HTML yang merujuk berkas
+     tema secara langsung, jadi peralihan ini tidak butuh codemod. */
   function loadCss(href) {
     if (document.querySelector('link[href$="' + href.split('/').pop() + '"]')) return;
     var l = document.createElement('link');
@@ -153,32 +156,32 @@
     // Berlaku untuk SEMUA tema: menembuskan permukaan halaman yang opaque
     // (terutama .hero) supaya latar tema benar-benar terlihat. Lihat
     // theme-surface.css untuk alasan angka scrim-nya.
-    loadCss(p + 'theme-surface.css');
+    loadCss(p + 'theme-surface.min.css');
     if (theme === 'anime') {
       applyTod();
       setInterval(applyTod, 60000); // cek tiap menit
-      loadCss(p + 'anime-theme.css');
-      loadCss(p + 'anime-animation.css');
-      loadJs(p + 'anime-background.js');
-      loadJs(p + 'anime-clock.js');
-      loadJs(p + 'anime-particles.js');
+      loadCss(p + 'anime-theme.min.css');
+      loadCss(p + 'anime-animation.min.css');
+      loadJs(p + 'anime-background.min.js');
+      loadJs(p + 'anime-clock.min.js');
+      loadJs(p + 'anime-particles.min.js');
     } else if (theme === 'zen') {
-      loadCss(p + 'zen-theme.css');
-      loadJs(p + 'zen-background.js');
+      loadCss(p + 'zen-theme.min.css');
+      loadJs(p + 'zen-background.min.js');
     } else if (theme === 'tokyo') {
-      loadCss(p + 'tokyo-theme.css');
-      loadJs(p + 'tokyo-background.js');
+      loadCss(p + 'tokyo-theme.min.css');
+      loadJs(p + 'tokyo-background.min.js');
     } else if (theme === 'neko') {
       // Berkasnya bernama neko-cafe-* , BUKAN neko-theme.css: nama itu sudah
       // dipakai lapisan palet dasar global yang dimuat di ~66 halaman.
-      loadCss(p + 'neko-cafe-theme.css');
-      loadJs(p + 'neko-cafe-background.js');
+      loadCss(p + 'neko-cafe-theme.min.css');
+      loadJs(p + 'neko-cafe-background.min.js');
     } else if (theme === 'modern') {
-      loadCss(p + 'modern-theme.css');
-      loadJs(p + 'modern-background.js');
+      loadCss(p + 'modern-theme.min.css');
+      loadJs(p + 'modern-background.min.js');
     } else if (theme === 'samurai') {
-      loadCss(p + 'samurai-theme.css');
-      loadJs(p + 'samurai-background.js');
+      loadCss(p + 'samurai-theme.min.css');
+      loadJs(p + 'samurai-background.min.js');
     }
   }
 

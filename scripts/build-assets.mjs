@@ -52,6 +52,28 @@ const TARGETS = [
   'translator.js',
   'index-page.css',
   'kyoto-navbar.css',
+
+  /* Aset tema. Semuanya dimuat MALAS oleh anime-theme.js dan tidak pernah
+     dirujuk langsung dari HTML mana pun (dicek: 0 halaman), jadi menambahkan
+     ke sini aman tanpa codemod — pemuatnya tinggal diarahkan ke berkas .min.
+     anime-theme.js sendiri sengaja TIDAK ikut: ia dirujuk langsung oleh 382
+     halaman, sehingga meminifikasinya menuntut codemod besar demi hemat kecil. */
+  'anime-theme.css',
+  'anime-animation.css',
+  'zen-theme.css',
+  'tokyo-theme.css',
+  'neko-cafe-theme.css',
+  'modern-theme.css',
+  'samurai-theme.css',
+  'theme-surface.css',
+  'anime-background.js',
+  'anime-clock.js',
+  'anime-particles.js',
+  'zen-background.js',
+  'tokyo-background.js',
+  'neko-cafe-background.js',
+  'modern-background.js',
+  'samurai-background.js',
 ];
 
 const BANNER = '/* Dibangun oleh scripts/build-assets.mjs — jangan diedit langsung. */\n';
