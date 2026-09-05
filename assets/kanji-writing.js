@@ -2,7 +2,7 @@
   'use strict';
   const CJK_RE = /[\u3400-\u9fff]/u;
   // Basis URL aset — dihitung dari lokasi skrip ini supaya jalan baik dari
-  // halaman root maupun Materi/ (mis. ../assets/kanji-writing.js?v=5).
+  // halaman root maupun Materi/ (mis. ../assets/kanji-writing.js?v=6).
   const BASE = (document.currentScript && document.currentScript.src)
     ? document.currentScript.src.replace(/[^/]*$/, '')
     : 'assets/';

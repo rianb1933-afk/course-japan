@@ -409,7 +409,7 @@
   const getVocabLookup = async () => {
     if (vocabLookupCache) return vocabLookupCache;
     try {
-      const response = await fetch(`${rootPrefix}assets/vocab-all.csv?v=5`);
+      const response = await fetch(`${rootPrefix}assets/vocab-all.csv?v=6`);
       const text = await response.text();
       // Kolom: expression, reading, romaji, meaning, meaning_id, tags.
       // Pemetaan sebelumnya bergeser satu kolom — meaning diambil dari romaji

@@ -45,7 +45,7 @@ import re
 import sys
 
 # ── SATU-SATUNYA konstan yang perlu dinaikkan saat konten aset berubah. ──
-ASSET_VERSION = "5"
+ASSET_VERSION = "6"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CHECK_ONLY = "--check" in sys.argv
