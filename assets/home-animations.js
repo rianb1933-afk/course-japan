@@ -163,6 +163,16 @@
     if (!target) return;
 
     var original = target.textContent;
+
+    /* Kunci tinggi SEBELUM teks dikosongkan. Tanpa ini elemen menyusut ke satu
+       baris lalu tumbuh kembali seiring huruf bertambah -- diukur di 390x844:
+       25px -> 76px -> 101px, mendorong tombol ajakan di bawahnya turun 76px
+       selama ~6 detik sesudah halaman dimuat, tepat saat pengguna hendak
+       menekannya. Nilainya diambil dari tinggi alami, bukan angka per
+       breakpoint, sehingga benar di lebar berapa pun. */
+    var natural = target.getBoundingClientRect().height;
+    if (natural > 0) target.style.minHeight = natural + 'px';
+
     target.textContent = '';
     target.classList.add('ha-typing');
 
@@ -178,6 +188,9 @@
         // Remove cursor after typing finishes
         setTimeout(function () {
           target.classList.remove('ha-typing');
+          /* Kunci dilepas: teks penuh kini yang menentukan tinggi, sehingga
+             elemen tetap benar bila jendela diputar atau diubah ukurannya. */
+          target.style.minHeight = '';
         }, 1500);
       }
     }

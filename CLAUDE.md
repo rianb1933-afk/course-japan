@@ -61,7 +61,9 @@ Namespace `localStorage` di repo ini campur (`np-*`, `nihongo*`, `eduma-*`) kare
 
 Netlify **tidak** otomatis mengekspos `/api/<nama>`. Setiap function baru wajib punya entri `[[redirects]]` eksplisit di `netlify.toml`, kalau tidak akan 404 di production.
 
-`ai-chat` adalah abstraksi multi-provider (Anthropic → OpenAI → Gemini, auto-fallback) dengan rate limit `free: 10/hari` vs `premium: 500/hari`, disimpan di memori atau Supabase bila `SUPABASE_SERVICE_KEY` tersedia.
+`ai-chat` adalah abstraksi multi-provider dengan auto-fallback: kalau provider yang diminta tidak punya kunci, ia memakai provider mana pun yang punya. Lima provider terdaftar — `openai`, `anthropic` (berbayar) dan `gemini`, `groq`, `openrouter` (bertingkat gratis, kunci tanpa biaya). Banyak di antaranya memakai bentuk API OpenAI, jadi dipasang lewat helper `openAICompatible()`; menambah provider serupa cukup satu baris.
+
+Nama model dan kuota **dapat dikonfigurasi lewat environment** (`GEMINI_MODEL`, `GROQ_MODEL`, `AI_FREE_DAILY`, …) karena provider rutin memensiunkan nama model — tanpa itu setiap pensiun berarti ganti kode dan deploy ulang. Nilai bawaan rate limit tetap `free: 10/hari` vs `premium: 500/hari`, disimpan di memori atau Supabase bila `SUPABASE_SERVICE_KEY` tersedia. Daftar lengkap ada di `docs/SETUP-KUNCI-API.md`; bentuk permintaan tiap provider dijaga `scripts/tests/test-ai-providers.js` (menyadap `fetch`, tanpa kunci sungguhan).
 
 ### Service worker
 

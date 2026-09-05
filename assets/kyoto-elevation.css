@@ -456,9 +456,23 @@ a.ft-link-dim.ft-link-dim,
   .translator-launch    { bottom: calc(var(--np-lane) + var(--np-bar) + 62px) !important; right: 72px !important; }
   .np-wa-float          { bottom: calc(var(--np-lane) + var(--np-bar) + 62px) !important; right: 12px !important; }
 
-  /* Tombol tema melayang hanya tersisa di halaman tanpa navbar kyoto. */
   .np-dark-toggle-btn   { bottom: calc(var(--np-lane) + var(--np-bar) + 114px) !important; }
 }
+
+/* KONTROL TEMA GANDA.
+   ──────────────────────────────────────────────────────────────────────
+   Aturan di atas mengasumsikan tombol tema melayang "hanya tersisa di
+   halaman tanpa navbar kyoto", tapi tidak ada yang menegakkannya. Diperiksa
+   di index.html: navbar kyoto hadir DAN punya tombol temanya sendiri
+   (#knThemeBtn), sementara #npDarkToggle yang melayang tetap dirender --
+   dua kontrol untuk satu fungsi.
+
+   Yang melayang itu justru float yang menjangkau paling tinggi ke layar
+   (bottom 176 pada 390px), jadi ia membayar ongkos ruang paling besar untuk
+   fungsi yang sudah tersedia di navbar. Disembunyikan HANYA bila penggantinya
+   benar-benar ada, sehingga halaman tanpa navbar kyoto tidak kehilangan
+   satu-satunya cara mengganti tema. */
+body:has(#knThemeBtn) .np-dark-toggle-btn { display: none !important; }
 
 /* Pada desktop tidak ada navigasi bawah, tapi bilah promo tetap ada dan
    menabrak tombol WhatsApp serta tombol tema. Pil penerjemah juga menabrak
@@ -467,11 +481,36 @@ a.ft-link-dim.ft-link-dim,
   :root { --np-bar: 0px; }
   body:has(.sticky-bar.show) { --np-bar: 88px; }
 
+  /* SATU REL DI KANAN.
+     ──────────────────────────────────────────────────────────────────
+     Dulu benda melayang duduk di KEDUA sudut bawah: chat di kiri
+     (left:18 bottom:92), sisanya di kanan. Diukur di index.html pada
+     1440x900, pil chat (y 767-808) menutupi .btn-primary hero
+     (y 786-838) -- tombol ajakan utama halaman depan tertutup widget.
+
+     Sudut kiri-bawah adalah tempat konten hero berakhir, jadi apa pun
+     yang dipatok di sana akan menabrak sesuatu. Perbaikannya bukan
+     menggeser chat beberapa piksel, melainkan menyepakati bahwa SEMUA
+     chrome melayang tinggal di satu rel kanan, sehingga penulis halaman
+     hanya perlu menghindari satu sudut.
+
+     Rel dari bawah ke atas (tinggi elemen dalam kurung):
+         24  WhatsApp        (52) -> 24-76
+         88  chat            (41) -> 88-129
+        141  penerjemah      (40) -> 141-181
+        193  kolom tombol   (148) -> 193-341
+
+     Tombol tema tetap di kiri-bawah: ia kecil, x-nya 20-68, dan tidak
+     bersinggungan dengan kolom tombol hero yang mulai di x=72. */
   .np-wa-float          { bottom: calc(1.5rem + var(--np-bar)); }
   .np-dark-toggle-btn   { bottom: calc(20px + var(--np-bar)) !important; }
-  .nihongo-chat-launch  { bottom: calc(92px + var(--np-bar)); }
-  .pro-floating-actions { bottom: calc(92px + var(--np-bar)); }
-  .translator-launch    { bottom: calc(252px + var(--np-bar)); }
+
+  /* left:auto WAJIB. CSS dasar di pro-style.css menyetel left:18px; kalau
+     left dan right sama-sama aktif pada position:fixed dengan lebar auto,
+     elemennya melar selebar layar alih-alih pindah ke kanan. */
+  .nihongo-chat-launch  { bottom: calc(88px + var(--np-bar)); left: auto; right: 18px; }
+  .translator-launch    { bottom: calc(141px + var(--np-bar)); }
+  .pro-floating-actions { bottom: calc(193px + var(--np-bar)); }
 }
 
 

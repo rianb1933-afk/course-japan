@@ -3696,7 +3696,12 @@ footer {
     padding-bottom: 60px !important;
   }
 
-  .hero-right { order: -1 !important; }
+  /* Gambar maskot SESUDAH teks. Sebelumnya order:-1 menaruhnya lebih dulu,
+     sehingga pada 390x844 bingkai setinggi 421px mendorong <h1> ke y=1028 --
+     184px DI BAWAH lipatan. Layar pertama jadi hanya gambar kucing: tanpa
+     judul, tanpa penjelasan, tanpa CTA. Urutan DOM sudah benar (.hero-left
+     lebih dulu), jadi order:1 di sini hanya menegaskan gambar menyusul. */
+  .hero-right { order: 1 !important; }
 
   .mascot-img { width: clamp(200px, 55vw, 300px) !important; }
   .mascot-bubble--top { right: -10px; }
@@ -3718,9 +3723,40 @@ footer {
 }
 
 @media (max-width: 600px) {
+  /* Jam kucing dekoratif memakan 136px dari layar pertama pada 390x844 --
+     ruang yang mendorong tombol ajakan utama turun ke dalam pita widget
+     melayang (bottom 72-163), sehingga CTA tampak tertimpa. Di layar sempit
+     pesan dan tombol lebih berharga daripada dekorasi; jamnya tetap utuh
+     pada layar >600px. */
+  .cute-clock { display: none !important; }
+
   .hero-left h1 { letter-spacing: -1px !important; }
   .section-title { letter-spacing: -0.8px !important; }
   .footer-inner { grid-template-columns: 1fr !important; }
+}
+
+/* HIERARKI TOMBOL DI HERO GELAP.
+   ──────────────────────────────────────────────────────────────────────
+   .btn-ghost dirancang untuk latar terang: isinya putih-krem (#FEFCF8)
+   dengan teks gelap, sehingga di halaman biasa ia terbaca sebagai tombol
+   sekunder yang tenang. Di dalam hero yang latarnya #2D2D2D, warna itu
+   berbalik peran -- dua tombol sekunder jadi bidang putih paling terang di
+   layar, sementara tombol UTAMA (.btn-primary, cokelat #6B4F3A) justru
+   menyatu dengan latar. Diperiksa di 1440x900: yang paling menarik mata
+   adalah "Mulai Belajar Sekarang", bukan "Tes Level Gratis".
+
+   Di sini ghost dikembalikan ke arti sebenarnya: beroutline dan tembus
+   pandang, sehingga satu-satunya tombol berisi penuh adalah yang utama.
+   Dibatasi pada .hero saja -- di bagian halaman lain latar terang dan
+   gaya aslinya sudah benar. */
+.hero .btn-ghost {
+  background: transparent !important;
+  color: #EDE7DA !important;
+  border: 1px solid rgba(237, 231, 218, 0.34) !important;
+}
+.hero .btn-ghost:hover {
+  background: rgba(237, 231, 218, 0.10) !important;
+  border-color: rgba(237, 231, 218, 0.55) !important;
 }
 
 /* ── Scroll reveal animation ── */
@@ -4192,14 +4228,18 @@ nav:not(.kn-nav):not(.kn-bottom-nav) {
     justify-content: center !important;
   }
 
-  .hero::after {
-    inset: 84px 16px auto 16px;
-    width: auto;
-    height: 360px;
-  }
+  /* Panel kertas dekoratif di belakang hero dirancang untuk komposisi
+     BERDAMPINGAN di desktop: ia mengisi kolom kanan di belakang gambar.
+     Pada tata letak bertumpuk tingginya dipatok 360px, sehingga ia berhenti
+     di tengah blok teks dan meninggalkan tepi horizontal keras yang memotong
+     judul dari tombol. Sebelumnya tidak terlihat karena gambar berada di atas
+     dan panel ini kebetulan jatuh di belakangnya. Dimatikan saat bertumpuk --
+     hero sudah punya latar gelap dan maskot sebagai daya tarik visual. */
+  .hero::after { display: none; }
 
   .hero-right {
-    order: -1 !important;
+    /* Lihat alasan di media query 900px sebelumnya: teks dulu, gambar menyusul. */
+    order: 1 !important;
   }
 
   .anime-photo-frame {

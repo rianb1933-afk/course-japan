@@ -98,6 +98,15 @@ html,body{overflow-x:hidden}
   footer .footer-grid{grid-template-columns:1fr 1fr!important}
   .hero-actions{display:grid!important;grid-template-columns:1fr!important;gap:10px!important;width:100%}
   .hero-actions a{width:100%;justify-content:center;text-align:center;min-height:44px}
+  /* Khusus hero: tiga tombol bertumpuk penuh setinggi 160px membuat tombol
+     KETIGA jatuh ke dalam pita widget melayang (y 668-772 pada 390x844).
+     Primer tetap selebar penuh karena ia aksi utama; dua sekunder berbagi satu
+     baris sehingga tumpukannya memendek dan seluruh CTA berada di atas pita.
+     Dibatasi ke .hero -- blok .hero-actions kedua di halaman ini hanya punya
+     dua tombol, dan dua kolom di sana akan menyisakan satu tombol setengah
+     lebar. Selektor sengaja (0,2,0) agar menang atas aturan satu kolom di atas. */
+  .hero .hero-actions{grid-template-columns:1fr 1fr!important}
+  .hero .hero-actions>:first-child{grid-column:1/-1}
   .sticky-bar{padding-bottom:calc(.75rem + env(safe-area-inset-bottom))!important}
 }
 @media(max-width:480px){

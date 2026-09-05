@@ -7,16 +7,30 @@
 const { createClient } = require('@supabase/supabase-js');
 
 // ── PROVIDER CONFIG ──────────────────────────────────────────────────
+/* Banyak penyedia memakai bentuk API yang SAMA dengan OpenAI (endpoint
+   /chat/completions, body {model, messages}, auth Bearer). Pabrik kecil ini
+   memakai ulang bentuk itu supaya menambah penyedia baru tidak berarti
+   menyalin format/extract yang identik. */
+const openAICompatible = (url, keyEnv, defaultModel, extraHeaders) => ({
+  url, keyEnv, defaultModel,
+  format: (model, messages, temp) => ({
+    model, messages, temperature: temp, max_tokens: 1200,
+  }),
+  extract: (data) => data.choices?.[0]?.message?.content || '',
+  ...(extraHeaders ? { headers: extraHeaders } : {}),
+});
+
+/* Nama model boleh ditimpa lewat environment. Penyedia rutin memensiunkan
+   nama model, dan tanpa ini setiap pensiun berarti ganti kode + deploy ulang;
+   dengan ini cukup ubah satu variabel di dasbor hosting. */
+const MODEL = (envKey, fallback) => process.env[envKey] || fallback;
+
 const PROVIDERS = {
-  openai: {
-    url: 'https://api.openai.com/v1/chat/completions',
-    keyEnv: 'OPENAI_API_KEY',
-    defaultModel: 'gpt-4o-mini',
-    format: (model, messages, temp) => ({
-      model, messages, temperature: temp, max_tokens: 1200,
-    }),
-    extract: (data) => data.choices?.[0]?.message?.content || '',
-  },
+  openai: openAICompatible(
+    'https://api.openai.com/v1/chat/completions',
+    'OPENAI_API_KEY',
+    MODEL('OPENAI_MODEL', 'gpt-4o-mini'),
+  ),
   anthropic: {
     url: 'https://api.anthropic.com/v1/messages',
     keyEnv: 'ANTHROPIC_API_KEY',
@@ -35,25 +49,62 @@ const PROVIDERS = {
   gemini: {
     url: (model, key) => `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`,
     keyEnv: 'GEMINI_API_KEY',
-    defaultModel: 'gemini-1.5-flash',
+    /* gemini-1.5-flash sudah tua dan berisiko dipensiunkan; nama model bisa
+       diganti lewat GEMINI_MODEL tanpa menyentuh kode. */
+    defaultModel: MODEL('GEMINI_MODEL', 'gemini-2.0-flash'),
     format: (model, messages) => ({
       contents: messages.filter(m => m.role !== 'system').map(m => ({
         role: m.role === 'assistant' ? 'model' : 'user',
         parts: [{ text: m.content }],
       })),
       systemInstruction: { parts: [{ text: messages.find(m => m.role === 'system')?.content || '' }] },
-      generationConfig: { maxOutputTokens: 600 },
+      /* Dulu 600 sementara penyedia lain 1200, jadi jawaban di jalur GRATIS
+         terpotong lebih awal tanpa alasan. Disamakan. */
+      generationConfig: { maxOutputTokens: 1200 },
     }),
     extract: (data) => data.candidates?.[0]?.content?.parts?.[0]?.text || '',
     noAuthHeader: true,
   },
+
+  /* ── Penyedia dengan tingkat GRATIS ────────────────────────────────
+     Keduanya tetap butuh kunci API, tapi kuncinya diperoleh tanpa biaya dan
+     tanpa kartu kredit — berbeda dari openai/anthropic di atas yang menagih
+     per token. Dipakai lewat mekanisme fallback yang sudah ada: begitu salah
+     satu kuncinya terpasang dan kunci berbayar tidak ada, seluruh fitur AI
+     situs otomatis memakainya. */
+  groq: openAICompatible(
+    'https://api.groq.com/openai/v1/chat/completions',
+    'GROQ_API_KEY',
+    MODEL('GROQ_MODEL', 'llama-3.3-70b-versatile'),
+  ),
+
+  openrouter: openAICompatible(
+    'https://openrouter.ai/api/v1/chat/completions',
+    'OPENROUTER_API_KEY',
+    MODEL('OPENROUTER_MODEL', 'meta-llama/llama-3.3-70b-instruct:free'),
+    /* OpenRouter memakai header ini untuk atribusi; opsional, tapi tanpa
+       Referer permintaan dari kunci gratis lebih sering dibatasi. */
+    () => ({
+      'HTTP-Referer': process.env.SITE_URL || 'https://nihongopro.id',
+      'X-Title': 'Nihongo Pro Academy',
+    }),
+  ),
 };
 
 // ── RATE LIMITING ────────────────────────────────────────────────────
 const memStore = new Map();
+/* Batas bisa dinaikkan lewat environment tanpa menyentuh kode. Nilai
+   bawaannya sengaja TIDAK diubah: menaikkan kuota adalah keputusan biaya &
+   penyalahgunaan milik pemilik situs, bukan default yang pantas saya geser
+   sendiri. Pada penyedia bertarif gratis, menaikkan AI_FREE_DAILY adalah
+   cara membuat fitur AI benar-benar terpakai penuh. */
+const num = (envKey, fallback) => {
+  const v = Number(process.env[envKey]);
+  return Number.isFinite(v) && v > 0 ? v : fallback;
+};
 const RATE_LIMIT = {
-  free:    { daily: 10,  perMinute: 3 },
-  premium: { daily: 500, perMinute: 20 },
+  free:    { daily: num('AI_FREE_DAILY', 10),     perMinute: num('AI_FREE_PER_MIN', 3) },
+  premium: { daily: num('AI_PREMIUM_DAILY', 500), perMinute: num('AI_PREMIUM_PER_MIN', 20) },
 };
 
 async function checkRateLimit(userId, isPremium) {

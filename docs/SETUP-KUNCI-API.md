@@ -64,13 +64,59 @@ Kanji Trainer, Kelas Online.
 **Isi salah satu saja sudah cukup:**
 
 ```
-ANTHROPIC_API_KEY = sk-ant-api03-...      # console.anthropic.com
-OPENAI_API_KEY    = sk-...                # platform.openai.com
-GEMINI_API_KEY    = AI...                 # aistudio.google.com
+# Berbayar (ditagih per token)
+ANTHROPIC_API_KEY  = sk-ant-api03-...     # console.anthropic.com
+OPENAI_API_KEY     = sk-...               # platform.openai.com
+
+# Bertingkat GRATIS — kunci diperoleh tanpa biaya & tanpa kartu kredit
+GEMINI_API_KEY     = AI...                # aistudio.google.com
+GROQ_API_KEY       = gsk_...              # console.groq.com
+OPENROUTER_API_KEY = sk-or-...            # openrouter.ai/keys
 ```
 
-Ketiganya opsional satu sama lain — `netlify/functions/ai-chat.js` memakai
+Kelimanya opsional satu sama lain — `netlify/functions/ai-chat.js` memakai
 kunci mana pun yang ada.
+
+### Menjalankan fitur AI tanpa biaya
+
+Tiga penyedia terakhir punya tingkat gratis yang tidak meminta kartu kredit.
+**Isi salah satunya saja** dan seluruh fitur AI situs hidup: halaman mengirim
+`provider = 'openai'` secara default, dan fungsi ini jatuh ke penyedia mana pun
+yang kuncinya terpasang.
+
+Perlu jujur soal batasnya: "gratis" berarti **tidak ditagih**, bukan **tanpa
+akun**. Ketiganya tetap meminta pendaftaran untuk menerbitkan kunci, dan
+masing-masing punya kuota permintaan per menit/hari sendiri. Tidak ada cara
+menjalankan model bahasa tanpa kunci sama sekali.
+
+### Mengganti model tanpa menyentuh kode
+
+Penyedia rutin memensiunkan nama model. Setiap penyedia punya variabel
+opsional untuk menimpa modelnya, jadi nama yang pensiun cukup diganti di
+dasbor hosting:
+
+```
+OPENAI_MODEL       = gpt-4o-mini
+GEMINI_MODEL       = gemini-2.0-flash
+GROQ_MODEL         = llama-3.3-70b-versatile
+OPENROUTER_MODEL   = meta-llama/llama-3.3-70b-instruct:free
+```
+
+### Menaikkan kuota pemakaian
+
+Batas bawaan sengaja konservatif karena dibuat untuk penyedia berbayar:
+**10 permintaan/hari** untuk pengguna gratis, 500 untuk premium. Pada penyedia
+bertingkat gratis biaya per permintaan nol, jadi batas itu bisa dilonggarkan:
+
+```
+AI_FREE_DAILY      = 100
+AI_FREE_PER_MIN    = 5
+AI_PREMIUM_DAILY   = 1000
+AI_PREMIUM_PER_MIN = 20
+```
+
+Nilai bawaannya tidak diubah — menaikkan kuota adalah keputusan biaya dan
+risiko penyalahgunaan milik pemilik situs.
 
 > Sebelum perbaikan di commit ini, ia tidak begitu. Request default-nya
 > `provider = 'openai'` dan tidak ada satu halaman pun yang mengirim provider
