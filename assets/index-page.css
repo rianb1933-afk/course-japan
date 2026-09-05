@@ -547,6 +547,27 @@ section { padding: 6rem 5vw; }
   margin: 0 auto 1.5rem;
 }
 
+/* Tabel gojūon punya SEPULUH kolom yang bermakna (baris vokal x kolom
+   konsonan); melipatnya jadi lebih sedikit kolom merusak bacaan tabelnya.
+   Masalahnya `1fr` berarti `minmax(auto, 1fr)`, dan minimum `auto` mengikuti
+   isi sel -- glif 18px plus romaji memaksa tiap sel ~48px. Diukur pada 390px:
+   isi grid 539px di dalam wadah 350px dengan overflow visible, dan halaman
+   sendiri TIDAK bergeser samping, jadi empat kolom terakhir terpotong sekaligus
+   tidak bisa dijangkau sama sekali. Isinya bukan sel kosong: di situ ada baris
+   ざじずぜぞ dan ばびぶべぼ, plus ん -- sembilan kana yang hilang dari tabel di
+   ponsel. Digulir mendatar di dalam wadahnya sendiri, pola yang sudah dipakai
+   repo ini untuk tabel lebar. Minimum 44px sekalian memenuhi ukuran target
+   sentuh. */
+@media (max-width: 760px) {
+  .kana-grid {
+    grid-template-columns: repeat(10, minmax(44px, 1fr));
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+  }
+}
+
 .kana-cell {
   aspect-ratio: 1;
   background: var(--cream);
@@ -4031,7 +4052,12 @@ nav:not(.kn-nav):not(.kn-bottom-nav) {
   font-size: 10px;
   font-weight: 900;
   letter-spacing: 0.1em;
-  color: #e95f78;
+  /* #e95f78 di atas gradient krem kartu jam hanya 3,03:1 -- di bawah AA untuk
+     teks 10px (perlu 4,5:1). Diperdalam sambil tetap di keluarga merah muda
+     yang sama, diukur dari piksel yang benar-benar dirender, bukan dari
+     backgroundColor (kartu ini berlatar gradient, sehingga pembacaan naif
+     melaporkan angka yang salah). */
+  color: #be345a;
 }
 
 .cute-clock-meta {
