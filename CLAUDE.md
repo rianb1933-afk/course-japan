@@ -73,6 +73,7 @@ Tiga aturan yang tidak boleh dilonggarkan:
 
 - **Peran dibaca dari `user_roles` di server**, tidak pernah dari body request. Pengajar hanya boleh menyentuh grup yang `teacher_id`-nya dirinya; admin boleh semua.
 - **Token disimpan sebagai SHA-256**, plaintext hanya dikembalikan sekali saat diterbitkan. Token yang hilang diterbitkan ulang, bukan dilihat lagi.
+- **RPC `redeem_group_token` tidak boleh dipanggil dari browser.** PostgREST mengekspos setiap fungsi di skema `public` sebagai `/rest/v1/rpc/<nama>`, dan `CREATE FUNCTION` memberi EXECUTE ke PUBLIC secara bawaan. Fungsi itu `SECURITY INVOKER` dengan `search_path` dipatok, dan hak eksekusinya dicabut dari `PUBLIC`/`anon`/`authenticated` — kalau tidak, `p_user` yang datang dari pemanggil membuat siapa pun bisa mendaftarkan orang lain, dan batas 30 percobaan per IP di serverless function terlewati sepenuhnya.
 - **Klien tidak punya izin INSERT ke `enrollments`.** Policy lama `FOR ALL USING (student_id = auth.uid())` hanya memeriksa siapa yang mendaftar, bukan ke grup mana — siapa pun yang login bisa memasukkan dirinya ke grup mana pun tanpa token. Sudah diganti; satu-satunya jalan masuk adalah RPC `redeem_group_token` yang dipanggil service role sesudah token diverifikasi. Penukarannya satu `UPDATE` berkondisi supaya dua permintaan bersamaan tidak bisa memakai kuota terakhir dua kali.
 
 Otorisasinya diuji `scripts/tests/test-group-tokens.js` (klien Supabase ditiru, tanpa basis data sungguhan).

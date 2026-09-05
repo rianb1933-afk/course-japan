@@ -378,8 +378,11 @@ CREATE POLICY "Teachers read class enrollments" ON enrollments
     EXISTS (SELECT 1 FROM classrooms c
             WHERE c.id = enrollments.classroom_id AND c.teacher_id = auth.uid())
   );
-CREATE POLICY "Students manage own enrollment" ON enrollments
-  FOR ALL USING (student_id = auth.uid());
+-- Policy siswa untuk enrollments SENGAJA tidak didefinisikan di sini.
+-- Versi lamanya, `FOR ALL USING (student_id = auth.uid())`, mengizinkan siapa
+-- pun yang login MASUK ke grup mana pun tanpa token (lihat uraian panjangnya
+-- di bagian "GRUP KELAS & TOKEN GABUNG" di bawah). Penggantinya didefinisikan
+-- di bagian itu, satu tempat saja, supaya tidak ada dua versi yang bersaing.
 
 -- assignments: guru kelola; siswa baca tugas kelasnya
 CREATE POLICY "Teachers manage class assignments" ON assignments
@@ -718,11 +721,40 @@ ALTER TABLE group_tokens ENABLE ROW LEVEL SECURITY;
 -- Diganti: baca & keluar sendiri tetap boleh, tapi MASUK hanya lewat
 -- service role sesudah token diverifikasi (lihat redeem_group_token).
 DROP POLICY IF EXISTS "Students manage own enrollment" ON enrollments;
+DROP POLICY IF EXISTS "Students read own enrollment" ON enrollments;
+DROP POLICY IF EXISTS "Students leave own group" ON enrollments;
 
 CREATE POLICY "Students read own enrollment" ON enrollments
   FOR SELECT USING (student_id = auth.uid());
 CREATE POLICY "Students leave own group" ON enrollments
   FOR DELETE USING (student_id = auth.uid());
+
+-- KENAPA BUKAN SECURITY DEFINER, DAN KENAPA HAK EKSEKUSINYA DICABUT
+-- ─────────────────────────────────────────────────────────────────────
+-- Versi pertama fungsi ini SECURITY DEFINER tanpa REVOKE. Itu keliru, dan
+-- kelirunya justru membatalkan seluruh penjagaan di atas:
+--
+--   * PostgREST mengekspos SETIAP fungsi di skema `public` sebagai endpoint
+--     /rest/v1/rpc/<nama>, dan CREATE FUNCTION memberi EXECUTE ke PUBLIC
+--     secara bawaan -- jadi peran `anon` dan `authenticated` bisa memanggilnya
+--     langsung dari browser.
+--   * SECURITY DEFINER membuatnya berjalan sebagai pemilik fungsi, melewati
+--     RLS sepenuhnya.
+--   * `p_user` datang dari pemanggil, bukan dari sesi.
+--
+-- Gabungannya: siapa pun yang memegang satu token sah bisa mendaftarkan
+-- pengguna LAIN ke grup, dan siapa pun bisa menebak hash token langsung ke
+-- basis data tanpa pernah melewati /api/group-tokens -- artinya batas 30
+-- percobaan per IP di function itu tidak berlaku sama sekali.
+--
+-- SECURITY INVOKER membalik keadaannya: fungsi berjalan dengan hak pemanggil.
+-- Service role (dipakai netlify/functions/group-tokens.js) tetap melewati RLS
+-- dan bisa menulis; pengguna biasa terbentur ketiadaan policy INSERT pada
+-- enrollments dan gagal. REVOKE di bawah menutup pintunya satu lapis lebih
+-- awal, supaya endpoint RPC-nya tidak bisa dipanggil sama sekali.
+--
+-- search_path dipatok karena fungsi tanpa itu bisa dibelokkan lewat skema
+-- bayangan; linter Supabase juga menandainya.
 
 -- Penukaran token, ATOMIK.
 -- ─────────────────────────────────────────────────────────────────────
@@ -733,7 +765,10 @@ CREATE POLICY "Students leave own group" ON enrollments
 -- berkondisi menutup celah itu tanpa perlu kunci eksplisit.
 CREATE OR REPLACE FUNCTION redeem_group_token(p_hash text, p_user uuid)
 RETURNS TABLE (classroom_id uuid, classroom_name text, token_id uuid, already_member boolean)
-LANGUAGE plpgsql SECURITY DEFINER AS $$
+LANGUAGE plpgsql
+SECURITY INVOKER
+SET search_path = public, pg_temp
+AS $$
 DECLARE
   v_token   group_tokens%ROWTYPE;
   v_class   classrooms%ROWTYPE;
@@ -770,3 +805,16 @@ BEGIN
 
   RETURN QUERY SELECT v_class.id, v_class.name, v_token.id, false;
 END $$;
+
+-- Hak eksekusi dicabut dari semua peran yang bisa dijangkau browser.
+-- Dibungkus DO supaya berkas ini tetap jalan di Postgres polos, yang tidak
+-- punya peran `anon`/`authenticated` bawaan Supabase.
+REVOKE ALL ON FUNCTION redeem_group_token(text, uuid) FROM PUBLIC;
+DO $$
+BEGIN
+  EXECUTE 'REVOKE ALL ON FUNCTION redeem_group_token(text, uuid) FROM anon';
+EXCEPTION WHEN undefined_object THEN NULL; END $$;
+DO $$
+BEGIN
+  EXECUTE 'REVOKE ALL ON FUNCTION redeem_group_token(text, uuid) FROM authenticated';
+EXCEPTION WHEN undefined_object THEN NULL; END $$;

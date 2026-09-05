@@ -176,7 +176,7 @@ buat baru — jangan sekadar dihapus dari kode.
 
 Tidak butuh kunci baru — memakai tiga variabel Supabase yang sama seperti bagian 2. Yang perlu dilakukan sekali:
 
-**1. Jalankan skemanya.** Buka Supabase → SQL Editor, tempel isi `supabase-schema.sql`, jalankan. Aman diulang: semuanya `IF NOT EXISTS` / `CREATE OR REPLACE`.
+**1. Jalankan skemanya.** Buka Supabase → SQL Editor, tempel isi `supabase-schema.sql`, jalankan. Aman diulang: semuanya `IF NOT EXISTS` / `CREATE OR REPLACE` / `DROP POLICY IF EXISTS`.
 
 > Jika basis data Anda sudah dipakai sebelum versi ini, bagian baru itu **mencabut** policy lama `"Students manage own enrollment"`. Policy itu mengizinkan siapa pun yang login menyisipkan dirinya ke kelas mana pun tanpa token, karena syaratnya hanya `student_id = auth.uid()` tanpa syarat apa pun soal kelasnya. Menjalankan skema baru menutup lubang itu.
 
