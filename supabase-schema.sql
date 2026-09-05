@@ -644,3 +644,129 @@ CREATE POLICY "Published posts public read" ON blog_posts
 
 CREATE INDEX IF NOT EXISTS idx_blog_posts_slug ON blog_posts(slug);
 CREATE INDEX IF NOT EXISTS idx_blog_posts_published ON blog_posts(published, created_at DESC);
+
+-- ══════════════════════════════════════════════════════════════════════
+-- GRUP KELAS & TOKEN GABUNG
+-- Dipakai Grup-Kelas.html lewat /api/group-tokens
+-- ══════════════════════════════════════════════════════════════════════
+-- Grup memakai ulang tabel `classrooms` yang sudah ada, bukan tabel baru:
+-- konsepnya identik (satu wadah beranggotakan pengguna, dimiliki seorang
+-- pengajar) dan `enrollments` + policy-nya sudah terpasang. Yang ditambah
+-- hanya dua hal: penanda level/jenis grup, dan token gabung yang bisa
+-- diterbitkan berkali-kali.
+
+ALTER TABLE classrooms ADD COLUMN IF NOT EXISTS level text NOT NULL DEFAULT 'umum';
+ALTER TABLE classrooms ADD COLUMN IF NOT EXISTS kind  text NOT NULL DEFAULT 'pelajar';
+ALTER TABLE classrooms ADD COLUMN IF NOT EXISTS archived boolean NOT NULL DEFAULT false;
+
+DO $$ BEGIN
+  ALTER TABLE classrooms ADD CONSTRAINT classrooms_kind_check
+    CHECK (kind IN ('pelajar','pengajar'));
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- Token gabung.
+-- ─────────────────────────────────────────────────────────────────────
+-- `classrooms.join_code` yang lama adalah SATU kode permanen per kelas:
+-- tidak bisa dicabut tanpa memutus semua orang, tidak bisa kedaluwarsa,
+-- dan tidak terlihat siapa memakai yang mana. Tabel ini menggantikannya
+-- untuk pendaftaran: banyak token per grup, masing-masing punya batas
+-- pemakaian, masa berlaku, dan bisa dicabut sendiri-sendiri.
+--
+-- Yang disimpan adalah SHA-256 token, bukan tokennya. Plaintext hanya
+-- dikembalikan sekali saat diterbitkan. Konsekuensinya token yang hilang
+-- tidak bisa "dilihat lagi" — harus diterbitkan ulang — dan itu memang
+-- perilaku yang diinginkan: basis data yang bocor tidak ikut membocorkan
+-- akses ke grup.
+CREATE TABLE IF NOT EXISTS group_tokens (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  classroom_id uuid NOT NULL REFERENCES classrooms(id) ON DELETE CASCADE,
+  token_hash   text NOT NULL UNIQUE,
+  label        text,
+  max_uses     integer NOT NULL DEFAULT 1 CHECK (max_uses > 0),
+  used_count   integer NOT NULL DEFAULT 0,
+  expires_at   timestamptz,
+  revoked_at   timestamptz,
+  created_by   uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  created_at   timestamptz NOT NULL DEFAULT now()
+);
+
+ALTER TABLE enrollments ADD COLUMN IF NOT EXISTS via_token_id uuid
+  REFERENCES group_tokens(id) ON DELETE SET NULL;
+
+CREATE INDEX IF NOT EXISTS idx_group_tokens_classroom ON group_tokens(classroom_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_classrooms_kind_level  ON classrooms(kind, level) WHERE archived = false;
+
+-- ── Row Level Security ──
+-- group_tokens: RLS aktif TANPA policy apa pun = deny-all untuk klien.
+-- Hanya service role (netlify/functions/group-tokens.js, sesudah memverifikasi
+-- peran pemanggil) yang menyentuh tabel ini. Pola sama seperti rate_limits
+-- dan blog_posts.
+ALTER TABLE group_tokens ENABLE ROW LEVEL SECURITY;
+
+-- PERBAIKAN KEAMANAN pada policy enrollments yang lama.
+-- ─────────────────────────────────────────────────────────────────────
+--   CREATE POLICY "Students manage own enrollment" ON enrollments
+--     FOR ALL USING (student_id = auth.uid());
+--
+-- `FOR ALL` mencakup INSERT, dan tanpa WITH CHECK, PostgreSQL memakai
+-- klausa USING itu juga untuk INSERT. Syaratnya hanya `student_id =
+-- auth.uid()` — TIDAK ada syarat apa pun tentang classroom_id. Artinya
+-- siapa pun yang sudah login bisa menyisipkan barisnya sendiri ke grup mana
+-- pun hanya dengan menebak/melihat id grup, tanpa pernah memegang token.
+-- Kode gabung jadi sekadar hiasan.
+--
+-- Diganti: baca & keluar sendiri tetap boleh, tapi MASUK hanya lewat
+-- service role sesudah token diverifikasi (lihat redeem_group_token).
+DROP POLICY IF EXISTS "Students manage own enrollment" ON enrollments;
+
+CREATE POLICY "Students read own enrollment" ON enrollments
+  FOR SELECT USING (student_id = auth.uid());
+CREATE POLICY "Students leave own group" ON enrollments
+  FOR DELETE USING (student_id = auth.uid());
+
+-- Penukaran token, ATOMIK.
+-- ─────────────────────────────────────────────────────────────────────
+-- Diletakkan di database, bukan di JavaScript, karena "cek sisa kuota lalu
+-- tambah pemakaian" yang dipecah jadi dua perintah terpisah bisa dilewati
+-- dua permintaan bersamaan: keduanya membaca used_count yang sama, keduanya
+-- lolos, dan token dengan max_uses=1 terpakai dua kali. Satu UPDATE
+-- berkondisi menutup celah itu tanpa perlu kunci eksplisit.
+CREATE OR REPLACE FUNCTION redeem_group_token(p_hash text, p_user uuid)
+RETURNS TABLE (classroom_id uuid, classroom_name text, token_id uuid, already_member boolean)
+LANGUAGE plpgsql SECURITY DEFINER AS $$
+DECLARE
+  v_token   group_tokens%ROWTYPE;
+  v_class   classrooms%ROWTYPE;
+  v_exists  boolean;
+BEGIN
+  SELECT * INTO v_token FROM group_tokens WHERE token_hash = p_hash;
+  IF NOT FOUND THEN RAISE EXCEPTION 'TOKEN_INVALID'; END IF;
+  IF v_token.revoked_at IS NOT NULL THEN RAISE EXCEPTION 'TOKEN_REVOKED'; END IF;
+  IF v_token.expires_at IS NOT NULL AND v_token.expires_at <= now() THEN
+    RAISE EXCEPTION 'TOKEN_EXPIRED';
+  END IF;
+
+  SELECT * INTO v_class FROM classrooms WHERE id = v_token.classroom_id;
+  IF NOT FOUND THEN RAISE EXCEPTION 'TOKEN_INVALID'; END IF;
+
+  SELECT EXISTS (
+    SELECT 1 FROM enrollments e
+    WHERE e.classroom_id = v_token.classroom_id AND e.student_id = p_user
+  ) INTO v_exists;
+
+  -- Sudah anggota: kembalikan sukses TANPA memakai kuota. Menekan tombol
+  -- dua kali seharusnya tidak menghanguskan satu jatah token.
+  IF v_exists THEN
+    RETURN QUERY SELECT v_class.id, v_class.name, v_token.id, true;
+    RETURN;
+  END IF;
+
+  UPDATE group_tokens SET used_count = used_count + 1
+  WHERE id = v_token.id AND used_count < max_uses;
+  IF NOT FOUND THEN RAISE EXCEPTION 'TOKEN_EXHAUSTED'; END IF;
+
+  INSERT INTO enrollments (classroom_id, student_id, via_token_id)
+  VALUES (v_token.classroom_id, p_user, v_token.id);
+
+  RETURN QUERY SELECT v_class.id, v_class.name, v_token.id, false;
+END $$;

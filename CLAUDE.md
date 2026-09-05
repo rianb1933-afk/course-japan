@@ -56,7 +56,7 @@ Namespace `localStorage` di repo ini campur (`np-*`, `nihongo*`, `eduma-*`) kare
 
 ### Serverless — dua target hosting paralel
 
-- `netlify/functions/*.js` — jalur utama (ai-chat, create-payment, payment-webhook, livekit-token, admin-login, blog-cms, jlpt-cms, tts).
+- `netlify/functions/*.js` — jalur utama (ai-chat, create-payment, payment-webhook, livekit-token, admin-login, blog-cms, jlpt-cms, tts, group-tokens).
 - `api/ai-chat.js` — varian Vercel dari fungsi AI saja.
 
 Netlify **tidak** otomatis mengekspos `/api/<nama>`. Setiap function baru wajib punya entri `[[redirects]]` eksplisit di `netlify.toml`, kalau tidak akan 404 di production.
@@ -64,6 +64,18 @@ Netlify **tidak** otomatis mengekspos `/api/<nama>`. Setiap function baru wajib 
 `ai-chat` adalah abstraksi multi-provider dengan auto-fallback: kalau provider yang diminta tidak punya kunci, ia memakai provider mana pun yang punya. Lima provider terdaftar — `openai`, `anthropic` (berbayar) dan `gemini`, `groq`, `openrouter` (bertingkat gratis, kunci tanpa biaya). Banyak di antaranya memakai bentuk API OpenAI, jadi dipasang lewat helper `openAICompatible()`; menambah provider serupa cukup satu baris.
 
 Nama model dan kuota **dapat dikonfigurasi lewat environment** (`GEMINI_MODEL`, `GROQ_MODEL`, `AI_FREE_DAILY`, …) karena provider rutin memensiunkan nama model — tanpa itu setiap pensiun berarti ganti kode dan deploy ulang. Nilai bawaan rate limit tetap `free: 10/hari` vs `premium: 500/hari`, disimpan di memori atau Supabase bila `SUPABASE_SERVICE_KEY` tersedia. Daftar lengkap ada di `docs/SETUP-KUNCI-API.md`; bentuk permintaan tiap provider dijaga `scripts/tests/test-ai-providers.js` (menyadap `fetch`, tanpa kunci sungguhan).
+
+### Grup kelas & token
+
+`Grup-Kelas.html` + `/api/group-tokens` membagi peserta ke dalam grup (pengajar, pelajar N5..N1, Kaigo) dan menerbitkan token undangan. Grup memakai ulang tabel `classrooms`/`enrollments` yang sudah ada — hanya ditambah kolom `level`/`kind` dan tabel `group_tokens`.
+
+Tiga aturan yang tidak boleh dilonggarkan:
+
+- **Peran dibaca dari `user_roles` di server**, tidak pernah dari body request. Pengajar hanya boleh menyentuh grup yang `teacher_id`-nya dirinya; admin boleh semua.
+- **Token disimpan sebagai SHA-256**, plaintext hanya dikembalikan sekali saat diterbitkan. Token yang hilang diterbitkan ulang, bukan dilihat lagi.
+- **Klien tidak punya izin INSERT ke `enrollments`.** Policy lama `FOR ALL USING (student_id = auth.uid())` hanya memeriksa siapa yang mendaftar, bukan ke grup mana — siapa pun yang login bisa memasukkan dirinya ke grup mana pun tanpa token. Sudah diganti; satu-satunya jalan masuk adalah RPC `redeem_group_token` yang dipanggil service role sesudah token diverifikasi. Penukarannya satu `UPDATE` berkondisi supaya dua permintaan bersamaan tidak bisa memakai kuota terakhir dua kali.
+
+Otorisasinya diuji `scripts/tests/test-group-tokens.js` (klien Supabase ditiru, tanpa basis data sungguhan).
 
 ### Service worker
 

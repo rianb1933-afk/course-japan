@@ -170,6 +170,29 @@ buat baru — jangan sekadar dihapus dari kode.
 
 ---
 
+## 2b. Grup kelas & token undangan
+
+**Yang mati tanpa ini:** `Grup-Kelas.html` (membuat grup pengajar/pelajar per level dan menerbitkan token gabung).
+
+Tidak butuh kunci baru — memakai tiga variabel Supabase yang sama seperti bagian 2. Yang perlu dilakukan sekali:
+
+**1. Jalankan skemanya.** Buka Supabase → SQL Editor, tempel isi `supabase-schema.sql`, jalankan. Aman diulang: semuanya `IF NOT EXISTS` / `CREATE OR REPLACE`.
+
+> Jika basis data Anda sudah dipakai sebelum versi ini, bagian baru itu **mencabut** policy lama `"Students manage own enrollment"`. Policy itu mengizinkan siapa pun yang login menyisipkan dirinya ke kelas mana pun tanpa token, karena syaratnya hanya `student_id = auth.uid()` tanpa syarat apa pun soal kelasnya. Menjalankan skema baru menutup lubang itu.
+
+**2. Tandai siapa pengajar.** Hanya `teacher` dan `admin` yang bisa membuat grup dan menerbitkan token; sisanya hanya bisa menukar token. Dari SQL Editor:
+
+```sql
+INSERT INTO user_roles (user_id, role) VALUES ('<uuid-pengguna>', 'teacher')
+ON CONFLICT (user_id) DO UPDATE SET role = 'teacher';
+```
+
+UUID pengguna ada di Supabase → Authentication → Users.
+
+**Cara pakainya:** pengajar membuka `Grup-Kelas.html`, membuat grup (mis. "Pelajar N5 — Angkatan 1", jenis *pelajar*, level *N5*), lalu menerbitkan token dengan batas pemakaian dan masa berlaku. Token muncul **sekali** — yang tersimpan di server hanya SHA-256-nya, jadi salin saat itu juga. Pelajar membuka halaman yang sama, menempel token, dan langsung tergabung.
+
+Percobaan tukar dibatasi 30 per IP per hari untuk mencegah tebak-tebakan.
+
 ## 3. Kelas live — LiveKit
 
 **Yang mati tanpa ini:** Kelas Online, Kelas Report, dasbor guru.

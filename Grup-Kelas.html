@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
+<script src="assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grup Kelas &amp; Token — Nihongo Pro Academy</title>
+<meta name="description" content="Kelola grup kelas NihongoPro: grup pengajar dan grup pelajar N5 sampai N1, lengkap dengan token undangan untuk bergabung.">
+<link rel="canonical" href="https://nihongopro.id/Grup-Kelas.html">
+<meta property="og:title" content="Grup Kelas &amp; Token — Nihongo Pro Academy">
+<meta property="og:description" content="Bagi peserta kursus ke dalam grup pengajar dan grup pelajar per level JLPT, lalu undang mereka dengan token sekali pakai.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://nihongopro.id/Grup-Kelas.html">
+<meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Grup Kelas &amp; Token — Nihongo Pro Academy">
+<meta name="twitter:description" content="Bagi peserta kursus ke dalam grup pengajar dan grup pelajar per level JLPT.">
+<meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Grup Kelas & Token","description":"Kelola grup pengajar dan grup pelajar per level JLPT beserta token undangannya.","url":"https://nihongopro.id/Grup-Kelas.html","image":"https://nihongopro.id/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","JLPT","Kanji","Grammar","Vocabulary"]}</script>
+
+<link rel="stylesheet" href="assets/kyoto-bundle.min.css">
+<link rel="stylesheet" href="assets/kyoto-theme.css">
+<link rel="stylesheet" href="assets/kyoto-elevation.css">
+<link rel="stylesheet" href="assets/pro-style.css">
+<link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}
+button{font-family:'Outfit',sans-serif;cursor:pointer}
+.skip-link{position:absolute;left:-999px;top:0;background:var(--red);color:#fff;padding:10px 16px;border-radius:0 0 8px 0;z-index:100}
+.skip-link:focus{left:0}
+
+.hero{background:#17181d;color:#fff;padding:44px 5vw 34px;position:relative;overflow:hidden}
+.hero:before{content:"組";position:absolute;right:4vw;bottom:-56px;font-family:"Noto Serif JP",serif;font-size:190px;color:rgba(255,255,255,.05);line-height:1}
+.inner{width:min(1080px,100%);margin:0 auto;position:relative}
+.badge{display:inline-flex;padding:5px 11px;border-radius:8px;background:rgba(232,83,74,.2);color:#ff8177;font-size:11px;font-weight:900;letter-spacing:.14em;text-transform:uppercase;margin-bottom:12px}
+.hero h1{font-family:"Noto Serif JP",serif;font-size:clamp(26px,4vw,42px);line-height:1.15;margin-bottom:10px}
+.hero p{max-width:640px;color:rgba(255,255,255,.72);font-size:14px}
+
+.wrap{width:min(1080px,100%);margin:0 auto;padding:26px 5vw 60px;display:grid;gap:20px}
+.panel{background:var(--surface,var(--white));border:1px solid var(--border);border-radius:10px;padding:18px;box-shadow:var(--shadow-sm)}
+.panel h2{font-family:"Noto Serif JP",serif;font-size:19px;margin-bottom:4px}
+.panel .hint{color:var(--ink-soft);font-size:13px;margin-bottom:14px}
+
+.row{display:grid;gap:10px}
+.row-2{grid-template-columns:1fr 1fr}
+.row-3{grid-template-columns:1fr 1fr 1fr}
+label{display:grid;gap:5px;font-size:12px;font-weight:800;color:var(--ink-soft);letter-spacing:.04em;text-transform:uppercase}
+input,select,textarea{font:inherit;font-size:14px;padding:9px 11px;border:1px solid var(--border-mid);border-radius:8px;background:var(--surface,var(--white));color:var(--ink);width:100%}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:42px;padding:0 16px;border-radius:8px;border:1px solid transparent;font-weight:800;font-size:14px}
+.btn-main{background:var(--red);color:#fff}
+.btn-sub{background:transparent;color:var(--ink);border-color:var(--border-mid)}
+.btn-danger{background:transparent;color:var(--red);border-color:var(--border-mid);min-height:32px;font-size:12px;padding:0 10px}
+
+.glist{display:grid;gap:8px}
+.gitem{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--border);border-radius:8px;background:var(--cream);text-align:left;width:100%}
+.gitem[aria-current="true"]{border-color:var(--red);box-shadow:0 0 0 2px var(--red-pale)}
+.gitem b{display:block;font-size:15px}
+.gitem span{font-size:12px;color:var(--ink-soft)}
+.chip{display:inline-flex;align-items:center;min-height:24px;padding:0 9px;border-radius:99px;background:var(--red-pale);color:var(--red);font-size:11px;font-weight:900;letter-spacing:.06em}
+.chip-muted{background:var(--border);color:var(--ink-soft)}
+
+table{width:100%;border-collapse:collapse}
+th,td{padding:9px 8px;border-bottom:1px solid var(--border);font-size:13px;text-align:left;vertical-align:middle}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft)}
+tr:last-child td{border-bottom:0}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
+
+.tokenbox{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px;border:1px dashed var(--red);border-radius:8px;background:var(--red-pale);margin-top:12px}
+.tokenbox code{font-size:20px;font-weight:900;letter-spacing:.08em;color:var(--red)}
+.notice{padding:12px 14px;border-radius:8px;font-size:13px;border:1px solid var(--border-mid);background:var(--cream);color:var(--ink-mid)}
+.notice-warn{border-color:var(--red);background:var(--red-pale);color:var(--red)}
+.empty{padding:20px;text-align:center;color:var(--ink-soft);font-size:13px}
+[hidden]{display:none!important}
+@media(max-width:760px){.row-2,.row-3{grid-template-columns:1fr}.wrap{padding-bottom:96px}}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Lewati ke konten utama</a>
+
+<div class="page">
+  <header class="hero">
+    <div class="inner">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <a href="index.html" style="display:inline-flex;align-items:center;gap:6px;color:rgba(255,255,255,.85);font-size:13px">← Kembali ke Beranda</a>
+        <button type="button" aria-label="Ganti mode terang/gelap" data-theme-toggle style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:8px;width:34px;height:34px;font-size:15px">🌙</button>
+      </div>
+      <span class="badge">Grup &amp; Token</span>
+      <h1>クラスグループ</h1>
+      <p>Bagi peserta kursus ke dalam grup — pengajar, pelajar N5, N4, N3, dan seterusnya — lalu undang mereka dengan token. Setiap token punya batas pemakaian dan masa berlaku sendiri, dan bisa dicabut kapan saja tanpa mengganggu anggota yang sudah bergabung.</p>
+    </div>
+  </header>
+
+  <main class="wrap" id="main">
+
+    <div class="notice" id="statusBar">Memeriksa sesi…</div>
+
+    <!-- ── Belum masuk ─────────────────────────────────────────────── -->
+    <section class="panel" id="panelLogin" hidden>
+      <h2>Masuk dulu</h2>
+      <p class="hint">Grup terikat ke akun, jadi Anda perlu masuk sebelum membuat grup atau menukar token.</p>
+      <a class="btn btn-main" href="Akun.html">Masuk / Daftar</a>
+    </section>
+
+    <!-- ── Menukar token (semua peran) ─────────────────────────────── -->
+    <section class="panel" id="panelJoin" hidden>
+      <h2>Gabung ke grup</h2>
+      <p class="hint">Tempel token yang diberikan pengajar Anda. Huruf besar/kecil dan tanda hubung tidak masalah.</p>
+      <div class="row row-2">
+        <label>Token undangan
+          <input id="joinToken" type="text" autocomplete="off" spellcheck="false" placeholder="N5-7K2M9-QXA4B" maxlength="40">
+        </label>
+        <div style="display:flex;align-items:flex-end">
+          <button type="button" class="btn btn-main" id="joinBtn" style="width:100%">Gabung</button>
+        </div>
+      </div>
+      <div class="notice" id="joinResult" hidden></div>
+
+      <h2 style="margin-top:20px">Grup saya</h2>
+      <div class="glist" id="myGroups"><div class="empty">Belum tergabung di grup mana pun.</div></div>
+    </section>
+
+    <!-- ── Pengelolaan (pengajar & admin) ──────────────────────────── -->
+    <section class="panel" id="panelCreate" hidden>
+      <h2>Buat grup baru</h2>
+      <p class="hint">Contoh: satu grup untuk pengajar, lalu satu grup per level pelajar.</p>
+      <div class="row row-3">
+        <label>Nama grup
+          <input id="newName" type="text" maxlength="80" placeholder="Pelajar N5 — Angkatan 1">
+        </label>
+        <label>Jenis
+          <select id="newKind">
+            <option value="pelajar">Grup pelajar</option>
+            <option value="pengajar">Grup pengajar</option>
+          </select>
+        </label>
+        <label>Level
+          <select id="newLevel">
+            <option value="N5">N5</option>
+            <option value="N4">N4</option>
+            <option value="N3">N3</option>
+            <option value="N2">N2</option>
+            <option value="N1">N1</option>
+            <option value="KAIGO">Kaigo</option>
+            <option value="STAF">Staf / pengajar</option>
+            <option value="umum">Umum</option>
+          </select>
+        </label>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <label>Keterangan <span style="text-transform:none;font-weight:600">(opsional)</span>
+          <input id="newDesc" type="text" maxlength="300" placeholder="Kelas Sabtu pagi, mulai Oktober">
+        </label>
+      </div>
+      <div style="margin-top:12px"><button type="button" class="btn btn-main" id="createBtn">Buat grup</button></div>
+    </section>
+
+    <section class="panel" id="panelGroups" hidden>
+      <h2>Grup yang Anda kelola</h2>
+      <p class="hint">Pilih satu grup untuk mengatur token dan melihat anggotanya.</p>
+      <div class="glist" id="groupList"><div class="empty">Belum ada grup.</div></div>
+    </section>
+
+    <section class="panel" id="panelTokens" hidden>
+      <h2 id="tokenTitle">Token undangan</h2>
+      <p class="hint">Token hanya ditampilkan sekali saat dibuat — yang tersimpan di server hanya sidik jarinya, sehingga token yang hilang harus diterbitkan ulang, bukan dilihat lagi.</p>
+      <div class="row row-3">
+        <label>Keterangan <span style="text-transform:none;font-weight:600">(opsional)</span>
+          <input id="tokLabel" type="text" maxlength="60" placeholder="Angkatan Oktober">
+        </label>
+        <label>Batas pemakaian
+          <input id="tokUses" type="number" min="1" max="500" value="1">
+        </label>
+        <label>Berlaku (hari)
+          <input id="tokDays" type="number" min="0" max="365" value="30" title="0 berarti tanpa batas waktu">
+        </label>
+      </div>
+      <div style="margin-top:12px"><button type="button" class="btn btn-main" id="mintBtn">Terbitkan token</button></div>
+      <div class="tokenbox" id="tokenBox" hidden>
+        <code id="tokenValue"></code>
+        <button type="button" class="btn btn-sub" id="copyBtn">Salin</button>
+        <span style="font-size:12px;font-weight:800">Salin sekarang — token ini tidak akan ditampilkan lagi.</span>
+      </div>
+
+      <div style="overflow-x:auto;margin-top:16px">
+        <table>
+          <thead><tr><th>Keterangan</th><th>Terpakai</th><th>Berlaku sampai</th><th>Status</th><th></th></tr></thead>
+          <tbody id="tokenRows"><tr><td colspan="5" class="empty">Belum ada token.</td></tr></tbody>
+        </table>
+      </div>
+
+      <h2 style="margin-top:22px">Anggota</h2>
+      <div style="overflow-x:auto">
+        <table>
+          <thead><tr><th>ID pengguna</th><th>Bergabung</th></tr></thead>
+          <tbody id="memberRows"><tr><td colspan="2" class="empty">Belum ada anggota.</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="assets/kyoto-bottom-nav.js" defer></script>
+<script src="assets/np-skip-link.js" defer></script>
+<script src="assets/site-motion.js" defer></script>
+<script src="assets/anime-theme.js" defer></script>
+<script src="assets/kyoto-theme.js" defer></script>
+<script>
+(function () {
+  'use strict';
+
+  var API = '/api/group-tokens';
+  var state = { role: 'student', groups: [], active: null };
+
+  function byId(id) { return document.getElementById(id); }
+  function show(id, on) { var el = byId(id); if (el) el.hidden = !on; }
+  function esc(s) {
+    return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+  function setStatus(msg, warn) {
+    var el = byId('statusBar');
+    el.textContent = msg;
+    el.className = 'notice' + (warn ? ' notice-warn' : '');
+  }
+
+  function token() {
+    try {
+      var SC = window.SupabaseClient;
+      return (SC && SC.Auth && SC.Auth.session && SC.Auth.session() || {}).access_token || null;
+    } catch (e) { return null; }
+  }
+
+  /* Semua permintaan lewat satu pintu supaya penanganan sesi kedaluwarsa dan
+     "fitur belum dikonfigurasi" tidak tersebar di belasan tempat. */
+  function call(action, payload) {
+    var t = token();
+    if (!t) return Promise.reject(new Error('Sesi tidak ditemukan. Silakan masuk lagi.'));
+    return fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + t },
+      body: JSON.stringify(Object.assign({ action: action }, payload || {}))
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (d) {
+        if (!r.ok) throw new Error(d.error || ('Gagal (' + r.status + ')'));
+        return d;
+      });
+    });
+  }
+
+  function levelChip(g) {
+    var lv = (g.level || 'umum').toUpperCase();
+    var kind = g.kind === 'pengajar' ? 'Pengajar' : 'Pelajar';
+    return '<span class="chip">' + esc(lv) + '</span> <span class="chip chip-muted">' + kind + '</span>';
+  }
+
+  // ── Tampilan pelajar ────────────────────────────────────────────
+  function renderMyGroups(groups) {
+    var host = byId('myGroups');
+    if (!groups.length) { host.innerHTML = '<div class="empty">Belum tergabung di grup mana pun.</div>'; return; }
+    host.innerHTML = groups.map(function (g) {
+      return '<div class="gitem"><div><b>' + esc(g.name) + '</b><span>' + levelChip(g) + '</span></div></div>';
+    }).join('');
+  }
+
+  // ── Tampilan pengelola ──────────────────────────────────────────
+  function renderGroups() {
+    var host = byId('groupList');
+    if (!state.groups.length) { host.innerHTML = '<div class="empty">Belum ada grup. Buat satu di atas.</div>'; return; }
+    host.innerHTML = state.groups.map(function (g) {
+      return '<button type="button" class="gitem" data-gid="' + esc(g.id) + '"'
+      + (state.active === g.id ? ' aria-current="true"' : '') + '>'
+      + '<div><b>' + esc(g.name) + '</b><span>' + levelChip(g)
+      + ' &middot; ' + (g.members || 0) + ' anggota</span></div>'
+      + '<span class="chip chip-muted">Kelola</span></button>';
+    }).join('');
+  }
+
+  function renderTokens(rows) {
+    var host = byId('tokenRows');
+    if (!rows.length) { host.innerHTML = '<tr><td colspan="5" class="empty">Belum ada token.</td></tr>'; return; }
+    var now = Date.now();
+    host.innerHTML = rows.map(function (t) {
+      var status = 'Aktif', cls = 'chip';
+      if (t.revoked_at) { status = 'Dicabut'; cls = 'chip chip-muted'; }
+      else if (t.expires_at && new Date(t.expires_at).getTime() <= now) { status = 'Kedaluwarsa'; cls = 'chip chip-muted'; }
+      else if (t.used_count >= t.max_uses) { status = 'Habis'; cls = 'chip chip-muted'; }
+      return '<tr><td>' + esc(t.label || '—') + '</td>'
+        + '<td>' + t.used_count + ' / ' + t.max_uses + '</td>'
+        + '<td>' + (t.expires_at ? esc(new Date(t.expires_at).toLocaleDateString('id-ID')) : 'Tanpa batas') + '</td>'
+        + '<td><span class="' + cls + '">' + status + '</span></td>'
+        + '<td>' + (t.revoked_at ? '' : '<button type="button" class="btn btn-danger" data-revoke="' + esc(t.id) + '">Cabut</button>') + '</td></tr>';
+    }).join('');
+  }
+
+  function renderMembers(rows) {
+    var host = byId('memberRows');
+    if (!rows.length) { host.innerHTML = '<tr><td colspan="2" class="empty">Belum ada anggota.</td></tr>'; return; }
+    host.innerHTML = rows.map(function (m) {
+      return '<tr><td><code>' + esc(String(m.student_id).slice(0, 8)) + '…</code></td>'
+      + '<td>' + esc(new Date(m.joined_at).toLocaleString('id-ID')) + '</td></tr>';
+    }).join('');
+  }
+
+  function openGroup(id) {
+    state.active = id;
+    var g = state.groups.filter(function (x) { return x.id === id; })[0];
+    byId('tokenTitle').textContent = 'Token undangan — ' + (g ? g.name : '');
+    show('panelTokens', true);
+    byId('tokenBox').hidden = true;
+    renderGroups();
+    call('list-tokens', { classroomId: id }).then(function (d) { renderTokens(d.tokens || []); })
+      .catch(function (e) { setStatus(e.message, true); });
+    call('list-members', { classroomId: id }).then(function (d) { renderMembers(d.members || []); })
+      .catch(function () { /* daftar anggota opsional */ });
+  }
+
+  function loadGroups() {
+    return call('list-groups').then(function (d) {
+      state.role = d.role || 'student';
+      var manager = state.role === 'teacher' || state.role === 'admin';
+      show('panelCreate', manager);
+      show('panelGroups', manager);
+      if (manager) {
+        state.groups = d.groups || [];
+        renderGroups();
+        setStatus('Masuk sebagai ' + (state.role === 'admin' ? 'admin' : 'pengajar')
+          + ' · ' + state.groups.length + ' grup dikelola');
+      } else {
+        renderMyGroups(d.groups || []);
+        setStatus('Masuk sebagai pelajar · ' + (d.groups || []).length + ' grup diikuti');
+      }
+    });
+  }
+
+  // ── Aksi ────────────────────────────────────────────────────────
+  document.addEventListener('click', function (e) {
+    var g = e.target.closest && e.target.closest('[data-gid]');
+    if (g) { openGroup(g.getAttribute('data-gid')); return; }
+    var rv = e.target.closest && e.target.closest('[data-revoke]');
+    if (rv) {
+      if (!window.confirm('Cabut token ini? Yang sudah bergabung tetap jadi anggota.')) return;
+      call('revoke-token', { tokenId: rv.getAttribute('data-revoke') })
+        .then(function () { openGroup(state.active); })
+        .catch(function (err) { setStatus(err.message, true); });
+    }
+  });
+
+  byId('createBtn').addEventListener('click', function () {
+    var name = byId('newName').value.trim();
+    if (name.length < 3) { setStatus('Nama grup minimal 3 karakter.', true); return; }
+    call('create-group', {
+      name: name,
+      kind: byId('newKind').value,
+      level: byId('newLevel').value,
+      description: byId('newDesc').value.trim()
+    }).then(function (d) {
+      byId('newName').value = ''; byId('newDesc').value = '';
+      setStatus('Grup "' + d.group.name + '" dibuat.');
+      return loadGroups().then(function () { openGroup(d.group.id); });
+    }).catch(function (err) { setStatus(err.message, true); });
+  });
+
+  byId('mintBtn').addEventListener('click', function () {
+    if (!state.active) { setStatus('Pilih grup dulu.', true); return; }
+    call('mint-token', {
+      classroomId: state.active,
+      label: byId('tokLabel').value.trim(),
+      maxUses: parseInt(byId('tokUses').value, 10) || 1,
+      expiresInDays: parseInt(byId('tokDays').value, 10) || 0
+    }).then(function (d) {
+      byId('tokenValue').textContent = d.token;
+      byId('tokenBox').hidden = false;
+      byId('tokLabel').value = '';
+      setStatus('Token diterbitkan. Salin sekarang.');
+      return call('list-tokens', { classroomId: state.active });
+    }).then(function (d) { renderTokens(d.tokens || []); })
+      .catch(function (err) { setStatus(err.message, true); });
+  });
+
+  byId('copyBtn').addEventListener('click', function () {
+    var v = byId('tokenValue').textContent;
+    if (navigator.clipboard) navigator.clipboard.writeText(v).then(function () {
+      byId('copyBtn').textContent = 'Tersalin';
+      setTimeout(function () { byId('copyBtn').textContent = 'Salin'; }, 1500);
+    }).catch(function () { setStatus('Gagal menyalin. Salin manual: ' + v, true); });
+    else setStatus('Salin manual: ' + v, true);
+  });
+
+  byId('joinBtn').addEventListener('click', function () {
+    var v = byId('joinToken').value.trim();
+    var out = byId('joinResult');
+    if (!v) { out.hidden = false; out.className = 'notice notice-warn'; out.textContent = 'Tempel token dulu.'; return; }
+    byId('joinBtn').disabled = true;
+    call('redeem', { token: v }).then(function (d) {
+      out.hidden = false; out.className = 'notice';
+      out.textContent = d.alreadyMember
+        ? 'Anda memang sudah anggota grup "' + d.group.name + '".'
+        : 'Berhasil bergabung ke grup "' + d.group.name + '".';
+      byId('joinToken').value = '';
+      return loadGroups();
+    }).catch(function (err) {
+      out.hidden = false; out.className = 'notice notice-warn'; out.textContent = err.message;
+    }).then(function () { byId('joinBtn').disabled = false; });
+  });
+
+  // ── Init ────────────────────────────────────────────────────────
+  function start() {
+    var SC = window.SupabaseClient;
+    if (SC && SC.Auth && typeof SC.Auth.init === 'function') { try { SC.Auth.init(); } catch (e) {} }
+    if (!token()) {
+      show('panelLogin', true);
+      setStatus('Anda belum masuk. Grup terikat ke akun, jadi masuk dulu untuk melanjutkan.', true);
+      return;
+    }
+    show('panelJoin', true);
+    loadGroups().catch(function (err) {
+      /* 501 dari server berarti kunci Supabase belum diisi di hosting -- itu
+         kondisi pemasangan, bukan kesalahan pengguna, jadi dikatakan apa
+         adanya alih-alih menampilkan kegagalan generik. */
+      setStatus(err.message, true);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+  else start();
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('/sw.js').catch(function () {});
+  });
+}
+</script>
+</body>
+</html>
