@@ -55,14 +55,19 @@
   var synth = window.speechSynthesis;
 
   /* Kecepatan & nada baku untuk ucapan Jepang.
-     Nilai di situs sekarang tidak konsisten karena copy-paste: rate 0.85
-     (98x), 0.8 (6x), 0.82 (3x), 0.88 (1x) — variasinya tidak mengikuti pola
-     apa pun, jadi ini drift, bukan pilihan sengaja per halaman. Diseragamkan
-     di sini supaya satu tempat saja yang perlu diubah kalau mau disetel lagi.
-     0.9 sedikit di bawah kecepatan alami: masih terdengar wajar tapi tiap
-     mora masih terpisah jelas untuk pemula. */
-  var RATE = 0.9;
-  var PITCH = 1.1;
+     Nilai di situs tidak konsisten karena copy-paste: rate 0.85 (98x), 0.8
+     (6x), 0.82 (3x), 0.88 (1x) — variasinya tidak mengikuti pola apa pun,
+     jadi itu drift, bukan pilihan sengaja per halaman. Diseragamkan di sini
+     supaya cuma satu tempat yang perlu diubah.
+
+     ANGKANYA SENGAJA NILAI ASLI SITUS, bukan pilihan baru.
+     Versi sebelumnya memakai rate 0.9 / pitch 1.1 mengikuti saran dari luar.
+     Itu keliru pada dua hal: situs ini TIDAK PERNAH menyetel pitch sama
+     sekali (default 1.0), dan menaikkannya 10% membuat Kyoko terdengar
+     melengking — dikonfirmasi langsung oleh pengguna. Menyeragamkan nilai
+     yang tersebar itu benar; mengganti nilainya sekalian tidak diminta. */
+  var RATE = 0.85;
+  var PITCH = 1;
 
   /* Voice Jepang standar, diurutkan dari yang paling layak dipakai untuk
      belajar. Dicocokkan sebagai substring, tidak case-sensitive. */
