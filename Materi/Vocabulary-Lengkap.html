@@ -33,7 +33,7 @@
 <link rel="stylesheet" href="../assets/translator.css">
 
     
-<link rel="stylesheet" href="../assets/neko-theme.css?v=4">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=5">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihongopro.id/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihongopro.id/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Full Kosakata JLPT N5-N1 — Nihongo Pro Academy","item":"https://nihongopro.id/Materi/Vocabulary-Lengkap.html"}]}</script>
 <link rel="manifest" href="../manifest.json">
@@ -57,7 +57,7 @@
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
-<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=4">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=5">
 <meta property="og:site_name" content="Nihongo Pro Academy">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 <style>
@@ -371,7 +371,7 @@ function categoryFor(word){
 
 async function loadWords(){
   try{
-    const res = await fetch('../assets/vocab-all.csv?v=4');
+    const res = await fetch('../assets/vocab-all.csv?v=5');
     const csv = await res.text();
     // Format dibaca dari BARIS JUDUL, bukan ditebak dari isi.
     //
@@ -583,6 +583,18 @@ function getIdHint(meaning) {
   return '';
 }
 
+// Glos Inggris (kolom `meaning`) hanya dipakai sebagai hint sekunder bila
+// BENAR-BENAR Inggris. Sebagian baris CSV tanpa tag JMdict-EN menyimpan
+// Indonesia di kolom `meaning` (en === meaning_id) — kalau dibiarkan, hint
+// hanya menduplikasi arti utamanya. Konsisten dengan deck SRS
+// (scripts/sync-srs-deck.js) yang membuang glos seperti ini.
+function enHintHtml(w) {
+  if (!w.meaning_id) return '';
+  const en = (w.meaning || '').trim();
+  if (!en || en === (w.meaning_id || '').trim()) return '';
+  return `<div class="meaning-id" style="font-size:11px;color:var(--ink-faint);margin-top:2px">${escapeHtml(w.meaning)}</div>`;
+}
+
 function renderList(){
   const start = (page - 1) * pageSize;
   const rows = filtered.slice(start, start + pageSize);
@@ -592,7 +604,7 @@ function renderList(){
       <div>
         <div class="word">${escapeHtml(w.expression)}</div>
         <div class="reading">${escapeHtml(w.reading)}${w.romaji ? ` <span style="color:var(--ink-faint);font-size:11px">[${escapeHtml(w.romaji)}]</span>` : ''}</div>
-        ${w.meaning_id ? `<div class="meaning" style="font-weight:600">${escapeHtml(w.meaning_id)}</div><div class="meaning-id" style="font-size:11px;color:var(--ink-faint);margin-top:2px">${escapeHtml(w.meaning)}</div>` : `<div class="meaning">${escapeHtml(w.meaning)}</div>${getIdHint(w.meaning) ? `<div class="meaning-id" style="font-size:11px;color:var(--ink-faint);margin-top:2px">${getIdHint(w.meaning)}</div>` : ''}`}
+        ${w.meaning_id ? `<div class="meaning" style="font-weight:600">${escapeHtml(w.meaning_id)}</div>${enHintHtml(w)}` : `<div class="meaning">${escapeHtml(w.meaning)}</div>${getIdHint(w.meaning) ? `<div class="meaning-id" style="font-size:11px;color:var(--ink-faint);margin-top:2px">${getIdHint(w.meaning)}</div>` : ''}`}
         <div class="meta-row">${w.level ? `<span class="tag">${w.level}</span>` : ''}<span class="tag">${w.category}</span><span class="tag">#${w.id}</span></div>
       </div>
       <div style="display:flex;gap:4px;margin-top:4px">
@@ -633,7 +645,11 @@ function renderFlash(){
   document.getElementById('flashReading').textContent = flashOpen ? card.reading : '';
   document.getElementById('flashMeaning').textContent = flashOpen ? (card.meaning_id || card.meaning) : '';
   if(document.getElementById('flashMeaningId')){
-    document.getElementById('flashMeaningId').textContent = flashOpen && card.meaning_id ? card.meaning : '';
+    // hint Inggris sekunder hanya bila berbeda dari arti Indonesia (dedup sama
+    // seperti deck SRS — lihat enHintHtml())
+    const en = (card.meaning || '').trim();
+    const id = (card.meaning_id || '').trim();
+    document.getElementById('flashMeaningId').textContent = flashOpen && id && en && en !== id ? card.meaning : '';
   }
   if(document.getElementById('flashRomaji')){
     document.getElementById('flashRomaji').textContent = flashOpen && card.romaji ? '[' + card.romaji + ']' : '';
@@ -939,7 +955,7 @@ if('serviceWorker' in navigator){
 </script>
 
 <script src="../assets/kyoto-theme.js" defer></script>
-<script src="../assets/kyoto-navbar.min.js?v=4" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=5" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>

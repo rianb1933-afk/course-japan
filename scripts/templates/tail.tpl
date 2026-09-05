@@ -48,7 +48,7 @@ renderQ();
 <script src="../assets/pro-app.min.js" defer></script>
 <script src="../assets/draggable-floats.js" defer></script>
 <script src="../assets/kyoto-theme.js" defer></script>
-<script src="../assets/kyoto-navbar.min.js?v=4" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=5" defer></script>
 <script src="../assets/np-xp.js" defer></script>
 <script src="../assets/np-materi-progress.js" defer></script>
 <script src="../assets/np-xp.js" defer></script>

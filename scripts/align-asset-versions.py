@@ -45,14 +45,15 @@ import re
 import sys
 
 # ── SATU-SATUNYA konstan yang perlu dinaikkan saat konten aset berubah. ──
-ASSET_VERSION = "4"
+ASSET_VERSION = "5"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 CHECK_ONLY = "--check" in sys.argv
 
 # URL aset statis: ekstensi lalu ?v=<nilai> MENEMPEL (tanpa spasi).
-# Kelompok 1 = ekstensi, kelompok 2 = nilai versi lama.
-VALUE_RE = re.compile(r"(?i)\.(js|css|json|csv|mjs)\?v=([0-9a-z_]+)")
+# Kelompok 1 = "." + ekstensi (titik IKUT tertangkap supaya tidak hilang),
+# kelompok 2 = nilai versi lama.
+VALUE_RE = re.compile(r"(?i)(\.(?:js|css|json|csv|mjs))\?v=([0-9a-z_]+)")
 
 
 def candidate_files():
@@ -98,7 +99,7 @@ def main():
             if m.group(2) == ASSET_VERSION:
                 continue          # sudah selaras — biarkan apa adanya
             out.append(src[last:m.start()])
-            out.append(m.group(1) + "?v=" + ASSET_VERSION)
+            out.append(m.group(1) + "?v=" + ASSET_VERSION)  # group(1) sudah memuat titik
             last = m.end()
             n += 1
         if n:
