@@ -78,6 +78,10 @@ Update diterapkan otomatis (`SKIP_WAITING` + reload ±1,5 detik + toast), tanpa 
 - `assets/cbt-bank.json`, `assets/vocab-all.csv`, `assets/srs-curated.js`, `assets/materi-data.js` — dataset bersama; masing-masing punya check validator sendiri (`kanji_bank`, `cbt_bank`, `vocab_csv_columns`, `kaigo_seed_sync`).
 - Generator konten: `scripts/build_*.py`, `scripts/deepen_*.py`, `scripts/merge-*.js`.
 
+#### Cache-buster aset — satu konstan (`?v=`)
+
+Karena service worker cache-first bisa menyajikan konten basi, semua URL aset statis (css/js/json/csv yang dimuat lewat `<script>`/`<link>`/`fetch`) memakai query versi yang **disamakan ke satu konstan**: `ASSET_VERSION` di `scripts/align-asset-versions.py` (saat ini `4`). Bila isi aset berubah, naikkan konstan itu lalu jalankan `python3 scripts/align-asset-versions.py` — script menulis ulang semua `*.html`, `scripts/templates/*.tpl`, dan sumber aset di `assets/` (bundel `.min.*` dihasilkan `npm run build`). Jangan menaikkan `?v=` satu-satu di halaman; itu sumber celah basi.
+
 ### Tema
 
 Beberapa tema hidup berdampingan: `kyoto-*` (design system utama), plus `anime-`, `neko-`, `tokyo-`, `zen-theme.css`. Dark mode lewat `assets/dark-mode-toggle.js` (`window.NPDark`) yang `platform.js` deteksi bila dimuat lebih dulu. Validator menolak warna abu-abu literal tanpa varian gelap (`literal_grey_without_dark_variant`) dan `background` literal berpasangan token warna (`literal_bg_with_token_color`) — pakai token design system, bukan hex mentah.

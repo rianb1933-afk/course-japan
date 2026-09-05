@@ -39,7 +39,7 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(32px,5vw,58px);line-height:
 .note{background:var(--blue-pale);border:1px solid rgba(47,111,237,.16);border-radius:8px;padding:14px;color:var(--ink-mid);font-size:13px;margin-top:14px}.tag{display:inline-flex;align-items:center;min-height:26px;padding:0 8px;border-radius:8px;background:var(--red-pale);color:var(--red);font-weight:900;margin:2px}
 @media(max-width:900px){.section-head{display:block}.grid{grid-template-columns:1fr}.table{display:block;overflow-x:auto}}
 </style>
-<link rel="stylesheet" href="../assets/neko-theme.css?v=3">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=4">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Bentuk ～ている (Sedang & Keadaan)", "description": "Pola ～ている bahasa Jepang: menyatakan aksi yang sedang berlangsung, keadaan yang berlanjut, dan kebiasaan. Materi JLPT N5-N4 dengan contoh dan audio.", "url": "https://nihongopro.id/Materi/Grammar-Teiru.html", "provider": {"@type": "Organization", "name": "NihongoPro", "url": "https://nihongopro.id"}, "inLanguage": "id"}</script>
 
 <meta name="twitter:card" content="summary_large_image">
@@ -78,5 +78,5 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
-<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=20260623">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=4">
 </head>
