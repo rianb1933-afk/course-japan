@@ -1263,6 +1263,75 @@ def check_build_freshness():
         f'belum sampai ke pengguna.')
 
 
+def check_three_version():
+    """Semua importmap Three.js harus menunjuk satu versi yang sama.
+
+    Halaman model 3D memuat Three.js dari jsDelivr lewat <script type="importmap">
+    berisi dua entri ("three" dan "three/addons/") yang wajib seversi. Versi itu
+    pernah melenceng tanpa ketahuan: 10 halaman anatomi tertinggal di 0.164.1
+    sementara Sistem-Kardiovaskular.html sudah 0.180.0.
+
+    Dampaknya tidak terlihat di review per-berkas karena tiap halaman konsisten
+    dengan dirinya sendiri. Yang rusak adalah lintas-halaman: URL yang berbeda
+    berarti entri cache HTTP yang berbeda, jadi pengunjung yang membuka dua
+    halaman anatomi mengunduh seluruh library Three.js DUA KALI. Ditambah risiko
+    dua halaman serupa berjalan di dua perilaku engine yang berbeda.
+
+    Sumber kebenarannya konstan THREE_VERSION di scripts/align-three-version.js.
+    """
+    aligner = os.path.join(ROOT, 'scripts', 'align-three-version.js')
+    if not os.path.exists(aligner):
+        err('three-version', 'scripts/align-three-version.js tidak ada')
+        return
+
+    proc = subprocess.run(['node', aligner, '--check'],
+                          cwd=ROOT, capture_output=True, text=True)
+
+    if proc.returncode == 0:
+        ok('three-version', (proc.stdout.strip().splitlines() or
+                             ['versi Three.js seragam'])[-1])
+        return
+
+    detail = (proc.stderr.strip() or proc.stdout.strip()).replace('\n', ' ')
+    err('three-version',
+        f'{detail} Versi yang berbeda berarti library Three.js diunduh ulang '
+        f'per halaman alih-alih dilayani dari cache.')
+
+
+def check_three_lazy():
+    """Viewer 3D halaman anatomi tidak boleh kembali ke import statis Three.js.
+
+    Import top-level di <script type="module"> dievaluasi saat halaman dibuka,
+    jadi Three.js (~2,2 MB mentah, ±408 KB brotli) ikut terunduh meski viewer
+    3D-nya berada di dalam panel tab "Anatomi" yang display:none secara default
+    dan mayoritas pengunjung tidak pernah membukanya.
+
+    Sepuluh halaman sudah dipindah ke dynamic import di dalam initXxx3D(), yang
+    dipanggil dari listener klik tab. Check ini menjaga supaya penambahan viewer
+    baru (atau penulisan ulang yang tidak sengaja) tidak diam-diam mengembalikan
+    biaya itu -- gejalanya tidak terlihat di UI, hanya di waterfall jaringan.
+
+    Perbaikan: node scripts/lazy-load-three.js
+    """
+    codemod = os.path.join(ROOT, 'scripts', 'lazy-load-three.js')
+    if not os.path.exists(codemod):
+        err('three-lazy', 'scripts/lazy-load-three.js tidak ada')
+        return
+
+    proc = subprocess.run(['node', codemod, '--check'],
+                          cwd=ROOT, capture_output=True, text=True)
+
+    if proc.returncode == 0:
+        ok('three-lazy', (proc.stdout.strip().splitlines() or
+                          ['semua viewer 3D lazy-load'])[-1])
+        return
+
+    detail = (proc.stderr.strip() or proc.stdout.strip()).replace('\n', ' ')
+    err('three-lazy',
+        f'{detail} Import statis membuat Three.js terunduh di setiap page load, '
+        f'bukan hanya saat panel Anatomi dibuka.')
+
+
 def check_kaigo_hub():
     """Materi/Kaigo.html harus menaut SEMUA Kaigo-*.html, dan Materi.html tidak
     boleh lagi memuat daftar panjangnya.
@@ -2480,6 +2549,8 @@ def main():
         check_comment_balance,
         check_inline_handler_targets,
         check_build_freshness,
+        check_three_version,
+        check_three_lazy,
         check_unit_tests,
     ]
 

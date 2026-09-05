@@ -444,8 +444,8 @@
 <script type="importmap">
 {
   "imports": {
-    "three": "https://cdn.jsdelivr.net/npm/three@0.164.1/build/three.module.js",
-    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.164.1/examples/jsm/"
+    "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
   }
 }
 </script>
@@ -463,11 +463,18 @@
 // "coba nama lengkap dulu, baru fallback ke nama tanpa suffix" dari v209
 // sebagai jaring pengaman, meski di sini seharusnya selalu cocok di
 // percobaan pertama karena tidak ada kasus angka-sah seperti Kulit v209.
-import * as THREE from 'three';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+// Three.js TIDAK diimpor statis di sini: import top-level dievaluasi saat
+// halaman dibuka, sehingga library ~2,2 MB (±408 KB brotli) terunduh meski
+// viewer 3D berada di panel tab tersembunyi. Unduhan dipindah ke dalam initLymph3D()
+// di bawah, yang baru dipanggil saat panel Anatomi benar-benar dibuka.
 
-(async function () {
+async function initLymph3D() {
+  // Guard idempoten: fungsi ini bisa dipicu dari DUA jalur (klik tab
+  // "Anatomi" dan IntersectionObserver cadangan di bawah) -- mencegah
+  // viewer diinisialisasi dua kali untuk elemen yang sama.
+  if (window.__lymph3dInitStarted) return;
+  window.__lymph3dInitStarted = true;
+
   const container = document.getElementById('lymph3dContainer');
   const loadingEl = document.getElementById('lymph3dLoading');
   const errorEl = document.getElementById('lymph3dError');
@@ -484,6 +491,21 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
   if (!window.WebGLRenderingContext) {
     showError('Browser Anda tidak mendukung WebGL -- model 3D tidak dapat ditampilkan. Fitur lain di halaman ini tetap berfungsi normal.');
+    return;
+  }
+
+  // Titik unduh Three.js. Sengaja SESUDAH cek WebGL di atas: browser tanpa
+  // WebGL tidak perlu menarik ~2,2 MB yang tidak akan terpakai.
+  let THREE, OrbitControls, GLTFLoader;
+  try {
+    THREE = await import('three');
+    ({ OrbitControls } = await import('three/addons/controls/OrbitControls.js'));
+    ({ GLTFLoader } = await import('three/addons/loaders/GLTFLoader.js'));
+  } catch (err) {
+    // Dengan import statis, kegagalan jaringan di sini menghentikan SELURUH
+    // module script. Sekarang terisolasi: hanya area 3D yang gagal.
+    console.warn('[Lymphatic 3D Viewer] Gagal memuat library Three.js:', err);
+    showError('Model 3D gagal dimuat (masalah jaringan). Coba muat ulang halaman -- fitur lain tetap berfungsi normal.');
     return;
   }
 
@@ -661,7 +683,32 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
   } catch (err) {
     showError('Terjadi kesalahan saat menyiapkan viewer 3D -- fitur lain tetap berfungsi normal.');
   }
-})();
+}
+
+// Module script punya scope terisolasi, jadi fungsi ini harus diekspos agar
+// listener klik tab (script biasa di bawah) bisa memanggilnya.
+window.initLymph3D = initLymph3D;
+
+// Jalur CADANGAN. Selama #lymph3dContainer berada di dalam panel tab
+// yang display:none, elemennya berdimensi 0x0 dan observer ini tidak akan
+// pernah menyala -- itu disengaja. Ia ada untuk berjaga bila struktur
+// halaman berubah dan kontainernya tidak lagi tersembunyi.
+const lymph3dContainerEl = document.getElementById('lymph3dContainer');
+if (lymph3dContainerEl && 'IntersectionObserver' in window) {
+  const lymph3dObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        lymph3dObserver.unobserve(entry.target);
+        initLymph3D();
+      }
+    });
+  }, { rootMargin: '200px' });
+  lymph3dObserver.observe(lymph3dContainerEl);
+} else {
+  // Browser tanpa IntersectionObserver: langsung inisialisasi seperti
+  // perilaku lama. Lebih baik tanpa lazy-load daripada model tidak muncul.
+  initLymph3D();
+}
 </script>
 <script>
 'use strict';
@@ -677,6 +724,13 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
     btn.classList.add('active'); btn.setAttribute('aria-selected', 'true');
     var panel = document.getElementById('panel-' + btn.dataset.tab);
     if (panel) panel.classList.add('active');
+    // Pemicu UTAMA lazy-load model 3D. Kontainernya berada di dalam panel
+    // "anatomi" yang display:none secara default, sehingga
+    // IntersectionObserver di module script tidak pernah menyala. Klik tab
+    // ini satu-satunya titik yang tahu kapan panel Anatomi ditampilkan.
+    if (btn.dataset.tab === 'anatomi') {
+      if (typeof window.initLymph3D === 'function') window.initLymph3D();
+    }
   });
 
   var immuneBtn = document.getElementById('immuneToggleBtn');

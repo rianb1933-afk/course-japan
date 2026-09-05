@@ -82,6 +82,16 @@ Update diterapkan otomatis (`SKIP_WAITING` + reload ±1,5 detik + toast), tanpa 
 
 Karena service worker cache-first bisa menyajikan konten basi, semua URL aset statis (css/js/json/csv yang dimuat lewat `<script>`/`<link>`/`fetch`) memakai query versi yang **disamakan ke satu konstan**: `ASSET_VERSION` di `scripts/align-asset-versions.py` (saat ini `4`). Bila isi aset berubah, naikkan konstan itu lalu jalankan `python3 scripts/align-asset-versions.py` — script menulis ulang semua `*.html`, `scripts/templates/*.tpl`, dan sumber aset di `assets/` (bundel `.min.*` dihasilkan `npm run build`). Jangan menaikkan `?v=` satu-satu di halaman; itu sumber celah basi.
 
+#### Versi Three.js — satu konstan
+
+Sebelas halaman anatomi (`Materi/Sistem-*.html`) memuat Three.js dari jsDelivr lewat `<script type="importmap">` dengan dua entri yang wajib seversi (`three` dan `three/addons/`). Versinya dipusatkan di konstan `THREE_VERSION` pada `scripts/align-three-version.js` (saat ini `0.180.0`); ubah konstan itu lalu jalankan scriptnya, jangan menyunting importmap per halaman.
+
+Alasannya lintas-halaman, bukan per-halaman: URL yang berbeda adalah entri cache HTTP yang berbeda, jadi versi yang melenceng membuat pengunjung mengunduh seluruh library berulang kali saat berpindah halaman anatomi. Ditegakkan check validator `three-version`.
+
+Three.js **tidak boleh diimpor statis**. Import top-level di `<script type="module">` dievaluasi saat halaman dibuka, sehingga ~2,2 MB (±408 KB brotli) terunduh meski viewer 3D berada di dalam panel tab "Anatomi" yang `display:none` secara default. Semua viewer memakai `await import('three')` di dalam `initXxx3D()`; ubah lewat `scripts/lazy-load-three.js`, ditegakkan check `three-lazy`.
+
+Pemicunya **dua jalur dan keduanya wajib**: listener klik tab "Anatomi" adalah jalur UTAMA, `IntersectionObserver` hanya cadangan. Elemen di dalam `.organ-panel` non-aktif berdimensi 0x0, jadi observer tidak akan pernah menganggapnya intersecting — memasang observer saja membuat semua viewer 3D berhenti muncul. Karena module script punya scope terisolasi, tiap `initXxx3D` diekspos ke `window` agar listener tab (script biasa) bisa memanggilnya.
+
 ### Tema
 
 Beberapa tema hidup berdampingan: `kyoto-*` (design system utama), plus `anime-`, `neko-`, `tokyo-`, `zen-theme.css`. Dark mode lewat `assets/dark-mode-toggle.js` (`window.NPDark`) yang `platform.js` deteksi bila dimuat lebih dulu. Validator menolak warna abu-abu literal tanpa varian gelap (`literal_grey_without_dark_variant`) dan `background` literal berpasangan token warna (`literal_bg_with_token_color`) — pakai token design system, bukan hex mentah.
