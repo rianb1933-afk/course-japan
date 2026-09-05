@@ -69,14 +69,26 @@
   var RATE = 0.85;
   var PITCH = 1;
 
-  /* Voice Jepang standar, diurutkan dari yang paling layak dipakai untuk
-     belajar. Dicocokkan sebagai substring, tidak case-sensitive. */
+  /* Voice Jepang standar, diurutkan dari yang TERDENGAR PALING NATURAL,
+     bukan sekadar "yang baku". Dicocokkan sebagai substring, tidak
+     case-sensitive.
+
+     Urutan ini pernah menaruh Kyoko paling depan, sehingga di Chrome —
+     tempat Google 日本語 tersedia — voice yang lebih natural itu tidak
+     pernah terpilih. Kyoko adalah voice Apple lama; Google dan Microsoft
+     memakai sintesis neural yang jelas lebih halus. Kyoko tetap di daftar
+     sebagai cadangan yang andal, hanya tidak lagi jadi pilihan pertama.
+
+     Catatan kejujuran: urutan Google/Microsoft di atas Kyoko didasarkan
+     pada jenis sintesisnya, BUKAN pengukuran di mesin ini — mesin uji cuma
+     punya voice macOS, jadi cabang Google/Microsoft belum pernah benar-benar
+     terpakai di sini. Yang terverifikasi: bila keduanya tidak ada, Kyoko
+     tetap terpilih seperti sebelumnya. */
   var PREFERRED = [
-    'Kyoko',            // macOS / iOS — voice Jepang baku
-    'O-Ren',            // macOS
-    'Otoya', 'Hattori', // iOS
-    'Google 日本語', 'Google Japanese',
-    'Nanami', 'Ayumi', 'Haruka', 'Ichiro', 'Sayaka' // Microsoft
+    'Google 日本語', 'Google Japanese',              // Chrome — neural
+    'Nanami', 'Ayumi', 'Haruka', 'Ichiro', 'Sayaka', // Windows — neural
+    'Otoya', 'Hattori', 'O-Ren',                     // Apple, lebih baru
+    'Kyoko'                                          // Apple lama — cadangan
   ];
 
   /* Voice novelty macOS: semuanya terdaftar ja-JP tapi bukan suara bicara
@@ -195,11 +207,17 @@
      kunci belum diisi, offline), otomatis jatuh kembali ke Web Speech —
      pengguna tidak boleh kehilangan suaranya hanya karena TTS awan bermasalah. */
   var CLOUD_MIN_CHARS = 12;
-  /* Ambang untuk PENGALIHAN OTOMATIS dari speechSynthesis.speak(). Lebih
-     tinggi dari CLOUD_MIN_CHARS: kata & frasa pendek harus tetap instan dan
-     gratis, sedangkan kalimat penuh (dialog Kaigo, contoh percakapan) yang
-     benar-benar terasa bedanya dengan suara natural. */
-  var AUTO_CLOUD_CHARS = 24;
+  /* Ambang untuk PENGALIHAN OTOMATIS dari speechSynthesis.speak().
+     Disamakan dengan CLOUD_MIN_CHARS: server sudah memutuskan 12 karakter
+     adalah batas terpendek yang layak dibayar, jadi ambang kedua yang lebih
+     tinggi cuma menyisakan pita mati 12-23 karakter yang tidak pernah lewat
+     mana pun secara optimal.
+
+     Konsekuensinya perlu disadari: makin banyak ucapan yang lewat TTS awan,
+     makin besar tagihan per karakternya. Kata tunggal (2-6 karakter) tetap
+     gratis lewat Web Speech; yang berpindah adalah frasa dan kalimat.
+     Naikkan angka ini bila biayanya terasa. */
+  var AUTO_CLOUD_CHARS = CLOUD_MIN_CHARS;
   var CACHE_NAME = 'np-tts-v1';
   /* Sekali endpoint terbukti tidak tersedia (mis. OPENAI_API_KEY belum diisi
      sehingga balas 503), berhenti mencobanya untuk sisa sesi ini — kalau
