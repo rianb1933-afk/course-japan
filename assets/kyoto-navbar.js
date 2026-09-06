@@ -102,7 +102,6 @@ ${di('⚙️','Platform App','Dashboard lengkap LMS','/Platform-App.html')}
 ${di('🎓','LMS Features','Sistem belajar lengkap','/LMS-Features.html')}
 ${di('✨','Semua Fitur','Eksplorasi fitur premium','/Platform-Features.html')}
 ${di('🎤','Kelas Live','Jadwal kelas online','/Kelas-Online.html')}
-${di('👥','Grup & Token','Bagi pelajar per level, undang dengan token','/Grup-Kelas.html')}
 ${di('🧑‍🏫','Dashboard Guru','Progres siswa & tugas kelas','/Teacher-Dashboard.html')}
 <div class="kn-dd-sep"></div>
 ${di('🏅','Pricing Pro','Paket premium & harga','/Pricing-Pro.html')}
@@ -121,6 +120,7 @@ ${di('🎯','Misi & XP','Tantangan & reward','/Misi.html')}
 <!-- 7. Dasbor — single -->
 <li class="kn-item">
 <a href="/Ujian.html" class="kn-link" id="knUjianLink">試 Ujian</a>
+<a href="/Grup-Kelas.html" class="kn-link" id="knGrupLink">組 Grup</a>
 <a href="/Dashboard/Dashboard.html" class="kn-link" id="knDashLink">庭 Dasbor</a>
 </li>
 </ul>
