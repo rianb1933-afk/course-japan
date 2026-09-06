@@ -194,6 +194,52 @@
       return sbFetch(`/rest/v1/srs_cards?user_id=eq.${userId}&select=card_id,ef,interval,reps,next_review,last_rating`);
     },
 
+    /* XP kelas live, jalur log-id (lihat apply_user_xp di supabase-schema.sql).
+       ───────────────────────────────────────────────────────────────
+       Log di-insert DULU dengan Prefer return=representation supaya id barisnya
+       kembali. Jumlah XP TIDAK PERNAH dikirim sebagai argumen RPC -- server
+       membacanya dari baris log milik pemanggil (xp_applied=false), jadi klien
+       tidak bisa mengarang angka, dan backfill di skema tidak akan menghitung
+       baris ini dobel karena RPC menandainya lewat mark_user_xp_applied.
+
+       Bila id tidak kembali (_representation gagal), fallback ke add_user_xp:
+       XP tetap masuk, barisnya nanti diambil backfill. Bila RPC gagal SESUDAH
+       log tersimpan, sukses tetap dikembalikan: log adalah janji bagi backfill.
+       Kegagalan INSERT justru DILEMPAR -- pemanggil perlu tahu catatannya hilang. */
+    async recordLiveXP(userId, xpEarned, sessionData) {
+      if (!userId || !SUPABASE_URL || !xpEarned) return { ok: false, skipped: true };
+      const log = await sbFetch('/rest/v1/user_xp_log', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=representation' },
+        body: JSON.stringify({
+          user_id:      userId,
+          xp_earned:    xpEarned,
+          source:       'live_session',
+          session_data: sessionData || {},
+        }),
+      });
+      const logId = Array.isArray(log) && log[0]?.id != null ? log[0].id : null;
+      try {
+        if (logId != null) {
+          await sbFetch('/rest/v1/rpc/apply_user_xp', {
+            method: 'POST',
+            body: JSON.stringify({ p_user: userId, p_log_id: logId }),
+          });
+        } else {
+          // Representation tidak kembali: pakai jalur lama tanpa log id.
+          // Baris lognya akan diambil backfill (masih xp_applied=false).
+          await sbFetch('/rest/v1/rpc/add_user_xp', {
+            method: 'POST',
+            body: JSON.stringify({ uid: userId, amount: xpEarned }),
+          });
+        }
+      } catch (rpcErr) {
+        // Log sudah tersimpan = janji bagi backfill; jangan gagalkan pemanggil.
+        console.warn('recordLiveXP: RPC gagal, backfill akan mengambil log ini:', rpcErr?.message);
+      }
+      return { ok: true, logId };
+    },
+
     async saveCertificate(userId, cert) {
       if (!userId || !SUPABASE_URL) return null;
       return sbFetch('/rest/v1/certificates', {

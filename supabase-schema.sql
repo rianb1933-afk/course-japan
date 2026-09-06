@@ -327,7 +327,10 @@ BEGIN
 
   -- Penanda ditulis SETELAH xp bertambah; kalau klien gagal menyampaikan
   -- langkah ini (mis. tab ditutup), backfill di bawah tetap mengambil barisnya.
-  UPDATE user_xp_log SET xp_applied = true WHERE id = p_log_id;
+  -- DITANDAI lewat mark_user_xp_applied, bukan UPDATE langsung: tabel ini
+  -- sengaja tanpa policy UPDATE untuk klien (deny-all), jadi UPDATE biasa
+  -- akan terdiam menjadi no-op dan backfill kelak menghitung barisnya dobel.
+  PERFORM mark_user_xp_applied(p_user, p_log_id);
 END;
 $$;
 DO $$ BEGIN

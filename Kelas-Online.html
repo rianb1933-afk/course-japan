@@ -10,6 +10,7 @@
 <link rel="canonical" href="https://nihongopro.id/Kelas-Online.html">
 
 <script src="assets/env.js"></script>
+<script src="assets/supabase-client.js"></script>
 <script src="assets/platform.min.js" defer></script><script src="assets/np-celebrate.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.4/peerjs.min.js" defer></script>
 
@@ -6678,22 +6679,23 @@ const SupaRooms = {
   },
 
   // ── SAVE XP TO USER PROFILE ─────────────────────────────────────────────
+  // Jalur log-id via SupabaseClient.DB.recordLiveXP (bukan supabase-js):
+  // supabase-client.js adalah lapisan DB satu-satunya yang dimuat halaman ini
+  // (NP.db memang tidak pernah ada). recordLiveXP menyisipkan user_xp_log
+  // terlebih dahulu, lalu memanggil RPC apply_user_xp yang membaca jumlah XP
+  // dari baris log milik pemanggil -- server-side, tahan manipulasi, dan
+  // selaras dengan backfill xp_applied di supabase-schema.sql. Kegagalan
+  // INSERT dilempar ke atas supaya pemanggil (simpanSesiData) mencatatnya;
+  // kegagalan RPC setelah log tersimpan dibiarkan -- backfill mengambilnya.
   async saveSessionXP(userId, xpEarned, sessionData) {
+    const DB = window.SupabaseClient && window.SupabaseClient.DB;
+    if (!DB) return;
     try {
-      const db = this.db;
-      if (!db) return;
-
-      await db.from('user_xp_log').insert({
-        user_id: userId,
-        xp_earned: xpEarned,
-        source: 'live_session',
-        session_data: sessionData,
-        created_at: new Date().toISOString(),
-      });
-
-      // Update total XP
-      await db.rpc('add_user_xp', { uid: userId, amount: xpEarned }).catch(()=>{});
-    } catch(e) {}
+      const r = await DB.recordLiveXP(userId, xpEarned, sessionData);
+      if (r && r.ok) console.log('XP kelas live tercatat (log', r.logId != null ? '#' + r.logId : 'tanpa id, fallback add_user_xp' + ')');
+    } catch (e) {
+      console.warn('Simpan XP ke Supabase gagal:', e.message);
+    }
   },
 
   // ── LOCAL FALLBACKS (no Supabase) ────────────────────────────────────────
@@ -6775,8 +6777,12 @@ async function saveSessionDataOnExit() {
   window._sessionDataSaved = true;
   try {
     if (typeof LiveXP !== 'undefined' && LiveXP.xp > 0) {
-      const userId = window.NP?.auth?.user()?.id;
+      /* Identitas dari SupabaseClient.Auth (sesi nyata), BUKAN NP.auth yang
+         memang tidak ada di platform.js. Tanpa sesi, XP tetap dihitung lokal
+         di bawah -- sama seperti sebelum halaman ini punya Supabase. */
+      const userId = (window.SupabaseClient && window.SupabaseClient.Auth.user() || {}).id;
       if (userId) await SupaRooms.saveSessionXP(userId, LiveXP.xp, LiveXP.summary());
+      else console.info('XP kelas live tidak dikirim ke Supabase: belum masuk.');
     }
   } catch (e) {
     console.warn('Simpan XP ke Supabase gagal:', e.message);
