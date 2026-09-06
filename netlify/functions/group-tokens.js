@@ -387,7 +387,17 @@ exports.handler = async (event) => {
             TOKEN_EXPIRED:  [410, 'Token ini sudah kedaluwarsa.'],
             TOKEN_EXHAUSTED:[409, 'Kuota token ini sudah habis terpakai.'],
           };
+          /* TOKEN_INVALID juga dikirim database saat grup sudah diarsipkan, tapi
+             pesan "tidak dikenal" menyesatkan pemegang token yang sah. Bedakan
+             dari kegagalan asli dengan memeriksa tokennya sendiri. */
           const hit = Object.keys(known).find((k) => m.includes(k));
+          if (hit === 'TOKEN_INVALID') {
+            const probe = await sbService.from('group_tokens')
+              .select('id').eq('token_hash', sha256(token)).single();
+            if (probe.data?.id) {
+              return json(410, { error: 'Grup untuk token ini sudah ditutup.', code: 'TOKEN_ARCHIVED' });
+            }
+          }
           if (hit) return json(known[hit][0], { error: known[hit][1], code: hit });
           throw error;
         }

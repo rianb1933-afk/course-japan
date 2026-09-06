@@ -782,7 +782,9 @@ BEGIN
   END IF;
 
   SELECT * INTO v_class FROM classrooms WHERE id = v_token.classroom_id;
-  IF NOT FOUND THEN RAISE EXCEPTION 'TOKEN_INVALID'; END IF;
+  -- Grup yang diarsipkan sudah ditutup: list-groups tidak pernah menampilkannya,
+  -- jadi token lamanya juga tidak boleh masih bisa mendaftarkan orang.
+  IF NOT FOUND OR v_class.archived THEN RAISE EXCEPTION 'TOKEN_INVALID'; END IF;
 
   SELECT EXISTS (
     SELECT 1 FROM enrollments e

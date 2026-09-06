@@ -216,6 +216,55 @@ const tests = [
     },
   },
   {
+    name: 'mint-token: maxUses & masa berlaku dijepit ke rentang yang aman',
+    fn: () => withMocks(baseDb(), { id: 'guru-1' }, async (h, log) => {
+      // Di luar rentang: 9999 → 500, -5 → 1, 4000 hari → 365, 0/nol → 0 (tanpa batas).
+      const kuat = (maxUses, days) => {
+        const ins = log.filter((l) => l.table === 'group_tokens' && l.op === 'insert').pop();
+        return ins ? ins.row : null;
+      };
+      await h(ev({ action: 'mint-token', classroomId: 'g1', maxUses: 9999, expiresInDays: 4000 }));
+      assert.strictEqual(kuat().max_uses, 500, 'maxUses > 500 dijepit ke 500');
+      assert.ok(String(kuat().expires_at).length > 0, '4000 hari tetap menghasilkan expires_at');
+      await h(ev({ action: 'mint-token', classroomId: 'g1', maxUses: -5, expiresInDays: -3 }));
+      assert.strictEqual(kuat().max_uses, 1, 'maxUses negatif dijepit ke 1');
+      assert.strictEqual(kuat().expires_at, null, 'hari negatif berarti tanpa batas waktu');
+    }),
+  },
+  {
+    name: 'redeem: token milik grup terarsip ditolak dengan pesan yang jujur',
+    fn: () => {
+      const db = baseDb();
+      db.__rpc = () => ({ data: null, error: { message: 'TOKEN_INVALID' } });
+      // Basis data masih punya hash token itu — yang ditutup hanya grupnya.
+      db.group_tokens.push({ id: 't1', token_hash: crypto.createHash('sha256')
+        .update('N57K2M9QXA4B').digest('hex'), classroom_id: 'g1' });
+      return withMocks(db, { id: 'siswa' }, async (h) => {
+        const r = await h(ev({ action: 'redeem', token: 'N5-7K2M9-QXA4B' }));
+        assert.strictEqual(r.statusCode, 410);
+        const b = JSON.parse(r.body);
+        assert.strictEqual(b.code, 'TOKEN_ARCHIVED');
+        assert.ok(b.error.includes('ditutup'), 'pesan harus menyebut grup ditutup: ' + b.error);
+      });
+    },
+  },
+  {
+    name: 'redeem: TOKEN_INVALID asli (hash tidak dikenal) tetap 404, probe hanya baca',
+    fn: () => {
+      const db = baseDb();
+      db.__rpc = () => ({ data: null, error: { message: 'TOKEN_INVALID' } });
+      return withMocks(db, { id: 'siswa' }, async (h, log) => {
+        const r = await h(ev({ action: 'redeem', token: 'N5-TIDAKJELAS' }));
+        assert.strictEqual(r.statusCode, 404);
+        assert.strictEqual(JSON.parse(r.body).code, 'TOKEN_INVALID');
+        // Probe pembeda grup-arsip boleh berjalan, tapi hanya SELECT — tidak pernah menulis.
+        const sentuh = log.filter((l) => l.table === 'group_tokens');
+        assert.ok(sentuh.every((l) => l.op === 'select'), 'tidak boleh ada operasi tulis saat probe');
+      });
+    },
+  },
+
+  {
     name: 'peran diambil dari basis data, BUKAN dari body request',
     fn: () => withMocks(baseDb(), { id: 'siswa' }, async (h) => {
       // Klien mengaku admin; harus tetap ditolak.
