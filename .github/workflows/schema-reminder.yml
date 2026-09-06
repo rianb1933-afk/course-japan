@@ -1,0 +1,113 @@
+name: Schema reminder
+
+# Pengingat otomatis: supabase-schema.sql berubah di PR, tetapi mengubah
+# file ini TIDAK otomatis menerapkannya ke database hidup — harus dijalankan
+# ulang manual di Supabase SQL Editor. Job ini menempelkan komentar pengingat
+# di PR agar langkah itu tidak terlewat saat merge.
+#
+# Sengaja BUKAN gerbang merge: "schema sudah di-run" tidak bisa diverifikasi
+# dari CI — hanya manusia dengan akses dashboard Supabase yang tahu. Jadi
+# job ini selalu sukses; ia hanya memberi tahu.
+#
+# TRIGGER: pull_request + workflow_dispatch (bisa dijalankan manual dari tab
+# Actions untuk sanity check). paths filter membuat job hanya jalan saat
+# file skema (atau workflow ini sendiri) benar-benar berubah.
+
+on:
+  pull_request:
+    paths:
+      - 'supabase-schema.sql'
+      - '.github/workflows/schema-reminder.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pull-requests: write   # butuh izin menulis untuk posting komentar PR
+  issues: write          # komentar PR dianggap issue oleh API
+
+jobs:
+  remind:
+    name: Remind to re-run schema
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history, butuh base ref untuk diff)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect schema changes vs merge base
+        id: diff
+        run: |
+          BASE="${{ github.event.pull_request.base.sha }}"
+          HEAD="${{ github.sha }}"
+          # workflow_dispatch tidak punya PR: pakai diff HEAD~1 saja
+          if [ -z "$BASE" ] || [ "$BASE" = "0000000000000000000000000000000000000000" ]; then
+            BASE="${HEAD}~1"
+          fi
+          echo "Diff ${BASE}..${HEAD} terhadap supabase-schema.sql:"
+          if git diff --quiet "${BASE}" "${HEAD}" -- supabase-schema.sql; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "  -> tidak ada perubahan (hanya workflow ini yang berubah)"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --stat "${BASE}" "${HEAD}" -- supabase-schema.sql | sed 's/^/  /'
+          fi
+
+      - name: Post reminder comment
+        if: steps.diff.outputs.changed == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const marker = '<!-- schema-reminder -->';
+            const body = [
+              marker,
+              '## ⚠️ `supabase-schema.sql` berubah di PR ini',
+              '',
+              'Mengubah file ini **tidak** otomatis menerapkannya ke database hidup.',
+              'Setelah merge, jalankan ulang **seluruh** `supabase-schema.sql` di Supabase → SQL Editor.',
+              'File tersebut idempoten (aman di-run berulang tanpa dobel).',
+              '',
+              '**Verifikasi setelah menjalankan:**',
+              '```sql',
+              "SELECT count(*), SUM(xp_earned) FROM user_xp_log WHERE xp_applied = false;",
+              '```',
+              '- `count = 0` → semua log XP sudah diterapkan, tidak ada backlog',
+              '- `count > 0` → jalankan ulang file skema; backfill mengambil baris-baris itu tanpa menghitung dobel',
+              '',
+              '<sub>🤖 Komentar otomatis dari workflow Schema reminder. File skema tidak berubah lagi? Komentar ini bisa dihapus.</sub>',
+            ].join('\n');
+
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+            });
+            const existing = comments.find(c => c.body && c.body.includes(marker));
+
+            if (existing) {
+              // Perbarui komentar lama alih-alih menumpuk satu per push.
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+              console.log('Komentar pengingat diperbarui (#' + existing.id + ')');
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body,
+              });
+              console.log('Komentar pengingat diposting baru');
+            }
+
+      - name: Job summary
+        run: |
+          if [ "${{ steps.diff.outputs.changed }}" = "true" ]; then
+            echo "### ⚠️ Schema berubah — pengingat diposting di PR" >> "$GITHUB_STEP_SUMMARY"
+            echo "Jangan lupa: jalankan ulang \`supabase-schema.sql\` di SQL Editor **setelah merge**." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "### ✅ Schema tidak berubah — tidak ada pengingat" >> "$GITHUB_STEP_SUMMARY"
+          fi
