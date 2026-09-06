@@ -38,6 +38,34 @@
 
   const nestedSections = ['/Materi/', '/Dashboard/', '/QUIZ/', '/AI-Tutor-Page/', '/Landing-Page/'];
   const appRootPrefix = nestedSections.some((segment) => currentPath.includes(segment)) ? '../' : '';
+  /* PINTU MASUK ADMIN DIPISAH DARI UI PELAJAR.
+     ────────────────────────────────────────────────────────────────
+     Berkas ini dimuat di halaman pelajar, dan tiga daftar di bawahnya
+     sama-sama menyimpan entri admin: tab "Admin" di dock navigasi, "Admin
+     Login" di command palette (pintasan K), dan "CMS Admin" di hasil
+     pencarian. Akibatnya setiap pelajar melihat pintu masuk admin di
+     navigasinya sendiri, seolah keduanya satu sistem.
+
+     Entrinya kini hanya muncul bila memang ada sesi admin. Halamannya TIDAK
+     diblokir -- admin yang mengetik URL-nya langsung tetap bisa masuk, dan
+     itu memang perlu supaya ia bisa login dari peramban mana pun.
+
+     Perlu ditegaskan: ini pemisahan TAMPILAN, bukan kontrol akses.
+     Menyembunyikan tautan tidak mengamankan apa pun. Penjagaan yang
+     sebenarnya tetap di server -- netlify/functions/admin-login.js
+     memverifikasi kredensial ke Supabase lalu mensyaratkan peran 'admin'
+     di tabel user_roles, dan setiap operasi admin mengirim token itu. */
+  const adaSesiAdmin = () => {
+    try {
+      const raw = localStorage.getItem('nihongoAdminSession')
+               || sessionStorage.getItem('nihongoAdminSession');
+      if (!raw) return false;
+      const s = JSON.parse(raw);
+      return !!(s && s.token);
+    } catch (e) { return false; }
+  };
+  const tanpaAdmin = (daftar) => adaSesiAdmin() ? daftar : daftar.filter((x) => !x.adminOnly);
+
   const navItems = [
     { label: 'Beranda', icon: '家', web: 'index.html', match: ['/index.html', '/Landing-Page/landing.html'] },
     { label: 'Dasbor', icon: '進', web: 'Dashboard/Dashboard.html', match: ['/Dashboard/Dashboard.html'] },
@@ -47,7 +75,7 @@
     { label: 'AI', icon: '先', web: 'AI-Tutor-Page/AI.html', match: ['/AI-Tutor-Page/AI.html'] },
     
     { label: 'Fitur', icon: '機', web: 'Platform-Features.html', match: ['/Platform-Features.html'] },
-    { label: 'Admin', icon: '管', web: 'Admin-Login.html', match: ['/Admin-Login.html', '/Admin-Dashboard.html'] }
+    { label: 'Admin', icon: '管', web: 'Admin-Login.html', match: ['/Admin-Login.html', '/Admin-Dashboard.html'], adminOnly: true }
   ];
 
   // Halaman yang memuat kyoto-bottom-nav.js sudah punya navigasi bawah sendiri.
@@ -65,7 +93,7 @@
     const dock = document.createElement('div');
     dock.className = 'pro-mobile-dock';
     dock.setAttribute('aria-label', 'Navigasi utama mobile');
-    dock.innerHTML = navItems.map((item) => {
+    dock.innerHTML = tanpaAdmin(navItems).map((item) => {
       const active = item.match.some((part) => currentPath.includes(part)) ? ' active' : '';
       const href = `${appRootPrefix}${item.web}`;
       return `<a class="${active}" href="${href}"><span>${item.icon}</span>${item.label}</a>`;
@@ -216,7 +244,7 @@
     { title: 'AI Tutor', sub: 'Latihan dengan asisten belajar', icon: '先', web: 'AI-Tutor-Page/AI.html', keys: 'A' },
 
     { title: 'Platform Features', sub: 'AI, PWA, akses gratis, CMS, aksesibilitas', icon: '機', web: 'Platform-Features.html', keys: 'T' },
-    { title: 'Admin Login', sub: 'Masuk dashboard admin', icon: '管', web: 'Admin-Login.html', keys: 'K' }
+    { title: 'Admin Login', sub: 'Masuk dashboard admin', icon: '管', web: 'Admin-Login.html', keys: 'K', adminOnly: true }
   ];
 
   const destinationFor = (item) => `${appRootPrefix}${item.web}`;
@@ -240,7 +268,7 @@
   const renderCommands = () => {
     if (!paletteList || !paletteInput) return;
     const q = paletteInput.value.trim().toLowerCase();
-    const rows = commandItems.filter((item) => `${item.title} ${item.sub} ${item.keys}`.toLowerCase().includes(q));
+    const rows = tanpaAdmin(commandItems).filter((item) => `${item.title} ${item.sub} ${item.keys}`.toLowerCase().includes(q));
     activeCommand = Math.min(activeCommand, Math.max(rows.length - 1, 0));
     paletteList.innerHTML = rows.length ? rows.map((item, index) => `
       <button type="button" class="pro-command-item ${index === activeCommand ? 'active' : ''}" data-command-index="${commandItems.indexOf(item)}">
@@ -802,7 +830,7 @@
     { title: 'Latihan JLPT N5-N1', sub: 'Bank latihan bertahap dari pemula sampai mahir', href: `${rootPrefix}Materi/Latihan-JLPT.html` },
     { title: 'Progress Dashboard', sub: 'Streak, XP, target JLPT, dan aktivitas belajar', href: `${rootPrefix}Dashboard/Dashboard.html` },
 
-    { title: 'CMS Admin', sub: 'Kelola konten dan announcement', href: `${rootPrefix}Admin-Dashboard.html` },
+    { title: 'CMS Admin', sub: 'Kelola konten dan announcement', href: `${rootPrefix}Admin-Dashboard.html`, adminOnly: true },
     { title: 'HTTPS Security', sub: 'Checklist keamanan produksi', href: `${rootPrefix}Platform-Features.html` }
   ];
 
@@ -815,7 +843,7 @@
     const results = panel.querySelector('.nihongo-search-results');
     const render = async () => {
       const q = input.value.trim().toLowerCase();
-      const pageRows = searchIndex
+      const pageRows = tanpaAdmin(searchIndex)
         .filter((item) => !q || `${item.title} ${item.sub}`.toLowerCase().includes(q))
         .slice(0, 8)
         .map((item) => ({ ...item, meta: 'Materi' }));
