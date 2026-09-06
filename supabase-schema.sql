@@ -1,6 +1,11 @@
 -- ════════════════════════════════════════════════════════
 -- 日本語Pro / Eduma Kaigo — Supabase Schema
 -- Run this in Supabase SQL Editor to set up the database
+--
+-- Aman dijalankan ulang di proyek yang sudah hidup: semua CREATE POLICY
+-- dibungkus DO $$ ... EXCEPTION WHEN duplicate_object (Postgres tidak punya
+-- IF NOT EXISTS untuk policy), sisanya IF NOT EXISTS / OR REPLACE /
+-- DROP IF EXISTS. Menjalankan ulang tidak mengubah policy yang sudah ada.
 -- ════════════════════════════════════════════════════════
 
 -- Enable UUID extension
@@ -112,21 +117,35 @@ ALTER TABLE certificates   ENABLE ROW LEVEL SECURITY;
 ALTER TABLE rate_limits    ENABLE ROW LEVEL SECURITY;
 
 -- Users can only see/edit their own data
-CREATE POLICY "Users own data" ON user_progress FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Users own SRS"  ON srs_cards      FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Users own quiz" ON quiz_results   FOR ALL USING (auth.uid() = user_id);
-CREATE POLICY "Users own certs" ON certificates  FOR ALL USING (auth.uid() = user_id);
+DO $$ BEGIN
+  CREATE POLICY "Users own data" ON user_progress FOR ALL USING (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Users own SRS"  ON srs_cards      FOR ALL USING (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Users own quiz" ON quiz_results   FOR ALL USING (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Users own certs" ON certificates  FOR ALL USING (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- Certificates verifiable by anyone (public read)
-CREATE POLICY "Certs public read" ON certificates FOR SELECT USING (true);
+DO $$ BEGIN
+  CREATE POLICY "Certs public read" ON certificates FOR SELECT USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- Leaderboard: only authenticated users can see name+xp+streak (no email/id exposed via API)
-CREATE POLICY "Leaderboard read" ON user_progress
-  FOR SELECT USING (auth.role() = 'authenticated');
+DO $$ BEGIN
+  CREATE POLICY "Leaderboard read" ON user_progress
+    FOR SELECT USING (auth.role() = 'authenticated');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- Rate limits: each user/session can only access their own row
-CREATE POLICY "Users own rate limit" ON rate_limits
-  FOR ALL USING (user_id = COALESCE(auth.uid()::text, 'anonymous'));
+DO $$ BEGIN
+  CREATE POLICY "Users own rate limit" ON rate_limits
+    FOR ALL USING (user_id = COALESCE(auth.uid()::text, 'anonymous'));
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- ── INDEXES ──────────────────────────────────────────────
 CREATE INDEX IF NOT EXISTS idx_user_progress_xp      ON user_progress(xp DESC);
@@ -231,18 +250,143 @@ END;
 $$;
 
 -- ── Add User XP RPC ─────────────────────────────────────────────────────────
+-- Kolom user_progress adalah `xp` (INTEGER, lihat definisi tabel di atas) --
+-- bukan `total_xp`. Versi lama fungsi ini merujuk kolom yang tidak ada, jadi
+-- SETIAP pemanggilan gagal saat runtime (error "column total_xp does not
+-- exist"); pemanggilnya di Kelas-Online.html menelan error itu diam-diam
+-- dengan .catch(()=>{}), sehingga XP kelas live tidak pernah tersambung ke
+-- profil. Diperbaiki ke xp, dan insert fallback memakai COALESCE supaya
+-- amount NULL tidak merusak baris yang sudah ada.
 CREATE OR REPLACE FUNCTION add_user_xp(uid UUID, amount INT)
 RETURNS void LANGUAGE plpgsql AS $$
 BEGIN
+  IF amount IS NULL OR amount = 0 THEN RETURN; END IF;
   UPDATE user_progress SET
-    total_xp = total_xp + amount,
+    xp = COALESCE(xp, 0) + amount,
     updated_at = NOW()
   WHERE user_id = uid;
   IF NOT FOUND THEN
-    INSERT INTO user_progress(user_id, total_xp) VALUES(uid, amount);
+    INSERT INTO user_progress(user_id, xp) VALUES(uid, amount);
   END IF;
 END;
 $$;
+
+-- ── BACKFILL XP kelas live yang hilang ───────────────────────────────────────
+-- Selama add_user_xp merujuk kolom total_xp yang tidak ada, SETIAP XP kelas
+-- live gagal tersambung ke user_progress.xp -- tapi catatannya tetap utuh di
+-- user_xp_log (saveSessionXP meng-insert log SEBELUM memanggil RPC, dan log
+-- itu tidak pernah gagal). Fungsi hidup berarti XP yang hilang bisa dihitung
+-- ulang dari log.
+--
+-- IDEMPOTEN TANPA DOBEL: setiap baris log diberi penanda xp_applied. Backfill
+-- hanya menyentuh baris yang penandanya masih false, lalu menandainya dalam
+-- transaksi yang sama -- dijalankan ulang kapan pun, yang diterapkan hanya
+-- baris yang memang belum.
+--
+-- SUPAYA BARIS JALUR NORMAL TIDAK DIHITUNG DOBEL, add_user_xp saja tidak
+-- cukup: klien menyisipkan log lebih dulu, lalu RPC berjalan belakangan --
+-- backfill yang berjalan di antara keduanya akan menghitung baris yang RPC-
+-- nya menyusul. Solusinya dua fungsi kecil:
+--
+--   * apply_user_xp(p_user, p_log_id) -- jalur baru untuk klien. Jumlah XP
+--     dibaca dari baris log milik pemanggil yang xp_applied=false (BUKAN
+--     diterima sebagai argumen, jadi klien tidak bisa mengarang angka),
+--     menambahkan ke user_progress, lalu menandai lognya.
+--   * mark_user_xp_applied(p_user, p_log_id) -- SECURITY DEFINER, satu-satunya
+--     pengecualian penulisan pada tabel audit ini: hanya bisa SET xp_applied
+--     untuk (pemanggil, log_id) yang diberikan. Tanpa itu, tabel harus diberi
+--     policy UPDATE terbuka yang mengundang manipulasi riwayat.
+--
+-- add_user_xp tetap ada untuk pemanggil lama tanpa log id (mis. SQL Editor).
+ALTER TABLE user_xp_log ADD COLUMN IF NOT EXISTS xp_applied boolean NOT NULL DEFAULT false;
+
+-- Hak eksekusi dicabut dari PUBLIC/anon; hanya authenticated (sesi sah) yang
+-- boleh memanggil, dan hanya untuk baris log miliknya sendiri (dijaga WHERE
+-- di dalam fungsi).
+REVOKE ALL ON FUNCTION apply_user_xp(uuid, bigint) FROM PUBLIC;
+CREATE OR REPLACE FUNCTION apply_user_xp(p_user uuid, p_log_id bigint)
+RETURNS void
+LANGUAGE plpgsql
+SET search_path = public, pg_temp
+AS $$
+DECLARE
+  v_amount int;
+BEGIN
+  SELECT xp_earned INTO v_amount FROM user_xp_log
+  WHERE id = p_log_id AND user_id = p_user AND xp_applied = false
+    AND xp_earned <> 0 AND source = 'live_session';
+  IF NOT FOUND THEN RETURN; END IF;  -- sudah diterapkan / bukan miliknya: no-op
+
+  UPDATE user_progress SET
+    xp = COALESCE(xp, 0) + v_amount,
+    updated_at = NOW()
+  WHERE user_id = p_user;
+  IF NOT FOUND THEN
+    INSERT INTO user_progress(user_id, xp) VALUES(p_user, v_amount);
+  END IF;
+
+  -- Penanda ditulis SETELAH xp bertambah; kalau klien gagal menyampaikan
+  -- langkah ini (mis. tab ditutup), backfill di bawah tetap mengambil barisnya.
+  UPDATE user_xp_log SET xp_applied = true WHERE id = p_log_id;
+END;
+$$;
+DO $$ BEGIN
+  EXECUTE 'GRANT EXECUTE ON FUNCTION apply_user_xp(uuid, bigint) TO authenticated';
+EXCEPTION WHEN undefined_object THEN NULL; END $$;
+
+REVOKE ALL ON FUNCTION mark_user_xp_applied(uuid, bigint) FROM PUBLIC;
+CREATE OR REPLACE FUNCTION mark_user_xp_applied(p_user uuid, p_log_id bigint)
+RETURNS void
+LANGUAGE plpgsql
+SECURITY DEFINER
+SET search_path = public, pg_temp
+AS $$
+BEGIN
+  UPDATE user_xp_log SET xp_applied = true
+  WHERE id = p_log_id AND user_id = p_user AND xp_applied = false;
+END;
+$$;
+DO $$ BEGIN
+  EXECUTE 'GRANT EXECUTE ON FUNCTION mark_user_xp_applied(uuid, bigint) TO authenticated';
+EXCEPTION WHEN undefined_object THEN NULL; END $$;
+
+-- add_user_xp dipertahankan demi kompatibilitas; tanpa log id, ia tidak bisa
+-- menandai apa pun -- backfill di bawah tidak akan menghitung dobel baris
+-- yang ditandai apply_user_xp.
+CREATE OR REPLACE FUNCTION add_user_xp(uid UUID, amount INT)
+RETURNS void LANGUAGE plpgsql AS $$
+BEGIN
+  IF amount IS NULL OR amount = 0 THEN RETURN; END IF;
+  UPDATE user_progress SET
+    xp = COALESCE(xp, 0) + amount,
+    updated_at = NOW()
+  WHERE user_id = uid;
+  IF NOT FOUND THEN
+    INSERT INTO user_progress(user_id, xp) VALUES(uid, amount);
+  END IF;
+END;
+$$;
+
+-- BACKFILL sendiri: jalankan ulang file ini kapan pun -- CTE hanya menyentuh
+-- baris xp_applied=false. Yang pertama kali dieksekusi setelah perbaikan
+-- inilah yang mengembalikan XP kelas live yang tadinya hilang.
+WITH backlog AS (
+  SELECT user_id, SUM(xp_earned) AS xp_total
+  FROM user_xp_log
+  WHERE xp_applied = false AND xp_earned <> 0 AND source = 'live_session'
+  GROUP BY user_id
+), ditandai AS (
+  UPDATE user_xp_log SET xp_applied = true
+  WHERE xp_applied = false AND xp_earned <> 0 AND source = 'live_session'
+  RETURNING user_id
+)
+INSERT INTO user_progress (user_id, xp)
+SELECT b.user_id, GREATEST(b.xp_total, 0)
+FROM backlog b
+WHERE EXISTS (SELECT 1 FROM ditandai d WHERE d.user_id = b.user_id)
+ON CONFLICT (user_id) DO UPDATE
+SET xp = COALESCE(user_progress.xp, 0) + EXCLUDED.xp,
+    updated_at = NOW();
 
 -- ── RLS Policies ────────────────────────────────────────────────────────────
 ALTER TABLE live_rooms        ENABLE ROW LEVEL SECURITY;
@@ -252,38 +396,58 @@ ALTER TABLE live_attendance   ENABLE ROW LEVEL SECURITY;
 ALTER TABLE user_xp_log       ENABLE ROW LEVEL SECURITY;
 
 -- Public read for rooms (anyone can see active rooms)
-CREATE POLICY "Public can read live rooms"
-  ON live_rooms FOR SELECT USING (true);
+DO $$ BEGIN
+  CREATE POLICY "Public can read live rooms"
+    ON live_rooms FOR SELECT USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
-CREATE POLICY "Authenticated can insert rooms"
-  ON live_rooms FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+DO $$ BEGIN
+  CREATE POLICY "Authenticated can insert rooms"
+    ON live_rooms FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
-CREATE POLICY "Host can update their room"
-  ON live_rooms FOR UPDATE USING (host_id = auth.uid());
+DO $$ BEGIN
+  CREATE POLICY "Host can update their room"
+    ON live_rooms FOR UPDATE USING (host_id = auth.uid());
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- Participants
-CREATE POLICY "Public can read participants"
-  ON live_participants FOR SELECT USING (true);
+DO $$ BEGIN
+  CREATE POLICY "Public can read participants"
+    ON live_participants FOR SELECT USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
-CREATE POLICY "Authenticated can join"
-  ON live_participants FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+DO $$ BEGIN
+  CREATE POLICY "Authenticated can join"
+    ON live_participants FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
-CREATE POLICY "Users can update own participation"
-  ON live_participants FOR UPDATE USING (user_id = auth.uid() OR peer_id IS NOT NULL);
+DO $$ BEGIN
+  CREATE POLICY "Users can update own participation"
+    ON live_participants FOR UPDATE USING (user_id = auth.uid() OR peer_id IS NOT NULL);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- Schedule: public read
-CREATE POLICY "Public can read schedule"
-  ON live_schedule FOR SELECT USING (NOT is_cancelled);
+DO $$ BEGIN
+  CREATE POLICY "Public can read schedule"
+    ON live_schedule FOR SELECT USING (NOT is_cancelled);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
-CREATE POLICY "Authenticated can create schedule"
-  ON live_schedule FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+DO $$ BEGIN
+  CREATE POLICY "Authenticated can create schedule"
+    ON live_schedule FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- XP log: users see own
-CREATE POLICY "Users see own XP log"
-  ON user_xp_log FOR SELECT USING (user_id = auth.uid());
+DO $$ BEGIN
+  CREATE POLICY "Users see own XP log"
+    ON user_xp_log FOR SELECT USING (user_id = auth.uid());
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
-CREATE POLICY "System can insert XP"
-  ON user_xp_log FOR INSERT WITH CHECK (user_id = auth.uid());
+DO $$ BEGIN
+  CREATE POLICY "System can insert XP"
+    ON user_xp_log FOR INSERT WITH CHECK (user_id = auth.uid());
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- Indexes for performance
 CREATE INDEX IF NOT EXISTS idx_live_rooms_code ON live_rooms(room_code);
@@ -360,24 +524,32 @@ ALTER TABLE assignments ENABLE ROW LEVEL SECURITY;
 ALTER TABLE assignment_submissions ENABLE ROW LEVEL SECURITY;
 
 -- user_roles: pengguna lihat perannya sendiri
-CREATE POLICY "Users read own role" ON user_roles
-  FOR SELECT USING (user_id = auth.uid());
+DO $$ BEGIN
+  CREATE POLICY "Users read own role" ON user_roles
+    FOR SELECT USING (user_id = auth.uid());
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- classrooms: guru kelola kelasnya; siswa lihat kelas yang diikuti
-CREATE POLICY "Teachers manage own classrooms" ON classrooms
-  FOR ALL USING (teacher_id = auth.uid());
-CREATE POLICY "Students read enrolled classrooms" ON classrooms
-  FOR SELECT USING (
-    EXISTS (SELECT 1 FROM enrollments e
-            WHERE e.classroom_id = classrooms.id AND e.student_id = auth.uid())
-  );
+DO $$ BEGIN
+  CREATE POLICY "Teachers manage own classrooms" ON classrooms
+    FOR ALL USING (teacher_id = auth.uid());
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Students read enrolled classrooms" ON classrooms
+    FOR SELECT USING (
+      EXISTS (SELECT 1 FROM enrollments e
+              WHERE e.classroom_id = classrooms.id AND e.student_id = auth.uid())
+    );
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- enrollments: guru lihat siswa di kelasnya; siswa lihat/kelola keanggotaannya
-CREATE POLICY "Teachers read class enrollments" ON enrollments
-  FOR SELECT USING (
-    EXISTS (SELECT 1 FROM classrooms c
-            WHERE c.id = enrollments.classroom_id AND c.teacher_id = auth.uid())
-  );
+DO $$ BEGIN
+  CREATE POLICY "Teachers read class enrollments" ON enrollments
+    FOR SELECT USING (
+      EXISTS (SELECT 1 FROM classrooms c
+              WHERE c.id = enrollments.classroom_id AND c.teacher_id = auth.uid())
+    );
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 -- Policy siswa untuk enrollments SENGAJA tidak didefinisikan di sini.
 -- Versi lamanya, `FOR ALL USING (student_id = auth.uid())`, mengizinkan siapa
 -- pun yang login MASUK ke grup mana pun tanpa token (lihat uraian panjangnya
@@ -385,26 +557,34 @@ CREATE POLICY "Teachers read class enrollments" ON enrollments
 -- di bagian itu, satu tempat saja, supaya tidak ada dua versi yang bersaing.
 
 -- assignments: guru kelola; siswa baca tugas kelasnya
-CREATE POLICY "Teachers manage class assignments" ON assignments
-  FOR ALL USING (
-    EXISTS (SELECT 1 FROM classrooms c
-            WHERE c.id = assignments.classroom_id AND c.teacher_id = auth.uid())
-  );
-CREATE POLICY "Students read class assignments" ON assignments
-  FOR SELECT USING (
-    EXISTS (SELECT 1 FROM enrollments e
-            WHERE e.classroom_id = assignments.classroom_id AND e.student_id = auth.uid())
-  );
+DO $$ BEGIN
+  CREATE POLICY "Teachers manage class assignments" ON assignments
+    FOR ALL USING (
+      EXISTS (SELECT 1 FROM classrooms c
+              WHERE c.id = assignments.classroom_id AND c.teacher_id = auth.uid())
+    );
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Students read class assignments" ON assignments
+    FOR SELECT USING (
+      EXISTS (SELECT 1 FROM enrollments e
+              WHERE e.classroom_id = assignments.classroom_id AND e.student_id = auth.uid())
+    );
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- submissions: siswa kelola miliknya; guru baca submission kelasnya
-CREATE POLICY "Students manage own submissions" ON assignment_submissions
-  FOR ALL USING (student_id = auth.uid());
-CREATE POLICY "Teachers read class submissions" ON assignment_submissions
-  FOR SELECT USING (
-    EXISTS (SELECT 1 FROM assignments a
-            JOIN classrooms c ON c.id = a.classroom_id
-            WHERE a.id = assignment_submissions.assignment_id AND c.teacher_id = auth.uid())
-  );
+DO $$ BEGIN
+  CREATE POLICY "Students manage own submissions" ON assignment_submissions
+    FOR ALL USING (student_id = auth.uid());
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Teachers read class submissions" ON assignment_submissions
+    FOR SELECT USING (
+      EXISTS (SELECT 1 FROM assignments a
+              JOIN classrooms c ON c.id = a.classroom_id
+              WHERE a.id = assignment_submissions.assignment_id AND c.teacher_id = auth.uid())
+    );
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- ── Indexes ──
 CREATE INDEX IF NOT EXISTS idx_classrooms_teacher ON classrooms(teacher_id);
@@ -436,7 +616,9 @@ CREATE TABLE IF NOT EXISTS kaigo_questions (
 
 -- Bacaan publik (soal latihan bukan rahasia); tulis hanya lewat service role.
 ALTER TABLE kaigo_questions ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Questions public read" ON kaigo_questions FOR SELECT USING (true);
+DO $$ BEGIN
+  CREATE POLICY "Questions public read" ON kaigo_questions FOR SELECT USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 CREATE INDEX IF NOT EXISTS idx_kaigo_q_category ON kaigo_questions(category);
 CREATE INDEX IF NOT EXISTS idx_kaigo_q_difficulty ON kaigo_questions(difficulty);
@@ -470,7 +652,9 @@ CREATE TABLE IF NOT EXISTS jlpt_questions (
   created_at   timestamptz NOT NULL DEFAULT now()
 );
 ALTER TABLE jlpt_questions ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "JLPT questions public read" ON jlpt_questions FOR SELECT USING (published = true);
+DO $$ BEGIN
+  CREATE POLICY "JLPT questions public read" ON jlpt_questions FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 CREATE INDEX IF NOT EXISTS idx_jlpt_q_category ON jlpt_questions(category);
 CREATE INDEX IF NOT EXISTS idx_jlpt_q_difficulty ON jlpt_questions(difficulty);
 CREATE INDEX IF NOT EXISTS idx_jlpt_q_tags ON jlpt_questions USING GIN(tags);
@@ -493,7 +677,9 @@ CREATE TABLE IF NOT EXISTS exam_history (
   taken_at     timestamptz NOT NULL DEFAULT now()
 );
 ALTER TABLE exam_history ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users manage own exam history" ON exam_history FOR ALL USING (user_id = auth.uid());
+DO $$ BEGIN
+  CREATE POLICY "Users manage own exam history" ON exam_history FOR ALL USING (user_id = auth.uid());
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 CREATE INDEX IF NOT EXISTS idx_exam_hist_user ON exam_history(user_id);
 CREATE INDEX IF NOT EXISTS idx_exam_hist_taken ON exam_history(taken_at);
 
@@ -517,8 +703,12 @@ CREATE TABLE IF NOT EXISTS exam_certificates (
   issued_at      timestamptz NOT NULL DEFAULT now()
 );
 ALTER TABLE exam_certificates ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Exam certificates public read" ON exam_certificates FOR SELECT USING (true);
-CREATE POLICY "Exam certificates insert by anyone" ON exam_certificates FOR INSERT WITH CHECK (true);
+DO $$ BEGIN
+  CREATE POLICY "Exam certificates public read" ON exam_certificates FOR SELECT USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Exam certificates insert by anyone" ON exam_certificates FOR INSERT WITH CHECK (true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 CREATE INDEX IF NOT EXISTS idx_exam_cert_id ON exam_certificates(cert_id);
 
 -- ══════════════════════════════════════════════════════════════════════
@@ -537,7 +727,9 @@ CREATE TABLE IF NOT EXISTS payments (
 );
 ALTER TABLE payments ENABLE ROW LEVEL SECURITY;
 -- Hanya service role (webhook) yang menulis; user hanya bisa baca riwayat miliknya sendiri.
-CREATE POLICY "Users read own payments" ON payments FOR SELECT USING (auth.uid() = user_id);
+DO $$ BEGIN
+  CREATE POLICY "Users read own payments" ON payments FOR SELECT USING (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 CREATE INDEX IF NOT EXISTS idx_payments_user_id ON payments(user_id);
 CREATE INDEX IF NOT EXISTS idx_payments_order_id ON payments(order_id);
 
@@ -552,23 +744,33 @@ CREATE INDEX IF NOT EXISTS idx_payments_order_id ON payments(order_id);
 
 -- srs_cards: kartu SRS milik masing-masing user
 ALTER TABLE srs_cards ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users manage own srs_cards" ON srs_cards
-  FOR ALL USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+DO $$ BEGIN
+  CREATE POLICY "Users manage own srs_cards" ON srs_cards
+    FOR ALL USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- quiz_results: hasil kuis milik masing-masing user (baca+tulis sendiri, tanpa update/delete)
 ALTER TABLE quiz_results ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users read own quiz_results" ON quiz_results
-  FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users insert own quiz_results" ON quiz_results
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+DO $$ BEGIN
+  CREATE POLICY "Users read own quiz_results" ON quiz_results
+    FOR SELECT USING (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Users insert own quiz_results" ON quiz_results
+    FOR INSERT WITH CHECK (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- certificates (tabel lama, dikonfirmasi belum benar-benar dipakai per audit
 -- v139 -- tetap diberi RLS sebagai praktik aman berjaga-jaga)
 ALTER TABLE certificates ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users read own certificates" ON certificates
-  FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users insert own certificates" ON certificates
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+DO $$ BEGIN
+  CREATE POLICY "Users read own certificates" ON certificates
+    FOR SELECT USING (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Users insert own certificates" ON certificates
+    FOR INSERT WITH CHECK (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- rate_limits: TIDAK BOLEH diakses client sama sekali (hanya lewat service
 -- role di netlify/functions/ai-chat.js). RLS diaktifkan TANPA policy apa pun
@@ -580,35 +782,55 @@ ALTER TABLE rate_limits ENABLE ROW LEVEL SECURITY;
 -- live_rooms: info room dibaca publik (agar orang bisa lihat/join room aktif),
 -- tapi hanya host yang bisa ubah/hapus room miliknya
 ALTER TABLE live_rooms ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Live rooms public read" ON live_rooms FOR SELECT USING (true);
-CREATE POLICY "Host manages own live_rooms" ON live_rooms
-  FOR UPDATE USING (auth.uid() = host_id) WITH CHECK (auth.uid() = host_id);
-CREATE POLICY "Authenticated create live_rooms" ON live_rooms
-  FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+DO $$ BEGIN
+  CREATE POLICY "Live rooms public read" ON live_rooms FOR SELECT USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Host manages own live_rooms" ON live_rooms
+    FOR UPDATE USING (auth.uid() = host_id) WITH CHECK (auth.uid() = host_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Authenticated create live_rooms" ON live_rooms
+    FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- live_schedule: jadwal kelas dibaca publik (untuk ditampilkan ke semua calon
 -- peserta), hanya host yang bisa ubah/hapus jadwalnya sendiri
 ALTER TABLE live_schedule ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Live schedule public read" ON live_schedule FOR SELECT USING (true);
-CREATE POLICY "Host manages own live_schedule" ON live_schedule
-  FOR UPDATE USING (auth.uid() = host_id) WITH CHECK (auth.uid() = host_id);
-CREATE POLICY "Authenticated create live_schedule" ON live_schedule
-  FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+DO $$ BEGIN
+  CREATE POLICY "Live schedule public read" ON live_schedule FOR SELECT USING (true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Host manages own live_schedule" ON live_schedule
+    FOR UPDATE USING (auth.uid() = host_id) WITH CHECK (auth.uid() = host_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Authenticated create live_schedule" ON live_schedule
+    FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- live_attendance: peserta mencatat kehadiran diri sendiri; user baca
 -- riwayat kehadirannya sendiri
 ALTER TABLE live_attendance ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users read own live_attendance" ON live_attendance
-  FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Authenticated record own attendance" ON live_attendance
-  FOR INSERT WITH CHECK (auth.uid() IS NULL OR auth.uid() = user_id);
+DO $$ BEGIN
+  CREATE POLICY "Users read own live_attendance" ON live_attendance
+    FOR SELECT USING (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Authenticated record own attendance" ON live_attendance
+    FOR INSERT WITH CHECK (auth.uid() IS NULL OR auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- user_xp_log: log XP milik masing-masing user
 ALTER TABLE user_xp_log ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Users read own xp_log" ON user_xp_log
-  FOR SELECT USING (auth.uid() = user_id);
-CREATE POLICY "Users insert own xp_log" ON user_xp_log
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+DO $$ BEGIN
+  CREATE POLICY "Users read own xp_log" ON user_xp_log
+    FOR SELECT USING (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Users insert own xp_log" ON user_xp_log
+    FOR INSERT WITH CHECK (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- ══════════════════════════════════════════════════════════════════════
 -- CMS: BLOG POSTS (v184) — bukti konsep pertama sistem CMS
@@ -642,8 +864,10 @@ CREATE TABLE IF NOT EXISTS blog_posts (
 -- setelah verifikasi role admin) yang bisa menulis. Pola sama seperti
 -- rate_limits (v176).
 ALTER TABLE blog_posts ENABLE ROW LEVEL SECURITY;
-CREATE POLICY "Published posts public read" ON blog_posts
-  FOR SELECT USING (published = true);
+DO $$ BEGIN
+  CREATE POLICY "Published posts public read" ON blog_posts
+    FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 CREATE INDEX IF NOT EXISTS idx_blog_posts_slug ON blog_posts(slug);
 CREATE INDEX IF NOT EXISTS idx_blog_posts_published ON blog_posts(published, created_at DESC);
@@ -724,10 +948,14 @@ DROP POLICY IF EXISTS "Students manage own enrollment" ON enrollments;
 DROP POLICY IF EXISTS "Students read own enrollment" ON enrollments;
 DROP POLICY IF EXISTS "Students leave own group" ON enrollments;
 
-CREATE POLICY "Students read own enrollment" ON enrollments
-  FOR SELECT USING (student_id = auth.uid());
-CREATE POLICY "Students leave own group" ON enrollments
-  FOR DELETE USING (student_id = auth.uid());
+DO $$ BEGIN
+  CREATE POLICY "Students read own enrollment" ON enrollments
+    FOR SELECT USING (student_id = auth.uid());
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "Students leave own group" ON enrollments
+    FOR DELETE USING (student_id = auth.uid());
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- KENAPA BUKAN SECURITY DEFINER, DAN KENAPA HAK EKSEKUSINYA DICABUT
 -- ─────────────────────────────────────────────────────────────────────
