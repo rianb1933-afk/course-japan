@@ -134,6 +134,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--cream,#F8F3E9);color:var(
 .vm-tab{border:1.5px solid var(--border-mid,rgba(107,79,58,.2));background:var(--cream,#F8F3E9);color:var(--ink,#2D2D2D);border-radius:8px;padding:6px 18px;font:inherit;font-size:13px;font-weight:700;cursor:pointer;min-height:44px}
 .vm-tab.active{background:#5B3A29;color:#fff}
 .model3d-fallback{padding:2.5rem 1rem;text-align:center;color:var(--ink-soft,#6e6e6e);font-size:14px;background:var(--cream,#F8F3E9);border-radius:14px}
+/* Wadah viewer 3D (model-viewer) — tinggi mengikuti viewport 2D, latar pakai
+   token tema supaya ikut dark mode (check literal_bg_with_token_color). */
+#model3dContainer{height:460px;border-radius:14px;overflow:hidden;background:var(--cream,#F8F3E9);position:relative}
+#model3dContainer model-viewer{width:100%;height:100%;--poster-color:transparent}
+@media (max-width:640px){#model3dContainer{height:320px}}
 
 /* Pastikan tidak ada horizontal overflow di layar sempit (320px) */
 @media(max-width:340px){

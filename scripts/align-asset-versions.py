@@ -52,8 +52,8 @@ CHECK_ONLY = "--check" in sys.argv
 
 # URL aset statis: ekstensi lalu ?v=<nilai> MENEMPEL (tanpa spasi).
 # Kelompok 1 = "." + ekstensi (titik IKUT tertangkap supaya tidak hilang),
-# kelompok 2 = nilai versi lama.
-VALUE_RE = re.compile(r"(?i)(\.(?:js|css|json|csv|mjs))\?v=([0-9a-z_]+)")
+# kelompok 2 = nilai versi lama. glb = model 3D (assets/anatomy/models, assets/models).
+VALUE_RE = re.compile(r"(?i)(\.(?:js|css|json|csv|mjs|glb))\?v=([0-9a-z_]+)")
 
 
 def candidate_files():

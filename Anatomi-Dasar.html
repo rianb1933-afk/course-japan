@@ -70,8 +70,8 @@
 
       <div id="model3dContainer" style="display:none">
         <div class="model3d-fallback">
-          🧊 Model 3D belum tersedia. Gunakan mode anatomi 2D.<br>
-          <span style="font-size:12px">(Menunggu aset <code>assets/anatomy/models/human-body.glb</code> — lihat catatan pengembangan di kode sumber)</span>
+          🧊 Model 3D gagal dimuat (pemeriksa koneksi?) — mode anatomi 2D tetap lengkap.<br>
+          <span style="font-size:12px">Aset: <code>assets/anatomy/models/human-body.glb</code> + model-viewer dari CDN</span>
         </div>
       </div>
 
@@ -257,15 +257,60 @@
 <script src="assets/anime-theme.js" defer></script>
 
 <!-- Refactor Tahap 1: data & logic dipisah ke assets/anatomy/ (sebelumnya inline) -->
-<script src="assets/anatomy/anatomy-data.js"></script>
-<script src="assets/anatomy/anatomy-viewer.js"></script>
-<script src="assets/anatomy/anatomy-quiz.js"></script>
+<script src="assets/anatomy/anatomy-data.js?v=6"></script>
+<script src="assets/anatomy/anatomy-viewer.js?v=6"></script>
+<script src="assets/anatomy/anatomy-quiz.js?v=6"></script>
 
 <script>
 // Tahap 5.3 (Kuis Visual): sambungkan klik hotspot/SVG ke pengecekan jawaban saat mode aktif,
 // dan Tahap 7 (2D/3D tab): lazy-load model-viewer HANYA saat tab 3D dipilih.
 (function () {
   'use strict';
+
+  // Lazy-load model-viewer HANYA saat tab 3D benar-benar dipilih (Tahap 7/8).
+  // Konsisten dengan pola lazy Three.js di Materi/Sistem-*.html: TIDAK ADA
+  // beban 3D saat halaman dibuka — library (versi dipatok, dari jsDelivr yang
+  // sudah diizinkan CSP) + model GLB baru diunduh pada klik pertama, lalu
+  // tersimpan di cache untuk kunjungan berikutnya. .model3d-fallback di atas
+  // dipertahankan sebagai jalur error bila library/model gagal dimuat.
+  var mv3dStarted = false;
+  function loadModel3D() {
+    if (mv3dStarted) return;
+    mv3dStarted = true;
+    var container = document.getElementById('model3dContainer');
+    var fallback = container.querySelector('.model3d-fallback');
+    import('https://cdn.jsdelivr.net/npm/@google/model-viewer@4.3.1/dist/model-viewer.min.js')
+      .then(function () {
+        var mv = document.createElement('model-viewer');
+        mv.setAttribute('src', 'assets/anatomy/models/human-body.glb?v=6');
+        mv.setAttribute('alt', 'Model 3D tubuh manusia — geser untuk memutar, cubit/scroll untuk zoom');
+        // loading="eager" sengaja: elemen baru dibuat SAAT tab 3D diklik (container
+        // menggantikan viewport 2D di posisi yang sama, selalu in-viewport), jadi
+        // GLB + library tetap hanya terunduh pada klik pertama — lazy-load halaman
+        // tetap terjaga. Mode "auto" malah menggantung pada deteksi visibilitas
+        // berbasis requestAnimationFrame yang bisa tak pernah selesai di lingkungan
+        // tanpa komposit (webview tertanam, tab background).
+        mv.setAttribute('camera-controls', '');
+        mv.setAttribute('auto-rotate', '');
+        mv.setAttribute('auto-rotate-delay', '6000');
+        mv.setAttribute('interaction-prompt', 'auto');
+        mv.setAttribute('shadow-intensity', '0.7');
+        mv.setAttribute('exposure', '1');
+        mv.setAttribute('loading', 'eager');
+        mv.addEventListener('error', function () {
+          // Model gagal (URL salah/JSM decode error) — kembalikan pesan fallback.
+          if (fallback) fallback.style.display = '';
+          if (mv.parentNode) mv.parentNode.removeChild(mv);
+        });
+        if (fallback) fallback.style.display = 'none';
+        container.appendChild(mv);
+      })
+      .catch(function () {
+        // Library gagal (offline/CDN diblokir) — pesan fallback tetap tampil,
+        // izinkan klik berikutnya mencoba lagi.
+        mv3dStarted = false;
+      });
+  }
 
   document.getElementById('vmTab3D').addEventListener('click', function () {
     document.getElementById('vmTab3D').classList.add('active');
@@ -274,10 +319,7 @@
     document.getElementById('vmTab2D').setAttribute('aria-selected', 'false');
     document.getElementById('diagramViewport').style.display = 'none';
     document.getElementById('model3dContainer').style.display = 'block';
-    // Lazy-load model-viewer HANYA saat tab 3D benar-benar dipilih (Tahap 7/8).
-    // Model GLB (assets/anatomy/models/human-body.glb) belum tersedia -- fallback
-    // di atas ditampilkan apa adanya, TIDAK memuat library model-viewer secara
-    // percuma karena tidak ada model untuk dirender.
+    loadModel3D();
   });
   document.getElementById('vmTab2D').addEventListener('click', function () {
     document.getElementById('vmTab2D').classList.add('active');
