@@ -13,6 +13,11 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 - Sync.push tidak lagi menimpa kolom xp - celah dobel XP ditutup
 - Laporan Drift XP untuk admin + kartu Sumber XP di statistik
 
+### Untuk admin
+
+- ⚠️ **WAJIB: jalankan ulang `supabase-schema.sql` di SQL Editor** — `apply_user_xp` versi baru menerima whitelist 8 sumber; schema lama menyimpan log kanji/kuis tapi tidak meng-apply-nya sampai file dijalankan (barisnya aman sebagai backlog backfill, tidak hilang). Cek sesudahnya: `SELECT count(*), SUM(xp_earned) FROM user_xp_log WHERE xp_applied = false;`
+- Uji pasca-deploy: ikuti `docs/SMOKE-TEST-post-merge.md` — bagian 4b (sumber multi), 4c (kartu Sumber XP), 4d (Laporan Drift XP) mencakup persis fitur rilis ini
+
 ---
 
 ## v363 — Kosakata Indonesia menyeluruh N5–N1
