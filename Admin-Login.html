@@ -139,8 +139,18 @@ form.addEventListener('submit', async (event) => {
       // Demo mode: only on localhost, credentials from env or prompt
       const demoEmail = window.NIHONGO_ADMIN_DEMO_EMAIL || 'admin@nihongopro.local';
       const demoPass  = window.NIHONGO_ADMIN_DEMO_PASS  || '';
-      if (!demoPass) throw new Error('Demo: Set window.NIHONGO_ADMIN_DEMO_PASS di console untuk login lokal.');
-      if (email !== demoEmail || password !== demoPass) throw new Error('Email atau password admin salah.');
+      /* Pesan harus cukup untuk diikuti sampai selesai. Versi lama hanya
+         menyebut sandi, padahal syaratnya DUA: sandi yang disetel DAN email
+         yang persis sama dengan demoEmail. Orang yang menuruti pesan lama
+         tetap gagal di baris berikutnya dengan "Email atau password admin
+         salah", tanpa pernah diberi tahu email mana yang dimaksud.
+         Menyebut email di sini aman: jalur ini hanya hidup di file:/localhost,
+         dan sandinya ditentukan sendiri oleh orang yang membukanya. */
+      if (!demoPass) throw new Error(
+        'Demo lokal — jalankan di Console: window.NIHONGO_ADMIN_DEMO_PASS = "sandi-bebas" '
+        + 'lalu masuk memakai email ' + demoEmail + ' dengan sandi tersebut.');
+      if (email !== demoEmail || password !== demoPass) throw new Error(
+        'Demo lokal: email harus ' + demoEmail + ' dan sandinya sama dengan window.NIHONGO_ADMIN_DEMO_PASS.');
       session = { email, role: 'admin', token: 'local-demo-' + Date.now(), loginAt: new Date().toISOString() };
     } else {
       throw new Error('Endpoint admin belum dikonfigurasi. Set window.NIHONGO_ADMIN_LOGIN_ENDPOINT di env vars.');
