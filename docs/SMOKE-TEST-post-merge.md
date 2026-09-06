@@ -1,6 +1,6 @@
-# Smoke Test Pasca-Merge — `threejs-unify-and-lazy-load` (27 commit, ?v=6)
+# Smoke Test Pasca-Deploy — v365 ( Housekeeping env & pengingat merge otomatis )
 
-> Jalankan setelah: (1) merge PR, (2) deploy Netlify hijau, (3) **`supabase-schema.sql` sudah dijalankan ulang** di SQL Editor.
+> Jalankan setelah: (1) push `main` yang memuat v365, (2) deploy Netlify hijau, (3) **`supabase-schema.sql` sudah dijalankan ulang** di SQL Editor (jika belum pernah sejak versi whitelist 8 sumber).
 > Estimasi total: ±20 menit. Tandai ✅/❌/— (tidak berlaku) di tiap butir.
 > Ganti `https://nihongopro.id` sesuai domain produksi. Uji di **Chrome desktop + HP** (viewport 390px).
 
@@ -8,7 +8,7 @@
 
 ## 0. Prasyarat (semua harus ✅ sebelum mulai)
 
-- [ ] Merge selesai; `main` sudah berisi commit puncak `4cb13ed`
+- [ ] `main` sudah berisi commit puncak rilis v365 (`fec037f` di lokal; samakan dengan `git rev-parse origin/main`)
 - [ ] Deploy Netlify hijau (di Netlify → Deploys, build tidak error)
 - [ ] `supabase-schema.sql` sudah di-Run di SQL Editor dan hasilnya "Success"
 - [ ] Browser uji: hard refresh dulu (Cmd+Shift+R) ATAU DevTools → Application → Service Workers → **Unregister** + Clear storage, supaya tidak menguji cache lama
@@ -36,7 +36,7 @@
 
 - [ ] Buka beranda; DevTools → Network → muat ulang → semua CSS/JS bertanda versi memakai **`?v=6`** (bukan v=4/v=5/date-stamp): `kyoto-navbar.min.js?v=6`, `pro-style.css?v=6`, dst.
 - [ ] **Muat ulang ke-2**: aset bertanda `?v=6` transferSize = 0 (di-serve cache SW) dan tetap 0 error
-- [ ] DevTools → Application → Cache Storage: hanya **satu** cache, `eduma-kaigo-v363`; tidak ada cache `eduma-kaigo-v*` basi tersisa
+- [ ] DevTools → Application → Cache Storage: hanya **satu** cache, `eduma-kaigo-v365`; tidak ada cache `eduma-kaigo-v*` basi tersisa
 - [ ] Cek 1 permintaan CSV: `vocab-all.csv?v=6` → 200
 - [ ] Navigator.serviceWorker.controller != null (SW aktif mengendalikan halaman)
 
