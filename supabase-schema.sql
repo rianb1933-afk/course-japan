@@ -135,11 +135,32 @@ DO $$ BEGIN
   CREATE POLICY "Certs public read" ON certificates FOR SELECT USING (true);
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
--- Leaderboard: only authenticated users can see name+xp+streak (no email/id exposed via API)
-DO $$ BEGIN
-  CREATE POLICY "Leaderboard read" ON user_progress
-    FOR SELECT USING (auth.role() = 'authenticated');
-EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+-- Papan peringkat: view berkolom terbatas, BUKAN policy baca-semua.
+--
+-- Sebelumnya di sini ada policy "Leaderboard read" yang memberi SELECT atas
+-- SELURUH baris user_progress kepada setiap pengguna terautentikasi.
+-- Komentarnya berbunyi "no email/id exposed via API" — dan itu keliru: RLS
+-- bekerja per-BARIS, bukan per-kolom. Begitu satu baris lolos, seluruh
+-- kolomnya ikut terbaca, jadi siapa pun yang login bisa meminta
+-- select=email,is_premium,plan dan memanen alamat email serta status
+-- langganan semua pengguna. Papan peringkatnya sendiri (getLeaderboard di
+-- assets/supabase-client.js) cuma memakai name, xp, streak, level.
+--
+-- Sekarang batasnya dipasang di tempat yang memang bisa membatasi kolom.
+-- security_invoker = false membuat view berjalan sebagai pemiliknya sehingga
+-- RLS tabel dasar dilewati — itu justru yang dibutuhkan, karena papan
+-- peringkat harus melihat baris milik semua orang. Hak anon dicabut agar
+-- pengunjung yang belum masuk tidak ikut membacanya.
+--
+-- Baris milik sendiri tetap terbaca utuh lewat policy "Users own data".
+DROP POLICY IF EXISTS "Leaderboard read" ON user_progress;
+
+CREATE OR REPLACE VIEW public.leaderboard AS
+  SELECT name, xp, streak, level FROM public.user_progress;
+ALTER VIEW public.leaderboard SET (security_invoker = false);
+REVOKE ALL ON public.leaderboard FROM PUBLIC;
+REVOKE ALL ON public.leaderboard FROM anon;
+GRANT SELECT ON public.leaderboard TO authenticated;
 
 -- Rate limits: each user/session can only access their own row
 DO $$ BEGIN

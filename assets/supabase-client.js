@@ -281,9 +281,14 @@
       return Array.isArray(data) && data[0] ? data[0] : null;
     },
 
+    // Membaca view `leaderboard`, bukan tabel user_progress. Kolom yang boleh
+    // dilihat orang lain dipagari di sisi database — tabelnya sendiri sudah
+    // tidak lagi punya policy baca-semua (lihat supabase-schema.sql). Meminta
+    // kolom di luar name/xp/streak/level ke sini akan ditolak, bukan diam-diam
+    // dikabulkan seperti sebelumnya.
     async getLeaderboard(limit = 10) {
       if (!SUPABASE_URL) return [];
-      return sbFetch(`/rest/v1/user_progress?select=name,xp,streak,level&order=xp.desc&limit=${limit}`);
+      return sbFetch(`/rest/v1/leaderboard?select=name,xp,streak,level&order=xp.desc&limit=${limit}`);
     },
 
     async saveQuizResult(userId, result) {

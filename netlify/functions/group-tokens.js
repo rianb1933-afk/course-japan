@@ -251,12 +251,16 @@ exports.handler = async (event) => {
       /* Ringkasan kelas untuk dashboard pengajar.
          ──────────────────────────────────────────────────────────────
          Progres siswa SENGAJA diambil di sini, bukan langsung dari klien.
-         Klien memang BISA membaca user_progress -- ada policy warisan
+         Dulu klien BISA membaca user_progress lewat policy warisan
          "Leaderboard read" yang mengizinkan setiap pengguna terautentikasi
          membaca SELURUH baris tabel itu, termasuk email dan status langganan
-         semua orang. Menyandarkan dashboard pada policy itu berarti fitur ini
-         ikut rusak begitu policy tersebut dipersempit (dan memang seharusnya
-         dipersempit). Di sini aksesnya dibatasi oleh kepemilikan kelas.
+         semua orang. Dashboard ini sengaja tidak bersandar padanya, supaya
+         tidak ikut rusak saat policy itu dipersempit.
+
+         Policy itu kini memang sudah dibuang: papan peringkat pindah ke view
+         `leaderboard` yang hanya memuat name/xp/streak/level. Kehati-hatian
+         di atas terbayar -- fitur ini tidak perlu diubah sama sekali. Akses
+         di sini dibatasi kepemilikan kelas, lewat service role.
 
          Kolom `email` tidak pernah ikut dikembalikan: pengajar butuh nama dan
          progres, bukan alamat surel muridnya. */
