@@ -88,6 +88,14 @@
 # create-payment, payment-webhook, livekit-token, admin-login sebelumnya
 # TIDAK punya baris di sini meski frontend memanggil /api/<nama> —
 # akan jatuh ke catch-all /* /404.html di bawah (404 di production).
+#
+# Terulang pada tts, group-tokens, dan xp-drift: ketiganya sudah punya
+# [[redirects]] di netlify.toml tapi tidak di sini, dan tetap 404 di
+# production. Terukur pada deploy pertama — /api/tts 404 sementara
+# /.netlify/functions/tts menjawab 503, jadi fungsinya hidup dan yang
+# hilang murni rutenya. Untuk /api/* berkas inilah yang menang; entri
+# netlify.toml saja TIDAK cukup, jadi tambahkan fungsi baru di kedua
+# tempat.
 /api/ai-chat         /.netlify/functions/ai-chat         200
 /api/create-payment  /.netlify/functions/create-payment  200
 /api/payment-webhook /.netlify/functions/payment-webhook 200
@@ -95,6 +103,9 @@
 /api/admin-login     /.netlify/functions/admin-login     200
 /api/blog-cms        /.netlify/functions/blog-cms         200
 /api/jlpt-cms        /.netlify/functions/jlpt-cms         200
+/api/tts             /.netlify/functions/tts             200
+/api/group-tokens    /.netlify/functions/group-tokens    200
+/api/xp-drift        /.netlify/functions/xp-drift        200
 
 # ── 404 fallback ──────────────────────────────────────────
 /* /404.html 404
