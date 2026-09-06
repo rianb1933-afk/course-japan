@@ -266,6 +266,47 @@ tanda tangan memakai server key yang sama, jadi keduanya harus cocok.
 
 ---
 
+## 5. Lainnya — opsional per fitur
+
+Semua di blok ini opsional; tanpa kuncinya, fitur terkait memakai bawaan atau
+diam-diam nonaktif — halaman lain tetap jalan.
+
+```
+# Kelas live P2P — fallback di luar LiveKit (Kelas-Online.html)
+PEERJS_HOST             = your-peerserver.example.com   # kosong = public 0.peerjs.com
+PEERJS_PORT             = 443                   # hanya untuk PeerServer self-hosted
+PEERJS_PATH             = /                     # idem
+TURN_URL                = turn:global.relay.metered.ca:80
+TURN_USERNAME           = ...                   # dari metered.ca / TURN sendiri
+TURN_CREDENTIAL         = ...                   # terlihat browser — normal untuk ICE WebRTC
+
+# EmailJS — form kontak (Kontak.html)
+EDUMA_EMAILJS_PUBLIC_KEY  = ...                 # publik
+EDUMA_EMAILJS_SERVICE_ID  = ...                 # publik
+EDUMA_EMAILJS_TEMPLATE_ID = ...                 # publik
+
+# Google Search Console — meta verifikasi (analytics-loader.js)
+EDUMA_GSC_VERIFICATION  = ...
+
+# Midtrans client key — Pricing-Pro.html (publik, pasangan MIDTRANS_SERVER_KEY)
+EDUMA_MIDTRANS_CLIENT_KEY = SB-Mid-client-...
+
+# Referer header ai-chat ke provider AI (netlify/functions/ai-chat.js)
+SITE_URL                = https://nihongopro.id
+
+# Alias lama SUPABASE_KEY — fallback SUPABASE_SERVICE_KEY di livekit-token.js
+SUPABASE_KEY            = eyJ...        # RAHASIA — isi sama dengan SUPABASE_SERVICE_KEY
+```
+
+Kunci berawalan `EDUMA_` dibaca `assets/env.js` dan memang untuk browser.
+`TURN_CREDENTIAL` pun sampai ke browser — itu memang desain ICE WebRTC
+(kredensial TURN selalu terlihat klien); batasi kuota TURN-nya, bukan
+kerahasiaannya. Tiga kunci terakhir di blok itu (`SITE_URL`, `SUPABASE_KEY`,
+dan `EDUMA_MIDTRANS_CLIENT_KEY` bila dipakai) adalah satu-satunya yang
+menyentuh server atau pembayaran.
+
+---
+
 ## Cara mengisi di Netlify
 
 **Site settings → Environment variables → Add a variable.**

@@ -689,6 +689,111 @@ def check_env_variable_consistency():
 
 
 # ──────────────────────────────────────────────────────────────────
+# CHECK 13b: Konsistensi dokumentasi env (netlify.toml ↔ docs ↔ kode)
+#
+# Tiga sumber kebenaran untuk variabel environment, dan mudah saling
+# tertinggal: komentar kepala netlify.toml, docs/SETUP-KUNCI-API.md, dan
+# apa yang benar-benar dibaca kode (process.env di serverless + definisi
+# assets/env.js yang dipakai konsumen). Check ini memperingatkan saat
+# salah satu sumber menyebut var yang tidak disebut sumber lain —
+# sehingga "tambah var baru" tidak lagi berarti mengingat tiga tempat
+# secara manual.
+#
+# Sengaja WARNING, bukan error: dokumentasi tidak memengaruhi runtime.
+# ──────────────────────────────────────────────────────────────────
+def check_env_docs_consistency():
+    doc_path = os.path.join(ROOT, 'docs', 'SETUP-KUNCI-API.md')
+    toml_path = os.path.join(ROOT, 'netlify.toml')
+    env_path = os.path.join(ROOT, 'assets', 'env.js')
+    if not (os.path.exists(doc_path) and os.path.exists(toml_path)):
+        warn('env-docs', 'netlify.toml atau docs/SETUP-KUNCI-API.md tidak ada — check dilewati')
+        return
+
+    doc_c = read(doc_path)
+    toml_c = read(toml_path)
+
+    # Var yang DIDOKUMENTASIKAN di komentar netlify.toml ("  #   NAMA = ...")
+    toml_vars = set(re.findall(r'^[ \t]*#[ \t]*([A-Z][A-Z0-9_]{2,})[ \t]*=', toml_c, re.M))
+    # Var yang sekadar DISEBUT prosa komentar toml (mis. "Kuota: AI_FREE_DAILY,
+    # AI_PREMium_PER_MIN") — cukup ber-underiskan agar tidak menangkap kata
+    # seperti RAHASIA/WAJIB. Dipakai arah 3, bukan arah 1 (yang tetap ketat).
+    toml_mentioned = set(re.findall(r'\b[A-Z][A-Z0-9]*_[A-Z0-9_]{2,}\b', toml_c))
+
+    # Var yang DISEBUT docs/SETUP-KUNCI-API.md, dalam dua format:
+    #   - token inline ``VAR`` / ``VAR*`` di prosa dan tabel
+    #   - baris assignment "VAR = ..." di blok kode contoh setup
+    # Token berakhiran '*' adalah wildcard prefiks (`TURN_URL*` mencakup
+    # TURN_URL_TCP, TURN_URL_TLS, ...); berakhiran '_' (mis. `EDUMA_`)
+    # adalah sebutan prefiks, bukan var.
+    doc_exact, doc_prefix = set(), set()
+    for name, wild in re.findall(r'`([A-Z][A-Z0-9_]{2,})(\*?)`', doc_c):
+        if name.endswith('_'):
+            continue
+        (doc_prefix if wild else doc_exact).add(name)
+    doc_exact |= set(re.findall(r'^([A-Z][A-Z0-9_]{2,})[ \t]*=', doc_c, re.M))
+
+    def in_doc(v):
+        return v in doc_exact or any(v.startswith(p) for p in doc_prefix)
+
+    # 1) toml → doc: var yang didokumentasikan di toml harus disebut doc
+    missing_in_doc = sorted(v for v in toml_vars if not in_doc(v))
+
+    # 2) kode → dokumentasi: var yang dibaca kode harus disebut doc ATAU
+    #    toml (dengan atau tanpa prefiks EDUMA_). Definisi env.js yang tak
+    #    pernah dibaca konsumen mana pun dianggap config mati — bukan urusan
+    #    check ini (check env_variable_consistency yang mengawasi konsumen).
+    #    Tiga bentuk akses diambil: `process.env.NAMA`, `process.env['NAMA']`,
+    #    dan argumen literal helper dinamis (MODEL('X_MODEL', ...),
+    #    num('AI_..._DAILY', ...)) — model override & kuota AI dibaca lewat
+    #    pemanggilan itu, bukan lewat properti statis.
+    server_vars = set()
+    for d in (os.path.join(ROOT, 'netlify', 'functions'), os.path.join(ROOT, 'api')):
+        for f in glob.glob(os.path.join(d, '*.js')):
+            c = read(f)
+            server_vars |= set(re.findall(r'process\.env\.([A-Z][A-Z0-9_]+)', c))
+            server_vars |= set(re.findall(r"process\.env\[([A-Z][A-Z0-9_]+)\]", c))
+            server_vars |= set(re.findall(r"(?:MODEL|num)\(\s*'([A-Z][A-Z0-9_]+)'", c))
+    if os.path.exists(env_path):
+        env_c = read(env_path)
+        defs = set(re.findall(r'(\w+):[ \t]*read\(', env_c))
+        used = set()
+        for fpath in glob.glob(os.path.join(ROOT, 'assets', '*.js')) + all_html_files():
+            if fpath == env_path or '.min.' in fpath:
+                continue
+            c = read(fpath)
+            used |= set(re.findall(r'EDUMA_ENV\??\.(\w+)', c))
+            used |= set(re.findall(r'\benv\.(\w+)', c))
+        used = {v for v in used if v.isupper() or '_' in v}
+        server_vars |= defs & used
+    code_vars = server_vars
+
+    def documented(v):
+        return v in toml_vars or in_doc(v) or ('EDUMA_' + v) in toml_vars or ('EDUMA_' + v) in doc_exact
+
+    undocumented = sorted(v for v in code_vars if not documented(v))
+
+    # 3) toml ↔ kode (server-side saja): blok [build.environment] di komentar
+    #    netlify.toml adalah checklist pengisian di dashboard — var yang
+    #    dibaca function tapi tidak tercantum di sana akan terlewat saat
+    #    setup. Pengecualian: pasangan EDUMA_-nya sudah tercantum (mis.
+    #    SUPABASE_URL ↔ EDUMA_SUPABASE_URL). Var toml yang tak dibaca kode
+    #    tetap sah sebagai dokumentasi; ia dijaga arah 1 terhadap doc.
+    def in_toml(v):
+        return v in toml_vars or ('EDUMA_' + v) in toml_vars or v in toml_mentioned
+
+    missing_in_toml = sorted(v for v in server_vars if not in_toml(v))
+
+    if missing_in_doc:
+        warn('env-docs', 'Var didokumentasikan di netlify.toml tapi tidak disebut docs/SETUP-KUNCI-API.md: ' + ', '.join(missing_in_doc))
+    if undocumented:
+        warn('env-docs', 'Var dibaca kode tapi tidak didokumentasikan (doc maupun netlify.toml): ' + ', '.join(undocumented))
+    if missing_in_toml:
+        warn('env-docs', 'Var dibaca function tapi tidak tercantum di komentar netlify.toml: ' + ', '.join(missing_in_toml))
+    if not missing_in_doc and not undocumented and not missing_in_toml:
+        ok('env-docs', f'Dokumentasi env konsisten ({len(toml_vars)} var toml, {len(server_vars)} var server, {len(code_vars)} var kode)')
+
+
+# ──────────────────────────────────────────────────────────────────
 # CHECK 14: Unit test suite (SRS algorithm, XP/level system)
 # ──────────────────────────────────────────────────────────────────
 def check_unit_tests():
@@ -2538,6 +2643,7 @@ def main():
         check_service_worker,
         check_global_object_dependencies,
         check_env_variable_consistency,
+        check_env_docs_consistency,
         check_materi_parity,
         check_search_index,
         check_kaigo_hub,

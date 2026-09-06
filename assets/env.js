@@ -42,11 +42,6 @@
       EMAILJS_SERVICE_ID:  read("EDUMA_EMAILJS_SERVICE_ID", ""),
       EMAILJS_TEMPLATE_ID: read("EDUMA_EMAILJS_TEMPLATE_ID", ""),
 
-      // ── FIREBASE ──────────────────────────────────────────────────────────
-      FIREBASE_API_KEY:    read("EDUMA_FIREBASE_API_KEY", ""),
-      FIREBASE_PROJECT_ID: read("EDUMA_FIREBASE_PROJECT_ID", ""),
-      FIREBASE_APP_ID:     read("EDUMA_FIREBASE_APP_ID", ""),
-
       // ── WebRTC / PeerJS ───────────────────────────────────────────────────
       // Set PEERJS_HOST di Netlify env vars untuk self-hosted PeerServer.
       // Jika kosong, akan fallback ke 0.peerjs.com (public, tidak untuk produksi).
@@ -65,10 +60,6 @@
       TURN_URL_TLS:        read("TURN_URL_TLS",     "turns:global.relay.metered.ca:443?transport=tcp"),
       TURN_USERNAME:       read("TURN_USERNAME",     "nihongopro"),
       TURN_CREDENTIAL:     read("TURN_CREDENTIAL",   "kaigo2025"),
-
-      // ── PWA Push Notifications (optional) ────────────────────────────────
-      // Generate VAPID keys: https://web-push-codelab.glitch.me/
-      VAPID_PUBLIC_KEY:    read("VAPID_PUBLIC_KEY",    ""),
 
       // ── Payment (Midtrans) ────────────────────────────────────────────────
       // CLIENT_KEY boleh di frontend. SERVER_KEY TIDAK — hanya di Netlify function.

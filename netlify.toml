@@ -73,6 +73,31 @@
 #   EDUMA_SUPABASE_URL      = "https://xxx.supabase.co"
 #   EDUMA_SUPABASE_ANON_KEY = "eyJ..."
 #   EDUMA_GA_MEASUREMENT_ID = "G-XXXXXXXXXX" # dari analytics.google.com
+#
+#   Server-side (RAHASIA — jangan pernah expose ke client; detail di
+#   docs/SETUP-KUNCI-API.md bagian 1–4):
+#   SUPABASE_URL            = "https://xxx.supabase.co"   # sama dgn EDUMA_ di atas
+#   SUPABASE_ANON_KEY       = "eyJ..."                    # untuk validasi JWT premium
+#   SUPABASE_SERVICE_KEY    = "eyJ..."                    # melewati seluruh RLS
+#   SUPABASE_KEY            = "eyJ..."                    # alias lama SERVICE_KEY (livekit-token.js)
+#   LIVEKIT_URL             = "wss://xxx.livekit.cloud"   # kelas live
+#   LIVEKIT_API_KEY         = "API..."
+#   LIVEKIT_API_SECRET      = "..."                       # RAHASIA
+#   MIDTRANS_SERVER_KEY     = "SB-Mid-server-..."         # RAHASIA — pembayaran
+#   MIDTRANS_IS_PRODUCTION  = "false"                     # true saat sudah live
+#   SITE_URL                = "https://nihongopro.id"     # header HTTP-Referer ai-chat
+#
+#   Client-side (opsional; didefinisikan di assets/env.js, terbaca browser):
+#   PEERJS_HOST             = "your-peerserver.example.com"
+#   PEERJS_PORT             = "443"                       # PeerServer self-hosted
+#   PEERJS_PATH             = "/"                         # idem
+#   TURN_USERNAME           = "..."                       # TURN metered.ca / sendiri
+#   TURN_CREDENTIAL         = "..."                       # terlihat browser — normal utk ICE
+#   EDUMA_EMAILJS_PUBLIC_KEY  = "..."                     # form kontak (Kontak.html)
+#   EDUMA_EMAILJS_SERVICE_ID  = "..."
+#   EDUMA_EMAILJS_TEMPLATE_ID = "..."
+#   EDUMA_GSC_VERIFICATION    = "..."                     # meta verifikasi Search Console
+#   EDUMA_MIDTRANS_CLIENT_KEY = "SB-Mid-client-..."       # Pricing-Pro.html (publik)
 
 # ── Security Headers ─────────────────────────────────────────────────
 # CSP v179: diperketat dari "default-src https:" (mengizinkan HAMPIR SEMUA
