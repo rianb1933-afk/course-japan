@@ -119,7 +119,7 @@ ON CONFLICT (user_id) DO UPDATE SET xp=COALESCE(user_progress.xp,0)+EXCLUDED.xp,
 
 ---
 
-## 4b. XP kanji & kuis — sumber multi (`329e717`)
+## 4b. XP kanji & kuis — sumber multi (`329e717`, mirror pusat `6247017`)
 
 **Target:** XP dari fitur selain kelas live juga sampai ke `user_xp_log` dengan kolom `source` yang benar dan `xp_applied=true` — bukan hanya hidup di localStorage `np-dash-v3`.
 
@@ -129,24 +129,41 @@ SELECT prosrc FROM pg_proc WHERE proname = 'apply_user_xp';
 -- harus memuat 'kanji_quiz' — kalau tidak, schema lama masih terpasang
 ```
 
-- [ ] **Kanji (jalur langsung):** login → `Materi/Kanji-Writing.html` → tulis satu kanji sampai skor muncul → console: **"XP kanji tercatat (log #N)"**
+**Peta sumber yang diharapkan (versi mirror pusat `6247017`):**
+
+| Aktivitas | Jalur pengiriman | `source` di `user_xp_log` |
+|---|---|---|
+| Kelas live | `recordLiveXP` langsung (Kelas-Online) | `live_session` |
+| Tulis kanji | mirror langsung (Kanji-Writing, addXP ditandai `mirrored`) | `kanji` |
+| Review SRS | mirror NPXP `recordVocab('srs')` | `srs` |
+| Kuis game | mirror NPXP `award('game')` | `game` |
+| Kuis materi | mirror NPXP `recordQuiz` (auto-hook) | `quiz` |
+| Kuis kanji | mirror NPXP `recordQuiz('kanji')` | `kanji_quiz` |
+| Timer belajar, achievement, JLPT-CBT, AI Tutor, Kaigo Simulator, sertifikat | **mirror pusat** `np:xpAdded` (supabase-client.js) | `materi` |
+| Speaking/grammar/kategori lain | **mirror pusat** (bukan NPXP) | `materi` |
+
+Catatan anti-dobel (`6247017`): pemberian yang ditandai `mirrored` TIDAK lewat mirror pusat — satu pemberian XP = satu baris log. `Sync.push` juga tidak lagi menimpa `user_progress.xp` dengan angka absolut; kolom itu kini hanya bertambah lewat `apply_user_xp`.
+
+- [ ] **Kanji (jalur langsung):** login → `Materi/Kanji-Writing.html` → tulis satu kanji sampai skor muncul → console: **"XP kanji tercatat (log #N)"** — dan HANYA SATU baris baru (bukan dua: `kanji` + `materi`)
 - [ ] SQL Editor:
   ```sql
   SELECT id, xp_earned, source, session_data, xp_applied, created_at
   FROM user_xp_log WHERE user_id = '<uuid>' ORDER BY created_at DESC LIMIT 5;
   -- baris kanji: source = 'kanji', session_data->>'char' terisi, xp_applied = t
   ```
+- [ ] **Mirror pusat (timer):** login → buka halaman ber-platform → biarkan Timer belajar berjalan sampai 5 menit (+5 XP "5 menit belajar") → baris baru `source = 'materi'`, `session_data->>'reason' = '5 menit belajar'`. (Kalau tidak mau menunggu: achievement pertama atau aktivitas JLPT-CBT juga lewat jalur ini.)
 - [ ] **Kuis game:** `QUIZ/nihongo-pro.html` → jawab benar dalam mode game → console tanpa error merah; baris baru dengan `source = 'game'` (mirror dari `NPXP.award('game')`)
 - [ ] **Kuis materi** (auto-hook `np-materi-progress.js`): selesaikan kuis di halaman Materi mana pun → baris `source = 'quiz'`; kuis kanji → `source = 'kanji_quiz'`
 - [ ] **Review SRS:** selesaikan sesi review di `SRS-Flashcard.html` → baris `source = 'srs'` (2 XP per kartu)
 - [ ] **Kategori tak dikenal jatuh ke bucket umum:** aktivitas speaking/grammar → baris `source = 'materi'` (bukan sumber asing yang tidak akan pernah di-apply)
+- [ ] **Tanpa dobel:** untuk SETIAP aktivitas di atas, jumlah baris log = jumlah pemberian XP (1 addXP = 1 baris). Konsol halaman boleh memuat info mirror, tidak boleh ada pasangan baris kembar `(kanji, materi)` / `(game, materi)` untuk satu aksi
 - [ ] **Anti-sumber-palsu:** dari konsol halaman yang sudah login:
   ```js
   SupabaseClient.DB.recordXP('<uuid-anda>', 500, 'cheat_source')
   ```
   → `{ok: false, skipped: true}`, **tidak ada** baris log baru, console memuat peringatan "sumber tidak valid"
 - [ ] **Tanpa login** (incognito): kerjakan kanji/kuis → XP tetap naik di profil lokal, console bersih (mirror diam, tanpa error merah)
-- [ ] `user_progress.xp` bertambah sesuai jumlah tiap mirror (bandingkan dengan XP awal yang dicatat di bagian 4)
+- [ ] `user_progress.xp` bertambah sesuai jumlah tiap mirror (bandingkan dengan XP awal yang dicatat di bagian 4); setelah ~30 detik, push `Sync` TIDAK mengubah nilainya (kolom `xp` tidak lagi dikirim push)
 
 **Kalau baris kanji/kuis tercatat tapi `xp_applied` tetap `false`:** schema lama masih terpasang (fungsi memfilter `live_session` saja). Re-run `supabase-schema.sql` — backfill versi baru menyapu SEMUA sumber sah, jadi baris yang tertinggal otomatis pulih tanpa dobel.
 
