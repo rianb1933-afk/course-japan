@@ -443,7 +443,7 @@ select,input[type=number]{border:1.5px solid var(--border-mid,rgba(107,79,58,.2)
       $('scoreMsg').insertAdjacentHTML('afterend', breakdownHtml);
     }
     try{var best=parseInt(localStorage.getItem('np-ujian-best-'+bank)||'0');if(pct>best)localStorage.setItem('np-ujian-best-'+bank,pct);}catch(e){}
-    try{if(window.NPXp&&window.NPXp.add)window.NPXp.add(correct*2);}catch(e){}
+    try{if(window.NPXP&&window.NPXP.award)window.NPXP.award('quiz',correct*2,{title:'Ujian — '+bank});}catch(e){}
     // Simpan riwayat
     lastResult={bank:bank,total:quiz.length,correct:correct,pct:pct,secs:secs,at:Date.now(),cat:$('catSel').value};
     try{

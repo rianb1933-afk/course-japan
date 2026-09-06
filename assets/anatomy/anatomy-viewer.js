@@ -62,12 +62,15 @@
   }
 
   // ═══════════ INTEGRASI XP (Tahap 6) — pakai assets/np-xp.js yang SUDAH ADA ═══════════
-  // Tidak membuat sistem XP duplikat. Jika window.NPXp tidak tersedia (halaman
-  // dimuat tanpa np-xp.js), fungsi ini no-op secara aman.
+  // Tidak membuat sistem XP duplikat. PERBAIKAN: modul diekspor sebagai
+  // global.NPXP dengan metode award() — nama lama global.NPXp.add() tidak
+  // pernah ada, jadi XP eksplorasi ini sebelumnya hilang diam-diam. Sumber
+  // 'materi' = bucket default bucketOf() di np-xp.js (eksplorasi materi).
+  // Jika np-xp.js tidak ikut dimuat halaman, award() tidak terpanggil — no-op aman.
   function grantXP(amount, reason) {
     try {
-      if (global.NPXp && typeof global.NPXp.add === 'function') {
-        global.NPXp.add(amount);
+      if (global.NPXP && typeof global.NPXP.award === 'function') {
+        global.NPXP.award('materi', amount, { title: 'Anatomi — ' + reason });
         showToast('✨ +' + amount + ' XP — ' + reason);
       }
     } catch (e) { /* aman diabaikan jika sistem XP tidak tersedia */ }

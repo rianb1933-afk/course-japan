@@ -15,38 +15,63 @@
 
   var idx = 0, answers = [], quizDone = false;
 
+  // ── Pengocok pilihan jawaban (render-time, bukan di data) ──
+  // Ke-34 soal di atas menyimpan jawaban benar di indeks 0 (a:0) — pola warisan
+  // yang membuat klik opsi pertama selalu benar. Alih-alih menulis ulang data
+  // (34 soal sengaja "dipertahankan utuh"), urutan tombol dikocok Fisher–Yates
+  // setiap kali soal dirender. order[idx] memetakan posisi tombol -> indeks
+  // opsi ASLI, dan pick() menerjemahkan klik kembali ke indeks asli — sehingga
+  // q.a, scoring di finishQuiz(), maupun data Q sama sekali tidak berubah.
+  function shuffleArr(arr) {
+    for (var i = arr.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var t = arr[i]; arr[i] = arr[j]; arr[j] = t;
+    }
+    return arr;
+  }
+  var order = []; // order[idx] = susunan indeks opsi asli utk posisi tombol soal idx
+
+  function shuffledOptsFor(i) {
+    var pairs = Q[i].opts.map(function (_, oi) { return oi; });
+    shuffleArr(pairs);
+    order[i] = pairs;
+    return pairs.map(function (oi) { return Q[i].opts[oi]; });
+  }
+
   function renderQuiz() {
     var q = Q[idx];
     $('qProgress').textContent = 'Soal ' + (idx + 1) + ' / ' + Q.length;
     $('qText').textContent = q.q;
     $('qExpl').classList.remove('show');
     var ch = $('qChoices'); ch.innerHTML = '';
-    q.opts.forEach(function (opt, i) {
+    shuffledOptsFor(idx).forEach(function (opt, i) {
       var b = document.createElement('button');
       b.className = 'q-choice';
       b.textContent = opt;
-      b.addEventListener('click', function () { pick(i); });
+      b.addEventListener('click', function () { pick(order[idx][i]); });
       ch.appendChild(b);
     });
     $('qNextBtn').disabled = true;
     $('qNextBtn').textContent = (idx === Q.length - 1) ? 'Lihat Hasil ✓' : 'Berikutnya →';
   }
 
-  function pick(i) {
+  function pick(origIdx) {
     if (answers[idx] != null) return;
-    answers[idx] = i;
+    answers[idx] = origIdx;
     var q = Q[idx];
+    var correctPos = order[idx].indexOf(q.a);
+    var clickedPos = order[idx].indexOf(origIdx);
     var btns = $('qChoices').querySelectorAll('.q-choice');
     btns.forEach(function (b, bi) {
-      if (bi === q.a) b.classList.add('correct');
-      else if (bi === i) b.classList.add('wrong');
+      if (bi === correctPos) b.classList.add('correct');
+      else if (bi === clickedPos) b.classList.add('wrong');
     });
     $('qExpl').textContent = q.e;
     $('qExpl').classList.add('show');
     $('qNextBtn').disabled = false;
 
     // Integrasi XP (Tahap 6): +10 per jawaban benar, +25 bonus 5 benar berturut-turut
-    if (i === q.a && global.NPAnatomyViewer) {
+    if (origIdx === q.a && global.NPAnatomyViewer) {
       grantQuizXP(10, 'Jawaban benar');
       trackStreak(true);
     } else {
@@ -64,10 +89,15 @@
     }
   }
 
+  // ═══ Integrasi XP (Tahap 6): +10 per jawaban benar, +25 bonus 5 benar berturut, +50 selesai ═══
+  // Sumber 'quiz' = whitelist bucketOf() di np-xp.js, ikut papan Sumber XP di
+  // SRS-Statistics. PERBAIKAN: modul diekspor sebagai global.NPXP dengan metode
+  // award() — nama lama global.NPXp.add() tidak pernah ada, jadi XP kuis ini
+  // sebelumnya HILANG diam-diam (try/catch menelan ReferenceError-nya).
   function grantQuizXP(amount, reason) {
     try {
-      if (global.NPXp && typeof global.NPXp.add === 'function') {
-        global.NPXp.add(amount);
+      if (global.NPXP && typeof global.NPXP.award === 'function') {
+        global.NPXP.award('quiz', amount, { title: 'Anatomi — ' + reason });
       }
     } catch (e) { /* aman diabaikan */ }
   }
