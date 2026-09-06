@@ -91,7 +91,12 @@
     },
 
     // XP + Level
-    addXP(amount, reason) {
+    /* opts.mirrored: true bila pemberi XP ini SUDAH mengirim salinannya ke
+       server lewat jalur log-id sendiri (mis. NPXP mirror, Kanji-Writing,
+       Kelas-Online). Pendengar mirror pusat di supabase-client.js membaca
+       penanda ini agar satu pemberian XP tidak tercatat dua kali di
+       user_xp_log. */
+    addXP(amount, reason, opts) {
       const u = _state.user;
       const oldLevel = u.level;
       const oldXP = u.xp;
@@ -122,6 +127,7 @@
         detail: {
           amount, reason, total: u.xp, level: u.level,
           oldXP, oldLevel, leveledUp: u.level > oldLevel,
+          mirrored: !!(opts && opts.mirrored),
         },
       }));
       return u.xp;
@@ -528,7 +534,7 @@ Akhiri dengan pertanyaan atau prompt untuk lanjut belajar.`;
   // ═══════════════════════════════════════════════════════
   global.NP = { State, XP, SRS, AI, Toast, Theme, Nav, Timer, Achievements };
   global.NihongoProgress = {
-    addXP: (n, r) => State.addXP(n, r),
+    addXP: (n, r, opts) => State.addXP(n, r, opts),
     logActivity: (type, label, score) => {
       State.markStudyToday();
       if (type === 'quiz') { State.updateUser({ quizTotal: (State.getUser().quizTotal || 0) + 1 }); }

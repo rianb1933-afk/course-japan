@@ -11,6 +11,7 @@
 'use strict';
 const assert = require('assert');
 const path = require('path');
+const { LocalStorageMock } = require('./mock-dom');
 
 const MOD = path.join(__dirname, '..', '..', 'assets', 'supabase-client.js');
 
@@ -22,10 +23,14 @@ function loadClient(fetchImpl) {
   const hadWindow = 'window' in global;
   const prevWindow = global.window;
   if (!hadWindow) {
-    // addEventListener/document.addEventListener dipakai modul saat load.
+    // addEventListener/dispatchEvent/document.addEventListener dipakai modul
+    // saat load; dispatchEvent dipakai test pendengar np:xpAdded.
+    const listeners = {};
     const stubEl = { addEventListener() {} };
     global.window = Object.assign(Object.create(global), {
-      addEventListener() {}, document: stubEl,
+      document: stubEl,
+      addEventListener(type, fn) { (listeners[type] = listeners[type] || []).push(fn); },
+      dispatchEvent(evt) { (listeners[evt.type] || []).forEach(fn => fn(evt)); return true; },
     });
     global.document = stubEl;
   }
@@ -201,6 +206,78 @@ const tests = [
         assert.strictEqual(called, 0, 'fetch tidak boleh dipanggil untuk sumber ilegal');
         assert.ok(warns.some(w => w.includes('cheat_source')), 'harus memberi peringatan sumber tak sah');
       } finally { console.warn = realWarn; restore(); }
+    }),
+  },
+  // ── push tidak lagi menimpa xp absolut ─────────────────────────────────
+  {
+    name: 'Sync.push TIDAK mengirim kolom xp (user_progress.xp hanya bertambah lewat apply_user_xp)',
+    fn: () => withEnv(async () => {
+      // sesi palsu agar Auth.user() menjawab; modul membaca localStorage global
+      global.localStorage = new LocalStorageMock();
+      global.localStorage.setItem('np-auth-v1', JSON.stringify({
+        access_token: 'tok', refresh_token: 'r', expires_at: Date.now() + 3600000,
+        user: { id: 'user-push', email: 't@x.io' },
+      }));
+      global.localStorage.setItem('np-state-v3', JSON.stringify({ user: { name: 'T', xp: 1234, level: 5, streak: 3 } }));
+      const bodies = [];
+      const { client, restore } = loadClient(async (url, opts = {}) => {
+        if (String(url).includes('/rest/v1/user_progress')) bodies.push(JSON.parse(opts.body || '{}'));
+        return okJson([]);
+      });
+      try {
+        client.Auth.init(); // harness tanpa DOMContentLoaded — init manual
+        await client.Sync.push();
+        assert.strictEqual(bodies.length, 1, 'satu upsert user_progress');
+        assert.strictEqual(bodies[0].xp, undefined, 'kolom xp TIDAK boleh dikirim: menimpanya absolut menggandakan XP yang sudah di-apply lewat log-id');
+        assert.strictEqual(bodies[0].user_id, 'user-push');
+        assert.strictEqual(bodies[0].level, 5, 'kolom lain tetap dikirim');
+        assert.strictEqual(bodies[0].streak, 3);
+      } finally { restore(); delete global.localStorage; }
+    }),
+  },
+  {
+    name: 'pendengar np:xpAdded mengirim XP tanpa penanda ke bucket materi',
+    fn: () => withEnv(async () => {
+      global.localStorage = new LocalStorageMock();
+      global.localStorage.setItem('np-auth-v1', JSON.stringify({
+        access_token: 'tok', refresh_token: 'r', expires_at: Date.now() + 3600000,
+        user: { id: 'user-listen', email: 't@x.io' },
+      }));
+      const calls = [];
+      const { client, restore } = loadClient(async (url, opts = {}) => {
+        calls.push({ url: String(url), body: opts.body ? JSON.parse(opts.body) : null });
+        return calls.length === 1 ? okJson([{ id: 77 }]) : okJson(null);
+      });
+      try {
+        client.Auth.init(); // pendengar membaca sesi saat event — init dulu
+        window.dispatchEvent(new CustomEvent('np:xpAdded', { detail: { amount: 5, reason: '5 menit belajar' } }));
+        await new Promise(r => setTimeout(r, 0));
+        assert.strictEqual(calls.length, 2, 'log insert + RPC');
+        assert.ok(calls[0].url.includes('/rest/v1/user_xp_log'));
+        assert.strictEqual(calls[0].body.source, 'materi', 'sumber platform tanpa jalur sendiri masuk bucket materi');
+        assert.strictEqual(calls[0].body.xp_earned, 5);
+        assert.strictEqual(calls[0].body.session_data.reason, '5 menit belajar');
+      } finally { restore(); delete global.localStorage; }
+    }),
+  },
+  {
+    name: 'pendengar np:xpAdded melewatkan pemberian bertanda mirrored (tak ada dobel)',
+    fn: () => withEnv(async () => {
+      global.localStorage = new LocalStorageMock();
+      global.localStorage.setItem('np-auth-v1', JSON.stringify({
+        access_token: 'tok', refresh_token: 'r', expires_at: Date.now() + 3600000,
+        user: { id: 'user-mir', email: 't@x.io' },
+      }));
+      let called = 0;
+      const { client, restore } = loadClient(async () => { called++; return okJson([{ id: 1 }]); });
+      try {
+        client.Auth.init();
+        window.dispatchEvent(new CustomEvent('np:xpAdded', { detail: { amount: 20, reason: 'Tulis Kanji', mirrored: true } }));
+        window.dispatchEvent(new CustomEvent('np:xpAdded', { detail: { amount: 0 } }));
+        window.dispatchEvent(new CustomEvent('np:xpAdded', { detail: {} }));
+        await new Promise(r => setTimeout(r, 0));
+        assert.strictEqual(called, 0, 'mirrored / amount<=0 / kosong: tidak ada panggilan jaringan');
+      } finally { restore(); delete global.localStorage; }
     }),
   },
 ];

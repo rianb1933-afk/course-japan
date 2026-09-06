@@ -184,6 +184,10 @@
       var u = SB.Auth && typeof SB.Auth.user === 'function' ? SB.Auth.user() : null;
       if (!u || !u.id) return;
       SB.DB.recordXP(u.id, xp, bucket, meta || {}).catch(function () {});
+      /* Catatan: NPXP menulis ke np-dash-v3 langsung dan TIDAK memancarkan
+         np:xpAdded, jadi pemberian lewat modul ini tidak akan tersentuh
+         pendengar mirror pusat di supabase-client.js — tidak ada jalur dobel
+         dari sini. */
     } catch (e) {}
   }
 

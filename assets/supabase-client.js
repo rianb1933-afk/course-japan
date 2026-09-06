@@ -382,9 +382,15 @@
       if (!userId || !SUPABASE_URL) return;
       const st = JSON.parse(localStorage.getItem('np-state-v3') || '{}');
       const u = st.user || {};
+      /* KOLOM xp SENGAJA TIDAK DIKIRIM. user_progress.xp kini hanya bertambah
+         lewat apply_user_xp (jalur log-id yang tervalidasi server). Menimpanya
+         dengan angka absolut dari localStorage membuat setiap push yang jatuh
+         di antara "XP diberi" dan "RPC apply terkirim" (atau selamanya, bila
+         tab ditutup lebih dulu) menggandakan XP itu di server. Ketimpangan
+         sementara dibiarkan: syncOnLogin mengambil max(lokal, remote) saat
+         masuk, dan backfill menutup baris log yang RPC-nya gagal. */
       await DB.saveProgress(userId, {
         name:            u.name || '',
-        xp:              u.xp || 0,
         level:           u.level || 1,
         streak:          u.streak || 0,
         jlpt_progress:   u.jlptProgress || {},
@@ -398,6 +404,24 @@
       this._dirty = false;
     },
   };
+
+  // ─── MIRROR XP PUSAT ─────────────────────────────────────────────
+  /* Satu pendengar np:xpAdded mengirim setiap pemberian XP platform ke jalur
+     log-id — menutup sumber yang tidak punya mirror sendiri (timer belajar,
+     achievement, JLPT-CBT, AI Tutor, Kaigo Simulator, sertifikat, ...).
+
+     Pemberian bertanda `mirrored` (NPXP, Kanji-Writing, Kelas-Online yang
+     memanggil recordXP langsung) di-lewati agar tidak dobel. NPXP/award
+     menandai dirinya di bawah; sumber tanpa penanda akan tercatat sebagai
+     'materi' — bucket umum yang sah di whitelist server. */
+  global.addEventListener('np:xpAdded', (e) => {
+    const d = e.detail || {};
+    if (!d.amount || d.amount <= 0 || d.mirrored) return;
+    const userId = Auth.user()?.id;
+    if (!userId || !SUPABASE_URL) return;
+    DB.recordXP(userId, d.amount, 'materi', { reason: d.reason || null })
+      .catch(() => {});
+  });
 
   // ─── INIT ────────────────────────────────────────────────────────
   document.addEventListener('DOMContentLoaded', () => {

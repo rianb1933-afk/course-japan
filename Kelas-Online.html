@@ -6789,7 +6789,10 @@ async function saveSessionDataOnExit() {
   }
   try {
     if (typeof LiveXP !== 'undefined' && LiveXP.xp > 0 && window.NP?.State?.addXP) {
-      window.NP.State.addXP(LiveXP.xp, 'Kelas Online');
+      // mirrored: saveSessionXP di atas sudah mengirim ke server lewat
+      // DB.recordLiveXP — tanpa flag ini pendengar mirror pusat
+      // (supabase-client.js) mengirim sekali lagi dengan bucket 'materi'.
+      window.NP.State.addXP(LiveXP.xp, 'Kelas Online', { mirrored: true });
     }
   } catch (e) {
     console.warn('Simpan XP ke progress lokal gagal:', e.message);

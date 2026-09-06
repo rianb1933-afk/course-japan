@@ -530,7 +530,10 @@ function evaluateWriting(){
   
   // Award XP
   if(window.NihongoProgress){
-    NihongoProgress.addXP(totalScore>=70?20:5);
+    // mirrored: mirror kanji di bawah yang mengirim ke server — tanpa flag
+    // ini pendengar mirror pusat (supabase-client.js) mengirim sekali lagi
+    // dengan bucket 'materi'.
+    NihongoProgress.addXP(totalScore>=70?20:5, 'Tulis Kanji', { mirrored: true });
     NihongoProgress.logActivity('kanji','Tulis Kanji: '+k.k, totalScore);
   }
   // Mirror XP ke server lewat jalur log-id yang sama dengan kelas live
