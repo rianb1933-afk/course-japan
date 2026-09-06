@@ -1,4 +1,4 @@
-# Smoke Test Pasca-Merge — `threejs-unify-and-lazy-load` (17 commit, ?v=6)
+# Smoke Test Pasca-Merge — `threejs-unify-and-lazy-load` (20 commit, ?v=6)
 
 > Jalankan setelah: (1) merge PR, (2) deploy Netlify hijau, (3) **`supabase-schema.sql` sudah dijalankan ulang** di SQL Editor.
 > Estimasi total: ±20 menit. Tandai ✅/❌/— (tidak berlaku) di tiap butir.
@@ -8,7 +8,7 @@
 
 ## 0. Prasyarat (semua harus ✅ sebelum mulai)
 
-- [ ] Merge selesai; `main` sudah berisi commit puncak `126781d`
+- [ ] Merge selesai; `main` sudah berisi commit puncak `329e717`
 - [ ] Deploy Netlify hijau (di Netlify → Deploys, build tidak error)
 - [ ] `supabase-schema.sql` sudah di-Run di SQL Editor dan hasilnya "Success"
 - [ ] Browser uji: hard refresh dulu (Cmd+Shift+R) ATAU DevTools → Application → Service Workers → **Unregister** + Clear storage, supaya tidak menguji cache lama
@@ -105,13 +105,50 @@
 ```sql
 -- aman dijalankan kapan saja; hanya menyentuh baris xp_applied=false
 WITH backlog AS (SELECT user_id, SUM(xp_earned) xp_total FROM user_xp_log
-                 WHERE xp_applied=false AND xp_earned<>0 AND source='live_session' GROUP BY user_id),
+                 WHERE xp_applied=false AND xp_earned<>0
+                   AND source IN ('live_session','kanji','quiz','kanji_quiz','srs','vocab','game','materi')
+                 GROUP BY user_id),
 ditandai AS (UPDATE user_xp_log SET xp_applied=true
-             WHERE xp_applied=false AND xp_earned<>0 AND source='live_session' RETURNING user_id)
+             WHERE xp_applied=false AND xp_earned<>0
+               AND source IN ('live_session','kanji','quiz','kanji_quiz','srs','vocab','game','materi')
+             RETURNING user_id)
 INSERT INTO user_progress (user_id, xp) SELECT b.user_id, GREATEST(b.xp_total,0) FROM backlog b
 WHERE EXISTS (SELECT 1 FROM ditandai d WHERE d.user_id=b.user_id)
 ON CONFLICT (user_id) DO UPDATE SET xp=COALESCE(user_progress.xp,0)+EXCLUDED.xp, updated_at=NOW();
 ```
+
+---
+
+## 4b. XP kanji & kuis — sumber multi (`329e717`)
+
+**Target:** XP dari fitur selain kelas live juga sampai ke `user_xp_log` dengan kolom `source` yang benar dan `xp_applied=true` — bukan hanya hidup di localStorage `np-dash-v3`.
+
+**Prasyarat:** `supabase-schema.sql` versi ini SUDAH di-Run (whitelist 8 sumber). Cek cepat di SQL Editor:
+```sql
+SELECT prosrc FROM pg_proc WHERE proname = 'apply_user_xp';
+-- harus memuat 'kanji_quiz' — kalau tidak, schema lama masih terpasang
+```
+
+- [ ] **Kanji (jalur langsung):** login → `Materi/Kanji-Writing.html` → tulis satu kanji sampai skor muncul → console: **"XP kanji tercatat (log #N)"**
+- [ ] SQL Editor:
+  ```sql
+  SELECT id, xp_earned, source, session_data, xp_applied, created_at
+  FROM user_xp_log WHERE user_id = '<uuid>' ORDER BY created_at DESC LIMIT 5;
+  -- baris kanji: source = 'kanji', session_data->>'char' terisi, xp_applied = t
+  ```
+- [ ] **Kuis game:** `QUIZ/nihongo-pro.html` → jawab benar dalam mode game → console tanpa error merah; baris baru dengan `source = 'game'` (mirror dari `NPXP.award('game')`)
+- [ ] **Kuis materi** (auto-hook `np-materi-progress.js`): selesaikan kuis di halaman Materi mana pun → baris `source = 'quiz'`; kuis kanji → `source = 'kanji_quiz'`
+- [ ] **Review SRS:** selesaikan sesi review di `SRS-Flashcard.html` → baris `source = 'srs'` (2 XP per kartu)
+- [ ] **Kategori tak dikenal jatuh ke bucket umum:** aktivitas speaking/grammar → baris `source = 'materi'` (bukan sumber asing yang tidak akan pernah di-apply)
+- [ ] **Anti-sumber-palsu:** dari konsol halaman yang sudah login:
+  ```js
+  SupabaseClient.DB.recordXP('<uuid-anda>', 500, 'cheat_source')
+  ```
+  → `{ok: false, skipped: true}`, **tidak ada** baris log baru, console memuat peringatan "sumber tidak valid"
+- [ ] **Tanpa login** (incognito): kerjakan kanji/kuis → XP tetap naik di profil lokal, console bersih (mirror diam, tanpa error merah)
+- [ ] `user_progress.xp` bertambah sesuai jumlah tiap mirror (bandingkan dengan XP awal yang dicatat di bagian 4)
+
+**Kalau baris kanji/kuis tercatat tapi `xp_applied` tetap `false`:** schema lama masih terpasang (fungsi memfilter `live_session` saja). Re-run `supabase-schema.sql` — backfill versi baru menyapu SEMUA sumber sah, jadi baris yang tertinggal otomatis pulih tanpa dobel.
 
 ---
 
@@ -138,6 +175,7 @@ ON CONFLICT (user_id) DO UPDATE SET xp=COALESCE(user_progress.xp,0)+EXCLUDED.xp,
 - error konsol merah di halaman utama yang diuji
 - permintaan aset `?v=` lama (v≤5 / date-stamp) di halaman baru
 - `user_xp_log` tidak bertambah setelah kelas live dengan login
+- baris kanji/kuis tersimpan dengan `source` di luar daftar sah, atau `xp_applied` tetap `false` padahal schema versi baru sudah di-Run
 - token grup arsip masih bisa mendaftarkan orang
 
 **Satu temuan ❌ =** catat URL + langkah reproduksi + screenshot, balik ke branch dan perbaiki sebelum umumkan fitur.
