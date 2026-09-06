@@ -751,7 +751,10 @@ def check_env_docs_consistency():
         for f in glob.glob(os.path.join(d, '*.js')):
             c = read(f)
             server_vars |= set(re.findall(r'process\.env\.([A-Z][A-Z0-9_]+)', c))
-            server_vars |= set(re.findall(r"process\.env\[([A-Z][A-Z0-9_]+)\]", c))
+            # Bracket: kunci boleh ber-quote atau tidak — process.env['X'],
+            # process.env["X"], process.env[X]. Tanpa opsional-quote, akses
+            # ber-quote luput (tertangkap oleh fixture test env-docs).
+            server_vars |= set(re.findall(r"process\.env\[['\"]?([A-Z][A-Z0-9_]+)['\"]?\]", c))
             server_vars |= set(re.findall(r"(?:MODEL|num)\(\s*'([A-Z][A-Z0-9_]+)'", c))
     if os.path.exists(env_path):
         env_c = read(env_path)
