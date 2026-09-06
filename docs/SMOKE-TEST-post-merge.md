@@ -1,4 +1,4 @@
-# Smoke Test Pasca-Merge — `threejs-unify-and-lazy-load` (20 commit, ?v=6)
+# Smoke Test Pasca-Merge — `threejs-unify-and-lazy-load` (27 commit, ?v=6)
 
 > Jalankan setelah: (1) merge PR, (2) deploy Netlify hijau, (3) **`supabase-schema.sql` sudah dijalankan ulang** di SQL Editor.
 > Estimasi total: ±20 menit. Tandai ✅/❌/— (tidak berlaku) di tiap butir.
@@ -8,7 +8,7 @@
 
 ## 0. Prasyarat (semua harus ✅ sebelum mulai)
 
-- [ ] Merge selesai; `main` sudah berisi commit puncak `329e717`
+- [ ] Merge selesai; `main` sudah berisi commit puncak `4cb13ed`
 - [ ] Deploy Netlify hijau (di Netlify → Deploys, build tidak error)
 - [ ] `supabase-schema.sql` sudah di-Run di SQL Editor dan hasilnya "Success"
 - [ ] Browser uji: hard refresh dulu (Cmd+Shift+R) ATAU DevTools → Application → Service Workers → **Unregister** + Clear storage, supaya tidak menguji cache lama
@@ -169,6 +169,31 @@ Catatan anti-dobel (`6247017`): pemberian yang ditandai `mirrored` TIDAK lewat m
 
 ---
 
+## 4c. Kartu Sumber XP di statistik (`54b6d1b`)
+
+**Target:** halaman Statistik SRS menampilkan breakdown XP per sumber yang konsisten dengan kolom `source` di database.
+
+- [ ] Buka `SRS-Statistics.html` → kartu **⭐ Sumber XP — Semua Aktivitas** muncul di bawah rekap mingguan; butir legenda satu baris per sumber (titik warna + nama + XP + %)
+- [ ] Setelah menjalankan aktivitas di bagian 4/4b, kartu menampilkan bucket yang benar: SRS, Kanji, Kuis, Kuis Kanji, Game, Materi — tanpa nama kategori mentah seperti "grammar" atau "speaking" (semua digabung ke Materi)
+- [ ] Total di bawah legenda = jumlah semua bucket; bandingkan dengan `SELECT SUM(xp_earned) FROM user_xp_log WHERE user_id='<uuid>' AND xp_applied=true;` — angkanya selisih nol atau hanya selisih waktu mirror terakhir
+- [ ] Kosongkan ledger (DevTools → Local Storage → hapus `np-xp-sources-v1`) lalu muat ulang → pesan kosong ramah, tanpa chart, tanpa error
+- [ ] Ganti tema gelap/terang → chart & legenda tetap terbaca (border & teks pakai token tema)
+
+---
+
+## 4d. Laporan Drift XP di Admin-Dashboard (`efa09bb`)
+
+**Target:** admin bisa melihat ketimpangan antara XP profil dan jejak log yang sudah di-apply — tanpa SQL manual.
+
+- [ ] Login admin → `Admin-Dashboard.html` → panel **Laporan Drift XP** → klik **Muat Laporan Drift**
+- [ ] Ringkasan muncul: jumlah pengguna, jumlah yang drift, total drift, waktu generate
+- [ ] Tabel: id pengguna (pendek, hover = id penuh), XP Profil, XP Log (applied), Drift bertanda (+ hijau / − merah), kolom "Log?"
+- [ ] **Sanity check** dengan pengguna uji dari bagian 4b: barisnya menunjukkan drift kecil (XP pra-log era localStorage) atau 0 — bukan angka gila; kalau ada drift negatif besar, jalankan ulang backfill schema lalu muat ulang laporan (drift negatif harus hilang)
+- [ ] **Gerbang akses:** buka Admin-Dashboard sebagai pelajar biasa → tanpa tombol berfungsi; panggilan langsung `curl https://nihongopro.id/api/xp-drift` tanpa token → 403, bukan data
+- [ ] Email TIDAK muncul di tabel laporan (hanya id pengguna)
+
+---
+
 ## 5. Admin & AI chat (`02b11db`, `8abb373`, `04b3c83`)
 
 - [ ] `Admin-Login.html` di produksi: form login **berfungsi** (POST ke `/api/admin-login`); akun admin masuk ke `Admin-Dashboard.html`
@@ -193,6 +218,8 @@ Catatan anti-dobel (`6247017`): pemberian yang ditandai `mirrored` TIDAK lewat m
 - permintaan aset `?v=` lama (v≤5 / date-stamp) di halaman baru
 - `user_xp_log` tidak bertambah setelah kelas live dengan login
 - baris kanji/kuis tersimpan dengan `source` di luar daftar sah, atau `xp_applied` tetap `false` padahal schema versi baru sudah di-Run
+- kartu Sumber XP menampilkan kategori mentah (grammar/speaking) atau totalnya tidak cocok dengan log applied
+- laporan drift bisa dibuka tanpa token admin (403 gagal), atau email pengguna muncul di tabel
 - token grup arsip masih bisa mendaftarkan orang
 
 **Satu temuan ❌ =** catat URL + langkah reproduksi + screenshot, balik ke branch dan perbaiki sebelum umumkan fitur.
