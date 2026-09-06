@@ -12,6 +12,12 @@
 
   const STORAGE_KEY = 'np-auth-v1';
 
+  /* Whitelist sumber XP untuk recordXP/apply_user_xp. MENCERMINI daftar sumber
+     di apply_user_xp (supabase-schema.sql); 'kanji_quiz' adalah alias yang
+     dipakai halaman kuis Kanji (Kanji-Quiz di Ujian/QUIZ). Sumber baru = ubah
+     KEDUANYA, kalau tidak lognya tersimpan tapi tidak pernah diterapkan. */
+  const XP_SOURCES = new Set(['live_session', 'kanji', 'quiz', 'kanji_quiz', 'srs', 'vocab', 'game', 'materi']);
+
   // ─── HELPERS ────────────────────────────────────────────────────
   function headers(extra = {}) {
     const h = {
@@ -194,27 +200,36 @@
       return sbFetch(`/rest/v1/srs_cards?user_id=eq.${userId}&select=card_id,ef,interval,reps,next_review,last_rating`);
     },
 
-    /* XP kelas live, jalur log-id (lihat apply_user_xp di supabase-schema.sql).
-       ───────────────────────────────────────────────────────────────
+    /* XP jalur log-id — generik untuk SEMUA sumber (lihat apply_user_xp di
+       supabase-schema.sql). ──────────────────────────────────────────────
        Log di-insert DULU dengan Prefer return=representation supaya id barisnya
        kembali. Jumlah XP TIDAK PERNAH dikirim sebagai argumen RPC -- server
        membacanya dari baris log milik pemanggil (xp_applied=false), jadi klien
        tidak bisa mengarang angka, dan backfill di skema tidak akan menghitung
        baris ini dobel karena RPC menandainya lewat mark_user_xp_applied.
 
-       Bila id tidak kembali (_representation gagal), fallback ke add_user_xp:
-       XP tetap masuk, barisnya nanti diambil backfill. Bila RPC gagal SESUDAH
-       log tersimpan, sukses tetap dikembalikan: log adalah janji bagi backfill.
-       Kegagalan INSERT justru DILEMPAR -- pemanggil perlu tahu catatannya hilang. */
-    async recordLiveXP(userId, xpEarned, sessionData) {
+       Sumber dibatasi whitelist yang MENCERMINI apply_user_xp; sumber di luar
+       daftar ditolak di sini saja (lognya tidak layak disimpan -- RPC akan
+       mengabaikannya selamanya dan backfill tidak menyapunya).
+
+       Bila id tidak kembali (return=representation gagal), fallback ke
+       add_user_xp: XP tetap masuk, barisnya nanti diambil backfill. Bila RPC
+       gagal SESUDAH log tersimpan, sukses tetap dikembalikan: log adalah janji
+       bagi backfill. Kegagalan INSERT justru DILEMPAR -- pemanggil perlu tahu
+       catatannya hilang. */
+    async recordXP(userId, xpEarned, source, sessionData) {
       if (!userId || !SUPABASE_URL || !xpEarned) return { ok: false, skipped: true };
+      if (!XP_SOURCES.has(source)) {
+        console.warn(`recordXP: sumber "${source}" tidak valid, XP tidak dikirim (sumber sah: ${[...XP_SOURCES].join(', ')})`);
+        return { ok: false, skipped: true };
+      }
       const log = await sbFetch('/rest/v1/user_xp_log', {
         method: 'POST',
         headers: { 'Prefer': 'return=representation' },
         body: JSON.stringify({
           user_id:      userId,
           xp_earned:    xpEarned,
-          source:       'live_session',
+          source:       source,
           session_data: sessionData || {},
         }),
       });
@@ -235,9 +250,15 @@
         }
       } catch (rpcErr) {
         // Log sudah tersimpan = janji bagi backfill; jangan gagalkan pemanggil.
-        console.warn('recordLiveXP: RPC gagal, backfill akan mengambil log ini:', rpcErr?.message);
+        console.warn('recordXP: RPC gagal, backfill akan mengambil log ini:', rpcErr?.message);
       }
       return { ok: true, logId };
+    },
+
+    // XP kelas live = recordXP dengan sumber live_session (kompatibilitas
+    // pemanggil lama di Kelas-Online.html).
+    async recordLiveXP(userId, xpEarned, sessionData) {
+      return this.recordXP(userId, xpEarned, 'live_session', sessionData);
     },
 
     async saveCertificate(userId, cert) {

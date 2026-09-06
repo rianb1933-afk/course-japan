@@ -304,6 +304,10 @@ ALTER TABLE user_xp_log ADD COLUMN IF NOT EXISTS xp_applied boolean NOT NULL DEF
 -- boleh memanggil, dan hanya untuk baris log miliknya sendiri (dijaga WHERE
 -- di dalam fungsi).
 REVOKE ALL ON FUNCTION apply_user_xp(uuid, bigint) FROM PUBLIC;
+-- Sumber XP yang boleh lewat jalur log-id. WHITELIST, bukan bebas: kolom
+-- `source` di user_xp_log disisipkan klien, dan tanpa daftar ini klien bisa
+-- memangsa apply berulang dengan sumber fiktif. Daftar ini cermin dari
+-- SUMBER_VALID di assets/np-xp.js (award/recordQuiz/recordVocab) + live.
 CREATE OR REPLACE FUNCTION apply_user_xp(p_user uuid, p_log_id bigint)
 RETURNS void
 LANGUAGE plpgsql
@@ -314,7 +318,8 @@ DECLARE
 BEGIN
   SELECT xp_earned INTO v_amount FROM user_xp_log
   WHERE id = p_log_id AND user_id = p_user AND xp_applied = false
-    AND xp_earned <> 0 AND source = 'live_session';
+    AND xp_earned <> 0
+    AND source IN ('live_session', 'kanji', 'quiz', 'kanji_quiz', 'srs', 'vocab', 'game', 'materi');
   IF NOT FOUND THEN RETURN; END IF;  -- sudah diterapkan / bukan miliknya: no-op
 
   UPDATE user_progress SET
@@ -372,15 +377,19 @@ $$;
 
 -- BACKFILL sendiri: jalankan ulang file ini kapan pun -- CTE hanya menyentuh
 -- baris xp_applied=false. Yang pertama kali dieksekusi setelah perbaikan
--- inilah yang mengembalikan XP kelas live yang tadinya hilang.
+-- inilah yang mengembalikan XP kelas live yang tadinya hilang. Sejak apply
+-- melayani sumber lain (kanji/quiz/srs/...), backfill ikut menyapu SEMUA
+-- sumber valid -- baris yang RPC-nya gagal dari sumber mana pun tetap pulih.
 WITH backlog AS (
   SELECT user_id, SUM(xp_earned) AS xp_total
   FROM user_xp_log
-  WHERE xp_applied = false AND xp_earned <> 0 AND source = 'live_session'
+  WHERE xp_applied = false AND xp_earned <> 0
+    AND source IN ('live_session', 'kanji', 'quiz', 'kanji_quiz', 'srs', 'vocab', 'game', 'materi')
   GROUP BY user_id
 ), ditandai AS (
   UPDATE user_xp_log SET xp_applied = true
-  WHERE xp_applied = false AND xp_earned <> 0 AND source = 'live_session'
+  WHERE xp_applied = false AND xp_earned <> 0
+    AND source IN ('live_session', 'kanji', 'quiz', 'kanji_quiz', 'srs', 'vocab', 'game', 'materi')
   RETURNING user_id
 )
 INSERT INTO user_progress (user_id, xp)

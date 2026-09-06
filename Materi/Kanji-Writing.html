@@ -533,6 +533,19 @@ function evaluateWriting(){
     NihongoProgress.addXP(totalScore>=70?20:5);
     NihongoProgress.logActivity('kanji','Tulis Kanji: '+k.k, totalScore);
   }
+  // Mirror XP ke server lewat jalur log-id yang sama dengan kelas live
+  // (DB.recordXP → user_xp_log → apply_user_xp). Best-effort: gagal di sini
+  // tidak boleh mengganggu umpan balik lokal di atas.
+  try {
+    const _xpDb = window.SupabaseClient && window.SupabaseClient.DB;
+    const _xpUser = window.SupabaseClient && SupabaseClient.Auth.user();
+    const _xpAmt = totalScore>=70?20:5;
+    if (_xpDb && _xpUser) {
+      _xpDb.recordXP(_xpUser.id, _xpAmt, 'kanji', { char: k.k, score: totalScore })
+        .then(r => { if (r && r.ok) console.log('XP kanji tercatat (log ' + (r.logId != null ? '#' + r.logId : 'fallback') + ')'); })
+        .catch(e => console.warn('XP kanji gagal dikirim:', e && e.message));
+    }
+  } catch (e) {}
   toast(totalScore>=70?`✅ ${grade}! +${totalScore>=70?20:5} XP`:`📚 Terus latihan! Grade ${grade}`);
 }
 

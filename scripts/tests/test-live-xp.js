@@ -162,6 +162,47 @@ const tests = [
       } finally { restore(); }
     }),
   },
+  // ── recordXP generik (semua sumber) ──────────────────────────────────
+  {
+    name: 'recordXP meneruskan sumber sah ke kolom source; sesi live tetap bekerja lewat wrapper',
+    fn: () => withEnv(async () => {
+      const calls = [];
+      const { client, restore } = loadClient(async (url, opts = {}) => {
+        calls.push({ url: String(url), body: opts.body ? JSON.parse(opts.body) : null });
+        if (calls.length === 1) return okJson([{ id: 9 }]);
+        return okJson(null);
+      });
+      try {
+        // kanji lewat recordXP langsung
+        const r = await client.DB.recordXP('u1', 20, 'kanji', { char: '採' });
+        assert.strictEqual(r.ok, true);
+        assert.strictEqual(calls[0].body.source, 'kanji');
+        assert.strictEqual(calls[0].body.xp_earned, 20);
+        assert.deepStrictEqual(calls[0].body.session_data, { char: '採' });
+        // live_session lewat wrapper kompatibilitas
+        await client.DB.recordLiveXP('u1', 50, { quiz: 2 });
+        assert.strictEqual(calls[2].body.source, 'live_session');
+        assert.strictEqual(calls[2].body.xp_earned, 50);
+      } finally { restore(); }
+    }),
+  },
+  {
+    name: 'sumber di luar whitelist: XP TIDAK dikirim (log tanpa apply selamanya adalah sampah)',
+    fn: () => withEnv(async () => {
+      let called = 0;
+      const warns = [];
+      const realWarn = console.warn;
+      console.warn = (...a) => warns.push(a.join(' '));
+      const { client, restore } = loadClient(async () => { called++; return okJson([]); });
+      try {
+        const r = await client.DB.recordXP('u1', 99, 'cheat_source');
+        assert.strictEqual(r.ok, false, 'harus ditolak dengan ok:false');
+        assert.strictEqual(r.skipped, true);
+        assert.strictEqual(called, 0, 'fetch tidak boleh dipanggil untuk sumber ilegal');
+        assert.ok(warns.some(w => w.includes('cheat_source')), 'harus memberi peringatan sumber tak sah');
+      } finally { console.warn = realWarn; restore(); }
+    }),
+  },
 ];
 
 module.exports = { tests };

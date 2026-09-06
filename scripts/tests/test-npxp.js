@@ -256,4 +256,58 @@ test('getPageStatus() menandai materi selesai bila skor >= 70%', () => {
   assert.strictEqual(status.completed, true, '70% adalah ambang kelulusan materi');
 });
 
+// ── NPXP: mirror XP ke server (jalur log-id) ─────────────────────────
+// SupabaseClient disuntik ke sandbox (mirrorXP membacanya saat dipanggil,
+// bukan saat modul dimuat), jadi tidak perlu mengubah loadXP().
+
+test('award() memanggil recordXP dengan bucket sumber yang benar', () => {
+  const { NPXP, sandbox } = loadXP();
+  const calls = [];
+  sandbox.SupabaseClient = {
+    Auth: { user: () => ({ id: 'user-xyz' }) },
+    DB: { recordXP: (uid, xp, src, meta) => {
+      calls.push({ uid, xp, src, meta });
+      return Promise.resolve({ ok: true, logId: 1 });
+    } },
+  };
+  NPXP.award('kanji', 20, { title: 'Tulis Kanji' });
+  assert.strictEqual(calls.length, 1, 'tepat satu mirror per award');
+  assert.strictEqual(calls[0].uid, 'user-xyz');
+  assert.strictEqual(calls[0].xp, 20);
+  assert.strictEqual(calls[0].src, 'kanji', 'sumber kanji diteruskan apa adanya');
+  assert.strictEqual(calls[0].meta.title, 'Tulis Kanji');
+});
+
+test('kategori di luar whitelist jatuh ke bucket materi; quiz/srs memakai bucket sendiri', () => {
+  const { NPXP, sandbox } = loadXP();
+  const buckets = [];
+  sandbox.SupabaseClient = {
+    Auth: { user: () => ({ id: 'u' }) },
+    DB: { recordXP: (uid, xp, src) => { buckets.push(src); return Promise.resolve({ ok: true }); } },
+  };
+  NPXP.award('speaking', 15);        // tak dikenal → materi
+  NPXP.recordQuiz('grammar', 5, 10); // kuis umum → quiz
+  NPXP.recordQuiz('kanji', 10, 10);  // kuis kanji → kanji_quiz
+  NPXP.recordVocab('srs', 10);       // review SRS → srs
+  assert.deepStrictEqual(buckets, ['materi', 'quiz', 'kanji_quiz', 'srs']);
+});
+
+test('tanpa SupabaseClient / tanpa sesi: mirror diam, XP lokal tetap mengalir', () => {
+  const { NPXP } = loadXP(); // sandbox tanpa SupabaseClient
+  const r = NPXP.award('kanji', 20);
+  assert.strictEqual(r.gained, 20, 'XP lokal tetap diberi tanpa koneksi server');
+  NPXP.recordQuiz('kanji', 10, 10); // recordQuiz dengan bucket kanji_quiz
+  assert.strictEqual(NPXP.summary().xp, 140, '20 + 120 (10×10+bonus) — tidak ada yang hilang');
+});
+
+test('recordXP yang melempar tidak boleh mengganggu alur XP lokal', () => {
+  const { NPXP, sandbox } = loadXP();
+  sandbox.SupabaseClient = {
+    Auth: { user: () => ({ id: 'u' }) },
+    DB: { recordXP: () => Promise.reject(new Error('network down')) },
+  };
+  const r = NPXP.award('game', 30);
+  assert.strictEqual(r.gained, 30, 'kegagalan mirror tidak membatalkan XP lokal');
+});
+
 module.exports = { tests };

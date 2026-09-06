@@ -161,6 +161,32 @@
     } catch (e) { return null; }
   }
 
+  /* ── Mirror XP ke server (best-effort, tak pernah melempar) ────────────
+     Jalur log-id yang sama dengan XP kelas live: SupabaseClient.DB.recordXP
+     menyisipkan user_xp_log lalu memanggil apply_user_xp yang membaca jumlah
+     XP dari baris log milik pemanggil (server-side, tahan manipulasi).
+
+     Kategori fitur dipetakan ke BUCKET sumber yang di-whitelist server
+     (apply_user_xp di supabase-schema.sql); kategori di luar daftar
+     ('speaking', 'grammar', ...) jatuh ke bucket umum 'materi' agar lognya
+     tetap sah. Halaman tanpa supabase-client.js atau tanpa sesi login:
+     no-op diam — XP lokal tetap tercatat seperti biasa. */
+  function bucketOf(src) {
+    src = String(src || '').toLowerCase();
+    if (src === 'srs' || src === 'kanji' || src === 'game' || src === 'quiz' || src === 'kanji_quiz') return src;
+    return 'materi';
+  }
+
+  function mirrorXP(bucket, xp, meta) {
+    try {
+      var SB = global.SupabaseClient;
+      if (!SB || !SB.DB || typeof SB.DB.recordXP !== 'function') return;
+      var u = SB.Auth && typeof SB.Auth.user === 'function' ? SB.Auth.user() : null;
+      if (!u || !u.id) return;
+      SB.DB.recordXP(u.id, xp, bucket, meta || {}).catch(function () {});
+    } catch (e) {}
+  }
+
   var NPXP = {
     DASH_KEY: DASH_KEY,
 
@@ -184,6 +210,7 @@
         value: 1, xp: xp, durationSeconds: Math.max(0, Number(opts.minutes) || 0) * 60,
         level: opts.level, itemId: opts.itemId, url: opts.url
       });
+      mirrorXP(bucketOf(source), xp, { title: opts.title });
       return { xp: dash.xp, gained: xp, streak: dash.streak };
     },
 
@@ -213,6 +240,7 @@
         type: 'quiz_completed', category: source || 'quiz', title: 'Kuis ' + (source || 'materi'),
         value: total, xp: xpGain, accuracy: thisAcc
       });
+      mirrorXP(source === 'kanji' ? 'kanji_quiz' : 'quiz', xpGain, { correct: correct, total: total, accuracy: thisAcc });
       return { gained: xpGain, accuracy: thisAcc, streak: dash.streak };
     },
 
@@ -237,6 +265,7 @@
         category: source === 'srs' ? 'srs' : 'vocabulary',
         title: source === 'srs' ? 'Review SRS' : 'Latihan vocabulary', value: count, xp: xpGain
       });
+      mirrorXP(source === 'srs' ? 'srs' : 'vocab', xpGain, { count: count });
       return { gained: xpGain, vocab: dash.vocab };
     },
 
