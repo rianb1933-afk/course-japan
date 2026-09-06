@@ -261,6 +261,20 @@ canvas{max-width:100%}
     <div class="muted" id="weekSub" style="text-align:center;margin-top:10px"></div>
   </div>
 
+  <!-- Sumber XP -->
+  <div class="card" style="margin-bottom:16px">
+    <div class="card-title"><span>⭐ Sumber XP — Semua Aktivitas</span></div>
+    <div class="muted" style="font-size:11px;margin:-6px 0 8px">Bucket sama dengan kolom <code>source</code> di <code>user_xp_log</code> (jalur log-id); kategori fitur di luar daftar digabung ke "Materi".</div>
+    <div id="xpSrcEmpty" class="muted" style="display:none;text-align:center;padding:18px 0">Belum ada XP tercatat dari fitur mana pun.</div>
+    <div id="xpSrcWrap" style="display:none;align-items:center;gap:18px;flex-wrap:wrap">
+      <div style="height:220px;flex:1 1 260px;min-width:240px"><canvas id="chartXpsrc"></canvas></div>
+      <div style="flex:1 1 220px;min-width:200px">
+        <div id="xpSrcLegend" class="legend" style="flex-direction:column;align-items:flex-start;gap:7px"></div>
+        <div class="muted" id="xpSrcTotal" style="margin-top:10px;font-size:12px"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- Level detail -->
   <div class="card" style="margin-bottom:16px">
     <div class="card-title"><span>📖 Rincian Penguasaan per Level</span></div>
@@ -494,6 +508,70 @@ function renderCatChart(){
       plugins:{ legend:{ position:'right', labels:{ color:getCss('--ink2'), boxWidth:10, font:{size:11} } } }
     }
   });
+}
+
+/* ===== Sumber XP =====
+   Sumber XP untuk chart ini dibaca dari ledger lokal 'np-xp-sources-v1'
+   (ditulis np-xp.js setiap kali XP diberi). Bucket-nya disamakan dengan
+   kolom `source` di user_xp_log: np-xp.js memetakan kategori fitur ke
+   bucket lewat bucketOf() sebelum mirror ke server, jadi angka di sini
+   konsisten dengan yang tercatat di database -- tanpa perlu akses
+   Supabase, sesuai karakter offline-first halaman ini. */
+function xpSourceBuckets(){
+  const raw = ls('np-xp-sources-v1', {});
+  const VALID = { live_session:1, kanji:1, quiz:1, kanji_quiz:1, srs:1, vocab:1, game:1, materi:1 };
+  const g = {};
+  Object.keys(raw).forEach(k => {
+    // Nilai historis di ledger memakai kategori fitur mentah (grammar,
+    // speaking, kosakata, ...). Kelompokkan dengan aturan bucketOf():
+    // srs/kanji/game/quiz diteruskan, kuis kanji digabung ke kanji_quiz,
+    // sisanya masuk 'materi' -- persis seperti jalur server.
+    const cat = String(k||'').toLowerCase();
+    let b;
+    if (cat === 'kanjiquiz' || cat === 'kanji_quiz' || cat === 'kanji-kuis') b = 'kanji_quiz';
+    else if (VALID[cat]) b = cat;
+    else b = 'materi';
+    g[b] = (g[b]||0) + (Number(raw[k]) || 0);
+  });
+  return Object.entries(g).filter(e => e[1] > 0).sort((a,b)=>b[1]-a[1]);
+}
+
+function renderXpSrcChart(){
+  const wrap = document.getElementById('xpSrcWrap');
+  const empty = document.getElementById('xpSrcEmpty');
+  const entries = xpSourceBuckets();
+  if (!entries.length) {
+    wrap.style.display = 'none'; empty.style.display = 'block';
+    const old = Chart.getChart('chartXpsrc'); if (old) old.destroy();
+    return;
+  }
+  wrap.style.display = 'flex'; empty.style.display = 'none';
+  const LABEL = { live_session:'Kelas Live', kanji:'Kanji', quiz:'Kuis', kanji_quiz:'Kuis Kanji', srs:'SRS', vocab:'Kosakata', game:'Game', materi:'Materi' };
+  const COLORS = { live_session:'#0ea5e9', kanji:'#8b5cf6', quiz:'#6366f1', kanji_quiz:'#a855f7', srs:'#22c55e', vocab:'#f59e0b', game:'#ec4899', materi:'#64748b' };
+  const total = entries.reduce((s,e)=>s+e[1],0);
+  const ctx = document.getElementById('chartXpsrc');
+  const old = Chart.getChart('chartXpsrc'); if (old) old.destroy();
+  charts.xpsrc = new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels: entries.map(e=>LABEL[e[0]] || e[0]),
+      datasets: [{ data: entries.map(e=>e[1]), backgroundColor: entries.map(e=>COLORS[e[0]] || '#64748b'), borderWidth: 2, borderColor: getCss('--white') }]},
+    options: {
+      responsive:true, maintainAspectRatio:false, cutout:'62%',
+      plugins:{
+        legend:{ display:false },
+        tooltip:{ callbacks:{ label:c => ' ' + c.label + ': ' + c.parsed.toLocaleString('id-ID') + ' XP (' + (c.parsed/total*100).toFixed(1) + '%)' } }
+      }
+    }
+  });
+  document.getElementById('xpSrcLegend').innerHTML = entries.map(e =>
+    '<span style="display:flex;gap:6px;align-items:center;white-space:nowrap">' +
+    '<i class="dot" style="background:' + (COLORS[e[0]] || '#64748b') + '"></i>' +
+    escHtml(LABEL[e[0]] || e[0]) +
+    '<b style="margin-left:auto">' + fmt(e[1]) + '</b>' +
+    '<span class="muted" style="min-width:34px;text-align:right">' + (e[1]/total*100).toFixed(0) + '%</span>' +
+    '</span>'
+  ).join('');
+  document.getElementById('xpSrcTotal').textContent = 'Total ' + total.toLocaleString('id-ID') + ' XP dari ' + entries.length + ' sumber';
 }
 
 function renderActivityChart(){
@@ -990,11 +1068,12 @@ function setPeriod(p){
 function renderAll(){
   loadAll();
   renderKpi();
-  ['jlpt','cat','activity','due'].forEach(k => { const c = Chart.getChart('chart'+k[0].toUpperCase()+k.slice(1)); if (c) c.destroy(); });
+  ['jlpt','cat','activity','due','xpsrc'].forEach(k => { const c = Chart.getChart('chart'+k[0].toUpperCase()+k.slice(1)); if (c) c.destroy(); });
   renderJlptChart();
   renderCatChart();
   renderActivityChart();
   renderDueChart();
+  renderXpSrcChart();
   renderHeatmap();
   renderWeekRecap();
   renderWeak();
