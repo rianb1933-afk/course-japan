@@ -4,6 +4,17 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v366 — Anatomi — model 3D, kuis diperkuat, materi lengkap, validator 3D
+
+### Perubahan
+
+- Model 3D tubuh manusia (human-body.glb, 23 bagian) di Anatomi-Dasar via lazy model-viewer — library + model baru terunduh saat tab 3D pertama diklik
+- Kuis anatomi diperkuat: jawaban diacak saat render (jawaban benar tidak lagi selalu opsi pertama) dan XP dihidupkan kembali lewat NPXP.award di anatomy-quiz, anatomy-viewer, dan Ujian.html
+- Seksi Materi Lengkap: 176 istilah anatomi lengkap (lokasi, fungsi, catatan Kaigo, contoh kalimat) per 9 sistem tubuh dengan daftar isi, audio pelafalan, dan tautan ke diagram interaktif
+- Check validator baru 3d-lazy-pattern menjaga pola lazy-load kedua keluarga viewer 3D (11 halaman Sistem-* + Anatomi-Dasar) — 13 test fixture sintetis
+
+---
+
 ## v365 — Housekeeping env & pengingat merge otomatis
 
 ### Perubahan
