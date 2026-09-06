@@ -93,6 +93,9 @@ const baseDb = () => ({
   enrollments: [],
   group_tokens: [],
   rate_limits: [],
+  user_progress: [],
+  assignments: [],
+  assignment_submissions: [],
   __rpc: () => ({ data: [{ classroom_id: 'g1', classroom_name: 'Pelajar N5', already_member: false }], error: null }),
 });
 
@@ -235,6 +238,114 @@ const tests = [
       const ins = log.find((l) => l.table === 'classrooms' && l.op === 'insert');
       assert.strictEqual(ins.row.kind, 'pengajar');
       assert.strictEqual(ins.row.level, 'staf');
+    }),
+  },
+  {
+    name: 'class-overview: pelajar ditolak',
+    fn: () => withMocks(baseDb(), { id: 'siswa' }, async (h) => {
+      const r = await h(ev({ action: 'class-overview' }));
+      assert.strictEqual(r.statusCode, 403);
+    }),
+  },
+  {
+    name: 'class-overview: pengajar hanya melihat kelasnya sendiri',
+    fn: () => {
+      const db = baseDb();
+      db.classrooms.push({ id: 'g9', teacher_id: 'guru-2', name: 'Kelas Guru Lain',
+                           level: 'N3', kind: 'pelajar', archived: false });
+      return withMocks(db, { id: 'guru-1' }, async (h) => {
+        const { classes } = JSON.parse((await h(ev({ action: 'class-overview' }))).body);
+        assert.strictEqual(classes.length, 1, 'hanya g1');
+        assert.strictEqual(classes[0].id, 'g1');
+      });
+    },
+  },
+  {
+    name: 'class-overview: bentuknya cocok dengan perender dashboard',
+    fn: () => {
+      const db = baseDb();
+      db.enrollments.push({ classroom_id: 'g1', student_id: 's1', joined_at: '2026-01-01' });
+      db.enrollments.push({ classroom_id: 'g1', student_id: 's2', joined_at: '2026-01-02' });
+      db.user_progress.push({ user_id: 's1', name: 'Andi', email: 'andi@contoh.id', xp: 900,
+        level: 4, streak: 7, last_study: new Date().toISOString().slice(0, 10),
+        jlpt_progress: { N5: 80, N4: 40, N3: 0, N2: 0, N1: 0 } });
+      db.assignments.push({ id: 'a1', classroom_id: 'g1', title: 'Kanji N5', due_at: '2026-10-01T00:00:00Z' });
+      db.assignment_submissions.push({ assignment_id: 'a1', completed: true });
+      db.assignment_submissions.push({ assignment_id: 'a1', completed: false });
+      return withMocks(db, { id: 'guru-1' }, async (h) => {
+        const { classes } = JSON.parse((await h(ev({ action: 'class-overview' }))).body);
+        const c = classes[0];
+        assert.strictEqual(c.students.length, 2);
+        const andi = c.students.find((x) => x.name === 'Andi');
+        // rata-rata {80,40,0,0,0} = 24
+        assert.strictEqual(andi.progress, 24, 'progres = rata-rata jlpt_progress');
+        assert.strictEqual(andi.streak, 7);
+        assert.strictEqual(andi.status, 'aktif', 'belajar hari ini -> aktif');
+        // siswa tanpa baris user_progress tetap muncul, tidak hilang diam-diam
+        const lain = c.students.find((x) => x.name !== 'Andi');
+        assert.strictEqual(lain.progress, 0);
+        assert.strictEqual(lain.status, 'perlu perhatian');
+        assert.strictEqual(c.assignments.length, 1);
+        assert.strictEqual(c.assignments[0].done, 1, 'hanya yang completed dihitung');
+        assert.strictEqual(c.assignments[0].total, 2, 'total = jumlah siswa kelas');
+        assert.strictEqual(c.assignments[0].due, '2026-10-01');
+      });
+    },
+  },
+  {
+    name: 'class-overview: email siswa TIDAK pernah ikut terkirim',
+    fn: () => {
+      const db = baseDb();
+      db.enrollments.push({ classroom_id: 'g1', student_id: 's1', joined_at: '2026-01-01' });
+      db.user_progress.push({ user_id: 's1', name: 'Andi', email: 'rahasia@contoh.id',
+        streak: 1, jlpt_progress: {} });
+      return withMocks(db, { id: 'guru-1' }, async (h) => {
+        const body = (await h(ev({ action: 'class-overview' }))).body;
+        assert.ok(!body.includes('rahasia@contoh.id'), 'email bocor ke klien');
+        assert.ok(!body.includes('email'), 'field email tidak boleh ada');
+      });
+    },
+  },
+  {
+    name: 'status siswa mengikuti jarak hari terakhir belajar',
+    fn: () => {
+      const db = baseDb();
+      const hariLalu = (n) => new Date(Date.now() - n * 86400000).toISOString().slice(0, 10);
+      db.enrollments.push({ classroom_id: 'g1', student_id: 'a', joined_at: 'x' });
+      db.enrollments.push({ classroom_id: 'g1', student_id: 'b', joined_at: 'x' });
+      db.user_progress.push({ user_id: 'a', name: 'A', last_study: hariLalu(14), jlpt_progress: {} });
+      db.user_progress.push({ user_id: 'b', name: 'B', last_study: hariLalu(60), jlpt_progress: {} });
+      return withMocks(db, { id: 'guru-1' }, async (h) => {
+        const { classes } = JSON.parse((await h(ev({ action: 'class-overview' }))).body);
+        const m = {}; classes[0].students.forEach((s) => { m[s.name] = s.status; });
+        assert.strictEqual(m.A, 'kurang aktif');
+        assert.strictEqual(m.B, 'perlu perhatian');
+      });
+    },
+  },
+  {
+    name: 'create-assignment: pelajar ditolak, dan pengajar lain juga',
+    fn: () => withMocks(baseDb(), { id: 'siswa' }, async (h) => {
+      assert.strictEqual((await h(ev({ action: 'create-assignment', classroomId: 'g1', title: 'Tugas' }))).statusCode, 403);
+    }),
+  },
+  {
+    name: 'create-assignment: pengajar bukan pemilik kelas ditolak',
+    fn: () => withMocks(baseDb(), { id: 'guru-2' }, async (h) => {
+      const r = await h(ev({ action: 'create-assignment', classroomId: 'g1', title: 'Tugas Sah' }));
+      assert.strictEqual(r.statusCode, 403);
+    }),
+  },
+  {
+    name: 'create-assignment: judul divalidasi, tanggal diubah ke ISO',
+    fn: () => withMocks(baseDb(), { id: 'guru-1' }, async (h, log) => {
+      assert.strictEqual((await h(ev({ action: 'create-assignment', classroomId: 'g1', title: 'ab' }))).statusCode, 400);
+      const r = await h(ev({ action: 'create-assignment', classroomId: 'g1',
+        title: 'Latihan Kanji N5', dueAt: '2026-10-05' }));
+      assert.strictEqual(r.statusCode, 200);
+      const ins = log.filter((l) => l.table === 'assignments' && l.op === 'insert').pop();
+      assert.strictEqual(ins.row.classroom_id, 'g1');
+      assert.ok(String(ins.row.due_at).startsWith('2026-10-05'), ins.row.due_at);
     }),
   },
 ];

@@ -110,7 +110,7 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,44px);line-height:
       <span class="badge">Dashboard Guru</span>
       <a href="Grup-Kelas.html" style="float:right;display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:8px;padding:7px 13px;font-size:13px;font-weight:800">Grup &amp; Token →</a>
       <h1>先生ダッシュボード</h1>
-      <p>Kelola kelas, pantau progres siswa, dan berikan tugas. Data di bawah adalah contoh demo; setelah login guru tersambung ke Supabase, data nyata siswa Anda akan tampil di sini.</p>
+      <p>Kelola kelas, pantau progres siswa, dan berikan tugas. Masuk sebagai pengajar dan kelas Anda beserta progres siswanya tampil di sini; tanpa sesi pengajar, halaman menampilkan data contoh.</p>
     </div>
   </header>
 
@@ -164,12 +164,14 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,44px);line-height:
         </section>
 
         <section class="panel">
-          <h2>Kode Gabung</h2>
-          <p class="sub">Bagikan ke siswa untuk bergabung ke kelas</p>
-          <div style="display:flex;align-items:center;gap:10px">
-            <span class="chip" id="joinCode" style="font-size:16px;letter-spacing:.1em">——————</span>
-            <button class="btn-primary" type="button" id="copyCode">Salin</button>
-          </div>
+          <h2>Undangan Kelas</h2>
+          <!-- Dulu panel ini menampilkan classrooms.join_code. Kode itu sudah
+               TIDAK memberi akses apa pun: pendaftaran kini lewat token yang
+               bisa dibatasi pemakaian, dikedaluwarsakan, dan dicabut satu per
+               satu, dan RLS tidak lagi mengizinkan siswa mendaftarkan dirinya
+               sendiri. Menampilkan kode mati hanya menyesatkan pengajar. -->
+          <p class="sub">Undang siswa dengan token sekali pakai atau berkuota, yang bisa dicabut kapan saja.</p>
+          <a class="btn-primary" href="Grup-Kelas.html" style="display:inline-flex;align-items:center;justify-content:center;text-decoration:none">Kelola Grup &amp; Token →</a>
         </section>
       </div>
     </div>
@@ -247,7 +249,7 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,44px);line-height:
     state.data.classes.forEach(function (c) {
       var el = document.createElement('div');
       el.className = 'class-item' + (state.activeClass === c.id ? ' active' : '');
-      el.innerHTML = '<div><b>' + esc(c.name) + '</b><span>' + c.students.length + ' siswa · ' + c.assignments.length + ' tugas</span></div><span class="chip">' + esc(c.join_code) + '</span>';
+      el.innerHTML = '<div><b>' + esc(c.name) + '</b><span>' + c.students.length + ' siswa · ' + c.assignments.length + ' tugas</span></div><span class="chip">' + esc((c.level || 'umum')).toUpperCase() + '</span>';
       el.addEventListener('click', function () { selectClass(c.id); });
       host.appendChild(el);
     });
@@ -262,7 +264,6 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,44px);line-height:
     var body = byId('rosterBody');
     body.innerHTML = '';
     byId('rosterClassName').textContent = c ? c.name : 'Pilih kelas untuk melihat siswa';
-    byId('joinCode').textContent = c ? c.join_code : '——————';
     if (!c) return;
     c.students.forEach(function (s) {
       var tr = document.createElement('tr');
@@ -315,50 +316,115 @@ h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4vw,44px);line-height:
     var title = byId('assignTitle').value.trim();
     if (!title) return;
     var due = byId('assignDue').value || '';
-    c.assignments.push({ title: title, url: byId('assignUrl').value.trim(), due: due, done: 0, total: c.students.length });
-    byId('assignForm').reset();
-    renderAll();
-    selectClass(c.id);
-  });
+    var url = byId('assignUrl').value.trim();
 
-  byId('copyCode').addEventListener('click', function () {
-    var code = byId('joinCode').textContent;
-    if (code && code !== '——————' && navigator.clipboard) {
-      navigator.clipboard.writeText(code).then(function () {
-        byId('copyCode').textContent = 'Tersalin!';
-        setTimeout(function () { byId('copyCode').textContent = 'Salin'; }, 1500);
-      });
+    if (!state.isReal) {
+      // Mode demo: tetap berperilaku seperti sebelumnya supaya halaman bisa
+      // dipratinjau tanpa Supabase.
+      c.assignments.push({ title: title, url: url, due: due, done: 0, total: c.students.length });
+      byId('assignForm').reset();
+      renderAll();
+      selectClass(c.id);
+      return;
     }
+
+    var btn = byId('assignForm').querySelector('button[type="submit"]');
+    if (btn) btn.disabled = true;
+    call('create-assignment', { classroomId: c.id, title: title, materialUrl: url, dueAt: due || null })
+      .then(function () {
+        byId('assignForm').reset();
+        var aktif = c.id;
+        return loadReal().then(function () { selectClass(aktif); });
+      })
+      .catch(function (err) { notice('Gagal menambah tugas — ' + err.message, true); })
+      .then(function () { if (btn) btn.disabled = false; });
   });
 
-  // ── Coba data nyata dari Supabase (bila tersedia & login guru) ──
-  function tryReal() {
+  // ── Data nyata dari /api/group-tokens ─────────────────────────────
+  // Versi sebelumnya memanggil SC.Auth.getSession() dan SC.DB.getTeacherClasses(),
+  // dua fungsi yang TIDAK PERNAH ADA di assets/supabase-client.js (API-nya
+  // Auth.session(), dan tidak ada helper guru sama sekali). Penjaga di baris
+  // pertama karena itu selalu `return`, sehingga halaman ini terkunci di mode
+  // demo sejak dibuat -- tanpa error, tanpa gejala apa pun di konsol.
+  //
+  // Progres siswa diambil lewat server, bukan langsung dari klien, supaya
+  // aksesnya dibatasi kepemilikan kelas. Lihat catatan di
+  // netlify/functions/group-tokens.js.
+  var API = '/api/group-tokens';
+
+  function authToken() {
     try {
       var SC = window.SupabaseClient;
-      if (!SC || !SC.Auth || typeof SC.Auth.getSession !== 'function') return; // tetap demo
-      SC.Auth.getSession().then(function (session) {
-        if (!session || !session.user) return; // belum login → demo
-        // Placeholder aman: bila DB helper tersedia, ambil kelas guru.
-        // Struktur hasil harus cocok dgn DEMO.classes agar render sama.
-        if (SC.DB && typeof SC.DB.getTeacherClasses === 'function') {
-          SC.DB.getTeacherClasses(session.user.id).then(function (classes) {
-            if (classes && classes.length) {
-              state.data = { classes: classes };
-              state.isReal = true;
-              byId('modeNotice').style.display = 'none';
-              state.activeClass = classes[0].id;
-              renderAll();
-            }
-          }).catch(function () { /* tetap demo */ });
-        }
-      }).catch(function () { /* tetap demo */ });
-    } catch (err) { /* tetap demo */ }
+      var ses = SC && SC.Auth && typeof SC.Auth.session === 'function' ? SC.Auth.session() : null;
+      return (ses && ses.access_token) || null;
+    } catch (e) { return null; }
   }
 
-  // Init
-  state.activeClass = state.data.classes[0].id;
-  renderAll();
-  tryReal();
+  function call(action, payload) {
+    var t = authToken();
+    if (!t) return Promise.reject(new Error('Belum masuk.'));
+    return fetch(API, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + t },
+      body: JSON.stringify(Object.assign({ action: action }, payload || {}))
+    }).then(function (r) {
+      return r.json().catch(function () { return {}; }).then(function (d) {
+        if (!r.ok) throw new Error(d.error || ('Gagal (' + r.status + ')'));
+        return d;
+      });
+    });
+  }
+
+  function notice(msg, tampil) {
+    var el = byId('modeNotice');
+    el.textContent = msg;
+    el.style.display = tampil ? '' : 'none';
+  }
+
+  function loadReal() {
+    return call('class-overview').then(function (d) {
+      state.data = { classes: d.classes || [] };
+      state.isReal = true;
+      if (!state.data.classes.length) {
+        state.activeClass = null;
+        notice('Belum ada kelas. Buat grup dulu di halaman Grup & Token.', true);
+      } else {
+        state.activeClass = state.data.classes[0].id;
+        notice('', false);
+      }
+      renderAll();
+    });
+  }
+
+  // ── Init ──
+  // assets/supabase-client.js memanggil Auth.init() di dalam listener
+  // DOMContentLoaded, sedangkan script inline ini berjalan SEBELUM event itu.
+  // Memeriksa sesi tanpa menunggu selalu menemukan null, sehingga pengajar yang
+  // sudah masuk pun akan melihat "mode demo" -- gagal diam-diam, tanpa error.
+  // Karena itu boot ditunda sampai dokumen siap; Auth.init() dipanggil sekali
+  // lagi secara defensif (idempoten, hanya membaca ulang localStorage) untuk
+  // kasus dokumen yang sudah selesai dimuat sebelum script ini jalan.
+  function boot() {
+    var SC = window.SupabaseClient;
+    if (SC && SC.Auth && typeof SC.Auth.init === 'function') { try { SC.Auth.init(); } catch (e) {} }
+
+    state.activeClass = state.data.classes[0].id;
+    renderAll();
+
+    if (!authToken()) {
+      notice('Mode demo — menampilkan data contoh. Masuk sebagai pengajar untuk melihat kelas Anda.', true);
+      return;
+    }
+    loadReal().catch(function (err) {
+      // Gagal di sini bukan berarti data kosong: bisa sesi kedaluwarsa, bisa
+      // kunci Supabase belum diisi di hosting. Katakan apa adanya dan
+      // pertahankan data contoh supaya halaman tetap bisa dibaca.
+      notice('Menampilkan data contoh — ' + err.message, true);
+    });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
 })();
 </script>
 </body>

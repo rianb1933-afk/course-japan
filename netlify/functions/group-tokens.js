@@ -1,7 +1,8 @@
 /**
  * Netlify Function: /api/group-tokens
  * ───────────────────────────────────────────────────────────────────
- * Grup kelas (pengajar, pelajar N5..N1, dsb.) dan token untuk bergabung.
+ * Grup kelas (pengajar, pelajar N5..N1, dsb.), token untuk bergabung, dan
+ * ringkasan kelas untuk Teacher-Dashboard.html (anggota + progres + tugas).
  *
  * KENAPA SEMUANYA DI SERVER
  * Keanggotaan grup menentukan siapa melihat materi/tugas siapa, jadi ia tidak
@@ -245,6 +246,122 @@ exports.handler = async (event) => {
           .order('joined_at', { ascending: false });
         if (error) throw error;
         return json(200, { members: data || [] });
+      }
+
+      /* Ringkasan kelas untuk dashboard pengajar.
+         ──────────────────────────────────────────────────────────────
+         Progres siswa SENGAJA diambil di sini, bukan langsung dari klien.
+         Klien memang BISA membaca user_progress -- ada policy warisan
+         "Leaderboard read" yang mengizinkan setiap pengguna terautentikasi
+         membaca SELURUH baris tabel itu, termasuk email dan status langganan
+         semua orang. Menyandarkan dashboard pada policy itu berarti fitur ini
+         ikut rusak begitu policy tersebut dipersempit (dan memang seharusnya
+         dipersempit). Di sini aksesnya dibatasi oleh kepemilikan kelas.
+
+         Kolom `email` tidak pernah ikut dikembalikan: pengajar butuh nama dan
+         progres, bukan alamat surel muridnya. */
+      case 'class-overview': {
+        if (!isManager) return json(403, { error: 'Hanya pengajar atau admin.' });
+
+        let q = sbService.from('classrooms')
+          .select('id, name, description, level, kind, created_at, teacher_id')
+          .eq('archived', false).order('created_at', { ascending: false });
+        if (me.role !== 'admin') q = q.eq('teacher_id', me.userId);
+        const { data: classes, error: e1 } = await q;
+        if (e1) throw e1;
+        const ids = (classes || []).map((c) => c.id);
+        if (!ids.length) return json(200, { role: me.role, classes: [] });
+
+        const { data: enr } = await sbService.from('enrollments')
+          .select('classroom_id, student_id, joined_at').in('classroom_id', ids);
+        const sids = [...new Set((enr || []).map((e) => e.student_id))];
+
+        let prog = [];
+        if (sids.length) {
+          const { data } = await sbService.from('user_progress')
+            .select('user_id, name, xp, level, streak, last_study, jlpt_progress')
+            .in('user_id', sids);
+          prog = data || [];
+        }
+        const byUser = {};
+        prog.forEach((r) => { byUser[r.user_id] = r; });
+
+        const { data: asg } = await sbService.from('assignments')
+          .select('id, classroom_id, title, material_url, due_at, created_at').in('classroom_id', ids);
+        const aids = (asg || []).map((a) => a.id);
+        let subs = [];
+        if (aids.length) {
+          const { data } = await sbService.from('assignment_submissions')
+            .select('assignment_id, completed').in('assignment_id', aids);
+          subs = data || [];
+        }
+        const doneBy = {};
+        subs.forEach((x) => { if (x.completed) doneBy[x.assignment_id] = (doneBy[x.assignment_id] || 0) + 1; });
+
+        /* jlpt_progress adalah objek {N5..N1}; dashboard menampilkan satu angka
+           persen, jadi dirata-ratakan. Tanpa data sama sekali -> 0, bukan NaN. */
+        const persen = (r) => {
+          const j = r && r.jlpt_progress;
+          if (!j || typeof j !== 'object') return 0;
+          const v = Object.values(j).map(Number).filter((n) => Number.isFinite(n));
+          return v.length ? Math.round(v.reduce((a, b) => a + b, 0) / v.length) : 0;
+        };
+        const HARI = 86400000;
+        const status = (r) => {
+          if (!r || !r.last_study) return 'perlu perhatian';
+          const jarak = (Date.now() - new Date(r.last_study).getTime()) / HARI;
+          if (jarak <= 7) return 'aktif';
+          if (jarak <= 30) return 'kurang aktif';
+          return 'perlu perhatian';
+        };
+
+        const out = (classes || []).map((c) => {
+          const anggota = (enr || []).filter((e) => e.classroom_id === c.id);
+          const students = anggota.map((e) => {
+            const r = byUser[e.student_id];
+            return {
+              name: (r && r.name) || ('Siswa ' + String(e.student_id).slice(0, 6)),
+              progress: persen(r),
+              streak: (r && r.streak) || 0,
+              status: status(r),
+            };
+          });
+          const tugas = (asg || []).filter((a) => a.classroom_id === c.id).map((a) => ({
+            id: a.id,
+            title: a.title,
+            due: a.due_at ? String(a.due_at).slice(0, 10) : '',
+            done: doneBy[a.id] || 0,
+            total: students.length,
+          }));
+          return {
+            id: c.id, name: c.name, level: c.level, kind: c.kind,
+            students: students, assignments: tugas,
+          };
+        });
+        return json(200, { role: me.role, classes: out });
+      }
+
+      case 'create-assignment': {
+        if (!isManager) return json(403, { error: 'Hanya pengajar atau admin.' });
+        const can = await assertCanManage(sbService, me, body.classroomId);
+        if (!can.ok) return json(can.code, { error: can.error });
+        const title = String(body.title || '').trim();
+        if (title.length < 3 || title.length > 120) {
+          return json(400, { error: 'Judul tugas harus 3-120 karakter.' });
+        }
+        let dueAt = null;
+        if (body.dueAt) {
+          const d = new Date(body.dueAt);
+          if (!isNaN(d.getTime())) dueAt = d.toISOString();
+        }
+        const { data, error } = await sbService.from('assignments').insert({
+          classroom_id: can.room.id,
+          title,
+          material_url: String(body.materialUrl || '').trim().slice(0, 300) || null,
+          due_at: dueAt,
+        }).select('id, title, due_at').single();
+        if (error) throw error;
+        return json(200, { assignment: data });
       }
 
       /* Menukar token. Terbuka untuk SEMUA pengguna yang sudah masuk — di

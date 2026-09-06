@@ -103,6 +103,7 @@ ${di('🎓','LMS Features','Sistem belajar lengkap','/LMS-Features.html')}
 ${di('✨','Semua Fitur','Eksplorasi fitur premium','/Platform-Features.html')}
 ${di('🎤','Kelas Live','Jadwal kelas online','/Kelas-Online.html')}
 ${di('👥','Grup & Token','Bagi pelajar per level, undang dengan token','/Grup-Kelas.html')}
+${di('🧑‍🏫','Dashboard Guru','Progres siswa & tugas kelas','/Teacher-Dashboard.html')}
 <div class="kn-dd-sep"></div>
 ${di('🏅','Pricing Pro','Paket premium & harga','/Pricing-Pro.html')}
 </div>
@@ -202,6 +203,7 @@ ${dl('💬','AI Kaiwa','/AI-Kaiwa.html')}
 ${dl('⚙️','Platform App','/Platform-App.html')}
 ${dl('🎤','Kelas Live','/Kelas-Online.html')}
 ${dl('👥','Grup & Token','/Grup-Kelas.html')}
+${dl('🧑‍🏫','Dashboard Guru','/Teacher-Dashboard.html')}
 ${dl('📰','Blog','/Blog.html')}
 ${dl('ℹ️','Tentang','/About.html')}
 ${dl('💡','FAQ','/FAQ.html')}
