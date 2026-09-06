@@ -94,6 +94,12 @@ a{text-decoration:none;color:inherit}button{font-family:'Outfit',sans-serif;curs
       <p id="jqMsg" style="font-size:12px;margin-top:6px"></p>
     </div><div class="cms-list" id="jqList"><p style="color:var(--ink-mid);font-size:13px">Memuat soal...</p></div></div></div>
     <div class="grid" style="margin-top:1rem"><div class="panel"><h2>Aktivitas Terbaru</h2><div class="log"><div class="log-item"><b>Platform features ditambahkan</b><span>AI API, PWA, checkout opsional, CMS, accessibility, collaboration, advanced search.</span></div><div class="log-item"><b>Akses gratis aktif</b><span>Semua modul utama terbuka tanpa gate pembayaran.</span></div><div class="log-item"><b>Latihan JLPT aktif</b><span>N5-N1 dengan 175 soal lokal.</span></div><div class="log-item"><b>Flashcard diperbarui</b><span>Mode level N5-N1 dan All Local.</span></div></div></div><div class="panel"><h2>Sesi Admin</h2><p id="sessionInfo" style="color:var(--ink-mid);font-size:13px"></p><!-- GENUINELY DITAMBAHKAN (Fase Audit Website Putaran Kedua, Fase E): dikonfirmasi via investigasi bahwa fungsi logout() genuinely sudah ada dan genuinely benar (menghapus sesi dari kedua storage, redirect ke Admin-Login.html), namun GENUINELY TIDAK ADA tombol/elemen HTML manapun yang memanggilnya -- admin genuinely tidak punya cara logout dari UI selain menghapus data browser secara manual. --><button onclick="logout()" style="margin-top:.75rem;padding:8px 16px;border-radius:8px;border:1px solid rgba(190,52,40,.3);background:none;color:var(--red,#be3428);font-size:13px;font-weight:700;cursor:pointer">Keluar</button></div></div>
+    <div class="panel" style="margin-top:1rem"><h2>Laporan Drift XP</h2>
+      <p style="color:var(--ink-mid);font-size:13px;margin:0 0 10px">Bandingkan <code>user_progress.xp</code> (profil) dengan jumlah baris <code>user_xp_log</code> ber-flag <code>xp_applied=true</code> per pengguna. Drift positif = XP profil lebih besar dari jejak log (XP pra-log era localStorage, atau penulisan manual); drift negatif = baris log belum di-apply (RPC gagal — jalankan ulang backfill di supabase-schema.sql).</p>
+      <button class="btn-sm" onclick="loadXpDrift()">Muat Laporan Drift</button>
+      <p id="xpDriftSummary" style="font-size:12px;color:var(--ink-mid);margin:8px 0 0"></p>
+      <div id="xpDriftList" style="margin-top:10px;overflow-x:auto"></div>
+    </div>
   </section>
 </main>
 <script src="assets/translator.min.js" defer></script>
@@ -242,6 +248,48 @@ async function deleteJlptQuestion(id){
 
 renderCms();
 renderJlptQuestions();
+
+/* ── Laporan Drift XP (admin-only, /api/xp-drift) ──────────────────
+   Membandingkan XP profil dengan jumlah log ber-flag xp_applied.
+   Semua dihitung server-side; klien hanya menampilkan. Tabel dipotong
+   200 baris oleh server; drift nol tetap ditampilkan agar totalnya
+   terbaca sebagai audit penuh, bukan daftar keluhan. */
+async function loadXpDrift(){
+  const listEl = document.getElementById('xpDriftList');
+  const sumEl = document.getElementById('xpDriftSummary');
+  sumEl.textContent = '⏳ Memuat…';
+  try {
+    const res = await fetch('/api/xp-drift', {
+      headers: { 'Authorization': 'Bearer ' + session.token },
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      sumEl.textContent = '❌ ' + (data.error || 'Gagal memuat laporan drift.');
+      listEl.innerHTML = '';
+      return;
+    }
+    sumEl.textContent = data.totalUsers === 0
+      ? 'Belum ada data XP di server.'
+      : `${data.totalUsers} pengguna · ${data.driftedCount} mengalami drift · total drift ${data.totalDrift.toLocaleString('id-ID')} XP · ${new Date(data.generatedAt).toLocaleString('id-ID')}`;
+    const rows = data.users || [];
+    listEl.innerHTML = rows.length ? (
+      '<table class="table"><thead><tr><th>Pengguna</th><th>XP Profil</th><th>XP Log (applied)</th><th>Drift</th><th>Log?</th></tr></thead><tbody>' +
+      rows.map(u => {
+        const driftCls = u.drift > 0 ? 'status ok' : (u.drift < 0 ? 'status' : '');
+        const shortId = String(u.userId).slice(0, 8) + '…';
+        return `<tr><td title="${esc(u.userId)}">${esc(shortId)}</td>` +
+          `<td>${u.profileXp.toLocaleString('id-ID')}</td>` +
+          `<td>${u.logXp.toLocaleString('id-ID')}</td>` +
+          `<td><span class="${driftCls}">${u.drift > 0 ? '+' : ''}${u.drift.toLocaleString('id-ID')}</span></td>` +
+          `<td>${u.hasLog ? 'ya' : '—'}</td></tr>`;
+      }).join('') +
+      '</tbody></table>'
+    ) : '<p style="color:var(--ink-mid);font-size:13px">Tidak ada baris untuk ditampilkan.</p>';
+  } catch (e) {
+    sumEl.textContent = '❌ Gagal terhubung ke server.';
+    listEl.innerHTML = '';
+  }
+}
 </script>
 
 <script>
