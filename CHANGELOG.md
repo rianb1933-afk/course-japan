@@ -4,6 +4,17 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v364 — XP multi-sumber tervalidasi server
+
+### Perubahan
+
+- Jalur log-id XP diperluas ke kuis, kanji, SRS - whitelist 8 sumber di apply_user_xp
+- Mirror pusat np:xpAdded: timer, achievement, CBT, AI Tutor ikut tercatat di user_xp_log
+- Sync.push tidak lagi menimpa kolom xp - celah dobel XP ditutup
+- Laporan Drift XP untuk admin + kartu Sumber XP di statistik
+
+---
+
 ## v363 — Kosakata Indonesia menyeluruh N5–N1
 
 ### Perubahan
