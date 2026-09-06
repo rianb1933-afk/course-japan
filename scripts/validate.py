@@ -1440,6 +1440,41 @@ def check_three_lazy():
         f'bukan hanya saat panel Anatomi dibuka.')
 
 
+def check_3d_lazy_pattern():
+    """Pola lazy-load lengkap viewer 3D, per halaman (keluarga Three.js + model-viewer).
+
+    check three-lazy menjaga sisi codemod-nya (tidak ada import statis); check ini
+    mengaudit pola penuh yang membuat viewer 3D benar-benar muncul dan tetap murah:
+
+    - Materi/Sistem-*.html: ekspor window.initXxx3D, import('three') dinamis,
+      pemicu klik tab (jalur UTAMA), IntersectionObserver (cadangan).
+    - Anatomi-Dasar.html: model-viewer di-import() dinamis dengan versi dipatok,
+      model GLB ber-stamp ?v=, pemicu klik tab 3D, loading=eager (elemen selalu
+      in-viewport saat dibuat; mode auto menggantung pada deteksi rAF di webview
+      tanpa komposit).
+
+    Halaman ditemukan lewat konten (importmap three), jadi halaman 3D baru
+    otomatis tercakup. Implementasi: node scripts/audit-3d-lazy.js --check.
+    """
+    audit = os.path.join(ROOT, 'scripts', 'audit-3d-lazy.js')
+    if not os.path.exists(audit):
+        err('3d-lazy-pattern', 'scripts/audit-3d-lazy.js tidak ada')
+        return
+
+    proc = subprocess.run(['node', audit, '--check'],
+                          cwd=ROOT, capture_output=True, text=True)
+
+    if proc.returncode == 0:
+        ok('3d-lazy-pattern', (proc.stdout.strip().splitlines() or
+                               ['pola lazy-load 3D seragam'])[-1])
+        return
+
+    detail = (proc.stderr.strip() or proc.stdout.strip()).replace('\n', ' ')
+    err('3d-lazy-pattern',
+        f'{detail} Pola yang menyimpang membuat library 3D terunduh saat page load '
+        f'atau viewer tidak pernah muncul.')
+
+
 def check_kaigo_hub():
     """Materi/Kaigo.html harus menaut SEMUA Kaigo-*.html, dan Materi.html tidak
     boleh lagi memuat daftar panjangnya.
@@ -2660,6 +2695,7 @@ def main():
         check_build_freshness,
         check_three_version,
         check_three_lazy,
+        check_3d_lazy_pattern,
         check_unit_tests,
     ]
 
