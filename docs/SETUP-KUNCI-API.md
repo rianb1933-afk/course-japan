@@ -193,6 +193,45 @@ UUID pengguna ada di Supabase → Authentication → Users.
 
 Percobaan tukar dibatasi 30 per IP per hari untuk mencegah tebak-tebakan.
 
+## 2c. Login admin
+
+**Halamannya:** `Admin-Login.html` → berhasil masuk diarahkan ke `Admin-Dashboard.html`.
+
+Tidak butuh kunci baru — memakai tiga variabel Supabase yang sama. Endpointnya
+`/api/admin-login`, sudah terdaftar di `netlify.toml` dan dipakai otomatis;
+`window.NIHONGO_ADMIN_LOGIN_ENDPOINT` hanya perlu diisi kalau ingin menimpanya.
+
+**Cara membuat akun admin — tiga langkah, semuanya di Supabase:**
+
+**1. Buat penggunanya.** Supabase → Authentication → Users → *Add user*, isi
+email dan password. (Akun admin harus pengguna Supabase Auth sungguhan; akun
+yang dibuat lewat `Akun.html` tersimpan di browser saja dan tidak berlaku di
+sini.)
+
+**2. Salin UUID-nya** dari daftar pengguna itu.
+
+**3. Beri peran admin.** Supabase → SQL Editor:
+
+```sql
+INSERT INTO user_roles (user_id, role) VALUES ('<uuid-pengguna>', 'admin')
+ON CONFLICT (user_id) DO UPDATE SET role = 'admin';
+```
+
+Lalu buka `Admin-Login.html` dan masuk dengan email + password tadi.
+
+**Yang terjadi di balik layar:** `netlify/functions/admin-login.js` memverifikasi
+kredensial ke Supabase Auth, lalu memeriksa `user_roles` memakai service key.
+Kalau perannya bukan `admin`, ia membalas **403 dan tidak mengembalikan token
+sama sekali** — meski email dan passwordnya benar. Kalau pembacaan peran gagal,
+hasilnya juga ditolak (*fail closed*). Jadi pelajar biasa tidak bisa masuk lewat
+halaman ini, dan sebaliknya akun admin tidak diperlukan untuk belajar.
+
+> **Login lokal.** Di `file://` atau `localhost`, halaman memakai mode demo dan
+> tidak menyentuh `/api/admin-login` sama sekali — server statis biasa memang
+> tidak punya endpoint itu. Setel `window.NIHONGO_ADMIN_DEMO_PASS` di konsol
+> untuk mencobanya, atau jalankan `netlify dev` dan setel
+> `window.NIHONGO_ADMIN_LOGIN_ENDPOINT` bila ingin menguji jalur aslinya.
+
 ## 3. Kelas live — LiveKit
 
 **Yang mati tanpa ini:** Kelas Online, Kelas Report, dasbor guru.

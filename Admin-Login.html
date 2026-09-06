@@ -96,7 +96,7 @@ code{color:var(--ink,#2D2D2D);background:rgba(128,128,128,.18);border-radius:6px
     <button type="submit">Masuk Dashboard</button>
   </form>
   <div class="links"><a href="index.html">Kembali ke Home</a><a href="Platform-Features.html">Fitur Platform</a></div>
-  <div class="demo">Production wajib set <code>window.NIHONGO_ADMIN_LOGIN_ENDPOINT</code>. Demo login hanya aktif di file/localhost.</div>
+  <div class="demo">Produksi memakai <code>/api/admin-login</code> secara otomatis; isi <code>window.NIHONGO_ADMIN_LOGIN_ENDPOINT</code> hanya bila ingin menimpanya. Login demo hanya aktif di file/localhost.</div>
 </main>
 <script>
 const form = document.getElementById('form');
@@ -104,8 +104,26 @@ form.addEventListener('submit', async (event) => {
   event.preventDefault();
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
-  const endpoint = window.NIHONGO_ADMIN_LOGIN_ENDPOINT || '';
   const isLocalDemo = location.protocol === 'file:' || ['localhost','127.0.0.1'].includes(location.hostname);
+  /* Endpoint admin defaultnya sesama origin.
+     ──────────────────────────────────────────────────────────────────
+     Sebelumnya baris ini berbunyi `window.NIHONGO_ADMIN_LOGIN_ENDPOINT || ''`,
+     dan variabel global itu TIDAK PERNAH disetel di mana pun — bukan di
+     assets/env.js, bukan di halaman ini, bukan di netlify.toml. Akibatnya di
+     produksi endpoint selalu kosong, dan satu-satunya cabang yang tersisa
+     melempar "Endpoint admin belum dikonfigurasi". Login admin mustahil,
+     padahal netlify/functions/admin-login.js sudah benar dan redirect
+     /api/admin-login sudah terdaftar di netlify.toml.
+
+     Tidak ada alasan URL ini perlu di-inject: ia sesama origin dan jalurnya
+     sudah dikunci di netlify.toml, sama seperti /api/ai-chat dan
+     /api/group-tokens yang dipanggil langsung dari kode. Globalnya tetap
+     dihormati bila diisi, supaya `netlify dev` atau host lain bisa menimpanya.
+
+     Di localhost/file: default dibiarkan kosong agar mode demo pratinjau
+     tetap berjalan seperti sebelumnya — server statis biasa tidak punya
+     /api/admin-login dan hanya akan membalas 404. */
+  const endpoint = window.NIHONGO_ADMIN_LOGIN_ENDPOINT || (isLocalDemo ? '' : '/api/admin-login');
   try {
     let session = null;
     if (endpoint) {
