@@ -117,12 +117,16 @@ ${di('📰','Blog','Artikel belajar bahasa Jepang','/Blog.html')}
 ${di('🎯','Misi & XP','Tantangan & reward','/Misi.html')}
 </div>
 </li>
-<!-- 7. Dasbor — single -->
-<li class="kn-item">
-<a href="/Ujian.html" class="kn-link" id="knUjianLink">試 Ujian</a>
-<a href="/Grup-Kelas.html" class="kn-link" id="knGrupLink">組 Grup</a>
-<a href="/Dashboard/Dashboard.html" class="kn-link" id="knDashLink">庭 Dasbor</a>
-</li>
+<!-- 7-9. Tautan tunggal — SATU <li> per item.
+     Ketiganya dulu berbagi satu <li>. Karena .kn-link adalah inline-flex,
+     baris baru di antara tag <a> ikut dirender sebagai spasi, sehingga
+     jaraknya jadi 4px sementara gap flex .kn-links memberi 1px untuk semua
+     item lain. Terukur di 1440px: celah 1,1,1,1,1,1,4,4 -- tiga item terakhir
+     merenggang sendiri. Dipecah agar gap flex yang mengatur semuanya, dan
+     sekaligus benar secara semantik: satu item navigasi = satu <li>. -->
+<li class="kn-item"><a href="/Ujian.html" class="kn-link" id="knUjianLink">試 Ujian</a></li>
+<li class="kn-item"><a href="/Grup-Kelas.html" class="kn-link" id="knGrupLink">組 Grup</a></li>
+<li class="kn-item"><a href="/Dashboard/Dashboard.html" class="kn-link" id="knDashLink">庭 Dasbor</a></li>
 </ul>
 <!-- RIGHT ACTIONS -->
 <div class="kn-actions">
