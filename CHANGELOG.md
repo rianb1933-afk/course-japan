@@ -4,6 +4,17 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v365 — Housekeeping env & pengingat merge otomatis
+
+### Perubahan
+
+- Check validator env-docs tiga arah: komentar netlify.toml ↔ docs/SETUP-KUNCI-API.md ↔ kode yang membaca env — 40 celah dokumentasi ditambal
+- Definisi env.js mati dihapus (FIREBASE_*/VAPID_PUBLIC_KEY tanpa konsumen); jalur dormant NIHONGO_FIREBASE_CONFIG tidak tersentuh
+- Dua workflow pengingat merge: PR yang menyentuh supabase-schema.sql atau env netlify.toml dapat komentar otomatis berisi langkah manual pasca-merge
+- Suite regresi 7 kasus untuk check env-docs (menangkap & memperbaiki regex bracket ber-quote)
+
+---
+
 ## v364 — XP multi-sumber tervalidasi server
 
 ### Perubahan
