@@ -108,6 +108,16 @@ html,body{overflow-x:hidden}
   .hero .hero-actions{grid-template-columns:1fr 1fr!important}
   .hero .hero-actions>:first-child{grid-column:1/-1}
   .sticky-bar{padding-bottom:calc(.75rem + env(safe-area-inset-bottom))!important}
+  /* Tiga grid ini tidak punya override mobile di index-page.css (komentar
+     roadmap di bawah bahkan menyebut .levels-grid sebagai celah pra-ada).
+     Track 1fr punya lantai min-content: di lebar ponsel kartu lebih lebar
+     daripada porsinya, grid meluap, dan body{overflow-x:hidden} MEMOTONG
+     peluapnya alih-alih menggulir -- inilah "kepotong" yang dilaporkan
+     pengguna HP. minmax(0,1fr) meniadakan lantai min-content sehingga kartu
+     aman menyusut, dan di sini kita langsung tumpukkan satu kolom. */
+  .levels-grid{grid-template-columns:1fr!important}
+  .instructor-inner{grid-template-columns:1fr!important;gap:2.5rem!important}
+  .testi-grid{grid-template-columns:1fr!important}
 }
 @media(max-width:480px){
   footer .footer-grid{grid-template-columns:1fr!important}
@@ -318,8 +328,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
        belajar N5 -> Bisnis). Desktop-only (>900px, mengikuti breakpoint
        yang sudah dipakai file ini): .levels-grid TIDAK punya override
        grid-template-columns di mana pun di index-page.css, jadi di
-       mobile 4 kartu tetap 4 kolom sempit -- celah pra-ada, di luar
-       cakupan pekerjaan ini.
+       mobile 4 kartu tetap 4 kolom sempit -- celah pra-ada, kini tertutup
+       oleh override satu kolom .levels-grid di blok
+       @media(max-width:768px) di atas.
 
        TIDAK memakai IntersectionObserver sendiri. Baris ~111 di bawah
        sudah mendefinisikan sistem motion-ready/motion-stagger khusus
