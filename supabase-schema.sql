@@ -321,10 +321,6 @@ $$;
 -- add_user_xp tetap ada untuk pemanggil lama tanpa log id (mis. SQL Editor).
 ALTER TABLE user_xp_log ADD COLUMN IF NOT EXISTS xp_applied boolean NOT NULL DEFAULT false;
 
--- Hak eksekusi dicabut dari PUBLIC/anon; hanya authenticated (sesi sah) yang
--- boleh memanggil, dan hanya untuk baris log miliknya sendiri (dijaga WHERE
--- di dalam fungsi).
-REVOKE ALL ON FUNCTION apply_user_xp(uuid, bigint) FROM PUBLIC;
 -- Sumber XP yang boleh lewat jalur log-id. WHITELIST, bukan bebas: kolom
 -- `source` di user_xp_log disisipkan klien, dan tanpa daftar ini klien bisa
 -- memangsa apply berulang dengan sumber fiktif. Daftar ini cermin dari
@@ -359,11 +355,22 @@ BEGIN
   PERFORM mark_user_xp_applied(p_user, p_log_id);
 END;
 $$;
+-- Hak eksekusi dicabut dari PUBLIC/anon; hanya authenticated (sesi sah) yang
+-- boleh memanggil, dan hanya untuk baris log miliknya sendiri (dijaga WHERE
+-- di dalam fungsi).
+--
+-- REVOKE harus berada SESUDAH CREATE. Sebelumnya baris ini ada di atas, dan
+-- itu jalan di basis data yang fungsinya sudah ada -- tapi di basis data baru
+-- fungsinya belum lahir saat baris ini dibaca, dan REVOKE tidak punya bentuk
+-- IF EXISTS, jadi seluruh skema berhenti dengan "42883: function
+-- apply_user_xp(uuid, bigint) does not exist". Terbukti saat pemasangan
+-- pertama yang sungguhan. redeem_group_token di bawah sudah memakai urutan
+-- yang benar ini.
+REVOKE ALL ON FUNCTION apply_user_xp(uuid, bigint) FROM PUBLIC;
 DO $$ BEGIN
   EXECUTE 'GRANT EXECUTE ON FUNCTION apply_user_xp(uuid, bigint) TO authenticated';
 EXCEPTION WHEN undefined_object THEN NULL; END $$;
 
-REVOKE ALL ON FUNCTION mark_user_xp_applied(uuid, bigint) FROM PUBLIC;
 CREATE OR REPLACE FUNCTION mark_user_xp_applied(p_user uuid, p_log_id bigint)
 RETURNS void
 LANGUAGE plpgsql
@@ -375,6 +382,8 @@ BEGIN
   WHERE id = p_log_id AND user_id = p_user AND xp_applied = false;
 END;
 $$;
+-- Sama seperti apply_user_xp: dicabut sesudah fungsinya ada, bukan sebelum.
+REVOKE ALL ON FUNCTION mark_user_xp_applied(uuid, bigint) FROM PUBLIC;
 DO $$ BEGIN
   EXECUTE 'GRANT EXECUTE ON FUNCTION mark_user_xp_applied(uuid, bigint) TO authenticated';
 EXCEPTION WHEN undefined_object THEN NULL; END $$;
