@@ -33,6 +33,81 @@
 
   var SYSTEM_ORDER = ['luar', 'indera', 'rangka', 'organ', 'sirkulasi', 'otot', 'gerakan', 'byoumei', 'menekiei'];
 
+  // ── Simpan ke Flashcard: hero stat + tampilan "hanya tersimpan" ──
+  // Hero stat (#statFlashcard) menghitung isi np-anatomy-flashcards lewat
+  // NPAnatomyViewer.readFlashcards(); tampilan tersimpan (#materiTersimpan)
+  // merender ulang entri penuh untuk id-id itu saja, memakai renderTermEntry
+  // yang sama — satu sumber tampilan, tanpa duplikasi markup.
+  function readSavedIds() {
+    try { return (global.NPAnatomyViewer && typeof global.NPAnatomyViewer.readFlashcards === 'function') ? (global.NPAnatomyViewer.readFlashcards() || []) : []; }
+    catch (e) { return []; }
+  }
+
+  function updateHeroStat() {
+    var stat = document.getElementById('statFlashcard');
+    if (!stat) return;
+    var b = stat.querySelector('b');
+    if (b) b.textContent = String(readSavedIds().length);
+  }
+
+  function toggleSavedView() {
+    var wrap = document.getElementById('materiTersimpan');
+    if (!wrap) return;
+    var open = wrap.classList.toggle('open');
+    wrap.setAttribute('aria-hidden', String(!open));
+    if (open) {
+      renderSavedView();
+      wrap.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function renderSavedView() {
+    var wrap = document.getElementById('materiTersimpan');
+    if (!wrap) return;
+    var list = wrap.querySelector('.mts-list');
+    if (!list) return;
+    var saved = readSavedIds();
+    list.textContent = '';
+    list.appendChild(el('p', 'mts-count', saved.length + ' istilah tersimpan di flashcard anatomi.'));
+    if (!saved.length) {
+      list.appendChild(el('p', 'mts-empty', 'Belum ada istilah tersimpan. Klik "💾 Simpan ke Flashcard" pada istilah mana pun di bawah untuk mulai mengumpulkan.'));
+      return;
+    }
+    var byId = {};
+    SYSTEM_ORDER.forEach(function (key) {
+      var sys = D.SYSTEMS[key];
+      if (!sys) return;
+      sys.terms.forEach(function (t) { byId[t.id] = t; });
+    });
+    saved.forEach(function (id) {
+      var t = byId[id];
+      if (t) renderTermEntry(list, t); // entri penuh: audio, diagram, simpan/hapus state
+    });
+  }
+
+  // Tombol hapus hanya ada di tampilan tersimpan: removeFromFlashcards di
+  // viewer melengkapi API, dan entri di daftar utama tetap sinkron karena
+  // keduanya membaca storage yang sama setiap render.
+  function appendRemoveButton(entry, t) {
+    var actions = entry.querySelector('.mat-actions');
+    if (!actions) return;
+    var rm = el('button', 'mat-btn mat-save');
+    rm.type = 'button';
+    rm.textContent = '🗑️ Hapus';
+    rm.setAttribute('aria-label', 'Hapus ' + t.japanese + ' dari flashcard');
+    rm.addEventListener('click', function () {
+      var ok = false;
+      try { ok = global.NPAnatomyViewer.removeFromFlashcards(t.id); } catch (e) { ok = false; }
+      if (ok) {
+        toast('🗑️ Dihapus: ' + t.japanese);
+        renderSavedView();
+        updateHeroStat();
+        render(); // sinkronkan tombol di daftar utama
+      }
+    });
+    actions.appendChild(rm);
+  }
+
   function el(tag, cls, text) {
     var n = document.createElement(tag);
     if (cls) n.className = cls;
@@ -92,14 +167,14 @@
         save.addEventListener('click', function () {
           var res = 'error';
           try { res = global.NPAnatomyViewer.addToFlashcards(t.id); } catch (e) { res = 'error'; }
-          if (res === 'added') {
+          if (res === 'added' || res === 'exists') {
             save.textContent = '✓ Tersimpan';
             save.classList.add('saved');
             save.disabled = true;
-            toast('💾 Disimpan: ' + t.japanese);
-          } else if (res === 'exists') {
-            save.textContent = '✓ Tersimpan'; save.classList.add('saved'); save.disabled = true;
-            toast('Sudah tersimpan sebelumnya.');
+            toast(res === 'added' ? '💾 Disimpan: ' + t.japanese : 'Sudah tersimpan sebelumnya.');
+            updateHeroStat();
+            var sv = document.getElementById('materiTersimpan');
+            if (sv && sv.classList.contains('open')) renderSavedView();
           } else {
             toast('Gagal menyimpan.');
           }
@@ -146,6 +221,8 @@
     }
     entry.appendChild(dl);
     sysBlock.appendChild(entry);
+    if (sysBlock.dataset && sysBlock.dataset.savedView === '1') appendRemoveButton(entry, t);
+    return entry;
   }
 
   function render() {
@@ -182,11 +259,28 @@
     });
   }
 
-  global.NPAnatomyMaterial = { render: render };
+  function initExtras() {
+    updateHeroStat();
+    var btn = document.getElementById('btnLihatTersimpan');
+    if (btn) btn.addEventListener('click', toggleSavedView);
+    var close = document.getElementById('btnTutupTersimpan');
+    if (close) close.addEventListener('click', function () {
+      var wrap = document.getElementById('materiTersimpan');
+      if (wrap) { wrap.classList.remove('open'); wrap.setAttribute('aria-hidden', 'true'); }
+    });
+  }
+
+  global.NPAnatomyMaterial = {
+    render: render,
+    updateHeroStat: updateHeroStat,
+    toggleSavedView: toggleSavedView,
+    renderSavedView: renderSavedView,
+    renderTermEntry: renderTermEntry
+  };
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () { render(); });
+    document.addEventListener('DOMContentLoaded', function () { render(); initExtras(); });
   } else {
-    render();
+    render(); initExtras();
   }
 })(window);

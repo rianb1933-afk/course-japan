@@ -4,6 +4,17 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v367 — Flashcard anatomi — tombol simpan per istilah + tampilan tersimpan
+
+### Perubahan
+
+- Tombol 💾 Simpan ke Flashcard pada seluruh 176 istilah Materi Lengkap (menulis storage np-anatomy-flashcards yang sama dengan panel diagram)
+- Statistik hero Tersimpan di flashcard + tampilan khusus yang hanya memuat istilah tersimpan lengkap dengan tombol hapus
+- API NPAnatomyViewer.addToFlashcards/removeFromFlashcards/readFlashcards — satu sumber logika, anti-dobel, pulih dari storage korup
+- Suite test flashcard-save diperluas ke 15 kasus (246 test total)
+
+---
+
 ## v366 — Anatomi — model 3D, kuis diperkuat, materi lengkap, validator 3D
 
 ### Perubahan

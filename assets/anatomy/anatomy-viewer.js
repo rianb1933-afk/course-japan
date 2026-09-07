@@ -454,6 +454,17 @@
       return 'added';
     } catch (e) { return 'error'; }
   }
+  function removeFromFlashcards(id) {
+    // true bila id memang ada dan dihapus; false bila tidak ada / storage gagal.
+    try {
+      var saved = readFlashcards();
+      var i = saved.indexOf(id);
+      if (i === -1) return false;
+      saved.splice(i, 1);
+      localStorage.setItem('np-anatomy-flashcards', JSON.stringify(saved));
+      return true;
+    } catch (e) { return false; }
+  }
   function saveToFlashcard(term) {
     var res = addToFlashcards(term.id);
     if (res === 'added') showToast('💾 Disimpan: ' + term.japanese);
@@ -639,6 +650,7 @@
     openInfoPanel: openInfoPanel,
     state: state,
     addToFlashcards: addToFlashcards,
+    removeFromFlashcards: removeFromFlashcards,
     readFlashcards: readFlashcards
   };
 

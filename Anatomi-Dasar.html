@@ -43,6 +43,8 @@
       <div class="ana-hero-stat"><b>176</b><span>Istilah anatomi</span></div>
       <div class="ana-hero-stat"><b>9</b><span>Sistem tubuh</span></div>
       <div class="ana-hero-stat"><b>34</b><span>Soal latihan</span></div>
+      <div class="ana-hero-stat ana-hero-stat-flash" id="statFlashcard"><b>0</b><span>Tersimpan di flashcard</span></div>
+      <button type="button" class="ana-hero-link" id="btnLihatTersimpan">Lihat yang tersimpan →</button>
     </div>
     <div class="mode-switcher" id="modeSwitcher" role="group" aria-label="Mode belajar">
       <button class="mode-btn active" data-mode="belajar" type="button">📖 Mode Belajar</button>
@@ -154,8 +156,17 @@
 
 <section class="materi-lengkap-section" id="materi-lengkap-section">
   <h2>📖 Materi Lengkap — 176 Istilah Anatomi</h2>
-  <p class="ml-sub">Seluruh istilah dengan lokasi, fungsi, catatan Kaigo, dan contoh kalimat Jepang — dikelompokkan per sistem tubuh. Klik 🔊 untuk pelafalan, 🗂️ untuk membuka istilah di diagram interaktif.</p>
+  <p class="ml-sub">Seluruh istilah dengan lokasi, fungsi, catatan Kaigo, dan contoh kalimat Jepang — dikelompokkan per sistem tubuh. Klik 🔊 untuk pelafalan, 🗂️ untuk membuka istilah di diagram interaktif, 💾 untuk menyimpan ke flashcard anatomi.</p>
   <div id="materiLengkap"></div>
+
+  <!-- Tampilan "hanya tersimpan": entri penuh untuk id di np-anatomy-flashcards -->
+  <div id="materiTersimpan" class="mts" aria-hidden="true">
+    <div class="mts-head">
+      <h3>💾 Flashcard Anatomi Saya</h3>
+      <button type="button" class="mat-btn" id="btnTutupTersimpan">✕ Tutup</button>
+    </div>
+    <div class="mts-list" data-saved-view="1"></div>
+  </div>
 </section>
 
 <section style="max-width:900px;margin:40px auto;padding:0 20px">

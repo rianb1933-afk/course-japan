@@ -30,10 +30,17 @@ function makeEl(tag) {
   const el = {
     tag, id: '', textContent: '', innerHTML: '', disabled: false, type: '', style: {},
     _children: [], _cls: new Set(), _handlers: {}, _attrs: {}, dataset: {},
+    // querySelector('.class') minimal — cukup untuk pencarian '.mat-actions' di
+    // appendRemoveButton(); kembalikan cucu/anak pertama yang cocok.
+    querySelector(sel) {
+      const cls = String(sel).replace(/^\./, '');
+      return findByClass(el, cls);
+    },
     classList: {
       add: (c) => el._cls.add(c),
       remove: (c) => el._cls.delete(c),
       contains: (c) => el._cls.has(c),
+      toggle: (c) => { if (el._cls.has(c)) { el._cls.delete(c); return false; } el._cls.add(c); return true; },
     },
     addEventListener(type, fn) { (el._handlers[type] = el._handlers[type] || []).push(fn); },
     removeEventListener() {},
@@ -41,8 +48,8 @@ function makeEl(tag) {
     appendChild(c) { el._children.push(c); return c; },
     setAttribute(k, v) { el._attrs[k] = v; },
     getAttribute(k) { return el._attrs[k] != null ? el._attrs[k] : null; },
-    querySelector: () => null,
     querySelectorAll: () => [],
+    scrollIntoView: () => {},
   };
   // `el.className = 'a b'` (dipakai helper el() material) harus mengisi _cls,
   // supaya pencarian tombol via classList.contains('mat-save') bekerja.
@@ -62,6 +69,22 @@ function makeEl(tag) {
 
 function makeSandbox() {
   const storage = new LocalStorageMock();
+  const materiRoot = makeEl('div');
+  // Material merender ke wadah #materiLengkap; elemen fitur tersimpan
+  // (#statFlashcard, #materiTersimpan + .mts-list, tombol toggle) dibuat
+  // sekali dan DICACHE per id — modul dan tes harus melihat elemen yang sama.
+  const byId = new Map();
+  const stat = makeEl('div');
+  const statB = makeEl('b');
+  stat.querySelector = (sel) => (sel === 'b' ? statB : null);
+  const mtsWrap = makeEl('div');
+  const mtsList = makeEl('div');
+  mtsList._cls.add('mts-list');
+  mtsList.dataset = { savedView: '1' }; // penanda renderTermEntry utk menambah tombol Hapus
+  mtsWrap.querySelector = (sel) => (sel === '.mts-list' ? mtsList : null);
+  byId.set('materiLengkap', materiRoot);
+  byId.set('statFlashcard', stat);
+  byId.set('materiTersimpan', mtsWrap);
   const sandbox = {
     localStorage: storage,
     navigator: { userAgent: 'node-test' },
@@ -69,13 +92,14 @@ function makeSandbox() {
     setTimeout, clearTimeout,
     CustomEvent: class { constructor(type, opts) { this.type = type; this.detail = opts && opts.detail; } },
     speechSynthesis: null,
-    // Material merender ke wadah #materiLengkap; semua id lain (elemen DOM
-    // milik viewer) dibuat on-demand — cukup ada, tak pernah dipakai tes.
     document: {
       readyState: 'complete',
       createElement: (tag) => makeEl(tag),
       createTextNode: (t) => ({ textContent: t }),
-      getElementById: (id) => (id === 'materiLengkap' ? materiRoot : makeEl(id)),
+      getElementById: (id) => {
+        if (!byId.has(id)) byId.set(id, makeEl(id));
+        return byId.get(id);
+      },
       querySelectorAll: () => [],
       querySelector: () => null,
       addEventListener() {},
@@ -84,7 +108,6 @@ function makeSandbox() {
     },
     _storage: storage,
   };
-  const materiRoot = makeEl('div');
   sandbox._materiRoot = materiRoot;
   return sandbox;
 }
@@ -115,6 +138,25 @@ function findSaveButtons(root) {
       walk(c);
     }
   })(root);
+  return out;
+}
+
+// Cari elemen pertama dengan class tertentu secara REKURSIF — .mat-actions
+// adalah cucu entri (di dalam .mat-entry-head), bukan anak langsung.
+function findByClass(node, cls) {
+  return findAllByClass(node, cls)[0] || null;
+}
+
+// Entri tersimpan punya DUA tombol mat-save (Simpan + Hapus) — kumpulkan semua.
+function findAllByClass(node, cls) {
+  const out = [];
+  (function walk(n) {
+    if (!n || !n._children) return;
+    for (const c of n._children) {
+      if (c._cls && c._cls.has(cls)) out.push(c);
+      walk(c);
+    }
+  })(node);
   return out;
 }
 
@@ -224,6 +266,96 @@ const tests = [
       vm.runInContext(materialSrc, ctx, { filename: 'anatomy-material.js' });
       assert.ok(sb.NPAnatomyMaterial, 'material harus tetap terekspor');
       assert.strictEqual(findSaveButtons(sb._materiRoot).length, 0, 'tanpa viewer, tombol simpan tidak boleh ada');
+    },
+  },
+  {
+    name: 'removeFromFlashcards menghapus id dan melaporkan false utk id asing',
+    fn() {
+      const sb = loadModules();
+      sb.NPAnatomyViewer.addToFlashcards('atama');
+      sb.NPAnatomyViewer.addToFlashcards('me');
+      assert.strictEqual(sb.NPAnatomyViewer.removeFromFlashcards('atama'), true);
+      assert.ok(jsonEq(sb.NPAnatomyViewer.readFlashcards(), ['me']));
+      assert.strictEqual(sb.NPAnatomyViewer.removeFromFlashcards('atama'), false, 'id yang sudah tak ada harus false');
+      assert.strictEqual(sb.NPAnatomyViewer.removeFromFlashcards('bukan-ada'), false);
+      assert.ok(jsonEq(sb.NPAnatomyViewer.readFlashcards(), ['me']));
+    },
+  },
+  {
+    name: 'updateHeroStat menulis jumlah tersimpan ke #statFlashcard b',
+    fn() {
+      const sb = loadModules();
+      const statB = sb.document.getElementById('statFlashcard').querySelector('b');
+      assert.strictEqual(statB.textContent, '0');
+      sb.NPAnatomyViewer.addToFlashcards('atama');
+      sb.NPAnatomyViewer.addToFlashcards('me');
+      sb.NPAnatomyMaterial.updateHeroStat();
+      assert.strictEqual(statB.textContent, '2');
+      sb.NPAnatomyViewer.removeFromFlashcards('atama');
+      sb.NPAnatomyMaterial.updateHeroStat();
+      assert.strictEqual(statB.textContent, '1');
+    },
+  },
+  {
+    name: 'renderSavedView merender entri penuh hanya utk id tersimpan (+ tombol Hapus)',
+    fn() {
+      const sb = loadModules();
+      sb.NPAnatomyViewer.addToFlashcards('atama');
+      sb.NPAnatomyViewer.addToFlashcards('me');
+      sb.NPAnatomyMaterial.renderSavedView();
+      const list = sb.document.getElementById('materiTersimpan').querySelector('.mts-list');
+      const entries = list._children.filter((n) => n._cls && n._cls.has('mat-entry'));
+      assert.strictEqual(entries.length, 2, 'harus tepat 2 entri tersimpan');
+      // Tiap entri punya tombol Hapus di .mat-actions (cucu entri):
+      entries.forEach((e) => {
+        const actions = findByClass(e, 'mat-actions');
+        assert.ok(actions, 'wadah aksi tidak ditemukan di entri tersimpan');
+        const rm = findAllByClass(e, 'mat-save').find((b) => b.textContent === '🗑️ Hapus');
+        assert.ok(rm, 'tombol Hapus tidak ditemukan di entri tersimpan');
+      });
+    },
+  },
+  {
+    name: 'klik Hapus di tampilan tersimpan → storage berkurang + daftar & hero sinkron',
+    fn() {
+      const sb = loadModules();
+      sb.NPAnatomyViewer.addToFlashcards('atama');
+      sb.NPAnatomyViewer.addToFlashcards('me');
+      sb.NPAnatomyMaterial.renderSavedView();
+      const list = sb.document.getElementById('materiTersimpan').querySelector('.mts-list');
+      const entries = list._children.filter((n) => n._cls && n._cls.has('mat-entry'));
+      const rm = findAllByClass(entries[0], 'mat-save').find((b) => b.textContent === '🗑️ Hapus');
+      assert.ok(rm, 'tombol Hapus tidak ditemukan');
+      rm.click();
+      assert.strictEqual(JSON.parse(sb._storage.getItem('np-anatomy-flashcards')).length, 1, 'storage harus tinggal 1');
+      const statB = sb.document.getElementById('statFlashcard').querySelector('b');
+      assert.strictEqual(statB.textContent, '1', 'hero stat harus ikut turun');
+    },
+  },
+  {
+    name: 'renderSavedView kosong → pesan mts-empty, tanpa entri',
+    fn() {
+      const sb = loadModules();
+      sb.NPAnatomyMaterial.renderSavedView();
+      const list = sb.document.getElementById('materiTersimpan').querySelector('.mts-list');
+      const entries = list._children.filter((n) => n._cls && n._cls.has('mat-entry'));
+      assert.strictEqual(entries.length, 0);
+      const empty = list._children.find((n) => n._cls && n._cls.has('mts-empty'));
+      assert.ok(empty, 'pesan kosong tidak dirender');
+    },
+  },
+  {
+    name: 'tombol toggle #btnLihatTersimpan membuka/menutup tampilan tersimpan',
+    fn() {
+      const sb = loadModules();
+      const wrap = sb.document.getElementById('materiTersimpan');
+      const btn = sb.document.getElementById('btnLihatTersimpan');
+      btn.click();
+      assert.ok(wrap.classList.contains('open'), 'klik pertama harus membuka');
+      assert.strictEqual(wrap.getAttribute('aria-hidden'), 'false');
+      btn.click();
+      assert.ok(!wrap.classList.contains('open'), 'klik kedua harus menutup');
+      assert.strictEqual(wrap.getAttribute('aria-hidden'), 'true');
     },
   },
 ];
