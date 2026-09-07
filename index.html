@@ -148,6 +148,7 @@ html,body{overflow-x:hidden}
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#6B4F3A">
 <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Nihongo Pro Academy">
 <link rel="apple-touch-icon" href="assets/og-preview.svg">
@@ -1553,7 +1554,19 @@ if('serviceWorker' in navigator && !/^(127\.0\.0\.1|localhost|::1)$/.test(locati
   function showNotifBanner(){
     const banner = document.createElement('div');
     banner.id = 'notifBanner';
-    banner.style.cssText = 'position:fixed;bottom:5.5rem;right:1rem;background:white;border-radius:12px;padding:.875rem 1rem;box-shadow:0 4px 20px rgba(0,0,0,.15);border:.5px solid rgba(0,0,0,.08);z-index:200;max-width:280px;font-family:Outfit,sans-serif';
+    // bottom:12rem, bukan 5,5rem seperti sebelumnya: pada 5,5rem kartu 280×134
+    // ini bertumpuk PERSIS di atas tombol mengambang "先 AI Chat" (kotaknya
+    // seluruhnya tertelan kartu ini) dan berdekatan dengan "訳 Kamus" -- kartu
+    // tampil di atas keduanya (z-index 200) sehingga tombolnya tak terklik
+    // selama kartu tayang. assets/kyoto-elevation.css punya sistem lajur
+    // sendiri untuk widget mengambang (--np-lane/--np-bar terkoordinasi,
+    // lihat komentar #floatingTimer di sana untuk kasus serupa yang sudah
+    // pernah diukur) -- kartu ini sengaja TIDAK ikut disuntik ke sana, cukup
+    // dinaikkan di atas seluruh lajur itu memakai --np-bar yang sama supaya
+    // ikut bergeser saat bilah promo tayang. Diverifikasi dengan
+    // getBoundingClientRect() sungguhan di 1470px dan ~500px: nol tumpang
+    // tindih dengan AI Chat, Kamus, maupun tombol WhatsApp mengambang.
+    banner.style.cssText = 'position:fixed;bottom:calc(12rem + var(--np-bar, 0px));right:1rem;background:white;border-radius:12px;padding:.875rem 1rem;box-shadow:0 4px 20px rgba(0,0,0,.15);border:.5px solid rgba(0,0,0,.08);z-index:200;max-width:280px;font-family:Outfit,sans-serif';
     banner.innerHTML = `
       <div style="font-size:13px;font-weight:700;color:#15161a;margin-bottom:.35rem">🔔 Pengingat Belajar Harian</div>
       <div style="font-size:12px;color:#888;margin-bottom:.625rem;line-height:1.5">Izinkan notifikasi untuk diingatkan belajar bahasa Jepang setiap hari dan menjaga streak.</div>
