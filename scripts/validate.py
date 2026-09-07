@@ -334,7 +334,7 @@ def check_broken_links():
 # ──────────────────────────────────────────────────────────────────
 # CHECK 4: Domain consistency in canonical / og:url / sitemap
 # ──────────────────────────────────────────────────────────────────
-CANONICAL_DOMAIN = 'nihongopro.id'
+CANONICAL_DOMAIN = 'nihonggoproacademy.netlify.app'
 
 
 def check_domain_consistency():

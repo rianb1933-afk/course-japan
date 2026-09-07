@@ -1098,7 +1098,7 @@
     }
     Object.entries(attrs.values || {}).forEach(([key, value]) => node.setAttribute(key, value));
   };
-  const canonicalUrl = `${location.origin || 'https://nihongopro.id'}${location.pathname}`;
+  const canonicalUrl = `${location.origin || 'https://nihonggoproacademy.netlify.app'}${location.pathname}`;
   const pageDescription = document.querySelector('meta[name="description"]')?.content
     || document.querySelector('h1')?.textContent?.trim()
     || 'Platform belajar bahasa Jepang untuk JLPT N5 sampai N1 dengan materi, flashcard, quiz, AI tutor, dan progress belajar.';

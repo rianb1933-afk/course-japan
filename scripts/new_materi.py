@@ -31,7 +31,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MATERI_DIR = os.path.join(ROOT, 'Materi')
 TPL_DIR = os.path.join(ROOT, 'scripts', 'templates')
 
-BASE_URL = 'https://nihongopro.id'
+BASE_URL = 'https://nihonggoproacademy.netlify.app'
 
 
 # ── Blok konten ────────────────────────────────────────────────────

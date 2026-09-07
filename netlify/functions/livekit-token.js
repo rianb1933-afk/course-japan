@@ -16,7 +16,7 @@
  */
 
 // ── ORIGIN VALIDATION ────────────────────────────────────────────────
-const ALLOWED_ORIGINS = ['https://nihongopro.id', 'https://www.nihongopro.id', 'http://localhost:8888', 'http://localhost:3000'];
+const ALLOWED_ORIGINS = ['https://nihonggoproacademy.netlify.app', 'http://localhost:8888', 'http://localhost:3000'];
 function corsHeadersFor(event) {
   const reqOrigin = event.headers['origin'] || event.headers['Origin'] || '';
   const allowOrigin = ALLOWED_ORIGINS.includes(reqOrigin) ? reqOrigin : ALLOWED_ORIGINS[0];

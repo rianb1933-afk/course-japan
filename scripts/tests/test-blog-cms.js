@@ -92,7 +92,7 @@ function loadHandler({ fetchImpl, roleRowResult, insertResult, insertError, dele
   return { handler: sandbox.module.exports.handler, insertCalls };
 }
 
-function makeEvent({ method = 'GET', origin = 'https://nihongopro.id', body = {}, query = {}, headers = {} } = {}) {
+function makeEvent({ method = 'GET', origin = 'https://nihonggoproacademy.netlify.app', body = {}, query = {}, headers = {} } = {}) {
   return {
     httpMethod: method,
     headers: { origin, ...headers },
@@ -196,7 +196,7 @@ test('POST dengan javascript: URI di href ditolak', async () => {
 
 test('POST dengan tag yang diizinkan (p, h2, ul, li, strong, a) -> diterima', async () => {
   const { handler, insertCalls } = loadHandler({ roleRowResult: { role: 'admin' } });
-  const html = '<h2>Judul</h2><p>Teks <strong>tebal</strong> dan <a href="https://nihongopro.id">link</a>.</p><ul><li>Poin 1</li></ul>';
+  const html = '<h2>Judul</h2><p>Teks <strong>tebal</strong> dan <a href="https://nihonggoproacademy.netlify.app">link</a>.</p><ul><li>Poin 1</li></ul>';
   const res = await handler(makeEvent({
     method: 'POST',
     headers: { authorization: 'Bearer faketoken' },

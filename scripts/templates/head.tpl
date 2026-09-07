@@ -15,12 +15,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Bentuk ～ている (Sedang & Keadaan) — Nihongo Pro Academy</title>
 <meta name="description" content="Pola ～ている bahasa Jepang: menyatakan aksi yang sedang berlangsung, keadaan yang berlanjut, dan kebiasaan. Materi JLPT N5-N4 dengan contoh dan audio.">
-<link rel="canonical" href="https://nihongopro.id/Materi/Grammar-Teiru.html">
+<link rel="canonical" href="https://nihonggoproacademy.netlify.app/Materi/Grammar-Teiru.html">
 <meta property="og:title" content="Bentuk ～ている (Sedang & Keadaan) — Nihongo Pro Academy">
 <meta property="og:description" content="Kuasai ～ている: sedang melakukan, keadaan, dan kebiasaan dalam bahasa Jepang.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://nihongopro.id/Materi/Grammar-Teiru.html">
-<meta property="og:image" content="https://nihongopro.id/assets/og-preview.svg">
+<meta property="og:url" content="https://nihonggoproacademy.netlify.app/Materi/Grammar-Teiru.html">
+<meta property="og:image" content="https://nihonggoproacademy.netlify.app/assets/og-preview.svg">
 
 <link rel="stylesheet" href="../assets/pro-style.css">
 <style>
@@ -40,13 +40,13 @@ h1{font-family:"Noto Serif JP",serif;font-size:clamp(32px,5vw,58px);line-height:
 @media(max-width:900px){.section-head{display:block}.grid{grid-template-columns:1fr}.table{display:block;overflow-x:auto}}
 </style>
 <link rel="stylesheet" href="../assets/neko-theme.css?v=6">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Bentuk ～ている (Sedang & Keadaan)", "description": "Pola ～ている bahasa Jepang: menyatakan aksi yang sedang berlangsung, keadaan yang berlanjut, dan kebiasaan. Materi JLPT N5-N4 dengan contoh dan audio.", "url": "https://nihongopro.id/Materi/Grammar-Teiru.html", "provider": {"@type": "Organization", "name": "NihongoPro", "url": "https://nihongopro.id"}, "inLanguage": "id"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Bentuk ～ている (Sedang & Keadaan)", "description": "Pola ～ている bahasa Jepang: menyatakan aksi yang sedang berlangsung, keadaan yang berlanjut, dan kebiasaan. Materi JLPT N5-N4 dengan contoh dan audio.", "url": "https://nihonggoproacademy.netlify.app/Materi/Grammar-Teiru.html", "provider": {"@type": "Organization", "name": "NihongoPro", "url": "https://nihonggoproacademy.netlify.app"}, "inLanguage": "id"}</script>
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@nihongopro">
 <meta name="twitter:title" content="Bentuk ～ている (Sedang & Keadaan)">
-<meta name="twitter:image" content="https://nihongopro.id/assets/og-preview.svg">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://nihongopro.id/"}, {"@type": "ListItem", "position": 2, "name": "Materi", "item": "https://nihongopro.id/Materi/Materi.html"}, {"@type": "ListItem", "position": 3, "name": "Bentuk ～ている (Sedang & Keadaan)", "item": "https://nihongopro.id/Materi/Grammar-Teiru.html"}]}</script>
+<meta name="twitter:image" content="https://nihonggoproacademy.netlify.app/assets/og-preview.svg">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Beranda", "item": "https://nihonggoproacademy.netlify.app/"}, {"@type": "ListItem", "position": 2, "name": "Materi", "item": "https://nihonggoproacademy.netlify.app/Materi/Materi.html"}, {"@type": "ListItem", "position": 3, "name": "Bentuk ～ている (Sedang & Keadaan)", "item": "https://nihonggoproacademy.netlify.app/Materi/Grammar-Teiru.html"}]}</script>
 <link rel="manifest" href="../manifest.json">
 <meta name="theme-color" content="#6B4F3A">
 <meta name="apple-mobile-web-app-capable" content="yes">

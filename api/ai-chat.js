@@ -83,8 +83,7 @@ function localFallback(mode) {
 // + localhost untuk pengembangan, header Vary: Origin untuk caching yang
 // benar.
 const ALLOWED_ORIGINS = [
-  'https://nihongopro.id',
-  'https://www.nihongopro.id',
+  'https://nihonggoproacademy.netlify.app',
   'http://localhost:8888',
   'http://localhost:3000',
 ];

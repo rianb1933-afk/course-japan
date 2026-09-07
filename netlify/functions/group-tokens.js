@@ -25,8 +25,7 @@ const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 
 const ALLOWED_ORIGINS = [
-  'https://nihongopro.id',
-  'https://www.nihongopro.id',
+  'https://nihonggoproacademy.netlify.app',
   'http://localhost:8888',
   'http://localhost:3000',
 ];

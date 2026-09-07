@@ -85,7 +85,7 @@ const PROVIDERS = {
     /* OpenRouter memakai header ini untuk atribusi; opsional, tapi tanpa
        Referer permintaan dari kunci gratis lebih sering dibatasi. */
     () => ({
-      'HTTP-Referer': process.env.SITE_URL || 'https://nihongopro.id',
+      'HTTP-Referer': process.env.SITE_URL || 'https://nihonggoproacademy.netlify.app',
       'X-Title': 'Nihongo Pro Academy',
     }),
   ),
@@ -241,8 +241,7 @@ Ringkas, tanpa basa-basi di luar format di atas.`,
 // Sekarang hanya origin resmi NihongoPro (+ localhost untuk pengembangan)
 // yang diizinkan.
 const ALLOWED_ORIGINS = [
-  'https://nihongopro.id',
-  'https://www.nihongopro.id',
+  'https://nihonggoproacademy.netlify.app',
   'http://localhost:8888',   // netlify dev
   'http://localhost:3000',
 ];

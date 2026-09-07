@@ -22,7 +22,7 @@ from kaigo_catalog import (  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'Materi', 'Kaigo.html')
-BASE_URL = 'https://nihongopro.id'
+BASE_URL = 'https://nihonggoproacademy.netlify.app'
 BRAND = 'Nihongo Pro Academy'
 NL = '\n'
 

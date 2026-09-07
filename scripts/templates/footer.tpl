@@ -44,7 +44,7 @@
       </div>
     </div>
     <div style="border-top:1px solid rgba(255,255,255,.1);padding-top:1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem">
-      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihongoPro — nihongopro.id · Semua hak dilindungi</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.35)">© 2025 NihongoPro — nihonggoproacademy.netlify.app · Semua hak dilindungi</div>
       <div style="display:flex;gap:1rem;font-size:12px">
         <a href="../Privacy.html" style="color:rgba(255,255,255,.35);text-decoration:none">Kebijakan Privasi</a>
         <a href="../FAQ.html" style="color:rgba(255,255,255,.35);text-decoration:none">Syarat Penggunaan</a>

@@ -52,7 +52,7 @@ import sys
 
 # ── SATU-SATUNYA konstan yang perlu diubah saat alamat situs pindah. ──
 # Tulis domain telanjang, tanpa skema dan tanpa garis miring penutup.
-SITE_DOMAIN = "nimble-stroopwafel-9056c3.netlify.app"
+SITE_DOMAIN = "nihonggoproacademy.netlify.app"
 
 # Domain yang PERNAH dipakai situs ini; semuanya ditulis ulang jadi
 # SITE_DOMAIN. Saat pindah domain, pindahkan nilai SITE_DOMAIN yang lama

@@ -88,7 +88,7 @@ function loadHandler({ fetchImpl, roleRowResult, rateLimitOk = true } = {}) {
   return { handler: sandbox.module.exports.handler, rateLimitCalls, roleQueryCalls };
 }
 
-function makeEvent({ method = 'POST', origin = 'https://nihongopro.id', body = {} } = {}) {
+function makeEvent({ method = 'POST', origin = 'https://nihonggoproacademy.netlify.app', body = {} } = {}) {
   return {
     httpMethod: method,
     headers: { origin },
@@ -97,17 +97,17 @@ function makeEvent({ method = 'POST', origin = 'https://nihongopro.id', body = {
 }
 
 // ── CORS ──────────────────────────────────────────────────────────────
-test('CORS: origin resmi (nihongopro.id) diizinkan apa adanya', async () => {
+test('CORS: origin resmi (nihonggoproacademy.netlify.app) diizinkan apa adanya', async () => {
   const { handler } = loadHandler({ roleRowResult: { role: 'admin' } });
-  const res = await handler(makeEvent({ origin: 'https://nihongopro.id', body: { email: 'a@a.com', password: 'x' } }));
-  assert.strictEqual(res.headers['Access-Control-Allow-Origin'], 'https://nihongopro.id');
+  const res = await handler(makeEvent({ origin: 'https://nihonggoproacademy.netlify.app', body: { email: 'a@a.com', password: 'x' } }));
+  assert.strictEqual(res.headers['Access-Control-Allow-Origin'], 'https://nihonggoproacademy.netlify.app');
 });
 
 test('CORS: origin asing TIDAK diizinkan, fallback ke origin resmi (bukan diloloskan)', async () => {
   const { handler } = loadHandler({ roleRowResult: { role: 'admin' } });
   const res = await handler(makeEvent({ origin: 'https://evil-attacker.com', body: { email: 'a@a.com', password: 'x' } }));
   assert.notStrictEqual(res.headers['Access-Control-Allow-Origin'], 'https://evil-attacker.com');
-  assert.strictEqual(res.headers['Access-Control-Allow-Origin'], 'https://nihongopro.id');
+  assert.strictEqual(res.headers['Access-Control-Allow-Origin'], 'https://nihonggoproacademy.netlify.app');
 });
 
 test('OPTIONS preflight dibalas 204 tanpa proses login', async () => {

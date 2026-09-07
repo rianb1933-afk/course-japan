@@ -81,7 +81,7 @@ function loadHandler({ roleRowResult, insertResult, insertError, listResult, sin
   return { handler: sandbox.module.exports.handler, insertCalls, deleteCalls };
 }
 
-function makeEvent({ method = 'GET', origin = 'https://nihongopro.id', body = {}, query = {}, headers = {} } = {}) {
+function makeEvent({ method = 'GET', origin = 'https://nihonggoproacademy.netlify.app', body = {}, query = {}, headers = {} } = {}) {
   return { httpMethod: method, headers: { origin, ...headers }, queryStringParameters: query, body: JSON.stringify(body) };
 }
 

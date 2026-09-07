@@ -23,7 +23,7 @@
   window.EDUMA_ENV = Object.assign(
     {
       // ── SITE ──────────────────────────────────────────────────────────────
-      SITE_URL:            read("EDUMA_SITE_URL", "https://nihongopro.id"),
+      SITE_URL:            read("EDUMA_SITE_URL", "https://nihonggoproacademy.netlify.app"),
 
       // ── ANALYTICS ─────────────────────────────────────────────────────────
       GA_MEASUREMENT_ID:   read("EDUMA_GA_MEASUREMENT_ID", ""),
