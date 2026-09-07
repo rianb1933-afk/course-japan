@@ -1163,21 +1163,27 @@ function togglePasswordVisibility(inputId, toggleEl) {
 }
 
 async function loginWithGoogle() {
-  const sb = window.supabase || window._supabase;
-  if (!sb) {
+  // SEBELUMNYA mengecek window.supabase / window._supabase -- global dari
+  // SDK @supabase/supabase-js resmi (createClient() dipanggil manual). Situs
+  // ini TIDAK PERNAH memuat SDK itu; assets/env.js + assets/supabase-client.js
+  // (dimuat di <head> halaman ini) menyediakan pembungkus sendiri lewat
+  // window.SupabaseClient. Karena window.supabase/_supabase selalu undefined,
+  // tombol ini SELALU gagal dengan pesan "belum dikonfigurasi" -- bahkan
+  // dengan SUPABASE_URL dan SUPABASE_ANON_KEY sudah benar di Netlify.
+  //
+  // Login Google Supabase tidak lewat method SDK, tapi redirect browser
+  // langsung ke endpoint /auth/v1/authorize -- pola yang sama persis dipakai
+  // assets/index-page.js (handleSocialLogin), yang komentarnya mencatat bug
+  // serupa: pengguna yang klik "Login dengan Google" tidak pernah genuinely
+  // sampai ke akun Google mereka sendiri.
+  const hasSupabaseConfig = !!(window.EDUMA_ENV && window.EDUMA_ENV.SUPABASE_URL) && typeof window.SupabaseClient === 'object';
+  if (!hasSupabaseConfig) {
     showAuthMsg(document.getElementById('authMsg'), 'error',
       'Koneksi Supabase belum dikonfigurasi. Isi SUPABASE_URL dan SUPABASE_ANON_KEY di environment.');
     return;
   }
-  try {
-    const { error } = await sb.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.origin + '/Dashboard/Dashboard.html' }
-    });
-    if (error) throw error;
-  } catch(e) {
-    showAuthMsg(document.getElementById('authMsg'), 'error', e.message || 'Google login gagal.');
-  }
+  const redirectTo = window.location.origin + '/Dashboard/Dashboard.html';
+  window.location.href = window.EDUMA_ENV.SUPABASE_URL + '/auth/v1/authorize?provider=google&redirect_to=' + encodeURIComponent(redirectTo);
 }
 
 // Enhance tombol login/register yang sudah ada dengan loading state
