@@ -665,7 +665,16 @@ async function saveSession(user) {
     user.idToken = await secureAuth.auth.currentUser.getIdToken();
     user.uid = secureAuth.auth.currentUser.uid;
     user.authProvider = 'firebase';
-  } else {
+  } else if (!user.authProvider) {
+    // Ditemukan lewat pendaftaran Supabase SUNGGUHAN yang berhasil (200 dari
+    // /auth/v1/signup): baris ini dulu menimpa authProvider TANPA SYARAT,
+    // jadi objek yang sudah datang dengan authProvider:'supabase' (dari
+    // handleLogin/handleRegister setelah SupabaseClient.Auth berhasil) ikut
+    // diberi label 'local-demo' -- lalu loginUser() memicu alert peringatan
+    // developer meski akunnya sungguhan tersimpan di server. Sekarang hanya
+    // mengisi default untuk pemanggil yang MEMANG belum menentukan provider
+    // (akun lokal murni: users[] hash lokal, atau demoUser Google-simulasi)
+    // -- lihat pemanggil loginUser() di bawah untuk kedua kasusnya.
     user.authProvider = 'local-demo';
   }
   localStorage.setItem('nihongo_session', JSON.stringify(user));
