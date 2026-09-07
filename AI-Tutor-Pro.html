@@ -16,10 +16,10 @@
 <link rel="stylesheet" href="assets/kyoto-design-system.css">
 
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>師 AI Sensei — Tutor Bahasa Jepang & Kaigo | Nihongo Pro Academy</title>
+<title>AI Tutor Pro — Koreksi Grammar & JLPT Coach | Nihongo Pro Academy</title>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "AI Tutor Pro Nihongo Pro Academy", "url": "https://nihonggoproacademy.netlify.app/AI-Tutor-Pro.html", "description": "AI Tutor grammar, JLPT coach, dan percakapan bahasa Jepang.", "applicationCategory": "EducationalApplication", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR"}}</script>
-<meta name="description" content="AI Sensei: tutor Bahasa Jepang dan Kaigo berbasis AI. Koreksi grammar, latihan JLPT N5-N1, conversation practice, Kaigo specialist coach.">
-<meta property="og:title" content="師 AI Sensei — Tutor Premium Nihongo Pro Academy">
+<meta name="description" content="AI Tutor Pro: koreksi grammar, JLPT coach, dan percakapan bebas dengan AI. 7 tools -- Study Planner, Lesson Generator, Grammar Checker, Speaking Coach, Writing Coach, Conversation Partner, JLPT Level Test.">
+<meta property="og:title" content="AI Tutor Pro — Nihongo Pro Academy">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://nihonggoproacademy.netlify.app/assets/og-preview.svg">
 <link rel="canonical" href="https://nihonggoproacademy.netlify.app/AI-Tutor-Pro.html">
@@ -292,16 +292,16 @@ body { display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="NihongoPro">
 <meta property="og:site_name" content="Nihongo Pro Academy">
-<meta property="og:description" content="AI Sensei: tutor Bahasa Jepang dan Kaigo berbasis AI. Koreksi grammar, latihan JLPT N5-N1, conversation practice, Kaigo specialist coach.">
+<meta property="og:description" content="Koreksi grammar, JLPT coach, dan percakapan bebas dengan AI.">
 <meta property="og:url" content="https://nihonggoproacademy.netlify.app/AI-Tutor-Pro.html">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="師 AI Sensei — Tutor Bahasa Jepang & Kaigo">
-<meta name="twitter:description" content="AI Sensei: tutor Bahasa Jepang dan Kaigo berbasis AI. Koreksi grammar, latihan JLPT N5-N1, conversation practice, Kaigo specialist coach.">
+<meta name="twitter:title" content="AI Tutor Pro — Nihongo Pro Academy">
+<meta name="twitter:description" content="Koreksi grammar, JLPT coach, dan percakapan bebas dengan AI.">
 <meta name="twitter:image" content="https://nihonggoproacademy.netlify.app/assets/og-preview.svg">
 <link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
 </head>
 <body>
-<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">AI Sensei — Tutor Bahasa Jepang & Kaigo</h1>
+<h1 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">AI Tutor Pro — Koreksi Grammar & JLPT Coach</h1>
 
 <nav class="ai-nav">
   <a class="ai-brand" href="index.html">Nihongo Pro Academy</a>
@@ -932,9 +932,20 @@ async function sendToAI(id, userMsg) {
   
   const thinking = appendToolMsg('bot','⏳ AI sedang memproses...',true);
   
-  const SYSTEM = `Kamu adalah AI Sensei untuk NihongoPro Academy, platform belajar bahasa Jepang khusus Kaigo (perawat lansia).
+  // Genuinely diperbaiki: sebelumnya prompt ini mengklaim NihongoPro
+  // "platform belajar bahasa Jepang khusus Kaigo (perawat lansia)" --
+  // padahal AI_TOOLS di atas (planner, lesson, grammar, speaking, writing,
+  // conversation, jlpt) adalah 7 tool JLPT/grammar UMUM; Kaigo cuma muncul
+  // sebagai salah satu contoh topik di sebagian default input, bukan fokus
+  // tunggalnya. Bekas templat dari versi lama AI-Sensei.html (dibuktikan:
+  // system prompt AI-Sensei.html sendiri sudah berbeda kalimat sekarang),
+  // tak pernah disesuaikan saat file ini dipisah jadi AI Tutor Pro sendiri
+  // -- sama seperti title/og/h1 halaman ini yang sampai baru-baru ini masih
+  // mengaku "AI Sensei". Setiap tool sudah bawa prompt spesifiknya sendiri
+  // (field `prompt` di AI_TOOLS); SYSTEM di sini cuma menata persona +
+  // bahasa + format jawaban, bukan menyempitkan topiknya.
+  const SYSTEM = `Kamu adalah AI Tutor Pro untuk Nihongo Pro Academy: asisten belajar bahasa Jepang umum (JLPT N5-N1, grammar, percakapan), dengan materi Kaigo (bahasa perawatan lansia) tersedia saat relevan dengan permintaan pengguna.
 Selalu jawab dalam Bahasa Indonesia yang ramah dan profesional, dengan contoh dalam bahasa Jepang (dengan furigana untuk kanji).
-Spesialisasi: JLPT N5-N1, Kaigo Nihongo (語彙・会話・文法), persiapan kerja di Jepang sebagai perawat.
 Format jawaban: gunakan heading, bullet points, dan tabel jika perlu untuk keterbacaan.`;
 
   try {
