@@ -51,6 +51,14 @@
     } catch (e) { /* audio opsional */ }
   }
 
+  // Toast ringan milik modul materi (sama pola dengan anatomy-toast viewer):
+  // dipancarkan sebagai event agar tak bergantung pada internal viewer; viewer
+  // memasang listener 'anatomy-toast' di init() dan menampilkannya di elemen toast-nya.
+  function toast(msg) {
+    try { document.dispatchEvent(new CustomEvent('anatomy-toast', { detail: msg })); }
+    catch (e) { /* toast opsional */ }
+  }
+
   function renderTermEntry(sysBlock, t) {
     var entry = el('article', 'mat-entry');
     entry.id = 'mat-' + t.id;
@@ -68,6 +76,37 @@
     audio.setAttribute('aria-label', 'Dengar pelafalan ' + t.japanese);
     audio.addEventListener('click', function () { speak(t.audioText || t.japanese); });
     actions.appendChild(audio);
+
+    // Simpan ke Flashcard — menulis storage np-anatomy-flashcards yang PERSIS
+    // sama dengan tombol simpan di panel diagram (NPAnatomyViewer.addToFlashcards).
+    // ID dipakai sebagai kunci sehingga satu istilah tak bisa tersimpan dobel;
+    // tombol berubah '✓ Tersimpan' permanen (state di-recheck tiap render).
+    if (global.NPAnatomyViewer && typeof global.NPAnatomyViewer.addToFlashcards === 'function') {
+      var save = el('button', 'mat-btn mat-save');
+      save.type = 'button';
+      var savedIds = null;
+      try { savedIds = global.NPAnatomyViewer.readFlashcards(); } catch (e) { savedIds = null; }
+      if (savedIds && savedIds.indexOf(t.id) !== -1) { save.textContent = '✓ Tersimpan'; save.classList.add('saved'); save.disabled = true; }
+      else {
+        save.textContent = '💾 Simpan ke Flashcard';
+        save.addEventListener('click', function () {
+          var res = 'error';
+          try { res = global.NPAnatomyViewer.addToFlashcards(t.id); } catch (e) { res = 'error'; }
+          if (res === 'added') {
+            save.textContent = '✓ Tersimpan';
+            save.classList.add('saved');
+            save.disabled = true;
+            toast('💾 Disimpan: ' + t.japanese);
+          } else if (res === 'exists') {
+            save.textContent = '✓ Tersimpan'; save.classList.add('saved'); save.disabled = true;
+            toast('Sudah tersimpan sebelumnya.');
+          } else {
+            toast('Gagal menyimpan.');
+          }
+        });
+      }
+      actions.appendChild(save);
+    }
 
     if (global.NPAnatomyViewer && typeof global.NPAnatomyViewer.openInfoPanel === 'function') {
       var open = el('button', 'mat-btn', '🗂️ Diagram');

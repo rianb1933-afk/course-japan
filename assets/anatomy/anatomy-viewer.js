@@ -437,18 +437,28 @@
   // ═══════════ SIMPAN KE FLASHCARD ═══════════
   // Memakai localStorage sendiri (np-anatomy-flashcards) — terpisah dari SRS-Flashcard.html
   // agar tidak mengubah skema data SRS yang sudah ada tanpa koordinasi lebih lanjut.
-  function saveToFlashcard(term) {
+  // Format: array JSON berisi id istilah. addToFlashcards() dipisah dari toast-nya
+  // supaya modul lain (anatomy-material.js — tombol "Simpan ke Flashcard" di
+  // Materi Lengkap) bisa menulis storage yang PERSIS ini tanpa duplikasi logika.
+  function readFlashcards() {
+    try { return JSON.parse(localStorage.getItem('np-anatomy-flashcards') || '[]'); }
+    catch (e) { return []; }
+  }
+  function addToFlashcards(id) {
+    // 'added' bila baru tersimpan, 'exists' bila sudah ada, 'error' bila storage gagal.
     try {
-      var key = 'np-anatomy-flashcards';
-      var saved = JSON.parse(localStorage.getItem(key) || '[]');
-      if (saved.indexOf(term.id) === -1) {
-        saved.push(term.id);
-        localStorage.setItem(key, JSON.stringify(saved));
-        showToast('💾 Disimpan: ' + term.japanese);
-      } else {
-        showToast('Sudah tersimpan sebelumnya.');
-      }
-    } catch (e) { showToast('Gagal menyimpan.'); }
+      var saved = readFlashcards();
+      if (saved.indexOf(id) !== -1) return 'exists';
+      saved.push(id);
+      localStorage.setItem('np-anatomy-flashcards', JSON.stringify(saved));
+      return 'added';
+    } catch (e) { return 'error'; }
+  }
+  function saveToFlashcard(term) {
+    var res = addToFlashcards(term.id);
+    if (res === 'added') showToast('💾 Disimpan: ' + term.japanese);
+    else if (res === 'exists') showToast('Sudah tersimpan sebelumnya.');
+    else showToast('Gagal menyimpan.');
   }
 
   // ═══════════ ZOOM / PAN / FULLSCREEN (Tahap 2) ═══════════
@@ -624,7 +634,13 @@
     document.addEventListener('anatomy-toast', function (e) { showToast(e.detail); });
   }
 
-  global.NPAnatomyViewer = { init: init, openInfoPanel: openInfoPanel, state: state };
+  global.NPAnatomyViewer = {
+    init: init,
+    openInfoPanel: openInfoPanel,
+    state: state,
+    addToFlashcards: addToFlashcards,
+    readFlashcards: readFlashcards
+  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
