@@ -4,6 +4,15 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v368 — Perbaikan urutan skema
+
+### Perubahan
+
+- Perbaikan urutan REVOKE di supabase-schema.sql: apply_user_xp dan mark_user_xp_applied kini dicabut haknya SETELAH fungsinya dibuat, bukan sebelum
+- Penting: di proyek Supabase baru, jalankan ulang supabase-schema.sql agar perbaikan urutan ini diterapkan — REVOKE tanpa IF EXISTS akan gagal bila fungsi belum ada
+
+---
+
 ## v367 — Flashcard anatomi — tombol simpan per istilah + tampilan tersimpan
 
 ### Perubahan
