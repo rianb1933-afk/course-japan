@@ -49,9 +49,14 @@ const PROVIDERS = {
   gemini: {
     url: (model, key) => `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`,
     keyEnv: 'GEMINI_API_KEY',
-    /* gemini-1.5-flash sudah tua dan berisiko dipensiunkan; nama model bisa
-       diganti lewat GEMINI_MODEL tanpa menyentuh kode. */
-    defaultModel: MODEL('GEMINI_MODEL', 'gemini-2.0-flash'),
+    /* Pensiun kedua yang tercatat di sini: gemini-1.5-flash lebih dulu
+       diganti ke gemini-2.0-flash, lalu gemini-2.0-flash sendiri dipensiunkan
+       Google (dikonfirmasi lewat respons API sungguhan: "This model
+       models/gemini-2.0-flash is no longer available... use
+       models/gemini-3.6-flash"). Nama model bisa diganti lewat GEMINI_MODEL
+       tanpa menyentuh kode -- itulah kenapa nilainya dibaca dari environment,
+       bukan konstanta biasa. */
+    defaultModel: MODEL('GEMINI_MODEL', 'gemini-3.6-flash'),
     format: (model, messages) => ({
       contents: messages.filter(m => m.role !== 'system').map(m => ({
         role: m.role === 'assistant' ? 'model' : 'user',
