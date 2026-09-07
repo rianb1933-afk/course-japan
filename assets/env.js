@@ -29,9 +29,9 @@
       GA_MEASUREMENT_ID:   read("EDUMA_GA_MEASUREMENT_ID", ""),
       GSC_VERIFICATION:    read("EDUMA_GSC_VERIFICATION", ""),
 
-      // ── SUPABASE ──────────────────────────────────────────────────────────
-      SUPABASE_URL:        read("EDUMA_SUPABASE_URL", ""),
-      SUPABASE_ANON_KEY:   read("EDUMA_SUPABASE_ANON_KEY", ""),
+      // SUPABASE_URL dan SUPABASE_ANON_KEY TIDAK di sini -- lihat
+      // Object.defineProperties di bawah. Keduanya harus tetap "hidup"
+      // (getter), bukan nilai beku, karena env.js ini sendiri.
 
       // ── AI (Anthropic / Claude) ───────────────────────────────────────────
       AI_API_ENDPOINT:     read("EDUMA_AI_API_ENDPOINT", "/api/ai-chat"),
@@ -74,4 +74,35 @@
     },
     window.EDUMA_ENV || {}
   );
+
+  // SUPABASE_URL / SUPABASE_ANON_KEY sebagai GETTER, bukan nilai tetap.
+  //
+  // Netlify Snippet Injection -- cara resmi mengisi window.EDUMA_SUPABASE_URL
+  // tanpa menaruh apa pun di repo -- hanya bisa menyisipkan sebelum
+  // `</head>`, yaitu SETELAH tag <script src="env.js"> yang selalu lebih
+  // dulu di <head>. Kalau baris ini membaca window.EDUMA_SUPABASE_URL
+  // sebagai nilai biasa (seperti properti EDUMA_ENV lain di atas), hasilnya
+  // "" untuk selamanya -- env.js sudah keburu membaca sebelum snippet
+  // sempat berjalan. Ditemukan lewat pengujian sungguhan: kunci sudah benar
+  // di Netlify & snippet-nya, tapi login tetap jatuh ke mode demo.
+  //
+  // Getter menunda pembacaan sampai kode lain benar-benar memakainya
+  // (klik tombol Daftar, assets/supabase-client.js, dst) -- saat itu
+  // dokumen sudah selesai dimuat dan snippet sudah pasti berjalan.
+  // assets/supabase-client.js ikut disesuaikan: SUPABASE_URL/ANON_KEY di
+  // sana juga fungsi (getSupabaseUrl/getSupabaseAnonKey), bukan const yang
+  // dibekukan saat modul itu sendiri dimuat -- kalau tidak, masalah yang
+  // sama pindah satu lapis ke bawah.
+  Object.defineProperties(window.EDUMA_ENV, {
+    SUPABASE_URL: {
+      get: () => read("EDUMA_SUPABASE_URL", ""),
+      enumerable: true,
+      configurable: true,
+    },
+    SUPABASE_ANON_KEY: {
+      get: () => read("EDUMA_SUPABASE_ANON_KEY", ""),
+      enumerable: true,
+      configurable: true,
+    },
+  });
 })();

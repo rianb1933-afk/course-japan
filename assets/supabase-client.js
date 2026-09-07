@@ -7,8 +7,8 @@
   'use strict';
 
   // ─── CONFIG ──────────────────────────────────────────────────────
-  const SUPABASE_URL      = global.EDUMA_ENV?.SUPABASE_URL      || '';
-  const SUPABASE_ANON_KEY = global.EDUMA_ENV?.SUPABASE_ANON_KEY || '';
+  const getSupabaseUrl      = () => global.EDUMA_ENV?.SUPABASE_URL      || '';
+  const getSupabaseAnonKey  = () => global.EDUMA_ENV?.SUPABASE_ANON_KEY || '';
 
   const STORAGE_KEY = 'np-auth-v1';
 
@@ -22,16 +22,16 @@
   function headers(extra = {}) {
     const h = {
       'Content-Type': 'application/json',
-      'apikey':       SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${Auth.session()?.access_token || SUPABASE_ANON_KEY}`,
+      'apikey':       getSupabaseAnonKey(),
+      'Authorization': `Bearer ${Auth.session()?.access_token || getSupabaseAnonKey()}`,
       ...extra
     };
     return h;
   }
 
   async function sbFetch(path, opts = {}) {
-    if (!SUPABASE_URL) throw new Error('SUPABASE_URL not configured');
-    const res = await fetch(SUPABASE_URL + path, {
+    if (!getSupabaseUrl()) throw new Error('SUPABASE_URL not configured');
+    const res = await fetch(getSupabaseUrl() + path, {
       ...opts,
       headers: headers(opts.headers || {}),
     });
@@ -146,7 +146,7 @@
   const DB = {
     // Upsert user progress to Supabase
     async saveProgress(userId, progress) {
-      if (!userId || !SUPABASE_URL) return null;
+      if (!userId || !getSupabaseUrl()) return null;
       return sbFetch('/rest/v1/user_progress', {
         method: 'POST',
         headers: {
@@ -158,13 +158,13 @@
     },
 
     async getProgress(userId) {
-      if (!userId || !SUPABASE_URL) return null;
+      if (!userId || !getSupabaseUrl()) return null;
       const data = await sbFetch(`/rest/v1/user_progress?user_id=eq.${userId}&limit=1`);
       return Array.isArray(data) ? data[0] : null;
     },
 
     async syncOnLogin(userId) {
-      if (!userId || !SUPABASE_URL) return;
+      if (!userId || !getSupabaseUrl()) return;
       try {
         const remote = await this.getProgress(userId);
         if (!remote) return;
@@ -187,7 +187,7 @@
     },
 
     async saveSRSCard(userId, cardId, cardData) {
-      if (!userId || !SUPABASE_URL) return null;
+      if (!userId || !getSupabaseUrl()) return null;
       return sbFetch('/rest/v1/srs_cards', {
         method: 'POST',
         headers: { 'Prefer': 'resolution=merge-duplicates', 'on_conflict': 'user_id,card_id' },
@@ -196,7 +196,7 @@
     },
 
     async getSRSCards(userId) {
-      if (!userId || !SUPABASE_URL) return [];
+      if (!userId || !getSupabaseUrl()) return [];
       return sbFetch(`/rest/v1/srs_cards?user_id=eq.${userId}&select=card_id,ef,interval,reps,next_review,last_rating`);
     },
 
@@ -218,7 +218,7 @@
        bagi backfill. Kegagalan INSERT justru DILEMPAR -- pemanggil perlu tahu
        catatannya hilang. */
     async recordXP(userId, xpEarned, source, sessionData) {
-      if (!userId || !SUPABASE_URL || !xpEarned) return { ok: false, skipped: true };
+      if (!userId || !getSupabaseUrl() || !xpEarned) return { ok: false, skipped: true };
       if (!XP_SOURCES.has(source)) {
         console.warn(`recordXP: sumber "${source}" tidak valid, XP tidak dikirim (sumber sah: ${[...XP_SOURCES].join(', ')})`);
         return { ok: false, skipped: true };
@@ -262,7 +262,7 @@
     },
 
     async saveCertificate(userId, cert) {
-      if (!userId || !SUPABASE_URL) return null;
+      if (!userId || !getSupabaseUrl()) return null;
       return sbFetch('/rest/v1/certificates', {
         method: 'POST',
         headers: { 'Prefer': 'return=representation' },
@@ -271,12 +271,12 @@
     },
 
     async getCertificates(userId) {
-      if (!userId || !SUPABASE_URL) return [];
+      if (!userId || !getSupabaseUrl()) return [];
       return sbFetch(`/rest/v1/certificates?user_id=eq.${userId}&order=issued_at.desc`);
     },
 
     async verifyCertificate(certId) {
-      if (!SUPABASE_URL) return null;
+      if (!getSupabaseUrl()) return null;
       const data = await sbFetch(`/rest/v1/certificates?cert_id=eq.${certId}&limit=1`);
       return Array.isArray(data) && data[0] ? data[0] : null;
     },
@@ -287,12 +287,12 @@
     // kolom di luar name/xp/streak/level ke sini akan ditolak, bukan diam-diam
     // dikabulkan seperti sebelumnya.
     async getLeaderboard(limit = 10) {
-      if (!SUPABASE_URL) return [];
+      if (!getSupabaseUrl()) return [];
       return sbFetch(`/rest/v1/leaderboard?select=name,xp,streak,level&order=xp.desc&limit=${limit}`);
     },
 
     async saveQuizResult(userId, result) {
-      if (!userId || !SUPABASE_URL) return null;
+      if (!userId || !getSupabaseUrl()) return null;
       return sbFetch('/rest/v1/quiz_results', {
         method: 'POST',
         headers: { 'Prefer': 'return=representation' },
@@ -301,7 +301,7 @@
     },
 
     async getQuizHistory(userId, limit = 10) {
-      if (!userId || !SUPABASE_URL) return [];
+      if (!userId || !getSupabaseUrl()) return [];
       return sbFetch(`/rest/v1/quiz_results?user_id=eq.${userId}&order=taken_at.desc&limit=${limit}`);
     },
 
@@ -311,7 +311,7 @@
     // (best-effort: jika Supabase belum dikonfigurasi, gagal secara diam
     // dan sertifikat tetap bisa dicetak — hanya verifikasi online yg tak aktif)
     async saveExamCertificate(cert) {
-      if (!SUPABASE_URL) return null;
+      if (!getSupabaseUrl()) return null;
       try {
         return await sbFetch('/rest/v1/exam_certificates', {
           method: 'POST',
@@ -329,7 +329,7 @@
     },
 
     async getExamCertificate(certId) {
-      if (!SUPABASE_URL || !certId) return null;
+      if (!getSupabaseUrl() || !certId) return null;
       try {
         const data = await sbFetch(`/rest/v1/exam_certificates?cert_id=eq.${encodeURIComponent(certId)}&limit=1`);
         return Array.isArray(data) ? (data[0] || null) : null;
@@ -340,7 +340,7 @@
     // perangkat. Hanya untuk user yang login (RLS: exam_history butuh
     // user_id). Guest tetap bisa ujian — riwayatnya hanya di localStorage.
     async saveExamHistory(userId, result) {
-      if (!userId || !SUPABASE_URL) return null;
+      if (!userId || !getSupabaseUrl()) return null;
       try {
         return await sbFetch('/rest/v1/exam_history', {
           method: 'POST',
@@ -359,7 +359,7 @@
     },
 
     async getExamHistory(userId, limit = 50) {
-      if (!userId || !SUPABASE_URL) return [];
+      if (!userId || !getSupabaseUrl()) return [];
       try {
         return await sbFetch(`/rest/v1/exam_history?user_id=eq.${userId}&order=taken_at.desc&limit=${limit}`);
       } catch (e) { return []; }
@@ -384,7 +384,7 @@
 
     async push() {
       const userId = Auth.user()?.id;
-      if (!userId || !SUPABASE_URL) return;
+      if (!userId || !getSupabaseUrl()) return;
       const st = JSON.parse(localStorage.getItem('np-state-v3') || '{}');
       const u = st.user || {};
       /* KOLOM xp SENGAJA TIDAK DIKIRIM. user_progress.xp kini hanya bertambah
@@ -423,7 +423,7 @@
     const d = e.detail || {};
     if (!d.amount || d.amount <= 0 || d.mirrored) return;
     const userId = Auth.user()?.id;
-    if (!userId || !SUPABASE_URL) return;
+    if (!userId || !getSupabaseUrl()) return;
     DB.recordXP(userId, d.amount, 'materi', { reason: d.reason || null })
       .catch(() => {});
   });

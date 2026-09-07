@@ -666,6 +666,13 @@ def check_env_variable_consistency():
         return
     env_c = read(env_path)
     defined_vars = set(re.findall(r'(\w+):\s*read\(', env_c))
+    # Variabel yang sengaja bukan `KEY: read(...)` biasa tapi getter lewat
+    # Object.defineProperties (SUPABASE_URL/SUPABASE_ANON_KEY) -- dibaca
+    # belakangan, bukan sekali saat env.js dieksekusi, karena Netlify Snippet
+    # Injection hanya bisa menyisipkan sebelum `</head>`, SETELAH tag
+    # <script src="env.js">. Nilai biasa akan membeku "" untuk selamanya;
+    # lihat komentar panjang di assets/env.js untuk kejadian sungguhannya.
+    defined_vars |= set(re.findall(r'(\w+):\s*\{\s*get:', env_c))
 
     consumer_files = glob.glob(os.path.join(ROOT, 'assets', '*.js')) + all_html_files()
     used_vars = set()
