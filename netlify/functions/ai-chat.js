@@ -403,59 +403,102 @@ exports.handler = async (event) => {
     ),
   ];
 
-  try {
-    const reqBody = prov.format(
-      body.model || prov.defaultModel,
-      fullMessages,
-      body.temperature || 0.5
-    );
+  // Kandidat provider untuk DICOBA BERURUTAN saat runtime -- dimulai dari
+  // yang barusan dipilih, lalu provider LAIN yang kuncinya juga terpasang.
+  //
+  // GENUINELY DITAMBAHKAN: sebelum ini, "fallback" cuma bekerja saat kunci
+  // provider yang diminta TIDAK ADA SAMA SEKALI (lihat blok "Select
+  // provider" di atas) -- begitu kuncinya ADA tapi provider itu gagal saat
+  // runtime (429 kuota habis, 5xx sedang gangguan, dst.), errornya langsung
+  // dikembalikan ke klien, walau provider lain yang punya kunci masih sehat.
+  // Dikonfirmasi nyata di produksi: satu-satunya kunci yang terpasang
+  // (Gemini) kena kuota Google "generate_content_free_tier_requests" akibat
+  // pengujian beruntun, dan SETIAP fitur AI di situs (semuanya lewat fungsi
+  // yang sama) ikut mati bersamaan -- padahal sesuai desain multi-provider
+  // di CLAUDE.md, mestinya cukup satu provider lain yang punya kunci untuk
+  // tetap hidup.
+  const candidates = [namaProvider, ...Object.keys(PROVIDERS).filter(
+    (n) => n !== namaProvider && process.env[PROVIDERS[n].keyEnv]
+  )];
 
-    const url = typeof prov.url === 'function'
-      ? prov.url(body.model || prov.defaultModel, apiKey)
-      : prov.url;
+  // Anggaran waktu BERSAMA lintas semua percobaan, bukan per percobaan --
+  // batas sinkron Netlify 26 detik itu untuk SELURUH pemanggilan fungsi,
+  // jadi mencoba provider kedua dengan timeout 25 detik penuh lagi (seperti
+  // percobaan pertama) hampir pasti membuat Netlify sendiri yang memotong
+  // fungsi sebelum sempat membalas apa pun ke klien. 24 detik menyisakan
+  // ruang untuk overhead verifikasi Supabase/rate-limit yang sudah berjalan
+  // sebelum baris ini.
+  const deadline = Date.now() + 24000;
+  let lastFailure = { statusCode: 502, body: { error: 'Gagal menghubungi AI provider' } };
 
-    const reqHeaders = {
-      'Content-Type': 'application/json',
-      ...(prov.noAuthHeader ? {} : { 'Authorization': `Bearer ${apiKey}` }),
-      ...(prov.headers ? prov.headers(apiKey) : {}),
-    };
+  for (const candidateName of candidates) {
+    const remaining = deadline - Date.now();
+    if (remaining < 3000) break; // sisa waktu tidak cukup untuk percobaan berarti
 
-    // Timeout 30 detik agar function tidak menggantung (batas Netlify 26s untuk sync)
-    const _ac = new AbortController();
-    const _to = setTimeout(() => _ac.abort(), 25000);
-    let res, data;
+    const candidateProv = PROVIDERS[candidateName];
+    const candidateKey = process.env[candidateProv.keyEnv];
+
     try {
-      res = await fetch(url, { method: 'POST', headers: reqHeaders, body: JSON.stringify(reqBody), signal: _ac.signal });
-      data = await res.json();
-    } catch (fetchErr) {
+      const reqBody = candidateProv.format(
+        body.model || candidateProv.defaultModel,
+        fullMessages,
+        body.temperature || 0.5
+      );
+
+      const url = typeof candidateProv.url === 'function'
+        ? candidateProv.url(body.model || candidateProv.defaultModel, candidateKey)
+        : candidateProv.url;
+
+      const reqHeaders = {
+        'Content-Type': 'application/json',
+        ...(candidateProv.noAuthHeader ? {} : { 'Authorization': `Bearer ${candidateKey}` }),
+        ...(candidateProv.headers ? candidateProv.headers(candidateKey) : {}),
+      };
+
+      // Timeout per percobaan dibatasi sisa anggaran BERSAMA di atas, supaya
+      // satu provider yang menggantung tidak menghabiskan seluruh jatah 26
+      // detik dan menutup kemungkinan mencoba kandidat berikutnya.
+      const _ac = new AbortController();
+      const _to = setTimeout(() => _ac.abort(), Math.min(remaining - 500, 15000));
+      let res, data;
+      try {
+        res = await fetch(url, { method: 'POST', headers: reqHeaders, body: JSON.stringify(reqBody), signal: _ac.signal });
+        data = await res.json();
+      } catch (fetchErr) {
+        clearTimeout(_to);
+        const isTimeout = fetchErr.name === 'AbortError';
+        lastFailure = { statusCode: isTimeout ? 504 : 502, body: { error: isTimeout ? 'AI timeout — coba lagi' : 'Gagal menghubungi AI provider' } };
+        continue; // coba kandidat berikutnya
+      }
       clearTimeout(_to);
-      const isTimeout = fetchErr.name === 'AbortError';
-      return { statusCode: isTimeout ? 504 : 502, headers: CORS, body: JSON.stringify({ error: isTimeout ? 'AI timeout — coba lagi' : 'Gagal menghubungi AI provider' }) };
+
+      if (!res.ok) {
+        const errMsg = data.error?.message || data.error?.code || `Provider error ${res.status}`;
+        lastFailure = { statusCode: res.status, body: { error: errMsg } };
+        continue; // provider ini gagal (mis. kuota habis) -- coba kandidat lain
+      }
+
+      const text = candidateProv.extract(data);
+
+      return {
+        statusCode: 200, headers: CORS,
+        body: JSON.stringify({
+          text,
+          provider: candidateName,   // yang BENAR-BENAR menjawab, bukan yang diminta di awal
+          model: body.model || candidateProv.defaultModel,
+          remaining: rate.limit - rate.count,
+          usage: data.usage || null,
+        }),
+      };
+    } catch (err) {
+      console.error('AI Chat Error:', err);
+      lastFailure = { statusCode: 500, body: { error: 'Internal server error. Coba lagi.' } };
     }
-    clearTimeout(_to);
-
-    if (!res.ok) {
-      const errMsg = data.error?.message || data.error?.code || `Provider error ${res.status}`;
-      return { statusCode: res.status, headers: CORS, body: JSON.stringify({ error: errMsg }) };
-    }
-
-    const text = prov.extract(data);
-
-    return {
-      statusCode: 200, headers: CORS,
-      body: JSON.stringify({
-        text,
-        provider: namaProvider,   // yang BENAR-BENAR dipakai, bukan yang diminta
-        model: body.model || prov.defaultModel,
-        remaining: rate.limit - rate.count,
-        usage: data.usage || null,
-      }),
-    };
-  } catch (err) {
-    console.error('AI Chat Error:', err);
-    return {
-      statusCode: 500, headers: CORS,
-      body: JSON.stringify({ error: 'Internal server error. Coba lagi.' }),
-    };
   }
+
+  // Semua kandidat gagal (atau tinggal satu-satunya dari awal, seperti kasus
+  // paling umum saat hanya satu kunci provider yang terpasang) -- kembalikan
+  // kegagalan TERAKHIR, bukan yang pertama, supaya pesannya mencerminkan
+  // percobaan paling relevan/terbaru.
+  return { statusCode: lastFailure.statusCode, headers: CORS, body: JSON.stringify(lastFailure.body) };
 };
