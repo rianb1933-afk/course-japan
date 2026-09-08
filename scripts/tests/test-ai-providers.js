@@ -103,7 +103,7 @@ const tests = [
       assert.ok(seen.url.startsWith('https://api.groq.com/openai/v1/chat/completions'), seen.url);
       assert.strictEqual(seen.opts.headers.Authorization, 'Bearer kunci-groq');
       const body = JSON.parse(seen.opts.body);
-      assert.strictEqual(body.model, 'llama-3.3-70b-versatile');
+      assert.strictEqual(body.model, 'openai/gpt-oss-120b');
       assert.ok(Array.isArray(body.messages) && body.messages.length >= 2);
       assert.strictEqual(payload.text, 'JAWABAN');
       assert.strictEqual(payload.provider, 'groq');

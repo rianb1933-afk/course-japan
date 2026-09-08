@@ -80,7 +80,14 @@ const PROVIDERS = {
   groq: openAICompatible(
     'https://api.groq.com/openai/v1/chat/completions',
     'GROQ_API_KEY',
-    MODEL('GROQ_MODEL', 'llama-3.3-70b-versatile'),
+    // llama-3.3-70b-versatile dipensiunkan dari tingkat gratis Groq --
+    // dikonfirmasi respons API sungguhan: "The model llama-3.3-70b-versatile
+    // does not exist or you do not have access to it." Bukan sekadar ganti
+    // nama seperti Gemini sebelumnya: seluruh model chat Llama sudah hilang
+    // dari daftar tingkat gratis Groq (per docs/rate-limits mereka), diganti
+    // model bobot-terbuka lain -- gpt-oss-120b (OpenAI, di-hosting Groq)
+    // adalah yang paling sepadan sebagai pengganti umum.
+    MODEL('GROQ_MODEL', 'openai/gpt-oss-120b'),
   ),
 
   openrouter: openAICompatible(
