@@ -2,7 +2,7 @@
 
 > Jalankan setelah: (1) push `main` yang memuat v365, (2) deploy Netlify hijau, (3) **`supabase-schema.sql` sudah dijalankan ulang** di SQL Editor (jika belum pernah sejak versi whitelist 8 sumber).
 > Estimasi total: ±20 menit. Tandai ✅/❌/— (tidak berlaku) di tiap butir.
-> Ganti `https://nihongopro.id` sesuai domain produksi. Uji di **Chrome desktop + HP** (viewport 390px).
+> Ganti `https://nihongopro.id` sesuai domain produksi. Uji di **Chrome desktop + HP** (viewport 390px); modal tulis kanji juga di emulasi **430px** — bagian 6b.
 
 ---
 
@@ -211,6 +211,32 @@ Catatan anti-dobel (`6247017`): pemberian yang ditandai `mirrored` TIDAK lewat m
 
 ---
 
+## 6b. Modal tulis kanji — emulasi perangkat 430px
+
+**Target:** modal "Cara Menulis Kanji" utuh dan bisa dioperasikan penuh di lebar iPhone 14 Pro Max — bar kontrol TIDAK menutupi goresan, dasar dialog terjangkau.
+
+**Cara:** Chrome DevTools → Toggle device toolbar (Cmd+Shift+M) → Dimensions: **430 × 932** (preset "iPhone 14 Pro Max"). Uji di `Materi/Kanji-N5.html` (dan satu halaman lain, mis. `Materi/Kanji-N1.html`).
+
+- [ ] Klik **Cara Tulis** pada kanji multi-goresan (≥8 goresan, mis. 亘 / 西) → modal terbuka
+- [ ] **Bar kontrol di bawah panggung**: ⏮ ▶ ⏭ ↺ + kecepatan + "Gores 0/N" berada DI BAWAH kotak gambar — goresan terbawah kanji tidak tertutup ❗ (dulu: bar `absolute` menumpuk panggung dari dalam)
+- [ ] Overlay **"Memuat data goresan…"** hilang setelah data termuat (badge "N goresan" muncul, kanji hantu tergambar)
+- [ ] Scroll modal sampai dasar → **Pad Latihan Tulis** + tombol "Hantu: Nyala" + "🎯 Kuis Urutan Gores" sepenuhnya terlihat dan bisa disentuh
+- [ ] Gambar di pad (emulasi sentuh): goresan muncul; toggle hantu nyala/mati; kuis goresan berjalan
+- [ ] Tidak ada scroll mendatar; dialog tidak meluber dari viewport
+- [ ] Verifikasi presisi via console (opsional):
+  ```js
+  const s = document.querySelector('.kanji-stage').getBoundingClientRect();
+  const c = document.querySelector('.kanji-stage-controls').getBoundingClientRect();
+  console.log('di bawah panggung:', c.top >= s.bottom - 1, '| gap:', (c.top - s.bottom).toFixed(1) + 'px');
+  // harapan: true, gap ≈ 12px
+  ```
+- [ ] Ulangi cepat di **390px** (HP standar) dan **380px** (breakpoint layar sempit: judul teks disembunyikan, cukup kanji + badge goresan)
+- [ ] Mode gelap: dialog, kontrol, dan pad tetap terbaca
+
+**Kalau gagal:** periksa `assets/kanji-writing.css` — bar kontrol harus `position: static` sebagai sibling di luar `.kanji-stage` (bukan `absolute bottom:0` di dalamnya); dan pastikan halaman memuat `kanji-writing.css?v=` versi terbaru — tanpa stamp `?v=`, service worker menyajikan CSS basi di ponsel (penyebab "sudah diperbaiki tapi tetap terpotong").
+
+---
+
 ## 7. Lulus / gagal
 
 **Lulus bila:** semua butir yang berlaku ✅, dan **tidak ada satu pun** temuan berikut:
@@ -221,5 +247,6 @@ Catatan anti-dobel (`6247017`): pemberian yang ditandai `mirrored` TIDAK lewat m
 - kartu Sumber XP menampilkan kategori mentah (grammar/speaking) atau totalnya tidak cocok dengan log applied
 - laporan drift bisa dibuka tanpa token admin (403 gagal), atau email pengguna muncul di tabel
 - token grup arsip masih bisa mendaftarkan orang
+- bar kontrol modal tulis kanji menutupi goresan, atau dasar dialog (pad latihan) tak terjangkau di emulasi 430px (bagian 6b)
 
 **Satu temuan ❌ =** catat URL + langkah reproduksi + screenshot, balik ke branch dan perbaiki sebelum umumkan fitur.

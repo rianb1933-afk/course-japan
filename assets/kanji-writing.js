@@ -2,29 +2,11 @@
   'use strict';
   const CJK_RE = /[\u3400-\u9fff]/u;
   // Basis URL aset — dihitung dari lokasi skrip ini supaya jalan baik dari
-  // halaman root maupun Materi/ (mis. ../assets/kanji-writing.js?v=6).
+  // halaman root maupun Materi/ (mis. ../assets/kanji-writing.js?v=8).
   const BASE = (document.currentScript && document.currentScript.src)
     ? document.currentScript.src.replace(/[^/]*$/, '')
     : 'assets/';
 
-  const RULES = [
-    'Tulis dari atas ke bawah.',
-    'Tulis dari kiri ke kanan.',
-    'Garis horizontal biasanya sebelum garis vertikal.',
-    'Bagian luar kotak ditulis sebelum bagian dalam; penutup bawah terakhir.',
-    'Gores tengah lebih dulu, lalu sisi kiri dan kanan.',
-    'Titik kecil dan gores tambahan biasanya ditulis setelah struktur utama.',
-    'Gores yang memotong bagian lain biasanya ditulis menjelang akhir.',
-    'Jaga proporsi di kotak 田字格: pusat, atas, bawah, kiri, dan kanan harus seimbang.'
-  ];
-  const STEPS = [
-    'Lihat bentuk utuh dan pusatkan kanji di kotak.',
-    'Ikuti aturan dasar gores sambil menyebut arti/reading.',
-    'Tonton animasi urutan gores, lalu tiru di panggung.',
-    'Tiru goresan hantu di pad latihan tulis (bisa dimatikan).',
-    'Tulis ulang di pad tanpa bantuan hantu.',
-    'Bandingkan proporsi, lalu ulangi 3 kali untuk memori otot.'
-  ];
 
   // ── Data goresan (KanjiVG) — dimuat on-demand ──────────────────────────
   let strokesData = null;
@@ -249,31 +231,23 @@
                 <g id="kanjiStrokeDone"></g>
               </svg>
               <div class="kanji-stage-status" id="kanjiStrokeStatus">Memuat data goresan…</div>
-              <div class="kanji-stage-controls" id="kanjiStrokeControls" hidden>
-                <button class="kanji-ctl" id="kanjiStepBack" type="button" aria-label="Gores sebelumnya" title="Gores sebelumnya (←)">⏮</button>
-                <button class="kanji-ctl kanji-ctl-play" id="kanjiPlayPause" type="button" aria-label="Putar / jeda" title="Putar / jeda (spasi)">▶</button>
-                <button class="kanji-ctl" id="kanjiStepFwd" type="button" aria-label="Gores berikutnya" title="Gores berikutnya (→)">⏭</button>
-                <button class="kanji-ctl" id="kanjiRestart" type="button" aria-label="Ulang dari awal" title="Ulang dari awal">↺</button>
-                <span class="kanji-speed" role="group" aria-label="Kecepatan animasi">
-                  <button class="kanji-speed-btn" data-speed="0.5" type="button">0,5×</button>
-                  <button class="kanji-speed-btn active" data-speed="1" type="button">1×</button>
-                  <button class="kanji-speed-btn" data-speed="2" type="button">2×</button>
-                </span>
-                <span class="kanji-stage-progress" id="kanjiStrokeProgress">Gores 0/0</span>
-              </div>
+            </div>
+            <!-- Kontrol DI BAWAH panggung (bukan overlay di dalamnya): dulu menumpuk
+                 goresan terbawah kanji sehingga kanji tampak terpotong. -->
+            <div class="kanji-stage-controls" id="kanjiStrokeControls" hidden>
+              <button class="kanji-ctl" id="kanjiStepBack" type="button" aria-label="Gores sebelumnya" title="Gores sebelumnya (←)">⏮</button>
+              <button class="kanji-ctl kanji-ctl-play" id="kanjiPlayPause" type="button" aria-label="Putar / jeda" title="Putar / jeda (spasi)">▶</button>
+              <button class="kanji-ctl" id="kanjiStepFwd" type="button" aria-label="Gores berikutnya" title="Gores berikutnya (→)">⏭</button>
+              <button class="kanji-ctl" id="kanjiRestart" type="button" aria-label="Ulang dari awal" title="Ulang dari awal">↺</button>
+              <span class="kanji-speed" role="group" aria-label="Kecepatan animasi">
+                <button class="kanji-speed-btn" data-speed="0.5" type="button">0,5×</button>
+                <button class="kanji-speed-btn active" data-speed="1" type="button">1×</button>
+                <button class="kanji-speed-btn" data-speed="2" type="button">2×</button>
+              </span>
+              <span class="kanji-stage-progress" id="kanjiStrokeProgress">Gores 0/0</span>
             </div>
           </div>
           <div class="kanji-writing-preview">
-            <div class="kanji-writing-meta">
-              <div class="kanji-writing-panel">
-                <h3>Urutan Gores Dasar</h3>
-                <ol id="kanjiWritingRules"></ol>
-              </div>
-              <div class="kanji-writing-panel">
-                <h3>Latihan Mandiri</h3>
-                <ol id="kanjiWritingSteps"></ol>
-              </div>
-            </div>
             <div class="kanji-writing-panel">
               <h3>Pad Latihan Tulis</h3>
               <div class="kanji-pad-toolbar">
@@ -481,8 +455,6 @@
     ensureModal();
     resetQuizUI();
     document.getElementById('kanjiWritingChar').textContent = kanji;
-    document.getElementById('kanjiWritingRules').innerHTML = RULES.map(rule => `<li>${rule}</li>`).join('');
-    document.getElementById('kanjiWritingSteps').innerHTML = STEPS.map(step => `<li>${step}</li>`).join('');
     clearCanvas();
     document.getElementById('kanjiWritingModal').classList.add('open');
     // Sembunyikan widget melayang lain (Kamus/translator) selama modal terbuka
