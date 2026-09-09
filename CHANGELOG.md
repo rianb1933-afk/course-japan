@@ -4,6 +4,18 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v369 — Modal tulis kanji: bar kontrol di bawah panggung + stamp ?v=8
+
+### Perubahan
+
+- Bar kontrol animasi goresan tidak lagi menumpuk goresan terbawah kanji — dipindah dari overlay absolute di dalam panggung menjadi bar statis di bawahnya, berlaku di semua 12 halaman yang memuat modal tulis
+- Overlay "Memuat data goresan…" kini benar tersembunyi: rule [hidden]{display:none} eksplisit mengalahkan display:flex yang selama ini menutupi canvas dan kontrol
+- Modal pas layar ponsel: dialog max-height 100% (bukan 92vh yang melebihi area visual di balik URL bar) dan pada layar <=820px modal menjadi satu-satunya penggulir — sentuhan di panggung/pad tidak lagi membuat bagian bawah macet di iOS
+- Stamp cache-buster kanji-writing.css?v=8 di 12 halaman (sebelumnya tanpa versi, ponsel terus menerima CSS basi dari service worker) dan ASSET_VERSION diselaraskan ke 8 di 385 halaman
+- Checklist smoke-test baru bagian 6b: verifikasi emulasi perangkat 430px (iPhone 14 Pro Max) untuk modal tulis sebelum tiap deploy — bar di bawah panggung, overlay tersembunyi, pad terjangkau, sweep 390/380/320px
+
+---
+
 ## v368 — Perbaikan urutan skema
 
 ### Perubahan
