@@ -40,6 +40,8 @@ ${di('🏛️','Fondasi Bahasa','Hiragana, katakana, partikel','/Materi/Fondasi-
 <div class="kn-dd-sep"></div>
 ${di('🎯','Modul Lain','Pitch accent, keigo, bisnis','/Pembelajaran-Lain.html')}
 ${di('🃏','SRS Flashcard','Ulang spasi cerdas','/SRS-Flashcard.html')}
+<div class="kn-dd-sep"></div>
+${di('特定技能','SSW','14 bidang kerja 特定技能 — materi, quiz, mock exam','/SSW.html')}
 </div>
 </li>
 <!-- 2. JLPT -->
@@ -178,6 +180,7 @@ ${dl('漢','Kanji N5–N1','/Materi/Kanji-N5.html')}
 ${dl('語','Kosakata','/Materi/Vocabulary-Lengkap.html')}
 ${dl('文','Grammar Lengkap','/Materi/Grammar-Lengkap.html')}
 ${dl('🃏','SRS Flashcard','/SRS-Flashcard.html')}
+${dl('特定技能','SSW — 特定技能','/SSW.html')}
 <div class="kn-drawer-sep"></div>
 <div class="kn-drawer-section">JLPT</div>
 ${dl('🖥️','CBT Simulator','/JLPT-CBT.html')}

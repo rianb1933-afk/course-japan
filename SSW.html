@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="/assets/env.js"></script>
+<script src="/assets/supabase-client.js"></script>
+<script src="/assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/kyoto-bundle.min.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SSW 特定技能 — Nihongo Pro Academy</title>
+<meta data-seo="nihongo-static" name="description" content="Platform pembelajaran SSW (Specified Skilled Worker / 特定技能): 14 bidang kerja, materi, kosakata, kanji, quiz, dan mock exam untuk persiapan ujian keterampilan.">
+<meta name="description" content="Platform pembelajaran SSW (Specified Skilled Worker / 特定技能): 14 bidang kerja, materi, kosakata, kanji, quiz, dan mock exam untuk persiapan ujian keterampilan.">
+<link data-seo="nihongo-static" rel="canonical" href="https://nihonggoproacademy.netlify.app/SSW.html">
+<meta data-seo="nihongo-static" property="og:title" content="SSW 特定技能 — Nihongo Pro Academy">
+<meta data-seo="nihongo-static" property="og:description" content="Platform pembelajaran SSW: 14 bidang kerja, materi, kosakata, quiz, dan mock exam.">
+<meta data-seo="nihongo-static" property="og:type" content="website">
+<meta data-seo="nihongo-static" property="og:url" content="https://nihonggoproacademy.netlify.app/SSW.html">
+<meta data-seo="nihongo-static" property="og:image" content="https://nihonggoproacademy.netlify.app/assets/og-preview.svg">
+<meta data-seo="nihongo-static" name="twitter:card" content="summary_large_image">
+<meta data-seo="nihongo-static" name="twitter:title" content="SSW 特定技能 — Nihongo Pro Academy">
+<meta data-seo="nihongo-static" name="twitter:description" content="Platform pembelajaran SSW: 14 bidang kerja, materi, kosakata, quiz, dan mock exam.">
+<meta data-seo="nihongo-static" name="twitter:image" content="https://nihonggoproacademy.netlify.app/assets/og-preview.svg">
+<script data-seo="nihongo-static" type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"SSW 特定技能 — Nihongo Pro Academy","description":"Platform pembelajaran SSW (Specified Skilled Worker): 14 bidang kerja, materi bahasa Jepang, quiz, dan mock exam.","url":"https://nihonggoproacademy.netlify.app/SSW.html","image":"https://nihonggoproacademy.netlify.app/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","SSW","特定技能","Kaigo vocabulary","Skill test preparation"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggoproacademy.netlify.app/"},{"@type":"ListItem","position":2,"name":"SSW 特定技能","item":"https://nihonggoproacademy.netlify.app/SSW.html"}]}</script>
+
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="NihongoPro">
+<link rel="apple-touch-icon" href="/assets/og-preview.svg">
+
+<link rel="stylesheet" href="/assets/kyoto-design-system.css">
+<link rel="stylesheet" href="/assets/kyoto-theme.css">
+<link rel="stylesheet" href="/assets/kyoto-elevation.css">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
+<link rel="stylesheet" href="/assets/ssw.css?v=8">
+<script src="/assets/theme-surface.min.css"></script>
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}
+.ssw-hero{position:relative;padding:5rem 5vw 3rem;background:#17181d;color:#fff;overflow:hidden}
+.ssw-hero::before{content:'特定技能';position:absolute;right:-20px;bottom:-40px;font-family:'Noto Serif JP',serif;font-size:200px;color:rgba(255,255,255,.05);line-height:1;white-space:nowrap}
+.ssw-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(28px,4.5vw,44px);font-weight:600;letter-spacing:.02em}
+.ssw-hero h1 .jp{color:var(--gold,#c89b3c)}
+.ssw-hero p{max-width:640px;color:rgba(255,255,255,.72);margin-top:10px;font-size:14.5px}
+.ssw-main{max-width:1200px;margin:0 auto;padding:2.5rem 5vw 4rem}
+.ssw-section{margin-bottom:2.8rem}
+.ssw-section h2{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:600;margin-bottom:4px}
+.ssw-section .sub{color:var(--ink-soft);font-size:13.5px;margin-bottom:16px}
+.ssw-type-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.ssw-type-card{background:var(--white);border:1px solid var(--border-mid);border-radius:12px;padding:22px;display:block;transition:transform .18s,box-shadow .18s}
+.ssw-type-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg)}
+.ssw-type-card .tc-jp{font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:var(--red)}
+.ssw-type-card .tc-id{font-weight:700;margin-top:4px}
+.ssw-type-card .tc-desc{color:var(--ink-soft);font-size:13px;margin-top:6px}
+.ssw-field-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.ssw-field-card{background:var(--white);border:1px solid var(--border-mid);border-radius:12px;padding:16px;display:flex;flex-direction:column;gap:4px;transition:transform .18s,box-shadow .18s}
+.ssw-field-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--red)}
+.ssw-field-card .fc-icon{font-size:26px;line-height:1}
+.ssw-field-card .fc-jp{font-family:'Noto Serif JP',serif;font-size:18px;font-weight:700}
+.ssw-field-card .fc-id{font-size:13px;color:var(--ink-soft)}
+.ssw-field-card .fc-badges{display:flex;gap:6px;margin-top:6px}
+.ssw-badge{font-size:10.5px;font-weight:700;padding:2px 8px;border-radius:999px;border:1px solid var(--border-mid);color:var(--ink-soft)}
+.ssw-badge.on{background:var(--red-pale,#f8e8e6);border-color:var(--red);color:var(--red)}
+.ssw-note{margin-top:10px;font-size:12px;color:var(--ink-soft);background:var(--white);border:1px dashed var(--border-mid);border-radius:8px;padding:10px 14px}
+.ssw-note a{color:var(--red);font-weight:600}
+</style>
+</head>
+<body>
+<div id="knNavbar"></div>
+
+<main class="ssw-main" style="padding-top:2rem">
+  <section class="ssw-hero" style="margin:-2rem -5vw 0;border-radius:0 0 20px 20px">
+    <h1>SSW <span class="jp">特定技能</span></h1>
+    <p>Specified Skilled Worker — platform persiapan lengkap: pilih bidang kerja, pelajari kosakata &amp; kanji khusus bidang, kerjakan quiz, dan simulasikan ujian keterampilan.</p>
+  </section>
+
+  <!-- ── Jenis visa ── -->
+  <section class="ssw-section" style="margin-top:2.5rem">
+    <h2>Jenis Visa SSW</h2>
+    <p class="sub">Dua tipe status tinggal 特定技能 menurut Imamigration Services Agency (ISA).</p>
+    <div class="ssw-type-grid">
+      <a class="ssw-type-card" href="/SSW/Field-Dashboard.html?field=kaigo" data-type1>
+        <div class="tc-jp">特定技能1号</div>
+        <div class="tc-id">Specified Skilled Worker Type 1</div>
+        <div class="tc-desc">12 bidang kerja. Masa tinggal hingga 5 tahun (1 tahun per periode, diperpanjang). Tidak boleh membawa keluarga. Lolos ujian keterampilan bidang + ujian bahasa Jepang (JFT-Basic A2 atau JLPT N4).</div>
+      </a>
+      <a class="ssw-type-card" href="/SSW/Field-Dashboard.html?field=kaigo" data-type2>
+        <div class="tc-jp">特定技能2号</div>
+        <div class="tc-id">Specified Skilled Worker Type 2</div>
+        <div class="tc-desc">11 bidang (kini meliputi sebagian besar bidang lama; 运输 kecuali). Masa tinggal dapat diperpanjang tanpa batas. Boleh membawa keluarga. Wajib lolos ujian keterampilan tingkat lebih tinggi + JLPT N3.</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── SSW Japanese ── -->
+  <section class="ssw-section">
+    <h2>SSW Japanese</h2>
+    <p class="sub">Bahasa Jepang yang diuji untuk SSW: JFT-Basic (A2) atau setara JLPT N4 — vocabulary, kanji, grammar, listening &amp; reading konteks kerja.</p>
+    <div class="ssw-type-grid">
+      <a class="ssw-type-card" href="/SSW/Field-Dashboard.html?field=ssw-japanese">
+        <div class="tc-jp">日本語</div>
+        <div class="tc-id">SSW Japanese — JFT-Basic A2</div>
+        <div class="tc-desc">Kosakata &amp; kanji lintas bidang, grammar harian kerja, listening situasi tempat kerja, reading notice &amp; SOP.</div>
+      </a>
+      <a class="ssw-type-card" href="https://jft-basic.jp/" target="_blank" rel="noopener nofollow">
+        <div class="tc-jp">JFT-Basic</div>
+        <div class="tc-id">Informasi ujian resmi</div>
+        <div class="tc-desc">Situs resmi Japan Foundation untuk ujian JFT-Basic — jadwal, pendaftaran, contoh soal resmi. <span style="color:var(--ink-soft)">(tautan eksternal)</span></div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ── Bidang SSW (dinamis dari DB/seed) ── -->
+  <section class="ssw-section">
+    <h2>SSW Skill Test — Pilih Bidang</h2>
+    <p class="sub">14 bidang resmi 特定技能. Ujian keterampilan tiap bidang diselenggarakan badan berbeda (OTIT, JITCO, dst.) — materi persiapan per bidang di bawah.</p>
+    <div class="ssw-field-grid" id="sswFieldGrid">
+      <p class="sub" id="sswLoading">Memuat bidang SSW…</p>
+    </div>
+    <div class="ssw-note">
+      ℹ️ Informasi persyaratan &amp; sistem 特定技能 merujuk sumber resmi:
+      <a href="https://www.moj.go.jp/isa/index.html" target="_blank" rel="noopener nofollow">ISA (出入手在留管理庁)</a> ·
+      <a href="https://www.otit.go.jp/" target="_blank" rel="noopener nofollow">OTIT</a> ·
+      <a href="https://www.jitco.or.jp/" target="_blank" rel="noopener nofollow">JITCO</a>.
+      Soal di platform ini adalah <strong>Generated Practice</strong> (latihan), bukan soal ujian resmi, kecuali diberi label <strong>Official</strong> beserta sumbernya.
+    </div>
+  </section>
+</main>
+
+<div id="knFooter"></div>
+<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-bottom-nav.js" defer></script>
+<script src="/assets/ssw-api.js?v=8"></script>
+<script src="/assets/ssw-seed.js?v=8"></script>
+<script>
+// Data bidang fallback kini dari assets/ssw-seed.js (window.NP_SSW_SEED)
+
+(function renderFields() {
+  const grid = document.getElementById('sswFieldGrid');
+  function paint(categories) {
+    if (!categories || !categories.length) { document.getElementById('sswLoading').textContent = 'Belum ada bidang — tambahkan lewat Admin Dashboard.'; return; }
+    grid.innerHTML = categories.map(c => `
+      <a class="ssw-field-card" href="/SSW/Field-Dashboard.html?field=${encodeURIComponent(c.slug)}">
+        <span class="fc-icon">${c.icon || '🗂️'}</span>
+        <span class="fc-jp">${c.name_jp}</span>
+        <span class="fc-id">${c.name_id}</span>
+        <span class="fc-badges">
+          ${c.type1_ok ? '<span class="ssw-badge on">1号</span>' : '<span class="ssw-badge">1号</span>'}
+          ${c.type2_ok ? '<span class="ssw-badge on">2号</span>' : '<span class="ssw-badge">2号</span>'}
+        </span>
+      </a>`).join('');
+  }
+  SSWAPI.getCategories().then(({ categories }) => paint(categories))
+    .catch(() => paint(window.NP_SSW_SEED.categories));
+})();
+</script>
+</body>
+</html>

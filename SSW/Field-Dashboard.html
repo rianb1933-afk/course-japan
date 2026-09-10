@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="/assets/env.js"></script>
+<script src="/assets/supabase-client.js"></script>
+<script src="/assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/kyoto-bundle.min.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Bidang SSW — Nihongo Pro Academy</title>
+<meta name="description" content="Dashboard pembelajaran bidang SSW (特定技能): overview, materi, vocabulary, kanji, grammar, listening, reading, quiz, practice test, mock exam, dan progress.">
+<script type="application/ld+json" id="pageSchema">{"@context":"https://schema.org","@type":"LearningResource","name":"Dashboard Bidang SSW","description":"Dashboard pembelajaran bidang SSW (特定技能): overview, materi, vocabulary, kanji, grammar, listening, reading, quiz, practice test, mock exam, dan progress.","url":"https://nihonggoproacademy.netlify.app/SSW/Field-Dashboard.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","SSW","特定技能"]}</script>
+<link rel="canonical" id="pageCanonical" href="https://nihonggoproacademy.netlify.app/SSW/Field-Dashboard.html">
+<meta property="og:title" id="ogTitle" content="Dashboard Bidang SSW — Nihongo Pro Academy">
+<meta property="og:type" content="website">
+
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="NihongoPro">
+
+<link rel="stylesheet" href="/assets/kyoto-design-system.css">
+<link rel="stylesheet" href="/assets/kyoto-theme.css">
+<link rel="stylesheet" href="/assets/kyoto-elevation.css">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
+<link rel="stylesheet" href="/assets/ssw.css?v=8">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--cream);color:var(--ink);font-size:15px;line-height:1.7}
+a{text-decoration:none;color:inherit}
+.ssw-shell{max-width:1200px;margin:0 auto;padding:1.6rem 5vw 4rem}
+.ssw-panel{display:none}
+.ssw-panel.active{display:block}
+.ssw-empty{background:var(--white);border:1px dashed var(--border-mid);border-radius:12px;padding:26px;text-align:center;color:var(--ink-soft);font-size:14px}
+</style>
+</head>
+<body>
+<div id="knNavbar"></div>
+
+<main class="ssw-shell">
+  <nav class="ssw-crumb" aria-label="Breadcrumb">
+    <a href="/">Beranda</a><span class="sep">›</span>
+    <a href="/SSW.html">SSW 特定技能</a><span class="sep">›</span>
+    <span class="here" id="crumbField">…</span>
+  </nav>
+
+  <header class="ssw-field-hero" id="fieldHero" data-kanji="特定技能">
+    <h1 id="heroJp">Memuat…</h1>
+    <div class="fh-id" id="heroId"></div>
+    <div class="fh-progress">
+      <div class="bar"><div class="fill" id="heroFill" style="width:0%"></div></div>
+      <div class="lbl"><span id="heroPercent">0%</span><span id="heroDone">0 item selesai</span></div>
+    </div>
+  </header>
+
+  <nav class="ssw-tabs" id="fieldTabs" aria-label="Bagian bidang">
+    <button class="ssw-tab active" type="button" data-panel="overview">Overview</button>
+    <button class="ssw-tab" type="button" data-panel="materi">Materi</button>
+    <a class="ssw-tab" href="/SSW/Vocabulary.html?field=kaigo" id="tabVocab">Vocabulary</a>
+    <a class="ssw-tab" href="/SSW/Kanji.html" id="tabKanji">Kanji</a>
+    <a class="ssw-tab" href="/SSW/Grammar.html" id="tabGrammar">Grammar</a>
+    <a class="ssw-tab" href="/SSW/Listening.html" id="tabListening">Listening</a>
+    <a class="ssw-tab" href="/SSW/Reading.html" id="tabReading">Reading</a>
+    <a class="ssw-tab" href="/SSW/Quiz.html" id="tabQuiz">Quiz</a>
+    <a class="ssw-tab" href="/SSW/Mock-Exam.html" id="tabMock">Practice / Mock Exam</a>
+    <a class="ssw-tab" href="/SSW/Progress.html" id="tabProgress">Progress</a>
+  </nav>
+
+  <!-- ── Overview ── -->
+  <section class="ssw-panel active" id="panel-overview">
+    <div class="ssw-over-grid" id="overGrid"></div>
+    <p class="ssw-empty" id="overEmpty" hidden>Belum ada konten di bidang ini — konten ditambahkan lewat Admin Dashboard.</p>
+  </section>
+
+  <!-- ── Materi (modul & lesson) ── -->
+  <section class="ssw-panel" id="panel-materi">
+    <div id="materiList"></div>
+    <p class="ssw-empty" id="materiEmpty" hidden>Belum ada modul. Admin dapat menambahkan modul &amp; lesson lewat Admin Dashboard → SSW CMS.</p>
+  </section>
+</main>
+
+<div id="knFooter"></div>
+<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-bottom-nav.js" defer></script>
+<script src="/assets/ssw-api.js?v=8"></script>
+<script src="/assets/ssw-seed.js?v=8"></script>
+<script>
+(function () {
+  'use strict';
+  // Tab Overview/Materi: panel toggle in-page (bukan link #anchor — validator
+  // menandai anchor tanpa elemen id tujuan di halaman statis)
+  const tabBtns = document.querySelectorAll('#fieldTabs [data-panel]');
+  tabBtns.forEach(btn => btn.addEventListener('click', () => {
+    tabBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.ssw-panel').forEach(p => p.classList.toggle('active', p.id === 'panel-' + btn.dataset.panel));
+  }));
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('field') || 'kaigo';
+
+  // Arahkan tab-tabel halaman lain membawa field yang sama
+  ['tabVocab','tabKanji','tabGrammar','tabListening','tabReading','tabQuiz','tabMock','tabProgress'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.href = el.href + (el.href.includes('?') ? '&' : '?') + 'field=' + encodeURIComponent(slug);
+  });
+
+  function esc(s) { const d = document.createElement('div'); d.textContent = String(s == null ? '' : s); return d.innerHTML; }
+
+  function countLessons(modules) {
+    return modules.reduce((n, m) => n + ((m.ssw_lessons && m.ssw_lessons.length) || 0), 0);
+  }
+
+  function paintOverview(cat, modules, counts) {
+    const lessons = countLessons(modules);
+    const cards = [
+      { n: modules.length, l: 'Modul', href: '#materi' },
+      { n: lessons, l: 'Lesson', href: '#materi' },
+      { n: counts.vocabulary || 0, l: 'Vocabulary', href: '/SSW/Vocabulary.html?field=' + slug },
+      { n: counts.kanji || 0, l: 'Kanji', href: '/SSW/Kanji.html?field=' + slug },
+      { n: counts.grammar || 0, l: 'Grammar', href: '/SSW/Grammar.html?field=' + slug },
+      { n: counts.listening || 0, l: 'Listening', href: '/SSW/Listening.html?field=' + slug },
+      { n: counts.reading || 0, l: 'Reading', href: '/SSW/Reading.html?field=' + slug },
+      { n: counts.quiz || 0, l: 'Quiz / Exam', href: '/SSW/Quiz.html?field=' + slug },
+    ];
+    const grid = document.getElementById('overGrid');
+    grid.innerHTML = cards.map(c => `
+      <a class="ssw-over-card" href="${esc(c.href)}">
+        <div class="oc-num">${c.n}</div>
+        <div class="oc-lbl">${esc(c.l)}</div>
+      </a>`).join('');
+    document.getElementById('overEmpty').hidden = cards.some(c => c.n > 0);
+  }
+
+  function paintMateri(modules) {
+    const wrap = document.getElementById('materiList');
+    if (!modules.length) { document.getElementById('materiEmpty').hidden = false; return; }
+    wrap.innerHTML = modules.map((m, mi) => `
+      <div class="ssw-module">
+        <h3><span class="mj">Modul ${mi + 1}</span>${esc(m.title)}${m.title_jp ? ' <span class="jp">' + esc(m.title_jp) + '</span>' : ''}</h3>
+        ${m.description ? `<p style="color:var(--ink-soft);font-size:13.5px;margin-top:2px">${esc(m.description)}</p>` : ''}
+        <div class="ssw-lesson-list">
+          ${(m.ssw_lessons || []).map((ls, li) => `
+            <a class="ssw-lesson-item ${SSWAPI.isCompleted('lesson', ls.id) ? 'done' : ''}" href="/SSW/Lesson.html?field=${encodeURIComponent(slug)}&lesson=${esc(ls.id)}">
+              <span class="li-num">${li + 1}</span>
+              <span>
+                <span class="li-title">${esc(ls.title)}</span>
+                ${ls.description ? `<span class="li-desc" style="display:block">${esc(ls.description)}</span>` : ''}
+              </span>
+              <span class="li-check">✓</span>
+            </a>`).join('')}
+        </div>
+      </div>`).join('');
+  }
+
+  function paintHero(cat, modules) {
+    document.getElementById('heroJp').textContent = cat.name_jp + ' SSW';
+    document.getElementById('heroId').textContent = [cat.name_id, cat.name_en].filter(Boolean).join(' · ') + (cat.description ? ' — ' + cat.description : '');
+    document.getElementById('fieldHero').setAttribute('data-kanji', cat.name_jp.slice(0, 4));
+    document.getElementById('crumbField').textContent = cat.name_jp + ' ' + cat.name_id;
+    document.title = cat.name_jp + ' SSW — ' + cat.name_id + ' | Nihongo Pro Academy';
+    // Progres: persentase lesson selesai (kolom lain menyusul saat fiturnya aktif)
+    const total = countLessons(modules);
+    const sum = SSWAPI.categorySummary(slug, { lesson: total, vocab: 0, kanji: 0, grammar: 0 });
+    const pct = total > 0 ? Math.round((sum.done.lesson / total) * 100) : 0;
+    document.getElementById('heroFill').style.width = pct + '%';
+    document.getElementById('heroPercent').textContent = pct + '%';
+    document.getElementById('heroDone').textContent = sum.done.lesson + ' / ' + total + ' lesson selesai';
+  }
+
+  SSWAPI.getFieldTree(slug).then(async ({ category, modules, source }) => {
+    if (!category) {
+      document.getElementById('heroJp').textContent = 'Bidang tidak ditemukan';
+      document.getElementById('heroId').textContent = 'Periksa kembali tautan, atau mulai dari daftar bidang.';
+      return;
+    }
+    window.__sswField = { slug, category };
+    paintHero(category, modules);
+    // Hitungan konten per jenis — dari DB bila ada, dari seed bila belum.
+    // seed.field hanya mengisi kaigo; bidang lain tampil 0 sampai admin
+    // mengisi lewat CMS — itu perilaku yang benar, bukan bug.
+    const counts = window.__sswCounts = {};
+    for (const kind of ['vocabulary', 'kanji', 'grammar', 'listening', 'reading', 'quizzes']) {
+      try {
+        const { items } = await SSWAPI.getItems(slug, kind);
+        counts[kind === 'quizzes' ? 'quiz' : kind] = (items && items.length) || 0;
+      } catch (e) { /* jenis belum tersedia — biarkan 0 */ }
+    }
+    paintOverview(category, modules, counts);
+    paintMateri(modules);
+    if (source === 'seed') console.info('[SSW] mode contoh lokal (DB belum terisi)');
+  }).catch(err => {
+    console.error('[SSW]', err);
+    document.getElementById('heroJp').textContent = 'Gagal memuat bidang';
+  });
+})();
+</script>
+</body>
+</html>

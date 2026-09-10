@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="/assets/env.js"></script>
+<script src="/assets/supabase-client.js"></script>
+<script src="/assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/kyoto-bundle.min.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson SSW — Nihongo Pro Academy</title>
+<meta name="description" content="Materi lesson bidang SSW (特定技能): teks, kosakata, kanji, grammar, dialog, dan contoh soal.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Lesson SSW","description":"Materi lesson bidang SSW (特定技能): teks, kosakata, kanji, grammar, dialog, dan contoh soal.","url":"https://nihonggoproacademy.netlify.app/SSW/Lesson.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","SSW"]}</script>
+
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-title" content="NihongoPro">
+
+<link rel="stylesheet" href="/assets/kyoto-design-system.css">
+<link rel="stylesheet" href="/assets/kyoto-theme.css">
+<link rel="stylesheet" href="/assets/kyoto-elevation.css">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
+<link rel="stylesheet" href="/assets/ssw.css?v=8">
+</head>
+<body>
+<div id="knNavbar"></div>
+
+<main class="ssw-shell">
+  <nav class="ssw-crumb" aria-label="Breadcrumb">
+    <a href="/">Beranda</a><span class="sep">›</span>
+    <a href="/SSW.html">SSW 特定技能</a><span class="sep">›</span>
+    <a href="/SSW/Field-Dashboard.html" id="crumbField">Bidang</a><span class="sep">›</span>
+    <span class="here" id="crumbLesson">Lesson</span>
+  </nav>
+
+  <article class="ssw-lesson-wrap">
+    <div class="ssw-lesson-body" id="lessonBody">
+    <h1 id="lessonH1" style="font-size:0;position:absolute" aria-hidden="true">Lesson SSW</h1>
+      <h2 id="lessonTitle">Memuat lesson…</h2>
+      <p class="desc" id="lessonDesc"></p>
+      <div id="lessonContent"></div>
+    </div>
+
+    <div class="ssw-lesson-nav">
+      <button id="btnPrev" type="button">← Previous Lesson</button>
+      <button id="btnComplete" type="button" class="btn-complete">Mark as Complete</button>
+      <button id="btnNext" type="button">Next Lesson →</button>
+    </div>
+  </article>
+</main>
+
+<div id="knFooter"></div>
+<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-bottom-nav.js" defer></script>
+<script src="/assets/ssw-api.js?v=8"></script>
+<script>
+(function () {
+  'use strict';
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('field') || 'kaigo';
+  const lessonId = params.get('lesson') || '';
+
+  // Simpan untuk Continue Learning
+  function esc(s) { const d = document.createElement('div'); d.textContent = String(s == null ? '' : s); return d.innerHTML; }
+
+  // Render body_md ringan: heading ##/###, list -/1., tabel |a|b|, bold **x**, teks jp `x`
+  // (pembuat konten lewat CMS memakai subset ini — tanpa HTML mentah, anti-XSS by design)
+  function renderMd(md) {
+    const out = [];
+    const lines = String(md || '').split('\n');
+    let inList = false, inTable = false;
+    const closeList = () => { if (inList) { out.push('</ul>'); inList = false; } };
+    const closeTable = () => { if (inTable) { out.push('</tbody></table>'); inTable = false; } };
+    const inline = s => esc(s)
+      .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      .replace(/`([^`]+)`/g, '<span class="jp">$1</span>');
+    for (const raw of lines) {
+      const line = raw.trimEnd();
+      if (/^\s*\|(.+)\|\s*$/.test(line)) {
+        closeList();
+        const cells = line.trim().slice(1, -1).split('|').map(c => c.trim());
+        if (/^[-: ]+$/.test(cells.join(''))) continue; // separator
+        if (!inTable) { out.push('<table><tbody>'); inTable = true; }
+        const tag = out[out.length - 1] === '<table><tbody>' ? 'th' : 'td';
+        out.push('<tr>' + cells.map(c => `<${tag}>${inline(c)}</${tag}>`).join('') + '</tr>');
+        continue;
+      } else closeTable();
+      if (/^\s*[-•]\s+/.test(line)) {
+        if (!inList) { out.push('<ul>'); inList = true; }
+        out.push('<li>' + inline(line.replace(/^\s*[-•]\s+/, '')) + '</li>');
+        continue;
+      } else closeList();
+      if (/^###\s+/.test(line)) { out.push('<h3>' + inline(line.replace(/^###\s+/, '')) + '</h3>'); continue; }
+      if (/^##\s+/.test(line)) { out.push('<h3>' + inline(line.replace(/^##\s+/, '')) + '</h3>'); continue; }
+      if (!line.trim()) { continue; }
+      out.push('<p>' + inline(line) + '</p>');
+    }
+    closeList(); closeTable();
+    return out.join('\n');
+  }
+
+  function paintLesson(ls) {
+    document.getElementById('lessonTitle').textContent = ls.title;
+    document.getElementById('lessonDesc').textContent = ls.description || '';
+    document.getElementById('crumbLesson').textContent = ls.title;
+    document.title = ls.title + ' — SSW | Nihongo Pro Academy';
+    const content = document.getElementById('lessonContent');
+    let html = ls.body_md ? renderMd(ls.body_md) : '';
+
+    if (ls.dialogues && ls.dialogues.length) {
+      html += '<h3>Contoh Percakapan</h3>' + ls.dialogues.map(d => `
+        <div class="ssw-lesson-dialogue">
+          <div class="dg-speaker">${esc(d.speaker || '—')}</div>
+          <div class="dg-jp">${esc(d.jp || '')}</div>
+          ${d.furigana ? `<div class="dg-furi">${esc(d.furigana)}</div>` : ''}
+          ${d.id ? `<div class="dg-id">${esc(d.id)}</div>` : ''}
+        </div>`).join('');
+    }
+    if (ls.notes) {
+      html += `<div class="ssw-lesson-note"><strong>Catatan penting:</strong> ${esc(ls.notes)}</div>`;
+    }
+    content.innerHTML = html || '<p class="desc">Lesson ini belum punya isi — lengkapi lewat Admin Dashboard.</p>';
+
+    // Tombol complete
+    const btn = document.getElementById('btnComplete');
+    const sync = () => {
+      const done = SSWAPI.isCompleted('lesson', ls.id);
+      btn.classList.toggle('is-done', done);
+      btn.textContent = done ? '✓ Selesai' : 'Mark as Complete';
+    };
+    btn.onclick = () => {
+      const done = SSWAPI.isCompleted('lesson', ls.id);
+      SSWAPI.markProgress('lesson', ls.id, { completed: !done });
+      sync();
+    };
+    sync();
+  }
+
+  let flat = [];   // daftar lesson urut utk prev/next
+  let current = null;
+
+  SSWAPI.getFieldTree(slug).then(({ category, modules }) => {
+    if (!category) return;
+    document.getElementById('crumbField').textContent = category.name_jp + ' ' + category.name_id;
+    document.getElementById('crumbField').href = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
+    flat = [];
+    (modules || []).forEach(m => (m.ssw_lessons || []).forEach(ls => flat.push(ls)));
+    current = flat.find(l => l.id === lessonId) || flat[0];
+    if (!current) {
+      document.getElementById('lessonTitle').textContent = 'Belum ada lesson';
+      document.getElementById('lessonDesc').textContent = 'Konten ditambahkan lewat Admin Dashboard → SSW CMS.';
+      return;
+    }
+    paintLesson(current);
+    // prev/next
+    const idx = flat.indexOf(current);
+    const prev = flat[idx - 1], next = flat[idx + 1];
+    const bp = document.getElementById('btnPrev'), bn = document.getElementById('btnNext');
+    bp.disabled = !prev; bn.disabled = !next;
+    if (prev) bp.onclick = () => { location.href = '/SSW/Lesson.html?field=' + encodeURIComponent(slug) + '&lesson=' + encodeURIComponent(prev.id); };
+    if (next) bn.onclick = () => { location.href = '/SSW/Lesson.html?field=' + encodeURIComponent(slug) + '&lesson=' + encodeURIComponent(next.id); };
+    // last accessed
+    SSWAPI.setLastAccessed({ field: slug, lessonId: current.id, title: current.title });
+    SSWAPI.markProgress('lesson', current.id, { completed: SSWAPI.isCompleted('lesson', current.id) });
+  });
+})();
+</script>
+</body>
+</html>

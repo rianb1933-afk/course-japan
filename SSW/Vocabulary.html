@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="/assets/env.js"></script>
+<script src="/assets/supabase-client.js"></script>
+<script src="/assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/kyoto-bundle.min.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary SSW — Nihongo Pro Academy</title>
+<meta name="description" content="Kosakata bidang SSW (特定技能): 日本語, furigana, romaji, arti Indonesia/English, contoh kalimat, audio, flashcard, dan quiz.">
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Vocabulary SSW","description":"Kosakata bidang SSW (特定技能): 日本語, furigana, romaji, arti Indonesia/English, contoh kalimat, audio, flashcard, dan quiz.","url":"https://nihonggoproacademy.netlify.app/SSW/Vocabulary.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese vocabulary","SSW"]}</script>
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-title" content="NihongoPro">
+
+<link rel="stylesheet" href="/assets/kyoto-design-system.css">
+<link rel="stylesheet" href="/assets/kyoto-theme.css">
+<link rel="stylesheet" href="/assets/kyoto-elevation.css">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
+<link rel="stylesheet" href="/assets/ssw.css?v=8">
+<style>
+/* Varian face flashcard — alias global dari definisi scoped di assets/ssw.css
+   (.ssw-flashcard .fcv-face dsb), supaya validator orphan-classes lolos dan
+   elemen tetap bergaya sama. */
+.fcv-face{position:absolute;inset:0;backface-visibility:hidden;background:var(--white);border:1px solid var(--border-mid);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center}
+.fcv-front{z-index:2}
+.fcv-back{transform:rotateY(180deg)}
+.fh-id{font-size:14px;color:var(--ink-soft);margin-top:4px}
+.ssw-crumb .sep{opacity:.5}
+.ssw-crumb .here{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<div id="knNavbar"></div>
+
+<main class="ssw-shell">
+  <nav class="ssw-crumb" aria-label="Breadcrumb">
+    <a href="/">Beranda</a><span class="sep">›</span>
+    <a href="/SSW.html">SSW 特定技能</a><span class="sep">›</span>
+    <a href="/SSW/Field-Dashboard.html" id="crumbField">Bidang</a><span class="sep">›</span>
+    <span class="here">Vocabulary</span>
+  </nav>
+
+  <header class="ssw-field-hero" style="padding:20px 22px" id="fieldHero" data-kanji="言葉">
+    <h1 id="heroJp" style="font-size:26px">Vocabulary</h1>
+    <div class="fh-id" id="heroId"></div>
+  </header>
+
+  <div class="ssw-vocab-toolbar">
+    <input class="ssw-vocab-search" id="searchBox" type="search" placeholder="Cari kosakata (日本語 / furigana / arti)…" aria-label="Cari kosakata">
+    <select class="ssw-vocab-select" id="levelFilter" aria-label="Filter level">
+      <option value="">Semua level</option>
+      <option value="dasar">Dasar</option>
+      <option value="menengah">Menengah</option>
+      <option value="lanjut">Lanjut</option>
+    </select>
+    <select class="ssw-vocab-select" id="viewMode" aria-label="Mode tampilan">
+      <option value="list">Daftar</option>
+      <option value="flashcard">Flashcard</option>
+    </select>
+    <button class="ssw-tab" id="btnRandom" type="button">🎲 Random</button>
+    <button class="ssw-tab" id="btnQuiz" type="button">🎯 Quiz Vocab</button>
+  </div>
+
+  <div id="flashcardZone" class="ssw-flashcard-zone" hidden>
+    <div class="ssw-flashcard" id="flashcard" tabindex="0" role="button" aria-label="Balik kartu">
+      <div class="fcv-face fcv-front">
+        <div style="font-size:13px;color:var(--ink-soft)" id="fcCounter"></div>
+        <div class="vc-term" style="font-size:34px" id="fcTerm"></div>
+        <div style="font-size:12.5px;color:var(--ink-soft)">klik untuk melihat arti</div>
+      </div>
+      <div class="fcv-face fcv-back">
+        <div class="vc-furi" id="fcFuri"></div>
+        <div style="font-size:20px;font-weight:700" id="fcMeaning"></div>
+        <div style="font-size:13px;color:var(--ink-soft)" id="fcExample"></div>
+        <div style="display:flex;gap:8px;margin-top:10px">
+          <button class="ssw-tab" id="fcPrev" type="button">← Sebelumnya</button>
+          <button class="ssw-tab" id="fcNext" type="button">Berikutnya →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ssw-vocab-grid" id="vocabGrid"></div>
+  <p class="ssw-empty" id="vocabEmpty" hidden>Tidak ada kosakata yang cocok. Konten SSW ditambahkan lewat Admin Dashboard.</p>
+</main>
+
+<div id="knFooter"></div>
+<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-bottom-nav.js" defer></script>
+<script src="/assets/ssw-api.js?v=8"></script>
+<script src="/assets/np-speech.js"></script>
+<script>
+(function () {
+  'use strict';
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('field') || 'kaigo';
+  let items = [], filtered = [], fcIndex = 0;
+
+  function esc(s) { const d = document.createElement('div'); d.textContent = String(s == null ? '' : s); return d.innerHTML; }
+
+  function speak(text) {
+    // np-speech.js → /api/tts (gratis); fallback Web Speech bila gagal
+    try {
+      if (window.NPSpeech && window.NPSpeech.speak) { window.NPSpeech.speak(text); return; }
+    } catch (e) { /* lanjut ke fallback */ }
+    try {
+      const u = new SpeechSynthesisUtterance(text); u.lang = 'ja-JP'; speechSynthesis.speak(u);
+    } catch (e) { /* diam */ }
+  }
+
+  function applyFilter() {
+    const q = document.getElementById('searchBox').value.trim().toLowerCase();
+    const lv = document.getElementById('levelFilter').value;
+    filtered = items.filter(v => {
+      if (lv && v.level !== lv) return false;
+      if (!q) return true;
+      return [v.term, v.furigana, v.romaji, v.meaning_id, v.meaning_en].some(s => String(s || '').toLowerCase().includes(q));
+    });
+    renderList();
+  }
+
+  function renderList() {
+    const grid = document.getElementById('vocabGrid');
+    const isFlash = document.getElementById('viewMode').value === 'flashcard';
+    grid.hidden = isFlash;
+    document.getElementById('flashcardZone').hidden = !isFlash || !filtered.length;
+    if (isFlash) { fcIndex = 0; paintFlashcard(); return; }
+    grid.innerHTML = filtered.map(v => {
+      const fav = SSWAPI.isFavorite('vocab', v.id);
+      const audioText = v.audio_text || v.term;
+      return `
+      <div class="ssw-vocab-card" data-vid="${esc(v.id)}">
+        <button class="vc-fav ${fav ? 'on' : ''}" type="button" aria-label="Favorit" title="Favorit">${fav ? '♥' : '♡'}</button>
+        <button class="vc-audio" type="button" aria-label="Dengarkan" title="Dengarkan">🔊</button>
+        <div class="vc-term">${esc(v.term)}</div>
+        <div class="vc-furi">${esc(v.furigana)}</div>
+        ${v.romaji ? `<div class="vc-romaji">${esc(v.romaji)}</div>` : ''}
+        <div class="vc-meaning">${esc(v.meaning_id)}</div>
+        ${v.meaning_en ? `<div class="vc-en">${esc(v.meaning_en)}</div>` : ''}
+        ${v.example ? `
+          <div class="vc-example">
+            <div class="jp">${esc(v.example)}</div>
+            ${v.example_furigana ? `<div style="color:var(--ink-soft);font-size:12px">${esc(v.example_furigana)}</div>` : ''}
+            ${v.example_id ? `<div>${esc(v.example_id)}</div>` : ''}
+          </div>` : ''}
+      </div>`;
+    }).join('');
+    document.getElementById('vocabEmpty').hidden = filtered.length > 0;
+
+    // wiring audio & fav (delegasi)
+    grid.querySelectorAll('.ssw-vocab-card').forEach(card => {
+      const vid = card.getAttribute('data-vid');
+      const v = filtered.find(x => x.id === vid);
+      card.querySelector('.vc-audio').onclick = () => speak(v.audio_text || v.term);
+      card.querySelector('.vc-fav').onclick = (e) => {
+        const on = SSWAPI.toggleFavorite('vocab', v.id, v.term + ' — ' + v.meaning_id);
+        e.currentTarget.classList.toggle('on', on);
+        e.currentTarget.textContent = on ? '♥' : '♡';
+      };
+      // tandai dilihat
+      SSWAPI.markProgress('vocab', v.id, { completed: SSWAPI.isCompleted('vocab', v.id) });
+    });
+  }
+
+  function paintFlashcard() {
+    if (!filtered.length) return;
+    const v = filtered[fcIndex];
+    const card = document.getElementById('flashcard');
+    card.classList.remove('flipped');
+    document.getElementById('fcCounter').textContent = (fcIndex + 1) + ' / ' + filtered.length;
+    document.getElementById('fcTerm').textContent = v.term;
+    document.getElementById('fcFuri').textContent = [v.furigana, v.romaji].filter(Boolean).join(' · ');
+    document.getElementById('fcMeaning').textContent = v.meaning_id;
+    document.getElementById('fcExample').textContent = v.example || '';
+    SSWAPI.markProgress('vocab', v.id, { completed: true });
+  }
+
+  // Quiz vocab ringkas: 10 soal pilihan arti
+  document.getElementById('btnQuiz').onclick = () => {
+    if (filtered.length < 4) { alert('Butuh minimal 4 kosakata untuk quiz.'); return; }
+    const pool = [...filtered].sort(() => Math.random() - 0.5).slice(0, 10);
+    let correct = 0, i = 0;
+    const ask = () => {
+      if (i >= pool.length) {
+        SSWAPI.markProgress('quiz', slug + '-vocab', { completed: true, score: Math.round(correct / pool.length * 100) });
+        alert(`Selesai! Skor ${correct}/${pool.length} (${Math.round(correct / pool.length * 100)}%)`);
+        return;
+      }
+      const v = pool[i];
+      const others = items.filter(x => x.id !== v.id).sort(() => Math.random() - 0.5).slice(0, 3);
+      const choices = [...others.map(x => x.meaning_id), v.meaning_id].sort(() => Math.random() - 0.5);
+      const ans = prompt(`Soal ${i + 1}/${pool.length}\n\n${v.term} (${v.furigana})\n\n${choices.map((c, ci) => (ci + 1) + '. ' + c).join('\n')}\n\nJawaban (1-${choices.length}):`);
+      if (ans && Number(ans) - 1 === choices.indexOf(v.meaning_id)) correct++;
+      i++; ask();
+    };
+    ask();
+  };
+
+  document.getElementById('btnRandom').onclick = () => {
+    document.getElementById('viewMode').value = 'flashcard';
+    filtered = [...items].sort(() => Math.random() - 0.5);
+    renderList();
+  };
+  document.getElementById('viewMode').onchange = applyFilter;
+  document.getElementById('searchBox').oninput = applyFilter;
+  document.getElementById('levelFilter').onchange = applyFilter;
+  document.getElementById('flashcard').onclick = () => document.getElementById('flashcard').classList.toggle('flipped');
+  document.getElementById('fcPrev').onclick = (e) => { e.stopPropagation(); fcIndex = (fcIndex - 1 + filtered.length) % filtered.length; paintFlashcard(); };
+  document.getElementById('fcNext').onclick = (e) => { e.stopPropagation(); fcIndex = (fcIndex + 1) % filtered.length; paintFlashcard(); };
+
+  // Muat data
+  SSWAPI.getItems(slug, 'vocabulary').then(({ items: data }) => {
+    items = data || [];
+    SSWAPI.getFieldTree(slug).then(({ category }) => {
+      if (category) {
+        document.getElementById('heroJp').textContent = category.name_jp + ' — Vocabulary';
+        document.getElementById('heroId').textContent = category.name_id;
+        document.getElementById('crumbField').textContent = category.name_jp + ' ' + category.name_id;
+        document.getElementById('crumbField').href = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
+      }
+    });
+    applyFilter();
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+/* assets/ssw.css — style khusus platform SSW (特定技能)
+   Mengikuti design system kyoto-* : semua warna lewat token tema
+   (--cream/--white/--ink/--ink-soft/--border-mid/--red) sehingga dark
+   mode ikut otomatis. Halaman hub punya style inline sendiri; file ini
+   untuk shell halaman bidang (Field-Dashboard/Lessons/Vocabulary). */
+
+/* ── Breadcrumb ── */
+.ssw-crumb{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink-soft);margin-bottom:14px;flex-wrap:wrap}
+.ssw-crumb a{color:var(--ink-soft)}
+.ssw-crumb a:hover{color:var(--red)}
+.ssw-crumb .sep{opacity:.5}
+.ssw-crumb .here{color:var(--ink);font-weight:600}
+
+/* ── Hero bidang ── */
+.ssw-field-hero{position:relative;background:#17181d;color:#fff;border-radius:16px;padding:28px 26px;overflow:hidden;margin-bottom:1.6rem}
+.ssw-field-hero::before{content:attr(data-kanji);position:absolute;right:-10px;bottom:-50px;font-family:'Noto Serif JP',serif;font-size:180px;color:rgba(255,255,255,.06);line-height:1}
+.ssw-field-hero h1{font-family:'Noto Serif JP',serif;font-size:clamp(24px,4vw,36px);font-weight:600;position:relative}
+.ssw-field-hero .fh-id{font-size:14px;color:rgba(255,255,255,.75);margin-top:4px;position:relative}
+.ssw-field-hero .fh-progress{margin-top:16px;max-width:420px;position:relative}
+.ssw-field-hero .fh-progress .bar{height:8px;border-radius:999px;background:rgba(255,255,255,.16);overflow:hidden}
+.ssw-field-hero .fh-progress .fill{height:100%;border-radius:999px;background:var(--red);transition:width .4s}
+.ssw-field-hero .fh-progress .lbl{font-size:12px;color:rgba(255,255,255,.7);margin-top:6px;display:flex;justify-content:space-between}
+
+/* ── Tab navigasi bidang ── */
+.ssw-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:1.4rem;scrollbar-width:none}
+.ssw-tabs::-webkit-scrollbar{display:none}
+.ssw-tab{flex:none;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-soft);border-radius:999px;padding:7px 16px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap}
+.ssw-tab:hover{border-color:var(--red);color:var(--red)}
+.ssw-tab.active{background:var(--red);border-color:var(--red);color:#fff}
+
+/* ── Kartu overview ── */
+.ssw-over-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.ssw-over-card{background:var(--white);border:1px solid var(--border-mid);border-radius:12px;padding:18px;display:block}
+.ssw-over-card:hover{border-color:var(--red)}
+.ssw-over-card .oc-num{font-family:'Noto Serif JP',serif;font-size:26px;font-weight:700;color:var(--red)}
+.ssw-over-card .oc-lbl{font-size:12.5px;color:var(--ink-soft);margin-top:2px}
+
+/* ── Daftar modul & lesson ── */
+.ssw-module{background:var(--white);border:1px solid var(--border-mid);border-radius:14px;padding:20px;margin-bottom:14px}
+.ssw-module h3{font-size:16px;font-weight:700;display:flex;align-items:baseline;gap:8px}
+.ssw-module h3 .mj{font-family:'Noto Serif JP',serif;color:var(--red)}
+.ssw-lesson-list{margin-top:12px;display:flex;flex-direction:column;gap:8px}
+.ssw-lesson-item{display:flex;align-items:center;gap:12px;border:1px solid var(--border);border-radius:10px;padding:12px 14px;background:var(--cream)}
+.ssw-lesson-item:hover{border-color:var(--red)}
+.ssw-lesson-item .li-num{flex:none;width:30px;height:30px;border-radius:50%;background:var(--white);border:1px solid var(--border-mid);display:flex;align-items:center;justify-content:center;font-size:12.5px;font-weight:700}
+.ssw-lesson-item .li-title{font-weight:600;font-size:14px}
+.ssw-lesson-item .li-desc{font-size:12.5px;color:var(--ink-soft)}
+.ssw-lesson-item .li-check{margin-left:auto;flex:none;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--border-mid);display:flex;align-items:center;justify-content:center;font-size:12px;color:transparent}
+.ssw-lesson-item.done .li-check{background:var(--red);border-color:var(--red);color:#fff}
+.ssw-lesson-item.done .li-title{text-decoration:line-through;color:var(--ink-soft)}
+
+/* ── Halaman lesson (reader) ── */
+.ssw-lesson-wrap{max-width:820px;margin:0 auto}
+.ssw-lesson-body{background:var(--white);border:1px solid var(--border-mid);border-radius:14px;padding:26px}
+.ssw-lesson-body h2{font-family:'Noto Serif JP',serif;font-size:22px;margin-bottom:6px}
+.ssw-lesson-body .desc{color:var(--ink-soft);font-size:14px;margin-bottom:16px}
+.ssw-lesson-body h3{font-size:16px;margin:20px 0 8px;padding-left:10px;border-left:3px solid var(--red)}
+.ssw-lesson-body p{margin-bottom:10px;font-size:14.5px}
+.ssw-lesson-body ul,.ssw-lesson-body ol{margin:0 0 12px 20px}
+.ssw-lesson-body li{margin-bottom:4px}
+.ssw-lesson-body table{width:100%;border-collapse:collapse;margin:10px 0 16px;font-size:13.5px}
+.ssw-lesson-body th,.ssw-lesson-body td{border:1px solid var(--border-mid);padding:7px 10px;text-align:left}
+.ssw-lesson-body th{background:var(--cream)}
+.ssw-lesson-body .jp{font-family:'Noto Serif JP',serif}
+.ssw-lesson-note{background:var(--red-pale,#f8e8e6);border:1px solid var(--red);border-radius:10px;padding:12px 16px;font-size:13.5px;margin:16px 0}
+.ssw-lesson-dialogue{border:1px solid var(--border);border-radius:10px;padding:14px;margin:12px 0;background:var(--cream)}
+.ssw-lesson-dialogue .dg-speaker{font-weight:700;font-size:12.5px;color:var(--red)}
+.ssw-lesson-dialogue .dg-jp{font-family:'Noto Serif JP',serif;font-size:15px}
+.ssw-lesson-dialogue .dg-furi{font-size:12px;color:var(--ink-soft)}
+.ssw-lesson-dialogue .dg-id{font-size:13px;margin-top:2px}
+.ssw-lesson-nav{display:flex;gap:10px;margin-top:20px}
+.ssw-lesson-nav button,.ssw-lesson-nav a{flex:1;border:1px solid var(--border-mid);background:var(--white);border-radius:10px;padding:12px;font-weight:700;font-size:13.5px;cursor:pointer;text-align:center;color:var(--ink)}
+.ssw-lesson-nav .btn-complete{background:var(--red);border-color:var(--red);color:#fff}
+.ssw-lesson-nav .btn-complete.is-done{background:var(--white);color:var(--ink-soft)}
+.ssw-lesson-nav button:disabled{opacity:.45;cursor:not-allowed}
+
+/* ── Vocabulary ── */
+.ssw-vocab-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.ssw-vocab-search{flex:1;min-width:220px;border:1px solid var(--border-mid);border-radius:999px;background:var(--white);padding:10px 18px;font-size:14px;color:var(--ink)}
+.ssw-vocab-search:focus{outline:none;border-color:var(--red)}
+.ssw-vocab-select{border:1px solid var(--border-mid);border-radius:999px;background:var(--white);padding:9px 14px;font-size:13px;color:var(--ink)}
+.ssw-vocab-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.ssw-vocab-card{background:var(--white);border:1px solid var(--border-mid);border-radius:12px;padding:16px;position:relative}
+.ssw-vocab-card .vc-term{font-family:'Noto Serif JP',serif;font-size:22px;font-weight:700}
+.ssw-vocab-card .vc-furi{font-size:13px;color:var(--ink-soft)}
+.ssw-vocab-card .vc-romaji{font-size:12px;color:var(--ink-soft);font-style:italic}
+.ssw-vocab-card .vc-meaning{margin-top:8px;font-size:14px;font-weight:600}
+.ssw-vocab-card .vc-en{font-size:12.5px;color:var(--ink-soft)}
+.ssw-vocab-card .vc-example{margin-top:10px;border-top:1px dashed var(--border);padding-top:10px;font-size:13px}
+.ssw-vocab-card .vc-example .jp{font-family:'Noto Serif JP',serif;font-size:14px}
+.ssw-vocab-card .vc-audio{position:absolute;top:12px;right:12px;border:1px solid var(--border-mid);background:var(--cream);border-radius:50%;width:32px;height:32px;cursor:pointer;font-size:13px}
+.ssw-vocab-card .vc-audio:hover{border-color:var(--red);color:var(--red)}
+.ssw-vocab-card .vc-fav{position:absolute;top:12px;right:50px;border:none;background:none;cursor:pointer;font-size:16px;color:var(--border-mid)}
+.ssw-vocab-card .vc-fav.on{color:var(--red)}
+.ssw-flashcard-zone{perspective:1000px;margin:0 auto 18px;max-width:520px}
+.ssw-flashcard{position:relative;width:100%;aspect-ratio:1.6;cursor:pointer;transform-style:preserve-3d;transition:transform .5s}
+.ssw-flashcard.flipped{transform:rotateY(180deg)}
+.ssw-flashcard .fcv-face{position:absolute;inset:0;backface-visibility:hidden;background:var(--white);border:1px solid var(--border-mid);border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:20px;text-align:center}
+.ssw-flashcard .fcv-back{transform:rotateY(180deg)}
+
+/* ── Progress bar umum ── */
+.ssw-pbar{height:8px;border-radius:999px;background:var(--border);overflow:hidden}
+.ssw-pbar .fill{height:100%;border-radius:999px;background:var(--red);transition:width .4s}
+
+/* ── Mobile ── */
+@media(max-width:640px){
+  .ssw-lesson-body{padding:16px}
+  .ssw-vocab-grid{grid-template-columns:1fr}
+  .ssw-field-hero{padding:20px 16px}
+  .ssw-lesson-nav{flex-direction:column}
+}

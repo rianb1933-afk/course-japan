@@ -1090,3 +1090,337 @@ DO $$
 BEGIN
   EXECUTE 'REVOKE ALL ON FUNCTION redeem_group_token(text, uuid) FROM authenticated';
 EXCEPTION WHEN undefined_object THEN NULL; END $$;
+
+
+-- ============================================================
+-- SSW (特定技能) — skema pembelajaran + CMS
+-- ============================================================
+-- Fase 1 platform SSW. Additive terhadap schema existing: tidak
+-- satu pun tabel/kolom lama disentuh. Semua statement idempoten
+-- (IF NOT EXISTS / DO $$ EXCEPTION duplicate_object) supaya file
+-- ini aman di-Run ulang di SQL Editor — pola yang sama dengan
+-- sisa supabase-schema.sql.
+--
+-- Pola konten mengikuti jlpt_questions: publik hanya boleh baca
+-- published = true; penulisan konten TIDAK lewat PostgREST sama
+-- sekali, hanya lewat netlify/functions/ssw-cms.js (service key,
+-- role admin diverifikasi server). RLS di bawah sengaja hanya
+-- memberi SELECT ke publik dan SELECT/INSERT/UPDATE/DELETE ke
+-- owner utk tabel milik user sendiri (progress/exam/favorites).
+--
+-- Sumber resmi utama:
+--   ISA  https://www.moj.go.jp/isa/index.html        (kebijakan 特定技能)
+--   OTIT https://www.otit.go.jp/                     (ujian 技能試験)
+--   JITCO https://www.jitco.or.jp/                   (panduan bidang)
+
+-- ── Kategori bidang SSW (dinamis — admin bisa INSERT lewat CMS) ──
+CREATE TABLE IF NOT EXISTS ssw_categories (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  slug        text UNIQUE NOT NULL,               -- 'kaigo', 'nougyou', ...
+  name_jp     text NOT NULL,                      -- 介護
+  name_id     text NOT NULL,                      -- Perawatan
+  name_en     text NOT NULL,                      -- Caregiving
+  icon        text NOT NULL DEFAULT '🗂️',
+  type1_ok    boolean NOT NULL DEFAULT true,      -- tersedia di 特定技能1号
+  type2_ok    boolean NOT NULL DEFAULT false,     -- tersedia di 特定技能2号
+  description text NOT NULL DEFAULT '',
+  sort        integer NOT NULL DEFAULT 100,
+  published   boolean NOT NULL DEFAULT true,
+  created_by  uuid REFERENCES auth.users(id) ON DELETE SET NULL,
+  created_at  timestamptz NOT NULL DEFAULT now(),
+  updated_at  timestamptz NOT NULL DEFAULT now()
+);
+
+-- ── Modul & lesson (Category → Module → Lesson) ──
+CREATE TABLE IF NOT EXISTS ssw_modules (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  category_id uuid NOT NULL REFERENCES ssw_categories(id) ON DELETE CASCADE,
+  title       text NOT NULL,
+  title_jp    text NOT NULL DEFAULT '',
+  description text NOT NULL DEFAULT '',
+  sort        integer NOT NULL DEFAULT 100,
+  published   boolean NOT NULL DEFAULT true,
+  created_by  uuid REFERENCES auth.users(id) ON DELETE SET NULL,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_modules_cat ON ssw_modules(category_id, sort);
+
+CREATE TABLE IF NOT EXISTS ssw_lessons (
+  id           uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  module_id    uuid NOT NULL REFERENCES ssw_modules(id) ON DELETE CASCADE,
+  slug         text NOT NULL,
+  title        text NOT NULL,
+  title_jp     text NOT NULL DEFAULT '',
+  description  text NOT NULL DEFAULT '',
+  body_md      text NOT NULL DEFAULT '',          -- materi teks (heading/list/tabel ringan)
+  vocab_ids    uuid[] NOT NULL DEFAULT '{}',      -- referensi ssw_vocabulary
+  kanji_ids    uuid[] NOT NULL DEFAULT '{}',
+  grammar_ids  uuid[] NOT NULL DEFAULT '{}',
+  audio_text   text NOT NULL DEFAULT '',          -- teks yang dibacakan /api/tts
+  video_url    text NOT NULL DEFAULT '',
+  dialogues    jsonb NOT NULL DEFAULT '[]',       -- [{speaker, jp, furigana, id}]
+  example_questions jsonb NOT NULL DEFAULT '[]',  -- [{q, choices, correct, explanation}]
+  notes        text NOT NULL DEFAULT '',          -- catatan penting
+  sort         integer NOT NULL DEFAULT 100,
+  published    boolean NOT NULL DEFAULT true,
+  created_by   uuid REFERENCES auth.users(id) ON DELETE SET NULL,
+  created_at   timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (module_id, slug)
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_lessons_module ON ssw_lessons(module_id, sort);
+
+-- ── Kosakata SSW ──
+CREATE TABLE IF NOT EXISTS ssw_vocabulary (
+  id               uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  category_id      uuid NOT NULL REFERENCES ssw_categories(id) ON DELETE CASCADE,
+  term             text NOT NULL,                 -- 日本語
+  furigana         text NOT NULL DEFAULT '',
+  romaji           text NOT NULL DEFAULT '',
+  meaning_id       text NOT NULL,                -- arti Indonesia
+  meaning_en       text NOT NULL DEFAULT '',
+  example          text NOT NULL DEFAULT '',     -- contoh kalimat JP
+  example_furigana text NOT NULL DEFAULT '',
+  example_id       text NOT NULL DEFAULT '',     -- terjemahan contoh
+  audio_text       text NOT NULL DEFAULT '',     -- kosong = term itu sendiri
+  tags             text[] NOT NULL DEFAULT '{}',
+  level            text NOT NULL DEFAULT 'dasar' CHECK (level IN ('dasar','menengah','lanjut')),
+  published        boolean NOT NULL DEFAULT true,
+  created_at       timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_vocab_cat ON ssw_vocabulary(category_id);
+-- Pencarian JP + ID di sisi DB (used oleh /api/ssw-cms?action=search)
+CREATE INDEX IF NOT EXISTS idx_ssw_vocab_term ON ssw_vocabulary USING gin (to_tsvector('simple', term || ' ' || furigana || ' ' || romaji || ' ' || meaning_id));
+
+-- ── Kanji SSW ──
+CREATE TABLE IF NOT EXISTS ssw_kanji (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  category_id uuid NOT NULL REFERENCES ssw_categories(id) ON DELETE CASCADE,
+  kanji       text NOT NULL,
+  onyomi      text NOT NULL DEFAULT '',
+  kunyomi     text NOT NULL DEFAULT '',
+  furigana    text NOT NULL DEFAULT '',
+  meaning_id  text NOT NULL,
+  examples    jsonb NOT NULL DEFAULT '[]',        -- [{word, reading, meaning_id}]
+  sentence    text NOT NULL DEFAULT '',           -- contoh kalimat
+  sentence_furigana text NOT NULL DEFAULT '',
+  sentence_id text NOT NULL DEFAULT '',
+  strokes     integer,
+  published   boolean NOT NULL DEFAULT true,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_kanji_cat ON ssw_kanji(category_id);
+
+-- ── Grammar SSW ──
+CREATE TABLE IF NOT EXISTS ssw_grammar (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  category_id uuid NOT NULL REFERENCES ssw_categories(id) ON DELETE CASCADE,
+  pattern     text NOT NULL,                      -- ～なければなりません
+  meaning_id  text NOT NULL,
+  explanation text NOT NULL DEFAULT '',
+  structure   text NOT NULL DEFAULT '',
+  examples    jsonb NOT NULL DEFAULT '[]',        -- [{jp, furigana, id}]
+  notes       text NOT NULL DEFAULT '',           -- catatan penggunaan
+  published   boolean NOT NULL DEFAULT true,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_grammar_cat ON ssw_grammar(category_id);
+
+-- ── Listening ──
+CREATE TABLE IF NOT EXISTS ssw_listening (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  category_id uuid NOT NULL REFERENCES ssw_categories(id) ON DELETE CASCADE,
+  title       text NOT NULL,
+  audio_text  text NOT NULL,                      -- dibacakan /api/tts (gratis, instan)
+  transcript  text NOT NULL DEFAULT '',
+  transcript_furigana text NOT NULL DEFAULT '',
+  translation_id text NOT NULL DEFAULT '',
+  questions   jsonb NOT NULL DEFAULT '[]',        -- [{type:'choice'|'blank'|'tf', ...}]
+  published   boolean NOT NULL DEFAULT true,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_listening_cat ON ssw_listening(category_id);
+
+-- ── Reading ──
+CREATE TABLE IF NOT EXISTS ssw_reading (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  category_id uuid NOT NULL REFERENCES ssw_categories(id) ON DELETE CASCADE,
+  title       text NOT NULL,
+  text        text NOT NULL,                      -- teks Jepang
+  furigana_text text NOT NULL DEFAULT '',         -- versi ber-furigana (toggle)
+  translation_id text NOT NULL DEFAULT '',        -- versi Indonesia (toggle)
+  vocab       jsonb NOT NULL DEFAULT '[]',        -- [{term, reading, meaning_id}]
+  questions   jsonb NOT NULL DEFAULT '[]',
+  published   boolean NOT NULL DEFAULT true,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_reading_cat ON ssw_reading(category_id);
+
+-- ── Quiz / Practice / Mock Exam ──
+-- kind: 'quiz' (per lesson/topik) | 'practice' (Practice Test) | 'mock' (Mock Exam)
+-- source: 'practice' (Generated Practice) | 'official' (Officially sourced) —
+-- label ini WAJIB ditampilkan apa adanya di UI; jangan pernah menampilkan
+-- soal generated sebagai soal resmi.
+CREATE TABLE IF NOT EXISTS ssw_quizzes (
+  id              uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  category_id     uuid NOT NULL REFERENCES ssw_categories(id) ON DELETE CASCADE,
+  lesson_id       uuid REFERENCES ssw_lessons(id) ON DELETE SET NULL,
+  kind            text NOT NULL CHECK (kind IN ('quiz','practice','mock')),
+  title           text NOT NULL,
+  description     text NOT NULL DEFAULT '',
+  pass_score      integer NOT NULL DEFAULT 60,    -- persen
+  time_limit_min  integer,                        -- NULL = tanpa batas waktu
+  question_count  integer,                        -- utk mock: jumlah soal per sesi
+  randomize       boolean NOT NULL DEFAULT false,
+  source          text NOT NULL DEFAULT 'practice' CHECK (source IN ('practice','official')),
+  source_name     text NOT NULL DEFAULT '',
+  source_url      text NOT NULL DEFAULT '',
+  source_updated  date,
+  published       boolean NOT NULL DEFAULT true,
+  created_by      uuid REFERENCES auth.users(id) ON DELETE SET NULL,
+  created_at      timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_quizzes_cat ON ssw_quizzes(category_id, kind);
+
+-- type: mc|tf|fill|match|vocab|kanji|grammar|listening|reading
+-- payload/answer jsonb: bentuk per tipe dijaga test unit test-ssw-cms.js
+CREATE TABLE IF NOT EXISTS ssw_questions (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  quiz_id     uuid NOT NULL REFERENCES ssw_quizzes(id) ON DELETE CASCADE,
+  type        text NOT NULL CHECK (type IN ('mc','tf','fill','match','vocab','kanji','grammar','listening','reading')),
+  payload     jsonb NOT NULL,                     -- {question, choices[], audio_text, passage, ...}
+  answer      jsonb NOT NULL,                     -- {index|bool|text|pairs[]}
+  explanation text NOT NULL DEFAULT '',
+  points      integer NOT NULL DEFAULT 1,
+  sort        integer NOT NULL DEFAULT 100,
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_questions_quiz ON ssw_questions(quiz_id, sort);
+
+-- ── Progres & hasil (milik user sendiri) ──
+CREATE TABLE IF NOT EXISTS ssw_progress (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id     uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  category_id uuid REFERENCES ssw_categories(id) ON DELETE CASCADE,
+  item_kind   text NOT NULL CHECK (item_kind IN ('lesson','vocab','kanji','grammar','listening','reading','quiz')),
+  item_id     text NOT NULL,                      -- uuid konten ATAU slug lokal
+  completed   boolean NOT NULL DEFAULT false,
+  score       integer,
+  last_at     timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (user_id, item_kind, item_id)
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_progress_user ON ssw_progress(user_id, category_id);
+
+CREATE TABLE IF NOT EXISTS ssw_exam_results (
+  id          uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id     uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  quiz_id     uuid REFERENCES ssw_quizzes(id) ON DELETE SET NULL,
+  category_id uuid REFERENCES ssw_categories(id) ON DELETE SET NULL,
+  score       integer NOT NULL,                   -- 0..100
+  passed      boolean NOT NULL DEFAULT false,
+  duration_s  integer NOT NULL DEFAULT 0,
+  detail      jsonb NOT NULL DEFAULT '[]',        -- per soal: {qid, correct, given}
+  created_at  timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS idx_ssw_exam_user ON ssw_exam_results(user_id, created_at DESC);
+
+CREATE TABLE IF NOT EXISTS ssw_favorites (
+  id         uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id    uuid NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  item_kind  text NOT NULL CHECK (item_kind IN ('lesson','vocab','kanji','grammar','listening','reading','quiz')),
+  item_id    text NOT NULL,
+  label      text NOT NULL DEFAULT '',            -- snapshot judul utk tampilan
+  created_at timestamptz NOT NULL DEFAULT now(),
+  UNIQUE (user_id, item_kind, item_id)
+);
+
+-- ============================================================
+-- RLS
+-- ============================================================
+ALTER TABLE ssw_categories ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_modules     ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_lessons     ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_vocabulary  ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_kanji       ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_grammar     ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_listening   ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_reading     ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_quizzes     ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_questions   ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_progress    ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_exam_results ENABLE ROW LEVEL SECURITY;
+ALTER TABLE ssw_favorites   ENABLE ROW LEVEL SECURITY;
+
+-- Konten: publik baca published saja. Tidak ada policy INSERT/UPDATE/DELETE —
+-- penulisan hanya via ssw-cms.js (service key bypass RLS), pola jlpt_questions.
+DO $$ BEGIN
+  CREATE POLICY "SSW categories public read" ON ssw_categories FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW modules public read" ON ssw_modules FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW lessons public read" ON ssw_lessons FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW vocab public read" ON ssw_vocabulary FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW kanji public read" ON ssw_kanji FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW grammar public read" ON ssw_grammar FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW listening public read" ON ssw_listening FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW reading public read" ON ssw_reading FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW quizzes public read" ON ssw_quizzes FOR SELECT USING (published = true);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW questions public read" ON ssw_questions FOR SELECT USING (
+    EXISTS (SELECT 1 FROM ssw_quizzes q WHERE q.id = quiz_id AND q.published = true)
+  );
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- Progres/hasil/favorit: milik user sendiri.
+DO $$ BEGIN
+  CREATE POLICY "SSW progress own" ON ssw_progress FOR ALL
+    USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW exam results own" ON ssw_exam_results FOR ALL
+    USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+DO $$ BEGIN
+  CREATE POLICY "SSW favorites own" ON ssw_favorites FOR ALL
+    USING (auth.uid() = user_id) WITH CHECK (auth.uid() = user_id);
+EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+
+-- ============================================================
+-- Seed 14 bidang resmi (slug dipakai URL ?field=)
+-- Sumber daftar: ISA/OTIT — 12 bidang 1号,其中的 11 juga 2号.
+-- idempoten: ON CONFLICT DO NOTHING supaya editan admin lewat CMS
+-- tidak tertimpa bila schema di-run ulang.
+-- ============================================================
+INSERT INTO ssw_categories (slug, name_jp, name_id, name_en, icon, type1_ok, type2_ok, description, sort) VALUES
+  ('kaigo',       '介護',             'Perawatan Lansia',        'Caregiving',                     '🧑‍🦳', true,  true,  'Perawatan harian lansia di fasilitas/rumah — ekosistem materi Kaigo situs ini tersedia penuh.', 10),
+  ('building-clean','ビルクリーニング','Pembersihan Gedung',      'Building Cleaning',              '🧹', true,  true,  'Pembersihan interior/eksterior gedung dan manajemen kebersihan fasilitas.', 20),
+  ('manufaktur',  '工業製品製造業',     'Manufaktur Produk Industri','Industrial Product Manufacturing','🏭', true, true, 'Pemeriksaan kualitas, perakitan, dan pengolahan material produk industri.', 30),
+  ('kensetsu',    '建設',             'Konstruksi',              'Construction',                   '🏗️', true,  true,  'Konstruksi bangunan, sipil, dan pemeliharaan fasilitas.', 40),
+  ('zousen',      '造船・舶用工業',     'Perkapalan',              'Shipbuilding & Marine Equipment','🚢', true,  true,  'Perakitan kapal, kelengkapan laut, dan pekerjaan pelayaran.', 50),
+  ('jidousha-seibi','自動車整備',      'Servis Otomotif',         'Automobile Maintenance',         '🔧', true,  true,  'Perawatan dan perbaikan kendaraan bermotor di bengkel resmi.', 60),
+  ('koukuu',      '航空',             'Penerbangan',             'Aviation',                       '✈️', true,  true,  'Penanganan darat bandara, bagasi, kargo, dan kebersihan pesawat.', 70),
+  ('shukuhaku',   '宿泊',             'Perhotelan',              'Accommodation',                  '🏨', true,  true,  'Front desk, housekeeping, F&B hotel dan ryokan.', 80),
+  ('unten',       '自動車運送業',       'Transportasi Kendaraan',  'Automobile Transportation',      '🚌', true,  false, 'Pengemudi bus/taksi/truk — khusus 1号.', 90),
+  ('tetsudou',    '鉄道',             'Kereta Api',              'Railway',                        '🚉', true,  true,  'Operasional stasiun, penjualan tiket, perawatan sarana rel.', 100),
+  ('nougyou',     '農業',             'Pertanian',               'Agriculture',                    '🌾', true,  true,  'Budidaya tanaman pangan/hortikultura dan manajemen lahan.', 110),
+  ('gyogyou',     '漁業',             'Perikanan',               'Fishery',                        '🐟', true,  true,  'Penangkapan dan budidaya ikan serta pengolahan hasil laut.', 120),
+  ('shokuhin',    '飲食料品製造業',     'Manufaktur Makanan',      'Food & Beverage Manufacturing',  '🍱', true,  true,  'Produksi dan pengolahan makanan/minuman di pabrik.', 130),
+  ('gaishoku',    '外食業',           'Restoran',                'Food Service',                   '🍜', true,  true,  'Penyajian makanan di restoran/kafe — dapur dan melayani pelanggan.', 140)
+ON CONFLICT (slug) DO NOTHING;
+
+-- Reminder bila Run ulang schema tidak dilakukan setelah update ini:
+-- lihat .github/workflows/schema-reminder.yml — pengingat otomatis di PR.

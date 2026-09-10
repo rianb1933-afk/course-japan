@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="/assets/icon-192.svg">
+
+<script src="/assets/env.js"></script>
+<script src="/assets/supabase-client.js"></script>
+<script src="/assets/analytics-loader.js" defer></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/kyoto-bundle.min.css">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz SSW — Nihongo Pro Academy</title>
+<meta name="description" content="Quiz bidang SSW: multiple choice, true/false, fill-in-the-blank, matching, vocabulary, kanji, grammar — skor otomatis dan pembahasan tiap soal.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Quiz SSW","description":"Quiz bidang SSW: multiple choice, true/false, fill-in-the-blank, matching, vocabulary, kanji, grammar — skor otomatis dan pembahasan tiap soal.","url":"https://nihonggoproacademy.netlify.app/SSW/Quiz.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","SSW"]}</script>
+
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#6B4F3A">
+<meta name="apple-mobile-web-app-title" content="NihongoPro">
+
+<link rel="stylesheet" href="/assets/kyoto-design-system.css">
+<link rel="stylesheet" href="/assets/kyoto-theme.css">
+<link rel="stylesheet" href="/assets/kyoto-elevation.css">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
+<link rel="stylesheet" href="/assets/ssw.css?v=8">
+</head>
+<body>
+<div id="knNavbar"></div>
+
+<main class="ssw-shell">
+  <nav class="ssw-crumb" aria-label="Breadcrumb">
+    <a href="/">Beranda</a><span class="sep">›</span>
+    <a href="/SSW.html">SSW 特定技能</a><span class="sep">›</span>
+    <a href="/SSW/Field-Dashboard.html" id="crumbField">Bidang</a><span class="sep">›</span>
+    <span class="here">Quiz</span>
+  </nav>
+
+  <header class="ssw-field-hero" style="padding:20px 22px" data-kanji="クイズ">
+    <h1 id="heroJp" style="font-size:26px">Quiz SSW</h1>
+    <div class="fh-id">Quiz bidang SSW: multiple choice, true/false, fill-in-the-blank, matching, vocabulary, kanji, grammar — skor otomatis dan pembahasan tiap soal.</div>
+  </header>
+
+  <div class="ssw-panel active">
+    <div class="ssw-module">
+      <h3><span class="mj">クイズ</span> Quiz SSW — segera lengkap</h3>
+      <p style="color:var(--ink-soft);font-size:14px;margin-top:6px">
+        Struktur data &amp; CMS untuk bagian ini sudah siap (tabel <code>ssw_quiz</code>).
+        Konten diisi lewat <strong>Admin Dashboard → SSW CMS</strong>, dan halaman ini
+        akan otomatis menampilkan materi per bidang <code>?field=</code>. Sementara,
+        mulai dari <a href="/SSW/Lesson.html" style="color:var(--red);font-weight:600">Materi (Lesson)</a>
+        atau <a href="/SSW/Vocabulary.html" style="color:var(--red);font-weight:600">Vocabulary</a>.
+      </p>
+    </div>
+  </div>
+</main>
+
+<div id="knFooter"></div>
+<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-bottom-nav.js" defer></script>
+<script src="/assets/ssw-api.js?v=8"></script>
+<script>
+(function () {
+  const slug = new URLSearchParams(location.search).get('field') || 'kaigo';
+  document.getElementById('tabVocabX'); // no-op
+  SSWAPI.getFieldTree(slug).then(({ category }) => {
+    if (!category) return;
+    document.getElementById('crumbField').textContent = category.name_jp + ' ' + category.name_id;
+    document.getElementById('crumbField').href = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
+    document.getElementById('heroJp').textContent = category.name_jp + ' — Quiz';
+    document.title = category.name_jp + ' Quiz — SSW | Nihongo Pro Academy';
+  });
+})();
+</script>
+</body>
+</html>
