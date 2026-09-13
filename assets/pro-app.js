@@ -254,7 +254,7 @@
     palette.className = 'pro-command-backdrop';
     palette.innerHTML = `
       <div class="pro-command" role="dialog" aria-modal="true" aria-label="Command palette">
-        <div class="pro-command-head"><span>検索</span><input type="search" placeholder="Cari halaman, fitur, atau level JLPT..." aria-label="Cari cepat"></div>
+        <div class="pro-command-head"><span>検索</span><input type="search" id="pro-command-search" name="pro-command-search" placeholder="Cari halaman, fitur, atau level JLPT..." aria-label="Cari cepat"></div>
         <div class="pro-command-list"></div>
       </div>`;
     document.body.appendChild(palette);
@@ -692,7 +692,7 @@
   if (!document.querySelector('.nihongo-chat-panel')) {
     const panel = document.createElement('section');
     panel.className = 'nihongo-chat-panel';
-    panel.innerHTML = `<div class="nihongo-panel-head"><b>Chatbot AI Pintar</b><div><button type="button" data-chat-settings title="Pengaturan AI">API</button><button type="button" data-chat-clear title="Hapus chat">Clear</button><button type="button" data-chat-close aria-label="Tutup chatbot AI">×</button></div></div><div class="nihongo-panel-body"><div class="nihongo-chat-settings"><input data-ai-endpoint placeholder="Endpoint API proxy, contoh: /api/ai-chat"><input data-ai-model placeholder="Model AI" value="local-smart-fallback"><button class="nihongo-panel-action" type="button" data-ai-save>Simpan API</button></div><div class="nihongo-chat-tools"><button class="nihongo-chat-chip" type="button" data-chat-prompt="Bedanya は dan が apa?">は vs が</button><button class="nihongo-chat-chip" type="button" data-chat-prompt="Jelaskan て-form untuk N5">て-form</button><button class="nihongo-chat-chip" type="button" data-chat-prompt="Buat jadwal belajar N5 selama 8 minggu">Jadwal N5</button><button class="nihongo-chat-chip" type="button" data-chat-prompt="Tips belajar kanji supaya cepat ingat">Tips Kanji</button><button class="nihongo-chat-chip" type="button" data-chat-prompt="arti 食べる dan readingnya">Arti 食べる</button></div><div class="nihongo-chat-log"></div><form class="nihongo-chat-form"><input placeholder="Tulis pertanyaan..." aria-label="Pertanyaan chatbot AI"><button>Kirim</button></form></div>`;
+    panel.innerHTML = `<div class="nihongo-panel-head"><b>Chatbot AI Pintar</b><div><button type="button" data-chat-settings title="Pengaturan AI">API</button><button type="button" data-chat-clear title="Hapus chat">Clear</button><button type="button" data-chat-close aria-label="Tutup chatbot AI">×</button></div></div><div class="nihongo-panel-body"><div class="nihongo-chat-settings"><input data-ai-endpoint id="nihongo-ai-endpoint" name="ai-endpoint" placeholder="Endpoint API proxy, contoh: /api/ai-chat"><input data-ai-model id="nihongo-ai-model" name="ai-model" placeholder="Model AI" value="local-smart-fallback"><button class="nihongo-panel-action" type="button" data-ai-save>Simpan API</button></div><div class="nihongo-chat-tools"><button class="nihongo-chat-chip" type="button" data-chat-prompt="Bedanya は dan が apa?">は vs が</button><button class="nihongo-chat-chip" type="button" data-chat-prompt="Jelaskan て-form untuk N5">て-form</button><button class="nihongo-chat-chip" type="button" data-chat-prompt="Buat jadwal belajar N5 selama 8 minggu">Jadwal N5</button><button class="nihongo-chat-chip" type="button" data-chat-prompt="Tips belajar kanji supaya cepat ingat">Tips Kanji</button><button class="nihongo-chat-chip" type="button" data-chat-prompt="arti 食べる dan readingnya">Arti 食べる</button></div><div class="nihongo-chat-log"></div><form class="nihongo-chat-form"><input id="nihongo-chat-question" name="chat-question" placeholder="Tulis pertanyaan..." aria-label="Pertanyaan chatbot AI"><button>Kirim</button></form></div>`;
     document.body.appendChild(panel);
     const log = panel.querySelector('.nihongo-chat-log');
     const endpointInput = panel.querySelector('[data-ai-endpoint]');
@@ -837,7 +837,7 @@
   if (!document.querySelector('.nihongo-search-panel')) {
     const panel = document.createElement('section');
     panel.className = 'nihongo-reco-panel nihongo-search-panel';
-    panel.innerHTML = `<div class="nihongo-panel-head"><b>Advanced Search</b><button type="button" data-search-close aria-label="Tutup pencarian lanjutan">×</button></div><div class="nihongo-panel-body"><input class="nihongo-search-input" placeholder="Cari materi, fitur, level, kanji, vocab..."><div class="nihongo-search-results" style="margin-top:10px"></div></div>`;
+    panel.innerHTML = `<div class="nihongo-panel-head"><b>Advanced Search</b><button type="button" data-search-close aria-label="Tutup pencarian lanjutan">×</button></div><div class="nihongo-panel-body"><input class="nihongo-search-input" id="nihongo-advanced-search" name="advanced-search" placeholder="Cari materi, fitur, level, kanji, vocab..."><div class="nihongo-search-results" style="margin-top:10px"></div></div>`;
     document.body.appendChild(panel);
     const input = panel.querySelector('input');
     const results = panel.querySelector('.nihongo-search-results');
@@ -877,7 +877,7 @@
   if (!document.querySelector('.nihongo-collab-panel')) {
     const panel = document.createElement('section');
     panel.className = 'nihongo-collab-panel';
-    panel.innerHTML = `<div class="nihongo-panel-head"><b>Kolaborasi Real-time</b><button type="button" data-collab-close aria-label="Tutup catatan kolaborasi">×</button></div><div class="nihongo-panel-body"><div class="nihongo-collab-list"></div><textarea class="nihongo-collab-note" placeholder="Tulis catatan belajar bersama..." style="margin-top:10px;min-height:80px"></textarea><button class="nihongo-panel-action" style="margin-top:8px" data-collab-save>Simpan Catatan</button></div>`;
+    panel.innerHTML = `<div class="nihongo-panel-head"><b>Kolaborasi Real-time</b><button type="button" data-collab-close aria-label="Tutup catatan kolaborasi">×</button></div><div class="nihongo-panel-body"><div class="nihongo-collab-list"></div><textarea class="nihongo-collab-note" id="nihongo-collab-note" name="collab-note" placeholder="Tulis catatan belajar bersama..." style="margin-top:10px;min-height:80px"></textarea><button class="nihongo-panel-action" style="margin-top:8px" data-collab-save>Simpan Catatan</button></div>`;
     document.body.appendChild(panel);
     const channel = 'BroadcastChannel' in window ? new BroadcastChannel('nihongo-pro-collab') : null;
     const render = () => {
