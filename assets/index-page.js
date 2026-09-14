@@ -6,6 +6,16 @@
 // di bawahnya. Juga didelegasikan ke window.NPDark jika tersedia (dark-mode-toggle.js
 // dimuat lebih dulu di index.html) supaya tidak bentrok dengan localStorage key lain.
 const themeToggle = document.getElementById('themeToggle');
+function runWhileVisible(callback, interval) {
+  let timer = null;
+  function sync() {
+    if (timer !== null) clearInterval(timer);
+    timer = document.hidden ? null : setInterval(callback, interval);
+    if (!document.hidden) callback();
+  }
+  document.addEventListener('visibilitychange', sync);
+  sync();
+}
 if (typeof window.NPDark === 'object' && window.NPDark !== null) {
   if (themeToggle) themeToggle.textContent = window.NPDark.isDarkActive() ? '☀️' : '🌙';
   if (themeToggle) themeToggle.addEventListener('click', () => {
@@ -72,7 +82,7 @@ function nextCard() {
     fcCard.style.transform = 'translateY(0)';
   }, 300);
 }
-if (fcCard) { fcCard.addEventListener('click', nextCard); setInterval(nextCard, 3000); }
+if (fcCard) { fcCard.addEventListener('click', nextCard); runWhileVisible(nextCard, 3000); }
 
 // ── KANA DATA ──
 const hiraganaData = [
@@ -131,8 +141,16 @@ function buildGrid(data, type) {
     const cell = document.createElement('div');
     cell.className = k.j ? 'kana-cell' : 'kana-cell empty';
     if (k.j) {
+      cell.setAttribute('role', 'button');
+      cell.setAttribute('tabindex', '0');
       cell.innerHTML = `<span class="jp">${k.j}</span><span class="rm">${k.r}</span>`;
       cell.addEventListener('click', () => openCharModal(k, type));
+      cell.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openCharModal(k, type);
+        }
+      });
     }
     grid.appendChild(cell);
   });
@@ -151,16 +169,39 @@ document.querySelectorAll('.chart-tab').forEach(tab => {
 
 // ── CHARACTER MODAL ──
 const charModal = document.getElementById('charModal');
+let charReturnFocus = null;
 function openCharModal(k, type) {
+  charReturnFocus = document.activeElement;
   document.getElementById('modalKana').textContent = k.j;
   document.getElementById('modalRomaji').textContent = k.r.toUpperCase();
   document.getElementById('modalInfo').textContent = `${type === 'hiragana' ? 'Hiragana' : 'Katakana'} · Bacaan: ${k.r} · ${k.strokes || '–'} goresan`;
   document.getElementById('modalWord').textContent = k.ex || k.j;
   document.getElementById('modalWordRomaji').textContent = k.exR || '';
   charModal.classList.add('open');
+  document.getElementById('charModalClose').focus();
 }
-document.getElementById('charModalClose').addEventListener('click', () => charModal.classList.remove('open'));
-charModal.addEventListener('click', e => { if (e.target === charModal) charModal.classList.remove('open'); });
+function closeCharModal() {
+  charModal.classList.remove('open');
+  if (charReturnFocus && typeof charReturnFocus.focus === 'function') charReturnFocus.focus();
+  charReturnFocus = null;
+}
+document.getElementById('charModalClose').addEventListener('click', closeCharModal);
+charModal.addEventListener('click', e => { if (e.target === charModal) closeCharModal(); });
+charModal.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeCharModal();
+  if (e.key !== 'Tab') return;
+  const focusable = charModal.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])');
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (e.shiftKey && document.activeElement === first) {
+    e.preventDefault();
+    last.focus();
+  } else if (!e.shiftKey && document.activeElement === last) {
+    e.preventDefault();
+    first.focus();
+  }
+});
 
 // ── QUIZ ──
 const quizData = hiraganaData.filter(k => k.j && k.r);
@@ -593,7 +634,7 @@ function updateCountdown() {
   document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
 }
 updateCountdown();
-setInterval(updateCountdown, 1000);
+runWhileVisible(updateCountdown, 1000);
 
 // ── SCROLL REVEAL — No-hide approach, semua elemen selalu visible ──
 (function () {
@@ -1556,8 +1597,7 @@ if (cuteClockTime && cuteClockPeriod && cuteClockDay && cuteClockDate) {
     cuteClockDate.textContent = `${dateFormatter.format(now)} · Tokyo にゃん`;
   }
 
-  renderCuteClock();
-  setInterval(renderCuteClock, 1000);
+  runWhileVisible(renderCuteClock, 1000);
 }
 
 const missionLevel = document.getElementById('missionLevel');
