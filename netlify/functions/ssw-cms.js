@@ -64,6 +64,35 @@ function intOr(v, dflt) {
   return Number.isInteger(n) ? n : dflt;
 }
 
+// ── Validasi soal quiz — satu sumber aturan untuk endpoint save-question
+// DAN audit seed SQL (scripts/audit-ssw-content.js). Soal yang ditanam lewat
+// seed tidak pernah melewati endpoint ini, jadi tanpa aturan bersama bentuk
+// soal di seed bisa menyimpang tanpa ketahuan. Mengembalikan pesan atau null.
+const QUESTION_TYPES = ['mc','tf','fill','match','vocab','kanji','grammar','listening','reading'];
+const CHOICE_TYPES = ['mc','vocab','kanji','grammar','listening','reading'];
+function validateQuestion(q) {
+  if (!QUESTION_TYPES.includes(q.type)) return 'type wajib salah satu: ' + QUESTION_TYPES.join(',');
+  const payload = q.payload || {};
+  const answer = q.answer || {};
+  if (typeof payload.question !== 'string' || !payload.question.trim()) return 'payload.question wajib.';
+  if (CHOICE_TYPES.includes(q.type)) {
+    if (!Array.isArray(payload.choices) || payload.choices.length < 2 || payload.choices.length > 6) {
+      return 'pilihan jawaban wajib 2-6 opsi untuk tipe pilihan ganda.';
+    }
+    if (!Number.isInteger(answer.index) || answer.index < 0 || answer.index >= payload.choices.length) {
+      return 'answer.index tidak valid untuk tipe pilihan ganda.';
+    }
+  } else if (q.type === 'tf') {
+    if (typeof answer.bool !== 'boolean') return 'answer.bool (true/false) wajib untuk tipe tf.';
+  } else if (q.type === 'fill') {
+    if (!Array.isArray(answer.accept) || answer.accept.length === 0) return 'answer.accept (daftar jawaban diterima) wajib untuk tipe fill.';
+  } else if (q.type === 'match') {
+    if (!Array.isArray(answer.pairs) || answer.pairs.length < 2) return 'answer.pairs wajib minimal 2 pasangan untuk tipe match.';
+  }
+  if (!q.explanation || !String(q.explanation).trim()) return 'Pembahasan wajib diisi — standar proyek ini.';
+  return null;
+}
+
 // ── Validasi per entity — pesan dalam bahasa admin (Indonesia) ──
 function validateEntity(entity, data, isUpdate) {
   const d = data || {};
@@ -142,14 +171,17 @@ function validateEntity(entity, data, isUpdate) {
 // ── Bersihkan payload sebelum masuk DB (anti kolom asing) ──
 const ALLOWED_COLS = {
   ssw_categories: ['slug','name_jp','name_id','name_en','icon','type1_ok','type2_ok','description','sort','published'],
-  ssw_modules:    ['category_id','title','title_jp','description','sort','published'],
-  ssw_lessons:    ['module_id','slug','title','title_jp','description','body_md','vocab_ids','kanji_ids','grammar_ids','audio_text','video_url','dialogues','example_questions','notes','sort','published'],
-  ssw_vocabulary: ['category_id','term','furigana','romaji','meaning_id','meaning_en','example','example_furigana','example_id','audio_text','tags','level','published'],
-  ssw_kanji:      ['category_id','kanji','onyomi','kunyomi','furigana','meaning_id','examples','sentence','sentence_furigana','sentence_id','strokes','published'],
-  ssw_grammar:    ['category_id','pattern','meaning_id','explanation','structure','examples','notes','published'],
-  ssw_listening:  ['category_id','title','audio_text','transcript','transcript_furigana','translation_id','questions','published'],
-  ssw_reading:    ['category_id','title','text','furigana_text','translation_id','vocab','questions','published'],
-  ssw_quizzes:    ['category_id','lesson_id','kind','title','description','pass_score','time_limit_min','question_count','randomize','source','source_name','source_url','source_updated','published'],
+  // tags/slug/source/distribution: metadata pipeline kurikulum (lihat
+  // "Metadata konten SSW" di supabase-schema.sql). Tanpa ini, simpanan admin
+  // lewat CMS diam-diam membuang kolom tersebut.
+  ssw_modules:    ['category_id','slug','title','title_jp','description','tags','sort','published'],
+  ssw_lessons:    ['module_id','slug','title','title_jp','description','body_md','vocab_ids','kanji_ids','grammar_ids','audio_text','video_url','dialogues','example_questions','notes','tags','source','source_url','sort','published'],
+  ssw_vocabulary: ['category_id','term','furigana','romaji','meaning_id','meaning_en','example','example_furigana','example_id','audio_text','tags','level','source','source_url','published'],
+  ssw_kanji:      ['category_id','kanji','onyomi','kunyomi','furigana','meaning_id','examples','sentence','sentence_furigana','sentence_id','strokes','tags','source','source_url','published'],
+  ssw_grammar:    ['category_id','pattern','meaning_id','explanation','structure','examples','notes','tags','source','source_url','published'],
+  ssw_listening:  ['category_id','title','audio_text','transcript','transcript_furigana','translation_id','questions','tags','source','source_url','published'],
+  ssw_reading:    ['category_id','title','text','furigana_text','translation_id','vocab','questions','tags','source','source_url','published'],
+  ssw_quizzes:    ['category_id','lesson_id','slug','kind','title','description','pass_score','time_limit_min','question_count','randomize','distribution','tags','source','source_name','source_url','source_updated','published'],
 };
 
 function sanitize(entity, data) {
@@ -191,6 +223,8 @@ async function verifyAdmin(authHeader, sbService) {
 
 function ok(CORS, body, code = 200) { return { statusCode: code, headers: CORS, body: JSON.stringify(body) }; }
 function fail(CORS, code, error) { return { statusCode: code, headers: CORS, body: JSON.stringify({ error }) }; }
+
+exports.validateQuestion = validateQuestion;
 
 exports.handler = async (event) => {
   const CORS = corsHeadersFor(event);
@@ -246,8 +280,13 @@ exports.handler = async (event) => {
       if (!cat) return fail(CORS, 404, 'Bidang tidak ditemukan.');
       let q = sbService.from(table).select('*').eq('category_id', cat.id).eq('published', true);
       if (params.q) {
-        // Pencarian sederhana JP+ID — ilike di beberapa kolom
-        const like = `%${params.q}%`;
+        // Pencarian sederhana JP+ID — ilike di beberapa kolom.
+        // `,` `(` `)` dibuang dulu: karakter itu adalah pemisah/pengelompok
+        // di sintaks filter .or() PostgREST, jadi query mentah pengguna bisa
+        // menyisipkan klausa tambahan (mis. "x,is.null") kalau diloloskan
+        // langsung ke dalam string filter gabungan di bawah.
+        const safeQ = String(params.q).replace(/[,()]/g, '');
+        const like = `%${safeQ}%`;
         const cols = kind === 'vocabulary' ? ['term','furigana','romaji','meaning_id'] :
                      kind === 'kanji' ? ['kanji','meaning_id'] :
                      kind === 'grammar' ? ['pattern','meaning_id'] : ['title'];
@@ -325,26 +364,10 @@ exports.handler = async (event) => {
       // Soal quiz: satu endpoint terpisah karena bentuk payload/answer per tipe
       const q = body.data || {};
       if (!q.quiz_id) return fail(CORS, 400, 'quiz_id wajib.');
-      const TYPES = ['mc','tf','fill','match','vocab','kanji','grammar','listening','reading'];
-      if (!TYPES.includes(q.type)) return fail(CORS, 400, 'type wajib salah satu: ' + TYPES.join(','));
+      const invalid = validateQuestion(q);
+      if (invalid) return fail(CORS, 400, invalid);
       const payload = q.payload || {};
       const answer = q.answer || {};
-      if (typeof payload.question !== 'string' || !payload.question.trim()) return fail(CORS, 400, 'payload.question wajib.');
-      if (['mc','vocab','kanji','grammar','listening','reading'].includes(q.type)) {
-        if (!Array.isArray(payload.choices) || payload.choices.length < 2 || payload.choices.length > 6) {
-          return fail(CORS, 400, 'pilihan jawaban wajib 2-6 opsi untuk tipe pilihan ganda.');
-        }
-        if (!Number.isInteger(answer.index) || answer.index < 0 || answer.index >= payload.choices.length) {
-          return fail(CORS, 400, 'answer.index tidak valid untuk tipe pilihan ganda.');
-        }
-      } else if (q.type === 'tf') {
-        if (typeof answer.bool !== 'boolean') return fail(CORS, 400, 'answer.bool (true/false) wajib untuk tipe tf.');
-      } else if (q.type === 'fill') {
-        if (!Array.isArray(answer.accept) || answer.accept.length === 0) return fail(CORS, 400, 'answer.accept (daftar jawaban diterima) wajib untuk tipe fill.');
-      } else if (q.type === 'match') {
-        if (!Array.isArray(answer.pairs) || answer.pairs.length < 2) return fail(CORS, 400, 'answer.pairs wajib minimal 2 pasangan untuk tipe match.');
-      }
-      if (!q.explanation || !String(q.explanation).trim()) return fail(CORS, 400, 'Pembahasan wajib diisi — standar proyek ini.');
 
       const row = {
         quiz_id: q.quiz_id, type: q.type,
@@ -353,6 +376,8 @@ exports.handler = async (event) => {
         explanation: String(q.explanation).trim().slice(0, 5000),
         points: intOr(q.points, 1),
         sort: intOr(q.sort, 100),
+        // tag area ('area:seikatsu') dipakai mock berstrata & rekomendasi remedial
+        tags: Array.isArray(q.tags) ? q.tags.filter(t => typeof t === 'string').map(t => t.trim().slice(0, 60)).filter(Boolean).slice(0, 20) : [],
       };
       let result;
       if (q.id) result = await sbService.from('ssw_questions').update(row).eq('id', q.id).select().single();

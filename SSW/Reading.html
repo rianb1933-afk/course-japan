@@ -15,6 +15,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reading SSW — Nihongo Pro Academy</title>
 <meta name="description" content="Latihan reading SSW: teks Jepang dengan toggle furigana & terjemahan Indonesia, vocabulary, soal, dan pembahasan.">
+<meta property="og:title" content="Reading SSW">
+<meta property="og:description" content="Latihan reading SSW: teks Jepang dengan toggle furigana & terjemahan Indonesia, vocabulary, soal, dan pembahasan.">
+<meta property="og:url" content="https://nihonggoproacademy.netlify.app/SSW/Reading.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Reading SSW">
+<meta name="twitter:description" content="Latihan reading SSW: teks Jepang dengan toggle furigana & terjemahan Indonesia, vocabulary, soal, dan pembahasan.">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Reading SSW","description":"Latihan reading SSW: teks Jepang dengan toggle furigana & terjemahan Indonesia, vocabulary, soal, dan pembahasan.","url":"https://nihonggoproacademy.netlify.app/SSW/Reading.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","SSW"]}</script>
 
 <link rel="manifest" href="/manifest.json">
@@ -24,9 +31,9 @@
 <link rel="stylesheet" href="/assets/kyoto-design-system.css">
 <link rel="stylesheet" href="/assets/kyoto-theme.css">
 <link rel="stylesheet" href="/assets/kyoto-elevation.css">
-<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=9">
 <link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
-<link rel="stylesheet" href="/assets/ssw.css?v=8">
+<link rel="stylesheet" href="/assets/ssw.css?v=9">
 </head>
 <body>
 <div id="knNavbar"></div>
@@ -45,33 +52,42 @@
   </header>
 
   <div class="ssw-panel active">
-    <div class="ssw-module">
-      <h3><span class="mj">読解</span> Reading SSW — segera lengkap</h3>
+    <div id="sswItems"></div>
+    <div class="ssw-module" id="sswEmpty" hidden>
+      <h3><span class="mj">読解</span> Belum ada konten Reading untuk bidang ini</h3>
       <p style="color:var(--ink-soft);font-size:14px;margin-top:6px">
-        Struktur data &amp; CMS untuk bagian ini sudah siap (tabel <code>ssw_reading</code>).
-        Konten diisi lewat <strong>Admin Dashboard → SSW CMS</strong>, dan halaman ini
-        akan otomatis menampilkan materi per bidang <code>?field=</code>. Sementara,
-        mulai dari <a href="/SSW/Lesson.html" style="color:var(--red);font-weight:600">Materi (Lesson)</a>
-        atau <a href="/SSW/Vocabulary.html" style="color:var(--red);font-weight:600">Vocabulary</a>.
+        Konten ditambahkan lewat <strong>Admin Dashboard → SSW CMS</strong> (tabel <code>ssw_reading</code>).
+        Sementara, lanjutkan dari <a href="/SSW/Field-Dashboard.html" id="sswBack" style="color:var(--red);font-weight:600">dashboard bidang</a>
+        — materi, kosakata, dan kuis.
       </p>
     </div>
   </div>
 </main>
 
 <div id="knFooter"></div>
-<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="/assets/kyoto-bottom-nav.js" defer></script>
-<script src="/assets/ssw-api.js?v=8"></script>
+<script src="/assets/ssw-api.js?v=9"></script>
+<script src="/assets/ssw-seed.js?v=9"></script>
+<script src="/assets/np-speech.js"></script>
+<script src="/assets/ssw-content.js?v=9"></script>
 <script>
 (function () {
   const slug = new URLSearchParams(location.search).get('field') || 'kaigo';
-  document.getElementById('tabVocabX'); // no-op
+  const back = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
+  document.getElementById('sswBack').href = back;
   SSWAPI.getFieldTree(slug).then(({ category }) => {
-    if (!category) return;
-    document.getElementById('crumbField').textContent = category.name_jp + ' ' + category.name_id;
-    document.getElementById('crumbField').href = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
+    if (!category) {
+      document.getElementById('heroJp').textContent = 'Bidang tidak ditemukan';
+      return;
+    }
+    // null-safe: breadcrumb pernah dihapus kyoto-navbar dan membuat seluruh
+    // halaman kosong tanpa pesan — konten tidak boleh bergantung padanya.
+    const crumb = document.getElementById('crumbField');
+    if (crumb) { crumb.textContent = category.name_jp + ' ' + category.name_id; crumb.href = back; }
     document.getElementById('heroJp').textContent = category.name_jp + ' — Reading';
     document.title = category.name_jp + ' Reading — SSW | Nihongo Pro Academy';
+    SSWContent.mount('reading', slug, document.getElementById('sswItems'), document.getElementById('sswEmpty'));
   });
 })();
 </script>

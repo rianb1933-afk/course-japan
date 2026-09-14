@@ -102,10 +102,115 @@
 .ssw-pbar{height:8px;border-radius:999px;background:var(--border);overflow:hidden}
 .ssw-pbar .fill{height:100%;border-radius:999px;background:var(--red);transition:width .4s}
 
+/* ── Panel/tab bersama ──
+   Sebelumnya aturan ini hanya ada di <style> inline Field-Dashboard.html,
+   sehingga halaman lain yang memakai pola .ssw-panel (mis. Quiz.html)
+   menampilkan SEMUA panel sekaligus. Tempatnya memang di sini. */
+.ssw-panel{display:none}
+.ssw-panel.active{display:block}
+
+/* ── Kuis & ujian ── */
+.ssw-quiz-list{display:grid;gap:12px}
+.ssw-quiz-card{display:block;background:var(--white);border:1px solid var(--border-mid);border-radius:14px;padding:16px 18px;transition:border-color .15s,transform .15s}
+.ssw-quiz-card:hover{border-color:var(--red);transform:translateY(-1px)}
+.ssw-quiz-card h3{font-size:16px;font-weight:700;color:var(--ink);margin-bottom:4px}
+.ssw-quiz-card p{font-size:13.5px;color:var(--ink-soft);line-height:1.6}
+.ssw-quiz-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;align-items:center}
+.ssw-chip{display:inline-flex;align-items:center;gap:4px;font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:999px;background:var(--cream);color:var(--ink-mid);border:1px solid var(--border-mid)}
+.ssw-chip.official{background:var(--gold-pale,#FBF0D8);color:var(--gold,#A35904);border-color:transparent}
+.ssw-chip.practice{background:var(--blue-pale,#EAF1FD);color:var(--blue,#2F6FED);border-color:transparent}
+.ssw-chip.done{background:var(--green-pale,#E8F8F0);color:var(--green,#117E39);border-color:transparent}
+
+.ssw-q{background:var(--white);border:1px solid var(--border-mid);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+.ssw-q .q-head{display:flex;justify-content:space-between;gap:12px;font-size:11.5px;font-weight:700;color:var(--red);margin-bottom:8px}
+.ssw-q .q-text{font-size:15px;font-weight:600;color:var(--ink);line-height:1.7;margin-bottom:12px}
+.ssw-q .q-text .jp{font-family:'Noto Serif JP',serif}
+.ssw-opts{display:grid;gap:8px}
+.ssw-opt{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:var(--white);border:1px solid var(--border-mid);border-radius:10px;padding:11px 14px;font-size:14px;font-family:inherit;color:var(--ink);cursor:pointer;transition:border-color .15s,background .15s}
+.ssw-opt:hover:not(:disabled){border-color:var(--red)}
+.ssw-opt.chosen{border-color:var(--red);background:var(--red-pale,#FDEEEC)}
+.ssw-opt.correct{border-color:transparent;background:var(--green-pale,#E8F8F0);color:var(--green,#117E39);font-weight:600}
+.ssw-opt.wrong{border-color:transparent;background:var(--red-pale,#FDEEEC);color:var(--red);font-weight:600}
+.ssw-opt:disabled{cursor:default}
+.ssw-fill{width:100%;padding:11px 14px;border:1px solid var(--border-mid);border-radius:10px;font-size:15px;font-family:inherit;background:var(--white);color:var(--ink)}
+.ssw-fill:focus{outline:none;border-color:var(--red)}
+.ssw-match{display:grid;gap:8px}
+.ssw-match-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:center}
+.ssw-match-row .m-left{font-family:'Noto Serif JP',serif;font-size:15px;font-weight:600;color:var(--ink)}
+.ssw-match-row select{padding:9px 12px;border:1px solid var(--border-mid);border-radius:10px;font-size:14px;font-family:inherit;background:var(--white);color:var(--ink)}
+.ssw-expl{margin-top:12px;padding:12px 14px;border-radius:10px;background:var(--cream);border-left:3px solid var(--border-mid);font-size:13.5px;line-height:1.7;color:var(--ink-mid)}
+.ssw-expl.correct{border-left-color:var(--green,#117E39)}
+.ssw-expl.wrong{border-left-color:var(--red)}
+.ssw-expl strong{color:var(--ink)}
+
+.ssw-quiz-bar{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.ssw-quiz-bar .ssw-pbar{flex:1}
+.ssw-quiz-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.ssw-btn{border:1px solid var(--border-mid);background:var(--white);color:var(--ink);border-radius:10px;padding:11px 20px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer}
+.ssw-btn:hover:not(:disabled){border-color:var(--red);color:var(--red)}
+.ssw-btn.primary{background:var(--red);border-color:var(--red);color:#fff}
+.ssw-btn.primary:hover:not(:disabled){opacity:.9;color:#fff}
+.ssw-btn:disabled{opacity:.5;cursor:not-allowed}
+
+/* ── Mock exam ── */
+.ssw-exam-top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.ssw-timer{font-family:'Noto Serif JP',serif;font-size:26px;font-weight:800;color:var(--ink);letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.ssw-timer.warn{color:var(--gold,#A35904)}
+.ssw-timer.danger{color:var(--red)}
+.ssw-navgrid{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.ssw-navbtn{width:38px;height:38px;border-radius:10px;border:1px solid var(--border-mid);background:var(--white);color:var(--ink-mid);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;position:relative}
+.ssw-navbtn:hover{border-color:var(--red)}
+.ssw-navbtn.answered{background:var(--green-pale,#E8F8F0);color:var(--green,#117E39);border-color:transparent}
+.ssw-navbtn.flagged::after{content:'⚑';position:absolute;top:-4px;right:-2px;font-size:11px;color:var(--gold,#A35904)}
+.ssw-navbtn.current{border-color:var(--red);border-width:2px;color:var(--red)}
+.ssw-btn.flagged{border-color:var(--gold,#A35904);color:var(--gold,#A35904)}
+
+/* ── Progress ── */
+.ssw-sync{display:flex;gap:8px;align-items:flex-start;background:var(--blue-pale,#EAF1FD);color:var(--ink-mid);border-radius:12px;padding:12px 16px;font-size:13px;line-height:1.6;margin-bottom:16px}
+/* minmax(0,1fr): track grid `auto` mengambil lebar min-content baris
+   terpanjang (judul nowrap), sehingga SEMUA baris ikut melebar dan elipsis
+   .h-title tidak pernah bekerja — scroll horizontal di ponsel. */
+.ssw-history{display:grid;grid-template-columns:minmax(0,1fr);gap:8px}
+.ssw-hrow{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--white);border:1px solid var(--border-mid);border-radius:12px;padding:12px 16px}
+.ssw-hrow .h-main{min-width:0}
+.ssw-hrow .h-title{font-size:14px;font-weight:700;color:var(--ink);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ssw-hrow .h-sub{font-size:12px;color:var(--ink-soft);margin-top:2px}
+.ssw-hrow .h-score{font-size:18px;font-weight:800;white-space:nowrap}
+.ssw-hrow .h-score.pass{color:var(--green,#117E39)}
+.ssw-hrow .h-score.fail{color:var(--red)}
+a.ssw-hrow:hover{border-color:var(--red)}
+
+.ssw-score{background:var(--white);border:1px solid var(--border-mid);border-radius:16px;padding:26px;text-align:center;margin-bottom:18px}
+.ssw-score .sc-num{font-size:46px;font-weight:800;line-height:1.1}
+.ssw-score .sc-num.pass{color:var(--green,#117E39)}
+.ssw-score .sc-num.fail{color:var(--red)}
+.ssw-score .sc-verdict{font-size:15px;font-weight:700;margin-top:4px}
+.ssw-score .sc-sub{font-size:13.5px;color:var(--ink-soft);margin-top:6px}
+
+/* ── Konten per jenis: kanji/grammar/listening/reading (assets/ssw-content.js) ── */
+.ct-card .jp{font-family:'Noto Serif JP',serif}
+.ct-card .ct-head{display:flex;align-items:center;gap:16px;margin-bottom:10px}
+.ct-card .ct-big{font-size:40px;font-weight:700;color:var(--red);line-height:1.1}
+.ct-card .ct-title{font-size:15px;font-weight:700;color:var(--ink)}
+.ct-card .ct-soft{font-size:12.5px;color:var(--ink-soft)}
+.ct-card .ct-text{font-size:14px;line-height:1.75;color:var(--ink-mid);margin:8px 0}
+.ct-card .ct-structure{display:inline-block;margin-top:8px;padding:4px 10px;border-radius:8px;background:var(--cream);border:1px solid var(--border-mid);font-size:13.5px}
+.ct-card .ct-list{margin:6px 0 4px 18px;font-size:14px;line-height:1.8}
+.ct-card .ct-reading{font-size:16px;line-height:2;margin:10px 0;white-space:pre-line}
+.ct-card .ct-vocab{display:flex;flex-wrap:wrap;gap:6px}
+.ct-card .ct-sub{font-size:13px;font-weight:700;color:var(--ink);margin:16px 0 8px}
+.ct-card .ct-details{margin:8px 0}
+.ct-card .ct-details summary{cursor:pointer;font-size:13px;font-weight:700;color:var(--ink-mid)}
+.ct-card .ct-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.ct-card .ssw-q{background:var(--cream)}
+
 /* ── Mobile ── */
 @media(max-width:640px){
   .ssw-lesson-body{padding:16px}
   .ssw-vocab-grid{grid-template-columns:1fr}
   .ssw-field-hero{padding:20px 16px}
   .ssw-lesson-nav{flex-direction:column}
+  .ssw-q{padding:16px}
+  .ssw-match-row{grid-template-columns:1fr;gap:6px}
+  .ssw-quiz-actions .ssw-btn{flex:1}
 }

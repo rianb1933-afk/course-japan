@@ -14,8 +14,15 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Kanji SSW — Nihongo Pro Academy</title>
-<meta name="description" content="Kanji bidang SSW: arti, on/kun reading, contoh kata & kalimat, stroke order, quiz, dan flashcard.">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Kanji SSW","description":"Kanji bidang SSW: arti, on/kun reading, contoh kata & kalimat, stroke order, quiz, dan flashcard.","url":"https://nihonggoproacademy.netlify.app/SSW/Kanji.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","SSW"]}</script>
+<meta name="description" content="Kanji bidang SSW: arti, cara baca on/kun, contoh kata & kalimat ber-furigana, dan audio.">
+<meta property="og:title" content="Kanji SSW">
+<meta property="og:description" content="Kanji bidang SSW: arti, cara baca on/kun, contoh kata & kalimat ber-furigana, dan audio.">
+<meta property="og:url" content="https://nihonggoproacademy.netlify.app/SSW/Kanji.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kanji SSW">
+<meta name="twitter:description" content="Kanji bidang SSW: arti, cara baca on/kun, contoh kata & kalimat ber-furigana, dan audio.">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Kanji SSW","description":"Kanji bidang SSW: arti, cara baca on/kun, contoh kata & kalimat ber-furigana, dan audio.","url":"https://nihonggoproacademy.netlify.app/SSW/Kanji.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","SSW"]}</script>
 
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#6B4F3A">
@@ -24,9 +31,9 @@
 <link rel="stylesheet" href="/assets/kyoto-design-system.css">
 <link rel="stylesheet" href="/assets/kyoto-theme.css">
 <link rel="stylesheet" href="/assets/kyoto-elevation.css">
-<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=9">
 <link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
-<link rel="stylesheet" href="/assets/ssw.css?v=8">
+<link rel="stylesheet" href="/assets/ssw.css?v=9">
 </head>
 <body>
 <div id="knNavbar"></div>
@@ -41,37 +48,46 @@
 
   <header class="ssw-field-hero" style="padding:20px 22px" data-kanji="漢字">
     <h1 id="heroJp" style="font-size:26px">Kanji SSW</h1>
-    <div class="fh-id">Kanji bidang SSW: arti, on/kun reading, contoh kata & kalimat, stroke order, quiz, dan flashcard.</div>
+    <div class="fh-id">Kanji bidang SSW: arti, cara baca on/kun, contoh kata & kalimat ber-furigana, dan audio.</div>
   </header>
 
   <div class="ssw-panel active">
-    <div class="ssw-module">
-      <h3><span class="mj">漢字</span> Kanji SSW — segera lengkap</h3>
+    <div id="sswItems"></div>
+    <div class="ssw-module" id="sswEmpty" hidden>
+      <h3><span class="mj">漢字</span> Belum ada konten Kanji untuk bidang ini</h3>
       <p style="color:var(--ink-soft);font-size:14px;margin-top:6px">
-        Struktur data &amp; CMS untuk bagian ini sudah siap (tabel <code>ssw_kanji</code>).
-        Konten diisi lewat <strong>Admin Dashboard → SSW CMS</strong>, dan halaman ini
-        akan otomatis menampilkan materi per bidang <code>?field=</code>. Sementara,
-        mulai dari <a href="/SSW/Lesson.html" style="color:var(--red);font-weight:600">Materi (Lesson)</a>
-        atau <a href="/SSW/Vocabulary.html" style="color:var(--red);font-weight:600">Vocabulary</a>.
+        Konten ditambahkan lewat <strong>Admin Dashboard → SSW CMS</strong> (tabel <code>ssw_kanji</code>).
+        Sementara, lanjutkan dari <a href="/SSW/Field-Dashboard.html" id="sswBack" style="color:var(--red);font-weight:600">dashboard bidang</a>
+        — materi, kosakata, dan kuis.
       </p>
     </div>
   </div>
 </main>
 
 <div id="knFooter"></div>
-<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="/assets/kyoto-bottom-nav.js" defer></script>
-<script src="/assets/ssw-api.js?v=8"></script>
+<script src="/assets/ssw-api.js?v=9"></script>
+<script src="/assets/ssw-seed.js?v=9"></script>
+<script src="/assets/np-speech.js"></script>
+<script src="/assets/ssw-content.js?v=9"></script>
 <script>
 (function () {
   const slug = new URLSearchParams(location.search).get('field') || 'kaigo';
-  document.getElementById('tabVocabX'); // no-op
+  const back = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
+  document.getElementById('sswBack').href = back;
   SSWAPI.getFieldTree(slug).then(({ category }) => {
-    if (!category) return;
-    document.getElementById('crumbField').textContent = category.name_jp + ' ' + category.name_id;
-    document.getElementById('crumbField').href = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
+    if (!category) {
+      document.getElementById('heroJp').textContent = 'Bidang tidak ditemukan';
+      return;
+    }
+    // null-safe: breadcrumb pernah dihapus kyoto-navbar dan membuat seluruh
+    // halaman kosong tanpa pesan — konten tidak boleh bergantung padanya.
+    const crumb = document.getElementById('crumbField');
+    if (crumb) { crumb.textContent = category.name_jp + ' ' + category.name_id; crumb.href = back; }
     document.getElementById('heroJp').textContent = category.name_jp + ' — Kanji';
     document.title = category.name_jp + ' Kanji — SSW | Nihongo Pro Academy';
+    SSWContent.mount('kanji', slug, document.getElementById('sswItems'), document.getElementById('sswEmpty'));
   });
 })();
 </script>

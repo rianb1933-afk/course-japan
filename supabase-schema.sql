@@ -1400,14 +1400,19 @@ DO $$ BEGIN
 EXCEPTION WHEN duplicate_object THEN NULL; END $$;
 
 -- ============================================================
--- Seed 14 bidang resmi (slug dipakai URL ?field=)
--- Sumber daftar: ISA/OTIT — 12 bidang 1号,其中的 11 juga 2号.
+-- Seed bidang resmi (slug dipakai URL ?field=)
+-- Sumber: ISA per 1 Juni 2026 — 17 bidang 1号
+--   https://www.moj.go.jp/isa/policies/ssw/sswfield.html
+-- dan 11 di antaranya juga 2号 (介護 tidak termasuk)
+--   https://www.moj.go.jp/isa/applications/ssw/10_00180.html
+-- Harus sama dengan categories di assets/ssw-seed.js (test-ssw-seed.js).
 -- idempoten: ON CONFLICT DO NOTHING supaya editan admin lewat CMS
 -- tidak tertimpa bila schema di-run ulang.
 -- ============================================================
 INSERT INTO ssw_categories (slug, name_jp, name_id, name_en, icon, type1_ok, type2_ok, description, sort) VALUES
-  ('kaigo',       '介護',             'Perawatan Lansia',        'Caregiving',                     '🧑‍🦳', true,  true,  'Perawatan harian lansia di fasilitas/rumah — ekosistem materi Kaigo situs ini tersedia penuh.', 10),
+  ('kaigo',       '介護',             'Perawatan Lansia',        'Caregiving',                     '🧑‍🦳', true,  false, 'Perawatan harian lansia di fasilitas/rumah — ekosistem materi Kaigo situs ini tersedia penuh.', 10),
   ('building-clean','ビルクリーニング','Pembersihan Gedung',      'Building Cleaning',              '🧹', true,  true,  'Pembersihan interior/eksterior gedung dan manajemen kebersihan fasilitas.', 20),
+  ('linen-supply','リネンサプライ',     'Binatu Linen',            'Linen Supply',                   '🧺', true,  false, 'Pencucian dan pengelolaan linen (seprai, handuk, seragam) untuk hotel, rumah sakit, dan fasilitas perawatan.', 25),
   ('manufaktur',  '工業製品製造業',     'Manufaktur Produk Industri','Industrial Product Manufacturing','🏭', true, true, 'Pemeriksaan kualitas, perakitan, dan pengolahan material produk industri.', 30),
   ('kensetsu',    '建設',             'Konstruksi',              'Construction',                   '🏗️', true,  true,  'Konstruksi bangunan, sipil, dan pemeliharaan fasilitas.', 40),
   ('zousen',      '造船・舶用工業',     'Perkapalan',              'Shipbuilding & Marine Equipment','🚢', true,  true,  'Perakitan kapal, kelengkapan laut, dan pekerjaan pelayaran.', 50),
@@ -1415,16 +1420,27 @@ INSERT INTO ssw_categories (slug, name_jp, name_id, name_en, icon, type1_ok, typ
   ('koukuu',      '航空',             'Penerbangan',             'Aviation',                       '✈️', true,  true,  'Penanganan darat bandara, bagasi, kargo, dan kebersihan pesawat.', 70),
   ('shukuhaku',   '宿泊',             'Perhotelan',              'Accommodation',                  '🏨', true,  true,  'Front desk, housekeeping, F&B hotel dan ryokan.', 80),
   ('unten',       '自動車運送業',       'Transportasi Kendaraan',  'Automobile Transportation',      '🚌', true,  false, 'Pengemudi bus/taksi/truk — khusus 1号.', 90),
-  ('tetsudou',    '鉄道',             'Kereta Api',              'Railway',                        '🚉', true,  true,  'Operasional stasiun, penjualan tiket, perawatan sarana rel.', 100),
+  ('tetsudou',    '鉄道',             'Kereta Api',              'Railway',                        '🚉', true,  false, 'Operasional stasiun, penjualan tiket, perawatan sarana rel.', 100),
   ('nougyou',     '農業',             'Pertanian',               'Agriculture',                    '🌾', true,  true,  'Budidaya tanaman pangan/hortikultura dan manajemen lahan.', 110),
   ('gyogyou',     '漁業',             'Perikanan',               'Fishery',                        '🐟', true,  true,  'Penangkapan dan budidaya ikan serta pengolahan hasil laut.', 120),
   ('shokuhin',    '飲食料品製造業',     'Manufaktur Makanan',      'Food & Beverage Manufacturing',  '🍱', true,  true,  'Produksi dan pengolahan makanan/minuman di pabrik.', 130),
-  ('gaishoku',    '外食業',           'Restoran',                'Food Service',                   '🍜', true,  true,  'Penyajian makanan di restoran/kafe — dapur dan melayani pelanggan.', 140)
+  ('gaishoku',    '外食業',           'Restoran',                'Food Service',                   '🍜', true,  true,  'Penyajian makanan di restoran/kafe — dapur dan melayani pelanggan.', 140),
+  ('ringyou',     '林業',             'Kehutanan',               'Forestry',                       '🌲', true,  false, 'Penanaman, perawatan, dan penebangan hutan serta pengangkutan kayu.', 150),
+  ('mokuzai',     '木材産業',          'Industri Kayu',           'Wood Industry',                  '🪵', true,  false, 'Penggergajian, pengolahan, dan produksi bahan dari kayu di pabrik.', 160)
 ON CONFLICT (slug) DO NOTHING;
 
+-- Koreksi untuk DB yang sudah pernah di-seed: INSERT di atas DO NOTHING,
+-- jadi flag 2号 lama (介護 dan 鉄道 tercatat true) tidak ikut terbetulkan.
+-- Ini fakta regulasi, bukan pilihan editorial; kondisi `AND type2_ok`
+-- membuatnya no-op setelah sekali dijalankan.
+UPDATE ssw_categories SET type2_ok = false, updated_at = now()
+  WHERE slug IN ('kaigo', 'tetsudou') AND type2_ok;
+
 -- ══════════════════════════════════════════════════════════════════════
--- Konten SSW — 14 bidang, sangat lengkap (kosakata, kanji, grammar,
--- listening, reading, quiz latihan, modul & lesson)
+-- Konten SSW — konten AWAL 14 bidang (per bidang: 1 modul, 2 lesson,
+-- 8 kosakata, 6 kanji, 3 grammar, 1 listening, 1 reading, 1 kuis 5 soal;
+-- belum ada mock exam). Ukur kedalaman & kualitasnya dengan
+-- `npm run audit:ssw`; target per bidang di scripts/ssw-content-targets.json.
 -- ══════════════════════════════════════════════════════════════════════
 -- ── Constraint idempoten untuk seeding konten SSW ──
 -- Tabel-tabel ini awalnya hanya punya primary key UUID (selalu baru),
@@ -1432,48 +1448,331 @@ ON CONFLICT (slug) DO NOTHING;
 -- menjalankan schema berkali-kali tidak menggandakan baris.
 DO $$ BEGIN
   ALTER TABLE ssw_vocabulary ADD CONSTRAINT ssw_vocabulary_cat_term_key UNIQUE (category_id, term);
-EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+EXCEPTION WHEN duplicate_object OR duplicate_table THEN NULL; END $$;
 
 DO $$ BEGIN
   ALTER TABLE ssw_kanji ADD CONSTRAINT ssw_kanji_cat_kanji_key UNIQUE (category_id, kanji);
-EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+EXCEPTION WHEN duplicate_object OR duplicate_table THEN NULL; END $$;
 
 DO $$ BEGIN
   ALTER TABLE ssw_grammar ADD CONSTRAINT ssw_grammar_cat_pattern_key UNIQUE (category_id, pattern);
-EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+EXCEPTION WHEN duplicate_object OR duplicate_table THEN NULL; END $$;
 
 DO $$ BEGIN
   ALTER TABLE ssw_listening ADD CONSTRAINT ssw_listening_cat_title_key UNIQUE (category_id, title);
-EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+EXCEPTION WHEN duplicate_object OR duplicate_table THEN NULL; END $$;
 
 DO $$ BEGIN
   ALTER TABLE ssw_reading ADD CONSTRAINT ssw_reading_cat_title_key UNIQUE (category_id, title);
-EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+EXCEPTION WHEN duplicate_object OR duplicate_table THEN NULL; END $$;
 
 DO $$ BEGIN
   ALTER TABLE ssw_quizzes ADD CONSTRAINT ssw_quizzes_cat_title_key UNIQUE (category_id, title);
-EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+EXCEPTION WHEN duplicate_object OR duplicate_table THEN NULL; END $$;
 
 DO $$ BEGIN
   ALTER TABLE ssw_questions ADD CONSTRAINT ssw_questions_quiz_sort_key UNIQUE (quiz_id, sort);
-EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+EXCEPTION WHEN duplicate_object OR duplicate_table THEN NULL; END $$;
 
 DO $$ BEGIN
   ALTER TABLE ssw_modules ADD CONSTRAINT ssw_modules_cat_title_key UNIQUE (category_id, title);
-EXCEPTION WHEN duplicate_object THEN NULL; END $$;
+EXCEPTION WHEN duplicate_object OR duplicate_table THEN NULL; END $$;
+-- Catatan: constraint UNIQUE dibuat lewat indeks bernama sama, jadi
+-- penambahan ulang gagal sebagai duplicate_table (42P07), BUKAN
+-- duplicate_object. Dulu hanya duplicate_object yang ditangkap, sehingga
+-- menjalankan schema untuk KEDUA kalinya gagal di blok pertama.
+
+-- ── Metadata konten SSW (pipeline kurikulum) ──
+-- tags         : penanda modul & area ujian ('kaigo-m05', 'area:seikatsu'),
+--                plus 'generated' untuk baris milik scripts/build-ssw-content.js.
+-- slug         : kunci stabil modul & kuis PER BIDANG. Relasi generator memakai
+--                (category_id, slug), bukan judul yang harus unik global.
+-- source       : 'practice' (Generated Practice) | 'official' (wajib source_url).
+-- distribution : jumlah soal per tag area untuk mock berstrata (assets/ssw-quiz.js).
+ALTER TABLE ssw_modules   ADD COLUMN IF NOT EXISTS slug text;
+ALTER TABLE ssw_modules   ADD COLUMN IF NOT EXISTS tags text[] NOT NULL DEFAULT '{}';
+ALTER TABLE ssw_lessons   ADD COLUMN IF NOT EXISTS tags text[] NOT NULL DEFAULT '{}';
+ALTER TABLE ssw_quizzes   ADD COLUMN IF NOT EXISTS slug text;
+ALTER TABLE ssw_quizzes   ADD COLUMN IF NOT EXISTS tags text[] NOT NULL DEFAULT '{}';
+ALTER TABLE ssw_quizzes   ADD COLUMN IF NOT EXISTS distribution jsonb;
+ALTER TABLE ssw_questions ADD COLUMN IF NOT EXISTS tags text[] NOT NULL DEFAULT '{}';
+ALTER TABLE ssw_kanji     ADD COLUMN IF NOT EXISTS tags text[] NOT NULL DEFAULT '{}';
+ALTER TABLE ssw_grammar   ADD COLUMN IF NOT EXISTS tags text[] NOT NULL DEFAULT '{}';
+ALTER TABLE ssw_listening ADD COLUMN IF NOT EXISTS tags text[] NOT NULL DEFAULT '{}';
+ALTER TABLE ssw_reading   ADD COLUMN IF NOT EXISTS tags text[] NOT NULL DEFAULT '{}';
+DO $$ DECLARE t text; BEGIN
+  FOREACH t IN ARRAY ARRAY['ssw_vocabulary','ssw_kanji','ssw_grammar','ssw_listening','ssw_reading','ssw_lessons'] LOOP
+    EXECUTE format('ALTER TABLE %I ADD COLUMN IF NOT EXISTS source text NOT NULL DEFAULT ''practice'' CHECK (source IN (''practice'',''official''))', t);
+    EXECUTE format('ALTER TABLE %I ADD COLUMN IF NOT EXISTS source_url text NOT NULL DEFAULT ''''', t);
+    EXECUTE format('ALTER TABLE %I ADD COLUMN IF NOT EXISTS updated_at timestamptz NOT NULL DEFAULT now()', t);
+  END LOOP;
+END $$;
+DO $$ BEGIN
+  ALTER TABLE ssw_modules ADD CONSTRAINT ssw_modules_cat_slug_key UNIQUE (category_id, slug);
+EXCEPTION WHEN duplicate_object OR duplicate_table THEN NULL; END $$;
+DO $$ BEGIN
+  ALTER TABLE ssw_quizzes ADD CONSTRAINT ssw_quizzes_cat_slug_key UNIQUE (category_id, slug);
+EXCEPTION WHEN duplicate_object OR duplicate_table THEN NULL; END $$;
+
+-- >>> SSW-CONTENT generated — JANGAN DIEDIT MANUAL >>>
+-- Diisi `node scripts/build-ssw-content.js` dari scripts/ssw-curriculum/.
+-- Diletakkan SEBELUM konten tulisan tangan supaya kunci yang sama milik
+-- generator (ON CONFLICT … DO NOTHING di bawah lalu melewatinya).
+-- ── kaigo: 1 modul dari scripts/ssw-curriculum/kaigo/ ──
+INSERT INTO ssw_modules (category_id, slug, title, title_jp, description, sort, tags) VALUES
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), 'kaigo-m05', 'Mobilitas: Posisi, Transfer & Berjalan', '生活支援技術①　移動・移乗', 'Membantu pengguna berpindah dengan aman: mekanika tubuh (ボディメカニクス), mengubah posisi dan mencegah luka tekan, memindahkan dari tempat tidur ke kursi roda, mendorong kursi roda, dan mendampingi berjalan. 生活支援技術 adalah bidang dengan porsi soal terbesar di 介護技能評価試験.', 150, '{"generated","kaigo-m05"}')
+ON CONFLICT (category_id, slug) DO UPDATE SET title = EXCLUDED.title, title_jp = EXCLUDED.title_jp, description = EXCLUDED.description, sort = EXCLUDED.sort, tags = EXCLUDED.tags
+  WHERE ssw_modules.tags @> '{generated}';
+
+INSERT INTO ssw_vocabulary (category_id, term, furigana, romaji, meaning_id, meaning_en, example, example_furigana, example_id, level, tags, source) VALUES
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '移乗', 'いじょう', 'ijō', 'Pemindahan pengguna antar permukaan (tempat tidur ↔ kursi roda)', 'Transfer', 'ベッドから車いすへ移乗します。', 'ベッドからくるまいすへいじょうします。', 'Memindahkan dari tempat tidur ke kursi roda.', 'dasar', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '移動', 'いどう', 'idō', 'Berpindah tempat', 'Moving', '食堂まで車いすで移動します。', 'しょくどうまでくるまいすでいどうします。', 'Berpindah ke ruang makan dengan kursi roda.', 'dasar', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '体位変換', 'たいいへんかん', 'taii henkan', 'Mengubah posisi tubuh', 'Repositioning', '2時間ごとに体位変換をします。', 'にじかんごとにたいいへんかんをします。', 'Mengubah posisi tubuh setiap 2 jam.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '褥瘡', 'じょくそう', 'jokusō', 'Luka tekan (dekubitus)', 'Pressure injury', '同じ姿勢が続くと褥瘡ができやすくなります。', 'おなじしせいがつづくとじょくそうができやすくなります。', 'Jika posisi yang sama berlangsung lama, luka tekan mudah muncul.', 'lanjut', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '仰臥位', 'ぎょうがい', 'gyōgai', 'Posisi berbaring telentang', 'Supine position', '仰臥位から側臥位にします。', 'ぎょうがいからそくがいにします。', 'Mengubah dari posisi telentang ke posisi miring.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '側臥位', 'そくがい', 'sokugai', 'Posisi berbaring miring', 'Lateral position', '側臥位のときは背中にクッションを入れます。', 'そくがいのときはせなかにクッションをいれます。', 'Saat posisi miring, letakkan bantal di punggung.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '端座位', 'たんざい', 'tanzai', 'Duduk di tepi tempat tidur dengan kaki menapak lantai', 'Sitting on the edge of the bed', '移乗の前に端座位になってもらいます。', 'いじょうのまえにたんざいになってもらいます。', 'Sebelum pemindahan, minta pengguna duduk di tepi tempat tidur.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '座位', 'ざい', 'zai', 'Posisi duduk', 'Sitting position', '座位が安定しているか確認します。', 'ざいがあんていしているかかくにんします。', 'Memastikan posisi duduk stabil.', 'dasar', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '立位', 'りつい', 'ritsui', 'Posisi berdiri', 'Standing position', '立位を保つのが難しい方です。', 'りついをたもつのがむずかしいかたです。', 'Beliau kesulitan mempertahankan posisi berdiri.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), 'ボディメカニクス', 'ボディメカニクス', 'bodi mekanikusu', 'Mekanika tubuh — prinsip gerak agar bantuan fisik ringan dan aman', 'Body mechanics', 'ボディメカニクスを使うと腰への負担が減ります。', 'ボディメカニクスをつかうとこしへのふたんがへります。', 'Dengan mekanika tubuh, beban pada pinggang berkurang.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '支持基底面', 'しじきていめん', 'shiji kiteimen', 'Bidang tumpu (area di antara kedua kaki yang menopang tubuh)', 'Base of support', '足を開いて支持基底面を広くします。', 'あしをひらいてしじきていめんをひろくします。', 'Buka kaki untuk memperluas bidang tumpu.', 'lanjut', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '重心', 'じゅうしん', 'jūshin', 'Titik berat', 'Center of gravity', '重心を低くして介助します。', 'じゅうしんをひくくしてかいじょします。', 'Membantu dengan menurunkan titik berat.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '車いす', 'くるまいす', 'kurumaisu', 'Kursi roda', 'Wheelchair', '車いすをベッドの横に置きます。', 'くるまいすをベッドのよこにおきます。', 'Meletakkan kursi roda di samping tempat tidur.', 'dasar', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), 'ブレーキ', 'ブレーキ', 'burēki', 'Rem', 'Brake', '移乗の前に必ずブレーキをかけます。', 'いじょうのまえにかならずブレーキをかけます。', 'Sebelum pemindahan, rem selalu dikunci.', 'dasar', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), 'フットサポート', 'フットサポート', 'futto sapōto', 'Pijakan kaki kursi roda', 'Footrest', 'フットサポートを上げてから立ってもらいます。', 'フットサポートをあげてからたってもらいます。', 'Naikkan pijakan kaki, lalu minta pengguna berdiri.', 'dasar', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), 'アームサポート', 'アームサポート', 'āmu sapōto', 'Sandaran lengan kursi roda', 'Armrest', 'アームサポートを持ってもらいます。', 'アームサポートをもってもらいます。', 'Minta pengguna berpegangan pada sandaran lengan.', 'dasar', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '杖', 'つえ', 'tsue', 'Tongkat', 'Cane', '杖は健側の手で持ちます。', 'つえはけんそくのてでもちます。', 'Tongkat dipegang dengan tangan sisi yang sehat.', 'dasar', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '歩行器', 'ほこうき', 'hokōki', 'Alat bantu jalan (walker)', 'Walker', '歩行器を使って廊下を歩きます。', 'ほこうきをつかってろうかをあるきます。', 'Berjalan di koridor dengan walker.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '歩行介助', 'ほこうかいじょ', 'hokō kaijo', 'Bantuan berjalan', 'Walking assistance', '歩行介助のときは患側に立ちます。', 'ほこうかいじょのときはかんそくにたちます。', 'Saat membantu berjalan, berdiri di sisi yang sakit.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '患側', 'かんそく', 'kansoku', 'Sisi tubuh yang sakit/lumpuh', 'Affected side', '患側に注意しながら介助します。', 'かんそくにちゅういしながらかいじょします。', 'Membantu sambil memperhatikan sisi yang sakit.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '健側', 'けんそく', 'kensoku', 'Sisi tubuh yang sehat', 'Unaffected side', '健側の手で手すりを持ちます。', 'けんそくのててすりをもちます。', 'Memegang pegangan dengan tangan sisi yang sehat.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '麻痺', 'まひ', 'mahi', 'Kelumpuhan', 'Paralysis', '右半身に麻痺があります。', 'みぎはんしんにまひがあります。', 'Ada kelumpuhan pada sisi kanan tubuh.', 'menengah', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '転倒', 'てんとう', 'tentō', 'Jatuh', 'Fall', '転倒しないように見守ります。', 'てんとうしないようにみまもります。', 'Mengawasi agar tidak jatuh.', 'dasar', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '段差', 'だんさ', 'dansa', 'Undakan / beda tinggi lantai', 'Step (level difference)', '段差があるので気をつけてください。', 'だんさがあるのできをつけてください。', 'Ada undakan, hati-hati.', 'dasar', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), 'ふらつき', 'ふらつき', 'furatsuki', 'Sempoyongan / goyah', 'Unsteadiness', 'ふらつきがあるときはすぐに座ってもらいます。', 'ふらつきがあるときはすぐにすわってもらいます。', 'Jika sempoyongan, segera minta pengguna duduk.', 'menengah', '{"generated","kaigo-m05"}', 'practice')
+ON CONFLICT (category_id, term) DO UPDATE SET furigana = EXCLUDED.furigana, romaji = EXCLUDED.romaji, meaning_id = EXCLUDED.meaning_id, meaning_en = EXCLUDED.meaning_en, example = EXCLUDED.example, example_furigana = EXCLUDED.example_furigana, example_id = EXCLUDED.example_id, level = EXCLUDED.level, tags = EXCLUDED.tags, source = EXCLUDED.source, updated_at = now()
+  WHERE ssw_vocabulary.tags @> '{generated}';
+
+INSERT INTO ssw_kanji (category_id, kanji, onyomi, kunyomi, furigana, meaning_id, examples, sentence, sentence_furigana, sentence_id, tags, source) VALUES
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '移', 'イ', 'うつ(る)・うつ(す)', '', 'Pindah, memindahkan', '[{"word":"移乗","reading":"いじょう","meaning_id":"pemindahan antar permukaan"},{"word":"移動","reading":"いどう","meaning_id":"berpindah tempat"},{"word":"移る","reading":"うつる","meaning_id":"pindah"}]', '車いすに移ります。', 'くるまいすにうつります。', 'Pindah ke kursi roda.', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '乗', 'ジョウ', 'の(る)・の(せる)', '', 'Naik, menaiki', '[{"word":"移乗","reading":"いじょう","meaning_id":"pemindahan antar permukaan"},{"word":"乗る","reading":"のる","meaning_id":"naik"},{"word":"乗せる","reading":"のせる","meaning_id":"menaikkan, meletakkan di atas"}]', '足をフットサポートに乗せます。', 'あしをフットサポートにのせます。', 'Meletakkan kaki di atas pijakan kaki.', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '車', 'シャ', 'くるま', '', 'Roda, kendaraan', '[{"word":"車いす","reading":"くるまいす","meaning_id":"kursi roda"},{"word":"車輪","reading":"しゃりん","meaning_id":"roda"},{"word":"電車","reading":"でんしゃ","meaning_id":"kereta listrik"}]', '車いすのブレーキをかけます。', 'くるまいすのブレーキをかけます。', 'Mengunci rem kursi roda.', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '歩', 'ホ・ブ', 'ある(く)', '', 'Berjalan, langkah', '[{"word":"歩行","reading":"ほこう","meaning_id":"berjalan"},{"word":"歩行器","reading":"ほこうき","meaning_id":"alat bantu jalan"},{"word":"歩く","reading":"あるく","meaning_id":"berjalan"}]', 'ゆっくり歩きましょう。', 'ゆっくりあるきましょう。', 'Mari berjalan pelan-pelan.', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '転', 'テン', 'ころ(ぶ)・ころ(がる)', '', 'Berguling, jatuh', '[{"word":"転倒","reading":"てんとう","meaning_id":"jatuh"},{"word":"転ぶ","reading":"ころぶ","meaning_id":"terjatuh, tersandung"},{"word":"転倒予防","reading":"てんとうよぼう","meaning_id":"pencegahan jatuh"}]', '転ばないように手すりを持ってください。', 'ころばないようにてすりをもってください。', 'Tolong pegang pegangan agar tidak jatuh.', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '立', 'リツ', 'た(つ)・た(てる)', '', 'Berdiri', '[{"word":"立位","reading":"りつい","meaning_id":"posisi berdiri"},{"word":"立つ","reading":"たつ","meaning_id":"berdiri"},{"word":"立ち上がる","reading":"たちあがる","meaning_id":"bangkit berdiri"}]', 'ゆっくり立ち上がりましょう。', 'ゆっくりたちあがりましょう。', 'Mari berdiri perlahan.', '{"generated","kaigo-m05"}', 'practice')
+ON CONFLICT (category_id, kanji) DO UPDATE SET onyomi = EXCLUDED.onyomi, kunyomi = EXCLUDED.kunyomi, furigana = EXCLUDED.furigana, meaning_id = EXCLUDED.meaning_id, examples = EXCLUDED.examples, sentence = EXCLUDED.sentence, sentence_furigana = EXCLUDED.sentence_furigana, sentence_id = EXCLUDED.sentence_id, tags = EXCLUDED.tags, source = EXCLUDED.source, updated_at = now()
+  WHERE ssw_kanji.tags @> '{generated}';
+
+INSERT INTO ssw_grammar (category_id, pattern, meaning_id, explanation, structure, examples, notes, tags, source) VALUES
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '〜ましょう / 〜ましょうか', 'Mengajak melakukan bersama / menawarkan bantuan', '〜ましょう mengajak melakukan sesuatu bersama; 〜ましょうか menawarkan diri. Dalam 声かけ, ajakan terasa lebih lembut daripada perintah dan membuat pengguna ikut aktif — sejalan dengan 自立支援.', 'Vます → Vましょう / Vましょうか', '[{"jp":"一緒に立ち上がりましょう。","furigana":"いっしょにたちあがりましょう。","id":"Mari kita berdiri bersama."},{"jp":"車いすを押しましょうか。","furigana":"くるまいすをおしましょうか。","id":"Mau saya dorongkan kursi rodanya?"}]', 'Hindari perintah langsung seperti 「立って！」 — terdengar kasar kepada lansia.', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '〜てもいいですか / 〜てもよろしいですか', 'Meminta izin', 'Dipakai sebelum menyentuh tubuh atau melakukan tindakan. 〜てもよろしいですか lebih sopan. Meminta izin adalah bentuk menghormati martabat (尊厳) pengguna.', 'Vて + もいいですか / もよろしいですか', '[{"jp":"体の向きを変えてもいいですか。","furigana":"からだのむきをかえてもいいですか。","id":"Boleh saya ubah posisi badan Anda?"},{"jp":"少し足に触ってもよろしいですか。","furigana":"すこしあしにさわってもよろしいですか。","id":"Bolehkah saya menyentuh kaki Anda sebentar?"}]', 'Tunggu jawabannya sebelum bertindak. Kalau pengguna menolak, jangan dipaksa — laporkan.', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '〜ないように', 'Agar tidak ~ (tujuan mencegah)', 'Menyatakan tujuan mencegah sesuatu. Sangat sering muncul di instruksi keselamatan dan catatan perawatan.', 'Vない + ように', '[{"jp":"転ばないように手すりを持ってください。","furigana":"ころばないようにてすりをもってください。","id":"Tolong pegang pegangan agar tidak jatuh."},{"jp":"褥瘡ができないように2時間ごとに体位変換をします。","furigana":"じょくそうができないようににじかんごとにたいいへんかんをします。","id":"Mengubah posisi setiap 2 jam agar tidak terjadi luka tekan."}]', 'Bentuk positifnya 〜ように: 安全に歩けるように練習します (berlatih agar bisa berjalan dengan aman).', '{"generated","kaigo-m05"}', 'practice')
+ON CONFLICT (category_id, pattern) DO UPDATE SET meaning_id = EXCLUDED.meaning_id, explanation = EXCLUDED.explanation, structure = EXCLUDED.structure, examples = EXCLUDED.examples, notes = EXCLUDED.notes, tags = EXCLUDED.tags, source = EXCLUDED.source, updated_at = now()
+  WHERE ssw_grammar.tags @> '{generated}';
+
+INSERT INTO ssw_listening (category_id, title, audio_text, transcript, transcript_furigana, translation_id, questions, tags, source) VALUES
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '移乗の声かけを聞く', '田中さん、今から車いすに移りますね。ブレーキはかけました。フットサポートも上げてあります。右手で車いすのアームサポートを持ってください。いち、に、さんで立ちましょう。', '介護職員：「田中さん、今から車いすに移りますね。ブレーキはかけました。フットサポートも上げてあります。右手で車いすのアームサポートを持ってください。いち、に、さんで立ちましょう。」', 'かいごしょくいん：「たなかさん、いまからくるまいすにうつりますね。ブレーキはかけました。フットサポートもあげてあります。みぎてでくるまいすのアームサポートをもってください。いち、に、さんでたちましょう。」', 'Petugas: “Tanaka-san, sekarang kita pindah ke kursi roda, ya. Remnya sudah saya kunci. Pijakan kakinya juga sudah dinaikkan. Silakan pegang sandaran lengan kursi roda dengan tangan kanan. Kita berdiri di hitungan satu, dua, tiga.”', '[{"type":"choice","question":"Apa yang sudah dilakukan petugas sebelum meminta pengguna berdiri?","choices":["Melepas sepatu pengguna","Menurunkan pagar tempat tidur saja","Mengunci rem dan menaikkan pijakan kaki","Belum melakukan apa-apa"],"correct":2,"explanation":"「ブレーキはかけました」「フットサポートも上げてあります」 — dua persiapan wajib sebelum 移乗."},{"type":"tf","question":"Petugas meminta pengguna berpegangan pada bahu petugas.","correct":false,"explanation":"Petugas berkata 「右手で車いすのアームサポートを持ってください」 — pengguna memegang sandaran lengan kursi roda dengan tangan kanan."},{"type":"choice","question":"「いち、に、さんで立ちましょう」 berfungsi sebagai…","choices":["Menghitung jumlah langkah","Aba-aba agar bergerak bersamaan","Meminta pengguna menunggu tiga menit","Memeriksa kesadaran pengguna"],"correct":1,"explanation":"Aba-aba menyamakan waktu gerak caregiver dan pengguna sehingga lebih aman dan ringan."}]', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '歩行介助の申し送りを聞く', '山本さんは左半身に麻痺があります。歩くときは左側に立って、少し後ろから支えてください。杖は右手で持ちます。昨日、少しふらつきがあったので、廊下を歩くときも必ず見守りをお願いします。', '看護師：「山本さんは左半身に麻痺があります。歩くときは左側に立って、少し後ろから支えてください。杖は右手で持ちます。昨日、少しふらつきがあったので、廊下を歩くときも必ず見守りをお願いします。」', 'かんごし：「やまもとさんはひだりはんしんにまひがあります。あるくときはひだりがわにたって、すこしうしろからささえてください。つえはみぎてでもちます。きのう、すこしふらつきがあったので、ろうかをあるくときもかならずみまもりをおねがいします。」', 'Perawat: “Yamamoto-san mengalami kelumpuhan pada sisi kiri tubuh. Saat berjalan, berdirilah di sisi kiri dan topang sedikit dari belakang. Tongkat dipegang dengan tangan kanan. Kemarin beliau sedikit sempoyongan, jadi saat berjalan di koridor pun tolong selalu diawasi.”', '[{"type":"choice","question":"Di mana petugas berdiri saat Yamamoto-san berjalan?","choices":["Di sisi kanan, di depan","Tepat di depan pengguna","Tidak perlu mendampingi","Di sisi kiri, sedikit di belakang"],"correct":3,"explanation":"Kelumpuhan di kiri (患側) → petugas di sisi kiri, sedikit di belakang: 「左側に立って、少し後ろから支えてください」."},{"type":"choice","question":"Mengapa tongkat dipegang dengan tangan kanan?","choices":["Karena sisi kanan adalah sisi yang sehat (健側)","Karena semua orang memakai tangan kanan","Supaya tangan kiri bebas membawa barang","Karena tangan kanan lebih panjang"],"correct":0,"explanation":"Tongkat dipegang tangan sisi sehat; sisi kiri Yamamoto-san lumpuh."},{"type":"tf","question":"Karena hanya di koridor, Yamamoto-san boleh berjalan tanpa diawasi.","correct":false,"explanation":"「廊下を歩くときも必ず見守りをお願いします」 — kemarin ada ふらつき, jadi selalu diawasi."}]', '{"generated","kaigo-m05"}', 'practice')
+ON CONFLICT (category_id, title) DO UPDATE SET audio_text = EXCLUDED.audio_text, transcript = EXCLUDED.transcript, transcript_furigana = EXCLUDED.transcript_furigana, translation_id = EXCLUDED.translation_id, questions = EXCLUDED.questions, tags = EXCLUDED.tags, source = EXCLUDED.source, updated_at = now()
+  WHERE ssw_listening.tags @> '{generated}';
+
+INSERT INTO ssw_reading (category_id, title, text, furigana_text, translation_id, vocab, questions, tags, source) VALUES
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '移乗の手順（掲示）', '【ベッドから車いすへの移乗】
+① 声をかけて、説明する。
+② 車いすを健側に置き、ブレーキをかける。
+③ フットサポートを上げる。
+④ 端座位になってもらい、両足を床につける。
+⑤ 前かがみになってもらい、一緒に立ち上がる。
+⑥ 健側の足を軸に体を回し、ゆっくり座ってもらう。
+⑦ 深く座り直してもらい、姿勢を確認する。', '【ベッドからくるまいすへのいじょう】
+① こえをかけて、せつめいする。
+② くるまいすをけんそくにおき、ブレーキをかける。
+③ フットサポートをあげる。
+④ たんざいになってもらい、りょうあしをゆかにつける。
+⑤ まえかがみになってもらい、いっしょにたちあがる。
+⑥ けんそくのあしをじくにからだをまわし、ゆっくりすわってもらう。
+⑦ ふかくすわりなおしてもらい、しせいをかくにんする。', '[Pindah dari tempat tidur ke kursi roda] ① Sapa dan jelaskan. ② Letakkan kursi roda di sisi yang sehat, kunci rem. ③ Naikkan pijakan kaki. ④ Bantu duduk di tepi tempat tidur, kedua kaki menapak lantai. ⑤ Minta condong ke depan, lalu berdiri bersama. ⑥ Putar badan dengan kaki sisi sehat sebagai poros, dudukkan perlahan. ⑦ Minta duduk lebih dalam dan periksa posturnya.', '[{"term":"健側","reading":"けんそく","meaning_id":"sisi yang sehat"},{"term":"端座位","reading":"たんざい","meaning_id":"duduk di tepi tempat tidur"},{"term":"前かがみ","reading":"まえかがみ","meaning_id":"condong ke depan"},{"term":"軸","reading":"じく","meaning_id":"poros"},{"term":"座り直す","reading":"すわりなおす","meaning_id":"membetulkan posisi duduk"}]', '[{"type":"choice","question":"Di mana kursi roda diletakkan?","choices":["Di sisi yang lumpuh (患側)","Di sisi yang sehat (健側)","Di belakang pengguna","Di mana saja asal dekat"],"correct":1,"explanation":"Langkah ②: 「車いすを健側に置き」."},{"type":"tf","question":"Menurut prosedur, rem dikunci setelah pengguna duduk di kursi roda.","correct":false,"explanation":"Langkah ②: rem dikunci SEBELUM 移乗, sejak kursi roda diletakkan."},{"type":"choice","question":"Apa yang dilakukan pada langkah terakhir?","choices":["Melepas rem","Menulis laporan","Membetulkan posisi duduk dan memeriksa postur","Memberi minum"],"correct":2,"explanation":"Langkah ⑦: 「深く座り直してもらい、姿勢を確認する」."}]', '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '申し送り：転倒に注意', '3号室の佐藤さんは、昨夜トイレに行くときにふらつきがありました。転倒はしていません。今日から歩行器を使います。歩くときは必ず見守りをしてください。夜間はベッドを低くして、足元にセンサーマットを置いています。', 'さんごうしつのさとうさんは、さくやトイレにいくときにふらつきがありました。てんとうはしていません。きょうからほこうきをつかいます。あるくときはかならずみまもりをしてください。やかんはベッドをひくくして、あしもとにセンサーマットをおいています。', 'Sato-san di kamar 3 semalam sempoyongan saat pergi ke toilet. Beliau tidak jatuh. Mulai hari ini beliau memakai walker. Saat berjalan, selalu awasi. Pada malam hari tempat tidur direndahkan dan matras sensor diletakkan di dekat kaki tempat tidur.', '[{"term":"申し送り","reading":"もうしおくり","meaning_id":"serah terima tugas"},{"term":"昨夜","reading":"さくや","meaning_id":"semalam"},{"term":"歩行器","reading":"ほこうき","meaning_id":"walker"},{"term":"見守り","reading":"みまもり","meaning_id":"pengawasan"},{"term":"センサーマット","reading":"センサーマット","meaning_id":"matras sensor (berbunyi saat diinjak)"}]', '[{"type":"choice","question":"Mulai hari ini Sato-san memakai…","choices":["車いす","杖","ストレッチャー","歩行器"],"correct":3,"explanation":"「今日から歩行器を使います」."},{"type":"tf","question":"Semalam Sato-san jatuh di toilet.","correct":false,"explanation":"「転倒はしていません」 — hanya sempoyongan, tidak jatuh."},{"type":"choice","question":"Apa fungsi センサーマット di dekat kaki tempat tidur?","choices":["Menghangatkan kaki","Memberi tahu petugas saat pengguna bangun dan menginjaknya","Mengukur berat badan","Mencegah kaki kotor"],"correct":1,"explanation":"Matras sensor berbunyi saat diinjak, sehingga petugas tahu pengguna bangun dan bisa segera datang — mencegah jatuh saat malam."}]', '{"generated","kaigo-m05"}', 'practice')
+ON CONFLICT (category_id, title) DO UPDATE SET text = EXCLUDED.text, furigana_text = EXCLUDED.furigana_text, translation_id = EXCLUDED.translation_id, vocab = EXCLUDED.vocab, questions = EXCLUDED.questions, tags = EXCLUDED.tags, source = EXCLUDED.source, updated_at = now()
+  WHERE ssw_reading.tags @> '{generated}';
+
+INSERT INTO ssw_lessons (module_id, slug, title, title_jp, description, body_md, dialogues, notes, vocab_ids, sort, tags, source) VALUES
+  ((SELECT id FROM ssw_modules WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05'), 'kaigo-m05-l1', 'Mekanika Tubuh: Membantu Tanpa Cedera', 'ボディメカニクスの基本', 'Prinsip dasar agar bantuan fisik stabil bagi pengguna dan tidak melukai pinggang caregiver.', '## Mengapa ボディメカニクス penting
+Caregiver mengangkat, memutar, dan menopang tubuh orang lain setiap hari. Tanpa teknik yang benar, pinggang (腰) mudah cedera — nyeri pinggang adalah salah satu masalah kesehatan kerja paling umum di kalangan caregiver. **ボディメカニクス** (mekanika tubuh) adalah cara memakai prinsip gerak tubuh supaya tenaga yang dibutuhkan kecil dan gerakannya stabil.
+
+### Prinsip dasar
+- Buka kaki selebar bahu untuk memperluas **支持基底面** (bidang tumpu).
+- Tekuk lutut dan turunkan **重心** (titik berat) — jangan membungkuk dengan lutut lurus.
+- Dekatkan tubuh caregiver ke tubuh pengguna.
+- Minta pengguna melipat tangan dan menekuk lutut supaya tubuhnya ringkas.
+- Pakai otot besar (paha, bokong), bukan hanya lengan.
+- Geser secara mendatar dan tarik ke arah caregiver — jangan mengangkat tinggi.
+- Jangan memutar pinggang: arahkan ujung kaki ke arah gerakan dan putar seluruh badan.
+- Manfaatkan prinsip tuas (てこの原理), misalnya siku atau lutut sebagai titik tumpu.
+
+### Selalu mulai dengan 声かけ
+Sebelum menyentuh, jelaskan apa yang akan dilakukan dan minta persetujuan. Pengguna yang tahu apa yang terjadi bisa ikut membantu dengan sisa kemampuannya — itulah inti **自立支援**.
+
+| Situasi | Contoh 声かけ |
+|---|---|
+| Sebelum menyentuh | 「今から体を起こしますね。よろしいですか。」 |
+| Meminta kerja sama | 「腕を胸の上で組んでいただけますか。」 |
+| Aba-aba | 「いち、に、さんで起きましょう。」 |
+
+### Pendalaman
+- [Bantuan Transfer & Mobilitas Kaigo](/Materi/Kaigo-Iijo-Ido.html)
+- [Alat Bantu Perawatan Lansia](/Materi/Kaigo-Fukushiyo-Gu.html)', '[{"speaker":"Caregiver","jp":"今から体を起こしますね。よろしいですか。","furigana":"いまからからだをおこしますね。よろしいですか。","id":"Sekarang saya bantu bangun, ya. Boleh?"},{"speaker":"Pengguna","jp":"はい、お願いします。","furigana":"はい、おねがいします。","id":"Ya, silakan."},{"speaker":"Caregiver","jp":"腕を胸の上で組んでいただけますか。","furigana":"うでをむねのうえでくんでいただけますか。","id":"Bisa tolong silangkan tangan di atas dada?"}]', '', ARRAY(SELECT id FROM ssw_vocabulary WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND term = ANY('{"ボディメカニクス","支持基底面","重心"}'::text[])), 1, '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_modules WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05'), 'kaigo-m05-l2', 'Mengubah Posisi & Mencegah Luka Tekan', '体位変換と褥瘡予防', 'Nama-nama posisi tubuh, cara 体位変換, dan titik tubuh yang rawan 褥瘡.', '## Posisi dasar
+| Istilah | Bacaan | Arti |
+|---|---|---|
+| 仰臥位 | ぎょうがい | berbaring telentang |
+| 側臥位 | そくがい | berbaring miring |
+| 腹臥位 | ふくがい | berbaring tengkurap |
+| 半座位（ファーラー位） | はんざい | setengah duduk, sandaran ±45° |
+| 端座位 | たんざい | duduk di tepi tempat tidur, kaki menapak lantai |
+
+## Mengapa 体位変換
+Tekanan yang lama pada satu titik menghambat aliran darah ke kulit dan jaringan di bawahnya, lalu muncul **褥瘡** (luka tekan). Pengguna yang tidak bisa bergerak sendiri dibantu berganti posisi secara berkala — umumnya sekitar setiap 2 jam, disesuaikan dengan kondisi kulit dan rencana perawatan.
+
+### Titik rawan 褥瘡
+- Telentang (仰臥位): tulang ekor/sakrum (仙骨部), tumit, belakang kepala, siku.
+- Miring (側臥位): tonjolan sisi pinggul (大転子部), bahu, sisi lutut, mata kaki.
+
+### Langkah memiringkan dari telentang
+- Beri 声かけ dan jelaskan tujuannya.
+- Caregiver berdiri di sisi arah pengguna akan dimiringkan.
+- Minta pengguna menoleh ke arah itu dan melipat tangan di dada.
+- Tekuk kedua lutut pengguna.
+- Tarik lutut lebih dulu, lalu bahu, ke arah caregiver — gerakannya jadi ringan.
+- Stabilkan dengan bantal di punggung dan di antara kedua kaki.
+- Rapikan pakaian dan seprai: kerutan pun bisa menekan kulit.
+
+### Laporkan segera
+Kulit yang **tetap merah walau ditekan dengan jari** bisa menjadi tanda awal 褥瘡. Jangan digosok; laporkan ke perawat (看護師).
+
+### Pendalaman
+- [Manajemen Posisi & Pencegahan Luka Tekan](/Materi/Kaigo-Taino-Kanri.html)
+- [Pencegahan Kontraktur](/Materi/Kaigo-Kyoshuku-Yobo.html)', '[{"speaker":"Caregiver","jp":"田中さん、体の向きを変えますね。こちらを向いていただけますか。","furigana":"たなかさん、からだのむきをかえますね。こちらをむいていただけますか。","id":"Tanaka-san, kita ubah posisi badan, ya. Bisa menoleh ke arah sini?"},{"speaker":"Pengguna","jp":"こうですか。","furigana":"こうですか。","id":"Begini?"},{"speaker":"Caregiver","jp":"はい、そうです。膝を立てますね。","furigana":"はい、そうです。ひざをたてますね。","id":"Ya, betul. Lututnya saya tekuk, ya."}]', '', ARRAY(SELECT id FROM ssw_vocabulary WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND term = ANY('{"体位変換","褥瘡","仰臥位","側臥位"}'::text[])), 2, '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_modules WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05'), 'kaigo-m05-l3', 'Pindah dari Tempat Tidur ke Kursi Roda', 'ベッドから車いすへの移乗', 'Urutan 移乗 yang aman untuk pengguna dengan kelumpuhan satu sisi (片麻痺), termasuk posisi kursi roda.', '## Persiapan
+- Periksa kondisi pengguna (pusing, nyeri, lemas) sebelum mulai.
+- Letakkan kursi roda di sisi **健側** (sisi yang sehat) pengguna, serong ±20–30° terhadap tempat tidur.
+- Kunci **ブレーキ** dan naikkan **フットサポート**.
+- Atur tinggi tempat tidur supaya kedua kaki pengguna menapak lantai saat duduk.
+
+## Urutan dasar (片麻痺, bisa berdiri dengan bantuan)
+- 声かけ: jelaskan dan minta persetujuan.
+- Bantu ke **端座位**; pastikan kedua telapak kaki menapak lantai dan 座位 stabil.
+- Pengguna memegang アームサポート kursi roda yang jauh dengan tangan sisi sehat.
+- Condongkan badan pengguna ke depan (前かがみ) — bokong akan terangkat dengan sendirinya.
+- Berdiri bersama dengan aba-aba; caregiver menopang dari sisi **患側**. Pastikan 立位 stabil.
+- Putar badan dengan kaki sisi sehat sebagai poros, lalu dudukkan perlahan.
+- Minta duduk lebih dalam (深く座る), turunkan フットサポート, letakkan kaki di atasnya.
+
+### Mengapa kursi roda di sisi 健側
+Pengguna berputar dengan bertumpu pada kaki yang kuat. Kalau kursi roda ada di sisi yang lumpuh, pengguna harus bertumpu pada kaki yang lemah — risiko jatuh (転倒) tinggi.
+
+### Tanda berhenti
+Kalau pengguna pucat, pusing, atau kakinya lemas saat berdiri, dudukkan kembali, amati, dan laporkan. Bangun terlalu cepat bisa memicu tekanan darah turun mendadak (起立性低血圧).
+
+### Pendalaman
+- [Bantuan Transfer & Mobilitas Kaigo](/Materi/Kaigo-Iijo-Ido.html)
+- [Teknik Kursi Roda](/Materi/Kaigo-Kurumaisu.html)', '[{"speaker":"Caregiver","jp":"車いすに移りましょう。ブレーキはかけてあります。","furigana":"くるまいすにうつりましょう。ブレーキはかけてあります。","id":"Mari pindah ke kursi roda. Remnya sudah dikunci."},{"speaker":"Caregiver","jp":"前かがみになってください。いち、に、さんで立ちましょう。","furigana":"まえかがみになってください。いち、に、さんでたちましょう。","id":"Tolong condongkan badan ke depan. Kita berdiri di hitungan satu, dua, tiga."},{"speaker":"Pengguna","jp":"ちょっと目が回ります……。","furigana":"ちょっとめがまわります……。","id":"Agak pusing..."},{"speaker":"Caregiver","jp":"では、一度座りましょう。無理しないでくださいね。","furigana":"では、いちどすわりましょう。むりしないでくださいね。","id":"Kalau begitu, duduk dulu. Jangan dipaksakan, ya."}]', '', ARRAY(SELECT id FROM ssw_vocabulary WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND term = ANY('{"移乗","端座位","座位","立位","車いす","ブレーキ","フットサポート","健側","患側"}'::text[])), 3, '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_modules WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05'), 'kaigo-m05-l4', 'Mendorong Kursi Roda dengan Aman', '車いすの介助', 'Bagian-bagian kursi roda dan cara melewati undakan, tanjakan, turunan, serta lift.', '## Bagian kursi roda
+| Bagian | Fungsi |
+|---|---|
+| ブレーキ | mengunci roda saat berhenti dan saat 移乗 |
+| フットサポート | pijakan kaki; dinaikkan saat berdiri |
+| アームサポート | sandaran lengan; pegangan saat berdiri |
+| ハンドグリップ | pegangan dorong untuk caregiver |
+| ティッピングレバー | tuas yang diinjak untuk mengangkat roda depan |
+
+## Aturan dasar 移動
+- Selalu beri tahu sebelum bergerak: 「動きますね。」
+- Pastikan kaki di atas フットサポート dan tangan tidak di dekat roda.
+- Dorong dengan kecepatan orang berjalan pelan.
+- Setiap berhenti, walau sebentar, kunci rem.
+
+## Situasi khusus
+- **Naik undakan (段差)**: injak ティッピングレバー untuk mengangkat roda depan, naikkan roda depan, lalu dorong roda belakang naik.
+- **Turun undakan**: turun **mundur** — roda belakang lebih dulu, perlahan.
+- **Tanjakan**: dorong maju dengan langkah kecil, badan agak condong ke depan.
+- **Turunan curam**: turun **mundur**; caregiver di sisi bawah sambil sesekali melihat ke belakang.
+- **Lift**: masuk dan keluar perlahan; perhatikan celah lantai supaya roda depan tidak tersangkut.
+
+### Pendalaman
+- [Teknik Kursi Roda](/Materi/Kaigo-Kurumaisu.html)
+- [Panduan Keselamatan Kaigo](/Materi/Kaigo-Safety-Guide.html)', '[{"speaker":"Caregiver","jp":"動きますね。足はフットサポートに乗っていますか。","furigana":"うごきますね。あしはフットサポートにのっていますか。","id":"Kita mulai jalan, ya. Kakinya sudah di atas pijakan?"},{"speaker":"Pengguna","jp":"はい、大丈夫です。","furigana":"はい、だいじょうぶです。","id":"Ya, aman."},{"speaker":"Caregiver","jp":"この先に段差があります。少し揺れますよ。","furigana":"このさきにだんさがあります。すこしゆれますよ。","id":"Di depan ada undakan. Akan sedikit bergoyang, ya."}]', '', ARRAY(SELECT id FROM ssw_vocabulary WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND term = ANY('{"車いす","ブレーキ","フットサポート","アームサポート","段差","移動"}'::text[])), 4, '{"generated","kaigo-m05"}', 'practice'),
+  ((SELECT id FROM ssw_modules WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05'), 'kaigo-m05-l5', 'Mendampingi Berjalan', '歩行の介助', 'Posisi caregiver, cara memakai tongkat (杖) dan walker, serta pencegahan jatuh.', '## Posisi caregiver
+Untuk pengguna dengan 片麻痺 (kelumpuhan satu sisi), caregiver berdiri di sisi **患側** (yang lumpuh), sedikit di belakang. Dari posisi ini caregiver bisa menopang ke arah pengguna paling mungkin jatuh.
+
+## Berjalan dengan tongkat (杖)
+Tongkat dipegang dengan tangan sisi **健側**.
+
+| Pola | Urutan langkah |
+|---|---|
+| 3動作歩行 | 杖 → kaki 患側 → kaki 健側 |
+| 2動作歩行 | 杖 bersama kaki 患側 → kaki 健側 |
+
+- Naik tangga: 杖 → kaki 健側 → kaki 患側.
+- Turun tangga: 杖 → kaki 患側 → kaki 健側.
+
+## Walker (歩行器)
+Majukan walker lebih dulu, lalu melangkah ke dalam rangkanya. Jangan mendorong terlalu jauh ke depan — badan jadi condong dan mudah jatuh.
+
+## Mencegah 転倒
+- Periksa lantai: basah, kabel, karpet terlipat, 段差.
+- Pastikan alas kaki pas dan tidak licin — sandal selop mudah lepas.
+- Kalau pengguna ふらつき (sempoyongan), minta segera duduk; jangan dipaksa melanjutkan.
+- Pengguna yang pernah jatuh perlu 見守り (diawasi) setiap berjalan.
+
+### Pendalaman
+- [Bantuan Berjalan](/Materi/Kaigo-Hoko-Kaijo.html)
+- [Penataan Lingkungan Rumah yang Aman](/Materi/Kaigo-Juukankyo-Seibi.html)', '[{"speaker":"Caregiver","jp":"私は左側にいますから、安心してください。","furigana":"わたしはひだりがわにいますから、あんしんしてください。","id":"Saya ada di sebelah kiri, jadi tenang saja."},{"speaker":"Pengguna","jp":"杖を先に出すんですよね。","furigana":"つえをさきにだすんですよね。","id":"Tongkatnya dimajukan duluan, kan?"},{"speaker":"Caregiver","jp":"はい。杖、左足、右足の順番です。","furigana":"はい。つえ、ひだりあし、みぎあしのじゅんばんです。","id":"Ya. Urutannya tongkat, kaki kiri, kaki kanan."}]', '', ARRAY(SELECT id FROM ssw_vocabulary WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND term = ANY('{"歩行介助","杖","歩行器","患側","健側","麻痺","転倒","ふらつき"}'::text[])), 5, '{"generated","kaigo-m05"}', 'practice')
+ON CONFLICT (module_id, slug) DO UPDATE SET title = EXCLUDED.title, title_jp = EXCLUDED.title_jp, description = EXCLUDED.description, body_md = EXCLUDED.body_md, dialogues = EXCLUDED.dialogues, notes = EXCLUDED.notes, vocab_ids = EXCLUDED.vocab_ids, sort = EXCLUDED.sort, tags = EXCLUDED.tags, source = EXCLUDED.source, updated_at = now()
+  WHERE ssw_lessons.tags @> '{generated}';
+
+INSERT INTO ssw_quizzes (category_id, slug, kind, title, description, pass_score, time_limit_min, question_count, randomize, distribution, source, source_name, tags) VALUES
+  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), 'kaigo-m05-quiz', 'quiz', 'Kuis Modul 5 — 移動・移乗', 'Latihan 生活支援技術 (移動・移乗), istilah posisi, 声かけ, dan soal situasi bergaya 判断等試験. Generated Practice — bukan soal resmi.', 70, NULL, NULL, true, NULL, 'practice', 'Nihongo Pro Academy — Generated Practice', '{"generated","kaigo-m05"}')
+ON CONFLICT (category_id, slug) DO UPDATE SET kind = EXCLUDED.kind, title = EXCLUDED.title, description = EXCLUDED.description, pass_score = EXCLUDED.pass_score, time_limit_min = EXCLUDED.time_limit_min, question_count = EXCLUDED.question_count, randomize = EXCLUDED.randomize, distribution = EXCLUDED.distribution, source = EXCLUDED.source, source_name = EXCLUDED.source_name, tags = EXCLUDED.tags
+  WHERE ssw_quizzes.tags @> '{generated}';
+
+INSERT INTO ssw_questions (quiz_id, type, payload, answer, explanation, points, sort, tags) VALUES
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'mc', '{"question":"Posisi 「端座位」 adalah…","choices":["Berbaring telentang","Duduk di tepi tempat tidur dengan telapak kaki menapak lantai","Berbaring miring","Berdiri sambil berpegangan"]}', '{"index":1}', '端座位 (たんざい) = duduk di tepi tempat tidur; posisi awal sebelum 移乗.', 1, 1, '{"generated","kaigo-m05","area:seikatsu"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'mc', '{"question":"Tujuan utama 体位変換 secara berkala adalah…","choices":["Supaya pengguna cepat tidur","Menambah nafsu makan","Mencegah luka tekan (褥瘡)","Mengurangi pekerjaan malam"]}', '{"index":2}', 'Tekanan lama di satu titik menghambat aliran darah ke kulit → 褥瘡. Mengubah posisi memindahkan titik tekanan.', 1, 2, '{"generated","kaigo-m05","area:seikatsu"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'tf', '{"question":"Saat mendampingi pengguna 片麻痺 berjalan, caregiver berdiri di sisi yang sehat (健側)."}', '{"bool":false}', 'Caregiver berdiri di sisi 患側 (yang lumpuh), sedikit di belakang — arah pengguna paling mungkin jatuh.', 1, 3, '{"generated","kaigo-m05","area:seikatsu"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'mc', '{"question":"Mana yang sesuai prinsip ボディメカニクス?","choices":["Membungkuk dengan lutut lurus lalu mengangkat","Menjauhkan badan dari pengguna agar leluasa","Memutar pinggang sambil mengangkat","Membuka kaki, menurunkan titik berat, dan mendekat ke pengguna"]}', '{"index":3}', 'Bidang tumpu lebar + 重心 rendah + dekat dengan pengguna = stabil dan ringan. Membungkuk dengan lutut lurus atau memutar pinggang melukai 腰.', 1, 4, '{"generated","kaigo-m05","area:seikatsu"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'mc', '{"question":"Situasi: pengguna dengan kelumpuhan sisi KIRI akan pindah dari tempat tidur ke kursi roda. Di mana kursi roda sebaiknya diletakkan?","choices":["Di sisi kanan pengguna, serong ±20–30°","Di sisi kiri pengguna","Di belakang caregiver","Di kaki tempat tidur, jauh dari pengguna"]}', '{"index":0}', 'Kursi roda di sisi 健側 (kanan) supaya pengguna berputar dengan bertumpu pada kaki yang kuat.', 1, 5, '{"generated","kaigo-m05","area:jitsugi"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'mc', '{"question":"Situasi: pengguna sudah mulai berdiri, lalu caregiver sadar rem kursi roda belum dikunci. Tindakan yang tepat?","choices":["Lanjutkan saja karena hampir selesai","Tahan kursi roda dengan kaki sambil memindahkan","Dudukkan kembali pengguna, kunci rem, lalu mulai dari awal","Minta pengguna berdiri lebih cepat"]}', '{"index":2}', 'Kursi roda yang tidak terkunci bisa bergeser saat diduduki → 転倒. Hentikan, amankan, lalu ulangi.', 1, 6, '{"generated","kaigo-m05","area:jitsugi"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'mc', '{"question":"Situasi: Anda mendorong kursi roda menuruni turunan yang curam. Cara yang aman?","choices":["Turun maju dengan cepat","Turun mundur perlahan, caregiver di sisi bawah","Lepas rem dan biarkan meluncur pelan","Minta pengguna menahan roda dengan tangan"]}', '{"index":1}', 'Turun mundur mencegah pengguna terdorong ke depan; caregiver di sisi bawah menahan beban kursi roda.', 1, 7, '{"generated","kaigo-m05","area:jitsugi"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'tf', '{"question":"Untuk menaikkan kursi roda ke undakan (段差), caregiver menginjak ティッピングレバー agar roda depan terangkat."}', '{"bool":true}', 'Injak ティッピングレバー → roda depan naik ke undakan → dorong roda belakang naik.', 1, 8, '{"generated","kaigo-m05","area:jitsugi"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'fill', '{"question":"Tulis bacaan (hiragana) dari 褥瘡."}', '{"accept":["じょくそう","jokusou","jokusō"]}', '褥瘡 dibaca じょくそう = luka tekan.', 1, 9, '{"generated","kaigo-m05","area:kotoba"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'match', '{"question":"Jodohkan istilah posisi dengan artinya:","pairs":[{"left":"仰臥位","right":"Berbaring telentang"},{"left":"側臥位","right":"Berbaring miring"},{"left":"端座位","right":"Duduk di tepi tempat tidur"}]}', '{"pairs":[{"left":"仰臥位","right":"Berbaring telentang"},{"left":"側臥位","right":"Berbaring miring"},{"left":"端座位","right":"Duduk di tepi tempat tidur"}]}', '仰臥位 (ぎょうがい), 側臥位 (そくがい), 端座位 (たんざい) — istilah yang sering muncul di catatan dan instruksi kerja.', 2, 10, '{"generated","kaigo-m05","area:kotoba"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'mc', '{"question":"Sapaan (声かけ) yang tepat sebelum mengubah posisi pengguna adalah…","choices":["「動かないで！」","「早くしてください。」","Tidak berkata apa-apa agar pengguna tidak kaget","「今から体の向きを変えますね。よろしいですか。」"]}', '{"index":3}', 'Jelaskan dan minta persetujuan lebih dulu; pengguna jadi tenang dan bisa ikut membantu.', 1, 11, '{"generated","kaigo-m05","area:kaiwa"}'),
+  ((SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz'), 'mc', '{"question":"Saat berbaring telentang (仰臥位), bagian tubuh yang paling rawan 褥瘡 adalah…","choices":["Tulang ekor/sakrum (仙骨部) dan tumit","Telapak tangan","Dahi","Bagian depan betis"]}', '{"index":0}', 'Tonjolan tulang yang menahan berat: 仙骨部, tumit, belakang kepala, siku.', 1, 12, '{"generated","kaigo-m05","area:kokoro"}')
+ON CONFLICT (quiz_id, sort) DO UPDATE SET type = EXCLUDED.type, payload = EXCLUDED.payload, answer = EXCLUDED.answer, explanation = EXCLUDED.explanation, points = EXCLUDED.points, tags = EXCLUDED.tags
+  WHERE ssw_questions.tags @> '{generated}';
+
+DELETE FROM ssw_modules WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND tags @> '{generated}' AND slug <> ALL ('{"kaigo-m05"}'::text[]);
+DELETE FROM ssw_lessons l USING ssw_modules m WHERE l.module_id = m.id AND m.category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND l.tags @> '{generated}' AND (m.slug || '/' || l.slug) <> ALL ('{"kaigo-m05/kaigo-m05-l1","kaigo-m05/kaigo-m05-l2","kaigo-m05/kaigo-m05-l3","kaigo-m05/kaigo-m05-l4","kaigo-m05/kaigo-m05-l5"}'::text[]);
+DELETE FROM ssw_vocabulary WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND tags @> '{generated}' AND term <> ALL ('{"移乗","移動","体位変換","褥瘡","仰臥位","側臥位","端座位","座位","立位","ボディメカニクス","支持基底面","重心","車いす","ブレーキ","フットサポート","アームサポート","杖","歩行器","歩行介助","患側","健側","麻痺","転倒","段差","ふらつき"}'::text[]);
+DELETE FROM ssw_kanji WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND tags @> '{generated}' AND kanji <> ALL ('{"移","乗","車","歩","転","立"}'::text[]);
+DELETE FROM ssw_grammar WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND tags @> '{generated}' AND pattern <> ALL ('{"〜ましょう / 〜ましょうか","〜てもいいですか / 〜てもよろしいですか","〜ないように"}'::text[]);
+DELETE FROM ssw_listening WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND tags @> '{generated}' AND title <> ALL ('{"移乗の声かけを聞く","歩行介助の申し送りを聞く"}'::text[]);
+DELETE FROM ssw_reading WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND tags @> '{generated}' AND title <> ALL ('{"移乗の手順（掲示）","申し送り：転倒に注意"}'::text[]);
+DELETE FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND tags @> '{generated}' AND slug <> ALL ('{"kaigo-m05-quiz"}'::text[]);
+DELETE FROM ssw_questions WHERE quiz_id = (SELECT id FROM ssw_quizzes WHERE category_id=(SELECT id FROM ssw_categories WHERE slug='kaigo') AND slug='kaigo-m05-quiz') AND tags @> '{generated}' AND sort > 12;
+-- <<< SSW-CONTENT generated <<<
 
 -- ============================================================
 -- SSW — Kosakata (ssw_vocabulary), 14 bidang × ±8 kata
 -- ============================================================
 INSERT INTO ssw_vocabulary (category_id, term, furigana, romaji, meaning_id, meaning_en, example, example_furigana, example_id, level, tags) VALUES
   -- 介護 Kaigo (Perawatan Lansia)
-  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '移乗', 'いじょう', 'ijō', 'Pemindahan/transfer pengguna', 'Transfer', '利用者をベッドから車いすへ移乗させます。', 'りようしゃをベッドからくるまいすへいじょうさせます。', 'Memindahkan pengguna dari tempat tidur ke kursi roda.', 'dasar', '{perawatan}'),
+  -- 移乗 / 体位変換 / 褥瘡 dipindah ke modul kaigo-m05 (scripts/ssw-curriculum/kaigo/kaigo-m05.json)
   ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '食事介助', 'しょくじかいじょ', 'shokuji kaijo', 'Bantuan makan', 'Meal assistance', '利用者に食事介助を行います。', 'りようしゃにしょくじかいじょをおこないます。', 'Melakukan bantuan makan kepada pengguna.', 'dasar', '{perawatan}'),
   ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '入浴介助', 'にゅうよくかいじょ', 'nyūyoku kaijo', 'Bantuan mandi', 'Bathing assistance', '入浴介助の前に体調を確認します。', 'にゅうよくかいじょのまえにたいちょうをかくにんします。', 'Memeriksa kondisi tubuh sebelum bantuan mandi.', 'dasar', '{perawatan}'),
   ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '排泄', 'はいせつ', 'haisetsu', 'Buang air (besar/kecil)', 'Excretion', '排泄のサポートが必要です。', 'はいせつのサポートがひつようです。', 'Butuh dukungan buang air.', 'dasar', '{perawatan}'),
   ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '認知症', 'にんちしょう', 'ninchishō', 'Demensia', 'Dementia', '認知症のご利用者に優しく話しかけます。', 'にんちしょうのごりようしゃにやさしくはなしかけます。', 'Berbicara dengan lembut kepada pengguna demensia.', 'dasar', '{kesehatan}'),
-  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '体位変換', 'たいいへんかん', 'taii henkan', 'Pengubahan posisi tubuh', 'Repositioning', '2時間ごとに体位変換をします。', 'にじかんごとにたいいへんかんをします。', 'Mengubah posisi tubuh setiap dua jam.', 'menengah', '{perawatan}'),
-  ((SELECT id FROM ssw_categories WHERE slug='kaigo'), '褥瘡', 'じょくそう', 'jokusō', 'Luka tekan (dekubitus)', 'Pressure sore', '褥瘡を予防するために体位を変えます。', 'じょくそうをよぼうするためにたいいをかえます。', 'Mengubah posisi untuk mencegah luka tekan.', 'lanjut', '{kesehatan}'),
   ((SELECT id FROM ssw_categories WHERE slug='kaigo'), 'バイタルサイン', 'バイタルサイン', 'baitaru sain', 'Tanda vital', 'Vital signs', '毎朝バイタルサインを測定します。', 'まいあさバイタルサインをそくていします。', 'Mengukur tanda vital setiap pagi.', 'dasar', '{kesehatan}'),
 
   -- ビルクリーニング Building Cleaning

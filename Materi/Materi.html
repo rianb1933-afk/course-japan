@@ -34,7 +34,7 @@
 <link rel="stylesheet" href="../assets/translator.css">
 
     
-<link rel="stylesheet" href="../assets/neko-theme.css?v=6">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=9">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggoproacademy.netlify.app/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggoproacademy.netlify.app/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Materi Lengkap — Nihongo Pro Academy","item":"https://nihonggoproacademy.netlify.app/Materi/Materi.html"}]}</script>
 <link rel="manifest" href="../manifest.json">
@@ -56,7 +56,7 @@
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
-<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=6">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=9">
 <meta property="og:site_name" content="Nihongo Pro Academy">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 <style>
@@ -207,6 +207,55 @@ a{text-decoration:none}button{cursor:pointer}
 
 </style>
 <style>
+/* ── PENCARIAN MODUL (Materi Lengkap) ── */
+.hub-search{margin:0 clamp(16px,4vw,48px) 1.25rem}
+.hub-search-row{display:flex;align-items:center;gap:.5rem}
+.hub-search-row input{flex:1;padding:.7rem 1rem;border:.5px solid var(--border-mid,#e0e0e0);border-radius:100px;font-size:14px;background:var(--white,#fff);color:var(--ink,#17181d);outline:none;font-family:inherit}
+.hub-search-row input:focus{border-color:var(--red,#be3428)}
+.hub-search-clear{width:32px;height:32px;flex:none;border-radius:50%;border:.5px solid var(--border-mid,#e0e0e0);background:var(--cream,#f7f5f0);color:var(--ink-soft,#6b7280);font-size:13px;cursor:pointer;transition:background .15s,color .15s}
+.hub-search-clear:hover{color:var(--ink,#17181d)}
+.hub-search-count{font-size:12px;color:var(--ink-soft,#6b7280);margin-top:.5rem}
+.hub-search-empty{margin-top:1rem;padding:1.25rem;border:.5px dashed var(--border-mid,#e0e0e0);border-radius:12px;background:var(--cream,#f7f5f0);color:var(--ink-mid,#4b5563);font-size:13px;text-align:center}
+@media(max-width:768px){
+  .hub-search{margin:0 1rem 1rem}
+}
+
+/* ── SEKSI MATERI + QUICKNAV STICKY ── */
+/* Tinggi tumpukan sticky halaman ini (navbar + quicknav, bawahnya ±112px)
+   ditulis SEKALI sebagai scroll-padding, menimpa 86px dari neko-theme.css.
+   Dulu seksi memakai scroll-margin-top:128px yang MENUMPUK di atas 86px itu:
+   seksi mendarat di 214px (lewat garis scroll-spy 140px, jadi chip seksi
+   sebelumnya yang menyala), sedangkan kartu #lv-N* mendarat di 86px dan
+   tertutup quicknav. Garis 140px di script scroll-spy bergantung pada nilai ini. */
+html{scroll-padding-top:128px}
+.materi-sec{margin:0 clamp(16px,4vw,48px) 2.25rem}
+.ms-head{display:flex;align-items:baseline;gap:.65rem;flex-wrap:wrap;margin:0 0 .9rem}
+.ms-head h2{font-size:1.2rem;font-weight:800;color:var(--ink);margin:0;letter-spacing:-.01em}
+.ms-icon{margin-right:.35rem}
+.ms-sub{font-size:12px;color:var(--ink-soft)}
+.hub-quicknav{position:sticky;top:64px;z-index:400;background:var(--nav-bg,rgba(250,248,245,.88));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:.5px solid var(--border-mid,#e0e0e0);padding:.5rem clamp(16px,4vw,48px);margin-bottom:1.5rem}
+.hqn-inner{display:flex;align-items:center;gap:.4rem;overflow-x:auto;scrollbar-width:none}
+.hqn-inner::-webkit-scrollbar{display:none}
+.hqn-chip{flex:none;padding:.34rem .8rem;border-radius:100px;font-size:12px;font-weight:700;color:var(--ink-mid,#3A3A42);background:var(--white,#fff);border:.5px solid var(--border-mid,#e0e0e0);text-decoration:none;transition:background .15s,color .15s,border-color .15s}
+.hqn-chip:hover{color:var(--ink);border-color:var(--red,#be3428)}
+.hqn-chip.active{background:var(--red,#be3428);border-color:var(--red,#be3428);color:#fff}
+.hqn-lv{padding:.34rem .55rem}
+@media(max-width:768px){
+  .hub-quicknav{top:56px;padding:.45rem 1rem}
+  .materi-sec{margin:0 1rem 1.75rem}
+}
+
+/* ── KARTU LEVEL ── */
+.hub-lvcard .hub-icon{background:var(--gold-pale,#FBF0D8)}
+.hub-lvcard .hub-links a{font-weight:700}
+
+/* ── LENCAHA PROGRES PER MODUL ── */
+.hub-progress{display:flex;flex-wrap:wrap;gap:.35rem;margin:.1rem 0 .55rem}
+.hub-progress:empty{display:none}
+.hub-progress .hp-chip{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .55rem;border-radius:100px;font-size:11px;font-weight:700;background:var(--green-pale,#E8F8F0);color:var(--ink,#0F0F12)}
+.hub-progress .hp-chip.hp-lv{background:var(--gold-pale,#FBF0D8)}
+</style>
+<style>
 /* ── KEYBOARD ACCESSIBILITY ── */
 *:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px;border-radius:4px}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--red,#be3428);outline-offset:2px}
@@ -214,35 +263,24 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .skip-to-content:focus{top:0}
 </style>
 <style>
-.mt-kaigo-cta { position:relative; overflow:hidden; display:block; text-decoration:none; color:inherit;
-  margin:2rem clamp(16px,5vw,72px); padding:1.6rem 1.5rem; border-radius:16px;
-  background:linear-gradient(135deg, rgba(190,52,40,.06), rgba(212,85,63,.05));
-  border:.5px solid rgba(190,52,40,.18);
-  transition:transform .18s, border-color .18s, box-shadow .18s; }
-.mt-kaigo-cta:hover { transform:translateY(-2px); border-color:rgba(190,52,40,.45);
-  box-shadow:0 8px 26px rgba(190,52,40,.12); }
-.mt-kaigo-cta:focus-visible { outline:2px solid var(--red,#be3428); outline-offset:3px; }
-.mt-kaigo-cta::after { content:"介"; position:absolute; right:-.4rem; bottom:-2.2rem;
-  font-family:'Noto Serif JP',serif; font-size:8rem; font-weight:900; line-height:1;
-  color:rgba(190,52,40,.06); pointer-events:none; }
-.mt-kaigo-head { display:flex; align-items:center; gap:.55rem; flex-wrap:wrap; margin-bottom:.7rem; }
-.mt-kaigo-icon { font-size:22px; }
-.mt-kaigo-name { font-family:'Noto Serif JP',serif; font-size:18px; font-weight:700; color:var(--ink,#15161a); }
-.mt-kaigo-badge { padding:2px 8px; border-radius:5px; font-size:11px; font-weight:800;
-  background:rgba(190,52,40,.1); color:var(--red,#be3428); }
-.mt-kaigo-desc { position:relative; z-index:1; max-width:66ch; margin:0 0 1rem;
-  font-size:13px; line-height:1.7; color:var(--ink-mid,#555); }
-.mt-kaigo-tags { position:relative; z-index:1; display:flex; flex-wrap:wrap; gap:.4rem; margin-bottom:1.1rem; }
-.mt-kaigo-tag { font-size:11px; font-weight:600; color:var(--ink-mid,#555);
-  background:var(--white,#fff); border:.5px solid rgba(0,0,0,.08);
-  padding:.28rem .6rem; border-radius:99px; }
-.mt-kaigo-go { position:relative; z-index:1; display:inline-flex; align-items:center; gap:.45rem;
-  font-size:13px; font-weight:700; color:#fff; background:var(--red,#be3428);
-  padding:.65rem 1.15rem; border-radius:9px; }
-.mt-kaigo-cta:hover .mt-kaigo-go { background:#a12c22; }
-@media (prefers-reduced-motion: reduce) {
-  .mt-kaigo-cta { transition:none; }
-  .mt-kaigo-cta:hover { transform:none; }
+/* ── SEKSI KERJA DI JEPANG: Kaigo + SSW ──
+   Dua jalur karier tampil setara sebagai kartu hub biasa supaya ikut
+   pencarian modul, scroll-spy, dan quicknav. Dulu CTA Kaigo berdiri di luar
+   #main-content (di bawah semua tab), sehingga mencari "kaigo" menghasilkan
+   0 modul. Watermark kanji dari data-mark; "/ ''" membuatnya tidak dibacakan
+   pembaca layar (browser lama mengabaikan deklarasi kedua). */
+.hub-grid-karier{grid-template-columns:repeat(2,1fr)}
+.hub-karier{position:relative;overflow:hidden;background:linear-gradient(135deg,rgba(190,52,40,.06),rgba(212,85,63,.03)),var(--white);border-color:rgba(190,52,40,.2)}
+.hub-karier::after{content:attr(data-mark);content:attr(data-mark) / "";position:absolute;right:-.3rem;bottom:-2rem;font-family:'Noto Serif JP',serif;font-size:8rem;font-weight:900;line-height:1;color:rgba(190,52,40,.06);pointer-events:none}
+.hub-karier > *{position:relative;z-index:1}
+.hub-karier p{font-size:13px;max-width:62ch}
+/* bukan tautan — sengaja tanpa bingkai supaya tidak menyerupai .hub-links a */
+.hk-tags{display:flex;flex-wrap:wrap;gap:4px 14px}
+.hk-tag{font-size:12px;font-weight:600;color:var(--ink-mid)}
+.hub-karier .hub-links a.hk-go{background:var(--red,#be3428);border-color:var(--red,#be3428);color:#fff}
+.hub-karier .hub-links a.hk-go:hover{background:#a12c22;color:#fff}
+@media(max-width:768px){
+  .hub-grid-karier{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -272,40 +310,78 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
         <div class="hub-label">Belajar Terstruktur</div>
         <h2 class="hub-title">Pilih Modul Utama</h2>
       </div>
-      <p class="hub-sub">Modul lengkap dipisahkan agar lebih mudah dipakai: roadmap JLPT, grammar, kanji per level, dan flashcard latihan.</p>
+      <p class="hub-sub">Modul lengkap dipisahkan agar lebih mudah dipakai: roadmap JLPT, grammar, kanji per level, flashcard latihan, serta jalur kerja Kaigo &amp; SSW.</p>
     </div>
-    <div class="hub-grid">
-      <article class="hub-card">
+    <div class="hub-search">
+      <div class="hub-search-row">
+        <input id="hubSearch" type="search" placeholder="Cari modul… (mis. kanji, grammar, kaigo, SSW)" aria-label="Cari modul belajar" autocomplete="off">
+        <button id="hubSearchClear" type="button" class="hub-search-clear" hidden aria-label="Bersihkan pencarian">✕</button>
+      </div>
+      <div class="hub-search-count" id="hubSearchCount" hidden></div>
+      <div class="hub-search-empty" id="hubSearchEmpty" hidden>Tidak ada modul yang cocok — coba kata kunci lain, mis. <strong>kanji</strong>, <strong>grammar</strong>, <strong>kaiwa</strong>, atau <strong>flashcard</strong>.</div>
+    </div>
+    
+    <div class="hub-quicknav" id="hubQuicknav" role="navigation" aria-label="Navigasi cepat materi">
+      <div class="hqn-inner">
+        <a href="#sec-dasar" class="hqn-chip">🏁 Dasar</a>
+        <a href="#sec-level" class="hqn-chip">🎚️ Level</a>
+        <a href="#lv-N5" class="hqn-chip hqn-lv">N5</a>
+        <a href="#lv-N4" class="hqn-chip hqn-lv">N4</a>
+        <a href="#lv-N3" class="hqn-chip hqn-lv">N3</a>
+        <a href="#lv-N2" class="hqn-chip hqn-lv">N2</a>
+        <a href="#lv-N1" class="hqn-chip hqn-lv">N1</a>
+        <a href="#sec-inti" class="hqn-chip">📚 Inti</a>
+        <a href="#sec-skill" class="hqn-chip">🎧 Skill</a>
+        <a href="#sec-ujian" class="hqn-chip">📝 Ujian</a>
+        <a href="#sec-alat" class="hqn-chip">🧰 Alat</a>
+        <a href="#sec-karier" class="hqn-chip">💼 Kerja</a>
+      </div>
+    </div>
+    <section class="materi-sec" id="sec-dasar">
+      <div class="ms-head"><h2><span class="ms-icon">🏁</span>Dasar &amp; Mulai</h2><span class="ms-sub">Sebelum masuk JLPT: bunyi, kana, dan fondasi kalimat.</span></div>
+      <div class="hub-grid">
+  <article class="hub-card">
         <div class="hub-icon">零</div>
         <h3>Mulai dari Nol</h3>
         <p>Untuk pemula absolut: urutan belajar huruf Jepang, bunyi dasar, dan latihan kana interaktif sebelum masuk JLPT.</p>
         <div class="hub-links"><a href="#tab-nol" onclick="switchTab('nol',document.querySelector('[onclick*=nol]'))">Mulai Nol</a><a href="Kana-Hiragana-Katakana.html">Kana</a><a href="Fondasi-Bahasa-Jepang.html">Fondasi</a></div>
       </article>
-      <article class="hub-card">
+  <article class="hub-card">
         <div class="hub-icon">基</div>
         <h3>Fondasi Bahasa Jepang</h3>
         <p>Partikel, konjugasi, pola kalimat, counter, ekspresi kelas, dan sprint belajar 7 hari sebelum masuk N5.</p>
         <div class="hub-links"><a href="Fondasi-Bahasa-Jepang.html">Buka Fondasi</a><a href="Kata-Kerja-Dasar.html">Kata Kerja</a><a href="Kata-Sifat-Dasar.html">Kata Sifat</a><a href="Kosakata-Profesi.html">Profesi (仕事)</a><a href="Kosakata-Keluarga.html">Keluarga (家族)</a><a href="Kosakata-Makanan.html">Makanan (食べ物)</a><a href="Kosakata-Warna.html">Warna (色)</a><a href="Grammar-Sonkeigo-Kenjougo.html">Keigo (尊敬・謙譲)</a><a href="Grammar-Tsumori.html">Niat (つもり)</a><a href="Kosakata-Cuaca-Musim.html">Cuaca &amp; Musim</a><a href="Grammar-Nagara.html">Sambil (ながら)</a><a href="Grammar-Sugiru.html">Terlalu (すぎる)</a><a href="Salam-Sapaan-Jepang.html">Salam &amp; Sapaan</a><a href="Frasa-Praktis-Harian.html">Frasa Praktis</a><a href="Kaiwa-Jikoshoukai.html">会話: Perkenalan</a><a href="Kaiwa-Kaimono.html">会話: Belanja</a><a href="Kaiwa-Restoran.html">会話: Restoran</a><a href="Kaiwa-Michi-Annai.html">会話: Arah</a><a href="Kaiwa-Denwa.html">会話: Telepon</a><a href="Kaiwa-Eki.html">会話: Stasiun</a><a href="Kaiwa-Byouin.html">会話: Rumah Sakit</a><a href="Kaiwa-Konbini.html">会話: Konbini</a><a href="Kaiwa-Shokuba.html">会話: Tempat Kerja</a><a href="Kaiwa-Yakusoku.html">会話: Janji Temu</a><a href="Kaiwa-Hotel.html">会話: Hotel</a><a href="Kaiwa-Kuukou.html">会話: Bandara</a><a href="Kaiwa-Takushi.html">会話: Taksi</a><a href="Kaiwa-Bank.html">会話: Bank</a><a href="Kaiwa-Gakkou.html">会話: Sekolah</a><a href="Grammar-Perbandingan.html">Perbandingan</a><a href="Kosakata-Tubuh-Kesehatan.html">Tubuh &amp; Kesehatan</a><a href="Grammar-Keinginan.html">Keinginan (たい)</a><a href="Grammar-Teiru.html">Bentuk ～ている</a><a href="Grammar-Izin-Kewajiban.html">Izin &amp; Kewajiban</a><a href="Partikel-Dasar-Jepang.html">Partikel</a><a href="Konjugasi-Dasar-Jepang.html">Konjugasi</a><a href="Angka-Counter-Waktu.html">Angka &amp; Kata Bantu</a></div>
       </article>
-      <article class="hub-card">
+  <article class="hub-card">
+        <div class="hub-icon">数</div>
+        <h3>Angka, Counter & Waktu</h3>
+        <p>Angka 1-億, counter benda/orang/hewan, cara baca jam, tanggal, bulan, dan tahun Jepang.</p>
+        <div class="hub-links"><a href="Angka-Counter-Waktu.html">Buka Modul</a></div>
+      </article>
+      </div>
+    </section>
+    <section class="materi-sec" id="sec-inti">
+      <div class="ms-head"><h2><span class="ms-icon">📚</span>Materi Inti N5–N1</h2><span class="ms-sub">Peta jalan, grammar, kosakata, kanji, dan kartu flash untuk semua level.</span></div>
+      <div class="hub-grid">
+  <article class="hub-card">
         <div class="hub-icon">試</div>
         <h3>Peta Jalan JLPT</h3>
         <p>Materi lengkap N5 sampai N1, skill practice, dan strategi ujian.</p>
         <div class="hub-links"><a href="JLPT-Lengkap.html">Buka Roadmap</a><a href="Kurikulum-Checklist.html">Daftar Periksa</a></div>
       </article>
-      <article class="hub-card">
+  <article class="hub-card">
         <div class="hub-icon">文</div>
         <h3>Grammar N5-N1</h3>
         <p>Pola grammar, struktur, contoh kalimat, dan full database referensi.</p>
         <div class="hub-links"><a href="Grammar-Lengkap.html">Tata Bahasa Lengkap</a><a href="Partikel-Dasar-Jepang.html">Partikel</a><a href="Konjugasi-Dasar-Jepang.html">Konjugasi</a><a href="Cheat-Sheet-JLPT.html">Lembar Contekan</a><a href="Glosarium-JLPT.html">Glosarium</a></div>
       </article>
-      <article class="hub-card">
+  <article class="hub-card">
         <div class="hub-icon">語</div>
         <h3>Kosakata N5-N1</h3>
         <p>Daftar 181.500+ vocabulary (JMdict + JLPT) dengan search, filter level, dan flashcard.</p>
         <div class="hub-links"><a href="Vocabulary-Lengkap.html">Kosakata Lengkap</a><a href="Vocabulary-Lengkap.html#vocabApp">Cari Kata</a></div>
       </article>
-      <article class="hub-card">
+  <article class="hub-card">
         <div class="hub-icon">漢</div>
         <h3>Kanji Per Tingkat</h3>
         <p>Daftar kanji N5–N1, review per level, kartu flash, dan panduan menulis — semua dalam satu tempat.</p>
@@ -318,91 +394,164 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
         <div class="hub-group">Panduan &amp; Alat</div>
         <div class="hub-links"><a href="../Kanji-Trainer.html">Trainer Goresan</a><a href="Kanji-Writing-Guide.html">Panduan Menulis</a><a href="Kanji-Writing.html">Latihan Tulis</a><a href="Angka-Kanji.html">Angka &amp; Bilangan</a></div>
       </article>
-      <article class="hub-card">
+  <article class="hub-card">
         <div class="hub-icon">暗</div>
         <h3>Semua Kartu Flash</h3>
         <p>9.000+ kartu vocabulary, kanji, dan grammar dengan filter level.</p>
         <div class="hub-links"><a href="Flashcard-Lengkap.html">Dek SRS Lengkap</a><a href="Flashcard-Lengkap.html?type=vocab&level=N5">Vocab N5</a><a href="Flashcard-Kanji.html">Kanji</a><a href="Flashcard-Lengkap.html?type=grammar&level=ALL">Tata Bahasa</a></div>
       </article>
-      <article class="hub-card">
-        <div class="hub-icon">問</div>
-        <h3>Latihan Soal JLPT</h3>
-        <p>Soal pilihan ganda N5-N1 untuk vocabulary, kanji, grammar, reading, listening, dan mixed mock.</p>
-        <div class="hub-links"><a href="Latihan-JLPT.html">Mulai Latihan</a><a href="Strategi-Ujian-JLPT.html">Strategi Ujian</a></div>
-      </article>
-      <article class="hub-card">
+      </div>
+    </section>
+    <section class="materi-sec" id="sec-skill">
+      <div class="ms-head"><h2><span class="ms-icon">🎧</span>Latihan Skill</h2><span class="ms-sub">Menyimak, berbicara, membaca, menulis, dan keigo bisnis.</span></div>
+      <div class="hub-grid">
+  <article class="hub-card">
         <div class="hub-icon">話</div>
         <h3>Menyimak &amp; Berbicara</h3>
         <p>Shadowing, dictation, dialog N5-N1, roleplay situasional, dan rubrik evaluasi speaking.</p>
         <div class="hub-links"><a href="Listening-Speaking.html">Buka Modul</a><a href="Pelafalan-Pitch-Accent.html">Pelafalan</a><a href="Listening-N1.html">N1</a><a href="Listening-N2.html">N2</a><a href="Listening-N3.html">N3</a><a href="Listening-N4.html">N4</a><a href="Listening-N5.html">N5</a></div>
       </article>
-      <article class="hub-card">
+  <article class="hub-card">
         <div class="hub-icon">読</div>
         <h3>Reading & Writing</h3>
         <p>Strategi skimming, scanning, transisi logika, ringkasan artikel, jurnal, dan opini N5-N1.</p>
         <div class="hub-links"><a href="Reading-Writing.html">Buka Modul</a><a href="Reading-N1.html">N1</a><a href="Reading-N2.html">N2</a><a href="Reading-N3.html">N3</a><a href="Reading-N4.html">N4</a><a href="Reading-N5.html">N5</a></div>
       </article>
-      <article class="hub-card">
-        <div class="hub-icon">敬</div>
-        <h3>Keigo & Bisnis</h3>
-        <p>Sonkeigo, kenjougo, email bisnis, rapat, telepon, apology, dan interview kerja Jepang.</p>
-        <div class="hub-links"><a href="Keigo-Fukushishi.html">敬語副詞</a> <a href="Keigo-Bisnis.html">Buka Modul</a></div>
-      </article>
-      <article class="hub-card">
-        <div class="hub-icon">計</div>
-        <h3>Rencana Belajar JLPT</h3>
-        <p>Planner adaptif untuk target ujian, menit harian, kelemahan utama, checklist mingguan, dan review.</p>
-        <div class="hub-links"><a href="Rencana-Belajar-JLPT.html">Buat Rencana</a><a href="Kurikulum-Checklist.html">Cek Kurikulum</a></div>
-      </article>
-      <article class="hub-card">
-        <div class="hub-icon">診</div>
-        <h3>Tes Level JLPT</h3>
-        <p>Tes diagnostik 20 soal untuk rekomendasi level awal, skill kuat, skill lemah, dan langkah belajar.</p>
-        <div class="hub-links"><a href="Tes-Level-JLPT.html">Mulai Tes</a><a href="Cheat-Sheet-JLPT.html">Review Cepat</a></div>
-      </article>
-      <article class="hub-card">
-        <div class="hub-icon">直</div>
-        <h3>Review Kesalahan</h3>
-        <p>Pusat jawaban salah, analisis pola kelemahan, dan checklist remedial supaya latihan makin terarah.</p>
-        <div class="hub-links"><a href="Review-Kesalahan.html">Buka Review</a><a href="Kesalahan-Umum-JLPT.html">Kesalahan Umum</a><a href="Template-Latihan-Mandiri.html">Lembar Latihan Mandiri</a></div>
-      </article>
-      <article class="hub-card">
-        <div class="hub-icon">文</div>
-        <h3>Pembuat Kalimat</h3>
-        <p>Susun kalimat Jepang dari pola N5-N3, partikel, vocabulary, dan contoh output aktif.</p>
-        <div class="hub-links"><a href="Pembuat-Kalimat.html">Buat Kalimat</a></div>
-      </article>
-      <article class="hub-card">
-        <div class="hub-icon">然</div>
-        <h3>Ungkapan Natural</h3>
-        <p>Aizuchi, onomatope, idiom, frasa pelunak, dan ekspresi natural untuk percakapan, reading, dan writing.</p>
-        <div class="hub-links"><a href="Ungkapan-Natural.html">Buka Modul</a></div>
-      </article>
-      <article class="hub-card">
-        <div class="hub-icon">極</div>
-        <h3>Fitur Belajar</h3>
-        <p>Mock exam panjang, analytics, review salah otomatis, AI correction, dan export deck.</p>
-        <div class="hub-links"><a href="../Materi/Materi.html">Semua Materi</a><a href="../AI-Tutor-Pro.html">AI Tutor</a></div>
-      </article>
-      <article class="hub-card">
+  <article class="hub-card">
         <div class="hub-icon">音</div>
         <h3>Pelafalan & Pitch Accent</h3>
         <p>Bunyi Jepang, pola intonasi, pasangan minimal, dan latihan pelafalan agar terdengar natural.</p>
         <div class="hub-links"><a href="Pelafalan-Pitch-Accent.html">Buka Modul</a></div>
       </article>
-      <article class="hub-card">
-        <div class="hub-icon">数</div>
-        <h3>Angka, Counter & Waktu</h3>
-        <p>Angka 1-億, counter benda/orang/hewan, cara baca jam, tanggal, bulan, dan tahun Jepang.</p>
-        <div class="hub-links"><a href="Angka-Counter-Waktu.html">Buka Modul</a></div>
+  <article class="hub-card">
+        <div class="hub-icon">敬</div>
+        <h3>Keigo & Bisnis</h3>
+        <p>Sonkeigo, kenjougo, email bisnis, rapat, telepon, apology, dan interview kerja Jepang.</p>
+        <div class="hub-links"><a href="Keigo-Fukushishi.html">敬語副詞</a> <a href="Keigo-Bisnis.html">Buka Modul</a></div>
       </article>
-      <article class="hub-card">
+  <article class="hub-card">
+        <div class="hub-icon">文</div>
+        <h3>Pembuat Kalimat</h3>
+        <p>Susun kalimat Jepang dari pola N5-N3, partikel, vocabulary, dan contoh output aktif.</p>
+        <div class="hub-links"><a href="Pembuat-Kalimat.html">Buat Kalimat</a></div>
+      </article>
+  <article class="hub-card">
+        <div class="hub-icon">然</div>
+        <h3>Ungkapan Natural</h3>
+        <p>Aizuchi, onomatope, idiom, frasa pelunak, dan ekspresi natural untuk percakapan, reading, dan writing.</p>
+        <div class="hub-links"><a href="Ungkapan-Natural.html">Buka Modul</a></div>
+      </article>
+      </div>
+    </section>
+    <section class="materi-sec" id="sec-ujian">
+      <div class="ms-head"><h2><span class="ms-icon">📝</span>Ujian &amp; Rencana</h2><span class="ms-sub">Soal latihan, tes diagnostik, analisis kesalahan, dan planner.</span></div>
+      <div class="hub-grid">
+  <article class="hub-card">
+        <div class="hub-icon">問</div>
+        <h3>Latihan Soal JLPT</h3>
+        <p>Soal pilihan ganda N5-N1 untuk vocabulary, kanji, grammar, reading, listening, dan mixed mock.</p>
+        <div class="hub-links"><a href="Latihan-JLPT.html">Mulai Latihan</a><a href="Strategi-Ujian-JLPT.html">Strategi Ujian</a></div>
+      </article>
+  <article class="hub-card">
+        <div class="hub-icon">診</div>
+        <h3>Tes Level JLPT</h3>
+        <p>Tes diagnostik 20 soal untuk rekomendasi level awal, skill kuat, skill lemah, dan langkah belajar.</p>
+        <div class="hub-links"><a href="Tes-Level-JLPT.html">Mulai Tes</a><a href="Cheat-Sheet-JLPT.html">Review Cepat</a></div>
+      </article>
+  <article class="hub-card">
+        <div class="hub-icon">直</div>
+        <h3>Review Kesalahan</h3>
+        <p>Pusat jawaban salah, analisis pola kelemahan, dan checklist remedial supaya latihan makin terarah.</p>
+        <div class="hub-links"><a href="Review-Kesalahan.html">Buka Review</a><a href="Kesalahan-Umum-JLPT.html">Kesalahan Umum</a><a href="Template-Latihan-Mandiri.html">Lembar Latihan Mandiri</a></div>
+      </article>
+  <article class="hub-card">
+        <div class="hub-icon">計</div>
+        <h3>Rencana Belajar JLPT</h3>
+        <p>Planner adaptif untuk target ujian, menit harian, kelemahan utama, checklist mingguan, dan review.</p>
+        <div class="hub-links"><a href="Rencana-Belajar-JLPT.html">Buat Rencana</a><a href="Kurikulum-Checklist.html">Cek Kurikulum</a></div>
+      </article>
+      </div>
+    </section>
+    <section class="materi-sec" id="sec-alat">
+      <div class="ms-head"><h2><span class="ms-icon">🧰</span>Alat &amp; Referensi</h2><span class="ms-sub">Penghafal cepat dan fitur platform.</span></div>
+      <div class="hub-grid">
+  <article class="hub-card">
         <div class="hub-icon">部</div>
         <h3>Radikal Kanji</h3>
         <p>Pelajari 100+ radikal (部首) untuk memecah dan menghafal kanji lebih cepat dan sistematis.</p>
         <div class="hub-links"><a href="Radikal-Kanji.html">Buka Modul</a></div>
       </article>
-    </div>
+  <article class="hub-card">
+        <div class="hub-icon">極</div>
+        <h3>Fitur Belajar</h3>
+        <p>Mock exam panjang, analytics, review salah otomatis, AI correction, dan export deck.</p>
+        <div class="hub-links"><a href="../Materi/Materi.html">Semua Materi</a><a href="../AI-Tutor-Pro.html">AI Tutor</a></div>
+      </article>
+      </div>
+    </section>
+    <section class="materi-sec" id="sec-level">
+      <div class="ms-head"><h2><span class="ms-icon">🎚️</span>Pilih Level JLPT</h2><span class="ms-sub">Semua materi per level: kanji, review, kartu, listening, reading.</span></div>
+      <div class="hub-grid">
+      <article class="hub-card hub-lvcard" id="lv-N5">
+        <div class="hub-icon">5</div>
+        <h3>Level N5</h3>
+        <p>Hambatan pertama: kana, 100 kanji dasar, kosakata harian, dan pola kalimat paling sederhana.</p>
+        <div class="hub-links"><a href="Kanji-N5.html">Kanji N5</a><a href="Kanji-N5-Review.html">Review</a><a href="Flashcard-Kanji-N5.html">Kartu</a><a href="Listening-N5.html">Listening</a><a href="Reading-N5.html">Reading</a></div>
+      </article>
+      <article class="hub-card hub-lvcard" id="lv-N4">
+        <div class="hub-icon">4</div>
+        <h3>Level N4</h3>
+        <p>Perluas kosakata &amp; kanji (~300), grammar transitive, dan kalimat sehari-hari yang lebih kompleks.</p>
+        <div class="hub-links"><a href="Kanji-N4.html">Kanji N4</a><a href="Kanji-N4-Review.html">Review</a><a href="Flashcard-Kanji-N4.html">Kartu</a><a href="Listening-N4.html">Listening</a><a href="Reading-N4.html">Reading</a></div>
+      </article>
+      <article class="hub-card hub-lvcard" id="lv-N3">
+        <div class="hub-icon">3</div>
+        <h3>Level N3</h3>
+        <p>Jembatan menengah: ~650 kanji, grammar kontekstual, dan bacaan paragraf pendek.</p>
+        <div class="hub-links"><a href="Kanji-N3.html">Kanji N3</a><a href="Kanji-N3-Review.html">Review</a><a href="Flashcard-Kanji-N3.html">Kartu</a><a href="Listening-N3.html">Listening</a><a href="Reading-N3.html">Reading</a></div>
+      </article>
+      <article class="hub-card hub-lvcard" id="lv-N2">
+        <div class="hub-icon">2</div>
+        <h3>Level N2</h3>
+        <p>Level kerja: ~1000 kanji, keigo praktis, bacaan editorial, dan listening percakapan natural.</p>
+        <div class="hub-links"><a href="Kanji-N2.html">Kanji N2</a><a href="Kanji-N2-Review.html">Review</a><a href="Flashcard-Kanji-N2.html">Kartu</a><a href="Listening-N2.html">Listening</a><a href="Reading-N2.html">Reading</a></div>
+      </article>
+      <article class="hub-card hub-lvcard" id="lv-N1">
+        <div class="hub-icon">1</div>
+        <h3>Level N1</h3>
+        <p>Puncak: ~2000 kanji, abstraksi, idiom, dan kecepatan baca teks profesional.</p>
+        <div class="hub-links"><a href="Kanji-N1.html">Kanji N1</a><a href="Kanji-N1-Review.html">Review</a><a href="Flashcard-Kanji-N1.html">Kartu</a><a href="Listening-N1.html">Listening</a><a href="Reading-N1.html">Reading</a></div>
+      </article>
+      </div>
+    </section>
+    <!-- Kerja di Jepang: pintu masuk saja. Daftar modul Kaigo ada di
+         Kaigo.html (dibangun build_kaigo_page.py) dan daftar bidang SSW di
+         ../SSW.html (dari DB/ssw-seed.js) — jangan disalin ke sini, dan jangan
+         tulis jumlah modul/bidang: angka "76 Modul" di CTA lama basi begitu
+         Kaigo mencapai 100 modul. -->
+    <section class="materi-sec" id="sec-karier">
+      <div class="ms-head"><h2><span class="ms-icon">💼</span>Kerja di Jepang</h2><span class="ms-sub">Jalur karier: pusat materi Kaigo dan persiapan ujian SSW 特定技能.</span></div>
+      <div class="hub-grid hub-grid-karier">
+      <article class="hub-card hub-karier" data-mark="介">
+        <div class="hub-icon">介</div>
+        <h3>Pusat Materi Kaigo</h3>
+        <p>介護福祉士 — bahasa &amp; komunikasi, praktik perawatan harian, kesehatan lansia, dokumentasi asuhan, hukum &amp; etika, hingga latihan soal ujian nasional. Dilengkapi pencarian, filter kategori, dan pelacak progres.</p>
+        <div class="hub-group">Langsung ke kategori</div>
+        <div class="hub-links"><a href="Kaigo.html#kg-h-dasar">🏠 Dasar Kaigo</a><a href="Kaigo.html#kg-h-bahasa">💬 Bahasa &amp; Komunikasi</a><a href="Kaigo.html#kg-h-praktik">🤲 Praktik Perawatan</a><a href="Kaigo.html#kg-h-kesehatan">🏥 Kesehatan &amp; Medis</a><a href="Kaigo.html#kg-h-dokumen">📝 Dokumentasi</a><a href="Kaigo.html#kg-h-hukum">⚖️ Hukum &amp; Etika</a><a href="Kaigo.html#kg-h-ujian">🎓 Persiapan Ujian</a></div>
+        <div class="hub-group">Mulai</div>
+        <div class="hub-links"><a class="hk-go" href="Kaigo.html">Buka Pusat Kaigo <span aria-hidden="true">→</span></a><a href="../Kaigo-Simulator.html">Simulator Kaigo</a></div>
+      </article>
+      <article class="hub-card hub-karier" data-mark="特">
+        <div class="hub-icon">特</div>
+        <h3>SSW 特定技能</h3>
+        <p>Specified Skilled Worker (Tokutei Ginou) — persiapan visa kerja: ujian keterampilan per bidang kerja plus bahasa Jepang kerja setara JFT-Basic A2 / JLPT N4. Pilih bidang, pelajari kosakata &amp; kanji khusus bidang, kerjakan quiz, lalu uji diri lewat mock exam.</p>
+        <div class="hub-group">Tersedia di tiap bidang</div>
+        <div class="hk-tags"><span class="hk-tag">📘 Materi &amp; Lesson</span><span class="hk-tag">🔤 Kosakata &amp; Kanji</span><span class="hk-tag">📐 Grammar</span><span class="hk-tag">🎧 Listening &amp; Reading</span><span class="hk-tag">✅ Quiz</span><span class="hk-tag">📝 Mock Exam</span></div>
+        <div class="hub-group">Mulai</div>
+        <div class="hub-links"><a class="hk-go" href="../SSW.html">Pilih Bidang SSW <span aria-hidden="true">→</span></a><a href="../SSW/Field-Dashboard.html?field=kaigo">Bidang Kaigo (介護)</a></div>
+      </article>
+      </div>
+    </section>
   </main>
 
   <div class="content-area">
@@ -513,47 +662,211 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 const t=localStorage.getItem('theme')||localStorage.getItem('nihongo-theme')||localStorage.getItem('kyoto-theme');if(t){document.documentElement.setAttribute('data-theme',t);}
 </script>
+<script>
+/* ── Pencarian modul: filter kartu .hub-card di grid utama saat mengetik ──
+   Memakai API DOM standar (textContent/classList/style) supaya perilaku
+   identik di browser dan di harness pengujian berbasis mock. */
+(function(){
+  const input = document.getElementById('hubSearch');
+  const clearBtn = document.getElementById('hubSearchClear');
+  const countEl = document.getElementById('hubSearchCount');
+  const emptyEl = document.getElementById('hubSearchEmpty');
+  const grids = Array.prototype.slice.call(document.querySelectorAll('#main-content .hub-grid'));
+  const cards = grids.reduce((acc, g) => acc.concat(
+    Array.prototype.filter.call(g.children, el => el.classList && el.classList.contains('hub-card'))
+  ), []);
+  let timer = null;
+
+  window.filterModules = function(q){
+    const query = String(q == null ? '' : q).trim().toLowerCase();
+    let shown = 0;
+    cards.forEach(card => {
+      const hay = (card.textContent || '').toLowerCase();
+      const match = !query || hay.indexOf(query) !== -1;
+      card.style.display = match ? '' : 'none';
+      if (match) shown++;
+    });
+    if (clearBtn) clearBtn.hidden = !query;
+    if (countEl) {
+      countEl.hidden = !query;
+      if (query) countEl.textContent = shown + ' modul ditemukan';
+    }
+    if (emptyEl) emptyEl.hidden = shown !== 0 || !query;
+    // seksi yang semua kartunya tersembunyi ikut disembunyikan
+    grids.forEach(g => {
+      const sec = g.closest ? g.closest('.materi-sec') : null;
+      const target = sec || g;
+      const gcards = Array.prototype.filter.call(g.children, el => el.classList && el.classList.contains('hub-card'));
+      const anyVisible = gcards.some(c => c.style.display !== 'none');
+      target.style.display = (!query || anyVisible) ? '' : 'none';
+    });
+    return shown;
+  };
+
+  if (input) {
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => window.filterModules(input.value), 120);
+    });
+  }
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (input) { input.value = ''; input.focus(); }
+      window.filterModules('');
+    });
+  }
+})();
+</script>
+<script>
+/* ── Lencana progres per modul ──────────────────────────────────────────
+   Membaca store kanonik yang ditulis platform.js (np-state-v3, np-srs-v2)
+   langsung — halaman ini tidak memuat platform.min.js, dan progres bukan
+   data keamanan sehingga localStorage boleh dibaca langsung di sini.
+   Lencana hanya tampil bila ada data nyata; kartu tanpa sinyal dibiarkan
+   polos (jujur, bukan angka palsu). Sinkron saat tab lain menulis. */
+(function(){
+  const STORE_STATE = 'np-state-v3';
+  const STORE_SRS = 'np-srs-v2';
+
+  function readJSON(key){
+    try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch { return {}; }
+  }
+
+  function esc(s){
+    return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  }
+
+  function badgesFor(h3, user, srsCards){
+    const chips = [];
+    const jlpt = user.jlptProgress || {};
+    switch (h3) {
+      case 'Peta Jalan JLPT': {
+        ['N5','N4','N3','N2','N1'].forEach(lv => {
+          const v = Number(jlpt[lv]) || 0;
+          if (v > 0) chips.push({ lv: true, text: lv + ' ' + v + '%' });
+        });
+        break;
+      }
+      case 'Grammar N5-N1':
+        if ((user.grammarLearned || 0) > 0) chips.push({ text: '✓ ' + user.grammarLearned + ' pola dipelajari' });
+        break;
+      case 'Kosakata N5-N1':
+        if ((user.vocabLearned || 0) > 0) chips.push({ text: '✓ ' + user.vocabLearned + ' kata dipelajari' });
+        break;
+      case 'Kanji Per Tingkat':
+        if ((user.kanjiLearned || 0) > 0) chips.push({ text: '✓ ' + user.kanjiLearned + ' kanji dipelajari' });
+        break;
+      case 'Semua Kartu Flash': {
+        const active = Object.values(srsCards || {}).filter(c => c && (c.reps || 0) > 0).length;
+        if (active > 0) chips.push({ text: '🃏 ' + active + ' kartu aktif di dek SRS' });
+        break;
+      }
+      case 'Latihan Soal JLPT': {
+        const total = user.quizTotal || 0;
+        if (total > 0) {
+          const acc = Math.round((user.quizCorrect || 0) / total * 100);
+          chips.push({ text: '✓ ' + total + ' soal · ' + acc + '% akurat' });
+        }
+        break;
+      }
+    }
+    return chips;
+  }
+
+  window.renderModuleProgress = function(){
+    const cards = document.querySelectorAll('#main-content .hub-grid > .hub-card');
+    const user = readJSON(STORE_STATE).user || {};
+    const srsCards = readJSON(STORE_SRS);
+    let withBadges = 0;
+    Array.prototype.forEach.call(cards, card => {
+      const h3 = card.querySelector('h3');
+      if (!h3) return;
+      const chips = badgesFor(h3.textContent.trim(), user, srsCards);
+      let box = card.querySelector('.hub-progress');
+      if (!chips.length) {
+        if (box) box.remove();
+        return;
+      }
+      withBadges++;
+      if (!box) {
+        box = document.createElement('div');
+        box.className = 'hub-progress';
+        h3.insertAdjacentElement('afterend', box);
+      }
+      box.innerHTML = chips.map(c =>
+        '<span class="hp-chip' + (c.lv ? ' hp-lv' : '') + '">' + esc(c.text) + '</span>'
+      ).join('');
+    });
+    return withBadges;
+  };
+
+  window.renderModuleProgress();
+  window.addEventListener('storage', e => {
+    if (e.key === STORE_STATE || e.key === STORE_SRS) window.renderModuleProgress();
+  });
+})();
+</script>
+<script>
+/* ── Scroll-spy quicknav: chip seksi aktif mengikuti posisi gulir ── */
+(function(){
+  const nav = document.getElementById('hubQuicknav');
+  if (!nav) return;
+  const chips = Array.prototype.slice.call(nav.querySelectorAll('.hqn-chip'));
+  const byHash = {};
+  chips.forEach(c => { byHash[c.getAttribute('href')] = c; });
+  const sections = Array.prototype.slice.call(document.querySelectorAll('#main-content .materi-sec'));
+  let currentId = null;
+
+  function setActive(id){
+    // update() jalan di setiap event scroll; kerjakan hanya saat seksi berganti
+    if (id === currentId) return;
+    currentId = id;
+    chips.forEach(c => c.classList.remove('active'));
+    const chip = byHash['#' + id];
+    if (!chip) return;
+    chip.classList.add('active');
+    // Geser HANYA strip chip, horizontal. Jangan scrollIntoView(): ia ikut
+    // menggulir jendela dan membatalkan smooth-scroll menuju seksi — terukur
+    // di Chromium, setiap klik chip berhenti di scrollY ±598 (posisi quicknav
+    // mulai menempel) alih-alih di seksi tujuannya.
+    const strip = chip.parentNode;
+    const c = chip.getBoundingClientRect(), s = strip.getBoundingClientRect();
+    if (c.left < s.left || c.right > s.right) {
+      strip.scrollLeft += c.left - s.left - (s.width - c.width) / 2;
+    }
+  }
+
+  function update(){
+    // seksi terakhir yang posisi atasnya sudah lewat garis aktif (140px —
+    // sedikit di bawah scroll-padding-top 128px, tempat anchor mendarat)
+    let current = null;
+    sections.forEach(sec => {
+      // seksi yang disembunyikan pencarian ber-rect nol (top 0) — jangan dihitung
+      if (!sec.getClientRects().length) return;
+      if (sec.getBoundingClientRect().top <= 140) current = sec.id;
+    });
+    if (current) setActive(current);
+    else { currentId = null; chips.forEach(c => c.classList.remove('active')); }
+  }
+
+  if (typeof IntersectionObserver === 'function') {
+    const io = new IntersectionObserver(() => update(), { rootMargin: '-138px 0px -55% 0px' });
+    sections.forEach(s => io.observe(s));
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
 <!-- ?v=: cache-buster — SW cache-first bisa menyajikan materi-data.js lama.
      Versi dipakai bersama: naikkan ASSET_VERSION di
      scripts/align-asset-versions.py lalu jalankan ulang script itu. -->
-<script src="../assets/materi-data.js?v=6" defer></script>
+<script src="../assets/materi-data.js?v=9" defer></script>
 <div id="percModal" style="display:none"></div>
 
 <script src="../assets/translator.min.js" defer></script>
 <script src="../assets/pro-app.min.js" defer></script>
 <script src="../assets/draggable-floats.js" defer></script>
 
-<!-- ── Kaigo: kartu utama menuju pusat materi (Materi/Kaigo.html) ──
-     Daftar 76 modul dipindahkan ke halaman terpisah agar halaman ini tetap
-     ringkas. Isi materi tidak dihapus; hanya tampilannya yang dipindah. -->
-
-
-
-<a class="mt-kaigo-cta" href="Kaigo.html">
-  <span class="mt-kaigo-head">
-    <span class="mt-kaigo-icon" aria-hidden="true">🏥</span>
-    <span class="mt-kaigo-name">介護福祉士 — Pusat Materi Kaigo</span>
-    <span class="mt-kaigo-badge">76 Modul</span>
-  </span>
-
-  <p class="mt-kaigo-desc">
-    Semua modul Kaigo kini berada di satu halaman khusus — bahasa &amp; komunikasi, praktik
-    perawatan harian, kesehatan lansia, dokumentasi asuhan, hukum &amp; etika, hingga latihan
-    soal ujian nasional. Dilengkapi pencarian, filter kategori, dan pelacak progres.
-  </p>
-
-  <span class="mt-kaigo-tags">
-    <span class="mt-kaigo-tag">🏠 Dasar Kaigo</span>
-    <span class="mt-kaigo-tag">💬 Bahasa &amp; Komunikasi</span>
-    <span class="mt-kaigo-tag">🤲 Praktik Perawatan</span>
-    <span class="mt-kaigo-tag">🏥 Kesehatan &amp; Medis</span>
-    <span class="mt-kaigo-tag">📝 Dokumentasi</span>
-    <span class="mt-kaigo-tag">⚖️ Hukum &amp; Etika</span>
-    <span class="mt-kaigo-tag">🎓 Persiapan Ujian</span>
-  </span>
-
-  <span class="mt-kaigo-go">Buka Pusat Materi Kaigo <span aria-hidden="true">→</span></span>
-</a>
 <footer class="site-footer">
   <div class="ft-inner">
     <div class="ft-grid">
@@ -703,7 +1016,7 @@ if('IntersectionObserver' in window){
 </script>
 
 <script src="../assets/kyoto-theme.js" defer></script>
-<script src="../assets/kyoto-navbar.min.js?v=6" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>

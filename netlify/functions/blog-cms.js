@@ -83,7 +83,6 @@ function validateBodyHtml(html) {
     if (hrefMatch) {
       const rawHref = hrefMatch[1] !== undefined ? hrefMatch[1] : hrefMatch[2];
       const normalized = rawHref
-        .replace(/[\x00-\x20]/g, '') // genuinely hapus whitespace & control character (termasuk tab)
         // GENUINELY DIPERBAIKI (Fase HH, Audit Database): dikonfirmasi via
         // pengujian langsung bahwa decode entity sebelumnya HANYA menangani
         // karakter titik dua secara spesifik (&#58; / &#x3a;), sehingga
@@ -96,6 +95,22 @@ function validateBodyHtml(html) {
         // encoding karakter manapun -- bukan hanya titik dua.
         .replace(/&#0*([0-9]+);?/g, (m, code) => String.fromCharCode(parseInt(code, 10)))
         .replace(/&#x0*([0-9a-f]+);?/gi, (m, code) => String.fromCharCode(parseInt(code, 16)))
+        // Entity BERNAMA yang meng-decode ke whitespace/control character
+        // punya jalur bypass yang SAMA seperti tab literal (fix di atas):
+        // "java&Tab;script:" lolos regex ini (bukan whitespace literal, bukan
+        // &#9; numerik) tapi tetap di-decode browser jadi "java<TAB>script:"
+        // saat atribut href dirender -- persis skema yang sudah dibuktikan
+        // bisa dieksekusi. &Tab; (U+0009) dan &NewLine; (U+000A) adalah
+        // referensi karakter HTML5 resmi (whatwg.org/named-characters),
+        // bukan sekadar typo yang kebetulan mirip tab/newline.
+        .replace(/&Tab;/gi, '\t')
+        .replace(/&NewLine;/gi, '\n')
+        // Strip whitespace/control character SEKALI LAGI setelah decode --
+        // baik yang literal di input asli maupun yang baru terungkap dari
+        // entity di atas. Urutan ini (decode dulu, baru strip) menutup
+        // kedua sumber sekaligus; melakukannya sebelum decode saja (urutan
+        // lama) membiarkan bentuk ter-encode lolos ke tahap pengecekan.
+        .replace(/[\x00-\x20]/g, '')
         .toLowerCase();
       if (normalized.startsWith('javascript:') || normalized.startsWith('data:text/html') || normalized.startsWith('vbscript:')) {
         return 'javascript:/data:/vbscript: URI tidak diizinkan di href.';

@@ -15,6 +15,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Vocabulary SSW — Nihongo Pro Academy</title>
 <meta name="description" content="Kosakata bidang SSW (特定技能): 日本語, furigana, romaji, arti Indonesia/English, contoh kalimat, audio, flashcard, dan quiz.">
+<meta property="og:title" content="Vocabulary SSW">
+<meta property="og:description" content="Kosakata bidang SSW (特定技能): 日本語, furigana, romaji, arti Indonesia/English, contoh kalimat, audio, flashcard, dan quiz.">
+<meta property="og:url" content="https://nihonggoproacademy.netlify.app/SSW/Vocabulary.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vocabulary SSW">
+<meta name="twitter:description" content="Kosakata bidang SSW (特定技能): 日本語, furigana, romaji, arti Indonesia/English, contoh kalimat, audio, flashcard, dan quiz.">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Vocabulary SSW","description":"Kosakata bidang SSW (特定技能): 日本語, furigana, romaji, arti Indonesia/English, contoh kalimat, audio, flashcard, dan quiz.","url":"https://nihonggoproacademy.netlify.app/SSW/Vocabulary.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese vocabulary","SSW"]}</script>
 <link rel="manifest" href="/manifest.json">
@@ -24,9 +31,9 @@
 <link rel="stylesheet" href="/assets/kyoto-design-system.css">
 <link rel="stylesheet" href="/assets/kyoto-theme.css">
 <link rel="stylesheet" href="/assets/kyoto-elevation.css">
-<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=9">
 <link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
-<link rel="stylesheet" href="/assets/ssw.css?v=8">
+<link rel="stylesheet" href="/assets/ssw.css?v=9">
 <style>
 /* Varian face flashcard — alias global dari definisi scoped di assets/ssw.css
    (.ssw-flashcard .fcv-face dsb), supaya validator orphan-classes lolos dan
@@ -95,9 +102,10 @@
 </main>
 
 <div id="knFooter"></div>
-<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="/assets/kyoto-bottom-nav.js" defer></script>
-<script src="/assets/ssw-api.js?v=8"></script>
+<script src="/assets/ssw-api.js?v=9"></script>
+<script src="/assets/ssw-seed.js?v=9"></script>
 <script src="/assets/np-speech.js"></script>
 <script>
 (function () {
@@ -167,9 +175,15 @@
         e.currentTarget.classList.toggle('on', on);
         e.currentTarget.textContent = on ? '♥' : '♡';
       };
-      // tandai dilihat
-      SSWAPI.markProgress('vocab', v.id, { completed: SSWAPI.isCompleted('vocab', v.id) });
     });
+    // CATATAN: di sini dulu ada markProgress() per kartu "untuk menandai
+    // dilihat". Nilainya menulis balik status yang SAMA, jadi satu-satunya
+    // efeknya mengubah last_at — sementara renderList() dipanggil pada
+    // SETIAP ketikan di kotak pencarian (applyFilter). Pada bidang dengan
+    // 50+ kosakata, mengetik lima huruf memicu ratusan penulisan progres
+    // dan, saat pengguna login, ratusan POST ke Supabase — sekaligus
+    // mengacak "terakhir dipelajari" untuk item yang cuma terlewat difilter.
+    // Penandaan sungguhan terjadi di paintFlashcard() saat kartunya dibuka.
   }
 
   function paintFlashcard() {
@@ -225,8 +239,11 @@
       if (category) {
         document.getElementById('heroJp').textContent = category.name_jp + ' — Vocabulary';
         document.getElementById('heroId').textContent = category.name_id;
-        document.getElementById('crumbField').textContent = category.name_jp + ' ' + category.name_id;
-        document.getElementById('crumbField').href = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
+        const crumb = document.getElementById('crumbField');   // null-safe: lihat Lesson.html
+        if (crumb) {
+          crumb.textContent = category.name_jp + ' ' + category.name_id;
+          crumb.href = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
+        }
       }
     });
     applyFilter();

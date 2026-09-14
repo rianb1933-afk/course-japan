@@ -32,10 +32,10 @@
 
 <link rel="stylesheet" href="../assets/pro-style.css">
 <link rel="stylesheet" href="../assets/translator.css">
-<link rel="stylesheet" href="../assets/kanji-writing.css">
+<link rel="stylesheet" href="../assets/kanji-writing.css?v=9">
 
     
-<link rel="stylesheet" href="../assets/neko-theme.css?v=6">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=9">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggoproacademy.netlify.app/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggoproacademy.netlify.app/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Full Kanji N1 — Nihongo Pro Academy","item":"https://nihonggoproacademy.netlify.app/Materi/Kanji-N1.html"}]}</script>
 <link rel="manifest" href="../manifest.json">
@@ -59,7 +59,7 @@
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
-<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=6">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=9">
 <meta property="og:site_name" content="Nihongo Pro Academy">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 <style>
@@ -101,11 +101,7 @@ a{text-decoration:none;color:inherit}
       <div class="hero-stat"><strong>N1</strong><span>tingkat penguasaan N1</span></div>
     </div>
   </div>
-
-<div style="margin-top:2rem;padding:0 1rem">
-  <button onclick="startKanjiQuizN1()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:13px;font-weight:700;cursor:pointer">🎯 Mulai Kuis Kanji N1</button>
-  <div id="kqArea1" style="display:none;margin-top:1rem"></div>
-</div></section>
+</section>
 
 <div class="toolbar"><div class="toolbar-inner">
   <input class="search" id="search" placeholder="Cari kanji, arti, reading, contoh..." aria-label="Cari">
@@ -494,14 +490,14 @@ document.getElementById('filters').addEventListener('click', e => {
 search.addEventListener('input', render);
 render();
 </script>
-<script src="../assets/kanji-writing.js?v=6" defer></script>
+<script src="../assets/kanji-writing.js?v=9" defer></script>
 <script src="../assets/translator.min.js" defer></script>
 
 <section class="section" id="kanjiQuizN1">
   <div class="inner">
     <div class="section-head">
       <div><div class="label">Kuis Kanji N1</div><h2>Tes Kanji N1 — 一級漢字クイズ</h2></div>
-      <p class="sub">Pilih arti yang tepat. 10 soal per sesi, diacak otomatis dari 30 kanji N1 penting.</p>
+      <p class="sub">Pilih arti yang tepat. 10 soal per sesi, diacak otomatis dari koleksi kanji N1.</p>
     </div>
     <div id="kqBoxN1" style="max-width:520px"><div id="kqExpN1" style="display:none;margin-top:.75rem;padding:.625rem .875rem;border-radius:8px;font-size:13px;font-weight:600;line-height:1.5;background:var(--surface,#f9f9f9);border:1px solid var(--border-mid,#e0e0e0)"></div>
 </div>
@@ -540,12 +536,11 @@ const kqPoolN1 = [
   ['衛','mempertahankan/menjaga','えい','防衛 = pertahanan'],
   ['償','membayar/mengganti','しょう','補償 = kompensasi'],
   ['謙','rendah hati','けん','謙遜 = kerendahhatian'],
-,
-  ['憂','うれえる/うい/ユウ','sedih/khawatir','憂鬱(depresi),憂慮(kekhawatiran),一喜一憂(naik-turun)','khawatir = 憂慮する'],
-  ['凌','しのぐ/リョウ','melampaui/bertahan','凌駕(melampaui),凌ぐ(bertahan)','melampaui = 凌駕する'],
-  ['斡','アッ','menengahi/berputar','斡旋(mediasi),斡旋業者(makelar)','mediasi = 斡旋する'],
-  ['嘱','たのむ/ショク','mempercayakan','嘱託(komisioner),依嘱(permintaan resmi)','mempercayakan = 依嘱する'],
-  ['憤','いきどおる/フン','marah/amarah','憤慨(sangat marah),憤怒(kemarahan),憤然(dengan amarah)','marah = 憤慨する'],
+  ['憂','sedih/khawatir','ゆう','憂鬱(ゆううつ)=depresi, 憂慮(ゆうりょ)=kekhawatiran'],
+  ['凌','melampaui/bertahan','りょう','凌駕(りょうが)=melampaui'],
+  ['斡','menengahi','あつ','斡旋(あっせん)=mediasi'],
+  ['嘱','mempercayakan','しょく','嘱託(しょくたく)=komisioner'],
+  ['憤','marah/amarah','ふん','憤慨(ふんがい)=sangat marah, 憤怒(ふんぬ)=kemarahan'],
   ['策','rencana/strategi','さく','政策 = kebijakan'],
   ['勢','kekuatan/momentum','せい・いきおい','勢力 = kekuatan'],
   ['機','kesempatan/mesin','き','機会 = kesempatan'],
@@ -565,7 +560,6 @@ const kqPoolN1 = [
   ['振','mendorong/mengayun','しん','振興 = promosi'],
   ['誠','kejujuran/tulus','せい','誠実 = tulus'],
   ['廉','bersih/adil','れん','廉潔 = bersih jujur'],
-  ['謙','rendah hati','けん','謙虚 = rendah hati'],
   ['奉','mengabdi','ほう','奉仕 = pengabdian'],
   ['拝','menyembah/hormat','はい','崇拝 = pemujaan'],
   ['崇','memuja','すう','崇高 = mulia agung'],
@@ -574,9 +568,7 @@ const kqPoolN1 = [
   ['罰','hukuman','ばつ','罰則 = sanksi hukum'],
   ['欺','menipu','ぎ','欺瞞 = penipuan'],
   ['脅','mengancam','きょう','脅迫 = ancaman'],
-  ['憤','marah/geram','ふん','憤慨 = kemarahan'],
   ['柔','lembut/fleksibel','じゅう','柔軟 = fleksibel'],
-  ['廉','murah/bersih','れん','廉価 = murah'],
   ['腐','busuk/korupsi','ふ','腐敗 = korupsi'],
   ['滅','hancur/musnah','めつ','滅亡 = kehancuran'],
   ['枯','layu/kering','こ','枯渇 = kehabisan'],
@@ -599,7 +591,8 @@ const kqPoolN1 = [
   ['嘆','meratap','たん','嘆く = meratap mengeluh'],
   ['奪','merampas','だつ','剥奪 = pencabutan'],
   ['誘','menggoda/mengundang','ゆう','誘惑 = godaan'],
-  ['義','keadilan/moral','ぎ','正義 = keadilan']];
+  ['義','keadilan/moral','ぎ','正義 = keadilan']
+];
 
 let kqIdxN1=0,kqScoreN1=0,kqActiveN1=[];
 function shn1(a){return[...a].sort(()=>Math.random()-0.5);}
@@ -633,7 +626,7 @@ function renderKQN1(){
     </div>
     <p style="font-size:13px;color:var(--ink-mid);text-align:center;margin-bottom:.75rem">Artinya?</p>
     <div style="display:grid;gap:.5rem" id="kqOptsN1">${opts}</div>
-    
+    <div id="kqExpN1" style="display:none;margin-top:.75rem;padding:.625rem .875rem;border-radius:8px;font-size:13px;font-weight:600;line-height:1.5;background:var(--surface,#f9f9f9);border:1px solid var(--border-mid,#e0e0e0)"></div>
   </div>`;
 }
 function ckn1(c,a){
@@ -645,34 +638,10 @@ function ckn1(c,a){
   e.textContent=(ok?'✓ Benar! ':'✗ Salah. ')+q[0]+' ('+q[2]+') = '+q[1]+'. '+q[3];
   setTimeout(()=>{kqIdxN1++;renderKQN1();},1600);
 }
-renderKQN1();
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', renderKQN1); } else { renderKQN1(); }
 </script>
 <script src="../assets/pro-app.min.js" defer></script>
 <script src="../assets/draggable-floats.js" defer></script>
-<script>
-let kqIdx1=0;
-function startKanjiQuizN1(){document.getElementById('kqArea1').style.display='block';kqIdx1=0;renderKQ1();}
-function renderKQ1(){
-  const pool=kqPoolN1;const item=pool[kqIdx1%pool.length];
-  const wrongs=pool.filter((_,i)=>i!==kqIdx1%pool.length).sort(()=>Math.random()-0.5).slice(0,3);
-  const opts=[item,...wrongs].sort(()=>Math.random()-0.5);
-  document.getElementById('kqArea1').innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;max-width:480px">
-    <div style="font-size:11px;color:var(--ink-soft);margin-bottom:.5rem">Soal ${(kqIdx1%pool.length)+1}/${pool.length}</div>
-    <div style="font-family:'Noto Serif JP',serif;font-size:52px;text-align:center;padding:.75rem;color:var(--ink)">${item[0]}</div>
-    <div style="font-size:12px;color:var(--ink-soft);text-align:center;margin-bottom:.75rem">Apa arti kanji N1 ini?</div>
-    <div style="display:grid;gap:.4rem">${opts.map(o=>`<button onclick="checkKQ1(this,'${o[1].replace(/\\/g,'\\\\').replace(/'/g,"\\'")}','${item[1].replace(/\\/g,'\\\\').replace(/'/g,"\\'")}') " style="padding:9px 12px;border:.5px solid var(--border-mid);border-radius:7px;font-size:13px;background:var(--cream);cursor:pointer;text-align:left">${o[1]}</button>`).join('')}</div>
-    <div id="kqExp1" style="margin-top:.5rem;font-size:12px;display:none;background:var(--cream);padding:.6rem;border-radius:6px"></div>
-  </div>`;
-}
-function checkKQ1(btn,chosen,correct){
-  document.querySelectorAll('#kqArea1 button').forEach(b=>b.disabled=true);
-  if(chosen===correct)btn.style.background='#d5f5e3';
-  else{btn.style.background='#fadbd8';document.querySelectorAll('#kqArea1 button').forEach(b=>{if(b.textContent.trim()===correct)b.style.background='#d5f5e3';});}
-  const exp=document.getElementById('kqExp1');
-  exp.style.display='block';exp.textContent=`Cara baca: ${kqPoolN1[kqIdx1%kqPoolN1.length][2]}  |  Contoh: ${kqPoolN1[kqIdx1%kqPoolN1.length][3]}`;
-  setTimeout(()=>{kqIdx1++;renderKQ1();},1800);
-}
-</script>
 <footer class="site-footer">
   <div class="ft-inner">
     <div class="ft-grid">
@@ -910,7 +879,7 @@ function closeStroke(){ clearInterval(strokeAnim); document.getElementById('stro
 
 
 <script src="../assets/kyoto-theme.js" defer></script>
-<script src="../assets/kyoto-navbar.min.js?v=6" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>

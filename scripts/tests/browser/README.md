@@ -1,4 +1,4 @@
-# Browser Tests (Playwright) — Kaigo Simulator
+# Browser Tests (Playwright) — Kaigo Simulator, SRS Catalog, Payment, Modal Kanji, Anatomi 3D
 
 Test di folder ini butuh browser sungguhan (Chromium via Playwright) untuk
 menguji DOM, klik, keyboard, dan localStorage secara nyata — beda dari
@@ -34,8 +34,31 @@ Smoke test payment dan sertifikat:
 npm run test:payment-certificate-browser
 ```
 
+Modal tulis kanji di emulasi perangkat (bar kontrol di bawah panggung,
+overlay loading tersembunyi, dasar dialog terjangkau — 430/390/380/320px):
+```bash
+npm run test:kanji-writing-browser
+```
+
 Test ini memeriksa QR verification `?id=` tanpa konfigurasi Supabase serta
 memastikan halaman payment menahan checkout ketika user belum login.
+
+Lazy-load viewer 3D di halaman anatomi (Materi/Sistem-Rangka.html,
+Sistem-Kardiovaskular.html, Sistem-Saraf.html sebagai sampel): klik tab
+"解剖 Anatomi" sungguhan memicu `await import('three')` dan canvas WebGL
+benar-benar tergambar, BUKAN cuma dicek lewat pola sumber statis:
+
+```bash
+npm run test:anatomy-3d-browser
+```
+
+Validator (`three-lazy`) hanya memastikan `await import('three')` ada di
+dalam fungsi `initXxx3D` — tidak pernah membuktikan klik tab benar-benar
+memanggilnya sampai canvas tergambar. Kelas bug ini nyata: dua jalur
+trigger (klik tab + IntersectionObserver cadangan) dan ekspos fungsi ke
+`window` semuanya harus tersambung benar, dan kesalahan re-wiring salah
+satunya tidak memunculkan error konsol apa pun — viewer 3D cuma diam-diam
+tidak pernah muncul. Lihat komentar di kepala file test untuk detail.
 
 ## Yang diuji (20 skenario, sesuai spesifikasi v185 Fase 14)
 

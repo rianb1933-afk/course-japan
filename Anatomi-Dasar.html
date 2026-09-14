@@ -26,7 +26,7 @@
 <meta name="twitter:image" content="https://nihonggoproacademy.netlify.app/assets/og-preview.svg">
 <link rel="canonical" href="https://nihonggoproacademy.netlify.app/Anatomi-Dasar.html">
 <link rel="stylesheet" href="assets/kyoto-bundle.min.css">
-<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=6">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=9">
 <link rel="stylesheet" href="assets/kyoto-elevation.css">
 <link rel="stylesheet" href="assets/anatomy/anatomy-viewer.css">
 </head>
@@ -169,10 +169,11 @@
   </div>
 </section>
 
-<section style="max-width:900px;margin:40px auto;padding:0 20px">
-  <h2 style="font-family:'Noto Serif JP',serif;font-size:20px;margin-bottom:16px;text-align:center">📚 Pendalaman per Sistem Organ</h2>
-  <p style="text-align:center;color:var(--ink-mid,#666);margin-bottom:20px;font-size:14px">Setelah menguasai istilah dasar di atas, pelajari tiap sistem organ secara mendalam: anatomi, cara kerja, perubahan penuaan, penyakit, hingga perawatan Kaigo.</p>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px">
+<section class="deep-dive-section" aria-labelledby="deepDiveTitle">
+  <div class="section-eyebrow">LANGKAH BERIKUTNYA</div>
+  <h2 id="deepDiveTitle">📚 Pendalaman per Sistem Organ</h2>
+  <p class="deep-dive-lead">Setelah menguasai istilah dasar di atas, pelajari tiap sistem organ secara mendalam: anatomi, cara kerja, perubahan penuaan, penyakit, hingga perawatan Kaigo.</p>
+  <div class="deep-dive-grid">
     <a href="Materi/Sistem-Kardiovaskular.html" style="display:block;background:var(--white,#fff);border:1px solid var(--border-light,#eee);border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:all .2s" onmouseover="this.style.borderColor='var(--red,#be3428)'" onmouseout="this.style.borderColor='var(--border-light,#eee)'">
       <div style="font-size:28px;margin-bottom:8px">🫀</div>
       <div style="font-weight:800;font-size:15px;margin-bottom:4px">循環器系 Sistem Kardiovaskular</div>
@@ -269,15 +270,15 @@
   </div>
 </footer>
 
-<script src="assets/kyoto-navbar.min.js?v=6" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="assets/site-motion.js" defer></script>
 <script src="assets/anime-theme.js" defer></script>
 
 <!-- Refactor Tahap 1: data & logic dipisah ke assets/anatomy/ (sebelumnya inline) -->
-<script src="assets/anatomy/anatomy-data.js?v=6"></script>
-<script src="assets/anatomy/anatomy-viewer.js?v=6"></script>
-<script src="assets/anatomy/anatomy-quiz.js?v=6"></script>
-<script src="assets/anatomy/anatomy-material.js?v=6"></script>
+<script src="assets/anatomy/anatomy-data.js?v=9"></script>
+<script src="assets/anatomy/anatomy-viewer.js?v=9"></script>
+<script src="assets/anatomy/anatomy-quiz.js?v=9"></script>
+<script src="assets/anatomy/anatomy-material.js?v=9"></script>
 
 <script>
 // Tahap 5.3 (Kuis Visual): sambungkan klik hotspot/SVG ke pengecekan jawaban saat mode aktif,
@@ -300,7 +301,7 @@
     import('https://cdn.jsdelivr.net/npm/@google/model-viewer@4.3.1/dist/model-viewer.min.js')
       .then(function () {
         var mv = document.createElement('model-viewer');
-        mv.setAttribute('src', 'assets/anatomy/models/human-body.glb?v=6');
+        mv.setAttribute('src', 'assets/anatomy/models/human-body.glb?v=9');
         mv.setAttribute('alt', 'Model 3D tubuh manusia — geser untuk memutar, cubit/scroll untuk zoom');
         // loading="eager" sengaja: elemen baru dibuat SAAT tab 3D diklik (container
         // menggantikan viewport 2D di posisi yang sama, selalu in-viewport), jadi

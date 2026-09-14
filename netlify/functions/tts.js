@@ -32,11 +32,29 @@
  * mengizinkan connect-src 'self' serta media-src 'self' blob:.
  */
 const crypto = require('crypto');
+const { createClient } = require('@supabase/supabase-js');
 
 // Ambang: di bawah ini pakai Web Speech saja, tidak usah bayar.
 const MIN_CHARS = 12;
 // Batas atas menjaga biaya & waktu respons tetap terduga.
 const MAX_CHARS = 400;
+
+// Endpoint ini TIDAK butuh login (dipakai luas di halaman kosakata/materi),
+// jadi satu-satunya kunci yang tersedia adalah IP. Tanpa batas ini, siapa pun
+// bisa mengetik teks berbeda-beda tanpa henti (menghindari cache ETag) dan
+// membebani tagihan OpenAI per karakter tanpa batas — "denial of wallet",
+// pola yang sama seperti brute-force login yang sudah dibatasi di
+// admin-login.js/group-tokens.js lewat tabel rate_limits yang sama.
+const TTS_DAILY_LIMIT = parseInt(process.env.TTS_DAILY_LIMIT, 10) || 80;
+async function checkTtsRateLimit(sb, ip) {
+  const day = new Date().toISOString().slice(0, 10);
+  const key = `tts:${ip}`;
+  const { data: row } = await sb.from('rate_limits').select().eq('user_id', key).eq('date', day).single();
+  const count = (row?.count || 0) + 1;
+  if (count > TTS_DAILY_LIMIT) return false;
+  await sb.from('rate_limits').upsert({ user_id: key, date: day, count }, { onConflict: 'user_id,date' });
+  return true;
+}
 
 const VOICES = {
   sensei: 'nova',    // hangat, tenang — cocok untuk narasi pelajaran
@@ -93,6 +111,21 @@ exports.handler = async (event) => {
   const inm = event.headers['if-none-match'] || event.headers['If-None-Match'];
   if (inm && inm === etag) {
     return { statusCode: 304, headers: Object.assign({ ETag: etag }, CORS), body: '' };
+  }
+
+  if (process.env.SUPABASE_URL && process.env.SUPABASE_SERVICE_KEY) {
+    try {
+      const ip = event.headers['x-nf-client-connection-ip']
+        || (event.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
+      const sb = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_KEY);
+      const allowed = await checkTtsRateLimit(sb, ip);
+      if (!allowed) {
+        return json(429, { error: 'Terlalu banyak permintaan TTS hari ini. Coba lagi besok.', code: 'RATE_LIMITED' });
+      }
+    } catch (_) {
+      // rate_limits tidak terjangkau (mis. tabel belum ada di env lama) —
+      // jangan blokir TTS karenanya, tapi juga jangan diam-diam anggap aman.
+    }
   }
 
   try {

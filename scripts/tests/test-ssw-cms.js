@@ -10,7 +10,7 @@
  *   5. Validasi entity: sanitize membuang kolom asing, validasi
  *      category/lesson/vocabulary/kanji/grammar/quiz menolak
  *      payload kosong/salah, source=official tanpa URL ditolak.
- *   6. seed SQL: 14 bidang resmi lengkap, pola idempoten,
+ *   6. seed SQL: 17 bidang resmi lengkap, pola idempoten,
  *      RLS present untuk semua tabel ssw_*.
  *   7. Redirect /api/ssw-cms ada di netlify.toml.
  */
@@ -120,10 +120,10 @@ const tests = [
     },
   },
   {
-    name: 'seed SQL: 14 bidang resmi + RLS ssw_* + idempoten',
+    name: 'seed SQL: 17 bidang resmi (ISA per 1 Juni 2026) + RLS ssw_* + idempoten',
     fn: async () => {
       const sql = fs.readFileSync(path.join(ROOT, 'supabase-schema.sql'), 'utf8');
-      const fields = ['kaigo','building-clean','manufaktur','kensetsu','zousen','jidousha-seibi','koukuu','shukuhaku','unten','tetsudou','nougyou','gyogyou','shokuhin','gaishoku'];
+      const fields = ['kaigo','building-clean','linen-supply','manufaktur','kensetsu','zousen','jidousha-seibi','koukuu','shukuhaku','unten','tetsudou','nougyou','gyogyou','shokuhin','gaishoku','ringyou','mokuzai'];
       for (const f of fields) if (!sql.includes("('" + f + "',")) throw new Error('bidang hilang di seed: ' + f);
       for (const t of ['ssw_categories','ssw_modules','ssw_lessons','ssw_vocabulary','ssw_kanji','ssw_grammar','ssw_listening','ssw_reading','ssw_quizzes','ssw_questions','ssw_progress','ssw_exam_results','ssw_favorites']) {
         if (!sql.includes('CREATE TABLE IF NOT EXISTS ' + t)) throw new Error('tabel hilang: ' + t);
@@ -136,6 +136,19 @@ const tests = [
       }
       if (!/ON CONFLICT \(slug\) DO NOTHING/.test(sql)) throw new Error('seed harus idempoten');
       if (!/POLICY "SSW progress own"/.test(sql)) throw new Error('policy progres milik-user hilang');
+    },
+  },
+  {
+    name: 'schema: setiap ADD CONSTRAINT … UNIQUE menangkap duplicate_table (schema bisa dijalankan ulang)',
+    fn: async () => {
+      // Constraint UNIQUE dibuat lewat indeks bernama sama; penambahan ulang
+      // gagal sebagai duplicate_table (42P07), bukan duplicate_object. Pipeline
+      // konten bergantung pada menjalankan ulang schema untuk memperbarui isi.
+      const sql = fs.readFileSync(path.join(ROOT, 'supabase-schema.sql'), 'utf8');
+      const blocks = sql.match(/DO \$\$ BEGIN\n\s*ALTER TABLE \w+ ADD CONSTRAINT \w+ UNIQUE[^\n]*\nEXCEPTION WHEN [^\n]*/g) || [];
+      if (blocks.length < 10) throw new Error('blok UNIQUE terbaca hanya ' + blocks.length);
+      const bad = blocks.filter(b => !/duplicate_table/.test(b));
+      if (bad.length) throw new Error(bad.length + ' blok UNIQUE tidak menangkap duplicate_table: ' + bad[0].split('\n')[1].trim());
     },
   },
   {
@@ -175,6 +188,24 @@ const tests = [
       // Harus lewat env.js + supabase-client.js + PostgREST langsung.
       for (const need of ['EDUMA_ENV', 'SUPABASE_ANON_KEY', 'window.SupabaseClient', '/rest/v1/', 'resolution=merge-duplicates']) {
         if (!code.includes(need)) throw new Error('jembatan Supabase kurang: ' + need);
+      }
+    },
+  },
+  {
+    // action=items membangun string filter .or() PostgREST dengan menyisipkan
+    // params.q mentah di antara koma (lihat cols.map(...).join(',')). `,` `(` `)`
+    // punya arti sintaksis di sana (pemisah klausa / pengelompokan), jadi query
+    // yang tak disaring bisa menambah klausa filter di luar yang dimaksud —
+    // tanpa DB sungguhan, diuji lewat sumber sama seperti validateEntity di atas.
+    name: 'action=items: params.q disaring dari karakter pemisah filter .or() PostgREST',
+    fn: async () => {
+      const src = fs.readFileSync(path.join(ROOT, 'netlify', 'functions', 'ssw-cms.js'), 'utf8');
+      if (!/replace\(\/\[,\(\)\]\/g, ''\)/.test(src)) {
+        throw new Error('sanitasi params.q untuk filter .or() hilang');
+      }
+      // safeQ (bukan params.q mentah) yang harus dipakai membangun `like`.
+      if (!/const like = `%\$\{safeQ\}%`/.test(src)) {
+        throw new Error('like masih dibangun dari params.q mentah, bukan safeQ yang disaring');
       }
     },
   },

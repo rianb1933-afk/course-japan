@@ -118,6 +118,21 @@ AI_PREMIUM_PER_MIN = 20
 Nilai bawaannya tidak diubah — menaikkan kuota adalah keputusan biaya dan
 risiko penyalahgunaan milik pemilik situs.
 
+### Batas /api/tts
+
+`/api/tts` (OpenAI TTS untuk kalimat panjang, lihat `netlify/functions/tts.js`)
+tidak mewajibkan login — dipakai luas di halaman kosakata/materi — sehingga
+batasnya per IP/hari, bukan per akun:
+
+```
+TTS_DAILY_LIMIT    = 80
+```
+
+Tanpa batas ini siapa pun bisa memanggil endpoint berulang kali dengan teks
+berbeda-beda (menghindari cache ETag) dan membebani tagihan OpenAI tanpa
+batas. Bila `SUPABASE_URL`/`SUPABASE_SERVICE_KEY` belum diisi, batas ini
+tidak aktif (TTS tetap jalan tanpa proteksi — isi keduanya untuk mengaktifkan).
+
 > Sebelum perbaikan di commit ini, ia tidak begitu. Request default-nya
 > `provider = 'openai'` dan tidak ada satu halaman pun yang mengirim provider
 > lain, jadi siapa pun yang mengikuti `netlify.toml` — yang menyebut

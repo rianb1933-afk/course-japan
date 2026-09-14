@@ -15,6 +15,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Progress SSW — Nihongo Pro Academy</title>
 <meta name="description" content="Progres belajar SSW: lesson selesai, vocabulary & kanji dipelajari, skor quiz, hasil mock exam, streak, dan materi terakhir diakses.">
+<meta property="og:title" content="Progress SSW">
+<meta property="og:description" content="Progres belajar SSW: lesson selesai, vocabulary & kanji dipelajari, skor quiz, hasil mock exam, streak, dan materi terakhir diakses.">
+<meta property="og:url" content="https://nihonggoproacademy.netlify.app/SSW/Progress.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Progress SSW">
+<meta name="twitter:description" content="Progres belajar SSW: lesson selesai, vocabulary & kanji dipelajari, skor quiz, hasil mock exam, streak, dan materi terakhir diakses.">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Progress SSW","description":"Progres belajar SSW: lesson selesai, vocabulary & kanji dipelajari, skor quiz, hasil mock exam, streak, dan materi terakhir diakses.","url":"https://nihonggoproacademy.netlify.app/SSW/Progress.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","SSW"]}</script>
 
 <link rel="manifest" href="/manifest.json">
@@ -24,9 +31,9 @@
 <link rel="stylesheet" href="/assets/kyoto-design-system.css">
 <link rel="stylesheet" href="/assets/kyoto-theme.css">
 <link rel="stylesheet" href="/assets/kyoto-elevation.css">
-<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=9">
 <link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
-<link rel="stylesheet" href="/assets/ssw.css?v=8">
+<link rel="stylesheet" href="/assets/ssw.css?v=9">
 </head>
 <body>
 <div id="knNavbar"></div>
@@ -45,33 +52,216 @@
   </header>
 
   <div class="ssw-panel active">
+    <p class="ssw-sync" id="syncNote" hidden></p>
+
+    <!-- Lanjut belajar -->
+    <div class="ssw-module" id="continueBox" hidden>
+      <h3><span class="mj">続き</span> Lanjutkan belajar</h3>
+      <p id="continueDesc" style="color:var(--ink-soft);font-size:13.5px;margin-top:4px"></p>
+      <div class="ssw-quiz-actions" style="margin-top:12px">
+        <a class="ssw-btn primary" id="continueLink" href="/SSW.html">Lanjutkan →</a>
+      </div>
+    </div>
+
+    <!-- Ringkasan bidang aktif -->
     <div class="ssw-module">
-      <h3><span class="mj">進捗</span> Progress SSW — segera lengkap</h3>
-      <p style="color:var(--ink-soft);font-size:14px;margin-top:6px">
-        Struktur data &amp; CMS untuk bagian ini sudah siap (tabel <code>ssw_progress</code>).
-        Konten diisi lewat <strong>Admin Dashboard → SSW CMS</strong>, dan halaman ini
-        akan otomatis menampilkan materi per bidang <code>?field=</code>. Sementara,
-        mulai dari <a href="/SSW/Lesson.html" style="color:var(--red);font-weight:600">Materi (Lesson)</a>
-        atau <a href="/SSW/Vocabulary.html" style="color:var(--red);font-weight:600">Vocabulary</a>.
-      </p>
+      <h3><span class="mj">進捗</span> <span id="fieldName">Bidang ini</span></h3>
+      <div class="ssw-quiz-bar" style="margin-top:12px">
+        <div class="ssw-pbar"><div class="fill" id="fieldFill" style="width:0%"></div></div>
+        <span style="font-size:13px;font-weight:700;white-space:nowrap" id="fieldPercent">0%</span>
+      </div>
+      <div class="ssw-over-grid" id="kindGrid" style="margin-top:14px"></div>
+      <p class="ssw-empty" id="fieldEmpty" hidden>Belum ada progres di bidang ini. Mulai dari materi atau kosakata, lalu kembali ke sini.</p>
+    </div>
+
+    <!-- Riwayat kuis & ujian -->
+    <div class="ssw-module">
+      <h3><span class="mj">記録</span> Riwayat kuis &amp; ujian</h3>
+      <div class="ssw-quiz-meta" id="scoreSummary" style="margin-top:8px"></div>
+      <div class="ssw-history" id="historyList" style="margin-top:12px"></div>
+      <p class="ssw-empty" id="historyEmpty" hidden>Belum ada kuis yang dikerjakan di bidang ini.</p>
+    </div>
+
+    <!-- Semua bidang -->
+    <div class="ssw-module">
+      <h3><span class="mj">全体</span> Semua bidang</h3>
+      <p style="color:var(--ink-soft);font-size:13px;margin-top:4px">Jumlah item yang sudah kamu selesaikan di tiap bidang 特定技能 — termasuk kuis, jadi bisa lebih besar dari persentase materi di atas.</p>
+      <div class="ssw-history" id="allFields" style="margin-top:12px"></div>
+    </div>
+
+    <!-- Favorit -->
+    <div class="ssw-module">
+      <h3><span class="mj">保存</span> Favorit</h3>
+      <p style="color:var(--ink-soft);font-size:13px;margin-top:4px">Item yang kamu tandai — berlaku lintas bidang.</p>
+      <div class="ssw-history" id="favList" style="margin-top:12px"></div>
+      <p class="ssw-empty" id="favEmpty" hidden>Belum ada favorit. Tandai kosakata lewat ikon ☆ di halaman Vocabulary.</p>
     </div>
   </div>
 </main>
 
 <div id="knFooter"></div>
-<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="/assets/kyoto-bottom-nav.js" defer></script>
-<script src="/assets/ssw-api.js?v=8"></script>
+<script src="/assets/ssw-api.js?v=9"></script>
+<script src="/assets/ssw-seed.js?v=9"></script>
 <script>
 (function () {
+  'use strict';
   const slug = new URLSearchParams(location.search).get('field') || 'kaigo';
-  document.getElementById('tabVocabX'); // no-op
-  SSWAPI.getFieldTree(slug).then(({ category }) => {
-    if (!category) return;
-    document.getElementById('crumbField').textContent = category.name_jp + ' ' + category.name_id;
-    document.getElementById('crumbField').href = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
-    document.getElementById('heroJp').textContent = category.name_jp + ' — Progress';
-    document.title = category.name_jp + ' Progress — SSW | Nihongo Pro Academy';
+  const fieldQS = '?field=' + encodeURIComponent(slug);
+  const el = id => document.getElementById(id);
+  function esc(s) { const d = document.createElement('div'); d.textContent = String(s == null ? '' : s); return d.innerHTML; }
+
+  const KINDS = [
+    { key: 'lesson',    total: 'lesson',     label: 'Lesson',     href: '/SSW/Field-Dashboard.html' },
+    { key: 'vocab',     total: 'vocabulary', label: 'Vocabulary', href: '/SSW/Vocabulary.html' },
+    { key: 'kanji',     total: 'kanji',      label: 'Kanji',      href: '/SSW/Kanji.html' },
+    { key: 'grammar',   total: 'grammar',    label: 'Grammar',    href: '/SSW/Grammar.html' },
+    { key: 'listening', total: 'listening',  label: 'Listening',  href: '/SSW/Listening.html' },
+    { key: 'reading',   total: 'reading',    label: 'Reading',    href: '/SSW/Reading.html' },
+  ];
+
+  function tanggal(iso) {
+    try { return new Date(iso).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }); }
+    catch (e) { return ''; }
+  }
+  function durasi(d) {
+    const s = Math.max(0, Number(d) || 0);
+    return s >= 60 ? Math.floor(s / 60) + 'm ' + (s % 60) + 'd' : s + 'd';
+  }
+
+  // ── Riwayat kuis & ujian ───────────────────────────────────────
+  function paintHistory() {
+    const hasil = SSWAPI.listExamResults(slug);
+    el('historyEmpty').hidden = hasil.length > 0;
+
+    if (hasil.length) {
+      const skor = hasil.map(h => Number(h.score) || 0);
+      const terbaik = Math.max.apply(null, skor);
+      const lulus = hasil.filter(h => h.passed).length;
+      el('scoreSummary').innerHTML =
+        `<span class="ssw-chip">Skor terbaik ${terbaik}%</span>` +
+        `<span class="ssw-chip">Skor terakhir ${skor[0]}%</span>` +
+        `<span class="ssw-chip">${hasil.length} percobaan</span>` +
+        `<span class="ssw-chip ${lulus ? 'done' : ''}">${lulus} lulus</span>`;
+    } else {
+      el('scoreSummary').innerHTML = '';
+    }
+
+    // listExamResults mengembalikan yang terbaru lebih dulu (unshift saat simpan).
+    el('historyList').innerHTML = hasil.slice(0, 15).map(h => `
+      <div class="ssw-hrow">
+        <div class="h-main">
+          <div class="h-title">${esc(h.title || 'Kuis')}</div>
+          <div class="h-sub">${esc(tanggal(h.created_at))} · ${esc(durasi(h.duration_s))}${h.kind ? ' · ' + esc(h.kind) : ''}</div>
+        </div>
+        <div class="h-score ${h.passed ? 'pass' : 'fail'}">${esc(h.score)}%</div>
+      </div>`).join('');
+  }
+
+  // ── Favorit (global — ssw_favorites memang tidak per bidang) ────
+  function paintFavorites() {
+    const fav = SSWAPI.listFavorites();
+    el('favEmpty').hidden = fav.length > 0;
+    el('favList').innerHTML = fav.slice(0, 20).map(f => `
+      <div class="ssw-hrow">
+        <div class="h-main">
+          <div class="h-title">${esc(f.label || f.id)}</div>
+          <div class="h-sub">${esc(f.kind)}</div>
+        </div>
+      </div>`).join('');
+  }
+
+  // ── Semua bidang ───────────────────────────────────────────────
+  // Memakai categorySummary tanpa totals: `done` hanya butuh progres lokal,
+  // jadi seluruh bidang bisa dihitung tanpa satu pun permintaan jaringan.
+  function paintAllFields(categories) {
+    el('allFields').innerHTML = categories.map(c => {
+      const done = SSWAPI.categorySummary(c.slug, {}).done;
+      const jumlah = Object.keys(done).reduce((n, k) => n + done[k], 0);
+      return `<a class="ssw-hrow" href="/SSW/Field-Dashboard.html?field=${encodeURIComponent(c.slug)}">
+        <div class="h-main">
+          <div class="h-title">${esc(c.name_jp)} ${esc(c.name_id || '')}</div>
+          <div class="h-sub">${jumlah > 0 ? jumlah + ' item selesai' : 'Belum dimulai'}</div>
+        </div>
+        <div class="h-score ${jumlah > 0 ? 'pass' : ''}" style="${jumlah > 0 ? '' : 'color:var(--ink-soft);font-size:14px'}">${jumlah > 0 ? jumlah : '—'}</div>
+      </a>`;
+    }).join('');
+  }
+
+  // ── Lanjutkan belajar ──────────────────────────────────────────
+  function paintContinue() {
+    const last = SSWAPI.getLastAccessed();
+    if (!last || !last.field) return;
+    const q = '?field=' + encodeURIComponent(last.field);
+    // examId vs quizId menentukan halamannya: simulasi harus kembali ke
+    // Mock-Exam.html (ada timer & alur ujian), bukan ke Quiz.html.
+    const href = last.lessonId ? '/SSW/Lesson.html' + q + '&lesson=' + encodeURIComponent(last.lessonId)
+               : last.examId ? '/SSW/Mock-Exam.html' + q + '&exam=' + encodeURIComponent(last.examId)
+               : last.quizId ? '/SSW/Quiz.html' + q + '&quiz=' + encodeURIComponent(last.quizId)
+               : '/SSW/Field-Dashboard.html' + q;
+    el('continueDesc').textContent = (last.title || 'Materi terakhir') + ' · terakhir dibuka ' + tanggal(last.at);
+    el('continueLink').href = href;
+    el('continueBox').hidden = false;
+  }
+
+  // ── Status sinkronisasi ────────────────────────────────────────
+  // supabase-client.js memanggil Auth.init() di dalam DOMContentLoaded,
+  // sedangkan skrip inline ini berjalan LEBIH DULU. Memeriksa sesi tanpa
+  // menunggu selalu menemukan null dan halaman keliru melapor "belum masuk"
+  // padahal penggunanya sudah login.
+  function paintSync() {
+    let login = false;
+    try { const a = window.SupabaseClient && window.SupabaseClient.Auth; login = Boolean(a && a.isLoggedIn && a.isLoggedIn()); } catch (e) {}
+    el('syncNote').hidden = false;
+    el('syncNote').textContent = login
+      ? '✓ Progresmu tersinkron ke akun ini — bisa dilanjutkan di perangkat lain.'
+      : '💾 Progres tersimpan di perangkat ini saja. Masuk ke akunmu untuk menyinkronkannya antar perangkat.';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', paintSync);
+  else paintSync();
+
+  // ── Bootstrap ──────────────────────────────────────────────────
+  SSWAPI.getFieldTree(slug).then(async ({ category, modules }) => {
+    if (category) {
+      el('crumbField').textContent = category.name_jp + ' ' + category.name_id;
+      el('crumbField').href = '/SSW/Field-Dashboard.html' + fieldQS;
+      el('heroJp').textContent = category.name_jp + ' — Progress';
+      el('fieldName').textContent = category.name_jp + ' ' + (category.name_id || '');
+      document.title = category.name_jp + ' Progress — SSW | Nihongo Pro Academy';
+    }
+
+    paintContinue();
+    paintHistory();
+    paintFavorites();
+
+    const totals = { lesson: (modules || []).reduce((n, m) => n + ((m.ssw_lessons || []).length), 0) };
+    for (const k of KINDS) {
+      if (k.key === 'lesson') continue;
+      try {
+        const { items } = await SSWAPI.getItems(slug, k.total);
+        totals[k.key] = (items || []).length;
+      } catch (e) { totals[k.key] = 0; }
+    }
+
+    const sum = SSWAPI.categorySummary(slug, totals);
+    el('fieldFill').style.width = sum.percent + '%';
+    el('fieldPercent').textContent = sum.percent + '%';
+
+    const adaProgres = KINDS.some(k => sum.done[k.key] > 0);
+    el('fieldEmpty').hidden = adaProgres;
+    el('kindGrid').innerHTML = KINDS.map(k => `
+      <a class="ssw-over-card" href="${k.href}${fieldQS}">
+        <div class="oc-num">${sum.done[k.key]}<span style="font-size:15px;color:var(--ink-soft)"> / ${totals[k.key] || 0}</span></div>
+        <div class="oc-lbl">${esc(k.label)} · ${sum[k.key]}%</div>
+      </a>`).join('');
+
+    const { categories } = await SSWAPI.getCategories();
+    paintAllFields(categories || []);
+  }).catch(err => {
+    console.error('[SSW]', err);
+    el('fieldEmpty').hidden = false;
+    el('fieldEmpty').textContent = 'Gagal memuat progres. Data lokalmu tetap aman — coba muat ulang halaman.';
   });
 })();
 </script>

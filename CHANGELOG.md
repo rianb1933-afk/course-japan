@@ -4,6 +4,18 @@ Catatan perubahan versi v70–v81. Versi = nomor cache service worker (`sw.js`).
 
 ---
 
+## v370 — Rilis v370: Fitur Tokutei Ginou (SSW) 17 Bidang, Simulasi Ujian & Sinkronisasi Progres
+
+### Perubahan
+
+- Modul komprehensif 17 bidang resmi SSW (特定技能 1号 & 2号) dengan pilot kurikulum Kaigo lengkap
+- Mesin kuis & ujian mandiri SSW (assets/ssw-quiz.js) untuk pilihan ganda, benar-salah, isian, dan pencocokan
+- Renderer konten interaktif (assets/ssw-content.js) untuk Kanji, Tata Bahasa, Menyimak, dan Membaca
+- Sinkronisasi progres belajar dua arah & riwayat ujian ke Supabase dengan penyimpanan cadangan lokal
+- Pembaruan bank soal JLPT dan pelabelan level soal kosong di seed/jlpt_questions.json
+
+---
+
 ## v369 — Modal tulis kanji: bar kontrol di bawah panggung + stamp ?v=8
 
 ### Perubahan

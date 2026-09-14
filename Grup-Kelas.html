@@ -170,6 +170,18 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
     <section class="panel" id="panelGroups" hidden>
       <h2>Grup yang Anda kelola</h2>
       <p class="hint">Pilih satu grup untuk mengatur token dan melihat anggotanya.</p>
+      <div style="display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px">
+        <div style="flex:1;min-width:180px">
+          <label>Filter grup
+            <select id="groupFilter">
+              <option value="all">Semua</option>
+              <option value="pelajar">Pelajar</option>
+              <option value="pengajar">Pengajar</option>
+            </select>
+          </label>
+        </div>
+        <button type="button" class="btn btn-sub" id="refreshGroupsBtn">Segarkan</button>
+      </div>
       <div class="glist" id="groupList"><div class="empty">Belum ada grup.</div></div>
     </section>
 
@@ -223,7 +235,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
   'use strict';
 
   var API = '/api/group-tokens';
-  var state = { role: 'student', groups: [], active: null };
+  var state = { role: 'student', groups: [], active: null, filter: 'all' };
 
   function byId(id) { return document.getElementById(id); }
   function show(id, on) { var el = byId(id); if (el) el.hidden = !on; }
@@ -278,10 +290,21 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
   }
 
   // ── Tampilan pengelola ──────────────────────────────────────────
+  function filteredGroups() {
+    var filter = state.filter || 'all';
+    if (filter === 'all') return state.groups;
+    return state.groups.filter(function (g) { return (g.kind || 'pelajar') === filter; });
+  }
+
   function renderGroups() {
     var host = byId('groupList');
+    var visible = filteredGroups();
     if (!state.groups.length) { host.innerHTML = '<div class="empty">Belum ada grup. Buat satu di atas.</div>'; return; }
-    host.innerHTML = state.groups.map(function (g) {
+    if (!visible.length) {
+      host.innerHTML = '<div class="empty">Tidak ada grup dengan filter ini.</div>';
+      return;
+    }
+    host.innerHTML = visible.map(function (g) {
       return '<button type="button" class="gitem" data-gid="' + esc(g.id) + '"'
       + (state.active === g.id ? ' aria-current="true"' : '') + '>'
       + '<div><b>' + esc(g.name) + '</b><span>' + levelChip(g)
@@ -360,6 +383,16 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
     }
   });
 
+  byId('groupFilter').addEventListener('change', function (e) {
+    state.filter = e.target.value || 'all';
+    renderGroups();
+  });
+
+  byId('refreshGroupsBtn').addEventListener('click', function () {
+    setStatus('Memuat ulang grup…');
+    loadGroups().catch(function (err) { setStatus(err.message, true); });
+  });
+
   byId('createBtn').addEventListener('click', function () {
     var name = byId('newName').value.trim();
     if (name.length < 3) { setStatus('Nama grup minimal 3 karakter.', true); return; }
@@ -428,6 +461,7 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace}
       return;
     }
     show('panelJoin', true);
+    byId('groupFilter').value = state.filter;
     loadGroups().catch(function (err) {
       /* 501 dari server berarti kunci Supabase belum diisi di hosting -- itu
          kondisi pemasangan, bukan kesalahan pengguna, jadi dikatakan apa

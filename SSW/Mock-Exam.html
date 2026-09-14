@@ -15,6 +15,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mock Exam SSW — Nihongo Pro Academy</title>
 <meta name="description" content="Simulasi ujian SSW (Practice/Mock): countdown timer, navigasi nomor soal, tandai soal, submit otomatis, skor, dan review pembahasan. Soal berlabel Practice (Generated) atau Official (bersumber resmi).">
+<meta property="og:title" content="Mock Exam SSW">
+<meta property="og:description" content="Simulasi ujian SSW (Practice/Mock): countdown timer, navigasi nomor soal, tandai soal, submit otomatis, skor, dan review pembahasan. Soal berlabel Practice (Generated) atau Official (bersumber resmi).">
+<meta property="og:url" content="https://nihonggoproacademy.netlify.app/SSW/Mock-Exam.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Mock Exam SSW">
+<meta name="twitter:description" content="Simulasi ujian SSW (Practice/Mock): countdown timer, navigasi nomor soal, tandai soal, submit otomatis, skor, dan review pembahasan. Soal berlabel Practice (Generated) atau Official (bersumber resmi).">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Mock Exam SSW","description":"Simulasi ujian SSW (Practice/Mock): countdown timer, navigasi nomor soal, tandai soal, submit otomatis, skor, dan review pembahasan. Soal berlabel Practice (Generated) atau Official (bersumber resmi).","url":"https://nihonggoproacademy.netlify.app/SSW/Mock-Exam.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","SSW"]}</script>
 
 <link rel="manifest" href="/manifest.json">
@@ -24,9 +31,9 @@
 <link rel="stylesheet" href="/assets/kyoto-design-system.css">
 <link rel="stylesheet" href="/assets/kyoto-theme.css">
 <link rel="stylesheet" href="/assets/kyoto-elevation.css">
-<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=9">
 <link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
-<link rel="stylesheet" href="/assets/ssw.css?v=8">
+<link rel="stylesheet" href="/assets/ssw.css?v=9">
 </head>
 <body>
 <div id="knNavbar"></div>
@@ -44,34 +51,344 @@
     <div class="fh-id">Simulasi ujian SSW (Practice/Mock): countdown timer, navigasi nomor soal, tandai soal, submit otomatis, skor, dan review pembahasan. Soal berlabel Practice (Generated) atau Official (bersumber resmi).</div>
   </header>
 
-  <div class="ssw-panel active">
+  <!-- ── Daftar simulasi ── -->
+  <section class="ssw-panel active" id="viewList">
+    <div class="ssw-quiz-list" id="examList"></div>
+    <p class="ssw-empty" id="listEmpty" hidden>Belum ada simulasi ujian di bidang ini — konten ditambahkan lewat Admin Dashboard → SSW CMS.</p>
+  </section>
+
+  <!-- ── Briefing sebelum mulai ── -->
+  <section class="ssw-panel" id="viewBrief">
     <div class="ssw-module">
-      <h3><span class="mj">模試</span> Mock Exam SSW — segera lengkap</h3>
-      <p style="color:var(--ink-soft);font-size:14px;margin-top:6px">
-        Struktur data &amp; CMS untuk bagian ini sudah siap (tabel <code>ssw_mock</code>).
-        Konten diisi lewat <strong>Admin Dashboard → SSW CMS</strong>, dan halaman ini
-        akan otomatis menampilkan materi per bidang <code>?field=</code>. Sementara,
-        mulai dari <a href="/SSW/Lesson.html" style="color:var(--red);font-weight:600">Materi (Lesson)</a>
-        atau <a href="/SSW/Vocabulary.html" style="color:var(--red);font-weight:600">Vocabulary</a>.
+      <h3 id="briefTitle">Memuat…</h3>
+      <p id="briefDesc" style="color:var(--ink-soft);font-size:13.5px;margin-top:4px"></p>
+      <div class="ssw-quiz-meta" id="briefMeta" style="margin-top:10px"></div>
+      <p class="ssw-expl" style="margin-top:14px">
+        Timer berjalan begitu kamu menekan <strong>Mulai</strong> dan tidak bisa dijeda.
+        Saat waktu habis, jawaban dikumpulkan otomatis. Kamu bisa menandai soal
+        untuk ditinjau ulang sebelum mengumpulkan.
       </p>
+      <div class="ssw-quiz-actions">
+        <button class="ssw-btn primary" type="button" id="btnStart">Mulai ujian</button>
+        <a class="ssw-btn" id="btnBackBrief" href="/SSW/Mock-Exam.html">← Kembali</a>
+      </div>
     </div>
-  </div>
+  </section>
+
+  <!-- ── Mengerjakan ── -->
+  <section class="ssw-panel" id="viewExam">
+    <div class="ssw-exam-top">
+      <div class="ssw-timer" id="timer" hidden><span id="timerText">--:--</span></div>
+      <div class="ssw-quiz-meta" style="margin:0">
+        <span class="ssw-chip" id="answeredChip">0 / 0 terjawab</span>
+        <span class="ssw-chip" id="flaggedChip" hidden>0 ditandai</span>
+      </div>
+    </div>
+
+    <div class="ssw-navgrid" id="navGrid" role="group" aria-label="Navigasi nomor soal"></div>
+
+    <div id="questionWrap"></div>
+
+    <div class="ssw-quiz-actions">
+      <button class="ssw-btn" type="button" id="btnPrev">← Sebelumnya</button>
+      <button class="ssw-btn" type="button" id="btnFlag">⚑ Tandai untuk ditinjau</button>
+      <button class="ssw-btn" type="button" id="btnNext">Berikutnya →</button>
+      <button class="ssw-btn primary" type="button" id="btnSubmit">Kumpulkan</button>
+    </div>
+  </section>
+
+  <!-- ── Hasil ── -->
+  <section class="ssw-panel" id="viewResult">
+    <div class="ssw-score">
+      <div class="sc-num" id="scoreNum">0%</div>
+      <div class="sc-verdict" id="scoreVerdict"></div>
+      <div class="sc-sub" id="scoreSub"></div>
+    </div>
+    <div class="ssw-quiz-actions" style="margin-bottom:18px">
+      <button class="ssw-btn primary" type="button" id="btnRetry">Ulangi simulasi</button>
+      <a class="ssw-btn" id="btnBackResult" href="/SSW/Mock-Exam.html">← Daftar simulasi</a>
+      <a class="ssw-btn" id="btnToProgress" href="/SSW/Progress.html">Lihat progres</a>
+    </div>
+    <div id="reviewWrap"></div>
+  </section>
 </main>
 
 <div id="knFooter"></div>
-<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="/assets/kyoto-bottom-nav.js" defer></script>
-<script src="/assets/ssw-api.js?v=8"></script>
+<script src="/assets/ssw-api.js?v=9"></script>
+<script src="/assets/ssw-quiz.js?v=9"></script>
+<script src="/assets/ssw-seed.js?v=9"></script>
 <script>
 (function () {
-  const slug = new URLSearchParams(location.search).get('field') || 'kaigo';
-  document.getElementById('tabVocabX'); // no-op
-  SSWAPI.getFieldTree(slug).then(({ category }) => {
-    if (!category) return;
-    document.getElementById('crumbField').textContent = category.name_jp + ' ' + category.name_id;
-    document.getElementById('crumbField').href = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
-    document.getElementById('heroJp').textContent = category.name_jp + ' — Mock-Exam';
-    document.title = category.name_jp + ' Mock-Exam — SSW | Nihongo Pro Academy';
+  'use strict';
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('field') || 'kaigo';
+  const examId = params.get('exam') || '';
+  const fieldQS = '?field=' + encodeURIComponent(slug);
+
+  const el = id => document.getElementById(id);
+  function esc(s) { const d = document.createElement('div'); d.textContent = String(s == null ? '' : s); return d.innerHTML; }
+  function show(v) { ['viewList','viewBrief','viewExam','viewResult'].forEach(x => el(x).classList.toggle('active', x === v)); }
+
+  el('btnBackBrief').href = '/SSW/Mock-Exam.html' + fieldQS;
+  el('btnBackResult').href = '/SSW/Mock-Exam.html' + fieldQS;
+  el('btnToProgress').href = '/SSW/Progress.html' + fieldQS;
+
+  let exam = null, questions = [], answers = {}, flags = {}, idx = 0;
+  let startedAt = 0, deadline = null, ticker = null, submitted = false;
+
+  // ── Daftar simulasi ──────────────────────────────────────────
+  function paintList(items) {
+    el('listEmpty').hidden = items.length > 0;
+    el('examList').innerHTML = items.map(q => {
+      const src = SSWQuiz.sourceLabel(q);
+      const prev = SSWAPI.getProgress('quiz', q.id);
+      return `<a class="ssw-quiz-card" href="/SSW/Mock-Exam.html${fieldQS}&exam=${encodeURIComponent(q.id)}">
+        <h3>${esc(q.title)}</h3>
+        ${q.description ? `<p>${esc(q.description)}</p>` : ''}
+        <div class="ssw-quiz-meta">
+          <span class="ssw-chip ${src.official ? 'official' : 'practice'}">${esc(src.text)}</span>
+          ${q.time_limit_min ? `<span class="ssw-chip">⏱ ${esc(q.time_limit_min)} menit</span>` : '<span class="ssw-chip">Tanpa batas waktu</span>'}
+          ${q.question_count ? `<span class="ssw-chip">${esc(q.question_count)} soal</span>` : ''}
+          <span class="ssw-chip">Lulus ≥ ${esc(q.pass_score == null ? 60 : q.pass_score)}%</span>
+          ${prev && prev.completed ? `<span class="ssw-chip done">✓ Terakhir ${esc(prev.score)}%</span>` : ''}
+        </div>
+      </a>`;
+    }).join('');
+  }
+
+  // ── Navigator & soal ─────────────────────────────────────────
+  function paintNav() {
+    el('navGrid').innerHTML = questions.map((q, i) => {
+      const cls = ['ssw-navbtn'];
+      if (SSWQuiz.isAnswered(q, answers[q.id])) cls.push('answered');
+      if (flags[q.id]) cls.push('flagged');
+      if (i === idx) cls.push('current');
+      return `<button type="button" class="${cls.join(' ')}" data-idx="${i}"
+        aria-label="Soal ${i + 1}${flags[q.id] ? ', ditandai' : ''}">${i + 1}</button>`;
+    }).join('');
+
+    const terjawab = questions.filter(q => SSWQuiz.isAnswered(q, answers[q.id])).length;
+    el('answeredChip').textContent = terjawab + ' / ' + questions.length + ' terjawab';
+    const ditandai = Object.keys(flags).filter(k => flags[k]).length;
+    el('flaggedChip').hidden = ditandai === 0;
+    el('flaggedChip').textContent = ditandai + ' ditandai';
+  }
+
+  function questionBody(q) {
+    const p = q.payload || {};
+    const given = answers[q.id];
+    if (SSWQuiz.CHOICE_TYPES.indexOf(q.type) !== -1) {
+      return '<div class="ssw-opts">' + (p.choices || []).map((c, ci) =>
+        `<button class="ssw-opt${given === ci ? ' chosen' : ''}" type="button" data-choice="${ci}">${esc(c)}</button>`).join('') + '</div>';
+    }
+    if (q.type === 'tf') {
+      return `<div class="ssw-opts">
+        <button class="ssw-opt${given === true ? ' chosen' : ''}" type="button" data-bool="true">✓ Benar</button>
+        <button class="ssw-opt${given === false ? ' chosen' : ''}" type="button" data-bool="false">✗ Salah</button>
+      </div>`;
+    }
+    if (q.type === 'fill') {
+      return `<input class="ssw-fill" type="text" autocomplete="off" placeholder="Ketik jawabanmu…" value="${esc(given == null ? '' : given)}">`;
+    }
+    if (q.type === 'match') {
+      const pairs = p.pairs || [];
+      // Urutan opsi kanan ditetapkan SEKALI per sesi dan disimpan di objek
+      // soalnya, supaya tidak berubah-ubah tiap peserta bolak-balik nomor.
+      if (!q._rights) q._rights = SSWQuiz.shuffle(pairs.map(x => x.right));
+      const cur = (given && typeof given === 'object') ? given : {};
+      return '<div class="ssw-match">' + pairs.map(pr => `
+        <div class="ssw-match-row">
+          <span class="m-left">${esc(pr.left)}</span>
+          <select data-left="${esc(pr.left)}" aria-label="Pasangan untuk ${esc(pr.left)}">
+            <option value="">— pilih —</option>
+            ${q._rights.map(r => `<option value="${esc(r)}"${cur[pr.left] === r ? ' selected' : ''}>${esc(r)}</option>`).join('')}
+          </select>
+        </div>`).join('') + '</div>';
+    }
+    return '';
+  }
+
+  function paintQuestion() {
+    const q = questions[idx];
+    if (!q) return;
+    const p = q.payload || {};
+    el('questionWrap').innerHTML = `<article class="ssw-q">
+      <div class="q-head"><span>SOAL ${idx + 1} / ${questions.length}</span><span>${q.points > 1 ? esc(q.points) + ' poin' : ''}</span></div>
+      ${p.passage ? `<div class="ssw-expl" style="margin:0 0 12px"><span class="jp">${esc(p.passage)}</span></div>` : ''}
+      <div class="q-text"><span class="jp">${esc(p.question)}</span></div>
+      ${questionBody(q)}
+    </article>`;
+    el('btnPrev').disabled = idx === 0;
+    el('btnNext').disabled = idx === questions.length - 1;
+    el('btnFlag').classList.toggle('flagged', Boolean(flags[q.id]));
+    el('btnFlag').textContent = flags[q.id] ? '⚑ Batal tandai' : '⚑ Tandai untuk ditinjau';
+    paintNav();
+  }
+
+  function goTo(i) { idx = Math.max(0, Math.min(questions.length - 1, i)); paintQuestion(); }
+
+  el('navGrid').addEventListener('click', e => {
+    const b = e.target.closest('.ssw-navbtn');
+    if (b) goTo(Number(b.dataset.idx));
+  });
+  el('btnPrev').addEventListener('click', () => goTo(idx - 1));
+  el('btnNext').addEventListener('click', () => goTo(idx + 1));
+  el('btnFlag').addEventListener('click', () => {
+    flags[questions[idx].id] = !flags[questions[idx].id];
+    paintQuestion();
+  });
+
+  el('questionWrap').addEventListener('click', e => {
+    const btn = e.target.closest('.ssw-opt');
+    if (!btn || submitted) return;
+    const q = questions[idx];
+    answers[q.id] = btn.dataset.bool !== undefined ? btn.dataset.bool === 'true' : Number(btn.dataset.choice);
+    paintQuestion();
+  });
+  el('questionWrap').addEventListener('input', e => {
+    if (submitted || !e.target.classList.contains('ssw-fill')) return;
+    answers[questions[idx].id] = e.target.value;
+    paintNav();
+  });
+  el('questionWrap').addEventListener('change', e => {
+    if (submitted || e.target.tagName !== 'SELECT') return;
+    const q = questions[idx];
+    const cur = (answers[q.id] && typeof answers[q.id] === 'object') ? answers[q.id] : {};
+    cur[e.target.dataset.left] = e.target.value;
+    answers[q.id] = cur;
+    paintNav();
+  });
+
+  // ── Timer ────────────────────────────────────────────────────
+  function tick() {
+    const sisa = SSWQuiz.remainingSeconds(deadline, Date.now());
+    if (sisa === null) return;
+    el('timerText').textContent = SSWQuiz.formatClock(sisa);
+    el('timer').classList.toggle('warn', sisa <= 120 && sisa > 30);
+    el('timer').classList.toggle('danger', sisa <= 30);
+    if (SSWQuiz.isExpired(deadline, Date.now())) submit(true);
+  }
+
+  function startExam() {
+    answers = {}; flags = {}; idx = 0; submitted = false;
+    questions = SSWQuiz.buildSession(exam, {});
+    startedAt = Date.now();
+    deadline = SSWQuiz.examDeadline(startedAt, exam.time_limit_min);
+    el('timer').hidden = deadline === null;
+    if (ticker) clearInterval(ticker);
+    if (deadline !== null) { tick(); ticker = setInterval(tick, 1000); }
+    paintQuestion();
+    show('viewExam');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ── Kumpulkan ────────────────────────────────────────────────
+  async function submit(otomatis) {
+    if (submitted) return;                 // kunci: auto-submit & klik manual tidak menilai dua kali
+    if (!otomatis) {
+      const belum = questions.length - questions.filter(q => SSWQuiz.isAnswered(q, answers[q.id])).length;
+      const ditandai = Object.keys(flags).filter(k => flags[k]).length;
+      const pesan = [];
+      if (belum) pesan.push(belum + ' soal belum dijawab');
+      if (ditandai) pesan.push(ditandai + ' soal masih ditandai untuk ditinjau');
+      if (pesan.length && !confirm(pesan.join(' dan ') + '. Kumpulkan sekarang?')) return;
+    }
+    submitted = true;
+    if (ticker) { clearInterval(ticker); ticker = null; }
+
+    const res = SSWQuiz.gradeQuiz(questions, answers, { passScore: exam.pass_score });
+    const durasi = Math.max(0, Math.round((Date.now() - startedAt) / 1000));
+
+    el('scoreNum').textContent = res.score + '%';
+    el('scoreNum').className = 'sc-num ' + (res.passed ? 'pass' : 'fail');
+    el('scoreVerdict').textContent = res.passed ? 'Lulus 🎉' : 'Belum lulus';
+    el('scoreSub').textContent =
+      (otomatis ? 'Waktu habis — dikumpulkan otomatis · ' : '')
+      + `${res.correctCount} dari ${res.questionCount} soal benar · ${res.earned}/${res.total} poin · `
+      + `batas lulus ${res.passScore}% · waktu ${SSWQuiz.formatClock(durasi)}`;
+
+    el('reviewWrap').innerHTML = questions.map((q, i) => {
+      const d = res.detail.find(x => x.qid === q.id) || {};
+      const a = q.answer || {}, p = q.payload || {};
+      const kunci = SSWQuiz.CHOICE_TYPES.indexOf(q.type) !== -1 ? (p.choices || [])[a.index]
+        : q.type === 'tf' ? (a.bool ? 'Benar' : 'Salah')
+        : q.type === 'fill' ? (a.accept || []).join(' / ')
+        : (a.pairs || []).map(pr => pr.left + ' → ' + pr.right).join(', ');
+      return `<article class="ssw-q">
+        <div class="q-head">
+          <span>SOAL ${i + 1} / ${questions.length}</span>
+          <span style="color:${d.correct ? 'var(--green,#117E39)' : 'var(--red)'}">${d.correct ? '✓ Benar' : '✗ Salah'}</span>
+        </div>
+        <div class="q-text"><span class="jp">${esc(p.question)}</span></div>
+        <div class="ssw-expl ${d.correct ? 'correct' : 'wrong'}">
+          ${d.correct ? '' : `<strong>Kunci:</strong> ${esc(kunci)}<br>`}
+          ${esc(q.explanation || '')}
+        </div>
+      </article>`;
+    }).join('');
+
+    show('viewResult');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    SSWAPI.markProgress('quiz', exam.id, { completed: true, score: res.score });
+    await SSWAPI.saveExamResult({
+      quiz_id: exam.id, score: res.score, passed: res.passed,
+      duration_s: durasi, detail: res.detail, title: exam.title, kind: 'mock',
+    });
+  }
+
+  el('btnSubmit').addEventListener('click', () => submit(false));
+  el('btnStart').addEventListener('click', startExam);
+  el('btnRetry').addEventListener('click', startExam);
+
+  // Ticker tidak boleh terus hidup setelah halaman ditinggalkan.
+  window.addEventListener('pagehide', () => { if (ticker) clearInterval(ticker); });
+
+  // ── Bootstrap ────────────────────────────────────────────────
+  SSWAPI.getFieldTree(slug).then(async ({ category }) => {
+    if (category) {
+      el('crumbField').textContent = category.name_jp + ' ' + category.name_id;
+      el('crumbField').href = '/SSW/Field-Dashboard.html' + fieldQS;
+      el('heroJp').textContent = category.name_jp + ' — Mock Exam';
+      document.title = category.name_jp + ' Mock Exam — SSW | Nihongo Pro Academy';
+    }
+
+    if (!examId) {
+      const { items } = await SSWAPI.getItems(slug, 'quizzes');
+      // Halaman ini khusus kind 'mock'; latihan biasa ada di Quiz.html.
+      paintList((items || []).filter(q => q.kind === 'mock').sort((a, b) => (a.sort || 0) - (b.sort || 0)));
+      show('viewList');
+      return;
+    }
+
+    const { quiz } = await SSWAPI.getQuiz(examId);
+    if (!quiz) {
+      el('briefTitle').textContent = 'Simulasi tidak ditemukan';
+      el('briefDesc').textContent = 'Simulasi ini mungkin sudah dihapus atau belum dipublikasikan.';
+      el('btnStart').hidden = true;
+      show('viewBrief');
+      return;
+    }
+
+    exam = quiz;
+    const src = SSWQuiz.sourceLabel(exam);
+    const jumlah = SSWQuiz.buildSession(exam, {}).length;
+    el('briefTitle').textContent = exam.title;
+    el('briefDesc').textContent = exam.description || '';
+    el('briefMeta').innerHTML =
+      `<span class="ssw-chip ${src.official ? 'official' : 'practice'}">${esc(src.text)}</span>` +
+      (src.official && src.url ? `<a class="ssw-chip" href="${esc(src.url)}" target="_blank" rel="noopener noreferrer">Sumber ↗</a>` : '') +
+      `<span class="ssw-chip">${jumlah} soal</span>` +
+      (exam.time_limit_min ? `<span class="ssw-chip">⏱ ${esc(exam.time_limit_min)} menit</span>` : '<span class="ssw-chip">Tanpa batas waktu</span>') +
+      `<span class="ssw-chip">Lulus ≥ ${esc(exam.pass_score == null ? 60 : exam.pass_score)}%</span>`;
+    SSWAPI.setLastAccessed({ field: slug, examId: exam.id, title: exam.title });
+    show('viewBrief');
+  }).catch(err => {
+    console.error('[SSW]', err);
+    el('listEmpty').hidden = false;
+    el('listEmpty').textContent = 'Gagal memuat simulasi. Coba muat ulang halaman.';
   });
 })();
 </script>

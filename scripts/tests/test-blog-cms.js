@@ -194,6 +194,55 @@ test('POST dengan javascript: URI di href ditolak', async () => {
   assert.strictEqual(insertCalls.length, 0);
 });
 
+test('POST dengan javascript: URI di-obfuscate lewat &#NN; numerik ditolak', async () => {
+  const { handler, insertCalls } = loadHandler({ roleRowResult: { role: 'admin' } });
+  const res = await handler(makeEvent({
+    method: 'POST',
+    headers: { authorization: 'Bearer faketoken' },
+    // 'a' di "javascript" di-encode jadi &#97; -- pernah lolos sebelum
+    // decode entity mencakup seluruh karakter, bukan hanya titik dua.
+    body: { title: 'Judul', body_html: '<a href="j&#97;vascript:alert(1)">klik</a>' },
+  }));
+  assert.strictEqual(res.statusCode, 400);
+  assert.strictEqual(insertCalls.length, 0);
+});
+
+test('POST dengan javascript: URI dipecah tab literal di tengah kata ditolak', async () => {
+  const { handler, insertCalls } = loadHandler({ roleRowResult: { role: 'admin' } });
+  const res = await handler(makeEvent({
+    method: 'POST',
+    headers: { authorization: 'Bearer faketoken' },
+    body: { title: 'Judul', body_html: '<a href="java\tscript:alert(1)">klik</a>' },
+  }));
+  assert.strictEqual(res.statusCode, 400);
+  assert.strictEqual(insertCalls.length, 0);
+});
+
+test('POST dengan javascript: URI dipecah entity bernama &Tab; ditolak', async () => {
+  const { handler, insertCalls } = loadHandler({ roleRowResult: { role: 'admin' } });
+  const res = await handler(makeEvent({
+    method: 'POST',
+    headers: { authorization: 'Bearer faketoken' },
+    // &Tab; adalah referensi karakter HTML5 resmi untuk U+0009 (tab) --
+    // browser mendekodenya di atribut href walau bukan whitespace literal
+    // dan bukan &#9; numerik, jadi butuh penanganan terpisah dari keduanya.
+    body: { title: 'Judul', body_html: '<a href="java&Tab;script:alert(1)">klik</a>' },
+  }));
+  assert.strictEqual(res.statusCode, 400);
+  assert.strictEqual(insertCalls.length, 0);
+});
+
+test('POST dengan javascript: URI dipecah entity bernama &NewLine; ditolak', async () => {
+  const { handler, insertCalls } = loadHandler({ roleRowResult: { role: 'admin' } });
+  const res = await handler(makeEvent({
+    method: 'POST',
+    headers: { authorization: 'Bearer faketoken' },
+    body: { title: 'Judul', body_html: '<a href="java&NewLine;script:alert(1)">klik</a>' },
+  }));
+  assert.strictEqual(res.statusCode, 400);
+  assert.strictEqual(insertCalls.length, 0);
+});
+
 test('POST dengan tag yang diizinkan (p, h2, ul, li, strong, a) -> diterima', async () => {
   const { handler, insertCalls } = loadHandler({ roleRowResult: { role: 'admin' } });
   const html = '<h2>Judul</h2><p>Teks <strong>tebal</strong> dan <a href="https://nihonggoproacademy.netlify.app">link</a>.</p><ul><li>Poin 1</li></ul>';

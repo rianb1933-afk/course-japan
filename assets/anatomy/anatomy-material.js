@@ -115,6 +115,103 @@
     return n;
   }
 
+  // ── Pencarian Materi Lengkap ─────────────────────────────────────────
+  // Satu kotak pencarian di atas daftar isi: memfilter 176 istilah per
+  // kanji, furigana, romaji, arti Indonesia, dan istilah terkait (alias),
+  // TANPA case-sensitivity. Sistem tanpa hasil disembunyikan; hitungan
+  // hasil + tombol bersihkan tampil saat query tidak kosong.
+  var searchQuery = '';
+
+  function normSearch(s) {
+    return String(s == null ? '' : s).toLowerCase();
+  }
+
+  function termMatches(t, q) {
+    var hay = [t.japanese, t.furigana, t.romaji, t.indonesian, t.english]
+      .concat(t.aliases || [])
+      .map(normSearch);
+    return hay.some(function (h) { return h.indexOf(q) !== -1; });
+  }
+
+  function applySearch(q) {
+    searchQuery = String(q == null ? '' : q).toLowerCase();
+    var root = document.getElementById('materiLengkap');
+    if (!root) return { total: 0, systems: 0 };
+
+    // Fase 1: filter semua blok sistem. Kotak pencarian (anak pertama) diproses
+    // SETELAH loop — hitungan baru benar setelah semua sistem dihitung.
+    // Hanya API DOM standar (children/classList/querySelector) agar bekerja
+    // di browser sungguhan, bukan hanya di mock test.
+    var total = 0, sysShown = 0, searchBoxes = [];
+    var kids = root.children || [];
+    for (var i = 0; i < kids.length; i++) {
+      var node = kids[i];
+      if (node.classList && node.classList.contains('mat-system')) {
+        var sys = D.SYSTEMS[node.id ? node.id.replace(/^materi-/, '') : ''];
+        var entries = [];
+        var ekids = node.children || [];
+        for (var j = 0; j < ekids.length; j++) {
+          if (ekids[j].classList && ekids[j].classList.contains('mat-entry')) entries.push(ekids[j]);
+        }
+        var shown = 0;
+        entries.forEach(function (e, idx) {
+          var show = !searchQuery || (sys && idx < sys.terms.length && termMatches(sys.terms[idx], searchQuery));
+          e.style.display = show ? '' : 'none';
+          if (show) shown++;
+        });
+        node.style.display = shown ? '' : 'none';
+        if (shown) { total += shown; sysShown++; }
+      } else if (node.classList && node.classList.contains('mat-search')) {
+        searchBoxes.push(node);
+      }
+    }
+
+    // Fase 2: perbarui hitungan, tombol bersihkan, dan pesan kosong.
+    searchBoxes.forEach(function (box) {
+      var cnt = box.querySelector('.mat-search-count');
+      var clr = box.querySelector('.mat-search-clear');
+      if (cnt) cnt.textContent = searchQuery ? (total + ' istilah ditemukan') : '';
+      if (clr) clr.style.display = searchQuery ? '' : 'none';
+      var empty = box.querySelector('.mat-search-empty');
+      if (empty) empty.style.display = (!searchQuery || total) ? 'none' : '';
+    });
+    return { total: total, systems: sysShown };
+  }
+
+  function buildSearchBox() {
+    var box = el('div', 'mat-search');
+    var row = el('div', 'mat-search-row');
+    var input = el('input', 'mat-search-input');
+    input.type = 'text';
+    input.id = 'materiSearch';
+    input.placeholder = 'Cari istilah: 頭, atama, atau Kepala…';
+    input.setAttribute('aria-label', 'Cari istilah anatomi');
+    input.autocomplete = 'off';
+    input.addEventListener('input', function () {
+      var v = input.value;
+      clearTimeout(buildSearchBox._t);
+      buildSearchBox._t = setTimeout(function () { applySearch(v); }, 120);
+    });
+    row.appendChild(input);
+
+    var clr = el('button', 'mat-search-clear', '✕ Bersihkan');
+    clr.type = 'button';
+    clr.style.display = 'none';
+    clr.addEventListener('click', function () {
+      input.value = '';
+      applySearch('');
+      input.focus();
+    });
+    row.appendChild(clr);
+    box.appendChild(row);
+
+    box.appendChild(el('div', 'mat-search-count', ''));
+    var empty = el('div', 'mat-search-empty', 'Tidak ada istilah yang cocok. Coba kata kunci lain — kanji (頭), bacaan (atama), atau arti (kepala).');
+    empty.style.display = 'none';
+    box.appendChild(empty);
+    return box;
+  }
+
   function speak(text) {
     try {
       if (!global.speechSynthesis) return;
@@ -230,6 +327,9 @@
     if (!root) return;
     root.innerHTML = ''; // bangun ulang dari nol
 
+    // Kotak pencarian di paling atas (di atas daftar isi)
+    root.appendChild(buildSearchBox());
+
     // Daftar isi: chip per sistem dengan jumlah istilah
     var toc = el('nav', 'mat-toc');
     toc.setAttribute('aria-label', 'Daftar isi materi lengkap');
@@ -257,6 +357,14 @@
       sys.terms.forEach(function (t) { renderTermEntry(block, t); });
       root.appendChild(block);
     });
+
+    // Pulihkan query pencarian setelah render ulang (mis. sinkronisasi tombol
+    // simpan) — input dibaca ulang, filter diterapkan ke DOM yang baru.
+    var inp = root.querySelector('.mat-search-input');
+    if (inp && searchQuery) {
+      inp.value = searchQuery;
+      applySearch(searchQuery);
+    }
   }
 
   function initExtras() {
@@ -275,7 +383,8 @@
     updateHeroStat: updateHeroStat,
     toggleSavedView: toggleSavedView,
     renderSavedView: renderSavedView,
-    renderTermEntry: renderTermEntry
+    renderTermEntry: renderTermEntry,
+    applySearch: applySearch
   };
 
   if (document.readyState === 'loading') {

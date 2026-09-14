@@ -1145,7 +1145,15 @@ def check_orphan_classes():
         for block in re.findall(r'<style[^>]*>.*?</style>', html, re.S | re.I):
             available |= set(re.findall(r'\.([a-zA-Z][\w-]*)', block))
         for href in re.findall(r'<link[^>]+href="([^"?]+\.css)', html):
-            asset = os.path.normpath(os.path.join(os.path.dirname(path), href))
+            # href root-absolute ("/assets/x.css") harus diukur dari ROOT situs.
+            # os.path.join(dirname, "/assets/x.css") menghasilkan path absolut
+            # FILESYSTEM yang tidak pernah ada, sehingga stylesheet-nya dianggap
+            # tidak dimuat — dan seluruh kelas halaman itu tampak yatim padahal
+            # definisinya ada. Halaman SSW memakai bentuk itu untuk semua CSS-nya.
+            if href.startswith('/'):
+                asset = os.path.normpath(os.path.join(ROOT, href.lstrip('/')))
+            else:
+                asset = os.path.normpath(os.path.join(os.path.dirname(path), href))
             if os.path.exists(asset):
                 available |= sheet_classes(asset)
 
@@ -1411,6 +1419,47 @@ def check_three_version():
     err('three-version',
         f'{detail} Versi yang berbeda berarti library Three.js diunduh ulang '
         f'per halaman alih-alih dilayani dari cache.')
+
+
+def check_asset_version():
+    """Semua URL aset ?v= harus memakai satu konstan yang sama.
+
+    Service worker bersifat cache-first, jadi query versi inilah satu-satunya
+    yang memaksa pengguna lama mengambil aset yang isinya berubah. Aturannya:
+    naikkan ASSET_VERSION di scripts/align-asset-versions.py lalu jalankan
+    script itu — JANGAN menaikkan ?v= per halaman.
+
+    Kepatuhan itu pernah lolos tanpa ketahuan: tiga aset SSW dinaikkan manual
+    ke ?v=9 sementara konstannya masih 8, dan karena tiap halaman konsisten
+    dengan dirinya sendiri, tidak ada review per-berkas yang menangkapnya.
+    Yang berbahaya justru arah sebaliknya — aset yang berubah tapi ?v=-nya
+    tertinggal akan terus disajikan basi dari cache, persis kelas bug yang
+    tidak memunculkan error apa pun.
+
+    Analog dengan build-freshness (.min vs sumbernya) dan three-version:
+    satu sumber kebenaran, ditegakkan mesin, bukan ingatan.
+    """
+    aligner = os.path.join(ROOT, 'scripts', 'align-asset-versions.py')
+    if not os.path.exists(aligner):
+        err('asset-version', 'scripts/align-asset-versions.py tidak ada')
+        return
+
+    proc = subprocess.run([sys.executable, aligner, '--check'],
+                          cwd=ROOT, capture_output=True, text=True)
+
+    if proc.returncode == 0:
+        ok('asset-version', (proc.stdout.strip().splitlines() or
+                             ['semua URL ?v= seragam'])[-1].lstrip('✓ '))
+        return
+
+    # Aligner mencetak SETIAP berkas yang melenceng; di gerbang deploy yang
+    # berguna hanya ringkasan dua baris terakhir. Daftar lengkapnya tetap bisa
+    # dilihat dengan menjalankan script-nya langsung.
+    lines = [l for l in (proc.stderr.strip() or proc.stdout.strip()).splitlines() if l.strip()]
+    detail = ' '.join(lines[-2:]) if lines else 'ada URL ?v= yang tidak seragam'
+    err('asset-version',
+        f'{detail} Naikkan ASSET_VERSION lalu jalankan '
+        f'`python3 scripts/align-asset-versions.py` — jangan sunting ?v= per halaman.')
 
 
 def check_three_lazy():
@@ -2700,6 +2749,7 @@ def main():
         check_comment_balance,
         check_inline_handler_targets,
         check_build_freshness,
+        check_asset_version,
         check_three_version,
         check_three_lazy,
         check_3d_lazy_pattern,

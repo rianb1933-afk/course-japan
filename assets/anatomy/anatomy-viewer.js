@@ -3,16 +3,8 @@
  * Viewer anatomi 2D interaktif: hotspot aksesibel, panel info, zoom/pan/fullscreen,
  * mode belajar, progress & integrasi XP.
  *
- * CATATAN JUJUR (Tahap 2 spesifikasi): halaman ini memakai diagram SVG stylized
- * sederhana yang SUDAH ADA dan berfungsi (bukan foto/ilustrasi anatomi fotorealistik).
- * Membangun set lengkap gambar anatomi profesional (tampak depan/belakang, rangka,
- * otot, organ, saraf, sirkulasi, pernapasan, pencernaan — 9 tampilan berbeda per
- * spesifikasi) adalah pekerjaan aset visual besar yang classes di luar kemampuan
- * teks/kode murni; SVG placeholder yang rapi ini dipakai sebagai fondasi fungsional
- * sekarang, siap diganti aset final tanpa mengubah struktur kode (lihat imageHotspot
- * di anatomy-data.js). Prioritas Tahap 2 di rilis ini: kontrol zoom/pan/fullscreen,
- * hotspot aksesibel, dan panel info — SEMUA berfungsi penuh terlepas dari kualitas
- * gambar dasarnya.
+ * Diagram SVG memakai koordinat viewBox 200 × 420. Hotspot dan SVG berada pada
+ * stage yang sama agar penanda tetap mengikuti bagian tubuh saat zoom/pan.
  *
  * Tidak menggunakan innerHTML untuk data yang berasal dari pengguna/eksternal —
  * seluruh konten teks dimasukkan via textContent atau element creation manual.
@@ -118,6 +110,7 @@
       card.setAttribute('tabindex', '0');
       card.setAttribute('role', 'button');
       card.setAttribute('aria-label', t.japanese + ', ' + t.indonesian);
+      card.setAttribute('aria-haspopup', 'dialog');
       if (t.bodyId) card.dataset.bodyId = t.bodyId;
       card.dataset.termId = t.id;
 
@@ -160,19 +153,22 @@
       card.appendChild(body);
       card.appendChild(dot);
 
-      function openThis() { openInfoPanel(t); if (t.bodyId) highlightBodyPart(t.bodyId, card); }
+      function openThis() { openInfoPanel(t, card); }
       card.addEventListener('click', openThis);
       card.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openThis(); }
       });
       if (t.bodyId) {
         card.addEventListener('mouseenter', function () { highlightBodyPart(t.bodyId, card); });
-        card.addEventListener('mouseleave', function () { highlightBodyPart(null, card); });
+        card.addEventListener('mouseleave', restoreSelection);
+        card.addEventListener('focus', function () { highlightBodyPart(t.bodyId, card); });
+        card.addEventListener('blur', restoreSelection);
       }
       list.appendChild(card);
     });
 
     renderHotspots(sysKey);
+    restoreSelection();
   }
 
   function highlightBodyPart(bodyId, card) {
@@ -180,12 +176,17 @@
     document.querySelectorAll('.hotspot-btn').forEach(function (h) { h.classList.remove('selected'); });
     document.querySelectorAll('.term-card').forEach(function (c) { c.classList.remove('hl'); });
     if (bodyId) {
-      var el = document.querySelector('.body-part[data-id="' + bodyId + '"]');
-      if (el) el.classList.add('active');
+      document.querySelectorAll('.body-part[data-id="' + bodyId + '"]').forEach(function (el) { el.classList.add('active'); });
       var hs = document.querySelector('.hotspot-btn[data-body-id="' + bodyId + '"]');
       if (hs) hs.classList.add('selected');
       if (card) card.classList.add('hl');
     }
+  }
+
+  function restoreSelection() {
+    var term = D.getTermById(state.activeTermId);
+    var card = term && document.querySelector('.term-card[data-term-id="' + term.id + '"]');
+    highlightBodyPart(term && term.system === state.currentSystem ? term.bodyId : null, card);
   }
 
   // ═══════════ HOTSPOT AKSESIBEL (Tahap 3) ═══════════
@@ -199,8 +200,8 @@
     'onaka': { x: 50, y: 51 }, 'momo-hidari': { x: 38, y: 71 }, 'momo-migi': { x: 62, y: 71 },
     'ashi-hidari': { x: 38, y: 90 }, 'ashi-migi': { x: 62, y: 90 },
     'ashikubi-hidari': { x: 38, y: 98 }, 'ashikubi-migi': { x: 62, y: 98 },
-    'shinzou': { x: 46, y: 28 }, 'hai-hidari': { x: 36, y: 27 }, 'hai-migi': { x: 60, y: 27 },
-    'i': { x: 58, y: 40 }, 'kanzou': { x: 46, y: 37 }, 'chou': { x: 50, y: 51 },
+    'shinzou': { x: 56, y: 28.57 }, 'hai-hidari': { x: 38.5, y: 27.38 }, 'hai-migi': { x: 61.5, y: 27.38 },
+    'i': { x: 58.5, y: 40.48 }, 'kanzou': { x: 41.5, y: 37.86 }, 'chou': { x: 50, y: 51 },
   };
 
   function renderHotspots(sysKey) {
@@ -224,6 +225,7 @@
       btn.dataset.bodyId = t.bodyId;
       btn.dataset.termId = t.id;
       btn.setAttribute('aria-label', 'Lihat detail ' + t.japanese + ' (' + t.indonesian + ')');
+      btn.setAttribute('aria-haspopup', 'dialog');
 
       var tip = document.createElement('span');
       tip.className = 'hotspot-tooltip';
@@ -231,25 +233,21 @@
       btn.appendChild(tip);
 
       btn.addEventListener('click', function () {
-        var card = document.querySelector('.term-card[data-body-id="' + t.bodyId + '"]');
-        openInfoPanel(t);
-        highlightBodyPart(t.bodyId, card);
-        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        openInfoPanel(t, btn);
       });
       stage.appendChild(btn);
     });
   }
 
   // ═══════════ PANEL INFORMASI (Tahap 4) ═══════════
-  var panelHistory = []; // untuk tombol sebelumnya/berikutnya dalam sesi
-  var panelIdx = -1;
-
   function buildInfoPanelDOM() {
     if ($('anaInfoPanel')) return;
 
     var overlay = document.createElement('div');
     overlay.className = 'info-panel-overlay';
     overlay.id = 'anaInfoOverlay';
+    overlay.hidden = true;
+    overlay.setAttribute('aria-hidden', 'true');
 
     var panel = document.createElement('div');
     panel.className = 'info-panel';
@@ -257,9 +255,13 @@
     panel.setAttribute('role', 'dialog');
     panel.setAttribute('aria-modal', 'true');
     panel.setAttribute('aria-labelledby', 'anaInfoTitle');
+    panel.setAttribute('tabindex', '-1');
+    panel.hidden = true;
+    panel.inert = true;
 
     var closeBtn = document.createElement('button');
     closeBtn.className = 'info-panel-close';
+    closeBtn.type = 'button';
     closeBtn.setAttribute('aria-label', 'Tutup panel informasi');
     closeBtn.textContent = '✕';
     closeBtn.addEventListener('click', closeInfoPanel);
@@ -294,6 +296,7 @@
     quizBtn.textContent = '🎯 Mulai Kuis';
     quizBtn.addEventListener('click', function () {
       closeInfoPanel();
+      if (state.isFullscreen) toggleFullscreen();
       var qSection = document.querySelector('.quiz-section');
       if (qSection) qSection.scrollIntoView({ behavior: 'smooth' });
     });
@@ -324,9 +327,6 @@
     document.body.appendChild(panel);
 
     overlay.addEventListener('click', closeInfoPanel);
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && panel.classList.contains('open')) closeInfoPanel();
-    });
   }
 
   function addRow(container, label, value) {
@@ -341,9 +341,12 @@
 
   var lastFocusedBeforePanel = null;
 
-  function openInfoPanel(term) {
+  function openInfoPanel(term, trigger) {
+    if (!term) return;
     buildInfoPanelDOM();
-    lastFocusedBeforePanel = document.activeElement;
+    var panel = $('anaInfoPanel');
+    var wasOpen = panel.classList.contains('open');
+    if (!wasOpen) lastFocusedBeforePanel = trigger || document.activeElement;
 
     safeText($('anaInfoTitle'), term.japanese);
     safeText(document.querySelector('.furi-big'), term.furigana + ' · ' + term.romaji);
@@ -356,9 +359,11 @@
     addRow(rows, 'Catatan Kaigo', term.kaigoNote);
     if (term.kaigoExample) addRow(rows, 'Contoh', term.kaigoExample);
 
-    $('anaOverlay') || null; // no-op guard
+    $('anaInfoOverlay').hidden = false;
+    panel.hidden = false;
+    panel.inert = false;
     $('anaInfoOverlay').classList.add('open');
-    $('anaInfoPanel').classList.add('open');
+    panel.classList.add('open');
 
     state.activeTermId = term.id;
     onHotspotOpened(term);
@@ -366,17 +371,16 @@
     // Mode Eksplorasi: tandai kartu ini "revealed" supaya blur label dibuka permanen
     // untuk istilah yang sudah pernah dilihat (Tahap 5.2).
     var cardEl = document.querySelector('.term-card[data-term-id="' + term.id + '"]');
-    if (cardEl) cardEl.classList.add('revealed');
+    if (cardEl) {
+      cardEl.classList.add('revealed');
+      var dot = cardEl.querySelector('.term-progress-dot');
+      if (dot) dot.classList.add('learned');
+    }
+    restoreSelection();
 
     // URL hash (Tahap 3): halaman dibuka dengan hash langsung membuka istilah tsb
     history.replaceState(null, '', '#' + term.id);
 
-    // Riwayat prev/next dalam sesi ini
-    if (panelHistory[panelIdx] !== term.id) {
-      panelHistory = panelHistory.slice(0, panelIdx + 1);
-      panelHistory.push(term.id);
-      panelIdx = panelHistory.length - 1;
-    }
     updatePanelNavButtons();
 
     // Audio (Web Speech API)
@@ -385,36 +389,41 @@
     $('anaPrevBtn').onclick = function () { navigatePanel(-1); };
     $('anaNextBtn').onclick = function () { navigatePanel(1); };
 
-    // Focus trap sederhana: pindah fokus ke tombol tutup
-    setTimeout(function () { document.querySelector('.info-panel-close').focus(); }, 50);
+    syncModalState();
+    if (!wasOpen || (document.activeElement && document.activeElement.disabled)) {
+      panel.querySelector('.info-panel-close').focus({ preventScroll: true });
+    }
+    panel.scrollTop = 0;
   }
 
   function navigatePanel(dir) {
-    var newIdx = panelIdx + dir;
-    if (newIdx < 0 || newIdx >= panelHistory.length) {
-      // Jika di ujung riwayat, lanjut ke istilah berikutnya/sebelumnya dalam sistem aktif
-      var terms = D.getTermsBySystem(state.currentSystem);
-      var curPos = terms.findIndex(function (t) { return t.id === state.activeTermId; });
-      var nextPos = curPos + dir;
-      if (nextPos >= 0 && nextPos < terms.length) openInfoPanel(terms[nextPos]);
-      return;
-    }
-    panelIdx = newIdx;
-    var t = D.getTermById(panelHistory[panelIdx]);
-    if (t) openInfoPanel(t);
+    var current = D.getTermById(state.activeTermId);
+    if (!current) return;
+    var terms = D.getTermsBySystem(current.system);
+    var idx = terms.findIndex(function (t) { return t.id === current.id; });
+    if (terms[idx + dir]) openInfoPanel(terms[idx + dir]);
   }
 
   function updatePanelNavButtons() {
-    // Selalu aktif — navigatePanel akan lanjut ke istilah lain dalam sistem jika riwayat habis.
+    var current = D.getTermById(state.activeTermId);
+    var terms = current ? D.getTermsBySystem(current.system) : [];
+    var idx = terms.findIndex(function (t) { return t.id === state.activeTermId; });
+    $('anaPrevBtn').disabled = idx <= 0;
+    $('anaNextBtn').disabled = idx < 0 || idx >= terms.length - 1;
   }
 
   function closeInfoPanel() {
     var overlay = $('anaInfoOverlay'), panel = $('anaInfoPanel');
-    if (overlay) overlay.classList.remove('open');
-    if (panel) panel.classList.remove('open');
-    if (lastFocusedBeforePanel && typeof lastFocusedBeforePanel.focus === 'function') {
-      lastFocusedBeforePanel.focus(); // kembalikan fokus ke hotspot/kartu semula (Tahap 9 aksesibilitas)
+    if (!panel || !panel.classList.contains('open')) return;
+    if (overlay) { overlay.classList.remove('open'); overlay.hidden = true; }
+    panel.classList.remove('open');
+    panel.hidden = true;
+    panel.inert = true;
+    syncModalState();
+    if (lastFocusedBeforePanel && lastFocusedBeforePanel.isConnected && typeof lastFocusedBeforePanel.focus === 'function') {
+      lastFocusedBeforePanel.focus({ preventScroll: true });
     }
+    lastFocusedBeforePanel = null;
   }
 
   // ═══════════ WEB SPEECH API (audio pengucapan) ═══════════

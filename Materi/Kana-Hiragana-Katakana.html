@@ -22,7 +22,7 @@
 <meta property="og:image" content="https://nihonggoproacademy.netlify.app/assets/og-preview.svg">
 
 <link rel="stylesheet" href="../assets/pro-style.css">
-<link rel="stylesheet" href="../assets/neko-theme.css?v=6">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=9">
 
     
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Course", "name": "Hiragana Katakana Seion Dakuten Handakuten Youon", "description": "Belajar hiragana dan katakana lengkap dengan drill dan latihan tulis", "url": "https://nihonggoproacademy.netlify.app/Materi/Kana-Hiragana-Katakana.html", "provider": {"@type": "Organization", "name": "NihongoPro", "url": "https://nihonggoproacademy.netlify.app"}, "inLanguage": "id", "hasCourseInstance": {"@type": "CourseInstance", "courseMode": "online", "courseWorkload": "PT2H"}, "offers": {"@type": "Offer", "price": "0", "priceCurrency": "IDR", "availability": "https://schema.org/InStock"}}</script>
@@ -51,7 +51,7 @@
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
-<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=6">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=9">
 <meta property="og:site_name" content="Nihongo Pro Academy">
 <meta property="og:description" content="Belajar hiragana dan katakana lengkap: 清音 seion, 濁音 dakuten, 半濁音 handakuten, 拗音 youon — tabel interaktif, drill hafalan, kuis, dan stroke order.">
 <meta property="og:url" content="https://nihonggoproacademy.netlify.app/Materi/Kana-Hiragana-Katakana.html">
@@ -216,6 +216,16 @@ td.k-char{color:var(--gold)}
 .wtool:hover{border-color:var(--red);color:var(--red)}
 .wtool.active{background:var(--red-pale);border-color:var(--red);color:var(--red)}
 .stroke-order-preview{display:flex;gap:.5rem;align-items:center;font-size:12px;color:var(--ink-soft);flex-wrap:wrap;margin-top:.5rem}
+.kana-stroke-stage{margin:1rem 0;padding:1rem;background:var(--white);border:1px solid var(--border);border-radius:12px;text-align:center}
+.kana-stroke-svg{width:min(260px,100%);height:auto;aspect-ratio:1;display:block;margin:0 auto .75rem;background:var(--cream);border:1px solid var(--border-mid);border-radius:10px}
+.kana-stroke-svg path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.kana-stroke-ghost{stroke:var(--ink-faint);stroke-width:4;opacity:.18}
+.kana-stroke-done{stroke:var(--red);stroke-width:4}
+.kana-stroke-current{stroke:var(--gold);stroke-width:4}
+.kana-stroke-controls{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+.kana-stroke-controls button{height:36px;padding:0 13px;border:1px solid var(--border-mid);border-radius:8px;background:var(--white);color:var(--ink-mid);font-weight:700;cursor:pointer}
+.kana-stroke-controls button.primary{background:var(--red);border-color:var(--red);color:#fff}
+.kana-stroke-status{font-size:12px;color:var(--ink-soft);font-weight:700;margin-bottom:.5rem}
 
 /* COMPARISON SECTION */
 .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
@@ -589,6 +599,20 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
       </div>
     </div>
 
+    <div class="kana-stroke-stage" aria-live="polite">
+      <div class="kana-stroke-status" id="kanaStrokeStatus">Pilih karakter untuk memuat animasi.</div>
+      <svg id="kanaStrokeSvg" class="kana-stroke-svg" viewBox="0 0 109 109" role="img" aria-label="Animasi urutan goresan kana">
+        <g id="kanaStrokeGhost"></g><g id="kanaStrokeDone"></g><path id="kanaStrokeCurrent" class="kana-stroke-current"></path>
+      </svg>
+      <div class="kana-stroke-controls">
+        <button class="primary" type="button" onclick="KanaStrokePlayer.play()">▶ Putar</button>
+        <button type="button" onclick="KanaStrokePlayer.next()">➜ Gores Berikutnya</button>
+        <button type="button" onclick="KanaStrokePlayer.restart()">↺ Ulangi</button>
+      </div>
+      <p id="kanaStrokeNote" class="sub" style="margin:.75rem auto 0;text-align:center">Urutan gores akan dimuat saat karakter dipilih.</p>
+      <p style="font-size:11px;color:var(--ink-faint);margin-top:.35rem">Data urutan gores: <a href="https://kanjivg.tagaini.net/" target="_blank" rel="noopener">KanjiVG</a> (CC BY-SA 3.0).</p>
+    </div>
+
     <div style="font-size:11px;font-weight:800;color:var(--ink-soft);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.4rem">Kanvas Latihan:</div>
     <div class="writing-tools">
       <button class="wtool active" id="wt-pen" onclick="setWriteTool('pen')">✏️ Pena</button>
@@ -635,6 +659,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 
 <div class="toast-wrap" id="toastWrap"></div>
 
+<script src="../assets/kana-strokes.js?v=9"></script>
 <script>
 // ═══════════════════════════════════════════
 // THEME
@@ -1169,19 +1194,16 @@ function showDrillDone(){
 // WRITING PRACTICE
 // ═══════════════════════════════════════════
 let wctx=null, wDrawing=false, wTool='pen', wColor='#15161a', wBrushSz=5, wGuideOn=true;
-const writeChars=[
-  'あ','い','う','え','お','か','き','く','け','こ',
-  'さ','し','す','せ','そ','た','ち','つ','て','と',
-  'な','に','ぬ','ね','の','は','ひ','ふ','へ','ほ',
-  'ま','み','む','め','も','や','ゆ','よ','ら','り',
-  'る','れ','ろ','わ','を','ん',
-  'が','ざ','だ','ば','ぱ','きゃ','しゃ','ちょ','にゅ','りょ'
-];
+const writeChars=[...new Set(Object.values(KANA).flatMap(section =>
+  section.groups.flatMap(group => group.chars.flatMap(character => [character.h, character.k]))
+))];
 let currentWriteChar='あ';
 
 function initWriting(){
   const canvas=document.getElementById('writeCanvas');
   if(!canvas)return;
+  if(canvas.dataset.kanaWritingReady==='1')return;
+  canvas.dataset.kanaWritingReady='1';
   wctx=canvas.getContext('2d');
   // Responsive width
   const w=Math.min(500, canvas.parentElement?.clientWidth||500);
@@ -1221,6 +1243,7 @@ function setWriteChar(ch){
   // Stroke preview (numbered circles)
   const n=hint.match(/[①②③④⑤]/g)||[];
   document.getElementById('strokePreview').innerHTML=n.map((num,i)=>`<span style="width:24px;height:24px;border-radius:50%;background:var(--red);color:#fff;font-size:13px;font-weight:800;display:inline-flex;align-items:center;justify-content:center">${i+1}</span>`).join('<span style="color:var(--ink-faint)">→</span>');
+  if (window.KanaStrokePlayer) window.KanaStrokePlayer.select(ch);
 }
 
 function getAllRomaji(ch){
@@ -1388,7 +1411,7 @@ if('serviceWorker' in navigator){
 </script>
 
 <script src="../assets/kyoto-theme.js" defer></script>
-<script src="../assets/kyoto-navbar.min.js?v=6" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>

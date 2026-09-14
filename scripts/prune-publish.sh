@@ -51,6 +51,15 @@ rm -f .env.example CNAME.example
 # di scripts/tests/test-srs-catalog.js; yang dihentikan hanya pengirimannya.
 rm -f assets/srs-cards-data.js
 
+# Dictionary sumber JMdict (21 MB terkompresi) — masukan build untuk
+# scripts/merge-jmdict.js, scripts/build-kanji-levels.js, dan
+# scripts/sync-srs-deck.js (semuanya sudah lenyap lewat "rm -rf scripts" di
+# atas). Disebut di beberapa halaman HANYA sebagai teks atribusi sumber data
+# (bukan fetch/src) — dikonfirmasi tidak ada satu pun rujukan runtime.
+# Aset publik yang dipakai frontend adalah hasil build-nya: vocab-all.csv dan
+# assets/srs/*.json, bukan file mentah ini.
+rm -f assets/JMdict.gz
+
 after=$(du -sk . 2>/dev/null | cut -f1)
 echo "prune-publish: $(( (before - after) / 1024 )) MB dipangkas sebelum upload."
 

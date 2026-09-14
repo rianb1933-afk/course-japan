@@ -22,7 +22,7 @@
      stylesheet, menyebabkan browser mengunduh 44KB tanpa efek apa pun. -->
 <!-- pro-app.min.js menyuntikkan panel chat, breadcrumbs, dan alat aksesibilitas.
      File ini harus diterapkan sebagai stylesheet; preload saja tidak memberi gaya. -->
-<link rel="stylesheet" href="assets/pro-style.css?v=6">
+<link rel="stylesheet" href="assets/pro-style.css?v=9">
 <style id="pro-app-critical-css">
 /* Pengaman bila stylesheet global terlambat/gagal dimuat. Komponen yang
    disuntikkan pro-app harus tertutup sampai pengguna membukanya. */
@@ -68,10 +68,10 @@
 <meta data-seo="nihongo-static" name="twitter:image" content="https://nihonggoproacademy.netlify.app/assets/og-preview.svg">
 <script data-seo="nihongo-static" type="application/ld+json">{"@context":"https://schema.org","@type":"Course","name":"Kuasai Bahasa Jepang nihongo wo hanasou — ayo berbicara","description":"Kuasai Bahasa Jepang nihongo wo hanasou — ayo berbicara","url":"https://nihonggoproacademy.netlify.app/","image":"https://nihonggoproacademy.netlify.app/assets/og-preview.svg","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","JLPT","Kanji","Tata Bahasa","Kosakata"]}</script>
 
-<link rel="stylesheet" href="assets/translator.css?v=6">
+<link rel="stylesheet" href="assets/translator.css?v=9">
 <link rel="stylesheet" href="assets/index-page.min.css">
 
-<link rel="stylesheet" href="assets/neko-theme.css?v=6">
+<link rel="stylesheet" href="assets/neko-theme.css?v=9">
 <link rel="stylesheet" href="assets/eduma-platform.css">
 <link rel="stylesheet" href="assets/kyoto-bundle.min.css">
 <link rel="stylesheet" href="assets/kyoto-theme.css">
@@ -162,7 +162,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .skip-to-content{position:absolute;top:-100%;left:1rem;z-index:9999;background:var(--red,#be3428);color:#fff;padding:.5rem 1rem;border-radius:0 0 8px 8px;font-weight:700;font-size:14px;text-decoration:none;transition:top .2s}
 .skip-to-content:focus{top:0}
 </style>
-<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=6">
+<link rel="stylesheet" href="assets/kyoto-navbar.min.css?v=9">
   <!-- REVEAL FALLBACK (dipasang setelah semua CSS) -->
   <style id="reveal-fallback">
     /* ── REVEAL FALLBACK: selalu visible, tidak bergantung JS ── */
@@ -376,6 +376,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   </style>
 <meta property="og:site_name" content="Nihongo Pro Academy">
 <link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+<link rel="stylesheet" href="assets/home-responsive.css">
 </head>
 <body>
 <a href="#main-content" class="skip-to-content">Langsung ke konten</a>
@@ -388,8 +389,8 @@ nav.kn-nav { z-index: 9999 !important; }
 </style>
 
 <!-- AUTH MODAL -->
-<div class="auth-overlay" id="authOverlay">
-  <div class="auth-modal" id="authModal">
+<div class="auth-overlay" id="authOverlay" role="dialog" aria-modal="true" aria-labelledby="authBannerTitle" aria-describedby="authBannerSub">
+  <div class="auth-modal" id="authModal" tabindex="-1">
     <!-- Banner -->
     <div class="auth-banner">
       <button aria-label="Tutup dialog masuk" class="auth-close" id="authClose">✕</button>
@@ -639,7 +640,7 @@ nav.kn-nav { z-index: 9999 !important; }
           <span class="wotd-label">📖 Kosakata Hari Ini</span>
           <span class="wotd-date" id="wotdDate"></span>
         </div>
-        <div class="wotd-card" id="wotdCard" onclick="flipWOTD()">
+        <div class="wotd-card" id="wotdCard" role="button" tabindex="0" aria-expanded="false" aria-label="Tampilkan arti kosakata hari ini" onclick="flipWOTD(event)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();flipWOTD(event)}">
           <div class="wotd-front">
             <div class="wotd-kanji" id="wotdKanji">—</div>
             <div class="wotd-reading" id="wotdReading"></div>
@@ -1325,8 +1326,8 @@ nav.kn-nav { z-index: 9999 !important; }
 </section>
 
 <!-- CHARACTER MODAL -->
-<div class="char-modal-overlay" id="charModal">
-  <div class="char-modal">
+<div class="char-modal-overlay" id="charModal" role="dialog" aria-modal="true" aria-labelledby="modalKana" aria-describedby="modalInfo">
+  <div class="char-modal" tabindex="-1">
     <button aria-label="Tutup detail karakter" class="char-modal-close" id="charModalClose">✕</button>
     <div class="modal-kana" id="modalKana">あ</div>
     <div class="modal-romaji" id="modalRomaji">A</div>
@@ -1656,22 +1657,33 @@ if('serviceWorker' in navigator && !/^(127\.0\.0\.1|localhost|::1)$/.test(locati
       return;
     }
 
-    // Save to localStorage as fallback
-    const subs = JSON.parse(localStorage.getItem('np-newsletter-subs') || '[]');
-    if(!subs.find(s => s.email === email)){
+    // Simpan lokal sebagai fallback; data browser yang rusak tidak boleh
+    // menghentikan alur pendaftaran newsletter.
+    let subs = [];
+    try {
+      const storedSubs = JSON.parse(localStorage.getItem('np-newsletter-subs') || '[]');
+      if(Array.isArray(storedSubs)) subs = storedSubs;
+    } catch (_) {}
+    if(!subs.find(s => s && s.email === email)){
       subs.push({email, date: new Date().toISOString()});
-      localStorage.setItem('np-newsletter-subs', JSON.stringify(subs));
+      try { localStorage.setItem('np-newsletter-subs', JSON.stringify(subs)); } catch (_) {}
     }
 
     // Try EmailJS if configured
-    if(typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID){
+    const emailConfigured = typeof emailjs !== 'undefined' && EMAILJS_PUBLIC_KEY && EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID;
+    if(emailConfigured){
       emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {email, date: new Date().toLocaleDateString('id-ID')})
         .catch(() => {}); // Silent fail — already saved to localStorage
     }
 
     if(formEl) formEl.style.display = 'none';
-    if(successEl) successEl.style.display = 'block';
-    if(typeof gtag !== 'undefined') gtag('event','newsletter_signup',{email});
+    if(successEl){
+      successEl.textContent = emailConfigured
+        ? '✅ Berhasil! Cek email konfirmasi kamu.'
+        : '✅ Email tersimpan di perangkat ini. Pengiriman newsletter belum dikonfigurasi.';
+      successEl.style.display = 'block';
+    }
+    if(typeof gtag !== 'undefined') gtag('event','newsletter_signup');
   };
 })();
 </script>
@@ -1695,7 +1707,7 @@ if('serviceWorker' in navigator && !/^(127\.0\.0\.1|localhost|::1)$/.test(locati
 })();
 </script>
 <script src="assets/kyoto-theme.js" defer></script>
-<script src="assets/kyoto-navbar.min.js?v=6" defer></script>
+<script src="assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="assets/kyoto-bottom-nav.js" defer></script>
 <script src="assets/np-skip-link.js" defer></script>
 <script src="assets/site-motion.js" defer></script>
@@ -2062,11 +2074,14 @@ if('serviceWorker' in navigator && !/^(127\.0\.0\.1|localhost|::1)$/.test(locati
     window._wotdCard = card;
   }
 
-  window.flipWOTD = function() {
+  window.flipWOTD = function(event) {
     var card = document.getElementById('wotdCard');
     if (!card) return;
+    if (event) event.stopPropagation();
     flipped = !flipped;
     card.classList.toggle('flipped', flipped);
+    card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+    card.setAttribute('aria-label', flipped ? 'Sembunyikan arti kosakata hari ini' : 'Tampilkan arti kosakata hari ini');
   };
 
   window.speakWOTD = function() {
@@ -2081,11 +2096,15 @@ if('serviceWorker' in navigator && !/^(127\.0\.0\.1|localhost|::1)$/.test(locati
   window.bookmarkWOTD = function() {
     var c = window._wotdCard;
     if (!c) return;
-    var bm = JSON.parse(localStorage.getItem('np-srs-bookmarks') || '[]');
+    var bm = [];
+    try {
+      var stored = JSON.parse(localStorage.getItem('np-srs-bookmarks') || '[]');
+      if (Array.isArray(stored)) bm = stored;
+    } catch (e) {}
     var key = 'wotd-' + c.jp;
     if (bm.indexOf(key) === -1) {
       bm.push(key);
-      localStorage.setItem('np-srs-bookmarks', JSON.stringify(bm));
+      try { localStorage.setItem('np-srs-bookmarks', JSON.stringify(bm)); } catch (e) {}
       alert('⭐ "' + c.jp + '" disimpan ke bookmark!');
     } else {
       alert('Sudah ada di bookmark.');

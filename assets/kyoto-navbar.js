@@ -41,7 +41,7 @@ ${di('🏛️','Fondasi Bahasa','Hiragana, katakana, partikel','/Materi/Fondasi-
 ${di('🎯','Modul Lain','Pitch accent, keigo, bisnis','/Pembelajaran-Lain.html')}
 ${di('🃏','SRS Flashcard','Ulang spasi cerdas','/SRS-Flashcard.html')}
 <div class="kn-dd-sep"></div>
-${di('特定技能','SSW','14 bidang kerja 特定技能 — materi, quiz, mock exam','/SSW.html')}
+${di('特定技能','SSW','Semua bidang kerja 特定技能 — materi, quiz, mock exam','/SSW.html')}
 </div>
 </li>
 <!-- 2. JLPT -->
@@ -233,20 +233,23 @@ Masuk ke Akun
 </div>
 `;
 function injectNavbar() {
+// .ssw-crumb = breadcrumb halaman SSW, bukan navbar lama. Dulu ikut
+// terhapus, dan skrip halaman yang mengisinya lewat getElementById
+// crash begitu datanya selesai dimuat SESUDAH navbar ini jalan.
 if (document.querySelector('.kn-nav') || document.getElementById('knHamburger')) return;
-document.querySelectorAll('nav:not(.dash-nav):not(.ai-nav)').forEach(function(el) {
+document.querySelectorAll('nav:not(.dash-nav):not(.ai-nav):not(.ssw-crumb)').forEach(function(el) {
 el.style.display = 'none';
 });
 document.body.insertAdjacentHTML('afterbegin', NAV_HTML);
 if (document.querySelector('.kn-nav')) {
-document.querySelectorAll('nav:not(.kn-nav):not(.dash-nav):not(.ai-nav)').forEach(function(el) {
+document.querySelectorAll('nav:not(.kn-nav):not(.dash-nav):not(.ai-nav):not(.ssw-crumb)').forEach(function(el) {
 el.remove();
 });
 document.querySelectorAll('.mobile-menu, .hamburger:not(.kn-hamburger)').forEach(function(el) {
 el.remove();
 });
 } else {
-document.querySelectorAll('nav:not(.dash-nav):not(.ai-nav)').forEach(function(el) {
+document.querySelectorAll('nav:not(.dash-nav):not(.ai-nav):not(.ssw-crumb)').forEach(function(el) {
 el.style.display = '';
 });
 }

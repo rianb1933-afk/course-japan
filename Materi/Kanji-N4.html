@@ -37,10 +37,10 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 
 <link rel="stylesheet" href="../assets/pro-style.css">
 <link rel="stylesheet" href="../assets/translator.css">
-<link rel="stylesheet" href="../assets/kanji-writing.css">
+<link rel="stylesheet" href="../assets/kanji-writing.css?v=9">
 
     
-<link rel="stylesheet" href="../assets/neko-theme.css?v=6">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=9">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggoproacademy.netlify.app/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggoproacademy.netlify.app/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Full Kanji N4 — Nihongo Pro Academy","item":"https://nihonggoproacademy.netlify.app/Materi/Kanji-N4.html"}]}</script>
 <link rel="manifest" href="../manifest.json">
@@ -67,7 +67,7 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
-<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=6">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=9">
 <script src="../assets/np-xp.js" defer></script>
 <script src="../assets/np-materi-progress.js" defer></script>
 <meta property="og:site_name" content="Nihongo Pro Academy">
@@ -154,9 +154,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
       <div class="hero-stat"><strong>N4</strong><span>level N4 praktis</span></div>
     </div>
   </div>
-
-<div style="margin-top:1.5rem"><button onclick="startKanjiQuizN4()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer">🎯 Mulai Kuis Kanji N4</button>
-<div id="kqArea4" style="display:none;margin-top:1rem"></div></div></section>
+</section>
 
 <div class="toolbar">
   <div class="toolbar-inner">
@@ -460,13 +458,13 @@ document.getElementById('filters').addEventListener('click', e => {
 search.addEventListener('input', render);
 render();
 </script>
-<script src="../assets/kanji-writing.js?v=6" defer></script>
+<script src="../assets/kanji-writing.js?v=9" defer></script>
 <script src="../assets/translator.min.js" defer></script>
 
 <section class="section" id="kanjiQuizN4">
   <div class="inner">
     <div class="section-head"><div><div class="label">Kuis Kanji N4</div><h2>Tes Baca Kanji N4 — 漢字読みクイズ</h2></div>
-    <p class="sub">Pilih cara baca (reading) yang tepat untuk setiap kanji. 10 soal per sesi.</p></div>
+    <p class="sub">Pilih arti yang tepat untuk setiap kanji. 10 soal acak per sesi.</p></div>
     <div id="kqBoxN4" style="max-width:520px"></div>
   </div>
 </section>
@@ -504,34 +502,54 @@ const kqPoolN4 = [
   ['習','belajar/terbiasa','シュウ・なら.う','習う(ならう)=belajar dari orang, 練習(れんしゅう)=latihan'],
   ['買','membeli','バイ・か.う','買う(かう)=membeli, 売買(ばいばい)=jual beli'],
   ['送','mengirim','ソウ・おく.る','送る(おくる)=mengirim, 放送(ほうそう)=siaran'],
-,
-  ['図','ず/と/ズ/ト','gambar/peta/rencana','地図(peta),図書館(perpust.),図形(bentuk geometri)','gambar/peta = 地図'],
-  ['科','か/カ','mata pelajaran/ilmu','科学(ilmu),科目(mata pelajaran),理科(IPA)','ilmu/jurusan = 科学者'],
-  ['術','すべ/ジュツ','seni/teknik/keterampilan','技術(teknologi),手術(operasi),芸術(seni)','teknik = 技術+者'],
-  ['医','い/イ','dokter/pengobatan','医者(dokter),医療(pengobatan),医学(ilmu kedokteran)','dokter = 医者 = dokter'],
-  ['病','やむ/やまい/ビョウ','sakit/penyakit','病気(sakit),病院(RS),病人(orang sakit)','sakit = 病気になった']];
-let kqIdx4=0;
-function startKanjiQuizN4(){document.getElementById('kqArea4').style.display='block';kqIdx4=0;renderKQ4();}
-function renderKQ4(){
-  const pool=kqPoolN4;const item=pool[kqIdx4%pool.length];
-  const wrongs=pool.filter((_,i)=>i!==kqIdx4%pool.length).sort(()=>Math.random()-0.5).slice(0,3);
-  const opts=[item,...wrongs].sort(()=>Math.random()-0.5);
-  document.getElementById('kqArea4').innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;max-width:480px">
-    <div style="font-size:11px;color:var(--ink-soft);margin-bottom:.5rem">Soal ${(kqIdx4%pool.length)+1}/${pool.length}</div>
-    <div style="font-family:'Noto Serif JP',serif;font-size:52px;text-align:center;padding:.75rem;color:var(--ink)">${item[0]}</div>
-    <div style="font-size:12px;color:var(--ink-soft);text-align:center;margin-bottom:.75rem">Apa arti kanji ini?</div>
-    <div style="display:grid;gap:.4rem">${opts.map(o=>`<button onclick="checkKQ4(this,'${o[1].replace(/\\/g,'\\\\').replace(/'/g,"\\'")}',${JSON.stringify(item[1])})" style="padding:9px 12px;border:.5px solid var(--border-mid);border-radius:7px;font-size:13px;background:var(--cream);cursor:pointer;text-align:left">${o[1]}</button>`).join('')}</div>
-    <div id="kqExp4" style="margin-top:.5rem;font-size:12px;display:none;background:var(--cream);padding:.6rem;border-radius:6px"></div>
+  ['図','gambar/peta','ず・ト','地図(ちず)=peta, 図書館(としょかん)=perpustakaan'],
+  ['科','mata pelajaran/ilmu','か','科学(かがく)=ilmu, 科目(かもく)=mata pelajaran'],
+  ['術','teknik/seni','じゅつ','技術(ぎじゅつ)=teknologi, 手術(しゅじゅつ)=operasi'],
+  ['医','dokter/pengobatan','い','医者(いしゃ)=dokter, 医療(いりょう)=pengobatan'],
+  ['病','sakit/penyakit','びょう','病気(びょうき)=sakit, 病院(びょういん)=rumah sakit']
+];
+let kqIdxN4=0,kqScoreN4=0,kqActiveN4=[];
+function shn4(a){return[...a].sort(()=>Math.random()-0.5);}
+kqActiveN4=shn4(kqPoolN4).slice(0,10);
+function renderKQN4(){
+  const box=document.getElementById('kqBoxN4');
+  if(kqIdxN4>=kqActiveN4.length){
+    const pct=Math.round(kqScoreN4/kqActiveN4.length*100);
+    box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.5rem;text-align:center">
+      <div style="font-size:40px;font-weight:800;color:${pct>=80?'var(--green-pale,#27ae60)':pct>=60?'var(--gold)':'var(--red)'}">${kqScoreN4}/${kqActiveN4.length}</div>
+      <div style="font-size:13px;color:var(--ink-soft);margin:.5rem 0">soal benar (${pct}%)</div>
+      <button onclick="kqIdxN4=0;kqScoreN4=0;kqActiveN4=shn4(kqPoolN4).slice(0,10);renderKQN4()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">Ulangi</button>
+    </div>`;
+    return;
+  }
+  const [kanji,mean,read,ex]=kqActiveN4[kqIdxN4];
+  const wp=shn4(kqPoolN4.filter(e=>e[1]!==mean)).slice(0,3).map(e=>e[1]);
+  const ao=shn4([mean,...wp]);
+  const ai=ao.indexOf(mean);
+  const opts=ao.map((o,i)=>`<button onclick="ckn4(${i},${ai})" style="width:100%;text-align:left;background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;transition:all .15s">${o}</button>`).join('');
+  box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--red);margin-bottom:.5rem">
+      <span>SOAL ${kqIdxN4+1}/${kqActiveN4.length} · N4</span><span>${kqScoreN4} benar</span>
+    </div>
+    <div style="text-align:center;margin:.75rem 0">
+      <div style="font-family:'Noto Serif JP',serif;font-size:52px;color:var(--ink)">${kanji}</div>
+      <div style="font-size:12px;color:var(--ink-soft)">${read}</div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-mid);text-align:center;margin-bottom:.75rem">Artinya?</p>
+    <div style="display:grid;gap:.5rem" id="kqOptsN4">${opts}</div>
+    <div id="kqExpN4" style="display:none;margin-top:.75rem;padding:.625rem .875rem;border-radius:8px;font-size:13px;font-weight:600;line-height:1.5;background:var(--cream)"></div>
   </div>`;
 }
-function checkKQ4(btn,chosen,correct){
-  document.querySelectorAll('#kqArea4 button').forEach(b=>b.disabled=true);
-  if(chosen===correct)btn.style.background='#d5f5e3';
-  else{btn.style.background='#fadbd8';document.querySelectorAll('#kqArea4 button').forEach(b=>{if(b.textContent.trim()===correct)b.style.background='#d5f5e3';});}
-  const exp=document.getElementById('kqExp4');
-  exp.style.display='block';exp.textContent=`Cara baca: ${kqPoolN4[kqIdx4%kqPoolN4.length][2]}  |  Contoh: ${kqPoolN4[kqIdx4%kqPoolN4.length][3]}`;
-  setTimeout(()=>{kqIdx4++;renderKQ4();},1800);
+function ckn4(c,a){
+  const q=kqActiveN4[kqIdxN4];const ok=c===a;
+  if(ok)kqScoreN4++;
+  document.querySelectorAll('#kqOptsN4 button').forEach((b,i)=>{b.disabled=true;if(i===a)b.style.background='var(--green-pale,#eafaf1)';if(i===c&&!ok)b.style.background='var(--red-pale,#fadbd8)';});
+  const e=document.getElementById('kqExpN4');
+  e.style.display='block';
+  e.textContent=(ok?'✓ Benar! ':'✗ Salah. ')+q[0]+' ('+q[2]+') = '+q[1]+'. '+q[3];
+  setTimeout(()=>{kqIdxN4++;renderKQN4();},1600);
 }
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', renderKQN4); } else { renderKQN4(); }
 </script>
 <footer class="site-footer">
   <div class="ft-inner">
@@ -877,7 +895,7 @@ function closeStroke(){ clearInterval(strokeAnim); document.getElementById('stro
 
 
 <script src="../assets/kyoto-theme.js" defer></script>
-<script src="../assets/kyoto-navbar.min.js?v=6" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>

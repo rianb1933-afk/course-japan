@@ -15,6 +15,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Quiz SSW — Nihongo Pro Academy</title>
 <meta name="description" content="Quiz bidang SSW: multiple choice, true/false, fill-in-the-blank, matching, vocabulary, kanji, grammar — skor otomatis dan pembahasan tiap soal.">
+<meta property="og:title" content="Quiz SSW">
+<meta property="og:description" content="Quiz bidang SSW: multiple choice, true/false, fill-in-the-blank, matching, vocabulary, kanji, grammar — skor otomatis dan pembahasan tiap soal.">
+<meta property="og:url" content="https://nihonggoproacademy.netlify.app/SSW/Quiz.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Quiz SSW">
+<meta name="twitter:description" content="Quiz bidang SSW: multiple choice, true/false, fill-in-the-blank, matching, vocabulary, kanji, grammar — skor otomatis dan pembahasan tiap soal.">
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"LearningResource","name":"Quiz SSW","description":"Quiz bidang SSW: multiple choice, true/false, fill-in-the-blank, matching, vocabulary, kanji, grammar — skor otomatis dan pembahasan tiap soal.","url":"https://nihonggoproacademy.netlify.app/SSW/Quiz.html","inLanguage":["id","ja"],"provider":{"@type":"Organization","name":"Nihongo Pro Academy"},"teaches":["Japanese language","SSW"]}</script>
 
 <link rel="manifest" href="/manifest.json">
@@ -24,9 +31,9 @@
 <link rel="stylesheet" href="/assets/kyoto-design-system.css">
 <link rel="stylesheet" href="/assets/kyoto-theme.css">
 <link rel="stylesheet" href="/assets/kyoto-elevation.css">
-<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=8">
+<link rel="stylesheet" href="/assets/kyoto-navbar.min.css?v=9">
 <link rel="stylesheet" href="/assets/kyoto-bottom-nav.css">
-<link rel="stylesheet" href="/assets/ssw.css?v=8">
+<link rel="stylesheet" href="/assets/ssw.css?v=9">
 </head>
 <body>
 <div id="knNavbar"></div>
@@ -44,34 +51,314 @@
     <div class="fh-id">Quiz bidang SSW: multiple choice, true/false, fill-in-the-blank, matching, vocabulary, kanji, grammar — skor otomatis dan pembahasan tiap soal.</div>
   </header>
 
-  <div class="ssw-panel active">
-    <div class="ssw-module">
-      <h3><span class="mj">クイズ</span> Quiz SSW — segera lengkap</h3>
-      <p style="color:var(--ink-soft);font-size:14px;margin-top:6px">
-        Struktur data &amp; CMS untuk bagian ini sudah siap (tabel <code>ssw_quiz</code>).
-        Konten diisi lewat <strong>Admin Dashboard → SSW CMS</strong>, dan halaman ini
-        akan otomatis menampilkan materi per bidang <code>?field=</code>. Sementara,
-        mulai dari <a href="/SSW/Lesson.html" style="color:var(--red);font-weight:600">Materi (Lesson)</a>
-        atau <a href="/SSW/Vocabulary.html" style="color:var(--red);font-weight:600">Vocabulary</a>.
-      </p>
+  <!-- ── Daftar kuis ── -->
+  <section class="ssw-panel active" id="viewList">
+    <div class="ssw-tabs" id="kindTabs" role="group" aria-label="Saring jenis kuis">
+      <button class="ssw-tab active" type="button" data-kind="all">Semua</button>
+      <button class="ssw-tab" type="button" data-kind="quiz">Quiz</button>
+      <button class="ssw-tab" type="button" data-kind="practice">Practice</button>
+      <button class="ssw-tab" type="button" data-kind="mock">Mock Exam</button>
     </div>
-  </div>
+    <div class="ssw-quiz-list" id="quizList"></div>
+    <p class="ssw-empty" id="listEmpty" hidden>Belum ada kuis di bidang ini — konten ditambahkan lewat Admin Dashboard → SSW CMS.</p>
+  </section>
+
+  <!-- ── Mengerjakan kuis ── -->
+  <section class="ssw-panel" id="viewAttempt">
+    <div class="ssw-module" style="margin-bottom:16px">
+      <h3 id="attemptTitle">Memuat…</h3>
+      <p id="attemptDesc" style="color:var(--ink-soft);font-size:13.5px;margin-top:4px"></p>
+      <div class="ssw-quiz-meta" id="attemptMeta"></div>
+    </div>
+
+    <div class="ssw-quiz-bar" id="progressBar">
+      <div class="ssw-pbar"><div class="fill" id="answerFill" style="width:0%"></div></div>
+      <span style="font-size:12.5px;color:var(--ink-soft);white-space:nowrap" id="answerCount">0 / 0 terjawab</span>
+    </div>
+
+    <div id="questionWrap"></div>
+
+    <div class="ssw-quiz-actions">
+      <button class="ssw-btn primary" type="button" id="btnSubmit">Kumpulkan Jawaban</button>
+      <a class="ssw-btn" id="btnBackList" href="/SSW/Quiz.html">← Daftar kuis</a>
+    </div>
+  </section>
+
+  <!-- ── Hasil ── -->
+  <section class="ssw-panel" id="viewResult">
+    <div class="ssw-score">
+      <div class="sc-num" id="scoreNum">0%</div>
+      <div class="sc-verdict" id="scoreVerdict"></div>
+      <div class="sc-sub" id="scoreSub"></div>
+    </div>
+    <div class="ssw-quiz-actions" style="margin-bottom:18px">
+      <button class="ssw-btn primary" type="button" id="btnRetry">Ulangi</button>
+      <a class="ssw-btn" id="btnBackList2" href="/SSW/Quiz.html">← Daftar kuis</a>
+    </div>
+    <div id="reviewWrap"></div>
+  </section>
 </main>
 
 <div id="knFooter"></div>
-<script src="/assets/kyoto-navbar.min.js?v=8" defer></script>
+<script src="/assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="/assets/kyoto-bottom-nav.js" defer></script>
-<script src="/assets/ssw-api.js?v=8"></script>
+<script src="/assets/ssw-api.js?v=9"></script>
+<script src="/assets/ssw-quiz.js?v=9"></script>
+<script src="/assets/ssw-seed.js?v=9"></script>
 <script>
 (function () {
-  const slug = new URLSearchParams(location.search).get('field') || 'kaigo';
-  document.getElementById('tabVocabX'); // no-op
-  SSWAPI.getFieldTree(slug).then(({ category }) => {
-    if (!category) return;
-    document.getElementById('crumbField').textContent = category.name_jp + ' ' + category.name_id;
-    document.getElementById('crumbField').href = '/SSW/Field-Dashboard.html?field=' + encodeURIComponent(slug);
-    document.getElementById('heroJp').textContent = category.name_jp + ' — Quiz';
-    document.title = category.name_jp + ' Quiz — SSW | Nihongo Pro Academy';
+  'use strict';
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('field') || 'kaigo';
+  const quizId = params.get('quiz') || '';
+  const fieldQS = '?field=' + encodeURIComponent(slug);
+
+  const el = id => document.getElementById(id);
+  function esc(s) { const d = document.createElement('div'); d.textContent = String(s == null ? '' : s); return d.innerHTML; }
+  function show(view) {
+    ['viewList', 'viewAttempt', 'viewResult'].forEach(v => el(v).classList.toggle('active', v === view));
+  }
+
+  el('btnBackList').href = '/SSW/Quiz.html' + fieldQS;
+  el('btnBackList2').href = '/SSW/Quiz.html' + fieldQS;
+
+  // ── Daftar kuis ────────────────────────────────────────────────
+  let allQuizzes = [];
+  function paintList(kind) {
+    const list = kind === 'all' ? allQuizzes : allQuizzes.filter(q => q.kind === kind);
+    el('listEmpty').hidden = list.length > 0;
+    el('quizList').innerHTML = list.map(q => {
+      const src = SSWQuiz.sourceLabel(q);
+      const prev = SSWAPI.getProgress('quiz', q.id);
+      const doneChip = prev && prev.completed
+        ? `<span class="ssw-chip done">✓ Skor terakhir ${esc(prev.score == null ? '—' : prev.score + '%')}</span>` : '';
+      return `<a class="ssw-quiz-card" href="/SSW/Quiz.html${fieldQS}&quiz=${encodeURIComponent(q.id)}">
+        <h3>${esc(q.title)}</h3>
+        ${q.description ? `<p>${esc(q.description)}</p>` : ''}
+        <div class="ssw-quiz-meta">
+          <span class="ssw-chip">${esc({ quiz: 'Quiz', practice: 'Practice', mock: 'Mock Exam' }[q.kind] || q.kind)}</span>
+          <span class="ssw-chip ${src.official ? 'official' : 'practice'}">${esc(src.text)}</span>
+          <span class="ssw-chip">Lulus ≥ ${esc(q.pass_score == null ? 60 : q.pass_score)}%</span>
+          ${doneChip}
+        </div>
+      </a>`;
+    }).join('');
+  }
+
+  const kindBtns = document.querySelectorAll('#kindTabs [data-kind]');
+  kindBtns.forEach(b => b.addEventListener('click', () => {
+    kindBtns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    paintList(b.dataset.kind);
+  }));
+
+  // ── Mengerjakan ────────────────────────────────────────────────
+  let quiz = null, questions = [], answers = {}, startedAt = 0, submitted = false;
+
+  function updateAnswered() {
+    const n = questions.filter(q => SSWQuiz.isAnswered(q, answers[q.id])).length;
+    el('answerCount').textContent = n + ' / ' + questions.length + ' terjawab';
+    el('answerFill').style.width = (questions.length ? Math.round(n / questions.length * 100) : 0) + '%';
+  }
+
+  function questionBody(q, i) {
+    const p = q.payload || {};
+    if (SSWQuiz.CHOICE_TYPES.indexOf(q.type) !== -1) {
+      return `<div class="ssw-opts" role="group" aria-label="Pilihan jawaban soal ${i + 1}">` +
+        (p.choices || []).map((c, ci) =>
+          `<button class="ssw-opt" type="button" data-q="${esc(q.id)}" data-choice="${ci}">${esc(c)}</button>`).join('') +
+        '</div>';
+    }
+    if (q.type === 'tf') {
+      return `<div class="ssw-opts" role="group" aria-label="Benar atau salah soal ${i + 1}">
+        <button class="ssw-opt" type="button" data-q="${esc(q.id)}" data-bool="true">✓ Benar</button>
+        <button class="ssw-opt" type="button" data-q="${esc(q.id)}" data-bool="false">✗ Salah</button>
+      </div>`;
+    }
+    if (q.type === 'fill') {
+      return `<input class="ssw-fill" type="text" data-q="${esc(q.id)}" autocomplete="off"
+        aria-label="Jawaban soal ${i + 1}" placeholder="Ketik jawabanmu…">`;
+    }
+    if (q.type === 'match') {
+      // Opsi kanan diacak sekali saat render supaya urutannya tidak
+      // membocorkan pasangannya.
+      const pairs = (p.pairs || []);
+      const rights = SSWQuiz.shuffle(pairs.map(x => x.right));
+      return '<div class="ssw-match">' + pairs.map((pr, pi) => `
+        <div class="ssw-match-row">
+          <span class="m-left">${esc(pr.left)}</span>
+          <select data-q="${esc(q.id)}" data-left="${esc(pr.left)}" aria-label="Pasangan untuk ${esc(pr.left)}">
+            <option value="">— pilih —</option>
+            ${rights.map(r => `<option value="${esc(r)}">${esc(r)}</option>`).join('')}
+          </select>
+        </div>`).join('') + '</div>';
+    }
+    return '';
+  }
+
+  function paintQuestions() {
+    el('questionWrap').innerHTML = questions.map((q, i) => {
+      const p = q.payload || {};
+      return `<article class="ssw-q" id="q-${esc(q.id)}">
+        <div class="q-head"><span>SOAL ${i + 1} / ${questions.length}</span><span>${q.points > 1 ? esc(q.points) + ' poin' : ''}</span></div>
+        ${p.passage ? `<div class="ssw-expl" style="margin:0 0 12px"><span class="jp">${esc(p.passage)}</span></div>` : ''}
+        <div class="q-text"><span class="jp">${esc(p.question)}</span></div>
+        ${questionBody(q, i)}
+        <div class="ssw-expl" hidden id="expl-${esc(q.id)}"></div>
+      </article>`;
+    }).join('');
+    updateAnswered();
+  }
+
+  // Delegasi: satu listener untuk seluruh soal, tahan terhadap re-render.
+  el('questionWrap').addEventListener('click', e => {
+    if (submitted) return;
+    const btn = e.target.closest('.ssw-opt');
+    if (!btn) return;
+    const qid = btn.dataset.q;
+    if (btn.dataset.bool !== undefined) answers[qid] = btn.dataset.bool === 'true';
+    else answers[qid] = Number(btn.dataset.choice);
+    btn.parentElement.querySelectorAll('.ssw-opt').forEach(b => b.classList.remove('chosen'));
+    btn.classList.add('chosen');
+    updateAnswered();
+  });
+  el('questionWrap').addEventListener('input', e => {
+    if (submitted || !e.target.classList.contains('ssw-fill')) return;
+    answers[e.target.dataset.q] = e.target.value;
+    updateAnswered();
+  });
+  el('questionWrap').addEventListener('change', e => {
+    if (submitted || e.target.tagName !== 'SELECT') return;
+    const qid = e.target.dataset.q;
+    answers[qid] = answers[qid] && typeof answers[qid] === 'object' ? answers[qid] : {};
+    answers[qid][e.target.dataset.left] = e.target.value;
+    updateAnswered();
+  });
+
+  // ── Kumpulkan & nilai ──────────────────────────────────────────
+  async function submit() {
+    if (submitted) return;              // kunci ganda: klik dua kali tidak menilai dua kali
+    const belum = questions.length - questions.filter(q => SSWQuiz.isAnswered(q, answers[q.id])).length;
+    if (belum > 0 && !confirm(belum + ' soal belum dijawab. Kumpulkan sekarang?')) return;
+    submitted = true;
+    el('btnSubmit').disabled = true;
+
+    const res = SSWQuiz.gradeQuiz(questions, answers, { passScore: quiz.pass_score });
+    const durasi = Math.max(0, Math.round((Date.now() - startedAt) / 1000));
+
+    el('scoreNum').textContent = res.score + '%';
+    el('scoreNum').className = 'sc-num ' + (res.passed ? 'pass' : 'fail');
+    el('scoreVerdict').textContent = res.passed ? 'Lulus 🎉' : 'Belum lulus';
+    el('scoreSub').textContent = `${res.correctCount} dari ${res.questionCount} soal benar · ${res.earned}/${res.total} poin · `
+      + `batas lulus ${res.passScore}% · waktu ${Math.floor(durasi / 60)}m ${durasi % 60}d`;
+
+    paintReview(res);
+    show('viewResult');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Progres + riwayat. Keduanya tetap tersimpan lokal walau belum login.
+    SSWAPI.markProgress('quiz', quiz.id, { completed: true, score: res.score });
+    await SSWAPI.saveExamResult({
+      quiz_id: quiz.id, score: res.score, passed: res.passed,
+      duration_s: durasi, detail: res.detail, title: quiz.title, kind: quiz.kind,
+    });
+  }
+
+  function givenLabel(q, given) {
+    const p = q.payload || {};
+    if (given === undefined || given === null || given === '') return 'tidak dijawab';
+    if (SSWQuiz.CHOICE_TYPES.indexOf(q.type) !== -1) return (p.choices || [])[given];
+    if (q.type === 'tf') return given ? 'Benar' : 'Salah';
+    if (q.type === 'fill') return String(given);
+    if (q.type === 'match') return (q.answer.pairs || []).map(pr => pr.left + ' → ' + (given[pr.left] || '—')).join(', ');
+    return String(given);
+  }
+
+  function correctLabel(q) {
+    const a = q.answer || {}, p = q.payload || {};
+    if (SSWQuiz.CHOICE_TYPES.indexOf(q.type) !== -1) return (p.choices || [])[a.index];
+    if (q.type === 'tf') return a.bool ? 'Benar' : 'Salah';
+    if (q.type === 'fill') return (a.accept || []).join(' / ');
+    if (q.type === 'match') return (a.pairs || []).map(pr => pr.left + ' → ' + pr.right).join(', ');
+    return '';
+  }
+
+  function paintReview(res) {
+    const byId = {};
+    res.detail.forEach(d => { byId[d.qid] = d; });
+    el('reviewWrap').innerHTML = questions.map((q, i) => {
+      const d = byId[q.id] || {};
+      const p = q.payload || {};
+      return `<article class="ssw-q">
+        <div class="q-head">
+          <span>SOAL ${i + 1} / ${questions.length}</span>
+          <span style="color:${d.correct ? 'var(--green,#117E39)' : 'var(--red)'}">${d.correct ? '✓ Benar' : '✗ Salah'}</span>
+        </div>
+        <div class="q-text"><span class="jp">${esc(p.question)}</span></div>
+        <div class="ssw-expl ${d.correct ? 'correct' : 'wrong'}">
+          <strong>Jawabanmu:</strong> ${esc(givenLabel(q, d.given))}<br>
+          ${d.correct ? '' : `<strong>Kunci:</strong> ${esc(correctLabel(q))}<br>`}
+          ${esc(q.explanation || '')}
+        </div>
+      </article>`;
+    }).join('');
+  }
+
+  el('btnSubmit').addEventListener('click', submit);
+  el('btnRetry').addEventListener('click', () => {
+    answers = {}; submitted = false; startedAt = Date.now();
+    el('btnSubmit').disabled = false;
+    questions = SSWQuiz.buildSession(quiz, {});   // acak ulang bila randomize
+    paintQuestions();
+    show('viewAttempt');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // ── Bootstrap ──────────────────────────────────────────────────
+  SSWAPI.getFieldTree(slug).then(async ({ category }) => {
+    if (category) {
+      el('crumbField').textContent = category.name_jp + ' ' + category.name_id;
+      el('crumbField').href = '/SSW/Field-Dashboard.html' + fieldQS;
+      el('heroJp').textContent = category.name_jp + ' — Quiz';
+      document.title = category.name_jp + ' Quiz — SSW | Nihongo Pro Academy';
+    }
+
+    if (!quizId) {
+      const { items } = await SSWAPI.getItems(slug, 'quizzes');
+      allQuizzes = (items || []).slice().sort((a, b) => (a.sort || 0) - (b.sort || 0));
+      paintList('all');
+      show('viewList');
+      return;
+    }
+
+    const { quiz: data } = await SSWAPI.getQuiz(quizId);
+    if (!data) {
+      el('attemptTitle').textContent = 'Kuis tidak ditemukan';
+      el('attemptDesc').textContent = 'Kuis ini mungkin sudah dihapus atau belum dipublikasikan.';
+      el('progressBar').hidden = true;
+      el('btnSubmit').hidden = true;
+      show('viewAttempt');
+      return;
+    }
+
+    quiz = data;
+    questions = SSWQuiz.buildSession(quiz, {});
+    startedAt = Date.now();
+    const src = SSWQuiz.sourceLabel(quiz);
+    el('attemptTitle').textContent = quiz.title;
+    el('attemptDesc').textContent = quiz.description || '';
+    el('attemptMeta').innerHTML =
+      `<span class="ssw-chip ${src.official ? 'official' : 'practice'}">${esc(src.text)}</span>` +
+      (src.official && src.url ? `<a class="ssw-chip" href="${esc(src.url)}" target="_blank" rel="noopener noreferrer">Sumber ↗</a>` : '') +
+      `<span class="ssw-chip">${questions.length} soal</span>` +
+      `<span class="ssw-chip">Lulus ≥ ${esc(quiz.pass_score == null ? 60 : quiz.pass_score)}%</span>`;
+    SSWAPI.setLastAccessed({ field: slug, quizId: quiz.id, title: quiz.title });
+    paintQuestions();
+    show('viewAttempt');
+  }).catch(err => {
+    console.error('[SSW]', err);
+    el('listEmpty').hidden = false;
+    el('listEmpty').textContent = 'Gagal memuat kuis. Coba muat ulang halaman.';
   });
 })();
 </script>

@@ -37,10 +37,10 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 
 <link rel="stylesheet" href="../assets/pro-style.css">
 <link rel="stylesheet" href="../assets/translator.css">
-<link rel="stylesheet" href="../assets/kanji-writing.css">
+<link rel="stylesheet" href="../assets/kanji-writing.css?v=9">
 
     
-<link rel="stylesheet" href="../assets/neko-theme.css?v=6">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=9">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggoproacademy.netlify.app/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggoproacademy.netlify.app/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Full Kanji N2 — Nihongo Pro Academy","item":"https://nihonggoproacademy.netlify.app/Materi/Kanji-N2.html"}]}</script>
 <link rel="manifest" href="../manifest.json">
@@ -64,7 +64,7 @@ function speak(t){if('speechSynthesis' in window){var u=new SpeechSynthesisUtter
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
-<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=6">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=9">
 <script src="../assets/np-xp.js" defer></script>
 <script src="../assets/np-materi-progress.js" defer></script>
 <meta property="og:site_name" content="Nihongo Pro Academy">
@@ -130,8 +130,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 <section class="hero"><div class="hero-inner"><div class="kicker">Daftar Kanji N2 Lengkap</div>
     <div class="level-switch" role="navigation" aria-label="Pilih tingkat kanji"><a href="Kanji-N5.html">N5</a><a href="Kanji-N4.html">N4</a><a href="Kanji-N3.html">N3</a><a href="Kanji-N2.html" class="active" aria-current="page">N2</a><a href="Kanji-N1.html">N1</a></div><h1>Kanji N2 Lengkap<br>実用読解マスター</h1><p>Deck kanji N2 untuk bacaan kerja, berita, artikel formal, dan teks akademik ringan. Halaman ini memakai daftar compact 367 karakter dari Rocket JLPT sebagai basis utama. JLPT Global menghitung 374 item, jadi gunakan halaman ini sebagai deck belajar praktis, bukan daftar resmi final.</p><div class="hero-stats"><div class="hero-stat"><strong id="totalHero">367</strong><span>kartu kanji N2</span></div><div class="hero-stat"><strong>1000+</strong><span>target total N2</span></div><div class="hero-stat"><strong>新聞</strong><span>teks berita &amp; kerja</span></div><div class="hero-stat"><strong>N2</strong><span>tingkat menengah atas N2</span></div></div></div>
 <div style="margin-top:2rem;padding:0 1rem">
-  <button onclick="startKanjiQuizN2()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:10px 22px;font-size:13px;font-weight:700;cursor:pointer">🎯 Mulai Kuis Kanji N2</button>
-  <div id="kqArea2" style="display:none;margin-top:1rem"></div>
 </div></section>
 <div class="toolbar"><div class="toolbar-inner"><input class="search" id="search" placeholder="Cari kanji atau meaning..." aria-label="Cari"><div class="filter" id="filters"><button class="active" data-cat="all">Semua</button><button data-cat="people">Orang</button><button data-cat="action">Aksi</button><button data-cat="place">Tempat</button><button data-cat="nature">Alam</button><button data-cat="business">Bisnis</button><button data-cat="abstract">Abstrak</button></div></div></div>
 <main class="wrap"><div class="section-head"><div><div class="section-label">Tabel Kanji</div><h2 class="section-title">Daftar Kanji N2</h2></div><p class="section-sub">Setiap kartu memuat on&#39;yomi &amp; kun&#39;yomi, arti, dan contoh kata ber-furigana — latih pengenalan cepat pada compound words, lalu baca contoh dari artikel asli.</p></div><div class="kanji-grid" id="kanjiGrid"></div><div class="note" id="countNote"></div>
@@ -588,13 +586,13 @@ document.getElementById('filters').addEventListener('click', e => {
 search.addEventListener('input', render);
 render();
 </script>
-<script src="../assets/kanji-writing.js?v=6" defer></script>
+<script src="../assets/kanji-writing.js?v=9" defer></script>
 <script src="../assets/translator.min.js" defer></script>
 
 <section class="section" id="kanjiQuizN2">
   <div class="inner">
     <div class="section-head"><div><div class="label">Kuis Kanji N2</div><h2>Tes Baca Kanji N2 — 漢字読みクイズ</h2></div>
-    <p class="sub">Pilih cara baca yang tepat. 10 soal per sesi, diacak otomatis.</p></div>
+    <p class="sub">Pilih arti yang tepat untuk setiap kanji. 10 soal acak per sesi.</p></div>
     <div id="kqBoxN2" style="max-width:520px"></div>
   </div>
 </section>
@@ -607,7 +605,6 @@ const kqPoolN2 = [
   ['状','keadaan/bentuk','ジョウ','状況(じょうきょう)=situasi, 状態(じょうたい)=keadaan'],
   ['況','kondisi','キョウ','状況(じょうきょう)=situasi, 不況(ふきょう)=resesi'],
   ['境','batas/lingkungan','キョウ・さかい','環境(かんきょう)=lingkungan, 境界(きょうかい)=batas'],
-  ['境','lingkungan','キョウ','環境(かんきょう)=lingkungan hidup'],
   ['値','nilai/harga','チ・ね','価値(かち)=nilai, 値段(ねだん)=harga'],
   ['割','membagi/proporsi','カツ・わ.る','割る(わる)=membagi, 割合(わりあい)=proporsi'],
   ['損','rugi/kehilangan','ソン・そこ.なう','損する(そんする)=rugi, 損害(そんがい)=kerugian'],
@@ -632,34 +629,54 @@ const kqPoolN2 = [
   ['税','pajak','ゼイ','消費税(しょうひぜい)=pajak konsumsi, 税金(ぜいきん)=pajak'],
   ['給','membayar/menyuplai','キュウ','給料(きゅうりょう)=gaji, 供給(きょうきゅう)=pasokan'],
   ['賃','upah/sewa','チン','賃金(ちんぎん)=upah, 家賃(やちん)=sewa rumah'],
-,
-  ['廃','すたれる/ハイ','buang/abolisi/usang','廃棄(pembuangan),廃止(penghapusan),廃墟(reruntuhan)','buang = 廃棄物'],
-  ['維','イ','mempertahankan/serat','維持(pemeliharaan),維新(restorasi),繊維(serat)','menjaga = 維持する'],
-  ['敏','さとい/ビン','peka/cekatan','敏感(sensitif),敏速(cepat&tepat),鋭敏(tajam perasaan)','sensitif = 敏感な人'],
-  ['賦','フ','memberikan/iuran','天賦(bakat bawaan),賦与(memberikan),月賦(cicilan)','cicilan = 月賦払い'],
-  ['醸','かもす/ジョウ','fermentasi/menumbuhkan','醸造(pembuatan sake),醸成(menumbuhkan)','menumbuhkan = 雰囲気を醸す']];
-let kqIdx2=0;
-function startKanjiQuizN2(){document.getElementById('kqArea2').style.display='block';kqIdx2=0;renderKQ2();}
-function renderKQ2(){
-  const pool=kqPoolN2;const item=pool[kqIdx2%pool.length];
-  const wrongs=pool.filter((_,i)=>i!==kqIdx2%pool.length).sort(()=>Math.random()-0.5).slice(0,3);
-  const opts=[item,...wrongs].sort(()=>Math.random()-0.5);
-  document.getElementById('kqArea2').innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;max-width:480px">
-    <div style="font-size:11px;color:var(--ink-soft);margin-bottom:.5rem">Soal ${(kqIdx2%pool.length)+1}/${pool.length}</div>
-    <div style="font-family:'Noto Serif JP',serif;font-size:52px;text-align:center;padding:.75rem;color:var(--ink)">${item[0]}</div>
-    <div style="font-size:12px;color:var(--ink-soft);text-align:center;margin-bottom:.75rem">Apa arti kanji ini?</div>
-    <div style="display:grid;gap:.4rem">${opts.map(o=>`<button onclick="checkKQ2(this,'${o[1].replace(/\\/g,'\\\\').replace(/'/g,"\\'")}',${JSON.stringify(item[1])})" style="padding:9px 12px;border:.5px solid var(--border-mid);border-radius:7px;font-size:13px;background:var(--cream);cursor:pointer;text-align:left">${o[1]}</button>`).join('')}</div>
-    <div id="kqExp2" style="margin-top:.5rem;font-size:12px;display:none;background:var(--cream);padding:.6rem;border-radius:6px"></div>
+  ['廃','menghapus/usang','はい','廃棄(はいき)=pembuangan, 廃止(はいし)=penghapusan'],
+  ['維','mempertahankan/serat','い','維持(いじ)=pemeliharaan, 繊維(せんい)=serat'],
+  ['敏','peka/cekatan','びん','敏感(びんかん)=sensitif, 敏速(びんそく)=cepat & tepat'],
+  ['賦','memberikan/iuran','ふ','賦与(ふよ)=pemberian, 月賦(げっぷ)=cicilan'],
+  ['醸','fermentasi/menumbuhkan','じょう','醸造(じょうぞう)=pembuatan sake, 醸成(じょうせい)=pembentukan']
+];
+let kqIdxN2=0,kqScoreN2=0,kqActiveN2=[];
+function shn2(a){return[...a].sort(()=>Math.random()-0.5);}
+kqActiveN2=shn2(kqPoolN2).slice(0,10);
+function renderKQN2(){
+  const box=document.getElementById('kqBoxN2');
+  if(kqIdxN2>=kqActiveN2.length){
+    const pct=Math.round(kqScoreN2/kqActiveN2.length*100);
+    box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.5rem;text-align:center">
+      <div style="font-size:40px;font-weight:800;color:${pct>=80?'var(--green-pale,#27ae60)':pct>=60?'var(--gold)':'var(--red)'}">${kqScoreN2}/${kqActiveN2.length}</div>
+      <div style="font-size:13px;color:var(--ink-soft);margin:.5rem 0">soal benar (${pct}%)</div>
+      <button onclick="kqIdxN2=0;kqScoreN2=0;kqActiveN2=shn2(kqPoolN2).slice(0,10);renderKQN2()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">Ulangi</button>
+    </div>`;
+    return;
+  }
+  const [kanji,mean,read,ex]=kqActiveN2[kqIdxN2];
+  const wp=shn2(kqPoolN2.filter(e=>e[1]!==mean)).slice(0,3).map(e=>e[1]);
+  const ao=shn2([mean,...wp]);
+  const ai=ao.indexOf(mean);
+  const opts=ao.map((o,i)=>`<button onclick="ckn2(${i},${ai})" style="width:100%;text-align:left;background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;transition:all .15s">${o}</button>`).join('');
+  box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--red);margin-bottom:.5rem">
+      <span>SOAL ${kqIdxN2+1}/${kqActiveN2.length} · N2</span><span>${kqScoreN2} benar</span>
+    </div>
+    <div style="text-align:center;margin:.75rem 0">
+      <div style="font-family:'Noto Serif JP',serif;font-size:52px;color:var(--ink)">${kanji}</div>
+      <div style="font-size:12px;color:var(--ink-soft)">${read}</div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-mid);text-align:center;margin-bottom:.75rem">Artinya?</p>
+    <div style="display:grid;gap:.5rem" id="kqOptsN2">${opts}</div>
+    <div id="kqExpN2" style="display:none;margin-top:.75rem;padding:.625rem .875rem;border-radius:8px;font-size:13px;font-weight:600;line-height:1.5;background:var(--cream)"></div>
   </div>`;
 }
-function checkKQ2(btn,chosen,correct){
-  document.querySelectorAll('#kqArea2 button').forEach(b=>b.disabled=true);
-  if(chosen===correct)btn.style.background='#d5f5e3';
-  else{btn.style.background='#fadbd8';document.querySelectorAll('#kqArea2 button').forEach(b=>{if(b.textContent.trim()===correct)b.style.background='#d5f5e3';});}
-  const exp=document.getElementById('kqExp2');
-  exp.style.display='block';exp.textContent=`Cara baca: ${kqPoolN2[kqIdx2%kqPoolN2.length][2]}  |  Contoh: ${kqPoolN2[kqIdx2%kqPoolN2.length][3]}`;
-  setTimeout(()=>{kqIdx2++;renderKQ2();},1800);
+function ckn2(c,a){
+  const q=kqActiveN2[kqIdxN2];const ok=c===a;
+  if(ok)kqScoreN2++;
+  document.querySelectorAll('#kqOptsN2 button').forEach((b,i)=>{b.disabled=true;if(i===a)b.style.background='var(--green-pale,#eafaf1)';if(i===c&&!ok)b.style.background='var(--red-pale,#fadbd8)';});
+  const e=document.getElementById('kqExpN2');
+  e.style.display='block';
+  e.textContent=(ok?'✓ Benar! ':'✗ Salah. ')+q[0]+' ('+q[2]+') = '+q[1]+'. '+q[3];
+  setTimeout(()=>{kqIdxN2++;renderKQN2();},1600);
 }
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', renderKQN2); } else { renderKQN2(); }
 </script>
 <footer class="site-footer">
   <div class="ft-inner">
@@ -898,7 +915,7 @@ function closeStroke(){ clearInterval(strokeAnim); document.getElementById('stro
 
 
 <script src="../assets/kyoto-theme.js" defer></script>
-<script src="../assets/kyoto-navbar.min.js?v=6" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>

@@ -550,11 +550,20 @@ document.querySelectorAll('.faq-item').forEach(item => {
 // ── COUNTDOWN ──
 function getNextLiveClassDate() {
   const now = new Date();
-  const target = new Date(now);
-  const targetDay = 6;
-  const daysUntilSaturday = (targetDay - now.getDay() + 7) % 7;
-  target.setDate(now.getDate() + daysUntilSaturday);
-  target.setHours(19, 0, 0, 0);
+  const jakartaParts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Jakarta',
+    year: 'numeric', month: 'numeric', day: 'numeric', weekday: 'short',
+  }).formatToParts(now).reduce((parts, part) => {
+    parts[part.type] = part.value;
+    return parts;
+  }, {});
+  const dayNames = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 };
+  const currentDay = dayNames[jakartaParts.weekday];
+  const daysUntilSaturday = (6 - currentDay + 7) % 7;
+  const target = new Date(Date.UTC(
+    Number(jakartaParts.year), Number(jakartaParts.month) - 1,
+    Number(jakartaParts.day) + daysUntilSaturday, 12, 0, 0,
+  ));
   if (target <= now) target.setDate(target.getDate() + 7);
   return target;
 }
@@ -652,11 +661,28 @@ async function getFirebaseAuth() {
   return firebaseAuthReady;
 }
 
-// Simple in-memory user store (keyed by email)
-const users = JSON.parse(localStorage.getItem('nihongo_users') || '{}');
+function isLocalDevelopment() {
+  return location.protocol === 'file:' || /^(localhost|127\.0\.0\.1|::1)$/.test(location.hostname);
+}
+
+function localAuthUnavailable() {
+  showError('loginError', 'Layanan login belum dikonfigurasi. Silakan coba lagi nanti.');
+  const registerError = document.getElementById('registerError');
+  if (registerError) {
+    registerError.textContent = 'Pendaftaran akun belum dikonfigurasi. Silakan coba lagi nanti.';
+    registerError.className = 'auth-error show';
+  }
+}
+
+// Simple in-memory user store (keyed by email), hanya untuk development lokal.
+let users = {};
+try {
+  const storedUsers = JSON.parse(localStorage.getItem('nihongo_users') || '{}');
+  if (storedUsers && typeof storedUsers === 'object' && !Array.isArray(storedUsers)) users = storedUsers;
+} catch (_) {}
 
 function saveUsers() {
-  localStorage.setItem('nihongo_users', JSON.stringify(users));
+  try { localStorage.setItem('nihongo_users', JSON.stringify(users)); } catch (_) {}
 }
 
 async function saveSession(user) {
@@ -677,12 +703,16 @@ async function saveSession(user) {
     // -- lihat pemanggil loginUser() di bawah untuk kedua kasusnya.
     user.authProvider = 'local-demo';
   }
-  localStorage.setItem('nihongo_session', JSON.stringify(user));
+  try { localStorage.setItem('nihongo_session', JSON.stringify(user)); } catch (_) {}
 }
 
 function loadSession() {
-  const s = localStorage.getItem('nihongo_session');
-  return s ? JSON.parse(s) : null;
+  try {
+    const s = localStorage.getItem('nihongo_session');
+    return s ? JSON.parse(s) : null;
+  } catch (_) {
+    return null;
+  }
 }
 
 function clearSession() {
@@ -690,21 +720,52 @@ function clearSession() {
 }
 
 // Open/close auth modal
+let authReturnFocus = null;
 function openAuth(tab = 'login') {
-  document.getElementById('authOverlay').classList.add('open');
+  const overlay = document.getElementById('authOverlay');
+  if (!overlay) return;
+  authReturnFocus = document.activeElement;
+  overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   switchTab(tab);
   // Reset success screen
   document.getElementById('authSuccess').className = 'auth-success';
   document.getElementById('panelLogin').className = 'auth-form-panel' + (tab === 'login' ? ' active' : '');
   document.getElementById('panelRegister').className = 'auth-form-panel' + (tab === 'register' ? ' active' : '');
+  const firstField = document.getElementById(tab === 'register' ? 'regName' : 'loginEmail');
+  if (firstField) firstField.focus();
 }
 
 function closeAuth() {
-  document.getElementById('authOverlay').classList.remove('open');
+  const overlay = document.getElementById('authOverlay');
+  if (!overlay) return;
+  overlay.classList.remove('open');
   document.body.style.overflow = '';
   clearErrors();
+  if (authReturnFocus && typeof authReturnFocus.focus === 'function') authReturnFocus.focus();
+  authReturnFocus = null;
 }
+
+function trapAuthFocus(event) {
+  if (event.key !== 'Tab') return;
+  const overlay = document.getElementById('authOverlay');
+  if (!overlay || !overlay.classList.contains('open')) return;
+  const focusable = overlay.querySelectorAll('button:not([disabled]), input, select, textarea, a[href], [tabindex]:not([tabindex="-1"])');
+  if (!focusable.length) return;
+  const first = focusable[0];
+  const last = focusable[focusable.length - 1];
+  if (event.shiftKey && document.activeElement === first) {
+    event.preventDefault();
+    last.focus();
+  } else if (!event.shiftKey && document.activeElement === last) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') closeAuth();
+  trapAuthFocus(e);
+});
 
 function switchTab(tab) {
   document.getElementById('tabLogin').className = 'auth-tab' + (tab === 'login' ? ' active' : '');
@@ -817,6 +878,13 @@ async function handleLogin() {
     }
   }
 
+  if (!isLocalDevelopment()) {
+    localAuthUnavailable();
+    btn.classList.remove('loading');
+    btn.textContent = 'Masuk — ログイン';
+    return;
+  }
+
   (async () => {
     await new Promise(r => setTimeout(r, 800));
     btn.classList.remove('loading');
@@ -916,6 +984,13 @@ async function handleRegister() {
     }
   }
 
+  if (!isLocalDevelopment()) {
+    localAuthUnavailable();
+    btn.classList.remove('loading');
+    btn.textContent = 'Buat Akun — アカウント作成';
+    return;
+  }
+
   (async () => {
     await new Promise(r => setTimeout(r, 900));
     btn.classList.remove('loading');
@@ -968,6 +1043,10 @@ async function handleSocialLogin(provider) {
       showError('loginError', error.message || 'Login Google gagal.');
       return;
     }
+  }
+  if (!isLocalDevelopment()) {
+    localAuthUnavailable();
+    return;
   }
   // Simulate social login with a demo account
   const demoUser = { name: 'Pengguna Demo', email: 'demo@nihongo.id', password: '', joined: new Date().toISOString(), quizCount: 3, bestScore: 8, streak: 2 };

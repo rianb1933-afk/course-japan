@@ -1,0 +1,111 @@
+{
+  "_catatan": [
+    "Matriks kurikulum SSW Kaigo (pilot). Spesifikasi produksi konten, BUKAN konten itu sendiri.",
+    "Bobot modul mengikuti distribusi soal ujian resmi di bawah; dijaga scripts/tests/test-ssw-curriculum.js.",
+    "reuse = modul Materi/Kaigo-*.html yang sudah ada (tingkat 介護福祉士, lebih dalam dari SSW). Lesson SSW merangkum di tingkat SSW lalu menaut ke sana — jangan menyalin isinya.",
+    "Batas lulus resmi TIDAK berupa persen tetap: ditetapkan MHLW setelah koreksi tingkat kesulitan. pass_score di mock adalah ambang LATIHAN."
+  ],
+  "field": "kaigo",
+  "sources": [
+    { "name": "「介護技能評価試験」試験実施要領 (MHLW, 令和5年4月一部改正)", "url": "https://www.moj.go.jp/isa/content/930005132.pdf", "checked": "2026-09-13" },
+    { "name": "「介護日本語評価試験」試験実施要領 (MHLW, 令和5年4月一部改正)", "url": "https://www.moj.go.jp/isa/content/930005133.pdf", "checked": "2026-09-13" },
+    { "name": "介護分野における特定技能外国人の受入れについて (MHLW)", "url": "https://www.mhlw.go.jp/stf/newpage_000117702.html", "checked": "2026-09-13" }
+  ],
+  "exams": {
+    "skill": {
+      "name": "介護技能評価試験", "minutes": 60, "questions": 45,
+      "areas": {
+        "kihon":    { "jp": "介護の基本", "id": "Dasar perawatan", "questions": 10 },
+        "kokoro":   { "jp": "こころとからだのしくみ", "id": "Mekanisme pikiran & tubuh", "questions": 6 },
+        "comm":     { "jp": "コミュニケーション技術", "id": "Teknik komunikasi", "questions": 4 },
+        "seikatsu": { "jp": "生活支援技術", "id": "Teknik bantuan kehidupan sehari-hari", "questions": 20 },
+        "jitsugi":  { "jp": "生活支援技術（実技・判断等試験）", "id": "Praktik: menilai prosedur dari foto/ilustrasi", "questions": 5 }
+      }
+    },
+    "japanese": {
+      "name": "介護日本語評価試験", "minutes": 30, "questions": 15,
+      "areas": {
+        "kotoba": { "jp": "介護のことば", "id": "Kosakata kaigo", "questions": 5 },
+        "kaiwa":  { "jp": "介護の会話・声かけ", "id": "Percakapan & sapaan kerja", "questions": 5 },
+        "bunsho": { "jp": "介護の文書", "id": "Dokumen kaigo", "questions": 5 }
+      }
+    }
+  },
+  "perModule": { "lessons": 5, "vocabulary": 25, "kanji": 6, "grammar": 3, "listening": 2, "reading": 2, "quizzes": 1 },
+  "modules": [
+    {
+      "id": "kaigo-m01", "title": "Martabat, Kemandirian & Etika Kerja", "title_jp": "介護の基本①　尊厳と自立支援",
+      "areas": ["kihon"],
+      "goals": ["Menjelaskan prinsip 尊厳 dan 自立支援 dalam tindakan sehari-hari", "Menjaga kerahasiaan dan data pribadi pengguna", "Mengenali dan melaporkan tanda kekerasan (虐待)"],
+      "topics": ["人間の尊厳", "自立支援", "職業倫理", "守秘義務・個人情報", "虐待防止", "接遇"],
+      "reuse": ["Kaigo-Ningen-Songen", "Kaigo-Jiritsu-Shien", "Kaigo-Kaigo-Rinri", "Kaigo-Shuhi-Gimu", "Kaigo-Kojin-Joho", "Kaigo-Gyakutai-Boshi", "Kaigo-Setsugu"]
+    },
+    {
+      "id": "kaigo-m02", "title": "Keselamatan, Infeksi & Kerja Tim", "title_jp": "介護の基本②　安全と連携",
+      "areas": ["kihon"],
+      "goals": ["Melaporkan ヒヤリハット dan kejadian dengan 報告・連絡・相談", "Menerapkan 感染対策 standar", "Bertindak benar saat keadaan darurat dan bencana"],
+      "topics": ["リスクマネジメント・ヒヤリハット", "報告・連絡・相談", "感染対策", "多職種連携", "緊急時・災害時の対応"],
+      "reuse": ["Kaigo-Risk-Management", "Kaigo-Safety-Guide", "Kaigo-Infection-Control", "Kaigo-Taju-Renkei", "Kaigo-Emergency", "Kaigo-Kasai-Hinan", "Kaigo-Jishin-Saigai"]
+    },
+    {
+      "id": "kaigo-m03", "title": "Tubuh Lansia & Kondisi Umum", "title_jp": "こころとからだのしくみ",
+      "areas": ["kokoro"],
+      "goals": ["Mengenali perubahan tubuh karena penuaan", "Membaca tanda vital dan tahu kapan melapor", "Memahami demensia, stroke, dan risiko jatuh pada tingkat dasar"],
+      "topics": ["加齢による変化", "バイタルサイン", "認知症の理解", "脳卒中・麻痺", "骨粗鬆症と転倒", "服薬の見守り"],
+      "reuse": ["Kaigo-Roka-Shikumi", "Kaigo-Vital-Sign", "Kaigo-Demensia", "Kaigo-Stroke-Lanjut", "Kaigo-Osteoporosis", "Kaigo-Penyakit", "Kaigo-Fukuyaku"]
+    },
+    {
+      "id": "kaigo-m04", "title": "Mendengar & Menyapa Lansia", "title_jp": "コミュニケーション技術",
+      "areas": ["comm", "kaiwa"],
+      "goals": ["Memakai 傾聴 dan 声かけ sebelum setiap tindakan", "Berkomunikasi dengan pengguna demensia tanpa menyangkal", "Berbicara sopan kepada keluarga pengguna"],
+      "topics": ["傾聴と共感", "声かけ", "非言語コミュニケーション", "認知症の人とのコミュニケーション", "家族とのコミュニケーション"],
+      "reuse": ["Kaigo-Komunikasi", "Kaigo-Kaiwa-Technique", "Kaigo-Higeongo-Comm", "Kaigo-Dementia-Communication", "Kaigo-Kazoku-Shien", "Kaigo-Baisutikku"]
+    },
+    {
+      "id": "kaigo-m05", "title": "Mobilitas: Posisi, Transfer & Berjalan", "title_jp": "生活支援技術①　移動・移乗",
+      "areas": ["seikatsu", "jitsugi"],
+      "goals": ["Memakai ボディメカニクス saat 体位変換", "Melakukan 移乗 tempat tidur → kursi roda dengan urutan aman", "Mendampingi 歩行 dan kursi roda di tanjakan/turunan"],
+      "topics": ["ボディメカニクス", "体位変換と褥瘡予防", "ベッドから車いすへの移乗", "車いすの介助", "歩行の介助"],
+      "reuse": ["Kaigo-Iijo-Ido", "Kaigo-Taino-Kanri", "Kaigo-Kurumaisu", "Kaigo-Hoko-Kaijo", "Kaigo-Fukushiyo-Gu", "Kaigo-Kyoshuku-Yobo"]
+    },
+    {
+      "id": "kaigo-m06", "title": "Makan, Minum & Perawatan Mulut", "title_jp": "生活支援技術②　食事・口腔ケア",
+      "areas": ["seikatsu", "jitsugi"],
+      "goals": ["Mengatur posisi makan yang aman", "Mengenali tanda 誤嚥 dan bertindak", "Melakukan 口腔ケア setelah makan"],
+      "topics": ["食事の姿勢", "食事介助の手順", "誤嚥の予防", "水分補給", "口腔ケア"],
+      "reuse": ["Kaigo-Shokuji-Guide", "Kaigo-Kuchiku-Care", "Kaigo-Gizi", "Kaigo-Nutrition"]
+    },
+    {
+      "id": "kaigo-m07", "title": "Kebersihan: Mandi & Berpakaian", "title_jp": "生活支援技術③　入浴・清潔・着脱",
+      "areas": ["seikatsu", "jitsugi"],
+      "goals": ["Memeriksa kondisi sebelum 入浴 dan menjaga suhu", "Melakukan 清拭 bila tidak bisa mandi", "Membantu ganti pakaian dengan prinsip 脱健着患"],
+      "topics": ["入浴前の確認", "入浴介助", "清拭", "衣服の着脱（脱健着患）", "整容"],
+      "reuse": ["Kaigo-Nyuyoku-Care", "Kaigo-Koi-Kaijo", "Kaigo-ADL-Guide"]
+    },
+    {
+      "id": "kaigo-m08", "title": "Buang Air, Tidur & Lingkungan", "title_jp": "生活支援技術④　排泄・睡眠・環境",
+      "areas": ["seikatsu", "jitsugi"],
+      "goals": ["Membantu 排泄 dengan menjaga privasi", "Mengganti おむつ dengan benar", "Menata lingkungan dan tidur yang aman"],
+      "topics": ["排泄介助", "おむつ交換", "ポータブルトイレ", "睡眠と夜間の見守り", "環境整備・ベッドメーキング"],
+      "reuse": ["Kaigo-Haisetsu-Care", "Kaigo-Yakan-Care", "Kaigo-Juukankyo-Seibi", "Kaigo-Prosedur"]
+    },
+    {
+      "id": "kaigo-m09", "title": "Bahasa Jepang Kaigo: Kosakata, Catatan & Serah Terima", "title_jp": "介護の日本語",
+      "areas": ["kotoba", "kaiwa", "bunsho"],
+      "goals": ["Memahami kosakata kaigo yang diuji", "Membaca dan menulis 介護記録 singkat", "Menyampaikan 申し送り dengan 丁寧語"],
+      "topics": ["介護のことば", "介護記録の書き方", "申し送り", "掲示・連絡帳を読む", "丁寧語と敬語"],
+      "reuse": ["Kaigo-Bahasa", "Kaigo-Nihongo-N4", "Kaigo-Dokumentasi", "Kaigo-Rekod", "Kaigo-Speaking", "Kaigo-Shokuba-Bunka"]
+    },
+    {
+      "id": "kaigo-m10", "title": "Persiapan Ujian: Simulasi & Remedial", "title_jp": "試験対策",
+      "areas": ["kihon", "kokoro", "comm", "seikatsu", "jitsugi", "kotoba", "kaiwa", "bunsho"],
+      "goals": ["Memahami format CBT kedua ujian", "Mengerjakan simulasi dengan waktu resmi", "Memperbaiki area lemah dari jawaban salah"],
+      "topics": ["形式と時間配分", "介護の基本・こころとからだの復習", "生活支援技術と判断等試験の復習", "介護日本語評価試験の復習", "間違いの見直し"],
+      "reuse": ["Kaigo-Fukushishi-Overview", "Kaigo-Ujian-Kihon", "Kaigo-Ujian-Seikatsu-Shien", "Kaigo-Ujian-Comm-Gijutsu"]
+    }
+  ],
+  "mocks": [
+    { "id": "kaigo-mock-skill", "exam": "skill", "title": "Simulasi 介護技能評価試験", "follow_official_distribution": true },
+    { "id": "kaigo-mock-japanese", "exam": "japanese", "title": "Simulasi 介護日本語評価試験", "follow_official_distribution": true }
+  ]
+}

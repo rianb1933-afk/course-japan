@@ -32,10 +32,10 @@
 
 <link rel="stylesheet" href="../assets/pro-style.css">
 <link rel="stylesheet" href="../assets/translator.css">
-<link rel="stylesheet" href="../assets/kanji-writing.css">
+<link rel="stylesheet" href="../assets/kanji-writing.css?v=9">
 
     
-<link rel="stylesheet" href="../assets/neko-theme.css?v=6">
+<link rel="stylesheet" href="../assets/neko-theme.css?v=9">
 
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Beranda","item":"https://nihonggoproacademy.netlify.app/"},{"@type":"ListItem","position":2,"name":"Materi","item":"https://nihonggoproacademy.netlify.app/Materi/Materi.html"},{"@type":"ListItem","position":3,"name":"Full Kanji N5 — Nihongo Pro Academy","item":"https://nihonggoproacademy.netlify.app/Materi/Kanji-N5.html"}]}</script>
 <link rel="manifest" href="../manifest.json">
@@ -62,7 +62,7 @@
 <link rel="stylesheet" href="../assets/kyoto-design-system.css">
 <link rel="stylesheet" href="../assets/kyoto-theme.css">
 <link rel="stylesheet" href="../assets/kyoto-elevation.css">
-<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=6">
+<link rel="stylesheet" href="../assets/kyoto-navbar.min.css?v=9">
 <meta property="og:site_name" content="Nihongo Pro Academy">
 <link rel="stylesheet" href="../assets/kyoto-bottom-nav.css">
 <style>
@@ -375,53 +375,64 @@ const kqPoolN5 = [
   ['西','barat','せい・にし','西洋(せいよう)=Barat, 西日本(にしにほん)=Jepang barat'],
   ['南','selatan','なん・みなみ','南国(なんごく)=negara tropis, 南半球(みなみはんきゅう)=belahan selatan'],
   ['北','utara','ほく・きた','北海道(ほっかいどう)=Hokkaido, 北方(きたほう)=arah utara'],
-,
-  ['金','きん/かね/かな/コン/キン','emas/uang/logam','金曜日(Friday),お金(uang),金色(keemasan)','emas=金色 = 金+色'],
-  ['土','つち/ド/ト','tanah/Sabtu','土曜日(Saturday),土地(tanah),土台(fondasi)','tanah/bumi = 土曜日'],
-  ['百','ひゃく/ヒャク','seratus','百円(100yen),百貨店(dept.store),三百(300)','100 = bertingkat 白+一 atas'],
-  ['千','ち/セン','seribu','千円(1000yen),千葉(Chiba),一千(1000)','1000 = よ千(4000)'],
-  ['万','まん/バン','sepuluh ribu','一万円(10000yen),万年筆(pena),万全(sempurna)','10.000 = 万能(serbaguna)']];
+  ['百','seratus','ひゃく','百円(ひゃくえん)=100 yen, 百貨店(ひゃっかてん)=toko serba ada'],
+  ['千','seribu','せん','千円(せんえん)=1.000 yen, 千葉(ちば)=Chiba'],
+  ['万','sepuluh ribu','まん','一万円(いちまんえん)=10.000 yen, 万年筆(まんねんひつ)=pena']
+];
 
-let kqIdx5 = 0;
-function startKanjiQuizN5(){
-  document.getElementById('kqArea5').style.display='block';
-  kqIdx5 = 0; renderKQ5();
-}
-function renderKQ5(){
-  const pool = kqPoolN5; const item = pool[kqIdx5 % pool.length];
-  const wrongs = pool.filter((_,i)=>i !== kqIdx5%pool.length).sort(()=>Math.random()-0.5).slice(0,3);
-  const opts = [item,...wrongs].sort(()=>Math.random()-0.5);
-  document.getElementById('kqArea5').innerHTML = `
-    <div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem;max-width:480px">
-      <div style="font-size:11px;color:var(--ink-soft);margin-bottom:.5rem">Soal ${(kqIdx5%pool.length)+1}/${pool.length}</div>
-      <div style="font-family:'Noto Serif JP',serif;font-size:48px;text-align:center;padding:.5rem;color:var(--ink)">${item[0]}</div>
-      <div style="font-size:12px;color:var(--ink-soft);text-align:center;margin-bottom:.75rem">Arti kanji ini?</div>
-      <div style="display:grid;gap:.4rem">${opts.map(o=>`<button onclick="checkKQ5(this,'${o[1]}','${item[1]}')" style="padding:8px;border:.5px solid var(--border-mid);border-radius:7px;font-size:13px;background:var(--cream);cursor:pointer;text-align:left">${o[1]}</button>`).join('')}</div>
-      <div id="kqExp5" style="margin-top:.5rem;font-size:12px;display:none;padding:.5rem;border-radius:6px"></div>
+let kqIdxN5=0,kqScoreN5=0,kqActiveN5=[];
+function shn5(a){return[...a].sort(()=>Math.random()-0.5);}
+kqActiveN5=shn5(kqPoolN5).slice(0,10);
+function renderKQN5(){
+  const box=document.getElementById('kqBoxN5');
+  if(kqIdxN5>=kqActiveN5.length){
+    const pct=Math.round(kqScoreN5/kqActiveN5.length*100);
+    box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.5rem;text-align:center">
+      <div style="font-size:40px;font-weight:800;color:${pct>=80?'var(--green-pale,#27ae60)':pct>=60?'var(--gold)':'var(--red)'}">${kqScoreN5}/${kqActiveN5.length}</div>
+      <div style="font-size:13px;color:var(--ink-soft);margin:.5rem 0">soal benar (${pct}%)</div>
+      <button onclick="kqIdxN5=0;kqScoreN5=0;kqActiveN5=shn5(kqPoolN5).slice(0,10);renderKQN5()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700;cursor:pointer">Ulangi</button>
     </div>`;
+    return;
+  }
+  const [kanji,mean,read,ex]=kqActiveN5[kqIdxN5];
+  const wp=shn5(kqPoolN5.filter(e=>e[1]!==mean)).slice(0,3).map(e=>e[1]);
+  const ao=shn5([mean,...wp]);
+  const ai=ao.indexOf(mean);
+  const opts=ao.map((o,i)=>`<button onclick="ckn5(${i},${ai})" style="width:100%;text-align:left;background:var(--white);border:.5px solid var(--border-mid);border-radius:8px;padding:10px 14px;font-size:13px;cursor:pointer;transition:all .15s">${o}</button>`).join('');
+  box.innerHTML=`<div style="background:var(--white);border:.5px solid var(--border-mid);border-radius:12px;padding:1.25rem">
+    <div style="display:flex;justify-content:space-between;font-size:11px;font-weight:700;color:var(--red);margin-bottom:.5rem">
+      <span>SOAL ${kqIdxN5+1}/${kqActiveN5.length} · N5</span><span>${kqScoreN5} benar</span>
+    </div>
+    <div style="text-align:center;margin:.75rem 0">
+      <div style="font-family:'Noto Serif JP',serif;font-size:52px;color:var(--ink)">${kanji}</div>
+      <div style="font-size:12px;color:var(--ink-soft)">${read}</div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-mid);text-align:center;margin-bottom:.75rem">Artinya?</p>
+    <div style="display:grid;gap:.5rem" id="kqOptsN5">${opts}</div>
+    <div id="kqExpN5" style="display:none;margin-top:.75rem;padding:.625rem .875rem;border-radius:8px;font-size:13px;font-weight:600;line-height:1.5;background:var(--cream)"></div>
+  </div>`;
 }
-function checkKQ5(btn, chosen, correct){
-  document.querySelectorAll('#kqArea5 button').forEach(b=>b.disabled=true);
-  const exp = document.getElementById('kqExp5');
-  if(chosen===correct){btn.style.background='#d5f5e3';}
-  else{btn.style.background='#fadbd8'; document.querySelectorAll('#kqArea5 button').forEach(b=>{if(b.textContent.trim()===correct)b.style.background='#d5f5e3';});}
-  const item = kqPoolN5[kqIdx5 % kqPoolN5.length];
-  exp.style.display='block'; exp.textContent=`音読み/訓読み: ${item[2]} | 例: ${item[3]}`;
-  setTimeout(()=>{kqIdx5++; renderKQ5();},1800);
+function ckn5(c,a){
+  const q=kqActiveN5[kqIdxN5];const ok=c===a;
+  if(ok)kqScoreN5++;
+  document.querySelectorAll('#kqOptsN5 button').forEach((b,i)=>{b.disabled=true;if(i===a)b.style.background='var(--green-pale,#eafaf1)';if(i===c&&!ok)b.style.background='var(--red-pale,#fadbd8)';});
+  const e=document.getElementById('kqExpN5');
+  e.style.display='block';
+  e.textContent=(ok?'✓ Benar! ':'✗ Salah. ')+q[0]+' ('+q[2]+') = '+q[1]+'. '+q[3];
+  setTimeout(()=>{kqIdxN5++;renderKQN5();},1600);
 }
+if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', renderKQN5); } else { renderKQN5(); }
 </script>
-<script src="../assets/kanji-writing.js?v=6" defer></script>
+<script src="../assets/kanji-writing.js?v=9" defer></script>
 <script src="../assets/translator.min.js" defer></script>
 
 <section class="section" id="kanjiQuizN5">
   <div class="inner">
     <div class="section-head"><div><div class="label">Kuis Kanji N5</div><h2>Tes Baca Kanji N5 — 漢字読みクイズ</h2></div>
-    <p class="sub">Pilih cara baca (reading) yang tepat untuk setiap kanji. 10 soal per sesi.</p></div>
+    <p class="sub">Pilih arti yang tepat untuk setiap kanji. 10 soal acak per sesi.</p></div>
     <div id="kqBoxN5" style="max-width:520px"></div>
   </div>
-
-<button onclick="startKanjiQuizN5()" style="background:var(--red);color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:13px;font-weight:700;cursor:pointer;margin-top:1rem">🎯 Mulai Kuis Kanji N5</button>
-<div id="kqArea5" style="display:none;margin-top:1rem"></div></section>
+</section>
 <script src="../assets/pro-app.min.js" defer></script>
 <script src="../assets/draggable-floats.js" defer></script>
 <footer class="site-footer">
@@ -769,7 +780,7 @@ function closeStroke(){ clearInterval(strokeAnim); document.getElementById('stro
 
 
 <script src="../assets/kyoto-theme.js" defer></script>
-<script src="../assets/kyoto-navbar.min.js?v=6" defer></script>
+<script src="../assets/kyoto-navbar.min.js?v=9" defer></script>
 <script src="../assets/kyoto-bottom-nav.js" defer></script>
 <script src="../assets/np-skip-link.js" defer></script>
 <script src="../assets/site-motion.js" defer></script>

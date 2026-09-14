@@ -1,0 +1,49 @@
+/* Homepage refinements: loaded after the existing theme layers. */
+body { font-family: 'DM Sans', sans-serif; }
+
+.hero-left, .hero-right,
+.features-header > *, .levels-grid > *, .testi-grid > *,
+.instructor-inner > * { min-width: 0; }
+
+.hero-actions { flex-wrap: wrap; }
+.hero-actions a {
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: normal;
+}
+
+a[href], button:not(:disabled), [role="button"] { cursor: pointer; }
+.wotd-btn { min-height: 44px; display: inline-flex; align-items: center; }
+.wotd-actions { flex-wrap: wrap; }
+.faq-q { min-height: 48px; }
+section[id] { scroll-margin-top: 88px; }
+.section-title { text-wrap: balance; }
+.section-sub { max-width: 60ch; }
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .levels-grid, .testi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .features-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .instructor-inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 2rem; }
+  .features-header { gap: 2rem; }
+}
+
+@media (max-width: 768px) {
+  .features-header { grid-template-columns: minmax(0, 1fr); gap: 1rem; margin-bottom: 2rem; }
+  .hero .hero-desc { font-size: 16px !important; line-height: 1.75; }
+  .hero .hero-actions a { padding: 12px; font-size: 13px; line-height: 1.5; }
+  .hero-badge { max-width: 100%; white-space: normal; }
+  .feat-card, .level-card, .testi-card { padding: 1.5rem; }
+  .levels-grid { margin-top: 2rem; gap: 1rem; }
+  .testi-grid { gap: 1rem; }
+  .instructor-card { padding: 1.5rem; }
+  .hero .hero-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) !important; gap: 8px; }
+  .hero .stat-pill { min-width: 0; padding: 12px 6px; }
+  .hero .stat-num { font-size: clamp(18px, 5vw, 24px); }
+  .hero .stat-label { font-size: 11px; white-space: normal; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
