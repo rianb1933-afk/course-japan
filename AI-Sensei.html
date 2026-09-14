@@ -134,6 +134,8 @@ body{background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex
 <meta name="twitter:description" content="Latihan percakapan bahasa Jepang dengan AI sensei yang mengingat progress dan kesalahanmu. Dapatkan koreksi grammar, saran personal, dan latihan percakapan interaktif.">
 <meta name="twitter:image" content="https://nihonggoproacademy.netlify.app/assets/og-preview.svg">
 <link rel="stylesheet" href="assets/kyoto-bottom-nav.css">
+<link rel="stylesheet" href="assets/sensei-coach.css">
+<script src="assets/sensei-coach.js"></script>
 </head>
 <body>
 
@@ -183,6 +185,17 @@ body{background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex
       <div class="online-dot" title="Online"></div>
     </div>
     
+    <div class="coach-toolbar">
+      <label for="coachGoal">Tujuan latihan</label>
+      <select id="coachGoal" onchange="changeCoachGoal()">
+        <option value="conversation">Percakapan sehari-hari</option>
+        <option value="grammar">Ketepatan tata bahasa</option>
+        <option value="vocabulary">Memperluas kosakata</option>
+        <option value="work">Bahasa Jepang di tempat kerja</option>
+      </select>
+      <span id="coachProgress" class="coach-progress" role="status">0/5 giliran</span>
+      <button id="coachSummaryBtn" onclick="showCoachSummary()">Ringkasan sesi</button>
+    </div>
     <div class="messages" id="messages"></div>
     
     <div class="chat-input-area">
@@ -190,7 +203,7 @@ body{background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex
       <div class="input-row">
         <button class="mic-btn" id="micBtn" onclick="toggleMic()" title="Rekam suara" aria-label="Rekam suara">🎤</button>
         <textarea class="chat-input" id="chatInput" placeholder="Ketik dalam bahasa Jepang atau Indonesia…" rows="1"
-          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMessage();}"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey&&!event.isComposing){event.preventDefault();sendMessage();}"
           oninput="autoResize(this)"></textarea>
         <button class="send-btn" onclick="sendMessage()" id="sendBtn" aria-label="Kirim pesan">➤</button>
       </div>
@@ -218,6 +231,15 @@ body{background:var(--cream);color:var(--ink);min-height:100vh;display:flex;flex
   </div>
 </div>
 
+<dialog id="coachSummary" class="coach-dialog" aria-labelledby="coachSummaryTitle">
+  <h2 id="coachSummaryTitle">Ringkasan latihan</h2>
+  <div id="coachSummaryContent"></div>
+  <div class="coach-dialog-actions">
+    <button onclick="downloadCoachSummary()">Unduh catatan</button>
+    <button onclick="document.getElementById('coachSummary').close()">Lanjut latihan</button>
+  </div>
+  <small>Ringkasan berdasarkan sesi ini. Jumlah giliran bukan nilai kemampuan bahasa.</small>
+</dialog>
 <script>
 // ── THEME ──
 // GENUINELY DIPERBAIKI (Fase EE, Verifikasi Visual): tombol toggleTheme() legacy dihapus (duplikat dengan navbar resmi kyoto-navbar.js). IIFE inisialisasi tema dipertahankan (mencegah flash-of-wrong-theme sebelum navbar defer selesai load), disesuaikan tanpa referensi elemen yang dihapus.
@@ -234,6 +256,8 @@ let recognition = null;
 let sessionVocab = [];
 let sessionCorrections = [];
 let isLoading = false;
+let completedTurns = 0;
+let coachGoal = 'conversation';
 
 // ── USER CONTEXT ─────────────────────────────────────────────────
 function getUserContext(){
@@ -280,6 +304,7 @@ function renderScenarios(){
 }
 
 function setScenario(id, btn){
+  if(isLoading) return;
   currentScenario=id;
   document.querySelectorAll('#scenarioList .scenario-btn').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
@@ -289,6 +314,7 @@ function setScenario(id, btn){
 }
 
 function setConvoLevel(btn){
+  if(isLoading) return;
   currentLevel=btn.dataset.lv;
   document.querySelectorAll('[data-lv]').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -298,6 +324,7 @@ function setConvoLevel(btn){
 }
 
 function setMode(mode){
+  if(isLoading) return;
   currentMode=mode;
   ['free','guided','shadow'].forEach(m=>document.getElementById('mode'+m.charAt(0).toUpperCase()+m.slice(1))?.classList.remove('active'));
   document.getElementById('mode'+mode.charAt(0).toUpperCase()+mode.slice(1))?.classList.add('active');
@@ -317,6 +344,8 @@ function escapeHtml(s){
 
 function clearChat(){
   chatHistory=[];
+  completedTurns=0; sessionVocab=[]; sessionCorrections=[];
+  renderVocabLearned(); renderCorrections(); updateCoachProgress();
   document.getElementById('messages').innerHTML='';
 }
 
@@ -383,6 +412,8 @@ async function sendMessage(){
   
   document.getElementById('sendBtn').disabled=true;
   isLoading=true;
+  document.getElementById('coachGoal').disabled=true;
+  document.getElementById('coachSummaryBtn').disabled=true;
   addTypingIndicator();
   
   const ctx = getUserContext();
@@ -429,20 +460,17 @@ VOCAB BARU (tandai dengan [VOCAB: kata=arti]):`;
       ],
       mode: 'conversation',
       level: currentLevel || 'N5',
-      scenario: currentScenario || '',
+      scenario: scenario.name + '. ' + modeInstr + ' Tujuan: ' + SenseiCoach.goals[coachGoal].instruction + ' Koreksi sebelumnya: ' + mem.corrections.slice(-3).map(c=>c.text).join('; '),
       sessionId: 'sensei_chat',
     });
     if (aiRes.error) throw new Error(aiRes.error);
     const reply = aiRes.text || 'Maaf, terjadi kesalahan. Coba lagi.';
     
-    // Extract correction
-    const corrMatch = reply.match(/\[KOREKSI:\s*(.+?)\]/);
-    const correction = corrMatch ? corrMatch[1] : null;
-    const cleanReply = reply.replace(/\[KOREKSI:.+?\]/,'').replace(/\[VOCAB:.+?\]/g,'').trim();
-    
-    // Extract vocab
-    const vocabMatches = [...reply.matchAll(/\[VOCAB:\s*(.+?)=(.+?)\]/g)];
-    vocabMatches.forEach(([,jp,id])=>{
+    const parsed = SenseiCoach.parseReply(reply);
+    const correction = parsed.corrections.length ? parsed.corrections.join(' · ') : null;
+    const cleanReply = parsed.clean;
+    parsed.vocab.forEach(({jp,id})=>{
+      if (sessionVocab.some(word => word.jp === jp)) return;
       sessionVocab.push({jp,id});
       if(window.NihongoProgress) NihongoProgress.incrementVocab(1);
     });
@@ -464,6 +492,8 @@ VOCAB BARU (tandai dengan [VOCAB: kata=arti]):`;
       NihongoProgress.logActivity('conversation','AI Sensei: '+scenario.name);
     }
     
+    completedTurns++;
+    updateCoachProgress();
     // Update quick replies
     generateQuickReplies();
     
@@ -479,6 +509,8 @@ VOCAB BARU (tandai dengan [VOCAB: kata=arti]):`;
   
   document.getElementById('sendBtn').disabled=false;
   isLoading=false;
+  document.getElementById('coachGoal').disabled=false;
+  document.getElementById('coachSummaryBtn').disabled=false;
 }
 
 // ── SYSTEM GREETING ───────────────────────────────────────────────
@@ -534,7 +566,7 @@ function renderVocabLearned(){
   const el = document.getElementById('vocabLearned');
   if(!sessionVocab.length){el.innerHTML='<div style="font-size:12px;color:var(--ink-faint)">Vocab baru akan muncul di sini.</div>';return;}
   el.innerHTML=sessionVocab.slice(-6).map(v=>
-    `<div class="vocab-learned-item"><span class="jp">${v.jp}</span> — <span>${v.id}</span></div>`
+    `<div class="vocab-learned-item"><span class="jp">${escapeHtml(v.jp)}</span> — <span>${escapeHtml(v.id)}</span></div>`
   ).join('');
 }
 
@@ -542,8 +574,56 @@ function renderCorrections(){
   const el = document.getElementById('correctionsList');
   if(!sessionCorrections.length){el.innerHTML='<div style="font-size:12px;color:var(--ink-faint)">Koreksi grammar akan muncul di sini.</div>';return;}
   el.innerHTML=sessionCorrections.slice(-5).map(c=>
-    `<div class="correction-item">📝 ${c}</div>`
+    `<div class="correction-item">📝 ${escapeHtml(c)}</div>`
   ).join('');
+}
+
+// ── COACH PERSONNEL ──────────────────────────────────────────────
+function updateCoachProgress(){
+  document.getElementById('coachProgress').textContent = completedTurns >= 5
+    ? completedTurns + ' giliran · Target tercapai' : completedTurns + '/5 giliran';
+}
+function changeCoachGoal(){
+  if(isLoading) return;
+  coachGoal = document.getElementById('coachGoal').value;
+  clearChat();
+  sendSystemGreeting();
+}
+function showCoachSummary(){
+  if(isLoading) return;
+  const content = document.getElementById('coachSummaryContent');
+  content.innerHTML = '<p>' + escapeHtml(SenseiCoach.goals[coachGoal].label) + ' · ' + escapeHtml(currentLevel) +
+    '</p><p>' + completedTurns + ' giliran selesai · ' + sessionVocab.length + ' kosakata · ' + sessionCorrections.length + ' koreksi</p>' +
+    (!completedTurns ? '<p>Kirim pesan ke Sensei untuk memulai. Hasil latihanmu akan muncul di sini.</p>' : '') +
+    '<h3>Kosakata sesi ini</h3><ul>' + sessionVocab.map(v => '<li>' + escapeHtml(v.jp) + ' — ' + escapeHtml(v.id) + '</li>').join('') +
+    '</ul>' + (!sessionVocab.length ? '<p>Belum ada kosakata baru yang ditandai Sensei.</p>' : '') +
+    '<h3>Ulangi koreksi</h3>';
+  if(!sessionCorrections.length) content.insertAdjacentHTML('beforeend', '<p>Belum ada koreksi yang ditandai. Lanjutkan latihan dengan kalimat yang lebih panjang.</p>');
+  const list = document.createElement('ul');
+  sessionCorrections.forEach(correction => {
+    const item = document.createElement('li');
+    item.textContent = correction;
+    const button = document.createElement('button');
+    button.textContent = 'Latih pola ini';
+    button.addEventListener('click', () => {
+      document.getElementById('coachSummary').close();
+      const input = document.getElementById('chatInput');
+      input.value = SenseiCoach.reviewPrompt(correction, currentLevel);
+      autoResize(input); input.focus();
+    });
+    item.appendChild(button); list.appendChild(item);
+  });
+  content.appendChild(list);
+  document.getElementById('coachSummary').showModal();
+}
+function downloadCoachSummary(){
+  const lines = ['Nihongo Pro Academy — Catatan AI Sensei', SenseiCoach.goals[coachGoal].label + ' · ' + currentLevel,
+    'Giliran selesai: ' + completedTurns, '', 'KOSAKATA', ...sessionVocab.map(v => v.jp + ' — ' + v.id),
+    '', 'KOREKSI', ...sessionCorrections, '', 'Jumlah giliran bukan nilai kemampuan bahasa.'];
+  const url = URL.createObjectURL(new Blob([lines.join('\n')], {type:'text/plain;charset=utf-8'}));
+  const link = document.createElement('a');
+  link.href=url; link.download='catatan-sensei.txt'; link.click();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
 
 // ── VOICE INPUT ───────────────────────────────────────────────────

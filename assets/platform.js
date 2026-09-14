@@ -535,6 +535,10 @@ Akhiri dengan pertanyaan atau prompt untuk lanjut belajar.`;
   global.NP = { State, XP, SRS, AI, Toast, Theme, Nav, Timer, Achievements };
   global.NihongoProgress = {
     addXP: (n, r, opts) => State.addXP(n, r, opts),
+    incrementVocab: (count = 1) => {
+      if (!Number.isSafeInteger(count) || count < 1) return;
+      State.updateUser({ vocabLearned: (State.getUser().vocabLearned || 0) + count });
+    },
     logActivity: (type, label, score) => {
       State.markStudyToday();
       if (type === 'quiz') { State.updateUser({ quizTotal: (State.getUser().quizTotal || 0) + 1 }); }

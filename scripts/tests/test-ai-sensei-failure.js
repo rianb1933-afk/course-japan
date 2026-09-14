@@ -12,7 +12,7 @@ module.exports.tests = ['', 'Draf berikutnya'].map(draft => ({
     const input = {value: 'こんにちは'}, button = {}, shown = [];
     let xp = 0;
     const context = {
-      isLoading: false, chatHistory: [], currentScenario: 'cafe', currentMode: 'guided', currentLevel: 'N5',
+      coachGoal: 'conversation', SenseiCoach: {goals:{conversation:{instruction:'Latihan'}}}, isLoading: false, chatHistory: [], currentScenario: 'cafe', currentMode: 'guided', currentLevel: 'N5',
       SCENARIOS: {cafe: {icon: '', name: 'Cafe', desc: ''}},
       document: {getElementById: id => id === 'chatInput' ? input : button},
       autoResize() {}, addMessage: (role, content) => shown.push({role, content}),

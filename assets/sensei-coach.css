@@ -1,0 +1,16 @@
+/* Kontrol belajar tetap tersedia pada layar kecil. */
+.coach-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 16px;background:var(--white);border-bottom:1px solid var(--border);flex-shrink:0;font-size:12px}
+.coach-toolbar label{font-weight:700}
+.coach-toolbar select,.coach-toolbar button,.coach-dialog button{min-height:44px;padding:8px 12px;border:1px solid var(--border-mid);border-radius:8px;background:var(--cream);color:var(--ink);font:inherit;cursor:pointer}
+.coach-toolbar select{max-width:100%;min-width:0;flex:1}
+.coach-toolbar button:disabled{opacity:.5;cursor:wait}
+.coach-progress{font-weight:700;color:var(--ink-mid)}
+.coach-dialog{position:fixed;inset:0;margin:auto;width:min(560px,calc(100% - 32px));max-height:80dvh;padding:24px;overflow:auto;border:1px solid var(--border-mid);border-radius:16px;background:var(--white);color:var(--ink);line-height:1.7}
+.coach-dialog::backdrop{background:rgba(0,0,0,.55)}
+.coach-dialog h2{font-size:22px}.coach-dialog h3{font-size:16px;margin-top:18px}
+.coach-dialog ul{padding-left:20px}.coach-dialog li{margin:8px 0;overflow-wrap:anywhere}
+.coach-dialog li button{display:block;margin-top:6px}
+.coach-dialog-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.coach-dialog small{display:block;margin-top:10px;color:var(--ink-soft)}
+@media(max-width:1100px){.sensei-panel,.memory-panel{display:none}.app-layout{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:480px){.coach-toolbar{padding:8px;gap:6px}.coach-toolbar label{width:100%}.coach-toolbar select{font-size:12px}.coach-toolbar button{padding:8px}.coach-dialog{padding:18px}}
