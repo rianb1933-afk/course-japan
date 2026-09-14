@@ -378,7 +378,8 @@ async function sendMessage(){
   input.value='';
   autoResize(input);
   addMessage('user', text);
-  chatHistory.push({role:'user',content:text});
+  const pendingMessage = {role:'user',content:text};
+  chatHistory.push(pendingMessage);
   
   document.getElementById('sendBtn').disabled=true;
   isLoading=true;
@@ -431,6 +432,7 @@ VOCAB BARU (tandai dengan [VOCAB: kata=arti]):`;
       scenario: currentScenario || '',
       sessionId: 'sensei_chat',
     });
+    if (aiRes.error) throw new Error(aiRes.error);
     const reply = aiRes.text || 'Maaf, terjadi kesalahan. Coba lagi.';
     
     // Extract correction
@@ -467,7 +469,12 @@ VOCAB BARU (tandai dengan [VOCAB: kata=arti]):`;
     
   } catch(e) {
     removeTypingIndicator();
-    addMessage('assistant', '【すみません。】Terjadi kesalahan koneksi. Coba lagi dalam beberapa detik.');
+    const pendingIndex = chatHistory.indexOf(pendingMessage);
+    if (pendingIndex !== -1) chatHistory.splice(pendingIndex, 1);
+    const restoreInput = !input.value.trim();
+    if (restoreInput) { input.value = text; autoResize(input); }
+    addMessage('assistant', '【すみません。】' + (e.message || 'Koneksi gagal. Silakan coba lagi.') +
+      (restoreInput ? '\nPesanmu sudah dikembalikan ke kotak input untuk dicoba lagi.' : ''));
   }
   
   document.getElementById('sendBtn').disabled=false;

@@ -34,7 +34,10 @@
     },
     showError: function(el, msg) {
       if (!el) return;
-      el.innerHTML = '<div style="background:#FEE2E2;color:#991B1B;padding:.75rem 1rem;border-radius:.75rem;font-size:14px;margin:.5rem 0;border:1px solid #FECACA"><strong>⚠️ Terjadi kesalahan</strong><br>' + msg + '</div>';
+      var safeMsg = String(msg).replace(/[&<>"']/g, function(c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+      el.innerHTML = '<div style="background:#FEE2E2;color:#991B1B;padding:.75rem 1rem;border-radius:.75rem;font-size:14px;margin:.5rem 0;border:1px solid #FECACA" role="alert"><strong>⚠️ Terjadi kesalahan</strong><br>' + safeMsg + '</div>';
     },
   };
 
@@ -52,13 +55,14 @@
     var scenario    = opts.scenario    || '';
     var sessionId   = opts.sessionId   || 'default';
     var provider    = opts.provider    || 'anthropic';
-    var temperature = opts.temperature || 0.5;
+    var temperature = typeof opts.temperature === 'number' ? opts.temperature : 0.5;
     var btnEl       = opts.btnEl       || null;
     var loadingEl   = opts.loadingEl   || null;
     var errorEl     = opts.errorEl     || null;
     var loadingText = opts.loadingText || 'AI sedang berpikir...';
 
     UI.setLoading(btnEl, loadingEl, true, loadingText);
+    if (errorEl) errorEl.textContent = '';
 
     // Get userId from Supabase session (trusted) or fallback to localStorage
     var sbSession  = null;
@@ -110,10 +114,15 @@
 
       var data = await res.json();
 
-      if (!res.ok && res.status !== 501 && res.status !== 503) {
+      if (!res.ok || (data && data.error)) {
         var errMsg = (data && data.error) || ('Error ' + res.status);
-        UI.showError(errorEl, errMsg);
-        throw new Error(errMsg);
+        var requestError = new Error(errMsg);
+        requestError.status = res.status;
+        requestError.code = data && data.code;
+        throw requestError;
+      }
+      if (!data || typeof data.text !== 'string' || !data.text.trim()) {
+        throw new Error('AI tidak mengirim jawaban. Silakan coba lagi.');
       }
 
       var lastUser = null;
@@ -127,11 +136,11 @@
 
     } catch(err) {
       // Retry sekali untuk error jaringan/timeout sementara (bukan error 4xx)
-      var isTransient = err.name === 'AbortError' || err.name === 'TimeoutError' ||
-                        err.message === 'Failed to fetch' || (err.message && err.message.includes('fetch'));
+      var isTransient = !err.status && (err.name === 'AbortError' || err.name === 'TimeoutError' ||
+                        err.name === 'TypeError' || err.message === 'Failed to fetch');
       if (isTransient && retriesLeft > 0) {
         await new Promise(function(r){ setTimeout(r, 1200); }); // backoff singkat
-        return _chatAttempt(opts, retriesLeft - 1);
+        return await _chatAttempt(opts, retriesLeft - 1);
       }
       var msg;
       if (err.name === 'AbortError' || err.name === 'TimeoutError') {
@@ -144,6 +153,8 @@
       UI.showError(errorEl, msg);
       return {
         error: msg,
+        status: err.status || 0,
+        code: err.code || 'AI_UNAVAILABLE',
         text: 'Maaf, AI sedang tidak tersedia. Coba lagi dalam beberapa saat. 🙏',
         provider: 'local',
         model: 'fallback',
