@@ -21,7 +21,7 @@ npm run release -- "Judul" "bullet 1" "bullet 2"   # bump versi + tulis CHANGELO
 npm run release:dry -- "Judul"                     # pratinjau tanpa menulis
 ```
 
-Menjalankan satu suite unit test: `node -e "require('./scripts/tests/test-srs.js').tests.forEach(t=>t.fn())"` — `run-all.js` hanya menemukan file `scripts/tests/test-*.js` yang mengekspor `{ tests: [{name, fn}] }`.
+Menjalankan satu suite unit test: `node -e "(async()=>{for(const t of require('./scripts/tests/test-srs.js').tests)await t.fn()})()"` — `run-all.js` hanya menemukan file `scripts/tests/test-*.js` yang mengekspor `{ tests: [{name, fn}] }`. Jangan pakai `.forEach(t=>t.fn())` tanpa `await`: suite yang menyadap `require.cache`/`process.env`/`global.fetch` lewat pola `withMocks` (mis. `test-group-tokens.js`, `test-ssw-cms.js`, `test-livekit-token.js`, `test-xp-drift.js`, `test-live-xp.js`, `test-ai-providers.js`) memulihkan mock itu di `finally` — tanpa menunggu tiap test selesai lebih dulu, beberapa test berjalan tumpang tindih dan saling merusak mock, gagal dengan pesan yang menyesatkan (kode kembali ke keadaan "belum dikonfigurasi").
 
 Browser test (Playwright) sengaja **di luar** `npm test` supaya `npm ci`/CI tidak menarik Chromium ~300 MB:
 
