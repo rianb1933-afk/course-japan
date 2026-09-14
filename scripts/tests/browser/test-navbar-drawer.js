@@ -73,6 +73,28 @@ const mime = {'.html':'text/html', '.js':'text/javascript', '.css':'text/css', '
       'fokus harus kembali ke tombol hamburger setelah drawer ditutup');
     console.log('PASS: Escape menutup drawer dan mengembalikan fokus ke hamburger');
 
+    // Tombol tema mengumumkan statusnya lewat aria-pressed, bukan cuma
+    // simbol 🌙/☀️ yang tidak berarti apa-apa bagi pembaca layar.
+    const pressedBefore = await page.locator('#knThemeBtn').getAttribute('aria-pressed');
+    await page.locator('#knThemeBtn').click();
+    const pressedAfter = await page.locator('#knThemeBtn').getAttribute('aria-pressed');
+    assert.notEqual(pressedBefore, pressedAfter, 'aria-pressed pada tombol tema harus berubah saat diklik');
+    console.log('PASS: tombol tema mengumumkan status lewat aria-pressed');
+
+    // Regresi bfcache: halaman yang dipulihkan dari back/forward cache
+    // (event pageshow dengan persisted=true) mengembalikan DOM & state JS
+    // PERSIS seperti saat ditinggalkan. Drawer yang masih "terbuka" (mis.
+    // ditinggalkan lewat klik tautan drawer, lalu pengguna menekan
+    // "kembali") harus otomatis tertutup, bukan mengunci scroll halaman.
+    await page.locator('#knHamburger').click();
+    assert.equal(await page.locator('#knDrawer').getAttribute('aria-hidden'), 'false');
+    await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', {persisted: true})));
+    assert.equal(await page.locator('#knDrawer').getAttribute('aria-hidden'), 'true',
+      'drawer yang tertinggal terbuka harus ditutup otomatis saat halaman dipulihkan dari bfcache');
+    assert.equal(await page.evaluate(() => document.body.style.overflow), '',
+      'scroll body harus dilepas kembali, bukan terkunci permanen');
+    console.log('PASS: drawer tertutup otomatis saat dipulihkan dari bfcache');
+
     assert.deepEqual(errors, []);
     console.log('PASS: tanpa error JavaScript');
     await context.close();

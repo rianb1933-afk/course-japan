@@ -133,7 +133,7 @@ ${di('🎯','Misi & XP','Tantangan & reward','/Misi.html')}
 <!-- RIGHT ACTIONS -->
 <div class="kn-actions">
 <a href="/Search.html" class="kn-icon-btn" id="knSearchBtn" aria-label="Cari konten" title="Cari (/)">🔍</a>
-<button class="kn-icon-btn" id="knThemeBtn" aria-label="Ganti tema" title="Ganti tema">🌙</button>
+<button class="kn-icon-btn" id="knThemeBtn" aria-label="Ganti tema" aria-pressed="false" title="Ganti tema">🌙</button>
 <button class="kn-btn-ghost" id="knLoginBtn">Masuk</button>
 <a href="/Akun.html" class="kn-btn-primary kn-hide-mobile" id="knCtaBtn">始める · Mulai</a>
 <div class="kn-user" id="knUser" style="display:none" tabindex="0"
@@ -462,13 +462,25 @@ var first = focusable[0], last = focusable[focusable.length - 1];
 if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
 else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
 });
+// GENUINELY DITAMBAHKAN: halaman yang dipulihkan dari back/forward cache
+// browser (navigasi "kembali" di Safari/Chrome mobile) mengembalikan DOM
+// & state JS PERSIS seperti saat ditinggalkan -- termasuk kelas .open di
+// drawer dan document.body.style.overflow='hidden' -- tanpa init() jalan
+// ulang. Klik tautan drawer lalu tekan "kembali" mendaratkan pengguna di
+// halaman ini dengan drawer tampak terbuka dan scroll halaman terkunci;
+// event tetap terpasang (bukan macet permanen -- klik hamburger/tutup
+// masih berfungsi), tapi kesan pertamanya halaman rusak. Ditutup otomatis
+// begitu dipulihkan.
+window.addEventListener('pageshow', function(e) {
+if (e.persisted && drawer.classList.contains('open')) close();
+});
 }
 function initTheme() {
 var btn = document.getElementById('knThemeBtn');
 var keys = ['kyoto-theme', 'nihongo-theme', 'theme'];
 function update() {
 var dark = document.documentElement.getAttribute('data-theme') === 'dark';
-if (btn) btn.textContent = dark ? '☀️' : '🌙';
+if (btn) { btn.textContent = dark ? '☀️' : '🌙'; btn.setAttribute('aria-pressed', String(dark)); }
 }
 var hasNPDark = typeof window.NPDark === 'object' && window.NPDark !== null;
 if (!hasNPDark) {
