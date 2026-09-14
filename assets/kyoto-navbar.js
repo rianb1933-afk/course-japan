@@ -421,13 +421,23 @@ var ham = document.getElementById('knHamburger');
 var drawer = document.getElementById('knDrawer');
 var overlay = document.getElementById('knDrawerOverlay');
 var closeBtn = document.getElementById('knDrawerClose');
+var panel = drawer ? drawer.querySelector('.kn-drawer-panel') : null;
 if (!ham || !drawer) return;
+// GENUINELY DITAMBAHKAN: drawer ini mendeklarasikan role="dialog" pada
+// panelnya, tapi tidak pernah mengelola fokus seperti dialog seharusnya --
+// membuka drawer tidak memindahkan fokus ke dalamnya (pengguna keyboard/
+// pembaca layar tidak tahu dialog terbuka), Tab tidak terkunci di dalam
+// panel (fokus bisa lolos ke konten halaman di baliknya), dan menutup
+// drawer tidak mengembalikan fokus ke tombol yang membukanya.
+var returnFocus = null;
 function open() {
+returnFocus = document.activeElement;
 drawer.classList.add('open');
 drawer.setAttribute('aria-hidden', 'false');
 ham.classList.add('open');
 ham.setAttribute('aria-expanded', 'true');
 document.body.style.overflow = 'hidden';
+if (closeBtn) closeBtn.focus();
 }
 function close() {
 drawer.classList.remove('open');
@@ -435,11 +445,23 @@ drawer.setAttribute('aria-hidden', 'true');
 ham.classList.remove('open');
 ham.setAttribute('aria-expanded', 'false');
 document.body.style.overflow = '';
+if (returnFocus && typeof returnFocus.focus === 'function') returnFocus.focus();
+else ham.focus();
+returnFocus = null;
 }
 ham.addEventListener('click', function() { drawer.classList.contains('open') ? close() : open(); });
 if (overlay) overlay.addEventListener('click', close);
 if (closeBtn) closeBtn.addEventListener('click', close);
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') close(); });
+document.addEventListener('keydown', function(e) {
+if (!drawer.classList.contains('open')) return;
+if (e.key === 'Escape') { close(); return; }
+if (e.key !== 'Tab' || !panel) return;
+var focusable = panel.querySelectorAll('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])');
+if (!focusable.length) return;
+var first = focusable[0], last = focusable[focusable.length - 1];
+if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
 }
 function initTheme() {
 var btn = document.getElementById('knThemeBtn');

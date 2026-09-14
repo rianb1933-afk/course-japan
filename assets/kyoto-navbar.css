@@ -532,7 +532,13 @@ nav.kn-nav {
 @media (max-width: 768px) {
   .kn-links { display: none !important; }
   .kn-hamburger { display: flex; }
-  .kn-btn-ghost { display: none; }
+  /* .kn-btn-ghost dipakai DUA tombol berbeda: #knLoginBtn di navbar atas
+     (digantikan hamburger di lebar ini, jadi disembunyikan) dan
+     #knDrawerLogin di footer drawer mobile (justru SATU-SATUNYA jalan
+     masuk login di lebar ini). Selector tanpa `.kn-nav` menyembunyikan
+     keduanya sekaligus -- drawer tidak pernah bisa dipakai untuk login
+     di ponsel manapun. Dipersempit ke navbar atas saja. */
+  .kn-nav .kn-btn-ghost { display: none; }
   .kn-btn-primary.kn-hide-mobile { display: none; }
 }
 @media (max-width: 480px) {
